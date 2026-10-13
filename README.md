@@ -34,7 +34,7 @@ It takes about 30–45 minutes to finish, has three chapters and a cipher puzzle
 
 Voice IDs are in [`scripts/cast.json`](scripts/cast.json).
 
-The full story bible (lore, characters, chapter outline, unused threads and expansion ideas) is in [`docs/STORY.md`](docs/STORY.md).
+The full story bible (v2: lore, characters, five chapters, items, flags, production spec and build decisions) is in [`docs/STORY.md`](docs/STORY.md).
 
 ## How it's built
 
