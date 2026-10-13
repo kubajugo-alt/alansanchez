@@ -1,6 +1,6 @@
 # Alan Sanchez: The Drowned Bell
 
-A 1990s-style pixel-art point-and-click mystery in the spirit of *Gabriel Knight: Sins of the Fathers*, fully voiced with ElevenLabs.
+A hand-painted point-and-click mystery in the spirit of *Gabriel Knight* and *Broken Sword*, fully voiced with ElevenLabs.
 
 > **Lisbon, 1995.** For nine days the fog has not lifted from the river, and for nine days people have been drowning in their own beds, in locked rooms, half a mile from the water. Alan Sanchez, a lazy bookseller in the Alfama, finds his own family name on the killer's list, and a ledger in his late grandfather's drawer that nobody can read.
 
@@ -12,12 +12,11 @@ Open `index.html` through any static web server:
 npx serve .        # or: python3 -m http.server
 ```
 
-**Controls**
-- **Left-click** a spot to walk there, or a thing to use the current verb on it.
-- **Right-click** or keys **1–5** to cycle verbs: Walk, Look, Take, Use, Talk.
-- **Use / Give:** pick *Use*, click an inventory item, then click the person or thing to use it on.
-- **Click, Space or Esc** to skip a line of dialogue.
-- The game autosaves on every room change. *Save* and *Load* are in the bottom-right panel.
+**Controls** (Broken Sword-style)
+- **Left-click** to walk. On a person, object or exit, left-click does the natural thing: talk, take, use or go there.
+- **Right-click** (or long-press on touch) to examine.
+- **Inventory:** move to the bottom edge, or press **I** or the ✦ button. Click an item, then click a person or thing to use or give it. Right-click an item to examine it.
+- **Click, Space or Esc** to skip a line. The ☰ button has music, voices, save and load.
 
 It takes about 30–45 minutes to finish, has three chapters and a cipher puzzle, and you can die (in the Sierra tradition).
 
@@ -37,16 +36,20 @@ Voice IDs are in [`scripts/cast.json`](scripts/cast.json).
 
 ## How it's built
 
-There are no images and no build step. It is plain HTML, CSS and JavaScript:
+The game is plain HTML, CSS and JavaScript with no build step.
 
-| File | What it does |
+| Path | What it does |
 |---|---|
-| `js/art.js` | Draws every background and character sprite in code at 320×150 (VGA-style dithering), then scales it up with nearest-neighbour. Also draws the animated fog layers. |
-| `js/audio.js` | Procedural soundtrack using Web Audio: a Karplus-Strong *guitarra portuguesa* for fado, inharmonic bronze bells, foghorns and pads. Also plays the voice lines. |
-| `js/engine.js` | The adventure engine: rooms, walk boxes, depth scaling, verbs, inventory, dialogue trees, cutscenes and saves. |
-| `js/story.js` | The game itself: the cast, the items, eight rooms and every puzzle. |
-| `js/lines.js` | Every spoken line, used for both the subtitles and the voice generation. |
-| `audio/voice/*.mp3` | ElevenLabs voice-over, one file per line ID. `manifest.json` lists the lines that have a recording. Any line without one falls back to subtitles only. |
+| `art/bg/*.jpg` | Hand-painted backgrounds (1280×720), generated with Canva's image AI in one shared style |
+| `art/sprites/*.webp` | Painted character frames (Canva), cut out with `scripts/matte.py`, which also writes `js/sprites.js` (sizes and foot/head anchors) |
+| `js/engine.js` | Adventure engine: per-room depth scaling and walk areas, occluders cut from the paintings (so characters walk behind desks and counters), lighting that tints the sprites to each room, a smart cursor, inventory, dialogue, cutscenes and saves |
+| `js/fx.js` | Atmosphere (drifting fog, flickering lamps and torches, light shafts, dust, water shimmer) and painted inventory icons |
+| `js/audio.js` | Procedural soundtrack using Web Audio (fado guitar, bells, foghorns) and voice playback |
+| `js/story.js` | The game: cast, items, rooms, hotspots and puzzles |
+| `js/lines.js` | Every spoken line, used for both the subtitles and the voice generation |
+| `audio/voice/*.mp3` | ElevenLabs voice-over, one file per line |
+
+Characters are animated by swapping painted frames: a 4-frame walk cycle in profile, front and back views, and a talking pose with a gesture. Frames are mirrored to face left.
 
 ### Regenerating voices
 
