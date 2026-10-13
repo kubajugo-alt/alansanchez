@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alan Sanchez: The Drowned Bell</title>
+<meta name="description" content="A 90s-style pixel-art point-and-click mystery set in fog-bound Lisbon, 1995. Fully voiced.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5 3h6l1 8h2v2H2v-2h2z' fill='%23b89040'/><rect x='7' y='13' width='2' height='2' fill='%23b89040'/></svg>">
+</head>
+<body>
+<div id="frame">
+  <div id="game">
+    <div id="scene-wrap">
+      <canvas id="scene" width="320" height="150"></canvas>
+      <div id="labels"></div>
+      <div id="speech"></div>
+      <div id="narration"><span class="who"></span><span class="txt"></span></div>
+      <div id="hover"></div>
+    </div>
+    <div id="panel">
+      <div id="verbs">
+        <button data-verb="walk" title="Walk (1)">Walk</button>
+        <button data-verb="look" title="Look (2)">Look</button>
+        <button data-verb="take" title="Take (3)">Take</button>
+        <button data-verb="use" title="Use / Give (4)">Use</button>
+        <button data-verb="talk" title="Talk (5)">Talk</button>
+      </div>
+      <div id="inventory"></div>
+      <div id="options">
+        <button id="opt-music" title="Music on/off">♫</button>
+        <button id="opt-voice" title="Voices on/off">🗣</button>
+        <button id="opt-save" title="Save game">Save</button>
+        <button id="opt-load" title="Load game">Load</button>
+      </div>
+      <div id="dialog"></div>
+    </div>
+    <div id="fade"></div>
+    <div id="card"><div class="t1"></div><div class="t2"></div></div>
+    <div id="cipher" class="modal hidden">
+      <h2>The Weeping Stone</h2>
+      <p class="hint">Turn the inner ring. Watch the ledger.</p>
+      <div class="wheel"><div class="outer"></div><div class="inner"></div></div>
+      <div class="ledger-line"><span class="lbl">Ledger:</span> <span class="ct"></span></div>
+      <div class="ledger-line"><span class="lbl">Reads:</span> <span class="pt"></span></div>
+      <div class="controls"><button class="left">◀</button><span class="shift">0</span><button class="right">▶</button></div>
+      <div class="controls"><button class="done">Read the ledger</button><button class="cancel">Step back</button></div>
+    </div>
+    <div id="title" class="modal">
+      <div class="title-art"><canvas id="title-canvas" width="320" height="150"></canvas></div>
+      <h1>ALAN SANCHEZ</h1>
+      <h2>The Drowned Bell</h2>
+      <div class="menu">
+        <button id="btn-new">New Game</button>
+        <button id="btn-continue">Continue</button>
+      </div>
+      <p class="small">Point &amp; click. Right-click (or keys 1&ndash;5) to change verb. Click to skip a line.<br>Headphones recommended. Lisbon, 1995.</p>
+    </div>
+    <div id="death" class="modal hidden">
+      <h2>The water rises.</h2>
+      <p class="msg"></p>
+      <button id="btn-retry">Try again</button>
+    </div>
+    <div id="ending" class="modal hidden">
+      <h1>THE END</h1>
+      <p>Alan Sanchez will return.</p>
+      <div class="credits">
+        <p>Story, code &amp; pixels &mdash; made with Claude</p>
+        <p>Voices &mdash; ElevenLabs</p>
+        <p>Inspired by the great Sierra &amp; Lucasarts adventures of the 1990s</p>
+      </div>
+      <button id="btn-again">Play again</button>
+    </div>
+  </div>
+</div>
+<script src="js/lines.js"></script>
+<script src="js/art.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/story.js"></script>
+</body>
+</html>

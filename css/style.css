@@ -1,0 +1,114 @@
+:root {
+  --bg: #050505;
+  --panel: #1b120c;
+  --panel-hi: #3a2616;
+  --gold: #d8b060;
+  --gold-dim: #8a6a30;
+  --ink: #f0e6cc;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: 'VT323', monospace; overflow: hidden; }
+body { display: flex; align-items: center; justify-content: center; }
+#frame { width: 100vw; height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center; }
+/* 320x200 logical frame, scaled to fit */
+#game {
+  position: relative;
+  width: min(100vw, calc(100dvh * 1.6));
+  aspect-ratio: 320 / 200;
+  background: #000;
+  font-size: calc(min(100vw, calc(100dvh * 1.6)) / 320 * 9);
+  user-select: none; -webkit-user-select: none;
+  box-shadow: 0 0 60px rgba(216, 176, 96, 0.08);
+}
+#scene-wrap { position: absolute; left: 0; top: 0; width: 100%; height: 75%; overflow: hidden; cursor: crosshair; }
+#scene { width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+
+#speech {
+  position: absolute; max-width: 62%; transform: translate(-50%, -100%);
+  text-align: center; font-size: 1.15em; line-height: 1.0; pointer-events: none; display: none;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, 0 2px 0 #000;
+}
+#narration {
+  position: absolute; left: 4%; right: 4%; top: 3%;
+  padding: 0.35em 0.6em; background: rgba(8, 6, 4, 0.82); border: 1px solid var(--gold-dim);
+  font-size: 1.12em; line-height: 1.05; display: none; pointer-events: none;
+}
+#narration .who { color: var(--gold); margin-right: 0.4em; }
+#narration .who:empty { display: none; }
+#narration .txt { color: #e8e0d0; font-style: italic; }
+#hover {
+  position: absolute; left: 0; right: 0; bottom: 1%; text-align: center; font-size: 1.1em; color: #fff;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000; pointer-events: none;
+}
+#labels { position: absolute; inset: 0; pointer-events: none; }
+#labels .lbl {
+  position: absolute; transform: translate(-50%, -100%); font-size: 1em; color: #3a2410; white-space: nowrap;
+  background: rgba(232, 220, 184, 0.85); padding: 0 0.3em; border: 1px solid #6a4a2a;
+}
+
+#panel {
+  position: absolute; left: 0; top: 75%; width: 100%; height: 25%;
+  background: linear-gradient(#2a1c12, var(--panel)); border-top: 2px solid var(--gold-dim);
+  display: grid; grid-template-columns: 30% 1fr 15%; gap: 1.5%; padding: 1.2% 1.5%;
+}
+#verbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4%; }
+#verbs button, #options button, #dialog button, .modal button {
+  font-family: inherit; font-size: 1.1em; color: var(--gold); background: var(--panel-hi);
+  border: 1px solid var(--gold-dim); border-radius: 0; cursor: pointer; padding: 0;
+  box-shadow: inset 1px 1px 0 rgba(255, 220, 150, 0.15), inset -1px -1px 0 rgba(0, 0, 0, 0.5);
+}
+#verbs button:hover, #options button:hover, #dialog button:hover, .modal button:hover { background: #4a3220; color: #ffe6a8; }
+#verbs button.active { background: var(--gold); color: #1b120c; }
+#inventory { display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(2, 1fr); gap: 3%; background: #0e0906; border: 1px solid var(--gold-dim); padding: 2%; }
+#inventory .slot { position: relative; background: #1e140c; border: 1px solid #2e2014; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+#inventory .slot:hover { border-color: var(--gold); }
+#inventory .slot.selected { border-color: #ffe6a8; background: #4a3220; }
+#inventory .slot canvas { width: 80%; height: 80%; image-rendering: pixelated; pointer-events: none; }
+#options { display: grid; grid-template-columns: 1fr 1fr; gap: 6%; }
+#options button.off { opacity: 0.4; text-decoration: line-through; }
+#dialog {
+  position: absolute; inset: 0; background: var(--panel); display: none; flex-direction: column; gap: 2%;
+  padding: 1% 2%; overflow-y: auto; border-top: 2px solid var(--gold-dim);
+}
+#dialog button { text-align: left; padding: 0.15em 0.6em; font-size: 1.1em; flex: 0 0 auto; }
+#dialog.open { display: flex; }
+
+#fade { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity 0.45s; }
+#fade.on { opacity: 1; }
+#card { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; background: #000; pointer-events: none; }
+#card.on { display: flex; }
+#card .t1 { color: var(--gold-dim); font-size: 1.4em; letter-spacing: 0.3em; }
+#card .t2 { color: var(--gold); font-size: 2.6em; margin-top: 0.3em; }
+
+.modal {
+  position: absolute; inset: 0; background: rgba(5, 4, 3, 0.94); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; padding: 4%;
+}
+.modal.hidden { display: none; }
+.modal h1 { margin: 0; color: var(--gold); font-size: 3.6em; letter-spacing: 0.12em; font-weight: normal; text-shadow: 0 0 12px rgba(216, 176, 96, 0.35); }
+.modal h2 { margin: 0.1em 0 0.6em; color: #c8b890; font-size: 1.9em; font-weight: normal; letter-spacing: 0.2em; }
+.modal p { font-size: 1.1em; color: #b8a888; margin: 0.4em 0; }
+.modal .small { font-size: 0.95em; color: #8a7a60; margin-top: 1.2em; }
+.modal button { padding: 0.2em 1.2em; margin: 0.3em; font-size: 1.4em; }
+#title { background: #050608; justify-content: flex-start; padding-top: 2%; }
+#title .title-art { width: 70%; aspect-ratio: 320 / 150; border: 1px solid #2a2a30; }
+#title .title-art canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+#title h1 { margin-top: 0.25em; }
+#title .menu { display: flex; gap: 1em; }
+#btn-continue[disabled] { opacity: 0.35; cursor: default; }
+#death { background: rgba(0, 12, 20, 0.93); }
+#death h2 { color: #7ab0c8; }
+#ending .credits { margin: 1em 0; }
+#ending .credits p { font-size: 1em; color: #8a7a60; margin: 0.15em; }
+
+#cipher { background: rgba(10, 10, 14, 0.96); }
+#cipher .hint { font-style: italic; }
+#cipher .wheel { font-size: 1.15em; letter-spacing: 0.32em; margin: 0.4em 0 0.8em; padding: 0.4em 0.8em; border: 1px solid #5a5a6a; background: #1a1a22; }
+#cipher .outer { color: #e8e4dc; }
+#cipher .inner { color: var(--gold); }
+#cipher .ledger-line { font-size: 1.15em; margin: 0.15em 0; max-width: 92%; }
+#cipher .lbl { color: #8a7a60; }
+#cipher .ct { color: #c8b890; letter-spacing: 0.1em; }
+#cipher .pt { color: #ffe6a8; letter-spacing: 0.1em; }
+#cipher .shift { display: inline-block; min-width: 3em; font-size: 1.6em; color: var(--gold); }
+#cipher .controls { margin-top: 0.5em; display: flex; align-items: center; gap: 0.6em; }
