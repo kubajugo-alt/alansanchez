@@ -38,17 +38,38 @@
     const jobs = [];
     for (const id in ROOMS) if (ROOMS[id].bg) jobs.push(['bg:' + ROOMS[id].bg, 'art/bg/' + ROOMS[id].bg + '.jpg']);
     for (const k in SPRITES) jobs.push(['spr:' + k, 'art/sprites/' + k + '.webp']);
+    for (const id in ROOMS) for (const l of (ROOMS[id].layers || [])) jobs.push(['lay:' + l.img, 'art/layers/' + l.img + '.webp']);
+    for (const id in ROOMS) if (ROOMS[id].skyMask) jobs.push(['mask:' + ROOMS[id].skyMask, 'art/layers/' + ROOMS[id].skyMask + '.webp']);
     let done = 0;
     await Promise.all(jobs.map(([k, s]) => loadImage(k, s).then(() => onProgress && onProgress(++done / jobs.length))));
   }
 
   // ---------------------------------------------------------------- actors
+  // A character's frames (CHARS[ch].frames):
+  //   idle: [rest, variant...]  talk: [gesture...]  walk: [8-frame profile cycle]
+  //   front / back: standing frames seen from the front / back, frontWalk / backWalk: their cycles
+  //   poses: { name: frame }  loops: { name: { frames, fps } }  sets: { name: { idle?, talk? } }
+  // Feet are pinned to (x, y). Breathing only stretches the upper body, the walk
+  // cycle advances by the distance actually covered, and every pose change is
+  // cross-dissolved.
+  const arr = v => v == null ? [] : Array.isArray(v) ? v : [v];
+  const XFADE = 0.2, GROUND_K = 2.2;
+
   class Actor {
     constructor(id, ch, x, y, dir) {
       Object.assign(this, { id, ch, x, y, dir: dir || 'e', walking: false, talking: false, visible: true, phase: 0, h: null });
-      this.target = null; this.resolve = null; this.talkT = 0; this.talkPose = true;
+      this.target = null; this.resolve = null;
+      this.talkT = 0; this.talkIdx = 0; this.quietT = 0;
+      this.idleT = 2 + Math.random() * 5; this.idleIdx = 0;
+      this.pose = null; this.loop = null; this.set = null; this.engaged = 0; this.resumeT = 0;
+      this.cur = null; this.prev = null; this.fadeT = 0; this.lastFlip = false;
+      this.breath = Math.random() * 10; this.sink = 0; this.turnT = 0; this.stepIdx = -1;
     }
     get c() { return CHARS[this.ch]; }
+    get F() {
+      const f = this.c.frames, s = this.set && f.sets && f.sets[this.set];
+      return s ? Object.assign({}, f, s) : f;
+    }
     walkTo(x, y) {
       return new Promise(res => {
         if (this.resolve) this.resolve();
@@ -56,97 +77,280 @@
         this.target = { x, y }; this.resolve = res; this.walking = true;
       });
     }
+    cycle() {
+      const F = this.F;
+      if (this.dir === 'n' && F.backWalk) return F.backWalk;
+      if (this.dir === 's' && F.frontWalk) return F.frontWalk;
+      return F.walk || arr(F.idle);
+    }
     update(dt) {
+      const F = this.F;
+      if (this.fadeT > 0) this.fadeT = Math.max(0, this.fadeT - dt);
+      if (this.resumeT > 0) this.resumeT -= dt;
+      this.breath += dt;
       if (this.target) {
-        const dx = this.target.x - this.x, dy = this.target.y - this.y, d = Math.hypot(dx, dy);
+        const dx = this.target.x - this.x, dy = this.target.y - this.y;
+        const gd = Math.hypot(dx, dy * GROUND_K); // distance on the ground plane
         const hh = this.height();
-        const sp = hh * 0.5 * dt * (this.c.speed || 1);
-        if (Math.abs(dx) > Math.abs(dy) * 0.9 || !this.c.frames.front) this.dir = dx > 0 ? 'e' : 'w';
+        const step = hh * 0.62 * dt * (this.c.speed || 1);
+        if (!(F.frontWalk && F.backWalk) || Math.abs(dx) > Math.abs(dy * GROUND_K) * 0.75) this.dir = dx > 0 ? 'e' : 'w';
         else this.dir = dy > 0 ? 's' : 'n';
-        if (d <= sp) { this.x = this.target.x; this.y = this.target.y; this.stop(); }
-        else { this.x += dx / d * sp; this.y += dy / d * sp; }
-        this.phase += dt * 5.2 * (this.c.speed || 1);
+        const moved = Math.min(gd, step);
+        if (gd > 0) { this.x += dx / gd * moved; this.y += dy / gd * moved; }
+        if (gd <= step) { this.x = this.target.x; this.y = this.target.y; }
+        // the cycle advances by ground covered, so planted feet never slide
+        const cyc = this.cycle();
+        this.phase += moved / (hh * (cyc.length >= 8 ? 0.085 : 0.17));
+        const idx = Math.floor(this.phase) % cyc.length;
+        if (idx !== this.stepIdx) {
+          this.stepIdx = idx;
+          const contact = cyc.length >= 8 ? idx % 4 === 0 : idx % 2 === 0;
+          if (contact && this.visible) Sound.step((room && room.floor) || 'stone', this === player ? 1 : 0.6);
+        }
+        if (gd <= step) this.stop();
       }
       if (this.talking) {
         this.talkT -= dt;
-        if (this.talkT < 0) { this.talkPose = !this.talkPose; this.talkT = this.talkPose ? 0.7 + Math.random() * 1.1 : 0.18 + Math.random() * 0.25; }
-      } else { this.talkPose = true; this.talkT = 0; }
+        const lvl = speaking && speaking.actor === this ? Sound.voiceLevel() : 0.5;
+        this.lvl = (this.lvl || 0) + (lvl - (this.lvl || 0)) * Math.min(1, dt * 12);
+        this.quietT = lvl < 0.06 ? this.quietT + dt : 0;
+        const n = arr(F.talk).length;
+        if (this.quietT > 0.45 && this.talkIdx >= 0 && this.talkT < 0.5) { this.talkIdx = -1; this.talkT = 0.3; }
+        else if (this.talkT <= 0) {
+          if (this.talkIdx >= 0 && Math.random() < 0.3) { this.talkIdx = -1; this.talkT = 0.35 + Math.random() * 0.4; }
+          else { this.talkIdx = n > 1 ? (Math.max(0, this.talkIdx) + 1 + Math.floor(Math.random() * (n - 1))) % n : 0; this.talkT = 0.8 + Math.random() * 1.0; }
+        }
+      } else { this.talkIdx = 0; this.talkT = 0; this.quietT = 0; this.lvl = 0; }
+      const nIdle = arr(F.idle).length;
+      this.idleT -= dt;
+      if (this.idleT <= 0) {
+        if (this.idleIdx === 0 && nIdle > 1) { this.idleIdx = 1 + Math.floor(Math.random() * (nIdle - 1)); this.idleT = 2 + Math.random() * 2.5; }
+        else { this.idleIdx = 0; this.idleT = 4 + Math.random() * 6; }
+      }
+      // NPCs turn toward Alan (after a human beat), unless busy or posed
+      if (this !== player && player && player.visible && !this.walking && !this.pose && !this.loopActive() && !(this.def && this.def.fixedDir) && (this.dir === 'e' || this.dir === 'w')) {
+        const want = player.x > this.x ? 'e' : 'w';
+        if (want !== this.dir && Math.abs(player.x - this.x) > 40) { this.turnT += dt; if (this.turnT > 0.6) { this.dir = want; this.turnT = 0; } }
+        else this.turnT = 0;
+      }
     }
-    stop() { this.target = null; this.walking = false; this.phase = 0; const r = this.resolve; this.resolve = null; if (r) r(); }
+    loopActive() { const F = this.F; return !!(this.loop && F.loops && F.loops[this.loop] && !this.engaged && this.resumeT <= 0 && !this.talking); }
+    stop() { this.target = null; this.walking = false; this.phase = 0; this.stepIdx = -1; const r = this.resolve; this.resolve = null; if (r) r(); }
     height() { return (this.h || scaleAt(this.y)) * (this.c.scale || 1); }
     frameKey() {
-      const f = this.c.frames;
-      if (this.walking) {
-        if (this.dir === 'n' && f.back) return f.back;
-        if (this.dir === 's' && f.front) return f.front;
-        if (f.walk) return f.walk[Math.floor(this.phase) % f.walk.length];
-        return f.idle;
-      }
-      if (this.talking && this.talkPose && f.talk) return f.talk;
-      if (this.dir === 'n' && f.back) return f.back;
-      if (this.dir === 's' && f.front) return f.front;
-      return f.idle;
+      const F = this.F;
+      if (this.pose) return (F.poses && F.poses[this.pose]) || this.pose;
+      if (this.walking) { const c = this.cycle(); return c[Math.floor(this.phase) % c.length]; }
+      if (this.dir === 'n' && F.back) return arr(F.back)[0];
+      if (this.dir === 's' && F.front) return arr(F.front)[0];
+      if (this.talking) { const t = arr(F.talk); return t.length && this.talkIdx >= 0 ? t[this.talkIdx % t.length] : arr(F.idle)[0]; }
+      if (this.loopActive()) { const L = F.loops[this.loop]; return L.frames[Math.floor(time * L.fps) % L.frames.length]; }
+      const id = arr(F.idle); return id[this.idleIdx % id.length];
     }
     bbox() {
       const h = this.height(), w = h * 0.36;
       return { x: this.x - w / 2, y: this.y - h, w, h };
     }
+    // sprite placement relative to the feet, in scene px
+    place(key, flipped) {
+      const sp = SPRITES[key], im = IMG['spr:' + key];
+      if (!sp || !im) return null;
+      const s = this.height() / sp.h;
+      const ax = flipped ? sp.w - sp.ax : sp.ax;
+      return { sp, im, flipped, x: -ax * s, y: -sp.fy * s, w: sp.w * s, h: sp.hh * s };
+    }
     draw() {
       if (!this.visible) return;
       const key = this.frameKey();
-      const sp = SPRITES[key], im = IMG['spr:' + key];
-      if (!sp || !im) return;
-      let h = this.height();
-      let bob = 0;
-      if (this.walking) {
-        bob = Math.abs(Math.sin(this.phase * Math.PI / 2)) * h * 0.012;
-        if ((this.dir === 'n' || this.dir === 's') && this.c.frames.front) bob = Math.abs(Math.sin(this.phase * 1.6)) * h * 0.02;
-      } else bob = Math.sin(time * 1.7 + this.x) * h * 0.003; // breathing
-      const s = h / sp.h; // sprite px -> scene px
-      const dw = sp.w * s, dh = sp.hh * s;
-      const flipped = this.dir === 'w' ? !sp.facesLeft : (this.dir === 'e' ? !!sp.facesLeft : !!this.lastFlip);
-      if (this.dir === 'e' || this.dir === 'w') this.lastFlip = flipped;
-      const ax = (flipped ? sp.w - sp.ax : sp.ax) * s;
-      const dx = this.x - ax, dy = this.y - sp.fy * s - bob;
-      // contact shadow
-      g.save(); g.fillStyle = 'rgba(0,0,0,0.38)'; g.beginPath(); g.ellipse(this.x, this.y, h * 0.12, h * 0.022, 0, 0, Math.PI * 2); g.fill(); g.restore();
-      const bw = Math.ceil(dw), bh = Math.ceil(dh);
-      const lit = litSprite(im, sp, flipped, bw, bh);
-      g.drawImage(lit, 0, 0, bw, bh, dx, dy, bw, bh);
+      const sp = SPRITES[key];
+      if (!sp) return;
+      const flipped = this.dir === 'w' ? !sp.facesLeft : (this.dir === 'e' ? !!sp.facesLeft : this.lastFlip);
+      const turned = flipped !== this.lastFlip;
+      this.lastFlip = flipped;
+      if (key !== this.cur) {
+        const inCycle = this.walking && this.cycle().includes(key) && this.cycle().includes(this.cur);
+        this.prev = this.cur && !inCycle && !turned ? this.cur : null;
+        this.prevFlip = flipped;
+        this.fadeT = this.prev ? XFADE : 0;
+        this.cur = key;
+      }
+      if (turned) { this.prev = null; this.fadeT = 0; }
+      const A = this.place(key, flipped);
+      if (!A) return;
+      const B = this.prev && this.fadeT > 0 ? this.place(this.prev, this.prevFlip) : null;
+      const h = this.height();
+      // union of both frames, in feet-relative coordinates
+      const U = { x: Math.min(A.x, B ? B.x : A.x), y: Math.min(A.y, B ? B.y : A.y) };
+      U.r = Math.max(A.x + A.w, B ? B.x + B.w : -1e9); U.b = Math.max(A.y + A.h, B ? B.y + B.h : -1e9);
+      const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
+      const comp = composeFrames(A, B, B ? this.fadeT / XFADE : 0, U, bw, bh);
+      const sinkPx = this.sink * h;
+      const lights = lightsOn(this.x, this.y - h * 0.55, h);
+      if (!sinkPx) groundShadows(this, comp, U, bw, bh, h, lights);
+      const lit = lightSprite(comp, bw, bh, U, h, lights);
+      // breathing: the chest rises and widens a touch above the hips; feet stay put
+      const talkAmp = this.lvl || 0;
+      const b = this.walking ? 0 : 0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045 + talkAmp * 0.006;
+      const sx = 1 + b * 0.45, sy = 1 + b;
+      const feetBy = -U.y, hipBy = Math.max(1, Math.round(feetBy - h * 0.47));
+      const X0 = this.x + U.x, Y0 = this.y + U.y + sinkPx;
+      g.save();
+      if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
+      // lower body: untouched
+      g.drawImage(lit, 0, hipBy, bw, bh - hipBy, X0, Y0 + hipBy, bw, bh - hipBy);
+      // upper body: scaled about the hip line and the body axis
+      const hipY = Y0 + hipBy;
+      g.drawImage(lit, 0, 0, bw, hipBy + 1, this.x + U.x * sx, hipY - hipBy * sy, bw * sx, (hipBy + 1) * sy);
+      g.restore();
     }
   }
 
-  // Applies the room's lighting to a sprite: multiply by the room's ambient
-  // colour, then add a soft rim light from the room's key light side.
+  // Cross-dissolves two frames (both anchored at the feet) into one buffer.
+  const compBuf = document.createElement('canvas'), cg = compBuf.getContext('2d');
   const litBuf = document.createElement('canvas'), lg = litBuf.getContext('2d');
-  function litSprite(im, sp, flipped, w, h) {
-    w = Math.max(1, w); h = Math.max(1, h);
-    if (litBuf.width < w || litBuf.height < h) { litBuf.width = Math.max(litBuf.width, w); litBuf.height = Math.max(litBuf.height, h); }
-    lg.setTransform(1, 0, 0, 1, 0, 0);
-    lg.clearRect(0, 0, litBuf.width, litBuf.height);
-    lg.save();
-    if (flipped) { lg.translate(w, 0); lg.scale(-1, 1); }
-    lg.imageSmoothingQuality = 'high';
-    lg.drawImage(im, 0, 0, w, h);
-    lg.restore();
-    const L = (room && room.light) || {};
-    if (L.ambient) {
-      lg.globalCompositeOperation = 'multiply';
-      lg.fillStyle = L.ambient; lg.fillRect(0, 0, w, h);
-      lg.globalCompositeOperation = 'destination-in';
-      lg.save(); if (flipped) { lg.translate(w, 0); lg.scale(-1, 1); } lg.drawImage(im, 0, 0, w, h); lg.restore();
+  const silBuf = document.createElement('canvas'), sg = silBuf.getContext('2d');
+  function fit(c, ctx, w, h) {
+    if (c.width < w || c.height < h) { c.width = Math.max(c.width, w); c.height = Math.max(c.height, h); }
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+    ctx.clearRect(0, 0, c.width, c.height);
+  }
+  function blit(ctx, P, U, alpha) {
+    ctx.save(); ctx.globalAlpha = alpha; ctx.imageSmoothingQuality = 'high';
+    const x = P.x - U.x, y = P.y - U.y;
+    if (P.flipped) { ctx.translate(x + P.w, y); ctx.scale(-1, 1); ctx.drawImage(P.im, 0, 0, P.w, P.h); }
+    else ctx.drawImage(P.im, x, y, P.w, P.h);
+    ctx.restore();
+  }
+  function composeFrames(A, B, kB, U, w, h) {
+    fit(compBuf, cg, w, h);
+    if (B && kB > 0) {
+      const e = kB * kB * (3 - 2 * kB); // smoothstep
+      blit(cg, B, U, e);
+      cg.globalCompositeOperation = 'lighter'; // additive dissolve keeps overlapping areas opaque
+      blit(cg, A, U, 1 - e);
+      cg.globalCompositeOperation = 'source-over';
+    } else blit(cg, A, U, 1);
+    return compBuf;
+  }
+
+  // ---------------------------------------------------------------- lights
+  // room.lights: [{ x, y, rgb, kind, seed, glow, ga, power, reach, rim, shadow, floor:[x,y], height, actor, off:[dx,dy] }]
+  // `kind` sets how it flickers. The same value drives the painted glow, the
+  // light falling on characters and the strength of the shadows they cast.
+  const hash = n => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
+  const FLICK = {
+    steady: () => 1,
+    flame: (t, s) => 0.8 + 0.1 * Math.sin(t * 9.7 + s) + 0.06 * Math.sin(t * 23.3 + s * 2) + 0.04 * Math.sin(t * 41 + s * 5) + 0.05 * (hash(Math.floor(t * 12) + s) - 0.5),
+    torch: (t, s) => 0.74 + 0.12 * Math.sin(t * 7.3 + s) + 0.08 * Math.sin(t * 17.9 + s * 2) + 0.06 * Math.sin(t * 31 + s * 4) + 0.1 * (hash(Math.floor(t * 14) + s) - 0.5),
+    candle: (t, s) => 0.86 + 0.07 * Math.sin(t * 13 + s) + 0.05 * Math.sin(t * 29 + s) + 0.04 * (hash(Math.floor(t * 18) + s) - 0.5),
+    gas: (t, s) => 0.93 + 0.04 * Math.sin(t * 3.1 + s) + 0.03 * Math.sin(t * 17 + s * 3),
+    tube: (t, s) => {
+      const c = t % 11.3;
+      if (c < 0.7) return hash(Math.floor(t * 22) + s) < 0.5 ? 0.35 : 0.95; // stutter
+      return hash(Math.floor(t * 6) + s) < 0.012 ? 0.55 : 1 - 0.015 * Math.sin(t * 120);
+    },
+    pulse: (t, s) => 0.78 + 0.22 * Math.sin(t * 2 + s),
+  };
+  let roomLights = [];
+  function updateLights(t) {
+    const ls = typeof room.lights === 'function' ? room.lights() : (room.lights || []);
+    roomLights = ls.filter(l => !l.when || l.when()).map(l => {
+      let x = l.x, y = l.y;
+      if (l.actor) {
+        const a = l.actor === 'alan' ? player : npcs.find(n => n.id === l.actor);
+        if (!a || !a.visible) return null;
+        const h = a.height(), side = a.lastFlip ? -1 : 1;
+        x = a.x + l.off[0] * h * side; y = a.y + l.off[1] * h;
+        return Object.assign({}, l, { x, y, floor: [x, a.y], owner: a, f: Math.max(0, (FLICK[l.kind || 'steady'] || FLICK.steady)(t, l.seed || 0)) });
+      }
+      const f = l.level ? l.level(t) : (FLICK[l.kind || 'steady'] || FLICK.steady)(t, l.seed || 0);
+      return Object.assign({}, l, { x, y, f: Math.max(0, f) });
+    }).filter(Boolean);
+  }
+  function drawGlows() {
+    for (const l of roomLights) if (l.glow) FX.glow(g, l.x, l.y, l.glow * (0.9 + 0.1 * l.f), l.rgb, (l.ga || 0.3) * l.f);
+  }
+  // Light reaching a point on a character (their chest).
+  function lightsOn(x, y, h) {
+    const out = [];
+    for (const l of roomLights) {
+      if (!l.power) continue;
+      const d = Math.hypot(l.x - x, (l.y - y) * 1.3);
+      const fall = Math.max(0, 1 - d / (l.reach || 900));
+      const I = l.power * l.f * Math.pow(fall, 1.4);
+      if (I > 0.01) out.push({ l, I, dx: l.x - x, dy: l.y - y, d });
     }
-    if (L.rim) {
-      lg.globalCompositeOperation = 'source-atop';
-      const side = L.rimSide || 1; // +1 light from the right, -1 from the left
+    return out;
+  }
+  function groundShadows(a, comp, U, bw, bh, h, lights) {
+    const L = (room && room.light) || {};
+    const ao = L.ao != null ? L.ao : 1;
+    // contact shadow / ambient occlusion right under the feet
+    const wide = a.walking ? 1.25 : 1;
+    g.save();
+    g.translate(a.x, a.y); g.scale(1, 0.2);
+    let gr = g.createRadialGradient(0, 0, 0, 0, 0, h * 0.15 * wide);
+    gr.addColorStop(0, `rgba(0,0,0,${0.62 * ao})`); gr.addColorStop(0.5, `rgba(0,0,0,${0.32 * ao})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, h * 0.15 * wide, 0, Math.PI * 2); g.fill();
+    gr = g.createRadialGradient(0, 0, 0, 0, 0, h * 0.065 * wide);
+    gr.addColorStop(0, `rgba(0,0,0,${0.7 * ao})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, h * 0.065 * wide, 0, Math.PI * 2); g.fill();
+    g.restore();
+    // cast shadows, one per light, stretched away from it across the floor
+    const casters = lights.filter(o => o.l.shadow !== false && o.I > 0.03 && o.l.owner !== a);
+    if (!casters.length) return;
+    fit(silBuf, sg, bw, bh);
+    sg.drawImage(comp, 0, 0, bw, bh, 0, 0, bw, bh);
+    sg.globalCompositeOperation = 'source-in'; sg.fillStyle = '#000'; sg.fillRect(0, 0, bw, bh);
+    sg.globalCompositeOperation = 'source-over';
+    for (const o of casters) {
+      const fp = o.l.floor || [o.l.x, a.y - 40];
+      let vx = a.x - fp[0], vy = (a.y - fp[1]);
+      const dist = Math.hypot(vx, vy) || 1;
+      vx /= dist; vy /= dist;
+      const len = h * Math.max(0.3, Math.min(1.5, 0.3 + dist / (o.l.height || 650)));
+      const ex = vx * len, ey = vy * len * 0.42;
+      // strength follows the light (and its flicker), but stays readable
+      const alpha = Math.min(0.62, 0.1 + o.I * 2.4) * (typeof o.l.shadow === 'number' ? o.l.shadow : 1) * Math.min(1, o.l.f);
+      g.save();
+      g.globalAlpha = alpha;
+      g.filter = `blur(${Math.max(1.5, h * 0.008 + len * 0.006).toFixed(1)}px)`;
+      g.transform(1, 0, -ex / h, -ey / h, a.x, a.y);
+      g.drawImage(silBuf, 0, 0, bw, bh, U.x, U.y, bw, bh);
+      g.restore();
+    }
+  }
+  // Room colour, then a rim of each light on the side facing it.
+  function lightSprite(comp, w, h, U, figH, lights) {
+    fit(litBuf, lg, w, h);
+    lg.drawImage(comp, 0, 0, w, h, 0, 0, w, h);
+    const L = (room && room.light) || {};
+    const level = Math.max(0.3, Math.min(1, (L.base != null ? L.base : 1) + lights.reduce((s, o) => s + o.I * (o.l.fill != null ? o.l.fill : 0.35), 0)));
+    if (L.ambient || level < 1) {
+      const m = (L.ambient || 'rgb(255,255,255)').match(/\d+/g).map(Number);
+      lg.globalCompositeOperation = 'multiply';
+      lg.fillStyle = `rgb(${m.map(v => Math.round(v * level)).join(',')})`; lg.fillRect(0, 0, w, h);
+      lg.globalCompositeOperation = 'destination-in';
+      lg.drawImage(comp, 0, 0, w, h, 0, 0, w, h);
+    }
+    lg.globalCompositeOperation = 'source-atop';
+    if (L.rim) { // soft, steady key light (daylight through a window, etc.)
+      const side = L.rimSide || 1;
       const gr = lg.createLinearGradient(side > 0 ? w : 0, 0, side > 0 ? w * 0.45 : w * 0.55, 0);
       gr.addColorStop(0, L.rim); gr.addColorStop(1, 'rgba(0,0,0,0)');
       lg.fillStyle = gr; lg.fillRect(0, 0, w, h);
     }
-    if (L.fog) { // atmospheric fade toward the fog colour
-      lg.globalCompositeOperation = 'source-atop';
-      lg.fillStyle = L.fog; lg.fillRect(0, 0, w, h);
+    const cx = -U.x, cy = -U.y - figH * 0.55; // chest, in buffer coords
+    for (const o of lights) {
+      const a = Math.min(0.55, o.I * (o.l.rim != null ? o.l.rim : 0.8));
+      if (a < 0.02) continue;
+      const n = Math.hypot(o.dx, o.dy) || 1, ux = o.dx / n, uy = o.dy / n;
+      const r = figH * 0.3;
+      const gr = lg.createLinearGradient(cx + ux * r, cy + uy * figH * 0.5, cx - ux * r * 0.2, cy - uy * figH * 0.1);
+      gr.addColorStop(0, `rgba(${o.l.rgb},${a.toFixed(3)})`); gr.addColorStop(1, `rgba(${o.l.rgb},0)`);
+      lg.fillStyle = gr; lg.fillRect(0, 0, w, h);
     }
+    if (L.fog) { lg.fillStyle = L.fog; lg.fillRect(0, 0, w, h); }
     lg.globalCompositeOperation = 'source-over';
     return litBuf;
   }
@@ -206,6 +410,7 @@
     refreshNpcs(true);
     renderLabels();
     Sound.playMusic(typeof room.music === 'function' ? room.music() : room.music);
+    Sound.ambience(room.ambience || null);
     clearSpeech();
     if (!opts.instant) await fade(false);
     busy--;
@@ -218,7 +423,7 @@
     npcs = (room.npcs || []).filter(n => !n.when || n.when()).map(n => {
       if (keep.has(n.id)) return keep.get(n.id);
       const a = new Actor(n.id, n.ch || n.id, n.x, n.y, n.dir);
-      a.def = n; a.h = n.h || null; a.overlay = n.overlay || null;
+      a.def = n; a.h = n.h || null; a.overlay = n.overlay || null; a.loop = n.loop || null; a.set = (typeof n.set === 'function' ? n.set() : n.set) || null;
       return a;
     });
   }
@@ -236,24 +441,41 @@
 
   // ---------------------------------------------------------------- render
   function drawBg(name) { const im = IMG['bg:' + name]; if (im) g.drawImage(im, 0, 0, W, H); else { g.fillStyle = '#000'; g.fillRect(0, 0, W, H); } }
+  // Re-paints the part of the background (and its layers) that stands in front
+  // of an actor. Outlines follow the painted furniture, not a box around it.
   function drawOccluder(o) {
     const im = IMG['bg:' + room.bg]; if (!im) return;
     g.save(); g.beginPath();
-    o.poly.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
-    g.closePath(); g.clip();
+    for (const p of (o.polys || [o.poly])) { p.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); }
+    g.clip();
     g.drawImage(im, 0, 0, W, H);
+    drawLayers(true);
     g.restore();
+  }
+  // Painted layers cut from clean plates: static fills for things that were
+  // taken, and moving parts (pendulums, bells) that swing about a pivot.
+  function drawLayers(staticOnly) {
+    for (const l of (room.layers || [])) {
+      if (l.when && !l.when()) continue;
+      const im = IMG['lay:' + l.img]; if (!im) continue;
+      const w = l.w || im.width * (l.k || 1), h = l.h || im.height * (l.k || 1);
+      const ang = l.swing ? l.swing(time) : 0;
+      if (!ang) { g.drawImage(im, l.x, l.y, w, h); continue; }
+      if (staticOnly) continue;
+      g.save(); g.translate(l.pivot[0], l.pivot[1]); g.rotate(ang * Math.PI / 180);
+      g.drawImage(im, l.x - l.pivot[0], l.y - l.pivot[1], w, h); g.restore();
+    }
   }
   function frame(now) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now; time += dt;
     if (room) {
       player.update(dt); npcs.forEach(a => a.update(dt));
+      updateLights(time);
       drawBg(typeof room.bgFn === 'function' ? room.bgFn() : room.bg);
-      for (const p of (room.patches || [])) if (!p.when || p.when()) {
-        const im = IMG['bg:' + room.bg]; const k = im ? im.width / W : 1;
-        if (im) g.drawImage(im, p.src[0] * k, p.src[1] * k, p.src[2] * k, p.src[3] * k, p.dst[0], p.dst[1], p.dst[2], p.dst[3]);
-      }
+      if (room.animBack) room.animBack(g, time);
+      drawLayers(false);
       if (room.anim) room.anim(g, time);
+      drawGlows();
       // depth-sorted actors + occluders cut from the painting
       const items = [];
       for (const a of npcs) if (a.visible) items.push({ y: a.y, fn: () => { a.draw(); if (a.overlay) a.overlay(g, a, time); } });
@@ -264,6 +486,13 @@
       if (room.fog) {
         const f = typeof room.fog === 'function' ? room.fog() : room.fog;
         if (f) { FX.drawFog(g, fogA, time, f, 12, 0); FX.drawFog(g, fogB, time, f * 0.7, 22, 40); }
+      }
+      // the whole room breathes with its flames (characters included)
+      const L = room.light || {};
+      if (L.flickerShade) {
+        const fl = roomLights.filter(l => l.kind && l.kind !== 'steady');
+        const avg = fl.length ? fl.reduce((s, l) => s + l.f, 0) / fl.length : 1;
+        g.fillStyle = `rgba(0,0,0,${Math.max(0, L.flickerShade * (1 - avg)).toFixed(3)})`; g.fillRect(0, 0, W, H);
       }
       if (room.grade) { g.fillStyle = room.grade; g.fillRect(0, 0, W, H); }
       FX.vignette(g, room.vignette != null ? room.vignette : 0.45);
@@ -527,13 +756,27 @@
         await runHandler(def.look || 'alan_def_look', t); return;
       }
       if (verb === 'exit') { await approach(def, t.actor); await goRoom(def.exit, def.entry || room.id); return; }
+      if (t.actor) t.actor.engaged++;
       await approach(def, t.actor);
+      if ((verb === 'take' || verb === 'use' || item) && player.visible && def.reach !== false) await reach(t);
       if (item) {
         const h = (def.items && (def.items[item] || def.items.any)) || 'alan_def_item';
         selItem = null; renderInv(); invBar.classList.remove('show');
         await runHandler(h, t);
       } else await runHandler(def[verb] || 'alan_def_use', t);
-    } finally { busy--; updateHover(); }
+    } finally {
+      if (t.actor) { t.actor.engaged = Math.max(0, t.actor.engaged - 1); t.actor.resumeT = 1.4; }
+      busy--; updateHover();
+    }
+  }
+  // Alan reaches toward what he takes, uses or hands over.
+  async function reach(t) {
+    const cx = t.actor ? t.actor.x : t.def.rect ? t.def.rect[0] + t.def.rect[2] / 2 : player.x;
+    if (Math.abs(cx - player.x) > 8) player.dir = cx > player.x ? 'e' : 'w';
+    else if (player.dir === 'n' || player.dir === 's') player.dir = player.lastFlip ? 'w' : 'e';
+    player.pose = 'reach';
+    await wait(window.FAST ? 30 : 520);
+    player.pose = null;
   }
 
   // ---------------------------------------------------------------- saves
@@ -591,10 +834,12 @@
   }
 
   window.Game = {
-    init, begin, goRoom, say, says, wait, dialog, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
+    init, begin, goRoom, say, says, wait, dialog, reach, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
     giveItem, takeItem, has, toast,
     get state() { return state; }, get flags() { return state.flags; },
     get player() { return player; }, get room() { return room; },
+    bgImage: () => room && IMG['bg:' + room.bg],
+    mask: () => room && room.skyMask && IMG['mask:' + room.skyMask],
     get isBusy() { return busy > 0 || !!dialogResolve || (player && player.walking); },
     npc: id => npcs.find(a => a.id === id),
     busy: async fn => { busy++; try { return await fn(); } finally { busy--; updateHover(); } },

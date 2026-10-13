@@ -34,6 +34,8 @@ It takes about 30–45 minutes to finish, has three chapters and a cipher puzzle
 
 Voice IDs are in [`scripts/cast.json`](scripts/cast.json).
 
+The full story bible (lore, characters, chapter outline, unused threads and expansion ideas) is in [`docs/STORY.md`](docs/STORY.md).
+
 ## How it's built
 
 The game is plain HTML, CSS and JavaScript with no build step.
@@ -42,6 +44,7 @@ The game is plain HTML, CSS and JavaScript with no build step.
 |---|---|
 | `art/bg/*.jpg` | Hand-painted backgrounds (1280×720), generated with Canva's image AI in one shared style |
 | `art/sprites/*.webp` | Painted character frames (Canva), cut out with `scripts/matte.py`, which also writes `js/sprites.js` (sizes and foot/head anchors) |
+| `art/layers/*.webp` | Animation layers and sky masks cut from the backgrounds by `scripts/layers.py` |
 | `js/engine.js` | Adventure engine: per-room depth scaling and walk areas, occluders cut from the paintings (so characters walk behind desks and counters), lighting that tints the sprites to each room, a smart cursor, inventory, dialogue, cutscenes and saves |
 | `js/fx.js` | Atmosphere (drifting fog, flickering lamps and torches, light shafts, dust, water shimmer) and painted inventory icons |
 | `js/audio.js` | Procedural soundtrack using Web Audio (fado guitar, bells, foghorns) and voice playback |
@@ -49,7 +52,22 @@ The game is plain HTML, CSS and JavaScript with no build step.
 | `js/lines.js` | Every spoken line, used for both the subtitles and the voice generation |
 | `audio/voice/*.mp3` | ElevenLabs voice-over, one file per line |
 
-Characters are animated by swapping painted frames: a 4-frame walk cycle in profile, front and back views, and a talking pose with a gesture. Frames are mirrored to face left.
+### Animation, light and sound
+
+- **Characters:**
+  - About 57 painted frames: idle variants, several talk gestures, an 8-frame profile walk, front and back walk cycles, and action poses (reaching, reading, swinging the clapper, Lacerda's lunge and terror, Inês tied and breaking free, Tomás sweeping and carrying a lantern, Amália singing).
+  - Pose changes cross-dissolve.
+  - Feet stay pinned to the floor. Breathing only lifts and widens the upper body.
+  - The walk cycle advances by the distance actually covered, so feet don't slide.
+  - Talk gestures follow the loudness of the voice-over.
+  - NPCs turn to face Alan.
+- **Light:**
+  - Each room defines light sources (lamps, candles, torches, a stuttering fluorescent tube, the moon behind moving clouds, Tomás's lantern).
+  - The same flicker value drives the painted glow, the colour and rim light on each character, and the strength of the shadows they cast across the floor, plus a contact shadow under the feet.
+- **Scenery:**
+  - Layers cut from clean plates (`scripts/layers.py`) let objects be taken without leaving holes, and let the clock pendulum and the Drowned Bell swing.
+  - Also animated: fog past the windows, laundry in the wind, gulls and birds behind the convent arches (sky masks), a breathing cat, steam, candle smoke, drips and ripples, torch embers, skittering leaves.
+- **Sound:** footsteps per floor type (wood, cobbles, tile, stone, wet stone) and a quiet ambience bed for every room.
 
 ### Regenerating voices
 

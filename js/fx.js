@@ -64,6 +64,136 @@
     }
     g.restore();
   }
+  // Soft cloud bank (tileable, 2x wide) with an alpha lookup so a light can
+  // dim when a cloud passes in front of it.
+  function makeClouds(seed, rgb, n) {
+    const w = W * 2, h = 360;
+    const [c, g] = mk(w, h);
+    const r = rng(seed);
+    for (let i = 0; i < (n || 26); i++) {
+      const x = r() * w, y = 20 + r() * 260, rx = 90 + r() * 200, ry = 18 + r() * 40;
+      for (const dx of [0, -w, w]) for (let k = 0; k < 5; k++) {
+        const px = x + dx + (r() - 0.5) * rx, py = y + (r() - 0.5) * ry;
+        const gr = g.createRadialGradient(px, py, 0, px, py, rx * 0.6);
+        gr.addColorStop(0, `rgba(${rgb},0.22)`); gr.addColorStop(1, `rgba(${rgb},0)`);
+        g.fillStyle = gr; g.beginPath(); g.ellipse(px, py, rx * 0.6, ry, 0, 0, Math.PI * 2); g.fill();
+      }
+    }
+    const data = g.getImageData(0, 0, w, h).data;
+    return { c, w, h, alphaAt(x, y) { x = ((Math.round(x) % w) + w) % w; y = Math.max(0, Math.min(h - 1, Math.round(y))); return data[(y * w + x) * 4 + 3] / 255; } };
+  }
+  function cloudOffset(cl, t, speed) { return (t * speed) % cl.w; }
+  function drawClouds(g, cl, t, speed, y, alpha) {
+    const o = cloudOffset(cl, t, speed);
+    g.globalAlpha = alpha; g.drawImage(cl.c, -o, y); g.drawImage(cl.c, cl.w - o, y); g.globalAlpha = 1;
+  }
+  // Draws `fn` into a scratch canvas and keeps only what falls inside a mask
+  // image (e.g. the sky between the arches), then puts it on the scene.
+  const [maskC, maskG] = mk(W, H);
+  function masked(g, mask, fn) {
+    maskG.globalCompositeOperation = 'source-over'; maskG.clearRect(0, 0, W, H);
+    fn(maskG);
+    if (mask) { maskG.globalCompositeOperation = 'destination-in'; maskG.drawImage(mask, 0, 0, W, H); maskG.globalCompositeOperation = 'source-over'; }
+    g.drawImage(maskC, 0, 0);
+  }
+  // Birds crossing the sky (flapping V silhouettes), deterministic in time.
+  function birds(g, t, opts) {
+    const { y0, y1, n, period, color, size, x0, x1 } = Object.assign({ y0: 40, y1: 200, n: 3, period: 26, color: 'rgba(30,30,40,0.7)', size: 7, x0: -60, x1: W + 60 }, opts);
+    const cycle = Math.floor(t / period), p = (t % period) / period;
+    const r = rng(cycle * 97 + 13);
+    const dir = r() < 0.5 ? 1 : -1, base = y0 + r() * (y1 - y0);
+    if (r() < 0.35) return; // empty sky some of the time
+    g.save(); g.strokeStyle = color; g.lineCap = 'round';
+    for (let i = 0; i < n; i++) {
+      const lag = i * 0.03 + r() * 0.02;
+      const q = p - lag; if (q < 0 || q > 1) continue;
+      const x = dir > 0 ? x0 + (x1 - x0) * q : x1 - (x1 - x0) * q;
+      const y = base + i * 9 * (r() - 0.3) + Math.sin(t * 1.3 + i) * 6;
+      const s = size * (0.8 + r() * 0.4), flap = Math.sin(t * 11 + i * 2);
+      g.lineWidth = Math.max(1.2, s * 0.22);
+      g.beginPath(); g.moveTo(x - s, y - flap * s * 0.6); g.quadraticCurveTo(x - s * 0.4, y - s * 0.2, x, y); g.quadraticCurveTo(x + s * 0.4, y - s * 0.2, x + s, y - flap * s * 0.6); g.stroke();
+    }
+    g.restore();
+  }
+  // Rising steam or smoke wisps from a point.
+  function wisps(g, t, x, y, opts) {
+    const { n, rise, spread, rgb, a, size, speed } = Object.assign({ n: 6, rise: 70, spread: 10, rgb: '255,255,255', a: 0.14, size: 9, speed: 0.35 }, opts);
+    g.save(); g.globalCompositeOperation = opts && opts.dark ? 'source-over' : 'lighter';
+    for (let i = 0; i < n; i++) {
+      const p = ((t * speed + i / n) % 1);
+      const px = x + Math.sin(t * 1.7 + i * 2.1 + p * 5) * spread * p, py = y - p * rise;
+      const rad = size * (0.5 + p * 1.6);
+      const gr = g.createRadialGradient(px, py, 0, px, py, rad);
+      const al = a * Math.sin(p * Math.PI);
+      gr.addColorStop(0, `rgba(${rgb},${al.toFixed(3)})`); gr.addColorStop(1, `rgba(${rgb},0)`);
+      g.fillStyle = gr; g.beginPath(); g.arc(px, py, rad, 0, Math.PI * 2); g.fill();
+    }
+    g.restore();
+  }
+  // Embers/sparks drifting up from a torch.
+  function embers(g, t, x, y, n) {
+    g.save(); g.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < n; i++) {
+      const sp = 0.4 + (i * 0.37) % 0.5, p = (t * sp + i * 0.61) % 1;
+      const px = x + Math.sin(t * 3 + i * 7) * 8 * p + (i % 3 - 1) * 4, py = y - p * 90;
+      g.fillStyle = `rgba(255,${150 + (i * 40) % 90},60,${(1 - p) * 0.8})`;
+      g.beginPath(); g.arc(px, py, 1.3, 0, Math.PI * 2); g.fill();
+    }
+    g.restore();
+  }
+  // Drips falling into water, each leaving spreading ripple rings.
+  function drips(g, t, spots, rgb) {
+    g.save();
+    spots.forEach(([x, y, top, per], i) => {
+      const p = ((t + i * 1.7) % per) / per; // fall takes the first 12% of the period
+      if (p < 0.12) {
+        const q = p / 0.12, dy = top + (y - top) * q * q;
+        g.fillStyle = `rgba(${rgb},0.55)`; g.beginPath(); g.ellipse(x, dy, 1.2, 2.6, 0, 0, Math.PI * 2); g.fill();
+      } else {
+        const q = (p - 0.12) / 0.5;
+        if (q < 1) for (let k = 0; k < 3; k++) {
+          const r = (q - k * 0.12) * 46; if (r <= 0) continue;
+          g.strokeStyle = `rgba(${rgb},${(0.35 * (1 - q)).toFixed(3)})`; g.lineWidth = 1.2;
+          g.beginPath(); g.ellipse(x, y, r, r * 0.22, 0, 0, Math.PI * 2); g.stroke();
+        }
+      }
+    });
+    g.restore();
+  }
+  // Dry leaves skittering across a floor now and then.
+  function leaves(g, t, y0, y1, period) {
+    const cycle = Math.floor(t / period), p = (t % period) / period;
+    const r = rng(cycle * 31 + 7);
+    if (r() < 0.4) return;
+    const n = 2 + Math.floor(r() * 3), base = y0 + r() * (y1 - y0);
+    g.save();
+    for (let i = 0; i < n; i++) {
+      const q = p * (1.1 + r() * 0.3) - i * 0.05; if (q < 0 || q > 1) continue;
+      const x = -30 + (W + 60) * q, y = base + i * 14 - Math.abs(Math.sin(q * 30 + i)) * 10;
+      g.translate(x, y); g.rotate(t * 6 + i); g.fillStyle = ['#6a4a22', '#8a6a2a', '#5a3a1a'][i % 3];
+      g.beginPath(); g.ellipse(0, 0, 5, 2.4, 0, 0, Math.PI * 2); g.fill();
+      g.setTransform(1, 0, 0, 1, 0, 0);
+    }
+    g.restore();
+  }
+  // Redraws a region of the painting with each row shifted sideways (cloth in
+  // the wind), more toward the free bottom edge.
+  function sway(g, im, rect, t, amp, phase) {
+    if (!im) return;
+    const [x, y, w, h] = rect, k = im.width / W;
+    for (let r = 0; r < h; r += 2) {
+      const f = r / h, dx = Math.sin(t * 1.6 + phase + f * 1.2) * amp * f * f;
+      g.drawImage(im, x * k, (y + r) * k, w * k, 2 * k, x + dx, y + r, w, 2);
+    }
+  }
+  // Slow rise and fall of a sleeping animal: scales a region upward from its base.
+  function breathe(g, im, rect, t, amp, period) {
+    if (!im) return;
+    const [x, y, w, h] = rect, k = im.width / W;
+    const s = 1 + amp * (0.5 + 0.5 * Math.sin(t * Math.PI * 2 / period));
+    g.drawImage(im, x * k, y * k, w * k, h * k, x - w * (s - 1) * 0.15, y + h - h * s, w * (1 + (s - 1) * 0.3), h * s);
+  }
+
   function vignette(g, a) {
     const gr = g.createRadialGradient(W / 2, H / 2, H * 0.35, W / 2, H / 2, H * 0.95);
     gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, `rgba(0,0,0,${a})`);
@@ -165,5 +295,5 @@
     return iconCache[id];
   }
 
-  window.FX = { W, H, mk, rng, makeFog, drawFog, glow, flicker, shaft, motes, water, vignette, icon };
+  window.FX = { W, H, mk, rng, makeFog, drawFog, glow, flicker, shaft, motes, water, vignette, icon, makeClouds, cloudOffset, drawClouds, masked, birds, wisps, embers, drips, leaves, sway, breathe };
 })();
