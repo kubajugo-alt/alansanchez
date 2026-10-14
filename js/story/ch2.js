@@ -36,7 +36,7 @@
     ],
     ambient: [
       { id: 'npc_washer1', name: 'Washerwoman', frames: ['npc_washer1', 'npc_washer1_b'], x: 300, y: 484, h: 205, look: 'alan_npc_washers', idleHold: [6, 14] },
-      { id: 'npc_laundry', name: 'Woman with the washing', frames: ['npc_laundry'], x: 175, y: 560, h: 236, look: 'alan_npc_washers' }, // under the hanging sheets
+      { id: 'npc_laundry', name: 'Woman with the washing', frames: ['npc_laundry'], x: 175, y: 560, h: 236, look: 'alan_npc_laundry' }, // under the hanging sheets
       { id: 'npc_washer2', name: 'Washerwoman', frames: ['npc_washer2', 'npc_washer2_b'], x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [7, 16] },
     ],
     hotspots: [

@@ -770,15 +770,24 @@
   function targetAt(x, y) {
     if (!room) return null;
     if (selItem && player.visible) { const b = player.bbox(); if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return { kind: 'self', def: { name: 'Alan', items: (room.self && room.self.items) || {} } }; }
+    // the smallest hotspot under the cursor wins, so a box of matches on the bar
+    // or a tile on the bunk is never swallowed by the bigger thing around it;
+    // small props also win over the empty corners of a person's bounding box
+    let best = null, bestA = Infinity;
+    for (const h of room.hotspots || []) {
+      if (h.when && !h.when()) continue;
+      if (!hitShape(h, x, y)) continue;
+      const ar = hotArea(h); if (ar <= bestA) { best = h; bestA = ar; }
+    }
+    if (best && bestA < 5000) return { kind: 'hot', def: best };
     const people = npcs.filter(a => a.visible && a.def).sort((a, b) => b.y - a.y);
     for (const a of people) { const b = a.bbox(); if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return { kind: 'npc', actor: a, def: a.def }; }
-    const hs = room.hotspots || [];
-    for (let i = hs.length - 1; i >= 0; i--) {
-      const h = hs[i];
-      if (h.when && !h.when()) continue;
-      if (hitShape(h, x, y)) return { kind: 'hot', def: h };
-    }
-    return null;
+    return best ? { kind: 'hot', def: best } : null;
+  }
+  function hotArea(h) {
+    if (h.rect) return h.rect[2] * h.rect[3];
+    let a = 0; const p = h.poly; for (let i = 0, j = p.length - 1; i < p.length; j = i++) a += (p[j][0] + p[i][0]) * (p[j][1] - p[i][1]);
+    return Math.abs(a / 2);
   }
   function nameOf(t) { const n = t.def.name; return typeof n === 'function' ? n() : n; }
   // What a left click does on a target (Broken Sword-style smart action).
