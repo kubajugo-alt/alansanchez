@@ -8,7 +8,7 @@ from PIL import Image
 root = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 # pair -> fraction of the frame height (from the bottom) where the furniture is
 PAIRS = {('npc_bench', 'npc_bench_b'): 0.55, ('npc_cards', 'npc_cards_b'): 0.42, ('npc_guitar', 'npc_guitar_b'): 0.4,
-         ('npc_mender1', 'npc_mender1_b'): 0.32, ('npc_mender2', 'npc_mender2_b'): 0.32, ('npc_fish', 'npc_fish_b'): 0.5,
+         ('npc_mender1', 'npc_mender1_b'): 0.32, ('npc_mender2', 'npc_mender2_b'): 0.32, ('npc_fish', 'npc_fish_b'): 0.5, ('npc_couple', 'npc_couple_b'): 0.55,
          ('npc_mender1', 'npc_mender1_talk'): 0.32, ('npc_mender2', 'npc_mender2_talk'): 0.32}
 # frames painted at a different scale from the rest of their set (the cat: a walking
 # cat is much taller and longer than the sleeping loaf it was sized against)

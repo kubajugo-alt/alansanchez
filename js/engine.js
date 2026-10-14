@@ -207,7 +207,7 @@
       const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
       const comp = composeFrames(A, B, B ? this.fadeT / XFADE : 0, U, bw, bh);
       const sinkPx = this.sink * h;
-      const lights = lightsOn(this.x, this.y - h * 0.55, h);
+      const lights = lightsOn(this.x, this.y - h * 0.55, h, this);
       if (!sinkPx) groundShadows(this, comp, U, bw, bh, h, lights);
       const lit = lightSprite(comp, bw, bh, U, h, lights);
       // breathing: the chest rises and widens a touch above the hips; feet stay put
@@ -282,7 +282,11 @@
         const a = l.actor === 'alan' ? player : npcs.find(n => n.id === l.actor);
         if (!a || !a.visible) return null;
         const h = a.height(), side = a.lastFlip ? -1 : 1;
-        x = a.x + l.off[0] * h * side; y = a.y + l.off[1] * h;
+        // a carried light can follow the prop frame by frame (offs: { frame: [dx, dy] });
+        // in a frame where the prop isn't held (null, or missing with no default) it goes out
+        const key = a.frameKey(), off = l.offs && key in l.offs ? l.offs[key] : l.off;
+        if (!off) return null;
+        x = a.x + off[0] * h * side; y = a.y + off[1] * h;
         return Object.assign({}, l, { x, y, floor: [x, a.y], owner: a, f: Math.max(0, (FLICK[l.kind || 'steady'] || FLICK.steady)(t, l.seed || 0)) * (l.dim ? l.dim() : 1) });
       }
       const f = l.level ? l.level(t) : (FLICK[l.kind || 'steady'] || FLICK.steady)(t, l.seed || 0);
@@ -293,13 +297,14 @@
     for (const l of roomLights) if (l.glow) FX.glow(g, l.x, l.y, l.glow * (0.9 + 0.1 * l.f), l.rgb, (l.ga || 0.3) * l.f);
   }
   // Light reaching a point on a character (their chest).
-  function lightsOn(x, y, h) {
+  function lightsOn(x, y, h, who) {
     const out = [];
     for (const l of roomLights) {
       if (!l.power) continue;
       const d = Math.hypot(l.x - x, (l.y - y) * 1.3);
       const fall = Math.max(0, 1 - d / (l.reach || 900));
-      const I = l.power * l.f * Math.pow(fall, 1.4);
+      // a lantern held at arm's length warms its carrier, it doesn't flood them
+      const I = l.power * l.f * Math.pow(fall, 1.4) * (who && l.owner === who ? 0.45 : 1);
       if (I > 0.01) out.push({ l, I, dx: l.x - x, dy: l.y - y, d });
     }
     return out;
@@ -310,9 +315,9 @@
     // contact shadow / ambient occlusion right under the feet
     const wide = a.walking ? 1.25 : 1;
     g.save();
-    g.translate(a.x, a.y); g.scale(1, 0.2);
+    g.translate(a.x, a.y - h * 0.02); g.scale(1, 0.2); // spans from the far foot (painted higher) to the near one
     let gr = g.createRadialGradient(0, 0, 0, 0, 0, h * 0.15 * wide);
-    gr.addColorStop(0, `rgba(0,0,0,${0.62 * ao})`); gr.addColorStop(0.5, `rgba(0,0,0,${0.32 * ao})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
+    gr.addColorStop(0, `rgba(0,0,0,${0.7 * ao})`); gr.addColorStop(0.5, `rgba(0,0,0,${0.38 * ao})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
     g.fillStyle = gr; g.beginPath(); g.arc(0, 0, h * 0.15 * wide, 0, Math.PI * 2); g.fill();
     gr = g.createRadialGradient(0, 0, 0, 0, 0, h * 0.065 * wide);
     gr.addColorStop(0, `rgba(0,0,0,${0.7 * ao})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
@@ -324,6 +329,11 @@
     fit(silBuf, sg, bw, bh);
     sg.drawImage(comp, 0, 0, bw, bh, 0, 0, bw, bh);
     sg.globalCompositeOperation = 'source-in'; sg.fillStyle = '#000'; sg.fillRect(0, 0, bw, bh);
+    // a cast shadow is darkest where it meets the feet and thins out toward the
+    // head's end, so a figure lit from behind stays planted instead of floating
+    sg.globalCompositeOperation = 'destination-in';
+    const fade = sg.createLinearGradient(0, -U.y, 0, 0); fade.addColorStop(0, 'rgba(0,0,0,1)'); fade.addColorStop(0.35, 'rgba(0,0,0,0.75)'); fade.addColorStop(1, 'rgba(0,0,0,0.28)');
+    sg.fillStyle = fade; sg.fillRect(0, 0, bw, bh);
     sg.globalCompositeOperation = 'source-over';
     for (const o of casters) {
       const fp = o.l.floor || [o.l.x, a.y - 40];
@@ -338,7 +348,7 @@
       g.save();
       g.globalAlpha = alpha;
       g.filter = `blur(${Math.max(1.5, h * 0.008 + len * 0.006).toFixed(1)}px)`;
-      g.transform(1, 0, -ex / h, -ey / h, a.x, a.y);
+      g.transform(1, 0, -ex / h, -ey / h, a.x, a.y - h * 0.012); // tucked under the soles so it meets the shoes
       g.drawImage(silBuf, 0, 0, bw, bh, U.x, U.y, bw, bh);
       g.restore();
     }
@@ -1018,7 +1028,7 @@
     set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
     giveItem, takeItem, has, toast,
     get state() { return state; }, get flags() { return state.flags; },
-    get player() { return player; }, get room() { return room; },
+    get player() { return player; }, get room() { return room; }, get npcs() { return npcs; },
     bgImage: () => room && IMG['bg:' + curBg()],
     image: key => IMG[key],
     mask: () => room && room.skyMask && IMG['mask:' + room.skyMask],

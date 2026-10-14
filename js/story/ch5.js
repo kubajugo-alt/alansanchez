@@ -14,8 +14,9 @@
     lights: [
       { x: 800, y: 168, rgb: '200,215,255', level: t => S.moonLevel(t), glow: 90, ga: 0.2, power: 0.35, reach: 1500, rim: 0.6, shadow: 0.5, floor: [800, 470], height: 900 },
       { x: 990, y: 640, rgb: '90,255,160', kind: 'pulse', seed: 0, glow: 175, ga: 0.22, power: 0.4, reach: 650, rim: 0.7, floor: [990, 640], height: 200 },
-      { actor: 'tomas', off: [0.3, -0.43], rgb: '255,190,110', kind: 'flame', seed: 9, glow: 75, ga: 0.38, power: 0.55, reach: 520, rim: 0.7, height: 160, when: () => !F().has_lantern },
-      { actor: 'lacerda', off: [0.3, -0.62], rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
+      { actor: 'tomas', off: [0.25, -0.73], offs: { tomas_night_talk: [-0.21, -0.36] }, rgb: '255,190,110', kind: 'flame', seed: 9, glow: 75, ga: 0.38, power: 0.55, reach: 520, rim: 0.7, height: 160, when: () => !F().has_lantern },
+      { actor: 'lacerda', off: null, offs: { robe_kneel: [-0.16, -0.86] }, // the torch, only while he kneels with it
+        rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
         when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
       { actor: 'alan', off: [0.28, -0.45], rgb: '255,190,110', kind: 'flame', seed: 11, glow: 70, ga: 0.35, power: 0.5, reach: 500, rim: 0.7, height: 160, when: () => F().has_lantern },
       { x: 1158, y: 470, rgb: '255,140,80', kind: 'candle', seed: 5, glow: 55, ga: 0.25, power: 0.15, reach: 300, shadow: false },
@@ -72,8 +73,9 @@
       { x: 102, y: 205, rgb: '255,150,60', kind: 'torch', seed: 2, glow: 150, ga: 0.35, power: 0.75, reach: 1150, rim: 0.7, floor: [100, 560], height: 420 },
       { x: 1215, y: 250, rgb: '255,150,60', kind: 'torch', seed: 4, glow: 120, ga: 0.3, power: 0.6, reach: 950, rim: 0.7, floor: [1215, 560], height: 380 },
       { x: 650, y: 470, rgb: '110,255,170', kind: 'pulse', seed: 2, power: 0.22, reach: 700, rim: 0.5, shadow: false },
-      { actor: 'ines', off: [0.05, -1.05], rgb: '255,195,120', kind: 'flame', seed: 8, glow: 90, ga: 0.4, power: 0.6, reach: 700, rim: 0.8, height: 120, when: () => F().bell_lit && !F().won },
-      { actor: 'lacerda', off: [0.3, -0.62], rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
+      { actor: 'ines', off: [0, -0.85], offs: { ines_lantern: [-0.01, -0.88], ines_lantern_talk: [-0.01, -0.84], ines_lwalk1: [0.15, -0.75], ines_lwalk2: [0.15, -0.75] }, rgb: '255,195,120', kind: 'flame', seed: 8, glow: 90, ga: 0.4, power: 0.6, reach: 700, rim: 0.8, height: 120, when: () => F().bell_lit && !F().won },
+      { actor: 'lacerda', off: null, offs: { robe_kneel: [-0.16, -0.86] }, // the torch, only while he kneels with it
+        rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
         when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
       { actor: 'alan', off: [0.28, -0.45], rgb: '255,190,110', kind: 'flame', seed: 11, glow: 60, ga: 0.3, power: 0.4, reach: 450, rim: 0.6, height: 160, when: () => F().has_lantern && !F().bell_lit },
     ],
