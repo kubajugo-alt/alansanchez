@@ -464,7 +464,7 @@
       const d = document.createElement('div');
       d.className = 'lbl'; d.textContent = typeof l.text === 'function' ? l.text() : l.text;
       d.style.left = (l.x / W * 100) + '%'; d.style.top = (l.y / H * 100) + '%';
-      labelsEl.appendChild(d);
+      labelsEl.appendChild(d); keepInside(d, 6);
     }
   }
   function fade(on) { $('#fade').classList.toggle('on', on); return wait(480); }
@@ -557,12 +557,27 @@
       if (other && canTurn(other)) other.dir = player.x > other.x ? 'e' : 'w';
     }
   }
+  // Nudges an overlay placed in % back inside the game frame, measuring the box it
+  // actually renders (so long or multi-line captions never run off an edge).
+  function keepInside(el, m) {
+    m = m === undefined ? 10 : m;
+    const r = el.getBoundingClientRect(), gr = wrap.getBoundingClientRect();
+    if (!r.width || !gr.width) return;
+    const px = gr.width / W;   // scene px -> screen px
+    let dx = 0, dy = 0;
+    if (r.width > gr.width - 2 * m * px) dx = gr.left + gr.width / 2 - (r.left + r.width / 2);
+    else if (r.left < gr.left + m * px) dx = gr.left + m * px - r.left;
+    else if (r.right > gr.right - m * px) dx = gr.right - m * px - r.right;
+    if (r.top < gr.top + m * px) dy = gr.top + m * px - r.top;
+    else if (r.bottom > gr.bottom - m * px) dy = gr.bottom - m * px - r.bottom;
+    if (dx) el.style.left = `calc(${el.style.left} + ${dx / gr.width * 100}%)`;
+    if (dy) el.style.top = `calc(${el.style.top} + ${dy / gr.height * 100}%)`;
+  }
   function positionSpeech() {
     if (!speaking || !speaking.actor) return;
     const b = speaking.actor.bbox();
-    const x = Math.max(18, Math.min(82, (b.x + b.w / 2) / W * 100));
-    const y = Math.max(14, (b.y - 10) / H * 100);
-    speechEl.style.left = x + '%'; speechEl.style.top = y + '%';
+    speechEl.style.left = ((b.x + b.w / 2) / W * 100) + '%'; speechEl.style.top = ((b.y - 10) / H * 100) + '%';
+    keepInside(speechEl, 14);
   }
   function clearSpeech() {
     speechEl.style.display = 'none'; narrEl.style.display = 'none';
@@ -736,6 +751,7 @@
     hoverEl.textContent = txt; hoverEl.style.display = txt ? 'block' : 'none';
     if (el) { const r = el.getBoundingClientRect(), gr = wrap.getBoundingClientRect(); hoverEl.style.left = ((r.left + r.width / 2 - gr.left) / gr.width * 100) + '%'; hoverEl.style.top = ((r.top - gr.top) / gr.height * 100 - 4) + '%'; }
     else { hoverEl.style.left = (mouse.x / W * 100) + '%'; hoverEl.style.top = (mouse.y / H * 100 - 5) + '%'; }
+    if (txt) keepInside(hoverEl, 8);
   }
   function hideHover() { hoverEl.style.display = 'none'; }
   function sceneCoords(e) {
