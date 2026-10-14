@@ -23,6 +23,9 @@
     animBack(g, t) {
       const im = G.bgImage();
       [[20, 10, 95, 260, 0], [125, 30, 70, 240, 1.4], [205, 50, 60, 200, 2.3], [395, 60, 50, 170, 0.8]].forEach(([x, y, w, h, ph]) => FX.sway(g, im, [x, y, w, h], t, 1.2, ph));
+      g.save(); g.beginPath(); g.rect(460, 120, 540, 230); g.clip();
+      FX.birds(g, t + 3, { y0: 150, y1: 260, n: 3, period: 16, color: 'rgba(80,82,88,0.55)', size: 8, x0: 440, x1: 1020 });
+      g.restore();
     },
     // the back basins stand in front of the washerwomen
     occluders: [{ y: 482, polys: [[[160, 386], [1068, 386], [1068, 484], [160, 484]]] }],

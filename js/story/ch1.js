@@ -24,6 +24,7 @@
     layers: [],
     animBack(g, t) {
       if (F().ch < 5) S.windowFog(g, t, [430, 32, 410, 282], '235,238,240', 0.16);
+      if (F().ch < 5) { g.save(); g.beginPath(); g.rect(430, 32, 410, 282); g.clip(); FX.birds(g, t + 4, { y0: 70, y1: 200, n: 2, period: 19, color: 'rgba(90,92,98,0.5)', size: 7, x0: 400, x1: 870 }); g.restore(); }
       // the brass weight on the press, until it's taken
       if (!F().weightTaken) S.drawWeight(g, 345, 318, 0.9);
       if (F().magTaken) S.patchBg(g, [436, 312, 50, 18], [492, 312]);
@@ -178,6 +179,7 @@
       g.save(); g.beginPath(); g.rect(470, 0, 470, 150); g.clip();
       FX.birds(g, t, { y0: 30, y1: 120, n: 2, period: 21, color: 'rgba(70,72,78,0.55)', size: 9, x0: 440, x1: 980 });
       g.restore();
+      FX.leaves(g, t, 600, 700, 17);
     },
     animFg(g, t) { S.drawTram(g, t); },
     ambient: [
@@ -255,7 +257,11 @@
       [[724, 356], [780, 356], [780, 406], [724, 406]], [[778, 350], [898, 350], [900, 408], [776, 408]],
     ] }],
     animBack(g, t) { S.windowFog(g, t, [780, 202, 276, 126], '230,232,236', 0.22); },
-    anim(g, t) { FX.wisps(g, t, 751, 362, { n: 5, rise: 55, spread: 9, a: 0.12, size: 7, speed: 0.3 }); },
+    anim(g, t) {
+      FX.wisps(g, t, 751, 362, { n: 5, rise: 55, spread: 9, a: 0.12, size: 7, speed: 0.3 });
+      FX.shaft(g, [[790, 205], [1050, 205], [1000, 716], [640, 716]], '225,232,236', 0.035);
+      FX.motes(g, t, 700, 220, 340, 420, 22, '235,238,240');
+    },
     npcs: [
       { id: 'rui', x: 520, y: 560, h: 365, dir: 'e', at: [520, 640], name: 'Inspector Mendonça', look: 'narr_look_rui', talk: () => S.talkRui(),
         items: { coffee: () => say('rui_coffee'), file55: () => say('rui_times'), any: 'alan_fail_rui_item' } },
@@ -337,10 +343,11 @@
     ] : [
       { x: 453, y: 180, rgb: '255,180,90', kind: 'flame', seed: 1, glow: 120, ga: 0.28, power: 0.6, reach: 800, floor: [453, 560], height: 420 },
       { x: 985, y: 152, rgb: '255,180,90', kind: 'flame', seed: 3, glow: 120, ga: 0.28, power: 0.6, reach: 800, floor: [985, 590], height: 460 },
-      { x: 770, y: 448, rgb: '255,190,100', kind: 'candle', seed: 7, glow: 60, ga: 0.35, power: 0.3, reach: 380, floor: [770, 610], height: 160, when: () => F().ch === 1 }, // the couple's candle
+      { x: 770, y: 448, rgb: '255,190,100', kind: 'candle', seed: 7, glow: 50, ga: 0.3, power: 0.16, rim: 0, reach: 320, floor: [770, 610], height: 160, shadow: false, when: () => F().ch === 1 }, // the couple's candle
     ],
     entries: { default: [140, 650, 'e'], street: [140, 650, 'e'] },
     anim(g, t) {
+      if (F().ch < 5 && F().ch !== 2) FX.wisps(g, t + 2, 420, 400, { n: 5, rise: 90, spread: 14, rgb: '215,205,190', a: 0.05, size: 10, speed: 0.12 }); // pipe smoke over the cards
       if (F().ch < 5) { if (F().ch === 1) FX.wisps(g, t, 770, 440, { n: 3, rise: 50, spread: 5, rgb: '200,190,180', a: 0.07, size: 4, speed: 0.25 }); FX.motes(g, t, 360, 120, 700, 300, 26, '255,210,150'); }
     },
     npcs: [
@@ -349,7 +356,7 @@
     ],
     ambient: [
       { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talk: ['npc_lino_talk', 'npc_lino_b'], x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch !== 2 && F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
-      { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], x: 360, y: 606, h: 230, look: 'alan_npc_cards', when: () => F().ch !== 2 && F().ch < 5, variantHold: [0.9, 1.5] },
+      { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch !== 2 && F().ch < 5, variantHold: [0.9, 1.5] },
       { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 560, y: 596, h: 290, look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch !== 2 && F().ch < 5 },
       { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => F().ch === 1 },
     ],

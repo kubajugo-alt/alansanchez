@@ -330,7 +330,8 @@
       let vx = a.x - fp[0], vy = (a.y - fp[1]);
       const dist = Math.hypot(vx, vy) || 1;
       vx /= dist; vy /= dist;
-      const len = h * Math.max(0.3, Math.min(1.5, 0.3 + dist / (o.l.height || 650)));
+      // a light nearly overhead casts a short shadow under the feet, not a long one in front of them
+      const len = h * Math.max(0.3, Math.min(1.5, 0.3 + dist / (o.l.height || 650))) * Math.min(1, 0.25 + dist / 260);
       const ex = vx * len, ey = vy * len * 0.42;
       // strength follows the light (and its flicker), but stays readable
       const alpha = Math.min(0.62, 0.1 + o.I * 2.4) * (typeof o.l.shadow === 'number' ? o.l.shadow : 1) * Math.min(1, o.l.f);

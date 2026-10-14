@@ -130,7 +130,7 @@
     light: { ambient: 'rgb(200,195,185)', base: 0.78, rim: 'rgba(235,230,215,0.2)', rimSide: 1 },
     lights: [
       { x: 590, y: 260, rgb: '230,232,235', power: 0.28, reach: 1100, rim: 0.5, shadow: 0.5, floor: [590, 560], height: 700 },
-      { x: 1080, y: 300, rgb: '230,232,235', power: 0.2, reach: 800, rim: 0.4, floor: [1080, 580], height: 700 },
+      { x: 1080, y: 300, rgb: '230,232,235', power: 0.2, reach: 800, rim: 0.4, floor: [1080, 580], height: 700, shadow: false }, // window glow: no hard shadow
     ],
     entries: { default: [150, 670, 'e'], map: [150, 670, 'e'] },
     layers: [

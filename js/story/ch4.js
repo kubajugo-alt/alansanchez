@@ -31,6 +31,7 @@
     entries: { default: [140, 640, 'e'], map: [140, 640, 'e'], boat: [880, 640, 'w'] },
     anim(g, t) {
       FX.water(g, t, 700, 560, 580, 160, '200,210,220');
+      for (let i = 0; i < 4; i++) FX.wisps(g, t + i * 2.2, 760 + i * 130, 600, { n: 3, rise: 40, spread: 70, rgb: '215,220,228', a: 0.05, size: 60, speed: 0.05 });
       FX.birds(g, t, { y0: 80, y1: 200, n: 3, period: 15, color: 'rgba(230,232,235,0.8)', size: 11 });
     },
     animFg(g, t) { if (F().ch === 4 && F().harbour) { /* clock overlay is HTML */ } },
@@ -88,7 +89,11 @@
     entries: { default: [240, 650, 'e'], cais: [240, 650, 'e'], cabin: [560, 620, 's'] },
     // the whole deck rocks gently at its mooring
     sway: t => Math.sin(t * 0.7) * 0.004,
-    anim(g, t) { FX.water(g, t, 0, 300, 300, 200, '200,210,220'); },
+    anim(g, t) {
+      FX.water(g, t, 0, 300, 300, 200, '200,210,220');
+      FX.birds(g, t + 5, { y0: 40, y1: 160, n: 2, period: 17, color: 'rgba(225,228,232,0.7)', size: 10 });
+      for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 3, 60 + i * 110, 420, { n: 3, rise: 40, spread: 60, rgb: '215,220,228', a: 0.05, size: 55, speed: 0.05 });
+    },
     npcs: [
       { id: 'ze', x: 900, y: 618, dir: 'w', name: 'Zé Coutinho', when: () => F().ze_awake && !F().ze_in_cabin, look: 'narr_look_ze', talk: () => S.talkZe(),
         items: { tidecard: () => S.zeCard(), file55: () => say('ze_file'), any: 'alan_fail_ze_item' } },
