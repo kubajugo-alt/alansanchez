@@ -60,6 +60,7 @@
   const posedLook = (pose, id) => () => S.posed(pose, () => say(id));
   S.ITEMS = {
     notebook: { name: 'Notebook', look: posedLook('write', 'alan_look_notebook') },
+    sketch: { name: 'Sketch of the tile', look: 'alan_look_sketch' },
     coins: { name: () => F().coins === 1 ? 'One escudo coin' : `${F().coins || 0} escudo coins`, look: 'alan_look_coins' },
     key: { name: 'Small iron key', look: 'alan_look_key' },
     ledger: { name: () => F().genealogy_read ? "Grandfather's ledger (genealogy)" : F().decoded ? "Grandfather's ledger (decoded)" : "Grandfather's ledger",
@@ -131,16 +132,16 @@
   S.hint = function () {
     const f = F(), has = G.has;
     if (!f.heard_machine) return 'ines_hint_machine';
-    if (!f.got_ledger) return f.tinTaken ? 'ines_hint_desk' : 'ines_hint_key';
+    if (!f.got_ledger) return !f.tinTaken ? 'ines_hint_key' : (f.lampOff ? 'ines_hint_desk2' : 'ines_hint_desk');
     if (!f.saw_list) return 'ines_hint_police';
     if (!f.sketched_tile) return 'ines_hint_sketch';
     if (!f.knows_brotherhood) return 'ines_hint_show';
     if (!f.heard_song) return f.askedSong ? 'ines_hint_song' : 'ines_hint_amalia';
-    if (!f.drawer_open) return f.askedDrawer ? 'ines_hint_drawer' : 'ines_hint_1955';
-    if (!f.met_celeste || !f.tide_known) return f.ferreira_lit || !f.visited_ferreira ? (f.ferreira_lit ? 'ines_hint_tide' : (f.visited_ferreira ? 'ines_hint_dark' : 'ines_hint_threads')) : 'ines_hint_threads';
-    if (!f.decoded) return f.stone_washed ? 'ines_hint_wheel' : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
+    if (!f.drawer_open) return !f.askedDrawer ? 'ines_hint_1955' : (f.salt_seen ? 'ines_hint_drawer' : 'ines_hint_look');
+    if (!f.met_celeste || !f.tide_known) return f.visited_ferreira && !f.ferreira_lit ? 'ines_hint_dark' : (!f.met_celeste ? 'ines_hint_celeste' : (f.ferreira_lit ? 'ines_hint_tide' : 'ines_hint_threads'));
+    if (!f.decoded) return f.stone_washed ? (f.stone_read ? 'ines_hint_wheel' : 'ines_hint_mag') : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
     if (!f.founder_order) return 'ines_hint_order';
-    if (!f.has_tongue) return has('vkey') && f.case_known ? 'ines_hint_theft' : 'ines_hint_case';
+    if (!f.has_tongue) return !(has('vkey') && f.case_known) ? 'ines_hint_case' : (f.lac_away ? 'ines_hint_theft' : 'ines_hint_box');
     return 'ines_hint_ch3_done';
   };
 })();

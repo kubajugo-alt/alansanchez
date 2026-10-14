@@ -8,7 +8,7 @@
   S.cipher = { ABC, shift, PLAIN: 'THE BROTHERHOOD RANG THE DROWNED BELL' };
   const enc = s => shift(s.toUpperCase(), 7);
 
-  const RITE = 'SHOULD THE TONGUE BE FOUND LET THE LAST OF THE BELL HAND RING IT BACKWARD AS THE FOUNDERS RANG THE CITY LAST TO FIRST AT A TURNING OF THE TIDE WITH HIS OWN BLOOD ON THE BRONZE';
+  const RITE = 'SHOULD THE TONGUE BE FOUND LET THE LAST OF THE BELL HAND RING IT BACKWARD AGAINST THE ORDER THE FOUNDERS RANG THE CITY LAST TO FIRST AT A TURNING OF THE TIDE WITH HIS OWN BLOOD ON THE BRONZE';
   const P1955 = 'AFONSO LACERDA DROWNED IN HIS OWN WATER I HAD THE TONGUE IN MY HAND AND THE BELL BEFORE ME AND I RAN HIS BOY WATCHED THE LACERDAS ARE PATIENT GOD FORGIVE ME SO AM I';
 
   const ledgerPages = () => {
@@ -18,7 +18,7 @@
         ? `<h3>The Brotherhood rang the drowned bell</h3><p><i>Lisbon, 1756.</i> Set down by the four founders in the old cipher, the key cut in the weeping stone of the Carmo.</p><p class="cipher">${enc(S.cipher.PLAIN)}</p>`
         : `<h3>&nbsp;</h3><p class="cipher">${enc(S.cipher.PLAIN)}</p><p class="cipher">${enc('THE FOUR FOUNDERS SET THIS DOWN IN SEVENTEEN FIFTY SIX')}</p><p class="cipher">${enc('THE KEY IS CUT IN THE WEEPING STONE')}</p>` },
       { img: PAPER, cls: 'doc-ledger', html: d
-        ? `<h3>The rite</h3><p>Should the tongue be found, let the last of the bell-hand ring it backward, as the founders rang the city, <b>last to first</b>, at a turning of the tide, with his own blood on the bronze.</p>`
+        ? `<h3>The rite</h3><p>Should the tongue be found, let the last of the bell-hand ring it backward, against the order the founders rang the city: <b>last to first</b>, at a turning of the tide, with his own blood on the bronze.</p>`
         : `<p class="cipher">${enc(RITE)}</p>` },
       { img: PAPER, cls: 'doc-hand', html: d
         ? `<p>1955.</p><p>Afonso Lacerda drowned in his own water. I had the tongue in my hand and the bell before me, and I ran. His boy watched.</p><p>The Lacerdas are patient. God forgive me, so am I.</p><p style="text-align:right">J. S.</p>`

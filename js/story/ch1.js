@@ -35,11 +35,11 @@
       if (F().ch === 3 && F().steaming) FX.wisps(g, t, 520, 345, { n: 6, rise: 80, spread: 10, a: 0.14, size: 10 });
     },
     npcs: [
-      { id: 'ines', x: 610, y: 590, dir: 'w', name: 'Inês', when: () => F().ch < 5, look: 'narr_look_ines', talk: () => S.talkInes(),
-        items: { notebook: () => S.inesSketch(), ledger: () => S.inesLedger(), tongue: () => say('ines_vandal'), any: 'alan_fail_ines_item' } },
+      { id: 'ines', x: 610, y: 590, dir: 'w', name: 'Inês', when: () => F().ch < 5 && !(F().ch === 4 && F().ze_saved), look: 'narr_look_ines', talk: () => S.talkInes(),
+        items: { sketch: () => S.inesSketch(), notebook: () => S.inesSketch(), ledger: () => S.inesLedger(), tongue: () => say('ines_vandal'), any: 'alan_fail_ines_item' } },
       { id: 'pessoa', h: 46, x: 0, y: 0, dir: 'w', fixedDir: true, name: 'Pessoa', when: () => !(F().ch >= 5 && F().pessoa_fed), init: a => { const p = PESSOA_AT[pessoaSpot()]; a.x = p[0]; a.y = p[1]; a.dir = p[2]; },
         look: () => say(pessoaSpot() === 'machine' ? 'alan_look_pessoa_machine' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_look_pessoa'),
-        talk: () => say(pessoaSpot() === 'desk' ? 'alan_talk_pessoa' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_take_pessoa_machine'), take: () => say(pessoaSpot() === 'machine' ? 'alan_take_pessoa_machine' : 'alan_take_pessoa'), use: 'alan_push_pessoa',
+        talk: () => say(pessoaSpot() === 'desk' ? 'alan_talk_pessoa' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_take_pessoa_machine'), take: () => pessoaSpot() === 'machine' ? (F().pessoa_tried ? say('alan_hint_bribe') : (F().pessoa_tried = true, say('alan_take_pessoa_machine'))) : say('alan_take_pessoa'), use: 'alan_push_pessoa',
         items: { sardine: () => S.feedPessoa(), any: 'alan_fail_09' } },
     ],
     hotspots: [
@@ -117,6 +117,7 @@
   S.usePhone = async function () {
     if (F().ch >= 5) {
       if (F().rui_called) return say('alan_fail_04');
+      if (!F().heard_msg3) return say('alan_phone_ch5_early');
       await posed('phone', async () => {
         sfx('phone_dial'); await G.wait(window.FAST ? 20 : 1600);
         await say('alan_call_rui', 'rui_gate');
@@ -139,7 +140,6 @@
       { line: 'alan_ask_ines_work', once: true, run: () => say('ines_work') },
       // bells only once the sketch has put them on the table
       { line: 'alan_ask_ines_grandpa', once: true, when: () => F().knows_brotherhood, run: () => say('ines_grandpa') },
-      { line: 'alan_show_sketch', silent: true, when: () => F().sketched_tile && !F().knows_brotherhood, run: () => S.inesSketch(), bye: true },
       { label: 'Goodbye.', bye: true, run: () => say('ines_bye') },
     ]);
   };
@@ -299,7 +299,7 @@
           if (!F().ruiMurders) return say('rui_hands_off');
           if (F().sketched_tile) return say('alan_have_sketch');
           await posed('write', async () => { await G.wait(window.FAST ? 20 : 900); await joke('alan_sketch'); });
-          F().sketched_tile = true;
+          F().sketched_tile = true; give('sketch');
         }, any: 'alan_fail_rui_item' } },
       { name: "Rui's coffee", rect: [724, 356, 56, 50], look: 'narr_look_coffee' },
       { name: 'Door', rect: [70, 40, 120, 510], at: [150, 645], exit: 'map', entry: 'police' },
@@ -355,7 +355,7 @@
         items: { ginja: () => S.giveGinja(), any: 'alan_fail_08' } },
     ],
     ambient: [
-      { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talk: ['npc_lino_talk', 'npc_lino_b'], x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch !== 2 && F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
+      { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talkFrames: ['npc_lino_talk', 'npc_lino_b'], talk: () => S.talkLino(), x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch !== 2 && F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
       { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch !== 2 && F().ch < 5, variantHold: [0.9, 1.5] },
       { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 560, y: 596, h: 290, look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch !== 2 && F().ch < 5 },
       { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => F().ch === 1 },
@@ -392,7 +392,7 @@
     const lino = G.npc('npc_lino');
     if (lino) await say('lino_sell');
     spendCoin(2); sfx('coin');
-    if (lino) { lino.idleIdx = 1; sfx('pour'); await G.wait(window.FAST ? 20 : 1100); await say('lino_poured'); lino.idleIdx = 0; }
+    if (lino) { lino.idleIdx = 1; sfx('pour'); await G.wait(window.FAST ? 20 : 1100); await say('lino_poured'); lino.idleIdx = 0; if (!F().gag_lino) { F().gag_lino = true; await say('gag_lino', 'gag_alan_lino'); } }
     else sfx('pour');
     give('ginja', 2);
     await joke('alan_ginjinhas');
@@ -455,6 +455,12 @@
       p.pose = null; copPose(null);
     });
   };
+  // Lino notices where Alan's eyes go
+  S.talkLino = async function () {
+    if (F().lino_teased) return say('lino_talk_2');
+    F().lino_teased = true;
+    await say('lino_talk_1', 'alan_lino_1', 'lino_talk_3');
+  };
   S.flirtGuitar = async function () {
     const gt = G.npc('npc_guitar'), p = G.player;
     const gPose = k => { if (gt) gt.pose = k; };
@@ -466,7 +472,7 @@
       gPose(null); p.pose = 'swoon'; await say('alan_flirt_guitar_2');
       p.pose = null; gPose('npc_guitar_wink'); await say('guitar_flirt_2');
       gPose(null);
-      if (G.npc('amalia')) await say('amalia_flirt');
+      if (G.npc('amalia')) await say('amalia_flirt', 'gag_amalia', 'gag_alan_amalia');
     });
   };
   // a matchbox with a sailing ship on the lid, at the near end of the bar

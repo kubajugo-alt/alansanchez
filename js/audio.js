@@ -282,8 +282,9 @@
     boat: { recordedOnly: true, setup() { bed('lowpass', 300, 0.6, 0.03, 0.08); }, tick() {} },
   };
   // recorded ambience loops (ElevenLabs), mixed under the procedural details
-  const LOOPS = { shop: ['amb_city', 0.12], street: ['amb_city', 0.5], office: ['amb_office', 0.4], tavern: ['amb_tavern', 0.35], clocks: ['amb_clocks', 0.45],
-    cistern: ['amb_cistern', 0.6], washhouse: ['amb_washhouse', 0.5], harbour: ['amb_harbour', 0.55], tower: ['amb_tower', 0.5], boat: ['boat_creak', 0.5] };
+  // recorded ambience loops: volumes set so every room sits about 18-20 dB under the dialogue
+  const LOOPS = { shop: ['amb_city', 0.16], street: ['amb_city', 0.5], office: ['amb_office', 0.4], tavern: ['amb_tavern', 0.28], clocks: ['amb_clocks', 0.4],
+    cistern: ['amb_cistern', 0.4], washhouse: ['amb_washhouse', 0.2], harbour: ['amb_harbour', 0.55], tower: ['amb_tower', 0.25], boat: ['boat_creak', 0.5] };
   function loopFile(name, vol) {
     const g = ctx.createGain(); g.gain.value = 0.0001; g.connect(ambBus); ambNodes.push(g);
     const start = buf => { if (!ambNodes.includes(g)) return; const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.connect(g); s.start(); ambNodes.push(s); g.gain.setTargetAtTime(vol, ctx.currentTime, 1.0); };

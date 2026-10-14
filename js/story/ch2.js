@@ -31,7 +31,7 @@
     occluders: [{ y: 482, polys: [[[160, 386], [1068, 386], [1068, 484], [160, 484]]] }],
     npcs: [
       { id: 'celeste', x: 600, y: 610, dir: 'e', set: () => F().met_celeste ? 'wring' : 'wring', name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCeleste(),
-        items: { notebook: () => S.celesteTile(), file55: () => S.celeste1955(), any: 'alan_fail_06' } },
+        items: { sketch: () => S.celesteTile(), notebook: () => S.celesteTile(), file55: () => S.celeste1955(), any: 'alan_fail_06' } },
     ],
     ambient: [
       { id: 'npc_washer1', name: 'Washerwoman', frames: ['npc_washer1', 'npc_washer1_b'], x: 300, y: 474, h: 205, look: 'alan_npc_washers', idleHold: [6, 14] },
@@ -160,7 +160,7 @@
       { line: 'alan_show_tile', when: () => F().sketched_tile && !F().lore_bronze, run: () => S.celesteTile() },
       { line: 'alan_show_file', when: () => G.has('file55') && !F().knows_1955_boy, run: () => S.celeste1955() },
       { line: 'alan_ask_maria', once: true, run: () => say('celeste_maria') },
-      { line: 'alan_ask_rui', once: true, run: () => say('celeste_rui', 'alan_rui_eating') },
+      { line: 'alan_ask_rui', once: true, run: () => say('celeste_rui', 'alan_rui_eating', 'gag_celeste', 'gag_alan_celeste') },
       { label: 'Goodbye.', bye: true, run: async () => { await say('celeste_bye'); S.checkCh2(); } },
     ]);
   };
@@ -216,7 +216,7 @@
           if (!F().tide_wound) return say('narr_look_tideclock');
           await S.showTideClock(true);
           if (!F().deaths_known) return say('alan_need_times');
-          if (!F().tide_known) { F().tide_known = true; await say('alan_turnings'); if (F().met_celeste) await say('alan_turnings_celeste'); await S.ensureTideCard(); }
+          if (!F().tide_known) { F().tide_known = true; await say('alan_turnings'); if (F().lore_turnings) await say('alan_turnings_celeste'); await S.ensureTideCard(); }
           else await say('alan_tide_today');
         },
         items: { key: async () => {
@@ -225,7 +225,7 @@
           await joke('alan_clock_wound');
           await S.showTideClock(true);
           await say('narr_tideclock_runs');
-          if (F().deaths_known) { F().tide_known = true; await say('alan_turnings'); if (F().met_celeste) await say('alan_turnings_celeste'); await S.ensureTideCard(); }
+          if (F().deaths_known) { F().tide_known = true; await say('alan_turnings'); if (F().lore_turnings) await say('alan_turnings_celeste'); await S.ensureTideCard(); }
         }, any: 'alan_fail_02' } },
       { name: 'Tide card', rect: [772, 448, 80, 22], at: [810, 640], face: 'n', when: () => lit() && F().tide_wound && !G.has('tidecard') && !F().tidecardTaken,
         look: 'alan_look_tidecard', take: async () => { F().tidecardTaken = true; give('tidecard'); sfx('page'); await say('alan_tide_card'); await S.readTideCard(); await say('alan_tide_today'); } },

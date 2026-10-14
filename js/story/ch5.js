@@ -26,7 +26,7 @@
     npcs: [
       { id: 'tomas', ch: 'tomas_night', x: 430, y: 600, dir: 'e', name: 'Father Tomás', look: 'narr_look_tomas_night', talk: () => S.tomasConfession(), when: () => !F().won,
         items: { any: 'alan_fail_07' } },
-      { id: 'rui', x: 120, y: 600, dir: 'e', set: 'gate', name: 'Rui', when: () => F().rui_called && !F().won, look: 'narr_look_rui', talk: () => say('rui_nothing', 'alan_rui_gate') },
+      { id: 'rui', x: 120, y: 600, dir: 'e', set: 'gate', name: 'Rui', when: () => F().rui_called && !F().won, look: 'narr_look_rui', talk: () => F().gag_rui ? say('rui_nothing', 'alan_rui_gate') : (F().gag_rui = true, say('gag_rui', 'gag_alan_rui')) },
     ],
     hotspots: [
       { name: 'Weeping stone', rect: [40, 125, 190, 345], look: 'narr_look_stone' },
@@ -49,7 +49,7 @@
     await S.still('still_1955_b', 'cistern', () => say('tomas_ran'), { sepia: true, grain: true, zoom: [1.06, 1.0] });
     await S.still('still_1955_c', 'convent_night', () => say('tomas_count'), { sepia: true, grain: true, zoom: [1.0, 1.1] });
     G.cutscene = false;
-    await say('alan_thanks', 'tomas_lantern');
+    await say('alan_thanks', 'tomas_lantern', 'gag_tomas', 'gag_alan_tomas');
     F().confessed = true; F().has_lantern = true; give('lantern'); sfx('lantern');
     if (F().rui_called) await say('rui_nothing');
   };
@@ -343,7 +343,7 @@
     await p.walkTo(272, 556); await p.walkTo(420, 640);
     if (ines.y < 560) await ines.walkTo(330, 566);
     await ines.walkTo(p.x + 140, p.y + 4); ines.dir = 'w'; p.dir = 'e';
-    await say('ines_end', 'alan_end');
+    await say('ines_end', 'alan_end', 'gag_ines_2', 'gag_alan_ines_2');
     G.cutscene = false;
     await S.dawn();
   };

@@ -87,7 +87,7 @@
       G.player.pose = null;
       await joke('alan_wake');
       G.player.dir = 'w';
-      await say('ines_intro_2', 'alan_intro_3', 'ines_intro_3');
+      await say('ines_intro_2', 'alan_intro_3', 'gag_ines_1', 'gag_alan_ines_1', 'ines_intro_3');
       await S.joke('alan_intro_4');
       await say('ines_intro_4');
     });

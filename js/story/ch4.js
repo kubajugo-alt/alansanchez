@@ -40,9 +40,9 @@
         items: { tidecard: () => say('celeste_hint_ze'), any: 'alan_fail_06' } },
     ],
     ambient: [
-      { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], x: 600, y: 712, h: 270, look: 'alan_npc_menders' },
-      { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2'], x: 800, y: 714, h: 280, look: 'alan_npc_menders' },
-      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], x: 520, y: 592, h: 215, look: 'alan_npc_fish' },
+      { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], x: 600, y: 712, h: 290, look: 'alan_npc_menders' },
+      { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2'], x: 800, y: 714, h: 292, look: 'alan_npc_menders' },
+      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], x: 520, y: 592, h: 282, look: 'alan_npc_fish' },
     ],
     hotspots: [
       { name: 'Harbour clock', rect: [224, 30, 96, 525], look: 'narr_look_harbourclock' },
@@ -59,14 +59,14 @@
   };
   S.talkCelesteQuay = async function () {
     await G.dialog([
-      { line: 'alan_ask_ze', once: true, run: () => say('celeste_ze') },
+      { line: 'alan_ask_ze', once: true, run: () => say('celeste_ze', 'gag_celeste_quay', 'gag_alan_celeste_quay') },
       { line: 'alan_ask_boat', once: true, run: () => say('celeste_boat') },
       { line: 'alan_ask_wake', when: () => F().knocked, run: async () => { await say('celeste_wake'); F().wake_rule = true; } },
       { label: 'What now?', run: () => say(S.quayHint()) },
       { label: 'Goodbye.', bye: true, run: () => say('celeste_quay_bye') },
     ]);
   };
-  S.quayHint = () => !F().knocked ? 'celeste_hint_boat' : !F().ze_awake ? (F().knot_tried ? 'celeste_hint_knot' : 'celeste_hint_wake') : !F().ze_believes ? 'celeste_hint_ze' : 'celeste_hint_tile';
+  S.quayHint = () => !F().knocked ? 'celeste_hint_boat' : !F().ze_awake ? (F().knot_tried ? 'celeste_hint_knot' : 'celeste_hint_wake') : !F().ze_believes ? 'celeste_hint_ze' : !F().ze_saved ? 'celeste_hint_tile' : 'celeste_hint_phone';
   S.quayPhone = async function () {
     if (!F().ze_saved) return say('alan_phone_cais_early');
     if (F().rang_shop) return say('alan_fail_04');
@@ -261,7 +261,7 @@
       p.pose = 'button';
       await say('ze_rom_3');
       if (ze) ze.pose = null; p.pose = null;
-      await say('alan_rom_3');
+      await say('alan_rom_3', 'gag_ze', 'gag_alan_ze');
     });
   };
   S.ch4End = async function () {

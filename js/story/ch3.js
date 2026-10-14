@@ -28,7 +28,7 @@
         items: { file55: () => say('alan_ask_tomas_1955', 'tomas_notyet'), ledger: () => say('tomas_stone'), any: 'alan_fail_07' } },
     ],
     ambient: [
-      { id: 'npc_nun', name: 'A nun', frames: ['npc_nun', 'npc_nun_b'], x: 1112, y: 548, h: 200, look: 'alan_npc_nun', idleHold: [7, 14], variantHold: [4, 7] },
+      { id: 'npc_nun', name: 'A nun', frames: ['npc_nun', 'npc_nun_b'], x: 1112, y: 548, h: 214, look: 'alan_npc_nun', idleHold: [7, 14], variantHold: [4, 7] },
     ],
     hotspots: [
       { name: 'Ruined arches', rect: [320, 0, 330, 500], look: 'narr_look_arches' },
@@ -173,7 +173,7 @@
     const ab = G.npc('abilio');
     if (!F().abilio_writing) { F().abilio_writing = true; await joke('alan_write_abilio'); }
     await G.dialog([
-      { line: 'alan_w_joaquim', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_joaquim'); } },
+      { line: 'alan_w_joaquim', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); } },
       { line: 'alan_w_1955', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_1955'); } },
       { line: 'alan_w_backward', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_backward'); } },
       { line: 'alan_w_order', run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 600); ab.pose = 'point'; await say('abilio_eyes'); ab.pose = null; } },
@@ -205,7 +205,7 @@
     entries: { default: [640, 690, 'n'], map: [640, 690, 'n'] },
     anim(g, t) { FX.motes(g, t, 560, 80, 380, 420, 24, '255,220,170'); },
     npcs: [
-      { id: 'lacerda', x: 250, y: 545, h: 385, dir: 'e', at: [540, 615], name: 'Senhor Lacerda', look: 'narr_look_lacerda', talk: () => S.talkLacerda(),
+      { id: 'lacerda', x: 250, y: 545, h: 348, dir: 'e', at: [540, 615], name: 'Senhor Lacerda', look: 'narr_look_lacerda', talk: () => S.talkLacerda(),
         items: { ledger: () => say('lacerda_charming'), tongue: () => say('lacerda_putback'), any: 'alan_fail_lacerda_item' } },
     ],
     hotspots: [
@@ -217,7 +217,7 @@
       { name: 'Music box', rect: [928, 318, 130, 125], at: [990, 600], face: 'n',
         look: async () => { await say('narr_look_musicbox'); F().saw_box = true; if (F().saw_photo) { await say('alan_box_photo'); if (S.lacerdaHere()) await say('lacerda_trinket'); } } },
       { name: 'Display case', rect: [655, 285, 215, 240], at: [760, 605], face: 'n',
-        look: () => { F().case_known = true; return F().has_tongue ? say('narr_look_musicbox') : (F().saw_case ? joke('alan_look_case') : (F().saw_case = true, say('narr_look_case'))); },
+        look: () => { F().case_known = true; return F().has_tongue ? say('narr_look_case_after') : (F().saw_case ? joke('alan_look_case') : (F().saw_case = true, say('narr_look_case'))); },
         use: () => S.lacerdaHere() ? say('lacerda_hands') : say(F().case_open ? 'alan_noswap' : 'alan_case_locked'),
         take: () => S.lacerdaHere() ? say('lacerda_hands') : F().case_open ? S.grabTongue() : say('alan_case_locked'),
         items: {
