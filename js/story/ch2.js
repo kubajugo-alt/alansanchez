@@ -159,19 +159,23 @@
     if (!first) await say('celeste_hello');
     await G.dialog([
       { line: 'alan_ask_river', once: true, run: async () => { await say('celeste_river'); await joke('alan_breathes'); await say('celeste_salt'); F().lore_turnings = true; } },
-      { line: 'alan_show_tile', when: () => F().sketched_tile && !F().lore_bronze, run: () => S.celesteTile() },
-      { line: 'alan_show_file', when: () => G.has('file55') && !F().knows_1955_boy, run: () => S.celeste1955() },
+      { line: 'alan_show_tile', silent: true, when: () => F().sketched_tile && !F().lore_bronze, run: () => S.celesteTile() },
+      { line: 'alan_show_file', silent: true, when: () => G.has('file55') && !F().knows_1955_boy, run: () => S.celeste1955() },
       { line: 'alan_ask_maria', once: true, run: () => say('celeste_maria') },
       { line: 'alan_ask_rui', once: true, run: () => say('celeste_rui', 'alan_rui_eating', 'gag_celeste', 'gag_alan_celeste') },
       { label: 'Goodbye.', bye: true, run: async () => { await say('celeste_bye'); S.checkCh2(); } },
     ]);
   };
   S.celesteTile = async function () {
+    if (!F().met_celeste) return say('celeste_twist');
+    if (F().lore_bronze) return say('celeste_tile_again');
     await say('alan_show_tile', 'celeste_tile_1');
     await joke('alan_dingdong'); await say('celeste_cheeky');
     F().lore_bronze = true;
   };
   S.celeste1955 = async function () {
+    if (!F().met_celeste) return say('celeste_twist');
+    if (F().knows_1955_boy) return say('celeste_file_again');
     await say('alan_show_file', 'celeste_1955_1', 'celeste_1955_2');
     F().knows_1955_boy = true;
   };
@@ -223,6 +227,7 @@
         },
         items: { key: async () => {
           if (F().tide_wound) return say('alan_fail_04');
+          if (!F().got_ledger) return say('alan_key_desk_first');
           G.takeItem('key'); F().tide_wound = true; sfx('clock_wind');
           await joke('alan_clock_wound');
           await S.showTideClock(true);
@@ -254,7 +259,7 @@
     F().tidecardTaken = true; give('tidecard'); sfx('page');
     if (!quiet) await say('alan_tide_card');
   };
-  S.checkCh2 = function () { if (F().met_celeste && F().tide_known) F().ch2_ready = true; };
+  S.checkCh2 = function () { if (F().met_celeste && F().tide_known && F().knows_1955_boy) F().ch2_ready = true; };
   S.ch2End = async function () {
     if (F().ch2_done) return;
     F().ch2_done = true;

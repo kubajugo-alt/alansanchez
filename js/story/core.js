@@ -123,7 +123,7 @@
     4: ['CHAPTER IV', "The Founders' Blood", '17:15'], 5: ['CHAPTER V', 'The Drowned Bell', '19:00'],
   };
   S.chapter = async function (n, line) {
-    F().ch = n; F().clock = CH[n][2];
+    F().ch = n; F().clock = CH[n][2]; if (G.room) G.refreshNpcs(); // the cast changes with the chapter, even mid-room
     await G.card(CH[n][0], `${CH[n][1]}  ·  ${CH[n][2]}`, 3000);
     if (line) await G.say(line, { offscreen: true });
     G.autosave();
@@ -147,12 +147,17 @@
     const f = F(), has = G.has;
     if (!f.heard_machine) return 'ines_hint_machine';
     if (!f.got_ledger) return !f.tinTaken ? 'ines_hint_key' : (f.lampOff ? 'ines_hint_desk2' : 'ines_hint_desk');
-    if (!f.saw_list) return 'ines_hint_police';
+    if (!f.saw_list && !f.sketched_tile) return 'ines_hint_police';
     if (!f.sketched_tile) return 'ines_hint_sketch';
     if (!f.knows_brotherhood) return 'ines_hint_show';
     if (!f.heard_song) return f.askedSong ? 'ines_hint_song' : 'ines_hint_amalia';
     if (!f.drawer_open) return !f.askedDrawer ? 'ines_hint_1955' : (f.salt_seen ? 'ines_hint_drawer' : 'ines_hint_look');
-    if (!f.met_celeste || !f.tide_known) return f.visited_ferreira && !f.ferreira_lit ? 'ines_hint_dark' : (!f.met_celeste ? 'ines_hint_celeste' : (f.ferreira_lit ? 'ines_hint_tide' : 'ines_hint_threads'));
+    if (!f.met_celeste || !f.tide_known) {
+      if (f.visited_ferreira && !f.ferreira_lit) return has('matches') ? 'ines_hint_light' : 'ines_hint_dark';
+      if (!f.met_celeste) return f.visited_ferreira ? 'ines_hint_celeste' : 'ines_hint_threads';
+      return f.ferreira_lit ? 'ines_hint_tide' : 'ines_hint_ferreira';
+    }
+    if (!f.knows_1955_boy) return 'ines_hint_file';
     if (!f.decoded) return f.stone_washed ? (f.stone_read ? 'ines_hint_wheel' : 'ines_hint_mag') : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
     if (!f.founder_order) return 'ines_hint_order';
     if (!f.has_tongue) return !(has('vkey') && f.case_known) ? 'ines_hint_case' : (f.lac_away ? 'ines_hint_theft' : 'ines_hint_box');

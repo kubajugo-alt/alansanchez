@@ -45,14 +45,14 @@
     ],
     hotspots: [
       { name: 'Bookshelves', rect: [0, 0, 290, 300], look: 'narr_look_shelves' },
-      { name: "Grandfather's desk", rect: [40, 330, 300, 280], at: [380, 600], face: 'w', look: 'narr_look_desk',
-        use: () => F().got_ledger ? say('alan_drawer_empty') : pessoaSpot() === 'desk' ? say('alan_desk_cat') : say('alan_drawer_locked'),
+      { name: "Grandfather's desk", rect: [40, 330, 300, 280], at: [380, 600], face: 'w', look: () => say(F().got_ledger ? 'narr_look_desk_open' : 'narr_look_desk'),
+        use: () => F().got_ledger ? say('alan_drawer_empty') : pessoaSpot() === 'desk' ? say('alan_desk_cat') : G.has('key') ? say('alan_desk_usekey') : say('alan_drawer_locked'),
         items: { key: async () => {
           if (F().got_ledger) return say('alan_drawer_empty');
           if (pessoaSpot() === 'desk') return say('alan_desk_cat');
           sfx('drawer_open'); await say('alan_unlock'); F().got_ledger = true; give('ledger'); await joke('alan_take_ledger');
         }, any: 'alan_fail_02' } },
-      { name: "Banker's lamp", rect: [118, 286, 118, 70], at: [380, 600], face: 'w', look: 'narr_look_lamp_banker',
+      { name: "Banker's lamp", rect: [118, 286, 118, 70], at: [380, 600], face: 'w', look: () => say(F().lampOff && F().ch < 5 ? 'narr_look_lamp_off' : 'narr_look_lamp_banker'),
         use: async () => {
           if (F().ch >= 5) { sfx('lamp_click'); return say('alan_lamp_machine'); }
           if (F().lampOff) return say('alan_lamp_again');
@@ -69,7 +69,7 @@
       { name: 'Radiator', rect: [736, 352, 58, 150], at: [760, 560], face: 'n', look: 'narr_look_radiator' },
       { name: 'Cash register', rect: [850, 212, 180, 170], at: [820, 566], face: 'e', look: () => say(F().coinsTaken ? 'alan_register_empty' : 'alan_look_register'),
         take: async () => { if (F().coinsTaken) return say('alan_register_empty'); F().coinsTaken = true; give('coins', 3); sfx('coin'); await say('alan_take_coins'); } },
-      { name: 'Answering machine', rect: [955, 366, 120, 40], at: [830, 570], face: 'e', look: 'narr_look_machine', use: () => S.playMachine() },
+      { name: 'Answering machine', rect: [955, 366, 120, 40], at: [830, 570], face: 'e', look: () => say(F().heard_machine ? 'narr_look_machine_heard' : 'narr_look_machine'), use: () => S.playMachine() },
       { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone() },
       { name: 'Newspaper', rect: [1035, 400, 222, 62], at: [880, 610], face: 'e', look: () => say('narr_look_news', 'alan_news') },
       { name: 'Salt on the floor', rect: [500, 560, 520, 60], when: () => F().ch >= 5, look: 'narr_look_salt_line' },
@@ -127,7 +127,7 @@
       });
       F().rui_called = true; return;
     }
-    return say('alan_phone_ch1');
+    return say(F().ch >= 2 ? 'alan_phone_later' : 'alan_phone_ch1');
   };
 
   // ---------- Inês
@@ -146,7 +146,7 @@
   };
   S.inesSketch = async function () {
     if (!F().sketched_tile) return say('alan_fail_ines_item');
-    if (F().knows_brotherhood) return say('ines_hint_amalia');
+    if (F().knows_brotherhood) return say(S.hint());
     await say('alan_show_sketch', 'ines_sketch_1', 'ines_sketch_2');
     if (F().saw_list) { await say('ines_sketch_founders'); await joke('alan_founders'); }
     if (F().mag_monster) await say('ines_monster');
@@ -275,11 +275,11 @@
       { name: 'Filing cabinet', rect: [1105, 180, 95, 285], look: 'narr_look_cabinet' },
       { name: () => F().drawer_open ? 'Open drawer' : 'Bottom drawer', rect: [1108, 465, 90, 115], at: [1080, 650], face: 'e',
         look: () => F().ch >= 2 ? joke('alan_look_drawer') : say('narr_look_cabinet'),
-        use: () => F().drawer_open ? S.takeFile() : say(F().ch >= 2 ? 'alan_drawer_pull' : 'alan_drawer_ch1'),
+        use: () => F().drawer_open ? S.takeFile() : say(F().ch < 2 ? 'alan_drawer_ch1' : F().salt_seen ? 'alan_drawer_pull' : 'alan_drawer_stuck'),
         items: {
           magnifier: async () => { if (F().ch < 2) return say('alan_drawer_ch1'); F().salt_seen = true; await say('alan_salted'); },
           coffee: async () => {
-            if (!F().salt_seen) return say('alan_drawer_pull');
+            if (!F().salt_seen) return say('alan_drawer_stuck');
             G.takeItem('coffee'); sfx('salt_fizz'); await G.wait(window.FAST ? 20 : 900);
             await say('rui_coffee', 'alan_coffee');
             sfx('drawer_scrape'); F().drawer_open = true; await say('narr_drawer_open');
@@ -288,14 +288,14 @@
           any: 'alan_fail_05',
         } },
       { name: 'Coffee machine', rect: [1032, 245, 80, 300], at: [1000, 645], face: 'e', look: 'narr_look_machine_coffee',
-        use: () => say(F().ch >= 2 ? 'alan_coin_machine' : 'alan_coffee_ch1'),
+        use: () => say(F().ch >= 2 ? 'alan_machine_coin' : 'alan_coffee_ch1'),
         items: { coins: async () => {
-          if (F().ch < 2 || !F().askedDrawer) return say('alan_coffee_ch1');
+          if (F().ch < 2 || !(F().askedDrawer || F().salt_seen)) return say('alan_coffee_ch1');
           if (G.has('coffee') || F().drawer_open) return say('alan_fail_04');
           spendCoin(1); sfx('coffee_machine'); await G.wait(window.FAST ? 20 : 1800); give('coffee'); await say('alan_coin_machine');
         }, any: 'alan_fail_02' } },
       { name: 'Evidence bag', rect: [610, 340, 76, 64], at: [650, 640], face: 'n', look: 'narr_look_evidence',
-        take: () => say(F().ruiMurders ? 'alan_have_sketch' : 'rui_hands_off'),
+        take: () => say(!F().ruiMurders ? 'rui_hands_off' : F().sketched_tile ? 'alan_have_sketch' : 'alan_bag_draw'),
         items: { notebook: async () => {
           if (!F().ruiMurders) return say('rui_hands_off');
           if (F().sketched_tile) return say('alan_have_sketch');
@@ -319,7 +319,7 @@
   S.talkRui = async function () {
     if (!F().metRui) { F().metRui = true; await say('rui_hello'); await joke('alan_rui_hello'); }
     await G.dialog([
-      { line: 'alan_ask_murders', run: async () => { await say('rui_murders_1', 'rui_murders_2'); await joke('alan_rui_locked'); F().ruiMurders = true; } },
+      { line: 'alan_ask_murders', run: async () => { await say('rui_murders_1', 'rui_murders_2'); if (!F().ruiMurders) await joke('alan_rui_locked'); F().ruiMurders = true; } },
       { line: 'alan_ask_victims', when: () => F().ruiMurders, once: true, run: () => say('rui_victims_1', 'rui_victims_2') },
       { line: 'alan_ask_list', when: () => F().ruiMurders && !F().saw_list, run: async () => {
         await say('rui_list_1'); await S.readList(); await say('alan_list_hand', 'rui_water'); await joke('alan_water'); F().saw_list = true;
@@ -356,7 +356,7 @@
         items: { ginja: () => S.giveGinja(), any: 'alan_fail_08' } },
     ],
     ambient: [
-      { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talkFrames: ['npc_lino_talk', 'npc_lino_b'], talk: () => S.talkLino(), x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch !== 2 && F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
+      { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talkFrames: ['npc_lino_talk', 'npc_lino_b'], talk: () => S.talkLino(), items: { coins: () => S.buyGinja() }, x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch !== 2 && F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
       { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], talkFrames: ['npc_cards_b', 'npc_cards'], talk: S.chat('chat_cards', ['cards_talk_1', 'alan_cards_1'], ['cards_talk_2']), x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch !== 2 && F().ch < 5, variantHold: [0.9, 1.5] },
       { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 560, y: 596, h: 290, look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch !== 2 && F().ch < 5 },
       { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => F().ch === 1 },

@@ -896,7 +896,7 @@
     busy++;
     hideHover(); canvas.className = '';
     try {
-      if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk)) { if (item) { selItem = null; renderInv(); } await say('alan_npc_busy'); return; }
+      if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk) && !(item && def.items && def.items[item])) { if (item) { selItem = null; renderInv(); } await say('alan_npc_busy'); return; }
       if (t.kind === 'self') {
         const h = def.items[item] || def.items.any;
         selItem = null; renderInv(); invBar.classList.remove('show');
