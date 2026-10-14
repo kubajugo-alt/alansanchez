@@ -15,7 +15,7 @@
     light: () => F().ch >= 5 ? { ambient: 'rgb(120,140,180)', base: 0.62 } : { ambient: 'rgb(214,192,165)', base: 0.86, rim: 'rgba(210,225,240,0.22)', rimSide: -1 },
     lights: () => F().ch >= 5 ? [
       { x: 178, y: 305, rgb: '200,255,190', glow: 110, ga: 0.22, power: 0.5, reach: 700, floor: [178, 600], height: 420, when: () => !F().lampOff2 },
-      { x: 1130, y: 200, rgb: '150,175,230', power: 0.3, reach: 1000, rim: 0.6, floor: [1100, 560], height: 700 }, // open door, night
+      { x: 1130, y: 200, rgb: '150,175,230', power: 0.3, reach: 1000, rim: 0.35, floor: [1100, 560], height: 700 }, // open door, night
     ] : [
       { x: 630, y: 170, rgb: '215,225,235', power: 0.32, reach: 1200, rim: 0.5, shadow: 0.55, floor: [630, 470], height: 900 },
       { x: 178, y: 305, rgb: '255,215,140', kind: 'gas', seed: 1, glow: 90, ga: 0.16, power: 0.3, reach: 650, floor: [178, 600], height: 420, when: () => !F().lampOff },
@@ -348,8 +348,8 @@
     ambient: [
       { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch !== 2 && F().ch < 5 },
       { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], x: 360, y: 606, h: 230, look: 'alan_npc_cards', when: () => F().ch !== 2 && F().ch < 5, variantHold: [0.9, 1.5] },
-      { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 700, y: 598, h: 300, look: 'alan_npc_guitar', when: () => F().ch !== 2 && F().ch < 5 },
-      { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 560, y: 590, h: 220, look: 'alan_npc_couple', when: () => F().ch === 1 },
+      { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 668, y: 596, h: 290, look: 'alan_npc_guitar', when: () => F().ch !== 2 && F().ch < 5 },
+      { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 545, y: 572, h: 200, look: 'alan_npc_couple', when: () => F().ch === 1 },
     ],
     occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]] }], // the bar, in front of Lino
     hotspots: [
