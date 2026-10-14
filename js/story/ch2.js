@@ -31,7 +31,7 @@
     occluders: [{ y: 500, polys: [[[160, 383], [300, 375], [1068, 375], [1068, 484], [160, 484]]] }, // from the far edge of the water: they stand behind the basins, hands in
       { y: 680, polys: [[[839, 453], [1011, 446], [1013, 420], [1158, 420], [1160, 452], [1280, 470], [1280, 680], [874, 680], [860, 650], [842, 600]]] }], // the big tank and its towel
     npcs: [
-      { id: 'celeste', x: 600, y: 610, dir: 'e', set: () => F().met_celeste ? 'wring' : 'wring', name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCeleste(),
+      { id: 'celeste', x: 600, y: 610, dir: 'e', set: 'wring', when: () => F().ch < 4, name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCeleste(),
         items: { sketch: () => S.celesteTile(), notebook: () => S.celesteTile(), file55: () => S.celeste1955(), any: 'alan_fail_06' } },
     ],
     ambient: [
@@ -45,7 +45,7 @@
       { name: 'Arches', rect: [416, 128, 588, 240], look: 'narr_look_lav_arches' },
       { name: "Celeste's sheet", rect: [843, 448, 437, 230], at: [780, 640], face: 'e', look: 'narr_look_sheets', use: () => S.wringSheet(), take: () => S.wringSheet() },
       // easter egg: once Celeste knows him, the rinsing tank is fair game
-      { name: 'Rinsing tank', rect: [880, 438, 400, 52], at: [800, 640], face: 'e', when: () => F().met_celeste, look: 'narr_look_basins', use: () => S.bathEgg() },
+      { name: 'Rinsing tank', rect: [880, 438, 400, 52], at: [800, 640], face: 'e', when: () => F().met_celeste && F().ch < 4, look: 'narr_look_basins', use: () => S.bathEgg() },
       { name: 'Way out', rect: [0, 560, 60, 156], at: [30, 660], exit: 'map', entry: 'lavadouro' },
     ],
     async enter() { if (!F().lav_entered) { F().lav_entered = true; await say('alan_enter_lavadouro'); } },

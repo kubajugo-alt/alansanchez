@@ -240,11 +240,14 @@
     ],
     // three actions while Lacerda is in the back room
     async onAction(t, verb) {
-      if (!F().lac_away || verb === 'look' && !t.def.rect) return;
+      if (!F().lac_away || verb === 'look' || verb === 'talk') return;
       F().lac_actions = (F().lac_actions || 0) + 1;
       if (F().lac_actions >= 3 || F().swapped) await S.lacerdaReturns();
     },
-    leave() { if (F().has_tongue && !F().slipped) { F().slipped = true; } },
+    leave() {
+      if (F().has_tongue && !F().slipped) { F().slipped = true; }
+      if (F().lac_away && !F().swapped) { F().lac_away = false; F().lac_actions = 0; F().case_open = false; if (F().grabbed) { G.takeItem('tongue'); F().grabbed = false; F().has_tongue = false; } }
+    },
     async enter() { if (F().has_tongue && !F().slip_said) { /* returning later */ } },
   };
   S.lacerdaHere = () => { const l = G.npc('lacerda'); return l && l.visible; };

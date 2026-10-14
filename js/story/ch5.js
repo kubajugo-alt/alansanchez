@@ -30,20 +30,20 @@
       { id: 'rui', x: 120, y: 600, dir: 'e', set: 'gate', name: 'Rui', when: () => F().rui_called && !F().won, look: 'narr_look_rui', talk: () => F().gag_rui ? say('rui_nothing', 'alan_rui_gate') : (F().gag_rui = true, say('gag_rui', 'gag_alan_rui')) },
     ],
     hotspots: [
-      { name: 'Weeping stone', rect: [40, 125, 190, 345], look: 'narr_look_stone' },
+      { name: 'Weeping stone', rect: [40, 125, 190, 345], look: 'narr_stone_washed' },
       { name: 'Ruined arches', rect: [320, 0, 330, 500], look: 'narr_look_arches' },
       { name: 'Open grate', rect: [790, 585, 420, 120], at: [760, 645], face: 'e', look: 'narr_look_grate',
         use: async () => {
-          if (!F().has_lantern) return say(F().confessed ? 'alan_need_lantern' : 'tomas_night_hello');
+          if (!F().has_lantern) return say('alan_need_lantern');
           await joke('alan_descend'); sfx('stairs'); await G.goRoom('cistern', 'convent');
         } },
       { name: 'Way out', rect: [0, 590, 60, 126], at: [30, 672], exit: 'map', entry: 'convent' },
     ],
-    async enter() { if (!F().night_entered) { F().night_entered = true; await say('narr_look_convent_night'); await say('tomas_night_hello'); } },
+    async enter() { G.setClock('00:10'); if (!F().night_entered) { F().night_entered = true; await say('narr_look_convent_night'); await say('tomas_night_hello'); } },
   };
   S.moonLevel = t => 1 - 0.75 * S.nightClouds.alphaAt(800 + FX.cloudOffset(S.nightClouds, t, 7), 188);
   S.tomasConfession = async function () {
-    if (F().confessed) return say('tomas_lantern');
+    if (F().confessed) return say(G.has('lantern') || F().bell_lit ? 'tomas_pray' : 'tomas_lantern');
     await say('alan_ask_midnight');
     G.cutscene = true;
     await S.still('still_1955_a', 'cistern', () => say('tomas_boy'), { sepia: true, grain: true, zoom: [1.02, 1.12] });
@@ -233,7 +233,7 @@
   // Inês calls out the next step if the player hesitates for 20 seconds
   let lastAct = 0, hinted = 0;
   S.idleHint = function (t) {
-    if (G.isBusy || F().won || !F().finaleIntro) { lastAct = t; return; }
+    if (G.isBusy || F().won || !F().finaleIntro || S.dead) { lastAct = t; return; }
     if (t - lastAct > 20 && t - hinted > 20) { hinted = t; lastAct = t; G.busy(() => say(S.cisternHint())); }
   };
   S.cisternHint = () => !F().lacerda_distracted ? 'ines_hint_ledger' : !F().ines_free ? 'ines_hint_free' : !F().bell_lit ? 'ines_hint_light' : !F().blood ? 'ines_hint_blood' : 'ines_hint_lastfirst';
@@ -256,12 +256,13 @@
   // while he reads, the pages keep turning
   let nextPage = 0, readFrom = 0;
   S.readingTick = function (t) {
-    if (!F().read1 || F().strikes > 0 || F().won || G.isBusy) return;
+    if (!F().read1 || F().strikes > 0 || F().won || G.isBusy || S.dead) return;
     if (!readFrom) readFrom = t;
     if (t > nextPage) { nextPage = t + 5 + Math.random() * 5; Sound.sfx('page', 0.5); if (!F().read2 && t - readFrom > 10) { F().read2 = true; G.busy(() => say('lacerda_read_2')); } }
   };
   S.cutRopes = async function () {
     if (F().ines_free) return say('alan_fail_04');
+    if (!F().lacerda_distracted) return say('alan_cut_watched');
     const ines = G.npc('ines');
     // he doesn't mind: he believes the water is his
     if (!F().lamp_ok) { F().lamp_ok = true; await say('alan_ask_lamp', 'lacerda_lamp_ok'); }
@@ -326,6 +327,7 @@
     await raise(1);
   };
   S.cisternDeath = async function (step5) {
+    S.dead = true;
     await G.busy(async () => {
       const lac = G.npc('lacerda');
       if (lac) { lac.set = null; lac.pose = 'lunge'; }
@@ -339,6 +341,7 @@
     });
   };
   S.retryCistern = async function () {
+    S.dead = false;
     Sound.stopVoice();
     G.showModal('death', false);
     const keep = F()._deathStep5 ? { lacerda_distracted: true, ines_free: true, bell_lit: true, blood: true } : null;
@@ -412,7 +415,6 @@
     const tm = G.npc('tomas'); if (tm) { tm.loop = null; tm.pose = 'kneel'; tm.x = 560; tm.y = 600; }
     await G.fade(false);
     await joke('alan_dawn');
-    if (F().rui_called) { await say('rui_coffee_back'); }
     await S.epilogue();
   };
   S.epilogue = async function () {
@@ -420,7 +422,7 @@
     await S.still('still_city_morning', 'street', () => say('narr_epilogue'), { zoom: [1.0, 1.12], pan: [[0.5, 0.55], [0.5, 0.45]] });
     await S.still('still_drawer', 'police', async () => { await say('narr_epi_drawer'); sfx('drawer_scrape'); await say('rui_click'); }, { zoom: [1.08, 1.0] });
     await S.still('still_shop_after', 'shop', () => say('narr_epi_shop'), { zoom: [1.0, 1.1] });
-    if (F().amalia_box) await S.still('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });
+    if (F().amalia_box && F().rui_called) await S.still('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });
     if (F().amalia_night) await S.still('still_tavern_full', 'tavern', () => say('narr_vig_night'), { zoom: [1.0, 1.1] });
     await S.still('still_quay_sweater', 'cais', () => say('narr_vig_ze'), { zoom: [1.0, 1.1] });
     if (F().founder_order && !(F().struck_wrong)) await S.still('still_abilio_ring', 'se_tower', async () => { sfx('bell_forward', 0.6); await say('narr_vig_abilio'); }, { zoom: [1.0, 1.12] });

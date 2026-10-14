@@ -72,7 +72,7 @@
       { name: 'Answering machine', rect: [955, 366, 120, 40], at: [830, 570], face: 'e', look: () => say(F().heard_machine ? 'narr_look_machine_heard' : 'narr_look_machine'), use: () => S.playMachine() },
       { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone() },
       { name: 'Newspaper', rect: [1035, 400, 222, 62], at: [880, 610], face: 'e', look: () => say('narr_look_news', 'alan_news') },
-      { name: 'Salt on the floor', rect: [500, 560, 520, 60], when: () => F().ch >= 5, look: 'narr_look_salt_line' },
+      { name: 'Salt on the floor', rect: [500, 578, 520, 18], when: () => F().ch >= 5, look: 'narr_look_salt_line' },
       { name: 'Door to the street', rect: [1025, 10, 205, 390], at: [900, 590], exit: 'street', entry: 'shop', locked: () => !F().heard_machine || (F().ch >= 5 && !F().ledger_found), lockedLine: () => F().ch >= 5 ? 'alan_door_ledger' : 'alan_door_first' },
     ],
     async enter() { if (F().ch >= 5 && !F().ines_gone_seen) { F().ines_gone_seen = true; await say('alan_ines_gone'); } },
@@ -98,6 +98,7 @@
   S.playMachine = async function () {
     if (F().ch >= 5) {
       if (!F().ledger_found) return say('alan_lamp_machine');
+      if (F().heard_msg3) return say('alan_machine_again');
       sfx('beep');
       await G.say('lacerda_msg3', { offscreen: true, label: 'Answering machine' });
       F().heard_msg3 = true;

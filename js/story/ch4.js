@@ -14,6 +14,7 @@
     else await say('alan_jc_unknown');
     await say('ines_kettle', 'alan_ledger_with_ines');
     G.setClock('17:15');
+    G.autosave(); // a reload after this point must still find the quay open
   };
 
   // ================================================================ CAIS DO SODRÉ
@@ -60,7 +61,7 @@
       { name: 'Crates', rect: [0, 395, 160, 213], look: 'narr_look_crates' },
       { name: 'Gulls', rect: [500, 400, 260, 130], look: 'alan_npc_gulls' },
       { name: 'Fishing boats', rect: [565, 300, 680, 320], at: [900, 650], face: 'e', look: 'narr_look_boats', exit: 'boat', entry: 'cais', locked: () => F().ze_saved },
-      { name: 'Way out', rect: [0, 660, 60, 56], at: [30, 690], exit: 'map', entry: 'cais', locked: () => !F().ze_saved && F().ch === 4, lockedLine: 'celeste_hint_boat' },
+      { name: 'Way out', rect: [0, 660, 60, 56], at: [30, 690], exit: 'map', entry: 'cais', locked: () => F().ch === 4 && !F().ch4_done, lockedLine: () => F().ze_saved ? 'alan_ring_first' : 'celeste_hint_boat' },
     ],
     async enter(entry) {
       if (F().ch >= 4) await S.ensureTideCard();
@@ -120,7 +121,7 @@
           if (F().ze_awake) { if (!F().ze_believes) return say('ze_ten'); return G.goRoom('cabin', 'boat'); }
           sfx('knock'); await G.wait(window.FAST ? 20 : 600); sfx('snore'); F().knocked = true; await say('alan_knock');
         },
-        talk: async () => { if (F().ze_awake) return S.talkZe(); F().knocked = true; await say('alan_shout'); sfx('snore'); } },
+        get talk() { return F().ze_awake ? null : async () => { F().knocked = true; await say('alan_shout'); sfx('snore'); }; } },
       { name: 'Porthole', rect: [747, 416, 85, 75], at: [790, 620], face: 'n', look: async () => { if (F().ze_awake) return say('narr_look_porthole_empty'); await S.showPorthole(); await say('narr_look_porthole'); } }, // once Zé is up, the bunk is empty
       { name: 'Mooring line', rect: [0, 341, 280, 200], at: [230, 620], face: 'w', look: 'narr_look_line',
         use: () => S.mooring(), take: () => S.mooring() },
@@ -157,7 +158,7 @@
   S.talkZe = async function () {
     await G.dialog([
       { line: 'alan_danger', once: true, run: () => say('ze_fromyou') },
-      { line: 'alan_show_card', when: () => G.has('tidecard') && !F().ze_believes, run: () => S.zeCard(), bye: true },
+      { line: 'alan_show_card', silent: true, when: () => G.has('tidecard') && !F().ze_believes, run: () => S.zeCard(), bye: true },
       { line: 'alan_ask_ze_tile', when: () => F().ze_believes, run: async () => { await say('ze_tile', 'ze_cabin'); } },
       { label: 'Show me the cabin.', when: () => F().ze_believes, bye: true, run: () => S.toCabin() },
       { label: 'Goodbye.', bye: true },

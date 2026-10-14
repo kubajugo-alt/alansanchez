@@ -88,7 +88,7 @@
     vkey: { name: 'Vitrine key', look: 'alan_look_vkey' },
     tongue: { name: () => F().blood ? 'Bell tongue (blooded)' : 'Bell tongue', icon: () => F().blood ? 'tongue_wet' : 'tongue',
       look: () => say(F().blood ? 'alan_look_tongue_wet' : 'alan_look_tongue') },
-    knife: { name: "Zé's knife", look: 'alan_look_knife' },
+    knife: { name: "Zé's knife", look: 'alan_look_knife', with: { tongue: () => G.room && G.room.id === 'cistern' ? S.cutPalm() : say('alan_blood_later') } },
     sardine: { name: 'Sardine', look: 'alan_look_sardine' },
     lantern: { name: "Tomás's lantern", look: 'alan_look_lantern' },
   };
@@ -139,7 +139,7 @@
     { id: 'convent', x: 262, y: 318, text: () => F().ch >= 5 ? 'Convento do Carmo · midnight' : 'Convento do Carmo', open: () => (F().ch2_done && F().ch <= 3) || F().ledger_found },
     { id: 'se_tower', x: 870, y: 300, text: 'Sé de Lisboa · bell tower', open: () => F().decoded && F().ch <= 4 },
     { id: 'antiques', x: 410, y: 440, text: 'Antiguidades Lacerda · Chiado', open: () => F().decoded && !F().has_tongue },
-    { id: 'cais', x: 250, y: 585, text: 'Cais do Sodré', open: () => F().genealogy_read && F().ch === 4 },
+    { id: 'cais', x: 250, y: 585, text: 'Cais do Sodré', open: () => (F().genealogy_read || F().ch3_done) && F().ch === 4 },
   ];
 
   // ---------------------------------------------------------------- hints (Inês, "What now?")
@@ -160,7 +160,7 @@
     if (!f.knows_1955_boy) return 'ines_hint_file';
     if (!f.decoded) return f.stone_washed ? (f.stone_read ? 'ines_hint_wheel' : 'ines_hint_mag') : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
     if (!f.founder_order) return 'ines_hint_order';
-    if (!f.has_tongue) return !(has('vkey') && f.case_known) ? 'ines_hint_case' : (f.lac_away ? 'ines_hint_theft' : 'ines_hint_box');
+    if (!f.has_tongue) return !(has('vkey') && f.case_known) ? 'ines_hint_case' : (!has('weight') ? 'ines_hint_theft' : 'ines_hint_box');
     return 'ines_hint_ch3_done';
   };
   // The banker's lamp switched off: the painting has it lit, so dim the green
