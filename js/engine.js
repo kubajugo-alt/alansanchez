@@ -597,8 +597,9 @@
     const dur = await Sound.playVoice(id);
     const ms = window.FAST ? 20 : dur ? dur * 1000 + 250 : Math.max(1800, text.length * 58);
     await new Promise(res => {
-      let finished = false;
-      const t = setTimeout(done, ms);
+      let finished = false, t = setTimeout(check, ms);
+      // a slow-loading voice can outlast the estimate: hold the line until it has finished
+      function check() { if (finished) return; if (!window.FAST && Sound.voicePlaying && Sound.voicePlaying()) t = setTimeout(check, 120); else done(); }
       function done() { if (finished) return; finished = true; clearTimeout(t); if (skipFn === done) skipFn = null; res(); }
       setTimeout(() => { if (!finished) skipFn = done; }, 180);
     });

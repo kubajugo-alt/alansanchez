@@ -455,7 +455,7 @@ window.LINES = {
   narr_rom_1: ['narr', "For thirty-seven years, Alan Sanchez had talked his way out of everything. Zé Coutinho did not leave him the room. For once in his life, Alan did not want it."],
   narr_rom_2: ['narr', "The bunk complained, and the boat rocked, and nobody was counting. It was over almost as fast as it began."],
   alan_rom_2: ['alan', "[sleepy, smiling] So. That happened."],
-  ze_rom_3: ['ze', "[gruff, matter-of-fact] It did. Button your shirt, bookseller. Your city's still drowning."],
+  ze_rom_3: ['ze', "[gruff, matter-of-fact] It did. Button your shirt, bookseller. You've still got a bell to ring."],
   alan_rom_3: ['alan', "[softly, happy] Yes, Captain."],
   alan_ringout: ['alan', "[pause] She always answers. She answers when it's for me and I'm standing right next to it."],
   narr_ch4_end: ['narr', "The note from the tongue crossed the river and climbed the Chiado and found the man it was meant for. He put down his coffee. He went to fetch his coat. In a bookshop in the Alfama, a kettle boiled dry."],

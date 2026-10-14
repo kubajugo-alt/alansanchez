@@ -210,12 +210,13 @@
     await G.showStill('cais', async () => { clock('18:25'); sfx('water_drain'); await G.say('narr_turn', { offscreen: true }); }, { hold: 2500, zoom: [1.0, 1.06] });
     G.refreshNpcs();
     await say('alan_turned', 'ze_knew', 'alan_two_sentences');
+    await S.romance();
     const ze = G.npc('ze'); ze.set = null; ze.pose = 'give';
     await say('ze_knife'); give('knife'); ze.pose = null;
     await say('alan_pessoa_mention');
     ze.pose = 'toss'; await say('ze_sardine'); give('sardine'); ze.pose = null;
     await say('alan_sardine', 'ze_river');
-    await S.romance();
+    ze.set = 'sit';
   };
   // Zé and Alan: one quick, fierce moment in the lantern light, then back to the night's business
   S.romance = async function () {
@@ -256,7 +257,6 @@
       await say('ze_rom_3');
       if (ze) ze.pose = null; p.pose = null;
       await say('alan_rom_3');
-      if (ze) ze.set = 'sit';
     });
   };
   S.ch4End = async function () {
