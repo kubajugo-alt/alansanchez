@@ -256,7 +256,7 @@
       [[491, 365], [580, 365], [582, 403], [489, 403]], [[610, 343], [684, 343], [686, 403], [608, 403]],
       [[724, 356], [780, 356], [780, 406], [724, 406]], [[778, 350], [898, 350], [900, 408], [776, 408]],
     ] }],
-    animBack(g, t) { S.windowFog(g, t, [780, 202, 276, 126], '230,232,236', 0.22); },
+    animBack(g, t) { S.windowFog(g, t, [780, 202, 276, 126], '230,232,236', 0.22); if (F().ch <= 2) S.wallPhone(g, 214, 266); },
     anim(g, t) {
       FX.wisps(g, t, 751, 362, { n: 5, rise: 55, spread: 9, a: 0.12, size: 7, speed: 0.3 });
       FX.shaft(g, [[790, 205], [1050, 205], [1000, 716], [640, 716]], '225,232,236', 0.035);
@@ -267,7 +267,7 @@
         items: { coffee: () => say('rui_coffee'), file55: () => say('rui_times'), any: 'alan_fail_rui_item' } },
     ],
     ambient: [
-      { id: 'npc_phone', name: 'Officer Teixeira', frames: ['npc_phone', 'npc_phone_b'], x: 262, y: 700, dir: 'w', look: 'alan_npc_phone', talk: () => S.flirtCop(), when: () => F().ch <= 2, variantHold: [3, 6] }, // front left, clear of the desk
+      { id: 'npc_phone', name: 'Officer Teixeira', frames: ['npc_phone', 'npc_phone_b'], x: 300, y: 700, dir: 'w', look: 'alan_npc_phone', talk: () => S.flirtCop(), when: () => F().ch <= 2, variantHold: [3, 6] }, // front left, clear of the desk
     ],
     hotspots: [
       { name: 'Corkboard', rect: [275, 95, 355, 230], look: 'narr_look_board' },
@@ -475,14 +475,45 @@
       if (G.npc('amalia')) await say('amalia_flirt', 'gag_amalia', 'gag_alan_amalia');
     });
   };
+  // the station's wall telephone beside the door (Teixeira has the handset), its
+  // coiled cord dropping behind him
+  S.wallPhone = function (g, x, y) {
+    g.save(); g.translate(x, y);
+    g.fillStyle = 'rgba(0,0,0,0.28)'; g.beginPath(); g.roundRect(-13, 3, 30, 54, 5); g.fill();
+    const body = g.createLinearGradient(-15, 0, 15, 0); body.addColorStop(0, '#ece2c6'); body.addColorStop(0.6, '#d2c6a4'); body.addColorStop(1, '#a89a78');
+    g.fillStyle = body; g.strokeStyle = 'rgba(40,30,20,0.85)'; g.lineWidth = 1.5;
+    g.beginPath(); g.roundRect(-15, 0, 30, 52, 5); g.fill(); g.stroke();
+    // empty cradle hook and the dial
+    g.fillStyle = '#8a7e62'; g.fillRect(-11, 3, 22, 5); g.strokeRect(-11, 3, 22, 5);
+    g.fillStyle = '#f4ecd6'; g.beginPath(); g.arc(0, 26, 10, 0, 7); g.fill(); g.stroke();
+    g.fillStyle = '#4a4232'; for (let k = 0; k < 10; k++) { const a = -2.2 + k * 0.5; g.beginPath(); g.arc(Math.cos(a) * 6.5, 26 + Math.sin(a) * 6.5, 1.3, 0, 7); g.fill(); }
+    g.beginPath(); g.arc(0, 26, 2.5, 0, 7); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,0.45)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(-12, 8); g.lineTo(-12, 46); g.stroke();
+    // coiled cord: loops along a sagging curve down behind the officer
+    g.strokeStyle = '#2a2620'; g.lineWidth = 1.6; g.beginPath();
+    const [x0, y0, x1, y1] = [0, 52, 44, 190];
+    for (let i = 0; i <= 120; i++) {
+      const u = i / 120, px = x0 + (x1 - x0) * u - Math.sin(u * Math.PI) * 10, py = y0 + (y1 - y0) * u;
+      const a = u * 24 * Math.PI;
+      g.lineTo(px + Math.cos(a) * 3.2, py + Math.sin(a) * 1.4);
+    }
+    g.stroke();
+    g.restore();
+  };
   // a matchbox with a sailing ship on the lid, at the near end of the bar
   S.drawMatches = function (g, x, y) {
     g.save(); g.translate(x, y);
-    g.fillStyle = 'rgba(0,0,0,0.35)'; g.beginPath(); g.ellipse(1, 2, 14, 3, 0, 0, 7); g.fill();
-    g.fillStyle = '#c9b48a'; g.fillRect(-12, -6, 24, 8);
-    g.fillStyle = '#2f4f7a'; g.fillRect(-12, -9, 24, 4);
-    g.fillStyle = '#e8dcc0'; g.fillRect(-7, -9, 9, 3);
-    g.strokeStyle = 'rgba(40,25,15,0.8)'; g.lineWidth = 1; g.strokeRect(-12, -9, 24, 11);
+    g.fillStyle = 'rgba(0,0,0,0.4)'; g.beginPath(); g.ellipse(1, 2.5, 15, 3.2, 0, 0, 7); g.fill();
+    // side with the striking strip, then the blue lid with its little sailing ship
+    g.fillStyle = '#d8c8a0'; g.fillRect(-12, -5, 24, 6);
+    g.fillStyle = '#6a4a2a'; g.fillRect(-12, -3.5, 24, 3);
+    const lid = g.createLinearGradient(-12, -10, 12, -5); lid.addColorStop(0, '#3e68b4'); lid.addColorStop(1, '#1c3462');
+    g.fillStyle = lid; g.beginPath(); g.moveTo(-12, -5); g.lineTo(-10, -10); g.lineTo(14, -10); g.lineTo(12, -5); g.closePath(); g.fill();
+    g.fillStyle = '#f3e6c4'; g.beginPath(); g.moveTo(-3, -6.2); g.lineTo(5, -6.2); g.lineTo(4, -5.4); g.lineTo(-2, -5.4); g.closePath(); g.fill();
+    g.beginPath(); g.moveTo(0.6, -9.4); g.lineTo(0.6, -6.4); g.lineTo(-2.4, -6.4); g.closePath(); g.fill();
+    g.beginPath(); g.moveTo(1.4, -9); g.lineTo(1.4, -6.4); g.lineTo(3.8, -6.4); g.closePath(); g.fill();
+    g.strokeStyle = 'rgba(40,25,15,0.85)'; g.lineWidth = 1; g.beginPath(); g.moveTo(-12, 1); g.lineTo(-12, -5); g.lineTo(-10, -10); g.lineTo(14, -10); g.lineTo(14, -4); g.lineTo(12, 1); g.closePath(); g.stroke();
+    g.strokeStyle = 'rgba(255,255,255,0.35)'; g.beginPath(); g.moveTo(-9.5, -9.4); g.lineTo(13, -9.4); g.stroke();
     g.restore();
   };
   S.glassOnBar = () => F().heard_song && !G.has('glass') && !F().glassUsed;

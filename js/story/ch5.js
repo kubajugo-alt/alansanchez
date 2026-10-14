@@ -126,12 +126,19 @@
   };
   S.drawMarks = function (g, t) {
     // six painted marks on the pillar; the ones under water glow
+    // chiselled tide marks wrapping round the pillar, numbered in Roman; the
+    // ones under water glow
+    const NUM = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+    g.font = "700 13px 'Cinzel', serif"; g.textAlign = 'center';
     for (let k = 1; k <= 6; k++) {
       const y = 568 - k * 46, on = (F().water || 0) >= k;
-      g.strokeStyle = on ? `rgba(140,255,200,${0.75 + 0.2 * Math.sin(t * 6 + k)})` : 'rgba(230,225,210,0.35)';
-      g.lineWidth = on ? 4 : 3; g.beginPath(); g.moveTo(1010, y); g.lineTo(1132, y + 3); g.stroke();
-      if (on) FX.glow(g, 1070, y, 50, '120,255,180', 0.12);
+      const arc = (dy, col, w) => { g.strokeStyle = col; g.lineWidth = w; g.beginPath(); g.moveTo(1034, y + dy); g.quadraticCurveTo(1080, y + 10 + dy, 1140, y + 2 + dy); g.stroke(); };
+      if (on) { arc(0, `rgba(140,255,200,${0.7 + 0.2 * Math.sin(t * 6 + k)})`, 3); FX.glow(g, 1071, y + 4, 46, '120,255,180', 0.12); }
+      else { arc(1.6, 'rgba(255,236,200,0.32)', 2.2); arc(0, 'rgba(18,12,6,0.75)', 2.6); }   // groove: dark cut, lit lower lip
+      if (!on) { g.fillStyle = 'rgba(255,236,200,0.3)'; g.fillText(NUM[k - 1], 1023.8, y + 5.2); }
+      g.fillStyle = on ? 'rgba(200,255,225,0.95)' : 'rgba(18,12,6,0.8)'; g.fillText(NUM[k - 1], 1023, y + 4);
     }
+    g.textAlign = 'left';
     if (!F().bell_lit || F().won) return;
     // the four foundry marks in the carved waves, catching the lantern light
     for (const id of Object.keys(MARKS)) {
@@ -166,15 +173,33 @@
   };
   S.drawFlood = function (g, t) {
     const w = F().water || 0; if (!w || F().won) return;
-    const top = 548, front = 548 + (w / 6) * 175;
-    const gr = g.createLinearGradient(0, top, 0, front);
-    gr.addColorStop(0, 'rgba(20,60,45,0.75)'); gr.addColorStop(1, 'rgba(25,80,60,0.55)');
-    g.save(); g.fillStyle = gr; g.beginPath(); g.moveTo(0, top);
-    for (let x = 0; x <= 1280; x += 40) g.lineTo(x, top - 2 + Math.sin(t * 2 + x * 0.02) * 2);
-    for (let x = 1280; x >= 0; x -= 40) g.lineTo(x, front + Math.sin(t * 1.6 + x * 0.015) * 4);
-    g.closePath(); g.fill();
-    g.strokeStyle = 'rgba(160,255,210,0.35)'; g.lineWidth = 2; g.beginPath();
-    for (let x = 0; x <= 1280; x += 20) g.lineTo(x, front + Math.sin(t * 1.6 + x * 0.015) * 4); g.stroke();
+    const top = 540, front = 548 + (w / 6) * 175;
+    const edge = x => front + Math.sin(t * 1.3 + x * 0.013) * 4 + Math.sin(t * 2.1 + x * 0.041) * 2.2 + Math.sin(x * 0.11 + 1.7) * 0.6;
+    const shore = () => { for (let x = 1280; x >= 0; x -= 8) g.lineTo(x, edge(x)); };
+    g.save();
+    // the body of black-green water, shallower (lighter) toward its edge
+    g.beginPath(); g.moveTo(0, top); g.lineTo(1280, top); shore(); g.closePath();
+    const gr = g.createLinearGradient(0, top, 0, front + 6);
+    gr.addColorStop(0, 'rgba(8,30,24,0)'); gr.addColorStop(Math.min(0.5, 24 / (front + 6 - top)), 'rgba(8,30,24,0.84)'); gr.addColorStop(0.7, 'rgba(18,58,44,0.64)'); gr.addColorStop(1, 'rgba(40,96,74,0.36)');
+    g.fillStyle = gr; g.fill(); g.clip();
+    // torchlight and lantern glints: broken streaks drifting on the surface
+    const r = FX.rng(9);
+    for (let i = 0; i < 80; i++) {
+      const y = top + 4 + r() * (front - top), x = (r() * 1400 + t * (6 + r() * 10)) % 1400 - 60, len = 10 + r() * 40, warm = r() < 0.35;
+      const a = 0.05 + 0.12 * (0.5 + 0.5 * Math.sin(t * 2 + i));
+      g.fillStyle = warm ? `rgba(255,190,110,${a})` : `rgba(170,255,215,${a * 0.8})`; g.fillRect(x, y, len, 1.3);
+    }
+    g.restore();
+    g.save(); g.lineCap = 'round';
+    // wet stone just beyond the edge
+    const wet = g.createLinearGradient(0, front, 0, front + 20); wet.addColorStop(0, 'rgba(0,0,0,0.28)'); wet.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = wet; g.beginPath(); g.moveTo(0, front + 22); g.lineTo(1280, front + 22); shore(); g.closePath(); g.fill();
+    // the lapping foam line, broken up
+    for (const [off, a, lw] of [[0, 0.34, 2], [3, 0.12, 4]]) {
+      g.strokeStyle = `rgba(190,255,225,${a})`; g.lineWidth = lw; g.beginPath();
+      for (let x = 0; x <= 1280; x += 6) { const y = edge(x) - off; if (Math.sin(x * 0.071 + t * 1.5) + Math.sin(x * 0.023 + 2.1) * 0.9 + Math.sin(x * 0.17) * 0.4 > -0.5) g.lineTo(x, y); else g.moveTo(x, y); }
+      g.stroke();
+    }
     g.restore();
   };
   // Inês calls out the next step if the player hesitates for 20 seconds
