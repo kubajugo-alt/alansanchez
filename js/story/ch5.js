@@ -356,7 +356,7 @@
     await S.still('still_shop_after', 'shop', () => say('narr_epi_shop'), { zoom: [1.0, 1.1] });
     if (F().amalia_box) await S.still('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });
     if (F().amalia_night) await S.still('still_tavern_full', 'tavern', () => say('narr_vig_night'), { zoom: [1.0, 1.1] });
-    await S.still('still_quay_sweater', 'cais', () => say('narr_vig_ze'), { zoom: [1.0, 1.1] });
+    await S.still('still_quay_sweater', 'cais', async () => { await say('narr_vig_ze'); if (F().ze_romance) await say('narr_vig_ze_2'); }, { zoom: [1.0, 1.1] });
     if (F().founder_order && !(F().struck_wrong)) await S.still('still_abilio_ring', 'se_tower', async () => { sfx('bell_forward', 0.6); await say('narr_vig_abilio'); }, { zoom: [1.0, 1.12] });
     await S.still('still_phone', 'shop', () => say('narr_call'), { zoom: [1.0, 1.08], keep: true });
     // credits, then the post-credits stills

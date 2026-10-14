@@ -448,6 +448,15 @@ window.LINES = {
   ze_sardine: ['ze', "[gruff] For the cat. Not for you."],
   alan_sardine: ['alan', "Pessoa will finally respect me."],
   ze_river: ['ze', "If you need the river, I'm on it."],
+  // romance: Zé and Alan, after the curse breaks
+  ze_rom_1: ['ze', "[low, rough] Twenty years that thing ate my family. And a bookseller breaks it with a bell's tongue. Come here."],
+  alan_rom_1: ['alan', "[nervous, talking fast] I should mention I bruise easily, and I talk when I'm nervous, and right now I am extremely—"],
+  ze_rom_2: ['ze', "[quiet, commanding] Stop talking, Sanchez."],
+  narr_rom_1: ['narr', "For thirty-seven years, Alan Sanchez had talked his way out of everything. Zé Coutinho did not leave him the room. For once in his life, Alan did not want it."],
+  narr_rom_2: ['narr', "The river rocked the little boat, and kept its own counsel. So did the cabin."],
+  alan_rom_2: ['alan', "[sleepy, smiling] So. That happened."],
+  ze_rom_3: ['ze', "[gruff, warm] Twice. Now go and save your city, bookseller. Then come back to me."],
+  alan_rom_3: ['alan', "[softly, happy] Yes, Captain."],
   alan_ringout: ['alan', "[pause] She always answers. She answers when it's for me and I'm standing right next to it."],
   narr_ch4_end: ['narr', "The note from the tongue crossed the river and climbed the Chiado and found the man it was meant for. He put down his coffee. He went to fetch his coat. In a bookshop in the Alfama, a kettle boiled dry."],
 
@@ -563,6 +572,7 @@ window.LINES = {
   narr_vig_box: ['narr', "Rui returned a music box to Dona Amália, 'from the estate of an unknown person'. She wound it, and did not sing along."],
   narr_vig_night: ['narr', "That evening the Taberna was full, and Amália sang 'O Sino Afogado' for the second time in her life. Alan bought the ginjinhas."],
   narr_vig_ze: ['narr', "On the quay at Cais do Sodré, Celeste handed her godson a clean sweater, and told him to eat something with a bone in it."],
+  narr_vig_ze_2: ['narr', "And at sunset, a bookseller came whistling down the quay with a bottle of ginjinha under his arm, stepped onto the Maria Coutinho, and did not need to knock."],
   narr_vig_abilio: ['narr', "At noon, for no reason at all, Abílio rang the bells of the Sé, and the whole Alfama heard a city that was very much awake."],
   narr_call: ['narr', "Alan opened his notebook to the number he had been afraid to call. His mother answered on the second ring. He said, 'Mãe, it's me,' and then, for once, he didn't make a joke."],
   ze_back: ['ze', "[pause] Not mine to keep."],
