@@ -52,6 +52,14 @@
     bath: { flags: { ch: 2, met_celeste: true }, room: 'lavadouro', pos: [800, 640, 'e'], run: () => S.bathEgg() },
     cop: { flags: { ch: 1 }, room: 'police', pos: [420, 690, 'w'], run: () => S.flirtCop() },
     romance: { flags: { ch: 4, ze_awake: true, ze_believes: true, ze_in_cabin: true, ze_saved: true }, room: 'cabin', pos: [560, 640, 'e'], run: () => S.romance() },
+    // the ending: hand Lacerda the ledger, then the last strike (the puzzle in between is skipped)
+    finale: { flags: { ch: 5, tomas_confessed: true }, room: 'cistern', pos: [520, 640, 'e'], run: async () => {
+      G.giveItem('ledger', true); G.giveItem('tongue', true);
+      await S.giveLedger(); await G.wait(window.FAST ? 20 : 1500);
+      Object.assign(F(), { ines_free: true, bell_lit: true, blood: true, struck: ['sanches', 'coutinho', 'bastos'], strikes: 3, water: 2 });
+      G.refreshNpcs(true); await G.wait(window.FAST ? 20 : 700);
+      await S.strike('ferreira');
+    } },
     guitar: { flags: { ch: 1, heard_song: true }, room: 'tavern', pos: [720, 660, 'w'], run: () => S.flirtGuitar() },
   };
   async function preview(k) {
