@@ -158,5 +158,18 @@
     if (!f.has_tongue) return !(has('vkey') && f.case_known) ? 'ines_hint_case' : (f.lac_away ? 'ines_hint_theft' : 'ines_hint_box');
     return 'ines_hint_ch3_done';
   };
+  // The banker's lamp switched off: the painting has it lit, so dim the green
+  // shade, put out the bright opal underside, and let the bulb die with a flicker.
+  S.lampOut = function (g) {
+    const k = S.lampOffAt ? (performance.now() - S.lampOffAt) / 1000 : 9;
+    if (k < 0.45 && Math.sin(k * 60) > 0) return FX.glow(g, 180, 318, 70, '255,215,140', 0.25 * (1 - k / 0.45));
+    g.save();
+    g.beginPath(); g.moveTo(126, 316); g.lineTo(132, 300); g.lineTo(148, 291); g.lineTo(212, 290); g.lineTo(226, 297); g.lineTo(234, 318); g.lineTo(230, 324); g.lineTo(128, 325); g.closePath();
+    g.globalCompositeOperation = 'multiply'; g.fillStyle = 'rgb(120,128,118)'; g.fill();
+    g.globalCompositeOperation = 'source-over';
+    const u = g.createLinearGradient(0, 319, 0, 326); u.addColorStop(0, 'rgba(46,40,28,0.95)'); u.addColorStop(1, 'rgba(30,24,16,0.9)');
+    g.fillStyle = u; g.beginPath(); g.moveTo(129, 320); g.lineTo(229, 318); g.lineTo(231, 323); g.quadraticCurveTo(180, 327, 129, 325); g.closePath(); g.fill();
+    g.restore();
+  };
 })();
 window.EXTRA_ICONS=['holywater','tongue_wet'];

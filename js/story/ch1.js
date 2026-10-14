@@ -30,6 +30,7 @@
       if (F().magTaken) S.patchBg(g, [436, 312, 50, 18], [492, 312]);
     },
     anim(g, t) {
+      if (F().ch < 5 && F().lampOff) S.lampOut(g);
       if (F().ch < 5) { FX.shaft(g, [[420, 30], [850, 30], [860, 716], [380, 716]], '210,220,230', 0.05); FX.motes(g, t, 420, 60, 430, 520, 40, '255,240,210'); }
       if (!F().heard_machine || (F().ch >= 5 && !F().heard_msg3)) if (Math.floor(t * 2) % 2 === 0) FX.glow(g, 1062, 384, 14, '255,40,20', 0.9);
       if (F().ch === 3 && F().steaming) FX.wisps(g, t, 520, 345, { n: 6, rise: 80, spread: 10, a: 0.14, size: 10 });
@@ -55,7 +56,7 @@
         use: async () => {
           if (F().ch >= 5) { sfx('lamp_click'); return say('alan_lamp_machine'); }
           if (F().lampOff) return say('alan_lamp_again');
-          sfx('lamp_click'); F().lampOff = true; await S.pessoaToRadiator(); await joke('alan_lamp_off');
+          sfx('lamp_click'); F().lampOff = true; S.lampOffAt = performance.now(); await S.pessoaToRadiator(); await joke('alan_lamp_off');
         } },
       { name: 'Window', rect: [412, 22, 445, 288], look: 'narr_look_window' },
       { name: 'Magnifying glass', rect: [430, 308, 64, 24], at: [470, 560], face: 'n', when: () => !F().magTaken, look: 'narr_look_magnifier',

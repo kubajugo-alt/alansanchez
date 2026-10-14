@@ -28,14 +28,14 @@
       g.restore();
     },
     // the back basins stand in front of the washerwomen
-    occluders: [{ y: 482, polys: [[[160, 386], [1068, 386], [1068, 484], [160, 484]]] },
+    occluders: [{ y: 500, polys: [[[160, 383], [300, 375], [1068, 375], [1068, 484], [160, 484]]] }, // from the far edge of the water: they stand behind the basins, hands in
       { y: 680, polys: [[[839, 453], [1011, 446], [1013, 420], [1158, 420], [1160, 452], [1280, 470], [1280, 680], [874, 680], [860, 650], [842, 600]]] }], // the big tank and its towel
     npcs: [
       { id: 'celeste', x: 600, y: 610, dir: 'e', set: () => F().met_celeste ? 'wring' : 'wring', name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCeleste(),
         items: { sketch: () => S.celesteTile(), notebook: () => S.celesteTile(), file55: () => S.celeste1955(), any: 'alan_fail_06' } },
     ],
     ambient: [
-      { id: 'npc_washer1', name: 'Washerwoman', frames: ['npc_washer1', 'npc_washer1_b'], x: 300, y: 474, h: 205, look: 'alan_npc_washers', idleHold: [6, 14] },
+      { id: 'npc_washer1', name: 'Washerwoman', frames: ['npc_washer1', 'npc_washer1_b'], x: 300, y: 484, h: 205, look: 'alan_npc_washers', idleHold: [6, 14] },
       { id: 'npc_laundry', name: 'Woman with the washing', frames: ['npc_laundry'], x: 175, y: 560, h: 236, look: 'alan_npc_washers' }, // under the hanging sheets
       { id: 'npc_washer2', name: 'Washerwoman', frames: ['npc_washer2', 'npc_washer2_b'], x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [7, 16] },
     ],
