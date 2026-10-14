@@ -22,49 +22,80 @@
     musicBus.connect(master); musicBus.connect(reverb); reverb.connect(wet); wet.connect(master);
   }
 
-  // Karplus-Strong plucked string — the guitarra portuguesa.
+  // The guitarra portuguesa: Karplus-Strong strings, a plucked-position comb
+  // in the excitation, paired courses (unison above, octave below) and a small
+  // resonant body. Each track plays into its own bus so tracks crossfade.
   const pluckCache = {};
-  function pluckBuffer(freq) {
-    const k = Math.round(freq);
+  function pluckBuffer(freq, bright) {
+    const k = Math.round(freq) + (bright ? 'b' : '');
     if (pluckCache[k]) return pluckCache[k];
-    const sr = ctx.sampleRate, n = Math.floor(sr * 2.2), period = Math.round(sr / freq);
+    const sr = ctx.sampleRate, n = Math.floor(sr * (freq < 200 ? 3 : 2.2)), period = Math.round(sr / freq);
     const buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
-    const ring = new Float32Array(period);
-    for (let i = 0; i < period; i++) ring[i] = Math.random() * 2 - 1;
+    const ring = new Float32Array(period), pos = Math.max(1, Math.round(period * 0.13));
+    let lp = 0;
+    for (let i = 0; i < period; i++) { const r = Math.random() * 2 - 1; lp += (r - lp) * (bright ? 0.75 : 0.45); ring[i] = lp; }
+    for (let i = period - 1; i >= pos; i--) ring[i] -= ring[i - pos] * 0.9; // plucked near the bridge
+    const damp = freq < 200 ? 0.9985 : 0.9965;
     let idx = 0;
     for (let i = 0; i < n; i++) {
       const nxt = (idx + 1) % period;
-      const v = (ring[idx] + ring[nxt]) * 0.5 * 0.996;
+      const v = (ring[idx] * 0.55 + ring[nxt] * 0.45) * damp;
       d[i] = ring[idx]; ring[idx] = v; idx = nxt;
     }
+    let peak = 0; for (let i = 0; i < Math.min(n, sr * 0.1); i++) peak = Math.max(peak, Math.abs(d[i]));
+    if (peak) for (let i = 0; i < n; i++) d[i] /= peak;
     return (pluckCache[k] = buf);
   }
-  function pluck(freq, t, vol) {
-    const src = ctx.createBufferSource(); src.buffer = pluckBuffer(freq);
-    const g = ctx.createGain(); g.gain.value = vol;
-    src.connect(g); g.connect(musicBus); src.start(t);
+  let out = null, playing = null; // the scheduling track's input; the playing track's fader
+  function bus() { return out || musicBus; }
+  function trackBus() {
+    const gain = ctx.createGain(); gain.gain.value = 0.0001; gain.connect(musicBus);
+    // a small wooden body: warm low resonance and a bright, nasal top
+    const low = ctx.createBiquadFilter(); low.type = 'peaking'; low.frequency.value = 230; low.Q.value = 1.2; low.gain.value = 4;
+    const top = ctx.createBiquadFilter(); top.type = 'peaking'; top.frequency.value = 2600; top.Q.value = 1.4; top.gain.value = 3;
+    const air = ctx.createBiquadFilter(); air.type = 'highshelf'; air.frequency.value = 6000; air.gain.value = -6;
+    low.connect(top); top.connect(air); air.connect(gain);
+    return { gain, input: low };
   }
-  function tone(freq, t, dur, vol, type, bus, attack) {
+  function panned(node, pan) {
+    if (!pan || !ctx.createStereoPanner) { node.connect(bus()); return; }
+    const p = ctx.createStereoPanner(); p.pan.value = pan; node.connect(p); p.connect(bus());
+  }
+  function pluck(freq, t, vol, pan) {
+    t += (Math.random() - 0.5) * 0.014; vol *= 0.85 + Math.random() * 0.3; // a human hand
+    const bright = vol > 0.3;
+    const courses = freq < 200 ? [[1, 1, 0], [2, 0.35, 0.006]] : [[1, 1, 0], [1.0028, 0.7, 0.004]];
+    for (const [m, v, dt] of courses) {
+      const src = ctx.createBufferSource(); src.buffer = pluckBuffer(freq * m, bright);
+      const g = ctx.createGain(); g.gain.value = vol * v * 1.4;
+      src.connect(g); panned(g, (pan || 0) + (m === 1 ? -0.08 : 0.08)); src.start(t + dt);
+    }
+  }
+  function trill(f1, f2, t, vol, pan) { pluck(f1, t, vol, pan); pluck(f2, t + 0.07, vol * 0.7, pan); pluck(f1, t + 0.14, vol * 0.8, pan); }
+  function tone(freq, t, dur, vol, type, b, attack) {
     const o = ctx.createOscillator(); o.type = type || 'sine'; o.frequency.value = freq;
     const g = ctx.createGain();
     g.gain.setValueAtTime(0.0001, t);
     g.gain.exponentialRampToValueAtTime(vol, t + (attack || 0.02));
     g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g); g.connect(bus || musicBus); o.start(t); o.stop(t + dur + 0.05);
+    o.connect(g); g.connect(b || bus()); o.start(t); o.stop(t + dur + 0.05);
   }
   // Inharmonic church/bronze bell.
-  function bell(freq, t, vol, bus) {
+  function bell(freq, t, vol, b) {
     for (const [m, v, d] of [[0.5, 0.5, 6], [1, 1, 5], [1.19, 0.5, 3.5], [1.5, 0.35, 3], [2, 0.3, 2.5], [2.74, 0.2, 1.6]]) {
-      tone(freq * m, t, d, vol * v, 'sine', bus);
+      tone(freq * m, t, d, vol * v, 'sine', b);
     }
   }
+  // Strings-and-reed pad: detuned saws spread left and right, a filter that
+  // slowly breathes open and shut.
   function pad(freqs, t, dur, vol) {
-    for (const f of freqs) for (const det of [-4, 4]) {
-      const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = det;
-      const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 700;
+    for (const f of freqs) for (const det of [-6, 6]) {
+      const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = det + (Math.random() - 0.5) * 3;
+      const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = 0.7;
+      lp.frequency.setValueAtTime(380, t); lp.frequency.linearRampToValueAtTime(900, t + dur * 0.45); lp.frequency.linearRampToValueAtTime(420, t + dur);
       const g = ctx.createGain();
       g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(vol, t + dur * 0.4); g.gain.linearRampToValueAtTime(0.0001, t + dur);
-      o.connect(lp); lp.connect(g); g.connect(musicBus); o.start(t); o.stop(t + dur + 0.1);
+      o.connect(lp); lp.connect(g); panned(g, det < 0 ? -0.35 : 0.35); o.start(t); o.stop(t + dur + 0.1);
     }
   }
   const N = n => 440 * Math.pow(2, (n - 69) / 12);
@@ -72,15 +103,24 @@
   // Each track: tempo (sec per step) + a step function that schedules notes.
   const TRACKS = {
     fado: { spb: 0.26, fn(s, t) {
-      // Am | Dm | E7 | Am  arpeggiated, with a sad melody on top every 2 bars
+      // Am | Dm | E7 | Am  arpeggiated; the melody varies phrase to phrase
+      // and the guitarra ornaments its long notes with a trill
       const chords = [[45, 57, 60, 64], [50, 57, 62, 65], [40, 56, 59, 62], [45, 57, 60, 64]];
-      const bar = Math.floor(s / 8) % 4, beat = s % 8;
-      const ch = chords[bar];
+      const bar = Math.floor(s / 8) % 4, beat = s % 8, ch = chords[bar];
       const pat = [0, 2, 1, 3, 2, 1, 3, 2];
-      pluck(N(ch[pat[beat]]), t, beat === 0 ? 0.5 : 0.3);
-      if (beat === 0) pluck(N(ch[0] - 12 + 12), t, 0.35);
-      const mel = [[76, 74, 72, 71], [77, 76, 74, 72], [71, 72, 74, 68], [69, 71, 72, 69]][bar];
-      if (beat % 2 === 0 && Math.floor(s / 32) % 2 === 1) pluck(N(mel[beat / 2]), t + 0.01, 0.32);
+      pluck(N(ch[pat[beat]]), t, beat === 0 ? 0.42 : 0.24, 0.15);
+      if (beat === 0 || beat === 4) pluck(N(ch[0] - (beat ? 5 : 0)), t, 0.38, -0.1);
+      const PH = [
+        [[76, 74, 72, 71], [77, 76, 74, 72], [71, 72, 74, 68], [69, 71, 72, 69]],
+        [[72, 71, 69, 72], [74, 72, 77, 76], [74, 71, 68, 71], [69, 0, 64, 69]],
+        [[81, 79, 77, 76], [77, 74, 76, 77], [76, 74, 71, 68], [69, 72, 71, 69]],
+      ];
+      const ph = PH[Math.floor(s / 64) % PH.length], mel = ph[bar];
+      if (beat % 2 === 0 && Math.floor(s / 32) % 2 === 1) {
+        const n = mel[beat / 2]; if (!n) return;
+        if (beat === 6 && bar === 3) trill(N(n), N(n + 2), t + 0.01, 0.3, -0.2);
+        else pluck(N(n), t + 0.01, beat === 0 ? 0.36 : 0.28, -0.2);
+      }
     } },
     fog: { spb: 0.5, fn(s, t) {
       if (s % 16 === 0) pad([N(45), N(52), N(57)], t, 8.5, 0.035);
@@ -134,7 +174,7 @@
       const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 400;
       const g = ctx.createGain();
       g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.03, t + 0.6); g.gain.linearRampToValueAtTime(0.0001, t + 3);
-      o.connect(lp); lp.connect(g); g.connect(musicBus); o.start(t); o.stop(t + 3.1);
+      o.connect(lp); lp.connect(g); g.connect(bus()); o.start(t); o.stop(t + 3.1);
     }
   }
 
@@ -143,12 +183,17 @@
     if (currentTrack === name) return;
     currentTrack = name;
     clearInterval(trackTimer);
+    if (playing) { const old = playing, now = ctx.currentTime; old.gain.gain.cancelScheduledValues(now); old.gain.gain.setValueAtTime(old.gain.gain.value, now); old.gain.gain.linearRampToValueAtTime(0.0001, now + 1.6); setTimeout(() => old.gain.disconnect(), 9000); playing = null; }
     if (!name || !musicOn) return;
     step = 0; nextTime = ctx.currentTime + 0.1;
+    const tb = trackBus(); tb.gain.gain.setValueAtTime(0.0001, ctx.currentTime); tb.gain.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.2);
+    playing = { gain: tb.gain }; const input = tb.input;
     const tr = TRACKS[name];
     trackTimer = setInterval(() => {
       while (nextTime < ctx.currentTime + 0.25) {
+        const was = out; out = input;
         try { tr.fn(step, nextTime); } catch (e) { /* never let music kill the game */ }
+        out = was;
         step++; nextTime += tr.spb;
       }
     }, 60);
