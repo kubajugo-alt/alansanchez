@@ -481,8 +481,20 @@
     g.clip();
     g.drawImage(im, 0, 0, W, H);
     drawLayers(true);
+    drawGlows(); // keep lamp halos continuous across the repainted patch
     if (o.draw) o.draw(g, time); // props that sit on the occluding furniture
     g.restore();
+  }
+  // Depth of an occluder. Furniture painted at an angle gives a `base` line (its
+  // front edge on the floor) instead of a single y: whoever stands behind that
+  // line at their own x is covered, whoever stands in front is not.
+  function occluderY(o) {
+    if (!o.base) return o.y;
+    const [[x0, y0], [x1, y1]] = o.base;
+    const at = x => y0 + (y1 - y0) * Math.max(0, Math.min(1, (x - x0) / (x1 - x0)));
+    let behind = -Infinity;
+    for (const a of npcs.concat(player)) if (a.visible && a.y < at(a.x)) behind = Math.max(behind, a.y);
+    return behind === -Infinity ? -1e6 : behind + 0.01;
   }
   // Painted layers cut from clean plates: static fills for things that were
   // taken, and moving parts (pendulums, bells) that swing about a pivot.
@@ -512,7 +524,7 @@
       const items = [];
       for (const a of npcs) if (a.visible) items.push({ y: a.y, fn: () => { a.draw(); if (a.overlay) a.overlay(g, a, time); } });
       if (player.visible) items.push({ y: player.y, fn: () => { player.draw(); if (player.overlay) player.overlay(g, player, time); } });
-      for (const o of (room.occluders || [])) if (!o.when || o.when()) items.push({ y: o.y, fn: () => drawOccluder(o) });
+      for (const o of (room.occluders || [])) if (!o.when || o.when()) items.push({ y: occluderY(o), fn: () => drawOccluder(o) });
       items.sort((a, b) => a.y - b.y).forEach(i => i.fn());
       if (room.animFg) room.animFg(g, time);
       if (room.fog) {

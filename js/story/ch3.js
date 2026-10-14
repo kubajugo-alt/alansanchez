@@ -125,6 +125,12 @@
   ];
   ROOMS.se_tower = {
     name: 'Sé de Lisboa · bell tower', bg: 'se_tower', music: 'church', ambience: 'tower', floor: 'wood',
+    // Abílio's stool with his cap and thermos (legs traced one by one, floor shows between them)
+    occluders: [{ y: 672, polys: [
+      [[1104, 505], [1150, 490], [1158, 463], [1190, 463], [1192, 540], [1230, 548], [1228, 566], [1098, 566], [1096, 548], [1104, 540]],
+      [[1098, 566], [1113, 566], [1113, 676], [1086, 676]], [[1160, 566], [1180, 566], [1183, 676], [1164, 676]],
+      [[1212, 566], [1228, 566], [1241, 665], [1222, 668]], [[1105, 618], [1215, 618], [1215, 631], [1105, 631]],
+    ] }],
     walk: [[280, 592], [1280, 592], [1280, 716], [0, 716], [0, 650]],
     scale: [592, 330, 716, 402],
     light: { ambient: 'rgb(200,195,185)', base: 0.78, rim: 'rgba(235,230,215,0.2)', rimSide: 1 },
@@ -191,7 +197,7 @@
       { x: 730, y: 150, rgb: '255,210,140', glow: 120, ga: 0.12, power: 0.38, reach: 900, floor: [730, 530], height: 600 },
       { x: 765, y: 375, rgb: '120,255,180', kind: 'pulse', seed: 1, glow: 50, ga: 0.08, power: 0.08, reach: 300, shadow: false, when: () => !F().has_tongue },
     ],
-    occluders: [{ y: 640, polys: [
+    occluders: [{ y: 640, base: [[0, 632], [437, 548]], polys: [ // the counter is painted at an angle: its foot runs from (0,632) to (437,548)
       [[0, 362], [70, 356], [436, 356], [447, 366], [443, 382], [437, 384], [437, 545], [428, 551], [0, 636]],
       [[150, 334], [250, 334], [252, 368], [148, 368]],
     ] }],

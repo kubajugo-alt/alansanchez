@@ -28,7 +28,8 @@
       g.restore();
     },
     // the back basins stand in front of the washerwomen
-    occluders: [{ y: 482, polys: [[[160, 386], [1068, 386], [1068, 484], [160, 484]]] }],
+    occluders: [{ y: 482, polys: [[[160, 386], [1068, 386], [1068, 484], [160, 484]]] },
+      { y: 680, polys: [[[839, 453], [1011, 446], [1013, 420], [1158, 420], [1160, 452], [1280, 470], [1280, 680], [874, 680], [860, 650], [842, 600]]] }], // the big tank and its towel
     npcs: [
       { id: 'celeste', x: 600, y: 610, dir: 'e', set: () => F().met_celeste ? 'wring' : 'wring', name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCeleste(),
         items: { sketch: () => S.celesteTile(), notebook: () => S.celesteTile(), file55: () => S.celeste1955(), any: 'alan_fail_06' } },

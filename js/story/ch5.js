@@ -8,7 +8,7 @@
   ROOMS.convent_night = {
     name: 'Convento do Carmo — midnight', bg: 'convent_night', music: null, ambience: 'night', floor: 'stone', skyMask: 'convent_night_sky',
     fog: 0.3, fogRGB: '120,135,180',
-    walk: [[0, 640], [230, 560], [1050, 560], [1280, 640], [1280, 716], [1030, 716], [1000, 594], [790, 594], [778, 716], [0, 716]], // around the open grate
+    walk: [[0, 640], [230, 560], [1000, 560], [1000, 594], [790, 594], [778, 716], [0, 716]], // around the open grate, and not behind the grating leaning on the wall
     scale: [560, 230, 716, 360],
     light: { ambient: 'rgb(120,135,185)', base: 0.72 },
     lights: [
@@ -65,7 +65,7 @@
   ROOMS.cistern = {
     name: 'The Cistern', bg: 'cistern', noSave: true, music: null, ambience: 'cistern', floor: 'wet',
     fog: () => F().won ? 0 : 0.16, fogRGB: '90,140,120',
-    walk: [[0, 560], [214, 560], [598, 420], [762, 420], [704, 446], [332, 560], [1000, 560], [1280, 640], [1280, 716], [0, 716]],
+    walk: [[0, 560], [214, 560], [570, 430], [708, 430], [704, 446], [332, 560], [960, 560], [960, 604], [1228, 604], [1280, 640], [1280, 716], [0, 716]], // the walkway stops at the bell's pedestal (the rim hangs too low to stand under) and keeps off the pillar's plinth
     scale: [420, 192, 716, 378],
     light: () => F().won ? { ambient: 'rgb(200,190,170)', base: 0.8 } : { ambient: 'rgb(150,165,135)', base: 0.6, flickerShade: 0.32 },
     lights: [

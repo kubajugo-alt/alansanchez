@@ -34,6 +34,16 @@
       for (let i = 0; i < 4; i++) FX.wisps(g, t + i * 2.2, 760 + i * 130, 600, { n: 3, rise: 40, spread: 70, rgb: '215,220,228', a: 0.05, size: 60, speed: 0.05 });
       FX.birds(g, t, { y0: 80, y1: 200, n: 3, period: 15, color: 'rgba(230,232,235,0.8)', size: 11 });
     },
+    // street furniture on the promenade, each hiding whoever walks behind it
+    occluders: [
+      { y: 497, polys: [[[96, 240], [211, 240], [213, 497], [96, 497]]] },                                   // telephone box
+      { y: 550, polys: [[[266, 220], [292, 220], [292, 420], [312, 480], [312, 552], [248, 552], [248, 480], [266, 420]]] }, // harbour clock post
+      { y: 468, polys: [[[373, 225], [386, 225], [386, 400], [394, 440], [394, 468], [362, 468], [362, 440], [372, 400]]] },            // gas lamp
+      { y: 469, polys: [[[316, 424], [366, 424], [366, 470], [316, 470]]] },                                 // crate
+      { y: 468, polys: [[[459, 395], [491, 395], [493, 468], [457, 468]]] },                                 // small bollard
+      { y: 522, polys: [[[528, 436], [560, 436], [562, 522], [522, 522], [522, 470]]] },                       // gull bollard
+      { y: 628, polys: [[[680, 446], [745, 446], [745, 500], [752, 505], [748, 540], [752, 600], [758, 625], [740, 632], [668, 632], [662, 622], [668, 595], [672, 540], [665, 505], [680, 498]]] }, // big bollard
+    ],
     animFg(g, t) { if (F().ch === 4 && F().harbour) { /* clock overlay is HTML */ } },
     npcs: [
       { id: 'celeste', x: 360, y: 556, dir: 'e', set: 'basket', name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCelesteQuay(),
@@ -78,6 +88,11 @@
   // ================================================================ THE MARIA FÉ (deck)
   ROOMS.boat = {
     name: 'The Maria Fé', bg: 'boat', music: 'tension', ambience: 'boat', floor: 'wood',
+    occluders: [
+      { y: 628, polys: [[[1070, 470], [1120, 455], [1165, 470], [1178, 530], [1172, 600], [1160, 618], [1100, 628], [1040, 640], [1012, 636], [1030, 610], [1062, 560]]] }, // orange float in its net
+      { y: 644, polys: [[[1170, 480], [1280, 478], [1280, 644], [1180, 644], [1175, 600]]] },                          // basket
+      { y: 694, polys: [[[1206, 580], [1280, 560], [1280, 700], [1220, 694]]] },                                       // green float
+    ],
     fog: 0.3, fogRGB: '200,205,210',
     walk: [[150, 614], [1060, 606], [1230, 716], [60, 716]], // in front of the hatch, clear of the baskets
     scale: [578, 400, 716, 470],
@@ -169,6 +184,10 @@
     name: 'The cabin', bg: 'cabin',
     layers: [{ img: 'cabin_notile', x: 0, y: 0, full: true, when: () => F().ze_saved || F().tile_held }],
     music: () => F().ze_saved ? null : 'tension', ambience: 'boat', floor: 'wood',
+    occluders: [
+      { y: 548, polys: [[[760, 387], [814, 387], [814, 548], [760, 548]]] },                                            // sea chest
+      { y: 718, base: [[810, 583], [1000, 718]], polys: [[[810, 425], [840, 415], [1280, 300], [1280, 720], [1000, 720], [837, 585], [810, 585]]] }, // bunk
+    ],
     walk: [[384, 522], [830, 522], [830, 716], [384, 716]],
     scale: [500, 330, 716, 420],
     light: { ambient: 'rgb(170,150,130)', base: 0.66, flickerShade: 0.25 },
