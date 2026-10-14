@@ -80,7 +80,7 @@
     entries: { default: [140, 640, 'e'], convent: [140, 640, 'e'] },
     layers: [
       { img: 'cistern_plate', x: 0, y: 0, full: true },
-      { img: 'cistern_bell', x: 0, y: 0, full: true, pivot: [652, 0], swing: t => F().ringing ? 2.4 * Math.sin(t * 2.3) : 0.4 * Math.sin(t * 0.6) },
+      { img: 'cistern_bell', x: 0, y: 0, full: true, pivot: [652, 0], swing: t => (F().ringing ? 2.4 * Math.sin(t * 2.3) : 0.4 * Math.sin(t * 0.6)) + S.bellShudder(t) },
     ],
     anim(g, t) {
       FX.water(g, t, 160, 400, 850, 140, '120,255,170');
@@ -88,6 +88,7 @@
       FX.embers(g, t, 104, 175, 7); FX.embers(g, t + 3, 1216, 225, 6);
       if (F().sinkAt) FX.drips(g, t, [[F().sinkAt[0], F().sinkAt[1], F().sinkAt[1] - 1, 1.2]], '170,255,210');
       S.drawMarks(g, t);
+      S.drawBellHit(g, t);
       if (F().ringing) for (let i = 0; i < 3; i++) {
         const r = ((t * 220) + i * 160) % 480;
         g.strokeStyle = `rgba(150,255,210,${0.5 * (1 - r / 480)})`; g.lineWidth = 3;
@@ -123,6 +124,29 @@
       await say('lacerda_joaquim', 'alan_fin_angry', 'lacerda_spared', 'lacerda_ze', 'lacerda_demand', 'ines_warn', 'lacerda_quiet');
       G.checkpoint();
     },
+  };
+  // each strike: the bell shudders on its chain, rings spread over the black water
+  // and the bronze flares, green for a note rung backward, amber for a wrong one
+  let hit = null;
+  S.bellHit = kind => { hit = { kind, t0: null }; };
+  const hitAge = t => { if (!hit) return Infinity; if (hit.t0 === null) hit.t0 = t; return t - hit.t0; };
+  S.bellShudder = t => { const a = hitAge(t); return a < 4 ? 1.8 * Math.exp(-a * 1.3) * Math.sin(a * 9) : 0; };
+  S.drawBellHit = function (g, t) {
+    const a = hitAge(t); if (a > 5) return;
+    const rgb = hit.kind === 'wrong' ? '255,150,80' : '150,255,210';
+    FX.glow(g, 652, 250, 240, rgb, 0.3 * Math.exp(-a * 1.6));
+    g.save();
+    // ripples stay on the water: the band of pool minus the stone walkway
+    g.beginPath(); g.rect(0, 372, 1280, 176);
+    g.moveTo(150, 548); g.lineTo(598, 404); g.lineTo(762, 408); g.lineTo(472, 548); g.closePath();
+    g.clip('evenodd');
+    for (let i = 0; i < 4; i++) {
+      const k = a - i * 0.45; if (k < 0) continue;
+      const r = 95 + k * 170, fade = Math.max(0, 1 - r / 760);
+      g.strokeStyle = `rgba(${rgb},${0.55 * fade})`; g.lineWidth = 2.5 * fade + 0.5;
+      g.beginPath(); g.ellipse(652, 414, r, r * 0.16, 0, 0, Math.PI * 2); g.stroke();
+    }
+    g.restore();
   };
   S.drawMarks = function (g, t) {
     // six painted marks on the pillar; the ones under water glow
@@ -283,12 +307,12 @@
     const struck = F().struck || (F().struck = []);
     const want = ORDER[struck.length];
     if (id !== want) {
-      sfx('bell_forward'); p.pose = null; F().struck_wrong = true;
+      sfx('bell_forward'); S.bellHit('wrong'); p.pose = null; F().struck_wrong = true;
       await say('narr_wrong_strike', 'alan_wrong_strike', 'lacerda_lovely');
       return raise(2);
     }
     struck.push(id); F().strikes = (F().strikes || 0) + 1;
-    sfx('bell_backward'); p.pose = null;
+    sfx('bell_backward'); S.bellHit('back'); p.pose = null;
     const lac = G.npc('lacerda');
     // he assumes the founding order and hears what he wants to hear, until the last note
     if (struck.length === 1) await say('alan_strike_1', 'lacerda_good_1');
@@ -326,7 +350,7 @@
   S.silence = async function () {
     G.cutscene = true;
     const lac = G.npc('lacerda'), ines = G.npc('ines'), p = G.player;
-    F().ringing = true; sfx('bell_backward'); sfx('fog_lift');
+    F().ringing = true; sfx('bell_backward'); S.bellHit('back'); sfx('fog_lift');
     await say('narr_ring');
     lac.set = null; lac.pose = 'realise';
     await say('lacerda_realise');

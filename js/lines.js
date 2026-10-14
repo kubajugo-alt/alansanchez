@@ -409,6 +409,7 @@ window.LINES = {
   alan_knock: ['alan', "Zé! It's your life calling! [pause] He's screening."],
   alan_shout: ['alan', "[shouting] ZÉ! WAKE UP! [pause] Nothing. He sleeps like I do. Professionally."],
   narr_look_porthole: ['narr', "Fog on the glass. A shape in a narrow bunk. And on the blanket, something blue."],
+  narr_look_porthole_empty: ['narr', "Fog on the glass. The bunk is empty now, the blanket thrown back."],
   narr_look_line: ['narr', "The mooring line, made fast to the next boat with a bowline swollen tight with wet."],
   alan_knot_fail: ['alan', "I know two knots, and they're both called 'tangled'."],
   celeste_knot: ['celeste', "[shouting from the quay] Pull the tail back through the loop, menino! You want it undone, not your opinion of it!"],

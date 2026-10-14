@@ -106,7 +106,7 @@
           sfx('knock'); await G.wait(window.FAST ? 20 : 600); sfx('snore'); F().knocked = true; await say('alan_knock');
         },
         talk: async () => { if (F().ze_awake) return S.talkZe(); F().knocked = true; await say('alan_shout'); sfx('snore'); } },
-      { name: 'Porthole', rect: [747, 416, 85, 75], at: [790, 620], face: 'n', look: async () => { await S.showPorthole(); await say('narr_look_porthole'); } },
+      { name: 'Porthole', rect: [747, 416, 85, 75], at: [790, 620], face: 'n', look: async () => { if (F().ze_awake) return say('narr_look_porthole_empty'); await S.showPorthole(); await say('narr_look_porthole'); } }, // once Zé is up, the bunk is empty
       { name: 'Mooring line', rect: [0, 341, 280, 200], at: [230, 620], face: 'w', look: 'narr_look_line',
         use: () => S.mooring(), take: () => S.mooring() },
       { name: "Ship's bell", rect: [855, 238, 40, 46], at: [900, 610], face: 'n', look: 'narr_look_shipbell', use: 'alan_ring_shipbell' },
