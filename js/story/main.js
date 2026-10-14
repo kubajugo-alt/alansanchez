@@ -47,7 +47,22 @@
   window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks'];
 
   // ---------------------------------------------------------------- new game
+  // preview links: ?scene=bath | cop | guitar jumps straight to that scene (no autosave)
+  const PREVIEW = {
+    bath: { flags: { ch: 2, met_celeste: true }, room: 'lavadouro', pos: [800, 640, 'e'], run: () => S.bathEgg() },
+    cop: { flags: { ch: 1 }, room: 'police', pos: [420, 690, 'w'], run: () => S.flirtCop() },
+    guitar: { flags: { ch: 1, heard_song: true }, room: 'tavern', pos: [720, 660, 'w'], run: () => S.flirtGuitar() },
+  };
+  async function preview(k) {
+    const P = PREVIEW[k];
+    G.giveItem('notebook', true); Object.assign(F(), P.flags);
+    await G.goRoom(P.room, null, { noEnter: true, instant: true, pos: P.pos });
+    await G.wait(800);
+    await P.run();
+  }
   async function newGame() {
+    const scene = new URLSearchParams(location.search).get('scene');
+    if (PREVIEW[scene]) return preview(scene);
     G.giveItem('notebook', true);
     F().ch = 1; F().clock = '11:00';
     await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);

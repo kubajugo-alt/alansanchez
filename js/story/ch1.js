@@ -440,7 +440,9 @@
       if (cop) { await p.walkTo(cop.x + 105, cop.y); p.dir = 'w'; }
       p.pose = 'flirt'; await T(450); copPose('npc_phone_proud');
       await say('alan_flirt_cop_2');
-      copPose('npc_phone_blush'); p.pose = 'swoon';
+      copPose('npc_phone_blush'); p.pose = null;
+      if (cop) { await p.walkTo(cop.x + 190, cop.y); p.dir = 'w'; }
+      p.pose = 'swoon';
       await say('phone_flirt_2');
       if (G.npc('rui')) { p.pose = null; await say('rui_flirt'); }
       p.pose = null; copPose(null);

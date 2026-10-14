@@ -27,7 +27,7 @@
     rui: { scale: 0.96, frames: { idle: ['rui', 'rui_idle2', 'rui_idle3'], talk: ['rui_talk', 'rui_talk2'],
       sets: { gate: { idle: 'rui_smoke', talk: ['rui_smoke', 'rui_talk'] }, coffee: { idle: 'rui_coffees', talk: 'rui_coffees' } } } },
     amalia: { scale: 0.9, frames: {
-      idle: ['amalia', 'amalia_idle2'], talk: ['amalia_idle2', 'amalia'], poses: { toast: 'amalia_toast' },
+      idle: ['amalia', 'amalia_idle2'], talk: ['amalia_talk', 'amalia_idle2'], poses: { toast: 'amalia_toast' },
       sets: { sing: { idle: 'amalia_sing1', talk: ['amalia_sing1', 'amalia_sing2', 'amalia_sing1', 'amalia_idle2'] } } } },
     tomas: { scale: 0.95, frames: {
       idle: 'tomas', talk: 'tomas_talk', poses: { kneel: 'tomas_kneel' },

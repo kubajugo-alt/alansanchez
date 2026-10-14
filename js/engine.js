@@ -929,7 +929,7 @@
 
   // ---------------------------------------------------------------- saves
   function snapshot() { return JSON.stringify(Object.assign({}, state, { px: player.x, py: player.y, dir: player.dir })); }
-  function autosave() { try { localStorage.setItem(SAVE_KEY, snapshot()); } catch (e) { /* storage unavailable */ } }
+  function autosave() { if (/[?&]scene=/.test(location.search)) return; try { localStorage.setItem(SAVE_KEY, snapshot()); } catch (e) { /* storage unavailable */ } }
   function hasSave() { try { return !!localStorage.getItem(SAVE_KEY); } catch (e) { return false; } }
   async function loadSave(json) {
     let data = json;

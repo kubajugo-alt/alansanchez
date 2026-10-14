@@ -63,10 +63,10 @@
     if (!swimmer) return;
     const p = G.player, x = p.x, y = swimmer.y;
     g.save();
-    g.fillStyle = 'rgba(120,140,140,0.55)'; g.beginPath(); g.ellipse(x, y + 2, 90, 9, 0, 0, 7); g.fill();
+    g.fillStyle = 'rgba(70,82,78,0.35)'; g.beginPath(); g.ellipse(x, y + 2, 85, 7, 0, 0, 7); g.fill();
     for (let r = 0; r < 3; r++) {
       const k = ((t * 0.7 + r / 3) % 1);
-      g.strokeStyle = `rgba(230,240,245,${0.55 * (1 - k)})`; g.lineWidth = 2;
+      g.strokeStyle = `rgba(200,212,210,${0.28 * (1 - k)})`; g.lineWidth = 1.5;
       g.beginPath(); g.ellipse(x, y + 1, 60 + 90 * k, 6 + 9 * k, 0, 0, 7); g.stroke();
     }
     g.restore();
