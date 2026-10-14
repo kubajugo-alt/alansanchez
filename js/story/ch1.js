@@ -257,7 +257,7 @@
     animBack(g, t) { S.windowFog(g, t, [780, 202, 276, 126], '230,232,236', 0.22); },
     anim(g, t) { FX.wisps(g, t, 751, 362, { n: 5, rise: 55, spread: 9, a: 0.12, size: 7, speed: 0.3 }); },
     npcs: [
-      { id: 'rui', x: 520, y: 497, h: 420, dir: 'e', at: [520, 640], name: 'Inspector Mendonça', look: 'narr_look_rui', talk: () => S.talkRui(),
+      { id: 'rui', x: 520, y: 560, h: 365, dir: 'e', at: [520, 640], name: 'Inspector Mendonça', look: 'narr_look_rui', talk: () => S.talkRui(),
         items: { coffee: () => say('rui_coffee'), file55: () => say('rui_times'), any: 'alan_fail_rui_item' } },
     ],
     ambient: [
