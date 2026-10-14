@@ -16,8 +16,12 @@ if os.path.exists(js):
     meta = json.loads(txt[txt.index('{'):txt.rindex('}') + 1])
 # raw standing height (px on the 1024x1536 canvas) of each character
 REF = {'alan': 1407, 'ines': 1415, 'rui': 1396, 'amalia': 1438, 'tomas': 1432, 'lacerda': 1475, 'robe': 1478}
+# newer characters take their reference from their own base frame (cached here)
+REF_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sprite_refs.json')
+if os.path.exists(REF_FILE): REF.update(json.load(open(REF_FILE)))
+BASES = {'celeste': 'celeste', 'ze': 'ze', 'abilio': 'abilio', 'pessoa': 'pessoa_sleep', 'joaquim1955': 'joaquim1955'}
 # frames whose attention is to the left (mirrored the other way)
-FACES_LEFT = {'rui', 'rui_idle2', 'robe_talk', 'robe_terror', 'robe_read'}
+FACES_LEFT = {'rui', 'rui_idle2', 'robe_talk', 'robe_terror', 'robe_read', 'npc_washer2', 'npc_washer2_b', 'npc_mender2', 'npc_mender2_b'}
 # frames anchored on the legs rather than the head (head band is cluttered by raised arms or props)
 LEG_ANCHOR = {'alan_ring', 'robe_terror', 'robe_lunge', 'ines_tied_struggle', 'tomas_sweepL', 'tomas_sweepR'}
 # frames with a prop reaching the floor (broom, dropped rope): the feet line is
@@ -25,7 +29,18 @@ LEG_ANCHOR = {'alan_ring', 'robe_terror', 'robe_lunge', 'ines_tied_struggle', 't
 FEET_BAND = {'tomas', 'tomas_talk', 'tomas_sweep', 'tomas_sweepL', 'tomas_sweepR', 'ines_free'}
 def char_of(name):
     if name.startswith('lacerda_robe') or name.startswith('robe'): return 'robe'
+    if name.startswith('npc_') or name.startswith('prop_'): return name[:-2] if name.endswith('_b') else name
     return re.split('_', name)[0]
+def raw_fig_height(path):
+    im = np.asarray(Image.open(path).convert('RGB')).astype(np.int16)
+    fg = im.min(2) < 225
+    rows = np.where(fg.sum(1) > 3)[0]
+    return int(rows.max() - rows.min())
+# measure reference heights for any base frame present in this batch
+for c, base in list(BASES.items()) + [(os.path.basename(f)[:-4], os.path.basename(f)[:-4]) for f in glob.glob(os.path.join(src, 'npc_*.png')) + glob.glob(os.path.join(src, 'prop_*.png')) if not f.endswith('_b.png')]:
+    p = os.path.join(src, base + '.png')
+    if os.path.exists(p): REF[c] = raw_fig_height(p)
+json.dump({k: v for k, v in REF.items() if k not in ('alan', 'ines', 'rui', 'amalia', 'tomas', 'lacerda', 'robe')}, open(REF_FILE, 'w'), indent=1)
 for f in sorted(glob.glob(os.path.join(src, '*.png'))):
     name = os.path.basename(f)[:-4]
     if name.startswith('plate'): continue
