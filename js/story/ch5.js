@@ -183,7 +183,7 @@
     if (G.isBusy || F().won || !F().finaleIntro) { lastAct = t; return; }
     if (t - lastAct > 20 && t - hinted > 20) { hinted = t; lastAct = t; G.busy(() => say(S.cisternHint())); }
   };
-  S.cisternHint = () => !F().lacerda_distracted ? 'ines_hint_eyes' : !F().ines_free ? 'ines_hint_ropes' : !F().bell_lit ? 'ines_hint_light' : !F().blood ? 'ines_hint_blood' : 'ines_hint_lastfirst';
+  S.cisternHint = () => !F().lacerda_distracted ? 'ines_hint_ledger' : !F().ines_free ? 'ines_hint_free' : !F().bell_lit ? 'ines_hint_light' : !F().blood ? 'ines_hint_blood' : 'ines_hint_lastfirst';
   const raise = async (n) => {
     F().water = Math.min(6, (F().water || 0) + n); sfx('water_rise', 0.7);
     if (F().water >= 6) { await G.wait(window.FAST ? 20 : 600); await S.cisternDeath(true); return true; }
@@ -207,22 +207,30 @@
   };
   S.cutRopes = async function () {
     if (F().ines_free) return say('alan_fail_04');
-    if (watched()) {
-      if (!F().glacier) { F().glacier = true; await say('lacerda_patient'); await joke('alan_glacier'); } else await say('lacerda_patient');
-      await raise(1); return;
-    }
-    const ines = G.npc('ines'); G.player.pose = 'reach'; sfx('rope_cut');
+    const ines = G.npc('ines');
+    // he doesn't mind: he believes the water is his
+    if (!F().lamp_ok) { F().lamp_ok = true; await say('alan_ask_lamp', 'lacerda_lamp_ok'); }
+    G.player.pose = 'reach'; sfx('rope_cut');
     await G.wait(window.FAST ? 20 : 700); G.player.pose = null;
-    F().ines_free = true; ines.set = null; ines.pose = 'wrists';
+    F().ines_free = true; ines.set = null; ines.pose = 'wrists'; ines.def.fixedDir = false;
     await say('ines_free', 'alan_cat');
     ines.pose = null;
   };
+  // Inês takes the lamp out along the walkway, close to the bell
+  const LAMP_SPOT = [520, 482];
   S.giveLantern = async function () {
-    if (!F().ines_free) return say('alan_cut_watched');
+    if (!F().ines_free) return say('ines_hint_free');
     if (F().bell_lit) return say('alan_fail_04');
     G.takeItem('lantern'); F().has_lantern = false;
-    const ines = G.npc('ines'); ines.set = 'lantern'; F().bell_lit = true;
-    await say('ines_lantern'); await say('narr_bell_lit');
+    const ines = G.npc('ines'); ines.set = 'lantern'; ines.def.fixedDir = false;
+    await say('ines_lantern');
+    await G.busy(async () => {
+      if (ines.y > 570) await ines.walkTo(330, 600);
+      await ines.walkTo(272, 556); await ines.walkTo(LAMP_SPOT[0], LAMP_SPOT[1]);
+      ines.dir = 'e';
+    });
+    F().bell_lit = true;
+    await say('narr_bell_lit');
   };
   S.cutPalm = async function () {
     if (F().blood) return say('alan_fail_04');
@@ -238,7 +246,7 @@
     p.dir = 'w';
   };
   S.strike = async function (id) {
-    if (!F().lacerda_distracted) return S.cisternDeath();
+    if (!F().lacerda_distracted) return say('lacerda_ledger_first');
     if (!F().bell_lit) return say('alan_too_dark');
     if (!F().blood) return say('alan_need_blood');
     if (!id) return say('narr_bell_lit');
@@ -249,17 +257,17 @@
     const want = ORDER[struck.length];
     if (id !== want) {
       sfx('bell_forward'); p.pose = null; F().struck_wrong = true;
-      await say('narr_wrong_strike', 'alan_wrong_strike');
-      if (F().strikes === 0) { F().strikes = 1; const lac = G.npc('lacerda'); lac.set = null; lac.pose = 'terror'; await say('lacerda_no'); lac.pose = null; }
+      await say('narr_wrong_strike', 'alan_wrong_strike', 'lacerda_lovely');
       return raise(2);
     }
     struck.push(id); F().strikes = (F().strikes || 0) + 1;
     sfx('bell_backward'); p.pose = null;
     const lac = G.npc('lacerda');
-    if (struck.length === 1) { await say('alan_ringback'); lac.set = null; lac.pose = 'terror'; await say('lacerda_no'); lac.pose = null; }
-    else if (struck.length === 2) await say('lacerda_strike_2');
-    else if (struck.length === 3) await say('lacerda_strike_3');
-    if (struck.length === 4) return S.silence();
+    // he assumes the founding order and hears what he wants to hear, until the last note
+    if (struck.length === 1) await say('alan_strike_1', 'lacerda_good_1');
+    else if (struck.length === 2) await say('lacerda_good_2');
+    else if (struck.length === 3) await say('lacerda_good_3');
+    if (struck.length === 4) { await say('alan_ringback'); return S.silence(); }
     await raise(1);
   };
   S.cisternDeath = async function (step5) {
@@ -282,7 +290,7 @@
     const cp = G.flags._checkpoint;
     await G.loadSave(cp);
     G.flags._checkpoint = cp;
-    if (keep) { Object.assign(G.flags, keep); G.takeItem('ledger'); G.takeItem('lantern'); G.refreshNpcs(true); G.player.x = PLATFORM[0] - 300; G.player.y = 600; }
+    if (keep) { Object.assign(G.flags, keep, { lamp_ok: true }); G.takeItem('ledger'); G.takeItem('lantern'); G.refreshNpcs(true); G.player.x = PLATFORM[0] - 300; G.player.y = 600; const ines = G.npc('ines'); if (ines) { ines.x = LAMP_SPOT[0]; ines.y = LAMP_SPOT[1]; ines.dir = 'e'; ines.def.fixedDir = false; } }
     F().water = 0; F().strikes = 0; F().struck = [];
     await G.fade(false);
   };
@@ -294,7 +302,7 @@
     F().ringing = true; sfx('bell_backward'); sfx('fog_lift');
     await say('narr_ring');
     lac.set = null; lac.pose = 'terror';
-    await say('lacerda_mine');
+    await say('lacerda_realise', 'lacerda_mine');
     await say('alan_answers');
     // the water answers: it opens under him and starts to pull
     sfx('water_rise'); vortex = { x: lac.x, y: lac.y + 2, t0: performance.now() };
@@ -331,6 +339,7 @@
     await say('narr_still');
     ines.set = null; ines.def.fixedDir = false;
     await p.walkTo(272, 556); await p.walkTo(420, 640);
+    if (ines.y < 560) await ines.walkTo(330, 566);
     await ines.walkTo(p.x + 140, p.y + 4); ines.dir = 'w'; p.dir = 'e';
     await say('ines_end', 'alan_end');
     G.cutscene = false;

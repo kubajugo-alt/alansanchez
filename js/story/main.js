@@ -56,8 +56,10 @@
     finale: { flags: { ch: 5, tomas_confessed: true }, room: 'cistern', pos: [520, 640, 'e'], run: async () => {
       G.giveItem('ledger', true); G.giveItem('tongue', true);
       await S.giveLedger(); await G.wait(window.FAST ? 20 : 1500);
-      Object.assign(F(), { ines_free: true, bell_lit: true, blood: true, struck: ['sanches', 'coutinho', 'bastos'], strikes: 3, water: 2 });
-      G.refreshNpcs(true); await G.wait(window.FAST ? 20 : 700);
+      G.giveItem('lantern', true); G.giveItem('knife', true);
+      await S.cutRopes(); await S.giveLantern();
+      Object.assign(F(), { blood: true, struck: ['sanches', 'coutinho', 'bastos'], strikes: 3, water: 2 });
+      await G.wait(window.FAST ? 20 : 700);
       await S.strike('ferreira');
     } },
     guitar: { flags: { ch: 1, heard_song: true }, room: 'tavern', pos: [720, 660, 'w'], run: () => S.flirtGuitar() },
