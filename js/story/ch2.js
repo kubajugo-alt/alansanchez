@@ -118,7 +118,7 @@
           if (!F().tide_wound) return say('narr_look_tideclock');
           await S.showTideClock(true);
           if (!F().deaths_known) return say('alan_need_times');
-          if (!F().tide_known) { F().tide_known = true; await say('alan_turnings'); if (F().met_celeste) await say('alan_turnings_celeste'); }
+          if (!F().tide_known) { F().tide_known = true; await say('alan_turnings'); if (F().met_celeste) await say('alan_turnings_celeste'); await S.ensureTideCard(); }
           else await say('alan_tide_today');
         },
         items: { key: async () => {
@@ -127,7 +127,7 @@
           await joke('alan_clock_wound');
           await S.showTideClock(true);
           await say('narr_tideclock_runs');
-          if (F().deaths_known) { F().tide_known = true; await say('alan_turnings'); if (F().met_celeste) await say('alan_turnings_celeste'); }
+          if (F().deaths_known) { F().tide_known = true; await say('alan_turnings'); if (F().met_celeste) await say('alan_turnings_celeste'); await S.ensureTideCard(); }
         }, any: 'alan_fail_02' } },
       { name: 'Tide card', rect: [772, 448, 80, 22], at: [810, 640], face: 'n', when: () => lit() && F().tide_wound && !G.has('tidecard') && !F().tidecardTaken,
         look: 'alan_look_tidecard', take: async () => { F().tidecardTaken = true; give('tidecard'); sfx('page'); await say('alan_tide_card'); await S.readTideCard(); await say('alan_tide_today'); } },
@@ -147,6 +147,13 @@
   };
 
   // the chapter closes in the shop once both threads are done
+  // the tide card is essential later (Zé): once the turnings are understood Alan pockets it,
+  // and saves that got past the workshop without it get it back from his jacket
+  S.ensureTideCard = async function (quiet) {
+    if (G.has('tidecard') || F().tidecardTaken || F().ze_believes) return;
+    F().tidecardTaken = true; give('tidecard'); sfx('page');
+    if (!quiet) await say('alan_tide_card');
+  };
   S.checkCh2 = function () { if (F().met_celeste && F().tide_known) F().ch2_ready = true; };
   S.ch2End = async function () {
     if (F().ch2_done) return;

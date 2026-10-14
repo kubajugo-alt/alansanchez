@@ -54,6 +54,7 @@
       { name: 'Way out', rect: [0, 660, 60, 56], at: [30, 690], exit: 'map', entry: 'cais', locked: () => !F().ze_saved && F().ch === 4, lockedLine: 'celeste_hint_boat' },
     ],
     async enter(entry) {
+      if (F().ch >= 4) await S.ensureTideCard();
       if (!F().cais_entered) { F().cais_entered = true; clock('17:40'); await joke('alan_enter_cais'); await say('celeste_quay_hello'); }
     },
   };
@@ -106,9 +107,10 @@
       { name: 'Mooring line', rect: [0, 341, 280, 200], at: [230, 620], face: 'w', look: 'narr_look_line',
         use: () => S.mooring(), take: () => S.mooring() },
       { name: "Ship's bell", rect: [855, 238, 40, 46], at: [900, 610], face: 'n', look: 'narr_look_shipbell', use: 'alan_ring_shipbell' },
-      { name: 'Back to the quay', rect: [0, 560, 80, 156], at: [60, 680], exit: 'cais', entry: 'boat' },
+      { name: 'Back to the quay', rect: [0, 540, 130, 176], at: [110, 690], exit: 'cais', entry: 'boat' },
     ],
     async enter() {
+      if (F().ch >= 4) await S.ensureTideCard();
       if (!F().crossed) {
         F().crossed = true;
         const p = G.player; p.pose = 'wobble'; sfx('boat_creak');
