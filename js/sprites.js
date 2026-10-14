@@ -115,6 +115,14 @@ window.SPRITES = {
   "fy": 743.5,
   "top": 3.1
  },
+ "alan_fluster": {
+  "w": 349,
+  "hh": 745,
+  "h": 720,
+  "ax": 145.1,
+  "fy": 741.5,
+  "top": 3.1
+ },
  "alan_front": {
   "w": 261,
   "hh": 749,
@@ -882,6 +890,14 @@ window.SPRITES = {
   "fy": 720.3,
   "top": 3.3
  },
+ "npc_mender1_talk": {
+  "w": 425,
+  "hh": 726,
+  "h": 717.83,
+  "ax": 189.1,
+  "fy": 721.7,
+  "top": 3.3
+ },
  "npc_mender2": {
   "w": 400,
   "hh": 727,
@@ -900,6 +916,14 @@ window.SPRITES = {
   "top": 3.3,
   "facesLeft": true
  },
+ "npc_mender2_talk": {
+  "w": 390,
+  "hh": 736,
+  "h": 713.17,
+  "ax": 167.3,
+  "fy": 731.9,
+  "top": 3.3
+ },
  "npc_nun": {
   "w": 307,
   "hh": 727,
@@ -915,6 +939,15 @@ window.SPRITES = {
   "ax": 264.2,
   "fy": 597.4,
   "top": 3.0
+ },
+ "npc_nun_talk": {
+  "w": 257,
+  "hh": 726,
+  "h": 720,
+  "ax": 102.4,
+  "fy": 722.0,
+  "top": 3.0,
+  "facesLeft": true
  },
  "npc_phone": {
   "w": 285,
@@ -1122,6 +1155,14 @@ window.SPRITES = {
   "fy": 711.7,
   "top": 2.9,
   "facesLeft": true
+ },
+ "robe_realise": {
+  "w": 403,
+  "hh": 727,
+  "h": 720,
+  "ax": 161.5,
+  "fy": 723.4,
+  "top": 2.9
  },
  "robe_talk": {
   "w": 374,

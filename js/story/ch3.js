@@ -28,7 +28,7 @@
         items: { file55: () => say('alan_ask_tomas_1955', 'tomas_notyet'), ledger: () => say('tomas_stone'), any: 'alan_fail_07' } },
     ],
     ambient: [
-      { id: 'npc_nun', name: 'A nun', frames: ['npc_nun', 'npc_nun_b'], x: 1112, y: 548, h: 214, look: 'alan_npc_nun', idleHold: [7, 14], variantHold: [4, 7] },
+      { id: 'npc_nun', name: 'A nun', frames: ['npc_nun', 'npc_nun_b'], talkFrames: ['npc_nun_talk', 'npc_nun'], talk: S.chat('chat_nun', ['nun_talk_1', 'alan_nun_1'], ['nun_talk_2']), x: 1112, y: 548, h: 214, look: 'alan_npc_nun', idleHold: [7, 14], variantHold: [4, 7] },
     ],
     hotspots: [
       { name: 'Ruined arches', rect: [320, 0, 330, 500], look: 'narr_look_arches' },

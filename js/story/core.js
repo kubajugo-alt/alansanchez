@@ -3,7 +3,15 @@
 (function () {
   const G = window.Game;
   const F = () => G.flags;
-  const say = (...ids) => G.says(...ids);
+  // Alan's deflections in the running gag play in his flustered pose
+  const FLUSTER = /^(gag_alan_|alan_lino_1$)/;
+  const say = async (...ids) => {
+    for (const id of ids) {
+      const p = G.player, fl = FLUSTER.test(id) && p && p.visible && !p.pose;
+      if (fl) p.pose = 'fluster';
+      try { await G.says(id); } finally { if (fl) p.pose = null; }
+    }
+  };
   const S = window.S = { G, F, say, ROOMS: {} };
 
   // ---------------------------------------------------------------- cast
@@ -15,7 +23,7 @@
       walk: ['alan_walkA', 'alan_walkDown', 'alan_pass', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_pass', 'alan_walkUp'],
       front: 'alan_front', frontWalk: ['alan_front_walk1', 'alan_front', 'alan_front_walk2', 'alan_front'],
       back: 'alan_back', backWalk: ['alan_back_walk1', 'alan_back', 'alan_back_walk2', 'alan_back'],
-      poses: { pair_unbutton: 'pair_unbutton', pair_kiss: 'pair_kiss', pair_brow: 'pair_brow', button: 'alan_button', undress1: 'alan_undress1', undress2: 'alan_undress2', undress3: 'alan_undress3', undress4: 'alan_undress4', jacket: 'alan_jacket', jump: 'alan_jump', swim: 'alan_swim', swim2: 'alan_swim2', swimwave: 'alan_swim_wave', flirt: 'alan_flirt', wink: 'alan_wink', swoon: 'alan_swoon', reach: 'alan_reach', read: 'alan_read', ring: 'alan_ring', asleep: 'alan_asleep', pickup: 'alan_pickup', write: 'alan_write',
+      poses: { pair_unbutton: 'pair_unbutton', pair_kiss: 'pair_kiss', pair_brow: 'pair_brow', button: 'alan_button', undress1: 'alan_undress1', undress2: 'alan_undress2', undress3: 'alan_undress3', undress4: 'alan_undress4', jacket: 'alan_jacket', jump: 'alan_jump', swim: 'alan_swim', swim2: 'alan_swim2', swimwave: 'alan_swim_wave', flirt: 'alan_flirt', wink: 'alan_wink', swoon: 'alan_swoon', fluster: 'alan_fluster', reach: 'alan_reach', read: 'alan_read', ring: 'alan_ring', asleep: 'alan_asleep', pickup: 'alan_pickup', write: 'alan_write',
         drink: 'alan_drink', wring: 'alan_wring', wobble: 'alan_wobble', untie: 'alan_untie', phone: 'alan_phone', cut: 'alan_cutpalm' } } },
     ines: { scale: 0.93, frames: {
       idle: ['ines', 'ines_idle2'], talk: ['ines_talk', 'ines_talk2'], walk: ['ines_walk1', 'ines_walk2'],
@@ -38,7 +46,7 @@
       walk: ['lacerda_walkA', 'lacerda', 'lacerda_walkB', 'lacerda'] } },
     lacerda_robe: { scale: 1.02, frames: {
       idle: 'robe_idle', talk: ['robe_talk', 'lacerda_robe'],
-      poses: { lunge: 'robe_lunge', terror: 'robe_terror', read: 'robe_read', kneel: 'robe_kneel' },
+      poses: { lunge: 'robe_lunge', terror: 'robe_terror', read: 'robe_read', kneel: 'robe_kneel', realise: 'robe_realise' },
       sets: { read: { idle: 'robe_kneel', talk: ['robe_kneel'] } } } },
     celeste: { scale: 0.86, frames: {
       idle: ['celeste', 'celeste_idle2'], talk: ['celeste_talk', 'celeste_talk2'], walk: ['celeste_walkA', 'celeste', 'celeste_walkB', 'celeste'],
@@ -88,6 +96,8 @@
     const p = G.player; p.pose = p.visible ? pose : null;
     try { await fn(); } finally { p.pose = null; }
   };
+  // small talk with background characters: one exchange, then a short repeat line
+  S.chat = (flag, first, again) => () => F()[flag] ? say(...again) : (F()[flag] = true, say(...first));
   S.once = (flag, fn) => async (...a) => { if (F()[flag]) return; F()[flag] = true; await fn(...a); };
   // ★ jokes: Inês scores them when she's in the room
   let lastScore = 0;

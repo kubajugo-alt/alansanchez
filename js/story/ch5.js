@@ -268,7 +268,7 @@
     // he assumes the founding order and hears what he wants to hear, until the last note
     if (struck.length === 1) await say('alan_strike_1', 'lacerda_good_1');
     else if (struck.length === 2) await say('lacerda_good_2');
-    else if (struck.length === 3) await say('lacerda_good_3');
+    else if (struck.length === 3) { if (lac) { lac.set = null; lac.pose = 'read'; } await say('lacerda_good_3'); }
     if (struck.length === 4) { await say('alan_ringback'); return S.silence(); }
     await raise(1);
   };
@@ -303,8 +303,10 @@
     const lac = G.npc('lacerda'), ines = G.npc('ines'), p = G.player;
     F().ringing = true; sfx('bell_backward'); sfx('fog_lift');
     await say('narr_ring');
-    lac.set = null; lac.pose = 'terror';
-    await say('lacerda_realise', 'lacerda_mine');
+    lac.set = null; lac.pose = 'realise';
+    await say('lacerda_realise');
+    lac.pose = 'terror';
+    await say('lacerda_mine');
     await say('alan_answers');
     // the water answers: it opens under him and starts to pull
     sfx('water_rise'); vortex = { x: lac.x, y: lac.y + 2, t0: performance.now() };

@@ -40,9 +40,9 @@
         items: { tidecard: () => say('celeste_hint_ze'), any: 'alan_fail_06' } },
     ],
     ambient: [
-      { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], x: 600, y: 712, h: 290, look: 'alan_npc_menders' },
-      { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2'], x: 800, y: 714, h: 292, look: 'alan_npc_menders' },
-      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], x: 520, y: 592, h: 282, look: 'alan_npc_fish' },
+      { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], talkFrames: ['npc_mender1_talk', 'npc_mender1'], talk: S.chat('chat_mender1', ['mender1_talk_1'], ['mender1_talk_2']), x: 600, y: 712, h: 290, look: 'alan_npc_menders' },
+      { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2'], talkFrames: ['npc_mender2_talk', 'npc_mender2'], talk: S.chat('chat_mender2', ['mender2_talk_1', 'alan_mender2_1'], ['mender2_talk_2']), x: 800, y: 714, h: 292, look: 'alan_npc_menders' },
+      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], talkFrames: ['npc_fish_b', 'npc_fish'], talk: S.chat('chat_fish', ['fish_talk_1', 'alan_fish_1', 'fish_talk_2'], ['fish_talk_3']), x: 520, y: 592, h: 282, look: 'alan_npc_fish' },
     ],
     hotspots: [
       { name: 'Harbour clock', rect: [224, 30, 96, 525], look: 'narr_look_harbourclock' },
