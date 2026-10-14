@@ -217,7 +217,7 @@
     await say('alan_sardine', 'ze_river');
     await S.romance();
   };
-  // Zé and Alan: a kiss in the lantern light, then the bunk (as stills, fading to black between)
+  // Zé and Alan: one quick, fierce moment in the lantern light, then back to the night's business
   S.romance = async function () {
     if (F().ze_romance) return;
     F().ze_romance = true;
@@ -226,15 +226,13 @@
       if (ze) { ze.set = null; ze.pose = null; await p.walkTo(ze.x + 120, ze.y); p.dir = 'w'; ze.dir = 'e'; }
       await say('ze_rom_1', 'alan_rom_1', 'ze_rom_2');
       sfx('sheet_slap', 0.3);
-      await G.showStill('still_ze_kiss', () => G.say('narr_rom_1', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.5, 0.4]], keep: true });
-      await G.fade(true); await G.wait(window.FAST ? 20 : 1400); // black: the rest is theirs
-      await G.showStill('still_ze_bunk', async () => {
-        await G.fade(false);
+      await G.showStill('still_ze_kiss', async () => {
+        await G.say('narr_rom_1', { offscreen: true });
         await G.say('narr_rom_2', { offscreen: true });
-        await G.say('alan_rom_2', { offscreen: true });
-        await G.say('ze_rom_3', { offscreen: true });
-        await G.say('alan_rom_3', { offscreen: true });
-      }, { zoom: [1.0, 1.08], pan: [[0.45, 0.55], [0.55, 0.5]] });
+      }, { zoom: [1.02, 1.16], pan: [[0.5, 0.45], [0.5, 0.4]], keep: true });
+      await G.fade(true); G.endStill(); await G.wait(window.FAST ? 20 : 900);
+      await G.fade(false);
+      await say('alan_rom_2', 'ze_rom_3', 'alan_rom_3');
       if (ze) ze.set = 'sit';
     });
   };
