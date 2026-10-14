@@ -351,7 +351,7 @@
       { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 668, y: 596, h: 290, look: 'alan_npc_guitar', when: () => F().ch !== 2 && F().ch < 5 },
       { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 545, y: 572, h: 200, look: 'alan_npc_couple', when: () => F().ch === 1 },
     ],
-    occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]] }], // the bar, in front of Lino
+    occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => { if (S.glassOnBar()) S.drawGlass(g, 1086, 392); } }], // the bar, in front of Lino (Amália's glass sits on it)
     hotspots: [
       { name: 'Door', rect: [20, 100, 215, 450], at: [140, 640], exit: 'street', entry: 'tavern' },
       { name: 'Fado poster', rect: [265, 130, 135, 210], look: 'narr_look_tavern' },
@@ -362,7 +362,7 @@
       { name: 'Bottles of ginjinha', rect: [960, 100, 320, 260], at: [1150, 660], face: 'n', look: 'narr_look_bottles',
         take: () => say(F().ch < 5 ? 'alan_take_bottle' : 'alan_fail_take'), items: { coins: () => S.buyGinja() } },
       { name: 'Bar', rect: [880, 362, 400, 220], at: [1150, 660], face: 'n', look: 'narr_look_bottles', items: { coins: () => S.buyGinja(), any: 'alan_fail_03' } },
-      { name: 'Empty glass', rect: [1030, 352, 40, 40], at: [1080, 660], face: 'n', when: () => F().heard_song && !G.has('glass') && !F().glassUsed, look: 'alan_look_glass',
+      { name: 'Empty glass', rect: [1066, 362, 42, 36], at: [1080, 660], face: 'n', when: () => S.glassOnBar(), look: 'alan_look_glass',
         take: async () => { give('glass'); sfx('glass_clink'); await say('alan_take_glass'); } },
     ],
     async enter() {
@@ -403,6 +403,7 @@
     await joke('alan_ringer'); await say('amalia_called');
     await say('amalia_1955');
     F().heard_song = true;
+    if (!G.has('glass') && !F().glassUsed) { G.player.pose = 'pickup'; sfx('glass_clink'); await G.wait(window.FAST ? 20 : 500); G.player.pose = null; give('glass'); await say('alan_take_glass'); }
     await S.ch1End();
   };
   S.talkAmalia = async function () {
@@ -418,6 +419,17 @@
       { label: 'Could you sing it again?', when: () => F().heard_song, once: true, run: () => say('amalia_sung') },
       { label: 'Goodbye.', bye: true, run: () => say('amalia_bye') },
     ]);
+  };
+  S.glassOnBar = () => F().heard_song && !G.has('glass') && !F().glassUsed;
+  // a small ginjinha glass left on the bar, with a red dreg and a highlight
+  S.drawGlass = function (g, x, y) {
+    g.save(); g.translate(x, y);
+    g.fillStyle = 'rgba(0,0,0,0.35)'; g.beginPath(); g.ellipse(0, 1, 9, 2.5, 0, 0, 7); g.fill();
+    g.fillStyle = 'rgba(220,230,235,0.28)'; g.strokeStyle = 'rgba(255,245,230,0.75)'; g.lineWidth = 1.1;
+    g.beginPath(); g.moveTo(-7, -22); g.lineTo(-5, 0); g.lineTo(5, 0); g.lineTo(7, -22); g.closePath(); g.fill(); g.stroke();
+    g.fillStyle = 'rgba(150,20,30,0.85)'; g.beginPath(); g.moveTo(-5.4, -5); g.lineTo(-5, 0); g.lineTo(5, 0); g.lineTo(5.4, -5); g.closePath(); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,0.8)'; g.beginPath(); g.moveTo(-4, -19); g.lineTo(-3, -4); g.stroke();
+    g.restore();
   };
   S.ch1End = async function () {
     await G.say('narr_ch1_end', { offscreen: true });

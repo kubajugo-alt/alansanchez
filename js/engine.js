@@ -480,6 +480,7 @@
     g.clip();
     g.drawImage(im, 0, 0, W, H);
     drawLayers(true);
+    if (o.draw) o.draw(g, time); // props that sit on the occluding furniture
     g.restore();
   }
   // Painted layers cut from clean plates: static fills for things that were
