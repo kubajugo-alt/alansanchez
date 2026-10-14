@@ -244,12 +244,16 @@
         await G.say('narr_rom_2', { offscreen: true });
       }, { zoom: [1.0, 1.1], pan: [[0.55, 0.55], [0.6, 0.5]], keep: true });
       await G.fade(true); G.endStill();
-      // apart again, putting themselves back together
-      p.x = home; p.dir = 'w'; p.pose = 'button';
-      if (ze) { ze.visible = true; ze.pose = 'ze_dress'; }
+      // apart again, putting themselves back together (Alan's washhouse frames, played backwards)
+      p.x = home; p.dir = 'w'; p.pose = 'undress4';
+      if (ze) { ze.visible = true; ze.pose = 'ze_shirtless'; }
       await T(500); await G.fade(false);
       await say('alan_rom_2');
-      if (ze) ze.pose = 'ze_suspenders';
+      p.pose = 'undress3'; if (ze) ze.pose = 'ze_dress';
+      for (let i = 0; i < 4; i++) { p.x += i % 2 ? 5 : -5; await T(180); } // hopping into the jeans
+      p.x = home; p.pose = 'undress2'; await T(800);
+      p.pose = 'undress1'; if (ze) ze.pose = 'ze_suspenders'; await T(800);
+      p.pose = 'button';
       await say('ze_rom_3');
       if (ze) ze.pose = null; p.pose = null;
       await say('alan_rom_3');
