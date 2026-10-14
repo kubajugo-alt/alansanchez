@@ -144,3 +144,4 @@
     return 'ines_hint_ch3_done';
   };
 })();
+window.EXTRA_ICONS=['holywater','tongue_wet'];

@@ -8,9 +8,9 @@
   const wrap = $('#game'), speechEl = $('#speech'), narrEl = $('#narration'), hoverEl = $('#hover');
   const invEl = $('#inventory'), invBar = $('#invbar'), dialogEl = $('#dialog'), labelsEl = $('#labels');
 
-  const SAVE_KEY = 'drowned-bell-save-v2';
-  const COLORS = { alan: '#ffe2a0', ines: '#ffab9a', rui: '#a8d4ff', amalia: '#e2b0ff', tomas: '#cfeab8', lacerda: '#ff7d6a', narr: '#eee6d6' };
-  const NAMES = { alan: 'Alan', ines: 'Inês', rui: 'Rui', amalia: 'Amália', tomas: 'Father Tomás', lacerda: 'Lacerda', narr: '' };
+  const SAVE_KEY = 'drowned-bell-save-v3';
+  const COLORS = { alan: '#ffe2a0', ines: '#ffab9a', rui: '#a8d4ff', amalia: '#e2b0ff', tomas: '#cfeab8', lacerda: '#ff7d6a', celeste: '#ffd0a0', ze: '#9fd8ff', abilio: '#f0e68c', narr: '#eee6d6' };
+  const NAMES = { alan: 'Alan', ines: 'Inês', rui: 'Rui', amalia: 'Amália', tomas: 'Father Tomás', lacerda: 'Lacerda', celeste: 'Celeste', ze: 'Zé', abilio: 'Abílio', narr: '' };
 
   const ROOMS = {}, ITEMS = {}, CHARS = {};
   const IMG = {}; // loaded images by key
@@ -39,7 +39,7 @@
     for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) jobs.push(['bg:' + b, 'art/bg/' + b + '.jpg']);
     for (const s of (window.STILLS || [])) jobs.push(['still:' + s, 'art/stills/' + s + '.jpg']);
     for (const c of (window.CLOSEUPS || [])) jobs.push(['close:' + c, 'art/closeups/' + c + '.jpg']);
-    for (const i in ITEMS) jobs.push(['icon:' + (ITEMS[i].icon || i), 'art/icons/' + (ITEMS[i].icon || i) + '.webp']);
+    for (const i of Object.keys(ITEMS).concat(window.EXTRA_ICONS || [])) jobs.push(['icon:' + i, 'art/icons/' + i + '.webp']);
     for (const k in SPRITES) jobs.push(['spr:' + k, 'art/sprites/' + k + '.webp']);
     for (const id in ROOMS) for (const l of (ROOMS[id].layers || [])) jobs.push(['lay:' + l.img, 'art/layers/' + l.img + '.webp']);
     for (const id in ROOMS) if (ROOMS[id].skyMask) jobs.push(['mask:' + ROOMS[id].skyMask, 'art/layers/' + ROOMS[id].skyMask + '.webp']);
@@ -177,7 +177,9 @@
       const key = this.frameKey();
       const sp = SPRITES[key];
       if (!sp) return;
-      const flipped = this.dir === 'w' ? !sp.facesLeft : (this.dir === 'e' ? !!sp.facesLeft : this.lastFlip);
+      // background extras keep the pose they were painted in (unless they walk)
+      const flipped = this.def && this.def.ambient && !this.walking && !this.def.flip ? false
+        : this.dir === 'w' ? !sp.facesLeft : (this.dir === 'e' ? !!sp.facesLeft : this.lastFlip);
       const turned = flipped !== this.lastFlip;
       this.lastFlip = flipped;
       if (key !== this.cur) {
@@ -296,7 +298,7 @@
     return out;
   }
   function groundShadows(a, comp, U, bw, bh, h, lights) {
-    const L = (room && room.light) || {};
+    const L = roomLight();
     const ao = L.ao != null ? L.ao : 1;
     // contact shadow / ambient occlusion right under the feet
     const wide = a.walking ? 1.25 : 1;
@@ -337,7 +339,7 @@
   function lightSprite(comp, w, h, U, figH, lights) {
     fit(litBuf, lg, w, h);
     lg.drawImage(comp, 0, 0, w, h, 0, 0, w, h);
-    const L = (room && room.light) || {};
+    const L = roomLight();
     const level = Math.max(0.3, Math.min(1, (L.base != null ? L.base : 1) + lights.reduce((s, o) => s + o.I * (o.l.fill != null ? o.l.fill : 0.35), 0)));
     if (L.ambient || level < 1) {
       const m = (L.ambient || 'rgb(255,255,255)').match(/\d+/g).map(Number);
@@ -368,6 +370,7 @@
     return litBuf;
   }
 
+  function roomLight() { const L = room && room.light; return (typeof L === 'function' ? L() : L) || {}; }
   function scaleAt(y) {
     const sc = (room && room.scale) || [540, 300, 716, 360];
     const t = Math.max(0, Math.min(1, (y - sc[0]) / (sc[2] - sc[0])));
@@ -423,7 +426,7 @@
     refreshNpcs(true);
     renderLabels();
     Sound.playMusic(typeof room.music === 'function' ? room.music() : room.music);
-    Sound.ambience(room.ambience || null);
+    Sound.ambience((typeof room.ambience === 'function' ? room.ambience() : room.ambience) || null);
     clearSpeech();
     if (!opts.instant) await fade(false);
     busy--;
@@ -433,7 +436,8 @@
   }
   function refreshNpcs(reset) {
     const keep = reset ? new Map() : new Map(npcs.map(a => [a.id, a]));
-    const amb = (room.ambient || []).map(a => {
+    // extras whose sprites are not painted yet are simply absent
+    const amb = (room.ambient || []).filter(a => IMG['spr:' + a.frames[0]]).map(a => {
       if (!CHARS[a.id]) CHARS[a.id] = { scale: a.scale || 1, idleHold: a.idleHold || [8, 20], variantHold: a.variantHold || [1.6, 3.2], frames: { idle: a.frames, walk: a.walk } };
       return Object.assign({ ambient: true, fixedDir: true, ch: a.id }, a);
     });
@@ -441,6 +445,7 @@
       if (keep.has(n.id)) return keep.get(n.id);
       const a = new Actor(n.id, n.ch || n.id, n.x, n.y, n.dir);
       a.def = n; a.h = n.h || null; a.overlay = n.overlay || null; a.loop = n.loop || null; a.set = (typeof n.set === 'function' ? n.set() : n.set) || null;
+      if (n.init) n.init(a);
       return a;
     });
   }
@@ -460,7 +465,7 @@
   function drawBg(name) { const im = IMG['bg:' + name]; if (im) g.drawImage(im, 0, 0, W, H); else { g.fillStyle = '#000'; g.fillRect(0, 0, W, H); } }
   // Re-paints the part of the background (and its layers) that stands in front
   // of an actor. Outlines follow the painted furniture, not a box around it.
-  function curBg() { return typeof room.bgFn === 'function' ? room.bgFn() : room.bg; }
+  function curBg() { const b = typeof room.bgFn === 'function' ? room.bgFn() : room.bg; return IMG['bg:' + b] ? b : room.bg; }
   function drawOccluder(o) {
     const im = IMG['bg:' + curBg()]; if (!im) return;
     g.save(); g.beginPath();
@@ -506,7 +511,7 @@
         if (f) { FX.drawFog(g, fogA, time, f, 12, 0); FX.drawFog(g, fogB, time, f * 0.7, 22, 40); }
       }
       // the whole room breathes with its flames (characters included)
-      const L = room.light || {};
+      const L = roomLight();
       if (L.flickerShade) {
         const fl = roomLights.filter(l => l.kind && l.kind !== 'steady');
         const avg = fl.length ? fl.reduce((s, l) => s + l.f, 0) / fl.length : 1;
@@ -799,7 +804,11 @@
         if (player.visible && def.at && !t.actor) player.dir = def.at[0] > player.x ? 'e' : 'w';
         await runHandler(def.look || failLine(t, 'look'), t); return;
       }
-      if (verb === 'exit') { await approach(def, t.actor); await goRoom(def.exit, def.entry || room.id); return; }
+      if (verb === 'exit') {
+        if (def.locked && def.locked()) { await say((typeof def.lockedLine === 'function' ? def.lockedLine() : def.lockedLine) || 'alan_fail_04'); return; }
+        await approach(def, t.actor);
+        await goRoom(typeof def.exit === 'function' ? def.exit() : def.exit, def.entry || room.id); return;
+      }
       if (t.actor) t.actor.engaged++;
       await approach(def, t.actor);
       if ((verb === 'take' || verb === 'use' || item) && player.visible && def.reach !== false) await reach(t);
@@ -955,10 +964,25 @@
     giveItem, takeItem, has, toast,
     get state() { return state; }, get flags() { return state.flags; },
     get player() { return player; }, get room() { return room; },
-    bgImage: () => room && IMG['bg:' + room.bg],
+    bgImage: () => room && IMG['bg:' + curBg()],
+    image: key => IMG[key],
     mask: () => room && room.skyMask && IMG['mask:' + room.skyMask],
     get isBusy() { return busy > 0 || !!dialogResolve || (player && player.walking); },
     npc: id => npcs.find(a => a.id === id),
+    // test hook: act on a hotspot (by name) or an actor (by id), optionally with an item
+    async act(target, verb, item) {
+      let t = null;
+      const a = npcs.find(n => n.id === target && n.visible);
+      if (a) t = { kind: 'npc', actor: a, def: a.def };
+      else if (target === 'self') t = { kind: 'self', def: { name: 'Alan', items: (room.self && room.self.items) || {} } };
+      else {
+        const h = (room.hotspots || []).find(h => (!h.when || h.when()) && (typeof h.name === 'function' ? h.name() : h.name) === target);
+        if (h) t = { kind: 'hot', def: h };
+      }
+      if (!t) throw new Error('no target ' + target + ' in ' + room.id);
+      if (item) { if (!has(item)) throw new Error('no item ' + item); selItem = item; }
+      await interact(t, item ? 'item' : (verb || defaultVerb(t.def)));
+    },
     busy: async fn => { busy++; try { return await fn(); } finally { busy--; updateHover(); } },
   };
 })();

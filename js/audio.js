@@ -275,13 +275,29 @@
     night: { setup() { bed('bandpass', 300, 0.6, 0.05, 0.08); }, tick(t) { if (Math.random() < 0.2) for (let i = 0; i < 3; i++) tone(4300 + Math.random() * 200, t + i * 0.05, 0.03, 0.004, 'sine', sfxBus); } },
     clocks: { setup() {}, tick(t, s) { if (s % 5 === 0) burst(t, 0.02, 'bandpass', 3200, 4, 0.03); if (s % 5 === 2) burst(t, 0.02, 'bandpass', 2600, 4, 0.025); if (s % 7 === 3) burst(t, 0.02, 'bandpass', 4100, 4, 0.015); } },
     cistern: { setup() { hum(55, 0.004); bed('lowpass', 200, 0.7, 0.02, 0.05); }, tick(t) { if (Math.random() < 0.06) drip(t, 0.6 + Math.random() * 0.6); } },
+    washhouse: { recordedOnly: true, setup() { bed('bandpass', 1800, 0.4, 0.02, 0.2); }, tick(t) { if (Math.random() < 0.02) burst(t, 0.25, 'lowpass', 600, 0.8, 0.05, 0.3); } },
+    harbour: { recordedOnly: true, setup() { bed('lowpass', 400, 0.5, 0.03, 0.07); }, tick(t) { if (Math.random() < 0.03) gull(t, 0.8); } },
+    tower: { recordedOnly: true, setup() { bed('bandpass', 500, 0.6, 0.04, 0.12); }, tick(t) { if (Math.random() < 0.01) coo(t); } },
+    boat: { recordedOnly: true, setup() { bed('lowpass', 300, 0.6, 0.03, 0.08); }, tick() {} },
   };
+  // recorded ambience loops (ElevenLabs), mixed under the procedural details
+  const LOOPS = { shop: ['amb_city', 0.12], street: ['amb_city', 0.5], office: ['amb_office', 0.4], tavern: ['amb_tavern', 0.35], clocks: ['amb_clocks', 0.45],
+    cistern: ['amb_cistern', 0.6], washhouse: ['amb_washhouse', 0.5], harbour: ['amb_harbour', 0.55], tower: ['amb_tower', 0.5], boat: ['boat_creak', 0.5] };
+  function loopFile(name, vol) {
+    const g = ctx.createGain(); g.gain.value = 0.0001; g.connect(sfxBus); ambNodes.push(g);
+    const start = buf => { if (!ambNodes.includes(g)) return; const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.connect(g); s.start(); ambNodes.push(s); g.gain.setTargetAtTime(vol, ctx.currentTime, 1.0); };
+    if (sfxBufs[name] instanceof AudioBuffer) start(sfxBufs[name]);
+    else fetch('audio/sfx/' + name + '.mp3').then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; start(buf); }).catch(() => {});
+  }
   function ambience(name) {
     if (!ctx || name === ambName) return;
     ambName = name; clearInterval(ambTimer);
     const old = ambNodes; ambNodes = [];
     for (const n of old) { try { if (n.gain) n.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.4); else n.stop(ctx.currentTime + 1.5); } catch (e) { /* ignore */ } }
+    const lp = LOOPS[name];
+    if (lp && sfxFiles.has(lp[0])) loopFile(lp[0], lp[1]);
     const A = AMB[name]; if (!A) return;
+    if (lp && sfxFiles.has(lp[0]) && A.recordedOnly) { /* the loop says it all */ } else
     try { A.setup(); } catch (e) { /* ignore */ }
     let s = 0;
     ambTimer = setInterval(() => { try { A.tick(ctx.currentTime + 0.05, s++); } catch (e) { /* ignore */ } }, 200);

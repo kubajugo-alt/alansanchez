@@ -8,7 +8,7 @@ text = ''.join(open(p, errors='ignore').read() for p in sys.argv[2:])
 urls = {}
 for m in re.finditer(r'https://storage\.googleapis\.com/xi-backend/[^"\\\s]*?/content_generation/([A-Za-z0-9]+)/[A-Za-z0-9]+/content\.mp3\?[^"\\\s]+', text):
     urls[m.group(1)] = m.group(0)
-out = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'audio', 'voice')
+out = os.environ.get('OUT') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'audio', 'voice')
 ok = miss = 0
 for lid, sid in mapping.items():
     dst = os.path.join(out, lid + '.mp3')
