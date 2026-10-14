@@ -146,6 +146,9 @@
         items: { notebook: () => S.writeAbilio(), any: 'alan_fail_abilio_item' } },
     ],
     hotspots: [
+      { name: 'Bell ropes', rect: [380, 300, 330, 300], look: 'narr_look_ropes', use: 'alan_rope' },
+      { name: 'Louvres', rect: [560, 160, 600, 240], look: 'narr_look_louvres' },
+      // the bells last, so they win over the louvres and ropes behind them
       ...BELLS.map(b => ({ name: b.name, rect: b.rect, at: b.at, face: 'n', look: 'narr_look_bell_tower', use: 'alan_rope',
         items: { magnifier: async () => {
           await S.showBellMark(b.text);
@@ -153,8 +156,6 @@
           await posed('write', () => b.joke ? joke(b.line) : say(b.line));
           if (BELLS.every(x => F()['bell_' + x.id]) && !F().founder_order) { F().founder_order = true; await say('alan_order'); }
         }, any: 'alan_fail_09' } })),
-      { name: 'Bell ropes', rect: [380, 300, 330, 300], look: 'narr_look_ropes', use: 'alan_rope' },
-      { name: 'Louvres', rect: [560, 160, 600, 240], look: 'narr_look_louvres' },
       { name: 'Stairs down', rect: [0, 160, 260, 460], at: [80, 680], exit: 'map', entry: 'se_tower' },
     ],
     async enter() {
