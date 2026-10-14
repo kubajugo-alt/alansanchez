@@ -38,7 +38,7 @@
         items: { notebook: () => S.inesSketch(), ledger: () => S.inesLedger(), tongue: () => say('ines_vandal'), any: 'alan_fail_ines_item' } },
       { id: 'pessoa', h: 46, x: 0, y: 0, dir: 'w', fixedDir: true, name: 'Pessoa', when: () => !(F().ch >= 5 && F().pessoa_fed), init: a => { const p = PESSOA_AT[pessoaSpot()]; a.x = p[0]; a.y = p[1]; a.dir = p[2]; },
         look: () => say(pessoaSpot() === 'machine' ? 'alan_look_pessoa_machine' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_look_pessoa'),
-        talk: 'alan_talk_pessoa', take: () => say(pessoaSpot() === 'machine' ? 'alan_take_pessoa_machine' : 'alan_take_pessoa'), use: 'alan_push_pessoa',
+        talk: () => say(pessoaSpot() === 'desk' ? 'alan_talk_pessoa' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_take_pessoa_machine'), take: () => say(pessoaSpot() === 'machine' ? 'alan_take_pessoa_machine' : 'alan_take_pessoa'), use: 'alan_push_pessoa',
         items: { sardine: () => S.feedPessoa(), any: 'alan_fail_09' } },
     ],
     hotspots: [
@@ -132,8 +132,12 @@
     await say('ines_hello');
     await G.dialog([
       { line: 'alan_ask_ines_now', run: () => say(S.hint()) },
+      { line: 'alan_ask_ines_drowned', once: true, run: () => say('ines_drowned') },
+      { line: 'alan_ask_ines_fog', once: true, run: () => say('ines_fog') },
+      { line: 'alan_ask_ines_shop', once: true, run: () => say('ines_shop') },
       { line: 'alan_ask_ines_work', once: true, run: () => say('ines_work') },
-      { line: 'alan_ask_ines_grandpa', once: true, run: () => say('ines_grandpa') },
+      // bells only once the sketch has put them on the table
+      { line: 'alan_ask_ines_grandpa', once: true, when: () => F().knows_brotherhood, run: () => say('ines_grandpa') },
       { line: 'alan_show_sketch', silent: true, when: () => F().sketched_tile && !F().knows_brotherhood, run: () => S.inesSketch(), bye: true },
       { label: 'Goodbye.', bye: true, run: () => say('ines_bye') },
     ]);
@@ -177,8 +181,7 @@
     },
     animFg(g, t) { S.drawTram(g, t); },
     ambient: [
-      { id: 'npc_laundry', name: 'Woman on the balcony', frames: ['npc_laundry', 'npc_laundry_b'], x: 140, y: 205, h: 88, look: 'alan_npc_laundry', when: () => F().ch <= 4 },
-      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_b'], x: 940, y: 592, h: 150, look: 'alan_npc_bench', when: () => F().ch <= 4, variantHold: [0.8, 1.4] },
+      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench'], x: 940, y: 592, h: 150, look: 'alan_npc_bench', when: () => F().ch <= 4 },
     ],
     occluders: [{ y: 206, poly: [[60, 150], [215, 150], [215, 215], [60, 215]] }], // balcony railing in front of the laundry woman
     hotspots: [
@@ -202,10 +205,11 @@
     const im = G.image('spr:prop_tram') || G.image('lay:prop_tram');
     if (tramX == null && t > tramNext && !G.isBusy) { tramX = 1500; Sound.sfx('tram'); }
     if (tramX == null || !im) return;
-    tramX -= 380 / 60;
-    const h = 330, w = im.width * h / im.height;
-    g.save(); g.fillStyle = 'rgba(0,0,0,0.35)'; g.beginPath(); g.ellipse(tramX + w / 2, 700, w * 0.48, 14, 0, 0, 7); g.fill(); g.restore();
-    g.drawImage(im, tramX, 700 - h, w, h);
+    tramX -= 520 / 60;
+    // full size: a Remodelado car is about 1.8 people tall at the body, and runs on the front rails
+    const h = 670, w = im.width * h / im.height, gy = 714;
+    g.save(); g.fillStyle = 'rgba(0,0,0,0.4)'; g.beginPath(); g.ellipse(tramX + w / 2, gy - 4, w * 0.48, 16, 0, 0, 7); g.fill(); g.restore();
+    g.drawImage(im, tramX, gy - h, w, h);
     if (tramX < -w) { tramX = null; tramNext = t + 45 + Math.random() * 25; }
   };
 
@@ -257,9 +261,7 @@
         items: { coffee: () => say('rui_coffee'), file55: () => say('rui_times'), any: 'alan_fail_rui_item' } },
     ],
     ambient: [
-      { id: 'npc_phone', name: 'Officer on the phone', frames: ['npc_phone', 'npc_phone_b'], x: 875, y: 497, h: 350, dir: 'w', look: 'alan_npc_phone', when: () => F().ch <= 2,
-        patrol: { points: [[850, 497], [905, 497]], pause: [3, 6] } },
-      { id: 'npc_typist', name: 'Officer typing', frames: ['npc_typist', 'npc_typist_b'], x: 250, y: 600, h: 300, look: 'alan_npc_typing', when: () => F().ch <= 2 },
+      { id: 'npc_phone', name: 'Officer Teixeira', frames: ['npc_phone', 'npc_phone_b'], x: 262, y: 700, dir: 'w', look: 'alan_npc_phone', talk: () => S.flirtCop(), when: () => F().ch <= 2, variantHold: [3, 6] }, // front left, clear of the desk
     ],
     hotspots: [
       { name: 'Corkboard', rect: [275, 95, 355, 230], look: 'narr_look_board' },
@@ -335,29 +337,29 @@
     ] : [
       { x: 453, y: 180, rgb: '255,180,90', kind: 'flame', seed: 1, glow: 120, ga: 0.28, power: 0.6, reach: 800, floor: [453, 560], height: 420 },
       { x: 985, y: 152, rgb: '255,180,90', kind: 'flame', seed: 3, glow: 120, ga: 0.28, power: 0.6, reach: 800, floor: [985, 590], height: 460 },
-      { x: 790, y: 380, rgb: '255,190,100', kind: 'candle', seed: 7, glow: 60, ga: 0.35, power: 0.35, reach: 420, floor: [790, 600], height: 220, when: () => !F().matchesTaken || true },
+      { x: 770, y: 448, rgb: '255,190,100', kind: 'candle', seed: 7, glow: 60, ga: 0.35, power: 0.3, reach: 380, floor: [770, 610], height: 160, when: () => F().ch === 1 }, // the couple's candle
     ],
     entries: { default: [140, 650, 'e'], street: [140, 650, 'e'] },
     anim(g, t) {
-      if (F().ch < 5) { FX.wisps(g, t, 790, 366, { n: 4, rise: 60, spread: 6, rgb: '200,190,180', a: 0.08, size: 4, speed: 0.25 }); FX.motes(g, t, 360, 120, 700, 300, 26, '255,210,150'); }
+      if (F().ch < 5) { if (F().ch === 1) FX.wisps(g, t, 770, 440, { n: 3, rise: 50, spread: 5, rgb: '200,190,180', a: 0.07, size: 4, speed: 0.25 }); FX.motes(g, t, 360, 120, 700, 300, 26, '255,210,150'); }
     },
     npcs: [
       { id: 'amalia', x: 1000, y: 618, dir: 'w', name: 'Dona Amália', look: 'narr_look_amalia', talk: () => S.talkAmalia(),
         items: { ginja: () => S.giveGinja(), any: 'alan_fail_08' } },
     ],
     ambient: [
-      { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch !== 2 && F().ch < 5 },
+      { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talk: ['npc_lino_talk', 'npc_lino_b'], x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch !== 2 && F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
       { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], x: 360, y: 606, h: 230, look: 'alan_npc_cards', when: () => F().ch !== 2 && F().ch < 5, variantHold: [0.9, 1.5] },
-      { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 668, y: 596, h: 290, look: 'alan_npc_guitar', when: () => F().ch !== 2 && F().ch < 5 },
-      { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 545, y: 572, h: 200, look: 'alan_npc_couple', when: () => F().ch === 1 },
+      { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 560, y: 596, h: 290, look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch !== 2 && F().ch < 5 },
+      { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => F().ch === 1 },
     ],
-    occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => { if (S.glassOnBar()) S.drawGlass(g, 1086, 392); } }], // the bar, in front of Lino (Amália's glass sits on it)
+    occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => { if (!F().matchesTaken) S.drawMatches(g, 912, 380); if (S.glassOnBar()) S.drawGlass(g, 1086, 392); } }], // the bar, in front of Lino (Amália's glass sits on it)
     hotspots: [
       { name: 'Door', rect: [20, 100, 215, 450], at: [140, 640], exit: 'street', entry: 'tavern' },
       { name: 'Fado poster', rect: [265, 130, 135, 210], look: 'narr_look_tavern' },
       { name: 'Old photograph', rect: [548, 178, 103, 100], at: [600, 625], face: 'n', look: async () => { await say('narr_look_photo'); await S.showPhoto(); await say('alan_photo'); F().saw_photo = true; } },
       { name: 'Guitarra portuguesa', rect: [722, 135, 80, 210], look: 'narr_look_guitar' },
-      { name: 'Candle and matches', rect: [762, 360, 60, 60], at: [790, 640], face: 'n', when: () => F().ch < 5, look: 'narr_look_candle',
+      { name: 'Box of matches', rect: [892, 362, 44, 30], at: [905, 650], face: 'n', when: () => F().ch < 5 && !F().matchesTaken, look: 'narr_look_candle',
         take: async () => { if (F().matchesTaken) return say('alan_fail_take'); F().matchesTaken = true; give('matches'); await say('amalia_matches'); await say('alan_matches'); } },
       { name: 'Bottles of ginjinha', rect: [960, 100, 320, 260], at: [1150, 660], face: 'n', look: 'narr_look_bottles',
         take: () => say(F().ch < 5 ? 'alan_take_bottle' : 'alan_fail_take'), items: { coins: () => S.buyGinja() } },
@@ -380,7 +382,12 @@
     if (F().ch >= 5) return say('alan_fail_take');
     if (G.has('ginja') || F().heard_song) return say('alan_have_ginja');
     if ((F().coins || 0) < 2) return say('alan_take_bottle');
-    spendCoin(2); sfx('pour'); give('ginja', 2);
+    const lino = G.npc('npc_lino');
+    if (lino) await say('lino_sell');
+    spendCoin(2); sfx('coin');
+    if (lino) { lino.idleIdx = 1; sfx('pour'); await G.wait(window.FAST ? 20 : 1100); await say('lino_poured'); lino.idleIdx = 0; }
+    else sfx('pour');
+    give('ginja', 2);
     await joke('alan_ginjinhas');
   };
   S.giveGinja = async function () {
@@ -419,6 +426,49 @@
       { label: 'Could you sing it again?', when: () => F().heard_song, once: true, run: () => say('amalia_sung') },
       { label: 'Goodbye.', bye: true, run: () => say('amalia_bye') },
     ]);
+  };
+  // easter eggs: Alan flirts
+  S.flirtCop = async function () {
+    const cop = G.npc('npc_phone'), p = G.player, T = ms => G.wait(window.FAST ? 20 : ms);
+    const copPose = k => { if (cop) cop.pose = k; };
+    if (F().flirted_cop) { copPose('npc_phone_blush'); await say('phone_flirt_1'); copPose(null); return; }
+    F().flirted_cop = true;
+    await G.busy(async () => {
+      p.pose = 'wink'; await say('alan_flirt_cop_1');
+      p.pose = null; copPose('npc_phone_blush'); await say('phone_flirt_1');
+      // a step closer and a pat on the chest
+      if (cop) { await p.walkTo(cop.x + 105, cop.y); p.dir = 'w'; }
+      p.pose = 'flirt'; await T(450); copPose('npc_phone_proud');
+      await say('alan_flirt_cop_2');
+      copPose('npc_phone_blush'); p.pose = 'swoon';
+      await say('phone_flirt_2');
+      if (G.npc('rui')) { p.pose = null; await say('rui_flirt'); }
+      p.pose = null; copPose(null);
+    });
+  };
+  S.flirtGuitar = async function () {
+    const gt = G.npc('npc_guitar'), p = G.player;
+    const gPose = k => { if (gt) gt.pose = k; };
+    if (F().flirted_guitar) { gPose('npc_guitar_wink'); await say('guitar_flirt_1'); gPose(null); return; }
+    F().flirted_guitar = true;
+    await G.busy(async () => {
+      p.pose = 'wink'; await say('alan_flirt_guitar_1');
+      p.pose = null; gPose('npc_guitar_flourish'); await say('guitar_flirt_1');
+      gPose(null); p.pose = 'swoon'; await say('alan_flirt_guitar_2');
+      p.pose = null; gPose('npc_guitar_wink'); await say('guitar_flirt_2');
+      gPose(null);
+      if (G.npc('amalia')) await say('amalia_flirt');
+    });
+  };
+  // a matchbox with a sailing ship on the lid, at the near end of the bar
+  S.drawMatches = function (g, x, y) {
+    g.save(); g.translate(x, y);
+    g.fillStyle = 'rgba(0,0,0,0.35)'; g.beginPath(); g.ellipse(1, 2, 14, 3, 0, 0, 7); g.fill();
+    g.fillStyle = '#c9b48a'; g.fillRect(-12, -6, 24, 8);
+    g.fillStyle = '#2f4f7a'; g.fillRect(-12, -9, 24, 4);
+    g.fillStyle = '#e8dcc0'; g.fillRect(-7, -9, 9, 3);
+    g.strokeStyle = 'rgba(40,25,15,0.8)'; g.lineWidth = 1; g.strokeRect(-12, -9, 24, 11);
+    g.restore();
   };
   S.glassOnBar = () => F().heard_song && !G.has('glass') && !F().glassUsed;
   // a small ginjinha glass left on the bar, with a red dreg and a highlight

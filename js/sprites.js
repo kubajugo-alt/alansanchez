@@ -6,7 +6,8 @@ window.SPRITES = {
   "h": 720,
   "ax": 193.2,
   "fy": 722.9,
-  "top": 2.9
+  "top": 2.9,
+  "facesLeft": true
  },
  "abilio_idle2": {
   "w": 237,
@@ -14,7 +15,8 @@ window.SPRITES = {
   "h": 720,
   "ax": 169.7,
   "fy": 715.1,
-  "top": 2.9
+  "top": 2.9,
+  "facesLeft": true
  },
  "abilio_point": {
   "w": 340,
@@ -550,7 +552,8 @@ window.SPRITES = {
   "h": 720,
   "ax": 121.5,
   "fy": 723.4,
-  "top": 2.9
+  "top": 2.9,
+  "facesLeft": true
  },
  "lacerda_walkB": {
   "w": 265,
@@ -558,7 +561,8 @@ window.SPRITES = {
   "h": 720,
   "ax": 138.6,
   "fy": 714.6,
-  "top": 2.9
+  "top": 2.9,
+  "facesLeft": true
  },
  "lacerda_wind": {
   "w": 233,
@@ -579,9 +583,9 @@ window.SPRITES = {
  "npc_bench_b": {
   "w": 622,
   "hh": 756,
-  "h": 720,
-  "ax": 251.1,
-  "fy": 752.7,
+  "h": 745.04,
+  "ax": 291.8,
+  "fy": 748.7,
   "top": 3.2
  },
  "npc_cards": {
@@ -595,9 +599,9 @@ window.SPRITES = {
  "npc_cards_b": {
   "w": 894,
   "hh": 698,
-  "h": 720,
-  "ax": 460.9,
-  "fy": 693.1,
+  "h": 718.98,
+  "ax": 438.4,
+  "fy": 700.1,
   "top": 3.8
  },
  "npc_couple": {
@@ -643,9 +647,9 @@ window.SPRITES = {
  "npc_fish_b": {
   "w": 433,
   "hh": 719,
-  "h": 720,
-  "ax": 189.7,
-  "fy": 715.4,
+  "h": 699.58,
+  "ax": 155.4,
+  "fy": 710.5,
   "top": 3.1
  },
  "npc_guitar": {
@@ -659,8 +663,8 @@ window.SPRITES = {
  "npc_guitar_b": {
   "w": 353,
   "hh": 736,
-  "h": 720,
-  "ax": 215.1,
+  "h": 721.6,
+  "ax": 166.9,
   "fy": 732.0,
   "top": 3.0
  },
@@ -707,9 +711,9 @@ window.SPRITES = {
  "npc_mender1_b": {
   "w": 426,
   "hh": 724,
-  "h": 720,
-  "ax": 194.5,
-  "fy": 720.0,
+  "h": 718.82,
+  "ax": 189.0,
+  "fy": 720.3,
   "top": 3.3
  },
  "npc_mender2": {
@@ -724,9 +728,9 @@ window.SPRITES = {
  "npc_mender2_b": {
   "w": 380,
   "hh": 715,
-  "h": 720,
-  "ax": 184.0,
-  "fy": 710.7,
+  "h": 719.03,
+  "ax": 134.8,
+  "fy": 720.2,
   "top": 3.3,
   "facesLeft": true
  },
@@ -815,18 +819,20 @@ window.SPRITES = {
  "pessoa_eat": {
   "w": 1066,
   "hh": 546,
-  "h": 717,
+  "h": 623.48,
   "ax": 350.5,
   "fy": 539.0,
-  "top": 6.0
+  "top": 6.0,
+  "scaled": 1.15
  },
  "pessoa_jump": {
   "w": 1353,
   "hh": 605,
-  "h": 717,
+  "h": 494.48,
   "ax": 102.5,
   "fy": 598.0,
-  "top": 6.0
+  "top": 6.0,
+  "scaled": 1.45
  },
  "pessoa_sit": {
   "w": 947,
@@ -855,18 +861,20 @@ window.SPRITES = {
  "pessoa_walk1": {
   "w": 1163,
   "hh": 776,
-  "h": 717,
+  "h": 494.48,
   "ax": 66.5,
   "fy": 769.0,
-  "top": 6.0
+  "top": 6.0,
+  "scaled": 1.45
  },
  "pessoa_walk2": {
   "w": 1180,
   "hh": 777,
-  "h": 717,
+  "h": 494.48,
   "ax": 92.5,
   "fy": 770.0,
-  "top": 6.0
+  "top": 6.0,
+  "scaled": 1.45
  },
  "prop_tram": {
   "w": 1433,
@@ -924,8 +932,7 @@ window.SPRITES = {
   "h": 720,
   "ax": 224.3,
   "fy": 698.6,
-  "top": 2.9,
-  "facesLeft": true
+  "top": 2.9
  },
  "rui": {
   "w": 303,
@@ -1031,7 +1038,8 @@ window.SPRITES = {
   "h": 720,
   "ax": 191.1,
   "fy": 648.0,
-  "top": 3.0
+  "top": 3.0,
+  "facesLeft": true
  },
  "tomas_sweepR": {
   "w": 430,

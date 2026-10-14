@@ -21,7 +21,7 @@ REF_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sprite_refs
 if os.path.exists(REF_FILE): REF.update(json.load(open(REF_FILE)))
 BASES = {'celeste': 'celeste', 'ze': 'ze', 'abilio': 'abilio', 'pessoa': 'pessoa_sleep', 'joaquim1955': 'joaquim1955'}
 # frames whose attention is to the left (mirrored the other way)
-FACES_LEFT = {'rui', 'rui_idle2', 'robe_talk', 'robe_terror', 'robe_read', 'npc_washer2', 'npc_washer2_b', 'npc_mender2', 'npc_mender2_b'}
+FACES_LEFT = {'rui', 'rui_idle2', 'robe_talk', 'robe_read', 'lacerda_walkA', 'lacerda_walkB', 'tomas_sweepL', 'abilio', 'abilio_idle2', 'npc_washer2', 'npc_washer2_b', 'npc_mender2', 'npc_mender2_b'}
 # frames anchored on the legs rather than the head (head band is cluttered by raised arms or props)
 LEG_ANCHOR = {'alan_ring', 'robe_terror', 'robe_lunge', 'ines_tied_struggle', 'tomas_sweepL', 'tomas_sweepR'}
 # frames with a prop reaching the floor (broom, dropped rope): the feet line is

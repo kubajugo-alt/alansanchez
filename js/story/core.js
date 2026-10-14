@@ -15,7 +15,7 @@
       walk: ['alan_walkA', 'alan_walkDown', 'alan_pass', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_pass', 'alan_walkUp'],
       front: 'alan_front', frontWalk: ['alan_front_walk1', 'alan_front', 'alan_front_walk2', 'alan_front'],
       back: 'alan_back', backWalk: ['alan_back_walk1', 'alan_back', 'alan_back_walk2', 'alan_back'],
-      poses: { reach: 'alan_reach', read: 'alan_read', ring: 'alan_ring', asleep: 'alan_asleep', pickup: 'alan_pickup', write: 'alan_write',
+      poses: { undress1: 'alan_undress1', undress2: 'alan_undress2', undress3: 'alan_undress3', undress4: 'alan_undress4', jacket: 'alan_jacket', jump: 'alan_jump', swim: 'alan_swim', swim2: 'alan_swim2', swimwave: 'alan_swim_wave', flirt: 'alan_flirt', wink: 'alan_wink', swoon: 'alan_swoon', reach: 'alan_reach', read: 'alan_read', ring: 'alan_ring', asleep: 'alan_asleep', pickup: 'alan_pickup', write: 'alan_write',
         drink: 'alan_drink', wring: 'alan_wring', wobble: 'alan_wobble', untie: 'alan_untie', phone: 'alan_phone', cut: 'alan_cutpalm' } } },
     ines: { scale: 0.93, frames: {
       idle: ['ines', 'ines_idle2'], talk: ['ines_talk', 'ines_talk2'], walk: ['ines_walkA', 'ines', 'ines_walkB', 'ines'],
@@ -27,7 +27,7 @@
     rui: { scale: 0.96, frames: { idle: ['rui', 'rui_idle2', 'rui_idle3'], talk: ['rui_talk', 'rui_talk2'],
       sets: { gate: { idle: 'rui_smoke', talk: ['rui_smoke', 'rui_talk'] }, coffee: { idle: 'rui_coffees', talk: 'rui_coffees' } } } },
     amalia: { scale: 0.9, frames: {
-      idle: ['amalia', 'amalia_idle2'], talk: ['amalia_talk', 'amalia_idle2'], poses: { toast: 'amalia_toast' },
+      idle: ['amalia', 'amalia_idle2'], talk: ['amalia_idle2', 'amalia'], poses: { toast: 'amalia_toast' },
       sets: { sing: { idle: 'amalia_sing1', talk: ['amalia_sing1', 'amalia_sing2', 'amalia_sing1', 'amalia_idle2'] } } } },
     tomas: { scale: 0.95, frames: {
       idle: 'tomas', talk: 'tomas_talk', poses: { kneel: 'tomas_kneel' },
@@ -39,7 +39,7 @@
     lacerda_robe: { scale: 1.02, frames: {
       idle: 'robe_idle', talk: ['robe_talk', 'lacerda_robe'],
       poses: { lunge: 'robe_lunge', terror: 'robe_terror', read: 'robe_read', kneel: 'robe_kneel' },
-      sets: { read: { idle: 'robe_kneel', talk: ['robe_kneel', 'robe_read'] } } } },
+      sets: { read: { idle: 'robe_kneel', talk: ['robe_kneel'] } } } },
     celeste: { scale: 0.86, frames: {
       idle: ['celeste', 'celeste_idle2'], talk: ['celeste_talk', 'celeste_talk2'], walk: ['celeste_walkA', 'celeste', 'celeste_walkB', 'celeste'],
       poses: { shout: 'celeste_shout' },
@@ -51,7 +51,7 @@
       sets: { sit: { idle: 'ze_sit', talk: ['ze_sit', 'ze_talk'] } } } },
     abilio: { scale: 0.9, frames: {
       idle: ['abilio', 'abilio_idle2'], talk: ['abilio_shout1', 'abilio_shout2'], poses: { read: 'abilio_read', point: 'abilio_point' } } },
-    pessoa: { scale: 1, speed: 0.8, frames: {
+    pessoa: { scale: 1, speed: 1.7, frames: {
       idle: ['pessoa_sleep', 'pessoa_sleep2'], walk: ['pessoa_walk1', 'pessoa_walk2'],
       poses: { sit: 'pessoa_sit', jump: 'pessoa_jump', eat: 'pessoa_eat' } }, idleHold: [2.2, 3.4], variantHold: [1.8, 2.6] },
   };

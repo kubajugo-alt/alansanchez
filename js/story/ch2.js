@@ -6,7 +6,7 @@
   ROOMS.lavadouro = {
     name: 'Lavadouro do Alfama', bg: 'lavadouro', music: 'fog', ambience: 'washhouse', floor: 'wet',
     fog: 0.18, fogRGB: '225,228,228',
-    walk: [[0, 508], [868, 505], [868, 690], [1280, 700], [1280, 716], [0, 716]],
+    walk: [[0, 508], [836, 505], [836, 692], [1280, 702], [1280, 716], [0, 716]], // stops at the stone basin
     scale: [505, 218, 716, 440],
     light: { ambient: 'rgb(205,210,210)', base: 0.86, rim: 'rgba(220,228,235,0.2)', rimSide: 1 },
     lights: [
@@ -19,6 +19,7 @@
       FX.wisps(g, t, 1040, 470, { n: 4, rise: 90, spread: 30, a: 0.06, size: 26, speed: 0.1 });
       FX.drips(g, t, [[1222, 470, 412, 2.6]], '220,235,240');
     },
+    animFg(g, t) { S.drawSplash(g, t); },
     animBack(g, t) {
       const im = G.bgImage();
       [[20, 10, 95, 260, 0], [125, 30, 70, 240, 1.4], [205, 50, 60, 200, 2.3], [395, 60, 50, 170, 0.8]].forEach(([x, y, w, h, ph]) => FX.sway(g, im, [x, y, w, h], t, 1.2, ph));
@@ -38,9 +39,103 @@
       { name: 'Wet sheets', rect: [0, 0, 520, 300], look: 'narr_look_sheets' },
       { name: 'Arches', rect: [416, 128, 588, 240], look: 'narr_look_lav_arches' },
       { name: "Celeste's sheet", rect: [843, 448, 437, 230], at: [780, 640], face: 'e', look: 'narr_look_sheets', use: () => S.wringSheet(), take: () => S.wringSheet() },
+      // easter egg: once Celeste knows him, the rinsing tank is fair game
+      { name: 'Rinsing tank', rect: [880, 438, 400, 52], at: [800, 640], face: 'e', when: () => F().met_celeste, look: 'narr_look_basins', use: () => S.bathEgg() },
       { name: 'Way out', rect: [0, 560, 60, 156], at: [30, 660], exit: 'map', entry: 'lavadouro' },
     ],
     async enter() { if (!F().lav_entered) { F().lav_entered = true; await say('alan_enter_lavadouro'); } },
+  };
+  // ---------------------------------------------------------------- easter egg: Alan takes a bath
+  let splash = null, shorts = null, swimmer = null;
+  // the striped shorts, flung over his shoulder: an arc, a spin, a heap on the stones
+  S.drawShorts = function (g) {
+    if (!shorts) return;
+    const k = Math.min(1, (performance.now() - shorts.t0) / 700);
+    const x = shorts.x0 + (shorts.x1 - shorts.x0) * k, y = shorts.y0 + (shorts.y1 - shorts.y0) * k - Math.sin(k * Math.PI) * 140;
+    g.save(); g.translate(x, y); g.rotate(k < 1 ? k * 9 : 0.3); g.scale(1, k < 1 ? 1 : 0.55);
+    g.fillStyle = '#f2ece2'; g.fillRect(-14, -10, 28, 20);
+    g.fillStyle = '#c0392b'; for (let i = 0; i < 4; i++) g.fillRect(-14 + i * 7.5, -10, 3.5, 20);
+    g.strokeStyle = 'rgba(60,30,20,0.6)'; g.lineWidth = 1; g.strokeRect(-14, -10, 28, 20);
+    g.restore();
+  };
+  // ripples where he swims, drawn over the cut of the swimming frames
+  S.drawSwimWater = function (g, t) {
+    if (!swimmer) return;
+    const p = G.player, x = p.x, y = swimmer.y;
+    g.save();
+    g.fillStyle = 'rgba(120,140,140,0.55)'; g.beginPath(); g.ellipse(x, y + 2, 90, 9, 0, 0, 7); g.fill();
+    for (let r = 0; r < 3; r++) {
+      const k = ((t * 0.7 + r / 3) % 1);
+      g.strokeStyle = `rgba(230,240,245,${0.55 * (1 - k)})`; g.lineWidth = 2;
+      g.beginPath(); g.ellipse(x, y + 1, 60 + 90 * k, 6 + 9 * k, 0, 0, 7); g.stroke();
+    }
+    g.restore();
+  };
+  S.drawSplash = function (g, t) {
+    S.drawShorts(g); S.drawSwimWater(g, t);
+    if (!splash) return;
+    const k = (performance.now() - splash.t0) / 1400;
+    if (k > 1) { splash = null; return; }
+    g.save();
+    for (let i = 0; i < 26; i++) {
+      const a = (i / 26) * Math.PI, sp = 0.6 + (i * 37 % 10) / 14, r = 160 * sp * k;
+      const x = splash.x + Math.cos(a) * r, y = splash.y - Math.sin(a) * r * 1.4 + 260 * k * k;
+      g.fillStyle = `rgba(220,235,240,${0.8 * (1 - k)})`; g.beginPath(); g.arc(x, y, 5 + 4 * (1 - k), 0, 7); g.fill();
+    }
+    g.strokeStyle = `rgba(230,240,245,${0.7 * (1 - k)})`; g.lineWidth = 3;
+    for (let r = 0; r < 3; r++) { g.beginPath(); g.ellipse(splash.x, splash.y + 6, 40 + 200 * k * (1 + r * 0.4), 10 + 30 * k * (1 + r * 0.4), 0, 0, 7); g.stroke(); }
+    g.restore();
+  };
+  S.bathEgg = async function () {
+    const p = G.player, c = G.npc('celeste'), T = ms => G.wait(window.FAST ? 20 : ms);
+    if (F().bathed) return say('alan_bath_3');
+    await G.busy(async () => {
+      await say('alan_bath_1');
+      p.dir = 'e';
+      // jacket, shirt, jeans, down to the shorts, each pose dissolving into the next
+      p.pose = 'undress1'; sfx('sheet_slap', 0.25); await T(900);
+      p.pose = 'undress2'; sfx('sheet_slap', 0.3); await T(1000);
+      p.pose = 'undress3'; for (let i = 0; i < 4; i++) { p.x += 6; await T(160); } // hopping out of the jeans
+      p.pose = 'undress4'; await T(900);
+      // the jacket comes round to the front and the shorts go over his shoulder
+      p.pose = 'jacket'; await T(250);
+      shorts = { x0: p.x - 10, y0: p.y - 190, x1: p.x - 150, y1: p.y - 4, t0: performance.now() }; sfx('sheet_slap', 0.2);
+      await T(700);
+      if (c) { c.dir = c.x < p.x ? 'e' : 'w'; c.set = null; c.pose = 'shout'; }
+      await say('celeste_bath_1');
+      if (c) c.pose = null;
+      await say('alan_bath_2');
+      // the leap: a hop up and over the rim of the tank
+      const x0 = p.x, y0 = p.y, x1 = 1000, y1 = 498;
+      p.h = p.height(); p.pose = 'jump';
+      for (let k = 0; k <= 1.0001; k += window.FAST ? 0.5 : 0.035) {
+        p.x = x0 + (x1 - x0) * k; p.y = y0 + (y1 - y0) * k - Math.sin(k * Math.PI) * 170;
+        await G.wait(16);
+      }
+      sfx('splash'); p.visible = false; splash = { x: x1, y: y1, t0: performance.now() };
+      await T(700);
+      // swimming in the tank: only head and shoulders above the water
+      swimmer = { y: y1 }; p.sink = 0.0001; p.pose = 'swim'; p.visible = true; p.x = x1; p.y = y1;
+      let on = true;
+      (async () => {
+        let i = 0;
+        while (on) {
+          p.pose = i % 2 ? 'swim2' : 'swim';
+          p.x = x1 + Math.sin(i * 0.6) * 40; p.y = y1 + (i % 2) * 3;
+          i++; await T(520);
+        }
+      })();
+      await say('narr_bath');
+      on = false; await T(60);
+      p.pose = 'swimwave'; p.x = x1; p.y = y1; sfx('splash', 0.3);
+      await T(1400);
+      await G.fade(true);
+      swimmer = null; shorts = null; p.sink = 0; p.h = null; p.pose = null; p.x = 800; p.y = 650; p.dir = 'w';
+      await G.fade(false);
+      await say('celeste_bath_2');
+      await joke('alan_bath_3');
+      F().bathed = true;
+    });
   };
   S.wringSheet = async function () {
     if (F().met_celeste) return say('alan_fail_04');

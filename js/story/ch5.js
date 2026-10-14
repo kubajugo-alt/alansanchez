@@ -8,12 +8,15 @@
   ROOMS.convent_night = {
     name: 'Convento do Carmo — midnight', bg: 'convent_night', music: null, ambience: 'night', floor: 'stone', skyMask: 'convent_night_sky',
     fog: 0.3, fogRGB: '120,135,180',
-    walk: S.CONVENT_WALK, scale: [560, 230, 716, 360],
+    walk: [[0, 640], [230, 560], [1050, 560], [1280, 640], [1280, 716], [1030, 716], [1000, 594], [790, 594], [778, 716], [0, 716]], // around the open grate
+    scale: [560, 230, 716, 360],
     light: { ambient: 'rgb(120,135,185)', base: 0.72 },
     lights: [
       { x: 800, y: 168, rgb: '200,215,255', level: t => S.moonLevel(t), glow: 90, ga: 0.2, power: 0.35, reach: 1500, rim: 0.6, shadow: 0.5, floor: [800, 470], height: 900 },
       { x: 990, y: 640, rgb: '90,255,160', kind: 'pulse', seed: 0, glow: 175, ga: 0.22, power: 0.4, reach: 650, rim: 0.7, floor: [990, 640], height: 200 },
       { actor: 'tomas', off: [0.3, -0.43], rgb: '255,190,110', kind: 'flame', seed: 9, glow: 75, ga: 0.38, power: 0.55, reach: 520, rim: 0.7, height: 160, when: () => !F().has_lantern },
+      { actor: 'lacerda', off: [0.3, -0.62], rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
+        when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
       { actor: 'alan', off: [0.28, -0.45], rgb: '255,190,110', kind: 'flame', seed: 11, glow: 70, ga: 0.35, power: 0.5, reach: 500, rim: 0.7, height: 160, when: () => F().has_lantern },
       { x: 1158, y: 470, rgb: '255,140,80', kind: 'candle', seed: 5, glow: 55, ga: 0.25, power: 0.15, reach: 300, shadow: false },
     ],
@@ -70,6 +73,8 @@
       { x: 1215, y: 250, rgb: '255,150,60', kind: 'torch', seed: 4, glow: 120, ga: 0.3, power: 0.6, reach: 950, rim: 0.7, floor: [1215, 560], height: 380 },
       { x: 650, y: 470, rgb: '110,255,170', kind: 'pulse', seed: 2, power: 0.22, reach: 700, rim: 0.5, shadow: false },
       { actor: 'ines', off: [0.05, -1.05], rgb: '255,195,120', kind: 'flame', seed: 8, glow: 90, ga: 0.4, power: 0.6, reach: 700, rim: 0.8, height: 120, when: () => F().bell_lit && !F().won },
+      { actor: 'lacerda', off: [0.3, -0.62], rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
+        when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
       { actor: 'alan', off: [0.28, -0.45], rgb: '255,190,110', kind: 'flame', seed: 11, glow: 60, ga: 0.3, power: 0.4, reach: 450, rim: 0.6, height: 160, when: () => F().has_lantern && !F().bell_lit },
     ],
     entries: { default: [140, 640, 'e'], convent: [140, 640, 'e'] },
@@ -88,9 +93,9 @@
         g.strokeStyle = `rgba(150,255,210,${0.5 * (1 - r / 480)})`; g.lineWidth = 3;
         g.beginPath(); g.ellipse(652, 260, r, r * 0.45, 0, 0, Math.PI * 2); g.stroke();
       }
-      S.idleHint(t);
+      S.idleHint(t); S.readingTick(t);
     },
-    animFg(g, t) { S.drawFlood(g, t); if (F().won) { g.fillStyle = 'rgba(255,200,140,0.08)'; g.fillRect(0, 0, 1280, 720); } },
+    animFg(g, t) { S.drawFlood(g, t); S.drawVortex(g, t); if (F().won) { g.fillStyle = 'rgba(255,200,140,0.08)'; g.fillRect(0, 0, 1280, 720); } },
     npcs: [
       { id: 'lacerda', ch: 'lacerda_robe', x: 845, y: 572, dir: 'w', fixedDir: true, set: () => F().lacerda_distracted ? 'read' : null, name: 'Lacerda', when: () => !F().won,
         look: 'narr_look_lacerda_robe', talk: async () => { await say('alan_fin_angry'); await say(watched() ? 'lacerda_patient' : 'lacerda_ledger'); },
@@ -137,6 +142,28 @@
     }
     g.textAlign = 'left';
   };
+  // the black water closing over Lacerda: a churning pool at his feet, foam, bubbles
+  let vortex = null;
+  S.drawVortex = function (g, t) {
+    if (!vortex) return;
+    const now = performance.now(), k = Math.min(1, (now - vortex.t0) / 900), fade = vortex.end ? Math.max(0, 1 - (now - vortex.end) / 2500) : 1;
+    if (fade <= 0) { vortex = null; return; }
+    const { x, y } = vortex, rx = 90 * k + 30, ry = 22 * k + 8;
+    g.save(); g.globalAlpha = fade;
+    const gr = g.createRadialGradient(x, y, 4, x, y, rx);
+    gr.addColorStop(0, 'rgba(8,30,22,0.95)'); gr.addColorStop(0.7, 'rgba(18,60,44,0.85)'); gr.addColorStop(1, 'rgba(30,90,64,0)');
+    g.fillStyle = gr; g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, 7); g.fill();
+    for (let i = 0; i < 3; i++) {
+      const ph = (t * 1.8 + i / 3) % 1;
+      g.strokeStyle = `rgba(170,255,215,${0.5 * (1 - ph)})`; g.lineWidth = 2.5;
+      g.beginPath(); g.ellipse(x, y, rx * (0.4 + ph * 0.9), ry * (0.4 + ph * 0.9), 0, t * 2 + i, t * 2 + i + 4.5); g.stroke();
+    }
+    for (let i = 0; i < 14; i++) {
+      const a = t * 3 + i * 0.45, r = rx * (0.5 + 0.45 * Math.sin(t * 2.3 + i));
+      g.fillStyle = 'rgba(220,255,235,0.7)'; g.beginPath(); g.arc(x + Math.cos(a) * r, y + Math.sin(a) * r * 0.25 - Math.abs(Math.sin(t * 6 + i)) * 10, 2.5, 0, 7); g.fill();
+    }
+    g.restore();
+  };
   S.drawFlood = function (g, t) {
     const w = F().water || 0; if (!w || F().won) return;
     const top = 548, front = 548 + (w / 6) * 175;
@@ -167,7 +194,16 @@
     G.takeItem('ledger');
     await say('alan_offer', 'lacerda_cant', 'alan_seven');
     const lac = G.npc('lacerda'); lac.set = 'read'; F().lacerda_distracted = true;
+    sfx('page');
     await say('lacerda_ledger');
+    sfx('page', 0.7);
+    await say('lacerda_read_1');
+  };
+  // while he reads, the pages keep turning
+  let nextPage = 0;
+  S.readingTick = function (t) {
+    if (!F().lacerda_distracted || F().strikes > 0 || F().won || G.isBusy) return;
+    if (t > nextPage) { nextPage = t + 5 + Math.random() * 5; Sound.sfx('page', 0.5); if (!F().read2 && t > 12) { F().read2 = true; G.busy(() => say('lacerda_read_2')); } }
   };
   S.cutRopes = async function () {
     if (F().ines_free) return say('alan_fail_04');
@@ -214,13 +250,13 @@
     if (id !== want) {
       sfx('bell_forward'); p.pose = null; F().struck_wrong = true;
       await say('narr_wrong_strike', 'alan_wrong_strike');
-      if (F().strikes === 0) { F().strikes = 1; const lac = G.npc('lacerda'); lac.set = null; await say('lacerda_no'); }
+      if (F().strikes === 0) { F().strikes = 1; const lac = G.npc('lacerda'); lac.set = null; lac.pose = 'terror'; await say('lacerda_no'); lac.pose = null; }
       return raise(2);
     }
     struck.push(id); F().strikes = (F().strikes || 0) + 1;
     sfx('bell_backward'); p.pose = null;
     const lac = G.npc('lacerda');
-    if (struck.length === 1) { await say('alan_ringback'); lac.set = null; await say('lacerda_no'); }
+    if (struck.length === 1) { await say('alan_ringback'); lac.set = null; lac.pose = 'terror'; await say('lacerda_no'); lac.pose = null; }
     else if (struck.length === 2) await say('lacerda_strike_2');
     else if (struck.length === 3) await say('lacerda_strike_3');
     if (struck.length === 4) return S.silence();
@@ -254,19 +290,45 @@
 
   S.silence = async function () {
     G.cutscene = true;
+    const lac = G.npc('lacerda'), ines = G.npc('ines'), p = G.player;
     F().ringing = true; sfx('bell_backward'); sfx('fog_lift');
-    await say('narr_ring', 'narr_silence');
-    const lac = G.npc('lacerda'); lac.set = null; lac.pose = 'terror';
-    await say('lacerda_mine'); await say('alan_answers');
-    sfx('water_rise');
-    await lac.walkTo(860, 552);
-    sfx('splash'); F().sinkAt = [lac.x, lac.y];
-    for (let k = 0; k <= 1; k += window.FAST ? 0.5 : 0.02) { lac.sink = k; await G.wait(40); }
-    lac.visible = false;
-    await say('narr_end_1', 'alan_ledger');
-    F().ringing = false; F().sinkAt = null; F().water = 0; F().won = true;
+    await say('narr_ring');
+    lac.set = null; lac.pose = 'terror';
+    await say('lacerda_mine');
+    await say('alan_answers');
+    // the water answers: it opens under him and starts to pull
+    sfx('water_rise'); vortex = { x: lac.x, y: lac.y + 2, t0: performance.now() };
+    await G.wait(window.FAST ? 20 : 700);
+    lac.pose = 'lunge';
+    const x0 = lac.x, y0 = lac.y, x1 = lac.x + 40, y1 = lac.y - 16;
+    for (let k = 0; k <= 1.0001; k += window.FAST ? 0.5 : 0.03) {
+      const e = k * k; lac.x = x0 + (x1 - x0) * e; lac.y = y0 + (y1 - y0) * e; vortex.x = lac.x; vortex.y = lac.y + 2; lac.sink = 0.12 * e;
+      await G.wait(16);
+    }
+    await say('lacerda_drag');
+    await say('alan_no_hand');
+    // under: to his knees, his chest, his mouth (the narrator speaks over it)
+    sfx('splash');
+    const sinking = (async () => {
+      for (let k = 0.12; k <= 1.0001; k += window.FAST ? 0.4 : 0.006) {
+        lac.sink = k; if (k > 0.45 && lac.pose !== 'terror') lac.pose = 'terror';
+        lac.x = x1 + Math.sin(k * 40) * 3 * (1 - k);
+        await G.wait(16);
+      }
+      lac.visible = false; sfx('splash', 0.6); vortex.end = performance.now();
+    })();
+    await say('narr_end_1');
+    await sinking;
+    F().sinkAt = [x1, y1];
+    await G.wait(window.FAST ? 20 : 900);
+    await say('alan_ledger');
+    // the water lets go of everything else
+    F().ringing = false; F().sinkAt = null;
+    for (let w = F().water || 0; w > 0; w -= window.FAST ? 6 : 0.05) { F().water = Math.max(0, w); await G.wait(16); }
+    F().water = 0;
+    await say('narr_silence');
+    F().won = true;
     await say('narr_still');
-    const ines = G.npc('ines'), p = G.player;
     ines.set = null; ines.def.fixedDir = false;
     await p.walkTo(272, 556); await p.walkTo(420, 640);
     await ines.walkTo(p.x + 140, p.y + 4); ines.dir = 'w'; p.dir = 'e';

@@ -9,8 +9,8 @@
   const invEl = $('#inventory'), invBar = $('#invbar'), dialogEl = $('#dialog'), labelsEl = $('#labels');
 
   const SAVE_KEY = 'drowned-bell-save-v3';
-  const COLORS = { alan: '#ffe2a0', ines: '#ffab9a', rui: '#a8d4ff', amalia: '#e2b0ff', tomas: '#cfeab8', lacerda: '#ff7d6a', celeste: '#ffd0a0', ze: '#9fd8ff', abilio: '#f0e68c', narr: '#eee6d6' };
-  const NAMES = { alan: 'Alan', ines: 'Inês', rui: 'Rui', amalia: 'Amália', tomas: 'Father Tomás', lacerda: 'Lacerda', celeste: 'Celeste', ze: 'Zé', abilio: 'Abílio', narr: '' };
+  const COLORS = { alan: '#ffe2a0', ines: '#ffab9a', rui: '#a8d4ff', amalia: '#e2b0ff', tomas: '#cfeab8', lacerda: '#ff7d6a', celeste: '#ffd0a0', ze: '#9fd8ff', abilio: '#f0e68c', lino: '#f2c79a', phone: '#b9c9ff', guitar: '#d8c0a0', narr: '#eee6d6' };
+  const NAMES = { alan: 'Alan', ines: 'Inês', rui: 'Rui', amalia: 'Amália', tomas: 'Father Tomás', lacerda: 'Lacerda', celeste: 'Celeste', ze: 'Zé', abilio: 'Abílio', lino: 'Lino', phone: 'Officer Teixeira', guitar: 'Duarte', narr: '' };
 
   const ROOMS = {}, ITEMS = {}, CHARS = {};
   const IMG = {}; // loaded images by key
@@ -246,11 +246,11 @@
   function composeFrames(A, B, kB, U, w, h) {
     fit(compBuf, cg, w, h);
     if (B && kB > 0) {
-      const e = kB * kB * (3 - 2 * kB); // smoothstep
+      // the new frame is always fully opaque; the old one fades out over it, so the
+      // figure never turns see-through (no pale flash between poses)
+      const e = kB * kB * (3 - 2 * kB); // smoothstep, 1 -> 0 as the fade ends
+      blit(cg, A, U, 1);
       blit(cg, B, U, e);
-      cg.globalCompositeOperation = 'lighter'; // additive dissolve keeps overlapping areas opaque
-      blit(cg, A, U, 1 - e);
-      cg.globalCompositeOperation = 'source-over';
     } else blit(cg, A, U, 1);
     return compBuf;
   }
@@ -283,7 +283,7 @@
         if (!a || !a.visible) return null;
         const h = a.height(), side = a.lastFlip ? -1 : 1;
         x = a.x + l.off[0] * h * side; y = a.y + l.off[1] * h;
-        return Object.assign({}, l, { x, y, floor: [x, a.y], owner: a, f: Math.max(0, (FLICK[l.kind || 'steady'] || FLICK.steady)(t, l.seed || 0)) });
+        return Object.assign({}, l, { x, y, floor: [x, a.y], owner: a, f: Math.max(0, (FLICK[l.kind || 'steady'] || FLICK.steady)(t, l.seed || 0)) * (l.dim ? l.dim() : 1) });
       }
       const f = l.level ? l.level(t) : (FLICK[l.kind || 'steady'] || FLICK.steady)(t, l.seed || 0);
       return Object.assign({}, l, { x, y, f: Math.max(0, f) });
@@ -445,7 +445,7 @@
     const keep = reset ? new Map() : new Map(npcs.map(a => [a.id, a]));
     // extras whose sprites are not painted yet are simply absent
     const amb = (room.ambient || []).filter(a => IMG['spr:' + a.frames[0]]).map(a => {
-      if (!CHARS[a.id]) CHARS[a.id] = { scale: a.scale || 1, idleHold: a.idleHold || [8, 20], variantHold: a.variantHold || [1.6, 3.2], frames: { idle: a.frames, walk: a.walk } };
+      if (!CHARS[a.id]) CHARS[a.id] = { scale: a.scale || 1, idleHold: a.idleHold || [8, 20], variantHold: a.variantHold || [1.6, 3.2], frames: { idle: a.frames, walk: a.walk, talk: a.talk } };
       return Object.assign({ ambient: true, fixedDir: true, ch: a.id }, a);
     });
     npcs = (room.npcs || []).concat(amb).filter(n => !n.when || n.when()).map(n => {
@@ -510,7 +510,7 @@
       // depth-sorted actors + occluders cut from the painting
       const items = [];
       for (const a of npcs) if (a.visible) items.push({ y: a.y, fn: () => { a.draw(); if (a.overlay) a.overlay(g, a, time); } });
-      if (player.visible) items.push({ y: player.y, fn: () => player.draw() });
+      if (player.visible) items.push({ y: player.y, fn: () => { player.draw(); if (player.overlay) player.overlay(g, player, time); } });
       for (const o of (room.occluders || [])) if (!o.when || o.when()) items.push({ y: o.y, fn: () => drawOccluder(o) });
       items.sort((a, b) => a.y - b.y).forEach(i => i.fn());
       if (room.animFg) room.animFg(g, time);
@@ -537,7 +537,24 @@
   let speaking = null;
   function actorFor(who) {
     if (who === 'alan') return player.visible ? player : null;
-    return npcs.find(a => a.id === who && a.visible) || null;
+    return npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible) || null;
+  }
+  // Speakers face each other: an NPC turns to Alan when it speaks, and Alan turns
+  // to whoever he is talking with (the last NPC who spoke, else the nearest one).
+  let lastPartner = null;
+  const canTurn = a => a && a.visible && !a.walking && !a.pose && (a.dir === 'e' || a.dir === 'w') && !(a.def && (a.def.fixedDir || a.def.ambient));
+  function faceEachOther(actor) {
+    if (!player.visible) return;
+    if (actor && actor !== player) {
+      lastPartner = actor;
+      if (canTurn(actor) && Math.abs(player.x - actor.x) > 30) actor.dir = player.x > actor.x ? 'e' : 'w';
+      if (canTurn(player) || (player.visible && !player.walking && !player.pose && (player.dir === 'n' || player.dir === 's'))) player.dir = actor.x > player.x ? 'e' : 'w';
+    } else if (actor === player) {
+      let other = lastPartner && lastPartner.visible && npcs.includes(lastPartner) ? lastPartner : null;
+      if (!other) other = npcs.filter(a => a.visible && !(a.def && a.def.ambient)).sort((a, b) => Math.abs(a.x - player.x) - Math.abs(b.x - player.x))[0];
+      if (other && Math.abs(other.x - player.x) > 30 && Math.abs(other.x - player.x) < 900 && !player.walking && !player.pose) player.dir = other.x > player.x ? 'e' : 'w';
+      if (other && canTurn(other)) other.dir = player.x > other.x ? 'e' : 'w';
+    }
   }
   function positionSpeech() {
     if (!speaking || !speaking.actor) return;
@@ -553,6 +570,7 @@
   }
   const strip = t => t.replace(/\[[^\]]*\]\s*/g, '');
 
+  const cutsceneHold = () => room && room.holdFacing && room.holdFacing();
   async function say(id, opts) {
     opts = opts || {};
     const L = LINES[id];
@@ -565,10 +583,7 @@
     speaking = { id, actor };
     if (actor) {
       actor.talking = true; actor.talkPose = true; actor.talkT = 0.6;
-      if (actor === player && (player.dir === 'n' || player.dir === 's')) {
-        const other = npcs.find(a => a.visible);
-        player.dir = other ? (other.x > player.x ? 'e' : 'w') : 'e';
-      }
+      if (!cutsceneHold()) faceEachOther(actor);
       speechEl.textContent = text; speechEl.style.color = COLORS[who] || '#fff';
       speechEl.style.display = 'block'; positionSpeech();
     } else {
@@ -699,7 +714,7 @@
   function nameOf(t) { const n = t.def.name; return typeof n === 'function' ? n() : n; }
   // What a left click does on a target (Broken Sword-style smart action).
   function defaultVerb(def) {
-    if (def.ambient) return 'look';
+    if (def.ambient) return def.talk ? 'talk' : 'look';
     if (def.exit) return 'exit';
     if (def.talk) return 'talk';
     if (def.use) return 'use';
@@ -802,7 +817,7 @@
     busy++;
     hideHover(); canvas.className = '';
     try {
-      if (def.ambient && verb !== 'look') { if (item) { selItem = null; renderInv(); } await say('alan_npc_busy'); return; }
+      if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk)) { if (item) { selItem = null; renderInv(); } await say('alan_npc_busy'); return; }
       if (t.kind === 'self') {
         const h = def.items[item] || def.items.any;
         selItem = null; renderInv(); invBar.classList.remove('show');
