@@ -15,7 +15,7 @@
       walk: ['alan_walkA', 'alan_walkDown', 'alan_pass', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_pass', 'alan_walkUp'],
       front: 'alan_front', frontWalk: ['alan_front_walk1', 'alan_front', 'alan_front_walk2', 'alan_front'],
       back: 'alan_back', backWalk: ['alan_back_walk1', 'alan_back', 'alan_back_walk2', 'alan_back'],
-      poses: { undress1: 'alan_undress1', undress2: 'alan_undress2', undress3: 'alan_undress3', undress4: 'alan_undress4', jacket: 'alan_jacket', jump: 'alan_jump', swim: 'alan_swim', swim2: 'alan_swim2', swimwave: 'alan_swim_wave', flirt: 'alan_flirt', wink: 'alan_wink', swoon: 'alan_swoon', reach: 'alan_reach', read: 'alan_read', ring: 'alan_ring', asleep: 'alan_asleep', pickup: 'alan_pickup', write: 'alan_write',
+      poses: { pair_unbutton: 'pair_unbutton', pair_kiss: 'pair_kiss', pair_brow: 'pair_brow', button: 'alan_button', undress1: 'alan_undress1', undress2: 'alan_undress2', undress3: 'alan_undress3', undress4: 'alan_undress4', jacket: 'alan_jacket', jump: 'alan_jump', swim: 'alan_swim', swim2: 'alan_swim2', swimwave: 'alan_swim_wave', flirt: 'alan_flirt', wink: 'alan_wink', swoon: 'alan_swoon', reach: 'alan_reach', read: 'alan_read', ring: 'alan_ring', asleep: 'alan_asleep', pickup: 'alan_pickup', write: 'alan_write',
         drink: 'alan_drink', wring: 'alan_wring', wobble: 'alan_wobble', untie: 'alan_untie', phone: 'alan_phone', cut: 'alan_cutpalm' } } },
     ines: { scale: 0.93, frames: {
       idle: ['ines', 'ines_idle2'], talk: ['ines_talk', 'ines_talk2'], walk: ['ines_walkA', 'ines', 'ines_walkB', 'ines'],
