@@ -227,7 +227,7 @@
       if (ze) { ze.set = null; ze.pose = null; await p.walkTo(ze.x + 120, ze.y); p.dir = 'w'; ze.dir = 'e'; }
       await say('ze_rom_1');
       // the sweater comes off over his head
-      if (ze) { ze.pose = 'ze_dress'; await T(700); ze.pose = 'ze_shirtless'; }
+      if (ze) { ze.pose = 'ze_strip1'; await T(800); ze.pose = 'ze_dress'; await T(800); ze.pose = 'ze_strip3'; sfx('sheet_slap', 0.25); await T(900); ze.pose = 'ze_shirtless'; }
       await say('alan_rom_1', 'ze_rom_2');
       // the two of them as one painted pair: Zé on the left, Alan on the right
       const home = p.x, mid = ze ? (ze.x + p.x) / 2 : p.x; // pair frames are anchored on the couple's middle
