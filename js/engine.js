@@ -938,6 +938,8 @@
     if (!data) { try { data = localStorage.getItem(SAVE_KEY); } catch (e) { data = null; } }
     if (!data) return false;
     state = Object.assign(freshState(), JSON.parse(data));
+    // saves from before the sketch became an item: hand it over so Inês and Celeste can take it
+    if (state.flags.sketched_tile && !state.inv.includes('sketch')) state.inv.push('sketch');
     selItem = null; renderInv();
     room = null;
     await goRoom(state.room, null, { pos: [state.px, state.py, state.dir], noEnter: true });
