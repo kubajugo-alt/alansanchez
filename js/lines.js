@@ -778,7 +778,7 @@ window.LINES = {
   celeste_tile_again: ['celeste', "I've told you what I know about the bronze, menino. The rest is the river's business."],
   celeste_file_again: ['celeste', "I've said what I'll say about fifty-five. Don't make an old woman say it twice."],
   ines_hint_file: ['ines', "Celeste was at the lavadouro in fifty-five. Show her the case file."],
-  ines_hint_light: ['ines', "The workshop is dark and you've got matches in your pocket. Light something, Alan."],
+  ines_hint_matches: ['ines', "The workshop is dark and you've got matches in your pocket. Light something, Alan."],
   alan_ring_first: ['alan', "Before I go anywhere, I ring Inês. The phone box is right there, and she's been waiting all afternoon."],
   tomas_pray: ['tomas', "[quietly] Go, my son. I will be here, praying, until the bell is quiet."],
   alan_blood_later: ['alan', "Blood on the bronze. Not yet. I'd like to keep mine on the inside until it's actually needed."],

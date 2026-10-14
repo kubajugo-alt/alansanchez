@@ -153,7 +153,7 @@
     if (!f.heard_song) return f.askedSong ? 'ines_hint_song' : 'ines_hint_amalia';
     if (!f.drawer_open) return !f.askedDrawer ? 'ines_hint_1955' : (f.salt_seen ? 'ines_hint_drawer' : 'ines_hint_look');
     if (!f.met_celeste || !f.tide_known) {
-      if (f.visited_ferreira && !f.ferreira_lit) return has('matches') ? 'ines_hint_light' : 'ines_hint_dark';
+      if (f.visited_ferreira && !f.ferreira_lit) return has('matches') ? 'ines_hint_matches' : 'ines_hint_dark';
       if (!f.met_celeste) return f.visited_ferreira ? 'ines_hint_celeste' : 'ines_hint_threads';
       return f.ferreira_lit ? 'ines_hint_tide' : 'ines_hint_ferreira';
     }

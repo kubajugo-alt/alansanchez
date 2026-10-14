@@ -639,7 +639,15 @@
   const strip = t => t.replace(/\[[^\]]*\]\s*/g, '');
 
   const cutsceneHold = () => room && room.holdFacing && room.holdFacing();
-  async function say(id, opts) {
+  // One voice at a time: if two scripts ever try to speak at once, the second
+  // waits its turn, so the caption on screen is always the line being heard.
+  let speechChain = Promise.resolve();
+  function say(id, opts) {
+    const run = speechChain.then(() => sayNow(id, opts));
+    speechChain = run.catch(() => {});
+    return run;
+  }
+  async function sayNow(id, opts) {
     opts = opts || {};
     const L = LINES[id];
     if (!L) { console.warn('missing line', id); return; }
@@ -1056,7 +1064,10 @@
     $('#title').classList.add('ready');
     requestAnimationFrame(frame);
   }
+  let started = false;
   async function begin(fresh) {
+    if (started) return; // a double-click on New game would run the intro twice, voices over each other
+    started = true;
     Sound.init();
     showModal('title', false);
     if (fresh || !(await loadSave())) { state = freshState(); renderInv(); await window.Story.newGame(); }
