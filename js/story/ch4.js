@@ -230,7 +230,7 @@
       if (ze) { ze.pose = 'ze_dress'; await T(700); ze.pose = 'ze_shirtless'; }
       await say('alan_rom_1', 'ze_rom_2');
       // the two of them as one painted pair: Zé on the left, Alan on the right
-      const home = p.x, mid = ze ? (ze.x + p.x) / 2 : p.x;
+      const home = p.x, mid = ze ? (ze.x + p.x) / 2 : p.x; // pair frames are anchored on the couple's middle
       if (ze) ze.visible = false;
       p.x = mid; p.dir = 'e'; p.pose = 'pair_unbutton'; sfx('sheet_slap', 0.2);
       await T(2200);

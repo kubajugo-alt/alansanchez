@@ -51,6 +51,9 @@ for (A, B), frac in PAIRS.items():
     print(B, 'k=%.3f t=(%.1f,%.1f) inliers=%d frac=%.2f err=%.1f' % (k, tx, ty, int(inl.sum()), f, err))
 for n, f in SCALE.items():
     if n in meta and not meta[n].get('scaled'): meta[n]['h'] = round(meta[n]['h'] / f, 2); meta[n]['scaled'] = f
+# two-person frames: anchor on the middle of the couple, so poses don't jump sideways
+for n in ('pair_unbutton', 'pair_kiss', 'pair_brow'):
+    if n in meta: meta[n]['ax'] = round(meta[n]['w'] / 2, 1)
 for n, v in FACING.items():
     if n in meta:
         if v: meta[n]['facesLeft'] = True

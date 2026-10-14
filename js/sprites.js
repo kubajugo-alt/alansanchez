@@ -82,6 +82,15 @@ window.SPRITES = {
   "fy": 710.3,
   "top": 3.1
  },
+ "alan_button": {
+  "w": 246,
+  "hh": 749,
+  "h": 720,
+  "ax": 104.9,
+  "fy": 745.6,
+  "top": 3.1,
+  "facesLeft": true
+ },
  "alan_cutpalm": {
   "w": 250,
   "hh": 726,
@@ -955,6 +964,30 @@ window.SPRITES = {
   "top": 3.2,
   "facesLeft": true
  },
+ "pair_brow": {
+  "w": 312,
+  "hh": 729,
+  "h": 720,
+  "ax": 156.0,
+  "fy": 724.2,
+  "top": 4.2
+ },
+ "pair_kiss": {
+  "w": 340,
+  "hh": 729,
+  "h": 720,
+  "ax": 170.0,
+  "fy": 724.1,
+  "top": 4.1
+ },
+ "pair_unbutton": {
+  "w": 362,
+  "hh": 729,
+  "h": 720,
+  "ax": 181.0,
+  "fy": 724.1,
+  "top": 4.1
+ },
  "pessoa_eat": {
   "w": 1066,
   "hh": 546,
@@ -1212,6 +1245,14 @@ window.SPRITES = {
   "fy": 710.0,
   "top": 3.0
  },
+ "ze_dress": {
+  "w": 260,
+  "hh": 725,
+  "h": 720,
+  "ax": 110.3,
+  "fy": 721.0,
+  "top": 3.0
+ },
  "ze_give": {
   "w": 378,
   "hh": 703,
@@ -1228,12 +1269,28 @@ window.SPRITES = {
   "fy": 729.5,
   "top": 3.0
  },
+ "ze_shirtless": {
+  "w": 237,
+  "hh": 710,
+  "h": 720,
+  "ax": 131.1,
+  "fy": 707.0,
+  "top": 3.0
+ },
  "ze_sit": {
   "w": 418,
   "hh": 635,
   "h": 720,
   "ax": 257.7,
   "fy": 631.9,
+  "top": 3.0
+ },
+ "ze_suspenders": {
+  "w": 297,
+  "hh": 724,
+  "h": 720,
+  "ax": 145.6,
+  "fy": 720.5,
   "top": 3.0
  },
  "ze_talk": {
