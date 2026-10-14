@@ -446,11 +446,17 @@
     await G.busy(async () => {
       p.pose = 'wink'; await say('alan_flirt_cop_1');
       p.pose = null; copPose('npc_phone_blush'); await say('phone_flirt_1');
-      // a step closer and a pat on the chest
+      // right up close: a squeeze of the arm, then a hand flat on his chest
+      // (the two of them as one painted pair, anchored on their middle)
+      const home = p.x;
       if (cop) { await p.walkTo(cop.x + 105, cop.y); p.dir = 'w'; }
-      p.pose = 'flirt'; await T(450); copPose('npc_phone_proud');
-      await say('alan_flirt_cop_2');
-      copPose('npc_phone_blush'); p.pose = null;
+      const pairUp = k => { if (!cop || !window.SPRITES[k]) return false; cop.visible = false; p.x = cop.x + 52; p.pose = k; return true; };
+      const unpair = () => { if (cop) cop.visible = true; p.x = cop ? cop.x + 105 : home; p.pose = null; };
+      if (!pairUp('pair_cop_arm')) { p.pose = 'flirt'; copPose('npc_phone_proud'); }
+      await T(500); await say('alan_flirt_cop_3', 'phone_flirt_3');
+      if (!pairUp('pair_cop_chest')) { p.pose = 'flirt'; copPose('npc_phone_blush'); }
+      await T(400); await say('alan_flirt_cop_2', 'phone_flirt_4', 'alan_flirt_cop_4');
+      unpair(); copPose('npc_phone_blush');
       if (cop) { await p.walkTo(cop.x + 190, cop.y); p.dir = 'w'; }
       p.pose = 'swoon';
       await say('phone_flirt_2');
@@ -472,7 +478,16 @@
     await G.busy(async () => {
       p.pose = 'wink'; await say('alan_flirt_guitar_1');
       p.pose = null; gPose('npc_guitar_flourish'); await say('guitar_flirt_1');
-      gPose(null); p.pose = 'swoon'; await say('alan_flirt_guitar_2');
+      gPose('npc_guitar_lean'); await say('guitar_flirt_3');
+      p.pose = 'fluster'; await say('alan_flirt_guitar_3'); p.pose = null;
+      // the lesson: his hand over Alan's on the neck of the guitar
+      const home = p.x;
+      if (gt && window.SPRITES.pair_guitar_lesson) {
+        await p.walkTo(gt.x + 110, gt.y); gt.visible = false; p.x = gt.x + 40; p.pose = 'pair_guitar_lesson';
+        await say('guitar_flirt_4', 'alan_flirt_guitar_4');
+        p.pose = null; gt.visible = true; p.x = gt.x + 110; p.dir = 'w';
+      } else await say('guitar_flirt_4', 'alan_flirt_guitar_4');
+      gPose('npc_guitar_serenade'); p.pose = 'swoon'; await say('alan_flirt_guitar_2');
       p.pose = null; gPose('npc_guitar_wink'); await say('guitar_flirt_2');
       gPose(null);
       if (G.npc('amalia')) await say('amalia_flirt', 'gag_amalia', 'gag_alan_amalia');
