@@ -92,7 +92,7 @@
     sway: t => Math.sin(t * 0.7) * 0.004,
     anim(g, t) { FX.water(g, t, 0, 300, 300, 200, '200,210,220'); },
     npcs: [
-      { id: 'ze', x: 560, y: 610, dir: 'w', name: 'Zé Coutinho', when: () => F().ze_awake && !F().ze_in_cabin, look: 'narr_look_ze', talk: () => S.talkZe(),
+      { id: 'ze', x: 900, y: 618, dir: 'w', name: 'Zé Coutinho', when: () => F().ze_awake && !F().ze_in_cabin, look: 'narr_look_ze', talk: () => S.talkZe(),
         items: { tidecard: () => S.zeCard(), file55: () => say('ze_file'), any: 'alan_fail_ze_item' } },
     ],
     hotspots: [
@@ -141,6 +141,7 @@
       { line: 'alan_danger', once: true, run: () => say('ze_fromyou') },
       { line: 'alan_show_card', when: () => G.has('tidecard') && !F().ze_believes, run: () => S.zeCard(), bye: true },
       { line: 'alan_ask_ze_tile', when: () => F().ze_believes, run: async () => { await say('ze_tile', 'ze_cabin'); } },
+      { label: 'Show me the cabin.', when: () => F().ze_believes, bye: true, run: () => S.toCabin() },
       { label: 'Goodbye.', bye: true },
     ]);
   };
@@ -151,6 +152,13 @@
     await S.readTideCard();
     await say('ze_card', 'ze_turning', 'alan_ask_ze_tile', 'ze_tile', 'ze_cabin');
     clock('18:20');
+    await S.toCabin();
+  };
+  S.toCabin = async function () {
+    const ze = G.npc('ze');
+    if (ze) { await ze.walkTo(560, 600); ze.visible = false; sfx('hatch_slam'); }
+    await G.player.walkTo(560, 625);
+    await G.goRoom('cabin', 'boat');
   };
 
   // ================================================================ THE CABIN
