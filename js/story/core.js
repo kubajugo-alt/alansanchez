@@ -51,7 +51,7 @@
       sets: { sit: { idle: 'ze_sit', talk: ['ze_sit', 'ze_talk'] } } } },
     abilio: { scale: 0.9, frames: {
       idle: ['abilio', 'abilio_idle2'], talk: ['abilio_shout1', 'abilio_shout2'], poses: { read: 'abilio_read', point: 'abilio_point' } } },
-    pessoa: { scale: 0.34, speed: 0.8, frames: {
+    pessoa: { scale: 1, speed: 0.8, frames: {
       idle: ['pessoa_sleep', 'pessoa_sleep2'], walk: ['pessoa_walk1', 'pessoa_walk2'],
       poses: { sit: 'pessoa_sit', jump: 'pessoa_jump', eat: 'pessoa_eat' } }, idleHold: [2.2, 3.4], variantHold: [1.8, 2.6] },
   };

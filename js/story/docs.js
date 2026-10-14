@@ -99,6 +99,6 @@
 
   S.showPhoto = () => G.closeup([{ img: 'close:close_photo1934', cls: 'wide' }]);
   S.showPorthole = () => G.closeup([{ img: 'close:close_porthole', cls: 'square' }]);
-  S.showClocks = () => G.closeup([{ img: 'close:close_clocks', cls: 'land', html: `<div class="doc-tags"><span style="left:14%;top:62%">F. 03:12</span><span style="left:35%;top:64%">B. 15:38</span><span style="left:56%;top:63%">C. 04:01</span><span style="left:77%;top:61%">J.C. 18:25</span></div>` }]);
+  S.showClocks = () => G.closeup([{ img: 'close:close_clocks', cls: 'land', html: `<div class="doc-tags"><span style="left:11%;top:79%">F. 03:12</span><span style="left:33.5%;top:79%">B. 15:38</span><span style="left:56%;top:79%">C. 04:01</span><span style="left:79%;top:79%">J.C. 18:25</span></div>` }]);
   S.showBellMark = (text) => G.closeup([{ img: 'close:close_bronze', cls: 'land', html: `<div class="doc-engrave">${text}</div>` }], { auto: 2600 });
 })();

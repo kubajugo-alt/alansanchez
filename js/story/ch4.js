@@ -35,13 +35,13 @@
     },
     animFg(g, t) { if (F().ch === 4 && F().harbour) { /* clock overlay is HTML */ } },
     npcs: [
-      { id: 'celeste', x: 330, y: 560, dir: 'e', set: 'basket', name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCelesteQuay(),
+      { id: 'celeste', x: 360, y: 556, dir: 'e', set: 'basket', name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCelesteQuay(),
         items: { tidecard: () => say('celeste_hint_ze'), any: 'alan_fail_06' } },
     ],
     ambient: [
-      { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], x: 90, y: 640, h: 270, look: 'alan_npc_menders' },
-      { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2', 'npc_mender2_b'], x: 200, y: 700, h: 300, look: 'alan_npc_menders' },
-      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], x: 120, y: 500, h: 220, look: 'alan_npc_fish' },
+      { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], x: 600, y: 712, h: 270, look: 'alan_npc_menders' },
+      { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2', 'npc_mender2_b'], x: 800, y: 714, h: 280, look: 'alan_npc_menders' },
+      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], x: 48, y: 478, h: 190, look: 'alan_npc_fish' },
       { id: 'npc_docker', name: 'Dockworker', frames: ['npc_docker'], walk: ['npc_docker', 'npc_docker_b'], x: 420, y: 462, h: 220, dir: 'e', look: 'alan_npc_docker',
         patrol: { points: [[600, 470], [380, 462]], pause: [10, 18] } },
     ],

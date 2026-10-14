@@ -52,7 +52,7 @@
     F().ch = 1; F().clock = '11:00';
     await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);
     await G.showStill('still_intro', () => say('narr_intro_1', 'narr_intro_2'), { zoom: [1.0, 1.16], pan: [[0.4, 0.55], [0.6, 0.5]], keep: true });
-    await G.goRoom('shop', null, { noEnter: true, instant: true, pos: [868, 604, 'e'] });
+    await G.goRoom('shop', null, { noEnter: true, instant: true, pos: [772, 648, 'e'] });
     G.player.pose = 'asleep';
     G.endStill();
     await G.busy(async () => {
