@@ -168,6 +168,7 @@
         o.connect(g); g.connect(sfxBus); g.connect(reverb); o.start(t); o.stop(t + 4.3);
       }
     },
+    page() { burst(ctx.currentTime, 0.12, 'highpass', 2500, 0.7, 0.03); },
     splash() {
       const t = ctx.currentTime, n = ctx.sampleRate * 1.2, buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
       for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
@@ -175,7 +176,27 @@
       s.connect(lp); lp.connect(sfxBus); s.start(t);
     },
   };
-  function sfx(name) { if (ctx && SFX[name]) try { SFX[name](); } catch (e) { /* ignore */ } }
+  // Recorded effects (ElevenLabs sound generation) live in audio/sfx/*.mp3 and
+  // are listed in audio/sfx/manifest.json; anything missing falls back to the
+  // procedural versions above.
+  let sfxFiles = new Set(); const sfxBufs = {};
+  async function loadSfx() {
+    try { const r = await fetch('audio/sfx/manifest.json', { cache: 'no-cache' }); sfxFiles = new Set(await r.json()); } catch (e) { sfxFiles = new Set(); }
+  }
+  function playFile(name, vol, rate) {
+    const go = buf => {
+      const s = ctx.createBufferSource(); s.buffer = buf; s.playbackRate.value = rate || 1;
+      const g = ctx.createGain(); g.gain.value = vol == null ? 1 : vol;
+      s.connect(g); g.connect(sfxBus); s.start(); return s;
+    };
+    if (sfxBufs[name]) { if (sfxBufs[name] instanceof AudioBuffer) go(sfxBufs[name]); return; }
+    sfxBufs[name] = fetch('audio/sfx/' + name + '.mp3').then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; go(buf); }).catch(() => { sfxBufs[name] = null; });
+  }
+  function sfx(name, vol, rate) {
+    if (!ctx) return;
+    if (sfxFiles.has(name)) { playFile(name, vol, rate); return; }
+    if (SFX[name]) try { SFX[name](); } catch (e) { /* ignore */ }
+  }
 
   // ---------------------------------------------------------------- footsteps
   let noiseBuf = null;
@@ -316,7 +337,7 @@
   function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
 
   window.Sound = {
-    init, playMusic, sfx, step: footstep, ambience, voiceLevel, playVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
+    init, playMusic, sfx, loadSfx, step: footstep, ambience, voiceLevel, playVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; },
   };
 })();

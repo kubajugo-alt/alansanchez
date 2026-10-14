@@ -1,12 +1,55 @@
 {
   "model_id": "eleven_v4",
   "voices": {
-    "narr":    { "voice_id": "2qQJWjw5XdG80GreshqG", "name": "Eleanor – Gracious and Authoritative", "role": "Narrator" },
-    "alan":    { "voice_id": "CwhRBWXzGAHq8TQ4Fs17", "name": "Roger – Laid-Back, Casual, Resonant", "role": "Alan Sanchez" },
-    "ines":    { "voice_id": "EXAVITQu4vr4xnSDxMaL", "name": "Sarah – Mature, Reassuring, Confident", "role": "Inês Carvalho" },
-    "rui":     { "voice_id": "N2lVS1w4EtoT3dr4eOWO", "name": "Callum – Husky Trickster", "role": "Inspector Rui Mendonça" },
-    "amalia":  { "voice_id": "YHcCpa6SBWnKDaCPZJQR", "name": "Mora – Gritty and Enigmatic", "role": "Dona Amália" },
-    "tomas":   { "voice_id": "AeRdCCKzvd23BpJoofzx", "name": "Nathaniel – Engaging, British and Calm", "role": "Father Tomás" },
-    "lacerda": { "voice_id": "agL69Vji082CshT65Tcy", "name": "Blackwood – Posh British Villain", "role": "Vicente Lacerda" }
+    "narr": {
+      "voice_id": "2qQJWjw5XdG80GreshqG",
+      "name": "Eleanor – Gracious and Authoritative",
+      "role": "Narrator"
+    },
+    "alan": {
+      "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+      "name": "Roger – Laid-Back, Casual, Resonant",
+      "role": "Alan Sanchez"
+    },
+    "ines": {
+      "voice_id": "EXAVITQu4vr4xnSDxMaL",
+      "name": "Sarah – Mature, Reassuring, Confident",
+      "role": "Inês Carvalho"
+    },
+    "rui": {
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "name": "Callum – Husky Trickster",
+      "role": "Inspector Rui Mendonça"
+    },
+    "amalia": {
+      "voice_id": "YHcCpa6SBWnKDaCPZJQR",
+      "name": "Mora – Gritty and Enigmatic",
+      "role": "Dona Amália"
+    },
+    "tomas": {
+      "voice_id": "AeRdCCKzvd23BpJoofzx",
+      "name": "Nathaniel – Engaging, British and Calm",
+      "role": "Father Tomás"
+    },
+    "lacerda": {
+      "voice_id": "agL69Vji082CshT65Tcy",
+      "name": "Blackwood – Posh British Villain",
+      "role": "Vicente Lacerda"
+    },
+    "celeste": {
+      "voice_id": "YGWwh1G8pUwWmJyCCpma",
+      "name": "Blue – Commander with Grit",
+      "role": "Dona Celeste Mendonça"
+    },
+    "ze": {
+      "voice_id": "M5E055lOUxMi0kJpGyE9",
+      "name": "Gravel Midnight – Deep Character Voice",
+      "role": "Zé Coutinho"
+    },
+    "abilio": {
+      "voice_id": "fGIZlgPQ75MMlvQ6WxgY",
+      "name": "GERALD – Exciting Older Voice",
+      "role": "Senhor Abílio"
+    }
   }
 }

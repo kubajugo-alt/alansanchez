@@ -18,7 +18,7 @@
   let room = null, fogA = null, fogB = null;
   let player = null, npcs = [];
   let selItem = null;
-  let busy = 0, mouse = { x: -1, y: -1 }, hoverTarget = null;
+  let busy = 0, mouse = { x: -1, y: -1 }, hoverTarget = null, cutscene = 0;
   let skipFn = null, dialogResolve = null;
   let time = 0, last = performance.now();
 
@@ -36,7 +36,10 @@
   }
   async function preload(onProgress) {
     const jobs = [];
-    for (const id in ROOMS) if (ROOMS[id].bg) jobs.push(['bg:' + ROOMS[id].bg, 'art/bg/' + ROOMS[id].bg + '.jpg']);
+    for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) jobs.push(['bg:' + b, 'art/bg/' + b + '.jpg']);
+    for (const s of (window.STILLS || [])) jobs.push(['still:' + s, 'art/stills/' + s + '.jpg']);
+    for (const c of (window.CLOSEUPS || [])) jobs.push(['close:' + c, 'art/closeups/' + c + '.jpg']);
+    for (const i in ITEMS) jobs.push(['icon:' + (ITEMS[i].icon || i), 'art/icons/' + (ITEMS[i].icon || i) + '.webp']);
     for (const k in SPRITES) jobs.push(['spr:' + k, 'art/sprites/' + k + '.webp']);
     for (const id in ROOMS) for (const l of (ROOMS[id].layers || [])) jobs.push(['lay:' + l.img, 'art/layers/' + l.img + '.webp']);
     for (const id in ROOMS) if (ROOMS[id].skyMask) jobs.push(['mask:' + ROOMS[id].skyMask, 'art/layers/' + ROOMS[id].skyMask + '.webp']);
@@ -122,13 +125,23 @@
         }
       } else { this.talkIdx = 0; this.talkT = 0; this.quietT = 0; this.lvl = 0; }
       const nIdle = arr(F.idle).length;
-      this.idleT -= dt;
+      if (!(cutscene && this.def && this.def.ambient)) this.idleT -= dt; // ambient extras freeze during cutscenes
       if (this.idleT <= 0) {
-        if (this.idleIdx === 0 && nIdle > 1) { this.idleIdx = 1 + Math.floor(Math.random() * (nIdle - 1)); this.idleT = 2 + Math.random() * 2.5; }
-        else { this.idleIdx = 0; this.idleT = 4 + Math.random() * 6; }
+        const vh = this.c.variantHold || [2, 4.5], ih = this.c.idleHold || [4, 10];
+        if (this.idleIdx === 0 && nIdle > 1) { this.idleIdx = 1 + Math.floor(Math.random() * (nIdle - 1)); this.idleT = vh[0] + Math.random() * (vh[1] - vh[0]); }
+        else { this.idleIdx = 0; this.idleT = ih[0] + Math.random() * (ih[1] - ih[0]); }
+      }
+      // background extras that walk a beat (dockworkers, etc.)
+      if (this.def && this.def.patrol && !this.walking && !cutscene) {
+        this.patrolT = (this.patrolT || 0) - dt;
+        if (this.patrolT <= 0) {
+          const P = this.def.patrol; this.patrolI = ((this.patrolI || 0) + 1) % P.points.length;
+          const [px, py] = P.points[this.patrolI]; this.walkTo(px, py);
+          this.patrolT = P.pause[0] + Math.random() * (P.pause[1] - P.pause[0]);
+        }
       }
       // NPCs turn toward Alan (after a human beat), unless busy or posed
-      if (this !== player && player && player.visible && !this.walking && !this.pose && !this.loopActive() && !(this.def && this.def.fixedDir) && (this.dir === 'e' || this.dir === 'w')) {
+      if (this !== player && player && player.visible && !this.walking && !this.pose && !this.loopActive() && !(this.def && (this.def.fixedDir || this.def.ambient)) && (this.dir === 'e' || this.dir === 'w')) {
         const want = player.x > this.x ? 'e' : 'w';
         if (want !== this.dir && Math.abs(player.x - this.x) > 40) { this.turnT += dt; if (this.turnT > 0.6) { this.dir = want; this.turnT = 0; } }
         else this.turnT = 0;
@@ -420,7 +433,11 @@
   }
   function refreshNpcs(reset) {
     const keep = reset ? new Map() : new Map(npcs.map(a => [a.id, a]));
-    npcs = (room.npcs || []).filter(n => !n.when || n.when()).map(n => {
+    const amb = (room.ambient || []).map(a => {
+      if (!CHARS[a.id]) CHARS[a.id] = { scale: a.scale || 1, idleHold: a.idleHold || [8, 20], variantHold: a.variantHold || [1.6, 3.2], frames: { idle: a.frames, walk: a.walk } };
+      return Object.assign({ ambient: true, fixedDir: true, ch: a.id }, a);
+    });
+    npcs = (room.npcs || []).concat(amb).filter(n => !n.when || n.when()).map(n => {
       if (keep.has(n.id)) return keep.get(n.id);
       const a = new Actor(n.id, n.ch || n.id, n.x, n.y, n.dir);
       a.def = n; a.h = n.h || null; a.overlay = n.overlay || null; a.loop = n.loop || null; a.set = (typeof n.set === 'function' ? n.set() : n.set) || null;
@@ -443,8 +460,9 @@
   function drawBg(name) { const im = IMG['bg:' + name]; if (im) g.drawImage(im, 0, 0, W, H); else { g.fillStyle = '#000'; g.fillRect(0, 0, W, H); } }
   // Re-paints the part of the background (and its layers) that stands in front
   // of an actor. Outlines follow the painted furniture, not a box around it.
+  function curBg() { return typeof room.bgFn === 'function' ? room.bgFn() : room.bg; }
   function drawOccluder(o) {
-    const im = IMG['bg:' + room.bg]; if (!im) return;
+    const im = IMG['bg:' + curBg()]; if (!im) return;
     g.save(); g.beginPath();
     for (const p of (o.polys || [o.poly])) { p.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); }
     g.clip();
@@ -471,7 +489,7 @@
     if (room) {
       player.update(dt); npcs.forEach(a => a.update(dt));
       updateLights(time);
-      drawBg(typeof room.bgFn === 'function' ? room.bgFn() : room.bg);
+      drawBg(curBg());
       if (room.animBack) room.animBack(g, time);
       drawLayers(false);
       if (room.anim) room.anim(g, time);
@@ -498,6 +516,7 @@
       FX.vignette(g, room.vignette != null ? room.vignette : 0.45);
       positionSpeech();
     }
+    if (still) drawStill(dt);
     requestAnimationFrame(frame);
   }
 
@@ -529,7 +548,7 @@
     const text = strip(raw);
     busy++;
     clearSpeech();
-    const actor = opts.offscreen ? null : actorFor(who);
+    const actor = (opts.offscreen || still) ? null : actorFor(who);
     speaking = { id, actor };
     if (actor) {
       actor.talking = true; actor.talkPose = true; actor.talkT = 0.6;
@@ -605,7 +624,7 @@
       const slot = document.createElement('div');
       slot.className = 'slot' + (selItem === id ? ' selected' : '');
       const c = document.createElement('canvas'); c.width = 96; c.height = 96;
-      c.getContext('2d').drawImage(FX.icon(ITEMS[id].icon || id), 0, 0);
+      c.getContext('2d').drawImage(iconFor(id), 0, 0, 96, 96);
       slot.appendChild(c);
       slot.title = itemName(id);
       slot.onclick = e => { e.stopPropagation(); clickItem(id); };
@@ -632,11 +651,15 @@
     selItem = selItem === id ? null : id;
     renderInv();
   }
+  function iconFor(id) {
+    const it = ITEMS[id], key = typeof it.icon === 'function' ? it.icon() : (it.icon || id);
+    return IMG['icon:' + key] || FX.icon(key);
+  }
   function updateCursor() {
     wrap.classList.toggle('holding', !!selItem);
     if (selItem) {
       const [c, cg] = FX.mk(64, 64);
-      cg.drawImage(FX.icon(ITEMS[selItem].icon || selItem), 0, 0, 64, 64);
+      cg.drawImage(iconFor(selItem), 0, 0, 64, 64);
       canvas.style.cursor = `url(${c.toDataURL()}) 8 8, pointer`;
     } else canvas.style.cursor = '';
   }
@@ -649,6 +672,7 @@
 
   function targetAt(x, y) {
     if (!room) return null;
+    if (selItem && player.visible) { const b = player.bbox(); if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return { kind: 'self', def: { name: 'Alan', items: (room.self && room.self.items) || {} } }; }
     const people = npcs.filter(a => a.visible && a.def).sort((a, b) => b.y - a.y);
     for (const a of people) { const b = a.bbox(); if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return { kind: 'npc', actor: a, def: a.def }; }
     const hs = room.hotspots || [];
@@ -662,6 +686,7 @@
   function nameOf(t) { const n = t.def.name; return typeof n === 'function' ? n() : n; }
   // What a left click does on a target (Broken Sword-style smart action).
   function defaultVerb(def) {
+    if (def.ambient) return 'look';
     if (def.exit) return 'exit';
     if (def.talk) return 'talk';
     if (def.use) return 'use';
@@ -729,7 +754,7 @@
 
   async function runHandler(h, ctx) {
     if (!h) return;
-    if (typeof h === 'string') return say(h);
+    if (typeof h === 'string') return say(LINES[h] ? h : failLine(ctx || { def: {} }, 'use'));
     if (Array.isArray(h)) { for (const x of h) await runHandler(x, ctx); return; }
     if (typeof h === 'function') return h(ctx);
   }
@@ -746,27 +771,48 @@
     if (def.face) player.dir = def.face;
     else if (actor) { player.dir = actor.x > player.x ? 'e' : 'w'; actor.dir = actor.def.fixedDir ? actor.dir : (player.x > actor.x ? 'e' : 'w'); }
   }
+  // A failed use always gets an Alan line: the target's own, then a
+  // character-specific refusal, then the shared pool (no immediate repeats).
+  let lastFail = null;
+  function failLine(t, verb) {
+    if (t.def.fail) return t.def.fail;
+    if (verb === 'item' && t.actor && FAIL_BY_CHAR[t.actor.id]) return FAIL_BY_CHAR[t.actor.id];
+    if (verb === 'look') return 'alan_fail_look';
+    if (verb === 'talk') return 'alan_fail_talk';
+    if (verb === 'take' && Math.random() < 0.5) return 'alan_fail_take';
+    let id; do { id = 'alan_fail_' + String(1 + Math.floor(Math.random() * 10)).padStart(2, '0'); } while (id === lastFail);
+    return (lastFail = id);
+  }
+  const FAIL_BY_CHAR = { lacerda: 'alan_fail_lacerda_item', ze: 'alan_fail_ze_item', abilio: 'alan_fail_abilio_item', ines: 'alan_fail_ines_item', rui: 'alan_fail_rui_item' };
   async function interact(t, verb) {
     const def = t.def, item = verb === 'item' ? selItem : null;
     busy++;
     hideHover(); canvas.className = '';
     try {
+      if (def.ambient && verb !== 'look') { if (item) { selItem = null; renderInv(); } await say('alan_npc_busy'); return; }
+      if (t.kind === 'self') {
+        const h = def.items[item] || def.items.any;
+        selItem = null; renderInv(); invBar.classList.remove('show');
+        await runHandler(h || failLine(t, 'item'), t); return;
+      }
       if (verb === 'look') {
         if (player.visible && def.at && !t.actor) player.dir = def.at[0] > player.x ? 'e' : 'w';
-        await runHandler(def.look || 'alan_def_look', t); return;
+        await runHandler(def.look || failLine(t, 'look'), t); return;
       }
       if (verb === 'exit') { await approach(def, t.actor); await goRoom(def.exit, def.entry || room.id); return; }
       if (t.actor) t.actor.engaged++;
       await approach(def, t.actor);
       if ((verb === 'take' || verb === 'use' || item) && player.visible && def.reach !== false) await reach(t);
       if (item) {
-        const h = (def.items && (def.items[item] || def.items.any)) || 'alan_def_item';
+        const h = def.items && (def.items[item] || def.items.any);
         selItem = null; renderInv(); invBar.classList.remove('show');
-        await runHandler(h, t);
-      } else await runHandler(def[verb] || 'alan_def_use', t);
+        await runHandler(h || failLine(t, 'item'), t);
+      } else await runHandler(def[verb] || failLine(t, verb), t);
     } finally {
       if (t.actor) { t.actor.engaged = Math.max(0, t.actor.engaged - 1); t.actor.resumeT = 1.4; }
-      busy--; updateHover();
+      busy--;
+      if (room && room.onAction && verb !== 'exit') { busy++; try { await room.onAction(t, verb); } finally { busy--; } }
+      updateHover();
     }
   }
   // Alan reaches toward what he takes, uses or hands over.
@@ -777,6 +823,76 @@
     player.pose = 'reach';
     await wait(window.FAST ? 30 : 520);
     player.pose = null;
+  }
+
+  // ---------------------------------------------------------------- stills
+  // Full-screen painted stills for cutscenes, with a slow Ken Burns move.
+  let still = null;
+  function drawStill(dt) {
+    const s = still; s.t += dt;
+    s.alpha += (s.target - s.alpha) * Math.min(1, dt * 3.2);
+    const im = IMG['still:' + s.name] || IMG['close:' + s.name] || IMG['bg:' + s.name];
+    const p = Math.min(1, s.t / s.dur), e = p * p * (3 - 2 * p);
+    const z = s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e;
+    const cx = s.pan[0][0] + (s.pan[1][0] - s.pan[0][0]) * e, cy = s.pan[0][1] + (s.pan[1][1] - s.pan[0][1]) * e;
+    g.save(); g.globalAlpha = Math.max(0, Math.min(1, s.alpha));
+    g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
+    if (im) { const w = W * z, h = H * z; g.drawImage(im, W / 2 - w * cx, H / 2 - h * cy, w, h); }
+    if (s.sepia) { g.globalCompositeOperation = 'multiply'; g.fillStyle = 'rgba(255,225,180,0.25)'; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over'; }
+    FX.vignette(g, s.vignette != null ? s.vignette : 0.55);
+    if (s.grain) for (let i = 0; i < 60; i++) { g.fillStyle = `rgba(255,240,210,${Math.random() * 0.08})`; g.fillRect(Math.random() * W, Math.random() * H, 1 + Math.random() * 2, 1); }
+    g.restore();
+    if (s.target === 0 && s.alpha < 0.02) still = null;
+  }
+  // Shows a still while fn() runs (lines, waits), then fades back to the room.
+  async function showStill(name, fn, opts) {
+    opts = opts || {};
+    busy++; cutscene++;
+    still = { name, t: 0, alpha: still ? still.alpha : 0, target: 1, dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
+    clearSpeech();
+    await wait(window.FAST ? 20 : 700);
+    try { if (fn) await fn(); else await wait(window.FAST ? 20 : (opts.hold || 3000)); }
+    finally {
+      if (!opts.keep) { still.target = 0; await wait(window.FAST ? 20 : 700); }
+      busy--; cutscene--;
+    }
+  }
+  function endStill() { if (still) still.target = 0; }
+
+  // ---------------------------------------------------------------- close-ups
+  // Documents and objects seen up close: painted image plus HTML text, paged.
+  const closeEl = $('#closeup');
+  function closeup(pages, opts) {
+    opts = opts || {};
+    return new Promise(resolve => {
+      let i = 0; busy++;
+      const page = closeEl.querySelector('.page'), prev = closeEl.querySelector('.prev'), next = closeEl.querySelector('.next');
+      const show = () => {
+        const p = pages[i];
+        page.className = 'page ' + (p.cls || '');
+        page.style.backgroundImage = p.img ? `url(${(IMG[p.img] || {}).src || ''})` : 'none';
+        page.innerHTML = p.html || '';
+        if (p.canvas) { const c = document.createElement('canvas'); c.width = p.canvas.w; c.height = p.canvas.h; c.className = 'draw'; page.appendChild(c); p.canvas.draw(c); }
+        prev.style.visibility = i > 0 ? 'visible' : 'hidden';
+        next.style.visibility = i < pages.length - 1 ? 'visible' : 'hidden';
+        Sound.sfx('page');
+      };
+      const close = () => { closeEl.classList.add('hidden'); prev.onclick = next.onclick = closeEl.onclick = null; busy--; resolve(); };
+      prev.onclick = ev => { ev.stopPropagation(); if (i > 0) { i--; show(); } };
+      next.onclick = ev => { ev.stopPropagation(); if (i < pages.length - 1) { i++; show(); } };
+      closeEl.onclick = ev => { if (ev.target === closeEl || ev.target.classList.contains('x')) close(); };
+      closeEl.classList.remove('hidden'); show();
+      if (window.FAST) setTimeout(close, 60);
+      else if (opts.auto) setTimeout(close, opts.auto);
+    });
+  }
+
+  // ---------------------------------------------------------------- clock overlay
+  function setClock(text) {
+    const c = $('#clock');
+    if (!text) { c.classList.remove('on'); return; }
+    if (c.textContent !== text) { c.textContent = text; c.classList.remove('tick'); void c.offsetWidth; c.classList.add('tick'); }
+    c.classList.add('on');
   }
 
   // ---------------------------------------------------------------- saves
@@ -821,7 +937,7 @@
     player = new Actor('alan', 'alan', 300, 600, 'w');
     renderInv(); syncOptions();
     $('#btn-continue').disabled = !hasSave();
-    Sound.loadManifest();
+    Sound.loadManifest(); Sound.loadSfx();
     const bar = $('#loadbar');
     await preload(p => { bar.style.width = Math.round(p * 100) + '%'; });
     $('#title').classList.add('ready');
@@ -834,7 +950,8 @@
   }
 
   window.Game = {
-    init, begin, goRoom, say, says, wait, dialog, reach, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
+    init, begin, goRoom, say, says, wait, dialog, reach, showStill, endStill, closeup, setClock, renderInv,
+    set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
     giveItem, takeItem, has, toast,
     get state() { return state; }, get flags() { return state.flags; },
     get player() { return player; }, get room() { return room; },

@@ -120,3 +120,35 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #cipher .pt { color: #ffe6a8; letter-spacing: .12em; }
 #cipher .shift { display: inline-block; min-width: 3em; font-size: 2em; color: var(--gold); font-family: 'Cinzel', serif; }
 #cipher .controls { margin-top: .5em; display: flex; align-items: center; gap: .6em; }
+
+/* ---------- harbour clock overlay (Ch. IV) ---------- */
+#clock { position: absolute; top: 2.2%; left: 50%; transform: translateX(-50%) scale(0.9); padding: 0.35em 0.9em 0.3em; font: 700 clamp(14px, 2.1vw, 26px) 'Cinzel', serif; letter-spacing: 0.08em; color: #f6e2b0; background: radial-gradient(circle at 40% 30%, #4a3a20, #1a130a); border: 2px solid #b8913f; border-radius: 999px; box-shadow: 0 0 0 3px #2a1d0c, 0 6px 18px rgba(0,0,0,0.6); opacity: 0; pointer-events: none; transition: opacity 0.6s, transform 0.6s; z-index: 7; }
+#clock.on { opacity: 1; transform: translateX(-50%) scale(1); }
+#clock.tick { animation: clocktick 0.9s ease-out; }
+@keyframes clocktick { 0% { transform: translateX(-50%) scale(1.25); color: #fff; } 100% { transform: translateX(-50%) scale(1); } }
+
+/* ---------- close-up viewer ---------- */
+#closeup { position: absolute; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; gap: 2%; background: rgba(5,4,3,0.82); }
+#closeup.hidden { display: none; }
+#closeup .page { position: relative; width: 52%; aspect-ratio: 3/4; background: #e9dcc0 center/cover no-repeat; box-shadow: 0 18px 50px rgba(0,0,0,0.75); border-radius: 3px; overflow: hidden; color: #2b1c10; padding: 6% 7%; box-sizing: border-box; font-size: clamp(9px, 1.45vw, 18px); line-height: 1.5; }
+#closeup .page.wide { width: 74%; aspect-ratio: 4/3; padding: 0; }
+#closeup .page.square { width: 46%; aspect-ratio: 1/1; padding: 0; border-radius: 50%; }
+#closeup .page.land { width: 78%; aspect-ratio: 16/9; padding: 0; }
+#closeup .page canvas.draw { position: absolute; inset: 0; width: 100%; height: 100%; }
+#closeup button { font: 700 clamp(14px, 2vw, 26px) 'Cinzel', serif; color: #f1dca8; background: rgba(30,20,10,0.8); border: 1px solid #8c6a30; border-radius: 6px; padding: 0.2em 0.6em; cursor: pointer; }
+#closeup .x { position: absolute; top: 3%; right: 3%; }
+#closeup .page h3 { font: 700 1.2em 'IM Fell English', serif; margin: 0 0 0.6em; text-align: center; letter-spacing: 0.04em; }
+#closeup .page p { margin: 0 0 0.7em; }
+.doc-ledger { font-family: 'IM Fell English', serif; color: #3a2414; }
+.doc-ledger .cipher { letter-spacing: 0.22em; font-size: 0.95em; word-break: break-all; opacity: 0.85; }
+.doc-hand { font-family: 'Homemade Apple', cursive; color: #2a2a4a; font-size: 0.9em; line-height: 1.9; }
+.doc-typed { font-family: 'Special Elite', monospace; color: #1d1d1d; font-size: 0.92em; }
+.doc-typed .stamp { position: absolute; right: 8%; top: 10%; transform: rotate(-14deg); border: 3px solid rgba(170,20,20,0.75); color: rgba(170,20,20,0.8); font: 700 1.5em 'Special Elite', monospace; padding: 0.1em 0.4em; letter-spacing: 0.1em; }
+.doc-table { width: 100%; border-collapse: collapse; font-family: 'Homemade Apple', cursive; font-size: 0.72em; color: #2a2a4a; }
+.doc-table td, .doc-table th { border-bottom: 1px solid rgba(60,40,20,0.25); padding: 0.15em 0.3em; text-align: center; }
+.doc-table th { font-family: 'IM Fell English', serif; font-size: 1.1em; color: #3a2414; }
+.doc-table .circled { border: 2px solid rgba(160,30,30,0.7); border-radius: 50%; }
+.doc-label { position: absolute; left: 0; right: 0; text-align: center; font: 700 1.6em 'Cinzel', serif; color: #e9d29a; text-shadow: 0 2px 6px #000; letter-spacing: 0.12em; }
+.doc-engrave { position: absolute; left: 0; right: 0; top: 44%; text-align: center; font: 700 2.4em 'Cinzel', serif; letter-spacing: 0.25em; color: rgba(40,30,15,0.85); text-shadow: 1px 1px 0 rgba(255,230,170,0.45), -1px -1px 0 rgba(0,0,0,0.5); }
+.doc-tags { position: absolute; inset: 0; }
+.doc-tags span { position: absolute; font: 700 1.05em 'Special Elite', monospace; color: #3a2a10; background: #d9c07a; border-radius: 3px; padding: 0.05em 0.35em; transform: rotate(-4deg); box-shadow: 1px 2px 3px rgba(0,0,0,0.5); }
