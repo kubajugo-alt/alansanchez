@@ -305,6 +305,43 @@
     ambTimer = setInterval(() => { try { A.tick(ctx.currentTime + 0.05, s++); } catch (e) { /* ignore */ } }, 200);
   }
 
+  // ---------------------------------------------------------------- room acoustics
+  // Voices and effects in a room get that room's reverb: [decay s, wet, brightness 0-1, predelay s]
+  const ACOUSTICS = {
+    shop: [0.55, 0.10, 0.45, 0.008], street: [0.45, 0.05, 0.6, 0.02], police: [0.5, 0.09, 0.55, 0.01],
+    tavern: [0.75, 0.12, 0.4, 0.01], lavadouro: [1.5, 0.2, 0.55, 0.02], ferreira: [0.55, 0.09, 0.45, 0.008],
+    convent: [1.1, 0.13, 0.6, 0.03], convent_night: [1.1, 0.13, 0.6, 0.03], se_tower: [1.7, 0.2, 0.6, 0.02],
+    antiques: [0.6, 0.09, 0.4, 0.008], cais: [0.35, 0.04, 0.6, 0.03], boat: [0.3, 0.04, 0.6, 0.02],
+    cabin: [0.32, 0.08, 0.35, 0.004], cistern: [3.4, 0.3, 0.38, 0.045],
+  };
+  const irCache = {};
+  let roomVerb = null, roomWet = null, sfxSend = null;
+  function impulse([decay, , bright, pre]) {
+    const key = decay + ':' + bright + ':' + pre;
+    if (irCache[key]) return irCache[key];
+    const sr = ctx.sampleRate, n = Math.floor(sr * (decay + pre + 0.1)), buf = ctx.createBuffer(2, n, sr);
+    for (let ch = 0; ch < 2; ch++) {
+      const d = buf.getChannelData(ch); let lp = 0;
+      for (let i = Math.floor(pre * sr); i < n; i++) {
+        const t = i / sr - pre, k = 0.08 + 0.9 * bright * Math.exp(-t * 3 / decay); // highs die first
+        lp += k * ((Math.random() * 2 - 1) - lp);
+        d[i] = lp * Math.exp(-t * 6.9 / decay);
+      }
+    }
+    return (irCache[key] = buf);
+  }
+  function setRoom(id) {
+    if (!ctx) return;
+    if (!roomVerb) {
+      roomVerb = ctx.createConvolver(); roomWet = ctx.createGain(); roomWet.gain.value = 0;
+      roomVerb.connect(roomWet); roomWet.connect(ctx.destination);
+      sfxSend = ctx.createGain(); sfxSend.gain.value = 0.7; sfxBus.connect(sfxSend); sfxSend.connect(roomVerb);
+    }
+    const A = ACOUSTICS[id];
+    roomWet.gain.setTargetAtTime(A ? A[1] : 0, ctx.currentTime, 0.05);
+    if (A) roomVerb.buffer = impulse(A);
+  }
+
   // ---------------------------------------------------------------- voice level
   let analyser = null, levelBuf = null;
   function voiceLevel() {
@@ -325,7 +362,7 @@
   // Plays a voice line. Resolves with the clip duration (seconds) once it has
   // started, or null when the line has no recording (caller falls back to a
   // reading-speed timer).
-  function playVoice(id) {
+  function playVoice(id, dry) {
     stopVoice();
     if (!hasVoice(id)) return Promise.resolve(null);
     return new Promise(resolve => {
@@ -333,7 +370,9 @@
       voiceEl = el;
       if (ctx) try {
         if (!analyser) { analyser = ctx.createAnalyser(); analyser.fftSize = 1024; levelBuf = new Float32Array(analyser.fftSize); analyser.connect(ctx.destination); }
-        ctx.createMediaElementSource(el).connect(analyser);
+        const src = ctx.createMediaElementSource(el); src.connect(analyser);
+        // characters speak into the room; the narrator, the answering machine and voices over stills don't
+        if (roomVerb && !dry) src.connect(roomVerb);
       } catch (e) { /* plays directly */ }
       let done = false;
       const fin = v => { if (!done) { done = true; resolve(v); } };
@@ -361,7 +400,7 @@
   function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
 
   window.Sound = {
-    init, playMusic, sfx, loadSfx, step: footstep, ambience, voiceLevel, playVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
+    init, playMusic, sfx, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; },
   };
 })();

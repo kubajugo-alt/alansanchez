@@ -183,7 +183,7 @@
     },
     animFg(g, t) { S.drawTram(g, t); },
     ambient: [
-      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench'], x: 940, y: 592, h: 150, look: 'alan_npc_bench', when: () => F().ch <= 4 },
+      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_b'], idleHold: [12, 26], variantHold: [1.6, 2.6], x: 940, y: 592, h: 150, look: 'alan_npc_bench', when: () => F().ch <= 4 }, // dozes, now and then wakes with a start
     ],
     occluders: [{ y: 206, poly: [[60, 150], [215, 150], [215, 215], [60, 215]] }], // balcony railing in front of the laundry woman
     hotspots: [

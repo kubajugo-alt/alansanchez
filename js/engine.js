@@ -445,6 +445,7 @@
     renderLabels();
     Sound.playMusic(typeof room.music === 'function' ? room.music() : room.music);
     Sound.ambience((typeof room.ambience === 'function' ? room.ambience() : room.ambience) || null);
+    Sound.setRoom(room.acoustic || room.id);
     clearSpeech();
     if (!opts.instant) await fade(false);
     busy--;
@@ -632,7 +633,7 @@
       t.style.color = COLORS[who];
       narrEl.style.display = 'block';
     }
-    const dur = await Sound.playVoice(id);
+    const dur = await Sound.playVoice(id, !actor);
     const ms = window.FAST ? 20 : dur ? dur * 1000 + 250 : Math.max(1800, text.length * 58);
     await new Promise(res => {
       let finished = false, t = setTimeout(check, ms);
