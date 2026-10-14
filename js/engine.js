@@ -425,10 +425,20 @@
   }
 
   // ---------------------------------------------------------------- rooms
+  // What you hear between rooms: a door only where there is one, the stairs up
+  // the tower, the map's paper when unfolding it out of doors.
+  const INDOOR = { shop: 1, police: 1, tavern: 1, ferreira: 1, antiques: 1, cabin: 1 };
+  function passSound(from, to) {
+    const pair = from + '>' + to;
+    if (/cistern|convent_night>convent|convent>convent_night/.test(pair)) return null;
+    if (from === 'se_tower' || to === 'se_tower') return 'stairs';
+    if (INDOOR[from] || INDOOR[to]) return 'door';
+    return from === 'map' || to === 'map' ? 'page' : null;
+  }
   async function goRoom(id, entry, opts) {
     opts = opts || {};
     busy++;
-    if (room && !opts.instant) { Sound.sfx('door'); await fade(true); }
+    if (room && !opts.instant) { const s = opts.sound !== undefined ? opts.sound : passSound(room.id, id); if (s) Sound.sfx(s); await fade(true); }
     if (room && room.leave) room.leave();
     room = ROOMS[id];
     state.room = id;

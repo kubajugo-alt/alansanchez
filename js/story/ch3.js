@@ -165,7 +165,7 @@
       { name: 'Stairs down', rect: [0, 160, 260, 460], at: [80, 680], exit: 'map', entry: 'se_tower' },
     ],
     async enter() {
-      if (!F().se_entered) { F().se_entered = true; sfx('stairs'); await joke('alan_climb'); sfx('pigeons'); await say('abilio_hello'); }
+      if (!F().se_entered) { F().se_entered = true; await joke('alan_climb'); sfx('pigeons'); await say('abilio_hello'); }
     },
   };
   let mishear = 0;
