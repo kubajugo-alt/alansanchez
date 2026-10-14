@@ -125,7 +125,7 @@ window.LINES = {
   rui_drawer_1: ['rui', "In this building? There's a drawer upstairs that won't close. The only one. That's as strange as it gets."],
   rui_drawer_2: ['rui', "Not today, Alan."],
   alan_ask_fog: ['alan', "And this fog?"],
-  rui_fog: ['rui', "The meteorologists say it's a temperature inversion. My grandmother says the river is breathing. I'm starting to prefer my grandmother."],
+  rui_fog: ['rui', "The meteorologists say it's a temperature inversion. My mother says the river is breathing. I'm starting to prefer my mother."],
   rui_bye: ['rui', "Go home, Alan. Lock the door."],
 
   // ---------- Taberna da Saudade ----------
@@ -181,7 +181,7 @@ window.LINES = {
   alan_read_file: ['alan', "Case fifty-five, one-fourteen. 'J. Sanches, bookseller, forty-three. Found the second body.' [pause] He never even told me when he found his glasses."],
   alan_lacerda_name: ['alan', "A. Lacerda, antiquarian, found in the cistern under the Carmo. There's an antiques shop in the Chiado with that name. Lisbon is full of Lacerdas. I'm not accusing a man of murder over a surname."],
   rui_times: ['rui', "The coroner was very precise. Ferreira, twelve minutes past three in the morning. Bastos, fifteen thirty-eight, in his siesta. Maria Coutinho, one minute past four."],
-  rui_avo: ['rui', "My grandmother found a body in fifty-five. She never told me where. She washes at the lavadouro. [pause] Don't tell her I sent you."],
+  rui_avo: ['rui', "My mother found a body in fifty-five. She never told me where. She still washes at the lavadouro. [pause] Don't tell her I sent you."],
   rui_key: ['rui', "And take this. Ferreira's shop is sealed. Forensics found nothing but clocks. If you find something, you found it by accident."],
   alan_accident: ['alan', "I'm very accident-prone. Ask anyone who's watched me cook."],
 
@@ -211,7 +211,7 @@ window.LINES = {
   alan_ask_rui: ['alan', "Rui sends his... well. He didn't send me. Officially."],
   celeste_rui: ['celeste', "Is he eating?"],
   alan_rui_eating: ['alan', "Mostly coffee. Less than he used to."],
-  celeste_bye: ['celeste', "Go on. And tell my grandson to eat something with a bone in it."],
+  celeste_bye: ['celeste', "Go on. And tell my son to eat something with a bone in it."],
 
   // ---------- Relojoaria Ferreira ----------
   alan_ferreira_sealed: ['alan', "Sealed with police tape. Rui gave me the key, which makes this a perfectly legal accident."],
@@ -571,12 +571,12 @@ window.LINES = {
   // hints and fixes from the script review
   narr_look_case_after: ['narr', "A glass case. On red velvet sits a two-kilo brass weight. The card still reads 'Not for sale.' For once, it's true."],
   alan_phone_ch5_early: ['alan', "And tell Rui what? 'Inês is out and the kettle's dry'? He'd send me a form."],
-  ines_hint_celeste: ['ines', "Rui's grandmother is at the lavadouro. She won't talk to idle hands, so lend her yours."],
+  ines_hint_celeste: ['ines', "Rui's mother is at the lavadouro. She won't talk to idle hands, so lend her yours."],
   ines_hint_look: ['ines', "A drawer that won't close for forty years isn't stuck, Alan. Look closer. You own a magnifying glass."],
   ines_hint_mag: ['ines', "Whatever's carved there is small. Use the magnifying glass, for once in your life."],
   ines_hint_desk2: ['ines', "The desk's free, Alan. You have the key. I'm not doing it for you."],
   ines_hint_box: ['ines', "Get him out of the room. Ask about something he loves more than you. That music box, say."],
-  celeste_hint_phone: ['celeste', "[shouting] Menino! There's a telephone right there. Ring that girl at the shop. She'll be worrying."],
+  celeste_hint_phone: ['celeste', "[shouting] Menino! That telephone box has been ringing for you. Your girl from the bookshop, twice, and she sounded frightened. Ring her back!"],
   // finale rewrite: Lacerda lets Inês hold the lamp, and never suspects the order until the last note
   alan_ask_lamp: ['alan', "I can't strike what I can't see, and I need both hands. Let her hold the lantern."],
   lacerda_lamp_ok: ['lacerda', "[amused, not looking up] By all means. Cut her loose. The water answers to me, Senhor Sanchez. Where would she go?"],
@@ -636,10 +636,10 @@ window.LINES = {
   narr_epi_shop: ['narr', "At the Livraria Sanchez, a bronze tongue sat on the bookbinding press, holding down the Camões nobody bought, where the brass weight used to be. Inês was writing page forty-one."],
   narr_vig_box: ['narr', "Rui returned a music box to Dona Amália, 'from the estate of an unknown person'. She wound it, and did not sing along."],
   narr_vig_night: ['narr', "That evening the Taberna was full, and for the first time in her life Amália sang 'O Sino Afogado' to a full room. Alan bought the ginjinhas."],
-  narr_vig_ze: ['narr', "On the quay at Cais do Sodré, Celeste handed her godson a clean sweater, and told him to eat something with a bone in it."],
+  narr_vig_ze: ['narr', "On the quay at Cais do Sodré, Celeste handed her godson a clean sweater and asked, very innocently, whether the bookseller would be needing his boat rocked again. Zé went the colour of a boiled prawn, and did not say no."],
   narr_vig_abilio: ['narr', "At noon, for no reason at all, Abílio rang the bells of the Sé, and the whole Alfama heard a city that was very much awake."],
   narr_call: ['narr', "Alan opened his notebook to the number he had been afraid to call. His mother answered on the second ring. He said, 'Mãe, it's me,' and then, for once, he didn't make a joke."],
-  ze_back: ['ze', "[pause] Not mine to keep."],
+  ze_back: ['ze', "[pause] Not mine to keep. [softly] Tell Alan he left it on my bunk. He can come and fetch it himself."],
   narr_post: ['narr', "In a shuttered shop in the Chiado, beside a clock that had stopped at twenty-five past six, a clock that nobody had wound began to tick."],
 
   // ================================================================ AMBIENT NPCS
@@ -696,7 +696,7 @@ window.LINES = {
   ines_hint_amalia: ['ines', "Go and see Dona Amália. Be charming. Or at least be quiet."],
   ines_hint_1955: ['ines', "Amália said nineteen fifty-five. Rui keeps the city's old sins in his filing cabinet."],
   ines_hint_drawer: ['ines', "Salt is just stubborn water, Alan. Make it wet again."],
-  ines_hint_threads: ['ines', "You've got a key to a dead man's shop and a policeman's grandmother. Pick one."],
+  ines_hint_threads: ['ines', "You've got a key to a dead man's shop and a policeman's mother. Pick one."],
   ines_hint_dark: ['ines', "Amália left matches on the bar. Even you can find a match in a tavern."],
   ines_hint_tide: ['ines', "A tide clock with no key, and you're carrying a key to everything your grandfather owned."],
   ines_hint_convent: ['ines', "The song said a church that prays without a roof. That's the Carmo. Go and see what the stone is crying about."],
@@ -783,4 +783,29 @@ window.LINES = {
   tomas_pray: ['tomas', "[quietly] Go, my son. I will be here, praying, until the bell is quiet."],
   alan_blood_later: ['alan', "Blood on the bronze. Not yet. I'd like to keep mine on the inside until it's actually needed."],
   ines_hint_ferreira: ['ines', "Celeste has told you her part. Now Ferreira's workshop. You've got his key."],
+
+  // ============================================ playtest round: quay after the boat, washhouse after the bath, greetings
+  ze_river_2: ['ze', "[low, a half smile] And if you need me on you again... you know where I moor."],
+  alan_river_2: ['alan', "[flustered] Noted. Strictly for... maritime emergencies."],
+  celeste_after_hello: ['celeste', "[knowing] Menino. You were on that boat a long while. The Maria Fé was rocking harder than the river, and the river is flat as a plate."],
+  alan_after_celeste: ['alan', "[flustered] Below decks. Heavy weather. Very... localised."],
+  celeste_after_laugh: ['celeste', "[laughs] Localised. I'll tell the coastguard."],
+  alan_ask_ze_ok: ['alan', "Is Zé all right?"],
+  celeste_after_ze: ['celeste', "He's whistling. Zé hasn't whistled since his mother died. Whatever you did down there, menino, you did it properly."],
+  alan_after_ze: ['alan', "[flustered] I bailed. Mostly I bailed."],
+  fish_after: ['fish', "[loud, delighted] Browsing again, menino? You browsed that boat for half an hour! The whole quay heard the hull knocking!"],
+  alan_after_fish: ['alan', "[flustered] It's an old boat. It creaks."],
+  mender1_after: ['mender1', "[weathered, slow] Forty years on this quay. Never seen a boat rock like that on a flat tide."],
+  mender2_after: ['mender2', "[gruff, amused] Still in my light, bookseller. But sit down. You've earned it."],
+  ines_hello_2: ['ines', "Back again? Talk while I shelve."],
+  ines_hello_3: ['ines', "Yes, Alan?"],
+  ines_hello_4: ['ines', "What is it this time?"],
+  washer1_bath_1: ['washer1', "[giggling] Ai, did you see that, Graça? The bookseller's built like the Sé!"],
+  washer2_bath_1: ['washer2', "[cackling] The Sé? Filha, more like the aqueduct. Long, and Roman."],
+  alan_washers_1: ['alan', "[cheeky] Ladies, please. That was the cold water. Normally it's twice the cathedral."],
+  washer1_bath_2: ['washer1', "[howling with laughter] Twice! Ai, Nossa Senhora!"],
+  washer2_bath_2: ['washer2', "[wheezing] Come back on Thursday, menino. Thursday we do the big sheets!"],
+  alan_washers_2: ['alan', "[flustered, retreating] Thursday. Right. I have to go and... alphabetise something."],
+  washer2_bath_3: ['washer2', "[giggling] Thursday, menino! Bring the aqueduct!"],
+  alan_tile_pocket: ['alan', "The tile's in my pocket. The bunk is just a wet blanket now. Like me at parties."],
 };

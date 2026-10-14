@@ -50,6 +50,21 @@
       "voice_id": "fGIZlgPQ75MMlvQ6WxgY",
       "name": "GERALD – Exciting Older Voice",
       "role": "Senhor Abílio"
+    },
+    "lino": {
+      "voice_id": "PerZoH0r6nxBZXCoIPpv",
+      "name": "Michael Moody – Grandfatherly and warm",
+      "role": "Senhor Lino, barman"
+    },
+    "washer1": {
+      "voice_id": "fs3nd19KF2GO2hLTzkBm",
+      "name": "Lucinda – Earthy and Wise",
+      "role": "Washerwoman"
+    },
+    "washer2": {
+      "voice_id": "M9RTtrzRACmbUzsEMq8p",
+      "name": "Abuelita de Cuento",
+      "role": "Graça, washerwoman"
     }
   }
 }

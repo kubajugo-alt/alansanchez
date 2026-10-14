@@ -90,7 +90,7 @@
     if (F().ch < 5) return say('alan_fail_09');
     const p = G.npc('pessoa'); G.takeItem('sardine');
     p.pose = 'jump'; sfx('cat_chirp'); await G.wait(window.FAST ? 20 : 400);
-    p.x = 960; p.y = 600; p.h = 40; p.pose = 'eat'; sfx('cat_eat');
+    p.x = 960; p.y = 600; p.h = 58; p.pose = 'eat'; sfx('cat_eat');
     F().ledger_found = true; give('ledger'); sfx('pickup');
     await say('alan_pessoa');
     F().pessoa_fed = true;
@@ -132,8 +132,9 @@
   };
 
   // ---------- Inês
+  const INES_HI = ['ines_hello_2', 'ines_hello_3', 'ines_hello_4'];
   S.talkInes = async function () {
-    await say('ines_hello');
+    await say(F().ines_greeted ? INES_HI[(F().ines_greeted++) % INES_HI.length] : (F().ines_greeted = 1, 'ines_hello'));
     await G.dialog([
       { line: 'alan_ask_ines_now', run: () => say(S.hint()) },
       { line: 'alan_ask_ines_drowned', once: true, run: () => say('ines_drowned') },
@@ -349,18 +350,18 @@
     ],
     entries: { default: [140, 650, 'e'], street: [140, 650, 'e'] },
     anim(g, t) {
-      if (F().ch < 5 && F().ch !== 2) FX.wisps(g, t + 2, 420, 400, { n: 5, rise: 90, spread: 14, rgb: '215,205,190', a: 0.05, size: 10, speed: 0.12 }); // pipe smoke over the cards
-      if (F().ch < 5) { if (F().ch === 1) FX.wisps(g, t, 770, 440, { n: 3, rise: 50, spread: 5, rgb: '200,190,180', a: 0.07, size: 4, speed: 0.25 }); FX.motes(g, t, 360, 120, 700, 300, 26, '255,210,150'); }
+      if (F().ch < 5) FX.wisps(g, t + 2, 420, 400, { n: 5, rise: 90, spread: 14, rgb: '215,205,190', a: 0.05, size: 10, speed: 0.12 }); // pipe smoke over the cards
+      if (F().ch < 5) { if (F().ch <= 2) FX.wisps(g, t, 770, 440, { n: 3, rise: 50, spread: 5, rgb: '200,190,180', a: 0.07, size: 4, speed: 0.25 }); FX.motes(g, t, 360, 120, 700, 300, 26, '255,210,150'); }
     },
     npcs: [
       { id: 'amalia', x: 1000, y: 618, dir: 'w', name: 'Dona Amália', look: 'narr_look_amalia', talk: () => S.talkAmalia(),
         items: { ginja: () => S.giveGinja(), any: 'alan_fail_08' } },
     ],
     ambient: [
-      { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talkFrames: ['npc_lino_talk', 'npc_lino_b'], talk: () => S.talkLino(), items: { coins: () => S.buyGinja() }, x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch !== 2 && F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
-      { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], talkFrames: ['npc_cards_b', 'npc_cards'], talk: S.chat('chat_cards', ['cards_talk_1', 'alan_cards_1'], ['cards_talk_2']), x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch !== 2 && F().ch < 5, variantHold: [0.9, 1.5] },
-      { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 560, y: 596, h: 290, look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch !== 2 && F().ch < 5 },
-      { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => F().ch === 1 },
+      { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talkFrames: ['npc_lino_talk', 'npc_lino_b'], talk: () => S.talkLino(), items: { coins: () => S.buyGinja() }, x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
+      { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], talkFrames: ['npc_cards_b', 'npc_cards'], talk: S.chat('chat_cards', ['cards_talk_1', 'alan_cards_1'], ['cards_talk_2']), x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch < 5, variantHold: [0.9, 1.5] },
+      { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 560, y: 596, h: 290, look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 },
+      { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => F().ch <= 2 },
     ],
     occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => { if (!F().matchesTaken) S.drawMatches(g, 912, 380); if (S.glassOnBar()) S.drawGlass(g, 1086, 392); } }], // the bar, in front of Lino (Amália's glass sits on it)
     hotspots: [

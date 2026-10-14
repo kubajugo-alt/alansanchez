@@ -118,10 +118,10 @@
 
   // ================================================================ SÉ BELL TOWER
   const BELLS = [
-    { id: 'ferreira', name: 'Great bell', rect: [277, 30, 256, 290], at: [400, 640], text: 'FERREIRA · MDCXI', line: 'alan_bell_ferreira' },
-    { id: 'bastos', name: 'Second bell', rect: [533, 90, 192, 260], at: [630, 640], text: 'BASTOS · MDCXLVIII', line: 'alan_bell_bastos' },
-    { id: 'coutinho', name: 'Third bell', rect: [778, 150, 130, 215], at: [840, 630], text: 'COUTINHO · MDCCII', line: 'alan_bell_coutinho' },
-    { id: 'sanches', name: 'Small bell', rect: [981, 190, 108, 155], at: [1030, 630], text: 'SANCHES · MDCCXXXIX', line: 'alan_bell_sanches', joke: true },
+    { id: 'ferreira', name: 'Great bell', rect: [277, 30, 256, 290], at: [235, 650], face: 'e', text: 'FERREIRA · MDCXI', line: 'alan_bell_ferreira' },
+    { id: 'bastos', name: 'Second bell', rect: [533, 90, 192, 260], at: [752, 645], face: 'w', text: 'BASTOS · MDCXLVIII', line: 'alan_bell_bastos' },
+    { id: 'coutinho', name: 'Third bell', rect: [778, 150, 130, 215], at: [946, 635], face: 'w', text: 'COUTINHO · MDCCII', line: 'alan_bell_coutinho' },
+    { id: 'sanches', name: 'Small bell', rect: [981, 190, 108, 155], at: [940, 635], face: 'e', text: 'SANCHES · MDCCXXXIX', line: 'alan_bell_sanches', joke: true },
   ];
   ROOMS.se_tower = {
     name: 'Sé de Lisboa · bell tower', bg: 'se_tower', music: 'church', ambience: 'tower', floor: 'wood',

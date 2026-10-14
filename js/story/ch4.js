@@ -51,9 +51,9 @@
         items: { tidecard: () => say('celeste_hint_ze'), any: 'alan_fail_06' } },
     ],
     ambient: [
-      { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], talkFrames: ['npc_mender1_talk', 'npc_mender1'], talk: S.chat('chat_mender1', ['mender1_talk_1'], ['mender1_talk_2']), x: 630, y: 712, h: 290, look: 'alan_npc_menders' },
-      { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2', 'npc_mender2_b'], idleHold: [5, 11], variantHold: [2, 4], talkFrames: ['npc_mender2_talk', 'npc_mender2'], talk: S.chat('chat_mender2', ['mender2_talk_1', 'alan_mender2_1'], ['mender2_talk_2']), x: 835, y: 714, h: 292, look: 'alan_npc_menders' },
-      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], talkFrames: ['npc_fish_b', 'npc_fish'], talk: S.chat('chat_fish', ['fish_talk_1', 'alan_fish_1', 'fish_talk_2'], ['fish_talk_3']), x: 485, y: 592, h: 282, look: 'alan_npc_fish' },
+      { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], talkFrames: ['npc_mender1_talk', 'npc_mender1'], talk: () => F().ze_saved ? say('mender1_after') : S.chat('chat_mender1', ['mender1_talk_1'], ['mender1_talk_2'])(), x: 630, y: 712, h: 290, look: 'alan_npc_menders' },
+      { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2', 'npc_mender2_b'], idleHold: [5, 11], variantHold: [2, 4], talkFrames: ['npc_mender2_talk', 'npc_mender2'], talk: () => F().ze_saved ? say('mender2_after') : S.chat('chat_mender2', ['mender2_talk_1', 'alan_mender2_1'], ['mender2_talk_2'])(), x: 835, y: 714, h: 292, look: 'alan_npc_menders' },
+      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], talkFrames: ['npc_fish_b', 'npc_fish'], talk: () => F().ze_saved ? say('fish_after', 'alan_after_fish') : S.chat('chat_fish', ['fish_talk_1', 'alan_fish_1', 'fish_talk_2'], ['fish_talk_3'])(), x: 485, y: 592, h: 282, look: 'alan_npc_fish' },
     ],
     hotspots: [
       { name: 'Harbour clock', rect: [224, 30, 96, 525], look: 'narr_look_harbourclock' },
@@ -66,9 +66,19 @@
     async enter(entry) {
       if (F().ch >= 4) await S.ensureTideCard();
       if (!F().cais_entered) { F().cais_entered = true; clock('17:40'); await joke('alan_enter_cais'); await say('celeste_quay_hello'); }
+      else if (F().ze_saved && !F().celeste_after) { F().celeste_after = true; await say('celeste_after_hello', 'alan_after_celeste', 'celeste_after_laugh', 'celeste_hint_phone'); }
     },
   };
   S.talkCelesteQuay = async function () {
+    // after the Maria Fé: the whole quay saw that boat rock, and Celeste is enjoying it
+    if (F().ze_saved) {
+      if (!F().celeste_after) { F().celeste_after = true; await say('celeste_after_hello', 'alan_after_celeste', 'celeste_after_laugh'); }
+      return G.dialog([
+        { line: 'alan_ask_ze_ok', once: true, run: () => say('celeste_after_ze', 'alan_after_ze') },
+        { label: 'What now?', run: () => say(S.quayHint()) },
+        { label: 'Goodbye.', bye: true, run: () => say('celeste_quay_bye') },
+      ]);
+    }
     await G.dialog([
       { line: 'alan_ask_ze', once: true, run: () => say('celeste_ze', 'gag_celeste_quay', 'gag_alan_celeste_quay') },
       { line: 'alan_ask_boat', once: true, run: () => say('celeste_boat') },
@@ -89,6 +99,7 @@
   // ================================================================ THE MARIA FÉ (deck)
   ROOMS.boat = {
     name: 'The Maria Fé', bg: 'boat', music: 'tension', ambience: 'boat', floor: 'wood',
+    layers: [{ img: 'boat_noline', x: 0, y: 0, full: true, when: () => F().line_free || F().ze_awake }],
     occluders: [
       { y: 628, polys: [[[1070, 470], [1120, 455], [1165, 470], [1178, 530], [1172, 600], [1160, 618], [1100, 628], [1040, 640], [1012, 636], [1030, 610], [1062, 560]]] }, // orange float in its net
       { y: 644, polys: [[[1170, 480], [1280, 478], [1280, 644], [1180, 644], [1175, 600]]] },                          // basket
@@ -107,6 +118,7 @@
     sway: t => Math.sin(t * 0.7) * 0.004,
     anim(g, t) {
       FX.water(g, t, 0, 300, 300, 200, '200,210,220');
+      S.drawRope(g, t);
       FX.birds(g, t + 5, { y0: 40, y1: 160, n: 2, period: 17, color: 'rgba(225,228,232,0.7)', size: 10 });
       for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 3, 60 + i * 110, 420, { n: 3, rise: 40, spread: 60, rgb: '215,220,228', a: 0.05, size: 55, speed: 0.05 });
     },
@@ -138,6 +150,24 @@
       }
     },
   };
+  // the mooring line: from the next boat (off the left edge) to the bollard; once
+  // freed it slips off the coil and sags into the river
+  let ropeT0 = 0;
+  S.drawRope = function (g, t) {
+    if (!(F().line_free || F().ze_awake)) return;
+    const k = ropeT0 ? Math.min(1, (performance.now() - ropeT0) / 1400) : 1, e = 1 - Math.pow(1 - k, 3);
+    const sway = Math.sin(t * 0.9) * 4;
+    const A = [-6, 341], B = [206 - 70 * e, 479 + 52 * e + sway * e], C = [100 - 10 * e, 412 + 150 * e + sway];
+    g.save(); g.lineCap = 'round';
+    const path = () => { g.beginPath(); g.moveTo(A[0], A[1]); g.quadraticCurveTo(C[0], C[1], B[0], B[1]); };
+    g.strokeStyle = '#4a3b26'; g.lineWidth = 10; path(); g.stroke();
+    g.strokeStyle = '#8a7350'; g.lineWidth = 7; path(); g.stroke();
+    g.strokeStyle = 'rgba(40,30,18,0.8)'; g.lineWidth = 7; g.setLineDash([3, 6]); g.lineDashOffset = -k * 30; path(); g.stroke(); g.setLineDash([]);
+    // where it lies in the water, the river closes over it
+    g.beginPath(); g.rect(0, 494, 280, 70); g.clip();
+    g.strokeStyle = 'rgba(58,64,70,0.72)'; g.lineWidth = 12; path(); g.stroke();
+    g.restore();
+  };
   S.mooring = async function () {
     if (F().ze_awake) return say('alan_fail_04');
     if (!F().wake_rule && !F().knocked) return say('narr_look_line');
@@ -148,7 +178,9 @@
       await say('alan_knot_fail'); await say('celeste_knot'); return;
     }
     await G.wait(window.FAST ? 20 : 900); p.pose = null;
-    sfx('mooring'); await joke('alan_untied');
+    F().line_free = true; ropeT0 = performance.now(); sfx('mooring');
+    await G.wait(window.FAST ? 20 : 1500); sfx('boat_creak', 0.8);
+    await joke('alan_untied');
     await G.wait(window.FAST ? 20 : 400); sfx('hatch_slam');
     F().ze_awake = true; G.refreshNpcs();
     const ze = G.npc('ze'); ze.pose = 'burst'; p.dir = 'e';
@@ -184,6 +216,7 @@
   ROOMS.cabin = {
     name: 'The cabin', bg: 'cabin',
     layers: [{ img: 'cabin_notile', x: 0, y: 0, full: true, when: () => F().ze_saved || F().tile_held }],
+    animFg(g, t) { S.drawStrike(g, t); },
     music: () => F().ze_saved ? null : 'tension', ambience: 'boat', floor: 'wood',
     occluders: [
       { y: 548, polys: [[[760, 387], [814, 387], [814, 548], [760, 548]]] },                                            // sea chest
@@ -206,18 +239,17 @@
       }
     },
     npcs: [
-      { id: 'ze', x: 740, y: 640, dir: 'e', name: 'Zé Coutinho', look: 'narr_look_ze', set: () => F().ze_saved ? 'sit' : null, talk: () => F().ze_saved ? say('ze_river') : say('ze_justdo'),
+      { id: 'ze', x: 740, y: 640, dir: 'e', name: 'Zé Coutinho', look: 'narr_look_ze', talk: () => F().ze_saved ? say('ze_river', 'ze_river_2') : say('ze_justdo'),
         items: { any: 'alan_fail_ze_item' } },
     ],
     hotspots: [
       { name: 'Photograph', rect: [1067, 160, 64, 117], look: 'narr_look_maria' },
       { name: 'Tile on the bunk', rect: [1100, 480, 90, 50], at: [800, 650], face: 'e', when: () => !F().ze_saved && !F().tile_held, look: 'narr_look_bunktile',
-        take: async () => { F().tile_held = true; sfx('pickup'); await say('alan_take_tile'); } },
+        take: async () => { F().tile_held = true; give('bunktile'); await say('alan_take_tile'); } },
       { name: 'Hammer', rect: [130, 330, 120, 50], at: [420, 620], face: 'w', look: 'narr_look_hammer',
-        take: async () => { if (!F().tile_held || F().ze_saved) return say('alan_fail_take'); G.player.pose = 'reach'; sfx('hammer_bounce'); await G.wait(window.FAST ? 20 : 500); G.player.pose = null; await say('alan_hammer'); F().hammer_tried = true; },
-        use: async () => { if (!F().tile_held || F().ze_saved) return say('alan_fail_use'); sfx('hammer_bounce'); await say('alan_hammer'); F().hammer_tried = true; } },
-      { name: 'Bunk', rect: [832, 340, 448, 380], look: () => say(F().ze_saved ? 'narr_look_cabin' : 'narr_look_bunktile'),
-        items: { tongue: () => S.breakTile() } },
+        take: () => S.hammerTile(), use: () => S.hammerTile(), items: { bunktile: () => S.hammerTile() } },
+      { name: 'Bunk', rect: [832, 340, 448, 380], look: () => say(F().ze_saved ? 'narr_look_cabin' : F().tile_held ? 'alan_tile_pocket' : 'narr_look_bunktile'),
+        items: { tongue: () => F().tile_held ? say('alan_tile_pocket') : S.breakTile(), bunktile: () => say('alan_fail_04') } },
       { name: 'Ladder', rect: [437, 85, 182, 416], at: [528, 560], face: 'n', exit: 'boat', entry: 'cabin' },
     ],
     self: { items: { tongue: () => S.breakTile() } },
@@ -225,23 +257,72 @@
       if (!F().ze_in_cabin) { F().ze_in_cabin = true; }
     },
   };
+  // the tile set down on the boards in front of Alan, and what happens when he hits it
+  let strike = null;
+  const T = ms => G.wait(window.FAST ? 20 : ms);
+  const tileSpot = () => { const p = G.player; return [p.x + (p.dir === 'w' ? -70 : 70), p.y - 4]; };
+  S.drawStrike = function (g, t) {
+    if (!strike) return;
+    const [x, y] = strike.at, k = (performance.now() - strike.t0) / 1000;
+    g.save();
+    if (!strike.broken) {
+      const hop = strike.hop ? Math.max(0, Math.sin(Math.min(1, (performance.now() - strike.hop) / 260) * Math.PI)) * 10 : 0;
+      g.translate(x, y - hop); g.scale(1, 0.42);
+      g.fillStyle = '#eef2f6'; g.strokeStyle = '#1d140e'; g.lineWidth = 2; g.fillRect(-22, -22, 44, 44); g.strokeRect(-22, -22, 44, 44);
+      g.strokeStyle = '#1f4fa8'; g.lineWidth = 3; g.strokeRect(-17, -17, 34, 34);
+      g.beginPath(); g.moveTo(-12, 8); g.bezierCurveTo(-6, -8, 4, 6, 12, -10); g.stroke();
+      g.globalAlpha = 0.35; g.fillStyle = '#7ab0ff'; g.beginPath(); g.ellipse(0, 0, 40, 40, 0, 0, 7); g.fill(); // it glows faintly
+    } else {
+      // shards skitter out, and the sea it held runs away between the boards
+      for (let i = 0; i < 14; i++) {
+        const a = i * 2.39, d = Math.min(1, k * 1.6) * (30 + (i * 17) % 60);
+        g.fillStyle = i % 3 ? '#eef2f6' : '#1f4fa8';
+        g.save(); g.translate(x + Math.cos(a) * d, y + Math.sin(a) * d * 0.35); g.rotate(a + k * 3); g.fillRect(-5, -3, 10, 6); g.restore();
+      }
+      if (k < 1.5) { g.globalAlpha = 0.5 * (1 - k / 1.5); g.fillStyle = '#9cc4ff'; g.beginPath(); g.ellipse(x, y, 30 + k * 90, 8 + k * 20, 0, 0, 7); g.fill(); }
+    }
+    g.restore();
+  };
+  // the hammer bounces off it: the sea won't break for iron
+  S.hammerTile = async function () {
+    if (F().ze_saved) return say('alan_fail_use');
+    if (!F().tile_held) return say(F().ze_in_cabin ? 'narr_look_hammer' : 'alan_fail_use');
+    if (F().hammer_tried) return say('alan_hammer');
+    const p = G.player;
+    await G.busy(async () => {
+      p.pose = 'reach'; sfx('pickup', 0.5); await T(500); p.pose = null;
+      strike = { at: tileSpot(), t0: performance.now() };
+      for (let i = 0; i < 2; i++) {
+        p.pose = 'ring'; await T(260);
+        sfx('hammer_bounce'); strike.hop = performance.now(); await T(180);
+        p.pose = null; await T(320);
+      }
+      await say('alan_hammer');
+      p.pose = 'reach'; await T(400); strike = null; p.pose = null; // back in the pocket
+    });
+    F().hammer_tried = true;
+  };
   S.breakTile = async function () {
     if (F().ze_saved) return say('alan_fail_04');
+    if (!F().tile_held) return say('narr_look_bunktile');
     await joke('alan_ask_tongue'); await say('ze_justdo');
-    const p = G.player; p.pose = 'ring';
-    await G.wait(window.FAST ? 20 : 500);
-    sfx('tile_shatter'); F().tile_held = false; F().ze_saved = true;
-    p.pose = null;
+    const p = G.player;
+    p.pose = 'reach'; await T(450); p.pose = null;
+    strike = { at: tileSpot(), t0: performance.now() };
+    p.pose = 'ring'; await T(500);
+    sfx('tile_shatter'); strike.broken = true; strike.t0 = performance.now();
+    G.takeItem('bunktile'); F().tile_held = false; F().ze_saved = true;
+    await T(700); p.pose = null;
     await G.showStill('cais', async () => { clock('18:25'); sfx('water_drain'); await G.say('narr_turn', { offscreen: true }); }, { hold: 2500, zoom: [1.0, 1.06] });
     G.refreshNpcs();
     await say('alan_turned', 'ze_knew', 'alan_two_sentences');
     await S.romance();
-    const ze = G.npc('ze'); ze.set = null; ze.pose = 'give';
+    const ze = G.npc('ze'); ze.pose = 'give';
     await say('ze_knife'); give('knife'); ze.pose = null;
     await say('alan_pessoa_mention');
     ze.pose = 'toss'; await say('ze_sardine'); give('sardine'); ze.pose = null;
-    await say('alan_sardine', 'ze_river');
-    ze.set = 'sit';
+    strike = null;
+    await say('alan_sardine', 'ze_river', 'ze_river_2', 'alan_river_2');
   };
   // Zé and Alan: one quick, fierce moment in the lantern light, then back to the night's business
   S.romance = async function () {
@@ -250,7 +331,7 @@
     const ze = G.npc('ze'), p = G.player;
     const T = ms => G.wait(window.FAST ? 20 : ms);
     await G.busy(async () => {
-      if (ze) { ze.set = null; ze.pose = null; await p.walkTo(ze.x + 120, ze.y); p.dir = 'w'; ze.dir = 'e'; }
+      if (ze) { ze.pose = null; await p.walkTo(ze.x + 120, ze.y); p.dir = 'w'; ze.dir = 'e'; }
       await say('ze_rom_1');
       // the sweater comes off over his head
       if (ze) { ze.pose = 'ze_strip1'; await T(800); ze.pose = 'ze_dress'; await T(800); ze.pose = 'ze_strip3'; sfx('sheet_slap', 0.25); await T(900); ze.pose = 'ze_shirtless'; }

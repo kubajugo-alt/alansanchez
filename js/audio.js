@@ -3,7 +3,7 @@
   let ctx = null, master = null, musicBus = null, sfxBus = null, ambBus = null, reverb = null;
   let musicOn = true, voiceOn = true;
   let currentTrack = null, trackTimer = null, nextTime = 0, step = 0;
-  let manifest = null;
+  let manifest = null, voiceVer = {};
   let voiceEl = null;
 
   function init() {
@@ -225,9 +225,10 @@
   // Recorded effects (ElevenLabs sound generation) live in audio/sfx/*.mp3 and
   // are listed in audio/sfx/manifest.json; anything missing falls back to the
   // procedural versions above.
-  let sfxFiles = new Set(); const sfxBufs = {};
+  let sfxFiles = new Set(), sfxVer = {}; const sfxBufs = {};
+  const sfxUrl = name => 'audio/sfx/' + name + '.mp3' + (sfxVer[name] ? '?v=' + sfxVer[name] : '');
   async function loadSfx() {
-    try { const r = await fetch('audio/sfx/manifest.json', { cache: 'no-cache' }); sfxFiles = new Set(await r.json()); } catch (e) { sfxFiles = new Set(); }
+    try { const r = await fetch('audio/sfx/manifest.json', { cache: 'no-cache' }); const j = await r.json(); sfxVer = Array.isArray(j) ? {} : j; sfxFiles = new Set(Array.isArray(j) ? j : Object.keys(j)); } catch (e) { sfxFiles = new Set(); }
   }
   function playFile(name, vol, rate) {
     const go = buf => {
@@ -236,7 +237,7 @@
       s.connect(g); g.connect(sfxBus); s.start(); return s;
     };
     if (sfxBufs[name]) { if (sfxBufs[name] instanceof AudioBuffer) go(sfxBufs[name]); return; }
-    sfxBufs[name] = fetch('audio/sfx/' + name + '.mp3').then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; go(buf); }).catch(() => { sfxBufs[name] = null; });
+    sfxBufs[name] = fetch(sfxUrl(name)).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; go(buf); }).catch(() => { sfxBufs[name] = null; });
   }
   function sfx(name, vol, rate) {
     if (!ctx) return;
@@ -334,7 +335,7 @@
     const g = ctx.createGain(); g.gain.value = 0.0001; g.connect(ambBus); ambNodes.push(g);
     const start = buf => { if (!ambNodes.includes(g)) return; const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.connect(g); s.start(); ambNodes.push(s); g.gain.setTargetAtTime(vol, ctx.currentTime, 1.0); };
     if (sfxBufs[name] instanceof AudioBuffer) start(sfxBufs[name]);
-    else fetch('audio/sfx/' + name + '.mp3').then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; start(buf); }).catch(() => {});
+    else fetch(sfxUrl(name)).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; start(buf); }).catch(() => {});
   }
   function ambience(name) {
     if (!ctx || name === ambName) return;
@@ -399,7 +400,8 @@
   async function loadManifest() {
     try {
       const r = await fetch('audio/voice/manifest.json', { cache: 'no-cache' });
-      manifest = new Set(await r.json());
+      const j = await r.json(); voiceVer = Array.isArray(j) ? {} : j;
+      manifest = new Set(Array.isArray(j) ? j : Object.keys(j));
     } catch (e) { manifest = new Set(); }
   }
   function hasVoice(id) { return voiceOn && manifest && manifest.has(id); }
@@ -411,7 +413,7 @@
     stopVoice();
     if (!hasVoice(id)) return Promise.resolve(null);
     return new Promise(resolve => {
-      const el = new Audio('audio/voice/' + id + '.mp3');
+      const el = new Audio('audio/voice/' + id + '.mp3' + (voiceVer[id] ? '?v=' + voiceVer[id] : ''));
       voiceEl = el;
       if (ctx) try {
         if (!analyser) { analyser = ctx.createAnalyser(); analyser.fftSize = 1024; levelBuf = new Float32Array(analyser.fftSize); analyser.connect(ctx.destination); }

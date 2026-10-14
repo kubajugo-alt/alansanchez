@@ -71,6 +71,7 @@
   S.ITEMS = {
     notebook: { name: 'Notebook', look: posedLook('write', 'alan_look_notebook') },
     sketch: { name: 'Sketch of the tile', look: 'alan_look_sketch' },
+    bunktile: { name: 'Blue tile', look: 'narr_look_bunktile', with: { tongue: () => S.breakTile() } },
     coins: { name: () => F().coins === 1 ? 'One escudo coin' : `${F().coins || 0} escudo coins`, look: 'alan_look_coins' },
     key: { name: 'Small iron key', look: 'alan_look_key' },
     ledger: { name: () => F().genealogy_read ? "Grandfather's ledger (genealogy)" : F().decoded ? "Grandfather's ledger (decoded)" : "Grandfather's ledger",

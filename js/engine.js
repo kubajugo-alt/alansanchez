@@ -9,8 +9,8 @@
   const invEl = $('#inventory'), invBar = $('#invbar'), dialogEl = $('#dialog'), labelsEl = $('#labels');
 
   const SAVE_KEY = 'drowned-bell-save-v3';
-  const COLORS = { alan: '#ffe2a0', ines: '#ffab9a', rui: '#a8d4ff', amalia: '#e2b0ff', tomas: '#cfeab8', lacerda: '#ff7d6a', celeste: '#ffd0a0', ze: '#9fd8ff', abilio: '#f0e68c', lino: '#f2c79a', phone: '#b9c9ff', guitar: '#d8c0a0', cards: '#d9c8a8', fish: '#ffb8b8', mender1: '#c8d8c0', mender2: '#b8d0b0', nun: '#e0e0f0', narr: '#eee6d6' };
-  const NAMES = { alan: 'Alan', ines: 'Inês', rui: 'Rui', amalia: 'Amália', tomas: 'Father Tomás', lacerda: 'Lacerda', celeste: 'Celeste', ze: 'Zé', abilio: 'Abílio', lino: 'Lino', phone: 'Officer Teixeira', guitar: 'Duarte', cards: 'Card player', fish: 'Fishwife', mender1: 'Old fisherman', mender2: 'Fisherman', nun: 'Sister', narr: '' };
+  const COLORS = { alan: '#ffe2a0', ines: '#ffab9a', rui: '#a8d4ff', amalia: '#e2b0ff', tomas: '#cfeab8', lacerda: '#ff7d6a', celeste: '#ffd0a0', ze: '#9fd8ff', abilio: '#f0e68c', lino: '#f2c79a', phone: '#b9c9ff', guitar: '#d8c0a0', cards: '#d9c8a8', fish: '#ffb8b8', mender1: '#c8d8c0', mender2: '#b8d0b0', nun: '#e0e0f0', washer1: '#f0c8b0', washer2: '#d8c0e0', narr: '#eee6d6' };
+  const NAMES = { alan: 'Alan', ines: 'Inês', rui: 'Rui', amalia: 'Amália', tomas: 'Father Tomás', lacerda: 'Lacerda', celeste: 'Celeste', ze: 'Zé', abilio: 'Abílio', lino: 'Lino', phone: 'Officer Teixeira', guitar: 'Duarte', cards: 'Card player', fish: 'Fishwife', mender1: 'Old fisherman', mender2: 'Fisherman', nun: 'Sister', washer1: 'Washerwoman', washer2: 'Graça', narr: '' };
 
   const ROOMS = {}, ITEMS = {}, CHARS = {};
   const IMG = {}; // loaded images by key
@@ -170,6 +170,15 @@
     bbox() {
       const h = this.height(), w = h * 0.36;
       return { x: this.x - w / 2, y: this.y - h, w, h };
+    }
+    // is the scene point on a painted (non-transparent) pixel of the current frame?
+    opaqueAt(x, y) {
+      const key = this.cur || this.frameKey(), A = this.place(key, this.lastFlip);
+      if (!A) return true;
+      let u = (x - this.x - A.x) / A.w, v = (y - this.y - A.y) / A.h;
+      if (u < 0 || u > 1 || v < 0 || v > 1) return false;
+      if (A.flipped) u = 1 - u;
+      return alphaAt(A.im, u, v) > 40;
     }
     // sprite placement relative to the feet, in scene px
     place(key, flipped) {
@@ -787,10 +796,25 @@
       if (!hitShape(h, x, y)) continue;
       const ar = hotArea(h); if (ar <= bestA) { best = h; bestA = ar; }
     }
-    if (best && bestA < 5000) return { kind: 'hot', def: best };
     const people = npcs.filter(a => a.visible && a.def).sort((a, b) => b.y - a.y);
-    for (const a of people) { const b = a.bbox(); if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return { kind: 'npc', actor: a, def: a.def }; }
+    const inBox = a => { const b = a.bbox(); return x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h; };
+    // a click on someone's painted body is always that person
+    for (const a of people) if (inBox(a) && a.opaqueAt(x, y)) return { kind: 'npc', actor: a, def: a.def };
+    if (best && bestA < 5000) return { kind: 'hot', def: best };
+    for (const a of people) if (inBox(a)) return { kind: 'npc', actor: a, def: a.def };
     return best ? { kind: 'hot', def: best } : null;
+  }
+  const alphaCache = new Map();
+  function alphaAt(im, u, v) {
+    let c = alphaCache.get(im);
+    if (!c) {
+      const w = Math.min(im.naturalWidth || im.width, 400), h = Math.round(w * (im.naturalHeight || im.height) / (im.naturalWidth || im.width));
+      const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+      const cx = cv.getContext('2d'); cx.drawImage(im, 0, 0, w, h);
+      c = { w, h, d: cx.getImageData(0, 0, w, h).data }; alphaCache.set(im, c);
+    }
+    const px = Math.min(c.w - 1, Math.floor(u * c.w)), py = Math.min(c.h - 1, Math.floor(v * c.h));
+    return c.d[(py * c.w + px) * 4 + 3];
   }
   function hotArea(h) {
     if (h.rect) return h.rect[2] * h.rect[3];

@@ -419,21 +419,25 @@
   };
   S.epilogue = async function () {
     G.cutscene = true;
-    await S.still('still_city_morning', 'street', () => say('narr_epilogue'), { zoom: [1.0, 1.12], pan: [[0.5, 0.55], [0.5, 0.45]] });
-    await S.still('still_drawer', 'police', async () => { await say('narr_epi_drawer'); sfx('drawer_scrape'); await say('rui_click'); }, { zoom: [1.08, 1.0] });
-    await S.still('still_shop_after', 'shop', () => say('narr_epi_shop'), { zoom: [1.0, 1.1] });
-    if (F().amalia_box && F().rui_called) await S.still('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });
-    if (F().amalia_night) await S.still('still_tavern_full', 'tavern', () => say('narr_vig_night'), { zoom: [1.0, 1.1] });
-    await S.still('still_quay_sweater', 'cais', () => say('narr_vig_ze'), { zoom: [1.0, 1.1] });
-    if (F().founder_order && !(F().struck_wrong)) await S.still('still_abilio_ring', 'se_tower', async () => { sfx('bell_forward', 0.6); await say('narr_vig_abilio'); }, { zoom: [1.0, 1.12] });
-    await S.still('still_phone', 'shop', () => say('narr_call'), { zoom: [1.0, 1.08], keep: true });
-    // credits, then the post-credits stills
+    // each painting dips to black and opens on the next: never a glimpse of the room behind
+    const shot = (name, fallback, fn, opts) => (async () => {
+      await G.fade(true);
+      await S.still(name, fallback, async () => { await G.fade(false); await fn(); }, Object.assign({}, opts, { keep: true }));
+    })();
+    await shot('still_city_morning', 'street', () => say('narr_epilogue'), { zoom: [1.0, 1.12], pan: [[0.5, 0.55], [0.5, 0.45]] });
+    await shot('still_drawer', 'police', async () => { await say('narr_epi_drawer'); sfx('drawer_scrape'); await say('rui_click'); }, { zoom: [1.08, 1.0] });
+    await shot('still_shop_after', 'shop', () => say('narr_epi_shop'), { zoom: [1.0, 1.1] });
+    if (F().amalia_box && F().rui_called) await shot('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });
+    if (F().amalia_night) await shot('still_tavern_full', 'tavern', () => say('narr_vig_night'), { zoom: [1.0, 1.1] });
+    await shot('still_quay_sweater', 'cais', () => say('narr_vig_ze'), { zoom: [1.0, 1.1] });
+    await shot('still_jacket', 'boat', () => say('ze_back'), { zoom: [1.0, 1.1] });
+    if (F().founder_order && !(F().struck_wrong)) await shot('still_abilio_ring', 'se_tower', async () => { sfx('bell_forward', 0.6); await say('narr_vig_abilio'); }, { zoom: [1.0, 1.12] });
+    await shot('still_shelf', 'antiques', async () => { sfx('clock_chime', 0.6); await say('narr_post'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.15] });
+    // the last picture: Alan rings his mother. Then the end.
+    await shot('still_phone', 'shop', async () => { await say('narr_call'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.08] });
+    await G.fade(true);
     G.showModal('ending', true);
-    await G.wait(window.FAST ? 50 : 9000);
-    G.showModal('ending', false);
-    await S.still('still_jacket', 'boat', () => say('ze_back'), { zoom: [1.0, 1.1] });
-    await S.still('still_shelf', 'antiques', async () => { sfx('clock_chime', 0.6); await say('narr_post'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.15], keep: true });
-    G.showModal('ending', true);
+    await G.fade(false);
     G.cutscene = false;
     try { localStorage.removeItem('drowned-bell-save-v3'); } catch (e) { /* ignore */ }
   };

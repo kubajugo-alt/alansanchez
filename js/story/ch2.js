@@ -15,6 +15,7 @@
     ],
     entries: { default: [120, 640, 'e'], map: [120, 640, 'e'] },
     anim(g, t) {
+      S.drawWring(g, t); // behind the two of them: their hands hold it
       for (const [x, w] of [[220, 160], [420, 170], [640, 170], [860, 150]]) FX.wisps(g, t + x, x + w / 2, 395, { n: 4, rise: 110, spread: 40, a: 0.07, size: 30, speed: 0.12 }); // steam off the basins
       FX.wisps(g, t, 1040, 470, { n: 4, rise: 90, spread: 30, a: 0.06, size: 26, speed: 0.1 });
       FX.drips(g, t, [[1222, 470, 412, 2.6]], '220,235,240');
@@ -29,15 +30,15 @@
     },
     // the back basins stand in front of the washerwomen
     occluders: [{ y: 500, polys: [[[160, 383], [300, 375], [1068, 375], [1068, 484], [160, 484]]] }, // from the far edge of the water: they stand behind the basins, hands in
-      { y: 680, polys: [[[839, 453], [1011, 446], [1013, 420], [1158, 420], [1160, 452], [1280, 470], [1280, 680], [874, 680], [860, 650], [842, 600]]] }], // the big tank and its towel
+      { y: 680, when: () => !swimmer, polys: [[[839, 453], [1011, 446], [1013, 420], [1158, 420], [1160, 452], [1280, 470], [1280, 680], [874, 680], [860, 650], [842, 600]]] }], // the big tank and its towel
     npcs: [
       { id: 'celeste', x: 600, y: 610, dir: 'e', set: 'wring', when: () => F().ch < 4, name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCeleste(),
         items: { sketch: () => S.celesteTile(), notebook: () => S.celesteTile(), file55: () => S.celeste1955(), any: 'alan_fail_06' } },
     ],
     ambient: [
-      { id: 'npc_washer1', name: 'Washerwoman', frames: ['npc_washer1', 'npc_washer1_b'], x: 300, y: 484, h: 205, look: 'alan_npc_washers', idleHold: [6, 14] },
+      { id: 'npc_washer1', name: 'Washerwoman', frames: ['npc_washer1', 'npc_washer1_b'], x: 300, y: 484, h: 205, look: 'alan_npc_washers', idleHold: [6, 14], talk: () => S.washersBath() },
       { id: 'npc_laundry', name: 'Woman with the washing', frames: ['npc_laundry'], x: 175, y: 560, h: 236, look: 'alan_npc_laundry' }, // under the hanging sheets
-      { id: 'npc_washer2', name: 'Washerwoman', frames: ['npc_washer2', 'npc_washer2_b'], x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [7, 16] },
+      { id: 'npc_washer2', name: 'Graça', frames: ['npc_washer2', 'npc_washer2_b'], x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [7, 16], talk: () => S.washersBath() },
     ],
     hotspots: [
       { name: 'Wash basins', rect: [160, 372, 908, 112], look: 'narr_look_basins' },
@@ -91,6 +92,17 @@
     for (let r = 0; r < 3; r++) { g.beginPath(); g.ellipse(splash.x, splash.y + 6, 40 + 200 * k * (1 + r * 0.4), 10 + 30 * k * (1 + r * 0.4), 0, 0, 7); g.stroke(); }
     g.restore();
   };
+  // after the bath, the two at the back basins have seen everything
+  S.washersBath = async function () {
+    if (!F().bathed) return say('alan_npc_busy');
+    if (F().washers_teased) return say('washer2_bath_3');
+    F().washers_teased = true;
+    const p = G.player;
+    await say('washer1_bath_1', 'washer2_bath_1');
+    p.pose = 'wink'; await say('alan_washers_1'); p.pose = null;
+    await say('washer1_bath_2', 'washer2_bath_2');
+    p.pose = 'fluster'; await say('alan_washers_2'); p.pose = null;
+  };
   S.bathEgg = async function () {
     const p = G.player, c = G.npc('celeste'), T = ms => G.wait(window.FAST ? 20 : ms);
     if (F().bathed) return say('alan_bath_3');
@@ -111,7 +123,7 @@
       if (c) c.pose = null;
       await say('alan_bath_2');
       // the leap: a hop up and over the rim of the tank
-      const x0 = p.x, y0 = p.y, x1 = 1000, y1 = 498;
+      const x0 = p.x, y0 = p.y, x1 = 925, y1 = 504; // open water left of the basket; y1 is the water line (in front of the back basins at 500)
       p.h = p.height(); p.pose = 'jump';
       for (let k = 0; k <= 1.0001; k += window.FAST ? 0.5 : 0.035) {
         p.x = x0 + (x1 - x0) * k; p.y = y0 + (y1 - y0) * k - Math.sin(k * Math.PI) * 170;
@@ -142,14 +154,39 @@
       F().bathed = true;
     });
   };
+  // one sheet between the two of them, twisting tighter, water running out of it
+  let wringing = null;
+  S.drawWring = function (g, t) {
+    if (!wringing) return;
+    const c = G.npc('celeste'), p = G.player; if (!c || !p) return;
+    const ax = c.x - 20, ay = c.y - 184, bx = p.x - 40, by = p.y - 186;
+    const k = Math.min(1, (performance.now() - wringing) / 2500), len = Math.hypot(bx - ax, by - ay), ang = Math.atan2(by - ay, bx - ax);
+    g.save(); g.translate(ax, ay); g.rotate(ang);
+    const th = 19 - 6 * k, sag = 6; // tighter as it twists
+    const cyl = g.createLinearGradient(0, -th / 2, 0, th / 2); cyl.addColorStop(0, '#b9b5aa'); cyl.addColorStop(0.35, '#f6f3ea'); cyl.addColorStop(0.7, '#d9d4c8'); cyl.addColorStop(1, '#8f8a80');
+    g.fillStyle = cyl; g.strokeStyle = 'rgba(60,55,50,0.45)'; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(-4, -th / 2); g.quadraticCurveTo(len / 2, -th / 2 + sag, len + 4, -th / 2); g.quadraticCurveTo(len + 10, 0, len + 4, th / 2); g.quadraticCurveTo(len / 2, th / 2 + sag, -4, th / 2); g.quadraticCurveTo(-10, 0, -4, -th / 2); g.closePath(); g.fill(); g.stroke();
+    // the twist: diagonal folds that run along the sheet as it turns
+    g.save(); g.clip();
+    const pitch = 15 - 6 * k, off = (t * 40) % pitch;
+    for (let x = -pitch + off; x < len + pitch; x += pitch) {
+      g.strokeStyle = 'rgba(110,104,95,0.45)'; g.lineWidth = 2.4; g.beginPath(); g.moveTo(x, -th); g.quadraticCurveTo(x + th * 0.3, 0, x + th * 0.8, th); g.stroke();
+      g.strokeStyle = 'rgba(255,255,255,0.55)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x + 3, -th); g.quadraticCurveTo(x + 3 + th * 0.3, 0, x + 3 + th * 0.8, th); g.stroke();
+    }
+    g.restore();
+    // drips
+    g.fillStyle = 'rgba(200,220,235,0.85)';
+    for (let i = 0; i < 6; i++) { const u = ((i * 0.37 + t * 0.9 + i * 0.13) % 1); const x = len * (0.15 + 0.12 * i); g.beginPath(); g.ellipse(x, th / 2 + u * 120, 1.6, 3, 0, 0, 7); g.globalAlpha = 1 - u; g.fill(); }
+    g.restore();
+  };
   S.wringSheet = async function () {
     if (F().met_celeste) return say('alan_fail_04');
     const c = G.npc('celeste'), p = G.player;
     await p.walkTo(c.x + 170, c.y); p.dir = 'w'; c.dir = 'e';
-    p.pose = 'wring'; c.set = 'wring';
+    p.pose = 'wring'; c.set = 'wring'; wringing = performance.now();
     sfx('wring');
     await joke('alan_wring');
-    p.pose = null; F().met_celeste = true; c.set = null;
+    wringing = null; p.pose = null; F().met_celeste = true; c.set = null;
     await say('celeste_hello');
     await S.talkCeleste(true);
   };

@@ -254,6 +254,21 @@
     shine(g, [[x - 10, 33], [x - 7.5, 70]], 2.5, 0.6);
   }
   const ICONS = {
+    // the wet azulejo from Zé's bunk: blue sea-monster on white, a little crazed
+    bunktile(g) {
+      g.translate(48, 48); g.rotate(-0.1); g.translate(-48, -48);
+      rr(g, 18, 18, 60, 60, 3); fillInk(g, lg(g, 18, 18, 78, 78, '#ffffff', '#eef2f6', '#c9d3de'));
+      noShadow(g, () => {
+        g.strokeStyle = '#1f4fa8'; g.lineWidth = 2.2; g.lineCap = 'round';
+        rr(g, 23, 23, 50, 50, 2); g.stroke();
+        g.beginPath(); g.moveTo(30, 54); g.bezierCurveTo(34, 40, 44, 52, 48, 42); g.bezierCurveTo(52, 32, 62, 38, 64, 30); g.stroke();
+        g.beginPath(); g.arc(64, 30, 3, 0, 7); g.fillStyle = '#1f4fa8'; g.fill();
+        for (const y of [60, 66]) { g.beginPath(); for (let x = 28; x <= 68; x += 2) g.lineTo(x, y + Math.sin(x / 3.4 + y) * 2); g.stroke(); }
+        g.strokeStyle = 'rgba(70,90,120,0.35)'; g.lineWidth = 0.8; line(g, 40, 20, 46, 40); line(g, 46, 40, 58, 46);
+        g.fillStyle = 'rgba(120,170,230,0.25)'; g.beginPath(); g.ellipse(58, 70, 12, 4, 0, 0, 7); g.fill(); // still wet
+      });
+      shine(g, [[22, 30], [22, 52]], 2, 0.6);
+    },
     notebook(g) {
       g.translate(48, 48); g.rotate(-0.12); g.translate(-48, -48);
       rr(g, 25, 14, 50, 70, 5); fillInk(g, '#e9dfc3');                     // page block peeking out
