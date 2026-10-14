@@ -41,7 +41,8 @@
     tomas: { scale: 0.95, frames: {
       idle: 'tomas', talk: 'tomas_talk', poses: { kneel: 'tomas_kneel' },
       loops: { sweep: { frames: ['tomas_sweepL', 'tomas_sweep', 'tomas_sweepR', 'tomas_sweep'], fps: 1.7 } } } },
-    tomas_night: { scale: 0.95, frames: { idle: 'tomas_night', talk: 'tomas_night_talk', poses: { kneel: 'tomas_kneel' } } },
+    tomas_night: { scale: 0.95, frames: { idle: 'tomas_night', talk: 'tomas_night_talk', poses: { kneel: 'tomas_kneel' },
+      sets: { pray: { idle: 'tomas_kneel', talk: ['tomas_kneel'] } } } }, // after he gives Alan his lantern
     lacerda: { scale: 1.0, frames: {
       idle: ['lacerda', 'lacerda_idle2'], talk: ['lacerda_talk', 'lacerda_talk2'], poses: { wind: 'lacerda_wind' },
       walk: ['lacerda_walkA', 'lacerda', 'lacerda_walkB', 'lacerda'] } },

@@ -14,18 +14,18 @@
     lights: [
       { x: 800, y: 168, rgb: '200,215,255', level: t => S.moonLevel(t), glow: 90, ga: 0.2, power: 0.35, reach: 1500, rim: 0.6, shadow: 0.5, floor: [800, 470], height: 900 },
       { x: 990, y: 640, rgb: '90,255,160', kind: 'pulse', seed: 0, glow: 175, ga: 0.22, power: 0.4, reach: 650, rim: 0.7, floor: [990, 640], height: 200 },
-      { actor: 'tomas', off: [0.25, -0.73], offs: { tomas_night_talk: [-0.21, -0.36] }, rgb: '255,190,110', kind: 'flame', seed: 9, glow: 75, ga: 0.38, power: 0.55, reach: 520, rim: 0.7, height: 160, when: () => !F().has_lantern },
+      { actor: 'tomas', off: [0.25, -0.73], offs: { tomas_night_talk: [-0.21, -0.36] }, rgb: '255,190,110', kind: 'flame', seed: 9, glow: 75, ga: 0.38, power: 0.55, reach: 520, rim: 0.7, height: 160, when: () => !F().confessed }, // out once he has given it to Alan
       { actor: 'lacerda', off: null, offs: { robe_kneel: [-0.16, -0.86] }, // the torch, only while he kneels with it
         rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
         when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
-      { actor: 'alan', off: [0.28, -0.45], rgb: '255,190,110', kind: 'flame', seed: 11, glow: 70, ga: 0.35, power: 0.5, reach: 500, rim: 0.7, height: 160, when: () => F().has_lantern },
+      { actor: 'alan', off: [0.15, -0.45], offs: { alan_lantern: [0.15, -0.45], alan_lwalk1: [0.19, -0.39], alan_lwalk2: [0.21, -0.4] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 70, ga: 0.35, power: 0.5, reach: 500, rim: 0.7, height: 160, when: () => F().has_lantern },
       { x: 1158, y: 470, rgb: '255,140,80', kind: 'candle', seed: 5, glow: 55, ga: 0.25, power: 0.15, reach: 300, shadow: false },
     ],
     entries: { default: [70, 670, 'e'], map: [70, 670, 'e'], cistern: [880, 650, 'w'] },
     animBack(g, t) { FX.masked(g, G.mask(), m => FX.drawClouds(m, S.nightClouds, t, 7, 0, 1)); },
     anim(g, t) { S.carry(); for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 1.3, 900 + i * 90, 640, { n: 5, rise: 120, spread: 30, rgb: '120,255,180', a: 0.06, size: 26, speed: 0.12 }); },
     npcs: [
-      { id: 'tomas', ch: 'tomas_night', x: 430, y: 600, dir: 'e', name: 'Father Tomás', look: 'narr_look_tomas_night', talk: () => S.tomasConfession(), when: () => !F().won,
+      { id: 'tomas', ch: 'tomas_night', x: 430, y: 600, dir: 'e', set: () => F().confessed ? 'pray' : null, name: 'Father Tomás', look: 'narr_look_tomas_night', talk: () => S.tomasConfession(), when: () => !F().won,
         items: { any: 'alan_fail_07' } },
       { id: 'rui', x: 120, y: 600, dir: 'e', set: 'gate', name: 'Rui', when: () => F().rui_called && !F().won, look: 'narr_look_rui', talk: () => F().gag_rui ? say('rui_nothing', 'alan_rui_gate') : (F().gag_rui = true, say('gag_rui', 'gag_alan_rui')) },
     ],
@@ -52,6 +52,7 @@
     G.cutscene = false;
     await say('alan_thanks', 'tomas_lantern', 'gag_tomas', 'gag_alan_tomas');
     F().confessed = true; F().has_lantern = true; give('lantern'); sfx('lantern');
+    { const tm = G.npc('tomas'); if (tm) tm.set = 'pray'; } // the lantern is Alan's now; Tomás kneels to pray
     if (F().rui_called) await say('rui_nothing');
   };
 
@@ -77,7 +78,7 @@
       { actor: 'lacerda', off: null, offs: { robe_kneel: [-0.16, -0.86] }, // the torch, only while he kneels with it
         rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
         when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
-      { actor: 'alan', off: [0.28, -0.45], rgb: '255,190,110', kind: 'flame', seed: 11, glow: 60, ga: 0.3, power: 0.4, reach: 450, rim: 0.6, height: 160, when: () => F().has_lantern && !F().bell_lit },
+      { actor: 'alan', off: [0.15, -0.45], offs: { alan_lantern: [0.15, -0.45], alan_lwalk1: [0.19, -0.39], alan_lwalk2: [0.21, -0.4] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 60, ga: 0.3, power: 0.4, reach: 450, rim: 0.6, height: 160, when: () => F().has_lantern && !F().bell_lit },
     ],
     entries: { default: [140, 640, 'e'], convent: [140, 640, 'e'] },
     layers: [
