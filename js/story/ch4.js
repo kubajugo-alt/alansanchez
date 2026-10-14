@@ -225,23 +225,32 @@
     const T = ms => G.wait(window.FAST ? 20 : ms);
     await G.busy(async () => {
       if (ze) { ze.set = null; ze.pose = null; await p.walkTo(ze.x + 120, ze.y); p.dir = 'w'; ze.dir = 'e'; }
-      await say('ze_rom_1', 'alan_rom_1', 'ze_rom_2');
+      await say('ze_rom_1');
+      // the sweater comes off over his head
+      if (ze) { ze.pose = 'ze_dress'; await T(700); ze.pose = 'ze_shirtless'; }
+      await say('alan_rom_1', 'ze_rom_2');
       // the two of them as one painted pair: Zé on the left, Alan on the right
       const home = p.x, mid = ze ? (ze.x + p.x) / 2 : p.x;
       if (ze) ze.visible = false;
       p.x = mid; p.dir = 'e'; p.pose = 'pair_unbutton'; sfx('sheet_slap', 0.2);
       await T(2200);
-      p.pose = 'pair_kiss'; await T(1800);
-      await G.showStill('still_ze_kiss', async () => {
-        await G.say('narr_rom_1', { offscreen: true });
+      p.pose = 'pair_kiss'; await T(2000);
+      p.pose = 'pair_brow'; await T(1400);
+      await G.showStill('still_ze_kiss', () => G.say('narr_rom_1', { offscreen: true }), { zoom: [1.02, 1.16], pan: [[0.5, 0.45], [0.5, 0.4]], keep: true });
+      // a quick tumble onto the bunk, the same night
+      await G.fade(true); await T(600);
+      await G.showStill('still_ze_bunk', async () => {
+        await G.fade(false);
         await G.say('narr_rom_2', { offscreen: true });
-      }, { zoom: [1.02, 1.16], pan: [[0.5, 0.45], [0.5, 0.4]], keep: true });
-      await G.fade(true); G.endStill(); p.pose = 'pair_brow'; await T(900);
-      await G.fade(false); await T(1600);
+      }, { zoom: [1.0, 1.1], pan: [[0.55, 0.55], [0.6, 0.5]], keep: true });
+      await G.fade(true); G.endStill();
       // apart again, putting themselves back together
-      if (ze) { ze.visible = true; ze.pose = 'ze_suspenders'; }
       p.x = home; p.dir = 'w'; p.pose = 'button';
-      await say('alan_rom_2', 'ze_rom_3');
+      if (ze) { ze.visible = true; ze.pose = 'ze_dress'; }
+      await T(500); await G.fade(false);
+      await say('alan_rom_2');
+      if (ze) ze.pose = 'ze_suspenders';
+      await say('ze_rom_3');
       if (ze) ze.pose = null; p.pose = null;
       await say('alan_rom_3');
       if (ze) ze.set = 'sit';
