@@ -11,7 +11,7 @@ PAIRS = {('npc_bench', 'npc_bench_b'): 0.55, ('npc_cards', 'npc_cards_b'): 0.42,
          ('npc_mender1', 'npc_mender1_b'): 0.32, ('npc_mender2', 'npc_mender2_b'): 0.32, ('npc_fish', 'npc_fish_b'): 0.5}
 # frames painted at a different scale from the rest of their set (the cat: a walking
 # cat is much taller and longer than the sleeping loaf it was sized against)
-SCALE = {'alan_swim': 0.6, 'alan_swim2': 0.6, 'alan_swim_wave': 0.6, 'pessoa_walk1': 1.45, 'pessoa_walk2': 1.45, 'pessoa_jump': 1.45, 'pessoa_eat': 1.15}
+SCALE = {'ines_walk1': 1.06, 'ines_walk2': 1.06, 'alan_swim': 0.6, 'alan_swim2': 0.6, 'alan_swim_wave': 0.6, 'pessoa_walk1': 1.45, 'pessoa_walk2': 1.45, 'pessoa_jump': 1.45, 'pessoa_eat': 1.15}
 # facing fixes for frames already matted (mirrors FACES_LEFT in matte.py)
 FACING = {'lacerda_walkA': True, 'lacerda_walkB': True, 'tomas_sweepL': True, 'abilio': True, 'abilio_idle2': True, 'robe_terror': False}
 js = os.path.join(root, 'js', 'sprites.js')

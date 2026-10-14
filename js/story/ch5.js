@@ -198,12 +198,14 @@
     await say('lacerda_ledger');
     sfx('page', 0.7);
     await say('lacerda_read_1');
+    F().read1 = true;
   };
   // while he reads, the pages keep turning
-  let nextPage = 0;
+  let nextPage = 0, readFrom = 0;
   S.readingTick = function (t) {
-    if (!F().lacerda_distracted || F().strikes > 0 || F().won || G.isBusy) return;
-    if (t > nextPage) { nextPage = t + 5 + Math.random() * 5; Sound.sfx('page', 0.5); if (!F().read2 && t > 12) { F().read2 = true; G.busy(() => say('lacerda_read_2')); } }
+    if (!F().read1 || F().strikes > 0 || F().won || G.isBusy) return;
+    if (!readFrom) readFrom = t;
+    if (t > nextPage) { nextPage = t + 5 + Math.random() * 5; Sound.sfx('page', 0.5); if (!F().read2 && t - readFrom > 10) { F().read2 = true; G.busy(() => say('lacerda_read_2')); } }
   };
   S.cutRopes = async function () {
     if (F().ines_free) return say('alan_fail_04');
