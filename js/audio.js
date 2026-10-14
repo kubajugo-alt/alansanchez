@@ -1,6 +1,6 @@
 // Procedural soundtrack (Web Audio) + ElevenLabs voice-over playback.
 (function () {
-  let ctx = null, master = null, musicBus = null, sfxBus = null, reverb = null;
+  let ctx = null, master = null, musicBus = null, sfxBus = null, ambBus = null, reverb = null;
   let musicOn = true, voiceOn = true;
   let currentTrack = null, trackTimer = null, nextTime = 0, step = 0;
   let manifest = null;
@@ -12,6 +12,7 @@
     master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination);
     musicBus = ctx.createGain(); musicBus.gain.value = 0.32;
     sfxBus = ctx.createGain(); sfxBus.gain.value = 0.6; sfxBus.connect(master);
+    ambBus = ctx.createGain(); ambBus.gain.value = 1; ambBus.connect(sfxBus); // ambience loops, ducked under speech
     // synthetic hall reverb
     reverb = ctx.createConvolver();
     const len = ctx.sampleRate * 2.6, buf = ctx.createBuffer(2, len, ctx.sampleRate);
@@ -284,7 +285,7 @@
   const LOOPS = { shop: ['amb_city', 0.12], street: ['amb_city', 0.5], office: ['amb_office', 0.4], tavern: ['amb_tavern', 0.35], clocks: ['amb_clocks', 0.45],
     cistern: ['amb_cistern', 0.6], washhouse: ['amb_washhouse', 0.5], harbour: ['amb_harbour', 0.55], tower: ['amb_tower', 0.5], boat: ['boat_creak', 0.5] };
   function loopFile(name, vol) {
-    const g = ctx.createGain(); g.gain.value = 0.0001; g.connect(sfxBus); ambNodes.push(g);
+    const g = ctx.createGain(); g.gain.value = 0.0001; g.connect(ambBus); ambNodes.push(g);
     const start = buf => { if (!ambNodes.includes(g)) return; const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.connect(g); s.start(); ambNodes.push(s); g.gain.setTargetAtTime(vol, ctx.currentTime, 1.0); };
     if (sfxBufs[name] instanceof AudioBuffer) start(sfxBufs[name]);
     else fetch('audio/sfx/' + name + '.mp3').then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; start(buf); }).catch(() => {});
@@ -337,16 +338,22 @@
       const fin = v => { if (!done) { done = true; resolve(v); } };
       el.addEventListener('loadedmetadata', () => fin(el.duration));
       el.addEventListener('error', () => fin(null));
-      if (musicBus) musicBus.gain.setTargetAtTime(0.14, ctx.currentTime, 0.2);
-      el.addEventListener('ended', () => { if (musicBus && voiceEl === el) musicBus.gain.setTargetAtTime(0.32, ctx.currentTime, 0.4); });
+      duck(true);
+      el.addEventListener('ended', () => { if (voiceEl === el) duck(false); });
       el.play().catch(() => fin(null));
       setTimeout(() => fin(null), 4000);
     });
   }
+  // music and ambience step back while someone speaks
+  function duck(on) {
+    if (!ctx) return;
+    if (musicBus) musicBus.gain.setTargetAtTime(on ? 0.1 : 0.32, ctx.currentTime, on ? 0.15 : 0.4);
+    if (ambBus) ambBus.gain.setTargetAtTime(on ? 0.4 : 1, ctx.currentTime, on ? 0.15 : 0.5);
+  }
   function voicePlaying() { return voiceEl && !voiceEl.paused && !voiceEl.ended; }
   function stopVoice() {
     if (voiceEl) { voiceEl.pause(); voiceEl = null; }
-    if (musicBus) musicBus.gain.setTargetAtTime(0.32, ctx.currentTime, 0.3);
+    duck(false);
   }
 
   function setMusic(on) { musicOn = on; const t = currentTrack; currentTrack = null; if (on) playMusic(t); else { clearInterval(trackTimer); currentTrack = t; } }

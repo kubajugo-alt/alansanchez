@@ -44,7 +44,9 @@ json.dump({k: v for k, v in REF.items() if k not in ('alan', 'ines', 'rui', 'ama
 for f in sorted(glob.glob(os.path.join(src, '*.png'))):
     name = os.path.basename(f)[:-4]
     if name.startswith('plate'): continue
-    im = np.asarray(Image.open(f).convert('RGB')).astype(np.float32)
+    src_im = Image.open(f)
+    keyed = np.asarray(src_im.convert('RGBA'))[..., 3] < 128 if src_im.mode == 'RGBA' else None
+    im = np.asarray(src_im.convert('RGB')).astype(np.float32)
     mn, mx = im.min(2), im.max(2)
     cand = (mn > 228) & ((mx - mn) < 22)
     lab, n = ndi.label(cand)
@@ -57,6 +59,7 @@ for f in sorted(glob.glob(os.path.join(src, '*.png'))):
         sizes = ndi.sum(np.ones_like(lab2), lab2, range(1, n2 + 1))
         big = [i + 1 for i, s in enumerate(sizes) if s > 400]
         bg |= np.isin(lab2, big)
+    if keyed is not None: bg |= keyed  # pre-keyed backdrop (scripts/greykey.py)
     bg = ndi.binary_opening(bg, iterations=1) | bg & ndi.binary_erosion(bg, iterations=2)
     alpha = (~bg).astype(np.float32)
     # soft edge: pixels near background get alpha from how far they are from white
