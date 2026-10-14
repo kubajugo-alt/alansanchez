@@ -150,7 +150,14 @@
     loopActive() { const F = this.F; return !!(this.loop && F.loops && F.loops[this.loop] && !this.engaged && this.resumeT <= 0 && !this.talking); }
     stop() { this.target = null; this.walking = false; this.phase = 0; this.stepIdx = -1; const r = this.resolve; this.resolve = null; if (r) r(); }
     height() { return (this.h || scaleAt(this.y)) * (this.c.scale || 1); }
+    // frames not painted yet fall back to the character's idle (then talk) frame
     frameKey() {
+      const k = this.rawKey(), ok = f => f && SPRITES[f] && IMG['spr:' + f];
+      if (ok(k)) return k;
+      const F = this.F;
+      return arr(F.idle).concat(arr(F.talk)).find(ok) || k;
+    }
+    rawKey() {
       const F = this.F;
       if (this.pose) return (F.poses && F.poses[this.pose]) || this.pose;
       if (this.walking) { const c = this.cycle(); return c[Math.floor(this.phase) % c.length]; }

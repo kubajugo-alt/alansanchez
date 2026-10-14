@@ -154,7 +154,7 @@
   // ================================================================ THE CABIN
   ROOMS.cabin = {
     name: 'The cabin', bg: 'cabin',
-    layers: [{ img: 'cabin_notile', x: 0, y: 0, when: () => F().ze_saved }],
+    layers: [{ img: 'cabin_notile', x: 0, y: 0, full: true, when: () => F().ze_saved || F().tile_held }],
     music: () => F().ze_saved ? null : 'tension', ambience: 'boat', floor: 'wood',
     walk: [[384, 522], [830, 522], [830, 716], [384, 716]],
     scale: [500, 330, 716, 420],
