@@ -339,16 +339,16 @@
       const fin = v => { if (!done) { done = true; resolve(v); } };
       el.addEventListener('loadedmetadata', () => fin(el.duration));
       el.addEventListener('error', () => fin(null));
-      duck(true);
+      duck(true, /_sing/.test(id)); // a sung line keeps its guitar under it
       el.addEventListener('ended', () => { if (voiceEl === el) duck(false); });
       el.play().catch(() => fin(null));
       setTimeout(() => fin(null), 4000);
     });
   }
   // music and ambience step back while someone speaks
-  function duck(on) {
+  function duck(on, song) {
     if (!ctx) return;
-    if (musicBus) musicBus.gain.setTargetAtTime(on ? 0.1 : 0.32, ctx.currentTime, on ? 0.15 : 0.4);
+    if (musicBus) musicBus.gain.setTargetAtTime(on ? (song ? 0.24 : 0.1) : 0.32, ctx.currentTime, on ? 0.15 : 0.4);
     if (ambBus) ambBus.gain.setTargetAtTime(on ? 0.4 : 1, ctx.currentTime, on ? 0.15 : 0.5);
   }
   function voicePlaying() { return voiceEl && !voiceEl.paused && !voiceEl.ended; }

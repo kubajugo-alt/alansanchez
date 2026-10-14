@@ -24,7 +24,8 @@
       front: 'alan_front', frontWalk: ['alan_front_walk1', 'alan_front', 'alan_front_walk2', 'alan_front'],
       back: 'alan_back', backWalk: ['alan_back_walk1', 'alan_back', 'alan_back_walk2', 'alan_back'],
       poses: { pair_unbutton: 'pair_unbutton', pair_kiss: 'pair_kiss', pair_brow: 'pair_brow', button: 'alan_button', undress1: 'alan_undress1', undress2: 'alan_undress2', undress3: 'alan_undress3', undress4: 'alan_undress4', jacket: 'alan_jacket', jump: 'alan_jump', swim: 'alan_swim', swim2: 'alan_swim2', swimwave: 'alan_swim_wave', flirt: 'alan_flirt', wink: 'alan_wink', swoon: 'alan_swoon', fluster: 'alan_fluster', reach: 'alan_reach', read: 'alan_read', ring: 'alan_ring', asleep: 'alan_asleep', pickup: 'alan_pickup', write: 'alan_write',
-        drink: 'alan_drink', wring: 'alan_wring', wobble: 'alan_wobble', untie: 'alan_untie', phone: 'alan_phone', cut: 'alan_cutpalm' } } },
+        drink: 'alan_drink', wring: 'alan_wring', wobble: 'alan_wobble', untie: 'alan_untie', phone: 'alan_phone', cut: 'alan_cutpalm' },
+      sets: { lantern: { idle: 'alan_lantern', talk: ['alan_lantern'], walk: ['alan_lwalk1', 'alan_lantern', 'alan_lwalk2', 'alan_lantern'] } } } },
     ines: { scale: 0.93, frames: {
       idle: ['ines', 'ines_idle2'], talk: ['ines_talk', 'ines_talk2'], walk: ['ines_walk1', 'ines_walk2'],
       poses: { free: 'ines_free', steam: 'ines_steam', wrists: 'ines_wrists' },
@@ -98,6 +99,8 @@
   };
   // small talk with background characters: one exchange, then a short repeat line
   S.chat = (flag, first, again) => () => F()[flag] ? say(...again) : (F()[flag] = true, say(...first));
+  // Alan carries Tomás's lantern in hand from the hand-over until Inês takes it
+  S.carry = () => { const p = G.player, want = G.has('lantern') && window.SPRITES.alan_lantern ? 'lantern' : null; if (p && p.set !== want && (!p.set || p.set === 'lantern')) p.set = want; };
   S.once = (flag, fn) => async (...a) => { if (F()[flag]) return; F()[flag] = true; await fn(...a); };
   // ★ jokes: Inês scores them when she's in the room
   let lastScore = 0;

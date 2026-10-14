@@ -23,7 +23,7 @@
     ],
     entries: { default: [70, 670, 'e'], map: [70, 670, 'e'], cistern: [880, 650, 'w'] },
     animBack(g, t) { FX.masked(g, G.mask(), m => FX.drawClouds(m, S.nightClouds, t, 7, 0, 1)); },
-    anim(g, t) { for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 1.3, 900 + i * 90, 640, { n: 5, rise: 120, spread: 30, rgb: '120,255,180', a: 0.06, size: 26, speed: 0.12 }); },
+    anim(g, t) { S.carry(); for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 1.3, 900 + i * 90, 640, { n: 5, rise: 120, spread: 30, rgb: '120,255,180', a: 0.06, size: 26, speed: 0.12 }); },
     npcs: [
       { id: 'tomas', ch: 'tomas_night', x: 430, y: 600, dir: 'e', name: 'Father Tomás', look: 'narr_look_tomas_night', talk: () => S.tomasConfession(), when: () => !F().won,
         items: { any: 'alan_fail_07' } },
@@ -85,6 +85,7 @@
       { img: 'cistern_bell', x: 0, y: 0, full: true, pivot: [652, 0], swing: t => (F().ringing ? 2.4 * Math.sin(t * 2.3) : 0.4 * Math.sin(t * 0.6)) + S.bellShudder(t) },
     ],
     anim(g, t) {
+      S.carry();
       FX.water(g, t, 160, 400, 850, 140, '120,255,170');
       FX.drips(g, t, [[330, 470, 120, 4.3], [940, 505, 150, 5.7], [470, 440, 140, 6.9]], '170,255,210');
       FX.embers(g, t, 104, 175, 7); FX.embers(g, t + 3, 1216, 225, 6);

@@ -153,9 +153,9 @@ window.LINES = {
   alan_give_ginja: ['alan', "Then let's not drink alone."],
   amalia_toast: ['amalia', "[softly] To Joaquim. Saúde."],
   alan_toast: ['alan', "To Grandfather. Who apparently had a life."],
-  amalia_sing_1: ['amalia', "[singing slowly, mournful fado] Nine days the fog lay on the river, nine nights the bronze lay in the deep. The founders cut its tongue for silence, and bound it with the blood they keep."],
-  amalia_sing_2: ['amalia', "[singing slowly, mournful fado] Where the old church prays without a roof, the stone weeps salt for what we did. Turn the letters seven times, son of the founders, and ring it back."],
-  amalia_sing_3: ['amalia', "[singing softly, almost a whisper] And if you fear, as founders feared, love, the sea will wait; the sea is long. Come back, come back, my bell-boy, and ring it backward with this song."],
+  amalia_sing_1: ['amalia', "[singing] Nine days the fog lay on the river, nine nights the bronze lay in the deep. The founders cut its tongue for silence, and bound it with the blood they keep."],
+  amalia_sing_2: ['amalia', "[singing] Where the old church prays without a roof, the stone weeps salt for what we did. Turn the letters seven times, son of the founders, and ring it back."],
+  amalia_sing_3: ['amalia', "[singing] And if you fear, as founders feared, love, the sea will wait; the sea is long. Come back, come back, my bell-boy, and ring it backward with this song."],
   amalia_menino: ['amalia', "He sang it better. He wrote it, after all."],
   amalia_after_song: ['amalia', "Your grandfather made me promise never to sing that for a stranger. You're not a stranger. You're the last Sineiro, Alan. The last of the bell-hands."],
   alan_ringer: ['alan', "A ringer. I've been called many things, Dona Amália, but never a ringer."],
@@ -492,7 +492,7 @@ window.LINES = {
 
   // ---------- Taberna (optional, night) ----------
   narr_tavern_night: ['narr', "The chairs are up on the tables. One lantern burns. Amália is singing to an empty room, and she does not stop when he comes in."],
-  amalia_night_sing: ['amalia', "[singing very softly, alone] Come back, come back, my bell-boy, and ring it backward with this song."],
+  amalia_night_sing: ['amalia', "[singing softly, alone] Come back, come back, my bell-boy, and ring it backward with this song."],
   amalia_alone: ['amalia', "Joaquim ran because he was alone down there. You are not alone, menino. Somebody is waiting for you, which is more than he ever had."],
   alan_amalia_thanks: ['alan', "That's the nicest thing anyone's said to me all week. Which tells you about my week."],
 
