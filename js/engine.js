@@ -484,6 +484,24 @@
   function drawBg(name) { const im = IMG['bg:' + name]; if (im) g.drawImage(im, 0, 0, W, H); else { g.fillStyle = '#000'; g.fillRect(0, 0, W, H); } }
   // Re-paints the part of the background (and its layers) that stands in front
   // of an actor. Outlines follow the painted furniture, not a box around it.
+  // Per-room colour grade over the finished frame, so painted backgrounds and
+  // sprites share one palette: a soft-light wash, plus lifted night blacks.
+  const GRADES = {
+    shop: ['#c98a4a', 0.16], shop_night: ['#3a5a8c', 0.16, '#05080e'],
+    street: ['#e2b072', 0.12], police: ['#93a8a0', 0.16],
+    tavern: ['#d08040', 0.18], tavern_night: ['#c66a30', 0.12, '#080402'],
+    lavadouro: ['#8fb0b8', 0.15], ferreira: ['#c8a060', 0.15],
+    convent: ['#dcc290', 0.12], se_tower: ['#c49060', 0.13], antiques: ['#b07840', 0.17],
+    cais: ['#9ab0c0', 0.13], boat: ['#a0b4c0', 0.13], cabin: ['#b07a40', 0.17, '#070402'],
+    convent_night: ['#30508a', 0.18, '#03070d'], cistern: ['#3c6a68', 0.16, '#020505'],
+  };
+  function grade(bg) {
+    const c = GRADES[bg]; if (!c) return;
+    g.save(); g.globalCompositeOperation = 'soft-light'; g.globalAlpha = c[1] * 2.2;
+    g.fillStyle = c[0]; g.fillRect(0, 0, W, H);
+    if (c[2]) { g.globalCompositeOperation = 'screen'; g.globalAlpha = 1; g.fillStyle = c[2]; g.fillRect(0, 0, W, H); }
+    g.restore();
+  }
   function curBg() { const b = typeof room.bgFn === 'function' ? room.bgFn() : room.bg; return IMG['bg:' + b] ? b : room.bg; }
   function drawOccluder(o) {
     const im = IMG['bg:' + curBg()]; if (!im) return;
@@ -550,6 +568,7 @@
         g.fillStyle = `rgba(0,0,0,${Math.max(0, L.flickerShade * (1 - avg)).toFixed(3)})`; g.fillRect(0, 0, W, H);
       }
       if (room.grade) { g.fillStyle = room.grade; g.fillRect(0, 0, W, H); }
+      grade(curBg());
       FX.vignette(g, room.vignette != null ? room.vignette : 0.45);
       positionSpeech();
     }
