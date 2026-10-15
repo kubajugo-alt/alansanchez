@@ -994,6 +994,30 @@ window.SPRITES = {
   "fy": 722.9,
   "top": 2.9
  },
+ "npc_guitar_talk1": {
+  "w": 422,
+  "hh": 726,
+  "h": 720,
+  "ax": 222.9,
+  "fy": 722.9,
+  "top": 2.9
+ },
+ "npc_guitar_talk2": {
+  "w": 414,
+  "hh": 726,
+  "h": 720,
+  "ax": 220.0,
+  "fy": 722.9,
+  "top": 2.9
+ },
+ "npc_guitar_talk3": {
+  "w": 445,
+  "hh": 726,
+  "h": 720,
+  "ax": 250.0,
+  "fy": 722.9,
+  "top": 2.9
+ },
  "npc_guitar_wink": {
   "w": 376,
   "hh": 726,

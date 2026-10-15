@@ -27,5 +27,8 @@
  "npc_guitar_serenade": 1482,
  "npc_guitar_lean": 1485,
  "cop": 1444,
- "guitar": 1439
+ "guitar": 1439,
+ "npc_guitar_talk2": 1489,
+ "npc_guitar_talk3": 1502,
+ "npc_guitar_talk1": 1491
 }
