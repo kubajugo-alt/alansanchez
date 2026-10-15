@@ -51,6 +51,7 @@
   const PREVIEW = {
     bath: { flags: { ch: 2, met_celeste: true }, room: 'lavadouro', pos: [800, 640, 'e'], run: () => S.bathEgg() },
     cop: { flags: { ch: 1 }, room: 'police', pos: [420, 690, 'w'], run: () => S.flirtCop() },
+    coldopen: { flags: { ch: 1 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await S.coldOpen(); await G.fade(false); } },
     romance: { flags: { ch: 4, ze_awake: true, ze_believes: true, ze_in_cabin: true, ze_saved: true }, room: 'cabin', pos: [560, 640, 'e'], run: () => S.romance() },
     // the ending: hand Lacerda the ledger, then the last strike (the puzzle in between is skipped)
     finale: { flags: { ch: 5, tomas_confessed: true }, room: 'cistern', pos: [520, 640, 'e'], run: async () => {
@@ -96,7 +97,9 @@
     if (PREVIEW[scene]) return preview(scene);
     G.giveItem('notebook', true);
     F().ch = 1; F().clock = '11:00';
+    if (S.coldOpen) await S.coldOpen(); // Madragoa, 04:01: Maria Coutinho
     await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);
+    await G.fade(false);
     await G.showStill('still_intro', () => say('narr_intro_1', 'narr_intro_2'), { zoom: [1.0, 1.16], pan: [[0.4, 0.55], [0.6, 0.5]], keep: true });
     await G.goRoom('shop', null, { noEnter: true, instant: true, pos: [815, 616, 'e'] }); // forearms resting on the counter top
     G.player.pose = 'asleep';

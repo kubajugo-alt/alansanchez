@@ -906,6 +906,30 @@ window.SPRITES = {
   "fy": 720.5,
   "top": 2.9
  },
+ "maria_grip": {
+  "w": 224,
+  "hh": 690,
+  "h": 720,
+  "ax": 86.8,
+  "fy": 686.9,
+  "top": 3.1
+ },
+ "maria_sleep": {
+  "w": 690,
+  "hh": 238,
+  "h": 720,
+  "ax": 194.4,
+  "fy": 234.6,
+  "top": 3.1
+ },
+ "maria_wake": {
+  "w": 260,
+  "hh": 525,
+  "h": 720,
+  "ax": 126.2,
+  "fy": 521.0,
+  "top": 3.1
+ },
  "npc_bench": {
   "w": 608,
   "hh": 727,
@@ -1567,6 +1591,14 @@ window.SPRITES = {
   "fy": 723.1,
   "top": 3.1
  },
+ "pair_vasco_coffee": {
+  "w": 543,
+  "hh": 727,
+  "h": 720,
+  "ax": 271.5,
+  "fy": 723.1,
+  "top": 3.1
+ },
  "pair_vasco_fragment": {
   "w": 496,
   "hh": 727,
@@ -1590,6 +1622,14 @@ window.SPRITES = {
   "ax": 302.5,
   "fy": 724.4,
   "top": 4.4
+ },
+ "pair_vasco_ladder": {
+  "w": 493,
+  "hh": 728,
+  "h": 720,
+  "ax": 246.5,
+  "fy": 723.8,
+  "top": 3.8
  },
  "pair_vasco_lanyard": {
   "w": 375,
