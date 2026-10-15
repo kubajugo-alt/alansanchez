@@ -149,10 +149,10 @@
       // the officer backed against the room's own bookshelf, Alan very much in charge
       const home = p.x; if (v) { p.x = 410; v.visible = false; }
       const shelf = (k, ms) => pair('pair_cop_' + k, ms, SHELF, TORSO[k]);
-      p.dir = 'e'; sfx('sheet_slap', 0.2); await shelf('shelf', 600); // his wrists pinned to the shelf
-      await say('alan_room_cop_5', 'phone_room_5');
-      await shelf('neck', 900); // into his neck, the jacket still on
+      p.dir = 'e'; sfx('sheet_slap', 0.2); await shelf('neck', 900); // straight into his neck, backed against the shelf
       await say('phone_room_2', 'alan_room_cop_2');
+      await shelf('shelf', 600); // then his wrists, pinned above his head
+      await say('alan_room_cop_5', 'phone_room_5');
       await shelf('jacket', 2200); // wrists still pinned, the jacket shrugged off
       sfx('sheet_slap', 0.2); await shelf('tshirt', 900);
       await say('phone_room_6', 'alan_room_cop_6');
