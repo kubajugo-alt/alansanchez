@@ -1164,5 +1164,5 @@ window.LINES = {
   ines_twenty: ['ines', "Twenty minutes. Don't touch anything."],
   duarte_business: ['guitar', "Business first, though. Amália sent me."],
   duarte_shrug: ['guitar', "[shrugging, smiling] Tuesdays, then. The offer stands."],
-  ines_hint_key: ['ines', "Rui's sending someone with the key. Sit still for once."],
+  ines_hint_teixeira: ['ines', "Rui's sending someone with the key. Sit still for once."],
 };
