@@ -171,7 +171,11 @@
       await say('phone_room_9', 'alan_room_cop_9');
       // his own handcuffs
       sfx('sheet_slap', 0.25); await shelf('cuffs', 600);
-      await say('alan_cuff_1', 'phone_cuff_1', 'alan_cuff_2'); sfx('lamp_click', 0.8);
+      await say('alan_cuff_1');
+      await shelf('cuffs_a', 300); // twirling them on a finger; the officer backs off
+      await say('phone_cuff_1');
+      await shelf('cuffs_b', 300); // dangling them in front of his face
+      await say('alan_cuff_2'); sfx('lamp_click', 0.8);
       // later: one wrist on the bedframe, the hat, the jacket, and no key
       if (G.image('still:still_cop_cuffed')) {
         await G.fade(true);
@@ -204,7 +208,7 @@
       const run = async (frames, ms) => { for (const f of frames) await pair('pair_guitar_' + f, ms); };
       await pair('pair_guitar_j0', 500);
       await say('guitar_room_5', 'alan_room_guitar_4');
-      sfx('sheet_slap', 0.25); await run(['jackets', 'j1', 'j2', 'undress', 'u1', 'u2'], 950);
+      sfx('sheet_slap', 0.25); await run(['jackets', 'j1', 'j2', 'u1', 'u2'], 950); // ('undress' dropped: it put Duarte's jacket back on)
       sfx('sheet_slap', 0.25); await pair('pair_guitar_shirtfly', 500);
       await say('alan_room_guitar_5');
       await run(['s1', 's2', 'undress2'], 900);
