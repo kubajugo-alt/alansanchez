@@ -135,6 +135,7 @@
   const INES_HI = ['ines_hello_2', 'ines_hello_3', 'ines_hello_4'];
   S.talkInes = async function () {
     await say(F().ines_greeted ? INES_HI[(F().ines_greeted++) % INES_HI.length] : (F().ines_greeted = 1, 'ines_hello'));
+    await S.gossip('ines');
     await G.dialog([
       { line: 'alan_ask_ines_now', run: () => say(S.hint()) },
       { line: 'alan_ask_ines_drowned', once: true, run: () => say('ines_drowned') },
@@ -320,6 +321,7 @@
   };
   S.talkRui = async function () {
     if (!F().metRui) { F().metRui = true; await say('rui_hello'); await joke('alan_rui_hello'); }
+    await S.gossip('rui');
     await G.dialog([
       { line: 'alan_ask_murders', run: async () => { await say('rui_murders_1', 'rui_murders_2'); if (!F().ruiMurders) await joke('alan_rui_locked'); F().ruiMurders = true; } },
       { line: 'alan_ask_victims', when: () => F().ruiMurders, once: true, run: () => say('rui_victims_1', 'rui_victims_2') },
@@ -426,6 +428,7 @@
   S.talkAmalia = async function () {
     if (F().ch >= 5) return say('amalia_alone');
     await say('amalia_hello');
+    await S.gossip('amalia');
     await G.dialog([
       { line: 'alan_ask_amalia_who', once: true, run: () => say('amalia_who') },
       { line: 'alan_ask_amalia_fog', once: true, run: () => say('amalia_fog') },
@@ -468,7 +471,8 @@
   S.talkLino = async function () {
     if (F().lino_teased) return say('lino_talk_2');
     F().lino_teased = true;
-    await say('lino_talk_1', 'alan_lino_1', 'lino_talk_3');
+    if (F().visit_guitar) await say('lino_talk_1b', 'alan_lino_1b', 'lino_talk_3b'); // Duarte's stool is empty now
+    else await say('lino_talk_1', 'alan_lino_1', 'lino_talk_3');
   };
   // Officer Teixeira mans the station phone in the early chapters, until he has visited Alan
   S.copOnDuty = () => F().ch <= 2 && !F().visit_cop;

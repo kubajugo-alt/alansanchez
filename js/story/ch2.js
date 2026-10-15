@@ -193,7 +193,7 @@
   S.talkCeleste = async function (first) {
     if (G.room.id === 'cais') return S.talkCelesteQuay();
     if (!F().met_celeste) return say('celeste_twist');
-    if (!first) await say('celeste_hello');
+    if (!first) { await say('celeste_hello'); await S.gossip('celeste'); }
     await G.dialog([
       { line: 'alan_ask_river', once: true, run: async () => { await say('celeste_river'); await joke('alan_breathes'); await say('celeste_salt'); F().lore_turnings = true; } },
       { line: 'alan_show_tile', silent: true, when: () => F().sketched_tile && !F().lore_bronze, run: () => S.celesteTile() },

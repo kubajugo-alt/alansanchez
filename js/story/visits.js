@@ -244,7 +244,6 @@
       await g('l2');
       await g('underwear', 'guitar_room_7');                              // "Giddy up, bookseller!"
       await g('p1', 'alan_room_guitar_17', 'guitar_room_16');             // hold on to something
-      await g('p2');
       await say('guitar_room_9');
       sfx('v_alan_sigh', 0.5);
       await G.showStill('still_guitar_bed', () => G.say('narr_room_guitar', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.55, 0.5], [0.5, 0.45]], keep: true });
@@ -256,6 +255,24 @@
   };
 
   S.setVisitor = v => { visitor = v; G.refreshNpcs(true); }; // for testing
+
+  // the rolling gag: everyone who saw Alan with the officer or Duarte has something to say about it,
+  // and Alan denies everything. One remark per conversation, each said once, in order.
+  const GOSSIP = {
+    ines: [['ines_gossip_1', 'alan_deny_ines_1', 'visit_cop'], ['ines_gossip_2', 'alan_deny_ines_2', 'visit_guitar'], ['ines_gossip_3', 'alan_deny_ines_3']],
+    celeste: [['celeste_gossip_1', 'alan_deny_celeste_1'], ['celeste_gossip_2', 'alan_deny_celeste_2', 'visit_guitar']],
+    amalia: [['amalia_gossip_1', 'alan_deny_amalia_1', 'visit_guitar'], ['amalia_gossip_2', 'alan_deny_amalia_2']],
+    rui: [['rui_gossip_1', 'alan_deny_rui_1', 'visit_cop'], ['rui_gossip_2', 'alan_deny_rui_2', 'visit_cop']],
+  };
+  S.gossip = async function (who) {
+    if (!F().visit_cop && !F().visit_guitar) return;
+    const said = F().gossip || (F().gossip = {});
+    const next = (GOSSIP[who] || []).find(([line, , needs]) => !said[line] && (!needs || F()[needs]));
+    if (!next) return;
+    said[next[0]] = true;
+    await say(next[0]);
+    G.player.pose = 'fluster'; await say(next[1]); G.player.pose = null;
+  };
 
   // a visit happens the next time Alan walks in from the street with Inês minding the shop
   const prevEnter = ROOMS.shop.enter;
