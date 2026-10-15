@@ -14,7 +14,7 @@ for f in sys.argv[1:]:
         ring = ndi.binary_dilation(z, iterations=3) & ~z & m
         if not ring.any(): continue
         c = rgb[ring].mean(0)
-        if c.min() > 85 and c.max() - c.min() < 24:
+        if (c.min() > 85 and c.max() - c.min() < 24) or (os.environ.get('WHITE_RING') and c.min() > 150): # pale shirt, or a white T-shirt
             zz = ndi.binary_dilation(z, iterations=1) & ~m | z
             im[..., 3][zz] = 255; fixed += int(z.sum())
     Image.fromarray(im).save(f, quality=90) if f.endswith('.webp') else Image.fromarray(im).save(f)

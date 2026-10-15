@@ -19,6 +19,18 @@
     find: ['vasco_busy', 'vasco_coins', 'vasco_fragment'], give: ['vasco_card'] };
   for (const [pose, ids] of Object.entries(VPOSE)) ids.forEach(id => { S.LINE_POSE[id] = ['vasco', pose]; });
   S.CHARS.alan.frames.poses.coffees = 'alan_coffees'; // Thursday morning: two coffees
+  // Alan and Vasco painted together (Alan left, Vasco right): played as Alan's pose with Vasco hidden,
+  // anchored on the middle of the couple
+  ['catch', 'lanyard', 'thumb', 'kneel', 'kiss', 'card', 'fragment', 'coffee', 'ladder'].forEach(k => { S.CHARS.alan.frames.poses['pair_vasco_' + k] = 'pair_vasco_' + k; });
+  S.vpair = function (k) {
+    const key = 'pair_vasco_' + k, p = G.player, v = G.npc('vasco');
+    if (!window.SPRITES[key] || !v || !v.visible) return null;
+    const keep = { px: p.x, py: p.y, pd: p.dir, vp: v.pose };
+    const left = Math.min(p.x, v.x), right = Math.max(p.x, v.x);
+    p.x = (left + right) / 2; p.y = Math.max(p.y, v.y); p.dir = 'e'; p.pose = key; v.visible = false;
+    return () => { p.pose = null; p.x = keep.px; p.y = keep.py; p.dir = keep.pd; v.visible = true; v.pose = keep.vp; };
+  };
+  S.withPair = async function (k, fn) { const undo = S.vpair(k); try { await fn(); } finally { if (undo) undo(); } };
   S.CHARS.alan.frames.poses.pair_vasco_shirtless = 'pair_vasco_shirtless'; // the two of them, shirts off (not yet placed in a scene)
   if (window.SPRITES.ines_plaque) S.CHARS.ines.frames.poses.plaque = 'ines_plaque';
 
@@ -180,8 +192,9 @@
     await say('vasco_bottom'); await joke('alan_bottom');
     if (v) { await v.walkTo(PIT[0] + 60, PIT[1]); v.dir = 'w'; }
     await p.walkTo(PIT[0], PIT[1]); p.dir = 'e';
-    p.pose = 'wobble'; sfx('stairs', 0.5); await T(500);
-    await say('vasco_close'); p.pose = null; await joke('alan_close');
+    p.pose = 'wobble'; sfx('stairs', 0.5); await T(500); p.pose = null;
+    await S.withPair('catch', () => say('vasco_close'));
+    await joke('alan_close');
     F().in_pit = true;
   };
 
@@ -198,7 +211,7 @@
     if (F().lanyard_taken) return;
     if (!F().in_pit) return say('alan_lanyard_far');
     G.player.pose = 'reach'; await T(500); G.player.pose = null;
-    await say('vasco_lanyard'); await joke('alan_lanyard');
+    await S.withPair('lanyard', () => say('vasco_lanyard')); await joke('alan_lanyard');
     F().lanyard_taken = true; give('reserve_key');
   };
 
@@ -264,7 +277,8 @@
     while (i < EX.length) {
       const [prompt, right, much, muchR, little, littleR] = EX[i];
       if (v && i === 1 && window.SPRITES.vasco_kneel) v.pose = 'kneel';
-      await say(prompt);
+      const pairK = { 1: 'kneel', 2: 'thumb' }[i];
+      if (pairK && S.vpair) await S.withPair(pairK, () => say(prompt)); else await say(prompt);
       if (i === 0) { sfx('v_vasco_laugh', 0.5); }
       const opts = [{ line: right, ok: true }, { line: much, react: muchR }, { line: little, react: littleR }];
       let pick = null;
@@ -287,6 +301,7 @@
       if (S.discreet()) { // Discreet: the joke stays, the paintings don't
         await G.fade(true); await say('vasco_kiss'); sfx('quarter'); await say('alan_monument'); await G.fade(false);
       } else {
+        await S.withPair('kiss', () => T(1600));
         await S.still('still_se_kiss', 'se_cloister', async () => {
           sfx('trowel'); await T(300);
           await say('vasco_kiss'); sfx('quarter'); await say('alan_monument');
@@ -307,7 +322,8 @@
     p.x = PIT[0] - 30; p.y = PIT[1] + 10; p.dir = 'e';
     if (v) { v.x = PIT[0] + 80; v.y = PIT[1] + 12; v.dir = 'w'; }
     F().ines_back = true; G.refreshNpcs();
-    await say('ines_innocent', 'vasco_flustered', 'vasco_card');
+    await say('ines_innocent', 'vasco_flustered');
+    await S.withPair('card', () => say('vasco_card'));
     give('vasco_card');
     await joke('alan_thursday');
     F().vasco_thursday = true;
@@ -349,7 +365,7 @@
     await G.busy(async () => {
       const p = G.player, v = G.npc('vasco');
       if (v) { if (window.SPRITES.vasco_climb) { v.pose = 'climb'; await T(700); v.pose = null; } await v.walkTo(p.x + (p.x < 900 ? 150 : -150), p.y); v.dir = v.x > p.x ? 'w' : 'e'; p.dir = v.x > p.x ? 'e' : 'w'; }
-      await say('vasco_fragment');
+      await S.withPair('fragment', () => say('vasco_fragment'));
       give('sanches_fragment');
       await say('vasco_sleep', 'alan_fine', 'vasco_thursday_then', 'alan_cameo');
     });
@@ -375,12 +391,16 @@
     await G.fade(false);
     await p.walkTo(470, 640); p.dir = 'e'; p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
     await say('alan_romans', 'vasco_closed', 'alan_wait', 'alan_documents', 'vasco_loan');
+    p.pose = null;
+    if (v) v.pose = null;
+    await S.withPair('coffee', () => T(1400));
     if (v && window.SPRITES.vasco_coffee) v.pose = 'coffee';
-    p.pose = null; await T(800);
+    const sat = S.vpair('ladder'); await T(800);
     // the Sé strikes nine
     for (let i = 0; i < 9; i++) setTimeout(() => sfx('hour'), window.FAST ? 0 : 400 + i * 1500);
     await G.say('narr_thursday', { offscreen: true });
     await T(window.FAST ? 20 : 5000);
+    if (sat) sat();
   };
 
   // ---------------------------------------------------------------- the register, back at the shop
