@@ -1223,6 +1223,14 @@ window.SPRITES = {
   "fy": 723.0,
   "top": 3.0
  },
+ "pair_cop_belt2": {
+  "w": 489,
+  "hh": 727,
+  "h": 720,
+  "ax": 238.2,
+  "fy": 723.1,
+  "top": 3.1
+ },
  "pair_cop_buttons": {
   "w": 398,
   "hh": 727,
@@ -1248,12 +1256,12 @@ window.SPRITES = {
   "top": 3.1
  },
  "pair_cop_jacket": {
-  "w": 443,
+  "w": 400,
   "hh": 727,
   "h": 720,
-  "ax": 174.2,
-  "fy": 723.1,
-  "top": 3.1
+  "ax": 144.4,
+  "fy": 723.0,
+  "top": 3.0
  },
  "pair_cop_neck": {
   "w": 334,

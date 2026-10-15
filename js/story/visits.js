@@ -73,7 +73,7 @@
 
   const SHELF = 150; // the front of the bookshelf, where the officer's back meets it
   // where the officer's torso starts in each frame (sprite px at chest height); the cuffs frame sets the mark
-  const TORSO = { shelf: 65, jacket: 35, neck: 28, tshirt: 73, buttons: 108, shelf2: 61, belt: 22, belt2: 40, trousers: 29, cuffs: 66 };
+  const TORSO = { shelf: 65, jacket: 61, neck: 28, tshirt: 73, buttons: 108, shelf2: 61, belt: 22, belt2: 57, trousers: 29, cuffs: 66 };
   // the two of them as one painted pair, anchored on the couple's middle (as with Zé)
   async function pair(pose, ms, wall, torso) {
     if (!window.SPRITES[pose]) return; // a frame that was never painted is simply skipped
