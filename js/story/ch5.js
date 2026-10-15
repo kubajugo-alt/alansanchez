@@ -35,6 +35,7 @@
       { name: 'Open grate', rect: [790, 585, 420, 120], at: [760, 645], face: 'e', look: 'narr_look_grate',
         use: async () => {
           if (!F().has_lantern) return say('alan_need_lantern');
+          if (F().vasco_thursday && !F().descent_thought) { F().descent_thought = true; await G.say('narr_descent', { offscreen: true }); }
           await joke('alan_descend'); sfx('stairs'); await G.goRoom('cistern', 'convent');
         } },
       { name: 'Way out', rect: [0, 590, 60, 126], at: [30, 672], exit: 'map', entry: 'convent' },
@@ -128,6 +129,7 @@
       await G.player.walkTo(330, 640); G.player.dir = 'e';
       await say('lacerda_joaquim', 'alan_fin_angry', 'lacerda_spared', 'lacerda_ze', 'lacerda_demand', 'lacerda_font', 'lacerda_interrupted', 'lacerda_father', 'alan_father');
       S.lore && S.lore('father');
+      if (F().vasco_thursday) await say('lacerda_curator', 'alan_thursday_threat');
       await say('ines_warn', 'lacerda_quiet');
       G.checkpoint();
     },
@@ -439,6 +441,7 @@
     await shot('still_shelf', 'antiques', async () => { sfx('clock_chime', 0.6); await say('narr_post'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.15] });
     // the last picture: Alan rings his mother. Then the end.
     await shot('still_phone', 'shop', async () => { await say('narr_call'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.08] });
+    if (S.thursday) await S.thursday(); // Thursday morning, the cloister
     await G.fade(true);
     G.showModal('ending', true);
     await G.fade(false);

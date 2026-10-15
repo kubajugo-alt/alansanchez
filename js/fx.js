@@ -458,6 +458,25 @@
       g.beginPath(); g.arc(50, 60, 9, 0, 7); fillInk(g, lg(g, 41, 51, 59, 69, '#5aa08c', '#24604e'));
       noShadow(g, () => { g.strokeStyle = 'rgba(220,255,240,0.6)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(46, 61); g.quadraticCurveTo(50, 53, 54, 61); g.stroke(); line(g, 44, 64, 56, 64); });
     },
+    // Dr. Teles's card: cream board, the Sé's seal, a pencilled 'quinta'
+    vasco_card(g) {
+      g.translate(48, 48); g.rotate(-0.12); g.translate(-48, -48);
+      rr(g, 14, 28, 68, 40, 3); fillInk(g, lg(g, 14, 28, 82, 68, '#fbf6e6', '#e8dcc0'));
+      noShadow(g, () => {
+        g.strokeStyle = '#7a1d24'; g.lineWidth = 1.6; g.beginPath(); g.arc(28, 42, 6, 0, 7); g.stroke(); line(g, 28, 36, 28, 48);
+        g.fillStyle = '#3a3a4a'; g.fillRect(40, 38, 32, 2.2); g.fillRect(40, 44, 24, 1.6); g.fillRect(22, 54, 44, 1.4);
+        g.strokeStyle = 'rgba(60,60,70,0.7)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(52, 62); g.quadraticCurveTo(58, 57, 64, 61); g.quadraticCurveTo(70, 64, 76, 59); g.stroke();
+      });
+    },
+    // a curved shard of old bell bronze, green with age, one edge bright where it broke
+    sanches_fragment(g) {
+      g.beginPath(); g.moveTo(22, 64); g.quadraticCurveTo(30, 30, 62, 24); g.lineTo(74, 34); g.lineTo(66, 44); g.quadraticCurveTo(44, 50, 40, 72); g.closePath();
+      fillInk(g, lg(g, 22, 24, 74, 72, '#9fb69a', '#5f7d62', '#3e5644'));
+      noShadow(g, () => {
+        g.strokeStyle = 'rgba(232,190,110,0.9)'; g.lineWidth = 2.2; g.beginPath(); g.moveTo(62, 24); g.lineTo(74, 34); g.lineTo(66, 44); g.stroke();
+        g.fillStyle = 'rgba(30,50,40,0.5)'; g.font = 'bold 13px serif'; g.fillText('S', 41, 52);
+      });
+    },
     // Dr. Teles's reserve key, still on its lanyard
     reserve_key(g) {
       noShadow(g, () => { g.strokeStyle = '#7a1d24'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(14, 14); g.quadraticCurveTo(30, 60, 44, 44); g.moveTo(82, 12); g.quadraticCurveTo(66, 58, 50, 44); g.stroke(); });

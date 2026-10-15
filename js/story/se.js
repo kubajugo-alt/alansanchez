@@ -8,14 +8,15 @@
 
   S.CHARS.vasco = { scale: 1.0, frames: {
     idle: ['vasco', 'vasco_idle2'], talk: ['vasco_talk', 'vasco_talk2'], walk: ['vasco_walk1', 'vasco_walk2'],
-    poses: { kneel: 'vasco_kneel', climb: 'vasco_climb' } } };
+    poses: { kneel: 'vasco_kneel', climb: 'vasco_climb', trowel: 'vasco_trowel', coffee: 'vasco_coffee' } } };
+  S.CHARS.alan.frames.poses.coffees = 'alan_coffees'; // Thursday morning: two coffees
   if (window.SPRITES.ines_plaque) S.CHARS.ines.frames.poses.plaque = 'ines_plaque';
 
   // Inês is at the Sé from the plan until she has the register; the shop is empty meanwhile
   const inesAtSe = () => F().ines_plan && !F().heist_done && F().ch === 1;
   S.inesAtSe = inesAtSe;
   // Vasco keeps digging all of Chapter I; in Chapter III he's back in the cloister once, hoping
-  const vascoHere = () => F().ch <= 1 || (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo);
+  const vascoHere = () => F().ch <= 1 || (F().ch === 3 && F().vasco_thursday) || F().thursday;
 
   // Alan's notebook: lore entries collect as they're learned (the page itself is in docs.js)
   S.lore = function (key) {
@@ -101,7 +102,7 @@
   // ================================================================ THE CLOISTER AND THE PIT
   const PIT = [800, 632]; // the pit's near edge, by the ladder
   ROOMS.se_cloister = {
-    name: 'Sé de Lisboa · cloister', bg: 'se_cloister', music: null, ambience: 'cloister', acoustic: 'convent', floor: 'stone',
+    name: 'Sé de Lisboa · cloister', bg: 'se_cloister', bgs: ['se_cloister_morning'], bgFn: () => F().thursday ? 'se_cloister_morning' : 'se_cloister', music: null, ambience: 'cloister', acoustic: 'convent', floor: 'stone',
     // round the open pit, never into it
     walk: [[0, 600], [220, 568], [540, 560], [556, 624], [1064, 618], [1150, 604], [1280, 612], [1280, 716], [0, 716]],
     scale: [565, 250, 716, 345],
@@ -111,6 +112,9 @@
     ],
     entries: { default: [1190, 650, 'w'], se_museum: [1190, 650, 'w'], se_tower: [140, 640, 'e'] },
     anim(g, t) { FX.leaves(g, t, 600, 690, 11); },
+    // Thursday: Vasco stands in the pit, the near rim hides his legs
+    occluders: [{ y: 706, when: () => F().thursday, polys: [[[548, 598], [1064, 598], [1064, 720], [548, 720]]] }],
+    async enter() { if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) await S.cloisterCh3(); },
     npcs: [
       { id: 'vasco', x: 1110, y: 640, dir: 'w', name: 'Dr. Vasco Teles', when: vascoHere, look: 'narr_look_vasco', talk: () => S.talkVasco(),
         items: { any: 'alan_fail_04' } },
@@ -127,7 +131,11 @@
       { name: 'Founder marks', rect: [612, 516, 150, 70], at: [690, 628], face: 'n', look: () => { F().saw_marks = true; return say('narr_look_pitmarks'); } },
       { name: 'Mould fragments', rect: [812, 384, 140, 72], at: [880, 626], face: 'n', look: () => { F().saw_frags = true; return say('narr_look_frags'); } },
       { name: () => F().ch >= 3 && F().decoded ? 'Stair to the bell tower' : 'Chained stair', rect: [25, 150, 190, 420], at: [130, 610], face: 'n',
-        look: 'narr_look_stair', use: () => F().ch >= 3 && F().decoded ? G.goRoom('se_tower', 'map') : say('alan_stair_chained') },
+        look: 'narr_look_stair', use: async () => {
+          if (!(F().ch >= 3 && F().decoded)) return say('alan_stair_chained');
+          if (F().vasco_thursday && !F().stair_beat) { F().stair_beat = true; G.player.dir = 'w'; await say('alan_stair'); }
+          await G.goRoom('se_tower', 'map');
+        } },
       { name: 'Museum', rect: [1130, 200, 130, 330], at: [1200, 630], exit: 'se_museum', entry: 'se_cloister' },
     ],
   };
@@ -135,7 +143,7 @@
   // ---------------------------------------------------------------- Vasco
   S.talkVasco = async function () {
     if (F().heist_done) {
-      if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) { F().vasco_cameo = true; return say('vasco_cameo', 'alan_cameo'); }
+      if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) return S.cloisterCh3();
       return say('vasco_busy');
     }
     if (!F().met_vasco) { F().met_vasco = true; await say('vasco_hello', 'alan_vasco_hello'); }
@@ -286,6 +294,7 @@
     if (v) { v.x = PIT[0] + 80; v.y = PIT[1] + 12; v.dir = 'w'; }
     F().ines_back = true; G.refreshNpcs();
     await say('ines_innocent', 'vasco_flustered', 'vasco_card');
+    give('vasco_card');
     await joke('alan_thursday');
     F().vasco_thursday = true;
     await say('ines_handover');
@@ -315,6 +324,49 @@
   };
   S.ITEMS.brotherhood_charter = { name: 'Charter of the Brotherhood', look: () => S.readCharter() };
   S.ITEMS.reserve_key = { name: "Dr. Teles's reserve key", look: 'alan_lanyard_far' };
+  S.ITEMS.vasco_card = { name: "Dr. Teles's card", look: 'alan_two_numbers' };
+  S.ITEMS.sanches_fragment = { name: 'Fragment of Sanches bronze', look: 'alan_look_fragment' };
+
+  // ================================================================ VASCO'S ARC
+  // Chapter III, on the way to the tower: Vasco climbs out of the pit with something for Alan
+  S.cloisterCh3 = async function () {
+    if (F().vasco_cameo) return;
+    F().vasco_cameo = true;
+    await G.busy(async () => {
+      const p = G.player, v = G.npc('vasco');
+      if (v) { if (window.SPRITES.vasco_climb) { v.pose = 'climb'; await T(700); v.pose = null; } await v.walkTo(p.x + (p.x < 900 ? 150 : -150), p.y); v.dir = v.x > p.x ? 'w' : 'e'; p.dir = v.x > p.x ? 'e' : 'w'; }
+      await say('vasco_fragment');
+      give('sanches_fragment');
+      await say('vasco_sleep', 'alan_fine', 'vasco_thursday_then', 'alan_cameo');
+    });
+  };
+  // after each fling: a moment alone, and the narrator, who isn't fooled
+  S.flingBeat = async function (n, stayDark) {
+    await G.fade(true);
+    await T(900);
+    await G.say('narr_fun_' + n, { offscreen: true });
+    await T(600);
+    if (!stayDark) await G.fade(false);
+  };
+  // Thursday morning, after the call to his mother: the cloister, two coffees, the Romans
+  S.thursday = async function () {
+    if (!F().vasco_thursday) return;
+    F().thursday = true;
+    await G.fade(true); G.endStill();
+    await G.goRoom('se_cloister', 'map', { instant: true, noEnter: true, noSave: true, pos: [260, 650, 'e'] });
+    const p = G.player, v = G.npc('vasco');
+    if (v) { v.x = 812; v.y = 705; v.h = 300; v.dir = 'w'; v.pose = window.SPRITES.vasco_trowel ? 'trowel' : null; }
+    p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
+    await G.fade(false);
+    await p.walkTo(470, 640); p.dir = 'e'; p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
+    await say('alan_romans', 'vasco_closed', 'alan_wait');
+    if (v && window.SPRITES.vasco_coffee) v.pose = 'coffee';
+    p.pose = null; await T(800);
+    // the Sé strikes nine
+    for (let i = 0; i < 9; i++) setTimeout(() => sfx('hour'), window.FAST ? 0 : 400 + i * 1500);
+    await G.say('narr_thursday', { offscreen: true });
+    await T(window.FAST ? 20 : 5000);
+  };
 
   // ---------------------------------------------------------------- the register, back at the shop
   // Inês reads it as soon as Alan walks in; its last page sends him to the tavern
@@ -327,6 +379,7 @@
       await say('ines_irmandade'); S.lore('irmandade');
       await say('ines_register_fado', 'ines_sketch_3');
       F().reserve_raided = true;
+      await say('ines_liked', 'alan_key');
       if (ines) ines.engaged--;
     });
   };

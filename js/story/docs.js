@@ -74,7 +74,7 @@
     { img: PAPER, cls: 'doc-hand', html: `<p>1961 — note for the next man at this bench:</p><p>All my founder locks share one key-square. Ferreira, Bastos, Coutinho, Sanches. Old habit. Old families.</p>` },
   ]);
   S.readNotebook = () => G.closeup([
-    { img: PAPER, cls: 'doc-hand', html: `<p>milk · coffee · sardines (P.)</p><p><i>Sonnet XIV (unfinished)</i><br>The fog sits on the city like a cat…</p><p style="margin-top:2em">Mãe — 22 31 70 4?</p>` },
+    { img: PAPER, cls: 'doc-hand', html: `<p>milk · coffee · sardines (P.)</p><p><i>Sonnet XIV (unfinished)</i><br>The fog sits on the city like a cat…</p><p style="margin-top:2em">Mãe — 22 31 70 4?</p>${F().vasco_thursday ? '<p>Dr. V. Teles — Sé, quintas (card)</p>' : ''}` },
     ...(F().sketched_tile ? [{ img: PAPER, cls: 'doc-hand', html: `<p>The tile: a bell under three waves. Blue on white.</p><svg viewBox="0 0 120 110" style="display:block;width:55%;margin:0.5em auto" fill="none" stroke="#2f3f78" stroke-width="2.4" stroke-linecap="round"><path d="M42 20 Q42 8 60 8 Q78 8 78 20 L86 58 L34 58 Z"/><path d="M30 58 L90 58"/><circle cx="60" cy="64" r="4"/><path d="M10 80 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/><path d="M10 92 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/><path d="M10 104 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/></svg>` }] : []),
     ...(F().founder_order ? [{ img: PAPER, cls: 'doc-hand', html: `<p>Ferreira 1611</p><p>Bastos 1648</p><p>Coutinho 1702</p><p>Sanches 1739</p><p>— ring last to first —</p>` }] : []),
     ...((F().lore || []).length ? [{ img: PAPER, cls: 'doc-hand', html: `<p style="font-family:'IM Fell English',serif;text-align:center">The Bell</p>` +

@@ -70,10 +70,10 @@
       { name: 'Cash register', rect: [850, 212, 180, 170], at: [820, 566], face: 'e', look: () => say(F().coinsTaken ? 'alan_register_empty' : 'alan_look_register'),
         take: async () => { if (F().coinsTaken) return say('alan_register_empty'); F().coinsTaken = true; give('coins', 3); sfx('coin'); await say('alan_take_coins'); } },
       { name: 'Answering machine', rect: [955, 366, 120, 40], at: [830, 570], face: 'e', look: () => say(F().heard_machine ? 'narr_look_machine_heard' : 'narr_look_machine'), use: () => S.playMachine() },
-      { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone() },
+      { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone(), items: { vasco_card: () => S.callVasco() } },
       { name: 'Newspaper', rect: [1035, 400, 222, 62], at: [880, 610], face: 'e', look: () => say('narr_look_news', 'alan_news') },
       { name: 'Salt on the floor', rect: [500, 578, 520, 18], when: () => F().ch >= 5, look: 'narr_look_salt_line' },
-      { name: 'Door to the street', rect: [1025, 10, 205, 390], at: [900, 590], exit: 'street', entry: 'shop', locked: () => !F().heard_machine || (F().ch >= 5 && !F().ledger_found), lockedLine: () => F().ch >= 5 ? 'alan_door_ledger' : 'alan_door_first' },
+      { name: 'Door to the street', rect: [1025, 10, 205, 390], at: [900, 590], exit: 'street', entry: 'shop', locked: () => !F().heard_machine || (F().ch >= 5 && !F().ledger_found) || (F().ch >= 5 && F().ines_plan && !F().rui_called), lockedLine: () => F().ch >= 5 ? (F().ledger_found ? 'alan_call_rui_first' : 'alan_door_ledger') : 'alan_door_first' },
     ],
     async enter() { if (F().ch >= 5 && !F().ines_gone_seen) { F().ines_gone_seen = true; await say('alan_ines_gone'); } },
   };
@@ -125,10 +125,17 @@
         await say('alan_call_rui', 'rui_gate');
         if (F().amalia_box) await say('alan_box_tell', 'rui_murder');
         await say('alan_obituary');
+        if (F().vasco_thursday) await say('rui_withdrawn', 'alan_knew'); // the curator covered for him
       });
       F().rui_called = true; return;
     }
     return say(F().ch >= 2 ? 'alan_phone_later' : 'alan_phone_ch1');
+  };
+
+  // Vasco's card: Alan dials, and hangs up before it can ring
+  S.callVasco = async function () {
+    await posed('phone', async () => { sfx('phone_dial'); await G.wait(window.FAST ? 20 : 1400); sfx('drip_hangup', 0.6); await G.wait(window.FAST ? 20 : 500); });
+    await say('alan_hangup_self');
   };
 
   // ---------- Inês
@@ -239,7 +246,7 @@
       if (F().clock) { g.font = "700 26px 'Cinzel', serif"; g.fillStyle = 'rgba(40,24,10,0.85)'; g.textAlign = 'right'; g.fillText(F().clock, 1240, 690); g.textAlign = 'left'; }
     },
     hotspots: S.PINS.map(m => ({ name: m.text, rect: [m.x - 30, m.y - 60, 60, 80], when: m.open,
-      exit: m.id === 'convent' ? (() => F().ch >= 5 ? 'convent_night' : 'convent') : m.id, entry: 'map', look: () => G.goRoom(m.id === 'convent' && F().ch >= 5 ? 'convent_night' : m.id, 'map') })),
+      exit: m.go || (m.id === 'convent' ? (() => F().ch >= 5 ? 'convent_night' : 'convent') : m.id), entry: 'map', look: () => G.goRoom(m.go ? m.go() : m.id === 'convent' && F().ch >= 5 ? 'convent_night' : m.id, 'map') })),
     labels: S.PINS.map(m => ({ x: m.x, y: m.y - 14, text: m.text, when: m.open })),
     enter() { for (const m of S.PINS) if (m.open()) F()['seen_' + m.id] = true; },
   };

@@ -237,6 +237,8 @@
     page() { burst(ctx.currentTime, 0.12, 'highpass', 2500, 0.7, 0.03); },
     // the Sé striking the quarter overhead: four notes, distant and wet
     quarter() { const t = ctx.currentTime; [N(76), N(72), N(74), N(67)].forEach((f, i) => { bell(f, t + i * 0.7, 0.05, sfxBus); bell(f, t + i * 0.7, 0.03, reverb); }); },
+    // the Sé's hour bell, one stroke
+    hour() { const t = ctx.currentTime; bell(N(45), t, 0.12, sfxBus); bell(N(45), t, 0.06, reverb); },
     // a trowel dropped on brick: a bright clank and a skitter
     trowel() { const t = ctx.currentTime; for (const [d, f, v] of [[0, 2300, 0.07], [0.09, 1700, 0.04], [0.21, 2600, 0.025]]) { tone(f, t + d, 0.25, v, 'triangle', sfxBus); tone(f * 1.53, t + d, 0.18, v * 0.6, 'sine', sfxBus); } burst(t, 0.08, 'highpass', 3000, 0.8, 0.04); },
     splash() {

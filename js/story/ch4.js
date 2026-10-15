@@ -317,6 +317,7 @@
     G.refreshNpcs();
     await say('alan_turned', 'ze_knew', 'alan_two_sentences');
     await S.romance();
+    if (S.flingBeat) await S.flingBeat(3);
     const ze = G.npc('ze'); ze.pose = 'give';
     await say('ze_knife'); give('knife'); ze.pose = null;
     await say('alan_pessoa_mention');
