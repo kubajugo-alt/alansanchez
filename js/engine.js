@@ -102,7 +102,7 @@
         if (gd <= step) { this.x = this.target.x; this.y = this.target.y; }
         // the cycle advances by ground covered, so planted feet never slide
         const cyc = this.cycle();
-        this.phase += moved / (hh * (cyc.length >= 8 ? 0.085 : 0.17));
+        this.phase += moved / (hh * (this.c.frameStep || (cyc.length >= 8 ? 0.085 : 0.17))); // frameStep: ground per frame (a 4-frame stride + passing cycle uses half)
         const idx = Math.floor(this.phase) % cyc.length;
         if (idx !== this.stepIdx) {
           this.stepIdx = idx;

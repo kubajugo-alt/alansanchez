@@ -1,6 +1,6 @@
 # Re-composites figures painted on a flat grey backdrop onto white, so
 # matte.py's white keying works:  python3 scripts/greykey.py file.png [...]
-import sys, numpy as np
+import os, sys, numpy as np
 from PIL import Image
 from scipy import ndimage as ndi
 for f in sys.argv[1:]:
@@ -15,7 +15,16 @@ for f in sys.argv[1:]:
     edge = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
     # also enclosed pockets of backdrop (between legs, under arms, inside a stool)
     sizes = ndi.sum(np.ones_like(lab), lab, range(1, n + 1))
-    edge |= {i + 1 for i, sz in enumerate(sizes) if sz > 250}
+    big = {i + 1 for i, sz in enumerate(sizes) if sz > 250}
+    if os.environ.get('KEEP_PALE_POCKETS'):
+        # a pale grey shirt can match the backdrop: a pocket ringed by pale, unsaturated
+        # paint is shirt, not a gap under an arm (those are ringed by jacket, skin or shadow)
+        for i in list(big - edge):
+            z = lab == i
+            ring = ndi.binary_dilation(z, iterations=6) & ~z & ~flat
+            c = im[ring].mean(0) if ring.any() else np.zeros(3)
+            if c.min() > 85 and c.max() - c.min() < 20: big.discard(i)
+    edge |= big
     # tiny pockets (inside hair curls) only when they match the backdrop closely
     close = ndi.mean(d, lab, range(1, n + 1))
     edge |= {i + 1 for i, sz in enumerate(sizes) if 6 <= sz <= 250 and close[i] < 6}
