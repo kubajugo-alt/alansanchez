@@ -1383,6 +1383,14 @@ window.SPRITES = {
   "fy": 723.7,
   "top": 3.7
  },
+ "pair_guitar_l2": {
+  "w": 341,
+  "hh": 727,
+  "h": 720,
+  "ax": 126.7,
+  "fy": 723.3,
+  "top": 3.3
+ },
  "pair_guitar_lasso": {
   "w": 483,
   "hh": 727,
@@ -1398,6 +1406,22 @@ window.SPRITES = {
   "ax": 205.3,
   "fy": 723.0,
   "top": 3.0
+ },
+ "pair_guitar_p1": {
+  "w": 380,
+  "hh": 726,
+  "h": 720,
+  "ax": 278.9,
+  "fy": 722.9,
+  "top": 2.9
+ },
+ "pair_guitar_p2": {
+  "w": 467,
+  "hh": 727,
+  "h": 720,
+  "ax": 218.7,
+  "fy": 723.1,
+  "top": 3.1
  },
  "pair_guitar_s1": {
   "w": 558,
