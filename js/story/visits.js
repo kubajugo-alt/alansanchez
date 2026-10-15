@@ -71,7 +71,7 @@
     g.restore();
   };
 
-  const SHELF = 236; // the front of the bookshelf, where the officer's back meets it
+  const SHELF = 150; // the front of the bookshelf, where the officer's back meets it
   // the two of them as one painted pair, anchored on the couple's middle (as with Zé)
   async function pair(pose, ms, wall) {
     if (!window.SPRITES[pose]) return; // a frame that was never painted is simply skipped
