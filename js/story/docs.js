@@ -121,6 +121,7 @@
   S.drawerLock = function () {
     const code = F().lock_digits || (F().lock_digits = [0, 0, 0, 0]);
     let solved = false;
+    if (window.FAST && code.join('') === '0312') { F().drawer_unlocked = true; return Promise.resolve(true); } // test hook: digits pre-set
     return G.closeup([{ img: PAPER, cls: 'land', canvas: { w: 640, h: 400, draw(c) {
       const g = c.getContext('2d');
       const W = [130, 230, 330, 430], WY = 200;

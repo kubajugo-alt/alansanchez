@@ -51,7 +51,8 @@
   };
 
   // plays before the title card; returns when the screen is black again
-  S.coldOpen = async function () {
+  S.coldOpen = function () { return G.busy(coldOpen); };
+  async function coldOpen() {
     if (!G.image('bg:cold_open')) return;
     water = 0; tileOn = true;
     await G.fade(true);
@@ -77,5 +78,5 @@
       tileOn = true; await T(900);
       await G.fade(true);
     } finally { G.cutscene = false; water = 0; if (m) m.pose = null; }
-  };
+  }
 })();

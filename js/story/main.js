@@ -120,9 +120,11 @@
     if (PREVIEW[scene]) return preview(scene);
     G.giveItem('notebook', true);
     F().ch = 1; F().clock = '11:00';
-    if (S.coldOpen) await S.coldOpen(); // Madragoa, 04:01: Maria Coutinho
-    await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);
-    await G.fade(false);
+    await G.busy(async () => {
+      if (S.coldOpen) await S.coldOpen(); // Madragoa, 04:01: Maria Coutinho
+      await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);
+      await G.fade(false);
+    });
     await G.showStill('still_intro', () => say('narr_intro_1', 'narr_intro_2'), { zoom: [1.0, 1.16], pan: [[0.4, 0.55], [0.6, 0.5]], keep: true });
     await G.goRoom('shop', null, { noEnter: true, instant: true, pos: [815, 616, 'e'] }); // forearms resting on the counter top
     G.player.pose = 'asleep';
