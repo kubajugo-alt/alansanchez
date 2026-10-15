@@ -103,7 +103,10 @@
   }
   // after the painting: the visitor stays where the painting left him; Alan pulls
   // his clothes back on (black briefs -> jeans -> t-shirt -> jacket) and goes down
-  async function afterwards(state, theirLine, alanLine, tail, coda) {
+  // after the painting: the visitor stays where the painting left him while Alan pulls
+  // his clothes back on (black briefs -> jeans -> t-shirt -> jacket) and goes down.
+  // beats: [dressing stage, ...lines], played in order; coda: the last word, alone in the room
+  async function afterwards(state, beats, coda) {
     const p = G.player, ready = ['cop_bed', 'guitar_floor'].includes(state) && window.SPRITES[state === 'cop_bed' ? 'cop_side1' : 'guitar_floor1'];
     visitor = ready ? state : (state === 'cop_bed' ? 'cop' : 'guitar');
     G.refreshNpcs(true);
@@ -111,18 +114,18 @@
     const dress = k => { p.pose = window.SPRITES['alan_dress' + k] ? 'alan_dress' + k : null; };
     p.x = 640; p.y = 650; p.dir = 'e'; dress(1);
     await T(500); await G.fade(false); await T(900); // let the painting finish fading first
-    await say(theirLine);
-    dress(2); for (let i = 0; i < 4; i++) { p.x -= 5; await T(160); }
-    dress(3); await T(800);
-    await say(alanLine);
-    dress(4); await T(700);
-    if (tail) await say(...tail);
+    for (const [stage, ...lines] of beats) {
+      if (typeof stage === 'function') { await stage(); continue; }
+      dress(stage); if (stage === 2) for (let i = 0; i < 4; i++) { p.x -= 5; await T(140); } else await T(500);
+      if (lines.length) await say(...lines);
+    }
     await T(300); p.pose = null;
     p.dir = 'w'; await p.walkTo(150, 690); // out past the bookshelf, down the stairs
     sfx('stairs', 0.6);
     if (coda) { await T(500); await say(coda); } // whoever is left behind gets the last word
     await downstairs(state === 'cop_bed' ? ['ines_back_cop', 'alan_back_cop'] : ['ines_back_guitar', 'alan_back_guitar']);
   }
+
   // a line at a time, Alan's pose changing with it (null: his own talking animation)
   async function beats(...list) {
     const p = G.player;
@@ -148,7 +151,10 @@
       // Alan takes the lead: against the bookshelf, the shirt, the neck
       // the officer backed against the room's own bookshelf, Alan very much in charge
       const home = p.x; if (v) { p.x = 410; v.visible = false; }
-      const shelf = (k, ms) => pair('pair_cop_' + k, ms, SHELF, TORSO[k]);
+      // a breath, a gasp, a groan as each frame lands (sound only, no caption)
+      const VOX = { neck: 'v_cop_moan', shelf: 'v_cop_gasp', jacket: 'v_alan_mmm', tshirt: 'v_cop_whimper', buttons: 'v_alan_groan',
+        shelf2: 'v_cop_moan', belt: 'v_cop_gasp', belt2: 'v_alan_mmm', trousers: 'v_cop_whimper', cuffs_a: 'v_alan_chuckle', cuffs_b: 'v_cop_gasp' };
+      const shelf = (k, ms) => { if (VOX[k] && window.SPRITES['pair_cop_' + k]) { sfx(VOX[k], 0.55); ms = Math.max(ms, 1300); } return pair('pair_cop_' + k, ms, SHELF, TORSO[k]); };
       p.dir = 'e'; sfx('sheet_slap', 0.2); await shelf('neck', 900); // straight into his neck, backed against the shelf
       await say('phone_room_2', 'alan_room_cop_2');
       await shelf('shelf', 600); // then his wrists, pinned above his head
@@ -159,7 +165,7 @@
       await shelf('buttons', 1200);
       await say('alan_room_cop_4', 'phone_room_4');
       // the bookshelf, close up: his shirt open, the books going over
-      sfx('sheet_slap', 0.25);
+      sfx('sheet_slap', 0.25); sfx('v_cop_moan', 0.5);
       await G.showStill('still_cop_shelf', () => G.say('narr_room_cop', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.45, 0.4]], keep: true });
       await G.fade(true); G.endStill(); await shelf('shelf2', 0); await T(300); await G.fade(false);
       await T(2200); // back in the room: the shirt open, his hand on the officer's chest
@@ -181,15 +187,20 @@
         await G.fade(true);
         await G.showStill('still_cop_cuffed', async () => {
           await G.fade(false);
-          await G.say('narr_cuff', { offscreen: true });
-          await say('phone_cuff_2', 'alan_cuff_3', 'phone_cuff_3', 'alan_cuff_4', 'phone_cuff_4');
-          await say('ines_cuff', 'alan_cuff_5');
-          await T(600); await say('phone_cuff_5', 'alan_cuff_6');
-          sfx('lamp_click', 0.6);
+          sfx('v_cop_whimper', 0.5); await T(900);
+          await G.say('narr_cuff', { offscreen: true }); // over the painting, only the narrator
+          sfx('v_alan_chuckle', 0.45); await T(1200);
         }, { zoom: [1.0, 1.1], pan: [[0.45, 0.5], [0.55, 0.5]], keep: true });
       }
       await G.fade(true); G.endStill();
-      await afterwards('cop_bed', 'phone_room_3', 'alan_room_cop_3', ['phone_after_1', 'alan_after_1'], 'phone_after_2');
+      await afterwards('cop_bed', [
+        [1, 'phone_key_1', 'alan_key_1'],           // the key turns up in his hat
+        [2, 'phone_key_2'],
+        [() => { sfx('v_alan_chuckle', 0.5); return T(700); }],
+        [3, 'alan_key_2', 'phone_key_3', 'alan_key_3'], // ...and goes in Alan's pocket
+        [() => say('ines_cuff', 'alan_cuff_5')],      // the station is asking after its officer
+        [4, 'alan_after_1'],                          // "Ten minutes. Don't go anywhere, Officer."
+      ], 'phone_after_2');
     });
   };
 
@@ -205,7 +216,12 @@
       // the same energy from both sides: shirts off together, and a race for the bed
       const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
       p.dir = 'e'; // Duarte on the left, Alan on the right
-      const g = async (k, ...lines) => { await pair('pair_guitar_' + k, 450); if (lines.length) await say(...lines); };
+      const VOX = { jackets: 'v_duarte_hum', j2: 'v_alan_mmm', u1: 'v_duarte_laugh', s2: 'v_alan_chuckle', d1: 'v_duarte_hum', d2: 'v_duarte_groan',
+        h1: 'v_duarte_laugh', underwear: 'v_alan_groan', p1: 'v_duarte_groan', p2: 'v_alan_sigh' };
+      const g = async (k, ...lines) => {
+        const vox = VOX[k] && window.SPRITES['pair_guitar_' + k]; if (vox) sfx(VOX[k], 0.55);
+        await pair('pair_guitar_' + k, vox ? 1200 : 450); if (lines.length) await say(...lines);
+      };
       await g('j0', 'guitar_room_5', 'alan_room_guitar_4');               // lapels: "Shall we tune up?"
       sfx('sheet_slap', 0.25);
       await g('jackets', 'guitar_room_10', 'alan_room_guitar_9');         // peeling the leather off
@@ -230,9 +246,12 @@
       await g('p1', 'alan_room_guitar_17', 'guitar_room_16');             // hold on to something
       await g('p2');
       await say('guitar_room_9');
+      sfx('v_alan_sigh', 0.5);
       await G.showStill('still_guitar_bed', () => G.say('narr_room_guitar', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.55, 0.5], [0.5, 0.45]], keep: true });
       await G.fade(true); G.endStill();
-      await afterwards('guitar_floor', 'guitar_room_3', 'alan_room_guitar_2', null, 'guitar_after_1');
+      await afterwards('guitar_floor', [
+        [1, 'guitar_room_3'], [2], [3, 'alan_room_guitar_2'], [4],
+      ], 'guitar_after_1');
     });
   };
 

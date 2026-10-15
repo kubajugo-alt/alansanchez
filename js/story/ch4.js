@@ -339,15 +339,15 @@
       // the two of them as one painted pair: Zé on the left, Alan on the right
       const home = p.x, mid = ze ? (ze.x + p.x) / 2 : p.x; // pair frames are anchored on the couple's middle
       if (ze) ze.visible = false;
-      p.x = mid; p.dir = 'e'; p.pose = 'pair_unbutton'; sfx('sheet_slap', 0.2);
+      p.x = mid; p.dir = 'e'; p.pose = 'pair_unbutton'; sfx('sheet_slap', 0.2); sfx('v_ze_sigh', 0.5);
       await T(2200);
-      p.pose = 'pair_kiss'; await T(2000);
-      p.pose = 'pair_brow'; await T(1400);
+      p.pose = 'pair_kiss'; sfx('v_alan_mmm', 0.5); await T(1200); sfx('v_ze_moan', 0.45); await T(1300);
+      p.pose = 'pair_brow'; sfx('v_alan_sigh', 0.45); await T(1600);
       await G.showStill('still_ze_kiss', () => G.say('narr_rom_1', { offscreen: true }), { zoom: [1.02, 1.16], pan: [[0.5, 0.45], [0.5, 0.4]], keep: true });
       // a quick tumble onto the bunk, the same night
       await G.fade(true); await T(600);
       await G.showStill('still_ze_bunk', async () => {
-        await G.fade(false);
+        await G.fade(false); sfx('v_alan_groan', 0.45); await T(700); sfx('v_ze_moan', 0.4); await T(900);
         await G.say('narr_rom_2', { offscreen: true });
       }, { zoom: [1.0, 1.1], pan: [[0.55, 0.55], [0.6, 0.5]], keep: true });
       await G.fade(true); G.endStill();
