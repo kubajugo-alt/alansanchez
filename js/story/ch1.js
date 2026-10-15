@@ -266,7 +266,7 @@
       FX.motes(g, t, 700, 220, 340, 420, 22, '235,238,240');
     },
     npcs: [
-      { id: 'rui', x: 520, y: 560, h: 365, dir: 'e', at: [520, 640], name: 'Inspector Mendonça', look: 'narr_look_rui', talk: () => S.talkRui(),
+      { id: 'rui', x: 836, y: 560, h: 365, dir: 'w', at: [790, 645], name: 'Inspector Mendonça', look: 'narr_look_rui', talk: () => S.talkRui(),
         items: { coffee: () => say('rui_coffee'), file55: () => say('rui_times'), any: 'alan_fail_rui_item' } },
     ],
     ambient: [
