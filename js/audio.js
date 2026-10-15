@@ -235,6 +235,10 @@
       }
     },
     page() { burst(ctx.currentTime, 0.12, 'highpass', 2500, 0.7, 0.03); },
+    // the Sé striking the quarter overhead: four notes, distant and wet
+    quarter() { const t = ctx.currentTime; [N(76), N(72), N(74), N(67)].forEach((f, i) => { bell(f, t + i * 0.7, 0.05, sfxBus); bell(f, t + i * 0.7, 0.03, reverb); }); },
+    // a trowel dropped on brick: a bright clank and a skitter
+    trowel() { const t = ctx.currentTime; for (const [d, f, v] of [[0, 2300, 0.07], [0.09, 1700, 0.04], [0.21, 2600, 0.025]]) { tone(f, t + d, 0.25, v, 'triangle', sfxBus); tone(f * 1.53, t + d, 0.18, v * 0.6, 'sine', sfxBus); } burst(t, 0.08, 'highpass', 3000, 0.8, 0.04); },
     splash() {
       const t = ctx.currentTime, n = ctx.sampleRate * 1.2, buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
       for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
@@ -344,6 +348,12 @@
     cistern: { setup() { hum(55, 0.004); bed('lowpass', 200, 0.7, 0.02, 0.05); }, tick(t) { if (Math.random() < 0.06) drip(t, 0.6 + Math.random() * 0.6); } },
     washhouse: { recordedOnly: true, setup() { bed('bandpass', 1800, 0.4, 0.02, 0.2); }, tick(t) { if (Math.random() < 0.02) burst(t, 0.25, 'lowpass', 600, 0.8, 0.05, 0.3); } },
     harbour: { recordedOnly: true, setup() { bed('lowpass', 400, 0.5, 0.03, 0.07); }, tick(t) { if (Math.random() < 0.03) gull(t, 0.8); } },
+    // the Sé cloister: stone and pigeons, an organ practising somewhere inside, the quarters overhead
+    cloister: { setup() { bed('bandpass', 420, 0.6, 0.035, 0.1); }, tick(t, s) {
+      if (Math.random() < 0.01) coo(t);
+      if (s % 90 === 20) { const root = [N(43), N(48), N(45), N(41)][Math.floor(s / 90) % 4]; pad([root, root * 1.5, root * 2], t, 9, 0.006); }
+      if (s % 450 === 300) SFX.quarter();
+    } },
     tower: { recordedOnly: true, setup() { bed('bandpass', 500, 0.6, 0.04, 0.12); }, tick(t) { if (Math.random() < 0.01) coo(t); } },
     boat: { recordedOnly: true, setup() { bed('lowpass', 300, 0.6, 0.03, 0.08); }, tick() {} },
   };

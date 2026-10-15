@@ -264,15 +264,18 @@
   // the rolling gag: everyone who saw Alan with the officer or Duarte has something to say about it,
   // and Alan denies everything. One remark per conversation, each said once, in order.
   const GOSSIP = {
-    ines: [['ines_gossip_1', 'alan_deny_ines_1', 'visit_cop'], ['ines_gossip_2', 'alan_deny_ines_2', 'visit_guitar'], ['ines_gossip_3', 'alan_deny_ines_3']],
+    ines: [['ines_gossip_1', 'alan_deny_ines_1', 'visit_cop'], ['ines_gossip_2', 'alan_deny_ines_2', 'visit_guitar'], ['ines_gossip_3', 'alan_deny_ines_3'],
+      ['ines_gossip_4', 'alan_deny_ines_4', 'vasco_thursday'], ['ines_gossip_5', 'alan_deny_ines_5', 'vasco_thursday']],
     celeste: [['celeste_gossip_1', 'alan_deny_celeste_1'], ['celeste_gossip_2', 'alan_deny_celeste_2', 'visit_guitar']],
     amalia: [['amalia_gossip_1', 'alan_deny_amalia_1', 'visit_guitar'], ['amalia_gossip_2', 'alan_deny_amalia_2']],
-    rui: [['rui_gossip_1', 'alan_deny_rui_1', 'visit_cop'], ['rui_gossip_2', 'alan_deny_rui_2', 'visit_cop']],
+    rui: [['rui_gossip_1', 'alan_deny_rui_1', 'visit_cop'], ['rui_gossip_2', 'alan_deny_rui_2', 'visit_cop'], ['rui_gossip_3', 'alan_deny_rui_3', 'vasco_thursday']],
+    // Chapter III: the Sé's bell-ringer and the Carmo's priest have both noticed the curator
+    abilio: [['abilio_gossip_1', 'alan_deny_abilio_1', 'vasco_thursday']],
+    tomas: [['tomas_gossip_1', 'alan_deny_tomas_1', 'vasco_thursday']],
   };
   S.gossip = async function (who) {
-    if (!F().visit_cop && !F().visit_guitar) return;
     const said = F().gossip || (F().gossip = {});
-    const next = (GOSSIP[who] || []).find(([line, , needs]) => !said[line] && (!needs || F()[needs]));
+    const next = (GOSSIP[who] || []).find(([line, , needs]) => !said[line] && (needs ? F()[needs] : F().visit_cop || F().visit_guitar));
     if (!next) return;
     said[next[0]] = true;
     await say(next[0]);

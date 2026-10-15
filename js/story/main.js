@@ -43,7 +43,7 @@
 
   // ---------------------------------------------------------------- art the engine preloads
   window.STILLS = ['still_intro', 'still_1755', 'still_1955_a', 'still_1955_b', 'still_1955_c', 'still_city_morning', 'still_drawer', 'still_shop_after',
-    'still_phone', 'still_amalia_box', 'still_tavern_full', 'still_quay_sweater', 'still_abilio_ring', 'still_jacket', 'still_shelf', 'still_ze_kiss', 'still_ze_bunk', 'still_cop_shelf', 'still_guitar_bed', 'still_cop_cuffed'];
+    'still_phone', 'still_amalia_box', 'still_tavern_full', 'still_quay_sweater', 'still_abilio_ring', 'still_jacket', 'still_shelf', 'still_ze_kiss', 'still_ze_bunk', 'still_cop_shelf', 'still_guitar_bed', 'still_cop_cuffed'].concat(window.EXTRA_STILLS || []);
   window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks'];
 
   // ---------------------------------------------------------------- new game
@@ -71,6 +71,10 @@
     // the visits: walk into the shop from the street with Inês minding it
     visitcop: { flags: { ch: 2, heard_machine: true, flirted_cop: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
     visitguitar: { flags: { ch: 2, heard_machine: true, flirted_guitar: true, visit_cop: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
+    // the Sé: the museum with Inês, and the cloister with the dig questions done (Vasco about to show Alan the pit)
+    semuseum: { flags: { ch: 1, heard_machine: true, knows_brotherhood: true, ines_plan: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('se_museum', 'map') },
+    sepit: { flags: { ch: 1, heard_machine: true, knows_brotherhood: true, ines_plan: true, se_visited: true, se_exhibits: 4, se_plan_on: true, saw_pit: true, saw_marks: true, saw_frags: true, met_vasco: true },
+      room: 'se_cloister', pos: [1000, 650, 'w'], run: () => S.talkVasco() },
   };
   async function preview(k) {
     const P = PREVIEW[k];

@@ -70,7 +70,7 @@
   // ---------------------------------------------------------------- items
   const posedLook = (pose, id) => () => S.posed(pose, () => say(id));
   S.ITEMS = {
-    notebook: { name: 'Notebook', look: posedLook('write', 'alan_look_notebook') },
+    notebook: { name: 'Notebook', look: async () => { await S.readNotebook(); await S.posed('write', () => say('alan_look_notebook')); } },
     sketch: { name: 'Sketch of the tile', look: 'alan_look_sketch' },
     bunktile: { name: 'Blue tile', look: 'narr_look_bunktile', with: { tongue: () => S.breakTile() } },
     coins: { name: () => F().coins === 1 ? 'One escudo coin' : `${F().coins || 0} escudo coins`, look: 'alan_look_coins' },
@@ -139,6 +139,7 @@
     { id: 'lavadouro', x: 1150, y: 415, text: 'Lavadouro do Alfama', open: () => F().drawer_open && (F().ch || 1) <= 4 },
     { id: 'ferreira', x: 600, y: 390, text: 'Relojoaria Ferreira · Baixa', open: () => F().drawer_open && (F().ch || 1) <= 3 },
     { id: 'convent', x: 262, y: 318, text: () => F().ch >= 5 ? 'Convento do Carmo · midnight' : 'Convento do Carmo', open: () => (F().ch2_done && F().ch <= 3) || F().ledger_found },
+    { id: 'se_museum', x: 828, y: 352, text: 'Sé de Lisboa · museum', open: () => !!F().ines_plan },
     { id: 'se_tower', x: 870, y: 300, text: 'Sé de Lisboa · bell tower', open: () => F().decoded && F().ch <= 4 },
     { id: 'antiques', x: 410, y: 440, text: 'Antiguidades Lacerda · Chiado', open: () => F().decoded && !F().has_tongue },
     { id: 'cais', x: 250, y: 585, text: 'Cais do Sodré', open: () => (F().genealogy_read || F().ch3_done) && F().ch === 4 },
@@ -152,6 +153,15 @@
     if (!f.saw_list && !f.sketched_tile) return 'ines_hint_police';
     if (!f.sketched_tile) return 'ines_hint_sketch';
     if (!f.knows_brotherhood) return 'ines_hint_show';
+    if (f.ines_plan && !f.reserve_raided) {
+      if (f.heist_done) return 'ines_hint_register';
+      if (!f.se_visited) return 'ines_hint_se';
+      if (!(f.se_exhibits >= 4) || !f.se_plan_on) return 'ines_hint_exhibits';
+      if (!(f.dig_questions >= 3)) return 'ines_hint_dig';
+      if (!f.lanyard_taken) return 'ines_hint_lanyard';
+      if (!f.key_tossed) return 'ines_hint_toss';
+      return 'ines_hint_pit';
+    }
     if (!f.heard_song) return f.askedSong ? 'ines_hint_song' : 'ines_hint_amalia';
     if (!f.drawer_open) return !f.askedDrawer ? 'ines_hint_1955' : (f.salt_seen ? 'ines_hint_drawer' : 'ines_hint_look');
     if (!f.met_celeste || !f.tide_known) {
@@ -160,6 +170,7 @@
       return f.ferreira_lit ? 'ines_hint_tide' : 'ines_hint_ferreira';
     }
     if (!f.knows_1955_boy) return 'ines_hint_file';
+    if (!f.decoded && f.ch2_done && S.needBells && S.needBells()) return f.charter_shown ? 'ines_hint_bells2' : 'ines_hint_bells';
     if (!f.decoded) return f.stone_washed ? (f.stone_read ? 'ines_hint_wheel' : 'ines_hint_mag') : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
     if (!f.founder_order) return 'ines_hint_order';
     if (!f.has_tongue) return !(has('vkey') && f.case_known) ? 'ines_hint_case' : (!has('weight') ? 'ines_hint_theft' : 'ines_hint_box');

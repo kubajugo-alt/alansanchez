@@ -36,7 +36,7 @@
       if (F().ch === 3 && F().steaming) FX.wisps(g, t, 520, 345, { n: 6, rise: 80, spread: 10, a: 0.14, size: 10 });
     },
     npcs: [
-      { id: 'ines', x: 610, y: 590, dir: 'w', name: 'Inês', when: () => F().ch < 5 && !(F().ch === 4 && F().ze_saved), look: 'narr_look_ines', talk: () => S.talkInes(),
+      { id: 'ines', x: 610, y: 590, dir: 'w', name: 'Inês', when: () => F().ch < 5 && !(F().ch === 4 && F().ze_saved) && !(S.inesAtSe && S.inesAtSe() && F().se_visited), look: 'narr_look_ines', talk: () => S.talkInes(),
         items: { sketch: () => S.inesSketch(), notebook: () => S.inesSketch(), ledger: () => S.inesLedger(), tongue: () => say('ines_vandal'), any: 'alan_fail_ines_item' } },
       { id: 'pessoa', h: 46, x: 0, y: 0, dir: 'w', fixedDir: true, name: 'Pessoa', when: () => !(F().ch >= 5 && F().pessoa_fed), init: a => { const p = PESSOA_AT[pessoaSpot()]; a.x = p[0]; a.y = p[1]; a.dir = p[2]; },
         look: () => say(pessoaSpot() === 'machine' ? 'alan_look_pessoa_machine' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_look_pessoa'),
@@ -144,6 +144,7 @@
       { line: 'alan_ask_ines_work', once: true, run: () => say('ines_work') },
       // bells only once the sketch has put them on the table
       { line: 'alan_ask_ines_grandpa', once: true, when: () => F().knows_brotherhood, run: () => say('ines_grandpa') },
+      { line: 'alan_ask_ines_fate', once: true, when: () => F().deaths_known && F().ines_plan, run: () => say('ines_fate') },
       { label: 'Goodbye.', bye: true, run: () => say('ines_bye') },
     ]);
   };
@@ -153,8 +154,10 @@
     await say('alan_show_sketch', 'ines_sketch_1', 'ines_sketch_2');
     if (F().saw_list) { await say('ines_sketch_founders'); await joke('alan_founders'); }
     if (F().mag_monster) await say('ines_monster');
-    await say('ines_sketch_3');
-    F().knows_brotherhood = true;
+    await say('ines_reserve', 'ines_plan', 'alan_why', 'ines_why');
+    await S.posed('fluster', () => say('alan_deny_why'));
+    F().knows_brotherhood = true; F().ines_plan = true; // ines_sketch_3 (the fado lead) now plays when she reads the register
+    G.refreshNpcs();
   };
   S.inesLedger = async function () {
     if (F().ch === 3 && F().has_tongue && F().founder_order) return S.ch3End();
@@ -199,7 +202,7 @@
       { name: 'The Alfama', rect: [600, 90, 300, 440], look: 'narr_look_street' },
       { name: 'Tram', rect: [0, 560, 1280, 160], when: () => S.tramVisible(), look: 'alan_npc_tram' },
       { name: 'Livraria Sanchez', rect: [322, 335, 95, 205], at: [368, 595], exit: 'shop', entry: 'street' },
-      { name: 'Taberna da Saudade', rect: [1035, 280, 90, 270], at: [1078, 612], exit: 'tavern', entry: 'street', look: 'narr_look_tavern_door', locked: () => !F().knows_brotherhood && !F().heard_song, lockedLine: 'alan_tavern_shut' },
+      { name: 'Taberna da Saudade', rect: [1035, 280, 90, 270], at: [1078, 612], exit: 'tavern', entry: 'street', look: 'narr_look_tavern_door', locked: () => !F().heard_song && !(F().reserve_raided || (F().knows_brotherhood && !F().ines_plan)), lockedLine: 'alan_tavern_shut' },
       { name: 'Tram 28 stop', rect: [515, 255, 55, 280], at: [548, 612], exit: 'map', entry: 'street', look: 'narr_look_tram' },
     ],
   };
@@ -317,7 +320,7 @@
     await say('alan_lacerda_name');
     await say('rui_times', 'rui_avo', 'rui_key');
     give('fkey'); await say('alan_accident');
-    F().deaths_known = true;
+    F().deaths_known = true; S.lore && S.lore('file1955');
   };
   S.talkRui = async function () {
     if (!F().metRui) { F().metRui = true; await say('rui_hello'); await joke('alan_rui_hello'); }
@@ -419,7 +422,7 @@
       am.set = 'sing';
       await say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3');
     } finally { am.set = null; G.cutscene = false; }
-    await say('amalia_menino', 'amalia_after_song');
+    await say('amalia_menino', 'amalia_baptised', 'amalia_after_song');
     await joke('alan_ringer'); await say('amalia_called');
     await say('amalia_1955');
     F().heard_song = true;

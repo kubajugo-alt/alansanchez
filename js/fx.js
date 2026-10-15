@@ -449,6 +449,21 @@
         g.strokeStyle = 'rgba(190,20,20,0.85)'; g.lineWidth = 1.8; g.beginPath(); g.ellipse(48, 57, 12, 5, -0.08, 0, 7); g.stroke();
       });
     },
+    // the Brotherhood's charter: a rolled parchment with a sea-green wax seal
+    brotherhood_charter(g) {
+      g.translate(48, 48); g.rotate(-0.5); g.translate(-48, -48);
+      rr(g, 20, 34, 58, 30, 4); fillInk(g, lg(g, 20, 34, 78, 64, '#f3e6c4', '#dcc79a', '#b89c68'));
+      for (const x of [20, 78]) { g.beginPath(); g.ellipse(x, 49, 5, 15, 0, 0, 7); fillInk(g, lg(g, x - 5, 34, x + 5, 64, '#e8d6ac', '#b09060')); }
+      noShadow(g, () => { g.strokeStyle = 'rgba(90,60,30,0.35)'; g.lineWidth = 1; for (const y of [41, 47, 53]) line(g, 30, y, 66, y); });
+      g.beginPath(); g.arc(50, 60, 9, 0, 7); fillInk(g, lg(g, 41, 51, 59, 69, '#5aa08c', '#24604e'));
+      noShadow(g, () => { g.strokeStyle = 'rgba(220,255,240,0.6)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(46, 61); g.quadraticCurveTo(50, 53, 54, 61); g.stroke(); line(g, 44, 64, 56, 64); });
+    },
+    // Dr. Teles's reserve key, still on its lanyard
+    reserve_key(g) {
+      noShadow(g, () => { g.strokeStyle = '#7a1d24'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(14, 14); g.quadraticCurveTo(30, 60, 44, 44); g.moveTo(82, 12); g.quadraticCurveTo(66, 58, 50, 44); g.stroke(); });
+      g.translate(42, 46); g.rotate(1.2);
+      keyShape(g, ['#f4e2a0', '#b88a2e', '#5e4210'], 9, 34, true);
+    },
     vkey(g) {
       g.translate(28, 34); g.rotate(0.62);
       keyShape(g, ['#fff0b0', '#d4a43a', '#7a5014'], 10, 38, true);
