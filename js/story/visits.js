@@ -28,11 +28,9 @@
     lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
     entries: { default: [700, 640, 'w'] },
     npcs: visitorDefs(440, 640, 'e').concat([
-      { id: 'npc_phone', ch: 'cop_bed', x: 872, y: 488, h: 400, dir: 'e', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' },
+      { id: 'npc_phone', ch: 'cop_bed', x: 1074, y: 772, h: 480, dir: 'w', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' },
       { id: 'npc_guitar', ch: 'guitar_floor', x: 975, y: 706, h: 360, dir: 'w', fixedDir: true, name: 'Duarte', when: () => visitor === 'guitar_floor' },
     ]),
-    // the near footboard post: the officer's feet go behind it
-    occluders: [{ y: 640, polys: [[[1048, 232], [1084, 232], [1084, 692], [1048, 692]]], when: () => visitor === 'cop_bed' }],
     hotspots: [],
   };
 
