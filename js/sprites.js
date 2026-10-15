@@ -1127,37 +1127,37 @@ window.SPRITES = {
   "fy": 723.0,
   "top": 3.0
  },
- "pair_cop_neck": {
-  "w": 384,
+ "pair_cop_cuffs": {
+  "w": 504,
   "hh": 727,
   "h": 720,
-  "ax": 231.4,
+  "ax": 227.8,
   "fy": 723.1,
   "top": 3.1
  },
- "pair_cop_shelf": {
-  "w": 355,
-  "hh": 726,
+ "pair_cop_neck": {
+  "w": 334,
+  "hh": 727,
   "h": 720,
-  "ax": 190.9,
+  "ax": 137.3,
+  "fy": 723.0,
+  "top": 3.0
+ },
+ "pair_cop_shelf": {
+  "w": 356,
+  "hh": 727,
+  "h": 720,
+  "ax": 133.7,
   "fy": 723.0,
   "top": 3.0
  },
  "pair_cop_shelf2": {
-  "w": 356,
-  "hh": 726,
-  "h": 720,
-  "ax": 213.2,
-  "fy": 722.9,
-  "top": 2.9
- },
- "pair_cop_underwear": {
-  "w": 507,
+  "w": 516,
   "hh": 727,
   "h": 720,
-  "ax": 254.9,
-  "fy": 723.0,
-  "top": 3.0
+  "ax": 230.9,
+  "fy": 723.1,
+  "top": 3.1
  },
  "pair_guitar_lesson": {
   "w": 377,
@@ -1168,28 +1168,28 @@ window.SPRITES = {
   "top": 3.0
  },
  "pair_guitar_underwear": {
-  "w": 508,
-  "hh": 726,
+  "w": 512,
+  "hh": 727,
   "h": 720,
-  "ax": 269.4,
+  "ax": 333.7,
   "fy": 723.0,
   "top": 3.0
  },
  "pair_guitar_undress": {
-  "w": 504,
-  "hh": 726,
-  "h": 720,
-  "ax": 253.0,
-  "fy": 723.0,
-  "top": 3.0
- },
- "pair_guitar_undress2": {
-  "w": 527,
+  "w": 550,
   "hh": 727,
   "h": 720,
-  "ax": 270.2,
-  "fy": 723.1,
-  "top": 3.1
+  "ax": 339.7,
+  "fy": 723.3,
+  "top": 3.3
+ },
+ "pair_guitar_undress2": {
+  "w": 590,
+  "hh": 727,
+  "h": 720,
+  "ax": 279.4,
+  "fy": 723.5,
+  "top": 3.5
  },
  "pair_kiss": {
   "w": 340,
