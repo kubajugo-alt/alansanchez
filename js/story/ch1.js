@@ -484,9 +484,9 @@
       const home = p.x;
       if (gt && window.SPRITES.pair_guitar_lesson) {
         await p.walkTo(gt.x + 110, gt.y + 30);
-        const py = p.y; gt.visible = false; p.x = gt.x + 40; p.y = gt.y + 16; p.h = gt.height(); p.dir = 'e'; p.pose = 'pair_guitar_lesson'; // at his seated height, just in front of the courting couple
+        const py = p.y; gt.visible = false; p.x = gt.x + 30; p.y = gt.y + 16; p.dir = 'e'; p.pose = 'pair_guitar_lesson'; // Alan stands behind him; just in front of the courting couple
         await say('guitar_flirt_4', 'alan_flirt_guitar_4');
-        p.pose = null; p.h = null; p.y = py; gt.visible = true; p.x = gt.x + 110; p.dir = 'w';
+        p.pose = null; p.y = py; gt.visible = true; p.x = gt.x + 110; p.dir = 'w';
       } else await say('guitar_flirt_4', 'alan_flirt_guitar_4');
       gPose('npc_guitar_serenade'); p.pose = 'swoon'; await say('alan_flirt_guitar_2');
       p.pose = null; gPose('npc_guitar_wink'); await say('guitar_flirt_2');
