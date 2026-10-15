@@ -129,7 +129,7 @@
     await posed('read', () => say('alan_decode_1'));
     await G.showStill('still_1755', () => say('narr_1755'), { sepia: true, grain: true, zoom: [1.02, 1.14], pan: [[0.45, 0.5], [0.55, 0.48]] });
     await posed('read', async () => { await say('alan_rite_1'); await G.say('narr_rite_2', { offscreen: true }); await say('alan_page3_read'); await G.say('narr_page3', { offscreen: true }); });
-    { const t = G.npc('tomas'); if (t && t.visible) await say('tomas_renounce'); } // "At a baptism you renounce.
+    await say('tomas_renounce'); // moved here from the Bells topic: "At a baptism you renounce"
     await say('alan_page3', 'alan_surname');
     const tm = G.npc('tomas'); if (tm) { tm.engaged++; await say('tomas_order'); tm.engaged--; }
     else await say('tomas_order');
