@@ -6,6 +6,7 @@
   // Alan's deflections in the running gag play in his flustered pose
   const FLUSTER = /^(gag_alan_|alan_lino_1$)/;
   const say = async (...ids) => {
+    if (window.Sound && Sound.preloadVoice) ids.forEach(id => Sound.preloadVoice(id)); // decode the whole exchange up front
     for (const id of ids) {
       const p = G.player, fl = FLUSTER.test(id) && p && p.visible && !p.pose;
       if (fl) p.pose = 'fluster';

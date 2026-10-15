@@ -6,7 +6,27 @@
   let manifest = null, voiceVer = {};
   let voiceEl = null;
 
+  // iPhone: Web Audio obeys the ring/silent switch and can be suspended when the page
+  // seems idle. Asking for a 'playback' audio session (like a video) and keeping a
+  // silent <audio> loop running holds the session open, so sound plays continuously.
+  let keepAlive = null;
+  function silentLoop() {
+    const n = 8000, b = new Uint8Array(44 + n), v = new DataView(b.buffer);
+    const w = (o, t) => [...t].forEach((c, i) => b[o + i] = c.charCodeAt(0));
+    w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, 8000, true); v.setUint32(28, 8000, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); w(36, 'data'); v.setUint32(40, n, true);
+    b.fill(128, 44);
+    return URL.createObjectURL(new Blob([b], { type: 'audio/wav' }));
+  }
+  function holdSession() {
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { /* older Safari */ }
+    try {
+      if (!keepAlive) { keepAlive = new Audio(silentLoop()); keepAlive.loop = true; keepAlive.setAttribute('playsinline', ''); keepAlive.volume = 0.01; }
+      if (keepAlive.paused) keepAlive.play().catch(() => {});
+    } catch (e) { /* no media element support */ }
+  }
   function init() {
+    holdSession();
     if (ctx) { if (ctx.state !== 'running') ctx.resume().catch(() => {}); return; }
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination);
@@ -405,34 +425,56 @@
     } catch (e) { manifest = new Set(); }
   }
   // any tap, or coming back to the tab, wakes a context the phone has put to sleep
-  const wake = () => { if (ctx && ctx.state !== 'running') ctx.resume().catch(() => {}); };
+  const wake = () => { if (!ctx) return; holdSession(); if (ctx.state !== 'running') ctx.resume().catch(() => {}); };
   ['pointerdown', 'touchend', 'keydown'].forEach(e => window.addEventListener(e, wake, { passive: true }));
   document.addEventListener('visibilitychange', () => { if (!document.hidden) wake(); });
   function hasVoice(id) { return voiceOn && manifest && manifest.has(id); }
 
   // Plays a voice line. Resolves with the clip duration (seconds) once it has
   // started, or null when the line has no recording (caller falls back to a
-  // reading-speed timer).
-  function playVoice(id, dry) {
+  // reading-speed timer). Voices are decoded and played as Web Audio buffers:
+  // once a tap has started the context, iOS never blocks them the way it can
+  // block a fresh <audio> element; the element is only a fallback.
+  const voiceBuf = {}; // id -> Promise<AudioBuffer>
+  function voiceUrl(id) { return 'audio/voice/' + id + '.mp3' + (voiceVer[id] ? '?v=' + voiceVer[id] : ''); }
+  function loadVoice(id) {
+    if (!voiceBuf[id]) voiceBuf[id] = fetch(voiceUrl(id)).then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+      .then(b => new Promise((res, rej) => ctx.decodeAudioData(b, res, rej)))
+      .catch(e => { delete voiceBuf[id]; throw e; });
+    return voiceBuf[id];
+  }
+  function preloadVoice(id) { if (ctx && hasVoice(id)) loadVoice(id).catch(() => {}); }
+  let voiceSrc = null, voiceEnd = 0;
+  function ensureAnalyser() {
+    if (!analyser) { analyser = ctx.createAnalyser(); analyser.fftSize = 1024; levelBuf = new Float32Array(analyser.fftSize); analyser.connect(ctx.destination); }
+  }
+  async function playVoice(id, dry) {
     stopVoice();
-    if (!hasVoice(id)) return Promise.resolve(null);
-    return new Promise(resolve => {
-      const el = new Audio('audio/voice/' + id + '.mp3' + (voiceVer[id] ? '?v=' + voiceVer[id] : ''));
-      voiceEl = el;
-      // a phone can suspend or 'interrupt' the audio context at any time; a voice routed
-      // through a stalled context is silent, so then it plays straight from the element
-      if (ctx && ctx.state !== 'running') ctx.resume().catch(() => {});
-      if (ctx && ctx.state === 'running') try {
-        if (!analyser) { analyser = ctx.createAnalyser(); analyser.fftSize = 1024; levelBuf = new Float32Array(analyser.fftSize); analyser.connect(ctx.destination); }
-        const src = ctx.createMediaElementSource(el); src.connect(analyser);
+    if (!hasVoice(id)) return null;
+    if (ctx) {
+      if (ctx.state !== 'running') { try { await ctx.resume(); } catch (e) { /* falls back below */ } }
+      if (ctx.state === 'running') try {
+        const buf = await Promise.race([loadVoice(id), new Promise((_, rej) => setTimeout(() => rej(new Error('slow')), 6000))]);
+        stopVoice();
+        ensureAnalyser();
+        const src = ctx.createBufferSource(); src.buffer = buf; src.connect(analyser);
         // characters speak into the room; the narrator, the answering machine and voices over stills don't
         if (roomVerb && !dry) src.connect(roomVerb);
-      } catch (e) { /* plays directly */ }
+        voiceSrc = src; voiceEnd = ctx.currentTime + buf.duration;
+        src.onended = () => { if (voiceSrc === src) { voiceSrc = null; duck(false); } };
+        duck(true, /_sing/.test(id)); // a sung line keeps its guitar under it
+        src.start();
+        return buf.duration;
+      } catch (e) { /* decode failed or too slow: play it the old way */ }
+    }
+    return new Promise(resolve => {
+      const el = new Audio(voiceUrl(id));
+      voiceEl = el;
       let done = false;
       const fin = v => { if (!done) { done = true; resolve(v); } };
       el.addEventListener('loadedmetadata', () => fin(el.duration));
       el.addEventListener('error', () => fin(null));
-      duck(true, /_sing/.test(id)); // a sung line keeps its guitar under it
+      duck(true, /_sing/.test(id));
       el.addEventListener('ended', () => { if (voiceEl === el) duck(false); });
       el.play().catch(() => fin(null));
       setTimeout(() => fin(null), 4000);
@@ -444,8 +486,12 @@
     if (musicBus) musicBus.gain.setTargetAtTime(on ? (song ? 0.24 : 0.1) : 0.32, ctx.currentTime, on ? 0.15 : 0.4);
     if (ambBus) ambBus.gain.setTargetAtTime(on ? 0.4 : 1, ctx.currentTime, on ? 0.15 : 0.5);
   }
-  function voicePlaying() { return voiceEl && !voiceEl.paused && !voiceEl.ended; }
+  function voicePlaying() {
+    if (voiceSrc) return ctx.currentTime < voiceEnd;
+    return voiceEl && !voiceEl.paused && !voiceEl.ended;
+  }
   function stopVoice() {
+    if (voiceSrc) { try { voiceSrc.onended = null; voiceSrc.stop(); } catch (e) { /* already stopped */ } voiceSrc = null; }
     if (voiceEl) { voiceEl.pause(); voiceEl = null; }
     duck(false);
   }
@@ -454,7 +500,7 @@
   function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
 
   window.Sound = {
-    init, playMusic, sfx, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
+    init, playMusic, sfx, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; },
   };
 })();

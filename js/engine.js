@@ -652,6 +652,7 @@
   // waits its turn, so the caption on screen is always the line being heard.
   let speechChain = Promise.resolve();
   function say(id, opts) {
+    if (Sound.preloadVoice) Sound.preloadVoice(id); // decoding starts now, so the line is ready when its turn comes
     const run = speechChain.then(() => sayNow(id, opts));
     speechChain = run.catch(() => {});
     return run;
@@ -693,7 +694,7 @@
     busy--;
     await wait(110);
   }
-  async function says(...ids) { for (const id of ids) await say(id); }
+  async function says(...ids) { if (Sound.preloadVoice) ids.forEach(id => Sound.preloadVoice(id)); for (const id of ids) await say(id); }
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
   // ---------------------------------------------------------------- dialogue
