@@ -7,7 +7,7 @@
 
   S.CHARS.cop_visit = { scale: 1.0, frames: { idle: ['cop_visit'], talk: ['cop_visit_talk', 'cop_visit'], walk: ['cop_visit'] } };
   // after the paintings: the officer cuffed on the bed, Duarte on the floor with his guitar (small looping idles)
-  S.CHARS.cop_bed = { scale: 1.0, idleHold: [1.6, 2.6], variantHold: [0.9, 1.6], frames: { idle: ['cop_bed1', 'cop_bed2', 'cop_bed3', 'cop_bed4'], talk: ['cop_bed1', 'cop_bed3'] } };
+  S.CHARS.cop_bed = { scale: 1.0, idleHold: [1.6, 2.6], variantHold: [0.9, 1.6], frames: { idle: ['cop_side1', 'cop_side2', 'cop_side3', 'cop_side4'], talk: ['cop_side2', 'cop_side1'] } };
   S.CHARS.guitar_floor = { scale: 1.0, idleHold: [1.2, 2], variantHold: [0.8, 1.4], frames: { idle: ['guitar_floor1', 'guitar_floor3', 'guitar_floor2', 'guitar_floor4'], talk: ['guitar_floor2', 'guitar_floor4'] } };
   S.CHARS.guitar_visit = { scale: 1.0, frames: { idle: ['guitar_visit'], talk: ['guitar_visit_talk', 'guitar_visit'], walk: ['guitar_visit'] } };
 
@@ -55,19 +55,19 @@
     G.autosave();
   }
   // after the painting: the visitor stays where the painting left him; Alan pulls
-  // his clothes back on (his washhouse frames, played backwards) and goes down
+  // his clothes back on (black briefs -> jeans -> t-shirt -> jacket) and goes down
   async function afterwards(state, theirLine, alanLine) {
-    const p = G.player, ready = ['cop_bed', 'guitar_floor'].includes(state) && window.SPRITES[state === 'cop_bed' ? 'cop_bed1' : 'guitar_floor1'];
+    const p = G.player, ready = ['cop_bed', 'guitar_floor'].includes(state) && window.SPRITES[state === 'cop_bed' ? 'cop_side1' : 'guitar_floor1'];
     visitor = ready ? state : (state === 'cop_bed' ? 'cop' : 'guitar');
     G.refreshNpcs(true);
-    p.x = 640; p.y = 650; p.dir = 'e'; p.pose = 'undress4';
+    const dress = k => { p.pose = window.SPRITES['alan_dress' + k] ? 'alan_dress' + k : null; };
+    p.x = 640; p.y = 650; p.dir = 'e'; dress(1);
     await T(500); await G.fade(false); await T(900); // let the painting finish fading first
     await say(theirLine);
-    p.pose = 'undress3'; for (let i = 0; i < 4; i++) { p.x -= 5; await T(160); }
-    p.pose = 'undress2'; await T(800);
+    dress(2); for (let i = 0; i < 4; i++) { p.x -= 5; await T(160); }
+    dress(3); await T(800);
     await say(alanLine);
-    p.pose = 'undress1'; await T(700);
-    p.pose = 'button'; await T(800); p.pose = null;
+    dress(4); await T(1000); p.pose = null;
     p.dir = 'w'; await p.walkTo(150, 690); // out past the bookshelf, down the stairs
     sfx('stairs', 0.6);
     await downstairs();
