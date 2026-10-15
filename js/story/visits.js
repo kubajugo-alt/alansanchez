@@ -137,14 +137,16 @@
       await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed
       const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
-      p.dir = 'e'; sfx('sheet_slap', 0.25); await pair('pair_guitar_jackets', 1800); // Duarte on the left, Alan on the right
-      await pair('pair_guitar_undress', 1800);
-      sfx('sheet_slap', 0.25); await pair('pair_guitar_shirtfly', 1600);
-      await pair('pair_guitar_undress2', 1600);
+      p.dir = 'e'; // Duarte on the left, Alan on the right
+      const run = async (frames, ms) => { for (const f of frames) await pair('pair_guitar_' + f, ms); };
+      sfx('sheet_slap', 0.25); await run(['j0', 'jackets', 'j1', 'j2', 'undress'], 1000);
+      await run(['u1', 'u2'], 900);
+      sfx('sheet_slap', 0.25); await run(['shirtfly', 's1', 's2', 'undress2'], 1000);
       await say('guitar_room_4', 'alan_room_guitar_3');
-      sfx('sheet_slap', 0.3); await pair('pair_guitar_hop', 1700);
-      await pair('pair_guitar_lasso', 1700);
-      await pair('pair_guitar_underwear', 2200);
+      await run(['d1', 'd2'], 900);
+      sfx('sheet_slap', 0.3); await run(['hop', 'h1', 'h2', 'lasso'], 1000);
+      await run(['l1', 'l2'], 800);
+      await run(['underwear', 'p1', 'p2'], 1100);
       await say('guitar_room_2');
       await G.showStill('still_guitar_bed', () => G.say('narr_room_guitar', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.55, 0.5], [0.5, 0.45]], keep: true });
       await G.fade(true); G.endStill();
