@@ -144,6 +144,7 @@
       sfx('sheet_slap', 0.2); await pair('pair_cop_shelf2', 1600);
       await pair('pair_cop_belt', 600);
       await say('alan_room_cop_7', 'phone_room_7');
+      await pair('pair_cop_belt2', 1100); // his trousers, halfway
       sfx('sheet_slap', 0.25); await pair('pair_cop_trousers', 1800);
       // his own handcuffs
       sfx('sheet_slap', 0.25); p.x = 560; await pair('pair_cop_cuffs', 600);
