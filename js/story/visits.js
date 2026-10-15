@@ -205,25 +205,30 @@
       // the same energy from both sides: shirts off together, and a race for the bed
       const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
       p.dir = 'e'; // Duarte on the left, Alan on the right
-      const run = async (frames, ms) => { for (const f of frames) await pair('pair_guitar_' + f, ms); };
-      await pair('pair_guitar_j0', 500);
-      await say('guitar_room_5', 'alan_room_guitar_4');
-      sfx('sheet_slap', 0.25); await run(['jackets', 'j1', 'j2', 'u1', 'u2'], 950); // ('undress' dropped: it put Duarte's jacket back on)
-      sfx('sheet_slap', 0.25); await pair('pair_guitar_shirtfly', 500);
-      await say('alan_room_guitar_5');
-      await run(['s1', 's2', 'undress2'], 900);
-      await say('guitar_room_4', 'alan_room_guitar_3');
-      await pair('pair_guitar_d1', 900); await pair('pair_guitar_d2', 500);
-      await say('guitar_room_8', 'alan_room_guitar_8');
-      sfx('sheet_slap', 0.3); await run(['hop', 'h1', 'h2'], 950);
-      await pair('pair_guitar_lasso', 400);
-      await say('guitar_room_6', 'alan_room_guitar_6', 'guitar_room_2');
-      await pair('pair_guitar_l1', 300);
-      await say('alan_room_guitar_7');
-      await pair('pair_guitar_l2', 700);
-      await pair('pair_guitar_underwear', 400);
-      await say('guitar_room_7');
-      await pair('pair_guitar_p1', 1000); await pair('pair_guitar_p2', 500);
+      const g = async (k, ...lines) => { await pair('pair_guitar_' + k, 450); if (lines.length) await say(...lines); };
+      await g('j0', 'guitar_room_5', 'alan_room_guitar_4');               // lapels: "Shall we tune up?"
+      sfx('sheet_slap', 0.25);
+      await g('jackets', 'guitar_room_10', 'alan_room_guitar_9');         // peeling the leather off
+      await g('j1', 'alan_room_guitar_10');                               // the suit jacket next
+      await g('j2', 'guitar_room_11', 'alan_room_guitar_11');             // his hand on Alan's stomach
+      await g('u1', 'alan_room_guitar_12');                               // Duarte's shirt coming off
+      await g('u2', 'guitar_room_12', 'alan_room_guitar_13');             // the last sleeve
+      sfx('sheet_slap', 0.25); await g('shirtfly', 'alan_room_guitar_5'); // "Encore!"
+      await g('s1', 'guitar_room_4');                                     // "First belt off wins"
+      await g('s2', 'alan_room_guitar_14');                               // the whip
+      await g('undress2', 'alan_room_guitar_3');                          // "Best of three. Trousers."
+      await g('d1', 'guitar_room_13', 'alan_room_guitar_15');             // buttons, slowly / not slowly
+      await g('d2', 'guitar_room_8', 'alan_room_guitar_8');               // the double bass
+      sfx('sheet_slap', 0.3);
+      await g('hop', 'guitar_room_14', 'alan_room_guitar_16');            // never fallen over...
+      await g('h1', 'guitar_room_15');                                    // ...on purpose
+      await g('h2');
+      await g('lasso', 'guitar_room_6', 'alan_room_guitar_6', 'guitar_room_2');
+      await g('l1', 'alan_room_guitar_7');                                // "Hop on. Express service."
+      await g('l2');
+      await g('underwear', 'guitar_room_7');                              // "Giddy up, bookseller!"
+      await g('p1', 'alan_room_guitar_17', 'guitar_room_16');             // hold on to something
+      await g('p2');
       await say('guitar_room_9');
       await G.showStill('still_guitar_bed', () => G.say('narr_room_guitar', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.55, 0.5], [0.5, 0.45]], keep: true });
       await G.fade(true); G.endStill();
