@@ -1,7 +1,7 @@
 # Closes see-through patches where a pale grey shirt matched the grey backdrop:
 # an enclosed hole ringed by pale, unsaturated paint is made opaque again.
 #   python3 scripts/fillshirt.py art/sprites/name.webp [...]
-import sys, numpy as np
+import os, sys, numpy as np
 from PIL import Image
 from scipy import ndimage as ndi
 for f in sys.argv[1:]:
@@ -24,6 +24,7 @@ for f in sys.argv[1:]:
     inner = ndi.binary_erosion(im[..., 3] > 245, iterations=4)
     rgb = im[..., :3].astype(int)
     wh = inner & (rgb.min(2) > 185) & (rgb.max(2) - rgb.min(2) < 22)
+    if os.environ.get('NO_SPECKS'): wh[:] = False  # frames with a white T-shirt in them (Alan)
     if wh.any():
         good = inner & ~ndi.binary_dilation(wh, iterations=1)
         acc = np.zeros(rgb.shape, float); cnt = np.zeros(rgb.shape[:2], float)

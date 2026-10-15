@@ -1551,6 +1551,14 @@ window.SPRITES = {
   "fy": 724.1,
   "top": 4.1
  },
+ "pair_vasco_card": {
+  "w": 468,
+  "hh": 727,
+  "h": 720,
+  "ax": 234.0,
+  "fy": 723.1,
+  "top": 3.1
+ },
  "pair_vasco_catch": {
   "w": 449,
   "hh": 727,
@@ -1559,11 +1567,51 @@ window.SPRITES = {
   "fy": 723.1,
   "top": 3.1
  },
+ "pair_vasco_fragment": {
+  "w": 496,
+  "hh": 727,
+  "h": 720,
+  "ax": 248.0,
+  "fy": 723.1,
+  "top": 3.1
+ },
+ "pair_vasco_kiss": {
+  "w": 321,
+  "hh": 727,
+  "h": 720,
+  "ax": 160.5,
+  "fy": 723.1,
+  "top": 3.1
+ },
+ "pair_vasco_kneel": {
+  "w": 605,
+  "hh": 729,
+  "h": 720,
+  "ax": 302.5,
+  "fy": 724.4,
+  "top": 4.4
+ },
+ "pair_vasco_lanyard": {
+  "w": 375,
+  "hh": 727,
+  "h": 720,
+  "ax": 187.5,
+  "fy": 723.1,
+  "top": 3.1
+ },
  "pair_vasco_shirtless": {
   "w": 446,
   "hh": 727,
   "h": 720,
   "ax": 223.0,
+  "fy": 723.1,
+  "top": 3.1
+ },
+ "pair_vasco_thumb": {
+  "w": 433,
+  "hh": 727,
+  "h": 720,
+  "ax": 216.5,
   "fy": 723.1,
   "top": 3.1
  },
