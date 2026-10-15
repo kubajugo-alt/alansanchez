@@ -46,10 +46,11 @@
     if (F().confessed) return say(G.has('lantern') || F().bell_lit ? 'tomas_pray' : 'tomas_lantern');
     await say('alan_ask_midnight');
     G.cutscene = true;
-    await S.still('still_1955_a', 'cistern', () => say('tomas_boy'), { sepia: true, grain: true, zoom: [1.02, 1.12] });
-    await S.still('still_1955_b', 'cistern', () => say('tomas_ran'), { sepia: true, grain: true, zoom: [1.06, 1.0] });
-    await S.still('still_1955_c', 'convent_night', () => say('tomas_count'), { sepia: true, grain: true, zoom: [1.0, 1.1] });
-    G.cutscene = false;
+    try {
+      await S.still('still_1955_a', 'cistern', () => say('tomas_boy'), { sepia: true, grain: true, zoom: [1.02, 1.12] });
+      await S.still('still_1955_b', 'cistern', () => say('tomas_ran'), { sepia: true, grain: true, zoom: [1.06, 1.0] });
+      await S.still('still_1955_c', 'convent_night', () => say('tomas_count'), { sepia: true, grain: true, zoom: [1.0, 1.1] });
+    } finally { G.cutscene = false; }
     await say('alan_thanks', 'tomas_lantern', 'gag_tomas', 'gag_alan_tomas');
     F().confessed = true; F().has_lantern = true; give('lantern'); sfx('lantern');
     { const tm = G.npc('tomas'); if (tm) tm.set = 'pray'; } // the lantern is Alan's now; Tomás kneels to pray

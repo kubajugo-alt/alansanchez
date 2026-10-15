@@ -5,7 +5,6 @@
 // beats where Alan stops joking.
 window.LINES = {
   // ================================================================ CHAPTER I: THE FOG
-  narr_ch1_card: ['narr', "Chapter One. The Fog. Eleven o'clock, on the ninth day."],
   narr_intro_1: ['narr', "For nine days the fog had sat on Lisbon like a cat on a warm book. Nobody could move it, and nobody quite liked to try."],
   narr_intro_2: ['narr', "Three people had drowned in their beds, half a mile uphill from the river, and the trams went on ringing for no one."],
   narr_intro_3: ['narr', "In a crooked bookshop in the Alfama, the one man in the city who most needed to be awake... was asleep."],
@@ -35,7 +34,6 @@ window.LINES = {
   alan_camoes: ['alan', "Camões. The greatest poet in the language. Nobody buys him either. We have an understanding."],
   narr_look_kettle: ['narr', "A kettle, a jar of instant coffee, and two chipped mugs. One of them says 'world's okayest grandson'."],
   alan_look_pessoa: ['alan', "Pessoa. Named after a poet with seventy personalities. This one has one, and it's asleep."],
-  alan_look_pessoa_desk: ['alan', "He's asleep on the desk, under the lamp, right on top of the lock. Of all the places in Lisbon."],
   alan_take_pessoa: ['alan', "Nine kilos of no."],
   alan_talk_pessoa: ['alan', "Pessoa. Buddy. I need the desk. [pause] He's pretending to be a rug. Badly."],
   alan_push_pessoa: ['alan', "He's gone boneless. It's the only martial art a cat needs."],
@@ -67,7 +65,6 @@ window.LINES = {
   alan_news: ['alan', "Seawater. Half a mile uphill from the river. That's not a drowning, that's a magic trick."],
   narr_look_ines: ['narr', "Inês Carvalho: historian, part-time assistant, full-time conscience. She is writing a thesis that is better than anything Alan has ever written."],
   alan_door_first: ['alan', "The machine first. Somebody wants me, and it's been a while."],
-  narr_look_counter: ['narr', "The counter, where Alan does most of his sleeping and some of his selling."],
 
   // Inês
   ines_hello: ['ines', "If you're going to stand there, at least stand there helpfully."],
@@ -215,7 +212,6 @@ window.LINES = {
 
   // ---------- Relojoaria Ferreira ----------
   alan_ferreira_sealed: ['alan', "Sealed with police tape. Rui gave me the key, which makes this a perfectly legal accident."],
-  alan_ferreira_nokey: ['alan', "Sealed. Police tape and a padlock. I'd need a key, or a much worse character."],
   narr_ferreira_dark: ['narr', "Inside it is black, and very quiet. A clockmaker's shop should not be quiet."],
   alan_dark: ['alan', "I can't see a thing. Which, for a man who sells books, is a career-ending condition."],
   narr_look_oillamp: ['narr', "The shape of an oil lamp on the workbench, catching the grey light from the door."],
@@ -224,7 +220,6 @@ window.LINES = {
   alan_clocks: ['alan', "They didn't run down. They stopped. Together. Twelve minutes past three."],
   narr_look_clockwall: ['narr', "Forty clocks on one wall, every hand pointing at twelve minutes past three. The silence has a shape."],
   narr_look_workbench: ['narr', "Ferreira's bench: tweezers, loupes, a tin of tiny screws, and a cup of coffee that has grown a moustache."],
-  narr_look_repairbook: ['narr', "Ferreira's repair book, written in a small, upright hand."],
   alan_repair: ['alan', "His last entries. A tide clock, 'for myself, because the river is keeping time and I want to see it.' And an old note: 'All my founder locks share one key-square. Old habit. Old families.'"],
   alan_repair_hint: ['alan', "Ferreira made Grandfather's desk lock. One key-square for all four families. So the desk key should fit anything he made for us."],
   narr_look_tideclock: ['narr', "A brass tide clock on the bench, beautifully made and quite dead. Its winding key is missing."],
@@ -295,7 +290,6 @@ window.LINES = {
 
   // ---------- The Sé bell tower ----------
   alan_climb: ['alan', "[out of breath] If God wanted me in a bell tower, He'd have put in a lift."],
-  narr_look_setower: ['narr', "The bell chamber of the Sé. Four great bells hang in the dusty light from the louvres, each one older than the country's patience."],
   narr_look_abilio: ['narr', "Senhor Abílio, last hand-ringer of the Sé: eighty-one, stooped, with hands like shovels and a hearing aid that whistles when he's happy."],
   abilio_hello: ['abilio', "[shouting] VISITORS! NOBODY CLIMBS UP HERE BUT PIGEONS AND THE TAX MAN!"],
   alan_abilio_founders: ['alan', "I'm looking for the founders' order!"],
@@ -387,7 +381,6 @@ window.LINES = {
 
   // ---------- Cais do Sodré ----------
   alan_enter_cais: ['alan', "Cais do Sodré. Where Lisbon comes to make bad decisions after midnight. It's barely six."],
-  narr_look_cais: ['narr', "The quay is a smear of grey: fishing boats moored three deep, gulls arguing on the bollards, and the river breathing somewhere under the fog."],
   narr_look_harbourclock: ['narr', "The harbour clock on its iron post. It has kept time for the fishermen for a hundred years, and it is not about to stop for fog."],
   narr_look_boats: ['narr', "Three fishing boats moored abreast. The outermost has a name freshly painted on her bow: Maria Fé."],
   narr_look_crates: ['narr', "Crates of ice and silver fish, and the smell of the sea in its working clothes."],
@@ -404,7 +397,6 @@ window.LINES = {
   alan_sea_legs: ['alan', "[wobbling] Whoa. Whoa. I have the sea legs of a library chair."],
 
   // ---------- The Maria Fé ----------
-  narr_look_deck: ['narr', "Wet planks, coiled rope, and a stern that has seen more weather than most churches."],
   narr_look_hatch: ['narr', "A hatch to the cabin, bolted from the inside. A sound comes up through it like a cello with a cold. Snoring."],
   alan_knock: ['alan', "Zé! It's your life calling! [pause] He's screening."],
   alan_shout: ['alan', "[shouting] ZÉ! WAKE UP! [pause] Nothing. He sleeps like I do. Professionally."],
@@ -428,7 +420,6 @@ window.LINES = {
   alan_ask_ze_tile: ['alan', "Zé. Has anything strange turned up? Anything blue?"],
   ze_tile: ['ze', "There was a blue thing in my bunk when I came in this morning. I thought it was from her things."],
   ze_file: ['ze', "A docker, drowned in his bed, fifty-five. [pause] My grandfather was a docker. My mother never said how he died."],
-  ze_list: ['ze', "That's my mother's name. In a dead man's writing. [pause] Keep talking."],
   ze_cabin: ['ze', "Down there. Hurry up, before I change my mind."],
 
   // ---------- The cabin ----------
@@ -590,7 +581,6 @@ window.LINES = {
   ines_hint_ledger: ['ines', "He wants the founders, Alan. Let him have Joaquim's book."],
   ines_hint_free: ['ines', "Get me out of these ropes. Tell him you need the light."],
   lacerda_patient: ['lacerda', "[softly] Patient."],
-  alan_glacier: ['alan', "Vicente, I've met glaciers with more urgency."],
   lacerda_death: ['lacerda', "Ah, ah. I said I am patient. I never said I was slow."],
   narr_death: ['narr', "The water rises to meet Alan Sanchez, last of the Sineiros. Lisbon will not see the sun again. Perhaps try something a little less... direct."],
   alan_offer: ['alan', "You want the founders? Here. Every line you missed. Two hundred years. In my grandfather's hand."],
@@ -607,13 +597,8 @@ window.LINES = {
   alan_papercut: ['alan', "[sharp breath] Paper cut. I've had worse from Camões."],
   alan_need_blood: ['alan', "'With his own blood on the bronze.' Grandfather's ledger was very specific, and I was hoping it was a metaphor."],
   alan_ringback: ['alan', "I never rang anyone back in my life, Grandfather. Let's start with you."],
-  lacerda_no: ['lacerda', "[roaring] NO! Not backward! NOT BACKWARD!"],
-  lacerda_strike_2: ['lacerda', "[shouting] The water is mine! Rise! RISE!"],
-  lacerda_strike_3: ['lacerda', "[desperate] Stop him! Do you hear me? I command you!"],
   alan_wrong_strike: ['alan', "Wrong number."],
   narr_wrong_strike: ['narr', "The bell rings forward, one deep note, and far above, faintly, the bells of the city answer."],
-  ines_hint_eyes: ['ines', "Get his eyes off you first."],
-  ines_hint_ropes: ['ines', "Alan. The knife. Then the light."],
   ines_hint_light: ['ines', "I can hold the lantern. Give it to me."],
   ines_hint_blood: ['ines', "'His own blood on the bronze,' Alan. You read it to me."],
   ines_hint_lastfirst: ['ines', "Last to first, Alan. Who came last?"],
@@ -627,7 +612,6 @@ window.LINES = {
   ines_end: ['ines', "[breathless] Alan... the fog. Can you feel it? It's lifting."],
   alan_end: ['alan', "Come on. Let's go and see what the city looks like."],
   alan_dawn: ['alan', "The tenth morning. The first one I've seen before eleven in years."],
-  rui_coffee_back: ['rui', "I owed you one. Actually, you owed me one. I've stopped keeping track."],
 
   // ---------- Epilogue ----------
   narr_epilogue: ['narr', "On the tenth morning, the fog lifted from Lisbon. The sun rose over the river, the trams rang, and nobody drowned. Nobody noticed. Which, Alan decided, was exactly how it should be."],
@@ -647,7 +631,6 @@ window.LINES = {
   alan_npc_laundry: ['alan', "Drying laundry in nine days of fog. That's not optimism, that's faith."],
   alan_npc_bench: ['alan', "My future, ladies and gentlemen. Rehearsing."],
   alan_npc_tram: ['alan', "Tram 28. Never on time, always on rails. We have that half in common."],
-  alan_npc_typing: ['alan', "He's on page four hundred of a report nobody will read. My kind of author."],
   alan_npc_phone: ['alan', "Either his mother or his lawyer. Same face for both."],
   alan_npc_lino: ['alan', "Lino. Pours like a priest, charges like a bishop."],
   alan_npc_cards: ['alan', "Sueca. They've been playing the same game since Salazar. One of them is winning."],
@@ -655,9 +638,7 @@ window.LINES = {
   alan_npc_couple: ['alan', "Either in love or planning a murder. In this city, why not both."],
   alan_npc_washers: ['alan', "They know everything in the Alfama by Thursday. They knew about me by Tuesday."],
   alan_npc_nun: ['alan', "Praying under no roof. Direct line, no switchboard."],
-  alan_npc_pigeons: ['alan', "Lisbon's real congregation."],
   alan_npc_menders: ['alan', "Knots. These men are why I'll never be a sailor."],
-  alan_npc_docker: ['alan', "He's carried more today than I have in my life. Including grudges."],
   alan_npc_fish: ['alan', "Sardines. If Pessoa saw this, he'd finally get up."],
   alan_npc_gulls: ['alan', "Flying rats with a sea view."],
 
@@ -832,8 +813,6 @@ window.LINES = {
   phone_room_2: ['phone', "[breathless, trembling whisper] Senhor..."],
   alan_room_cop_2: ['alan', "[into his neck] Alan. It's Alan."],
   narr_room_cop: ['narr', "The bookshelf had held Camões and Pessoa and forty years of dust. It had never held a policeman. Three volumes of Eça de Queirós went over the edge, and nobody went back for them. The uniform shirt went next."],
-  phone_room_3: ['phone', "[dazed, from the floor, nervous] I should... radio in."],
-  alan_room_cop_3: ['alan', "[smiling] Tell them the suspect was very cooperative."],
   guitar_room_1: ['guitar', "[laughing] Your shirt's on inside out, bookseller."],
   alan_room_guitar_1: ['alan', "[grinning] Not for long."],
   narr_room_guitar: ['narr', "The iron bed had survived a revolution, two floods and Alan's grandfather. It very nearly did not survive Duarte. Downstairs, Inês turned the radio up and sold three dictionaries out of spite."],
@@ -850,7 +829,6 @@ window.LINES = {
   alan_room_cop_6: ['alan', "[smirking] Arrest me."],
   alan_room_cop_7: ['alan', "[tugging at the duty belt] And what's all this for?"],
   phone_room_7: ['phone', "[faint, voice breaking] Equipment."],
-  phone_after_1: ['phone', "[rattling the cuff, panicky] Alan. The key. You are holding the key."],
   alan_after_1: ['alan', "[pocketing it, grinning] Ten minutes. Don't go anywhere, Officer."],
   phone_after_2: ['phone', "[to the empty room, very small, quavering] ...Regulation."],
   guitar_room_5: ['guitar', "[grabbing his lapels] Shall we tune up, bookseller?"],
@@ -920,13 +898,6 @@ window.LINES = {
   phone_cuff_1: ['phone', "[squeaking, shaking] I... don't think I can."],
   alan_cuff_2: ['alan', "[wicked] Then we'll do this the hard way. Wrists."],
   narr_cuff: ['narr', "Some time later, when the lamp had been knocked over twice and the bed had walked six inches towards the window, Officer Teixeira found himself handcuffed to the furniture, and began to wonder, quite reasonably, where the key had gone."],
-  phone_cuff_2: ['phone', "[sheepish, nervous] Alan? Where's the key?"],
-  alan_cuff_3: ['alan', "[pause] The key. Yes. The key is... somewhere very safe."],
-  phone_cuff_3: ['phone', "[rising panic, voice cracking] How safe?"],
-  alan_cuff_4: ['alan', "[muffled, from under the covers] Extremely safe. Don't move."],
-  phone_cuff_4: ['phone', "[nervous, trying to sound deadpan] Where would I go?"],
   ines_cuff: ['ines', "[calling up the stairs] Alan! There's a police radio squawking down here. The station wants to know where their officer is."],
   alan_cuff_5: ['alan', "[calling down, strangled] Tell them he's... helping with enquiries!"],
-  phone_cuff_5: ['phone', "[very small, trembling voice] Alan. It's in my hat."],
-  alan_cuff_6: ['alan', "[pause] Of course it is. The one thing you kept on."],
 };

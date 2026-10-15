@@ -413,11 +413,12 @@
     am.pose = null; G.player.pose = null; G.takeItem('ginja');
     // the song: the room freezes, the guitarist plays, Amália sings
     G.cutscene = true;
-    const gui = G.npc('npc_guitar'); if (gui) gui.idleIdx = 1;
-    Sound.playMusic('fado');
-    am.set = 'sing';
-    await say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3');
-    am.set = null; G.cutscene = false;
+    try {
+      const gui = G.npc('npc_guitar'); if (gui) gui.idleIdx = 1;
+      Sound.playMusic('fado');
+      am.set = 'sing';
+      await say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3');
+    } finally { am.set = null; G.cutscene = false; }
     await say('amalia_menino', 'amalia_after_song');
     await joke('alan_ringer'); await say('amalia_called');
     await say('amalia_1955');

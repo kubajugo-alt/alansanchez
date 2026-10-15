@@ -39,7 +39,6 @@
     for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) jobs.push(['bg:' + b, 'art/bg/' + b + '.jpg']);
     for (const s of (window.STILLS || [])) jobs.push(['still:' + s, 'art/stills/' + s + '.jpg']);
     for (const c of (window.CLOSEUPS || [])) jobs.push(['close:' + c, 'art/closeups/' + c + '.jpg']);
-    for (const i of Object.keys(ITEMS).concat(window.EXTRA_ICONS || [])) jobs.push(['icon:' + i, 'art/icons/' + i + '.webp']);
     for (const k in SPRITES) jobs.push(['spr:' + k, 'art/sprites/' + k + '.webp']);
     for (const id in ROOMS) for (const l of (ROOMS[id].layers || [])) jobs.push(['lay:' + l.img, 'art/layers/' + l.img + '.webp']);
     for (const id in ROOMS) if (ROOMS[id].skyMask) jobs.push(['mask:' + ROOMS[id].skyMask, 'art/layers/' + ROOMS[id].skyMask + '.webp']);
@@ -469,7 +468,7 @@
     if (!opts.instant) await fade(false);
     busy--;
     if (!opts.noEnter && room.enter) { busy++; try { await room.enter(entry); } finally { busy--; } }
-    if (!room.noSave && !opts.noSave) autosave();
+    if (!busy && !room.noSave && !opts.noSave) autosave();
     updateHover();
   }
   function refreshNpcs(reset) {
@@ -558,8 +557,13 @@
       g.drawImage(im, l.x - l.pivot[0], l.y - l.pivot[1], w, h); g.restore();
     }
   }
+  let frameErr = 0;
   function frame(now) {
+    requestAnimationFrame(frame); // queued first: a throwing hook skips one frame, never the loop
     const dt = Math.min(0.05, (now - last) / 1000); last = now; time += dt;
+    try { drawFrame(dt); } catch (e) { if (frameErr++ < 5) console.error('frame', e); }
+  }
+  function drawFrame(dt) {
     if (room) {
       player.update(dt); npcs.forEach(a => a.update(dt));
       updateLights(time);
@@ -592,7 +596,6 @@
       positionSpeech();
     }
     if (still) drawStill(dt);
-    requestAnimationFrame(frame);
   }
 
   // ---------------------------------------------------------------- speech
@@ -768,7 +771,7 @@
   }
   function iconFor(id) {
     const it = ITEMS[id], key = typeof it.icon === 'function' ? it.icon() : (it.icon || id);
-    return IMG['icon:' + key] || FX.icon(key);
+    return FX.icon(key);
   }
   function updateCursor() {
     wrap.classList.toggle('holding', !!selItem);
@@ -1021,7 +1024,8 @@
         next.style.visibility = i < pages.length - 1 ? 'visible' : 'hidden';
         Sound.sfx('page');
       };
-      const close = () => { closeEl.classList.add('hidden'); prev.onclick = next.onclick = closeEl.onclick = null; busy--; resolve(); };
+      let closed = false;
+      const close = () => { if (closed) return; closed = true; closeEl.classList.add('hidden'); prev.onclick = next.onclick = closeEl.onclick = null; busy--; resolve(); };
       prev.onclick = ev => { ev.stopPropagation(); if (i > 0) { i--; show(); } };
       next.onclick = ev => { ev.stopPropagation(); if (i < pages.length - 1) { i++; show(); } };
       closeEl.onclick = ev => { if (ev.target === closeEl || ev.target.classList.contains('x')) close(); };
@@ -1041,13 +1045,17 @@
 
   // ---------------------------------------------------------------- saves
   function snapshot() { return JSON.stringify(Object.assign({}, state, { px: player.x, py: player.y, dir: player.dir })); }
-  function autosave() { if (/[?&]scene=/.test(location.search)) return; try { localStorage.setItem(SAVE_KEY, snapshot()); } catch (e) { /* storage unavailable */ } }
+  function autosave() { if (/[?&]scene=/.test(location.search) || (state && state.flags.dawn)) return; // past dawn the save is wiped, not rewritten
+    try { localStorage.setItem(SAVE_KEY, snapshot()); } catch (e) { /* storage unavailable */ } }
   function hasSave() { try { return !!localStorage.getItem(SAVE_KEY); } catch (e) { return false; } }
   async function loadSave(json) {
     let data = json;
     if (!data) { try { data = localStorage.getItem(SAVE_KEY); } catch (e) { data = null; } }
     if (!data) return false;
-    state = Object.assign(freshState(), JSON.parse(data));
+    let parsed;
+    try { parsed = JSON.parse(data); } catch (e) { parsed = null; }
+    if (!parsed || !parsed.flags || !ROOMS[parsed.room]) return false; // corrupt or from a retired build: start fresh
+    state = Object.assign(freshState(), parsed);
     // saves from before the sketch became an item: hand it over so Inês and Celeste can take it
     if (state.flags.sketched_tile && !state.inv.includes('sketch')) state.inv.push('sketch');
     selItem = null; renderInv();
@@ -1123,6 +1131,6 @@
       if (item) { if (!has(item)) throw new Error('no item ' + item); selItem = item; }
       await interact(t, item ? 'item' : (verb || defaultVerb(t.def)));
     },
-    busy: async fn => { busy++; try { return await fn(); } finally { busy--; updateHover(); } },
+    busy: async fn => { busy++; try { return await fn(); } finally { busy--; updateHover(); if (!busy && room && !room.noSave) autosave(); } },
   };
 })();

@@ -5,11 +5,13 @@
   const { G, F, say, ROOMS, sfx } = window.S;
   const T = ms => G.wait(window.FAST ? 20 : ms);
 
-  S.CHARS.cop_visit = { scale: 1.0, frames: { idle: ['cop_visit'], talk: ['cop_visit_talk', 'cop_visit'], walk: ['cop_visit'] } };
+  // side-on strides for walking in (until painted, the standing frame glides)
+  const strides = k => window.SPRITES[k + '_walk1'] ? [k + '_walk1', k + '_walk2'] : [k + '_visit'];
+  S.CHARS.cop_visit = { scale: 1.0, speed: 0.8, frames: { idle: ['cop_visit'], talk: ['cop_visit_talk', 'cop_visit'], walk: strides('cop') } };
   // after the paintings: the officer cuffed on the bed, Duarte on the floor with his guitar (small looping idles)
   S.CHARS.cop_bed = { scale: 1.0, idleHold: [1.6, 2.6], variantHold: [0.9, 1.6], frames: { idle: ['cop_side1', 'cop_side2', 'cop_side3', 'cop_side4'], talk: ['cop_side2', 'cop_side1'] } };
   S.CHARS.guitar_floor = { scale: 1.0, idleHold: [1.2, 2], variantHold: [0.8, 1.4], frames: { idle: ['guitar_floor1', 'guitar_floor3', 'guitar_floor2', 'guitar_floor4'], talk: ['guitar_floor2', 'guitar_floor4'] } };
-  S.CHARS.guitar_visit = { scale: 1.0, frames: { idle: ['guitar_visit'], talk: ['guitar_visit_talk', 'guitar_visit'], walk: ['guitar_visit'] } };
+  S.CHARS.guitar_visit = { scale: 1.0, speed: 0.75, frames: { idle: ['guitar_visit'], talk: ['guitar_visit_talk', 'guitar_visit'], walk: strides('guitar') } };
 
   // who is calling today (only while a visit is playing)
   let visitor = null;
@@ -137,6 +139,9 @@
     sfx('door'); await T(400);
     visitor = who; G.refreshNpcs();
     G.player.dir = 'e';
+    // in from the door side, a few steps across the front of the counter to the rug
+    const v = G.npc(who === 'cop' ? 'npc_phone' : 'npc_guitar');
+    if (v && !window.FAST) { const [x, y] = [v.x, v.y]; v.x = 1370; v.y = 700; await v.walkTo(x, y); v.dir = 'w'; }
   }
 
   S.visitCop = async function () {
@@ -217,7 +222,7 @@
       const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
       p.dir = 'e'; // Duarte on the left, Alan on the right
       const VOX = { jackets: 'v_duarte_hum', j2: 'v_alan_mmm', u1: 'v_duarte_laugh', s2: 'v_alan_chuckle', d1: 'v_duarte_hum', d2: 'v_duarte_groan',
-        h1: 'v_duarte_laugh', underwear: 'v_alan_groan', p1: 'v_duarte_groan', p2: 'v_alan_sigh' };
+        h1: 'v_duarte_laugh', underwear: 'v_alan_groan', p1: 'v_duarte_groan', };
       const g = async (k, ...lines) => {
         const vox = VOX[k] && window.SPRITES['pair_guitar_' + k]; if (vox) sfx(VOX[k], 0.55);
         await pair('pair_guitar_' + k, vox ? 1200 : 450); if (lines.length) await say(...lines);

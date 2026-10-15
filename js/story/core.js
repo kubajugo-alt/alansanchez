@@ -179,4 +179,3 @@
     g.restore();
   };
 })();
-window.EXTRA_ICONS=['holywater','tongue_wet'];

@@ -435,13 +435,18 @@
   // reading-speed timer). Voices are decoded and played as Web Audio buffers:
   // once a tap has started the context, iOS never blocks them the way it can
   // block a fresh <audio> element; the element is only a fallback.
-  const voiceBuf = {}; // id -> Promise<AudioBuffer>
+  const voiceBuf = new Map(); // id -> Promise<AudioBuffer>, least recently used first
+  const VOICE_CACHE = 48; // decoded PCM is ~10x the mp3: keep a scene's worth, not the whole game
   function voiceUrl(id) { return 'audio/voice/' + id + '.mp3' + (voiceVer[id] ? '?v=' + voiceVer[id] : ''); }
   function loadVoice(id) {
-    if (!voiceBuf[id]) voiceBuf[id] = fetch(voiceUrl(id)).then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+    let p = voiceBuf.get(id);
+    if (p) voiceBuf.delete(id);
+    else p = fetch(voiceUrl(id)).then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
       .then(b => new Promise((res, rej) => ctx.decodeAudioData(b, res, rej)))
-      .catch(e => { delete voiceBuf[id]; throw e; });
-    return voiceBuf[id];
+      .catch(e => { voiceBuf.delete(id); throw e; });
+    voiceBuf.set(id, p);
+    while (voiceBuf.size > VOICE_CACHE) voiceBuf.delete(voiceBuf.keys().next().value);
+    return p;
   }
   function preloadVoice(id) { if (ctx && hasVoice(id)) loadVoice(id).catch(() => {}); }
   let voiceSrc = null, voiceEnd = 0;
