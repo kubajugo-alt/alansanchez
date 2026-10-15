@@ -249,6 +249,9 @@
   };
   S.giveLedger = async function () {
     if (F().lacerda_distracted) return say('alan_fail_04');
+    // Inês knows what's on the last page: Joaquim wrote down Afonso Lacerda's last words
+    await say('ines_page');
+    await G.closeup([{ img: 'close:paper_aged', cls: 'doc-hand', html: `<p>&nbsp;</p><p>Afonso Lacerda's last words, as the water rose, were for his son:</p><p style="text-align:center">'Vicente, let it go.'</p><p style="text-align:right">J. S.</p>` }]);
     G.takeItem('ledger');
     await say('alan_offer', 'lacerda_cant', 'alan_seven');
     const lac = G.npc('lacerda'); lac.set = 'read'; F().lacerda_distracted = true;

@@ -17,6 +17,11 @@
     }
   };
   const S = window.S = { G, F, say, ROOMS: {}, LINE_POSE: {} };
+  // Content setting: 'full' or 'discreet' (skips the steamy build-ups and their paintings); kept per browser
+  const CONTENT_KEY = 'drowned-bell-content';
+  S.content = () => { try { return localStorage.getItem(CONTENT_KEY); } catch (e) { return null; } };
+  S.setContent = v => { try { localStorage.setItem(CONTENT_KEY, v); } catch (e) { /* private mode: lasts this session */ } S._content = v; };
+  S.discreet = () => (S.content() || S._content) === 'discreet';
 
   // ---------------------------------------------------------------- cast
   // Painted frames (js/sprites.js). Sprites face right unless flagged

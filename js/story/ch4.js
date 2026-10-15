@@ -14,6 +14,7 @@
     else await say('alan_jc_unknown');
     await say('ines_kettle', 'alan_ledger_with_ines');
     await say('alan_thanks_ines', 'ines_worried');
+    await say('ines_later'); // she's found something about Lacerda's father: it comes back in the cistern
     G.setClock('17:15');
     G.autosave(); // a reload after this point must still find the quay open
   };
@@ -339,8 +340,10 @@
       // the sweater comes off over his head
       if (ze) { ze.pose = 'ze_strip1'; await T(800); ze.pose = 'ze_dress'; await T(800); ze.pose = 'ze_strip3'; sfx('sheet_slap', 0.25); await T(900); ze.pose = 'ze_shirtless'; }
       await say('alan_rom_1', 'ze_rom_2');
+      const home = p.x;
+      if (!S.discreet()) { // Discreet: straight from the build-up to the afterwards
       // the two of them as one painted pair: Zé on the left, Alan on the right
-      const home = p.x, mid = ze ? (ze.x + p.x) / 2 : p.x; // pair frames are anchored on the couple's middle
+      const mid = ze ? (ze.x + p.x) / 2 : p.x; // pair frames are anchored on the couple's middle
       if (ze) ze.visible = false;
       p.x = mid; p.dir = 'e'; p.pose = 'pair_unbutton'; sfx('sheet_slap', 0.2); sfx('v_ze_sigh', 0.5);
       await T(2200);
@@ -354,6 +357,7 @@
         await G.say('narr_rom_2', { offscreen: true });
       }, { zoom: [1.0, 1.1], pan: [[0.55, 0.55], [0.6, 0.5]], keep: true });
       await G.fade(true); G.endStill();
+      } else { if (ze) ze.visible = false; await G.fade(true); await T(900); }
       // apart again, putting themselves back together (Alan's washhouse frames, played backwards)
       p.x = home; p.dir = 'w'; p.pose = 'jacket'; // nothing on but the jacket held in front
       if (ze) { ze.visible = true; ze.pose = 'ze_shirtless'; }

@@ -155,6 +155,7 @@
       await beats(['fluster', 'phone_visit_1'], ['alan_idle2', 'ines_visit_cop'], ['fluster', 'phone_visit_2'], [null, 'alan_visit_cop'], ['fluster', 'ines_visit_after']);
       const v = await upstairs('cop', [660, 645, 'w']);
       await say('phone_room_1', 'alan_room_cop_1');
+      if (!S.discreet()) { // Discreet: straight from the build-up to the afterwards
       // Alan takes the lead: against the bookshelf, the shirt, the neck
       // the officer backed against the room's own bookshelf, Alan very much in charge
       const home = p.x; if (v) { p.x = 410; v.visible = false; }
@@ -199,6 +200,7 @@
           sfx('v_alan_chuckle', 0.45); await T(1200);
         }, { zoom: [1.0, 1.1], pan: [[0.45, 0.5], [0.55, 0.5]], keep: true });
       }
+      }
       await G.fade(true); G.endStill();
       await afterwards('cop_bed', [
         [1, 'phone_key_1', 'alan_key_1'],           // the key turns up in his hat
@@ -234,6 +236,7 @@
       await say('ines_drowning'); await say('alan_schedule'); // the river keeps a timetable
       const v = await upstairs('guitar', [660, 645, 'w']);
       await say('guitar_room_1', 'alan_room_guitar_1');
+      if (!S.discreet()) { // Discreet: straight from the build-up to the afterwards
       // the same energy from both sides: shirts off together, and a race for the bed
       const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
       p.dir = 'e'; // Duarte on the left, Alan on the right
@@ -268,6 +271,7 @@
       await say('guitar_room_9');
       sfx('v_alan_sigh', 0.5);
       await G.showStill('still_guitar_bed', () => G.say('narr_room_guitar', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.55, 0.5], [0.5, 0.45]], keep: true });
+      }
       await G.fade(true); G.endStill();
       await afterwards('guitar_floor', [
         [1, 'guitar_room_3'], [2], [3, 'alan_room_guitar_2'], [4],

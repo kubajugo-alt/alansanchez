@@ -284,12 +284,16 @@
   S.pitKiss = async function () {
     G.cutscene = true;
     try {
-      await S.still('still_se_kiss', 'se_cloister', async () => {
-        sfx('trowel'); await T(300);
-        await say('vasco_kiss'); sfx('quarter'); await say('alan_monument');
-        sfx('v_vasco_laugh', 0.5);
-      }, { zoom: [1.02, 1.12] });
-      await S.still('still_se_pit', 'se_cloister', () => G.say('narr_pit', { offscreen: true }), { zoom: [1.0, 1.1], pan: [[0.5, 0.55], [0.5, 0.45]] });
+      if (S.discreet()) { // Discreet: the joke stays, the paintings don't
+        await G.fade(true); await say('vasco_kiss'); sfx('quarter'); await say('alan_monument'); await G.fade(false);
+      } else {
+        await S.still('still_se_kiss', 'se_cloister', async () => {
+          sfx('trowel'); await T(300);
+          await say('vasco_kiss'); sfx('quarter'); await say('alan_monument');
+          sfx('v_vasco_laugh', 0.5);
+        }, { zoom: [1.02, 1.12] });
+        await S.still('still_se_pit', 'se_cloister', () => G.say('narr_pit', { offscreen: true }), { zoom: [1.0, 1.1], pan: [[0.5, 0.55], [0.5, 0.45]] });
+      }
       // meanwhile, in the reserve
       await S.still('still_se_reserve', 'se_museum', async () => {
         await G.say('narr_reserve', { offscreen: true });

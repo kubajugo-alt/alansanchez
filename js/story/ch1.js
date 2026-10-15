@@ -101,7 +101,9 @@
       if (F().heard_msg3) return say('alan_machine_again');
       sfx('beep');
       await G.say('lacerda_msg3', { offscreen: true, label: 'Answering machine' });
+      await G.say('lacerda_msg3_ledger', { offscreen: true, label: 'Answering machine' }); // appended: the young lady insists
       F().heard_msg3 = true;
+      await say('alan_insists'); // Inês, still fighting
       await joke('alan_queue'); await say('alan_alone');
       await say('narr_msg2_again'); sfx('drip_hangup'); await G.wait(window.FAST ? 20 : 1500);
       await say('alan_hangup_reveal');

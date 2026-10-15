@@ -92,8 +92,31 @@
     await G.wait(800);
     await P.run();
   }
+  // Content: Full or Discreet. Asked once, on the first new game; changeable any time from the menu.
+  const contentLabel = () => 'Content: ' + (S.discreet() ? 'Discreet' : 'Full');
+  (function settingsButton() {
+    const menu = document.querySelector('#menu'); if (!menu || document.querySelector('#opt-content')) return;
+    const b = document.createElement('button'); b.id = 'opt-content'; b.textContent = contentLabel();
+    b.onclick = e => { e.stopPropagation(); S.setContent(S.discreet() ? 'full' : 'discreet'); b.textContent = contentLabel(); G.toast(contentLabel()); };
+    menu.insertBefore(b, document.querySelector('#opt-save'));
+  })();
+  function askContent() {
+    return new Promise(resolve => {
+      const box = document.createElement('div');
+      box.id = 'content-choice';
+      box.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.82);z-index:60;font-family:inherit';
+      box.innerHTML = `<div style="max-width:560px;padding:28px 34px;border:1px solid #a88a52;background:#16120c;color:#eadcc0;text-align:center;line-height:1.5">
+        <h2 style="margin:0 0 .5em;font-weight:normal;letter-spacing:.06em">Before we begin</h2>
+        <p>Alan's love life is part of this story. <b>Full</b> plays the romantic scenes as written. <b>Discreet</b> skips from each build-up straight to its afterwards and hides those paintings; every joke and every clue stays.</p>
+        <p style="font-size:.85em;opacity:.75">You can change this at any time from the menu.</p>
+        <p><button data-v="full" style="margin:6px 10px;padding:8px 22px">Full</button><button data-v="discreet" style="margin:6px 10px;padding:8px 22px">Discreet</button></p></div>`;
+      box.querySelectorAll('button').forEach(b => b.onclick = e => { e.stopPropagation(); S.setContent(b.dataset.v); const o = document.querySelector('#opt-content'); if (o) o.textContent = contentLabel(); box.remove(); resolve(); });
+      (document.querySelector('#game') || document.body).appendChild(box);
+    });
+  }
   async function newGame() {
     const scene = new URLSearchParams(location.search).get('scene');
+    if (!S.content() && !window.FAST && !scene) await askContent();
     if (PREVIEW[scene]) return preview(scene);
     G.giveItem('notebook', true);
     F().ch = 1; F().clock = '11:00';
