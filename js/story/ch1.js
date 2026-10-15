@@ -462,14 +462,9 @@
       const gui = G.npc('npc_guitar'); if (gui) gui.idleIdx = 1;
       if (!S.SINO_SONG) Sound.playMusic('fado');
       am.set = 'sing';
-      // Duarte plays her in: his playing frames, turn and turn about
-      const play = ['npc_guitar', 'npc_guitar_b'].filter(k => window.SPRITES[k]);
-      let pi = 0; const iv = gui && play.length ? setInterval(() => { gui.pose = play[pi++ % play.length]; }, window.FAST ? 20 : 850) : null;
-      try {
-        // the recorded fado (Portuguese), English captions in time with her; the old spoken verses are the fallback
-        if (S.SINO_SONG) await G.lyrics(Sound.playSong(S.SINO_SONG), S.SINO_LYRICS, 'amalia');
-        else await say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3');
-      } finally { if (iv) clearInterval(iv); if (gui) gui.pose = null; }
+      // the whole room plays its part (js/story/fado.js): Lino's bass, Duarte, the card players, Alan;
+      // the recorded fado with English captions, the old spoken verses as the fallback
+      await S.fadoPerformance(am, S.SINO_SONG ? Sound.playSong(S.SINO_SONG) : null);
       Sound.playMusic(G.room.music);
     } finally { am.set = null; G.cutscene = false; }
     await say('amalia_menino', 'amalia_baptised', 'amalia_after_song', 'amalia_face', 'alan_face_pause');
