@@ -30,6 +30,7 @@
 
   // the two of them as one painted pair, anchored on the couple's middle (as with Zé)
   async function pair(pose, ms) {
+    if (!window.SPRITES[pose]) return; // a frame that was never painted is simply skipped
     const p = G.player; p.pose = pose; await T(ms);
   }
   async function upstairs(who, at) {
@@ -68,7 +69,10 @@
       const home = p.x; if (v) { p.x = 450; v.visible = false; } // the painted shelf in the frame lines up with the room's own
       p.dir = 'w'; sfx('sheet_slap', 0.2); await pair('pair_cop_shelf', 2400);
       await say('phone_room_2', 'alan_room_cop_2');
-      await pair('pair_cop_neck', 2600);
+      await pair('pair_cop_neck', 2200);
+      sfx('sheet_slap', 0.2); await pair('pair_cop_shelf2', 2000);
+      await say('alan_room_cop_4', 'phone_room_4');
+      sfx('sheet_slap', 0.25); await pair('pair_cop_underwear', 2600);
       await G.showStill('still_cop_shelf', () => G.say('narr_room_cop', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.45, 0.4]], keep: true });
       await G.fade(true); G.endStill();
       p.pose = null; p.x = home; if (v) v.visible = true;
@@ -90,7 +94,10 @@
       await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed
       const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
-      p.dir = 'w'; sfx('sheet_slap', 0.25); await pair('pair_guitar_undress', 2600);
+      p.dir = 'w'; sfx('sheet_slap', 0.25); await pair('pair_guitar_undress', 2400);
+      sfx('sheet_slap', 0.25); await pair('pair_guitar_undress2', 1800);
+      await say('guitar_room_4', 'alan_room_guitar_3');
+      sfx('sheet_slap', 0.3); await pair('pair_guitar_underwear', 2400);
       await say('guitar_room_2');
       await G.showStill('still_guitar_bed', () => G.say('narr_room_guitar', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.55, 0.5], [0.5, 0.45]], keep: true });
       await G.fade(true); G.endStill();

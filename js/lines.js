@@ -840,4 +840,8 @@ window.LINES = {
   narr_room_guitar: ['narr', "The iron bed had survived a revolution, two floods and Alan's grandfather. It very nearly did not survive Duarte. Downstairs, Inês turned the radio up and sold three dictionaries out of spite."],
   guitar_room_3: ['guitar', "[lazy, content] Tuesdays, then?"],
   alan_room_guitar_2: ['alan', "[happy] And Thursdays. I want to learn the scales."],
+  alan_room_cop_4: ['alan', "[low, amused] Too many buttons on these uniforms."],
+  phone_room_4: ['phone', "[breathless laugh] Regulation."],
+  guitar_room_4: ['guitar', "[laughing] Your belt's fighting me, bookseller."],
+  alan_room_guitar_3: ['alan', "[grinning] It's on your side. Pull harder."],
 };
