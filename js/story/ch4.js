@@ -13,6 +13,7 @@
     if (F().saw_jc_clock) { await say('alan_jc_click', 'ines_time'); if (F().met_celeste) await say('alan_celeste_sweaters'); }
     else await say('alan_jc_unknown');
     await say('ines_kettle', 'alan_ledger_with_ines');
+    await say('alan_thanks_ines', 'ines_worried');
     G.setClock('17:15');
     G.autosave(); // a reload after this point must still find the quay open
   };
@@ -57,7 +58,7 @@
     ],
     hotspots: [
       { name: 'Harbour clock', rect: [224, 30, 96, 525], look: 'narr_look_harbourclock' },
-      { name: 'Telephone box', rect: [96, 245, 117, 256], at: [230, 520], face: 'w', look: 'narr_look_phonebox', use: () => S.quayPhone() },
+      { name: 'Telephone box', rect: [96, 245, 117, 256], at: [230, 520], face: 'w', look: 'narr_look_phonebox', use: () => S.quayPhone(), items: { vasco_card: () => S.quayPhone() } },
       { name: 'Crates', rect: [0, 395, 160, 213], look: 'narr_look_crates' },
       { name: 'Gulls', rect: [500, 400, 260, 130], look: 'alan_npc_gulls' },
       { name: 'Fishing boats', rect: [565, 300, 680, 320], at: [900, 650], face: 'e', look: 'narr_look_boats', exit: 'boat', entry: 'cais', locked: () => F().ze_saved },
@@ -92,6 +93,7 @@
     if (!F().ze_saved) return say('alan_phone_cais_early');
     if (F().rang_shop) return say('alan_fail_04');
     F().rang_shop = true;
+    if (G.has('vasco_card') && !F().vasco_dialled) { F().vasco_dialled = true; await S.callVasco(); } // he tries Vasco first, and can't
     await posed('phone', async () => { sfx('phone_dial'); await G.wait(window.FAST ? 20 : 1600); sfx('ringout'); await G.wait(window.FAST ? 20 : 4500); await say('alan_ringout'); });
     await S.ch4End();
   };

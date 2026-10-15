@@ -1075,7 +1075,7 @@ window.LINES = {
   alan_two_numbers: ['alan', "Two numbers I'm afraid to call. I'm building a collection."],
   narr_fun_1: ['narr', "It was fun. It was always fun."],
   narr_fun_2: ['narr', "It was fun. He told himself so on the stairs."],
-  narr_fun_3: ['narr', "It was fun. The river didn't comment."],
+  narr_fun_3: ['narr', "It was good. For the first time in his life, good wasn't the same as enough."],
   vasco_fragment: ['vasco', "[climbing out of the pit, holding something out] Your family's. It came up this morning. I thought you should have it."],
   vasco_sleep: ['vasco', "[gently] You look like a man who hasn't slept. Is everything all right?"],
   alan_fine: ['alan', "Never better. I'm on a tour of Lisbon's bell towers. It's a phase."],
@@ -1096,4 +1096,17 @@ window.LINES = {
   vasco_closed: ['vasco', "[looking up, smiling] They're closed till ten."],
   alan_wait: ['alan', "Then I'll wait."],
   narr_thursday: ['narr', "It was Thursday. Alan Sanchez, who had never waited for anything in his life, sat down in the hole where his family used to make bells, and waited."],
+
+  // ================================================================ PHASE 6: Alan's arc
+  ines_coward: ['ines', "[dry, fond] You're not lazy, Alan. You're the hardest-working coward I know."],
+  alan_coward: ['alan', "Thank you. I've put years into it."],
+  alan_told_museum: ['alan', "[quietly] He told a museum. He didn't tell me."],
+  amalia_face: ['amalia', "[softly] He chose the sensible thing, menino. You have his face when you lie."],
+  alan_face_pause: ['alan', "[pause] ..."],
+  tomas_go_home: ['tomas', "[gently] Give it to the police, Alan. Go home. Your grandfather would have wanted you safe."],
+  alan_choice: ['alan', "My grandfather ran. [pause] I'm going to the Chiado."],
+  alan_thanks_ines: ['alan', "Inês. [pause] Thank you. For all of it."],
+  ines_worried: ['ines', "[beat] Now I'm worried."],
+  alan_documents: ['alan', "I owe you some documents."],
+  vasco_loan: ['vasco', "[smiling] They're on loan."],
 };

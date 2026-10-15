@@ -113,7 +113,7 @@
         G.showModal('cipher', false);
         if (ok === null) return resolve();
         if (!ok) { await say('alan_cipher_wrong'); return resolve(); }
-        F().decoded = true;
+        F().decoded = true; F().decoded_v6 = true;
         await S.decodeScene();
         resolve();
       };
@@ -131,6 +131,11 @@
     await say('alan_page3', 'alan_surname');
     const tm = G.npc('tomas'); if (tm) { tm.engaged++; await say('tomas_order'); tm.engaged--; }
     else await say('tomas_order');
+    // the midpoint: Tomás offers him the way out his grandfather took
+    if (tm) tm.engaged++;
+    await say('tomas_go_home', 'alan_choice');
+    if (tm) tm.engaged--;
+    F().chose_chiado = true;
   };
 
   // ================================================================ SÉ BELL TOWER

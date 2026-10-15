@@ -142,7 +142,7 @@
     { id: 'se_museum', x: 828, y: 352, text: 'Sé de Lisboa · museum', open: () => !!F().ines_plan },
     { id: 'se_tower', x: 870, y: 300, text: 'Sé de Lisboa · bell tower', open: () => F().decoded && F().ch <= 4,
       go: () => F().ch === 3 && F().vasco_thursday && !F().vasco_cameo ? 'se_cloister' : 'se_tower' }, // Vasco is in the cloister on the way up
-    { id: 'antiques', x: 410, y: 440, text: 'Antiguidades Lacerda · Chiado', open: () => F().decoded && !F().has_tongue },
+    { id: 'antiques', x: 410, y: 440, text: 'Antiguidades Lacerda · Chiado', open: () => F().decoded && !F().has_tongue && (F().chose_chiado || !F().decoded_v6) },
     { id: 'cais', x: 250, y: 585, text: 'Cais do Sodré', open: () => (F().genealogy_read || F().ch3_done) && F().ch === 4 },
   ];
 

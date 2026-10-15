@@ -300,7 +300,7 @@
     await say('ines_handover');
     give('brotherhood_charter');
     await S.readJoaquimCard();
-    await say('alan_donated');
+    await say('alan_donated', 'alan_told_museum');
     S.lore('joaquim_card');
     await say('ines_home');
     F().ines_back = false; G.refreshNpcs();
@@ -342,6 +342,7 @@
   };
   // after each fling: a moment alone, and the narrator, who isn't fooled
   S.flingBeat = async function (n, stayDark) {
+    if (n !== 3) { n = Math.min(2, (F().visit_beats || 0) + 1); F().visit_beats = n; }
     await G.fade(true);
     await T(900);
     await G.say('narr_fun_' + n, { offscreen: true });
@@ -359,7 +360,7 @@
     p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
     await G.fade(false);
     await p.walkTo(470, 640); p.dir = 'e'; p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
-    await say('alan_romans', 'vasco_closed', 'alan_wait');
+    await say('alan_romans', 'vasco_closed', 'alan_wait', 'alan_documents', 'vasco_loan');
     if (v && window.SPRITES.vasco_coffee) v.pose = 'coffee';
     p.pose = null; await T(800);
     // the Sé strikes nine

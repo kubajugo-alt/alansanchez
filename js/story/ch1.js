@@ -70,7 +70,7 @@
       { name: 'Cash register', rect: [850, 212, 180, 170], at: [820, 566], face: 'e', look: () => say(F().coinsTaken ? 'alan_register_empty' : 'alan_look_register'),
         take: async () => { if (F().coinsTaken) return say('alan_register_empty'); F().coinsTaken = true; give('coins', 3); sfx('coin'); await say('alan_take_coins'); } },
       { name: 'Answering machine', rect: [955, 366, 120, 40], at: [830, 570], face: 'e', look: () => say(F().heard_machine ? 'narr_look_machine_heard' : 'narr_look_machine'), use: () => S.playMachine() },
-      { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone(), items: { vasco_card: () => S.callVasco() } },
+      { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone() },
       { name: 'Newspaper', rect: [1035, 400, 222, 62], at: [880, 610], face: 'e', look: () => say('narr_look_news', 'alan_news') },
       { name: 'Salt on the floor', rect: [500, 578, 520, 18], when: () => F().ch >= 5, look: 'narr_look_salt_line' },
       { name: 'Door to the street', rect: [1025, 10, 205, 390], at: [900, 590], exit: 'street', entry: 'shop', locked: () => !F().heard_machine || (F().ch >= 5 && !F().ledger_found) || (F().ch >= 5 && F().ines_plan && !F().rui_called), lockedLine: () => F().ch >= 5 ? (F().ledger_found ? 'alan_call_rui_first' : 'alan_door_ledger') : 'alan_door_first' },
@@ -163,6 +163,7 @@
     if (F().mag_monster) await say('ines_monster');
     await say('ines_reserve', 'ines_plan', 'alan_why', 'ines_why');
     await S.posed('fluster', () => say('alan_deny_why'));
+    await say('ines_coward', 'alan_coward');
     F().knows_brotherhood = true; F().ines_plan = true; // ines_sketch_3 (the fado lead) now plays when she reads the register
     G.refreshNpcs();
   };
@@ -429,7 +430,7 @@
       am.set = 'sing';
       await say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3');
     } finally { am.set = null; G.cutscene = false; }
-    await say('amalia_menino', 'amalia_baptised', 'amalia_after_song');
+    await say('amalia_menino', 'amalia_baptised', 'amalia_after_song', 'amalia_face', 'alan_face_pause');
     await joke('alan_ringer'); await say('amalia_called');
     await say('amalia_1955');
     F().heard_song = true;
