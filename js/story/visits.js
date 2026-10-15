@@ -34,6 +34,39 @@
     hotspots: [],
   };
 
+  // the officer's own handcuffs: from his wrist to a ring locked round the footboard post
+  const CUFF_AT = { cop_side1: [70, 67], cop_side2: [70, 67], cop_side3: [62, 65], cop_side4: [70, 70] }; // wrist band, sprite px
+  const POST = { x: 1062, y: 412, half: 7 };
+  ROOMS.bedroom.animFg = function (g) {
+    const a = visitor === 'cop_bed' && G.npc('npc_phone');
+    if (!a || !a.visible) return;
+    const key = a.cur || a.frameKey(), A = a.place(key, a.lastFlip), pt = CUFF_AT[key];
+    if (!A || !pt) return;
+    const s = A.w / A.sp.w;
+    const wx = a.x + A.x + (A.flipped ? A.sp.w - pt[0] : pt[0]) * s, wy = a.y + A.y + pt[1] * s;
+    const rx = 10, ry = 4, ex = POST.x + rx - 1, ey = POST.y + 1;
+    g.save(); g.lineCap = 'round';
+    // chain: three small links, sagging slightly
+    for (let i = 0; i < 3; i++) {
+      const t = (i + 0.5) / 3, x = wx + (ex - wx) * t, y = wy + (ey - wy) * t + Math.sin(t * Math.PI) * 2;
+      g.save(); g.translate(x, y); g.rotate(Math.atan2(ey - wy, ex - wx) + (i % 2 ? Math.PI / 2 : 0));
+      g.beginPath(); g.ellipse(0, 0, 3.4, 1.9, 0, 0, Math.PI * 2);
+      g.strokeStyle = 'rgba(45,42,38,0.85)'; g.lineWidth = 2.2; g.stroke();
+      g.strokeStyle = 'rgb(100,94,84)'; g.lineWidth = 1.2; g.stroke(); g.restore();
+    }
+    const ring = (from, to) => {
+      g.beginPath(); g.ellipse(POST.x, POST.y, rx, ry, 0, from, to);
+      g.strokeStyle = 'rgba(40,37,33,0.85)'; g.lineWidth = 4.4; g.stroke();
+      g.strokeStyle = 'rgb(96,90,80)'; g.lineWidth = 2.8; g.stroke();
+      g.save(); g.translate(0, -0.8); g.strokeStyle = 'rgba(200,185,160,0.35)'; g.lineWidth = 0.8; g.stroke(); g.restore();
+    };
+    // back of the ring only where it shows either side of the post, then the front over it
+    g.save(); g.beginPath(); g.rect(0, 0, POST.x - POST.half, 720); g.rect(POST.x + POST.half, 0, 1280, 720); g.clip();
+    ring(Math.PI, Math.PI * 2); g.restore();
+    ring(0, Math.PI);
+    g.restore();
+  };
+
   // the two of them as one painted pair, anchored on the couple's middle (as with Zé)
   async function pair(pose, ms) {
     if (!window.SPRITES[pose]) return; // a frame that was never painted is simply skipped
