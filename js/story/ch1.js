@@ -397,7 +397,7 @@
     const lino = G.npc('npc_lino');
     if (lino) await say('lino_sell');
     spendCoin(2); sfx('coin');
-    if (lino) { lino.idleIdx = 1; sfx('pour'); await G.wait(window.FAST ? 20 : 1100); await say('lino_poured'); lino.idleIdx = 0; if (!F().gag_lino) { F().gag_lino = true; await say('gag_lino', 'gag_alan_lino'); } }
+    if (lino) { lino.idleIdx = 1; sfx('pour'); await G.wait(window.FAST ? 20 : 1100); await say('lino_poured'); lino.idleIdx = 0; if (!F().gag_lino && !F().visit_guitar) { F().gag_lino = true; await say('gag_lino', 'gag_alan_lino'); } }
     else sfx('pour');
     give('ginja', 2);
     await joke('alan_ginjinhas');
