@@ -263,6 +263,7 @@
       { x: 915, y: 265, rgb: '205,220,238', power: 0.28, reach: 800, rim: 0.6, shadow: 0.45, floor: [915, 500], height: 600 },
     ],
     entries: { default: [160, 655, 'e'], map: [160, 655, 'e'] },
+    enter() { S.copFace(); },
     layers: [{ img: 'police_drawer', x: 0, y: 0, when: () => F().drawer_open, full: true }, { img: 'police_phone', x: 0, y: 0, full: true, when: () => S.copOnDuty() }],
     // Rui and the officer stand behind the desk: the desk and what's on it are traced
     occluders: [{ y: 600, polys: [
@@ -271,7 +272,7 @@
       [[491, 365], [580, 365], [582, 403], [489, 403]], [[610, 343], [684, 343], [686, 403], [608, 403]],
       [[724, 356], [780, 356], [780, 406], [724, 406]], [[806, 372], [811, 357], [834, 350], [871, 350], [890, 357], [894, 371], [886, 381], [891, 408], [776, 408], [776, 391], [812, 386], [818, 381]], // the desk phone, traced (the inspector stands behind it)
     ] }],
-    animBack(g, t) { S.windowFog(g, t, [780, 202, 276, 126], '230,232,236', 0.22); if (S.copOnDuty()) S.wallPhone(g, 214, 266); },
+    animBack(g, t) { S.windowFog(g, t, [780, 202, 276, 126], '230,232,236', 0.22); if (S.copOnDuty()) { S.copFace(); S.wallPhone(g, 214, 266); } },
     anim(g, t) {
       FX.wisps(g, t, 751, 362, { n: 5, rise: 55, spread: 9, a: 0.12, size: 7, speed: 0.3 });
       FX.shaft(g, [[790, 205], [1050, 205], [1000, 716], [640, 716]], '225,232,236', 0.035);
@@ -332,8 +333,10 @@
     await S.readFile55();
     await posed('read', () => say('alan_read_file'));
     await say('alan_lacerda_name');
-    await say('rui_times', 'rui_avo', 'rui_key');
-    give('fkey'); await say('alan_accident');
+    // the key to Ferreira's comes round later with Teixeira (rui_key no longer plays);
+    // saves from before the flirt became a puzzle get it straight away, as before
+    if (F().flirted_cop) await say('rui_times', 'rui_avo', 'rui_send');
+    else { await say('rui_times', 'rui_avo', 'rui_key'); give('fkey'); await say('alan_accident'); }
     F().deaths_known = true; S.lore && S.lore('file1955');
   };
   S.talkRui = async function () {
@@ -380,7 +383,7 @@
     ambient: [
       { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talkFrames: ['npc_lino_talk', 'npc_lino_b'], talk: () => S.talkLino(), items: { coins: () => S.buyGinja() }, x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
       { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], talkFrames: ['npc_cards_b', 'npc_cards'], talk: S.chat('chat_cards', ['cards_talk_1', 'alan_cards_1'], ['cards_talk_2']), x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch < 5, variantHold: [0.9, 1.5] },
-      { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], talkFrames: ['npc_guitar_talk1', 'npc_guitar_talk2', 'npc_guitar_talk3'], x: 676, y: 606, h: 326, at: [812, 648], face: 'w', look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 && !F().visit_guitar }, // gone for good once he has visited Alan
+      { id: 'npc_guitar', name: 'Duarte', frames: ['npc_guitar', 'npc_guitar_b'], talkFrames: ['npc_guitar_talk1', 'npc_guitar_talk2', 'npc_guitar_talk3'], x: 676, y: 606, h: 326, at: [812, 648], face: 'w', look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 && !F().visit_guitar }, // gone for good once he has visited Alan
       { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => false }, // retired: Alan and Duarte need the room
     ],
     occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => { if (!F().matchesTaken) S.drawMatches(g, 912, 380); if (S.glassOnBar()) S.drawGlass(g, 1086, 392); } }], // the bar, in front of Lino (Amália's glass sits on it)
@@ -422,6 +425,7 @@
   };
   S.giveGinja = async function () {
     if (!F().askedSong) return say('alan_fail_08');
+    if (!F().duarte_flirt) return say('amalia_conditions'); // sober, not alone, and never without Duarte
     const am = G.npc('amalia');
     await say('alan_give_ginja');
     F().ginja = 1; G.renderInv();
@@ -435,7 +439,10 @@
       const gui = G.npc('npc_guitar'); if (gui) gui.idleIdx = 1;
       Sound.playMusic('fado');
       am.set = 'sing';
-      await say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3');
+      // Duarte plays her in: his playing frames, turn and turn about
+      const play = ['npc_guitar_flourish', 'npc_guitar', 'npc_guitar_serenade', 'npc_guitar_b'].filter(k => window.SPRITES[k]);
+      let pi = 0; const iv = gui && play.length ? setInterval(() => { gui.pose = play[pi++ % play.length]; }, window.FAST ? 20 : 850) : null;
+      try { await say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3'); } finally { if (iv) clearInterval(iv); if (gui) gui.pose = null; }
     } finally { am.set = null; G.cutscene = false; }
     await say('amalia_menino', 'amalia_baptised', 'amalia_after_song', 'amalia_face', 'alan_face_pause');
     await joke('alan_ringer'); await say('amalia_called');
@@ -449,42 +456,63 @@
     await say('amalia_hello');
     await S.gossip('amalia');
     await G.dialog([
-      { line: 'alan_ask_amalia_who', once: true, run: () => say('amalia_who') },
+      { line: 'alan_ask_amalia_who', once: true, run: async () => { await say('amalia_who'); const sh = S.showPhoto(); await say('amalia_photo'); await sh; F().saw_photo = true; } }, // the photograph opens on its own: it's the key to the box
       { line: 'alan_ask_amalia_fog', once: true, run: () => say('amalia_fog') },
-      { line: 'alan_ask_amalia_photo', once: true, when: () => F().saw_photo, run: () => say('amalia_photo') },
-      { line: 'alan_ask_amalia_song', when: () => F().knows_brotherhood && !F().heard_song, run: async () => { await say('amalia_song_no'); F().askedSong = true; } },
-      { label: 'Offer her a ginjinha.', when: () => G.has('ginja') && F().askedSong && !F().heard_song, bye: true, run: () => S.giveGinja() },
-      { line: 'alan_ask_amalia_box', once: true, when: () => F().saw_box && F().saw_photo, run: async () => { await say('amalia_box_mine', 'alan_proof'); F().amalia_box = true; } },
+      { line: 'alan_ask_amalia_photo', once: true, when: () => false, run: () => say('amalia_photo') }, // folded into the Joaquim topic
+      { line: 'alan_ask_amalia_song', when: () => F().knows_brotherhood && F().saw_photo && !F().heard_song, run: async () => { await say('amalia_conditions'); F().askedSong = true; } },
+      { label: 'Offer her a ginjinha.', when: () => G.has('ginja') && F().askedSong && !F().heard_song, get bye() { return !!F().duarte_flirt; }, run: () => S.giveGinja() },
+      { line: 'alan_ask_amalia_box', once: true, when: () => F().saw_box && F().saw_photo && !F().amalia_box, run: async () => { await say('amalia_box_mine', 'alan_proof'); F().amalia_box = true; } },
       { label: 'Could you sing it again?', when: () => F().heard_song, once: true, run: () => say('amalia_sung') },
       { label: 'Goodbye.', bye: true, run: () => say('amalia_bye') },
     ]);
   };
-  // easter eggs: Alan flirts
+  // Puzzle I-C: Rui leaves Teixeira to guard the evidence; Alan has to turn his head
+  // (the officer faces the desk while he guards it, the wall once Alan has worked on him)
+  S.copFace = function () {
+    const cop = G.npc('npc_phone'); if (!cop) return;
+    const desk = F().rui_out && !F().teixeira_wall;
+    cop.def.flip = desk; cop.dir = desk ? 'e' : 'w';
+  };
+  S.ruiLeaves = async function () {
+    await say('rui_watch');
+    const rui = G.npc('rui');
+    if (rui) { await rui.walkTo(150, 650); sfx('door'); rui.visible = false; }
+    F().rui_out = true; S.copFace();
+  };
+  S.ruiReturns = async function () {
+    const rui = G.npc('rui');
+    if (rui) { rui.x = 150; rui.y = 650; rui.visible = true; sfx('door'); F().rui_out = false; await rui.walkTo(836, 560); rui.dir = 'w'; }
+    F().rui_out = false;
+    await say('rui_constable');
+    F().teixeira_flirt = true; F().flirted_cop = true; S.copFace();
+  };
   S.flirtCop = async function () {
     const cop = G.npc('npc_phone'), p = G.player, T = ms => G.wait(window.FAST ? 20 : ms);
     const copPose = k => { if (cop) cop.pose = k; };
-    if (F().flirted_cop) { copPose('npc_phone_blush'); await say('phone_flirt_1'); copPose(null); return; }
-    F().flirted_cop = true;
-    await G.busy(async () => {
-      p.pose = 'wink'; await say('alan_flirt_cop_1');
-      p.pose = null; copPose('npc_phone_blush'); await say('phone_flirt_1');
-      // right up close: a squeeze of the arm, then a hand flat on his chest
-      // (the two of them as one painted pair, anchored on their middle)
-      const home = p.x;
-      if (cop) { await p.walkTo(cop.x + 105, cop.y); p.dir = 'w'; }
-      const pairUp = k => { if (!cop || !window.SPRITES[k]) return false; cop.visible = false; p.x = cop.x + 52; p.dir = 'e'; p.pose = k; return true; };
-      const unpair = () => { if (cop) cop.visible = true; p.x = cop ? cop.x + 105 : home; p.pose = null; };
-      if (!pairUp('pair_cop_arm')) { p.pose = 'flirt'; copPose('npc_phone_proud'); }
-      await T(500); await say('alan_flirt_cop_3', 'phone_flirt_3');
-      if (!pairUp('pair_cop_chest')) { p.pose = 'flirt'; copPose('npc_phone_blush'); }
-      await T(400); await say('alan_flirt_cop_2', 'phone_flirt_4', 'alan_flirt_cop_4');
-      unpair(); copPose('npc_phone_blush');
-      if (cop) { await p.walkTo(cop.x + 190, cop.y); p.dir = 'w'; }
-      p.pose = 'swoon';
-      await say('phone_flirt_2');
-      if (G.npc('rui')) { p.pose = null; await say('rui_flirt'); }
-      p.pose = null; copPose(null);
-    });
+    // before the Inspector leaves, and after the sketch: just a blush
+    if (!F().rui_out || F().teixeira_wall) { copPose('npc_phone_blush'); await say('phone_flirt_1'); copPose(null); return; }
+    const pairUp = k => { if (!cop || !window.SPRITES[k]) return false; cop.visible = false; p.x = cop.x + 52; p.dir = 'e'; p.pose = k; return true; };
+    const unpair = () => { if (cop) cop.visible = true; if (cop) p.x = cop.x + 105; p.pose = null; };
+    const close = async () => { if (cop && Math.abs(p.x - (cop.x + 105)) > 8) { await p.walkTo(cop.x + 105, cop.y); } p.dir = 'w'; };
+    const step = () => F().teixeira_step || 0;
+    await G.dialog([
+      { line: 'alan_flirt_cop_1', when: () => step() === 0, run: async () => {
+        p.pose = 'wink'; await T(200); p.pose = null; copPose('npc_phone_blush'); await say('teixeira_mae1'); copPose(null); F().teixeira_step = 1;
+      } },
+      { line: 'alan_flirt_cop_2', when: () => step() === 1, run: async () => {
+        await close(); if (!pairUp('pair_cop_chest')) { p.pose = 'flirt'; copPose('npc_phone_blush'); }
+        await T(900); unpair(); copPose(null); F().teixeira_step = 2;
+      } },
+      { line: 'alan_flirt_cop_3', when: () => step() === 2, bye: true, run: async () => {
+        await close(); if (!pairUp('pair_cop_arm')) { p.pose = 'flirt'; copPose('npc_phone_proud'); }
+        await say('phone_flirt_3'); await say('alan_flirt_cop_4');
+        unpair(); copPose('npc_phone_blush');
+        if (cop) { await p.walkTo(cop.x + 190, cop.y); p.dir = 'w'; }
+        p.pose = 'swoon'; await T(600); p.pose = null; copPose(null);
+        F().teixeira_step = 3; F().teixeira_wall = true; S.copFace(); // he turns to the wall, scarlet
+      } },
+      { label: 'Goodbye.', bye: true, run: () => {} },
+    ]);
   };
   // Lino notices where Alan's eyes go
   S.talkLino = async function () {
@@ -495,31 +523,37 @@
   };
   // Officer Teixeira mans the station phone in the early chapters, until he has visited Alan
   S.copOnDuty = () => F().ch <= 2 && !F().visit_cop;
+  // Puzzle I (song): Duarte plays only for people who listen; Alan listens very closely
   S.flirtGuitar = async function () {
     const gt = G.npc('npc_guitar'), p = G.player;
     const gPose = k => { if (gt) gt.pose = k; };
-    if (F().flirted_guitar) { gPose('npc_guitar_wink'); await say('guitar_flirt_1'); gPose(null); return; }
-    F().flirted_guitar = true;
-    await G.busy(async () => {
-      // he plays on while Alan talks; when he answers, his own talking frames
-      const talking = window.SPRITES.npc_guitar_talk1 ? null : 'npc_guitar_lean';
-      p.pose = 'wink'; gPose('npc_guitar_flourish'); await say('alan_flirt_guitar_1');
-      p.pose = null; gPose(talking || 'npc_guitar_flourish'); await say('guitar_flirt_1');
-      gPose(talking); await say('guitar_flirt_3');
-      p.pose = 'fluster'; gPose('npc_guitar_lean'); await say('alan_flirt_guitar_3'); p.pose = null;
-      // the lesson: his hand over Alan's on the neck of the guitar
-      const home = p.x;
-      if (gt && window.SPRITES.pair_guitar_lesson) {
-        await p.walkTo(gt.x + 110, gt.y + 30);
-        const py = p.y; gt.visible = false; p.x = gt.x + 30; p.y = gt.y + 16; p.dir = 'e'; p.pose = 'pair_guitar_lesson'; // Alan stands behind him
-        await say('guitar_flirt_4', 'alan_flirt_guitar_4');
-        p.pose = null; p.y = py; gt.visible = true; p.x = gt.x + 110; p.dir = 'w';
-      } else await say('guitar_flirt_4', 'alan_flirt_guitar_4');
-      gPose('npc_guitar_serenade'); p.pose = 'swoon'; await say('alan_flirt_guitar_2');
-      p.pose = null; gPose('npc_guitar_wink'); await say('guitar_flirt_2');
-      gPose(null);
-      if (G.npc('amalia')) await say('amalia_flirt', 'gag_amalia', 'gag_alan_amalia');
-    });
+    if (F().duarte_flirt) { gPose('npc_guitar_wink'); await say('guitar_flirt_1'); gPose(null); return; }
+    if (!F().askedSong) { gPose('npc_guitar_lean'); await say('duarte_listen'); gPose(null); return; }
+    const talking = window.SPRITES.npc_guitar_talk1 ? null : 'npc_guitar_lean';
+    const step = () => F().duarte_step || 0;
+    await G.dialog([
+      { line: 'alan_flirt_guitar_1', when: () => step() === 0, run: async () => {
+        gPose('npc_guitar_flourish'); await G.wait(window.FAST ? 20 : 300); gPose(talking); await say('guitar_flirt_1'); gPose(null); F().duarte_step = 1;
+      } },
+      { line: 'alan_flirt_guitar_2', when: () => step() === 1, run: async () => {
+        gPose('npc_guitar_wink'); await say('guitar_flirt_2'); gPose(null); F().duarte_step = 2;
+      } },
+      { label: 'Watch his hands.', when: () => step() === 2, bye: true, run: async () => {
+        gPose(talking); await say('guitar_flirt_3');
+        p.pose = 'fluster'; gPose('npc_guitar_lean'); await say('alan_flirt_guitar_3'); p.pose = null;
+        // the lesson: his hand over Alan's on the neck of the guitar
+        if (gt && window.SPRITES.pair_guitar_lesson) {
+          await p.walkTo(gt.x + 110, gt.y + 30);
+          const py = p.y; gt.visible = false; p.x = gt.x + 30; p.y = gt.y + 16; p.dir = 'e'; p.pose = 'pair_guitar_lesson';
+          await say('guitar_flirt_4', 'alan_flirt_guitar_4');
+          p.pose = null; p.y = py; gt.visible = true; p.x = gt.x + 110; p.dir = 'w';
+        } else await say('guitar_flirt_4', 'alan_flirt_guitar_4');
+        gPose('npc_guitar_serenade'); await say('duarte_agree'); gPose(null);
+        F().duarte_step = 3; F().duarte_flirt = true; F().flirted_guitar = true;
+        if (G.npc('amalia')) await say('gag_amalia', 'gag_alan_amalia');
+      } },
+      { label: 'Goodbye.', bye: true, run: () => {} },
+    ]);
   };
   // the station's wall telephone beside the door (Teixeira has the handset), its
   // coiled cord dropping behind him

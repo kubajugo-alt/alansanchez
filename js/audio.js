@@ -180,6 +180,22 @@
       if (s % 8 === 0) pad(ch.map(n => N(n - 12)), t, 2.6, 0.02);
       if (s % 16 === 0) bell(N(69), t, 0.03);
     } },
+    // "O Sino Afogado", played alone on Duarte's guitarra: slow, rubato-ish, a tolling
+    // low A under each phrase like the drowned bell, ornamented long notes
+    sino: { spb: 0.34, fn(s, t) {
+      const chords = [[45, 57, 60, 64], [41, 57, 60, 65], [40, 56, 59, 64], [45, 57, 60, 64],
+        [38, 57, 62, 65], [45, 57, 60, 64], [40, 56, 59, 62], [45, 57, 60, 69]];
+      const bar = Math.floor(s / 8) % 8, beat = s % 8, ch = chords[bar];
+      if (beat % 2 === 0) pluck(N(ch[[1, 2, 3, 2][beat / 2]]), t, 0.16, 0.2);
+      if (beat === 0) { pluck(N(ch[0]), t, 0.34, -0.15); if (bar % 4 === 0) bell(N(33), t, 0.05); }
+      const MEL = [[72, 0, 71, 69, 71, 0, 72, 74], [77, 0, 76, 74, 72, 0, 0, 0], [71, 0, 72, 74, 76, 0, 74, 72],
+        [69, 0, 0, 0, 64, 0, 69, 72], [74, 0, 72, 74, 77, 0, 76, 74], [76, 0, 72, 0, 69, 0, 72, 76],
+        [74, 0, 71, 68, 71, 0, 74, 71], [69, 0, 0, 0, 0, 0, 0, 0]];
+      const n = MEL[bar][beat]; if (!n) return;
+      const long = MEL[bar][beat + 1] === 0;
+      if (long && beat === 0 && (bar === 1 || bar === 3)) trill(N(n), N(n + 2), t + 0.02, 0.32, -0.25);
+      else pluck(N(n), t + 0.02, long ? 0.4 : 0.3, -0.25);
+    } },
     title: { spb: 0.5, fn(s, t) {
       if (s % 16 === 0) bell(N(45), t, 0.08);
       if (s % 16 === 8) bell(N(43), t, 0.05);

@@ -2,7 +2,7 @@
 // come calling at the shop. Inês is behind the counter, so they say it sideways;
 // Alan, scarlet, invents a reason to take them upstairs to his room.
 (function () {
-  const { G, F, say, ROOMS, sfx } = window.S;
+  const { G, F, say, ROOMS, sfx, give } = window.S;
   const T = ms => G.wait(window.FAST ? 20 : ms);
 
   // side-on strides for walking in (until painted, the standing frame glides)
@@ -108,7 +108,7 @@
   // after the painting: the visitor stays where the painting left him while Alan pulls
   // his clothes back on (black briefs -> jeans -> t-shirt -> jacket) and goes down.
   // beats: [dressing stage, ...lines], played in order; coda: the last word, alone in the room
-  async function afterwards(state, beats, coda) {
+  async function afterwards(state, beats, coda, after) {
     const p = G.player, ready = ['cop_bed', 'guitar_floor'].includes(state) && window.SPRITES[state === 'cop_bed' ? 'cop_side1' : 'guitar_floor1'];
     visitor = ready ? state : (state === 'cop_bed' ? 'cop' : 'guitar');
     G.refreshNpcs(true);
@@ -127,6 +127,7 @@
     if (coda) { await T(500); await say(coda); } // whoever is left behind gets the last word
     if (S.flingBeat) await S.flingBeat(state === 'cop_bed' ? 1 : 2, true); // alone on the stairs
     await downstairs(state === 'cop_bed' ? ['ines_back_cop', 'alan_back_cop'] : ['ines_back_guitar', 'alan_back_guitar']);
+    if (after) await after();
   }
 
   // a line at a time, Alan's pose changing with it (null: his own talking animation)
@@ -201,12 +202,12 @@
       await G.fade(true); G.endStill();
       await afterwards('cop_bed', [
         [1, 'phone_key_1', 'alan_key_1'],           // the key turns up in his hat
-        [2, 'phone_key_2'],
+        [2, 'teixeira_shift'],                       // (phone_key_2/3, alan_key_2/3 no longer play)
         [() => { sfx('v_alan_chuckle', 0.5); return T(700); }],
-        [3, 'alan_key_2', 'phone_key_3', 'alan_key_3'], // ...and goes in Alan's pocket
+        [3, 'alan_persuasive', 'teixeira_keep'],     // ...and the key stays in Alan's pocket
         [() => say('ines_cuff', 'alan_cuff_5')],      // the station is asking after its officer
         [4, 'alan_after_1'],                          // "Ten minutes. Don't go anywhere, Officer."
-      ], 'phone_after_2');
+      ], 'phone_after_2', S.teixeiraKey);
     });
   };
 
@@ -215,8 +216,19 @@
     const p = G.player;
     await G.busy(async () => {
       await arrive('guitar');
+      // he brings Amália's message (the box was hers), then plays her song on the shop floor
+      await beats(['swoon', 'guitar_visit_1']);
+      await say('duarte_message'); F().amalia_box = true;
+      const gv = G.npc('npc_guitar');
+      Sound.playMusic('sino');
+      const play = ['npc_guitar_flourish', 'npc_guitar_serenade'].filter(k => window.SPRITES[k]);
+      let pi = 0; const iv = gv && play.length ? setInterval(() => { gv.pose = play[pi++ % play.length]; }, window.FAST ? 20 : 900) : null;
+      try { await T(window.FAST ? 20 : 6000); await G.say('narr_melody', { offscreen: true }); await T(window.FAST ? 20 : 3000); }
+      finally { if (iv) clearInterval(iv); if (gv) gv.pose = null; }
+      Sound.playMusic(G.room && G.room.music || 'fog');
       // Alan scarlet; Duarte perfectly at ease
-      await beats(['swoon', 'guitar_visit_1'], ['fluster', 'ines_visit_guitar'], ['swoon', 'guitar_visit_2'], [null, 'alan_visit_guitar'], ['fluster', 'ines_visit_after']);
+      await beats(['fluster', 'ines_visit_guitar'], ['swoon', 'guitar_visit_2'], [null, 'alan_visit_guitar']);
+      await say('ines_drowning'); await say('alan_schedule'); // the river keeps a timetable
       const v = await upstairs('guitar', [660, 645, 'w']);
       await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed
@@ -260,6 +272,16 @@
     });
   };
 
+  S.teixeiraKey = async function () {
+    await G.fade(true);
+    visitor = 'cop'; G.refreshNpcs();
+    const v = G.npc('npc_phone'); if (v) { v.x = 300; v.y = 640; v.dir = 'e'; }
+    G.player.dir = 'w';
+    await G.fade(false);
+    await say('teixeira_key'); give('fkey'); sfx('pickup');
+    if (v && !window.FAST) await v.walkTo(1370, 700);
+    sfx('door'); visitor = null; G.refreshNpcs(); G.autosave();
+  };
   S.setVisitor = v => { visitor = v; G.refreshNpcs(true); }; // for testing
 
   // the rolling gag: everyone who saw Alan with the officer or Duarte has something to say about it,
@@ -288,7 +310,8 @@
   ROOMS.shop.enter = async function (entry) {
     if (prevEnter) await prevEnter.call(this, entry);
     if (entry !== 'street' || F().ch >= 5 || !G.npc('ines') || !G.image('bg:bedroom')) return;
-    if (F().flirted_cop && !F().visit_cop) return S.visitCop();
-    if (F().flirted_guitar && !F().visit_guitar) return S.visitGuitar();
+    // Teixeira brings the Ferreira key round in Chapter II, once the drawer is open;
+    // Duarte comes at the end of Chapter III, while Inês steams the ledger (S.ch3End)
+    if (F().ch === 2 && F().drawer_open && F().flirted_cop && !F().visit_cop) return S.visitCop();
   };
 })();

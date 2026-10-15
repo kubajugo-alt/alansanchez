@@ -258,7 +258,7 @@
       { name: "Ship's bell", rect: [680, 70, 140, 200], look: 'narr_look_antiques' },
       { name: 'Curios', rect: [880, 20, 240, 280], look: 'narr_look_antiques' },
       { name: 'Music box', rect: [928, 318, 130, 125], at: [990, 600], face: 'n',
-        look: async () => { await say('narr_look_musicbox'); F().saw_box = true; if (F().saw_photo) { await say('alan_box_photo'); if (S.lacerdaHere()) await say('lacerda_trinket'); } } },
+        look: async () => { await say('narr_look_musicbox'); F().saw_box = true; } }, // the recognition plays when Alan asks Lacerda about it
       { name: 'Display case', rect: [655, 285, 215, 240], at: [760, 605], face: 'n',
         look: () => { F().case_known = true; return F().has_tongue ? say('narr_look_case_after') : (F().saw_case ? joke('alan_look_case') : (F().saw_case = true, say('narr_look_case'))); },
         use: () => S.lacerdaHere() ? say('lacerda_hands') : say(F().case_open ? 'alan_noswap' : 'alan_case_locked'),
@@ -307,6 +307,8 @@
     ]);
   };
   S.lacerdaLeaves = async function () {
+    // Alan knows the box: it's on the shelf behind his grandfather in Amália's photograph
+    if (!F().box_recognised) { F().box_recognised = true; await say('alan_recognise'); await say('lacerda_trinket'); }
     await say('lacerda_box');
     const lac = G.npc('lacerda'); lac.h = null;
     await lac.walkTo(470, 565); await lac.walkTo(1190, 565);
@@ -350,6 +352,10 @@
     const ines = G.npc('ines');
     if (ines) { ines.pose = 'steam'; F().steaming = true; }
     await say('ines_steam');
+    // twenty minutes with the kettle: Duarte drops by with Amália's message, plays her song,
+    // and takes Alan upstairs (saves from before the flirt was a puzzle just get the message)
+    if (F().flirted_guitar && !F().visit_guitar && G.image('bg:bedroom')) await S.visitGuitar();
+    else F().amalia_box = true;
     // a quarter past five, in the Chiado…
     await G.fade(true);
     await G.goRoom('antiques', null, { instant: true, noEnter: true, noSave: true });

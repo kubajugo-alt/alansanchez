@@ -140,7 +140,7 @@
     { id: 'street', x: 1060, y: 330, text: 'Alfama · Livraria Sanchez', open: () => true },
     { id: 'police', x: 560, y: 205, text: 'Polícia Judiciária', open: () => F().heard_machine && (F().ch || 1) <= 2 },
     { id: 'lavadouro', x: 1150, y: 415, text: 'Lavadouro do Alfama', open: () => F().drawer_open && (F().ch || 1) <= 4 },
-    { id: 'ferreira', x: 600, y: 390, text: 'Relojoaria Ferreira · Baixa', open: () => F().drawer_open && (F().ch || 1) <= 3 },
+    { id: 'ferreira', x: 600, y: 390, text: 'Relojoaria Ferreira · Baixa', open: () => F().drawer_open && (G.has('fkey') || F().ferreira_open) && (F().ch || 1) <= 3 }, // the key comes round with Teixeira
     { id: 'convent', x: 262, y: 318, text: () => F().ch >= 5 ? 'Convento do Carmo · midnight' : 'Convento do Carmo', open: () => (F().ch2_done && F().ch <= 3) || (F().ledger_found && (F().rui_called || !F().ines_plan)) },
     { id: 'se_museum', x: 828, y: 352, text: 'Sé de Lisboa · museum', open: () => !!F().ines_plan },
     { id: 'se_tower', x: 870, y: 300, text: 'Sé de Lisboa · bell tower', open: () => F().decoded && F().ch <= 4,
