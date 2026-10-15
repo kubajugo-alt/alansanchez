@@ -28,7 +28,7 @@
     lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
     entries: { default: [700, 640, 'w'] },
     npcs: visitorDefs(440, 640, 'e').concat([
-      { id: 'npc_phone', ch: 'cop_bed', x: 1074, y: 772, h: 480, dir: 'w', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' },
+      { id: 'npc_phone', ch: 'cop_bed', x: 1080, y: 786, h: 540, dir: 'w', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' },
       { id: 'npc_guitar', ch: 'guitar_floor', x: 975, y: 706, h: 360, dir: 'w', fixedDir: true, name: 'Duarte', when: () => visitor === 'guitar_floor' },
     ]),
     hotspots: [],
@@ -46,9 +46,10 @@
     const wx = a.x + A.x + (A.flipped ? A.sp.w - pt[0] : pt[0]) * s, wy = a.y + A.y + pt[1] * s;
     const rx = 10, ry = 4, ex = POST.x + rx - 1, ey = POST.y + 1;
     g.save(); g.lineCap = 'round';
-    // chain: three small links, sagging slightly
-    for (let i = 0; i < 3; i++) {
-      const t = (i + 0.5) / 3, x = wx + (ex - wx) * t, y = wy + (ey - wy) * t + Math.sin(t * Math.PI) * 2;
+    // chain: small links, sagging slightly
+    const n = Math.max(3, Math.round(Math.hypot(ex - wx, ey - wy) / 5));
+    for (let i = 0; i < n; i++) {
+      const t = (i + 0.5) / n, x = wx + (ex - wx) * t, y = wy + (ey - wy) * t + Math.sin(t * Math.PI) * 2;
       g.save(); g.translate(x, y); g.rotate(Math.atan2(ey - wy, ex - wx) + (i % 2 ? Math.PI / 2 : 0));
       g.beginPath(); g.ellipse(0, 0, 3.4, 1.9, 0, 0, Math.PI * 2);
       g.strokeStyle = 'rgba(45,42,38,0.85)'; g.lineWidth = 2.2; g.stroke();

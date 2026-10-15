@@ -1295,6 +1295,22 @@ window.SPRITES = {
   "fy": 723.4,
   "top": 3.4
  },
+ "pair_guitar_d1": {
+  "w": 533,
+  "hh": 728,
+  "h": 720,
+  "ax": 284.4,
+  "fy": 723.6,
+  "top": 3.6
+ },
+ "pair_guitar_d2": {
+  "w": 526,
+  "hh": 728,
+  "h": 720,
+  "ax": 289.7,
+  "fy": 723.6,
+  "top": 3.6
+ },
  "pair_guitar_hop": {
   "w": 519,
   "hh": 727,
@@ -1302,6 +1318,30 @@ window.SPRITES = {
   "ax": 256.4,
   "fy": 723.4,
   "top": 3.4
+ },
+ "pair_guitar_j0": {
+  "w": 423,
+  "hh": 727,
+  "h": 720,
+  "ax": 190.8,
+  "fy": 723.2,
+  "top": 3.2
+ },
+ "pair_guitar_j1": {
+  "w": 492,
+  "hh": 727,
+  "h": 720,
+  "ax": 239.6,
+  "fy": 723.2,
+  "top": 3.2
+ },
+ "pair_guitar_j2": {
+  "w": 546,
+  "hh": 727,
+  "h": 720,
+  "ax": 270.7,
+  "fy": 723.2,
+  "top": 3.2
  },
  "pair_guitar_jackets": {
   "w": 446,
@@ -1327,6 +1367,22 @@ window.SPRITES = {
   "fy": 723.0,
   "top": 3.0
  },
+ "pair_guitar_s1": {
+  "w": 558,
+  "hh": 727,
+  "h": 720,
+  "ax": 255.4,
+  "fy": 723.3,
+  "top": 3.3
+ },
+ "pair_guitar_s2": {
+  "w": 606,
+  "hh": 728,
+  "h": 720,
+  "ax": 174.4,
+  "fy": 723.6,
+  "top": 3.6
+ },
  "pair_guitar_shirtfly": {
   "w": 459,
   "hh": 726,
@@ -1334,6 +1390,22 @@ window.SPRITES = {
   "ax": 129.5,
   "fy": 723.0,
   "top": 3.0
+ },
+ "pair_guitar_u1": {
+  "w": 499,
+  "hh": 727,
+  "h": 720,
+  "ax": 290.0,
+  "fy": 723.4,
+  "top": 3.4
+ },
+ "pair_guitar_u2": {
+  "w": 504,
+  "hh": 727,
+  "h": 720,
+  "ax": 245.6,
+  "fy": 723.2,
+  "top": 3.2
  },
  "pair_guitar_underwear": {
   "w": 511,
