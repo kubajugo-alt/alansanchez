@@ -75,6 +75,14 @@
     semuseum: { flags: { ch: 1, heard_machine: true, knows_brotherhood: true, ines_plan: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('se_museum', 'map') },
     sepit: { flags: { ch: 1, heard_machine: true, knows_brotherhood: true, ines_plan: true, se_visited: true, se_exhibits: 4, se_plan_on: true, saw_pit: true, saw_marks: true, saw_frags: true, met_vasco: true },
       room: 'se_cloister', pos: [1000, 650, 'w'], run: () => S.talkVasco() },
+    // in the pit with the key tossed: the five exchanges, the kiss, the reserve, Thursday's card
+    sepitgame: { flags: { ch: 1, heard_machine: true, knows_brotherhood: true, ines_plan: true, se_visited: true, se_exhibits: 4, se_plan_on: true, saw_pit: true, saw_marks: true, saw_frags: true, met_vasco: true, dig_questions: 3, in_pit: true, lanyard_taken: true, key_tossed: true },
+      room: 'se_cloister', pos: [770, 642, 'e'], run: () => { const v = G.npc('vasco'); if (v) { v.x = 880; v.y = 644; v.dir = 'w'; } return S.pitGame(); } },
+    // Chapter III: on the way up the tower, Vasco climbs out of the pit with the fragment
+    sech3: { flags: { ch: 3, heard_machine: true, knows_brotherhood: true, ines_plan: true, heist_done: true, reserve_raided: true, vasco_thursday: true, decoded: true, chose_chiado: true },
+      room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('se_cloister', 'map') },
+    // Thursday morning: the coffees, the Romans
+    thursday: { flags: { ch: 5, vasco_thursday: true, dawn: true }, room: 'se_cloister', pos: [260, 650, 'e'], run: () => S.thursday() },
   };
   async function preview(k) {
     const P = PREVIEW[k];
