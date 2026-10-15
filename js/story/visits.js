@@ -114,6 +114,12 @@
     if (coda) { await T(500); await say(coda); } // whoever is left behind gets the last word
     await downstairs(state === 'cop_bed' ? ['ines_back_cop', 'alan_back_cop'] : ['ines_back_guitar', 'alan_back_guitar']);
   }
+  // a line at a time, Alan's pose changing with it (null: his own talking animation)
+  async function beats(...list) {
+    const p = G.player;
+    for (const [pose, line] of list) { p.pose = pose; await say(line); }
+    p.pose = null;
+  }
   async function arrive(who) {
     await G.player.walkTo(716, 618); // in from the street, out of the doorway
     sfx('door'); await T(400);
@@ -126,9 +132,8 @@
     const p = G.player;
     await G.busy(async () => {
       await arrive('cop');
-      p.pose = 'fluster'; // in front of Ines: a polite yard apart, both scarlet
-      await say('phone_visit_1', 'ines_visit_cop', 'phone_visit_2', 'alan_visit_cop', 'ines_visit_after');
-      p.pose = null;
+      // in front of Ines: a polite yard apart, both scarlet
+      await beats(['fluster', 'phone_visit_1'], ['alan_idle2', 'ines_visit_cop'], ['fluster', 'phone_visit_2'], [null, 'alan_visit_cop'], ['fluster', 'ines_visit_after']);
       const v = await upstairs('cop', [660, 645, 'w']);
       await say('phone_room_1', 'alan_room_cop_1');
       // Alan takes the lead: against the bookshelf, the shirt, the neck
@@ -176,9 +181,8 @@
     const p = G.player;
     await G.busy(async () => {
       await arrive('guitar');
-      p.pose = 'fluster'; // Alan scarlet; Duarte perfectly at ease
-      await say('guitar_visit_1', 'ines_visit_guitar', 'guitar_visit_2', 'alan_visit_guitar', 'ines_visit_after');
-      p.pose = null;
+      // Alan scarlet; Duarte perfectly at ease
+      await beats(['swoon', 'guitar_visit_1'], ['fluster', 'ines_visit_guitar'], ['swoon', 'guitar_visit_2'], [null, 'alan_visit_guitar'], ['fluster', 'ines_visit_after']);
       const v = await upstairs('guitar', [660, 645, 'w']);
       await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed

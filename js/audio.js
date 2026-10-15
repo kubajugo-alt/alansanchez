@@ -7,7 +7,7 @@
   let voiceEl = null;
 
   function init() {
-    if (ctx) { if (ctx.state === 'suspended') ctx.resume(); return; }
+    if (ctx) { if (ctx.state !== 'running') ctx.resume().catch(() => {}); return; }
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination);
     musicBus = ctx.createGain(); musicBus.gain.value = 0.32;
@@ -404,6 +404,10 @@
       manifest = new Set(Array.isArray(j) ? j : Object.keys(j));
     } catch (e) { manifest = new Set(); }
   }
+  // any tap, or coming back to the tab, wakes a context the phone has put to sleep
+  const wake = () => { if (ctx && ctx.state !== 'running') ctx.resume().catch(() => {}); };
+  ['pointerdown', 'touchend', 'keydown'].forEach(e => window.addEventListener(e, wake, { passive: true }));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) wake(); });
   function hasVoice(id) { return voiceOn && manifest && manifest.has(id); }
 
   // Plays a voice line. Resolves with the clip duration (seconds) once it has
@@ -415,7 +419,10 @@
     return new Promise(resolve => {
       const el = new Audio('audio/voice/' + id + '.mp3' + (voiceVer[id] ? '?v=' + voiceVer[id] : ''));
       voiceEl = el;
-      if (ctx) try {
+      // a phone can suspend or 'interrupt' the audio context at any time; a voice routed
+      // through a stalled context is silent, so then it plays straight from the element
+      if (ctx && ctx.state !== 'running') ctx.resume().catch(() => {});
+      if (ctx && ctx.state === 'running') try {
         if (!analyser) { analyser = ctx.createAnalyser(); analyser.fftSize = 1024; levelBuf = new Float32Array(analyser.fftSize); analyser.connect(ctx.destination); }
         const src = ctx.createMediaElementSource(el); src.connect(analyser);
         // characters speak into the room; the narrator, the answering machine and voices over stills don't

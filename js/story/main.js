@@ -62,7 +62,7 @@
       await G.wait(window.FAST ? 20 : 700);
       await S.strike('ferreira');
     } },
-    guitar: { flags: { ch: 1, heard_song: true }, room: 'tavern', pos: [720, 660, 'w'], run: () => S.flirtGuitar() },
+    guitar: { flags: { ch: 1, heard_song: true }, room: 'tavern', pos: [812, 648, 'w'], run: () => S.flirtGuitar() },
     // the visits: walk into the shop from the street with Inês minding it
     visitcop: { flags: { ch: 2, heard_machine: true, flirted_cop: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
     visitguitar: { flags: { ch: 2, heard_machine: true, flirted_guitar: true, visit_cop: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
