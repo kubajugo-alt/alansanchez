@@ -6,6 +6,9 @@
   const T = ms => G.wait(window.FAST ? 20 : ms);
 
   S.CHARS.cop_visit = { scale: 1.0, frames: { idle: ['cop_visit'], talk: ['cop_visit_talk', 'cop_visit'], walk: ['cop_visit'] } };
+  // after the paintings: the officer cuffed on the bed, Duarte on the floor with his guitar (small looping idles)
+  S.CHARS.cop_bed = { scale: 1.0, idleHold: [1.6, 2.6], variantHold: [0.9, 1.6], frames: { idle: ['cop_bed1', 'cop_bed2', 'cop_bed3', 'cop_bed4'], talk: ['cop_bed1', 'cop_bed3'] } };
+  S.CHARS.guitar_floor = { scale: 1.0, idleHold: [1.2, 2], variantHold: [0.8, 1.4], frames: { idle: ['guitar_floor1', 'guitar_floor3', 'guitar_floor2', 'guitar_floor4'], talk: ['guitar_floor2', 'guitar_floor4'] } };
   S.CHARS.guitar_visit = { scale: 1.0, frames: { idle: ['guitar_visit'], talk: ['guitar_visit_talk', 'guitar_visit'], walk: ['guitar_visit'] } };
 
   // who is calling today (only while a visit is playing)
@@ -24,7 +27,10 @@
     light: { ambient: 'rgb(205,180,150)', base: 0.8, rim: 'rgba(255,210,160,0.25)', rimSide: 1 },
     lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
     entries: { default: [700, 640, 'w'] },
-    npcs: visitorDefs(440, 640, 'e'),
+    npcs: visitorDefs(440, 640, 'e').concat([
+      { id: 'npc_phone', ch: 'cop_bed', x: 935, y: 640, h: 420, dir: 'w', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' },
+      { id: 'npc_guitar', ch: 'guitar_floor', x: 900, y: 690, h: 260, dir: 'w', fixedDir: true, name: 'Duarte', when: () => visitor === 'guitar_floor' },
+    ]),
     hotspots: [],
   };
 
@@ -48,6 +54,24 @@
     await G.fade(false);
     G.autosave();
   }
+  // after the painting: the visitor stays where the painting left him; Alan pulls
+  // his clothes back on (his washhouse frames, played backwards) and goes down
+  async function afterwards(state, theirLine, alanLine) {
+    const p = G.player, ready = ['cop_bed', 'guitar_floor'].includes(state) && window.SPRITES[state === 'cop_bed' ? 'cop_bed1' : 'guitar_floor1'];
+    visitor = ready ? state : (state === 'cop_bed' ? 'cop' : 'guitar');
+    G.refreshNpcs(true);
+    p.x = 640; p.y = 650; p.dir = 'e'; p.pose = 'undress4';
+    await T(500); await G.fade(false);
+    await say(theirLine);
+    p.pose = 'undress3'; for (let i = 0; i < 4; i++) { p.x -= 5; await T(160); }
+    p.pose = 'undress2'; await T(800);
+    await say(alanLine);
+    p.pose = 'undress1'; await T(700);
+    p.pose = 'button'; await T(800); p.pose = null;
+    p.dir = 'w'; await p.walkTo(150, 690); // out past the bookshelf, down the stairs
+    sfx('stairs', 0.6);
+    await downstairs();
+  }
   async function arrive(who) {
     await G.player.walkTo(760, 612); // in from the street, out of the doorway
     sfx('door'); await T(400);
@@ -68,11 +92,16 @@
       // Alan takes the lead: against the bookshelf, the shirt, the neck
       // the officer backed against the room's own bookshelf, Alan very much in charge
       const home = p.x; if (v) { p.x = 410; v.visible = false; }
-      p.dir = 'e'; sfx('sheet_slap', 0.2); await pair('pair_cop_shelf', 2400);
+      p.dir = 'e'; sfx('sheet_slap', 0.2); await pair('pair_cop_shelf', 2200);
+      await pair('pair_cop_jacket', 1600);
       await say('phone_room_2', 'alan_room_cop_2');
-      await pair('pair_cop_neck', 2200);
-      sfx('sheet_slap', 0.2); await pair('pair_cop_shelf2', 2000);
+      await pair('pair_cop_neck', 1800);
+      sfx('sheet_slap', 0.2); await pair('pair_cop_tshirt', 1600);
+      await pair('pair_cop_buttons', 1800);
       await say('alan_room_cop_4', 'phone_room_4');
+      sfx('sheet_slap', 0.2); await pair('pair_cop_shelf2', 1800);
+      await pair('pair_cop_belt', 1700);
+      sfx('sheet_slap', 0.25); await pair('pair_cop_trousers', 1800);
       // his own handcuffs
       sfx('sheet_slap', 0.25); p.x = 560; await pair('pair_cop_cuffs', 600);
       await say('alan_cuff_1', 'phone_cuff_1', 'alan_cuff_2'); sfx('lamp_click', 0.8);
@@ -90,10 +119,7 @@
         }, { zoom: [1.0, 1.1], pan: [[0.45, 0.5], [0.55, 0.5]], keep: true });
       }
       await G.fade(true); G.endStill();
-      p.pose = null; p.x = home; if (v) v.visible = true;
-      await T(400); await G.fade(false);
-      await say('phone_room_3', 'alan_room_cop_3');
-      await downstairs();
+      await afterwards('cop_bed', 'phone_room_3', 'alan_room_cop_3');
     });
   };
 
@@ -109,17 +135,18 @@
       await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed
       const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
-      p.dir = 'e'; sfx('sheet_slap', 0.25); await pair('pair_guitar_undress', 2400); // Duarte on the left, Alan on the right
-      sfx('sheet_slap', 0.25); await pair('pair_guitar_undress2', 1800);
+      p.dir = 'e'; sfx('sheet_slap', 0.25); await pair('pair_guitar_jackets', 1800); // Duarte on the left, Alan on the right
+      await pair('pair_guitar_undress', 1800);
+      sfx('sheet_slap', 0.25); await pair('pair_guitar_shirtfly', 1600);
+      await pair('pair_guitar_undress2', 1600);
       await say('guitar_room_4', 'alan_room_guitar_3');
-      sfx('sheet_slap', 0.3); await pair('pair_guitar_underwear', 2400);
+      sfx('sheet_slap', 0.3); await pair('pair_guitar_hop', 1700);
+      await pair('pair_guitar_lasso', 1700);
+      await pair('pair_guitar_underwear', 2200);
       await say('guitar_room_2');
       await G.showStill('still_guitar_bed', () => G.say('narr_room_guitar', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.55, 0.5], [0.5, 0.45]], keep: true });
       await G.fade(true); G.endStill();
-      p.pose = null; p.x = home; if (v) v.visible = true;
-      await T(400); await G.fade(false);
-      await say('guitar_room_3', 'alan_room_guitar_2');
-      await downstairs();
+      await afterwards('guitar_floor', 'guitar_room_3', 'alan_room_guitar_2');
     });
   };
 
