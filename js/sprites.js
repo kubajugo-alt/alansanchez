@@ -91,6 +91,14 @@ window.SPRITES = {
   "top": 3.1,
   "facesLeft": true
  },
+ "alan_coffees": {
+  "w": 246,
+  "hh": 716,
+  "h": 720,
+  "ax": 122.0,
+  "fy": 712.8,
+  "top": 3.1
+ },
  "alan_cutpalm": {
   "w": 250,
   "hh": 726,
@@ -750,6 +758,14 @@ window.SPRITES = {
   "fy": 656.9,
   "top": 3.1
  },
+ "ines_plaque": {
+  "w": 246,
+  "hh": 715,
+  "h": 720,
+  "ax": 148.1,
+  "fy": 711.9,
+  "top": 3.1
+ },
  "ines_steam": {
   "w": 348,
   "hh": 732,
@@ -953,6 +969,22 @@ window.SPRITES = {
   "ax": 155.4,
   "fy": 710.5,
   "top": 3.1
+ },
+ "npc_guard": {
+  "w": 340,
+  "hh": 727,
+  "h": 720,
+  "ax": 180.0,
+  "fy": 723.3,
+  "top": 3.3
+ },
+ "npc_guard_b": {
+  "w": 332,
+  "hh": 727,
+  "h": 720,
+  "ax": 176.0,
+  "fy": 723.3,
+  "top": 3.3
  },
  "npc_guitar": {
   "w": 364,
@@ -1164,6 +1196,38 @@ window.SPRITES = {
   "ax": 108.4,
   "fy": 723.5,
   "top": 3.0
+ },
+ "npc_tourists": {
+  "w": 574,
+  "hh": 727,
+  "h": 720,
+  "ax": 143.4,
+  "fy": 722.8,
+  "top": 3.3
+ },
+ "npc_tourists_b": {
+  "w": 524,
+  "hh": 728,
+  "h": 720,
+  "ax": 119.4,
+  "fy": 723.9,
+  "top": 3.3
+ },
+ "npc_volunteer": {
+  "w": 393,
+  "hh": 727,
+  "h": 720,
+  "ax": 211.7,
+  "fy": 723.5,
+  "top": 3.5
+ },
+ "npc_volunteer_b": {
+  "w": 377,
+  "hh": 727,
+  "h": 720,
+  "ax": 207.7,
+  "fy": 723.5,
+  "top": 3.5
  },
  "npc_washer1": {
   "w": 318,

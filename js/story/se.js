@@ -79,7 +79,7 @@
     ],
     ambient: [
       { id: 'npc_guard', name: 'Museum guard', frames: ['npc_guard', 'npc_guard_b'], x: 1090, y: 605, h: 230, look: 'alan_npc_guard', idleHold: [6, 12], variantHold: [3, 6] },
-      { id: 'npc_tourists', name: 'Tourists', frames: ['npc_tourists', 'npc_tourists_b'], x: 230, y: 700, h: 360, look: 'alan_npc_tourists', idleHold: [5, 9], variantHold: [3, 5] },
+      { id: 'npc_tourists', name: 'Tourists', frames: ['npc_tourists', 'npc_tourists_b'], x: 200, y: 662, h: 315, look: 'alan_npc_tourists', idleHold: [5, 9], variantHold: [3, 5] },
     ],
     hotspots: [
       { name: 'Panorama of Lisbon, 1700', rect: [0, 118, 332, 254], at: [220, 650], face: 'n', look: () => S.exhibit('panorama') },
