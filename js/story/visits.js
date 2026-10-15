@@ -72,11 +72,16 @@
   };
 
   const SHELF = 150; // the front of the bookshelf, where the officer's back meets it
+  // where the officer's torso starts in each frame (sprite px at chest height); the cuffs frame sets the mark
+  const TORSO = { shelf: 65, jacket: 35, neck: 28, tshirt: 73, buttons: 108, shelf2: 61, belt: 22, belt2: 40, trousers: 29, cuffs: 66 };
   // the two of them as one painted pair, anchored on the couple's middle (as with Zé)
-  async function pair(pose, ms, wall) {
+  async function pair(pose, ms, wall, torso) {
     if (!window.SPRITES[pose]) return; // a frame that was never painted is simply skipped
     const p = G.player; p.pose = pose;
-    if (wall != null) { const A = p.place(pose, false); if (A) p.x = wall - A.x; } // the left figure's back against the wall
+    if (wall != null) { // the left figure's back against the wall, lined up on his torso rather than a raised arm
+      const A = p.place(pose, false);
+      if (A) p.x = wall - A.x + (torso == null ? 0 : (TORSO.cuffs - torso) * A.w / A.sp.w);
+    }
     await T(ms);
   }
   async function upstairs(who, at) {
@@ -143,7 +148,7 @@
       // Alan takes the lead: against the bookshelf, the shirt, the neck
       // the officer backed against the room's own bookshelf, Alan very much in charge
       const home = p.x; if (v) { p.x = 410; v.visible = false; }
-      const W = SHELF, shelf = (k, ms) => pair('pair_cop_' + k, ms, W);
+      const shelf = (k, ms) => pair('pair_cop_' + k, ms, SHELF, TORSO[k]);
       p.dir = 'e'; sfx('sheet_slap', 0.2); await shelf('shelf', 600); // his wrists pinned to the shelf
       await say('alan_room_cop_5', 'phone_room_5');
       await shelf('jacket', 1500);
