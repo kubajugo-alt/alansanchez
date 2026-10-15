@@ -220,11 +220,14 @@
       await beats(['swoon', 'guitar_visit_1']);
       await say('duarte_message'); F().amalia_box = true;
       const gv = G.npc('npc_guitar');
-      Sound.playMusic('sino');
-      const play = ['npc_guitar_flourish', 'npc_guitar_serenade'].filter(k => window.SPRITES[k]);
+      // the opening bars of Amália's fado, the guitarra alone (the synth tune if the recording is missing)
+      const song = S.SINO_SONG ? Sound.playSong(S.SINO_SONG, 0.8) : (Sound.playMusic('sino'), null);
+      if (song) setTimeout(() => song.stop(2500), window.FAST ? 20 : 16500);
+      const play = ['npc_guitar', 'npc_guitar_b'].filter(k => window.SPRITES[k]);
       let pi = 0; const iv = gv && play.length ? setInterval(() => { gv.pose = play[pi++ % play.length]; }, window.FAST ? 20 : 900) : null;
       try { await T(window.FAST ? 20 : 6000); await G.say('narr_melody', { offscreen: true }); await T(window.FAST ? 20 : 3000); }
       finally { if (iv) clearInterval(iv); if (gv) gv.pose = null; }
+      if (song) { song.stop(800); await song.ended; }
       Sound.playMusic(G.room && G.room.music || 'fog');
       // Alan scarlet; Duarte perfectly at ease
       await beats(['fluster', 'ines_visit_guitar'], ['swoon', 'guitar_visit_2'], [null, 'alan_visit_guitar']);

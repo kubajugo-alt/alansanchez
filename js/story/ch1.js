@@ -423,6 +423,28 @@
     give('ginja', 2);
     await joke('alan_ginjinhas');
   };
+  // "O Sino Afogado": Amália's fado, sung in Portuguese; the captions translate it
+  S.SINO_SONG = Sound.playSong ? 'audio/music/o_sino_afogado.mp3' : null;
+  S.SINO_LYRICS = [
+    [19.5, "Nine days the fog has lain upon the river, on the quay."],
+    [27.2, "Nine nights the bronze has slept where no one goes."],
+    [35.8, "The founders, out of fear, cut out its tongue one day,"],
+    [42.8, "and bound me with the blood that ran in their veins."],
+    [50.0, "Ai, my love, my bell-founder,"],
+    [59.5, "don't speak to me of your bell,"],
+    [66.5, "for I know the sea is long,"],
+    [72.8, "and your blood is your fate."],
+    [79.5, "Where the Carmo prays without a roof, the stone weeps only cold."],
+    [101.5, "Turn the letters seven times, son of the bronze and the river."],
+    [108.5, "And if you fear to hold your love..."],
+    [115.5, "the sea waits; the sea is long."],
+    [119.5, "Ring it backward. Come back to me."],
+    [125.5, "Ai, my love, my bell-founder,"],
+    [130.5, "don't speak to me of your bell,"],
+    [138.5, "for I know the sea is long,"],
+    [146.5, "and your blood is your fate."],
+    [159, ''],
+  ];
   S.giveGinja = async function () {
     if (!F().askedSong) return say('alan_fail_08');
     if (!F().duarte_flirt) return say('amalia_conditions'); // sober, not alone, and never without Duarte
@@ -437,12 +459,17 @@
     G.cutscene = true;
     try {
       const gui = G.npc('npc_guitar'); if (gui) gui.idleIdx = 1;
-      Sound.playMusic('fado');
+      if (!S.SINO_SONG) Sound.playMusic('fado');
       am.set = 'sing';
       // Duarte plays her in: his playing frames, turn and turn about
-      const play = ['npc_guitar_flourish', 'npc_guitar', 'npc_guitar_serenade', 'npc_guitar_b'].filter(k => window.SPRITES[k]);
+      const play = ['npc_guitar', 'npc_guitar_b'].filter(k => window.SPRITES[k]);
       let pi = 0; const iv = gui && play.length ? setInterval(() => { gui.pose = play[pi++ % play.length]; }, window.FAST ? 20 : 850) : null;
-      try { await say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3'); } finally { if (iv) clearInterval(iv); if (gui) gui.pose = null; }
+      try {
+        // the recorded fado (Portuguese), English captions in time with her; the old spoken verses are the fallback
+        if (S.SINO_SONG) await G.lyrics(Sound.playSong(S.SINO_SONG), S.SINO_LYRICS, 'amalia');
+        else await say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3');
+      } finally { if (iv) clearInterval(iv); if (gui) gui.pose = null; }
+      Sound.playMusic(G.room.music);
     } finally { am.set = null; G.cutscene = false; }
     await say('amalia_menino', 'amalia_baptised', 'amalia_after_song', 'amalia_face', 'alan_face_pause');
     await joke('alan_ringer'); await say('amalia_called');

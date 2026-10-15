@@ -529,11 +529,29 @@
     duck(false);
   }
 
+  // a recorded song (Amália's fado): plays over everything, the synth music stopped under it
+  function playSong(url, vol) {
+    playMusic(null);
+    const el = new Audio(url); el.preload = 'auto';
+    let src = null;
+    try { if (ctx) { src = ctx.createMediaElementSource(el); const g = ctx.createGain(); g.gain.value = vol == null ? 0.9 : vol; src.connect(g); g.connect(ctx.destination); } } catch (e) { src = null; }
+    if (!src) el.volume = Math.min(1, vol == null ? 0.9 : vol);
+    if (!musicOn) el.muted = true;
+    if (ambBus) ambBus.gain.setTargetAtTime(0.25, ctx.currentTime, 0.3);
+    const ended = new Promise(res => { el.addEventListener('ended', res); el.addEventListener('error', res); });
+    el.play().catch(() => {});
+    const restore = () => { if (ambBus) ambBus.gain.setTargetAtTime(1, ctx.currentTime, 0.6); };
+    ended.then(restore);
+    return { el, ended, stop(fadeMs) {
+      const steps = 12, ms = fadeMs || 1200; let i = 0, v0 = el.volume;
+      const iv = setInterval(() => { i++; el.volume = Math.max(0, v0 * (1 - i / steps)); if (i >= steps) { clearInterval(iv); el.pause(); el.dispatchEvent(new Event('ended')); } }, ms / steps);
+    } };
+  }
   function setMusic(on) { musicOn = on; const t = currentTrack; currentTrack = null; if (on) playMusic(t); else { clearInterval(trackTimer); currentTrack = t; } }
   function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
 
   window.Sound = {
-    init, playMusic, sfx, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
+    init, playMusic, playSong, sfx, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; },
   };
 })();

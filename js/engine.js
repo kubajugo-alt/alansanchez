@@ -697,6 +697,26 @@
     busy--;
     await wait(110);
   }
+  // a recorded song with timed captions: cues [[seconds, text], ...]; a click ends it early
+  async function lyrics(song, cues, who) {
+    busy++;
+    const t = narrEl.querySelector('.txt');
+    narrEl.querySelector('.who').textContent = NAMES[who] || '';
+    t.style.fontStyle = 'italic'; t.style.color = COLORS[who] || '#fff';
+    let shown = -1, over = false;
+    const tick = setInterval(() => {
+      const now = song.el.currentTime; let k = -1;
+      cues.forEach(([at], i) => { if (now >= at) k = i; });
+      if (k !== shown) { shown = k; if (k >= 0 && cues[k][1]) { t.textContent = cues[k][1]; narrEl.style.display = 'block'; } else narrEl.style.display = 'none'; }
+    }, 120);
+    const skip = () => { if (!over) song.stop(900); };
+    skipFn = skip;
+    if (window.FAST) song.stop(10);
+    await song.ended; over = true;
+    clearInterval(tick); if (skipFn === skip) skipFn = null;
+    narrEl.style.display = 'none'; t.style.fontStyle = 'normal';
+    busy--;
+  }
   async function says(...ids) { if (Sound.preloadVoice) ids.forEach(id => Sound.preloadVoice(id)); for (const id of ids) await say(id); }
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
@@ -1107,7 +1127,7 @@
   }
 
   window.Game = {
-    init, begin, goRoom, say, says, wait, dialog, reach, showStill, endStill, closeup, setClock, renderInv,
+    init, begin, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, closeup, setClock, renderInv,
     set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
     giveItem, takeItem, has, toast,
     get state() { return state; }, get flags() { return state.flags; },
