@@ -46,6 +46,7 @@
   };
 
   S.talkInesSe = async function () {
+    if (!F().ines_se_talked && !(F().se_exhibits >= 4)) { F().ines_se_talked = true; return say('ines_look_first'); }
     if (F().se_exhibits >= 4 && !F().se_plan_on) {
       F().se_plan_on = true;
       await say('ines_go'); await joke('alan_go');
