@@ -1551,11 +1551,19 @@ window.SPRITES = {
   "fy": 724.1,
   "top": 4.1
  },
- "pair_vasco_shirtless": {
-  "w": 441,
+ "pair_vasco_catch": {
+  "w": 449,
   "hh": 727,
   "h": 720,
-  "ax": 220.5,
+  "ax": 224.5,
+  "fy": 723.1,
+  "top": 3.1
+ },
+ "pair_vasco_shirtless": {
+  "w": 446,
+  "hh": 727,
+  "h": 720,
+  "ax": 223.0,
   "fy": 723.1,
   "top": 3.1
  },
@@ -1816,6 +1824,14 @@ window.SPRITES = {
   "fy": 711.9,
   "top": 3.0
  },
+ "vasco_back": {
+  "w": 232,
+  "hh": 715,
+  "h": 720,
+  "ax": 117.1,
+  "fy": 711.4,
+  "top": 3.0
+ },
  "vasco_climb": {
   "w": 311,
   "hh": 907,
@@ -1845,6 +1861,14 @@ window.SPRITES = {
   "hh": 715,
   "h": 720,
   "ax": 148.6,
+  "fy": 711.9,
+  "top": 3.0
+ },
+ "vasco_front": {
+  "w": 230,
+  "hh": 715,
+  "h": 720,
+  "ax": 129.6,
   "fy": 711.9,
   "top": 3.0
  },
@@ -1880,6 +1904,14 @@ window.SPRITES = {
   "fy": 506.5,
   "top": 3.0
  },
+ "vasco_kneel_talk": {
+  "w": 276,
+  "hh": 511,
+  "h": 720,
+  "ax": 147.2,
+  "fy": 507.0,
+  "top": 3.0
+ },
  "vasco_laugh": {
   "w": 227,
   "hh": 715,
@@ -1902,6 +1934,14 @@ window.SPRITES = {
   "h": 720,
   "ax": 165.5,
   "fy": 712.4,
+  "top": 3.0
+ },
+ "vasco_sit": {
+  "w": 285,
+  "hh": 539,
+  "h": 720,
+  "ax": 134.4,
+  "fy": 535.7,
   "top": 3.0
  },
  "vasco_talk": {

@@ -9,7 +9,8 @@
   S.CHARS.vasco = { scale: 1.0, frames: {
     idle: ['vasco', 'vasco_idle2', 'vasco_idle3'], talk: ['vasco_talk', 'vasco_talk2', 'vasco_talk3'], walk: ['vasco_walk1', 'vasco_pass1', 'vasco_walk2', 'vasco_pass2'],
     poses: { kneel: 'vasco_kneel', climb: 'vasco_climb', trowel: 'vasco_trowel', coffee: 'vasco_coffee',
-      fluster: 'vasco_fluster', laugh: 'vasco_laugh', sheepish: 'vasco_idle3', find: 'vasco_find', give: 'vasco_give' } } };
+      fluster: 'vasco_fluster', laugh: 'vasco_laugh', sheepish: 'vasco_idle3', find: 'vasco_find', give: 'vasco_give',
+      kneeltalk: 'vasco_kneel_talk', sit: 'vasco_sit' }, front: 'vasco_front', back: 'vasco_back' } };
   if (window.SPRITES.vasco_pass1) S.CHARS.vasco.frameStep = 0.085; else S.CHARS.vasco.frames.walk = ['vasco_walk1', 'vasco_walk2'];
   // his tells: the collar when he's flattered, the hand over the mouth when he's nervous
   const VPOSE = { fluster: ['vasco_lanyard', 'vasco_much_1', 'vasco_much_2', 'vasco_much_4', 'vasco_flustered', 'vasco_kiss'],
