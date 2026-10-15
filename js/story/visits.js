@@ -84,11 +84,13 @@
     await G.fade(false);
     return v;
   }
-  async function downstairs() {
+  async function downstairs(back) {
     await G.fade(true);
     visitor = null; G.player.pose = null;
     await G.goRoom('shop', null, { instant: true, noEnter: true, pos: [760, 612, 'w'] });
     await G.fade(false);
+    // Ines has opinions about the afternoon
+    if (back && G.npc('ines')) { await say(back[0]); G.player.pose = 'fluster'; await say(back[1]); G.player.pose = null; }
     G.autosave();
   }
   // after the painting: the visitor stays where the painting left him; Alan pulls
@@ -110,7 +112,7 @@
     p.dir = 'w'; await p.walkTo(150, 690); // out past the bookshelf, down the stairs
     sfx('stairs', 0.6);
     if (coda) { await T(500); await say(coda); } // whoever is left behind gets the last word
-    await downstairs();
+    await downstairs(state === 'cop_bed' ? ['ines_back_cop', 'alan_back_cop'] : ['ines_back_guitar', 'alan_back_guitar']);
   }
   async function arrive(who) {
     await G.player.walkTo(716, 618); // in from the street, out of the doorway
