@@ -151,23 +151,23 @@
       const shelf = (k, ms) => pair('pair_cop_' + k, ms, SHELF, TORSO[k]);
       p.dir = 'e'; sfx('sheet_slap', 0.2); await shelf('shelf', 600); // his wrists pinned to the shelf
       await say('alan_room_cop_5', 'phone_room_5');
-      await shelf('jacket', 1500);
-      await shelf('neck', 900);
+      await shelf('neck', 900); // into his neck, the jacket still on
       await say('phone_room_2', 'alan_room_cop_2');
-      sfx('sheet_slap', 0.2); await shelf('tshirt', 700);
+      await shelf('jacket', 2200); // wrists still pinned, the jacket shrugged off
+      sfx('sheet_slap', 0.2); await shelf('tshirt', 900);
       await say('phone_room_6', 'alan_room_cop_6');
-      await shelf('buttons', 900);
+      await shelf('buttons', 1200);
       await say('alan_room_cop_4', 'phone_room_4');
       // the bookshelf, close up: his shirt open, the books going over
       sfx('sheet_slap', 0.25);
       await G.showStill('still_cop_shelf', () => G.say('narr_room_cop', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.45, 0.4]], keep: true });
       await G.fade(true); G.endStill(); await shelf('shelf2', 0); await T(300); await G.fade(false);
-      await T(1200);
-      await shelf('belt', 600);
+      await T(2200); // back in the room: the shirt open, his hand on the officer's chest
+      await shelf('belt', 1000);
       await say('alan_room_cop_7', 'phone_room_7');
-      await shelf('belt2', 500); // his trousers, halfway
+      await shelf('belt2', 900); // his trousers, halfway
       await say('alan_room_cop_8', 'phone_room_8');
-      sfx('sheet_slap', 0.25); await shelf('trousers', 600);
+      sfx('sheet_slap', 0.25); await shelf('trousers', 900);
       await say('phone_room_9', 'alan_room_cop_9');
       // his own handcuffs
       sfx('sheet_slap', 0.25); await shelf('cuffs', 600);
