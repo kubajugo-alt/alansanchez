@@ -195,7 +195,8 @@
     if (!F().met_celeste) return say('celeste_twist');
     if (!first) { await say('celeste_hello'); await S.gossip('celeste'); }
     await G.dialog([
-      { line: 'alan_ask_river', once: true, run: async () => { await say('celeste_river'); await joke('alan_breathes'); await say('celeste_salt'); F().lore_turnings = true; } },
+      { line: 'alan_ask_river', once: true, run: async () => { await say('celeste_river'); await joke('alan_breathes'); await say('celeste_salt'); F().lore_turnings = true; if (F().lore_bronze) S.lore && S.lore('celeste'); } },
+      { line: 'alan_ask_celeste_lacerda', once: true, when: () => F().ines_plan, run: () => say('celeste_godfather', 'celeste_font') },
       { line: 'alan_show_tile', silent: true, when: () => F().sketched_tile && !F().lore_bronze, run: () => S.celesteTile() },
       { line: 'alan_show_file', silent: true, when: () => G.has('file55') && !F().knows_1955_boy, run: () => S.celeste1955() },
       { line: 'alan_ask_maria', once: true, run: () => say('celeste_maria') },
@@ -208,7 +209,7 @@
     if (F().lore_bronze) return say('celeste_tile_again');
     await say('alan_show_tile', 'celeste_tile_1');
     await joke('alan_dingdong'); await say('celeste_cheeky');
-    F().lore_bronze = true;
+    F().lore_bronze = true; if (F().lore_turnings) S.lore && S.lore('celeste');
   };
   S.celeste1955 = async function () {
     if (!F().met_celeste) return say('celeste_twist');

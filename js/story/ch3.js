@@ -25,7 +25,7 @@
     anim(g, t) { FX.shaft(g, [[740, 100], [830, 100], [900, 560], [680, 560]], '255,245,230', 0.06); FX.leaves(g, t, 600, 690, 23); },
     npcs: [
       { id: 'tomas', x: 640, y: 590, dir: 'w', loop: 'sweep', name: 'Father Tomás', look: 'narr_look_tomas', talk: () => S.talkTomas(),
-        items: { file55: () => say('alan_ask_tomas_1955', 'tomas_notyet'), ledger: () => say('tomas_stone'), any: 'alan_fail_07' } },
+        items: { file55: () => say('alan_ask_tomas_1955', 'tomas_notyet'), ledger: () => say('tomas_stone'), brotherhood_charter: () => S.tomasCharter(), any: 'alan_fail_07' } },
     ],
     ambient: [
       { id: 'npc_nun', name: 'A nun', frames: ['npc_nun', 'npc_nun_b'], talkFrames: ['npc_nun_talk', 'npc_nun'], talk: S.chat('chat_nun', ['nun_talk_1', 'alan_nun_1'], ['nun_talk_2']), x: 1112, y: 548, h: 214, look: 'alan_npc_nun', idleHold: [7, 14], variantHold: [4, 7] },
@@ -47,6 +47,7 @@
         items: {
           glass: async () => {
             if (!F().glassHoly) return say('alan_stone_crusted');
+            if (S.needBells()) return say('alan_stone_wait');
             if (F().stone_washed) return say('alan_fail_04');
             G.takeItem('glass'); F().glassUsed = true; F().glassHoly = false;
             sfx('salt_fizz'); await G.wait(window.FAST ? 20 : 1200);
@@ -61,9 +62,25 @@
     ],
     async enter() { if (F().ch >= 5) return G.goRoom('convent_night', 'map', { instant: true }); if (!F().carmo_entered) { F().carmo_entered = true; await joke('alan_enter_carmo'); } },
   };
+  // the Sé's charter opens Tomás up about bells; the stone waits until Alan has heard him
+  // (saves from before the Sé chapter never had the charter, so they keep the old rule)
+  S.needBells = () => F().ines_plan && !F().heard_bells;
+  S.tomasCharter = async function () {
+    if (F().charter_shown) return say('alan_fail_04');
+    F().charter_shown = true;
+    await say('tomas_charter'); await joke('alan_charter');
+  };
+  S.tomasBells = async function () {
+    await say('tomas_baptism', 'tomas_reverse'); S.lore && S.lore('reverse');
+    await say('tomas_godparents'); S.lore && S.lore('godparents');
+    await say('tomas_novena', 'tomas_renounce'); await joke('alan_novena');
+    F().heard_bells = true; S.loreOrder && S.loreOrder();
+  };
   S.talkTomas = async function () {
     await say('tomas_hello');
+    if (S.gossip) await S.gossip('tomas');
     await G.dialog([
+      { line: 'alan_ask_tomas_bells', once: true, when: () => F().charter_shown && !F().heard_bells, run: () => S.tomasBells() },
       { line: 'alan_ask_carmo', once: true, run: () => say('tomas_carmo') },
       { line: 'alan_ask_founders', once: true, run: async () => { await say('tomas_founders'); await joke('alan_twice'); } },
       { line: 'alan_ask_stone', once: true, run: () => say('tomas_stone') },
@@ -160,13 +177,20 @@
           await S.showBellMark(b.text);
           F()['bell_' + b.id] = true;
           await posed('write', () => b.joke ? joke(b.line) : say(b.line));
-          if (BELLS.every(x => F()['bell_' + x.id]) && !F().founder_order) { F().founder_order = true; await say('alan_order'); }
+          if (BELLS.every(x => F()['bell_' + x.id]) && !F().founder_order) await S.orderKnown();
         }, any: 'alan_fail_09' } })),
       { name: 'Stairs down', rect: [0, 160, 260, 460], at: [80, 680], exit: 'map', entry: 'se_tower' },
     ],
     async enter() {
       if (!F().se_entered) { F().se_entered = true; await joke('alan_climb'); sfx('pigeons'); await say('abilio_hello'); }
     },
+  };
+  // the order is known once all four bells are read and Abílio has explained the founders' blood
+  // (saves from before the Sé chapter keep the old rule: the bells alone)
+  S.orderKnown = async function () {
+    if (F().founder_order) return;
+    if (F().ines_plan && !F().heard_blood) return say('alan_order_wait');
+    F().founder_order = true; await say('alan_order'); S.loreOrder && S.loreOrder();
   };
   let mishear = 0;
   S.talkAbilio = async function () {
@@ -178,7 +202,15 @@
   S.writeAbilio = async function () {
     const ab = G.npc('abilio');
     if (!F().abilio_writing) { F().abilio_writing = true; await joke('alan_write_abilio'); }
+    if (S.gossip) await S.gossip('abilio');
     await G.dialog([
+      { line: 'alan_w_blood', once: true, when: () => !F().heard_blood, run: async () => {
+        ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null;
+        await say('abilio_blood', 'abilio_drowned'); S.lore && S.lore('blood');
+        await say('abilio_tongue', 'abilio_order');
+        F().heard_blood = true;
+        if (BELLS.every(x => F()['bell_' + x.id])) await S.orderKnown();
+      } },
       { line: 'alan_w_joaquim', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); } },
       { line: 'alan_w_1955', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_1955'); } },
       { line: 'alan_w_backward', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_backward'); } },
@@ -263,6 +295,7 @@
       { line: 'alan_lac_case', once: true, run: async () => { await say('lacerda_case', 'lacerda_velvet'); F().case_known = true; } },
       { line: 'alan_lac_joaquim', once: true, run: () => say('lacerda_joaquim_day') },
       { line: 'alan_lac_fog', once: true, run: () => say('lacerda_fog') },
+      { line: 'alan_lac_family', once: true, run: () => say('lacerda_godfather', 'lacerda_waiting') },
       { line: 'alan_lac_box', when: () => F().saw_box && !F().has_tongue, bye: true, run: () => S.lacerdaLeaves() },
       { label: 'Goodbye.', bye: true, run: () => say('lacerda_bye') },
     ]);

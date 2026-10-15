@@ -49,7 +49,7 @@
     try {
       await S.still('still_1955_a', 'cistern', () => say('tomas_boy'), { sepia: true, grain: true, zoom: [1.02, 1.12] });
       await S.still('still_1955_b', 'cistern', () => say('tomas_ran'), { sepia: true, grain: true, zoom: [1.06, 1.0] });
-      await S.still('still_1955_c', 'convent_night', () => say('tomas_count'), { sepia: true, grain: true, zoom: [1.0, 1.1] });
+      await S.still('still_1955_c', 'convent_night', () => say('tomas_count', 'tomas_1955_water'), { sepia: true, grain: true, zoom: [1.0, 1.1] });
     } finally { G.cutscene = false; }
     await say('alan_thanks', 'tomas_lantern', 'gag_tomas', 'gag_alan_tomas');
     F().confessed = true; F().has_lantern = true; give('lantern'); sfx('lantern');
@@ -126,7 +126,9 @@
       if (F().finaleIntro) return;
       F().finaleIntro = true; F().water = 0; F().strikes = 0;
       await G.player.walkTo(330, 640); G.player.dir = 'e';
-      await say('lacerda_joaquim', 'alan_fin_angry', 'lacerda_spared', 'lacerda_ze', 'lacerda_demand', 'ines_warn', 'lacerda_quiet');
+      await say('lacerda_joaquim', 'alan_fin_angry', 'lacerda_spared', 'lacerda_ze', 'lacerda_demand', 'lacerda_font', 'lacerda_interrupted', 'lacerda_father', 'alan_father');
+      S.lore && S.lore('father');
+      await say('ines_warn', 'lacerda_quiet');
       G.checkpoint();
     },
   };
@@ -365,6 +367,7 @@
     lac.pose = 'terror';
     await say('lacerda_mine');
     await say('alan_answers');
+    await G.say('narr_renounce', { offscreen: true });
     // the water answers: it opens under him and starts to pull
     sfx('water_rise'); vortex = { x: lac.x, y: lac.y + 2, t0: performance.now() };
     await G.wait(window.FAST ? 20 : 700);
