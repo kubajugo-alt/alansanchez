@@ -28,8 +28,8 @@
     lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
     entries: { default: [700, 640, 'w'] },
     npcs: visitorDefs(440, 640, 'e').concat([
-      { id: 'npc_phone', ch: 'cop_bed', x: 935, y: 640, h: 420, dir: 'w', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' },
-      { id: 'npc_guitar', ch: 'guitar_floor', x: 900, y: 690, h: 260, dir: 'w', fixedDir: true, name: 'Duarte', when: () => visitor === 'guitar_floor' },
+      { id: 'npc_phone', ch: 'cop_bed', x: 965, y: 628, h: 470, dir: 'w', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' },
+      { id: 'npc_guitar', ch: 'guitar_floor', x: 1070, y: 704, h: 300, dir: 'w', fixedDir: true, name: 'Duarte', when: () => visitor === 'guitar_floor' },
     ]),
     hotspots: [],
   };
@@ -61,7 +61,7 @@
     visitor = ready ? state : (state === 'cop_bed' ? 'cop' : 'guitar');
     G.refreshNpcs(true);
     p.x = 640; p.y = 650; p.dir = 'e'; p.pose = 'undress4';
-    await T(500); await G.fade(false);
+    await T(500); await G.fade(false); await T(900); // let the painting finish fading first
     await say(theirLine);
     p.pose = 'undress3'; for (let i = 0; i < 4; i++) { p.x -= 5; await T(160); }
     p.pose = 'undress2'; await T(800);
