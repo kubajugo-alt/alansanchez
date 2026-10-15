@@ -360,7 +360,7 @@
     ambient: [
       { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talkFrames: ['npc_lino_talk', 'npc_lino_b'], talk: () => S.talkLino(), items: { coins: () => S.buyGinja() }, x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
       { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], talkFrames: ['npc_cards_b', 'npc_cards'], talk: S.chat('chat_cards', ['cards_talk_1', 'alan_cards_1'], ['cards_talk_2']), x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch < 5, variantHold: [0.9, 1.5] },
-      { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 560, y: 596, h: 290, look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 },
+      { id: 'npc_guitar', name: 'The guitarist', frames: ['npc_guitar', 'npc_guitar_b'], x: 676, y: 606, h: 326, look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 },
       { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => false }, // retired: Alan and Duarte need the room
     ],
     occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => { if (!F().matchesTaken) S.drawMatches(g, 912, 380); if (S.glassOnBar()) S.drawGlass(g, 1086, 392); } }], // the bar, in front of Lino (Amália's glass sits on it)
@@ -484,7 +484,7 @@
       const home = p.x;
       if (gt && window.SPRITES.pair_guitar_lesson) {
         await p.walkTo(gt.x + 110, gt.y + 30);
-        const py = p.y; gt.visible = false; p.x = gt.x + 30; p.y = gt.y + 16; p.dir = 'e'; p.pose = 'pair_guitar_lesson'; // Alan stands behind him; just in front of the courting couple
+        const py = p.y; gt.visible = false; p.x = gt.x + 30; p.y = gt.y + 16; p.dir = 'e'; p.pose = 'pair_guitar_lesson'; // Alan stands behind him
         await say('guitar_flirt_4', 'alan_flirt_guitar_4');
         p.pose = null; p.y = py; gt.visible = true; p.x = gt.x + 110; p.dir = 'w';
       } else await say('guitar_flirt_4', 'alan_flirt_guitar_4');
