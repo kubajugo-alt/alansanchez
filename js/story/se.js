@@ -373,7 +373,7 @@
   };
   // after each fling: a moment alone, and the narrator, who isn't fooled
   S.flingBeat = async function (n, stayDark) {
-    if (n !== 3) { n = Math.min(2, (F().visit_beats || 0) + 1); F().visit_beats = n; }
+    // narr_fun_1 belongs to Teixeira's scene, narr_fun_2 to Duarte's, narr_fun_3 to Zé
     await G.fade(true);
     await T(900);
     await G.say('narr_fun_' + n, { offscreen: true });

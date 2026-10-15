@@ -94,6 +94,18 @@
     await G.fade(false);
     return v;
   }
+  // the Discreet path: straight up the stairs in the dark, so the afterwards picks up from there
+  async function upstairsDark(who) {
+    await G.fade(true);
+    await G.goRoom('bedroom', null, { instant: true, noEnter: true, noSave: true, pos: [660, 645, 'w'] });
+    return G.npc(who === 'cop' ? 'npc_phone' : 'npc_guitar');
+  }
+  // the threshold choice: [label, value] pairs
+  async function choose(opts) {
+    let pick = null;
+    await G.dialog(opts.map(([label, v]) => ({ label, bye: true, run: () => { pick = v; } })));
+    return pick;
+  }
   async function downstairs(back) {
     await G.fade(true);
     visitor = null; G.player.pose = null;
@@ -152,10 +164,20 @@
     await G.busy(async () => {
       await arrive('cop');
       // in front of Ines: a polite yard apart, both scarlet
-      await beats(['fluster', 'phone_visit_1'], ['alan_idle2', 'ines_visit_cop'], ['fluster', 'phone_visit_2'], [null, 'alan_visit_cop'], ['fluster', 'ines_visit_after']);
-      const v = await upstairs('cop', [660, 645, 'w']);
-      await say('phone_room_1', 'alan_room_cop_1');
-      if (!S.discreet()) { // Discreet: straight from the build-up to the afterwards
+      await beats(['fluster', 'phone_visit_1'], ['alan_idle2', 'ines_visit_cop'], ['fluster', 'phone_visit_2']);
+      if (await choose([['Show him the oak monographs.', 'yes'], ['Just the key, Officer.', 'no']]) !== 'yes') {
+        // the key at the door, and a rain check
+        await say('teixeira_doorkey'); p.pose = 'wink'; await say('alan_raincheck'); p.pose = null;
+        give('fkey'); sfx('pickup');
+        const tv = G.npc('npc_phone'); if (tv && !window.FAST) await tv.walkTo(1370, 700);
+        sfx('door'); visitor = null; G.refreshNpcs(); G.autosave();
+        return;
+      }
+      F().teixeira_scene = true;
+      await beats([null, 'alan_visit_cop'], ['fluster', 'ines_visit_after']);
+      const disc = S.discreet(); // Discreet: straight from the arrival to the afterwards
+      const v = disc ? await upstairsDark('cop') : await upstairs('cop', [660, 645, 'w']);
+      if (!disc) { await say('phone_room_1', 'alan_room_cop_1');
       // Alan takes the lead: against the bookshelf, the shirt, the neck
       // the officer backed against the room's own bookshelf, Alan very much in charge
       const home = p.x; if (v) { p.x = 410; v.visible = false; }
@@ -218,9 +240,11 @@
     const p = G.player;
     await G.busy(async () => {
       await arrive('guitar');
-      // he brings Amália's message (the box was hers), then plays her song on the shop floor
-      await beats(['swoon', 'guitar_visit_1']);
-      await say('duarte_message'); F().amalia_box = true;
+      await beats(['swoon', 'guitar_visit_1'], ['fluster', 'ines_visit_guitar'], ['swoon', 'guitar_visit_2']);
+      // always: Amália's message (the box was hers)
+      await say('duarte_business', 'duarte_message'); F().amalia_box = true;
+      if (await choose([['Show him the piano.', 'yes'], ['Another time, Duarte.', 'no']]) !== 'yes') {
+      // declined: he plays her song on his stool, shrugs, and leaves the words behind
       const gv = G.npc('npc_guitar');
       // the opening bars of Amália's fado, the guitarra alone (the synth tune if the recording is missing)
       const song = S.SINO_SONG ? Sound.playSong(S.SINO_SONG, 0.8) : (Sound.playMusic('sino'), null);
@@ -231,12 +255,19 @@
       finally { if (iv) clearInterval(iv); if (gv) gv.pose = null; }
       if (song) { song.stop(800); await song.ended; }
       Sound.playMusic(G.room && G.room.music || 'fog');
+      await say('duarte_shrug', 'duarte_lyrics_stool');
+      if (gv) F().lyrics_at = [Math.round(gv.x), Math.round(gv.y)]; F().lyrics_on_stool = true;
+      if (gv && !window.FAST) await gv.walkTo(1370, 700);
+      sfx('door'); visitor = null; G.refreshNpcs(); G.autosave();
+      return;
+      }
+      F().duarte_scene = true;
       // Alan scarlet; Duarte perfectly at ease
-      await beats(['fluster', 'ines_visit_guitar'], ['swoon', 'guitar_visit_2'], [null, 'alan_visit_guitar']);
+      await beats([null, 'alan_visit_guitar'], ['fluster', 'ines_visit_after']);
       await say('ines_drowning'); await say('alan_schedule'); // the river keeps a timetable
-      const v = await upstairs('guitar', [660, 645, 'w']);
-      await say('guitar_room_1', 'alan_room_guitar_1');
-      if (!S.discreet()) { // Discreet: straight from the build-up to the afterwards
+      const disc = S.discreet(); // Discreet: straight from the arrival to the afterwards
+      const v = disc ? await upstairsDark('guitar') : await upstairs('guitar', [660, 645, 'w']);
+      if (!disc) { await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed
       const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
       p.dir = 'e'; // Duarte on the left, Alan on the right
@@ -297,22 +328,41 @@
   // the rolling gag: everyone who saw Alan with the officer or Duarte has something to say about it,
   // and Alan denies everything. One remark per conversation, each said once, in order.
   const GOSSIP = {
-    ines: [['ines_gossip_1', 'alan_deny_ines_1', 'visit_cop'], ['ines_gossip_2', 'alan_deny_ines_2', 'visit_guitar'], ['ines_gossip_3', 'alan_deny_ines_3'],
+    ines: [['ines_gossip_1', 'alan_deny_ines_1', 'teixeira_scene'], ['ines_gossip_2', 'alan_deny_ines_2', 'duarte_scene'], ['ines_gossip_3', 'alan_deny_ines_3'],
       ['ines_gossip_4', 'alan_deny_ines_4', 'vasco_thursday'], ['ines_gossip_5', 'alan_deny_ines_5', 'vasco_thursday']],
-    celeste: [['celeste_gossip_1', 'alan_deny_celeste_1'], ['celeste_gossip_2', 'alan_deny_celeste_2', 'visit_guitar']],
-    amalia: [['amalia_gossip_1', 'alan_deny_amalia_1', 'visit_guitar'], ['amalia_gossip_2', 'alan_deny_amalia_2']],
-    rui: [['rui_gossip_1', 'alan_deny_rui_1', 'visit_cop'], ['rui_gossip_2', 'alan_deny_rui_2', 'visit_cop'], ['rui_gossip_3', 'alan_deny_rui_3', 'vasco_thursday']],
+    celeste: [['celeste_gossip_1', 'alan_deny_celeste_1'], ['celeste_gossip_2', 'alan_deny_celeste_2', 'duarte_scene']],
+    amalia: [['amalia_gossip_1', 'alan_deny_amalia_1', 'duarte_scene'], ['amalia_gossip_2', 'alan_deny_amalia_2']],
+    rui: [['rui_gossip_1', 'alan_deny_rui_1', 'teixeira_scene'], ['rui_gossip_2', 'alan_deny_rui_2', 'teixeira_scene'], ['rui_gossip_3', 'alan_deny_rui_3', 'vasco_thursday']],
     // Chapter III: the Sé's bell-ringer and the Carmo's priest have both noticed the curator
     abilio: [['abilio_gossip_1', 'alan_deny_abilio_1', 'vasco_thursday']],
     tomas: [['tomas_gossip_1', 'alan_deny_tomas_1', 'vasco_thursday']],
   };
   S.gossip = async function (who) {
     const said = F().gossip || (F().gossip = {});
-    const next = (GOSSIP[who] || []).find(([line, , needs]) => !said[line] && (needs ? F()[needs] : F().visit_cop || F().visit_guitar));
+    const next = (GOSSIP[who] || []).find(([line, , needs]) => !said[line] && (needs ? F()[needs] : F().teixeira_scene || F().duarte_scene));
     if (!next) return;
     said[next[0]] = true;
     await say(next[0]);
     G.player.pose = 'fluster'; await say(next[1]); G.player.pose = null;
+  };
+
+  // declined, Duarte leaves the song written out where his stool stood: a pick-up
+  const sheetHere = () => F().lyrics_on_stool && !G.has('lyrics_sheet') && !F().lyrics_taken;
+  ROOMS.shop.hotspots.push({ name: "Duarte's lyrics", get rect() { const [x, y] = F().lyrics_at || [640, 640]; return [x - 40, y - 30, 80, 40]; },
+    get at() { const [x, y] = F().lyrics_at || [640, 640]; return [x + 70, Math.min(y + 10, 650)]; }, when: sheetHere,
+    look: () => say('duarte_lyrics_stool'),
+    take: async () => { F().lyrics_taken = true; give('lyrics_sheet'); sfx('page'); await S.readLyrics(); } });
+  const prevAnim = ROOMS.shop.anim;
+  ROOMS.shop.anim = function (g, t) {
+    if (prevAnim) prevAnim.call(this, g, t);
+    if (!sheetHere()) return;
+    const [x, y] = F().lyrics_at || [640, 640];
+    g.save(); g.translate(x, y - 8); g.rotate(-0.08);
+    g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(-22, -6, 46, 16);
+    g.fillStyle = '#efe6cf'; g.fillRect(-24, -10, 46, 16);
+    g.strokeStyle = 'rgba(60,50,90,0.6)'; g.lineWidth = 1;
+    for (let i = -6; i <= 2; i += 4) { g.beginPath(); g.moveTo(-20, i); g.lineTo(14, i); g.stroke(); }
+    g.restore();
   };
 
   // a visit happens the next time Alan walks in from the street with Inês minding the shop

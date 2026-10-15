@@ -145,7 +145,9 @@
     { id: 'street', x: 1060, y: 330, text: 'Alfama · Livraria Sanchez', open: () => true },
     { id: 'police', x: 560, y: 205, text: 'Polícia Judiciária', open: () => F().heard_machine && (F().ch || 1) <= 2 },
     { id: 'lavadouro', x: 1150, y: 415, text: 'Lavadouro do Alfama', open: () => F().drawer_open && (F().ch || 1) <= 4 },
-    { id: 'ferreira', x: 600, y: 390, text: 'Relojoaria Ferreira · Baixa', open: () => F().drawer_open && (G.has('fkey') || F().ferreira_open) && (F().ch || 1) <= 3 }, // the key comes round with Teixeira
+    { id: 'ferreira', x: 600, y: 390, text: 'Relojoaria Ferreira · Baixa', open: () => F().drawer_open && (G.has('fkey') || F().ferreira_open) && (F().ch || 1) <= 3,
+      // shown but locked until Teixeira brings the key round
+      waiting: () => F().drawer_open && !G.has('fkey') && !F().ferreira_open && (F().ch || 1) <= 3, waitText: 'Waiting for the key' },
     { id: 'convent', x: 262, y: 318, text: () => F().ch >= 5 ? 'Convento do Carmo · midnight' : 'Convento do Carmo', open: () => (F().ch2_done && F().ch <= 3) || (F().ledger_found && (F().rui_called || !F().ines_plan)) },
     { id: 'se_museum', x: 828, y: 352, text: 'Sé de Lisboa · museum', open: () => !!F().ines_plan },
     { id: 'se_tower', x: 870, y: 300, text: 'Sé de Lisboa · bell tower', open: () => F().decoded && F().ch <= 4,
@@ -173,6 +175,7 @@
     }
     if (!f.heard_song) return f.askedSong ? 'ines_hint_song' : 'ines_hint_amalia';
     if (!f.drawer_open) return !f.askedDrawer ? 'ines_hint_1955' : (f.salt_seen ? 'ines_hint_drawer' : 'ines_hint_look');
+    if (f.ch === 2 && f.drawer_open && !has('fkey') && !f.ferreira_open && !f.visit_cop) return 'ines_hint_key'; // Teixeira is on his way
     if (!f.met_celeste || !f.tide_known) {
       if (f.visited_ferreira && !f.ferreira_lit) return has('matches') ? 'ines_hint_matches' : 'ines_hint_dark';
       if (!f.met_celeste) return f.visited_ferreira ? 'ines_hint_celeste' : 'ines_hint_threads';

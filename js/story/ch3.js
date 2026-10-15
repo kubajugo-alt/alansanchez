@@ -361,6 +361,8 @@
     await say('ines_steam');
     // twenty minutes with the kettle: Duarte drops by with Amália's message, plays her song,
     // and takes Alan upstairs (saves from before the flirt was a puzzle just get the message)
+    await say('ines_twenty'); F().pages_steaming = true;
+    await G.wait(window.FAST ? 20 : 3000);
     if (F().flirted_guitar && !F().visit_guitar && G.image('bg:bedroom')) await S.visitGuitar();
     else F().amalia_box = true;
     // a quarter past five, in the Chiado…

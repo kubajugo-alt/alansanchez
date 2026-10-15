@@ -238,7 +238,7 @@
     music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog',
     anim(g, t) {
       for (const m of S.PINS) {
-        const open = m.open(), seen = F()['seen_' + m.id];
+        const open = m.open(), seen = F()['seen_' + m.id] || (m.waiting && m.waiting());
         if (!open && !seen) continue;
         const p = 0.5 + 0.5 * Math.sin(t * 3 + m.x);
         if (open) FX.glow(g, m.x, m.y, 40 + p * 14, '255,120,60', 0.45);
@@ -248,9 +248,10 @@
       }
       if (F().clock) { g.font = "700 26px 'Cinzel', serif"; g.fillStyle = 'rgba(40,24,10,0.85)'; g.textAlign = 'right'; g.fillText(F().clock, 1240, 690); g.textAlign = 'left'; }
     },
-    hotspots: S.PINS.map(m => ({ name: m.text, rect: [m.x - 30, m.y - 60, 60, 80], when: m.open,
-      exit: m.go || (m.id === 'convent' ? (() => F().ch >= 5 ? 'convent_night' : 'convent') : m.id), entry: 'map', look: () => G.goRoom(m.go ? m.go() : m.id === 'convent' && F().ch >= 5 ? 'convent_night' : m.id, 'map') })),
-    labels: S.PINS.map(m => ({ x: m.x, y: m.y - 14, text: m.text, when: m.open })),
+    hotspots: S.PINS.filter(m => m.waiting).map(m => ({ name: m.text + ' (' + m.waitText + ')', rect: [m.x - 30, m.y - 60, 60, 80], when: m.waiting,
+      look: () => G.toast(m.waitText), use: () => G.toast(m.waitText) })).concat(S.PINS.map(m => ({ name: m.text, rect: [m.x - 30, m.y - 60, 60, 80], when: m.open,
+      exit: m.go || (m.id === 'convent' ? (() => F().ch >= 5 ? 'convent_night' : 'convent') : m.id), entry: 'map', look: () => G.goRoom(m.go ? m.go() : m.id === 'convent' && F().ch >= 5 ? 'convent_night' : m.id, 'map') }))),
+    labels: S.PINS.map(m => ({ x: m.x, y: m.y - 14, text: m.text, when: m.open })).concat(S.PINS.filter(m => m.waiting).map(m => ({ x: m.x, y: m.y - 14, text: m.text + ' · ' + m.waitText, when: m.waiting }))),
     enter() { for (const m of S.PINS) if (m.open()) F()['seen_' + m.id] = true; },
   };
 
@@ -388,7 +389,7 @@
     ambient: [
       { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talkFrames: ['npc_lino_talk', 'npc_lino_b'], talk: () => S.talkLino(), items: { coins: () => S.buyGinja() }, x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
       { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], talkFrames: ['npc_cards_b', 'npc_cards'], talk: S.chat('chat_cards', ['cards_talk_1', 'alan_cards_1'], ['cards_talk_2']), x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch < 5, variantHold: [0.9, 1.5] },
-      { id: 'npc_guitar', name: 'Duarte', frames: ['npc_guitar', 'npc_guitar_b'], talkFrames: ['npc_guitar_talk1', 'npc_guitar_talk2', 'npc_guitar_talk3'], x: 676, y: 606, h: 326, at: [812, 648], face: 'w', look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 && !F().visit_guitar }, // gone for good once he has visited Alan
+      { id: 'npc_guitar', name: 'Duarte', frames: ['npc_guitar', 'npc_guitar_b'], talkFrames: ['npc_guitar_talk1', 'npc_guitar_talk2', 'npc_guitar_talk3'], x: 676, y: 606, h: 326, at: [812, 648], face: 'w', look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 && !F().duarte_scene }, // gone for good once he has visited Alan
       { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => false }, // retired: Alan and Duarte need the room
     ],
     occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => { if (!F().matchesTaken) S.drawMatches(g, 912, 380); if (S.glassOnBar()) S.drawGlass(g, 1086, 392); } }], // the bar, in front of Lino (Amália's glass sits on it)
@@ -545,11 +546,11 @@
   S.talkLino = async function () {
     if (F().lino_teased) return say('lino_talk_2');
     F().lino_teased = true;
-    if (F().visit_guitar) await say('lino_talk_1b', 'alan_lino_1b', 'lino_talk_3b'); // Duarte's stool is empty now
+    if (F().duarte_scene) await say('lino_talk_1b', 'alan_lino_1b', 'lino_talk_3b'); // Duarte's stool is empty now
     else await say('lino_talk_1', 'alan_lino_1', 'lino_talk_3');
   };
   // Officer Teixeira mans the station phone in the early chapters, until he has visited Alan
-  S.copOnDuty = () => F().ch <= 2 && !F().visit_cop;
+  S.copOnDuty = () => F().ch <= 2 && !F().teixeira_scene; // declined, he's back on the station phone
   // Puzzle I (song): Duarte plays only for people who listen; Alan listens very closely
   S.flirtGuitar = async function () {
     const gt = G.npc('npc_guitar'), p = G.player;

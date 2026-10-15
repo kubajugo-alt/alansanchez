@@ -1111,7 +1111,7 @@ window.LINES = {
   vasco_loan: ['vasco', "[smiling] They're on loan."],
   // Phase 7: cold open, flings with plot jobs, tone, Inês in the finale
   narr_cold_open: ['narr', "At one minute past four, the river turned. Maria Coutinho had been warned, by a dead bookseller, in a list in her apron. It didn't help. It never had."],
-  rui_send: ['rui', "I'll send it round with Teixeira. Try not to frighten him."],
+  rui_send: ['rui', "I'll send it round to your shop with Teixeira. Try not to frighten him."],
   teixeira_key: ['phone', "[sheepish, holding out a key] The Inspector said to give you this. I... forgot. Earlier."],
   duarte_message: ['guitar', "Amália says: the box with the silver ship was hers. She gave it to Joaquim the day he married."],
   narr_melody: ['narr', "Alan had heard that song all his life without listening to it. He listened now."],
@@ -1157,4 +1157,12 @@ window.LINES = {
   duarte_lyrics2: ['guitar', "[grinning] Then you've been sleeping with the wrong musicians."],
   duarte_lyrics_stool: ['guitar', "For when you're ready to listen properly."],
   ines_hint_paper: ['ines', "Rui's times, Celeste's river, and a newspaper. You sell books, Alan. Read something."],
+  // Phase 7 §4 and Phase 8b
+  narr_reading: ['narr', "He didn't fight the water. He was still reading."],
+  teixeira_doorkey: ['phone', "[deflating, then brave] Right. The key. Of course. Just the key."],
+  alan_raincheck: ['alan', "[warmly] Rain check, Officer. I've got a grandfather to avenge."],
+  ines_twenty: ['ines', "Twenty minutes. Don't touch anything."],
+  duarte_business: ['guitar', "Business first, though. Amália sent me."],
+  duarte_shrug: ['guitar', "[shrugging, smiling] Tuesdays, then. The offer stands."],
+  ines_hint_key: ['ines', "Rui's sending someone with the key. Sit still for once."],
 };
