@@ -831,7 +831,7 @@ window.LINES = {
   alan_room_cop_1: ['alan', "[softly] Then let me do the talking. For once in my life, I'll keep it short."],
   phone_room_2: ['phone', "[breathless, trembling whisper] Senhor..."],
   alan_room_cop_2: ['alan', "[into his neck] Alan. It's Alan."],
-  narr_room_cop: ['narr', "The bookshelf had held Camões and Pessoa and forty years of dust. It had never held a policeman. Three volumes of Eça de Queirós gave their lives that afternoon, and nobody went back for them."],
+  narr_room_cop: ['narr', "The bookshelf had held Camões and Pessoa and forty years of dust. It had never held a policeman. Three volumes of Eça de Queirós went over the edge, and nobody went back for them. The uniform shirt went next."],
   phone_room_3: ['phone', "[dazed, from the floor, nervous] I should... radio in."],
   alan_room_cop_3: ['alan', "[smiling] Tell them the suspect was very cooperative."],
   guitar_room_1: ['guitar', "[laughing] Your shirt's on inside out, bookseller."],

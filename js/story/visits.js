@@ -71,10 +71,13 @@
     g.restore();
   };
 
+  const SHELF = 236; // the front of the bookshelf, where the officer's back meets it
   // the two of them as one painted pair, anchored on the couple's middle (as with Zé)
-  async function pair(pose, ms) {
+  async function pair(pose, ms, wall) {
     if (!window.SPRITES[pose]) return; // a frame that was never painted is simply skipped
-    const p = G.player; p.pose = pose; await T(ms);
+    const p = G.player; p.pose = pose;
+    if (wall != null) { const A = p.place(pose, false); if (A) p.x = wall - A.x; } // the left figure's back against the wall
+    await T(ms);
   }
   async function upstairs(who, at) {
     await G.fade(true);
@@ -99,6 +102,7 @@
     const p = G.player, ready = ['cop_bed', 'guitar_floor'].includes(state) && window.SPRITES[state === 'cop_bed' ? 'cop_side1' : 'guitar_floor1'];
     visitor = ready ? state : (state === 'cop_bed' ? 'cop' : 'guitar');
     G.refreshNpcs(true);
+    if (state === 'guitar_floor') Sound.playMusic('fado'); // Duarte plays while Alan dresses
     const dress = k => { p.pose = window.SPRITES['alan_dress' + k] ? 'alan_dress' + k : null; };
     p.x = 640; p.y = 650; p.dir = 'e'; dress(1);
     await T(500); await G.fade(false); await T(900); // let the painting finish fading first
@@ -139,26 +143,30 @@
       // Alan takes the lead: against the bookshelf, the shirt, the neck
       // the officer backed against the room's own bookshelf, Alan very much in charge
       const home = p.x; if (v) { p.x = 410; v.visible = false; }
-      p.dir = 'e'; sfx('sheet_slap', 0.2); await pair('pair_cop_shelf', 600); // his wrist pinned to the shelf
+      const W = SHELF, shelf = (k, ms) => pair('pair_cop_' + k, ms, W);
+      p.dir = 'e'; sfx('sheet_slap', 0.2); await shelf('shelf', 600); // his wrists pinned to the shelf
       await say('alan_room_cop_5', 'phone_room_5');
-      await pair('pair_cop_jacket', 1500);
-      await pair('pair_cop_neck', 900);
+      await shelf('jacket', 1500);
+      await shelf('neck', 900);
       await say('phone_room_2', 'alan_room_cop_2');
-      sfx('sheet_slap', 0.2); await pair('pair_cop_tshirt', 700);
+      sfx('sheet_slap', 0.2); await shelf('tshirt', 700);
       await say('phone_room_6', 'alan_room_cop_6');
-      await pair('pair_cop_buttons', 900);
+      await shelf('buttons', 900);
       await say('alan_room_cop_4', 'phone_room_4');
-      sfx('sheet_slap', 0.2); await pair('pair_cop_shelf2', 1600);
-      await pair('pair_cop_belt', 600);
+      // the bookshelf, close up: his shirt open, the books going over
+      sfx('sheet_slap', 0.25);
+      await G.showStill('still_cop_shelf', () => G.say('narr_room_cop', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.45, 0.4]], keep: true });
+      await G.fade(true); G.endStill(); await shelf('shelf2', 0); await T(300); await G.fade(false);
+      await T(1200);
+      await shelf('belt', 600);
       await say('alan_room_cop_7', 'phone_room_7');
-      await pair('pair_cop_belt2', 500); // his trousers, halfway
+      await shelf('belt2', 500); // his trousers, halfway
       await say('alan_room_cop_8', 'phone_room_8');
-      sfx('sheet_slap', 0.25); await pair('pair_cop_trousers', 600);
+      sfx('sheet_slap', 0.25); await shelf('trousers', 600);
       await say('phone_room_9', 'alan_room_cop_9');
       // his own handcuffs
-      sfx('sheet_slap', 0.25); p.x = 560; await pair('pair_cop_cuffs', 600);
+      sfx('sheet_slap', 0.25); await shelf('cuffs', 600);
       await say('alan_cuff_1', 'phone_cuff_1', 'alan_cuff_2'); sfx('lamp_click', 0.8);
-      await G.showStill('still_cop_shelf', () => G.say('narr_room_cop', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.45, 0.4]], keep: true });
       // later: one wrist on the bedframe, the hat, the jacket, and no key
       if (G.image('still:still_cop_cuffed')) {
         await G.fade(true);
