@@ -18,6 +18,7 @@
     find: ['vasco_busy', 'vasco_coins', 'vasco_fragment'], give: ['vasco_card'] };
   for (const [pose, ids] of Object.entries(VPOSE)) ids.forEach(id => { S.LINE_POSE[id] = ['vasco', pose]; });
   S.CHARS.alan.frames.poses.coffees = 'alan_coffees'; // Thursday morning: two coffees
+  S.CHARS.alan.frames.poses.pair_vasco_shirtless = 'pair_vasco_shirtless'; // the two of them, shirts off (not yet placed in a scene)
   if (window.SPRITES.ines_plaque) S.CHARS.ines.frames.poses.plaque = 'ines_plaque';
 
   // Inês is at the Sé from the plan until she has the register; the shop is empty meanwhile

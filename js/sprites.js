@@ -1551,6 +1551,14 @@ window.SPRITES = {
   "fy": 724.1,
   "top": 4.1
  },
+ "pair_vasco_shirtless": {
+  "w": 441,
+  "hh": 727,
+  "h": 720,
+  "ax": 220.5,
+  "fy": 723.1,
+  "top": 3.1
+ },
  "pessoa_eat": {
   "w": 1066,
   "hh": 546,
