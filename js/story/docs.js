@@ -77,7 +77,21 @@
     { img: PAPER, cls: 'doc-hand', html: `<p>milk · coffee · sardines (P.)</p><p><i>Sonnet XIV (unfinished)</i><br>The fog sits on the city like a cat…</p><p style="margin-top:2em">Mãe — 22 31 70 4?</p>` },
     ...(F().sketched_tile ? [{ img: PAPER, cls: 'doc-hand', html: `<p>The tile: a bell under three waves. Blue on white.</p><svg viewBox="0 0 120 110" style="display:block;width:55%;margin:0.5em auto" fill="none" stroke="#2f3f78" stroke-width="2.4" stroke-linecap="round"><path d="M42 20 Q42 8 60 8 Q78 8 78 20 L86 58 L34 58 Z"/><path d="M30 58 L90 58"/><circle cx="60" cy="64" r="4"/><path d="M10 80 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/><path d="M10 92 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/><path d="M10 104 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/></svg>` }] : []),
     ...(F().founder_order ? [{ img: PAPER, cls: 'doc-hand', html: `<p>Ferreira 1611</p><p>Bastos 1648</p><p>Coutinho 1702</p><p>Sanches 1739</p><p>— ring last to first —</p>` }] : []),
+    ...((F().lore || []).length ? [{ img: PAPER, cls: 'doc-hand', html: `<p style="font-family:'IM Fell English',serif;text-align:center">The Bell</p>` +
+      LORE.filter(([k]) => F().lore.includes(k)).map(([, t]) => `<p style="font-size:0.85em">· ${t}</p>`).join('') }] : []),
   ]);
+  // "The Bell": what Alan has pieced together, in the order the city told him
+  const LORE = [
+    ['irmandade', 'The Brotherhood: widows and shipowners. Wanted their drowned back.'],
+    ['joaquim_card', 'Grandfather donated their things to a museum and told nobody. Family tradition.'],
+    ['file1955', "It's happened before. 1955. Grandfather was there."],
+    ['celeste', 'They die when the river turns. The tiles are bits of the sea. Bronze breaks them.'],
+    ['reverse', "The bell was baptised in the sea. It doesn't send storms away. It invites them in."],
+    ['godparents', "The Lacerdas were its godparents. That's why the water listens to them."],
+    ['blood', 'Founders bled into the bronze. Only our blood makes it talk. Lucky us.'],
+    ['order', 'Ring it backward, last to first: Sanches, Coutinho, Bastos, Ferreira. It renounces the sea.'],
+    ['father', 'Lacerda wants his father back. <s>So do I. Mine at least sent postcards.</s>'],
+  ];
 
   // Tide clock face: the painted dial with hands drawn live
   S.showTideClock = (ticking) => G.closeup([{ img: 'close:close_tideclock', cls: 'square', canvas: { w: 600, h: 600, draw(c) {
