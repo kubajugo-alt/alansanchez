@@ -47,7 +47,7 @@
   window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks'];
 
   // ---------------------------------------------------------------- new game
-  // preview links: ?scene=bath | cop | guitar jumps straight to that scene (no autosave)
+  // preview links: ?scene=bath | cop | guitar | visitcop | visitguitar jumps straight to that scene (no autosave)
   const PREVIEW = {
     bath: { flags: { ch: 2, met_celeste: true }, room: 'lavadouro', pos: [800, 640, 'e'], run: () => S.bathEgg() },
     cop: { flags: { ch: 1 }, room: 'police', pos: [420, 690, 'w'], run: () => S.flirtCop() },
@@ -63,6 +63,9 @@
       await S.strike('ferreira');
     } },
     guitar: { flags: { ch: 1, heard_song: true }, room: 'tavern', pos: [720, 660, 'w'], run: () => S.flirtGuitar() },
+    // the visits: walk into the shop from the street with Inês minding it
+    visitcop: { flags: { ch: 2, heard_machine: true, flirted_cop: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
+    visitguitar: { flags: { ch: 2, heard_machine: true, flirted_guitar: true, visit_cop: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
   };
   async function preview(k) {
     const P = PREVIEW[k];
