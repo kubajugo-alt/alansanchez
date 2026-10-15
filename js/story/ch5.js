@@ -369,36 +369,22 @@
     await say('narr_ring');
     lac.set = null; lac.pose = 'realise';
     await say('lacerda_realise');
-    lac.pose = 'terror';
-    await say('lacerda_mine');
-    await say('alan_answers');
+    // (lacerda_mine, alan_answers, the lunge, lacerda_drag, alan_no_hand and alan_ledger no longer play:
+    // he doesn't fight it. He goes back to the ledger, reading, as the water comes up.)
+    lac.pose = null; lac.set = 'read';
     await G.say('narr_renounce', { offscreen: true });
-    // the water answers: it opens under him and starts to pull
     sfx('water_rise'); vortex = { x: lac.x, y: lac.y + 2, t0: performance.now() };
-    await G.wait(window.FAST ? 20 : 700);
-    lac.pose = 'lunge';
-    const x0 = lac.x, y0 = lac.y, x1 = lac.x + 40, y1 = lac.y - 16;
-    for (let k = 0; k <= 1.0001; k += window.FAST ? 0.5 : 0.03) {
-      const e = k * k; lac.x = x0 + (x1 - x0) * e; lac.y = y0 + (y1 - y0) * e; vortex.x = lac.x; vortex.y = lac.y + 2; lac.sink = 0.12 * e;
-      await G.wait(16);
-    }
-    await say('lacerda_drag');
-    await say('alan_no_hand');
-    // under: to his knees, his chest, his mouth (the narrator speaks over it)
-    sfx('splash');
+    const x1 = lac.x, y1 = lac.y;
+    sfx('splash', 0.4);
     const sinking = (async () => {
-      for (let k = 0.12; k <= 1.0001; k += window.FAST ? 0.4 : 0.006) {
-        lac.sink = k; if (k > 0.45 && lac.pose !== 'terror') lac.pose = 'terror';
-        lac.x = x1 + Math.sin(k * 40) * 3 * (1 - k);
-        await G.wait(16);
-      }
-      lac.visible = false; sfx('splash', 0.6); vortex.end = performance.now();
+      for (let k = 0; k <= 1.0001; k += window.FAST ? 0.4 : 0.004) { lac.sink = k; await G.wait(16); }
+      lac.visible = false; sfx('splash', 0.5); vortex.end = performance.now();
     })();
     await say('narr_end_1');
     await sinking;
+    await G.say('narr_reading', { offscreen: true });
     F().sinkAt = [x1, y1];
     await G.wait(window.FAST ? 20 : 900);
-    await say('alan_ledger');
     // the water lets go of everything else
     F().ringing = false; F().sinkAt = null;
     for (let w = F().water || 0; w > 0; w -= window.FAST ? 6 : 0.05) { F().water = Math.max(0, w); await G.wait(16); }

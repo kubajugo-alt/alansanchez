@@ -49,11 +49,11 @@
   S.loreOrder = () => { if (F().founder_order && F().heard_bells) S.lore('order'); };
 
   // ---------------------------------------------------------------- the exhibits
-  // four the plan needs (●), two for the curious
+  // two the plan needs (the panorama and the alminhas), four for the curious
   const EXHIBITS = {
     panorama: { need: true, lines: ['ines_panorama', 'alan_panorama'] },
-    gold: { need: true, lines: ['ines_gold', 'alan_gold'] },
-    exvoto: { need: true, lines: ['ines_exvoto', 'alan_exvoto'] },
+    gold: { lines: ['ines_gold', 'alan_gold'] },     // optional since the exposition cap
+    exvoto: { lines: ['ines_exvoto', 'alan_exvoto'] },
     alminhas: { need: true, lines: ['ines_nograve', 'ines_saudade', 'alan_saudade'] },
     htm: { lines: ['ines_htm', 'alan_htm'] },
     engraving: { lines: ['ines_1755', 'alan_1755'] },
@@ -69,8 +69,9 @@
   };
 
   S.talkInesSe = async function () {
-    if (!F().ines_se_talked && !(F().se_exhibits >= 4)) { F().ines_se_talked = true; return say('ines_look_first'); }
-    if (F().se_exhibits >= 4 && !F().se_plan_on) {
+    const NEED = Object.values(EXHIBITS).filter(e => e.need).length;
+    if (!F().ines_se_talked && !(F().se_exhibits >= NEED)) { F().ines_se_talked = true; return say('ines_look_first'); }
+    if (F().se_exhibits >= NEED && !F().se_plan_on) {
       F().se_plan_on = true;
       await say('ines_go'); await joke('alan_go');
       return;

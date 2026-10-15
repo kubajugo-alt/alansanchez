@@ -73,7 +73,7 @@
   S.tomasBells = async function () {
     await say('tomas_baptism', 'tomas_reverse'); S.lore && S.lore('reverse');
     await say('tomas_godparents'); S.lore && S.lore('godparents');
-    await say('tomas_novena', 'tomas_renounce'); await joke('alan_novena');
+    // tomas_novena is an optional follow-up now; tomas_renounce plays when the rite is decoded
     F().heard_bells = true; S.loreOrder && S.loreOrder();
   };
   S.talkTomas = async function () {
@@ -81,6 +81,7 @@
     if (S.gossip) await S.gossip('tomas');
     await G.dialog([
       { line: 'alan_ask_tomas_bells', once: true, when: () => F().charter_shown && !F().heard_bells, run: () => S.tomasBells() },
+      { label: 'And the nine days?', once: true, when: () => F().heard_bells, run: async () => { await say('tomas_novena'); await joke('alan_novena'); } },
       { line: 'alan_ask_carmo', once: true, run: () => say('tomas_carmo') },
       { line: 'alan_ask_founders', once: true, run: async () => { await say('tomas_founders'); await joke('alan_twice'); } },
       { line: 'alan_ask_stone', once: true, run: () => say('tomas_stone') },
@@ -128,6 +129,7 @@
     await posed('read', () => say('alan_decode_1'));
     await G.showStill('still_1755', () => say('narr_1755'), { sepia: true, grain: true, zoom: [1.02, 1.14], pan: [[0.45, 0.5], [0.55, 0.48]] });
     await posed('read', async () => { await say('alan_rite_1'); await G.say('narr_rite_2', { offscreen: true }); await say('alan_page3_read'); await G.say('narr_page3', { offscreen: true }); });
+    { const t = G.npc('tomas'); if (t && t.visible) await say('tomas_renounce'); } // "At a baptism you renounce.
     await say('alan_page3', 'alan_surname');
     const tm = G.npc('tomas'); if (tm) { tm.engaged++; await say('tomas_order'); tm.engaged--; }
     else await say('tomas_order');
@@ -212,10 +214,11 @@
       { line: 'alan_w_blood', once: true, when: () => !F().heard_blood, run: async () => {
         ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null;
         await say('abilio_blood', 'abilio_drowned'); S.lore && S.lore('blood');
-        await say('abilio_tongue', 'abilio_order');
+        await say('abilio_order'); // abilio_tongue is an optional follow-up now
         F().heard_blood = true;
         if (BELLS.every(x => F()['bell_' + x.id])) await S.orderKnown();
       } },
+      { label: 'Write: "And the tongue?"', once: true, when: () => F().heard_blood, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_tongue'); } },
       { line: 'alan_w_joaquim', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); } },
       { line: 'alan_w_1955', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_1955'); } },
       { line: 'alan_w_backward', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_backward'); } },
