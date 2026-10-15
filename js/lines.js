@@ -844,4 +844,18 @@ window.LINES = {
   phone_room_4: ['phone', "[breathless laugh] Regulation."],
   guitar_room_4: ['guitar', "[laughing] Your belt's fighting me, bookseller."],
   alan_room_guitar_3: ['alan', "[grinning] It's on your side. Pull harder."],
+  // the handcuffs
+  alan_cuff_1: ['alan', "[low, commanding] Officer Teixeira. You have the right to remain silent."],
+  phone_cuff_1: ['phone', "[squeaking] I... don't think I can."],
+  alan_cuff_2: ['alan', "[wicked] Then we'll do this the hard way. Wrists."],
+  narr_cuff: ['narr', "Some time later, when the lamp had been knocked over twice and the bed had walked six inches towards the window, Officer Teixeira asked a reasonable question."],
+  phone_cuff_2: ['phone', "[sheepish] Alan? Where's the key?"],
+  alan_cuff_3: ['alan', "[pause] The key. Yes. The key is... somewhere very safe."],
+  phone_cuff_3: ['phone', "[rising panic] How safe?"],
+  alan_cuff_4: ['alan', "[muffled, from under the bed] Extremely safe. Don't move."],
+  phone_cuff_4: ['phone', "[deadpan] Where would I go?"],
+  ines_cuff: ['ines', "[calling up the stairs] Alan! There's a police radio squawking down here. The station wants to know where their officer is."],
+  alan_cuff_5: ['alan', "[calling down, strangled] Tell them he's... helping with enquiries!"],
+  phone_cuff_5: ['phone', "[very small voice] Alan. It's in my hat."],
+  alan_cuff_6: ['alan', "[pause] Of course it is. The one thing you kept on."],
 };
