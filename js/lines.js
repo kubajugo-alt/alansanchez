@@ -1134,4 +1134,26 @@ window.LINES = {
   duarte_agree: ['guitar', "[smiling] Fine. I'll play. For you."],
   // Phase 8d: the photograph and the box
   alan_recognise: ['alan', "I've seen this before. In Amália's photograph, on the wall of the Taberna. Behind my grandfather."],
+  // Phase 9: Alan deduces the turnings; Ferreira's locked drawer
+  alan_paper: ['alan', "Weather, football, and the tides. In that order of importance, apparently."],
+  alan_deduce: ['alan', "[slowly] They don't die at night. They die when the river turns."],
+  alan_deduce_times: ['alan', "Tides. Times. I need to know when they died."],
+  alan_deduce_why: ['alan', "Why would the tide matter? Somebody in this city must know."],
+  alan_clock_agrees: ['alan', "Ferreira worked it out too. He just ran out of time."],
+  alan_clock_puzzled: ['alan', "A clock that tells the tide. Why would a clockmaker care what the river's doing?"],
+  alan_drawer_lock: ['alan', "Four digits. A clockmaker's lock. Of course it is."],
+  alan_0312: ['alan', "The minute he died. The clocks have been telling everyone for days. Nobody asked them."],
+  alan_wrong_code: ['alan', "No. Think like a clockmaker. Or a dead one."],
+  ines_hint_clocks: ['ines', "Every clock in that shop is saying the same thing, Alan. Listen to them."],
+  // Phase 10: the cream suit
+  celeste_suit: ['celeste', "A gentleman came asking about her boy, the week before she died. Cream linen suit, in this weather. Lovely manners. He said he could wait."],
+  alan_suit: ['alan', "Who wears linen in a fog?"],
+  celeste_suit2: ['celeste', "[dry] A man who doesn't expect to get wet."],
+  alan_suit_recognise: ['alan', "[pause] Cream linen. In a fog."],
+  lacerda_weather: ['lacerda', "[smiling] I never get wet, Senhor Sanchez. It's a family gift."],
+  // Phase 11: Duarte's lyrics sheet
+  duarte_lyrics: ['guitar', "I wrote it out for you. In English too, for the foreigner in you."],
+  alan_lyrics: ['alan', "[pause] Nobody's ever written anything out for me."],
+  duarte_lyrics2: ['guitar', "[grinning] Then you've been sleeping with the wrong musicians."],
+  duarte_lyrics_stool: ['guitar', "For when you're ready to listen properly."],
 };

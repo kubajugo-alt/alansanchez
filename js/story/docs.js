@@ -85,6 +85,8 @@
     ['irmandade', 'The Brotherhood: widows and shipowners. Wanted their drowned back.'],
     ['joaquim_card', 'Grandfather donated their things to a museum and told nobody. Family tradition.'],
     ['file1955', "It's happened before. 1955. Grandfather was there."],
+    ['suit', "A man in a cream linen suit. Patient. Asking about Maria's son."],
+    ['turnings', "They don't die at night. They die when the river turns. (Rui's times against the tide table.)"],
     ['celeste', 'They die when the river turns. The tiles are bits of the sea. Bronze breaks them.'],
     ['reverse', "The bell was baptised in the sea. It doesn't send storms away. It invites them in."],
     ['godparents', "The Lacerdas were its godparents. That's why the water listens to them."],
@@ -93,6 +95,13 @@
     ['father', 'Lacerda wants his father back. <s>So do I. Mine at least sent postcards.</s>'],
   ];
 
+  // Duarte's lyrics sheet: the fado written out in Portuguese, and in English for the foreigner
+  S.LYRICS_PT = `<h3 style="font-family:'Homemade Apple',cursive;font-size:1.05em;margin:0 0 .4em">O Sino Afogado</h3><p style="margin:0 0 .55em">Nove dias jaz a névoa<br>sobre o rio, sobre o cais;<br>nove noites dorme o bronze<br>onde não o ouvem mais.</p><p style="margin:0 0 .55em">Os fundidores, por medo,<br>cortaram-lhe a língua um dia,<br>e ataram-no com o sangue<br>que nas veias lhes corria.</p><p style="margin:0 0 .55em">Ai, meu amor de fundidor,<br>não me fales do teu sino;<br>que eu já sei que o mar é longo<br>e o teu sangue é teu destino.</p><p style="margin:0 0 .55em">Onde o Carmo reza sem tecto,<br>a pedra chora sal frio;<br>vira as letras sete vezes,<br>filho do bronze e do rio.</p><p style="margin:0 0 .55em">Se o medo te prender, amor,<br>como prendeu quem o fez,<br>o mar espera, o mar é longo:<br>toca-o ao contrário, de vez.</p><p style="margin:0 0 .55em">Ai, meu amor de fundidor,<br>não me fales do teu sino;<br>que eu já sei que o mar é longo<br>e o teu sangue é teu destino.</p>`;
+  S.LYRICS_EN = `<h3 style="font-family:'Homemade Apple',cursive;font-size:1.05em;margin:0 0 .4em">The Drowned Bell</h3><p style="margin:0 0 .55em">Nine days the fog lies<br>over the river, over the quay;<br>nine nights the bronze sleeps<br>where no one hears it any more.</p><p style="margin:0 0 .55em">The founders, out of fear,<br>cut out its tongue one day,<br>and bound it with the blood<br>that ran in their veins.</p><p style="margin:0 0 .55em">Oh, my bell-founder love,<br>don't speak to me of your bell;<br>for I know the sea is long,<br>and your blood is your fate.</p><p style="margin:0 0 .55em">Where the Carmo prays without a roof,<br>the stone weeps cold salt;<br>turn the letters seven times,<br>son of the bronze and the river.</p><p style="margin:0 0 .55em">If fear holds you, love,<br>as it held those who made it,<br>the sea waits, the sea is long:<br>ring it backward, once and for all.</p><p style="margin:0 0 .55em">Oh, my bell-founder love,<br>don't speak to me of your bell;<br>for I know the sea is long,<br>and your blood is your fate.</p>`;
+  S.readLyrics = () => G.closeup([
+    { img: PAPER, cls: 'doc-hand', html: `<div style="font-size:0.62em;line-height:1.45">${S.LYRICS_PT}</div>` },
+    { img: PAPER, cls: 'doc-hand', html: `<div style="font-size:0.62em;line-height:1.45">${S.LYRICS_EN}<p style="text-align:right;margin-top:.6em">D.</p></div>` },
+  ]);
   // Tide clock face: the painted dial with hands drawn live
   S.showTideClock = (ticking) => G.closeup([{ img: 'close:close_tideclock', cls: 'square', canvas: { w: 600, h: 600, draw(c) {
     const g = c.getContext('2d'); let t0 = performance.now();

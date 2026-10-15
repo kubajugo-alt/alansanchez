@@ -186,8 +186,11 @@
     p.pose = 'wring'; c.set = 'wring'; wringing = performance.now();
     sfx('wring');
     await joke('alan_wring');
-    wringing = null; p.pose = null; F().met_celeste = true; c.set = null;
+    wringing = null; p.pose = null; c.set = null;
     await say('celeste_hello');
+    // Maria Coutinho first, and the gentleman in the cream suit; then she's met
+    await S.celesteMaria();
+    F().met_celeste = true;
     await S.talkCeleste(true);
   };
   S.talkCeleste = async function (first) {
@@ -199,10 +202,15 @@
       { line: 'alan_ask_celeste_lacerda', once: true, when: () => F().ines_plan, run: () => say('celeste_godfather', 'celeste_font') },
       { line: 'alan_show_tile', silent: true, when: () => F().sketched_tile && !F().lore_bronze, run: () => S.celesteTile() },
       { line: 'alan_show_file', silent: true, when: () => G.has('file55') && !F().knows_1955_boy, run: () => S.celeste1955() },
-      { line: 'alan_ask_maria', once: true, run: () => say('celeste_maria') },
+      { line: 'alan_ask_maria', once: true, when: () => !F().asked_maria, run: () => S.celesteMaria(true) },
       { line: 'alan_ask_rui', once: true, run: () => say('celeste_rui', 'alan_rui_eating', 'gag_celeste', 'gag_alan_celeste') },
       { label: 'Goodbye.', bye: true, run: async () => { await say('celeste_bye'); S.checkCh2(); } },
     ]);
+  };
+  S.celesteMaria = async function (asked) {
+    if (!asked) await say('alan_ask_maria');
+    await say('celeste_maria', 'celeste_suit', 'alan_suit', 'celeste_suit2');
+    F().asked_maria = true; S.lore && S.lore('suit');
   };
   S.celesteTile = async function () {
     if (!F().met_celeste) return say('celeste_twist');

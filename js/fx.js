@@ -477,6 +477,17 @@
         g.fillStyle = 'rgba(30,50,40,0.5)'; g.font = 'bold 13px serif'; g.fillText('S', 41, 52);
       });
     },
+    // Duarte's lyrics sheet: a folded page of handwriting, a little treble clef in the corner
+    lyrics_sheet(g) {
+      g.translate(48, 48); g.rotate(0.1); g.translate(-48, -48);
+      rr(g, 22, 16, 52, 66, 2); fillInk(g, lg(g, 22, 16, 74, 82, '#fbf3df', '#eadbb8'));
+      noShadow(g, () => {
+        g.strokeStyle = 'rgba(60,50,90,0.7)'; g.lineWidth = 1.3;
+        for (let y = 30; y <= 72; y += 7) { g.beginPath(); g.moveTo(29, y); g.quadraticCurveTo(44, y - 2, 58 + (y % 3) * 3, y); g.stroke(); }
+        g.fillStyle = 'rgba(60,50,90,0.85)'; g.font = 'bold 16px serif'; g.fillText('\u266A', 58, 30);
+        g.strokeStyle = 'rgba(150,120,80,0.5)'; line(g, 22, 49, 74, 49);
+      });
+    },
     // Dr. Teles's reserve key, still on its lanyard
     reserve_key(g) {
       noShadow(g, () => { g.strokeStyle = '#7a1d24'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(14, 14); g.quadraticCurveTo(30, 60, 44, 44); g.moveTo(82, 12); g.quadraticCurveTo(66, 58, 50, 44); g.stroke(); });

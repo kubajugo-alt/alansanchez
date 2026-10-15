@@ -271,10 +271,13 @@
       await G.fade(true); G.endStill();
       await afterwards('guitar_floor', [
         [1, 'guitar_room_3'], [2], [3, 'alan_room_guitar_2'], [4],
+        // at the door: the song, written out (a keepsake)
+        [async () => { await say('duarte_lyrics', 'alan_lyrics', 'duarte_lyrics2'); if (!G.has('lyrics_sheet')) { give('lyrics_sheet'); sfx('page'); } }],
       ], 'guitar_after_1');
     });
   };
 
+  S.ITEMS.lyrics_sheet = { name: "Duarte's lyrics", look: () => S.readLyrics() };
   S.teixeiraKey = async function () {
     await G.fade(true);
     visitor = 'cop'; G.refreshNpcs();
