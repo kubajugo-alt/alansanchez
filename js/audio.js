@@ -216,6 +216,8 @@
 
   function playMusic(name) {
     if (!ctx) return;
+    if (typeof name === 'function') name = name();
+    if (name && !TRACKS[name]) name = null; // an unknown track is silence, never an error
     if (currentTrack === name) return;
     currentTrack = name;
     clearInterval(trackTimer);
