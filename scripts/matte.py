@@ -55,7 +55,7 @@ for f in sorted(glob.glob(os.path.join(src, '*.png'))):
     # enclosed pure-white pockets (gaps between arm and body)
     strict = (mn > 244) & ((mx - mn) < 10)
     lab2, n2 = ndi.label(strict & ~bg)
-    if n2:
+    if n2 and not (keyed is not None and os.environ.get('MATTE_KEYED_ONLY')):  # pre-keyed white clothing stays
         sizes = ndi.sum(np.ones_like(lab2), lab2, range(1, n2 + 1))
         big = [i + 1 for i, s in enumerate(sizes) if s > 400]
         bg |= np.isin(lab2, big)

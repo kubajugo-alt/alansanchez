@@ -22,13 +22,14 @@
 
   S.fadoPerformance = async function (am, songOrNull) {
     const gui = G.npc('npc_guitar'), lino = G.npc('npc_lino'), cards = G.npc('npc_cards'), p = G.player;
-    const home = lino && { x: lino.x, y: lino.y, h: lino.h, pose: lino.pose };
+    const home = lino && { x: lino.x, y: lino.y, h: lino.h, pose: lino.pose, dir: lino.dir };
     // 1. Lino fetches the big guitar from the wall
     if (lino && has('lino_reach') && has('lino_bass1')) {
-      lino.pose = null; lino.x = 760; lino.y = 618; lino.h = 380;
-      lino.pose = 'lino_reach'; await T(700);
-      F().bass_off = true; sfx('pickup', 0.5); await T(700);
-      lino.pose = 'lino_bass1'; lino.x = 1200; lino.y = 650; lino.h = 400; await T(400);
+      lino.visible = false; await T(250);
+      lino.x = 772; lino.y = 692; lino.h = 400; lino.pose = 'lino_reach'; lino.visible = true; await T(900);
+      F().bass_off = true; sfx('pickup', 0.5); await T(800);
+      lino.visible = false; await T(250);
+      lino.pose = 'lino_bass1'; lino.x = 1178; lino.y = 646; lino.h = 392; lino.dir = 'w'; lino.visible = true; await T(400);
     }
     if (p && has('alan_enchanted1')) { p.dir = 'e'; p.pose = 'enchanted1'; }
     // 2. the song: everyone moves with the recording
@@ -39,21 +40,27 @@
     const tick = setInterval(() => {
       const t = now(); beat++;
       const chorus = within(t, CHORUS), mourn = within(t, MOURN), peak = within(t, PEAK);
-      // Amália: the old sway in the verses, arms open in the choruses, the shawl clutched on the sad lines
+      // poses hold for a few beats and cross-fade, so every change reads as a gesture, not a flicker
+      // Amália, to the room: the sway in the verses, arms open in the choruses, the shawl clutched on the sad lines
       if (am) {
-        const k = mourn ? pick(['amalia_sing5', 'amalia_sing4'], beat >> 2)
-          : chorus || peak ? pick(['amalia_sing3', 'amalia_sing4', 'amalia_sing3', 'amalia_sing1'], beat >> 1)
-          : pick(['amalia_sing1', 'amalia_sing2', 'amalia_sing1', 'amalia_idle2'], beat >> 1);
+        am.dir = 'w';
+        const k = mourn ? pick(['amalia_sing5', 'amalia_sing4'], beat >> 3)
+          : chorus || peak ? pick(['amalia_sing3', 'amalia_sing4', 'amalia_sing3', 'amalia_sing1'], beat >> 2)
+          : pick(['amalia_sing1', 'amalia_sing4', 'amalia_sing1', 'amalia_sing2'], beat >> 2);
         if (k) am.pose = k;
       }
-      // Duarte: deeper in as it goes, leaning to her in the choruses
-      if (gui) { const k = chorus ? pick(['duarte_play3', 'duarte_play2', 'duarte_play1'], beat >> 1) : pick(['duarte_play1', 'duarte_play2', 'npc_guitar', 'npc_guitar_b'], beat); if (k) gui.pose = k; }
-      // Lino on the bass, on the beat
-      if (lino && F().bass_off) { const k = pick(['lino_bass1', 'lino_bass2'], beat); if (k) lino.pose = k; }
-      // the card players turned round in their chairs; one of them closes his eyes in the choruses
-      if (cards) { const k = (chorus || mourn) ? pick(['cards_listen_b', 'cards_listen'], beat >> 3) : pick(['cards_listen'], 0); if (k) cards.pose = k; }
-      // Alan: rapt, and by the last chorus the tear
-      if (p && has('alan_enchanted1')) p.pose = t >= 138 && has('alan_enchanted2') ? 'enchanted2' : 'enchanted1';
+      // Duarte: bent to the strings in the verses, head back and a hand raised to her in the choruses
+      if (gui) {
+        const k = chorus || peak ? pick(['duarte_play3', 'duarte_play2', 'duarte_play2', 'duarte_play1'], beat >> 2)
+          : pick(['duarte_play1', 'duarte_play3'], beat >> 3);
+        if (k) gui.pose = k;
+      }
+      // Lino on the bass, eyes shut, rocking on the beat
+      if (lino && F().bass_off) { const k = pick(['lino_bass1', 'lino_bass2'], beat >> 1); if (k) lino.pose = k; }
+      // the card players, turned round in their chairs; in the choruses one closes his eyes, the other's hand to his heart
+      if (cards) { const k = (chorus || mourn || peak) ? pick(['cards_listen_b'], 0) : pick(['cards_listen'], 0); if (k) cards.pose = k; }
+      // Alan: rapt, hand to his chest; by the last chorus, the tear
+      if (p && has('alan_enchanted1')) { p.dir = 'e'; p.pose = t >= 138 && has('alan_enchanted2') ? 'enchanted2' : 'enchanted1'; }
     }, window.FAST ? 20 : 820);
     try {
       if (song) await G.lyrics(song, S.SINO_LYRICS, 'amalia');
@@ -66,9 +73,11 @@
     // 3. a breath of silence, then the guitar goes back on its hook
     if (lino && F().bass_off) {
       await T(900);
-      lino.x = 760; lino.y = 618; lino.h = 380; lino.pose = 'lino_reach'; await T(700);
+      lino.visible = false; await T(250);
+      lino.x = 772; lino.y = 692; lino.h = 400; lino.pose = 'lino_reach'; lino.visible = true; await T(800);
       F().bass_off = false; sfx('pickup', 0.4); await T(500);
-      Object.assign(lino, home); lino.pose = null;
+      lino.visible = false; await T(250);
+      Object.assign(lino, home); lino.pose = null; lino.visible = true;
     }
   };
 })();
