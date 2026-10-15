@@ -1156,4 +1156,5 @@ window.LINES = {
   alan_lyrics: ['alan', "[pause] Nobody's ever written anything out for me."],
   duarte_lyrics2: ['guitar', "[grinning] Then you've been sleeping with the wrong musicians."],
   duarte_lyrics_stool: ['guitar', "For when you're ready to listen properly."],
+  ines_hint_paper: ['ines', "Rui's times, Celeste's river, and a newspaper. You sell books, Alan. Read something."],
 };

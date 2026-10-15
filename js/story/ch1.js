@@ -324,6 +324,9 @@
           if (F().rui_out) await S.ruiReturns();
         }, any: 'alan_fail_rui_item' } },
       { name: "Rui's coffee", rect: [724, 356, 56, 50], look: 'narr_look_coffee' },
+      // today's Diário de Notícias on the front desk: weather, football, and the tides
+      { name: 'Newspaper', rect: [491, 365, 90, 38], at: [540, 645], face: 'n', when: () => !F().paper_taken, look: 'alan_paper',
+        take: async () => { F().paper_taken = true; give('newspaper'); sfx('page'); await say('alan_paper'); } },
       { name: 'Door', rect: [70, 40, 120, 510], at: [150, 645], exit: 'map', entry: 'police' },
     ],
   };

@@ -102,6 +102,62 @@
     { img: PAPER, cls: 'doc-hand', html: `<div style="font-size:0.62em;line-height:1.45">${S.LYRICS_PT}</div>` },
     { img: PAPER, cls: 'doc-hand', html: `<div style="font-size:0.62em;line-height:1.45">${S.LYRICS_EN}<p style="text-align:right;margin-top:.6em">D.</p></div>` },
   ]);
+  // the Diário de Notícias: weather, football, and a week of tides
+  S.readPaper = () => {
+    const rows = S.tideRows().slice(0, 9).map((r, i) => `<tr><th>${['Sex', 'Sáb', 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'][i]} ${i + 6}</th>${r.map(m => `<td>${hm(m)}</td>`).join('')}</tr>`).join('');
+    return G.closeup([{ img: PAPER, cls: '', html: `<h3 style="font-family:'IM Fell English',serif;letter-spacing:.08em">DIÁRIO DE NOTÍCIAS</h3>
+      <p style="font-size:.75em;margin:.2em 0 .6em">NEVOEIRO CONTINUA SOBRE A CIDADE · Benfica empata em Setúbal · O tempo: frio, nevoeiro cerrado</p>
+      <h4 style="margin:.2em 0">Marés · preia-mar e baixa-mar, Cais do Sodré</h4><table class="doc-table">${rows}</table>` }]);
+  };
+  // the deduction, in Alan's notebook: the three deaths against the tide table
+  S.deductionPage = () => {
+    const rows = S.tideRows().slice(0, 9);
+    const deaths = { 1: 192, 4: 938, 7: 241 }; // Ferreira 03:12 (day 2), Bastos 15:38 (day 5), Maria 04:01 (day 8)
+    const html = rows.map((r, i) => `<tr><th>${i + 6}</th>${r.map(m => `<td class="${deaths[i] === m ? 'circled' : ''}">${hm(m)}</td>`).join('')}<td style="font-family:'Homemade Apple',cursive;font-size:.8em">${{ 1: 'Ferreira', 4: 'Bastos', 7: 'M. Coutinho' }[i] || ''}</td></tr>`).join('');
+    return G.closeup([{ img: PAPER, cls: '', html: `<h3 class="doc-hand" style="margin:0">turnings vs. deaths</h3><table class="doc-table">${html}</table>
+      <p class="doc-hand" style="margin-top:.6em">03:12 · 15:38 · 04:01 — every one on a turning.</p>` }]);
+  };
+  // Ferreira's drawer: a brass four-wheel combination lock. Resolves true when it opens.
+  S.drawerLock = function () {
+    const code = F().lock_digits || (F().lock_digits = [0, 0, 0, 0]);
+    let solved = false;
+    return G.closeup([{ img: PAPER, cls: 'land', canvas: { w: 640, h: 400, draw(c) {
+      const g = c.getContext('2d');
+      const W = [130, 230, 330, 430], WY = 200;
+      const paint = () => {
+        g.clearRect(0, 0, 640, 400);
+        const plate = g.createLinearGradient(0, 60, 0, 340); plate.addColorStop(0, '#d9b56a'); plate.addColorStop(0.5, '#a8803a'); plate.addColorStop(1, '#6e4f1e');
+        g.fillStyle = plate; g.beginPath(); g.roundRect(60, 70, 520, 260, 26); g.fill();
+        g.strokeStyle = '#4a3410'; g.lineWidth = 4; g.stroke();
+        for (const [x, y] of [[84, 94], [556, 94], [84, 306], [556, 306]]) { g.fillStyle = '#5a4214'; g.beginPath(); g.arc(x, y, 7, 0, 7); g.fill(); }
+        g.font = 'bold 54px Georgia, serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+        W.forEach((x, i) => {
+          const wg = g.createLinearGradient(x - 40, 0, x + 40, 0); wg.addColorStop(0, '#3a2a10'); wg.addColorStop(0.5, '#f1e2bc'); wg.addColorStop(1, '#3a2a10');
+          g.fillStyle = wg; g.fillRect(x - 38, WY - 70, 76, 140);
+          g.fillStyle = 'rgba(40,28,10,0.55)'; g.font = '30px Georgia, serif';
+          g.fillText((code[i] + 9) % 10, x, WY - 48); g.fillText((code[i] + 1) % 10, x, WY + 48);
+          g.fillStyle = '#1e1408'; g.font = 'bold 54px Georgia, serif'; g.fillText(code[i], x, WY + 2);
+          g.strokeStyle = '#4a3410'; g.lineWidth = 3; g.strokeRect(x - 38, WY - 70, 76, 140);
+        });
+        // the latch knob
+        g.fillStyle = solved ? '#7fb07a' : '#3a2a10'; g.beginPath(); g.arc(525, WY, 30, 0, 7); g.fill();
+        g.fillStyle = '#f1e2bc'; g.font = '16px Georgia, serif'; g.fillText(solved ? 'open' : 'try', 525, WY + 2);
+      };
+      paint();
+      c.style.cursor = 'pointer';
+      c.onclick = async ev => {
+        ev.stopPropagation();
+        const r = c.getBoundingClientRect(), x = (ev.clientX - r.left) * 640 / r.width, y = (ev.clientY - r.top) * 400 / r.height;
+        const i = W.findIndex(wx => Math.abs(x - wx) < 42 && Math.abs(y - WY) < 72);
+        if (i >= 0) { code[i] = (code[i] + (y < WY ? 9 : 1)) % 10; window.Sound && Sound.sfx('clock_wind', 0.25); paint(); return; }
+        if (Math.hypot(x - 525, y - WY) < 34 && !solved) {
+          if (code.join('') === '0312') { solved = true; paint(); window.Sound && Sound.sfx('drawer_open', 0.6); F().drawer_unlocked = true;
+            setTimeout(() => { const xb = document.querySelector('#closeup .x'); if (xb) xb.click(); else document.querySelector('#closeup').click(); }, 700); }
+          else { window.Sound && Sound.sfx('lamp_click', 0.5); G.say('alan_wrong_code'); }
+        }
+      };
+    } } }]).then(() => solved || !!F().drawer_unlocked);
+  };
   // Tide clock face: the painted dial with hands drawn live
   S.showTideClock = (ticking) => G.closeup([{ img: 'close:close_tideclock', cls: 'square', canvas: { w: 600, h: 600, draw(c) {
     const g = c.getContext('2d'); let t0 = performance.now();

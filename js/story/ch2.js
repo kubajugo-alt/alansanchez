@@ -242,7 +242,7 @@
     entries: { default: [1080, 650, 'w'], map: [1080, 650, 'w'] },
     // unlit, the workshop is black but for the grey light at the door
     animFg(g, t) {
-      if (lit()) { FX.motes(g, t, 300, 250, 500, 300, 20, '255,210,150'); return; }
+      if (lit()) { FX.motes(g, t, 300, 250, 500, 300, 20, '255,210,150'); S.drawFerreiraDrawer(g); return; }
       g.save(); g.fillStyle = 'rgba(4,4,8,0.9)'; g.fillRect(0, 0, 1280, 720);
       g.globalCompositeOperation = 'destination-out';
       const gr = g.createRadialGradient(1140, 360, 20, 1140, 360, 420); gr.addColorStop(0, 'rgba(0,0,0,0.85)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
@@ -267,9 +267,8 @@
         look: async () => {
           if (!F().tide_wound) return say('narr_look_tideclock');
           await S.showTideClock(true);
-          if (!F().deaths_known) return say('alan_need_times');
-          if (!F().tide_known) { F().tide_known = true; await say('alan_turnings'); if (F().lore_turnings) await say('alan_turnings_celeste'); await S.ensureTideCard(); }
-          else await say('alan_tide_today');
+          if (!F().tide_known) { F().tide_known = true; await say(F().turnings_deduced ? 'alan_clock_agrees' : 'alan_clock_puzzled'); }
+          await say('alan_tide_today');
         },
         items: { key: async () => {
           if (F().tide_wound) return say('alan_fail_04');
@@ -278,9 +277,13 @@
           await joke('alan_clock_wound');
           await S.showTideClock(true);
           await say('narr_tideclock_runs');
-          if (F().deaths_known) { F().tide_known = true; await say('alan_turnings'); if (F().lore_turnings) await say('alan_turnings_celeste'); await S.ensureTideCard(); }
+          // (alan_turnings no longer plays here: Alan works it out from the newspaper instead)
+          F().tide_known = true; await say(F().turnings_deduced ? 'alan_clock_agrees' : 'alan_clock_puzzled');
+          await say('alan_tide_today'); // 18:25 and 00:35
         }, any: 'alan_fail_02' } },
-      { name: 'Tide card', rect: [772, 448, 80, 22], at: [810, 640], face: 'n', when: () => lit() && F().tide_wound && !G.has('tidecard') && !F().tidecardTaken,
+      { name: 'Desk drawer', rect: [560, 470, 160, 30], at: [640, 640], face: 'n', when: () => lit() && !F().drawer_unlocked,
+        look: 'alan_drawer_lock', use: () => S.ferreiraDrawer(), take: () => S.ferreiraDrawer() },
+      { name: 'Tide card', rect: [575, 500, 130, 26], at: [640, 640], face: 'n', when: () => lit() && F().drawer_unlocked && !G.has('tidecard') && !F().tidecardTaken,
         look: 'alan_look_tidecard', take: async () => { F().tidecardTaken = true; give('tidecard'); sfx('page'); await say('alan_tide_card'); await S.readTideCard(); await say('alan_tide_today'); } },
       { name: 'Key board', rect: [917, 160, 118, 256], at: [970, 640], face: 'n', when: lit, look: 'narr_look_keyboard',
         take: async () => { if (F().vkeyTaken) return say('alan_fail_take'); F().vkeyTaken = true; give('vkey'); sfx('pickup'); await say('alan_spare'); } },
@@ -305,7 +308,39 @@
     F().tidecardTaken = true; give('tidecard'); sfx('page');
     if (!quiet) await say('alan_tide_card');
   };
-  S.checkCh2 = function () { if (F().met_celeste && F().tide_known && F().knows_1955_boy) F().ch2_ready = true; };
+  S.drawFerreiraDrawer = function (g) {
+      g.save();
+      if (F().drawer_unlocked) {
+        g.fillStyle = '#2a1a0c'; g.fillRect(562, 488, 156, 30); g.fillStyle = '#5a3a1c'; g.fillRect(556, 514, 168, 10);
+        if (!G.has('tidecard') && !F().tidecardTaken) { g.fillStyle = '#efe4c8'; g.save(); g.translate(640, 502); g.rotate(-0.05); g.fillRect(-36, -8, 72, 16); g.restore(); }
+      } else { g.fillStyle = '#c9a24f'; g.beginPath(); g.arc(640, 485, 6, 0, 7); g.fill(); g.fillStyle = '#3a2810'; g.fillRect(630, 491, 20, 5); }
+      g.restore();
+      };
+  S.checkCh2 = function () {
+    const f = F();
+    if (f.met_celeste && f.tide_known && f.knows_1955_boy && f.turnings_deduced && (G.has('tidecard') || f.tidecardTaken)) f.ch2_ready = true;
+  };
+  // Puzzle II-E: Ferreira's drawer has a clockmaker's lock; every clock in the shop says 03:12
+  S.ferreiraDrawer = async function () {
+    if (F().drawer_unlocked) return;
+    if (!F().lock_tried) { F().lock_tried = true; await say('alan_drawer_lock'); }
+    const open = await S.drawerLock();
+    if (open) { sfx('drawer_open'); await say('alan_0312'); }
+  };
+  // Puzzle II-D: the newspaper's tide table against Rui's times of death
+  S.deduce = async function () {
+    if (F().turnings_deduced) return say('alan_tide_today');
+    if (!F().deaths_known) return say('alan_deduce_times');
+    if (!F().lore_turnings) return say('alan_deduce_why');
+    await S.deductionPage();
+    await S.posed('write', () => say('alan_deduce'));
+    F().turnings_deduced = true;
+    await say('alan_turnings_celeste'); // "Celeste was right."
+    if (!(F().lore || []).includes('celeste')) S.lore && S.lore('turnings');
+    S.checkCh2();
+  };
+  S.ITEMS.newspaper = { name: 'Diário de Notícias', look: async () => { await S.readPaper(); await say('alan_paper'); }, with: { notebook: () => S.deduce() } };
+  S.ITEMS.notebook.with = Object.assign(S.ITEMS.notebook.with || {}, { newspaper: () => S.deduce() });
   S.ch2End = async function () {
     if (F().ch2_done) return;
     F().ch2_done = true;

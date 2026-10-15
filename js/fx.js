@@ -477,6 +477,16 @@
         g.fillStyle = 'rgba(30,50,40,0.5)'; g.font = 'bold 13px serif'; g.fillText('S', 41, 52);
       });
     },
+    // the Diário de Notícias, folded: masthead, columns, a little tide table
+    newspaper(g) {
+      g.translate(48, 48); g.rotate(-0.08); g.translate(-48, -48);
+      rr(g, 16, 22, 64, 54, 2); fillInk(g, lg(g, 16, 22, 80, 76, '#f1ecdf', '#d8cfbb'));
+      noShadow(g, () => {
+        g.fillStyle = '#2a2a2a'; g.fillRect(22, 28, 52, 6);
+        g.fillStyle = 'rgba(40,40,40,0.55)'; for (let y = 40; y < 70; y += 4) { g.fillRect(22, y, 24, 1.6); }
+        g.strokeStyle = 'rgba(40,40,40,0.6)'; g.lineWidth = 1; g.strokeRect(52, 40, 22, 26); for (let y = 46; y < 66; y += 5) line(g, 52, y, 74, y);
+      });
+    },
     // Duarte's lyrics sheet: a folded page of handwriting, a little treble clef in the corner
     lyrics_sheet(g) {
       g.translate(48, 48); g.rotate(0.1); g.translate(-48, -48);
