@@ -7,7 +7,7 @@
   const T = ms => G.wait(window.FAST ? 20 : ms);
 
   S.CHARS.vasco = { scale: 1.0, frames: {
-    idle: ['vasco', 'vasco_idle2'], talk: ['vasco_talk', 'vasco_talk2'], walk: ['vasco_walk1', 'vasco_walk2'],
+    idle: ['vasco', 'vasco_idle2', 'vasco_idle3'], talk: ['vasco_talk', 'vasco_talk2', 'vasco_talk3'], walk: ['vasco_walk1', 'vasco_walk2'],
     poses: { kneel: 'vasco_kneel', climb: 'vasco_climb', trowel: 'vasco_trowel', coffee: 'vasco_coffee' } } };
   S.CHARS.alan.frames.poses.coffees = 'alan_coffees'; // Thursday morning: two coffees
   if (window.SPRITES.ines_plaque) S.CHARS.ines.frames.poses.plaque = 'ines_plaque';
