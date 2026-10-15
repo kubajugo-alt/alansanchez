@@ -1367,6 +1367,14 @@ window.SPRITES = {
   "fy": 723.0,
   "top": 3.0
  },
+ "pair_guitar_l1": {
+  "w": 589,
+  "hh": 728,
+  "h": 720,
+  "ax": 520.4,
+  "fy": 723.7,
+  "top": 3.7
+ },
  "pair_guitar_lasso": {
   "w": 483,
   "hh": 727,
