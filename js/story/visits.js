@@ -23,6 +23,7 @@
   ROOMS.bedroom = {
     name: "Alan's room", bg: 'bedroom',
     // afterwards: the bed wrecked and the visitor's clothes all over the floor
+    bgs: ['bedroom_after_cop'],
     bgFn: () => visitor === 'cop_bed' ? 'bedroom_after_cop' : visitor === 'guitar_floor' ? 'bedroom_after_guitar' : 'bedroom', noSave: true, music: null, ambience: 'shop', floor: 'wood',
     walk: [[330, 500], [860, 500], [1010, 716], [120, 716]], // between the bookshelf and the bed
     scale: [490, 400, 716, 500],
