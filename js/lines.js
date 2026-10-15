@@ -852,7 +852,7 @@ window.LINES = {
   phone_cuff_2: ['phone', "[sheepish] Alan? Where's the key?"],
   alan_cuff_3: ['alan', "[pause] The key. Yes. The key is... somewhere very safe."],
   phone_cuff_3: ['phone', "[rising panic] How safe?"],
-  alan_cuff_4: ['alan', "[muffled, from under the bed] Extremely safe. Don't move."],
+  alan_cuff_4: ['alan', "[muffled, from under the covers] Extremely safe. Don't move."],
   phone_cuff_4: ['phone', "[deadpan] Where would I go?"],
   ines_cuff: ['ines', "[calling up the stairs] Alan! There's a police radio squawking down here. The station wants to know where their officer is."],
   alan_cuff_5: ['alan', "[calling down, strangled] Tell them he's... helping with enquiries!"],
