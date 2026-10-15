@@ -17,7 +17,7 @@
     { id: 'npc_phone', ch: 'cop_visit', x, y, dir, name: 'Officer Teixeira', when: () => visitor === 'cop', look: 'alan_npc_phone' },
     { id: 'npc_guitar', ch: 'guitar_visit', x, y, dir, name: 'Duarte', when: () => visitor === 'guitar', look: 'alan_npc_guitar' },
   ];
-  ROOMS.shop.npcs = (ROOMS.shop.npcs || []).concat(visitorDefs(960, 606, 'w'));
+  ROOMS.shop.npcs = (ROOMS.shop.npcs || []).concat(visitorDefs(866, 684, 'w')); // on the rug, clear of the counter
 
   // ---------------------------------------------------------------- Alan's room, upstairs
   ROOMS.bedroom = {
@@ -113,7 +113,7 @@
     await downstairs();
   }
   async function arrive(who) {
-    await G.player.walkTo(760, 612); // in from the street, out of the doorway
+    await G.player.walkTo(716, 618); // in from the street, out of the doorway
     sfx('door'); await T(400);
     visitor = who; G.refreshNpcs();
     G.player.dir = 'e';
