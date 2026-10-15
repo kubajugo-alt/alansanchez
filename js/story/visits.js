@@ -14,17 +14,17 @@
     { id: 'npc_phone', ch: 'cop_visit', x, y, dir, name: 'Officer Teixeira', when: () => visitor === 'cop', look: 'alan_npc_phone' },
     { id: 'npc_guitar', ch: 'guitar_visit', x, y, dir, name: 'Duarte', when: () => visitor === 'guitar', look: 'alan_npc_guitar' },
   ];
-  ROOMS.shop.npcs = (ROOMS.shop.npcs || []).concat(visitorDefs(930, 604, 'w'));
+  ROOMS.shop.npcs = (ROOMS.shop.npcs || []).concat(visitorDefs(960, 606, 'w'));
 
   // ---------------------------------------------------------------- Alan's room, upstairs
   ROOMS.bedroom = {
     name: "Alan's room", bg: 'bedroom', noSave: true, music: null, ambience: 'shop', floor: 'wood',
-    walk: [[180, 560], [1060, 560], [1200, 716], [80, 716]],
-    scale: [560, 380, 716, 470],
+    walk: [[330, 500], [860, 500], [1010, 716], [120, 716]], // between the bookshelf and the bed
+    scale: [490, 400, 716, 500],
     light: { ambient: 'rgb(205,180,150)', base: 0.8, rim: 'rgba(255,210,160,0.25)', rimSide: 1 },
-    lights: [{ x: 980, y: 380, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.25, power: 0.5, reach: 800, floor: [980, 600], height: 300 }],
+    lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
     entries: { default: [700, 640, 'w'] },
-    npcs: visitorDefs(430, 630, 'e'),
+    npcs: visitorDefs(440, 640, 'e'),
     hotspots: [],
   };
 
@@ -48,6 +48,7 @@
     G.autosave();
   }
   async function arrive(who) {
+    await G.player.walkTo(760, 612); // in from the street, out of the doorway
     sfx('door'); await T(400);
     visitor = who; G.refreshNpcs();
     G.player.dir = 'e';
@@ -61,11 +62,11 @@
       await say('phone_visit_1', 'ines_visit_cop', 'phone_visit_2');
       p.pose = 'fluster'; await say('alan_visit_cop'); p.pose = null;
       await say('ines_visit_after');
-      const v = await upstairs('cop', [640, 640, 'w']);
+      const v = await upstairs('cop', [660, 645, 'w']);
       await say('phone_room_1', 'alan_room_cop_1');
       // Alan takes the lead: against the bookshelf, the shirt, the neck
-      const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
-      sfx('sheet_slap', 0.2); await pair('pair_cop_shelf', 2400);
+      const home = p.x; if (v) { p.x = 450; v.visible = false; } // the painted shelf in the frame lines up with the room's own
+      p.dir = 'w'; sfx('sheet_slap', 0.2); await pair('pair_cop_shelf', 2400);
       await say('phone_room_2', 'alan_room_cop_2');
       await pair('pair_cop_neck', 2600);
       await G.showStill('still_cop_shelf', () => G.say('narr_room_cop', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.45, 0.4]], keep: true });
@@ -85,11 +86,11 @@
       await say('guitar_visit_1', 'ines_visit_guitar', 'guitar_visit_2');
       p.pose = 'fluster'; await say('alan_visit_guitar'); p.pose = null;
       await say('ines_visit_after');
-      const v = await upstairs('guitar', [600, 640, 'w']);
+      const v = await upstairs('guitar', [660, 645, 'w']);
       await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed
       const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
-      sfx('sheet_slap', 0.25); await pair('pair_guitar_undress', 2600);
+      p.dir = 'w'; sfx('sheet_slap', 0.25); await pair('pair_guitar_undress', 2600);
       await say('guitar_room_2');
       await G.showStill('still_guitar_bed', () => G.say('narr_room_guitar', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.55, 0.5], [0.5, 0.45]], keep: true });
       await G.fade(true); G.endStill();

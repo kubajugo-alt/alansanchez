@@ -251,7 +251,7 @@
       { x: 915, y: 265, rgb: '205,220,238', power: 0.28, reach: 800, rim: 0.6, shadow: 0.45, floor: [915, 500], height: 600 },
     ],
     entries: { default: [160, 655, 'e'], map: [160, 655, 'e'] },
-    layers: [{ img: 'police_drawer', x: 0, y: 0, when: () => F().drawer_open, full: true }],
+    layers: [{ img: 'police_drawer', x: 0, y: 0, when: () => F().drawer_open, full: true }, { img: 'police_phone', x: 0, y: 0, full: true, when: () => F().ch <= 2 }],
     // Rui and the officer stand behind the desk: the desk and what's on it are traced
     occluders: [{ y: 600, polys: [
       [[320, 397], [945, 397], [945, 426], [930, 428], [930, 606], [336, 606], [336, 428], [320, 426]],
@@ -450,7 +450,7 @@
       // (the two of them as one painted pair, anchored on their middle)
       const home = p.x;
       if (cop) { await p.walkTo(cop.x + 105, cop.y); p.dir = 'w'; }
-      const pairUp = k => { if (!cop || !window.SPRITES[k]) return false; cop.visible = false; p.x = cop.x + 52; p.pose = k; return true; };
+      const pairUp = k => { if (!cop || !window.SPRITES[k]) return false; cop.visible = false; p.x = cop.x + 52; p.dir = 'e'; p.pose = k; return true; };
       const unpair = () => { if (cop) cop.visible = true; p.x = cop ? cop.x + 105 : home; p.pose = null; };
       if (!pairUp('pair_cop_arm')) { p.pose = 'flirt'; copPose('npc_phone_proud'); }
       await T(500); await say('alan_flirt_cop_3', 'phone_flirt_3');
@@ -483,9 +483,10 @@
       // the lesson: his hand over Alan's on the neck of the guitar
       const home = p.x;
       if (gt && window.SPRITES.pair_guitar_lesson) {
-        await p.walkTo(gt.x + 110, gt.y); gt.visible = false; p.x = gt.x + 40; p.pose = 'pair_guitar_lesson';
+        await p.walkTo(gt.x + 110, gt.y + 30);
+        const py = p.y; gt.visible = false; p.x = gt.x + 40; p.y = gt.y + 16; p.h = gt.height(); p.dir = 'e'; p.pose = 'pair_guitar_lesson'; // at his seated height, just in front of the courting couple
         await say('guitar_flirt_4', 'alan_flirt_guitar_4');
-        p.pose = null; gt.visible = true; p.x = gt.x + 110; p.dir = 'w';
+        p.pose = null; p.h = null; p.y = py; gt.visible = true; p.x = gt.x + 110; p.dir = 'w';
       } else await say('guitar_flirt_4', 'alan_flirt_guitar_4');
       gPose('npc_guitar_serenade'); p.pose = 'swoon'; await say('alan_flirt_guitar_2');
       p.pose = null; gPose('npc_guitar_wink'); await say('guitar_flirt_2');
@@ -496,17 +497,9 @@
   // the station's wall telephone beside the door (Teixeira has the handset), its
   // coiled cord dropping behind him
   S.wallPhone = function (g, x, y) {
+    // the telephone itself is painted (layer police_phone); only its cord is drawn,
+    // coiling down from the base to the handset in Teixeira's hand
     g.save(); g.translate(x, y);
-    g.fillStyle = 'rgba(0,0,0,0.28)'; g.beginPath(); g.roundRect(-13, 3, 30, 54, 5); g.fill();
-    const body = g.createLinearGradient(-15, 0, 15, 0); body.addColorStop(0, '#ece2c6'); body.addColorStop(0.6, '#d2c6a4'); body.addColorStop(1, '#a89a78');
-    g.fillStyle = body; g.strokeStyle = 'rgba(40,30,20,0.85)'; g.lineWidth = 1.5;
-    g.beginPath(); g.roundRect(-15, 0, 30, 52, 5); g.fill(); g.stroke();
-    // empty cradle hook and the dial
-    g.fillStyle = '#8a7e62'; g.fillRect(-11, 3, 22, 5); g.strokeRect(-11, 3, 22, 5);
-    g.fillStyle = '#f4ecd6'; g.beginPath(); g.arc(0, 26, 10, 0, 7); g.fill(); g.stroke();
-    g.fillStyle = '#4a4232'; for (let k = 0; k < 10; k++) { const a = -2.2 + k * 0.5; g.beginPath(); g.arc(Math.cos(a) * 6.5, 26 + Math.sin(a) * 6.5, 1.3, 0, 7); g.fill(); }
-    g.beginPath(); g.arc(0, 26, 2.5, 0, 7); g.fill();
-    g.strokeStyle = 'rgba(255,255,255,0.45)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(-12, 8); g.lineTo(-12, 46); g.stroke();
     // coiled cord: loops along a sagging curve down behind the officer
     g.strokeStyle = '#2a2620'; g.lineWidth = 1.6; g.beginPath();
     const [x0, y0, x1, y1] = [0, 52, 44, 190];

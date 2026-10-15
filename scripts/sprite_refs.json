@@ -23,5 +23,7 @@
  "npc_lino_talk": 1420,
  "npc_phone_blush": 1411,
  "npc_phone_proud": 1444,
- "npc_guitar_wink": 1445
+ "npc_guitar_wink": 1445,
+ "npc_guitar_serenade": 1482,
+ "npc_guitar_lean": 1485
 }
