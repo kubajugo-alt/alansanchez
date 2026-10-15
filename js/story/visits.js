@@ -124,9 +124,9 @@
     const p = G.player;
     await G.busy(async () => {
       await arrive('cop');
-      await say('phone_visit_1', 'ines_visit_cop', 'phone_visit_2');
-      p.pose = 'fluster'; await say('alan_visit_cop'); p.pose = null;
-      await say('ines_visit_after');
+      p.pose = 'fluster'; // in front of Ines: a polite yard apart, both scarlet
+      await say('phone_visit_1', 'ines_visit_cop', 'phone_visit_2', 'alan_visit_cop', 'ines_visit_after');
+      p.pose = null;
       const v = await upstairs('cop', [660, 645, 'w']);
       await say('phone_room_1', 'alan_room_cop_1');
       // Alan takes the lead: against the bookshelf, the shirt, the neck
@@ -144,8 +144,10 @@
       sfx('sheet_slap', 0.2); await pair('pair_cop_shelf2', 1600);
       await pair('pair_cop_belt', 600);
       await say('alan_room_cop_7', 'phone_room_7');
-      await pair('pair_cop_belt2', 1100); // his trousers, halfway
-      sfx('sheet_slap', 0.25); await pair('pair_cop_trousers', 1800);
+      await pair('pair_cop_belt2', 500); // his trousers, halfway
+      await say('alan_room_cop_8', 'phone_room_8');
+      sfx('sheet_slap', 0.25); await pair('pair_cop_trousers', 600);
+      await say('phone_room_9', 'alan_room_cop_9');
       // his own handcuffs
       sfx('sheet_slap', 0.25); p.x = 560; await pair('pair_cop_cuffs', 600);
       await say('alan_cuff_1', 'phone_cuff_1', 'alan_cuff_2'); sfx('lamp_click', 0.8);
@@ -172,9 +174,9 @@
     const p = G.player;
     await G.busy(async () => {
       await arrive('guitar');
-      await say('guitar_visit_1', 'ines_visit_guitar', 'guitar_visit_2');
-      p.pose = 'fluster'; await say('alan_visit_guitar'); p.pose = null;
-      await say('ines_visit_after');
+      p.pose = 'fluster'; // Alan scarlet; Duarte perfectly at ease
+      await say('guitar_visit_1', 'ines_visit_guitar', 'guitar_visit_2', 'alan_visit_guitar', 'ines_visit_after');
+      p.pose = null;
       const v = await upstairs('guitar', [660, 645, 'w']);
       await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed
@@ -188,7 +190,8 @@
       await say('alan_room_guitar_5');
       await run(['s1', 's2', 'undress2'], 900);
       await say('guitar_room_4', 'alan_room_guitar_3');
-      await run(['d1', 'd2'], 900);
+      await pair('pair_guitar_d1', 900); await pair('pair_guitar_d2', 500);
+      await say('guitar_room_8', 'alan_room_guitar_8');
       sfx('sheet_slap', 0.3); await run(['hop', 'h1', 'h2'], 950);
       await pair('pair_guitar_lasso', 400);
       await say('guitar_room_6', 'alan_room_guitar_6', 'guitar_room_2');
@@ -197,7 +200,8 @@
       await pair('pair_guitar_l2', 700);
       await pair('pair_guitar_underwear', 400);
       await say('guitar_room_7');
-      await run(['p1', 'p2'], 1000);
+      await pair('pair_guitar_p1', 1000); await pair('pair_guitar_p2', 500);
+      await say('guitar_room_9');
       await G.showStill('still_guitar_bed', () => G.say('narr_room_guitar', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.55, 0.5], [0.5, 0.45]], keep: true });
       await G.fade(true); G.endStill();
       await afterwards('guitar_floor', 'guitar_room_3', 'alan_room_guitar_2', null, 'guitar_after_1');
