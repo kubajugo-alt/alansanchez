@@ -278,11 +278,11 @@
       FX.motes(g, t, 700, 220, 340, 420, 22, '235,238,240');
     },
     npcs: [
-      { id: 'rui', x: 836, y: 560, h: 365, dir: 'w', at: [790, 645], name: 'Inspector Mendonça', look: 'narr_look_rui', talk: () => S.talkRui(),
+      { id: 'rui', x: 836, y: 560, h: 365, dir: 'w', at: [790, 645], name: 'Inspector Mendonça', look: 'narr_look_rui', talk: () => S.talkRui(), when: () => !F().rui_out,
         items: { coffee: () => say('rui_coffee'), file55: () => say('rui_times'), any: 'alan_fail_rui_item' } },
     ],
     ambient: [
-      { id: 'npc_phone', name: 'Officer Teixeira', frames: ['npc_phone', 'npc_phone_b'], x: 300, y: 700, dir: 'w', look: 'alan_npc_phone', talk: () => S.flirtCop(), when: () => S.copOnDuty(), variantHold: [3, 6] }, // front left, clear of the desk
+      { id: 'npc_phone', name: 'Officer Teixeira', frames: ['npc_phone', 'npc_phone_b'], x: 300, y: 700, dir: 'w', look: 'alan_npc_phone', talk: () => S.flirtCop(), when: () => S.copOnDuty(), variantHold: [3, 6], items: { any: 'alan_fail_rui_item' } }, // front left, clear of the desk
     ],
     hotspots: [
       { name: 'Corkboard', rect: [275, 95, 355, 230], look: 'narr_look_board' },
@@ -313,8 +313,14 @@
         items: { notebook: async () => {
           if (!F().ruiMurders) return say('rui_hands_off');
           if (F().sketched_tile) return say('alan_have_sketch');
+          // Teixeira guards the bag while the Inspector is out, until he's looking at the wall
+          if (F().ch === 1 && !F().teixeira_flirt) {
+            if (!F().rui_out) return say('rui_hands_off');
+            if (!F().teixeira_wall) return say('teixeira_no');
+          }
           await posed('write', async () => { await G.wait(window.FAST ? 20 : 900); await joke('alan_sketch'); });
           F().sketched_tile = true; give('sketch');
+          if (F().rui_out) await S.ruiReturns();
         }, any: 'alan_fail_rui_item' } },
       { name: "Rui's coffee", rect: [724, 356, 56, 50], look: 'narr_look_coffee' },
       { name: 'Door', rect: [70, 40, 120, 510], at: [150, 645], exit: 'map', entry: 'police' },
@@ -338,7 +344,8 @@
       { line: 'alan_ask_victims', when: () => F().ruiMurders, once: true, run: () => say('rui_victims_1', 'rui_victims_2') },
       { line: 'alan_ask_list', when: () => F().ruiMurders && !F().saw_list, run: async () => {
         await say('rui_list_1'); await S.readList(); await say('alan_list_hand', 'rui_water'); await joke('alan_water'); F().saw_list = true;
-      } },
+        if (F().ch === 1 && !F().teixeira_flirt) await S.ruiLeaves();
+      }, get bye() { return !!F().rui_out; } },
       { line: 'alan_ask_strange', when: () => F().ch === 1, once: true, run: () => say('rui_drawer_1', 'rui_drawer_2') },
       { line: 'alan_ask_1955', when: () => F().ch >= 2 && !F().askedDrawer, run: async () => { await say('rui_1955', 'rui_drawer_crowbars'); F().askedDrawer = true; } },
       { line: 'alan_ask_fog', once: true, run: () => say('rui_fog') },
