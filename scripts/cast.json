@@ -65,6 +65,11 @@
       "voice_id": "M9RTtrzRACmbUzsEMq8p",
       "name": "Abuelita de Cuento",
       "role": "Graça, washerwoman"
+    },
+    "vasco": {
+      "voice_id": "xzCR0y39xuy9hiysqyV3",
+      "name": "William - Conversational & Intelligent",
+      "role": "Dr. Vasco Teles, curator"
     }
   }
 }
