@@ -70,6 +70,16 @@
       "voice_id": "xzCR0y39xuy9hiysqyV3",
       "name": "William - Conversational & Intelligent",
       "role": "Dr. Vasco Teles, curator"
+    },
+    "phone": {
+      "voice_id": "n27L8GNoVt7SPUboEQb7",
+      "name": "Erby V2 - Nerdy Regular Dude",
+      "role": "Officer Teixeira"
+    },
+    "guitar": {
+      "voice_id": "7lJ2JuXZKHyck5zlS7XQ",
+      "name": "(as used for guitar_* lines)",
+      "role": "Duarte"
     }
   }
 }
