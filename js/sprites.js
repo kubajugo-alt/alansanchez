@@ -1520,6 +1520,14 @@ window.SPRITES = {
   "fy": 753.5,
   "top": 3.2
  },
+ "npc_bench_confide": {
+  "w": 594,
+  "hh": 731,
+  "h": 696.83,
+  "ax": 266.8,
+  "fy": 727.1,
+  "top": 3.2
+ },
  "npc_bench_doze2": {
   "w": 561,
   "hh": 727,
@@ -1527,6 +1535,14 @@ window.SPRITES = {
   "ax": 267.8,
   "fy": 711.2,
   "top": 3.2
+ },
+ "npc_bench_drowsy": {
+  "w": 613,
+  "hh": 731,
+  "h": 723.62,
+  "ax": 288.6,
+  "fy": 727.6,
+  "top": 3.7
  },
  "npc_bench_talk1": {
   "w": 621,
@@ -1550,6 +1566,14 @@ window.SPRITES = {
   "h": 711.85,
   "ax": 271.1,
   "fy": 732.3,
+  "top": 3.2
+ },
+ "npc_bench_wistful": {
+  "w": 655,
+  "hh": 732,
+  "h": 740.36,
+  "ax": 295.0,
+  "fy": 733.8,
   "top": 3.2
  },
  "npc_cards": {
