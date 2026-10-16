@@ -2067,6 +2067,14 @@ window.SPRITES = {
   "fy": 690.6,
   "top": 3.2
  },
+ "npc_washer1_shock": {
+  "w": 285,
+  "hh": 726,
+  "h": 720,
+  "ax": 157.1,
+  "fy": 722.6,
+  "top": 3.2
+ },
  "npc_washer1_wring": {
   "w": 316,
   "hh": 729,
@@ -2131,6 +2139,14 @@ window.SPRITES = {
   "h": 720.0,
   "ax": 177.9,
   "fy": 723.2,
+  "top": 3.2
+ },
+ "npc_washer2_shock": {
+  "w": 290,
+  "hh": 726,
+  "h": 720,
+  "ax": 94.3,
+  "fy": 722.1,
   "top": 3.2
  },
  "npc_washer2_slap": {
