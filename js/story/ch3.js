@@ -302,7 +302,7 @@
   };
   S.talkLacerda = async function () {
     await say('lacerda_hello');
-    if (F().vasco_thursday && !F().lac_reputation) { F().lac_reputation = true; await say('lacerda_reputation', 'alan_cold', 'lacerda_who'); }
+    if (F().vasco_thursday && !F().lac_reputation) { F().lac_reputation = true; await say('lacerda_reputation', 'alan_cold', 'lacerda_who', 'lacerda_expose'); await G.wait(window.FAST ? 20 : 800); await say('alan_stair'); }
     await G.dialog([
       { line: 'alan_lac_clocks', once: true, run: async () => { await say('lacerda_clocks'); await joke('alan_collect'); await say('lacerda_charming'); await S.showClocks(); F().saw_jc_clock = true; await say('alan_jc'); } },
       { line: 'alan_lac_case', once: true, run: async () => { await say('lacerda_case', 'lacerda_velvet'); F().case_known = true; } },

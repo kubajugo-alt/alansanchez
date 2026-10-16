@@ -80,6 +80,26 @@
       "voice_id": "7lJ2JuXZKHyck5zlS7XQ",
       "name": "(as used for guitar_* lines)",
       "role": "Duarte"
+    },
+    "laundry": {
+      "voice_id": "oNRN9HppGQaRc2aCxlG9",
+      "name": "Astrid - Earthy and expressive",
+      "role": "Woman with the washing (Dona Fátima)"
+    },
+    "fish": {
+      "voice_id": "wmWLdRPPbh5HMS43PMIi",
+      "name": "(existing)",
+      "role": "Rosa, fishwife"
+    },
+    "mender1": {
+      "voice_id": "n8EXn5l1hu3ASWq9KpAm",
+      "name": "(existing)",
+      "role": "Old net mender"
+    },
+    "mender2": {
+      "voice_id": "EI3BL0ECeQayX8N4doHx",
+      "name": "(existing)",
+      "role": "Gruff net mender"
     }
   }
 }

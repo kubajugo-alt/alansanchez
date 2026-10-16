@@ -37,7 +37,7 @@
     ],
     ambient: [
       { id: 'npc_washer1', name: 'Washerwoman', frames: ['npc_washer1', 'npc_washer1_b'], x: 300, y: 484, h: 205, look: 'alan_npc_washers', idleHold: [6, 14], talk: () => S.washersBath() },
-      { id: 'npc_laundry', name: 'Woman with the washing', frames: ['npc_laundry'], x: 175, y: 560, h: 236, look: 'alan_npc_laundry' }, // under the hanging sheets
+      { id: 'npc_laundry', name: 'Woman with the washing', frames: ['npc_laundry'], x: 175, y: 560, h: 236, look: 'alan_npc_laundry', talk: () => S.laundryTalk() }, // under the hanging sheets
       { id: 'npc_washer2', name: 'Graça', frames: ['npc_washer2', 'npc_washer2_b'], x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [7, 16], talk: () => S.washersBath() },
     ],
     hotspots: [
@@ -152,7 +152,29 @@
       await say('celeste_bath_2');
       await joke('alan_bath_3');
       F().bathed = true;
+      // not everyone at the basins is laughing with him
+      await T(1400);
+      await S.laundryRemark();
     });
+  };
+  // the woman under the sheets says it loud enough to carry; Alan turns his back and lets it go
+  S.laundryRemark = async function () {
+    const p = G.player, w = G.npc('npc_laundry');
+    if (F().laundry_remark || !w || !w.visible) return;
+    F().laundry_remark = true;
+    await say('laundry_remark');
+    await G.wait(window.FAST ? 20 : 700);
+    p.dir = w.x < p.x ? 'e' : 'w';            // he looks away rather than at her
+    await G.wait(window.FAST ? 20 : 900);
+    await say('alan_laundry_quiet');
+    await G.say('narr_laundry', { offscreen: true });
+  };
+  S.laundryTalk = async function () {
+    if (!F().bathed) return say('alan_npc_laundry');
+    if (!F().laundry_remark) return S.laundryRemark();
+    const p = G.player, w = G.npc('npc_laundry');
+    await say('laundry_remark_2');
+    if (w) p.dir = w.x < p.x ? 'e' : 'w';
   };
   // one sheet between the two of them, twisting tighter, water running out of it
   let wringing = null;

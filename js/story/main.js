@@ -65,6 +65,9 @@
       await G.wait(window.FAST ? 20 : 700);
       await S.strike('ferreira');
     } },
+    // the quay gossip (Rosa and the old mender) and Lacerda's threat about Vasco
+    quayfish: { flags: { ch: 4, harbour: true }, room: 'cais', pos: [560, 640, 'w'], run: () => S.fishTalk() },
+    lacthreat: { flags: { ch: 3, vasco_thursday: true }, room: 'antiques', pos: [700, 650, 'e'], run: () => S.talkLacerda() },
     guitar: { flags: { ch: 1, heard_song: true }, room: 'tavern', pos: [812, 648, 'w'], run: () => S.flirtGuitar() },
     // the washhouse: Alan's first meeting with Celeste (the sheet, then her questions)
     celeste: { flags: { ch: 2, heard_machine: true }, room: 'lavadouro', pos: [760, 650, 'w'], run: async () => { await S.talkCeleste(); await S.wringSheet(); } },
