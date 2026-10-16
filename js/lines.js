@@ -1400,4 +1400,9 @@ window.LINES = {
   narr_epi_shop2: ['narr', "At the Livraria Sanchez, a bronze tongue sat on the bookbinding press, holding down the Camões nobody bought. It was only visiting. It had an appointment at the Sé, on Thursday. Inês was writing page forty-one."],
   vasco_love_romans: ['vasco', "[breathless] The Romans can wait."],
   alan_love_romans: ['alan', "They've waited sixteen hundred years. They're professionals."],
+  // the heist: Vasco sees Inês in the find tray's glass, and lets it happen (Thursday's secret)
+  narr_glimpse: ['narr', "In the glass lid of a find tray, a reflection in a black blazer hurried along the arcade. Vasco watched it all the way out of the frame. Then he bent to his letters again, and said nothing at all."],
+  narr_key_clip_2: ['narr', "The key went back on its clip. It had been gone twenty-two minutes, and Alan was quite sure nobody had noticed."],
+  vasco_hook_3: ['vasco', "[wry, a small smile, not surprised at all] ...So that's why you were so interested in my buttons."],
+  vasco_liar: ['vasco', "[a small, knowing smile] You're a terrible liar, Senhor Sanchez. Don't change."],
 };
