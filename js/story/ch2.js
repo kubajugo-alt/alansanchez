@@ -40,7 +40,9 @@
         // scrubbing; now and then a rest, a wring, or the big overhead wring (lifted up and brought down again)
         frames: ['npc_washer1', 'npc_washer1_scrub2', 'npc_washer1_wring', 'npc_washer1_rest', ['npc_washer1_wring', 'npc_washer1_lift', 'npc_washer1_b', 'npc_washer1_lift', 'npc_washer1_wring']],
         talkFrames: ['npc_washer1_giggle', 'npc_washer1_laugh', 'npc_washer1_gossip'], poses: { howl: 'npc_washer1_howl', peek: 'npc_washer1_peek' } },
-      { id: 'npc_laundry', name: 'Woman with the washing', frames: ['npc_laundry'], x: 175, y: 560, h: 236, look: 'alan_npc_laundry', talk: () => S.laundryTalk() }, // under the hanging sheets
+      { id: 'npc_laundry', name: 'Woman with the washing', x: 175, y: 560, h: 236, look: 'alan_npc_laundry', talk: () => S.laundryTalk(), idleHold: [5, 10], variantHold: [2.5, 4.5], // under the hanging sheets
+        frames: ['npc_laundry', 'npc_laundry_peg', 'npc_laundry_shake', 'npc_laundry_glance', ['npc_laundry_shake', 'npc_laundry_peg', 'npc_laundry']],
+        talkFrames: ['npc_laundry_talk1', 'npc_laundry_talk2', 'npc_laundry_talk3'], poses: { sniff: 'npc_laundry_sniff', mutter: 'npc_laundry_mutter', smirk: 'npc_laundry_smirk' } },
       { id: 'npc_washer2', name: 'Graça', x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [6, 12], variantHold: [2.4, 4.5], talk: () => S.washersBath(),
         frames: ['npc_washer2', 'npc_washer2_scrub2', 'npc_washer2_slap', 'npc_washer2_b', 'npc_washer2_wring', 'npc_washer2_hips'],
         talkFrames: ['npc_washer2_cackle', 'npc_washer2_beckon', 'npc_washer2_giggle'], poses: { wheeze: 'npc_washer2_wheeze', wink: 'npc_washer2_wink' } },
@@ -212,6 +214,9 @@
     await say('alan_laundry_quiet');
     await G.say('narr_laundry', { offscreen: true });
   };
+  // the woman under the sheets: a sniff for the remark, muttering over the pegs the second time
+  Object.assign(S.LINE_POSE, { laundry_remark: ['npc_laundry', 'sniff'], laundry_remark_2: ['npc_laundry', 'mutter'] });
+  Object.assign(S.REACT, { washer1_bath_1: (S.REACT.washer1_bath_1 || []).concat([['npc_laundry', 'npc_laundry_glance']]), alan_washers_2: (S.REACT.alan_washers_2 || []).concat([['npc_laundry', 'npc_laundry_smirk']]) });
   S.laundryTalk = async function () {
     if (!F().bathed) return say('alan_npc_laundry');
     if (!F().laundry_remark) return S.laundryRemark();
