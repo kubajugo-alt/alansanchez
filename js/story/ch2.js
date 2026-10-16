@@ -389,6 +389,8 @@
   S.checkCh2 = function () {
     const f = F();
     if (f.met_celeste && f.tide_known && f.knows_1955_boy && f.turnings_deduced && (G.has('tidecard') || f.tidecardTaken)) f.ch2_ready = true;
+    // the last piece found in the shop itself: the chapter ends here, not on the next way in
+    if (f.ch2_ready && f.ch === 2 && !f.ch2_done && G.room && G.room.id === 'shop') return S.ch2End();
   };
   // Puzzle II-E: Ferreira's drawer has a clockmaker's lock; every clock in the shop says 03:12
   S.ferreiraDrawer = async function () {
@@ -407,7 +409,7 @@
     F().turnings_deduced = true;
     await say('alan_turnings_celeste'); // "Celeste was right."
     if (!(F().lore || []).includes('celeste')) S.lore && S.lore('turnings');
-    S.checkCh2();
+    await S.checkCh2();
   };
   S.ITEMS.newspaper = { name: 'Diário de Notícias', look: async () => { await S.readPaper(); await say('alan_paper'); }, with: { notebook: () => S.deduce() } };
   S.ITEMS.notebook.with = Object.assign(S.ITEMS.notebook.with || {}, { newspaper: () => S.deduce() });
