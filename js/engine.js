@@ -275,7 +275,9 @@
       const sinkPx = this.sink * h;
       const lights = lightsOn(this.x, this.y - h * 0.55, h, this);
       if (!sinkPx) groundShadows(this, comp, U, bw, bh, h, lights);
-      const lit = lightSprite(comp, bw, bh, U, h, lights);
+      const shaded = !window.FAST && window.Warp && window.WARP !== false && window.LIT3D !== false && Warp.ok;
+      const lit = shaded ? comp : lightSprite(comp, bw, bh, U, h, lights);
+      const LP = shaded ? lightParams(U, h, lights) : null;
       // breathing: the chest rises and widens a touch above the hips; feet stay put
       const talkAmp = this.lvl || 0;
       const b = this.walking ? 0 : 0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045 + talkAmp * 0.006;
@@ -285,8 +287,9 @@
       g.save();
       if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
       // the painting is drawn through a mesh that bends with the figure: breath, sway, head, steps
-      const warped = !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, SPRITES[key], b), h * 0.1);
+      const warped = !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, SPRITES[key], b), h * 0.1, LP);
       if (!warped) {
+        if (shaded) { const L2 = lightSprite(comp, bw, bh, U, h, lights); g.drawImage(L2, 0, 0, bw, bh, X0, Y0, bw, bh); g.restore(); return; }
         // lower body: untouched
         g.drawImage(lit, 0, hipBy, bw, bh - hipBy, X0, Y0 + hipBy, bw, bh - hipBy);
         // upper body: scaled about the hip line and the body axis
@@ -454,6 +457,40 @@
       g.drawImage(silBuf, 0, 0, bw, bh, U.x, U.y, bw, bh);
       g.restore();
     }
+  }
+  // The same lighting as lightSprite, as parameters for the GPU pass (js/warp.js), which shades the
+  // figure as a rounded form: lit side, shaded side, rims, room colour, fog.
+  const rgbaCache = {};
+  function rgba(str, defA) {
+    if (!str) return null;
+    if (rgbaCache[str]) return rgbaCache[str];
+    const m = str.match(/[\d.]+/g).map(Number);
+    return (rgbaCache[str] = [m[0] / 255, m[1] / 255, m[2] / 255, m.length > 3 ? m[3] : defA]);
+  }
+  function lightParams(U, figH, lights) {
+    const L = roomLight();
+    const base = Math.max(0.3, Math.min(1, L.base != null ? L.base : 1));
+    const amb = (rgba(L.ambient, 1) || [1, 1, 1, 1]).slice(0, 3).map(v => v * base);
+    const cx = -U.x, cy = -U.y - figH * 0.55;
+    const out = [];
+    for (const o of lights) {
+      const lc = rgba('rgb(' + o.l.rgb + ')', 1);
+      // the light's colour, tempered by the room's, adding what used to be a flat lift in level
+      const an = amb.map(v => v / Math.max(0.05, base)), luma = c => 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2];
+      let tint = [0, 1, 2].map(i => (lc[i] * 0.6 + an[i] * 0.4));
+      const k = luma(an) / Math.max(0.05, luma(tint)); tint = tint.map(v => v * k); // keep the old brightness, take the light's hue
+      out.push({ x: cx + o.dx, y: cy + o.dy, rgb: tint, I: o.I * (o.l.fill != null ? o.l.fill : 0.35) / 0.65, rim: Math.min(0.55, o.I * (o.l.rim != null ? o.l.rim : 0.8)) });
+    }
+    out.sort((a, b) => b.I - a.I);
+    // same average brightness as the flat lighting had; only the modelling changes
+    const fills = lights.reduce((t, o) => t + o.I * (o.l.fill != null ? o.l.fill : 0.35), 0);
+    const flat = Math.max(0.3, Math.min(1, base + fills));
+    const est = base * 0.97 + out.slice(0, 4).reduce((t, l) => t + l.I * 0.65 * 0.85, 0);
+    const gain = Math.min(1.6, flat / Math.max(0.05, est));
+    for (let i = 0; i < 3; i++) amb[i] *= gain;
+    for (const l of out) l.I *= gain;
+    const key = rgba(L.rim, 0.3), fog = rgba(L.fog, 0.2);
+    return { amb, fog, key, keySide: L.rimSide || 1, feet: -U.y, fig: figH, lights: out };
   }
   // Room colour, then a rim of each light on the side facing it.
   function lightSprite(comp, w, h, U, figH, lights) {
