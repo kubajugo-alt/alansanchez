@@ -13,8 +13,11 @@
   }
   if (has('ines_front')) F.front = ['ines_front'];
   if (has('ines_back')) F.back = ['ines_back'];
-  set(F, 'frontWalk', ['ines_front_walk1', 'ines_front', 'ines_front_walk2', 'ines_front'], 4);
-  set(F, 'backWalk', ['ines_back_walk1', 'ines_back', 'ines_back_walk2', 'ines_back'], 4);
+  const walk4 = (a, b, c, d, alt) => [a, b, c, d].every(has) ? [a, b, c, d] : alt.every(has) ? alt : null;
+  const fw = walk4('ines_front_walk1', 'ines_front_pass1', 'ines_front_walk2', 'ines_front_pass2', ['ines_front_walk1', 'ines_front', 'ines_front_walk2', 'ines_front']);
+  const bw = walk4('ines_back_walk1', 'ines_back_pass1', 'ines_back_walk2', 'ines_back_pass2', ['ines_back_walk1', 'ines_back', 'ines_back_walk2', 'ines_back']);
+  if (fw) F.frontWalk = fw;
+  if (bw) F.backWalk = bw;
   const L = F.sets && F.sets.lantern;
   if (L && ['ines_lwalk1', 'ines_lpass1', 'ines_lwalk2', 'ines_lpass2'].every(has)) L.walk = ['ines_lwalk1', 'ines_lpass1', 'ines_lwalk2', 'ines_lpass2'];
 
