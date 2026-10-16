@@ -60,6 +60,7 @@
   };
   // ---------------------------------------------------------------- easter egg: Alan takes a bath
   let splash = null, shorts = null, swimmer = null;
+  const WASH = { x: 1080, y: 497, h: 330 }; // in the tank, right of the towel: the waterline and his full standing height
   // his black trunks, flung over his shoulder: an arc, a spin, a heap on the stones
   S.drawShorts = function (g) {
     if (!shorts) return;
@@ -129,9 +130,13 @@
       const has = k => !!window.SPRITES[S.CHARS.alan.frames.poses[k] || k];
       const pose = async (k, ms) => { if (!has(k)) return false; p.pose = k; if (ms) await T(ms); return true; };
       const hop = async (dx, n, ms) => { for (let i = 0; i < n; i++) { p.x += dx; await T(ms); } };
+      // the women at the basins see what he's up to: a shocked face each, from the first button
+      const SHOCK = [['npc_washer1', 'npc_washer1_shock'], ['npc_washer2', 'npc_washer2_shock'], ['npc_laundry', 'npc_laundry_shock'], ['celeste', 'celeste_shock']];
+      const shocked = on => { for (const [id, k] of SHOCK) { const w = G.npc(id); if (w && w.visible && window.SPRITES[k]) { if (on && id === 'celeste') w.set = null; w.pose = on ? k : null; } } };
       // jacket, tee, boots, belt, jeans, down to the trunks
       sfx('sheet_slap', 0.25); await pose('undress1', 850);               // the jacket slides off the shoulders
-      await pose('undress1b', 750);                                       // ...and over one shoulder
+      shocked(true);
+      if (!(await pose('undress1b', 750))) await pose('alan_dress4', 750); // ...and over one shoulder
       p.pose = 'undress2'; sfx('sheet_slap', 0.3); await T(950);          // tee over the head
       if (await pose('uboot', 0)) await hop(4, 4, 170);                   // hopping out of the boots
       if (await pose('ubelt', 0)) { sfx('sheet_slap', 0.2); await T(850); } // the belt, with a flourish
@@ -148,14 +153,14 @@
       const cheeky = !S.discreet();
       if (cheeky && has('hands')) { p.pose = 'hands'; sfx('sheet_slap', 0.15); }
       await say('celeste_bath_1');
-      if (c) c.pose = null;
+      if (c) c.pose = has('celeste_shock') ? 'celeste_shock' : null;
       await pose('jgrin', 700);                                           // jacket snatched back up, re-adjusted
       if (!(await pose('jwink', 0))) p.pose = 'jacket';
       await say('alan_bath_2');                                           // with a wink
       // the run-up: Full content only, a Carry-On sprint for the tank, seen from behind
       if (cheeky && has('runback')) { p.pose = 'runback'; await hop(7, 4, 110); }
-      // the leap: a hop up and over the rim of the tank
-      const x0 = p.x, y0 = p.y, x1 = 925, y1 = 504; // open water left of the basket; y1 is the water line (in front of the back basins at 500)
+      // the leap: a hop up and over the rim of the tank, into the corner where the basket used to stand
+      const x0 = p.x, y0 = p.y, x1 = WASH.x, y1 = WASH.y;
       p.h = p.height(); p.pose = 'jump';
       for (let k = 0; k <= 1.0001; k += window.FAST ? 0.5 : 0.035) {
         p.x = x0 + (x1 - x0) * k; p.y = y0 + (y1 - y0) * k - Math.sin(k * Math.PI) * 170;
@@ -163,30 +168,35 @@
       }
       sfx('splash'); p.visible = false; splash = { x: x1, y: y1, t0: performance.now() };
       await T(700);
-      // swimming in the tank: only head and shoulders above the water
-      swimmer = { y: y1 }; p.sink = 0.0001; p.pose = 'swim'; p.visible = true; p.x = x1; p.y = y1;
+      // standing in the tank, the water at his waist: washing, not swimming
+      const washing = ['wash1', 'wash2', 'wash3'].filter(has);
+      swimmer = { y: y1 }; p.x = x1; p.y = y1; p.h = WASH.h; p.visible = true;
+      if (!washing.length) { p.sink = 0.0001; p.pose = 'swim'; } else p.pose = washing[0];
       let on = true;
       (async () => {
         let i = 0;
         while (on) {
-          p.pose = i % 2 ? 'swim2' : 'swim';
-          p.x = x1 + Math.sin(i * 0.6) * 40; p.y = y1 + (i % 2) * 3;
-          i++; await T(520);
+          if (washing.length) { p.pose = washing[i % washing.length]; if (i % washing.length === 2) sfx('splash', 0.12); await T(900); }
+          else { p.pose = i % 2 ? 'swim2' : 'swim'; await T(520); }
+          i++;
         }
       })();
       await say('narr_bath');
       on = false; await T(60);
-      p.pose = 'swimwave'; p.x = x1; p.y = y1; sfx('splash', 0.3);
+      if (washing.length) p.pose = washing[0];                            // a last scoop over the shoulders
+      else p.pose = 'swimwave';
+      sfx('splash', 0.3);
       await T(1400);
       await G.fade(true);
+      shocked(false); if (c) c.pose = null;
       swimmer = null; shorts = null; p.sink = 0; p.h = null; p.x = 800; p.y = 650; p.dir = 'w';
       // out of the tank and back into his clothes: trunks, jeans, boots, tee, jacket
       p.pose = has('climb') ? 'climb' : null;
       await G.fade(false);
       if (await pose('climb', 0)) { await hop(-5, 3, 180); await T(300); }  // over the rim, knee first
-      await pose('drip', 0);                                              // dripping, jacket in front
+      if (!(await pose('drip', 0))) p.pose = 'jacket';                    // dripping, jacket in front
       await say('celeste_bath_2');
-      await pose('snap', 750);                                            // trunks back on: the waistband snaps
+      if (!(await pose('snap', 750))) { p.pose = 'undress4'; await T(750); } // trunks back on: the waistband snaps
       const dress = async (k, ms) => { if (window.SPRITES['alan_dress' + k]) { p.pose = 'alan_dress' + k; await T(ms); } };
       await dress(1, 700);                                                // jeans in hand
       if (window.SPRITES.alan_dress2) { p.pose = 'alan_dress2'; await hop(-5, 4, 140); } // hopping into them
