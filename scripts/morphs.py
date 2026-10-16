@@ -50,7 +50,14 @@ def pair(a, b):
     cx, cy = W // 2, H - 40
     A, aox, aoy = place(a, cx, cy, W, H, 1); B, _, _ = place(b, cx, cy, W, H, sc)
     ga, gb = gray(A), gray(B)
-    fab = dis.calc(ga, gb, None)
+    # a global shift first (frames painted a little apart), then the local flow on top
+    win = cv2.createHanningWindow((W, H), cv2.CV_32F)
+    (sx, sy), resp = cv2.phaseCorrelate(A[..., 3] / 255, B[..., 3] / 255, win)
+    if abs(sx) > W * 0.25 or abs(sy) > H * 0.25 or resp < 0.05: sx = sy = 0.0
+    Mt = np.float32([[1, 0, -sx], [0, 1, -sy]])
+    gb2 = cv2.warpAffine(gb, Mt, (W, H), borderValue=96)
+    fab = dis.calc(ga, gb2, None)
+    fab[..., 0] += sx; fab[..., 1] += sy
     fab = smooth_flow(fab, A[..., 3] / 255)
     # quality: pull B back through the flow and compare with A, against plain overlap
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)

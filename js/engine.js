@@ -252,13 +252,22 @@
       if (turned) { this.prev = null; this.fadeT = 0; }
       const A = this.place(key, flipped);
       if (!A) return;
-      const B = this.prev && this.fadeT > 0 ? this.place(this.prev, this.prevFlip) : null;
+      let B = this.prev && this.fadeT > 0 ? this.place(this.prev, this.prevFlip) : null;
+      // walking: each step frame flows into the next with the ground covered (when the pair has a morph)
+      let walkF = 0;
+      if (!B && this.walking && window.MORPHS && window.WARP !== false && !window.FAST) {
+        const c = this.cycle(), i = Math.floor(this.phase) % c.length, nk = c[(i + 1) % c.length];
+        if (nk !== key && MORPHS[key + '>' + nk] && MORPHS[nk + '>' + key]) {
+          const N = this.place(nk, flipped);
+          if (N) { B = N; walkF = this.phase - Math.floor(this.phase); }
+        }
+      }
       const h = this.height();
       // union of both frames, in feet-relative coordinates
       const U = { x: Math.min(A.x, B ? B.x : A.x), y: Math.min(A.y, B ? B.y : A.y) };
       U.r = Math.max(A.x + A.w, B ? B.x + B.w : -1e9); U.b = Math.max(A.y + A.h, B ? B.y + B.h : -1e9);
       const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
-      const comp = composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh);
+      const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh);
       const sinkPx = this.sink * h;
       const lights = lightsOn(this.x, this.y - h * 0.55, h, this);
       if (!sinkPx) groundShadows(this, comp, U, bw, bh, h, lights);
@@ -317,14 +326,23 @@
     ctx.restore();
     return ok;
   }
-  function composeFrames(A, B, kB, U, w, h) {
+  // linear: B is the frame coming next in a walk (kB = 1 - progress); otherwise B is the frame
+  // being left behind in a pose change (kB runs 1 -> 0, eased)
+  // the shapes slide over the whole change, the pictures swap only in its middle
+  const band = (a, z, v) => { const q = Math.max(0, Math.min(1, (v - a) / (z - a))); return q * q * (3 - 2 * q); };
+  function composeFrames(A, B, kB, U, w, h, linear) {
     fit(compBuf, cg, w, h);
     const M = window.MORPHS, fAB = B && M && M[A.key + '>' + B.key], fBA = B && M && M[B.key + '>' + A.key];
     if (B && kB > 0 && fAB && fBA && window.Warp && window.WARP !== false && !window.FAST) {
-      const e = kB * kB * (3 - 2 * kB); // 1 -> 0 as the change completes
-      if (morphBlit(cg, A, U, fAB, e, 1) && morphBlit(cg, B, U, fBA, 1 - e, e)) return compBuf;
+      const e = linear ? kB : kB * kB * (3 - 2 * kB); // weight of A's own shape is 1 - e
+      if (linear) {
+        // the step in progress: A bends towards the next frame, which fades in on top bending back
+        const f = 1 - e, a = band(0.3, 0.7, f);
+        if (morphBlit(cg, A, U, fAB, f, 1) && morphBlit(cg, B, U, fBA, 1 - f, a)) return compBuf;
+      } else if (morphBlit(cg, A, U, fAB, e, 1) && morphBlit(cg, B, U, fBA, 1 - e, band(0.3, 0.72, e))) return compBuf;
       fit(compBuf, cg, w, h);
     }
+    if (linear) { blit(cg, A, U, 1); return compBuf; }
     if (B && kB > 0) {
       // the new frame is always fully opaque; the old one fades out over it, so the
       // figure never turns see-through (no pale flash between poses)
@@ -632,7 +650,8 @@
   let frameErr = 0;
   function frame(now) {
     requestAnimationFrame(frame); // queued first: a throwing hook skips one frame, never the loop
-    const dt = Math.min(0.05, (now - last) / 1000); last = now; time += dt;
+    if (window.HOLD) { if (!(window.ADVANCE > 0)) { last = now; return; } window.ADVANCE--; } // test recordings: step frame by frame
+    const dt = window.STEP_DT || Math.min(0.05, (now - last) / 1000); last = now; time += dt; // STEP_DT: fixed steps for test recordings
     // a device that can't keep up with the mesh warp falls back to flat frames
     if (window.WARP == null && !window.FAST) { // (WARP = true forces it on, false off)
       slowT = (now - last0 > 45) ? slowT + 1 : Math.max(0, slowT - 2); last0 = now;
