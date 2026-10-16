@@ -670,11 +670,9 @@
       } else { await G.fade(true); await T(900); await G.say('narr_store', { offscreen: true }); }
       await G.fade(true); await T(700);
       // later: on the floor against a crate, shirts open, laughing, the clapper between them
-      await S.still('still_store_after', 'se_store', async () => {
-        await G.fade(false);
-        sfx('v_alan_chuckle', 0.45); await T(700);
-        await say('vasco_after_1', 'alan_after_v', 'vasco_after_2', 'alan_after_every');
-      }, { zoom: [1.0, 1.1], pan: [[0.5, 0.5], [0.5, 0.45]], keep: true });
+      const after = async () => { await G.fade(false); sfx('v_alan_chuckle', 0.45); await T(700); await say('vasco_after_1', 'alan_after_v', 'vasco_after_2', 'alan_after_every'); };
+      if (G.image('still:still_store_after')) await G.showStill('still_store_after', after, { zoom: [1.0, 1.1], pan: [[0.5, 0.5], [0.5, 0.45]], keep: true });
+      else { G.endStill && G.endStill(); await S.withPair('shirtless', after); } // (until the painting exists: the two of them in the room)
     }
     F().store_scene = false;
     await S.flingBeat(4, true); // the narrator, who isn't fooled, and isn't joking either
