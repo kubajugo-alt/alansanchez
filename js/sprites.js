@@ -1800,6 +1800,14 @@ window.SPRITES = {
   "fy": 726.2,
   "top": 3.2
  },
+ "npc_laundry_shock": {
+  "w": 322,
+  "hh": 726,
+  "h": 720,
+  "ax": 252.1,
+  "fy": 722.1,
+  "top": 3.2
+ },
  "npc_laundry_talk1": {
   "w": 328,
   "hh": 727,
