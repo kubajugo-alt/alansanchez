@@ -399,11 +399,11 @@ window.SPRITES = {
   "top": 3.1
  },
  "alan_undress3": {
-  "w": 238,
-  "hh": 713,
+  "w": 242,
+  "hh": 714,
   "h": 720,
-  "ax": 110.3,
-  "fy": 709.3,
+  "ax": 112.3,
+  "fy": 710.3,
   "top": 3.1
  },
  "alan_undress4": {

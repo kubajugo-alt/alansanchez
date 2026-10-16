@@ -53,15 +53,15 @@
   };
   // ---------------------------------------------------------------- easter egg: Alan takes a bath
   let splash = null, shorts = null, swimmer = null;
-  // the striped shorts, flung over his shoulder: an arc, a spin, a heap on the stones
+  // his black trunks, flung over his shoulder: an arc, a spin, a heap on the stones
   S.drawShorts = function (g) {
     if (!shorts) return;
     const k = Math.min(1, (performance.now() - shorts.t0) / 700);
     const x = shorts.x0 + (shorts.x1 - shorts.x0) * k, y = shorts.y0 + (shorts.y1 - shorts.y0) * k - Math.sin(k * Math.PI) * 140;
     g.save(); g.translate(x, y); g.rotate(k < 1 ? k * 9 : 0.3); g.scale(1, k < 1 ? 1 : 0.55);
-    g.fillStyle = '#f2ece2'; g.fillRect(-14, -10, 28, 20);
-    g.fillStyle = '#c0392b'; for (let i = 0; i < 4; i++) g.fillRect(-14 + i * 7.5, -10, 3.5, 20);
-    g.strokeStyle = 'rgba(60,30,20,0.6)'; g.lineWidth = 1; g.strokeRect(-14, -10, 28, 20);
+    g.fillStyle = '#1d1b1c'; g.fillRect(-14, -10, 28, 20);
+    g.fillStyle = '#34312f'; g.fillRect(-14, -10, 28, 4); // waistband
+    g.strokeStyle = 'rgba(120,110,100,0.5)'; g.lineWidth = 1; g.strokeRect(-14, -10, 28, 20);
     g.restore();
   };
   // ripples where he swims, drawn over the cut of the swimming frames
