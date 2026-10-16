@@ -555,15 +555,28 @@
       shine(g, [[36, 75], [36, 80]], 2, 0.6);
     },
   };
-  const iconCache = {};
+  // Painted (Canva) inventory icons in art/icons/<id>.webp, 192px with transparency. They are
+  // preloaded; an icon asked for before its painting arrives shows the canvas drawing above
+  // until the painting loads, then the inventory redraws. A missing file keeps the drawing.
+  const PAINTED = ['notebook', 'sketch', 'bunktile', 'coins', 'key', 'ledger', 'magnifier', 'weight', 'ginja', 'matches', 'glass', 'holywater', 'coffee', 'file55',
+    'fkey', 'tidecard', 'vkey', 'tongue', 'tongue_wet', 'knife', 'sardine', 'lantern', 'newspaper', 'brotherhood_charter', 'reserve_key', 'vasco_card', 'sanches_fragment', 'lyrics_sheet'];
+  const iconCache = {}, iconImg = {};
+  function paintIcon(c, id) {
+    const g = c.getContext('2d'), im = iconImg[id];
+    g.clearRect(0, 0, 96, 96);
+    g.save(); g.shadowColor = 'rgba(0,0,0,0.6)'; g.shadowBlur = 6; g.shadowOffsetY = 3;
+    if (im && im.complete && im.naturalWidth) { g.imageSmoothingQuality = 'high'; g.drawImage(im, 4, 2, 88, 88); }
+    else (ICONS[id] || (() => {}))(g);
+    g.restore();
+  }
+  for (const id of PAINTED) {
+    const im = new Image(); iconImg[id] = im;
+    im.onload = () => { if (iconCache[id]) { paintIcon(iconCache[id], id); if (window.Game && Game.renderInv) Game.renderInv(); } };
+    im.onerror = () => { delete iconImg[id]; };
+    im.src = 'art/icons/' + id + '.webp';
+  }
   function icon(id) {
-    if (!iconCache[id]) {
-      const [c, g] = mk(96, 96);
-      g.save(); g.shadowColor = 'rgba(0,0,0,0.6)'; g.shadowBlur = 6; g.shadowOffsetY = 3;
-      (ICONS[id] || (() => {}))(g);
-      g.restore();
-      iconCache[id] = c;
-    }
+    if (!iconCache[id]) { const [c] = mk(96, 96); paintIcon(c, id); iconCache[id] = c; }
     return iconCache[id];
   }
 

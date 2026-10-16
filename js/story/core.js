@@ -190,7 +190,7 @@
     }
     if (!f.heard_song) return f.askedSong ? 'ines_hint_song' : 'ines_hint_amalia';
     if (!f.drawer_open) return !f.askedDrawer ? 'ines_hint_1955' : (f.salt_seen ? 'ines_hint_drawer' : 'ines_hint_look');
-    if (f.ch === 2 && f.drawer_open && !has('fkey') && !f.ferreira_open && !f.visit_cop) return 'ines_hint_teixeira'; // Teixeira is on his way
+    if (f.ch === 2 && f.drawer_open && !has('fkey') && !f.ferreira_open && !f.visit_cop) return 'ines_hint_teixeira_2'; // Rui will find a way to get the key to him
     if (!f.met_celeste || !f.tide_known) {
       if (f.visited_ferreira && !f.ferreira_lit) return has('matches') ? 'ines_hint_matches' : 'ines_hint_dark';
       if (!f.met_celeste) return f.visited_ferreira ? 'ines_hint_celeste' : 'ines_hint_threads';

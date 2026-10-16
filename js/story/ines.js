@@ -9,7 +9,7 @@
   set(F, 'idle', ['ines', 'ines_idle2', 'ines_idle3', 'ines_idle4']);
   set(F, 'talk', ['ines_talk', 'ines_talk2', 'ines_talk3', 'ines_talk4']);
   if (['ines_walk1', 'ines_pass1', 'ines_walk2', 'ines_pass2'].every(has)) {
-    F.walk = ['ines_walk1', 'ines_pass1', 'ines_walk2', 'ines_pass2']; C.frameStep = 0.085;
+    F.walk = ['ines_walk1', 'ines_pass1', 'ines_walk2', 'ines_pass2']; C.frameStep = 0.17; // half a step per frame: her painted stride (~0.34 of her height a step, like Alan's) so the planted foot doesn't skate
   }
   if (has('ines_front')) F.front = ['ines_front'];
   if (has('ines_back')) F.back = ['ines_back'];

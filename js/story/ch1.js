@@ -397,7 +397,7 @@
     await say('alan_lacerda_name');
     // the key to Ferreira's comes round later with Teixeira (rui_key no longer plays);
     // saves from before the flirt became a puzzle get it straight away, as before
-    if (F().flirted_cop) await say('rui_times', 'rui_avo', 'rui_send');
+    if (F().flirted_cop) await say('rui_times', 'rui_avo', 'rui_key_2'); // he'll find a way (it turns out to be Teixeira, unannounced)
     else { await say('rui_times', 'rui_avo', 'rui_key'); give('fkey'); await say('alan_accident'); }
     F().deaths_known = true; S.lore && S.lore('file1955');
   };

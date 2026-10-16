@@ -164,11 +164,14 @@
     await G.busy(async () => {
       await arrive('cop');
       // in front of Ines: a polite yard apart, both scarlet
-      await beats(['fluster', 'phone_visit_1'], ['alan_idle2', 'ines_visit_cop'], ['fluster', 'phone_visit_2']);
+      // the key first (Rui's 'way' turns out to be him), then the bookcases
+      await beats(['fluster', 'phone_visit_1'], ['alan_idle2', 'ines_visit_cop'], [null, 'teixeira_key_first']);
+      if (!G.has('fkey')) give('fkey');
+      await beats(['fluster', 'phone_visit_2b']);
       if (await choose([['Show him the oak monographs.', 'yes'], ['Just the key, Officer.', 'no']]) !== 'yes') {
         // the key at the door, and a rain check
         await say('teixeira_doorkey'); p.pose = 'wink'; await say('alan_raincheck'); p.pose = null;
-        give('fkey');
+        if (!G.has('fkey')) give('fkey'); // (he handed it over as he came in)
         const tv = G.npc('npc_phone'); if (tv && !window.FAST) await tv.walkTo(1370, 700);
         sfx('door'); visitor = null; G.refreshNpcs(); G.autosave();
         return;
@@ -385,7 +388,7 @@
     const v = G.npc('npc_phone'); if (v) { v.x = 300; v.y = 640; v.dir = 'e'; }
     G.player.dir = 'w';
     await G.fade(false);
-    await say('teixeira_key'); give('fkey');
+    await say('teixeira_bye'); if (!G.has('fkey')) give('fkey'); // he gave Alan the Ferreira key when he arrived: now he just slips out
     if (v && !window.FAST) await v.walkTo(1370, 700);
     sfx('door'); visitor = null; G.refreshNpcs(); G.autosave();
   };
@@ -394,11 +397,11 @@
   // the rolling gag: everyone who saw Alan with the officer or Duarte has something to say about it,
   // and Alan denies everything. One remark per conversation, each said once, in order.
   const GOSSIP = {
-    ines: [['ines_gossip_1', 'alan_deny_ines_1', 'teixeira_scene'], ['ines_gossip_2', 'alan_deny_ines_2', 'duarte_scene'], ['ines_gossip_3', 'alan_deny_ines_3'],
+    ines: [['ines_gossip_1', 'alan_deny_ines_1', 'teixeira_scene'], ['ines_gossip_2', 'alan_deny_ines_2', 'duarte_scene'], ['ines_gossip_3', 'alan_deny_ines_3', 'duarte_ines'], // the stairs-rent remark waits for Duarte's visit to the shop
       ['ines_gossip_4', 'alan_deny_ines_4', 'vasco_thursday'], ['ines_gossip_5', 'alan_deny_ines_5', 'vasco_thursday']],
     celeste: [['celeste_gossip_1', 'alan_deny_celeste_1'], ['celeste_gossip_2', 'alan_deny_celeste_2', 'duarte_scene']],
     amalia: [['amalia_gossip_1', 'alan_deny_amalia_1', 'duarte_scene'], ['amalia_gossip_2', 'alan_deny_amalia_2']],
-    rui: [['rui_gossip_1', 'alan_deny_rui_1', 'teixeira_scene'], ['rui_gossip_2', 'alan_deny_rui_2', 'teixeira_scene'], ['rui_gossip_3', 'alan_deny_rui_3', 'vasco_thursday']],
+    rui: [['rui_gossip_1b', 'alan_deny_rui_1', 'teixeira_scene'], ['rui_gossip_2', 'alan_deny_rui_2', 'teixeira_scene'], ['rui_gossip_3', 'alan_deny_rui_3', 'vasco_thursday']],
     // Chapter III: the Sé's bell-ringer and the Carmo's priest have both noticed the curator
     abilio: [['abilio_gossip_1', 'alan_deny_abilio_1', 'vasco_thursday']],
     tomas: [['tomas_gossip_1', 'alan_deny_tomas_1', 'vasco_thursday']],
