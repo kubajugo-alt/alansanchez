@@ -41,7 +41,9 @@
         frames: ['npc_washer1', 'npc_washer1_scrub2', 'npc_washer1_wring', 'npc_washer1_rest', ['npc_washer1_wring', 'npc_washer1_lift', 'npc_washer1_b', 'npc_washer1_lift', 'npc_washer1_wring']],
         talkFrames: ['npc_washer1_giggle', 'npc_washer1_laugh', 'npc_washer1_gossip'], poses: { howl: 'npc_washer1_howl', peek: 'npc_washer1_peek' } },
       { id: 'npc_laundry', name: 'Woman with the washing', frames: ['npc_laundry'], x: 175, y: 560, h: 236, look: 'alan_npc_laundry', talk: () => S.laundryTalk() }, // under the hanging sheets
-      { id: 'npc_washer2', name: 'Graça', frames: ['npc_washer2', 'npc_washer2_b'], x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [7, 16], talk: () => S.washersBath() },
+      { id: 'npc_washer2', name: 'Graça', x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [6, 12], variantHold: [2.4, 4.5], talk: () => S.washersBath(),
+        frames: ['npc_washer2', 'npc_washer2_scrub2', 'npc_washer2_slap', 'npc_washer2_b', 'npc_washer2_hips'],
+        talkFrames: ['npc_washer2_cackle', 'npc_washer2_beckon'], poses: { wheeze: 'npc_washer2_wheeze' } },
     ],
     hotspots: [
       { name: 'Wash basins', rect: [160, 372, 908, 112], look: 'narr_look_basins' },
@@ -96,6 +98,15 @@
     g.restore();
   };
   // after the bath, the two at the back basins have seen everything
+  // the washhouse gossip: each line in its own face, and the other woman laughing along
+  Object.assign(S.LINE_POSE, { washer1_bath_2: ['npc_washer1', 'howl'], washer2_bath_2: ['npc_washer2', 'wheeze'] });
+  Object.assign(S.REACT, {
+    washer1_bath_1: [['npc_washer2', 'npc_washer2_cackle']],
+    washer2_bath_1: [['npc_washer1', 'npc_washer1_laugh']],
+    alan_washers_1: [['npc_washer1', 'npc_washer1_peek'], ['npc_washer2', 'npc_washer2_hips']],
+    alan_washers_2: [['npc_washer1', 'npc_washer1_giggle'], ['npc_washer2', 'npc_washer2_wheeze']],
+    washer2_bath_3: [['npc_washer1', 'npc_washer1_giggle']],
+  });
   S.washersBath = async function () {
     if (!F().bathed) return say('alan_npc_busy');
     if (F().washers_teased) return say('washer2_bath_3');
