@@ -1,4 +1,10 @@
-> **Reference for writing dialogue and story (supplied by the author, Oct 2026).** Use it when building future dialogue and scenes. It is not a to-do list: do not apply its "canon corrections" section or its **(new)** proposals unless the author asks. Where it disagrees with the current build (for example Inês's background, which the build has as a Black Brazilian woman from Salvador), the build wins until the author decides otherwise.
+> **Reference for writing dialogue and story (supplied by the author, Oct 2026).** Use it when building future dialogue and scenes. It is not a to-do list: do not apply its "canon corrections" section or its **(new)** proposals unless the author asks. Where it disagrees with the current build, the build wins unless the author decides otherwise.
+
+> **Author's decisions (Oct 2026), these override the rest of this document:**
+> - **Inês** stays as in the game: a Black Brazilian woman from Salvador, black blazer over a band tee, high-waisted jeans, heels, gold hoops. Ignore the Barreiro/glasses/Doc Martens version below.
+> - **Celeste is Rui's mother** (not his grandmother).
+> - **Alan's mother, Eleanor, lives in St. Augustine, Florida** (not Porto); this is explored in the sequel.
+> - **Rui's line:** the game version stays. "Stop feeling up my constable" is retired; when Rui walks back in, Alan and Teixeira spring apart and Rui comments, mildly surprised.
 
 # The Drowned Bell — Character Backstories & Psychological Profiles
 
