@@ -217,7 +217,8 @@
     hotspots: [
       { name: 'Casting pit', rect: [550, 505, 512, 108], at: PIT, face: 'n',
         look: () => { F().saw_pit = true; return say('narr_look_pit'); },
-        use: () => F().in_pit ? say('alan_fail_04') : say('alan_pit_ladder') },
+        // a plain click looks first (the questions for Vasco need it), then it's the ladder
+        use: () => F().in_pit ? say('alan_fail_04') : !F().saw_pit ? (F().saw_pit = true, say('narr_look_pit')) : say('alan_pit_ladder') },
       { name: 'Founder marks', rect: [612, 516, 150, 70], at: [690, 628], face: 'n', look: () => { F().saw_marks = true; return say('narr_look_pitmarks'); } },
       { name: 'Mould fragments', rect: [812, 384, 140, 72], at: [880, 626], face: 'n', look: () => { F().saw_frags = true; return say('narr_look_frags'); } },
       { name: () => F().ch >= 3 && F().decoded ? 'Stair to the bell tower' : 'Chained stair', rect: [25, 150, 190, 420], at: [130, 610], face: 'n',
