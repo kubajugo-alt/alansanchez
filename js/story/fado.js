@@ -50,12 +50,12 @@
         lino.x = BAR_GATE[0]; lino.y = BAR_GATE[1]; lino.dir = 'w'; lino.pose = null; lino.visible = true;
         await linoGo(lino, HOOK);
         lino.h = 400; await reach();
-        F().bass_off = true; sfx('pickup', 0.5); await T(500);
+        F().bass_off = true; sfx('guitar_lift', 0.6); await T(500);
         await linoGo(lino, PLAY, true);
         lino.set = null; lino.dir = 'w';
       } else {
         lino.x = 772; lino.y = 692; lino.h = 400; lino.visible = true; await reach();
-        F().bass_off = true; sfx('pickup', 0.5); await T(800);
+        F().bass_off = true; sfx('guitar_lift', 0.6); await T(800);
         lino.visible = false; await T(250);
         lino.x = PLAY[0]; lino.y = PLAY[1]; lino.dir = 'w'; lino.visible = true;
       }
@@ -115,19 +115,20 @@
       if (am) am.pose = null; if (gui) gui.pose = null; if (cards) cards.pose = null;
       if (p) p.pose = null;
     }
+    if (song) sfx('applause_tavern', 0.5); // the room comes back to itself
     // 3. a breath of silence, then the guitar goes back on its hook
     if (lino && F().bass_off) {
       await T(900);
       if (canWalk()) {
         await linoGo(lino, HOOK, true);
         lino.h = 400; lino.set = null; await reach();
-        F().bass_off = false; sfx('pickup', 0.4); await T(500);
+        F().bass_off = false; sfx('guitar_hang', 0.5); await T(500);
         await linoGo(lino, BAR_GATE);
         lino.visible = false; await T(250);
       } else {
         lino.visible = false; await T(250);
         lino.x = 772; lino.y = 692; lino.h = 400; lino.visible = true; await reach();
-        F().bass_off = false; sfx('pickup', 0.4); await T(500);
+        F().bass_off = false; sfx('guitar_hang', 0.5); await T(500);
         lino.visible = false; await T(250);
       }
       Object.assign(lino, home); lino.pose = null; lino.set = null; lino.visible = true;

@@ -127,7 +127,7 @@
   };
   S.give = (id, n) => { if (n != null) F()[id] = n; G.giveItem(id); };
   S.spendCoin = (n) => { F().coins = (F().coins || 0) - n; if (F().coins <= 0) G.takeItem('coins'); else G.renderInv(); };
-  S.sfx = (n, v) => Sound.sfx(n, v);
+  S.sfx = (...a) => Sound.sfx(...a);
 
   // chapter cards: title, narrator line, the clock, an autosave
   const CH = {
@@ -136,6 +136,7 @@
   };
   S.chapter = async function (n, line) {
     F().ch = n; F().clock = CH[n][2]; if (G.room) G.refreshNpcs(); // the cast changes with the chapter, even mid-room
+    Sound.sfx('chapter_toll', 0.35); // a bell somewhere under the city, every chapter
     await G.card(CH[n][0], `${CH[n][1]}  ·  ${CH[n][2]}`, 3000);
     if (line) await G.say(line, { offscreen: true });
     G.autosave();

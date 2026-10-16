@@ -150,11 +150,11 @@
         ev.stopPropagation();
         const r = c.getBoundingClientRect(), x = (ev.clientX - r.left) * 640 / r.width, y = (ev.clientY - r.top) * 400 / r.height;
         const i = W.findIndex(wx => Math.abs(x - wx) < 42 && Math.abs(y - WY) < 72);
-        if (i >= 0) { code[i] = (code[i] + (y < WY ? 9 : 1)) % 10; window.Sound && Sound.sfx('clock_wind', 0.25); paint(); return; }
+        if (i >= 0) { code[i] = (code[i] + (y < WY ? 9 : 1)) % 10; window.Sound && Sound.sfx('dial_click', 0.5, 0.9 + Math.random() * 0.2); paint(); return; }
         if (Math.hypot(x - 525, y - WY) < 34 && !solved) {
           if (code.join('') === '0312') { solved = true; paint(); window.Sound && Sound.sfx('drawer_open', 0.6); F().drawer_unlocked = true;
             setTimeout(() => { const xb = document.querySelector('#closeup .x'); if (xb) xb.click(); else document.querySelector('#closeup').click(); }, 700); }
-          else { window.Sound && Sound.sfx('lamp_click', 0.5); G.say('alan_wrong_code'); }
+          else { window.Sound && Sound.sfx('drawer_rattle', 0.5); G.say('alan_wrong_code'); }
         }
       };
     } } }]).then(() => solved || !!F().drawer_unlocked);

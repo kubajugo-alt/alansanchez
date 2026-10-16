@@ -108,8 +108,8 @@
         m.querySelector('.shift').textContent = '';
       };
       upd();
-      m.querySelector('.left').onclick = () => { k = (k + 25) % 26; sfx('stone_wheel'); upd(); };
-      m.querySelector('.right').onclick = () => { k = (k + 1) % 26; sfx('stone_wheel'); upd(); };
+      m.querySelector('.left').onclick = () => { k = (k + 25) % 26; sfx('stone_notch', 0.7, 0.9 + Math.random() * 0.2); upd(); };
+      m.querySelector('.right').onclick = () => { k = (k + 1) % 26; sfx('stone_notch', 0.7, 0.9 + Math.random() * 0.2); upd(); };
       const close = async ok => {
         G.showModal('cipher', false);
         if (ok === null) return resolve();
@@ -271,7 +271,7 @@
           weight: async () => {
             if (S.lacerdaHere()) return say('lacerda_hands');
             if (!F().case_open) return say('alan_case_locked');
-            G.takeItem('weight'); give('tongue'); F().has_tongue = true; F().swapped = true; sfx('pickup');
+            G.takeItem('weight'); give('tongue'); F().has_tongue = true; F().swapped = true;
             await say('alan_swap');
           },
           any: 'alan_fail_lacerda_item',
@@ -297,7 +297,7 @@
   S.lacerdaHere = () => { const l = G.npc('lacerda'); return l && l.visible; };
   S.grabTongue = async function () {
     // taking it without a swap: he'll notice the velvet
-    G.npc('lacerda'); F().grabbed = true; give('tongue'); sfx('pickup');
+    G.npc('lacerda'); F().grabbed = true; give('tongue');
     await say('alan_noswap');
   };
   S.talkLacerda = async function () {
@@ -333,7 +333,7 @@
       return;
     }
     await say('lacerda_back_box');
-    lac.pose = 'wind'; sfx('music_box');
+    lac.pose = 'wind'; S.musicBox = sfx('music_box');
     await G.wait(window.FAST ? 20 : 4500);
     lac.pose = null;
     if (F().swapped) {
@@ -341,6 +341,7 @@
       await say('lacerda_pale');
       await G.player.walkTo(640, 712);
       await joke('alan_slip');
+      if (S.musicBox) { S.musicBox.stop(1.5); S.musicBox = null; }
       await G.goRoom('map', 'antiques');
     } else {
       F().case_open = false;
@@ -357,7 +358,7 @@
     await say('ines_salt_pages');
     G.takeItem('ledger'); F().ledger_with_ines = true;
     const ines = G.npc('ines');
-    if (ines) { ines.pose = 'steam'; F().steaming = true; }
+    if (ines) { ines.pose = 'steam'; F().steaming = true; sfx('kettle_boil', 0.5); }
     await say('ines_steam');
     // twenty minutes with the kettle: Duarte drops by with Amália's message, plays her song,
     // and takes Alan upstairs (saves from before the flirt was a puzzle just get the message)

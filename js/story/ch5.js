@@ -243,7 +243,7 @@
   };
   S.cisternHint = () => !F().lacerda_distracted ? 'ines_hint_ledger' : !F().ines_free ? 'ines_hint_free' : !F().bell_lit ? 'ines_hint_light' : !F().blood ? 'ines_hint_blood' : 'ines_hint_lastfirst';
   const raise = async (n) => {
-    F().water = Math.min(6, (F().water || 0) + n); sfx('water_rise', 0.7);
+    F().water = Math.min(6, (F().water || 0) + n); sfx('water_rise', 0.55 + F().water * 0.06, 1.05 - F().water * 0.04);
     if (F().water >= 6) { await G.wait(window.FAST ? 20 : 600); await S.cisternDeath(true); return true; }
     return false;
   };
@@ -325,7 +325,7 @@
       return raise(2);
     }
     struck.push(id); F().strikes = (F().strikes || 0) + 1;
-    sfx('bell_backward'); S.bellHit('back'); p.pose = null;
+    sfx('bell_backward', 1, ({ sanches: 1.18, coutinho: 1.06, bastos: 0.94, ferreira: 0.84 })[id] || 1); S.bellHit('back'); p.pose = null;
     const lac = G.npc('lacerda');
     // he assumes the founding order and hears what he wants to hear, until the last note
     if (struck.length === 1) await say('alan_strike_1', 'lacerda_good_1');
@@ -365,7 +365,7 @@
   S.silence = async function () {
     G.cutscene = true;
     const lac = G.npc('lacerda'), ines = G.npc('ines'), p = G.player;
-    F().ringing = true; sfx('bell_backward'); S.bellHit('back'); sfx('fog_lift');
+    F().ringing = true; sfx('bell_great_backward', 1, 0.75); S.bellHit('back'); sfx('fog_lift');
     await say('narr_ring');
     lac.set = null; lac.pose = 'realise';
     await say('lacerda_realise');
@@ -389,7 +389,7 @@
     F().ringing = false; F().sinkAt = null;
     for (let w = F().water || 0; w > 0; w -= window.FAST ? 6 : 0.05) { F().water = Math.max(0, w); await G.wait(16); }
     F().water = 0;
-    await say('narr_silence');
+    Sound.ambience(null); await say('narr_silence');
     F().won = true;
     await say('narr_still');
     ines.set = null; ines.def.fixedDir = false;
@@ -429,7 +429,7 @@
     if (F().founder_order && !(F().struck_wrong)) await shot('still_abilio_ring', 'se_tower', async () => { sfx('bell_forward', 0.6); await say('narr_vig_abilio'); }, { zoom: [1.0, 1.12] });
     await shot('still_shelf', 'antiques', async () => { sfx('clock_chime', 0.6); await say('narr_post'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.15] });
     // the last picture: Alan rings his mother. Then the end.
-    await shot('still_phone', 'shop', async () => { await say('narr_call'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.08] });
+    await shot('still_phone', 'shop', async () => { sfx('phone_dial_long', 0.6); await G.wait(window.FAST ? 20 : 2000); sfx('phone_ring_distant', 0.5); await G.wait(window.FAST ? 20 : 2500); await say('narr_call'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.08] });
     if (S.thursday) await S.thursday(); // Thursday morning, the cloister
     await G.fade(true);
     G.showModal('ending', true);

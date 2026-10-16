@@ -1,7 +1,7 @@
 // Chapter IV — The Founders' Blood: shop (genealogy), Cais do Sodré, the Maria Fé.
 (function () {
   const { G, F, say, ROOMS, posed, joke, give, sfx } = window.S;
-  const clock = t => { F().harbour = t; G.setClock(t); sfx('harbour_chime', 0.5); };
+  let chimeN = 0; const clock = t => { F().harbour = t; G.setClock(t); sfx('harbour_chime', 0.45, [1, 0.97, 1.03, 0.95][chimeN++ % 4]); };
 
   S.ch4Start = async function () {
     const ines = G.npc('ines'); if (ines) ines.pose = null;
@@ -95,7 +95,7 @@
     if (F().rang_shop) return say('alan_fail_04');
     F().rang_shop = true;
     if (G.has('vasco_card') && !F().vasco_dialled) { F().vasco_dialled = true; await S.callVasco(); } // he tries Vasco first, and can't
-    await posed('phone', async () => { sfx('phone_dial'); await G.wait(window.FAST ? 20 : 1600); sfx('ringout'); await G.wait(window.FAST ? 20 : 4500); await say('alan_ringout'); });
+    await posed('phone', async () => { sfx('payphone_coins'); sfx('phone_dial_long'); await G.wait(window.FAST ? 20 : 2600); sfx('ringout', 0.35); await G.wait(window.FAST ? 20 : 4500); await say('alan_ringout'); });
     await S.ch4End();
   };
 
@@ -140,7 +140,7 @@
       { name: 'Porthole', rect: [747, 416, 85, 75], at: [790, 620], face: 'n', look: async () => { if (F().ze_awake) return say('narr_look_porthole_empty'); await S.showPorthole(); await say('narr_look_porthole'); } }, // once Zé is up, the bunk is empty
       { name: 'Mooring line', rect: [0, 341, 280, 200], at: [230, 620], face: 'w', look: 'narr_look_line',
         use: () => S.mooring(), take: () => S.mooring() },
-      { name: "Ship's bell", rect: [855, 238, 40, 46], at: [900, 610], face: 'n', look: 'narr_look_shipbell', use: 'alan_ring_shipbell' },
+      { name: "Ship's bell", rect: [855, 238, 40, 46], at: [900, 610], face: 'n', look: 'narr_look_shipbell', use: async () => { sfx('ship_bell', 0.8); await say('alan_ring_shipbell'); } },
       { name: 'Back to the quay', rect: [0, 540, 130, 176], at: [110, 690], exit: 'cais', entry: 'boat' },
     ],
     async enter() {
@@ -212,7 +212,7 @@
     const ze = G.npc('ze');
     if (ze) { await ze.walkTo(560, 600); ze.visible = false; sfx('hatch_slam'); }
     await G.player.walkTo(560, 625);
-    await G.goRoom('cabin', 'boat');
+    await G.goRoom('cabin', 'boat', { sound: null });
   };
 
   // ================================================================ THE CABIN
@@ -293,7 +293,7 @@
     if (F().hammer_tried) return say('alan_hammer');
     const p = G.player;
     await G.busy(async () => {
-      p.pose = 'reach'; sfx('pickup', 0.5); await T(500); p.pose = null;
+      p.pose = 'reach'; sfx('hammer_lift', 0.5); await T(500); p.pose = null;
       strike = { at: tileSpot(), t0: performance.now() };
       for (let i = 0; i < 2; i++) {
         p.pose = 'ring'; await T(260);

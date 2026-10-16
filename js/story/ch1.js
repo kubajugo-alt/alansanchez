@@ -9,7 +9,7 @@
     name: 'Livraria Sanchez', bg: 'shop', bgs: ['shop_night'],
     bgFn: () => F().ch >= 5 ? 'shop_night' : 'shop',
     music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog',
-    ambience: 'shop', floor: 'wood',
+    ambience: () => F().ch >= 5 ? 'shop_night' : 'shop', floor: 'wood',
     walk: [[345, 535], [792, 535], [1004, 716], [215, 716]],
     scale: [535, 362, 716, 482],
     light: () => F().ch >= 5 ? { ambient: 'rgb(120,140,180)', base: 0.62 } : { ambient: 'rgb(214,192,165)', base: 0.86, rim: 'rgba(210,225,240,0.22)', rimSide: -1 },
@@ -40,7 +40,7 @@
         items: { sketch: () => S.inesSketch(), notebook: () => S.inesSketch(), ledger: () => S.inesLedger(), tongue: () => say('ines_vandal'), any: 'alan_fail_ines_item' } },
       { id: 'pessoa', h: 46, x: 0, y: 0, dir: 'w', fixedDir: true, name: 'Pessoa', when: () => !(F().ch >= 5 && F().pessoa_fed), init: a => { const p = PESSOA_AT[pessoaSpot()]; a.x = p[0]; a.y = p[1]; a.dir = p[2]; },
         look: () => say(pessoaSpot() === 'machine' ? 'alan_look_pessoa_machine' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_look_pessoa'),
-        talk: () => say(pessoaSpot() === 'desk' ? 'alan_talk_pessoa' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_take_pessoa_machine'), take: () => pessoaSpot() === 'machine' ? (F().pessoa_tried ? say('alan_hint_bribe') : (F().pessoa_tried = true, say('alan_take_pessoa_machine'))) : say('alan_take_pessoa'), use: 'alan_push_pessoa',
+        talk: () => (sfx('cat_purr', 0.5), say(pessoaSpot() === 'desk' ? 'alan_talk_pessoa' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_take_pessoa_machine')), take: () => pessoaSpot() === 'machine' ? (F().pessoa_tried ? say('alan_hint_bribe') : (F().pessoa_tried = true, say('alan_take_pessoa_machine'))) : say('alan_take_pessoa'), use: 'alan_push_pessoa',
         items: { sardine: () => S.feedPessoa(), any: 'alan_fail_09' } },
     ],
     hotspots: [
@@ -54,18 +54,18 @@
         }, any: 'alan_fail_02' } },
       { name: "Banker's lamp", rect: [118, 286, 118, 70], at: [380, 600], face: 'w', look: () => say(F().lampOff && F().ch < 5 ? 'narr_look_lamp_off' : 'narr_look_lamp_banker'),
         use: async () => {
-          if (F().ch >= 5) { sfx('lamp_click'); return say('alan_lamp_machine'); }
+          if (F().ch >= 5) { sfx('lamp_switch'); return say('alan_lamp_machine'); }
           if (F().lampOff) return say('alan_lamp_again');
-          sfx('lamp_click'); F().lampOff = true; S.lampOffAt = performance.now(); await S.pessoaToRadiator(); await joke('alan_lamp_off');
+          sfx('lamp_switch'); F().lampOff = true; S.lampOffAt = performance.now(); await S.pessoaToRadiator(); await joke('alan_lamp_off');
         } },
       { name: 'Window', rect: [412, 22, 445, 288], look: 'narr_look_window' },
       { name: 'Magnifying glass', rect: [430, 308, 64, 24], at: [470, 560], face: 'n', when: () => !F().magTaken, look: 'narr_look_magnifier',
-        take: async () => { F().magTaken = true; give('magnifier'); sfx('pickup'); await say('alan_take_magnifier'); } },
+        take: async () => { F().magTaken = true; give('magnifier'); await say('alan_take_magnifier'); } },
       { name: 'Bookbinding press', rect: [298, 220, 98, 122], at: [395, 565], face: 'w', look: () => say(F().weightTaken ? 'alan_camoes' : 'narr_look_press'),
-        take: async () => { if (F().weightTaken) return say('alan_camoes'); F().weightTaken = true; give('weight'); sfx('pickup'); await joke('alan_take_weight'); } },
+        take: async () => { if (F().weightTaken) return say('alan_camoes'); F().weightTaken = true; give('weight'); await joke('alan_take_weight'); } },
       { name: 'Kettle', rect: [470, 330, 95, 85], look: () => say(F().ch >= 5 ? 'narr_look_kettle_dry' : 'narr_look_kettle') },
       { name: 'Sugar tin', rect: [672, 355, 54, 60], at: [690, 562], face: 'n', look: 'narr_look_tin',
-        take: async () => { if (F().tinTaken) return say('alan_fail_take'); F().tinTaken = true; give('key'); sfx('pickup'); await say('alan_sugar_tin'); } },
+        take: async () => { if (F().tinTaken) return say('alan_fail_take'); F().tinTaken = true; give('key'); await say('alan_sugar_tin'); } },
       { name: 'Radiator', rect: [736, 352, 58, 150], at: [760, 560], face: 'n', look: 'narr_look_radiator' },
       { name: 'Cash register', rect: [850, 212, 180, 170], at: [820, 566], face: 'e', look: () => say(F().coinsTaken ? 'alan_register_empty' : 'alan_look_register'),
         take: async () => { if (F().coinsTaken) return say('alan_register_empty'); F().coinsTaken = true; give('coins', 3); sfx('coin'); await say('alan_take_coins'); } },
@@ -91,7 +91,7 @@
     const p = G.npc('pessoa'); G.takeItem('sardine');
     p.pose = 'jump'; sfx('cat_chirp'); await G.wait(window.FAST ? 20 : 400);
     p.x = 960; p.y = 600; p.h = 58; p.pose = 'eat'; sfx('cat_eat');
-    F().ledger_found = true; give('ledger'); sfx('pickup');
+    F().ledger_found = true; give('ledger');
     await say('alan_pessoa');
     F().pessoa_fed = true;
   };
@@ -123,7 +123,7 @@
       if (F().rui_called) return say('alan_fail_04');
       if (!F().heard_msg3) return say('alan_phone_ch5_early');
       await posed('phone', async () => {
-        sfx('phone_dial'); await G.wait(window.FAST ? 20 : 1600);
+        sfx('phone_pickup'); sfx('phone_dial_long'); await G.wait(window.FAST ? 20 : 2600);
         await say('alan_call_rui', 'rui_gate');
         if (F().amalia_box) await say('alan_box_tell', 'rui_murder');
         await say('alan_obituary');
@@ -136,7 +136,7 @@
 
   // Vasco's card: Alan dials, and hangs up before it can ring
   S.callVasco = async function () {
-    await posed('phone', async () => { sfx('phone_dial'); await G.wait(window.FAST ? 20 : 1400); sfx('drip_hangup', 0.6); await G.wait(window.FAST ? 20 : 500); });
+    await posed('phone', async () => { sfx('phone_pickup'); sfx('phone_dial_long'); await G.wait(window.FAST ? 20 : 2400); sfx('phone_hangup', 0.7); await G.wait(window.FAST ? 20 : 500); });
     await say('alan_hangup_self');
   };
 
@@ -222,7 +222,7 @@
   S.drawTram = function (g, t) {
     if (window.FAST) return;
     const im = G.image('spr:prop_tram') || G.image('lay:prop_tram');
-    if (tramX == null && t > tramNext && !G.isBusy) { tramX = 1500; Sound.sfx('tram'); }
+    if (tramX == null && t > tramNext && !G.isBusy) { tramX = 1500; Sound.sfx('tram', 0.85, 0.95 + Math.random() * 0.1); }
     if (tramX == null || !im) return;
     tramX -= 520 / 60;
     // full size: a Remodelado car is about 1.8 people tall at the body, and runs on the front rails
@@ -404,7 +404,7 @@
         take: () => say(F().ch < 5 ? 'alan_take_bottle' : 'alan_fail_take'), items: { coins: () => S.buyGinja() } },
       { name: 'Bar', rect: [880, 362, 400, 220], at: [1150, 660], face: 'n', look: 'narr_look_bottles', items: { coins: () => S.buyGinja(), any: 'alan_fail_03' } },
       { name: 'Empty glass', rect: [1066, 362, 42, 36], at: [1080, 660], face: 'n', when: () => S.glassOnBar(), look: 'alan_look_glass',
-        take: async () => { give('glass'); sfx('glass_clink'); await say('alan_take_glass'); } },
+        take: async () => { give('glass'); await say('alan_take_glass'); } },
     ],
     async enter() {
       if (F().ch >= 5 && !F().amalia_night) {
@@ -471,7 +471,7 @@
     await joke('alan_ringer'); await say('amalia_called');
     await say('amalia_1955');
     F().heard_song = true;
-    if (!G.has('glass') && !F().glassUsed) { G.player.pose = 'pickup'; sfx('glass_clink'); await G.wait(window.FAST ? 20 : 500); G.player.pose = null; give('glass'); await say('alan_take_glass'); }
+    if (!G.has('glass') && !F().glassUsed) { G.player.pose = 'pickup'; await G.wait(window.FAST ? 20 : 500); G.player.pose = null; give('glass'); await say('alan_take_glass'); }
     await S.ch1End();
   };
   S.talkAmalia = async function () {

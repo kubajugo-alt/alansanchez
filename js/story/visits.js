@@ -168,7 +168,7 @@
       if (await choose([['Show him the oak monographs.', 'yes'], ['Just the key, Officer.', 'no']]) !== 'yes') {
         // the key at the door, and a rain check
         await say('teixeira_doorkey'); p.pose = 'wink'; await say('alan_raincheck'); p.pose = null;
-        give('fkey'); sfx('pickup');
+        give('fkey');
         const tv = G.npc('npc_phone'); if (tv && !window.FAST) await tv.walkTo(1370, 700);
         sfx('door'); visitor = null; G.refreshNpcs(); G.autosave();
         return;
@@ -211,7 +211,7 @@
       await shelf('cuffs_a', 300); // twirling them on a finger; the officer backs off
       await say('phone_cuff_1');
       await shelf('cuffs_b', 300); // dangling them in front of his face
-      await say('alan_cuff_2'); sfx('lamp_click', 0.8);
+      await say('alan_cuff_2'); sfx('handcuff_click', 0.8);
       // later: one wrist on the bedframe, the hat, the jacket, and no key
       if (G.image('still:still_cop_cuffed')) {
         await G.fade(true);
@@ -319,7 +319,7 @@
     const v = G.npc('npc_phone'); if (v) { v.x = 300; v.y = 640; v.dir = 'e'; }
     G.player.dir = 'w';
     await G.fade(false);
-    await say('teixeira_key'); give('fkey'); sfx('pickup');
+    await say('teixeira_key'); give('fkey');
     if (v && !window.FAST) await v.walkTo(1370, 700);
     sfx('door'); visitor = null; G.refreshNpcs(); G.autosave();
   };

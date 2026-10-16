@@ -62,9 +62,9 @@
     G.cutscene = true;
     try {
       await G.fade(false);
-      sfx('boat_creak', 0.25); await T(2200);
+      sfx('bed_creak', 0.4); await T(2200);
       // she wakes: the tile is on her pillow
-      sfx('boat_creak', 0.35); await T(600);
+      sfx('bed_creak_wake', 0.6); await T(600);
       tileOn = false; set('wake', 600, 545); await T(2200);
       // the list in her apron, gripped to her chest
       set('grip', 520, 650); await T(1200);

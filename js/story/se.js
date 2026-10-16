@@ -85,7 +85,7 @@
 
   // ================================================================ THE MUSEUM
   ROOMS.se_museum = {
-    name: 'Sé de Lisboa · museum', bg: 'se_museum', music: 'church', ambience: 'convent', acoustic: 'convent', floor: 'stone',
+    name: 'Sé de Lisboa · museum', bg: 'se_museum', music: 'church', ambience: 'museum', acoustic: 'convent', floor: 'stone',
     walk: [[50, 650], [440, 608], [800, 610], [1050, 598], [1150, 600], [1280, 610], [1280, 716], [0, 716], [0, 660]],
     scale: [600, 300, 716, 365],
     light: { ambient: 'rgb(214,208,200)', base: 0.86, rim: 'rgba(255,236,205,0.16)', rimSide: 1 },
@@ -193,7 +193,7 @@
     await say('vasco_bottom'); await joke('alan_bottom');
     if (v) { await v.walkTo(PIT[0] + 60, PIT[1]); v.dir = 'w'; }
     await p.walkTo(PIT[0], PIT[1]); p.dir = 'e';
-    p.pose = 'wobble'; sfx('stairs', 0.5); await T(500); p.pose = null;
+    p.pose = 'wobble'; sfx('ladder_creak', 0.5); await T(500); p.pose = null;
     await S.withPair('catch', () => say('vasco_close'));
     await joke('alan_close');
     F().in_pit = true;
@@ -253,7 +253,7 @@
     if (!F().in_pit) return say('alan_lanyard_far');
     await say('alan_toss_ines');
     const ok = await tossGame();
-    G.player.pose = 'reach'; sfx('pickup'); await T(400); G.player.pose = null;
+    G.player.pose = 'reach'; sfx('key_jingle'); await T(400); G.player.pose = null;
     if (!ok) { sfx('trowel'); await say('vasco_fall'); await joke('alan_standards'); return; }
     G.takeItem('reserve_key'); F().key_tossed = true;
     G.refreshNpcs(); // Inês slips off to the reserve

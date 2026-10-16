@@ -107,7 +107,7 @@
         if (idx !== this.stepIdx) {
           this.stepIdx = idx;
           const contact = cyc.length >= 8 ? idx % 4 === 0 : idx % 2 === 0;
-          if (contact && this.visible) Sound.step((room && room.floor) || 'stone', this === player ? 1 : 0.6);
+          if (contact && this.visible && this.x > -40 && this.x < 1320) Sound.step((room && room.floor) || 'stone', this === player ? 1 : 0.35 + 0.4 * Math.max(0, Math.min(1, (this.y - 520) / 200)), this.x);
         }
         if (gd <= step) this.stop();
       }
@@ -571,7 +571,10 @@
     const pair = from + '>' + to;
     if (/cistern|convent_night>convent|convent>convent_night/.test(pair)) return null;
     if (from === 'se_tower' || to === 'se_tower') return 'stairs';
-    if (INDOOR[from] || INDOOR[to]) return 'door';
+    // each building has its own door: the shop's bell, the station's heavy door, the boat's hatch
+    const DOORS = { shop: 'shop_bell', police: 'door_police', tavern: 'door_tavern', antiques: 'shop_bell_small', cabin: 'hatch_ladder', ferreira: 'door' };
+    if ((from === 'boat' && to === 'cabin') || (from === 'cabin' && to === 'boat')) return 'hatch_ladder';
+    if (INDOOR[from] || INDOOR[to]) return DOORS[INDOOR[to] ? to : from] || 'door';
     return from === 'map' || to === 'map' ? 'page' : null;
   }
   async function goRoom(id, entry, opts) {
@@ -885,10 +888,14 @@
 
   // ---------------------------------------------------------------- inventory
   function has(id) { return state.inv.includes(id); }
+  const ITEM_SFX = { key: 'key_pickup', fkey: 'key_pickup', vkey: 'keys_ring', reserve_key: 'key_jingle', ledger: 'book_take', coins: 'cash_register',
+    newspaper: 'paper_take', file55: 'paper_take', tidecard: 'paper_take', lyrics_sheet: 'paper_take', sketch: 'paper_take', brotherhood_charter: 'paper_take', vasco_card: 'paper_take',
+    weight: 'brass_heavy', tongue: 'brass_heavy', matches: 'matchbox', glass: 'glass_set', lantern: 'lantern', knife: 'knife_take', sardine: 'sardine_catch', sanches_fragment: 'stone_clack', magnifier: 'pickup' };
   function giveItem(id, silent) {
     if (has(id)) return;
     state.inv.push(id); renderInv();
-    if (!silent) { Sound.sfx('pickup'); flashInv(); }
+    // each thing taken sounds like itself: a key jingles, paper rustles, brass is heavy
+    if (!silent) { Sound.sfx(ITEM_SFX[id] || 'pickup', 0.8); flashInv(); }
   }
   function takeItem(id) { state.inv = state.inv.filter(i => i !== id); if (selItem === id) selItem = null; renderInv(); }
   function flashInv() { invBar.classList.add('show', 'flash'); setTimeout(() => invBar.classList.remove('flash'), 900); setTimeout(() => { if (!invHover && !selItem) invBar.classList.remove('show'); }, 1800); }
@@ -1100,7 +1107,7 @@
         await runHandler(def.look || failLine(t, 'look'), t); return;
       }
       if (verb === 'exit') {
-        if (def.locked && def.locked()) { await say((typeof def.lockedLine === 'function' ? def.lockedLine() : def.lockedLine) || 'alan_fail_04'); return; }
+        if (def.locked && def.locked()) { if (def.exit) Sound.sfx('door_rattle', 0.6); await say((typeof def.lockedLine === 'function' ? def.lockedLine() : def.lockedLine) || 'alan_fail_04'); return; }
         await approach(def, t.actor);
         await goRoom(typeof def.exit === 'function' ? def.exit() : def.exit, def.entry || room.id); return;
       }

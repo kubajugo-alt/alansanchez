@@ -229,7 +229,7 @@
   // ================================================================ RELOJOARIA FERREIRA
   const lit = () => F().ferreira_lit;
   ROOMS.ferreira = {
-    name: 'Relojoaria Ferreira', bg: 'ferreira', music: null, ambience: () => lit() && !F().tide_known ? null : null, floor: 'wood',
+    name: 'Relojoaria Ferreira', bg: 'ferreira', music: null, ambience: () => F().tide_wound ? 'ferreira' : null, floor: 'wood',
     walk: [[0, 615], [1280, 615], [1280, 716], [0, 716]],
     scale: [615, 335, 716, 382],
     light: () => lit() ? { ambient: 'rgb(210,170,120)', base: 0.6, flickerShade: 0.25 } : { ambient: 'rgb(70,70,85)', base: 0.35 },
@@ -273,7 +273,7 @@
         items: { key: async () => {
           if (F().tide_wound) return say('alan_fail_04');
           if (!F().got_ledger) return say('alan_key_desk_first');
-          G.takeItem('key'); F().tide_wound = true; sfx('clock_wind');
+          G.takeItem('key'); F().tide_wound = true; sfx('clock_wind'); Sound.ambience('ferreira');
           await joke('alan_clock_wound');
           await S.showTideClock(true);
           await say('narr_tideclock_runs');
@@ -286,14 +286,14 @@
       { name: 'Tide card', rect: [575, 500, 130, 26], at: [640, 640], face: 'n', when: () => lit() && F().drawer_unlocked && !G.has('tidecard') && !F().tidecardTaken,
         look: 'alan_look_tidecard', take: async () => { F().tidecardTaken = true; give('tidecard'); sfx('page'); await say('alan_tide_card'); await S.readTideCard(); await say('alan_tide_today'); } },
       { name: 'Key board', rect: [917, 160, 118, 256], at: [970, 640], face: 'n', when: lit, look: 'narr_look_keyboard',
-        take: async () => { if (F().vkeyTaken) return say('alan_fail_take'); F().vkeyTaken = true; give('vkey'); sfx('pickup'); await say('alan_spare'); } },
+        take: async () => { if (F().vkeyTaken) return say('alan_fail_take'); F().vkeyTaken = true; give('vkey'); await say('alan_spare'); } },
       { name: 'Shutters', rect: [0, 60, 100, 370], when: lit, look: 'narr_look_shutters' },
       { name: 'Door', rect: [1067, 160, 150, 420], at: [1100, 650], exit: 'map', entry: 'ferreira', look: 'narr_look_tape' },
     ],
     async enter() {
       F().visited_ferreira = true;
       if (!F().ferreira_open) {
-        F().ferreira_open = true; G.takeItem('fkey'); sfx('door');
+        F().ferreira_open = true; G.takeItem('fkey'); sfx('door_sealed');
         await say('alan_ferreira_sealed'); await say('narr_ferreira_dark');
       }
     },
@@ -325,7 +325,7 @@
     if (F().drawer_unlocked) return;
     if (!F().lock_tried) { F().lock_tried = true; await say('alan_drawer_lock'); }
     const open = await S.drawerLock();
-    if (open) { sfx('drawer_open'); await say('alan_0312'); }
+    if (open) { await say('alan_0312'); }
   };
   // Puzzle II-D: the newspaper's tide table against Rui's times of death
   S.deduce = async function () {

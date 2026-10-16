@@ -32,6 +32,7 @@
     master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination);
     musicBus = ctx.createGain(); musicBus.gain.value = 0.32;
     sfxBus = ctx.createGain(); sfxBus.gain.value = 0.6; sfxBus.connect(master);
+    if (sfxFiles.size) setTimeout(preloadSfx, 500);
     ambBus = ctx.createGain(); ambBus.gain.value = 1; ambBus.connect(sfxBus); // ambience loops, ducked under speech
     // synthetic hall reverb
     reverb = ctx.createConvolver();
@@ -273,21 +274,71 @@
   const sfxUrl = name => 'audio/sfx/' + name + '.mp3' + (sfxVer[name] ? '?v=' + sfxVer[name] : '');
   async function loadSfx() {
     try { const r = await fetch('audio/sfx/manifest.json', { cache: 'no-cache' }); const j = await r.json(); sfxVer = Array.isArray(j) ? {} : j; sfxFiles = new Set(Array.isArray(j) ? j : Object.keys(j)); } catch (e) { sfxFiles = new Set(); }
+    if (ctx) preloadSfx();
   }
-  function playFile(name, vol, rate) {
-    const go = buf => {
+  // A sound that isn't recorded yet plays its nearest relative meanwhile (then the procedural one).
+  const FALLBACK = {
+    glass_set: 'glass_clink', guitar_lift: 'pickup', guitar_hang: 'pickup', bed_creak: 'boat_creak', bed_creak_wake: 'boat_creak',
+    shop_bell: 'door', door_police: 'door', door_tavern: 'door', door_sealed: 'door', hatch_ladder: 'door', shop_bell_small: 'door',
+    ship_bell: 'harbour_chime', kettle_boil: 'pour', phone_pickup: 'pickup', phone_hangup: 'drip_hangup', phone_dial_long: 'phone_dial',
+    handcuff_click: 'click', dial_click: 'click', drawer_rattle: 'drawer_scrape', stone_notch: 'stone_wheel', hammer_lift: 'pickup',
+    key_jingle: 'pickup', key_pickup: 'pickup', paper_take: 'page', book_take: 'page', brass_heavy: 'pickup', matchbox: 'pickup', knife_take: 'knife',
+    sardine_catch: 'pickup', keys_ring: 'pickup', stone_clack: 'pickup', cash_register: 'coin', ladder_creak: 'stairs',
+    cloth_jacket: 'sheet_slap', cloth_shirt: 'sheet_slap', cloth_sweater: 'sheet_slap', jeans_off: 'sheet_slap', belt_buckle: 'click', belt_snap: 'click',
+    books_fall: 'page', applause_tavern: null, bell_great_backward: 'bell_backward', bell_hum: null, pencil: 'page', cat_purr: null, door_rattle: 'drawer_scrape',
+    lamp_switch: 'lamp_click', clock_tick_shop: null, laundry_flap: 'sheet_slap', shop_bell_distant: null, tram_distant: null, house_creak: null, dog_distant: null, foghorn: null,
+    phone_ring_office: null, paper_shuffle: 'page', card_slap: null, chair_scrape: null, murmur_laugh: null, water_pour_basin: 'pour', cuckoo: null, halyard_ping: null, water_slap: null,
+    hull_creak: 'boat_creak', wind_arches: null, broom_sweep: null, footsteps_distant: null, cough_distant: null, wind_gust: null, bell_hum_soft: null, drip_echo: null, stone_settle: null, owl: null,
+    payphone_coins: 'coin', phone_ring_distant: 'ringout', chapter_toll: null,
+  };
+  // musical, voiced or timed clips keep their exact pitch
+  const NOJITTER = /^(bell_|harbour_chime|music_box|v_|ringout|beep|clock_chime|chapter_toll|ship_bell|applause)/;
+  const lastTake = {}, pending = {};
+  function load(name) {
+    if (sfxBufs[name] instanceof AudioBuffer) return Promise.resolve(sfxBufs[name]);
+    if (pending[name]) return pending[name];
+    return (pending[name] = fetch(sfxUrl(name)).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b))
+      .then(buf => { sfxBufs[name] = buf; delete pending[name]; return buf; }).catch(() => { delete pending[name]; return null; }));
+  }
+  // plays a recorded clip; returns a handle that can stop it (fading) even before it has loaded
+  function playFile(name, vol, rate, pan) {
+    const h = { src: null, gain: null, stopped: false, stop(fade) { this.stopped = true; if (this.gain) { this.gain.gain.setTargetAtTime(0.0001, ctx.currentTime, (fade || 0.3) / 3); try { this.src.stop(ctx.currentTime + (fade || 0.3) + 0.1); } catch (e) { /* ignore */ } } } };
+    load(name).then(buf => {
+      if (!buf || h.stopped) return;
       const s = ctx.createBufferSource(); s.buffer = buf; s.playbackRate.value = rate || 1;
       const g = ctx.createGain(); g.gain.value = vol == null ? 1 : vol;
-      s.connect(g); g.connect(sfxBus); s.start(); return s;
-    };
-    if (sfxBufs[name]) { if (sfxBufs[name] instanceof AudioBuffer) go(sfxBufs[name]); return; }
-    sfxBufs[name] = fetch(sfxUrl(name)).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; go(buf); }).catch(() => { sfxBufs[name] = null; });
+      let out = g;
+      if (pan && ctx.createStereoPanner) { const p = ctx.createStereoPanner(); p.pan.value = Math.max(-1, Math.min(1, pan)); g.connect(p); out = p; }
+      s.connect(g); out.connect(sfxBus); s.start(); h.src = s; h.gain = g;
+    });
+    return h;
   }
-  function sfx(name, vol, rate) {
-    if (!ctx) return;
-    if (sfxFiles.has(name)) { playFile(name, vol, rate); return; }
-    if (SFX[name]) try { SFX[name](); } catch (e) { /* ignore */ }
+  // takes: name, name_2, name_3... picked at random, never the same twice running
+  function take(name) {
+    const all = [name]; for (let i = 2; sfxFiles.has(name + '_' + i); i++) all.push(name + '_' + i);
+    if (all.length === 1) return name;
+    let k; do { k = all[Math.floor(Math.random() * all.length)]; } while (k === lastTake[name] && all.length > 1);
+    return (lastTake[name] = k);
   }
+  // sfx(name, vol, rate, pan): recorded if we have it (with a little natural variation), else its fallback, else synthesised
+  function sfx(name, vol, rate, pan) {
+    if (!ctx || !name) return null;
+    let n = name;
+    for (let i = 0; i < 3 && !sfxFiles.has(n) && !SFX[n] && FALLBACK[n] !== undefined; i++) n = FALLBACK[n];
+    if (!n) return null;
+    if (sfxFiles.has(n)) {
+      const jit = !NOJITTER.test(name);
+      if (rate == null && jit) rate = 1 + (Math.random() * 2 - 1) * 0.04;
+      const v = (vol == null ? 1 : vol) * (jit ? 0.9 + Math.random() * 0.2 : 1);
+      return playFile(take(n), v, rate, pan);
+    }
+    if (SFX[n]) try { SFX[n](); } catch (e) { /* ignore */ }
+    return null;
+  }
+  // a sound placed in the scene: panned by its x (0..1280), softer at the edges
+  function sfxAt(name, x, vol, rate) { const p = Math.max(-1, Math.min(1, ((x == null ? 640 : x) - 640) / 640)) * 0.7; return sfx(name, (vol == null ? 1 : vol) * (1 - Math.abs(p) * 0.25), rate, p); }
+  // short clips decoded in the background once audio is up, so first plays are on time
+  function preloadSfx() { let i = 0; const names = [...sfxFiles].filter(n => !/^amb_/.test(n)); const next = () => { if (i >= names.length) return; load(names[i++]).then(() => setTimeout(next, 30)); }; next(); }
 
   // ---------------------------------------------------------------- footsteps
   let noiseBuf = null;
@@ -312,8 +363,17 @@
     tile(t, v) { burst(t, 0.045, 'bandpass', 2200 + Math.random() * 300, 2.2, 0.08 * v); burst(t, 0.07, 'lowpass', 300, 1, 0.08 * v); },
     wet(t, v) { burst(t, 0.07, 'bandpass', 700 + Math.random() * 200, 1.4, 0.12 * v, 0.6); burst(t + 0.01, 0.12, 'highpass', 2500, 0.7, 0.03 * v, 0.4); },
     carpet(t, v) { burst(t, 0.08, 'lowpass', 380, 0.8, 0.12 * v); },
+    // a boat deck: hollow planks with a little boom under them
+    deck(t, v) { burst(t, 0.12, 'bandpass', 180 + Math.random() * 40, 1.6, 0.22 * v); burst(t + 0.01, 0.2, 'lowpass', 120, 2, 0.08 * v); burst(t, 0.03, 'bandpass', 1500, 2, 0.04 * v); },
   };
-  function footstep(surface, vol) { if (!ctx || !STEPS[surface]) return; try { STEPS[surface](ctx.currentTime, (vol || 1) * (0.85 + Math.random() * 0.3)); } catch (e) { /* ignore */ } }
+  // footsteps sit where the walker is: panned by x, the bus swapped for a panner node
+  let stepPan = null;
+  function footstep(surface, vol, x) {
+    if (!ctx || !STEPS[surface]) return;
+    if (x != null && ctx.createStereoPanner) { if (!stepPan) { stepPan = ctx.createStereoPanner(); stepPan.connect(sfxBus); } stepPan.pan.value = Math.max(-1, Math.min(1, (x - 640) / 640)) * 0.6; }
+    const bus = sfxBus; if (x != null && stepPan) sfxBus = stepPan;
+    try { STEPS[surface](ctx.currentTime, (vol || 1) * (0.85 + Math.random() * 0.3)); } catch (e) { /* ignore */ } finally { sfxBus = bus; }
+  }
 
   // ---------------------------------------------------------------- ambience
   // A quiet bed of room sound under the music: wind, gulls, clocks, drips.
@@ -359,7 +419,13 @@
   }
   const AMB = {
     shop: { setup() { bed('lowpass', 500, 0.5, 0.012, 0.07); }, tick(t) { if (Math.random() < 0.012) gull(t, 0.4); if (Math.random() < 0.01) burst(t, 0.3, 'bandpass', 180, 4, 0.03); } },
-    street: { setup() { bed('bandpass', 600, 0.4, 0.03, 0.09); }, tick(t) { if (Math.random() < 0.03) gull(t, 1); if (Math.random() < 0.004) SFX.tram(); } },
+    street: { setup() { bed('bandpass', 600, 0.4, 0.03, 0.09); }, tick(t) { if (Math.random() < 0.006) gull(t, 1); } },
+    street_night: { setup() { bed('bandpass', 380, 0.5, 0.025, 0.06); }, tick(t) { if (Math.random() < 0.02) drip(t, 0.25); } },
+    shop_night: { setup() { bed('lowpass', 300, 0.5, 0.01, 0.05); }, tick(t) { if (Math.random() < 0.004) burst(t, 0.3, 'bandpass', 160, 4, 0.025); } },
+    museum: { setup() { bed('lowpass', 250, 0.5, 0.008, 0.04); }, tick() {} },
+    ferreira: { setup() {}, tick(t, s) { if (s % 5 === 0) burst(t, 0.02, 'bandpass', 2900, 4, 0.025); } },
+    cistern_calm: { setup() { bed('lowpass', 200, 0.7, 0.012, 0.04); }, tick(t) { if (Math.random() < 0.03) drip(t, 0.5); } },
+    cabin: { recordedOnly: true, setup() { bed('lowpass', 250, 0.6, 0.025, 0.06); }, tick() {} },
     office: { setup() { hum(100, 0.006); bed('highpass', 4000, 0.5, 0.003); }, tick(t) { if (Math.random() < 0.015) for (let i = 0; i < 6 + Math.random() * 10; i++) burst(t + i * (0.09 + Math.random() * 0.08), 0.03, 'bandpass', 2600, 3, 0.012); } },
     tavern: { setup() { bed('lowpass', 300, 0.5, 0.01, 0.05); }, tick(t) { if (Math.random() < 0.008) tone(2400 + Math.random() * 800, t, 0.5, 0.008, 'sine', sfxBus); if (Math.random() < 0.01) burst(t, 0.4, 'bandpass', 150, 6, 0.03); } },
     convent: { setup() { bed('bandpass', 420, 0.6, 0.04, 0.11); }, tick(t) { if (Math.random() < 0.012) coo(t); if (Math.random() < 0.01) gull(t, 0.3); } },
@@ -380,22 +446,62 @@
   // recorded ambience loops (ElevenLabs), mixed under the procedural details
   // recorded ambience loops: volumes set so every room sits about 18-20 dB under the dialogue
   const LOOPS = { shop: ['amb_city', 0.16], street: ['amb_city', 0.5], office: ['amb_office', 0.4], tavern: ['amb_tavern', 0.28], clocks: ['amb_clocks', 0.4],
-    cistern: ['amb_cistern', 0.4], washhouse: ['amb_washhouse', 0.2], harbour: ['amb_harbour', 0.55], tower: ['amb_tower', 0.25], boat: ['boat_creak', 0.5] };
+    cistern: ['amb_cistern', 0.4], washhouse: ['amb_washhouse', 0.2], harbour: ['amb_harbour', 0.55], tower: ['amb_tower', 0.25],
+    boat: [['boat_creak', 0.35], ['amb_harbour', 0.35]], cabin: [['boat_creak', 0.3], ['hull_lap', 0.45]],
+    museum: ['amb_museum', 0.35], shop_night: ['amb_shop_night', 0.35], street_night: ['amb_street_night', 0.4], ferreira: ['amb_ferreira', 0.35], cistern_calm: ['amb_cistern_calm', 0.4] };
   function loopFile(name, vol) {
     const g = ctx.createGain(); g.gain.value = 0.0001; g.connect(ambBus); ambNodes.push(g);
-    const start = buf => { if (!ambNodes.includes(g)) return; const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.connect(g); s.start(); ambNodes.push(s); g.gain.setTargetAtTime(vol, ctx.currentTime, 1.0); };
+    // loop points trimmed past the mp3 padding, so the seam doesn't click or dip
+    const start = buf => { if (!ambNodes.includes(g)) return; const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.loopStart = Math.min(0.06, buf.duration * 0.01); s.loopEnd = Math.max(s.loopStart + 1, buf.duration - 0.06); s.connect(g); s.start(0, s.loopStart + Math.random() * (s.loopEnd - s.loopStart) * 0.5); ambNodes.push(s); g.gain.setTargetAtTime(vol, ctx.currentTime, 1.0); };
     if (sfxBufs[name] instanceof AudioBuffer) start(sfxBufs[name]);
     else fetch(sfxUrl(name)).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; start(buf); }).catch(() => {});
+  }
+  // occasional details per room, each on its own random clock: [name, every [min,max] s, vol [a,b], pan [a,b], rate [a,b]]
+  const EXTRAS = {
+    street: [['tram', [70, 140], [0.18, 0.3], [-0.8, 0.8], [0.95, 1.05]], ['pigeons', [25, 55], [0.25, 0.4], [-0.6, 0.6]], ['gulls', [35, 80], [0.12, 0.22], [-0.9, 0.9]],
+      ['shop_bell_distant', [50, 110], [0.15, 0.25], [-0.7, 0.7]], ['laundry_flap', [20, 45], [0.15, 0.25], [-0.5, 0.5]]],
+    street_night: [['foghorn', [40, 90], [0.15, 0.25], [-0.4, 0.4]], ['dog_distant', [60, 140], [0.1, 0.18], [-0.9, 0.9]]],
+    shop: [['page', [18, 40], [0.15, 0.3], [-0.3, 0.3]], ['tram_distant', [90, 180], [0.1, 0.18], [0.3, 0.8]], ['gulls', [70, 150], [0.06, 0.1], [0, 0.6]], ['clock_tick_shop', [40, 80], [0.08, 0.12], [-0.6, -0.3]]],
+    shop_night: [['foghorn', [45, 100], [0.1, 0.16], [0.2, 0.6]], ['house_creak', [30, 70], [0.15, 0.25], [-0.6, 0.6]]],
+    office: [['typewriter', [20, 50], [0.18, 0.3], [-0.7, 0.2]], ['phone_ring_office', [60, 140], [0.12, 0.2], [0.3, 0.9]], ['coffee_machine', [90, 200], [0.12, 0.2], [0.5, 0.8]], ['paper_shuffle', [25, 60], [0.15, 0.25], [-0.5, 0.5]]],
+    tavern: [['glass_clink', [12, 30], [0.3, 0.5], [-0.8, 0.8]], ['card_slap', [10, 25], [0.25, 0.4], [-0.6, -0.3]], ['chair_scrape', [40, 90], [0.15, 0.25], [-0.8, 0.8]], ['murmur_laugh', [30, 70], [0.15, 0.25], [-0.6, 0.6]]],
+    washhouse: [['sheet_slap', [6, 14], [0.2, 0.35], [-0.7, 0.3]], ['wring', [15, 35], [0.2, 0.3], [-0.5, 0.5]], ['water_pour_basin', [20, 45], [0.15, 0.25], [-0.6, 0.6]], ['pigeons', [40, 90], [0.15, 0.25], [-0.5, 0.5]]],
+    clocks: [['clock_chime', [50, 110], [0.15, 0.25], [-0.7, 0.7]], ['cuckoo', [120, 240], [0.12, 0.2], [-0.8, 0.8]]],
+    harbour: [['gulls', [12, 30], [0.25, 0.45], [-0.9, 0.9]], ['halyard_ping', [8, 20], [0.15, 0.3], [-0.8, 0.8]], ['water_slap', [6, 14], [0.2, 0.35], [-0.6, 0.6]], ['foghorn', [60, 140], [0.15, 0.25], [0.3, 0.8]], ['mooring', [30, 70], [0.2, 0.3], [-0.6, 0.6]]],
+    boat: [['water_slap', [5, 12], [0.25, 0.4], [-0.7, 0.7]], ['gulls', [20, 45], [0.2, 0.35], [-0.9, 0.9]], ['halyard_ping', [10, 25], [0.15, 0.25], [-0.6, 0.6]]],
+    cabin: [['water_slap', [6, 14], [0.2, 0.3], [-0.5, 0.5]], ['hull_creak', [10, 25], [0.2, 0.3], [-0.6, 0.6]]],
+    convent: [['pigeons', [20, 45], [0.2, 0.35], [-0.6, 0.6]], ['wind_arches', [30, 70], [0.12, 0.2], [-0.8, 0.8]], ['broom_sweep', [25, 60], [0.12, 0.2], [-0.3, 0.3]]],
+    museum: [['footsteps_distant', [25, 60], [0.1, 0.18], [-0.8, 0.8]], ['cough_distant', [60, 140], [0.08, 0.14], [-0.8, 0.8]]],
+    tower: [['wind_gust', [15, 35], [0.15, 0.25], [-0.8, 0.8]], ['pigeons', [25, 55], [0.2, 0.3], [-0.6, 0.6]], ['bell_hum_soft', [40, 90], [0.06, 0.1], [-0.3, 0.3]]],
+    cistern: [['drip_echo', [3, 9], [0.15, 0.35], [-0.9, 0.9]], ['stone_settle', [40, 100], [0.1, 0.18], [-0.7, 0.7]]],
+    cistern_calm: [['drip_echo', [5, 12], [0.12, 0.25], [-0.9, 0.9]]],
+    night: [['owl', [60, 140], [0.08, 0.14], [-0.9, 0.9]], ['foghorn', [60, 140], [0.08, 0.14], [-0.5, 0.5]]],
+  };
+  let extraTimers = [];
+  const rnd = (r, d) => (r ? r[0] + Math.random() * (r[1] - r[0]) : d);
+  function scheduleExtra(amb, e, first) {
+    const [nm, every, vol, pan, rate] = e;
+    const wait = rnd(every, 30) * (first ? 0.3 + Math.random() * 0.7 : 1);
+    const t = setTimeout(() => {
+      if (ambName !== amb) return;
+      if (sfxFiles.has(nm) || (FALLBACK[nm] && sfxFiles.has(FALLBACK[nm]))) sfx(nm, rnd(vol, 0.3), rate ? rnd(rate) : undefined, rnd(pan, 0));
+      scheduleExtra(amb, e, false);
+    }, wait * 1000);
+    extraTimers.push(t);
   }
   function ambience(name) {
     if (!ctx || name === ambName) return;
     ambName = name; clearInterval(ambTimer);
     const old = ambNodes; ambNodes = [];
     for (const n of old) { try { if (n.gain) n.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.4); else n.stop(ctx.currentTime + 1.5); } catch (e) { /* ignore */ } }
-    const lp = LOOPS[name];
-    if (lp && sfxFiles.has(lp[0])) loopFile(lp[0], lp[1]);
+    // one or more recorded beds (a room can layer, e.g. a deck: harbour and creaking timbers)
+    const lps = (LOOPS[name] ? (Array.isArray(LOOPS[name][0]) ? LOOPS[name] : [LOOPS[name]]) : []).filter(l => sfxFiles.has(l[0]));
+    for (const l of lps) loopFile(l[0], l[1]);
+    for (const t of extraTimers) clearTimeout(t); extraTimers = [];
+    for (const e of (EXTRAS[name] || [])) scheduleExtra(name, e, true);
     const A = AMB[name]; if (!A) return;
-    if (lp && sfxFiles.has(lp[0]) && A.recordedOnly) { /* the loop says it all */ } else
+    const lp = lps[0];
+    if (lp && A.recordedOnly) { /* the loop says it all */ } else
     try { A.setup(); } catch (e) { /* ignore */ }
     let s = 0;
     ambTimer = setInterval(() => { try { A.tick(ctx.currentTime + 0.05, s++); } catch (e) { /* ignore */ } }, 200);
@@ -565,7 +671,7 @@
   function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
 
   window.Sound = {
-    init, playMusic, playSong, songLevel, sfx, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
+    init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; },
   };
 })();
