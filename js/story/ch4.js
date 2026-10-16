@@ -56,7 +56,7 @@
     ambient: [
       { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], talkFrames: ['npc_mender1_talk', 'npc_mender1'], talk: () => F().ze_saved ? say('mender1_after') : S.chat('chat_mender1', ['mender1_talk_1'], ['mender1_talk_2'])(), x: 650, y: 712, h: 290, look: 'alan_npc_menders' },
       { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2', 'npc_mender2_b'], idleHold: [5, 11], variantHold: [2, 4], talkFrames: ['npc_mender2_talk', 'npc_mender2'], talk: () => F().ze_saved ? say('mender2_after') : S.chat('chat_mender2', ['mender2_talk_1', 'alan_mender2_1'], ['mender2_talk_2'])(), x: 835, y: 714, h: 292, look: 'alan_npc_menders' },
-      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], talkFrames: ['npc_fish_b', 'npc_fish'], talk: () => F().ze_saved ? say('fish_after', 'alan_after_fish') : S.fishTalk(), x: 485, y: 592, h: 282, at: [540, 648], face: 'w', look: 'alan_npc_fish' }, // at the right end of her stall: the walkway drops away beyond it
+      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], talkFrames: ['npc_fish_b', 'npc_fish'], talk: () => S.fishTalk(), x: 485, y: 592, h: 282, at: [540, 648], face: 'w', look: 'alan_npc_fish' }, // at the right end of her stall: the walkway drops away beyond it
     ],
     hotspots: [
       { name: 'Harbour clock', rect: [224, 30, 96, 525], look: 'narr_look_harbourclock' },
@@ -72,12 +72,16 @@
       else if (F().ze_saved && !F().celeste_after) { F().celeste_after = true; await say('celeste_after_hello', 'alan_after_celeste', 'celeste_after_laugh', 'celeste_hint_phone'); }
     },
   };
-  // Rosa sells loud and gossips louder; the old mender is the one who stops her
+  // Rosa sells loud and gossips louder; the old mender is the one who stops her.
+  // Her dig about Alan's Thursdays only comes once the whole quay has heard Zé's boat (ze_romance, set in the cabin)
   S.fishTalk = async function () {
-    if (F().chat_fish) return say('fish_talk_3');
-    F().chat_fish = true;
-    await say('fish_talk_1', 'alan_fish_1', 'fish_talk_2');
-    if (F().fish_remark) return;
+    if (!F().ze_romance) {
+      if (F().chat_fish) return say('fish_talk_3');
+      F().chat_fish = true;
+      return say('fish_talk_1', 'alan_fish_1', 'fish_talk_2');
+    }
+    if (F().fish_remark) return say('fish_after', 'alan_after_fish');
+    await say('fish_after', 'alan_after_fish');
     F().fish_remark = true;
     const p = G.player;
     await say('fish_remark');

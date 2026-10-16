@@ -1106,6 +1106,8 @@ window.LINES = {
   laundry_remark_2: ['laundry', "[muttering over the pegs] Showing off for the fishmen, that one."],
   alan_laundry_quiet: ['alan', "[pause, quietly, to himself] Keep walking. Keep walking, Alan."],
   narr_laundry: ['narr', "He had learned to let it run off him, like water off the washhouse stones. It was a skill. He hated that it was a skill."],
+  celeste_laundry_enough: ['celeste', "[sharp, cutting her off, loud enough for the whole washhouse] Enough. In this courtyard we wash linen, not other people's business."],
+  alan_laundry_thanks: ['alan', "[embarrassed, quietly] Thank you, Celeste."],
   fish_remark: ['fish', "[loud, grinning to the quay] And still no wife, bookseller! My cousin sees you up the Bairro Alto, Thursdays. Funny little bars, up there..."],
   mender1_shush: ['mender1', "[weathered, sharp] Chega, Rosa. Sell your fish. A man's business is his own."],
   fish_huff: ['fish', "[huffing] I only said..."],

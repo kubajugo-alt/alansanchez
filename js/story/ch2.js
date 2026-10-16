@@ -202,17 +202,24 @@
       await S.laundryRemark();
     });
   };
-  // the woman under the sheets says it loud enough to carry; Alan turns his back and lets it go
+  // the woman under the sheets says it loud enough to carry; Alan holds his ground, and Celeste shuts her down
   S.laundryRemark = async function () {
-    const p = G.player, w = G.npc('npc_laundry');
+    const p = G.player, w = G.npc('npc_laundry'), c = G.npc('celeste');
     if (F().laundry_remark || !w || !w.visible) return;
     F().laundry_remark = true;
     await say('laundry_remark');
     await G.wait(window.FAST ? 20 : 700);
-    p.dir = w.x < p.x ? 'e' : 'w';            // he looks away rather than at her
-    await G.wait(window.FAST ? 20 : 900);
-    await say('alan_laundry_quiet');
-    await G.say('narr_laundry', { offscreen: true });
+    p.dir = w.x < p.x ? 'w' : 'e';            // he doesn't turn his back: he looks right at her
+    if (c && c.visible) {
+      // Celeste rounds on her, loud enough for the whole washhouse
+      c.dir = w.x < c.x ? 'w' : 'e'; c.set = null; c.pose = 'shout';
+      await say('celeste_laundry_enough');
+      c.pose = null; c.dir = p.x > c.x ? 'e' : 'w';
+      await G.wait(window.FAST ? 20 : 600);
+      p.dir = c.x < p.x ? 'w' : 'e';
+      p.pose = 'fluster'; await G.wait(window.FAST ? 20 : 700); p.pose = null; // caught out, and grateful
+      await say('alan_laundry_thanks');
+    }
   };
   // the woman under the sheets: a sniff for the remark, muttering over the pegs the second time
   Object.assign(S.LINE_POSE, { laundry_remark: ['npc_laundry', 'sniff'], laundry_remark_2: ['npc_laundry', 'mutter'] });
@@ -222,7 +229,6 @@
     if (!F().laundry_remark) return S.laundryRemark();
     const p = G.player, w = G.npc('npc_laundry');
     await say('laundry_remark_2');
-    if (w) p.dir = w.x < p.x ? 'e' : 'w';
   };
   // one sheet between the two of them, twisting tighter, water running out of it
   let wringing = null;
