@@ -60,7 +60,7 @@
   };
   // ---------------------------------------------------------------- easter egg: Alan takes a bath
   let splash = null, shorts = null, swimmer = null;
-  const WASH = { x: 1080, y: 497, h: 330 }; // in the tank, right of the towel: the waterline and his full standing height
+  const WASH = { x: 1075, y: 503, h: 380 }; // in the tank, right of the towel: the waterline and his full standing height
   // his black trunks, flung over his shoulder: an arc, a spin, a heap on the stones
   S.drawShorts = function (g) {
     if (!shorts) return;
