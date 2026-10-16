@@ -407,11 +407,11 @@ window.SPRITES = {
   "top": 3.1
  },
  "alan_undress4": {
-  "w": 295,
+  "w": 290,
   "hh": 713,
   "h": 720,
-  "ax": 151.7,
-  "fy": 709.3,
+  "ax": 112.8,
+  "fy": 709.8,
   "top": 3.1
  },
  "alan_untie": {
@@ -1784,12 +1784,12 @@ window.SPRITES = {
   "top": 4.1
  },
  "pair_unbutton": {
-  "w": 362,
-  "hh": 729,
+  "w": 332,
+  "hh": 727,
   "h": 720,
-  "ax": 181.0,
-  "fy": 724.1,
-  "top": 4.1
+  "ax": 186.5,
+  "fy": 723.6,
+  "top": 3.1
  },
  "pair_vasco_card": {
   "w": 461,

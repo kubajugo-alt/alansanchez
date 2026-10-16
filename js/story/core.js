@@ -13,12 +13,23 @@
       // a line can carry its speaker's pose (S.LINE_POSE[id] = [npc id, pose]) while it plays
       const lp = S.LINE_POSE[id], a = lp && G.npc(lp[0]), ap = a && a.visible && !a.pose && !a.set && a.c.frames.poses && a.c.frames.poses[lp[1]];
       if (ap) a.pose = lp[1];
-      // listeners react to what's said (S.onLine returns a function that ends the reaction)
-      let lr = null; try { lr = !ap && S.onLine ? S.onLine(id) : null; } catch (e) { lr = null; }
+      // listeners react to what's said (S.onLine and each of S.listeners return a function that ends the reaction)
+      const lr = ap ? null : S.react(id);
       try { await G.says(id); } finally { if (fl) p.pose = null; if (ap && a.pose === lp[1]) a.pose = null; if (lr) lr(); }
     }
   };
   const S = window.S = { G, F, say, ROOMS: {}, LINE_POSE: {} };
+  G.sayChoice = id => say(id); // dialogue choices get the same staging as scripted lines
+  // everyone present can react to a line: S.onLine (Inês's) plus any hooks pushed onto S.listeners
+  S.listeners = [];
+  S.react = function (id) {
+    const ends = [];
+    for (const f of [S.onLine].concat(S.listeners)) {
+      if (typeof f !== 'function') continue;
+      try { const e = f(id); if (typeof e === 'function') ends.push(e); } catch (e) { /* a broken reaction never stops a line */ }
+    }
+    return ends.length ? () => ends.forEach(e => { try { e(); } catch (x) { /* ignore */ } }) : null;
+  };
   // Content setting: 'full' or 'discreet' (skips the steamy build-ups and their paintings); kept per browser
   const CONTENT_KEY = 'drowned-bell-content';
   S.content = () => { try { return localStorage.getItem(CONTENT_KEY); } catch (e) { return null; } };

@@ -11,13 +11,51 @@
     poses: { kneel: 'vasco_kneel', climb: 'vasco_climb', trowel: 'vasco_trowel', coffee: 'vasco_coffee',
       fluster: 'vasco_fluster', laugh: 'vasco_laugh', sheepish: 'vasco_idle3', find: 'vasco_find', give: 'vasco_give',
       kneeltalk: 'vasco_kneel_talk', sit: 'vasco_sit' }, front: 'vasco_front', back: 'vasco_back' } };
+  S.CHARS.vasco.seatedFrames = /^vasco_(kneel|kneel_talk|sit)$/; // these sway from the knees / the seat
   if (window.SPRITES.vasco_pass1) S.CHARS.vasco.frameStep = 0.085; else S.CHARS.vasco.frames.walk = ['vasco_walk1', 'vasco_walk2'];
+  // his full range: every frame below is optional, only painted ones are used (as in ines.js)
+  {
+    const has = k => !!window.SPRITES[k], VF = S.CHARS.vasco.frames, VP = VF.poses;
+    const more = (key, list) => { for (const k of list) if (has(k) && !VF[key].includes(k)) VF[key].push(k); };
+    more('idle', ['vasco_idle4']); more('talk', ['vasco_talk4']);
+    const walk4 = (a, b, c, d) => [a, b, c, d].every(has) ? [a, b, c, d] : null;
+    const fw = walk4('vasco_front_walk1', 'vasco_front', 'vasco_front_walk2', 'vasco_front'), bw = walk4('vasco_back_walk1', 'vasco_back', 'vasco_back_walk2', 'vasco_back');
+    if (fw && bw) { VF.frontWalk = fw; VF.backWalk = bw; }
+    for (const k of ['delight', 'tender', 'deflate', 'worried', 'scandalised', 'amused', 'stern', 'hopeful']) if (has('vasco_' + k)) VP[k] = 'vasco_' + k;
+    // Thursday: the trowel stays in his hand while he talks
+    if (has('vasco_trowel_talk')) VF.sets = { trowel: { idle: ['vasco_trowel'], talk: ['vasco_trowel_talk', 'vasco_trowel'] } };
+  }
   // his tells: the collar when he's flattered, the hand over the mouth when he's nervous
   const VPOSE = { fluster: ['vasco_lanyard', 'vasco_much_1', 'vasco_much_2', 'vasco_much_4', 'vasco_flustered', 'vasco_kiss'],
     laugh: ['vasco_much_3', 'vasco_much_5', 'vasco_stall'],
     sheepish: ['vasco_hello', 'vasco_little_2', 'vasco_cameo', 'vasco_thursday_then'],
-    find: ['vasco_busy', 'vasco_coins', 'vasco_fragment'], give: ['vasco_card'] };
-  for (const [pose, ids] of Object.entries(VPOSE)) ids.forEach(id => { S.LINE_POSE[id] = ['vasco', pose]; });
+    find: ['vasco_busy', 'vasco_coins', 'vasco_fragment'], give: ['vasco_card'],
+    // the painted moods, where they exist (they override the stand-ins above)
+    delight: ['vasco_pit', 'vasco_bottom', 'vasco_layers', 'vasco_marks'],
+    tender: ['vasco_quiet', 'vasco_sleep', 'vasco_dirt', 'vasco_collar'],
+    deflate: ['vasco_little_1', 'vasco_little_3', 'vasco_little_4', 'vasco_little_5'],
+    worried: ['vasco_fall'],
+    scandalised: ['vasco_much_3'],
+    amused: ['vasco_rope', 'vasco_closed', 'vasco_loan'],
+    hopeful: ['vasco_cameo', 'vasco_thursday_then'] };
+  for (const [pose, ids] of Object.entries(VPOSE)) if (S.CHARS.vasco.frames.poses[pose]) ids.forEach(id => { S.LINE_POSE[id] = ['vasco', pose]; });
+  // his face answers Alan's lines while he's in the scene (the mood each one gets; others, now and then, a smile)
+  const VREACT = { alan_vasco_hello: 'amused', alan_relation: 'laugh', alan_romantic: 'tender', alan_vasco_flirt: 'fluster', alan_bottom: 'scandalised',
+    alan_close: 'fluster', alan_lanyard: 'fluster', alan_collar: 'hopeful', alan_standards: 'stern', alan_monument: 'laugh', alan_thursday: 'delight',
+    alan_fine: 'worried', alan_cameo: 'delight', alan_romans: 'tender', alan_wait: 'hopeful', alan_documents: 'amused', alan_pit_ladder: 'fluster',
+    alan_ask_pit: 'delight', alan_ask_marks: 'delight', alan_ask_frags: 'delight', alan_layers: 'laugh', alan_kneel: 'amused', alan_dirt: 'tender',
+    alan_coins: 'fluster', alan_quiet: 'tender', alan_toss_ines: 'worried' };
+  const vreact = function (id) {
+    if (!/^(alan_|gag_alan_)/.test(id)) return null;
+    const a = G.npc('vasco'), P = S.CHARS.vasco.frames.poses;
+    if (!a || !a.visible || a.set || a.walking || a.pose || a.talking || !G.player || !G.player.visible) return null;
+    let k = VREACT[id] || (/_much$/.test(id) ? 'scandalised' : /_little$/.test(id) ? 'deflate' : null);
+    if (!k && Math.random() < 0.4) k = ['amused', 'tender', 'amused', 'delight'][Math.floor(Math.random() * 4)];
+    if (!k || !P[k]) return null;
+    a.pose = k;
+    return () => { if (a.pose === k) a.pose = null; };
+  };
+  (S.listeners || (S.listeners = [])).push(vreact);
   S.CHARS.alan.frames.poses.coffees = 'alan_coffees'; // Thursday morning: two coffees
   // Alan and Vasco painted together (Alan left, Vasco right): played as Alan's pose with Vasco hidden,
   // anchored on the middle of the couple
@@ -31,6 +69,8 @@
     return () => { p.pose = null; p.x = keep.px; p.y = keep.py; p.dir = keep.pd; v.visible = true; v.pose = keep.vp; };
   };
   S.withPair = async function (k, fn) { const undo = S.vpair(k); try { await fn(); } finally { if (undo) undo(); } };
+  // the two of them sitting on the ladder / kneeling in the pit sway from the seat, not the feet
+  if (!S.CHARS.alan.seatedFrames) S.CHARS.alan.seatedFrames = /^pair_vasco_(ladder|kneel)$/;
   S.CHARS.alan.frames.poses.pair_vasco_shirtless = 'pair_vasco_shirtless'; // the two of them, shirts off (not yet placed in a scene)
   if (window.SPRITES.ines_plaque) S.CHARS.ines.frames.poses.plaque = 'ines_plaque';
 
@@ -126,25 +166,37 @@
 
   // ================================================================ THE CLOISTER AND THE PIT
   const PIT = [800, 632]; // the pit's near edge, by the ladder
+  // Standing IN the pit: feet on the line of its near rim (y = PIT_RIM), sized for the pit floor,
+  // and sunk so the rim cuts them at the hips (the engine clips a sunk figure at its feet line).
+  // Whoever is placed inside the opening is staged that way, whoever steps out is restored.
+  const PIT_RIM = 606, PIT_X = [622, 952], PIT_H = 262, PIT_SINK = 0.42, PIT_LADDER = 812;
+  const PIT_WALK = [[626, 604], [948, 604], [948, 607.5], [626, 607.5]];
+  const FLOOR_WALK = [[0, 600], [220, 568], [540, 560], [556, 624], [1064, 618], [1150, 604], [1280, 612], [1280, 716], [0, 716]];
+  const inPit = a => a.x >= PIT_X[0] && a.x <= PIT_X[1] && a.y > 560 && a.y < 609;
+  const pitStage = a => {
+    if (!a) return;
+    // kneeling, he'd vanish behind the rim: the camera cheats him up a little so head and shoulders show
+    if (inPit(a)) { a._pit = true; a.sink = /kneel/.test(String(a.pose || '')) ? PIT_SINK - 0.12 : PIT_SINK; a.h = PIT_H; }
+    else if (a._pit) { a._pit = false; a.sink = 0; a.h = null; }
+  };
+  S.PIT_RIM = PIT_RIM;
   ROOMS.se_cloister = {
     name: 'Sé de Lisboa · cloister', bg: 'se_cloister', bgs: ['se_cloister_morning'], bgFn: () => F().thursday ? 'se_cloister_morning' : 'se_cloister', music: null, ambience: 'cloister', acoustic: 'convent', floor: 'stone',
-    // round the open pit, never into it
-    walk: [[0, 600], [220, 568], [540, 560], [556, 624], [1064, 618], [1150, 604], [1280, 612], [1280, 716], [0, 716]],
+    // round the open pit, never into it; once Alan is down in it, along its floor
+    get walk() { return F().in_pit ? PIT_WALK : FLOOR_WALK; },
     scale: [565, 250, 716, 345],
     light: { ambient: 'rgb(222,220,214)', base: 0.9, rim: 'rgba(255,245,225,0.18)', rimSide: -1 },
     lights: [
       { x: 660, y: 250, rgb: '238,240,244', power: 0.34, reach: 1400, rim: 0.5, shadow: 0.5, floor: [660, 520], height: 700 }, // daylight from the garth
     ],
     entries: { default: [1190, 650, 'w'], se_museum: [1190, 650, 'w'], se_tower: [140, 640, 'e'] },
-    anim(g, t) { FX.leaves(g, t, 600, 690, 11); },
-    // Thursday: Vasco stands in the pit, the near rim hides his legs
-    // (with the coffees, Alan stands on the floor at the left of the painting: only Vasco's half goes behind the rim)
-    occluders: [{ y: 706, when: () => F().thursday && G.player.pose !== 'pair_vasco_coffee', polys: [[[548, 598], [1064, 598], [1064, 720], [548, 720]]] },
-      { y: 706, when: () => F().thursday && G.player.pose === 'pair_vasco_coffee', polys: [[[650, 598], [1064, 598], [1064, 720], [650, 720]]] }],
+    anim(g, t) { pitStage(G.player); pitStage(G.npc('vasco')); FX.leaves(g, t, 600, 690, 11); },
+    leave() { for (const a of [G.player, G.npc('vasco')]) if (a && a._pit) { a._pit = false; a.sink = 0; a.h = null; } },
     async enter() { if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) await S.cloisterCh3(); },
     npcs: [
       { id: 'vasco', x: 1110, y: 640, dir: 'w', name: 'Dr. Vasco Teles', when: vascoHere, look: 'narr_look_vasco', talk: () => S.talkVasco(),
-        items: { any: 'alan_fail_04' } },
+        items: { any: 'alan_fail_04' },
+        init: a => { if (F().in_pit || (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo)) { a.x = 870; a.y = PIT_RIM; } } },
       { id: 'ines', x: 430, y: 600, dir: 'e', name: 'Inês', when: () => inesAtSe() && F().se_plan_on && !F().key_tossed, look: 'narr_look_ines', talk: () => say(S.hint()),
         items: { reserve_key: () => S.tossKey(), any: 'alan_fail_ines_item' } },
     ],
@@ -195,12 +247,18 @@
     if (F().in_pit) return;
     const p = G.player, v = G.npc('vasco');
     await say('vasco_bottom'); await joke('alan_bottom');
-    if (v) { await v.walkTo(PIT[0] + 60, PIT[1]); v.dir = 'w'; }
-    await p.walkTo(PIT[0], PIT[1]); p.dir = 'e';
+    // Vasco goes down the ladder first and waits at the bottom
+    if (v) {
+      await v.walkTo(PIT_LADDER, 626); v.x = PIT_LADDER; v.y = PIT_RIM;
+      if (window.SPRITES.vasco_climb) { v.pose = 'climb'; sfx('ladder_creak', 0.4); await T(500); v.pose = null; }
+      await v.walkTo(870, PIT_RIM); v.dir = 'w';
+    }
+    // Alan at the head of the ladder: he slips, and lands in the pit in Vasco's arms
+    await p.walkTo(PIT_LADDER - 30, 628); p.dir = 'e';
     p.pose = 'wobble'; sfx('ladder_creak', 0.5); await T(500); p.pose = null;
+    F().in_pit = true; p.x = 760; p.y = PIT_RIM; p.dir = 'e';
     await S.withPair('catch', () => say('vasco_close'));
     await joke('alan_close');
-    F().in_pit = true;
   };
 
   // in the pit: the lanyard, then (once Inês has the key) the long conversation
@@ -277,7 +335,11 @@
   ];
   const ORDER = [[1, 0, 2], [0, 2, 1], [2, 1, 0], [1, 2, 0], [0, 1, 2]]; // where the right answer sits, per exchange
   S.pitGame = async function () {
-    const v = G.npc('vasco');
+    const v = G.npc('vasco'), p = G.player;
+    // the two of them down in the pit, at arm's length
+    F().in_pit = true;
+    await Promise.all([p.walkTo(750, PIT_RIM), v ? v.walkTo(866, PIT_RIM) : null]);
+    p.dir = 'e'; if (v) v.dir = 'w';
     let i = F().pit_exchanges || 0, wrong = 0, rescued = false;
     while (i < EX.length) {
       const [prompt, right, much, muchR, little, littleR] = EX[i];
@@ -292,7 +354,13 @@
       if (pick.ok) { i++; wrong = 0; F().pit_exchanges = i; continue; }
       await say(pick.react);
       if (++wrong < 2) continue;
-      if (!rescued) { rescued = true; wrong = 0; if (v && window.SPRITES.vasco_climb) v.pose = 'climb'; await say('vasco_ladder'); await joke('alan_collar'); if (v) v.pose = null; await say('vasco_collar'); continue; }
+      if (!rescued) {
+        rescued = true; wrong = 0;
+        if (v) { await v.walkTo(PIT_LADDER + 8, PIT_RIM); v.dir = 'w'; if (window.SPRITES.vasco_climb) v.pose = 'climb'; }
+        await say('vasco_ladder'); await joke('alan_collar');
+        if (v) { v.pose = null; await v.walkTo(866, PIT_RIM); v.dir = 'w'; }
+        await say('vasco_collar'); continue;
+      }
       // he's out of the pit; Inês stalls him from the arcade and they start again
       await say('ines_stall', 'vasco_stall');
       i = 0; wrong = 0; rescued = false; F().pit_exchanges = 0;
@@ -369,7 +437,10 @@
     F().vasco_cameo = true;
     await G.busy(async () => {
       const p = G.player, v = G.npc('vasco');
-      if (v) { if (window.SPRITES.vasco_climb) { v.pose = 'climb'; await T(700); v.pose = null; } await v.walkTo(p.x + (p.x < 900 ? 150 : -150), p.y); v.dir = v.x > p.x ? 'w' : 'e'; p.dir = v.x > p.x ? 'e' : 'w'; }
+      if (v) {
+        if (v._pit || inPit(v)) { await v.walkTo(PIT_LADDER, PIT_RIM); if (window.SPRITES.vasco_climb) { v.pose = 'climb'; sfx('ladder_creak', 0.4); await T(700); v.pose = null; } v.x = PIT_LADDER; v.y = 626; }
+        await v.walkTo(p.x + (p.x < 900 ? 150 : -150), p.y); v.dir = v.x > p.x ? 'w' : 'e'; p.dir = v.x > p.x ? 'e' : 'w';
+      }
       await S.withPair('fragment', () => say('vasco_fragment'));
       give('sanches_fragment');
       await say('vasco_sleep', 'alan_fine', 'vasco_thursday_then', 'alan_cameo');
@@ -391,16 +462,29 @@
     await G.fade(true); G.endStill();
     await G.goRoom('se_cloister', 'map', { instant: true, noEnter: true, noSave: true, pos: [260, 650, 'e'] });
     const p = G.player, v = G.npc('vasco');
-    if (v) { v.x = 812; v.y = 705; v.h = 300; v.dir = 'w'; v.pose = window.SPRITES.vasco_trowel ? 'trowel' : null; }
+    // Vasco is down in the pit with his trowel (it stays in his hand while he talks, when that frame is painted)
+    const trowel = c => { if (!v) return; if (S.CHARS.vasco.frames.sets && S.CHARS.vasco.frames.sets.trowel) { v.pose = null; v.set = c ? 'trowel' : null; } else v.pose = c && window.SPRITES.vasco_trowel ? 'trowel' : null; };
+    if (v) { v.x = 880; v.y = PIT_RIM; v.dir = 'w'; trowel(true); }
     p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
     await G.fade(false);
-    await p.walkTo(470, 640); p.dir = 'e'; p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
+    // Alan comes to the rim and looks down at him
+    await p.walkTo(700, 628); p.dir = 'e'; p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
     await say('alan_romans', 'vasco_closed', 'alan_wait', 'alan_documents', 'vasco_loan');
-    p.pose = null;
-    if (v) v.pose = null;
+    p.pose = null; trowel(false);
+    // he comes up the ladder for his coffee
+    if (v) {
+      await v.walkTo(PIT_LADDER, PIT_RIM); v.dir = 'w';
+      if (window.SPRITES.vasco_climb) { v.pose = 'climb'; sfx('ladder_creak', 0.4); await T(700); v.pose = null; }
+      v.x = 800; v.y = 630; v.dir = 'w';
+    }
     await S.withPair('coffee', () => T(1400));
     if (v && window.SPRITES.vasco_coffee) v.pose = 'coffee';
-    const sat = S.vpair('ladder'); await T(800);
+    // and the two of them sit down in the hole, on the ladder, out of the wind
+    await G.fade(true);
+    p.x = 760; p.y = PIT_RIM; p.dir = 'e';
+    if (v) { v.x = 860; v.y = PIT_RIM; v.dir = 'w'; }
+    const sat = S.vpair('ladder');
+    await G.fade(false); await T(800);
     // the Sé strikes nine
     for (let i = 0; i < 9; i++) setTimeout(() => sfx('hour'), window.FAST ? 0 : 400 + i * 1500);
     await G.say('narr_thursday', { offscreen: true });

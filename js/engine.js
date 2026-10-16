@@ -192,7 +192,7 @@
     // The living part of the figure, as a displacement of the painted frame (buffer px, feet at fx,fy):
     // breath in the chest, a slow sway from the feet (from the seat when sitting), the head tilting
     // on the neck, nods with the voice, a bob in the step; performers move with the music.
-    motion(h, fx, fy, sp, b) {
+    motion(h, fx, fy, sp, b, key) {
       const t = (window.ANIM_T != null ? window.ANIM_T : time) + (this.seed || (this.seed = Math.random() * 100));
       const c = this.c.anim || {}, d = (this.def && this.def.anim) || {};
       const k = (n, def) => (d[n] != null ? d[n] : c[n] != null ? c[n] : def);
@@ -203,7 +203,8 @@
       const TAU = Math.PI * 2;
       // sway: a bend whose root is the feet (or the seat); amplitude as a fraction of height
       const sway = this.walking ? 0 : k('sway', 1) * (0.0045 + perf * 0.013) * (Math.sin(t * TAU * (0.13 + perf * 0.2)) + 0.35 * Math.sin(t * TAU * 0.071 + 1.3));
-      const root = k('seated', SEATED.has(this.ch)) ? 0.42 : 0.1;
+      // seated / kneeling frames sway from the seat or the knees (char-wide via SEATED, per frame via c.seatedFrames)
+      const root = k('seated', SEATED.has(this.ch) || !!(key && this.c.seatedFrames && this.c.seatedFrames.test(key))) ? 0.42 : 0.1;
       // head: a slow tilt, a nod with each phrase spoken, more when performing
       const tilt = wide ? 0 : k('nod', 1) * ((0.02 + perf * 0.055) * Math.sin(t * TAU * (0.09 + perf * 0.22) + 2.1) + lvl * 0.04 * Math.sin(t * 8.3)) + (this.walking ? 0.012 * Math.sin(this.phase * Math.PI) : 0);
       const bob = wide ? 0 : (lvl * 0.007 + perf * 0.006 * (0.5 + 0.5 * Math.sin(t * TAU * 1.05))) * F;
@@ -289,7 +290,7 @@
       g.save();
       if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
       // the painting is drawn through a mesh that bends with the figure: breath, sway, head, steps
-      const warped = !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, SPRITES[key], b), h * 0.1, LP);
+      const warped = !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, SPRITES[key], b, key), h * 0.1, LP);
       if (!warped) {
         if (shaded) { const L2 = lightSprite(comp, bw, bh, U, h, lights); g.drawImage(L2, 0, 0, bw, bh, X0, Y0, bw, bh); g.restore(); return; }
         // lower body: untouched
@@ -929,7 +930,8 @@
       dialogResolve = null;
       dialogEl.classList.remove('open');
       used.add(pick);
-      if (pick.line && !pick.silent) await say(pick.line);
+      // the story layer can stage a chosen line like any other (speaker poses, listeners' faces)
+      if (pick.line && !pick.silent) await (window.Game.sayChoice ? window.Game.sayChoice(pick.line) : say(pick.line));
       if (pick.run) await pick.run();
       if (pick.bye) return;
     }
