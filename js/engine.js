@@ -884,6 +884,7 @@
   function smokeOK() {
     const C = window.Game && Game.idleSmoke;
     if (!C || !room || !player || window.FAST) return false;
+    if (!Object.values(C.frames).every(f => SPRITES[f] && IMG['spr:' + f])) return false; // not until every frame is painted
     if (busy || cutscene || dialogResolve || still || selItem || speaking) return false;
     if (!player.visible || player.walking || player.ch !== 'alan' || player.set || room.player === false) return false;
     if (player.pose && !(smk && player.pose === smk.pose)) return false; // a special pose (or undressed) is never interrupted

@@ -313,7 +313,7 @@
   // the overhead contact wire over the front rails: hung from span wires every few metres, sagging a
   // little between them; the passing car's trolley pole presses it up where its wheel runs
   const WIRE_Y = 47, WIRE_SAG = 6, WIRE_SPAN = 520, WIRE_X0 = -120;
-  const POLE_TIP = [1315, 8]; // the trolley wheel's top, in prop_tram sprite px
+  const POLE_TIP = [1315, 10]; // the trolley wheel's top, in prop_tram sprite px
   S.drawWire = function (g, tip) {
     const base = x => { const u = ((x - WIRE_X0) % WIRE_SPAN + WIRE_SPAN) % WIRE_SPAN / WIRE_SPAN; return WIRE_Y + WIRE_SAG * 4 * u * (1 - u); };
     const lift = tip ? tip[1] - base(tip[0]) : 0;
