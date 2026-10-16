@@ -30,7 +30,7 @@
   LP(['ines_score_8', 'ines_coward'], 'laugh');
   LP(['ines_worried', 'ines_drowning', 'ines_warn'], 'worried');
   LP(['ines_vandal', 'ines_genealogy', 'ines_end', 'ines_sketch_founders'], 'surprised');
-  LP(['ines_tenth', 'ines_reserve', 'ines_liked', 'ines_pull', 'ines_fate', 'ines_hint_wheel', 'ines_hint_lastfirst'], 'think');
+  LP(['ines_tenth', 'ines_reserve', 'ines_liked', 'ines_liked_2', 'ines_pull', 'ines_fate', 'ines_hint_wheel', 'ines_hint_lastfirst'], 'think');
   LP(['ines_hello_2'], 'shelve');
   LP(['ines_gossip_1', 'ines_gossip_2', 'ines_gossip_4', 'ines_gossip_5', 'ines_back_cop'], 'write');
   LP(['ines_go', 'ines_hint_ch3_done', 'ines_hint_police', 'ines_bye', 'ines_kettle'], 'point');

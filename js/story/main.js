@@ -52,6 +52,11 @@
   const PREVIEW = {
     bath: { flags: { ch: 2, met_celeste: true }, room: 'lavadouro', pos: [800, 640, 'e'], run: () => S.bathEgg() },
     cop: { flags: { ch: 1 }, room: 'police', pos: [420, 690, 'w'], run: () => S.flirtCop() },
+    // the Judiciária with the Inspector out and Teixeira guarding the evidence (the flirt, then the sketch)
+    copguard: { flags: { ch: 1, metRui: true, ruiMurders: true, saw_list: true, rui_out: true }, room: 'police', pos: [700, 660, 'e'], run: () => { G.giveItem('notebook', true); return S.flirtCop(); } },
+    // ...the flirt done: Alan draws the tile and the Inspector walks back in on him and Teixeira
+    copreturn: { flags: { ch: 1, metRui: true, ruiMurders: true, saw_list: true, rui_out: true, teixeira_step: 3, teixeira_wall: true }, room: 'police', pos: [650, 640, 'n'], run: async () => {
+      await G.busy(async () => { F().sketched_tile = true; G.giveItem('sketch', true); await S.ruiReturns(); }); } },
     // Amália's fado (the recorded "O Sino Afogado", with captions)
     fado: { flags: { ch: 1, askedSong: true, duarte_flirt: true, flirted_guitar: true, saw_photo: true, knows_brotherhood: true }, room: 'tavern', pos: [860, 640, 'e'], run: () => { G.giveItem('ginja'); return S.giveGinja(); } },
     // Maria Coutinho's last night (the paintings; the staged room if they are missing)
@@ -137,6 +142,8 @@
   }
   // The opening: the fog over Lisbon, Maria Coutinho's last night in paintings (the old staged
   // room only if the paintings are missing), the city waking to it, the chapter card, the shop.
+  S.CHARS.alan.frames.poses.yawn = 'alan_yawn'; S.CHARS.alan.frames.poses.stretch = 'alan_stretch'; // waking up
+  const SHOP_IN = [235, 712, 'e']; // the foot of the stairs, front left of the shop
   async function opening() {
     await G.busy(async () => {
       await G.fade(true);
@@ -149,16 +156,36 @@
       await G.fade(true);
       await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);
     });
-    await G.goRoom('shop', null, { noEnter: true, instant: true, pos: [815, 616, 'e'] }); // forearms resting on the counter top
-    G.player.pose = 'asleep';
+    // the shop without him: Inês calls up the stairs, Alan surfaces in his room and comes down yawning
+    await G.goRoom('shop', null, { noEnter: true, instant: true, pos: SHOP_IN });
+    G.player.visible = false;
     G.endStill();
     await G.fade(false);
     await G.busy(async () => {
-      await G.wait(900);
-      await say('narr_intro_3', 'ines_wake');
-      G.player.pose = null;
-      await joke('alan_wake');
-      G.player.dir = 'w';
+      const p = G.player, T = ms => G.wait(window.FAST ? 20 : ms);
+      const pose = k => { p.pose = S.CHARS.alan.frames.poses[k] && window.SPRITES[S.CHARS.alan.frames.poses[k]] ? k : null; };
+      const ines = G.npc('ines'); if (ines) ines.dir = 'w';
+      await T(900);
+      await say('narr_intro_3', 'ines_wake_up');
+      if (G.image('bg:bedroom')) {
+        await G.fade(true);
+        await G.goRoom('bedroom', null, { instant: true, noEnter: true, noSave: true, pos: [800, 640, 'w'] }); // up beside the bed
+        pose('yawn');
+        await G.fade(false);
+        await say('alan_wake_up');
+        pose(null);
+        await p.walkTo(150, 712);   // off down the stairs
+        await G.fade(true);
+        await G.goRoom('shop', null, { instant: true, noEnter: true, pos: SHOP_IN });
+        await G.fade(false);
+      } else { p.visible = true; await say('alan_wake_up'); }
+      await p.walkTo(500, 640);
+      if (ines) ines.dir = 'w';
+      p.dir = 'e'; pose('yawn'); await T(900);
+      await say('ines_wake_look');
+      pose('stretch');
+      await say('alan_wake_stretch');
+      pose(null);
       await say('ines_intro_2', 'alan_intro_3', 'gag_ines_1', 'gag_alan_ines_1', 'ines_intro_3');
       await S.joke('alan_intro_4');
       await say('ines_intro_4');

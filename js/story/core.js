@@ -176,15 +176,16 @@
     if (!f.heard_machine) return 'ines_hint_machine';
     if (!f.got_ledger) return !f.tinTaken ? 'ines_hint_key' : (f.lampOff ? 'ines_hint_desk2' : 'ines_hint_desk');
     if (!f.saw_list && !f.sketched_tile) return 'ines_hint_police';
+    if (!f.sketched_tile && f.rui_out && !f.teixeira_wall) return 'ines_hint_guard'; // Teixeira guards the bag: charm him first
     if (!f.sketched_tile) return 'ines_hint_sketch';
     if (!f.knows_brotherhood) return 'ines_hint_show';
     if (f.ines_plan && !f.reserve_raided) {
       if (f.heist_done) return 'ines_hint_register';
       if (!f.se_visited) return 'ines_hint_se';
-      if (!(f.se_exhibits >= 4) || !f.se_plan_on) return 'ines_hint_exhibits';
+      if (!(f.se_exhibits >= 2) || !f.se_plan_on) return 'ines_hint_exhibits';
       if (!(f.dig_questions >= 3)) return 'ines_hint_dig';
-      if (!f.lanyard_taken) return 'ines_hint_lanyard';
-      if (!f.key_tossed) return 'ines_hint_toss';
+      if (!f.lanyard_taken) return f.in_pit ? 'ines_hint_shirt' : 'ines_hint_lanyard';
+      if (!f.key_tossed) return 'ines_hint_toss_2';
       return 'ines_hint_pit';
     }
     if (!f.heard_song) return f.askedSong ? 'ines_hint_song' : 'ines_hint_amalia';

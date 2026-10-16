@@ -42,13 +42,18 @@
   Object.assign(VPOSE, { deflate: VPOSE.deflate.concat(['vasco_hook', 'vasco_thu_pause', 'vasco_not_here']),
     tender: VPOSE.tender.concat(['vasco_forgive', 'vasco_thu_catalogue', 'vasco_love_1', 'vasco_love_2']),
     worried: VPOSE.worried.concat(['vasco_what']), laugh: VPOSE.laugh.concat(['vasco_love_tie', 'vasco_after_1']) });
+  // the heist (Chapter I): the shirt, the stall
+  Object.assign(VPOSE, { fluster: VPOSE.fluster.concat(['vasco_shirt_1', 'vasco_shirt_3', 'vasco_lookup']),
+    laugh: VPOSE.laugh.concat(['vasco_warm_1', 'vasco_warm_4']), delight: VPOSE.delight.concat(['vasco_warm_2']),
+    tender: VPOSE.tender.concat(['vasco_warm_3', 'vasco_collar_2']), sheepish: VPOSE.sheepish.concat(['vasco_why', 'vasco_rescue']),
+    deflate: VPOSE.deflate.concat(['vasco_cool_1', 'vasco_cool_3', 'vasco_sus_3', 'vasco_hook_2']) });
   for (const [pose, ids] of Object.entries(VPOSE)) if (S.CHARS.vasco.frames.poses[pose]) ids.forEach(id => { S.LINE_POSE[id] = ['vasco', pose]; });
   // his face answers Alan's lines while he's in the scene (the mood each one gets; others, now and then, a smile)
   const VREACT = { alan_vasco_hello: 'amused', alan_relation: 'laugh', alan_romantic: 'tender', alan_vasco_flirt: 'fluster', alan_bottom: 'scandalised',
     alan_close: 'fluster', alan_lanyard: 'fluster', alan_collar: 'hopeful', alan_standards: 'stern', alan_monument: 'laugh', alan_thursday: 'delight',
     alan_fine: 'worried', alan_cameo: 'delight', alan_romans: 'tender', alan_wait: 'hopeful', alan_documents: 'amused', alan_pit_ladder: 'fluster',
     alan_ask_pit: 'delight', alan_ask_marks: 'delight', alan_ask_frags: 'delight', alan_layers: 'laugh', alan_kneel: 'amused', alan_dirt: 'tender',
-    alan_coins: 'fluster', alan_quiet: 'tender', alan_toss_ines: 'worried',
+    alan_coins: 'fluster', alan_quiet: 'tender', alan_toss_ines: 'worried', alan_shirt_ask: 'fluster', alan_coins_2: 'delight', alan_why_dig: 'tender', alan_quiet_2: 'laugh', alan_collar_3: 'tender',
     alan_ask_vasco_twin: 'worried', alan_vasco_sorry: 'deflate', alan_vasco_clapper: 'worried', alan_owe_one: 'tender', gag_alan_withhold: 'stern',
     alan_thu_truth: 'worried', alan_thu_return: 'delight', alan_thu_owe: 'hopeful', alan_love_1: 'tender' };
   const vreact = function (id) {
@@ -117,20 +122,23 @@
     if (ines && ines.visible) { ines.dir = ines.x < G.player.x ? 'e' : 'w'; if (window.SPRITES.ines_plaque) ines.pose = 'plaque'; }
     try { await say(...lines); } finally { if (ines) ines.pose = null; }
     if (ex.need && !seen[id]) { seen[id] = true; F().se_exhibits = Object.keys(EXHIBITS).filter(k => EXHIBITS[k].need && seen[k]).length; }
+    // the last of the two she asked for: she sends him out to the cloister
+    if (F().se_exhibits >= NEED_EX && !F().se_plan_on && ines && ines.visible) await S.inesGo();
   };
+  const NEED_EX = Object.values(EXHIBITS).filter(e => e.need).length;
 
+  // on arrival Inês lays out the whole plan: the reserve, why the exhibits, how they get the key
+  const PLAN = ['ines_plan_se_1', 'ines_plan_se_2', 'ines_plan_se_3'];
+  S.inesPlan = async function () { F().se_plan_heard = true; await say(...PLAN); await joke('alan_plan_se'); };
+  S.inesGo = async function () { F().se_plan_on = true; await say('ines_go'); await joke('alan_go'); };
   S.talkInesSe = async function () {
-    const NEED = Object.values(EXHIBITS).filter(e => e.need).length;
-    if (!F().ines_se_talked && !(F().se_exhibits >= NEED)) { F().ines_se_talked = true; return say('ines_look_first'); }
-    if (F().se_exhibits >= NEED && !F().se_plan_on) {
-      F().se_plan_on = true;
-      await say('ines_go'); await joke('alan_go');
-      return;
-    }
+    if (!F().se_plan_heard) return S.inesPlan();
+    if (F().se_exhibits >= NEED_EX && !F().se_plan_on) return S.inesGo();
     await G.dialog([
       { line: 'alan_ask_ines_se_now', run: () => say(S.hint()) },
+      { line: 'alan_ask_ines_plan', run: () => say(...PLAN) },
       { line: 'alan_ask_ines_vasco', once: true, run: () => say('ines_vasco') },
-      { label: 'Goodbye.', bye: true, run: () => say('ines_bye') },
+      { label: 'Goodbye.', bye: true, run: () => say('ines_bye_se2') }, // she came with him: no minding the shop here
     ]);
   };
 
@@ -155,7 +163,8 @@
     ],
     ambient: [
       { id: 'npc_guard', name: 'Museum guard', frames: ['npc_guard', 'npc_guard_b'], x: 1090, y: 605, h: 230, look: 'alan_npc_guard', idleHold: [6, 12], variantHold: [3, 6] },
-      { id: 'npc_tourists', name: 'Tourists', frames: ['npc_tourists', 'npc_tourists_b'], x: 200, y: 662, h: 315, look: 'alan_npc_tourists', idleHold: [5, 9], variantHold: [3, 5] },
+      // in front of the curator's desk, gawping at the reserve door: clear of every exhibit
+      { id: 'npc_tourists', name: 'Tourists', frames: ['npc_tourists', 'npc_tourists_b'], x: 930, y: 712, h: 342, look: 'alan_npc_tourists', idleHold: [5, 9], variantHold: [3, 5] },
     ],
     hotspots: [
       { name: 'Panorama of Lisbon, 1700', rect: [0, 118, 332, 254], at: [220, 650], face: 'n', look: () => S.exhibit('panorama') },
@@ -171,7 +180,7 @@
       { name: 'Way out', rect: [0, 620, 50, 96], at: [30, 690], exit: 'map', entry: 'se_museum' },
     ],
     async enter() {
-      if (inesAtSe() && !F().se_visited) { F().se_visited = true; await say('ines_se_hello'); }
+      if (inesAtSe() && !F().se_visited) { F().se_visited = true; await say('ines_se_hello'); await S.inesPlan(); }
     },
   };
 
@@ -209,7 +218,7 @@
         items: { any: 'alan_fail_04' },
         init: a => { if (F().in_pit || (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo)) { a.x = 870; a.y = PIT_RIM; } } },
       { id: 'ines', x: 430, y: 600, dir: 'e', name: 'Inês', when: () => inesAtSe() && F().se_plan_on && !F().key_tossed, look: 'narr_look_ines', talk: () => say(S.hint()),
-        items: { reserve_key: () => S.tossKey(), any: 'alan_fail_ines_item' } },
+        items: { reserve_key: 'alan_toss_wait', any: 'alan_fail_ines_item' } },
     ],
     ambient: [
       { id: 'npc_volunteer', name: 'Dig volunteer', frames: ['npc_volunteer', 'npc_volunteer_b'], x: 700, y: 462, h: 120, look: 'alan_npc_volunteer', idleHold: [1.2, 2], variantHold: [1, 1.8] },
@@ -277,40 +286,49 @@
     await p.walkTo(PIT_LADDER - 30, 628); p.dir = 'e';
     p.pose = 'wobble'; sfx('ladder_creak', 0.5); await T(500); p.pose = null;
     F().in_pit = true; p.x = 760; p.y = PIT_RIM; p.dir = 'e';
-    await S.withPair('catch', () => say('vasco_close'));
-    await joke('alan_close');
+    await say('vasco_close', 'alan_close');
   };
 
-  // in the pit: the lanyard, then (once Inês has the key) the long conversation
+  // in the pit: the shirt (and, quietly, the key), the inscription (and the throw), then the long conversation
   S.pitTalk = async function () {
     if (F().key_tossed) return S.pitGame();
     await G.dialog([
-      { label: 'Reach for the lanyard.', when: () => !F().lanyard_taken, bye: true, run: () => S.takeLanyard() },
+      { line: 'alan_shirt_ask', when: () => !F().lanyard_taken, bye: true, run: () => S.fixShirt() },
+      { line: 'alan_ask_inscription', when: () => F().lanyard_taken && G.has('reserve_key'), bye: true, run: () => S.inscription() },
       { line: 'alan_vasco_flirt', run: () => say('vasco_rope') },
       { label: 'Goodbye.', bye: true },
     ]);
   };
-  S.takeLanyard = async function () {
+  // Vasco has buttoned his shirt one hole off: Alan does it up for him, and unclips the key on the way
+  S.fixShirt = async function () {
     if (F().lanyard_taken) return;
     if (!F().in_pit) return say('alan_lanyard_far');
-    G.player.pose = 'reach'; await T(500); G.player.pose = null;
-    await S.withPair('lanyard', () => say('vasco_lanyard')); await joke('alan_lanyard');
+    const p = G.player, v = G.npc('vasco');
+    await say('vasco_shirt_1', 'alan_shirt_1');
+    if (v && !window.FAST) { await p.walkTo(Math.max(PIT_X[0] + 20, v.x - 110), PIT_RIM); p.dir = 'e'; v.dir = 'w'; }
+    // close: Alan's hands at his collar (the lanyard frame), Vasco looking at his face
+    await S.withPair('lanyard', async () => {
+      await say('vasco_shirt_2', 'alan_shirt_2');
+      sfx('key_jingle', 0.12);
+      await G.say('narr_shirt', { offscreen: true });
+    });
     F().lanyard_taken = true; give('reserve_key');
+    await say('vasco_shirt_3');
   };
 
-  // ---------------------------------------------------------------- the toss
-  // a marker sweeps the bar; let go while Vasco's eyes are on Alan (the gold band)
+  // ---------------------------------------------------------------- the throw
+  // Vasco bends right down to read the mark; the gold band is the moment his head is down
   function tossGame() {
     return new Promise(resolve => {
       let m = document.getElementById('toss');
       if (!m) {
         m = document.createElement('div'); m.id = 'toss'; m.className = 'modal hidden';
         m.style.background = 'rgba(5,4,3,.55)'; m.style.justifyContent = 'flex-end'; m.style.paddingBottom = '9%';
-        m.innerHTML = `<p class="hint" style="font-style:italic">Toss the key to Inês while Vasco is looking at you.</p>
+        m.innerHTML = `<p class="hint" style="font-style:italic">Vasco bends over the mark. Throw the key to Inês while his head is down.</p>
           <div class="bar" style="position:relative;width:60%;height:28px;border:1px solid #8a7a60;background:#191920;border-radius:4px;margin:.6em 0">
-            <div class="zone" style="position:absolute;top:0;bottom:0;background:rgba(224,184,102,.55)"></div>
+            <div class="zone" style="position:absolute;top:0;bottom:0;background:rgba(224,184,102,.55);font:11px/28px sans-serif;color:#2a2010;text-align:center;overflow:hidden">head down</div>
             <div class="mark" style="position:absolute;top:-6px;bottom:-6px;width:6px;margin-left:-3px;background:#fff0c8;border-radius:3px"></div></div>
-          <div class="controls"><button class="go">Toss!</button></div>`;
+          <div class="controls"><button class="go">Throw!</button></div>`;
         (document.getElementById('cipher').parentNode).appendChild(m);
       }
       const zone = m.querySelector('.zone'), mark = m.querySelector('.mark');
@@ -327,94 +345,105 @@
       requestAnimationFrame(step);
       m.querySelector('.go').onclick = e => { e.stopPropagation(); live = false; G.showModal('toss', false); resolve(x >= z0 && x <= z0 + zw); };
       G.showModal('toss', true);
-      if (window.FAST) { live = false; G.showModal('toss', false); resolve(true); }
+      if (window.FAST) { live = false; G.showModal('toss', false); resolve(!window.TOSS_MISS || !(window.TOSS_MISS--)); }
     });
   }
-  S.tossKey = async function () {
-    if (!G.has('reserve_key') || F().key_tossed) return say('alan_fail_04');
-    if (!F().in_pit) return say('alan_lanyard_far');
+  // the founder's mark low on the pit wall: Vasco gets his nose right down to it
+  S.inscription = async function () {
+    if (!G.has('reserve_key') || F().key_tossed) return;
+    const p = G.player, v = G.npc('vasco'), ines = G.npc('ines');
+    await say(F().inscription_tried ? 'vasco_inscription_again' : 'vasco_inscription_1');
+    F().inscription_tried = true;
+    const kneel = window.SPRITES.vasco_kneel ? 'kneel' : null;
+    if (v) v.pose = kneel;
+    if (ines && ines.visible) p.dir = ines.x < p.x ? 'w' : 'e';
     await say('alan_toss_ines');
     const ok = await tossGame();
-    G.player.pose = 'reach'; sfx('key_jingle'); await T(400); G.player.pose = null;
-    if (!ok) { sfx('trowel'); await say('vasco_fall'); await joke('alan_standards'); return; }
+    p.pose = 'reach'; sfx('key_jingle'); await T(400); p.pose = null;
+    if (!ok) { // too early or too late: he looks up, and Alan is still holding it
+      if (v) v.pose = null; p.dir = 'e';
+      await say('vasco_lookup', 'alan_lookup');
+      return;
+    }
     G.takeItem('reserve_key'); F().key_tossed = true;
+    await G.say('narr_catch', { offscreen: true });
     G.refreshNpcs(); // Inês slips off to the reserve
+    p.dir = 'e';
+    await say('vasco_inscription_2');
+    if (v) v.pose = null;
     await S.pitGame();
   };
+  S.tossKey = () => say('alan_toss_wait'); // (the key on Inês: only while his head is down)
 
-  // ---------------------------------------------------------------- keeping him busy
-  // five exchanges, three replies each: right (interest and a flirt), too much (he blushes
-  // and wants out), too little (he remembers the reserve). Two wrong in a row and he heads
-  // for the ladder; one rescue allowed, then Inês has to stall him and they start again.
+  // ---------------------------------------------------------------- keeping him talking
+  // While Inês is in the reserve: four exchanges, three replies each, one of each tone.
+  // Vasco warms to real interest in his work and to gentle humour (on to the next subject);
+  // anything pushy cools him (he steps back, and the subject comes round again); a bored or
+  // dismissive reply makes him think of the reserve. Two misses in a row and he's on the ladder,
+  // and Alan has to call him back with a question before they carry on where they left off.
   const EX = [
-    ['vasco_layers', 'alan_layers', 'alan_layers_much', 'vasco_much_1', 'alan_layers_little', 'vasco_little_1'],
-    ['vasco_kneel', 'alan_kneel', 'alan_kneel_much', 'vasco_much_2', 'alan_kneel_little', 'vasco_little_2'],
-    ['vasco_dirt', 'alan_dirt', 'alan_dirt_much', 'vasco_much_3', 'alan_dirt_little', 'vasco_little_3'],
-    ['vasco_coins', 'alan_coins', 'alan_coins_much', 'vasco_much_4', 'alan_coins_little', 'vasco_little_4'],
-    ['vasco_quiet', 'alan_quiet', 'alan_quiet_much', 'vasco_much_5', 'alan_quiet_little', 'vasco_little_5'],
+    // his prompt, then [warm reply, his answer], [pushy reply, his answer], [bored reply, his answer]
+    ['vasco_layers', 'alan_layers', 'vasco_warm_1', 'alan_layers_much', 'vasco_cool_1', 'alan_layers_little', 'vasco_little_1'],
+    ['vasco_coins', 'alan_coins_2', 'vasco_warm_2', 'alan_coins_much', 'vasco_much_4', 'alan_coins_little', 'vasco_little_4'],
+    ['vasco_why', 'alan_why_dig', 'vasco_warm_3', 'alan_why_much', 'vasco_cool_3', 'alan_why_little', 'vasco_sus_3'],
+    ['vasco_quiet', 'alan_quiet_2', 'vasco_warm_4', 'alan_quiet_much', 'vasco_much_5', 'alan_quiet_little', 'vasco_little_5'],
   ];
-  const ORDER = [[1, 0, 2], [0, 2, 1], [2, 1, 0], [1, 2, 0], [0, 1, 2]]; // where the right answer sits, per exchange
+  const ORDER = [[1, 0, 2], [0, 2, 1], [2, 1, 0], [1, 2, 0]]; // the order the three replies are offered in, per exchange
   S.pitGame = async function () {
     const v = G.npc('vasco'), p = G.player;
     // the two of them down in the pit, at arm's length
     F().in_pit = true;
     await Promise.all([p.walkTo(750, PIT_RIM), v ? v.walkTo(866, PIT_RIM) : null]);
     p.dir = 'e'; if (v) v.dir = 'w';
-    let i = F().pit_exchanges || 0, wrong = 0, rescued = false;
+    let i = Math.min(F().pit_exchanges || 0, EX.length), miss = 0;
+    if (!i) await say('alan_stall_rule');
     while (i < EX.length) {
-      const [prompt, right, much, muchR, little, littleR] = EX[i];
-      if (v && i === 1 && window.SPRITES.vasco_kneel) v.pose = 'kneel';
-      const pairK = { 1: 'kneel', 2: 'thumb' }[i];
-      if (pairK && S.vpair) await S.withPair(pairK, () => say(prompt)); else await say(prompt);
-      if (i === 0) { sfx('v_vasco_laugh', 0.5); }
-      const opts = [{ line: right, ok: true }, { line: much, react: muchR }, { line: little, react: littleR }];
+      const [prompt, warm, warmR, pushy, pushyR, bored, boredR] = EX[i];
+      await say(prompt);
+      const opts = [{ line: warm, react: warmR, ok: true }, { line: pushy, react: pushyR }, { line: bored, react: boredR }];
       let pick = null;
       await G.dialog(ORDER[i].map(k => ({ line: opts[k].line, bye: true, run: () => { pick = opts[k]; } })));
-      if (v) v.pose = null;
-      if (pick.ok) { i++; wrong = 0; F().pit_exchanges = i; continue; }
       await say(pick.react);
-      if (++wrong < 2) continue;
-      if (!rescued) {
-        rescued = true; wrong = 0;
-        if (v) { await v.walkTo(PIT_LADDER + 8, PIT_RIM); v.dir = 'w'; if (window.SPRITES.vasco_climb) v.pose = 'climb'; }
-        await say('vasco_ladder'); await joke('alan_collar');
-        if (v) { v.pose = null; await v.walkTo(866, PIT_RIM); v.dir = 'w'; }
-        await say('vasco_collar'); continue;
-      }
-      // he's out of the pit; Inês stalls him from the arcade and they start again
-      await say('ines_stall', 'vasco_stall');
-      i = 0; wrong = 0; rescued = false; F().pit_exchanges = 0;
+      if (pick.ok) { i++; miss = 0; F().pit_exchanges = i; continue; }
+      if (++miss < 2) continue;
+      // he's had enough: up the ladder, towards the reserve, until Alan asks him something real
+      miss = 0;
+      if (v) { await v.walkTo(PIT_LADDER + 8, PIT_RIM); v.dir = 'w'; if (window.SPRITES.vasco_climb) v.pose = 'climb'; }
+      await say('vasco_ladder', 'alan_rescue');
+      if (v) { v.pose = null; await v.walkTo(866, PIT_RIM); v.dir = 'w'; }
+      await say('vasco_rescue');
     }
-    await S.pitKiss();
+    await S.pitEnd();
   };
 
-  S.pitKiss = async function () {
+  // Inês is done: the key comes back to Alan, and goes back on its clip before anyone can miss it
+  S.pitEnd = async function () {
     G.cutscene = true;
     try {
-      if (S.discreet()) { // Discreet: the joke stays, the paintings don't
-        await G.fade(true); await say('vasco_kiss'); sfx('quarter'); await say('alan_monument'); await G.fade(false);
-      } else {
-        await S.withPair('kiss', () => T(1600));
-        await S.still('still_se_kiss', 'se_cloister', async () => {
-          sfx('trowel'); await T(300);
-          await say('vasco_kiss'); sfx('quarter'); await say('alan_monument');
-          sfx('v_vasco_laugh', 0.5);
-        }, { zoom: [1.02, 1.12] });
-        await S.still('still_se_pit', 'se_cloister', () => G.say('narr_pit', { offscreen: true }), { zoom: [1.0, 1.1], pan: [[0.5, 0.55], [0.5, 0.45]] });
-      }
       // meanwhile, in the reserve
       await S.still('still_se_reserve', 'se_museum', async () => {
         await G.say('narr_reserve', { offscreen: true });
         await S.readJoaquimCard();
-        await G.say('narr_lanyard', { offscreen: true });
       }, { zoom: [1.04, 1.1] });
     } finally { G.cutscene = false; }
-    F().in_pit = false; F().heist_done = true; F().pit_exchanges = 5;
-    // back up the ladder; Inês has come back round by the arcade
+    F().pit_exchanges = EX.length;
     const p = G.player, v = G.npc('vasco');
+    // she's back at the rim while he shows Alan the Roman floor, on his knees, eyes down
+    F().ines_back = true; G.refreshNpcs();
+    if (v && window.SPRITES.vasco_kneel) v.pose = 'kneel';
+    await say('vasco_roman');
+    sfx('key_jingle', 0.2);
+    await G.say('narr_key_back', { offscreen: true });
+    if (v) v.pose = null;
+    // and back where it came from, with the same hands
+    await say('alan_collar_2');
+    await S.withPair('lanyard', () => say('vasco_collar_2'));
+    await say('alan_collar_3');
+    await G.say('narr_key_clip', { offscreen: true });
+    F().in_pit = false; F().heist_done = true; F().key_returned = true;
+    // back up the ladder
     p.x = PIT[0] - 30; p.y = PIT[1] + 10; p.dir = 'e';
     if (v) { v.x = PIT[0] + 80; v.y = PIT[1] + 12; v.dir = 'w'; }
-    F().ines_back = true; G.refreshNpcs();
     await say('ines_innocent', 'vasco_flustered');
     await S.withPair('card', () => say('vasco_card'));
     give('vasco_card');
@@ -428,6 +457,7 @@
     await say('ines_home');
     F().ines_back = false; G.refreshNpcs();
   };
+  S.pitKiss = S.pitEnd; // (the old name)
 
   // Inês walks back into the cloister for the last exchange only
   ROOMS.se_cloister.npcs.push({ id: 'ines', x: 600, y: 650, dir: 'e', name: 'Inês', when: () => F().ines_back, look: 'narr_look_ines', talk: () => say('ines_home') });
@@ -525,11 +555,11 @@
     const ines = G.npc('ines');
     await G.busy(async () => {
       if (ines) { ines.engaged++; }
+      await say('ines_liked_2', 'alan_key');
       sfx('page');
       await say('ines_irmandade'); S.lore('irmandade');
       await say('ines_register_fado', 'ines_sketch_3');
       F().reserve_raided = true;
-      await say('ines_liked', 'alan_key');
       if (ines) ines.engaged--;
     });
   };
@@ -567,7 +597,7 @@
   S.vascoTwin = async function () {
     const p = G.player;
     await G.busy(async () => {
-      if (F().heist_done) await say('alan_vasco_sorry', 'vasco_hook', 'vasco_forgive');
+      if (F().heist_done) await say('alan_vasco_sorry_2', 'vasco_hook_2', 'vasco_forgive');
       else await say('vasco_what');
       await say('alan_vasco_clapper', 'vasco_come_down');
       // he leads the way back through the museum and down into the reserve
@@ -640,5 +670,5 @@
     G.endStill();
   };
 
-  window.EXTRA_STILLS = ['still_se_kiss', 'still_se_pit', 'still_se_reserve'];
+  window.EXTRA_STILLS = ['still_se_reserve'];
 })();
