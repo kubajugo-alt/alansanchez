@@ -80,4 +80,69 @@
       await G.fade(true);
     } finally { G.cutscene = false; water = 0; if (m) m.pose = null; }
   }
+  // ---------------------------------------------------------------- the opening, as paintings
+  // Each painting fades up from black, holds under its narration with a slow Ken Burns move,
+  // and fades back to black. The screen is black between paintings and when these return.
+  const Snd = () => window.Sound || { ambience() {}, sfx() {} };
+  const has = name => !!G.image('still:' + name);
+  S.paint = async function (name, fn, opts) {
+    await G.fade(true);
+    await G.showStill(name, async () => { await G.fade(false); if (fn) await fn(); }, Object.assign({ keep: true, dur: 16 }, opts));
+    await G.fade(true);
+  };
+  const paint = S.paint;
+  const MARIA = ['still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn'];
+
+  // Madragoa, 04:01: Maria Coutinho's last minute. Returns false (and plays nothing) if the paintings are missing.
+  S.mariaPaintings = async function () {
+    if (!MARIA.every(has)) return false;
+    const A = Snd();
+    // a. the street: one lit window
+    A.ambience('street_night');
+    await paint('still_madragoa', async () => { sfx('foghorn', 0.25); await say('narr_maria_1'); await T(600); },
+      { zoom: [1.0, 1.12], pan: [[0.5, 0.62], [0.55, 0.42]] });
+    // b. asleep: the apron on the chair, the paper in its pocket
+    A.ambience('night');
+    await paint('still_maria_sleep', async () => { sfx('bed_creak', 0.35); await say('narr_maria_2'); await T(500); },
+      { zoom: [1.04, 1.16], pan: [[0.45, 0.5], [0.58, 0.55]] });
+    // c. the tile on the pillow; she wakes
+    await paint('still_maria_tile', async () => { sfx('bed_creak_wake', 0.6); await T(700); sfx('cabin_drip', 0.35); await say('narr_maria_3'); await T(500); },
+      { zoom: [1.02, 1.18], pan: [[0.5, 0.5], [0.46, 0.56]] });
+    // d. the list: four names
+    await paint('still_maria_list', async () => { sfx('paper_take', 0.5); await say('narr_maria_4'); await T(700); },
+      { zoom: [1.0, 1.14], pan: [[0.5, 0.45], [0.5, 0.55]] });
+    // e. the river comes up through the boards
+    A.ambience(null);
+    await paint('still_maria_water', async () => {
+      sfx('water_seep', 0.5); await T(500); sfx('water_rise', 0.6);
+      await say('narr_cold_open'); await T(600); sfx('splash', 0.35); await T(900);
+    }, { zoom: [1.0, 1.15], pan: [[0.5, 0.65], [0.5, 0.45]] });
+    // f. dawn: the room empty, the boards dry, the tile on the floor
+    await T(900);
+    await paint('still_maria_dawn', async () => { await T(600); sfx('cabin_drip', 0.45); await T(900); await say('narr_maria_6'); await T(1200); },
+      { zoom: [1.12, 1.0], pan: [[0.5, 0.6], [0.5, 0.5]] });
+    return true;
+  };
+
+  // The city wakes to it: the paper, a patient man with a clock, and the last name on the list.
+  S.introCity = async function () {
+    const A = Snd();
+    if (has('still_newspaper')) {
+      A.ambience('street');
+      await paint('still_newspaper', async () => { sfx('page', 0.5); await say('narr_intro_2'); await T(500); },
+        { zoom: [1.0, 1.1], pan: [[0.45, 0.4], [0.5, 0.48]] });
+    }
+    if (has('still_tideclock_hand')) {
+      A.ambience('clocks');
+      await paint('still_tideclock_hand', async () => {
+        sfx('clock_wind', 0.6); await T(900); sfx('tideclock_tick', 0.5);
+        await say('narr_intro_clock'); await T(400); sfx('tideclock_tick', 0.45); await T(900);
+      }, { zoom: [1.02, 1.14], pan: [[0.5, 0.5], [0.56, 0.46]] });
+    }
+    if (has('still_alfama_sign')) {
+      A.ambience('street');
+      await paint('still_alfama_sign', async () => { sfx('tram_distant', 0.25); await say('narr_intro_alfama'); await T(800); },
+        { zoom: [1.0, 1.12], pan: [[0.5, 0.4], [0.55, 0.55]] });
+    }
+  };
 })();

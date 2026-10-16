@@ -7,6 +7,14 @@ window.LINES = {
   // ================================================================ CHAPTER I: THE FOG
   narr_intro_1: ['narr', "For nine days the fog had sat on Lisbon like a cat on a warm book. Nobody could move it, and nobody quite liked to try."],
   narr_intro_2: ['narr', "Three people had drowned in their beds, half a mile uphill from the river, and the trams went on ringing for no one."],
+  // the opening paintings: Madragoa, 04:01, then the city and the clock (narr_cold_open plays over the water)
+  narr_maria_1: ['narr', "In Madragoa, where the fishwives live stacked above their own front doors, one window was still lit at four in the morning."],
+  narr_maria_2: ['narr', "Maria Coutinho had sold sardines on the quay for forty years. She slept with her apron on the chair, and in its pocket a folded paper she had never quite thrown away."],
+  narr_maria_3: ['narr', "At one minute to four she woke to something cold on her pillow. A tile. Blue and white, old as the city, and wet, as if it had come up from the river."],
+  narr_maria_4: ['narr', "She knew the paper by heart. Four names, in the hand of an old bookseller who had pressed it on her a year ago, and been buried last week. Ferreira. Bastos. Coutinho. Sanches."],
+  narr_maria_6: ['narr', "By morning the river had gone back where it belonged. The boards were dry. Only the tile was wet."],
+  narr_intro_clock: ['narr', "Somewhere in the Chiado, a patient man wound a clock, and wrote down the next name."],
+  narr_intro_alfama: ['narr', "The last name on the list was painted over a bookshop in the Alfama. Nobody inside had read the papers."],
   narr_intro_3: ['narr', "In a crooked bookshop in the Alfama, the one man in the city who most needed to be awake... was asleep."],
   ines_wake: ['ines', "It's eleven, Alan. Even the cat has done more today."],
   alan_wake: ['alan', "[groggy] I'm thirty-seven, Inês. At my age you don't wake up. You resurface."],

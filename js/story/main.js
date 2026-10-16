@@ -42,7 +42,8 @@
   };
 
   // ---------------------------------------------------------------- art the engine preloads
-  window.STILLS = ['still_intro', 'still_1755', 'still_1955_a', 'still_1955_b', 'still_1955_c', 'still_city_morning', 'still_drawer', 'still_shop_after',
+  window.STILLS = ['still_intro', 'still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn',
+    'still_newspaper', 'still_tideclock_hand', 'still_alfama_sign', 'still_1755', 'still_1955_a', 'still_1955_b', 'still_1955_c', 'still_city_morning', 'still_drawer', 'still_shop_after',
     'still_phone', 'still_amalia_box', 'still_tavern_full', 'still_quay_sweater', 'still_abilio_ring', 'still_jacket', 'still_shelf', 'still_ze_kiss', 'still_ze_bunk', 'still_cop_shelf', 'still_guitar_bed', 'still_cop_cuffed'].concat(window.EXTRA_STILLS || []);
   window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks'];
 
@@ -53,7 +54,10 @@
     cop: { flags: { ch: 1 }, room: 'police', pos: [420, 690, 'w'], run: () => S.flirtCop() },
     // Amália's fado (the recorded "O Sino Afogado", with captions)
     fado: { flags: { ch: 1, askedSong: true, duarte_flirt: true, flirted_guitar: true, saw_photo: true, knows_brotherhood: true }, room: 'tavern', pos: [860, 640, 'e'], run: () => { G.giveItem('ginja'); return S.giveGinja(); } },
-    coldopen: { flags: { ch: 1 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await S.coldOpen(); await G.fade(false); } },
+    // Maria Coutinho's last night (the paintings; the staged room if they are missing)
+    coldopen: { flags: { ch: 1 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await G.busy(async () => { if (!(await S.mariaPaintings())) await S.coldOpen(); }); G.endStill(); await G.fade(false); } },
+    // the whole opening, from the fog over Lisbon to Inês waking Alan
+    intro: { flags: { ch: 1, clock: '11:00' }, room: 'shop', pos: [815, 616, 'e'], run: () => opening() },
     romance: { flags: { ch: 4, ze_awake: true, ze_believes: true, ze_in_cabin: true, ze_saved: true }, room: 'cabin', pos: [560, 640, 'e'], run: () => S.romance() },
     // the ending: hand Lacerda the ledger, then the last strike (the puzzle in between is skipped)
     finale: { flags: { ch: 5, tomas_confessed: true }, room: 'cistern', pos: [520, 640, 'e'], run: async () => {
@@ -121,21 +125,24 @@
       (document.querySelector('#game') || document.body).appendChild(box);
     });
   }
-  async function newGame() {
-    const scene = new URLSearchParams(location.search).get('scene');
-    if (!S.content() && !window.FAST && !scene) await askContent();
-    if (PREVIEW[scene]) return preview(scene);
-    G.giveItem('notebook', true);
-    F().ch = 1; F().clock = '11:00';
+  // The opening: the fog over Lisbon, Maria Coutinho's last night in paintings (the old staged
+  // room only if the paintings are missing), the city waking to it, the chapter card, the shop.
+  async function opening() {
     await G.busy(async () => {
-      if (S.coldOpen) await S.coldOpen(); // Madragoa, 04:01: Maria Coutinho
+      await G.fade(true);
+      if (window.Sound) Sound.ambience('street_night');
+      await S.paint('still_intro', () => say('narr_intro_1'), { zoom: [1.0, 1.16], pan: [[0.4, 0.55], [0.6, 0.5]] });
+      const painted = S.mariaPaintings && await S.mariaPaintings();
+      if (!painted && S.coldOpen) await S.coldOpen(); // fallback: Madragoa, 04:01, staged in a room
+      if (S.introCity && G.image('still:still_newspaper')) await S.introCity();
+      else await S.paint('still_intro', () => say('narr_intro_2'), { zoom: [1.08, 1.16], pan: [[0.55, 0.5], [0.6, 0.5]] });
+      await G.fade(true);
       await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);
-      await G.fade(false);
     });
-    await G.showStill('still_intro', () => say('narr_intro_1', 'narr_intro_2'), { zoom: [1.0, 1.16], pan: [[0.4, 0.55], [0.6, 0.5]], keep: true });
     await G.goRoom('shop', null, { noEnter: true, instant: true, pos: [815, 616, 'e'] }); // forearms resting on the counter top
     G.player.pose = 'asleep';
     G.endStill();
+    await G.fade(false);
     await G.busy(async () => {
       await G.wait(900);
       await say('narr_intro_3', 'ines_wake');
@@ -146,6 +153,14 @@
       await S.joke('alan_intro_4');
       await say('ines_intro_4');
     });
+  }
+  async function newGame() {
+    const scene = new URLSearchParams(location.search).get('scene');
+    if (!S.content() && !window.FAST && !scene) await askContent();
+    if (PREVIEW[scene]) return preview(scene);
+    G.giveItem('notebook', true);
+    F().ch = 1; F().clock = '11:00';
+    await opening();
     G.autosave();
   }
 
