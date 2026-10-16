@@ -20,7 +20,7 @@
   let selItem = null;
   let busy = 0, mouse = { x: -1, y: -1 }, hoverTarget = null, cutscene = 0;
   let skipFn = null, dialogResolve = null;
-  let time = 0, last = performance.now();
+  let time = 0, last = performance.now(), last0 = performance.now(), slowT = 0;
 
   function freshState() { return { room: 'shop', inv: [], flags: {}, px: 300, py: 600, dir: 'w' }; }
 
@@ -55,7 +55,7 @@
   // cycle advances by the distance actually covered, and every pose change is
   // cross-dissolved.
   const arr = v => v == null ? [] : Array.isArray(v) ? v : [v];
-  const XFADE = 0.2, GROUND_K = 2.2;
+  const XFADE = 0.2, MORPH_T = 0.34, GROUND_K = 2.2;
 
   class Actor {
     constructor(id, ch, x, y, dir) {
@@ -185,7 +185,50 @@
       if (!sp || !im) return null;
       const s = this.height() / sp.h;
       const ax = flipped ? sp.w - sp.ax : sp.ax;
-      return { sp, im, flipped, x: -ax * s, y: -sp.fy * s, w: sp.w * s, h: sp.hh * s };
+      return { key, sp, im, flipped, s, x: -ax * s, y: -sp.fy * s, w: sp.w * s, h: sp.hh * s };
+    }
+    // The living part of the figure, as a displacement of the painted frame (buffer px, feet at fx,fy):
+    // breath in the chest, a slow sway from the feet (from the seat when sitting), the head tilting
+    // on the neck, nods with the voice, a bob in the step; performers move with the music.
+    motion(h, fx, fy, sp, b) {
+      const t = (window.ANIM_T != null ? window.ANIM_T : time) + (this.seed || (this.seed = Math.random() * 100));
+      const c = this.c.anim || {}, d = (this.def && this.def.anim) || {};
+      const k = (n, def) => (d[n] != null ? d[n] : c[n] != null ? c[n] : def);
+      const s = h / sp.h, F = Math.max(1, (sp.fy - sp.top) * s);
+      const wide = sp.w / Math.max(1, sp.fy - sp.top) > 0.78 || k('rig', '') === 'flat'; // groups, pairs, lying figures
+      const perf = Math.min(1.5, (this.perform || 0) * (1 + 0.6 * (this.perform && window.Sound && Sound.songLevel ? Sound.songLevel() : 0)));
+      const lvl = this.talking ? (this.lvl || 0) : 0;
+      const TAU = Math.PI * 2;
+      // sway: a bend whose root is the feet (or the seat); amplitude as a fraction of height
+      const sway = this.walking ? 0 : k('sway', 1) * (0.0045 + perf * 0.013) * (Math.sin(t * TAU * (0.13 + perf * 0.2)) + 0.35 * Math.sin(t * TAU * 0.071 + 1.3));
+      const root = k('seated', SEATED.has(this.ch)) ? 0.42 : 0.1;
+      // head: a slow tilt, a nod with each phrase spoken, more when performing
+      const tilt = wide ? 0 : k('nod', 1) * ((0.02 + perf * 0.055) * Math.sin(t * TAU * (0.09 + perf * 0.22) + 2.1) + lvl * 0.04 * Math.sin(t * 8.3)) + (this.walking ? 0.012 * Math.sin(this.phase * Math.PI) : 0);
+      const bob = wide ? 0 : (lvl * 0.007 + perf * 0.006 * (0.5 + 0.5 * Math.sin(t * TAU * 1.05))) * F;
+      // walking: the body rises over the passing foot and settles on the stride
+      const step = this.walking ? -0.007 * F * Math.pow(Math.sin(this.phase * Math.PI), 2) : 0;
+      const neck = 0.855, ca = Math.cos(tilt), sa = Math.sin(tilt);
+      const sm = (a, z, v) => { const q = Math.max(0, Math.min(1, (v - a) / (z - a))); return q * q * (3 - 2 * q); };
+      const px0 = fx, py0 = fy - neck * F;
+      const swayAt = v => { const q = sm(root, 1, v); return sway * h * q * q; };
+      const pxN = px0 + swayAt(neck);
+      return (x, y) => {
+        const v = (fy - y) / F;
+        let nx = x, ny = y;
+        // breath: the chest widens and lifts above the hips
+        const wb = sm(0.4, 0.58, v);
+        nx = fx + (x - fx) * (1 + b * 0.45 * wb); ny = y - (v - 0.4) * F * b * wb;
+        // sway, step bob
+        nx += swayAt(v); ny += step * sm(0.05, 0.45, v);
+        // the head turns on the neck (and dips with a nod)
+        const wh = sm(neck - 0.06, neck + 0.02, v);
+        if (wh > 0 && tilt) {
+          const rx = nx - pxN, ry = ny - py0, a = wh;
+          nx = pxN + rx * (1 - a + a * ca) - ry * a * sa; ny = py0 + rx * a * sa + ry * (1 - a + a * ca);
+        }
+        ny += bob * wh;
+        return [nx, ny];
+      };
     }
     draw() {
       if (!this.visible) return;
@@ -201,7 +244,9 @@
         const inCycle = this.walking && this.cycle().includes(key) && this.cycle().includes(this.cur);
         this.prev = this.cur && !inCycle && !turned ? this.cur : null;
         this.prevFlip = flipped;
-        this.fadeT = this.prev ? XFADE : 0;
+        const M = window.MORPHS, morph = this.prev && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
+        this.fadeDur = morph ? MORPH_T : XFADE;
+        this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
       }
       if (turned) { this.prev = null; this.fadeT = 0; }
@@ -213,7 +258,7 @@
       const U = { x: Math.min(A.x, B ? B.x : A.x), y: Math.min(A.y, B ? B.y : A.y) };
       U.r = Math.max(A.x + A.w, B ? B.x + B.w : -1e9); U.b = Math.max(A.y + A.h, B ? B.y + B.h : -1e9);
       const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
-      const comp = composeFrames(A, B, B ? this.fadeT / XFADE : 0, U, bw, bh);
+      const comp = composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh);
       const sinkPx = this.sink * h;
       const lights = lightsOn(this.x, this.y - h * 0.55, h, this);
       if (!sinkPx) groundShadows(this, comp, U, bw, bh, h, lights);
@@ -226,11 +271,15 @@
       const X0 = this.x + U.x, Y0 = this.y + U.y + sinkPx;
       g.save();
       if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
-      // lower body: untouched
-      g.drawImage(lit, 0, hipBy, bw, bh - hipBy, X0, Y0 + hipBy, bw, bh - hipBy);
-      // upper body: scaled about the hip line and the body axis
-      const hipY = Y0 + hipBy;
-      g.drawImage(lit, 0, 0, bw, hipBy + 1, this.x + U.x * sx, hipY - hipBy * sy, bw * sx, (hipBy + 1) * sy);
+      // the painting is drawn through a mesh that bends with the figure: breath, sway, head, steps
+      const warped = !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, SPRITES[key], b), h * 0.1);
+      if (!warped) {
+        // lower body: untouched
+        g.drawImage(lit, 0, hipBy, bw, bh - hipBy, X0, Y0 + hipBy, bw, bh - hipBy);
+        // upper body: scaled about the hip line and the body axis
+        const hipY = Y0 + hipBy;
+        g.drawImage(lit, 0, 0, bw, hipBy + 1, this.x + U.x * sx, hipY - hipBy * sy, bw * sx, (hipBy + 1) * sy);
+      }
       g.restore();
     }
   }
@@ -251,8 +300,31 @@
     else ctx.drawImage(P.im, x, y, P.w, P.h);
     ctx.restore();
   }
+  // A pose change with a known correspondence (js/morphs.js) slides each painting along it:
+  // the new frame starts in the old one's shape and settles into its own while the old one
+  // flows towards the new and fades out on top.
+  const MCOLS = 10, MROWS = 26;
+  // painted sitting down: they sway from the seat, not the feet
+  const SEATED = new Set(['npc_bench', 'npc_cards', 'npc_couple', 'npc_fish', 'npc_guard', 'npc_guitar', 'npc_mender1', 'npc_mender2', 'npc_washer1']);
+  function morphBlit(ctx, P, U, F, amt, alpha) {
+    const ox = P.x - U.x, oy = P.y - U.y, sw = P.sp.w, sh = P.sp.hh, s = P.s, fl = P.flipped;
+    ctx.save(); ctx.globalAlpha = alpha;
+    const ok = Warp.draw(ctx, P.im, sw, sh, ox, oy, (x, y) => {
+      const i = Math.round(x / sw * MCOLS), j = Math.round(y / sh * MROWS), q = (j * (MCOLS + 1) + i) * 2;
+      const dx = F[q] * amt, dy = F[q + 1] * amt;
+      return [fl ? (sw - x - dx) * s : (x + dx) * s, (y + dy) * s];
+    }, Math.max(P.w, P.h) * 0.25);
+    ctx.restore();
+    return ok;
+  }
   function composeFrames(A, B, kB, U, w, h) {
     fit(compBuf, cg, w, h);
+    const M = window.MORPHS, fAB = B && M && M[A.key + '>' + B.key], fBA = B && M && M[B.key + '>' + A.key];
+    if (B && kB > 0 && fAB && fBA && window.Warp && window.WARP !== false && !window.FAST) {
+      const e = kB * kB * (3 - 2 * kB); // 1 -> 0 as the change completes
+      if (morphBlit(cg, A, U, fAB, e, 1) && morphBlit(cg, B, U, fBA, 1 - e, e)) return compBuf;
+      fit(compBuf, cg, w, h);
+    }
     if (B && kB > 0) {
       // the new frame is always fully opaque; the old one fades out over it, so the
       // figure never turns see-through (no pale flash between poses)
@@ -561,6 +633,11 @@
   function frame(now) {
     requestAnimationFrame(frame); // queued first: a throwing hook skips one frame, never the loop
     const dt = Math.min(0.05, (now - last) / 1000); last = now; time += dt;
+    // a device that can't keep up with the mesh warp falls back to flat frames
+    if (window.WARP == null && !window.FAST) { // (WARP = true forces it on, false off)
+      slowT = (now - last0 > 45) ? slowT + 1 : Math.max(0, slowT - 2); last0 = now;
+      if (slowT > 120) { window.WARP = false; slowT = 0; console.info('Warp off: frames too slow on this device'); }
+    }
     try { drawFrame(dt); } catch (e) { if (frameErr++ < 5) console.error('frame', e); }
   }
   function drawFrame(dt) {

@@ -388,8 +388,8 @@
     ],
     ambient: [
       { id: 'npc_lino', name: 'Senhor Lino', frames: ['npc_lino', 'npc_lino_b'], talkFrames: ['npc_lino_talk', 'npc_lino_b'], talk: () => S.talkLino(), items: { coins: () => S.buyGinja() }, x: 1160, y: 520, h: 360, dir: 'w', look: 'alan_npc_lino', when: () => F().ch < 5, idleHold: [2.5, 5], variantHold: [1.6, 3] },
-      { id: 'npc_cards', name: 'Sueca players', frames: ['npc_cards', 'npc_cards_b'], talkFrames: ['npc_cards_b', 'npc_cards'], talk: S.chat('chat_cards', ['cards_talk_1', 'alan_cards_1'], ['cards_talk_2']), x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch < 5, variantHold: [0.9, 1.5] },
-      { id: 'npc_guitar', name: 'Duarte', frames: ['npc_guitar', 'npc_guitar_b'], talkFrames: ['npc_guitar_talk1', 'npc_guitar_talk2', 'npc_guitar_talk3'], x: 676, y: 606, h: 326, at: [812, 648], face: 'w', look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 && !F().duarte_scene }, // gone for good once he has visited Alan
+      { id: 'npc_cards', name: 'Sueca players', anim: { seated: true }, frames: ['npc_cards', 'npc_cards_b'], talkFrames: ['npc_cards_b', 'npc_cards'], talk: S.chat('chat_cards', ['cards_talk_1', 'alan_cards_1'], ['cards_talk_2']), x: 355, y: 610, h: 292, look: 'alan_npc_cards', when: () => F().ch < 5, variantHold: [0.9, 1.5] },
+      { id: 'npc_guitar', name: 'Duarte', anim: { seated: true }, frames: ['npc_guitar', 'npc_guitar_b'], talkFrames: ['npc_guitar_talk1', 'npc_guitar_talk2', 'npc_guitar_talk3'], x: 676, y: 606, h: 326, at: [812, 648], face: 'w', look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 && !F().duarte_scene }, // gone for good once he has visited Alan
       { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => false }, // retired: Alan and Duarte need the room
     ],
     occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => { if (!F().matchesTaken) S.drawMatches(g, 912, 380); if (S.glassOnBar()) S.drawGlass(g, 1086, 392); } }], // the bar, in front of Lino (Amália's glass sits on it)

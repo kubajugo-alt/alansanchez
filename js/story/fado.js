@@ -62,8 +62,10 @@
       lino.pose = 'lino_bass1'; lino.h = 392; await T(400);
     }
     if (p && (has('alan_rapt1') || has('alan_enchanted1'))) { if (am) p.dir = am.x >= p.x ? 'e' : 'w'; p.pose = has('alan_rapt1') ? 'rapt1' : 'enchanted1'; }
-    // 2. the song: everyone moves with the recording
+    // 2. the song: everyone moves with the recording (the mesh warp sways them with its loudness)
     const song = songOrNull;
+    const performers = [[am, 1], [gui, 1], [lino, 0.9], [cards, 0.5], [p, 0.35]].filter(([a]) => a);
+    performers.forEach(([a, v]) => { a.perform = v; });
     const now = () => song && song.el ? song.el.currentTime : (performance.now() - t0) / 1000;
     const t0 = performance.now();
     let beat = 0;
@@ -109,6 +111,7 @@
       else await S.say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3');
     } finally {
       clearInterval(tick);
+      performers.forEach(([a]) => { a.perform = 0; });
       if (am) am.pose = null; if (gui) gui.pose = null; if (cards) cards.pose = null;
       if (p) p.pose = null;
     }
