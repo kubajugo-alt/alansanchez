@@ -56,7 +56,7 @@
     ambient: [
       { id: 'npc_mender1', name: 'Fisherman mending nets', frames: ['npc_mender1', 'npc_mender1_b'], talkFrames: ['npc_mender1_talk', 'npc_mender1'], talk: () => F().ze_saved ? say('mender1_after') : S.chat('chat_mender1', ['mender1_talk_1'], ['mender1_talk_2'])(), x: 630, y: 712, h: 290, look: 'alan_npc_menders' },
       { id: 'npc_mender2', name: 'Fisherman mending nets', frames: ['npc_mender2', 'npc_mender2_b'], idleHold: [5, 11], variantHold: [2, 4], talkFrames: ['npc_mender2_talk', 'npc_mender2'], talk: () => F().ze_saved ? say('mender2_after') : S.chat('chat_mender2', ['mender2_talk_1', 'alan_mender2_1'], ['mender2_talk_2'])(), x: 835, y: 714, h: 292, look: 'alan_npc_menders' },
-      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], talkFrames: ['npc_fish_b', 'npc_fish'], talk: () => F().ze_saved ? say('fish_after', 'alan_after_fish') : S.fishTalk(), x: 485, y: 592, h: 282, look: 'alan_npc_fish' },
+      { id: 'npc_fish', name: 'Fishwife', frames: ['npc_fish', 'npc_fish_b'], talkFrames: ['npc_fish_b', 'npc_fish'], talk: () => F().ze_saved ? say('fish_after', 'alan_after_fish') : S.fishTalk(), x: 485, y: 592, h: 282, at: [540, 648], face: 'w', look: 'alan_npc_fish' }, // at the right end of her stall: the walkway drops away beyond it
     ],
     hotspots: [
       { name: 'Harbour clock', rect: [224, 30, 96, 525], look: 'narr_look_harbourclock' },
@@ -202,9 +202,11 @@
     await joke('alan_untied');
     await G.wait(window.FAST ? 20 : 400); sfx('hatch_slam');
     F().ze_awake = true; G.refreshNpcs();
-    const ze = G.npc('ze'); ze.pose = 'burst'; p.dir = 'e';
+    // he bursts out of the hatch itself, then goes to stand under his bell
+    const ze = G.npc('ze'); ze.x = 640; ze.y = 612; ze.dir = 'w'; ze.pose = 'burst'; p.dir = 'e';
     await say('ze_ten'); ze.pose = null;
     await say('ze_who', 'alan_tide_sense');
+    ze.walkTo(900, 618).then(() => { ze.dir = 'w'; });
   };
   S.talkZe = async function () {
     await G.dialog([
@@ -258,7 +260,7 @@
       }
     },
     npcs: [
-      { id: 'ze', x: 740, y: 640, dir: 'e', name: 'Zé Coutinho', look: 'narr_look_ze', talk: () => F().ze_saved ? say('ze_river', 'ze_river_2') : say('ze_justdo'),
+      { id: 'ze', x: 740, y: 640, dir: 'w', name: 'Zé Coutinho', look: 'narr_look_ze', talk: () => F().ze_saved ? say('ze_river', 'ze_river_2') : say('ze_justdo'),
         items: { any: 'alan_fail_ze_item' } },
     ],
     hotspots: [

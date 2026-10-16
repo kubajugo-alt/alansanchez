@@ -28,7 +28,7 @@
         items: { file55: () => say('alan_ask_tomas_1955', 'tomas_notyet'), ledger: () => say('tomas_stone'), brotherhood_charter: () => S.tomasCharter(), any: 'alan_fail_07' } },
     ],
     ambient: [
-      { id: 'npc_nun', name: 'A nun', frames: ['npc_nun', 'npc_nun_b'], talkFrames: ['npc_nun_talk', 'npc_nun'], talk: S.chat('chat_nun', ['nun_talk_1', 'alan_nun_1'], ['nun_talk_2']), x: 1112, y: 548, h: 214, look: 'alan_npc_nun', idleHold: [7, 14], variantHold: [4, 7] },
+      { id: 'npc_nun', name: 'A nun', frames: ['npc_nun', 'npc_nun_b'], talkFrames: ['npc_nun_talk', 'npc_nun'], talk: S.chat('chat_nun', ['nun_talk_1', 'alan_nun_1'], ['nun_talk_2']), x: 1112, y: 548, h: 214, dir: 'w', look: 'alan_npc_nun', idleHold: [7, 14], variantHold: [4, 7] },
     ],
     hotspots: [
       { name: 'Ruined arches', rect: [320, 0, 330, 500], look: 'narr_look_arches' },
@@ -208,24 +208,27 @@
     sfx('hearing_aid', 0.5); await say(a, b);
   };
   S.writeAbilio = async function () {
-    const ab = G.npc('abilio');
+    const ab = G.npc('abilio'), p = G.player;
     if (!F().abilio_writing) { F().abilio_writing = true; await joke('alan_write_abilio'); }
     if (S.gossip) await S.gossip('abilio');
-    await G.dialog([
+    // Alan writes each question (the notebook out the whole time), holds it out, and Abílio reads it
+    const read = async ms => { p.pose = 'reach'; ab.pose = 'read'; await G.wait(window.FAST ? 20 : ms); ab.pose = null; p.pose = 'write'; };
+    p.pose = 'write';
+    try { await G.dialog([
       { line: 'alan_w_blood', once: true, when: () => !F().heard_blood, run: async () => {
-        ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null;
+        await read(700);
         await say('abilio_blood', 'abilio_drowned'); S.lore && S.lore('blood');
         await say('abilio_order'); // abilio_tongue is an optional follow-up now
         F().heard_blood = true;
         if (BELLS.every(x => F()['bell_' + x.id])) await S.orderKnown();
       } },
-      { label: 'Write: "And the tongue?"', once: true, when: () => F().heard_blood, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_tongue'); } },
-      { line: 'alan_w_joaquim', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); } },
-      { line: 'alan_w_1955', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_1955'); } },
-      { line: 'alan_w_backward', once: true, run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 700); ab.pose = null; await say('abilio_backward'); } },
-      { line: 'alan_w_order', run: async () => { ab.pose = 'read'; await G.wait(window.FAST ? 20 : 600); ab.pose = 'point'; await say('abilio_eyes'); ab.pose = null; } },
-      { label: 'Goodbye.', bye: true, run: () => say('abilio_bye') },
-    ]);
+      { label: 'Write: "And the tongue?"', once: true, when: () => F().heard_blood, run: async () => { await read(700); await say('abilio_tongue'); } },
+      { line: 'alan_w_joaquim', once: true, run: async () => { await read(700); await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); } },
+      { line: 'alan_w_1955', once: true, run: async () => { await read(700); await say('abilio_1955'); } },
+      { line: 'alan_w_backward', once: true, run: async () => { await read(700); await say('abilio_backward'); } },
+      { line: 'alan_w_order', run: async () => { await read(600); ab.pose = 'point'; await say('abilio_eyes'); ab.pose = null; } },
+      { label: 'Goodbye.', bye: true, run: async () => { p.pose = null; await say('abilio_bye'); } },
+    ]); } finally { p.pose = null; }
   };
 
   // ================================================================ ANTIGUIDADES LACERDA
@@ -330,7 +333,7 @@
     if (F().grabbed && !F().swapped) {
       await say('lacerda_putback');
       G.takeItem('tongue'); F().grabbed = false; F().has_tongue = false; F().case_open = false;
-      await lac.walkTo(470, 565); await lac.walkTo(250, 545); lac.h = 385; lac.dir = 'e';
+      await lac.walkTo(470, 565); await lac.walkTo(250, 545); lac.h = 348; lac.dir = 'e'; // back behind the counter, the size he stands there at
       return;
     }
     await say('lacerda_back_box');
@@ -347,7 +350,7 @@
     } else {
       F().case_open = false;
       await say('lacerda_another');
-      await lac.walkTo(470, 565); await lac.walkTo(250, 545); lac.h = 385; lac.dir = 'e';
+      await lac.walkTo(470, 565); await lac.walkTo(250, 545); lac.h = 348; lac.dir = 'e'; // back behind the counter, the size he stands there at
     }
   };
 

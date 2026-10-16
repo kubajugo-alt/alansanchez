@@ -56,6 +56,23 @@
   // cross-dissolved.
   const arr = v => v == null ? [] : Array.isArray(v) ? v : [v];
   const XFADE = 0.2, MORPH_T = 0.34, GROUND_K = 2.2;
+  // Movement feel (all tunable; 0 switches a feature off). Lengths are in walker heights.
+  const WALK_EASE_IN = 0.24;    // s from a standstill to full pace (the first steps are shorter and slower)
+  const WALK_START_PACE = 0.3;  // pace of the very first step, as a fraction of full pace
+  const WALK_EASE_OUT = 0.2;    // ground over which a walker slows into the last step
+  const WALK_END_PACE = 0.45;   // pace of the last step
+  const CORNER_R = 0.32;        // radius of a rounded corner on a routed path (arcs instead of pivots)
+  const LEAN_START = 0.03;      // the body tips into a walk as it starts (head displacement / height)
+  const LEAN_WALK = 0.009;      // forward lean kept while walking
+  const LEAN_SETTLE = 0.6;      // the backward rock as a walker plants and stops (spring kick)
+  const LEAN_TURN = 0.18;       // a standing figure shifts its weight toward the side it turns to
+  const LISTEN_TILT = 0.045;    // listeners incline their heads toward whoever is speaking (radians)
+  const LISTEN_NOD = 0.075;     // a listener's small nod as a phrase ends (radians)
+  const LISTEN_NOD_P = 0.45;    // chance that a given listener nods at a given phrase end
+  const LISTEN_RANGE = 900;     // only people within this many px of the speaker listen
+  const IDLE_RATE_JITTER = 0.22; // each figure breathes and sways at its own tempo (+/- this fraction)
+  const CALM_RATE = 2.2;        // how quickly breath and sway return after a walk (1/s)
+  let phraseEndT = -1;          // when the current speaker last came to the end of a phrase
 
   class Actor {
     constructor(id, ch, x, y, dir) {
@@ -66,6 +83,8 @@
       this.pose = null; this.loop = null; this.set = null; this.engaged = 0; this.resumeT = 0;
       this.cur = null; this.prev = null; this.fadeT = 0; this.lastFlip = false;
       this.breath = Math.random() * 10; this.sink = 0; this.turnT = 0; this.stepIdx = -1;
+      this.rate = 1 + (Math.random() * 2 - 1) * IDLE_RATE_JITTER; // no two figures breathe in step
+      this.leanX = 0; this.leanV = 0; this.calm = 1; this.walkT = 0; this.pace = 1; this.listen = 0; this.heardT = phraseEndT; this.nodAt = -9;
     }
     get c() { return CHARS[this.ch]; }
     get F() {
@@ -77,7 +96,8 @@
         if (this.resolve) this.resolve();
         if (Math.hypot(x - this.x, y - this.y) < 2) { res(); return; }
         // Alan goes round the furniture cut out of the floor, not through it
-        const [first, ...rest] = this === player && room && room.walk ? route([this.x, this.y], [x, y], room.walk) : [[x, y]];
+        const [first, ...rest] = this === player && room && room.walk ? roundCorners([this.x, this.y], route([this.x, this.y], [x, y], room.walk), room.walk, this.height()) : [[x, y]];
+        if (!this.walking) this.walkT = 0; // a fresh start eases in; a change of mind mid-stride keeps the pace
         this.target = { x: first[0], y: first[1] }; this.path = rest; this.resolve = res; this.walking = true;
       });
     }
@@ -91,17 +111,33 @@
       const F = this.F;
       if (this.fadeT > 0) this.fadeT = Math.max(0, this.fadeT - dt);
       if (this.resumeT > 0) this.resumeT -= dt;
-      this.breath += dt;
+      this.breath += dt * this.rate;
+      this.calm += ((this.walking ? 0 : 1) - this.calm) * Math.min(1, dt * CALM_RATE);
+      const easy = !window.FAST;
       if (this.target) {
-        const dx = this.target.x - this.x, dy = this.target.y - this.y;
-        const gd = Math.hypot(dx, dy * GROUND_K); // distance on the ground plane
         const hh = this.height();
-        const step = hh * 0.62 * dt * (this.c.speed || 1);
-        if (!(F.frontWalk && F.backWalk) || Math.abs(dx) > Math.abs(dy * GROUND_K) * 0.75) this.dir = dx > 0 ? 'e' : 'w';
-        else this.dir = dy > 0 ? 's' : 'n';
-        const moved = Math.min(gd, step);
-        if (gd > 0) { this.x += dx / gd * moved; this.y += dy / gd * moved; }
-        if (gd <= step) { this.x = this.target.x; this.y = this.target.y; }
+        // pace: the first steps are shorter and slower, and the walker slows into the last one
+        this.walkT += dt;
+        let rem = Math.hypot(this.target.x - this.x, (this.target.y - this.y) * GROUND_K), q0 = [this.target.x, this.target.y];
+        for (const q of (this.path || [])) { rem += Math.hypot(q[0] - q0[0], (q[1] - q0[1]) * GROUND_K); q0 = q; }
+        const sm = v => { v = Math.max(0, Math.min(1, v)); return v * v * (3 - 2 * v); };
+        const pIn = easy && WALK_EASE_IN > 0 ? WALK_START_PACE + (1 - WALK_START_PACE) * sm(this.walkT / WALK_EASE_IN) : 1;
+        const pOut = easy && WALK_EASE_OUT > 0 ? WALK_END_PACE + (1 - WALK_END_PACE) * sm(rem / (hh * WALK_EASE_OUT)) : 1;
+        this.pace = Math.min(pIn, pOut);
+        let budget = hh * 0.62 * dt * (this.c.speed || 1) * this.pace, moved = 0, arrived = false;
+        // the step carries on round a path point instead of stalling on it (arcs are many short legs)
+        for (let guard = 0; guard < 24 && budget > 1e-6; guard++) {
+          const dx = this.target.x - this.x, dy = this.target.y - this.y;
+          const gd = Math.hypot(dx, dy * GROUND_K); // distance on the ground plane
+          if (gd > 0.5) {
+            if (!(F.frontWalk && F.backWalk) || Math.abs(dx) > Math.abs(dy * GROUND_K) * 0.75) this.dir = dx > 0 ? 'e' : 'w';
+            else this.dir = dy > 0 ? 's' : 'n';
+          }
+          if (gd <= budget) {
+            this.x = this.target.x; this.y = this.target.y; budget -= gd; moved += gd;
+            if (this.path && this.path.length) { const [nx, ny] = this.path.shift(); this.target = { x: nx, y: ny }; } else { arrived = true; break; }
+          } else { this.x += dx / gd * budget; this.y += dy / gd * budget; moved += budget; budget = 0; }
+        }
         // the cycle advances by ground covered, so planted feet never slide
         const cyc = this.cycle();
         this.phase += moved / (hh * (this.c.frameStep || (cyc.length >= 8 ? 0.085 : 0.17))); // frameStep: ground per frame (a 4-frame stride + passing cycle uses half)
@@ -111,13 +147,29 @@
           const contact = cyc.length >= 8 ? idx % 4 === 0 : idx % 2 === 0;
           if (contact && this.visible && this.x > -40 && this.x < 1320) Sound.step((room && room.floor) || 'stone', this === player ? 1 : 0.35 + 0.4 * Math.max(0, Math.min(1, (this.y - 520) / 200)), this.x);
         }
-        if (gd <= step) { if (this.path && this.path.length) { const [nx, ny] = this.path.shift(); this.target = { x: nx, y: ny }; } else this.stop(); }
+        if (arrived) this.stop();
       }
+      // lean: a damped spring. The body tips into the first steps, keeps a little lean while
+      // walking, rocks back a touch as it plants and stops, and shifts its weight as it turns.
+      if (easy) {
+        const sgn = this.dir === 'e' ? 1 : this.dir === 'w' ? -1 : 0;
+        const want = this.walking ? sgn * (LEAN_WALK + (LEAN_START - LEAN_WALK) * Math.max(0, 1 - this.walkT / Math.max(0.05, WALK_EASE_IN * 1.4))) : 0;
+        this.leanV += ((want - this.leanX) * 160 - this.leanV * 16) * Math.min(dt, 0.05);
+        this.leanX += this.leanV * Math.min(dt, 0.05);
+        if (Math.abs(this.leanX) > 0.05) this.leanX = Math.sign(this.leanX) * 0.05;
+      } else { this.leanX = 0; this.leanV = 0; }
+      // listening: the head inclines toward whoever is speaking; now and then a nod as a phrase ends
+      const spk = speaking && speaking.actor;
+      let lt = 0;
+      if (spk && spk !== this && spk.visible && this.visible && !this.talking && !this.walking && Math.abs(spk.x - this.x) < LISTEN_RANGE) lt = spk.x > this.x ? 1 : spk.x < this.x ? -1 : 0;
+      this.listen += (lt - this.listen) * Math.min(1, dt * 3.5);
+      if (phraseEndT > this.heardT) { this.heardT = phraseEndT; if (lt && Math.random() < LISTEN_NOD_P) this.nodAt = time + 0.12 + Math.random() * 0.35; }
       if (this.talking) {
         this.talkT -= dt;
         const lvl = speaking && speaking.actor === this ? Sound.voiceLevel() : 0.5;
         this.lvl = (this.lvl || 0) + (lvl - (this.lvl || 0)) * Math.min(1, dt * 12);
         this.quietT = lvl < 0.06 ? this.quietT + dt : 0;
+        if (speaking && speaking.actor === this) { if (lvl >= 0.06) this.voiced = true; else if (this.voiced && this.quietT > 0.28) { this.voiced = false; phraseEndT = time; } }
         const n = arr(F.talk).length;
         if (this.quietT > 0.45 && this.talkIdx >= 0 && this.talkT < 0.5) { this.talkIdx = -1; this.talkT = 0.3; }
         else if (this.talkT <= 0) {
@@ -149,7 +201,10 @@
       }
     }
     loopActive() { const F = this.F; return !!(this.loop && F.loops && F.loops[this.loop] && !this.engaged && this.resumeT <= 0 && !this.talking); }
-    stop() { this.target = null; this.path = null; this.walking = false; this.phase = 0; this.stepIdx = -1; const r = this.resolve; this.resolve = null; if (r) r(); }
+    stop() {
+      if (this.walking && !window.FAST) this.leanV -= (this.dir === 'e' ? 1 : this.dir === 'w' ? -1 : 0) * LEAN_SETTLE; // planted: the body rocks back a touch
+      this.target = null; this.path = null; this.walking = false; this.phase = 0; this.stepIdx = -1; this.walkT = 0; const r = this.resolve; this.resolve = null; if (r) r();
+    }
     height() { return (this.h || scaleAt(this.y)) * (this.c.scale || 1); }
     // frames not painted yet fall back to the character's idle (then talk) frame
     frameKey() {
@@ -195,7 +250,7 @@
     // breath in the chest, a slow sway from the feet (from the seat when sitting), the head tilting
     // on the neck, nods with the voice, a bob in the step; performers move with the music.
     motion(h, fx, fy, sp, b, key) {
-      const t = (window.ANIM_T != null ? window.ANIM_T : time) + (this.seed || (this.seed = Math.random() * 100));
+      const t = (window.ANIM_T != null ? window.ANIM_T : time) * this.rate + (this.seed || (this.seed = Math.random() * 100));
       const c = this.c.anim || {}, d = (this.def && this.def.anim) || {};
       const k = (n, def) => (d[n] != null ? d[n] : c[n] != null ? c[n] : def);
       const s = h / sp.h, F = Math.max(1, (sp.fy - sp.top) * s);
@@ -204,18 +259,26 @@
       const lvl = this.talking ? (this.lvl || 0) : 0;
       const TAU = Math.PI * 2;
       // sway: a bend whose root is the feet (or the seat); amplitude as a fraction of height
-      const sway = this.walking ? 0 : k('sway', 1) * (0.0045 + perf * 0.013) * (Math.sin(t * TAU * (0.13 + perf * 0.2)) + 0.35 * Math.sin(t * TAU * 0.071 + 1.3));
+      const sway = this.calm * k('sway', 1) * (0.0045 + perf * 0.013) * (Math.sin(t * TAU * (0.13 + perf * 0.2)) + 0.35 * Math.sin(t * TAU * 0.071 + 1.3));
       // seated / kneeling frames sway from the seat or the knees (char-wide via SEATED, per frame via c.seatedFrames)
       const root = k('seated', SEATED.has(this.ch) || !!(key && this.c.seatedFrames && this.c.seatedFrames.test(key))) ? 0.42 : 0.1;
       // head: a slow tilt, a nod with each phrase spoken, more when performing
-      const tilt = wide ? 0 : k('nod', 1) * ((0.02 + perf * 0.055) * Math.sin(t * TAU * (0.09 + perf * 0.22) + 2.1) + lvl * 0.04 * Math.sin(t * 8.3)) + (this.walking ? 0.012 * Math.sin(this.phase * Math.PI) : 0);
-      const bob = wide ? 0 : (lvl * 0.007 + perf * 0.006 * (0.5 + 0.5 * Math.sin(t * TAU * 1.05))) * F;
+      // listening: which way the painting faces (side views only), the incline toward the speaker
+      // (stronger when the speaker is in front of them), and the nod's envelope
+      const fs = (sp.facesLeft ? -1 : 1) * (this.lastFlip ? -1 : 1), side = !(this.F.front && arr(this.F.front).includes(key)) && !(this.F.back && arr(this.F.back).includes(key));
+      const ahead = this.listen * fs > 0 ? 1 : 0.45;
+      const nu = (time - this.nodAt) / 0.5, nod = nu > 0 && nu < 1 ? Math.pow(Math.sin(nu * Math.PI), 2) : 0;
+      const hear = wide ? 0 : (side ? this.listen * ahead * LISTEN_TILT + fs * nod * LISTEN_NOD : 0);
+      const tilt = wide ? 0 : k('nod', 1) * ((0.02 + perf * 0.055) * Math.sin(t * TAU * (0.09 + perf * 0.22) + 2.1) + lvl * 0.04 * Math.sin(t * 8.3)) + (this.walking ? 0.012 * Math.sin(this.phase * Math.PI) : 0) + hear;
+      const bob = wide ? 0 : (lvl * 0.007 + perf * 0.006 * (0.5 + 0.5 * Math.sin(t * TAU * 1.05)) + nod * 0.008) * F;
       // walking: the body rises over the passing foot and settles on the stride
       const step = this.walking ? -0.007 * F * Math.pow(Math.sin(this.phase * Math.PI), 2) : 0;
       const neck = 0.855, ca = Math.cos(tilt), sa = Math.sin(tilt);
       const sm = (a, z, v) => { const q = Math.max(0, Math.min(1, (v - a) / (z - a))); return q * q * (3 - 2 * q); };
       const px0 = fx, py0 = fy - neck * F;
-      const swayAt = v => { const q = sm(root, 1, v); return sway * h * q * q; };
+      // lean (into a walk, back on stopping, into a turn) bends from the feet like the sway
+      const lean = wide ? this.leanX * 0.4 : this.leanX;
+      const swayAt = v => { const q = sm(root, 1, v); return (sway + lean) * h * q * q; };
       const pxN = px0 + swayAt(neck);
       // turning round: the figure narrows through the turn and opens out facing the new way
       const tp = this.turnT0 != null ? (time - this.turnT0) / 0.22 : 1;
@@ -254,6 +317,7 @@
       const F = this.F, fk = F.front && arr(F.front)[0], frontOK = fk && SPRITES[fk] && IMG['spr:' + fk];
       // a real turn is a change of facing, not two paintings that happen to face different ways
       const ew = this.dir === 'e' || this.dir === 'w', faceTurn = ew && this.lastEW && this.dir !== this.lastEW && !ambientHold;
+      if (faceTurn && !this.walking && !window.FAST) this.leanV += (this.dir === 'e' ? 1 : -1) * LEAN_TURN; // weight onto the new side
       if (ew) this.lastEW = this.dir;
       if (this.viaT == null && faceTurn && this.cur && !window.FAST && frontOK && key !== fk && this.cur !== fk && !this.pose) this.viaT = time;
       let via = false;
@@ -301,7 +365,7 @@
       const LP = shaded ? lightParams(U, h, lights) : null;
       // breathing: the chest rises and widens a touch above the hips; feet stay put
       const talkAmp = this.lvl || 0;
-      const b = this.walking ? 0 : 0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045 + talkAmp * 0.006;
+      const b = this.calm * (0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045 + talkAmp * 0.006);
       const sx = 1 + b * 0.45, sy = 1 + b;
       const feetBy = -U.y, hipBy = Math.max(1, Math.round(feetBy - h * 0.47));
       const X0 = this.x + U.x, Y0 = this.y + U.y + sinkPx;
@@ -623,6 +687,38 @@
     for (let i = 1; i > 0; i = prev[i]) out.unshift(nodes[i]);
     return out;
   }
+  // A routed path's corners become arcs: each corner is replaced by a cubic curve that leaves the
+  // incoming leg and joins the outgoing one tangentially, swinging wide through the routed corner
+  // point itself (so it keeps clear of the furniture the corner goes round). Kept only where the
+  // whole curve stays on the floor; otherwise the corner stays sharp.
+  function roundCorners(a, pts, p, hh) {
+    if (!(CORNER_R > 0) || pts.length < 2 || window.FAST) return pts;
+    const all = [a].concat(pts), out = [];
+    let last = a;
+    for (let i = 1; i < all.length - 1; i++) {
+      const A = all[i - 1], P = all[i], B = all[i + 1];
+      const la = Math.hypot(P[0] - A[0], P[1] - A[1]), lb = Math.hypot(B[0] - P[0], B[1] - P[1]);
+      let done = false;
+      for (const f of [1, 0.5]) {
+        const r = Math.min(CORNER_R * hh * f, la * 0.45, lb * 0.45);
+        if (!(r > 6) || !la || !lb) break;
+        const u = [(P[0] - A[0]) / la, (P[1] - A[1]) / la], w = [(B[0] - P[0]) / lb, (B[1] - P[1]) / lb];
+        const P0 = [P[0] - u[0] * r, P[1] - u[1] * r], P2 = [P[0] + w[0] * r, P[1] + w[1] * r];
+        const C1 = [P[0] + u[0] * r / 3, P[1] + u[1] * r / 3], C2 = [P[0] - w[0] * r / 3, P[1] - w[1] * r / 3];
+        const N = 8, arc = [];
+        for (let k = 0; k <= N; k++) {
+          const t = k / N, m = 1 - t;
+          arc.push([m * m * m * P0[0] + 3 * m * m * t * C1[0] + 3 * m * t * t * C2[0] + t * t * t * P2[0], m * m * m * P0[1] + 3 * m * m * t * C1[1] + 3 * m * t * t * C2[1] + t * t * t * P2[1]]);
+        }
+        let ok = arc.every(q => inPoly(q[0], q[1], p)) && segInside(last, arc[0], p);
+        for (let k = 1; ok && k < arc.length; k++) ok = segInside(arc[k - 1], arc[k], p);
+        if (ok) { out.push(...arc); last = arc[arc.length - 1]; done = true; break; }
+      }
+      if (!done) { out.push(P); last = P; }
+    }
+    out.push(all[all.length - 1]);
+    return out;
+  }
   function hitShape(h, x, y) {
     if (h.poly) return inPoly(x, y, h.poly);
     const [rx, ry, rw, rh] = h.rect;
@@ -855,6 +951,7 @@
     keepInside(speechEl, 14);
   }
   function clearSpeech() {
+    if (speaking && speaking.actor) phraseEndT = time; // the line is over: listeners may nod
     speechEl.style.display = 'none'; narrEl.style.display = 'none';
     if (speaking && speaking.actor) speaking.actor.talking = false;
     speaking = null;

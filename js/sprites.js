@@ -1838,7 +1838,7 @@ window.SPRITES = {
   "w": 257,
   "hh": 726,
   "h": 720.0,
-  "ax": 155.5,
+  "ax": 101.5,
   "fy": 723.8,
   "top": 3.0,
   "facesLeft": true
@@ -2683,8 +2683,7 @@ window.SPRITES = {
   "h": 720,
   "ax": 191.1,
   "fy": 648.0,
-  "top": 3.0,
-  "facesLeft": true
+  "top": 3.0
  },
  "tomas_sweepR": {
   "w": 430,

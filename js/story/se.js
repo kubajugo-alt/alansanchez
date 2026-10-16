@@ -103,6 +103,10 @@
     const ines = G.npc('ines');
     // without Inês to explain, Alan only has his half of it
     const lines = ines && ines.visible ? ex.lines : ex.lines.filter(l => l.startsWith('alan_'));
+    // Alan goes up to the exhibit, and she comes over to it too rather than lecturing him from across the room
+    const spot = (G.room.hotspots || []).find(h => h.at && /S\.exhibit\('(\w+)'\)/.exec(String(h.look)) && RegExp.$1 === id), p = G.player;
+    if (spot && p.visible && !window.FAST && Math.hypot(spot.at[0] - p.x, spot.at[1] - p.y) > 90) { await p.walkTo(spot.at[0], spot.at[1]); p.dir = spot.face || p.dir; }
+    if (ines && ines.visible && !ines.pose && !window.FAST && Math.abs(ines.x - p.x) > 260) { const sd = ines.x < p.x ? -1 : 1; await ines.walkTo(p.x + sd * 150, Math.max(620, Math.min(700, p.y + 4))); }
     if (ines && ines.visible) { ines.dir = ines.x < G.player.x ? 'e' : 'w'; if (window.SPRITES.ines_plaque) ines.pose = 'plaque'; }
     try { await say(...lines); } finally { if (ines) ines.pose = null; }
     if (ex.need && !seen[id]) { seen[id] = true; F().se_exhibits = Object.keys(EXHIBITS).filter(k => EXHIBITS[k].need && seen[k]).length; }
@@ -175,8 +179,8 @@
   const inPit = a => a.x >= PIT_X[0] && a.x <= PIT_X[1] && a.y > 560 && a.y < 609;
   const pitStage = a => {
     if (!a) return;
-    // kneeling, he'd vanish behind the rim: the camera cheats him up a little so head and shoulders show
-    if (inPit(a)) { a._pit = true; a.sink = /kneel/.test(String(a.pose || '')) ? PIT_SINK - 0.12 : PIT_SINK; a.h = PIT_H; }
+    // kneeling or sitting, they'd vanish behind the rim: the camera cheats them up a little so heads and shoulders show
+    if (inPit(a)) { a._pit = true; a.sink = /kneel|ladder/.test(String(a.pose || '')) ? PIT_SINK - 0.12 : PIT_SINK; a.h = PIT_H; }
     else if (a._pit) { a._pit = false; a.sink = 0; a.h = null; }
   };
   S.PIT_RIM = PIT_RIM;
