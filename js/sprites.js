@@ -163,14 +163,6 @@ window.SPRITES = {
   "fy": 723.6,
   "top": 3.1
  },
- "alan_fling": {
-  "w": 320,
-  "hh": 715,
-  "h": 720,
-  "ax": 205.1,
-  "fy": 723.8,
-  "top": 3.1
- },
  "alan_flirt": {
   "w": 389,
   "hh": 747,
@@ -221,10 +213,10 @@ window.SPRITES = {
  },
  "alan_jacket": {
   "w": 217,
-  "hh": 717,
+  "hh": 729,
   "h": 720,
-  "ax": 151.9,
-  "fy": 725.3,
+  "ax": 116.9,
+  "fy": 725.1,
   "top": 3.1
  },
  "alan_jump": {
@@ -2435,14 +2427,6 @@ window.SPRITES = {
   "h": 720,
   "ax": 221.0,
   "fy": 711.8,
-  "top": 3.1
- },
- "pair_vasco_clapper": {
-  "w": 340,
-  "hh": 728,
-  "h": 720,
-  "ax": 170.0,
-  "fy": 724.1,
   "top": 3.1
  },
  "pair_vasco_coffee": {
