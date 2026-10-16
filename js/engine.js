@@ -85,7 +85,7 @@
       const F = this.F;
       if (this.dir === 'n' && F.backWalk) return F.backWalk;
       if (this.dir === 's' && F.frontWalk) return F.frontWalk;
-      return F.walk || arr(F.idle);
+      return F.walk || arr(F.idle).filter(x => !Array.isArray(x));
     }
     update(dt) {
       const F = this.F;
@@ -129,7 +129,7 @@
       if (!(cutscene && this.def && this.def.ambient)) this.idleT -= dt; // ambient extras freeze during cutscenes
       if (this.idleT <= 0) {
         const vh = this.c.variantHold || [2, 4.5], ih = this.c.idleHold || [4, 10];
-        if (this.idleIdx === 0 && nIdle > 1) { this.idleIdx = 1 + Math.floor(Math.random() * (nIdle - 1)); this.idleT = vh[0] + Math.random() * (vh[1] - vh[0]); }
+        if (this.idleIdx === 0 && nIdle > 1) { this.idleIdx = 1 + Math.floor(Math.random() * (nIdle - 1)); this.idleT = vh[0] + Math.random() * (vh[1] - vh[0]); const v = arr(F.idle)[this.idleIdx]; if (Array.isArray(v)) this.idleT *= Math.max(1, v.length * 0.6); this.idleDur = this.idleT; }
         else { this.idleIdx = 0; this.idleT = ih[0] + Math.random() * (ih[1] - ih[0]); }
       }
       // background extras that walk a beat (dockworkers, etc.)
@@ -166,7 +166,9 @@
       if (this.dir === 's' && F.front) return arr(F.front)[0];
       if (this.talking) { const t = arr(F.talk); return t.length && this.talkIdx >= 0 ? t[this.talkIdx % t.length] : arr(F.idle)[0]; }
       if (this.loopActive()) { const L = F.loops[this.loop]; return L.frames[Math.floor(time * L.fps) % L.frames.length]; }
-      const id = arr(F.idle); return id[this.idleIdx % id.length];
+      const id = arr(F.idle), v = id[this.idleIdx % id.length];
+      // an idle variant can be a little action, [frame, frame, ...], played through over its hold
+      return Array.isArray(v) ? v[Math.min(v.length - 1, Math.floor((1 - Math.max(0, this.idleT) / (this.idleDur || 1)) * v.length))] : v;
     }
     bbox() {
       const h = this.height(), w = h * 0.36;
@@ -239,24 +241,42 @@
     }
     draw() {
       if (!this.visible) return;
-      const key = this.frameKey();
-      const sp = SPRITES[key];
+      let key = this.frameKey();
+      let sp = SPRITES[key];
       if (!sp) return;
       // background extras keep the pose they were painted in (unless they walk)
-      const flipped = this.def && this.def.ambient && !this.walking && !this.def.flip ? false
+      const ambientHold = this.def && this.def.ambient && !this.walking && !this.def.flip;
+      let flipped = ambientHold ? false
         : this.dir === 'w' ? !sp.facesLeft : (this.dir === 'e' ? !!sp.facesLeft : this.lastFlip);
-      const turned = flipped !== this.lastFlip;
+      // Turning round between east and west: a figure with a painted front view swings through it
+      // (side, front, other side), like an old adventure game; others dissolve from one facing to
+      // the other instead of narrowing into a flat card.
+      const F = this.F, fk = F.front && arr(F.front)[0], frontOK = fk && SPRITES[fk] && IMG['spr:' + fk];
+      // a real turn is a change of facing, not two paintings that happen to face different ways
+      const ew = this.dir === 'e' || this.dir === 'w', faceTurn = ew && this.lastEW && this.dir !== this.lastEW && !ambientHold;
+      if (ew) this.lastEW = this.dir;
+      if (this.viaT == null && faceTurn && this.cur && !window.FAST && frontOK && key !== fk && this.cur !== fk && !this.pose) this.viaT = time;
+      let via = false;
+      if (this.viaT != null) {
+        if (time - this.viaT < TURN_VIA && frontOK) { via = true; key = fk; sp = SPRITES[fk]; flipped = !!sp.facesLeft; }
+        else { this.viaT = null; this.lastFlip = flipped; this.viaOut = true; } // out of the front view: no second turn
+      }
+      const turned = faceTurn && !via && this.viaT == null;
       this.lastFlip = flipped;
       if (key !== this.cur) {
         const inCycle = this.walking && this.cycle().includes(key) && this.cycle().includes(this.cur);
-        this.prev = this.cur && !inCycle && !turned ? this.cur : null;
-        this.prevFlip = flipped;
-        const M = window.MORPHS, morph = this.prev && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
-        this.fadeDur = morph ? MORPH_T : XFADE;
+        this.prev = this.cur && !inCycle ? this.cur : null;
+        this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
+        const M = window.MORPHS, morph = this.prev && this.prevFlip === flipped && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
+        this.fadeDur = via ? TURN_IN : this.viaOut ? TURN_OUT : morph ? MORPH_T : XFADE; this.viaOut = false;
         this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
+      } else if (turned && this.cur && !window.FAST) {
+        // same painting, other facing: dissolve across rather than squash flat
+        this.prev = this.cur; this.prevFlip = this.curFlip != null ? this.curFlip : !flipped;
+        this.fadeDur = TURN_FADE; this.fadeT = TURN_FADE;
       }
-      if (turned) { this.prev = null; this.fadeT = 0; if (this.cur && !window.FAST) this.turnT0 = time; } // the turn swings round (see motion)
+      this.curFlip = flipped;
       const A = this.place(key, flipped);
       if (!A) return;
       let B = this.prev && this.fadeT > 0 ? this.place(this.prev, this.prevFlip) : null;
@@ -324,6 +344,9 @@
   // flows towards the new and fades out on top.
   const MCOLS = 10, MROWS = 26;
   // painted sitting down: they sway from the seat, not the feet
+  // the front-view swing: how long the front view shows, and the quick blends in and out of it;
+  // TURN_FADE: the dissolve for figures with no front view
+  const TURN_VIA = 0.15, TURN_IN = 0.07, TURN_OUT = 0.1, TURN_FADE = 0.16;
   const SEATED = new Set(['npc_bench', 'npc_cards', 'npc_couple', 'npc_fish', 'npc_guard', 'npc_guitar', 'npc_mender1', 'npc_mender2', 'npc_washer1']);
   function morphBlit(ctx, P, U, F, amt, alpha) {
     const ox = P.x - U.x, oy = P.y - U.y, sw = P.sp.w, sh = P.sp.hh, s = P.s, fl = P.flipped;
