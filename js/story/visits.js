@@ -312,6 +312,40 @@
     });
   };
 
+  // back with the coffee Duarte asked for, Alan finds him downstairs being charming to Inês.
+  // A flicker of jealousy; Duarte, who never stays for a scene he didn't start, strolls out.
+  S.duarteInes = async function () {
+    if (!F().duarte_scene || F().duarte_ines) return;
+    F().duarte_ines = true;
+    await G.busy(async () => {
+    const p = G.player, ines = G.npc('ines');
+    visitor = 'guitar'; G.refreshNpcs(true);
+    const d = G.npc('npc_guitar');
+    if (d) { d.x = 760; d.y = 600; d.dir = 'w'; }
+    if (ines) { ines.pose = null; ines.dir = 'e'; }
+    p.x = 1080; p.y = 700; p.dir = 'w'; p.pose = window.SPRITES.alan_coffees ? 'coffees' : null; // just in from the street door
+    await G.fade(false);
+    const face = (k, f) => async () => { if (ines && ines.c.frames.poses && ines.c.frames.poses[k]) ines.pose = k; await f(); if (ines) ines.pose = null; };
+    await say('guitar_ines_1');
+    await face('amused', () => say('ines_duarte_1'))();
+    await say('guitar_ines_2');
+    await face('teasing', () => say('ines_duarte_2'))();
+    sfx('door', 0.3); // he has been standing in the doorway long enough
+    const cups = p.pose; p.pose = null; await p.walkTo(930, 680); p.dir = 'w'; p.pose = cups;
+    await say('alan_duarte_ines_1');
+    await say('guitar_ines_3');
+    if (d && !window.FAST) { await d.walkTo(1370, 700); }
+    sfx('door'); visitor = null; G.refreshNpcs();
+    await G.wait(window.FAST ? 20 : 900);
+    await face('amused', () => say('ines_duarte_3'))();
+    p.pose = null;
+    await say('alan_duarte_ines_2');
+    await face('fond', () => say('ines_duarte_4'))();
+    await say('alan_duarte_ines_3');
+    await face('laugh', () => say('ines_duarte_5'))();
+    });
+  };
+
   S.ITEMS.lyrics_sheet = { name: "Duarte's lyrics", look: () => S.readLyrics() };
   S.teixeiraKey = async function () {
     await G.fade(true);

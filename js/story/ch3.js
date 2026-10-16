@@ -380,7 +380,9 @@
     await S.chapter(4, 'narr_ch4_card');
     await G.goRoom('shop', null, { instant: true, noEnter: true, pos: [560, 610, 'e'] });
     G.player.visible = true;
-    await G.fade(false);
+    // back from the café: if Duarte stayed upstairs, he's downstairs now, charming Inês
+    if (F().duarte_scene && !F().duarte_ines && S.duarteInes) await S.duarteInes();
+    else await G.fade(false);
     await S.ch4Start();
   };
 })();
