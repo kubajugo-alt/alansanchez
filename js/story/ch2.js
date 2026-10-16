@@ -170,8 +170,8 @@
       await T(700);
       // standing in the tank, the water at his waist: washing, not swimming
       const washing = ['wash1', 'wash2', 'wash3'].filter(has);
-      swimmer = { y: y1 }; p.x = x1; p.y = y1; p.h = WASH.h; p.visible = true;
-      if (!washing.length) { p.sink = 0.0001; p.pose = 'swim'; } else p.pose = washing[0];
+      swimmer = { y: y1 }; p.x = x1; p.y = y1; p.visible = true; p.sink = 0.0001; // no floor shadow on the water
+      if (!washing.length) p.pose = 'swim'; else { p.h = WASH.h; p.pose = washing[0]; }
       let on = true;
       (async () => {
         let i = 0;
