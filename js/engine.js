@@ -142,7 +142,7 @@
         }
       }
       // NPCs turn toward Alan (after a human beat), unless busy or posed
-      if (this !== player && player && player.visible && !this.walking && !this.pose && !this.loopActive() && !(this.def && (this.def.fixedDir || this.def.ambient)) && (this.dir === 'e' || this.dir === 'w')) {
+      if (this !== player && player && player.visible && !this.walking && !this.pose && !this.loopActive() && !(this.def && (this.def.fixedDir || this.def.ambient)) && (this.dir === 'e' || this.dir === 'w') && turnsFreely(this)) {
         const want = player.x > this.x ? 'e' : 'w';
         if (want !== this.dir && Math.abs(player.x - this.x) > 40) { this.turnT += dt; if (this.turnT > 0.6) { this.dir = want; this.turnT = 0; } }
         else this.turnT = 0;
@@ -813,7 +813,12 @@
   // Speakers face each other: an NPC turns to Alan when it speaks, and Alan turns
   // to whoever he is talking with (the last NPC who spoke, else the nearest one).
   let lastPartner = null;
-  const canTurn = a => a && a.visible && !a.walking && !a.pose && (a.dir === 'e' || a.dir === 'w') && !(a.def && (a.def.fixedDir || a.def.ambient));
+  // Only the people who move around the rooms with Alan turn to follow him (Alan, Inês, Vasco, or a
+  // def with turns: true). Everyone else keeps the facing their room gives them: no flipping back and
+  // forth; Alan comes to the side they already face (see approach).
+  const TURNERS = new Set(['ines', 'vasco']);
+  const turnsFreely = a => a === player || TURNERS.has(a.id) || !!(a.def && a.def.turns);
+  const canTurn = a => a && a.visible && !a.walking && !a.pose && (a.dir === 'e' || a.dir === 'w') && !(a.def && (a.def.fixedDir || a.def.ambient)) && turnsFreely(a);
   function faceEachOther(actor) {
     if (!player.visible) return;
     if (actor && actor !== player) {
@@ -1136,8 +1141,10 @@
     if (!player.visible || !room.walk) return;
     let at = def.at;
     if (!at && actor) {
-      const gap = actor.height() * 0.42;
-      at = [actor.x + (actor.x > player.x ? -gap : gap), actor.y + 6];
+      // someone who keeps their facing is met on the side they face; anyone else on Alan's side
+      const gap = actor.height() * 0.42, holds = !turnsFreely(actor) && (actor.dir === 'e' || actor.dir === 'w');
+      const side = holds ? (actor.dir === 'e' ? 1 : -1) : (actor.x > player.x ? -1 : 1);
+      at = [actor.x + side * gap, actor.y + 6];
     }
     if (!at) return;
     let [x, y] = clampToPoly(at[0], at[1], room.walk);
@@ -1147,14 +1154,15 @@
     if (actor && actor.visible) {
       const gap = (actor.height() + player.height()) * 0.21;
       if (y >= actor.y - 12 && Math.abs(x - actor.x) < gap) {
-        const near = player.x < actor.x ? -1 : 1, opts = [near, -near].map(sd => clampToPoly(actor.x + sd * gap, y, room.walk));
+        const holds = !turnsFreely(actor) && (actor.dir === 'e' || actor.dir === 'w');
+        const near = holds ? (actor.dir === 'e' ? 1 : -1) : (player.x < actor.x ? -1 : 1), opts = [near, -near].map(sd => clampToPoly(actor.x + sd * gap, y, room.walk));
         const best = opts.find(([cx]) => Math.abs(cx - actor.x) >= gap * 0.85) || opts.sort((a, b) => Math.abs(b[0] - actor.x) - Math.abs(a[0] - actor.x))[0];
         [x, y] = best;
       }
     }
     await player.walkTo(x, y);
     if (def.face) player.dir = def.face;
-    else if (actor) { player.dir = actor.x > player.x ? 'e' : 'w'; actor.dir = actor.def.fixedDir ? actor.dir : (player.x > actor.x ? 'e' : 'w'); }
+    else if (actor) { player.dir = actor.x > player.x ? 'e' : 'w'; if (canTurn(actor) || (turnsFreely(actor) && !actor.def.fixedDir)) actor.dir = player.x > actor.x ? 'e' : 'w'; }
   }
   // A failed use always gets an Alan line: the target's own, then a
   // character-specific refusal, then the shared pool (no immediate repeats).
