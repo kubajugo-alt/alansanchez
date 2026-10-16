@@ -450,6 +450,14 @@ window.LINES = {
   ze_river: ['ze', "If you need the river, I'm on it."],
   // romance: Zé and Alan, after the curse breaks
   ze_rom_1: ['ze', "[low, rough] That thing took my mother. And a bookseller breaks it with a bell's tongue. Come here."],
+  // Alan hesitates (he's already falling for Vasco); Zé gives him the door; Alan chooses
+  alan_rom_hesitate: ['alan', "[pause, quietly] Zé... there's someone. Sort of. A man with a trowel, who doesn't know I lie to him."],
+  ze_rom_hold: ['ze', "[low, stepping back] Then go home to him."],
+  ze_rom_admire: ['ze', "[low, hungry, looking him up and down] Look at you. I don't get men like you down here, bookseller. The river sends me sardines."],
+  ze_rom_hold_2: ['ze', "[low, a half step back, not taking his eyes off him] Then go home to him. [beat] You're still standing here."],
+  ze_rom_take: ['ze', "[rough, taking hold of him] Good. Now you do as you're told, Sanchez."],
+  narr_rom_choice: ['narr', "He should have. He thought about the trowel, and the lie, and the river that had nearly had them both. Then Alan Sanchez, who had never once in his life made the first move, made it."],
+  alan_rom_guilt: ['alan', "[quietly, to himself] Thursday. I'll tell him Thursday."],
   alan_rom_1: ['alan', "[nervous, talking fast] I should mention I bruise easily, and I talk when I'm nervous, and right now I am extremely—"],
   ze_rom_2: ['ze', "[quiet, commanding] Stop talking, Sanchez."],
   narr_rom_1: ['narr', "For thirty-seven years, Alan Sanchez had talked his way out of everything. Zé Coutinho did not leave him the room. For once in his life, Alan did not want it."],
@@ -1202,4 +1210,14 @@ window.LINES = {
   duarte_business: ['guitar', "Business first, though. Amália sent me."],
   duarte_shrug: ['guitar', "[shrugging, smiling] Tuesdays, then. The offer stands."],
   ines_hint_teixeira: ['ines', "Rui's sending someone with the key. Sit still for once."],
+  // Inês found the handcuff key: the officer is free, and she has a word with Alan
+  narr_key_later: ['narr', "Alan emptied his pockets onto the counter, the way he always did, and went out for cigarettes. He took an hour about it. When he came back, the shop was very quiet."],
+  ines_key_1: ['ines', "[quietly, holding up a small key between two fingers] You left this by the till. Next to his radio. Which had stopped asking politely."],
+  alan_key_deny_1: ['alan', "[too quickly] That? That's a spare. For the back door. Of the shop."],
+  ines_key_2: ['ines', "[patient, dry] Alan. I went upstairs. I let him go. He thanked me four times and begged me not to tell the Inspector, which I'm counting as a fifth."],
+  alan_key_deny_2: ['alan', "[flustered, hands up] It was a prank! On a friend. We're friends. It's a thing friends do to each other."],
+  ines_key_3: ['ines', "[gentle, setting the key down between them] I'm not judging you, querido. I never have. Who you take upstairs is your business, and I like you exactly as you are."],
+  ines_key_4: ['ines', "[softer, serious] But a policeman, chained to your bed, with the whole street watching the door. One day it won't be a sweet boy who blushes. Maybe it's time to stop playing like this, hm? You deserve someone who stays for breakfast."],
+  alan_key_deny_3: ['alan', "[quiet, not meeting her eye] ...It was a prank on a friend, Inês."],
+  ines_key_5: ['ines', "[a small sigh, back to the ledger] Of course it was. Your friend is coming down the stairs now. Be nice to him."],
 };

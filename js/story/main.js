@@ -71,6 +71,7 @@
     } },
     // the quay gossip (Rosa and the old mender) and Lacerda's threat about Vasco
     bench: { flags: { ch: 2, heard_machine: true }, room: 'street', pos: [860, 640, 'e'], run: () => S.benchTalk() },
+    ineskey: { flags: { ch: 3, teixeira_scene: true, visit_cop: true }, room: 'shop', pos: [760, 612, 'w'], run: async () => { await S.inesKey(); await S.teixeiraKey(); } },
     duarteines: { flags: { ch: 4, duarte_scene: true, flirted_guitar: true, visit_guitar: true, ch3_done: true }, room: 'shop', pos: [1080, 700, 'w'], run: () => S.duarteInes() },
     quayfish: { flags: { ch: 4, harbour: true }, room: 'cais', pos: [540, 650, 'w'], run: () => S.fishTalk() },
     lacthreat: { flags: { ch: 3, vasco_thursday: true }, room: 'antiques', pos: [700, 650, 'e'], run: () => S.talkLacerda() },
@@ -95,6 +96,15 @@
       room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('se_cloister', 'map') },
     // Thursday morning: the coffees, the Romans
     thursday: { flags: { ch: 5, vasco_thursday: true, dawn: true }, room: 'se_cloister', pos: [260, 650, 'e'], run: () => S.thursday() },
+    // Chapter III, the twin: Abílio reads the sketch of Lacerda's tongue; Vasco takes Alan down to the reserve (the near-kiss);
+    // the swap at Lacerda's (ask about the music box, then the vitrine key and the twin on the case)
+    abiliosketch: { flags: { ch: 3, decoded: true, chose_chiado: true, se_entered: true, abilio_writing: true, heard_blood: true, tongue_sketched: true }, room: 'se_tower', pos: [900, 640, 'e'], run: () => S.writeAbilio() },
+    vascostore: { flags: { ch: 3, heard_machine: true, knows_brotherhood: true, ines_plan: true, heist_done: true, reserve_raided: true, vasco_thursday: true, vasco_cameo: true, decoded: true, chose_chiado: true, tongue_sketched: true, knows_twin: true },
+      room: 'se_cloister', pos: [900, 650, 'e'], run: () => S.talkVasco() },
+    twinswap: { flags: { ch: 3, decoded: true, chose_chiado: true, lac_suit_seen: true, saw_box: true, box_recognised: true, case_known: true, saw_case: true, tongue_sketched: true, knows_twin: true, twin_lent: true },
+      room: 'antiques', pos: [700, 640, 'e'], run: () => { G.giveItem('twin', true); G.giveItem('vkey', true); return S.talkLacerda(); } },
+    // the end of the game: Thursday's debt paid, and downstairs to the reserve (the last romance)
+    vascolove: { flags: { ch: 5, vasco_thursday: true, twin_lent: true, heist_done: true, dawn: true, thursday: true }, room: 'se_cloister', pos: [700, 640, 'e'], run: () => S.vascoLove() },
   };
   async function preview(k) {
     const P = PREVIEW[k];

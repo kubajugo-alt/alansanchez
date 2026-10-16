@@ -357,6 +357,16 @@
       await say('ze_rom_1');
       // the sweater comes off over his head
       if (ze) { ze.pose = 'ze_strip1'; await T(800); ze.pose = 'ze_dress'; await T(800); ze.pose = 'ze_strip3'; sfx('sheet_slap', 0.25); await T(900); ze.pose = 'ze_shirtless'; }
+      // he's already half in love with someone else: he says so, Zé leaves him the door, and Alan chooses
+      await G.wait(window.FAST ? 20 : 700);
+      await say('ze_rom_admire');
+      await say('alan_rom_hesitate');
+      if (ze) { const zx = ze.x; for (let i = 0; i < 5 && !window.FAST; i++) { ze.x -= 6; await T(60); } ze.x = window.FAST ? zx - 30 : ze.x; }
+      await say('ze_rom_hold_2');
+      await T(1400);
+      await G.say('narr_rom_choice', { offscreen: true });
+      if (ze) { await p.walkTo(ze.x + 95, ze.y); p.dir = 'w'; } // Alan closes the gap himself
+      await say('ze_rom_take'); // and from there Zé is in charge
       await say('alan_rom_1', 'ze_rom_2');
       const home = p.x;
       if (!S.discreet()) { // Discreet: straight from the build-up to the afterwards
@@ -388,6 +398,7 @@
       await say('ze_rom_3');
       if (ze) ze.pose = null; p.pose = null;
       await say('alan_rom_3', 'gag_ze', 'gag_alan_ze');
+      await T(600); await say('alan_rom_guilt'); // the trowel man deserves the truth
     });
   };
   S.ch4End = async function () {

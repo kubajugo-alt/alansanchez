@@ -100,13 +100,15 @@ The supernatural runs on five rules. Every puzzle and every line of exposition m
 
 1.  **The founders cast the bell, then bound it.** In 1754 the Brotherhood of the Drowned Bell paid the four founder families to cast a great bell for a cistern under the Carmo. A Sanches hand rang it on the tenth morning of the 1755 fog, believing it was a blessing. After the wave, the founders cut out its tongue (the clapper) and bound the bell with their blood. That is why Amália calls them "fools twice over": once for casting it, once for ringing it.
 
-2.  **While any founder line lives, the bell sleeps.** It cannot wake itself. It can only be woken by a founder's hand, with its own tongue, wet with that founder's blood, at a turning of the tide between the ninth night of a fog and the tenth dawn. Rung forward, it wakes and calls the sea. Rung backward, it is silenced forever.
+2.  **While any founder line lives, the bell sleeps.** It cannot wake itself. It can only be woken by a founder's hand, with its own tongue (the one that was blessed and rung in 1755, not its twin; see rule 5), wet with that founder's blood, at a turning of the tide between the ninth night of a fog and the tenth dawn. Rung forward, it wakes and calls the sea. Rung backward, it is silenced forever.
 
 3.  **The tongue calls the fog.** When the tongue comes within reach of the cistern, the bell breathes and the fog rises for nine days. If nobody rings it by the tenth dawn, the fog lifts and the window closes for a generation.
 
 4.  **The water answers to the Lacerdas.** The Brotherhood's priests were Lacerdas, and their oath gives them command of the bell's water. The tiles are made of clay from the cistern floor, "a mouthful of the sea kept in clay". A tile left beside a sleeper drowns them at the next turning of the tide. Ordinary tools cannot break one; bronze from the bell can. When the bell is silenced, the oath breaks and the water takes its debt.
 
-5.  **The cipher is a Caesar shift of 7.** The key is carved on the weeping stone at the Carmo and hidden in Amália's fado ("turn the letters seven times"). Joaquim learned the key from his father and wrote it into that song for her in 1934, a love song with a family secret inside.
+5.  **The founders poured twice.** Every founder casts a spare tongue from the same pour, in case the first one cracks. The drowned bell's twin has the same weight and the same marks, but it was never blessed and never rung, so it is ordinary bronze: "Only the bell knows the difference" (Abílio). The Sanches family kept the twin. In 1956 Joaquim asked Abílio where to hide bronze in plain sight ("A cathedral! Nobody looks at bronze twice in a cathedral") and deposited it in the Sé reserve, catalogued as "Clapper. Bronze. Provenance unknown. Deposited 1956", in the same year he gave the museum the Brotherhood's charter and register.
+
+6.  **The cipher is a Caesar shift of 7.** The key is carved on the weeping stone at the Carmo and hidden in Amália's fado ("turn the letters seven times"). Joaquim learned the key from his father and wrote it into that song for her in 1934, a love song with a family secret inside.
 
 ### Why Lacerda does what he does
 
@@ -135,7 +137,7 @@ Only a founder can ring the bell, forward or backward. Any founder who knows the
 | 1934    | Joaquim (22) and Amália (20): two years of songs. He writes "O Sino Afogado" for her, with the key inside it.                                                                                                                                                                                                                                                            |
 | 1936    | Joaquim marries "a sensible woman", Alan's grandmother Graça. Their son, Alan's father, is born in 1937.                                                                                                                                                                                                                                                                 |
 | 1955    | The tongue resurfaces in an estate sale. Afonso Lacerda raises the fog. Joaquim (43) and altar boy Tomás (11) go down into the cistern. Afonso drowns in his own water in the struggle. Joaquim has the tongue and the bell in front of him, and runs. Vicente, Afonso's son (12), watches. The fog lifts on the tenth dawn. Police file the drownings as "unexplained". |
-| 1956 on | Tomás swears to keep the Carmo grate locked and becomes its priest. Joaquim hides the tongue and never speaks of it.                                                                                                                                                                                                                                                     |
+| 1956 on | Tomás swears to keep the Carmo grate locked and becomes its priest. Joaquim hides the tongue and never speaks of it. He deposits the Brotherhood's papers and the tongue's unconsecrated twin in the Sé reserve, on Abílio's advice.                                                                                                                                                                                                                                                     |
 | 1958    | Alan is born. His father dies when Alan is nine; his mother moves to Porto. Joaquim raises him above the shop.                                                                                                                                                                                                                                                           |
 | 1995    | Vicente Lacerda (52) kills Joaquim (83) and takes the tongue. Nine days of fog. Alan is 37. Today is the ninth day.                                                                                                                                                                                                                                                      |
 
@@ -441,7 +443,7 @@ Inês pulls it together: the deaths follow the tide, Joaquim was there in 1955, 
 
 ## Chapter III: The Weeping Stone
 
-15:30–17:15. Alan decodes the ledger, learns the rite and the founders' order, meets the killer, and steals the tongue. Rooms: convent, se_tower, antiques, tavern (optional), shop. After decoding, the Sé and the antiques shop can be played in either order.
+15:30–17:15. Alan decodes the ledger, learns the rite and the founders' order, meets the killer, borrows the tongue's twin from Vasco, and swaps it for the real one. Rooms: convent, se_tower, antiques, tavern (optional), shop. After decoding, the Sé and the antiques shop can be played in either order.
 
 **narr_ch3_card**: "The Carmo had lost its roof in 1755 and never asked for it back. Some buildings, like some men, prefer to see the sky they are afraid of."
 
@@ -507,7 +509,7 @@ Clocks everywhere, all keeping different times. Lacerda in a cream linen suit, a
 
 - **The clocks:** "I collect time. Other people's."
 
-- **The glass case:** a bronze bell's tongue on velvet. "Eighteenth century. Not for sale. Some things are only for keeping." He adds: "I would notice a single hair moved on that velvet, Senhor Sanchez."
+- **The glass case:** a bronze bell's tongue on velvet: the drowned bell's real tongue, taken from Joaquim's flat in 1995. "Eighteenth century. Not for sale. Some things are only for keeping." He adds: "I would notice a single hair moved on that velvet, Senhor Sanchez."
 
 - **Joaquim:** "I knew of him. A careful man. Careful men usually live a long time."
 
@@ -519,17 +521,26 @@ Clocks everywhere, all keeping different times. Lacerda in a cream linen suit, a
 
 - **The music box** (needs the photo flag from I.6): "I've seen this. On a shelf behind my grandfather, in 1934." Lacerda, too quickly: "A trinket."
 
-**Puzzle III-D: the theft.** Goal: take the tongue without being seen.
+**Puzzle III-D: the sketch, the twin and the swap.** Goal: take the tongue without Lacerda noticing. It runs across three places and starts only once Alan has seen the case.
 
-1.  Ask about the music box. Lacerda: "Its key is in the back. Touch nothing." He exits. The player has three actions before he returns.
+1.  **Antiques: the sketch.** Looking at the case (or using the magnifier or the notebook on it) makes Alan draw it, since he can't touch it. **alan_sketch_tongue**: "Loop, shank, collar, and a bob like a cannonball. If I can't touch it, I can draw it. Somebody at the Sé knows every bell's tongue in Lisbon." The drawing goes into the notebook. Flag: tongue_sketched.
 
-2.  Use the vitrine key on the glass case.
+2.  **The Sé tower: Abílio reads the sketch.** A new written question, **alan_w_sketch**. Abílio identifies four foundries' work: the drowned bell's tongue (**abilio_sketch**). He explains the twin: "Founders always pour twice... The twin was never blessed and never rung. ONLY THE BELL KNOWS THE DIFFERENCE!" (**abilio_twin**). Then he says where it went: Joaquim brought it up the tower stairs in 1956 and asked where to hide bronze in plain sight. It's in the Sé reserve. "ASK THE CURATOR. HE ASKS ABOUT YOU EVERY DAY." (**abilio_twin_where**). Alan: "Same weight. Same marks. Lacerda would never feel the difference. Only the bell would." Flag: knows_twin.
 
-3.  Use the brass weight on the tongue. Alan swaps them; the dent in the velvet stays.
+3.  **The cloister: Vasco.** A new dialogue option, **alan_ask_vasco_twin**: "I've come to ask you for something, and I'm going to do it honestly. It'll be a first."
+    - If Alan tricked Vasco over the reserve in Chapter I, he apologises (**alan_vasco_sorry**). Vasco is hurt for a beat ("I did wonder how my lanyard got back onto its hook"), then: "It was a very good distraction. What do you need?" Without the heist, Vasco says **vasco_what** instead.
+    - Alan asks for the 1956 clapper without saying why. Vasco unlocks the reserve and takes him down to the new room, **se_store**. He finds the clapper by its tag, written in Joaquim's hand, and hands it over: "It's on loan. To a scholar. You'll bring it back. And you'll owe me." Alan, for once without a joke: "I owe you one."
+    - The near-kiss over the bronze (pair frame pair_vasco_clapper): "You've got dust on your face." / "Occupational hazard." Vasco steps back: "Not here. Not like this. Not while you're lying to me about something." Alan, flustered: "I'm not lying. I'm withholding." Vasco: "Thursday, then. Bring the coffee. And the truth."
+    - Alan doesn't tell Vasco what the twin is for. Back upstairs, alone, **alan_twin_guilt**: "He lent me the only honest thing in that cathedral, and I'm going to leave it with a murderer. I'll make it up to him. Somehow." Flags: twin_lent, vasco_thursday.
 
-4.  Lacerda returns, winds the box, and it plays the melody of "O Sino Afogado". He watches Alan's face. **lacerda_pale**: "You look pale, Senhor Sanchez. Another day."
+4.  **Antiques: the swap.** This is the old theft structure, with the twin in place of the brass weight.
+    - Ask about the music box. Lacerda: "Its key is in the back. Touch nothing." He exits, and Alan has three actions before he returns.
+    - Use the vitrine key (Ferreira's spare) on the case, then the twin on the tongue. **alan_swap_twin**: "One bronze tongue for its twin. Same weight, same marks, same dent in the velvet. Only one of them has ever rung."
+    - Lacerda returns, winds the box, and it plays "O Sino Afogado". **lacerda_pale**: "You look pale, Senhor Sanchez. Another day." He doesn't notice the swap.
 
-Logic: Lacerda himself said he'd notice the velvet; the weight is the only object of the right heft. Taking the tongue without the swap, or running out of actions, triggers **lacerda_putback** ("Put it back. Patience is not infinite.") and resets the theft.
+Logic: Lacerda himself said he'd notice the velvet, so only something identical will do. The brass weight is refused (**alan_weight_no**: "He'd notice. He said so."). Taking the tongue without a swap, or running out of actions, triggers **lacerda_putback** ("Put it back. Patience is not infinite.") and resets the theft. The case shows the same tongue before and after the swap, since the two are twins.
+
+Inês's hints follow the same order: look at Lacerda's case, show the sketch to Abílio, ask Vasco, then the swap with the music box as the distraction.
 
 ### III.4 The Taberna (optional)
 
@@ -537,7 +548,7 @@ If Alan describes the music box to Amália: "That box was mine. I gave it to Joa
 
 ### III.5 The shop
 
-Alan puts the tongue on the counter. Inês: "You stole a church bell's tongue from a murderer. Before tea." He shows her the ledger; she notices the back pages are stuck with salt and puts the kettle on to steam them apart. **ines_steam**: "Archivist's trick. Go and wash your face; you look like a man who's seen a clock."
+Alan puts the tongue on the counter. Inês: "You borrowed a museum piece from a man who fancies you, and left it with a murderer. Before tea." Alan, flustered: "He doesn't fancy me. He fancies bronze. I just happened to be standing near some." Inês: "And what did you promise him?" Alan: "Thursday. Coffee. The Romans. It's archaeological." He shows her the ledger; she notices the back pages are stuck with salt and puts the kettle on to steam them apart. **ines_steam**: "Archivist's trick. Go and wash your face; you look like a man who's seen a clock."
 
 ### III.6 Alan's lines for this chapter
 
@@ -555,13 +566,13 @@ Alan puts the tongue on the counter. Inês: "You stole a church bell's tongue fr
 | alan_bell_sanches ★ | Magnifier, Sanches bell                   | "Sanches, 1739. The family's last hit."                                               |
 | alan_collect ★      | Lacerda: "I collect time."                | "So do I. Mostly as library fines." Lacerda: "Charming."                              |
 | alan_look_case ★    | Look at the glass case                    | "A tongue behind glass, untouchable. I've been on dates like that."                   |
-| alan_swap           | Weight on tongue                          | "Two kilos of brass for one bronze tongue. Fair trade. Ish."                          |
+| alan_swap_twin      | Twin on tongue                            | "One bronze tongue for its twin. Same weight, same marks, same dent in the velvet. Only one of them has ever rung." |
 | alan_slip ★         | Leaving the shop with it                  | "I've just slipped an antiques dealer the tongue, and he didn't feel a thing."        |
-| alan_vandal         | Inês: "You stole a church bell's tongue…" | "Cistern bell. Don't make me sound like a vandal. I'm a thief; there's a difference." |
+| gag_alan_vandal2    | Inês: "You borrowed a museum piece…"      | "He doesn't fancy me. He fancies bronze. I just happened to be standing near some."   |
 
 ### Chapter III card
 
-**narr_ch3_end**: "At a quarter past five, in a shop in the Chiado, a man looked at a brass weight sitting on velvet and smiled. He could wait. He had always been able to wait."
+**narr_ch3_lacerda2**: "At a quarter past five, in a shop in the Chiado, a man looked at a bronze tongue lying on velvet and smiled. It was the wrong tongue. He could wait. He had always been able to wait."
 
 ## Chapter IV: The Founders' Blood
 

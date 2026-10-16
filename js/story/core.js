@@ -163,7 +163,7 @@
       // shown but locked until Teixeira brings the key round
       waiting: () => F().drawer_open && !G.has('fkey') && !F().ferreira_open && (F().ch || 1) <= 3, waitText: 'Waiting for the key' },
     { id: 'convent', x: 262, y: 318, text: () => F().ch >= 5 ? 'Convento do Carmo · midnight' : 'Convento do Carmo', open: () => (F().ch2_done && F().ch <= 3) || (F().ledger_found && (F().rui_called || !F().ines_plan)) },
-    { id: 'se_museum', x: 828, y: 352, text: 'Sé de Lisboa · museum', open: () => !!F().ines_plan },
+    { id: 'se_museum', x: 828, y: 352, text: 'Sé de Lisboa · museum', open: () => !!F().ines_plan || (F().ch === 3 && !!F().knows_twin) },
     { id: 'se_tower', x: 870, y: 300, text: 'Sé de Lisboa · bell tower', open: () => F().decoded && F().ch <= 4,
       go: () => F().ch === 3 && F().vasco_thursday && !F().vasco_cameo ? 'se_cloister' : 'se_tower' }, // Vasco is in the cloister on the way up
     { id: 'antiques', x: 410, y: 440, text: 'Antiguidades Lacerda · Chiado', open: () => F().decoded && !F().has_tongue && (F().chose_chiado || !F().decoded_v6) },
@@ -201,7 +201,12 @@
     if (!f.decoded && f.ch2_done && S.needBells && S.needBells()) return f.charter_shown ? 'ines_hint_bells2' : 'ines_hint_bells';
     if (!f.decoded) return f.stone_washed ? (f.stone_read ? 'ines_hint_wheel' : 'ines_hint_mag') : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
     if (!f.founder_order) return 'ines_hint_order';
-    if (!f.has_tongue) return !(has('vkey') && f.case_known) ? 'ines_hint_case' : (!has('weight') ? 'ines_hint_theft' : 'ines_hint_box');
+    if (!f.has_tongue) { // Lacerda's case -> Abílio reads the sketch -> Vasco lends the twin -> the swap
+      if (!f.tongue_sketched) return 'ines_hint_see_case';
+      if (!f.knows_twin) return 'ines_hint_sketch_abilio';
+      if (!has('twin')) return 'ines_hint_ask_vasco';
+      return has('vkey') ? 'ines_hint_swap' : 'ines_hint_case';
+    }
     return 'ines_hint_ch3_done';
   };
   // The banker's lamp switched off: the painting has it lit, so dim the green

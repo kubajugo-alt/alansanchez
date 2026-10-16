@@ -76,6 +76,7 @@
   S.readNotebook = () => G.closeup([
     { img: PAPER, cls: 'doc-hand', html: `<p>milk · coffee · sardines (P.)</p><p><i>Sonnet XIV (unfinished)</i><br>The fog sits on the city like a cat…</p><p style="margin-top:2em">Mãe — 22 31 70 4?</p>${F().vasco_thursday ? '<p>Dr. V. Teles — Sé, quintas (card)</p>' : ''}` },
     ...(F().sketched_tile ? [{ img: PAPER, cls: 'doc-hand', html: `<p>The tile: a bell under three waves. Blue on white.</p><svg viewBox="0 0 120 110" style="display:block;width:55%;margin:0.5em auto" fill="none" stroke="#2f3f78" stroke-width="2.4" stroke-linecap="round"><path d="M42 20 Q42 8 60 8 Q78 8 78 20 L86 58 L34 58 Z"/><path d="M30 58 L90 58"/><circle cx="60" cy="64" r="4"/><path d="M10 80 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/><path d="M10 92 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/><path d="M10 104 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/></svg>` }] : []),
+    ...(F().tongue_sketched ? [{ img: PAPER, cls: 'doc-hand', html: `<p>Lacerda's glass case. 'Not for sale.'</p><svg viewBox="0 0 160 70" style="display:block;width:70%;margin:0.6em auto" fill="none" stroke="#3a3428" stroke-width="2.2" stroke-linecap="round"><circle cx="14" cy="35" r="6"/><path d="M20 35 L28 35"/><rect x="28" y="14" width="40" height="42" rx="7"/><path d="M36 15 L36 55 M60 15 L60 55"/><path d="M68 28 L78 30 L78 40 L68 42"/><path d="M78 32 L140 33 M78 38 L140 37"/><rect x="140" y="29" width="10" height="12" rx="4"/></svg><p>Loop, drum of a bob, collar, long shank, knob. Green in the dents.</p>${F().knows_twin ? '<p>A. says: <i>founders pour twice.</i> The twin is in the Sé reserve. Same pour, same marks. Never rung.</p>' : ''}` }] : []),
     ...(F().founder_order ? [{ img: PAPER, cls: 'doc-hand', html: `<p>Ferreira 1611</p><p>Bastos 1648</p><p>Coutinho 1702</p><p>Sanches 1739</p><p>— ring last to first —</p>` }] : []),
     ...((F().lore || []).length ? [{ img: PAPER, cls: 'doc-hand', html: `<p style="font-family:'IM Fell English',serif;text-align:center">The Bell</p>` +
       LORE.filter(([k]) => F().lore.includes(k)).map(([, t]) => `<p style="font-size:0.85em">· ${t}</p>`).join('') }] : []),
@@ -92,6 +93,8 @@
     ['godparents', "The Lacerdas were its godparents. That's why the water listens to them."],
     ['blood', 'Founders bled into the bronze. Only our blood makes it talk. Lucky us.'],
     ['order', 'Ring it backward, last to first: Sanches, Coutinho, Bastos, Ferreira. It renounces the sea.'],
+    ['case', "Lacerda keeps a bell's tongue under glass. Not for sale. He'd notice a hair moved on the velvet."],
+    ['twin', 'The founders cast two tongues from one pour. Only one was blessed and rung. The twin is in the Sé reserve. Grandfather put it there.'],
     ['father', 'Lacerda wants his father back. <s>So do I. Mine at least sent postcards.</s>'],
   ];
 

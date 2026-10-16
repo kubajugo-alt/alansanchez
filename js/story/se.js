@@ -29,7 +29,7 @@
   const VPOSE = { fluster: ['vasco_lanyard', 'vasco_much_1', 'vasco_much_2', 'vasco_much_4', 'vasco_flustered', 'vasco_kiss'],
     laugh: ['vasco_much_3', 'vasco_much_5', 'vasco_stall'],
     sheepish: ['vasco_hello', 'vasco_little_2', 'vasco_cameo', 'vasco_thursday_then'],
-    find: ['vasco_busy', 'vasco_coins', 'vasco_fragment'], give: ['vasco_card'],
+    find: ['vasco_busy', 'vasco_coins', 'vasco_fragment', 'vasco_tag'], give: ['vasco_card', 'vasco_store_loan'],
     // the painted moods, where they exist (they override the stand-ins above)
     delight: ['vasco_pit', 'vasco_bottom', 'vasco_layers', 'vasco_marks'],
     tender: ['vasco_quiet', 'vasco_sleep', 'vasco_dirt', 'vasco_collar'],
@@ -37,14 +37,20 @@
     worried: ['vasco_fall'],
     scandalised: ['vasco_much_3'],
     amused: ['vasco_rope', 'vasco_closed', 'vasco_loan'],
-    hopeful: ['vasco_cameo', 'vasco_thursday_then'] };
+    hopeful: ['vasco_cameo', 'vasco_thursday_then', 'vasco_thursday_truth', 'vasco_thu_down', 'vasco_after_2'] };
+  // the twin and the reserve (Chapter III), and Thursday's debt
+  Object.assign(VPOSE, { deflate: VPOSE.deflate.concat(['vasco_hook', 'vasco_thu_pause', 'vasco_not_here']),
+    tender: VPOSE.tender.concat(['vasco_forgive', 'vasco_thu_catalogue', 'vasco_love_1', 'vasco_love_2']),
+    worried: VPOSE.worried.concat(['vasco_what']), laugh: VPOSE.laugh.concat(['vasco_love_tie', 'vasco_after_1']) });
   for (const [pose, ids] of Object.entries(VPOSE)) if (S.CHARS.vasco.frames.poses[pose]) ids.forEach(id => { S.LINE_POSE[id] = ['vasco', pose]; });
   // his face answers Alan's lines while he's in the scene (the mood each one gets; others, now and then, a smile)
   const VREACT = { alan_vasco_hello: 'amused', alan_relation: 'laugh', alan_romantic: 'tender', alan_vasco_flirt: 'fluster', alan_bottom: 'scandalised',
     alan_close: 'fluster', alan_lanyard: 'fluster', alan_collar: 'hopeful', alan_standards: 'stern', alan_monument: 'laugh', alan_thursday: 'delight',
     alan_fine: 'worried', alan_cameo: 'delight', alan_romans: 'tender', alan_wait: 'hopeful', alan_documents: 'amused', alan_pit_ladder: 'fluster',
     alan_ask_pit: 'delight', alan_ask_marks: 'delight', alan_ask_frags: 'delight', alan_layers: 'laugh', alan_kneel: 'amused', alan_dirt: 'tender',
-    alan_coins: 'fluster', alan_quiet: 'tender', alan_toss_ines: 'worried' };
+    alan_coins: 'fluster', alan_quiet: 'tender', alan_toss_ines: 'worried',
+    alan_ask_vasco_twin: 'worried', alan_vasco_sorry: 'deflate', alan_vasco_clapper: 'worried', alan_owe_one: 'tender', gag_alan_withhold: 'stern',
+    alan_thu_truth: 'worried', alan_thu_return: 'delight', alan_thu_owe: 'hopeful', alan_love_1: 'tender' };
   const vreact = function (id) {
     if (!/^(alan_|gag_alan_)/.test(id)) return null;
     const a = G.npc('vasco'), P = S.CHARS.vasco.frames.poses;
@@ -59,7 +65,7 @@
   S.CHARS.alan.frames.poses.coffees = 'alan_coffees'; // Thursday morning: two coffees
   // Alan and Vasco painted together (Alan left, Vasco right): played as Alan's pose with Vasco hidden,
   // anchored on the middle of the couple
-  ['catch', 'lanyard', 'thumb', 'kneel', 'kiss', 'card', 'fragment', 'coffee', 'ladder'].forEach(k => { S.CHARS.alan.frames.poses['pair_vasco_' + k] = 'pair_vasco_' + k; });
+  ['catch', 'lanyard', 'thumb', 'kneel', 'kiss', 'card', 'fragment', 'coffee', 'ladder', 'clapper', 'shelf', 'tie'].forEach(k => { S.CHARS.alan.frames.poses['pair_vasco_' + k] = 'pair_vasco_' + k; });
   S.vpair = function (k) {
     const key = 'pair_vasco_' + k, p = G.player, v = G.npc('vasco');
     if (!window.SPRITES[key] || !v || !v.visible) return null;
@@ -78,7 +84,8 @@
   const inesAtSe = () => F().ines_plan && !F().heist_done && F().ch === 1;
   S.inesAtSe = inesAtSe;
   // Vasco keeps digging all of Chapter I; in Chapter III he's back in the cloister once, hoping
-  const vascoHere = () => F().ch <= 1 || (F().ch === 3 && F().vasco_thursday) || F().thursday;
+  // (and, once Abílio has told Alan about the twin, he's there to be asked for it)
+  const vascoHere = () => F().ch <= 1 || (F().ch === 3 && (F().vasco_thursday || F().knows_twin)) || F().thursday;
 
   // Alan's notebook: lore entries collect as they're learned (the page itself is in docs.js)
   S.lore = function (key) {
@@ -225,6 +232,14 @@
 
   // ---------------------------------------------------------------- Vasco
   S.talkVasco = async function () {
+    // Chapter III: Alan comes to ask for the twin, honestly this time
+    if (F().ch === 3 && F().knows_twin && !F().twin_lent) {
+      if (F().vasco_thursday && !F().vasco_cameo) await S.cloisterCh3();
+      return G.dialog([
+        { line: 'alan_ask_vasco_twin', bye: true, run: () => S.vascoTwin() },
+        { label: 'Goodbye.', bye: true },
+      ]);
+    }
     if (F().heist_done) {
       if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) return S.cloisterCh3();
       return say('vasco_busy');
@@ -433,6 +448,8 @@
   S.ITEMS.reserve_key = { name: "Dr. Teles's reserve key", look: 'alan_lanyard_far' };
   S.ITEMS.vasco_card = { name: "Dr. Teles's card", look: 'alan_two_numbers' };
   S.ITEMS.sanches_fragment = { name: 'Fragment of Sanches bronze', look: 'alan_look_fragment' };
+  // the drowned bell's twin tongue, on loan from the Sé reserve: it looks exactly like the real one
+  S.ITEMS.twin = { name: 'Bell tongue (the twin)', icon: 'tongue', look: 'alan_look_twin' };
 
   // ================================================================ VASCO'S ARC
   // Chapter III, on the way to the tower: Vasco climbs out of the pit with something for Alan
@@ -492,8 +509,12 @@
     // the Sé strikes nine
     for (let i = 0; i < 9; i++) setTimeout(() => sfx('hour'), window.FAST ? 0 : 400 + i * 1500);
     await G.say('narr_thursday', { offscreen: true });
-    await T(window.FAST ? 20 : 5000);
+    await T(window.FAST ? 20 : 2500);
+    // the debt: the truth about the twin, and the tongue that rang, only bronze now
+    if (F().twin_lent) await say('alan_thu_truth', 'vasco_thu_pause', 'alan_thu_return', 'vasco_thu_catalogue', 'alan_thu_owe', 'vasco_thu_down');
+    else await T(window.FAST ? 20 : 2500);
     if (sat) sat();
+    if (F().twin_lent) await S.vascoLove();
   };
 
   // ---------------------------------------------------------------- the register, back at the shop
@@ -515,6 +536,107 @@
   ROOMS.shop.enter = async function (entry) {
     if (F().heist_done && !F().reserve_raided && G.npc('ines')) return S.readRegister();
     if (shopEnter) return shopEnter.call(this, entry);
+  };
+
+  // ================================================================ THE RESERVE (the Sé museum's store room)
+  // Only ever visited with Vasco: in Chapter III for the twin, and on Thursday.
+  const STORE_STAIR = [250, 612], STORE_SHELF = [560, 592];
+  const inStore = () => !!F().store_scene;
+  ROOMS.se_store = {
+    name: 'Sé de Lisboa · reserve', bg: 'se_store', music: null, ambience: 'museum', acoustic: 'convent', floor: 'stone', noSave: true,
+    // the flagstones, clear of the stairs (left) and the big crate (right)
+    walk: [[0, 600], [290, 578], [305, 548], [1060, 548], [1070, 642], [1280, 646], [1280, 716], [0, 716]],
+    scale: [548, 250, 716, 372],
+    light: { ambient: 'rgb(200,190,170)', base: 0.8, rim: 'rgba(255,220,160,0.2)', rimSide: 1 },
+    lights: [
+      { x: 652, y: 128, rgb: '255,214,150', kind: 'steady', glow: 70, ga: 0.22, power: 0.36, reach: 900, shadow: 0.5, floor: [652, 590], height: 470 }, // the work lamp
+      { x: 780, y: 150, rgb: '225,232,240', power: 0.14, reach: 700, shadow: false }, // fog-light from the high window
+    ],
+    entries: { default: STORE_STAIR.concat('e'), se_museum: STORE_STAIR.concat('e') },
+    anim(g, t) { FX.motes(g, t, 300, 100, 700, 420, 30, '245,230,200'); },
+    npcs: [{ id: 'vasco', x: 260, y: 640, dir: 'e', name: 'Dr. Vasco Teles', when: inStore, look: 'narr_look_vasco', talk: () => say('vasco_busy'), items: { any: 'alan_fail_04' } }],
+    hotspots: [
+      { name: 'Shelves', rect: [280, 150, 700, 370], look: 'narr_look_store' },
+      { name: 'Stairs up', rect: [40, 120, 240, 460], at: [200, 610], exit: 'se_museum', entry: 'se_store' },
+    ],
+  };
+  ROOMS.se_museum.entries.se_store = [1000, 640, 'w'];
+
+  // Chapter III: honest for once. The apology, the clapper, and very nearly a kiss
+  S.vascoTwin = async function () {
+    const p = G.player;
+    await G.busy(async () => {
+      if (F().heist_done) await say('alan_vasco_sorry', 'vasco_hook', 'vasco_forgive');
+      else await say('vasco_what');
+      await say('alan_vasco_clapper', 'vasco_come_down');
+      // he leads the way back through the museum and down into the reserve
+      const v0 = G.npc('vasco');
+      if (v0 && !window.FAST) { v0.walkTo(1210, 640); await T(500); await p.walkTo(1120, 650); }
+      await G.fade(true);
+      F().store_scene = true;
+      await G.goRoom('se_store', null, { instant: true, noEnter: true, noSave: true, pos: [STORE_STAIR[0] - 60, STORE_STAIR[1] + 20, 'e'] });
+      const v = G.npc('vasco'); if (v) { v.x = STORE_STAIR[0] + 40; v.y = STORE_STAIR[1]; v.dir = 'e'; }
+      sfx('key_jingle', 0.5); sfx('door', 0.4);
+      await G.fade(false);
+      if (v) { await v.walkTo(STORE_SHELF[0] + 90, STORE_SHELF[1] - 10); v.dir = 'n'; }
+      await p.walkTo(STORE_SHELF[0] - 40, STORE_SHELF[1] + 10); p.dir = 'e';
+      if (v) { v.dir = 'n'; await T(700); }
+      await say('vasco_tag');
+      if (v) { v.dir = 'w'; await v.walkTo(p.x + 130, p.y - 2); v.dir = 'w'; }
+      sfx('brass_heavy', 0.4);
+      await say('vasco_store_loan', 'alan_owe_one');
+      give('twin'); F().twin_lent = true;
+      // he doesn't let go of it
+      await S.withPair('clapper', async () => { await say('vasco_dust', 'alan_dust'); await T(1400); });
+      await say('vasco_not_here', 'gag_alan_withhold', 'vasco_thursday_truth');
+      F().vasco_thursday = true; // (saves where the heist never happened: this is their Thursday too)
+      // back up the stairs; Vasco stays with his crates
+      await G.fade(true);
+      F().store_scene = false;
+      await G.goRoom('se_museum', 'se_store', { instant: true, noEnter: true });
+      await G.fade(false);
+      await say('alan_twin_guilt');
+    });
+    G.autosave();
+  };
+
+  // Thursday, after the coffee and the truth: downstairs, and this time nobody stops
+  // (the game's last romance: the epilogue's ending card follows it)
+  S.vascoLove = async function () {
+    const p = G.player;
+    F().vasco_love = true;
+    await G.fade(true); G.endStill && G.endStill();
+    F().store_scene = true;
+    await G.goRoom('se_store', null, { instant: true, noEnter: true, noSave: true, pos: [STORE_STAIR[0] - 60, STORE_STAIR[1] + 20, 'e'] });
+    const v = G.npc('vasco'); if (v) { v.x = STORE_STAIR[0] + 40; v.y = STORE_STAIR[1]; v.dir = 'e'; v.pose = null; v.set = null; }
+    await G.fade(false);
+    if (v) { await v.walkTo(STORE_SHELF[0] + 60, STORE_SHELF[1] - 10); v.dir = 'w'; }
+    await p.walkTo(STORE_SHELF[0] - 60, STORE_SHELF[1]); p.dir = 'e';
+    await say('vasco_love_1', 'alan_love_1', 'vasco_love_2');
+    // against the shelving, the tie pulled loose
+    sfx('v_alan_mmm', 0.5);
+    await S.withPair(window.SPRITES.pair_vasco_shelf ? 'shelf' : 'kiss', async () => { await T(1800); await say('alan_love_tie'); });
+    await S.withPair(window.SPRITES.pair_vasco_tie ? 'tie' : 'kiss', () => say('vasco_love_tie'));
+    if (S.discreet()) { // Discreet: from the kiss straight to the afterwards, in the dark
+      await G.fade(true);
+      await G.say('narr_store', { offscreen: true });
+      await say('vasco_after_2', 'alan_after_every');
+    } else {
+      sfx('v_vasco_laugh', 0.45);
+      await S.withPair('shirtless', async () => { await T(1600); await say('vasco_love_romans', 'alan_love_romans'); });
+      await G.fade(true);
+      await T(900);
+      await G.say('narr_store', { offscreen: true });
+      // later: on a crate, shirts open, laughing, the clapper between them
+      await S.still('still_store_after', 'se_store', async () => {
+        await G.fade(false);
+        sfx('v_alan_chuckle', 0.45); await T(700);
+        await say('vasco_after_1', 'alan_after_v', 'vasco_after_2', 'alan_after_every');
+      }, { zoom: [1.0, 1.1], pan: [[0.5, 0.5], [0.5, 0.45]], keep: true });
+    }
+    F().store_scene = false;
+    await S.flingBeat(4, true); // the narrator, who isn't fooled, and isn't joking either
+    G.endStill();
   };
 
   window.EXTRA_STILLS = ['still_se_kiss', 'still_se_pit', 'still_se_reserve'];

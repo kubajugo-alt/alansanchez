@@ -223,12 +223,25 @@
         if (BELLS.every(x => F()['bell_' + x.id])) await S.orderKnown();
       } },
       { label: 'Write: "And the tongue?"', once: true, when: () => F().heard_blood, run: async () => { await read(700); await say('abilio_tongue'); } },
+      // the sketch from Lacerda's case: the drowned bell's tongue, and its twin in the Sé reserve
+      { line: 'alan_w_sketch', once: true, when: () => F().tongue_sketched && !F().knows_twin, run: () => S.abilioSketch(read) },
       { line: 'alan_w_joaquim', once: true, run: async () => { await read(700); await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); } },
       { line: 'alan_w_1955', once: true, run: async () => { await read(700); await say('abilio_1955'); } },
       { line: 'alan_w_backward', once: true, run: async () => { await read(700); await say('abilio_backward'); } },
       { line: 'alan_w_order', run: async () => { await read(600); ab.pose = 'point'; await say('abilio_eyes'); ab.pose = null; } },
       { label: 'Goodbye.', bye: true, run: async () => { p.pose = null; await say('abilio_bye'); } },
     ]); } finally { p.pose = null; }
+  };
+
+  S.abilioSketch = async function (read) {
+    const ab = G.npc('abilio');
+    await read(900);
+    await say('abilio_sketch');
+    if (ab) ab.pose = 'point';
+    await say('abilio_twin'); if (ab) ab.pose = null;
+    await say('abilio_twin_where');
+    F().knows_twin = true; S.lore && S.lore('twin');
+    G.player.pose = 'write'; await say('alan_twin_plan');
   };
 
   // ================================================================ ANTIGUIDADES LACERDA
@@ -249,14 +262,14 @@
       { img: 'antiques_clock', x: 539, y: 218 },
       { img: 'antiques_weights', x: 543, y: 228 },
       { img: 'antiques_pendulum', x: 544, y: 224, pivot: [571, 228], swing: t => 2.4 * Math.sin(t * Math.PI) },
-      { img: 'antiques_case', x: 686, y: 291, when: () => F().case_open && !F().has_tongue },
-      { img: 'antiques_case_weight', x: 0, y: 0, full: true, when: () => F().has_tongue },
+      { img: 'antiques_case_tongue', x: 0, y: 0, full: true, when: () => !F().grabbed }, // the tongue on the velvet (after the swap, its identical twin)
+      { img: 'antiques_case', x: 686, y: 291, when: () => F().grabbed }, // lifted without a swap: bare velvet, until he notices
     ],
     entries: { default: [640, 690, 'n'], map: [640, 690, 'n'] },
     anim(g, t) { FX.motes(g, t, 560, 80, 380, 420, 24, '255,220,170'); },
     npcs: [
       { id: 'lacerda', x: 250, y: 545, h: 348, dir: 'e', at: [540, 615], name: 'Senhor Lacerda', look: 'narr_look_lacerda', talk: () => S.talkLacerda(),
-        items: { ledger: () => say('lacerda_charming'), tongue: () => say('lacerda_putback'), any: 'alan_fail_lacerda_item' } },
+        items: { ledger: () => say('lacerda_charming'), tongue: () => say('lacerda_putback'), twin: () => say('lacerda_hands'), any: 'alan_fail_lacerda_item' } },
     ],
     hotspots: [
       { name: 'Clocks', rect: [0, 0, 480, 230], look: 'narr_look_clocks' },
@@ -267,16 +280,22 @@
       { name: 'Music box', rect: [928, 318, 130, 125], at: [990, 600], face: 'n',
         look: async () => { await say('narr_look_musicbox'); F().saw_box = true; } }, // the recognition plays when Alan asks Lacerda about it
       { name: 'Display case', rect: [655, 285, 215, 240], at: [760, 605], face: 'n',
-        look: () => { F().case_known = true; return F().has_tongue ? say('narr_look_case_after') : (F().saw_case ? joke('alan_look_case') : (F().saw_case = true, say('narr_look_case'))); },
+        look: () => { F().case_known = true; return F().has_tongue ? say('narr_look_case_twin') : (F().saw_case ? (F().tongue_sketched ? joke('alan_look_case') : S.sketchTongue()) : (F().saw_case = true, say('narr_look_case').then(() => S.sketchTongue()))); },
         use: () => S.lacerdaHere() ? say('lacerda_hands') : say(F().case_open ? 'alan_noswap' : 'alan_case_locked'),
         take: () => S.lacerdaHere() ? say('lacerda_hands') : F().case_open ? S.grabTongue() : say('alan_case_locked'),
         items: {
           vkey: async () => { if (S.lacerdaHere()) return say('lacerda_hands'); if (F().case_open) return say('alan_fail_04'); F().case_open = true; sfx('case_open'); await say('alan_case_open'); },
-          weight: async () => {
+          // the brass weight won't do: he said he'd notice a hair moved on that velvet
+          weight: () => S.lacerdaHere() ? say('lacerda_hands') : say('alan_weight_no'),
+          magnifier: () => F().tongue_sketched ? joke('alan_look_case') : S.sketchTongue(),
+          notebook: () => F().tongue_sketched ? joke('alan_look_case') : S.sketchTongue(),
+          // the twin from the Sé reserve: same pour, same marks, same weight
+          twin: async () => {
             if (S.lacerdaHere()) return say('lacerda_hands');
             if (!F().case_open) return say('alan_case_locked');
-            G.takeItem('weight'); give('tongue'); F().has_tongue = true; F().swapped = true;
-            await say('alan_swap');
+            G.takeItem('twin'); give('tongue'); F().has_tongue = true; F().swapped = true; F().twin_swapped = true;
+            sfx('brass_heavy', 0.5);
+            await say('alan_swap_twin');
           },
           any: 'alan_fail_lacerda_item',
         } },
@@ -299,6 +318,13 @@
     },
   };
   S.lacerdaHere = () => { const l = G.npc('lacerda'); return l && l.visible; };
+  // Alan can't touch it, so he draws it: the notebook page Abílio will read
+  S.sketchTongue = async function () {
+    if (F().tongue_sketched) return joke('alan_look_case');
+    const p = G.player; p.dir = 'n';
+    await S.posed('write', () => say('alan_sketch_tongue'));
+    F().tongue_sketched = true; sfx('page'); S.lore && S.lore('case');
+  };
   S.grabTongue = async function () {
     // taking it without a swap: he'll notice the velvet
     G.npc('lacerda'); F().grabbed = true; give('tongue');
@@ -358,7 +384,8 @@
   S.ch3End = async function () {
     if (F().ch3_done) return;
     F().ch3_done = true;
-    await say('ines_vandal'); await joke('alan_vandal');
+    if (F().twin_swapped) await say('ines_vandal2', 'gag_alan_vandal2', 'ines_promise', 'gag_alan_promise');
+    else { await say('ines_vandal'); await joke('alan_vandal'); }
     await say('ines_salt_pages');
     G.takeItem('ledger'); F().ledger_with_ines = true;
     const ines = G.npc('ines');
@@ -377,7 +404,7 @@
     const lac = G.npc('lacerda'); lac.visible = true; lac.h = null; lac.x = 520; lac.y = 600; lac.dir = 'e';
     await G.fade(false);
     await lac.walkTo(700, 600); lac.dir = 'e';
-    await G.say('narr_ch3_lacerda', { offscreen: true });
+    await G.say(F().twin_swapped ? 'narr_ch3_lacerda2' : 'narr_ch3_lacerda', { offscreen: true });
     await G.fade(true);
     F().steaming = false;
     await S.chapter(4, 'narr_ch4_card');

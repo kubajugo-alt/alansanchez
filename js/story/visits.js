@@ -231,7 +231,7 @@
         [3, 'alan_persuasive', 'teixeira_keep'],     // ...and the key stays in Alan's pocket
         [() => say('ines_cuff', 'alan_cuff_5')],      // the station is asking after its officer
         [4, 'alan_after_1'],                          // "Ten minutes. Don't go anywhere, Officer."
-      ], 'phone_after_2', S.teixeiraKey);
+      ], 'phone_after_2', async () => { if (S.inesKey) await S.inesKey(); await S.teixeiraKey(); });
     });
   };
 
@@ -344,6 +344,38 @@
     await say('alan_duarte_ines_3');
     await face('laugh', () => say('ines_duarte_5'))();
     });
+  };
+
+  // an hour later: Alan left the handcuff key on the counter with everything else in his pockets.
+  // Inês found it, went upstairs and let the officer go, and now she has a word with him.
+  // She doesn't judge; he insists it was a prank on a friend.
+  S.inesKey = async function () {
+    F().ines_key = true;
+    const p = G.player, ines = G.npc('ines');
+    await G.fade(true);
+    await G.say('narr_key_later', { offscreen: true });
+    p.x = 760; p.y = 612; p.dir = 'w'; p.pose = null;
+    await G.fade(false);
+    const face = (k, f) => async () => {
+      const P = ines && ines.c.frames.poses;
+      if (P && !P[k] && window.SPRITES['ines_' + k]) P[k] = 'ines_' + k;
+      if (P && P[k]) ines.pose = k; await f(); if (ines) ines.pose = null;
+    };
+    const fluster = async k => { p.pose = 'fluster'; await say(k); p.pose = null; };
+    await G.busy(async () => {
+      if (ines) ines.dir = 'e';
+      await face('deadpan', () => say('ines_key_1'))();
+      await fluster('alan_key_deny_1');
+      await face('eyeroll', () => say('ines_key_2'))();
+      await fluster('alan_key_deny_2');
+      await face('sympathetic', () => say('ines_key_3'))();
+      await face('worried', () => say('ines_key_4'))();
+      await T(700);
+      p.dir = 'e'; await say('alan_key_deny_3'); // he can't look at her
+      await face('write', () => say('ines_key_5'))();
+      sfx('stairs', 0.5); await T(600);
+    });
+    G.autosave();
   };
 
   S.ITEMS.lyrics_sheet = { name: "Duarte's lyrics", look: () => S.readLyrics() };
