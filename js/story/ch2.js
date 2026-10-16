@@ -42,8 +42,8 @@
         talkFrames: ['npc_washer1_giggle', 'npc_washer1_laugh', 'npc_washer1_gossip'], poses: { howl: 'npc_washer1_howl', peek: 'npc_washer1_peek' } },
       { id: 'npc_laundry', name: 'Woman with the washing', frames: ['npc_laundry'], x: 175, y: 560, h: 236, look: 'alan_npc_laundry', talk: () => S.laundryTalk() }, // under the hanging sheets
       { id: 'npc_washer2', name: 'Graça', x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [6, 12], variantHold: [2.4, 4.5], talk: () => S.washersBath(),
-        frames: ['npc_washer2', 'npc_washer2_scrub2', 'npc_washer2_slap', 'npc_washer2_b', 'npc_washer2_hips'],
-        talkFrames: ['npc_washer2_cackle', 'npc_washer2_beckon'], poses: { wheeze: 'npc_washer2_wheeze' } },
+        frames: ['npc_washer2', 'npc_washer2_scrub2', 'npc_washer2_slap', 'npc_washer2_b', 'npc_washer2_wring', 'npc_washer2_hips'],
+        talkFrames: ['npc_washer2_cackle', 'npc_washer2_beckon', 'npc_washer2_giggle'], poses: { wheeze: 'npc_washer2_wheeze', wink: 'npc_washer2_wink' } },
     ],
     hotspots: [
       { name: 'Wash basins', rect: [160, 372, 908, 112], look: 'narr_look_basins' },
@@ -103,8 +103,8 @@
   Object.assign(S.REACT, {
     washer1_bath_1: [['npc_washer2', 'npc_washer2_cackle']],
     washer2_bath_1: [['npc_washer1', 'npc_washer1_laugh']],
-    alan_washers_1: [['npc_washer1', 'npc_washer1_peek'], ['npc_washer2', 'npc_washer2_hips']],
-    alan_washers_2: [['npc_washer1', 'npc_washer1_giggle'], ['npc_washer2', 'npc_washer2_wheeze']],
+    alan_washers_1: [['npc_washer1', 'npc_washer1_peek'], ['npc_washer2', 'npc_washer2_wink']],
+    alan_washers_2: [['npc_washer1', 'npc_washer1_giggle'], ['npc_washer2', 'npc_washer2_giggle']],
     washer2_bath_3: [['npc_washer1', 'npc_washer1_giggle']],
   });
   S.washersBath = async function () {

@@ -2029,6 +2029,14 @@ window.SPRITES = {
   "fy": 755.2,
   "top": 3.2
  },
+ "npc_washer2_giggle": {
+  "w": 300,
+  "hh": 720,
+  "h": 720.0,
+  "ax": 104.6,
+  "fy": 719.2,
+  "top": 3.2
+ },
  "npc_washer2_hips": {
   "w": 323,
   "hh": 763,
@@ -2059,6 +2067,22 @@ window.SPRITES = {
   "h": 720.0,
   "ax": 103.8,
   "fy": 725.8,
+  "top": 3.2
+ },
+ "npc_washer2_wink": {
+  "w": 315,
+  "hh": 768,
+  "h": 720.0,
+  "ax": 98.6,
+  "fy": 763.2,
+  "top": 3.2
+ },
+ "npc_washer2_wring": {
+  "w": 384,
+  "hh": 749,
+  "h": 720.0,
+  "ax": 197.6,
+  "fy": 747.2,
   "top": 3.2
  },
  "pair_brow": {
