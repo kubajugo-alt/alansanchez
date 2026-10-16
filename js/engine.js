@@ -261,20 +261,18 @@
         if (time - this.viaT < TURN_VIA && frontOK) { via = true; key = fk; sp = SPRITES[fk]; flipped = !!sp.facesLeft; }
         else { this.viaT = null; this.lastFlip = flipped; this.viaOut = true; } // out of the front view: no second turn
       }
-      const turned = faceTurn && !via && this.viaT == null;
       this.lastFlip = flipped;
       if (key !== this.cur) {
         const inCycle = this.walking && this.cycle().includes(key) && this.cycle().includes(this.cur);
         this.prev = this.cur && !inCycle ? this.cur : null;
         this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
         const M = window.MORPHS, morph = this.prev && this.prevFlip === flipped && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
-        this.fadeDur = via ? TURN_IN : this.viaOut ? TURN_OUT : morph ? MORPH_T : XFADE; this.viaOut = false;
+        // only a pair with morph data moves between poses; anything else is a clean cut, so two
+        // paintings are never on screen at once
+        if (!morph) this.prev = null;
+        this.fadeDur = MORPH_T; this.viaOut = false;
         this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
-      } else if (turned && this.cur && !window.FAST) {
-        // same painting, other facing: dissolve across rather than squash flat
-        this.prev = this.cur; this.prevFlip = this.curFlip != null ? this.curFlip : !flipped;
-        this.fadeDur = TURN_FADE; this.fadeT = TURN_FADE;
       }
       this.curFlip = flipped;
       const A = this.place(key, flipped);
@@ -344,9 +342,8 @@
   // flows towards the new and fades out on top.
   const MCOLS = 10, MROWS = 26;
   // painted sitting down: they sway from the seat, not the feet
-  // the front-view swing: how long the front view shows, and the quick blends in and out of it;
-  // TURN_FADE: the dissolve for figures with no front view
-  const TURN_VIA = 0.15, TURN_IN = 0.07, TURN_OUT = 0.1, TURN_FADE = 0.16;
+  // the front-view swing: how long a turning figure shows its front view between the two sides
+  const TURN_VIA = 0.15;
   const SEATED = new Set(['npc_bench', 'npc_cards', 'npc_couple', 'npc_fish', 'npc_guard', 'npc_guitar', 'npc_mender1', 'npc_mender2', 'npc_washer1']);
   function morphBlit(ctx, P, U, F, amt, alpha) {
     const ox = P.x - U.x, oy = P.y - U.y, sw = P.sp.w, sh = P.sp.hh, s = P.s, fl = P.flipped;
@@ -368,21 +365,17 @@
     const M = window.MORPHS, fAB = B && M && M[A.key + '>' + B.key], fBA = B && M && M[B.key + '>' + A.key];
     if (B && kB > 0 && fAB && fBA && window.Warp && window.WARP !== false && !window.FAST) {
       const e = linear ? kB : kB * kB * (3 - 2 * kB); // weight of A's own shape is 1 - e
+      // Both paintings bend toward a shared in-between shape, but only one is ever on screen:
+      // the outgoing one up to the middle, then the incoming one. Never two at once (no extra hands).
       if (linear) {
-        // the step in progress: A bends towards the next frame, which fades in on top bending back
-        const f = 1 - e, a = band(0.3, 0.7, f);
-        if (morphBlit(cg, A, U, fAB, f, 1) && morphBlit(cg, B, U, fBA, 1 - f, a)) return compBuf;
-      } else if (morphBlit(cg, A, U, fAB, e, 1) && morphBlit(cg, B, U, fBA, 1 - e, band(0.3, 0.72, e))) return compBuf;
+        const f = 1 - e; // the step in progress: A bends towards the next frame, then hands over
+        if (f < 0.5 ? morphBlit(cg, A, U, fAB, f, 1) : morphBlit(cg, B, U, fBA, 1 - f, 1)) return compBuf;
+      } else if (e >= 0.5 ? morphBlit(cg, B, U, fBA, 1 - e, 1) : morphBlit(cg, A, U, fAB, e, 1)) return compBuf; // e: 1 -> 0, the old frame first
       fit(compBuf, cg, w, h);
     }
     if (linear) { blit(cg, A, U, 1); return compBuf; }
-    if (B && kB > 0) {
-      // the new frame is always fully opaque; the old one fades out over it, so the
-      // figure never turns see-through (no pale flash between poses)
-      const e = kB * kB * (3 - 2 * kB); // smoothstep, 1 -> 0 as the fade ends
-      blit(cg, A, U, 1);
-      blit(cg, B, U, e);
-    } else blit(cg, A, U, 1);
+    // no morph for this pair: a clean cut, never two paintings overlaid
+    blit(cg, A, U, 1);
     return compBuf;
   }
 
@@ -1147,7 +1140,18 @@
       at = [actor.x + (actor.x > player.x ? -gap : gap), actor.y + 6];
     }
     if (!at) return;
-    const [x, y] = clampToPoly(at[0], at[1], room.walk);
+    let [x, y] = clampToPoly(at[0], at[1], room.walk);
+    // talking to someone: stand beside them, never in front covering them. If the spot would put
+    // Alan over the figure (closer than the two half-widths, at or in front of their depth), step
+    // out to whichever side of them is free on the floor, nearer side first.
+    if (actor && actor.visible) {
+      const gap = (actor.height() + player.height()) * 0.21;
+      if (y >= actor.y - 12 && Math.abs(x - actor.x) < gap) {
+        const near = player.x < actor.x ? -1 : 1, opts = [near, -near].map(sd => clampToPoly(actor.x + sd * gap, y, room.walk));
+        const best = opts.find(([cx]) => Math.abs(cx - actor.x) >= gap * 0.85) || opts.sort((a, b) => Math.abs(b[0] - actor.x) - Math.abs(a[0] - actor.x))[0];
+        [x, y] = best;
+      }
+    }
     await player.walkTo(x, y);
     if (def.face) player.dir = def.face;
     else if (actor) { player.dir = actor.x > player.x ? 'e' : 'w'; actor.dir = actor.def.fixedDir ? actor.dir : (player.x > actor.x ? 'e' : 'w'); }
