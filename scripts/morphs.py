@@ -77,7 +77,14 @@ def pair(a, b, reg=None):
     if abs(sx) > W * 0.25 or abs(sy) > H * 0.25 or resp < 0.05: sx = sy = 0.0
     Mt = np.float32([[1, 0, -sx], [0, 1, -sy]])
     gb2 = cv2.warpAffine(gb, Mt, (W, H), borderValue=96)
-    if reg:
+    if reg and reg[0] == 'inv':
+        # the way back registers better: measure b -> a and invert it (fixed point x + f(x) = y)
+        fba = register(B, A, *reg[1:])
+        yy0, xx0 = np.mgrid[0:H, 0:W].astype(np.float32)
+        fab = -fba.copy()
+        for _ in range(25):
+            fab = -cv2.remap(fba, xx0 + fab[..., 0], yy0 + fab[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    elif reg:
         fab = register(A, B, *reg)
     else:
         fab = dis.calc(ga, gb2, None)
@@ -107,9 +114,10 @@ for name, frames in sets:
         g, e0, e1, iou = pair(a, b)
         ok = e1 < e0 * 0.8 and iou > 0.8
         if not ok:  # very different poses: register the silhouettes coarse-to-fine and try again
-            for reg in [(0.6, 1.5), (0.4, 1.0), (0.8, 2.0)]:
+            for reg in [(0.6, 1.5), (0.4, 1.0), (0.8, 2.0), ('inv', 0.6, 1.5), ('inv', 0.4, 1.0), (0.2, 0.8)]:
                 g2, e0, e1b, iou2 = pair(a, b, reg)
                 if e1b < e0 * 0.8 and iou2 > 0.8: g, e1, iou, ok = g2, e1b, iou2, True; break
+                if iou2 > iou: e1, iou = e1b, iou2  # report the best attempt
         print(f'{key:55s} overlap {e0:5.1f} morph {e1:5.1f} iou {iou:.2f} {"OK" if ok else "skip"}')
         if ok: MORPHS[key] = g; done += 1
         else: MORPHS.pop(key, None); skipped += 1
