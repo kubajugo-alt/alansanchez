@@ -163,6 +163,14 @@ window.SPRITES = {
   "fy": 723.6,
   "top": 3.1
  },
+ "alan_fling": {
+  "w": 320,
+  "hh": 715,
+  "h": 720,
+  "ax": 205.1,
+  "fy": 723.8,
+  "top": 3.1
+ },
  "alan_flirt": {
   "w": 389,
   "hh": 747,
@@ -213,10 +221,10 @@ window.SPRITES = {
  },
  "alan_jacket": {
   "w": 217,
-  "hh": 729,
+  "hh": 717,
   "h": 720,
-  "ax": 116.9,
-  "fy": 725.1,
+  "ax": 151.9,
+  "fy": 725.3,
   "top": 3.1
  },
  "alan_jump": {
@@ -1345,9 +1353,9 @@ window.SPRITES = {
  "lacerda_talk2": {
   "w": 247,
   "hh": 730,
-  "h": 792.04,
-  "ax": 101.1,
-  "fy": 703.4,
+  "h": 724.0,
+  "ax": 110.5,
+  "fy": 726.0,
   "top": 2.9
  },
  "lacerda_walkA": {
@@ -2429,6 +2437,14 @@ window.SPRITES = {
   "fy": 711.8,
   "top": 3.1
  },
+ "pair_vasco_clapper": {
+  "w": 340,
+  "hh": 728,
+  "h": 720,
+  "ax": 170.0,
+  "fy": 724.1,
+  "top": 3.1
+ },
  "pair_vasco_coffee": {
   "w": 535,
   "hh": 715,
@@ -2606,7 +2622,7 @@ window.SPRITES = {
   "w": 374,
   "hh": 725,
   "h": 720.0,
-  "ax": 250.1,
+  "ax": 244.1,
   "fy": 719.4,
   "top": 2.9,
   "facesLeft": true
