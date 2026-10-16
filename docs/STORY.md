@@ -10,7 +10,7 @@ The main changes:
 
 - **Lore holes closed.** The blood rule, the purpose of the tongue, why Lacerda spared Alan, why the ledger distracts him and why the 1955 fog ended are now explained and planted early (see Lore).
 
-- **Every v1 seed is paid off.** The 1955 drawer, Ferreira's clocks, the music box, Rui's grandmother, Tomás's "Yes. I know.", "fools twice over", the phone number, the sea-monster tile and Pessoa all now lead somewhere.
+- **Every v1 seed is paid off.** The 1955 drawer, Ferreira's clocks, the music box, Rui's mother, Tomás's "Yes. I know.", "fools twice over", the phone number, the sea-monster tile and Pessoa all now lead somewhere.
 
 - **Two new chapters.** Chapter II (The Unexplained Drawer) is an investigation chapter with two parallel threads. Chapter IV (The Founders' Blood) is a race against the 18:25 turning of the tide to save Zé Coutinho.
 
@@ -151,7 +151,7 @@ Eleven speaking roles: seven returning, four new. New characters need ElevenLabs
 |----------------------|------------------------------------|-----------------------------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | Alan Sanchez (37)    | Bookseller, last Sineiro           | Roger, laid-back            | To be left alone                                                         | Raised by Joaquim above the shop. Has his mother's number in St. Augustine, Florida and hasn't called in two years. | From asleep at eleven to doing what his grandfather ran from. Calls his mother at dawn.                                                    |
 | Inês Carvalho        | Historian, assistant, best friend, conscience. A Black Brazilian woman from Salvador who moved to Lisbon for her doctorate and stayed: sassy, confident, curvy, very smart. Wears a black blazer over a faded grunge band tee, high-waisted jeans, heels, gold hoops and bangles | Taciana, vibrant Brazilian | To finish her thesis on 1755; to make Alan try                           | Joaquim confided in her more than in Alan, but never about bells                                   | Hint-giver at the shop in Ch. I–IV. Kidnapped in Ch. V; warns Alan while tied, then holds the lantern for the rite.                        |
-| Insp. Rui Mendonça   | Polícia Judiciária                 | Callum, husky               | To close the case without believing in it                                | His avó says "the river is breathing" and he's starting to agree                                   | Gives the list (I), opens the 1955 drawer and lends the Ferreira key (II), waits outside the Carmo (V). Closes the drawer in the epilogue. |
+| Insp. Rui Mendonça   | Polícia Judiciária                 | Callum, husky               | To close the case without believing in it                                | His mother says "the river is breathing" and he's starting to agree                                   | Gives the list (I), opens the 1955 drawer and lends the Ferreira key (II), waits outside the Carmo (V). Closes the drawer in the epilogue. |
 | Dona Amália (81)     | Fado singer, Taberna da Saudade    | Mora, gritty and enigmatic  | Not to sing that song                                                    | Loved Joaquim; he married someone sensible                                                         | Sings the song (I), identifies the music box from her photo (III, optional), gives a blessing on the last night (V, optional).             |
 | Father Tomás (51)    | Keeper of the roofless Carmo       | Nathaniel, calm and British | To keep the grate locked                                                 | The altar boy in the cistern in 1955. He has waited forty years for the next Sineiro.              | Guides Alan to the stone (III); at midnight tells him the truth about 1955 and gives him the lantern (V).                                  |
 | Vicente Lacerda (52) | Antiquarian in the Chiado, villain | Blackwood, posh villain     | The bell rung forward; the founders gone; the city given back to the sea | Watched his father drown in 1955. Killed Joaquim.                                                  | Courteous host (III), voice on the machine (V), drowned by his own water (V).                                                              |
@@ -371,7 +371,7 @@ Rui reads the file over Alan's shoulder and gives three things:
 
 - **The times of death**, "the coroner was very precise": Ferreira 03:12, Bastos 15:38, Coutinho 04:01.
 
-- **His avó:** "My grandmother found a body in fifty-five. She never told me where. She washes at the lavadouro. Don't tell her I sent you."
+- **His mother:** "My mother found a body in fifty-five. She never told me where. She washes at the lavadouro. Don't tell her I sent you."
 
 - **The Ferreira key:** "His shop is sealed. Forensics found nothing but clocks. If you find something, you found it by accident."
 
@@ -1046,7 +1046,7 @@ Existing characters need new states; new characters need full sets.
 | Tile not sketched      | "If they won't let you take it, draw it. You used to draw on everything."                                         |
 | Song not sung          | "She said not sober and not alone. You can solve one of those with money."                                        |
 | Drawer stuck           | "Salt is just stubborn water. Make it wet again."                                                                 |
-| Ch. II threads open    | "You've got a key to a dead man's shop and a policeman's grandmother. Pick one."                                  |
+| Ch. II threads open    | "You've got a key to a dead man's shop and a policeman's mother. Pick one."                                  |
 | Ferreira dark          | "You took matches from Amália. Even you can't have smoked them."                                                  |
 | Stone crusted          | "Salt comes off with water. Even you know that."                                                                  |
 | Wheel wrong            | "Sing it to yourself. How many times did she say?"                                                                |
