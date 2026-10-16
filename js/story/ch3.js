@@ -229,7 +229,7 @@
       { line: 'alan_w_sketch', once: true, when: () => F().tongue_sketched && !F().knows_twin, run: () => S.abilioSketch(read) },
       { line: 'alan_w_joaquim', once: true, run: async () => { await read(700); await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); } },
       { line: 'alan_w_1955', once: true, run: async () => { await read(700); await say('abilio_1955'); } },
-      { line: 'alan_w_backward', once: true, run: async () => { await read(700); await say('abilio_backward'); } },
+      { line: 'alan_w_backward', once: true, run: async () => { await read(700); await say('abilio_backward_2'); } },
       { line: 'alan_w_order', run: async () => { await read(600); ab.pose = 'point'; await say('abilio_eyes'); ab.pose = null; } },
       { label: 'Goodbye.', bye: true, run: async () => { p.pose = null; await say('abilio_bye'); } },
     ]); } finally { p.pose = null; }
@@ -333,8 +333,7 @@
     await say('alan_noswap');
   };
   S.talkLacerda = async function () {
-    await say('lacerda_hello');
-    if (F().vasco_thursday && !F().lac_reputation) { F().lac_reputation = true; await say('lacerda_reputation', 'alan_cold', 'lacerda_who', 'lacerda_expose'); await G.wait(window.FAST ? 20 : 800); await say('alan_stair'); }
+    await say('lacerda_hello_2'); // they have never met: he knows of Alan only as the last Sineiro
     await G.dialog([
       { line: 'alan_lac_clocks', once: true, run: async () => { await say('lacerda_clocks'); await joke('alan_collect'); await say('lacerda_charming'); await S.showClocks(); F().saw_jc_clock = true; await say('alan_jc'); } },
       { line: 'alan_lac_case', once: true, run: async () => { await say('lacerda_case', 'lacerda_velvet'); F().case_known = true; } },

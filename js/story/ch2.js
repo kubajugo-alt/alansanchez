@@ -259,10 +259,24 @@
     if (F().met_celeste) return say('alan_fail_04');
     const c = G.npc('celeste'), p = G.player;
     await p.walkTo(c.x + 170, c.y); p.dir = 'w'; c.dir = 'e';
-    p.pose = 'wring'; c.set = 'wring'; wringing = performance.now();
-    sfx('wring');
-    await joke('alan_wring');
-    wringing = null; p.pose = null; c.set = null;
+    const W = ['pair_wring_1', 'pair_wring_2', 'pair_wring_3', 'pair_wring_2'];
+    if (W.every(k => window.SPRITES[k])) {
+      // the two of them as one painting, Celeste on the left: the sheet twists tighter and back, each frame flowing into the next
+      const home = p.x, mid = (c.x + p.x) / 2;
+      c.visible = false; p.x = mid; p.dir = 'e'; p.pose = W[0];
+      let on = true;
+      const twist = (async () => { for (let i = 1; on; i++) { await G.wait(window.FAST ? 20 : 750); if (on) { p.pose = W[i % W.length]; if (i % W.length === 2) sfx('wring', 0.5); } } })();
+      sfx('wring');
+      await joke('alan_wring');
+      on = false; await twist;
+      p.pose = W[0]; await G.wait(window.FAST ? 20 : 500);
+      p.pose = null; p.x = home; p.dir = 'w'; c.visible = true; c.set = null;
+    } else {
+      p.pose = 'wring'; c.set = 'wring'; wringing = performance.now();
+      sfx('wring');
+      await joke('alan_wring');
+      wringing = null; p.pose = null; c.set = null;
+    }
     await say('celeste_hello');
     // Maria Coutinho first, and the gentleman in the cream suit; then she's met
     await S.celesteMaria();
@@ -305,7 +319,10 @@
   // ================================================================ RELOJOARIA FERREIRA
   const lit = () => F().ferreira_lit;
   ROOMS.ferreira = {
-    name: 'Relojoaria Ferreira', bg: 'ferreira', music: null, ambience: () => F().tide_wound ? 'ferreira' : null, floor: 'wood',
+    name: 'Relojoaria Ferreira', bg: 'ferreira', bgs: ['ferreira_lock', 'ferreira_drawer', 'ferreira_drawer_empty'],
+    // lit: the desk drawer with its clockmaker's dial lock; open, with the tide card in it; then empty
+    bgFn: () => !lit() ? 'ferreira' : !F().drawer_unlocked ? 'ferreira_lock' : (G.has('tidecard') || F().tidecardTaken) ? 'ferreira_drawer_empty' : 'ferreira_drawer',
+    music: null, ambience: () => F().tide_wound ? 'ferreira' : null, floor: 'wood',
     walk: [[0, 615], [1280, 615], [1280, 716], [0, 716]],
     scale: [615, 335, 716, 382],
     light: () => lit() ? { ambient: 'rgb(210,170,120)', base: 0.6, flickerShade: 0.25 } : { ambient: 'rgb(70,70,85)', base: 0.35 },
@@ -318,7 +335,7 @@
     entries: { default: [1080, 650, 'w'], map: [1080, 650, 'w'] },
     // unlit, the workshop is black but for the grey light at the door
     animFg(g, t) {
-      if (lit()) { FX.motes(g, t, 300, 250, 500, 300, 20, '255,210,150'); S.drawFerreiraDrawer(g); return; }
+      if (lit()) { FX.motes(g, t, 300, 250, 500, 300, 20, '255,210,150'); return; }
       g.save(); g.fillStyle = 'rgba(4,4,8,0.9)'; g.fillRect(0, 0, 1280, 720);
       g.globalCompositeOperation = 'destination-out';
       const gr = g.createRadialGradient(1140, 360, 20, 1140, 360, 420); gr.addColorStop(0, 'rgba(0,0,0,0.85)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
@@ -384,14 +401,6 @@
     F().tidecardTaken = true; give('tidecard'); sfx('page');
     if (!quiet) await say('alan_tide_card');
   };
-  S.drawFerreiraDrawer = function (g) {
-      g.save();
-      if (F().drawer_unlocked) {
-        g.fillStyle = '#2a1a0c'; g.fillRect(562, 488, 156, 30); g.fillStyle = '#5a3a1c'; g.fillRect(556, 514, 168, 10);
-        if (!G.has('tidecard') && !F().tidecardTaken) { g.fillStyle = '#efe4c8'; g.save(); g.translate(640, 502); g.rotate(-0.05); g.fillRect(-36, -8, 72, 16); g.restore(); }
-      } else { g.fillStyle = '#c9a24f'; g.beginPath(); g.arc(640, 485, 6, 0, 7); g.fill(); g.fillStyle = '#3a2810'; g.fillRect(630, 491, 20, 5); }
-      g.restore();
-      };
   S.checkCh2 = function () {
     const f = F();
     if (f.met_celeste && f.tide_known && f.knows_1955_boy && f.turnings_deduced && (G.has('tidecard') || f.tidecardTaken)) f.ch2_ready = true;

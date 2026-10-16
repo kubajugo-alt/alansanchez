@@ -17,7 +17,7 @@
 
   // ================================================================ BOOKSHOP
   const PESSOA_AT = { desk: [250, 452, 'w'], radiator: [765, 362, 'w'], machine: [1015, 372, 'w'], floor: [700, 600, 'e'] };
-  const MAG_RECT = [276, 414, 54, 30]; // the brass magnifying glass on the desk, right of where Pessoa sleeps
+  const MAG_RECT = [278, 414, 62, 32]; // the brass magnifying glass on the desk, right of where Pessoa sleeps
   const pessoaSpot = () => F().ch >= 5 && !F().ledger_found ? 'machine' : F().lampOff ? 'radiator' : 'desk';
   ROOMS.shop = {
     name: 'Livraria Sanchez', bg: 'shop', bgs: ['shop_night', 'shop_nomag', 'shop_drawer', 'shop_drawer_nomag'],
@@ -92,10 +92,10 @@
       { name: 'Cash register', rect: [850, 212, 180, 170], at: [820, 566], face: 'e', look: () => say(F().coinsTaken ? 'alan_register_empty' : 'alan_look_register'),
         take: async () => { if (F().coinsTaken) return say('alan_register_empty'); F().coinsTaken = true; give('coins', 3); sfx('coin'); await say('alan_take_coins'); } },
       { name: 'Answering machine', rect: [955, 366, 120, 40], at: [830, 570], face: 'e', look: () => say(F().heard_machine ? 'narr_look_machine_heard' : 'narr_look_machine'), use: () => S.playMachine() },
-      { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone() },
+      { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone(), items: { vasco_card: () => S.callVasco() } },
       { name: 'Newspaper', rect: [1035, 400, 222, 62], at: [880, 610], face: 'e', look: () => say('narr_look_news', 'alan_news') },
       { name: 'Salt on the floor', rect: [500, 578, 520, 18], when: () => F().ch >= 5, look: 'narr_look_salt_line' },
-      { name: 'Door to the street', rect: [1025, 10, 205, 390], at: [900, 590], exit: 'street', entry: 'shop', locked: () => !F().heard_machine || (F().ch >= 5 && !F().ledger_found) || (F().ch >= 5 && F().ines_plan && !F().rui_called), lockedLine: () => F().ch >= 5 ? (F().ledger_found ? 'alan_call_rui_first' : 'alan_door_ledger') : 'alan_door_first' },
+      { name: 'Door to the street', rect: [1025, 10, 205, 390], at: [900, 590], exit: 'street', entry: 'shop', locked: () => !F().heard_machine || (F().ch >= 5 && !F().ledger_found) || (F().ch >= 5 && F().ines_plan && !F().rui_called) || S.vascoCallDue(), lockedLine: () => F().ch >= 5 ? (!F().ledger_found ? 'alan_door_ledger' : F().rui_called ? 'alan_call_vasco_first' : 'alan_call_rui_first') : 'alan_door_first' },
     ],
     async enter() { if (F().ch >= 5 && !F().ines_gone_seen) { F().ines_gone_seen = true; await say('alan_ines_gone'); } },
   };
@@ -171,17 +171,51 @@
         await say('alan_call_rui', 'rui_gate');
         if (F().amalia_box) await say('alan_box_tell', 'rui_murder');
         await say('alan_obituary');
-        if (F().vasco_thursday) await say('rui_withdrawn', 'alan_knew'); // the curator covered for him
+        if (F().vasco_thursday && !F().knows_withdrawn) { F().knows_withdrawn = true; await say('rui_withdrawn', 'alan_knew'); } // (saves that never heard it in Chapter II)
       });
       F().rui_called = true; return;
     }
     return say(F().ch >= 2 ? 'alan_phone_later' : 'alan_phone_ch1');
   };
 
-  // Vasco's card: Alan dials, and hangs up before it can ring
+  // Chapter V, after the call to Rui: Dr. Teles's card on the shop phone. Alan may not come back
+  // from the cistern, and he wants to hear Vasco's voice; he doesn't say so. Vasco hangs up first.
+  // ([pause] in the script is a held silent beat: a wait, not a line.)
+  S.vascoCallDue = () => F().ch >= 5 && !!F().rui_called && !!F().vasco_thursday && G.has('vasco_card') && !F().vasco_called;
   S.callVasco = async function () {
-    await posed('phone', async () => { sfx('phone_pickup'); sfx('phone_dial_long'); await G.wait(window.FAST ? 20 : 2400); sfx('phone_hangup', 0.7); await G.wait(window.FAST ? 20 : 500); });
-    await say('alan_hangup_self');
+    if (F().ch < 5) return say('alan_two_numbers');
+    if (F().vasco_called) return say('alan_fail_04');
+    if (!F().rui_called) return say('alan_call_rui_first');
+    F().vasco_called = true;
+    const hold = ms => G.wait(window.FAST ? 20 : ms);
+    await posed('phone', async () => {
+      sfx('phone_pickup'); sfx('phone_dial_long'); await hold(2600);
+      await say('alan_fcall_1');
+      await hold(1100);
+      await say('vasco_fcall_1', 'alan_fcall_2');
+      await hold(900);
+      await say('vasco_fcall_2', 'alan_fcall_3', 'vasco_fcall_3');
+      await hold(1100);
+      await say('alan_fcall_4');
+      await hold(1200);
+      await say('vasco_fcall_4', 'alan_fcall_5', 'vasco_fcall_5', 'alan_vcall_5');
+      await hold(1300);
+      await say('vasco_vcall_5');
+      // he hangs up first; Alan stays on the line a moment
+      const tone = sfx('dial_tone', 0.5);
+      await hold(2600);
+      if (tone && tone.stop) try { tone.stop(0.15); } catch (e) { /* ignore */ }
+      sfx('phone_hangup', 0.6); await hold(500);
+    });
+  };
+  // Chapter II, the first time Alan is back at the station after the heist: Rui tells him the curator
+  // withdrew the complaint. (Face to face, Alan brings it up with Vasco in the museum store room.)
+  S.ruiReveal = async function () {
+    if (F().knows_withdrawn || F().ch < 2 || F().ch >= 5 || !(F().vasco_thursday || F().heist_done)) return;
+    const rui = G.npc('rui'); if (!rui || !rui.visible) return;
+    F().knows_withdrawn = true;
+    G.player.dir = rui.x < G.player.x ? 'w' : 'e';
+    await say('rui_withdrawn', 'alan_knew');
   };
 
   // ---------- Inês
@@ -222,14 +256,22 @@
   };
 
   // ================================================================ STREET
+  // once Alan is back from the docks (the quay, Zé's boat) it is night in the Alfama
+  S.streetNight = () => !!(F().ch4_done || F().ch >= 5);
   ROOMS.street = {
-    name: 'Alfama', bg: 'street',
-    music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog', ambience: 'street', floor: 'cobble',
-    fog: () => F().ch >= 5 ? 0.42 : 0.32, fogRGB: '214,218,216',
+    name: 'Alfama', bg: 'street', bgs: ['street_night'],
+    bgFn: () => S.streetNight() ? 'street_night' : 'street',
+    music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog', ambience: () => S.streetNight() ? 'street_night' : 'street', floor: 'cobble',
+    fog: () => S.streetNight() ? 0.22 : 0.32, get fogRGB() { return S.streetNight() ? '70,80,105' : '214,218,216'; },
     walk: [[0, 578], [870, 593], [880, 612], [1010, 612], [1020, 595], [1280, 600], [1280, 716], [0, 716]], // in front of the bench, not among its legs
     scale: [578, 196, 716, 250],
-    light: { ambient: 'rgb(214,214,214)', base: 0.9 },
-    lights: [
+    light: () => S.streetNight() ? { ambient: 'rgb(105,115,150)', base: 0.55 } : { ambient: 'rgb(214,214,214)', base: 0.9 },
+    lights: () => S.streetNight() ? [
+      { x: 522, y: 190, rgb: '255,200,130', kind: 'gas', seed: 2, glow: 90, ga: 0.45, power: 0.75, reach: 700, rim: 0.6, floor: [500, 560], height: 380 },
+      { x: 1136, y: 318, rgb: '255,190,110', kind: 'flame', seed: 5, glow: 75, ga: 0.45, power: 0.75, reach: 620, rim: 0.6, floor: [1136, 590], height: 300 },
+      { x: 130, y: 430, rgb: '255,200,130', glow: 60, ga: 0.15, power: 0.3, reach: 420, shadow: false },
+      { x: 720, y: 60, rgb: '140,160,210', power: 0.15, reach: 1400, rim: 0.25, shadow: 0.2, floor: [720, 420], height: 1200 },
+    ] : [
       { x: 522, y: 190, rgb: '255,220,150', kind: 'gas', seed: 2, glow: 70, ga: 0.35, power: 0.45, reach: 650, floor: [500, 560], height: 380 },
       { x: 1136, y: 318, rgb: '255,200,120', kind: 'flame', seed: 5, glow: 60, ga: 0.35, power: 0.5, reach: 600, floor: [1136, 590], height: 300 },
       { x: 240, y: 430, rgb: '255,210,140', glow: 70, ga: 0.12, power: 0.15, reach: 400, shadow: false },
@@ -267,16 +309,38 @@
   // the tram passes along the foreground rails now and then, bell ringing
   let tramNext = 20, tramX = null;
   S.tramVisible = () => tramX != null;
+  S.tramNow = () => { tramNext = 0; }; // test hook: the next car comes now
+  // the overhead contact wire over the front rails: hung from span wires every few metres, sagging a
+  // little between them; the passing car's trolley pole presses it up where its wheel runs
+  const WIRE_Y = 47, WIRE_SAG = 6, WIRE_SPAN = 520, WIRE_X0 = -120;
+  const POLE_TIP = [1315, 8]; // the trolley wheel's top, in prop_tram sprite px
+  S.drawWire = function (g, tip) {
+    const base = x => { const u = ((x - WIRE_X0) % WIRE_SPAN + WIRE_SPAN) % WIRE_SPAN / WIRE_SPAN; return WIRE_Y + WIRE_SAG * 4 * u * (1 - u); };
+    const lift = tip ? tip[1] - base(tip[0]) : 0;
+    const y = x => { let v = base(x); if (tip) { const d = (x - tip[0]) / 260; v += lift * Math.exp(-d * d * 3); } return v; };
+    const night = S.streetNight && S.streetNight();
+    g.save(); g.lineCap = 'round';
+    // span wires: from the hanger up and out of frame, toward the façades on either side
+    g.strokeStyle = night ? 'rgba(12,14,20,0.75)' : 'rgba(42,44,48,0.6)'; g.lineWidth = 1.2;
+    for (let hx = WIRE_X0; hx < 1400; hx += WIRE_SPAN) { g.beginPath(); g.moveTo(hx - 70, -2); g.lineTo(hx, WIRE_Y); g.lineTo(hx + 70, -2); g.stroke(); }
+    g.strokeStyle = night ? 'rgba(8,9,14,0.9)' : 'rgba(30,31,35,0.85)'; g.lineWidth = 2.2;
+    g.beginPath(); for (let x = -10; x <= 1290; x += 10) { if (x === -10) g.moveTo(x, y(x)); else g.lineTo(x, y(x)); } g.stroke();
+    // a faint highlight along the top of the copper
+    g.strokeStyle = night ? 'rgba(120,130,150,0.18)' : 'rgba(210,205,190,0.25)'; g.lineWidth = 0.8;
+    g.beginPath(); for (let x = -10; x <= 1290; x += 10) { if (x === -10) g.moveTo(x, y(x) - 1); else g.lineTo(x, y(x) - 1); } g.stroke();
+    g.restore();
+  };
   S.drawTram = function (g, t) {
-    if (window.FAST) return;
     const im = G.image('spr:prop_tram') || G.image('lay:prop_tram');
-    if (tramX == null && t > tramNext && !G.isBusy) { tramX = 1500; Sound.sfx('tram', 0.85, 0.95 + Math.random() * 0.1); }
-    if (tramX == null || !im) return;
-    tramX -= 520 / 60;
     // full size: a Remodelado car is about 1.8 people tall at the body, and runs on the front rails
-    const h = 670, w = im.width * h / im.height, gy = 714;
+    const h = 670, w = im ? im.width * h / im.height : 0, gy = 714, k = im ? h / im.height : 1;
+    if (!window.FAST && tramX == null && t > tramNext && !G.isBusy) { tramX = 1500; Sound.sfx('tram', 0.85, 0.95 + Math.random() * 0.1); }
+    if (window.FAST || tramX == null || !im) { S.drawWire(g, null); return; }
+    tramX -= 520 / 60;
     g.save(); g.fillStyle = 'rgba(0,0,0,0.4)'; g.beginPath(); g.ellipse(tramX + w / 2, gy - 4, w * 0.48, 16, 0, 0, 7); g.fill(); g.restore();
     g.drawImage(im, tramX, gy - h, w, h);
+    // the wire goes over the pole's wheel, which runs pressed up against it
+    S.drawWire(g, [tramX + POLE_TIP[0] * k, gy - h + POLE_TIP[1] * k]);
     if (tramX < -w) { tramX = null; tramNext = t + 45 + Math.random() * 25; }
   };
 
@@ -320,7 +384,7 @@
       { x: 915, y: 265, rgb: '205,220,238', power: 0.28, reach: 800, rim: 0.6, shadow: 0.45, floor: [915, 500], height: 600 },
     ],
     entries: { default: [160, 655, 'e'], map: [160, 655, 'e'] },
-    enter() { S.copFace(); },
+    async enter() { S.copFace(); await S.ruiReveal(); },
     layers: [{ img: 'police_drawer', x: 0, y: 0, when: () => F().drawer_open, full: true }, { img: 'police_cradle', x: 0, y: 0, full: true, when: () => S.copOnDuty() }], // the desk phone with its receiver lifted: Teixeira has it
     // Rui and the officer stand behind the desk: the desk and what's on it are traced
     occluders: [{ y: 600, polys: [
@@ -403,6 +467,7 @@
   };
   S.talkRui = async function () {
     if (!F().metRui) { F().metRui = true; await say('rui_hello'); await joke('alan_rui_hello'); }
+    await S.ruiReveal();
     await S.gossip('rui');
     await G.dialog([
       { line: 'alan_ask_murders', run: async () => { await say('rui_murders_1', 'rui_murders_2'); if (!F().ruiMurders) await joke('alan_rui_locked'); F().ruiMurders = true; } },

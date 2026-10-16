@@ -85,6 +85,7 @@
       this.breath = Math.random() * 10; this.sink = 0; this.turnT = 0; this.stepIdx = -1;
       this.rate = 1 + (Math.random() * 2 - 1) * IDLE_RATE_JITTER; // no two figures breathe in step
       this.leanX = 0; this.leanV = 0; this.calm = 1; this.walkT = 0; this.pace = 1; this.listen = 0; this.heardT = phraseEndT; this.nodAt = -9;
+      this.perf = 0; this.swayPh = Math.random() * 60; this.tiltPh = Math.random() * 60; this.beatPh = Math.random() * 60;
     }
     get c() { return CHARS[this.ch]; }
     get F() {
@@ -112,6 +113,16 @@
       if (this.fadeT > 0) this.fadeT = Math.max(0, this.fadeT - dt);
       if (this.resumeT > 0) this.resumeT -= dt;
       this.breath += dt * this.rate;
+      // performers move with the music. The song's loudness is smoothed per figure and only changes
+      // how fast each phase advances, never the phase itself: read straight into
+      // sin(time * f(level)), every flicker of the level jumped the phase by time * df, and the
+      // whole room shook (the Taberna fado and every scene after it)
+      const pt = Math.min(1.5, (this.perform || 0) * (1 + 0.6 * (this.perform && window.Sound && Sound.songLevel ? Sound.songLevel() : 0)));
+      this.perf += (pt - this.perf) * Math.min(1, dt * 1.5);
+      if (this.perf < 1e-4 && !this.perform) this.perf = 0;
+      this.swayPh += dt * this.rate * Math.PI * 2 * (0.13 + this.perf * 0.2);
+      this.tiltPh += dt * this.rate * Math.PI * 2 * (0.09 + this.perf * 0.22);
+      this.beatPh += dt * this.rate * Math.PI * 2 * 1.05;
       this.calm += ((this.walking ? 0 : 1) - this.calm) * Math.min(1, dt * CALM_RATE);
       const easy = !window.FAST;
       if (this.target) {
@@ -255,11 +266,15 @@
       const k = (n, def) => (d[n] != null ? d[n] : c[n] != null ? c[n] : def);
       const s = h / sp.h, F = Math.max(1, (sp.fy - sp.top) * s);
       const wide = sp.w / Math.max(1, sp.fy - sp.top) > 0.78 || k('rig', '') === 'flat'; // groups, pairs, lying figures
-      const perf = Math.min(1.5, (this.perform || 0) * (1 + 0.6 * (this.perform && window.Sound && Sound.songLevel ? Sound.songLevel() : 0)));
-      const lvl = this.talking ? (this.lvl || 0) : 0;
+      const perf = this.perf || 0;
       const TAU = Math.PI * 2;
+      // phases advance in update(); ANIM_T (test clips) renders from a fixed clock instead
+      const fixedT = window.ANIM_T != null;
+      const phSway = fixedT ? t * TAU * (0.13 + perf * 0.2) : this.swayPh, phTilt = fixedT ? t * TAU * (0.09 + perf * 0.22) : this.tiltPh, phBeat = fixedT ? t * TAU * 1.05 : this.beatPh;
+      // talking never bends the painting: mouths and gestures are frame swaps (talk frames), so the
+      // voice level drives no tilt, bob or breath here (a guitar or a pair stays rigid while they speak)
       // sway: a bend whose root is the feet (or the seat); amplitude as a fraction of height
-      const sway = this.calm * k('sway', 1) * (0.0045 + perf * 0.013) * (Math.sin(t * TAU * (0.13 + perf * 0.2)) + 0.35 * Math.sin(t * TAU * 0.071 + 1.3));
+      const sway = this.calm * k('sway', 1) * (0.0045 + perf * 0.013) * (Math.sin(phSway) + 0.35 * Math.sin(t * TAU * 0.071 + 1.3));
       // seated / kneeling frames sway from the seat or the knees (char-wide via SEATED, per frame via c.seatedFrames)
       const root = k('seated', SEATED.has(this.ch) || !!(key && this.c.seatedFrames && this.c.seatedFrames.test(key))) ? 0.42 : 0.1;
       // head: a slow tilt, a nod with each phrase spoken, more when performing
@@ -269,8 +284,8 @@
       const ahead = this.listen * fs > 0 ? 1 : 0.45;
       const nu = (time - this.nodAt) / 0.5, nod = nu > 0 && nu < 1 ? Math.pow(Math.sin(nu * Math.PI), 2) : 0;
       const hear = wide ? 0 : (side ? this.listen * ahead * LISTEN_TILT + fs * nod * LISTEN_NOD : 0);
-      const tilt = wide ? 0 : k('nod', 1) * ((0.02 + perf * 0.055) * Math.sin(t * TAU * (0.09 + perf * 0.22) + 2.1) + lvl * 0.04 * Math.sin(t * 8.3)) + (this.walking ? 0.012 * Math.sin(this.phase * Math.PI) : 0) + hear;
-      const bob = wide ? 0 : (lvl * 0.007 + perf * 0.006 * (0.5 + 0.5 * Math.sin(t * TAU * 1.05)) + nod * 0.008) * F;
+      const tilt = wide ? 0 : k('nod', 1) * (0.02 + perf * 0.055) * Math.sin(phTilt + 2.1) + (this.walking ? 0.012 * Math.sin(this.phase * Math.PI) : 0) + hear;
+      const bob = wide ? 0 : (perf * 0.006 * (0.5 + 0.5 * Math.sin(phBeat)) + nod * 0.008) * F;
       // walking: the body rises over the passing foot and settles on the stride
       const step = this.walking ? -0.007 * F * Math.pow(Math.sin(this.phase * Math.PI), 2) : 0;
       const neck = 0.855, ca = Math.cos(tilt), sa = Math.sin(tilt);
@@ -330,7 +345,10 @@
         const inCycle = this.walking && this.cycle().includes(key) && this.cycle().includes(this.cur);
         this.prev = this.cur && !inCycle ? this.cur : null;
         this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
-        const M = window.MORPHS, morph = this.prev && this.prevFlip === flipped && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
+        // a mouth or gesture change while speaking is a clean frame swap, never a mesh morph
+        const tf = this.talking && !this.walking && !this.pose ? arr(F.talk).concat(arr(F.idle).flat()) : null;
+        const talkSwap = !!(tf && tf.includes(key) && tf.includes(this.prev));
+        const M = window.MORPHS, morph = this.prev && !talkSwap && this.prevFlip === flipped && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
         // only a pair with morph data moves between poses; anything else is a clean cut, so two
         // paintings are never on screen at once
         if (!morph) this.prev = null;
@@ -358,14 +376,14 @@
       const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
       const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh);
       const sinkPx = this.sink * h;
-      const lights = lightsOn(this.x, this.y - h * 0.55, h, this);
-      if (!sinkPx) groundShadows(this, comp, U, bw, bh, h, lights);
-      const shaded = !window.FAST && window.Warp && window.WARP !== false && window.LIT3D !== false && Warp.ok;
-      const lit = shaded ? comp : lightSprite(comp, bw, bh, U, h, lights);
+      const unlit = !!(room && room.unlit && room.unlit.test(key));
+      const lights = unlit ? [] : lightsOn(this.x, this.y - h * 0.55, h, this);
+      if (!sinkPx && !unlit) groundShadows(this, comp, U, bw, bh, h, lights);
+      const shaded = !unlit && !window.FAST && window.Warp && window.WARP !== false && window.LIT3D !== false && Warp.ok;
+      const lit = shaded || unlit ? comp : lightSprite(comp, bw, bh, U, h, lights);
       const LP = shaded ? lightParams(U, h, lights) : null;
       // breathing: the chest rises and widens a touch above the hips; feet stay put
-      const talkAmp = this.lvl || 0;
-      const b = this.calm * (0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045 + talkAmp * 0.006);
+      const b = this.calm * (0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045);
       const sx = 1 + b * 0.45, sy = 1 + b;
       const feetBy = -U.y, hipBy = Math.max(1, Math.round(feetBy - h * 0.47));
       const X0 = this.x + U.x, Y0 = this.y + U.y + sinkPx;
@@ -802,7 +820,7 @@
   // sprites share one palette: a soft-light wash, plus lifted night blacks.
   const GRADES = {
     shop: ['#c98a4a', 0.16], shop_night: ['#3a5a8c', 0.16, '#05080e'],
-    street: ['#e2b072', 0.12], police: ['#93a8a0', 0.16],
+    street: ['#e2b072', 0.12], street_night: ['#3a5a8c', 0.14, '#05070c'], police: ['#93a8a0', 0.16],
     tavern: ['#d08040', 0.18], tavern_night: ['#c66a30', 0.12, '#080402'],
     lavadouro: ['#8fb0b8', 0.15], ferreira: ['#c8a060', 0.15],
     convent: ['#dcc290', 0.12], se_tower: ['#c49060', 0.13], antiques: ['#b07840', 0.17],
@@ -853,6 +871,108 @@
       g.drawImage(im, l.x - l.pivot[0], l.y - l.pivot[1], w, h); g.restore();
     }
   }
+  // ---------------------------------------------------------------- idle: a cigarette
+  // After a while with no input Alan lights a cigarette and smokes (light, then inhale / exhale /
+  // hold, round again). Any input puts it away: the pose clears before the input is handled, and
+  // the frames morph back to his stance. The story supplies the frames, where each one has his
+  // mouth and the cigarette's tip (sprite px), and where it's allowed (Game.idleSmoke).
+  const SMOKE_AFTER = 20;
+  let lastInput = performance.now(), smk = null, smokeSaved = null;
+  const puffs = [];
+  function noteInput() { lastInput = performance.now(); if (smk) stopSmoke(); }
+  ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart'].forEach(ev => document.addEventListener(ev, noteInput, { capture: true, passive: true }));
+  function smokeOK() {
+    const C = window.Game && Game.idleSmoke;
+    if (!C || !room || !player || window.FAST) return false;
+    if (busy || cutscene || dialogResolve || still || selItem || speaking) return false;
+    if (!player.visible || player.walking || player.ch !== 'alan' || player.set || room.player === false) return false;
+    if (player.pose && !(smk && player.pose === smk.pose)) return false; // a special pose (or undressed) is never interrupted
+    if ($('#menu').classList.contains('open')) return false;
+    return !C.allowed || C.allowed(room);
+  }
+  function stopSmoke() {
+    if (!smk) return;
+    if (player.pose === smk.pose) player.pose = null; // morphs back to his stance
+    smk = null; // (the overlay stays until the last of the smoke has drifted away)
+  }
+  function smokeAnchor(key, pt) {
+    const A = player.place(key, player.lastFlip); if (!A || !pt) return null;
+    return [player.x + A.x + (A.flipped ? A.sp.w - pt[0] : pt[0]) * A.s, player.y + A.y + pt[1] * A.s, A.s];
+  }
+  function puff(x, y, s, vx, vy, n, size, a) {
+    for (let i = 0; i < n; i++) puffs.push({ x, y, vx: vx * (0.7 + Math.random() * 0.6) + (Math.random() - 0.5) * 6 * s * 3, vy: vy * (0.7 + Math.random() * 0.6), r: size * (0.6 + Math.random() * 0.6), a, life: 0, max: 2.2 + Math.random() * 1.6, seed: Math.random() * 10 });
+  }
+  function drawSmoke(gc, a, t) {
+    const C = Game.idleSmoke, key = smk && player.cur;
+    const P = smk && C && C.points && C.points[key];
+    if (smk && P) {
+      const tip = smokeAnchor(key, P.tip), k = smk.step;
+      if (tip) {
+        const [x, y, s] = tip;
+        // the match flares while he lights up, then the ember breathes with the drag
+        if (k === 'light' && smk.t > 0.35 && smk.t < smk.dur - 0.3) {
+          const f = 0.75 + 0.25 * Math.sin(t * 31) * Math.sin(t * 17);
+          const gr = gc.createRadialGradient(x, y, 0, x, y, 26 * s * 3.3);
+          gr.addColorStop(0, `rgba(255,230,160,${0.85 * f})`); gr.addColorStop(0.25, `rgba(255,170,70,${0.35 * f})`); gr.addColorStop(1, 'rgba(255,140,40,0)');
+          gc.fillStyle = gr; gc.beginPath(); gc.arc(x, y, 26 * s * 3.3, 0, 7); gc.fill();
+        } else if (k !== 'light' || smk.t >= smk.dur - 0.3) {
+          const e = k === 'inhale' ? 0.55 + 0.45 * Math.min(1, smk.t / 0.6) : 0.35 + 0.08 * Math.sin(t * 5);
+          const gr = gc.createRadialGradient(x, y, 0, x, y, 7 * s * 3.3);
+          gr.addColorStop(0, `rgba(255,190,110,${e})`); gr.addColorStop(0.4, `rgba(255,90,30,${e * 0.45})`); gr.addColorStop(1, 'rgba(255,60,20,0)');
+          gc.fillStyle = gr; gc.beginPath(); gc.arc(x, y, 7 * s * 3.3, 0, 7); gc.fill();
+        }
+      }
+    }
+    // the smoke itself: soft grey wisps that rise, spread and fade
+    gc.save();
+    for (const p of puffs) {
+      const u = p.life / p.max, al = p.a * Math.sin(Math.min(1, u * 4) * Math.PI / 2) * (1 - u);
+      if (al <= 0.003) continue;
+      const r = p.r * (1 + u * 2.6);
+      const gr = gc.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
+      gr.addColorStop(0, `rgba(222,224,228,${al})`); gr.addColorStop(1, 'rgba(222,224,228,0)');
+      gc.fillStyle = gr; gc.beginPath(); gc.arc(p.x, p.y, r, 0, 7); gc.fill();
+    }
+    gc.restore();
+    if (smokeSaved) smokeSaved(gc, a, t);
+  }
+  let smokeRoom = null;
+  function idleSmokeTick(dt) {
+    if (room !== smokeRoom) { smokeRoom = room; puffs.length = 0; } // smoke doesn't follow him through a door
+    for (const p of puffs) { p.life += dt; p.x += (p.vx + Math.sin(time * 1.3 + p.seed) * 4) * dt; p.y += p.vy * dt; p.vx *= 1 - dt * 0.5; p.vy *= 1 - dt * 0.25; }
+    for (let i = puffs.length - 1; i >= 0; i--) if (puffs[i].life > puffs[i].max) puffs.splice(i, 1);
+    if (!smk && !puffs.length && player.overlay === drawSmoke) { player.overlay = smokeSaved; smokeSaved = null; }
+    const ok = smokeOK();
+    if (!ok) { if (smk) stopSmoke(); lastInput = Math.max(lastInput, performance.now() - 1000 * SMOKE_AFTER * 0.5); return; } // after a scene, a fresh wait
+    const C = Game.idleSmoke, F = C.frames;
+    if (!smk) {
+      if ((performance.now() - lastInput) / 1000 < SMOKE_AFTER) return;
+      if (player.dir === 'n' || player.dir === 's') player.dir = player.lastEW || 'e'; // the frames are side views
+      smk = { i: -1, t: 0, dur: 0, step: null, pose: null };
+      if (player.overlay !== drawSmoke) { smokeSaved = player.overlay; player.overlay = drawSmoke; }
+    }
+    smk.t += dt;
+    if (smk.t >= smk.dur) {
+      // light once, then round and round: drag, breathe out, hold it a while
+      const SEQ = [['light', 2.4], ['inhale', 1.4], ['exhale', 1.8], ['hold', 4 + Math.random() * 3]];
+      smk.i = smk.i < 0 ? 0 : smk.i + 1 >= SEQ.length ? 1 : smk.i + 1;
+      const [step, dur] = SEQ[smk.i];
+      smk.step = step; smk.t = 0; smk.dur = dur; smk.pose = F[step]; player.pose = smk.pose;
+      if (step === 'light' && window.Sound) Sound.sfx('match', 0.35);
+    }
+    // smoke: a breath of it out of his mouth on the exhale, a thin thread off the tip otherwise
+    const key = player.cur, P = C.points && C.points[key];
+    if (!P) return;
+    const dirX = player.lastFlip ? -1 : 1;
+    if (smk.step === 'exhale' && smk.t > 0.15 && smk.t < 1.3) {
+      const m = smokeAnchor(key, P.mouth);
+      if (m && Math.random() < dt * 22) puff(m[0], m[1], m[2], dirX * 34 * m[2] * 3.3, -6 * m[2] * 3.3, 1, 5 * m[2] * 3.3, 0.22);
+    }
+    if (smk.step !== 'light' || smk.t > smk.dur - 0.3) {
+      const tp = smokeAnchor(key, P.tip);
+      if (tp && Math.random() < dt * 5) puff(tp[0], tp[1] - 2, tp[2], dirX * 2, -22 * tp[2] * 3.3, 1, 2.2 * tp[2] * 3.3, 0.16);
+    }
+  }
   let frameErr = 0;
   function frame(now) {
     requestAnimationFrame(frame); // queued first: a throwing hook skips one frame, never the loop
@@ -868,6 +988,7 @@
   function drawFrame(dt) {
     if (room) {
       player.update(dt); npcs.forEach(a => a.update(dt));
+      idleSmokeTick(dt);
       updateLights(time);
       drawBg(curBg());
       if (room.animBack) room.animBack(g, time);
@@ -1279,6 +1400,10 @@
     busy++;
     hideHover(); canvas.className = '';
     try {
+      if (t.actor && t.actor !== player) { // Alan's lines go to whoever he is dealing with, and he turns to them
+        lastPartner = t.actor;
+        if (verb !== 'look' && verb !== 'exit' && canTurn(player) && Math.abs(t.actor.x - player.x) > 30) player.dir = t.actor.x > player.x ? 'e' : 'w';
+      }
       if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk) && !(item && def.items && def.items[item])) { if (item) { selItem = null; renderInv(); } await say('alan_npc_busy'); return; }
       if (t.kind === 'self') {
         const h = def.items[item] || def.items.any;
@@ -1287,6 +1412,7 @@
       }
       if (verb === 'look') {
         if (player.visible && def.at && !t.actor) player.dir = def.at[0] > player.x ? 'e' : 'w';
+        if (t.actor && t.actor !== player && canTurn(player) && Math.abs(t.actor.x - player.x) > 30) player.dir = t.actor.x > player.x ? 'e' : 'w';
         await runHandler(def.look || failLine(t, 'look'), t); return;
       }
       if (verb === 'exit') {
@@ -1462,10 +1588,12 @@
     bgImage: () => room && IMG['bg:' + curBg()],
     image: key => IMG[key],
     mask: () => room && room.skyMask && IMG['mask:' + room.skyMask],
+    idleSmoke: null, noteInput, get smoking() { return !!smk; }, get smokeStep() { return smk && smk.step; },
     get isBusy() { return busy > 0 || !!dialogResolve || (player && player.walking); },
     npc: id => npcs.find(a => a.id === id),
     // test hook: act on a hotspot (by name) or an actor (by id), optionally with an item
     async act(target, verb, item) {
+      noteInput(); // a scripted action counts as input (puts the cigarette away)
       let t = null;
       const a = npcs.find(n => n.id === target && n.visible);
       if (a) t = { kind: 'npc', actor: a, def: a.def };

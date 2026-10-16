@@ -21,7 +21,8 @@
   const LINO_WALK = ['lino_walk1', 'lino_pass1', 'lino_walk2', 'lino_pass2'];
   const LINO_CARRY = ['lino_carry1', 'lino_carrypass1', 'lino_carry2', 'lino_carrypass2'];
   const canWalk = () => LINO_WALK.every(has) && LINO_CARRY.every(has);
-  const BAR_GATE = [1120, 650], HOOK = [772, 692], PLAY = [1178, 646];
+  // HOOK: against the back wall under the guitarra (wall guitar x ~762); his lifted guitar lines up on it
+  const BAR_GATE = [1120, 650], HOOK = [785, 616], PLAY = [1178, 646], REACH_H = 382;
   // walks Lino somewhere (ground-scaled, a touch shorter than Alan); falls back to a cut
   async function linoGo(lino, [x, y], carry) {
     const C = lino.c;
@@ -40,22 +41,30 @@
     const gui = G.npc('npc_guitar'), lino = G.npc('npc_lino'), cards = G.npc('npc_cards'), p = G.player;
     const home = lino && { x: lino.x, y: lino.y, h: lino.h, pose: lino.pose, dir: lino.dir };
     // 1. Lino comes round the bar, lifts the big guitar off its hook and carries it to Amália's side
-    const reach = async () => {
-      if (has('lino_reach2')) { lino.pose = 'lino_reach2'; await T(700); }
+    // at the wall, facing the room: the guitar comes off its hook into his raised hands (the wall goes
+    // bare at that moment), then he lowers it; hanging it back is the same in reverse
+    const take = async () => {
+      lino.dir = 'e'; lino.h = REACH_H; lino.set = null;
+      lino.pose = 'lino_reach'; F().bass_off = true; sfx('guitar_lift', 0.6); await T(900);
+      if (has('lino_reach2')) { lino.pose = 'lino_reach2'; await T(600); }
+      // (the pose holds until the walk back starts: never a frame of him empty-handed with the wall bare)
+    };
+    const hang = async () => {
+      lino.dir = 'e'; lino.h = REACH_H; lino.set = null;
+      if (has('lino_reach2')) { lino.pose = 'lino_reach2'; await T(600); }
       lino.pose = 'lino_reach'; await T(700);
+      F().bass_off = false; sfx('guitar_hang', 0.5); lino.pose = null; await T(400); // h stays at his walking size
     };
     if (lino && has('lino_reach') && has('lino_bass1')) {
       lino.visible = false; await T(250);
       if (canWalk()) {
         lino.x = BAR_GATE[0]; lino.y = BAR_GATE[1]; lino.dir = 'w'; lino.pose = null; lino.visible = true;
         await linoGo(lino, HOOK);
-        lino.h = 400; await reach();
-        F().bass_off = true; sfx('guitar_lift', 0.6); await T(500);
+        await take();
         await linoGo(lino, PLAY, true);
         lino.set = null; lino.dir = 'w';
       } else {
-        lino.x = 772; lino.y = 692; lino.h = 400; lino.visible = true; await reach();
-        F().bass_off = true; sfx('guitar_lift', 0.6); await T(800);
+        lino.x = HOOK[0]; lino.y = HOOK[1]; lino.visible = true; await take(); await T(300);
         lino.visible = false; await T(250);
         lino.x = PLAY[0]; lino.y = PLAY[1]; lino.dir = 'w'; lino.visible = true;
       }
@@ -121,14 +130,12 @@
       await T(900);
       if (canWalk()) {
         await linoGo(lino, HOOK, true);
-        lino.h = 400; lino.set = null; await reach();
-        F().bass_off = false; sfx('guitar_hang', 0.5); await T(500);
+        await hang();
         await linoGo(lino, BAR_GATE);
         lino.visible = false; await T(250);
       } else {
         lino.visible = false; await T(250);
-        lino.x = 772; lino.y = 692; lino.h = 400; lino.visible = true; await reach();
-        F().bass_off = false; sfx('guitar_hang', 0.5); await T(500);
+        lino.x = HOOK[0]; lino.y = HOOK[1]; lino.visible = true; await hang();
         lino.visible = false; await T(250);
       }
       Object.assign(lino, home); lino.pose = null; lino.set = null; lino.visible = true;

@@ -124,12 +124,20 @@
     return true;
   };
 
+  // The legend, straight after the fog: the bell under the city, rung in 1755, breathing in a nine-day fog.
+  S.introLegend = async function () {
+    if (!has('still_bell_legend')) return;
+    Snd().ambience('night');
+    await paint('still_bell_legend', async () => { sfx('bell_hum', 0.3); await T(400); await say('narr_intro_legend'); await T(700); },
+      { zoom: [1.0, 1.14], pan: [[0.5, 0.35], [0.5, 0.6]] });
+  };
+
   // The city wakes to it: the paper, a patient man with a clock, and the last name on the list.
   S.introCity = async function () {
     const A = Snd();
     if (has('still_newspaper')) {
       A.ambience('street');
-      await paint('still_newspaper', async () => { sfx('page', 0.5); await say('narr_intro_2'); await T(500); },
+      await paint('still_newspaper', async () => { sfx('page', 0.5); await say('narr_intro_2'); await T(300); await say('narr_intro_tiles'); await T(500); },
         { zoom: [1.0, 1.1], pan: [[0.45, 0.4], [0.5, 0.48]] });
     }
     if (has('still_tideclock_hand')) {
@@ -141,7 +149,7 @@
     }
     if (has('still_alfama_sign')) {
       A.ambience('street');
-      await paint('still_alfama_sign', async () => { sfx('tram_distant', 0.25); await say('narr_intro_alfama'); await T(800); },
+      await paint('still_alfama_sign', async () => { sfx('tram_distant', 0.25); await say('narr_intro_alfama_2'); await T(800); },
         { zoom: [1.0, 1.12], pan: [[0.5, 0.4], [0.55, 0.55]] });
     }
   };

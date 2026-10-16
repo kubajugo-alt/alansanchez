@@ -55,7 +55,8 @@
     alan_ask_pit: 'delight', alan_ask_marks: 'delight', alan_ask_frags: 'delight', alan_layers: 'laugh', alan_kneel: 'amused', alan_dirt: 'tender',
     alan_coins: 'fluster', alan_quiet: 'tender', alan_toss_ines: 'worried', alan_shirt_ask: 'fluster', alan_coins_2: 'delight', alan_why_dig: 'tender', alan_quiet_2: 'laugh', alan_collar_3: 'tender',
     alan_ask_vasco_twin: 'worried', alan_vasco_sorry: 'deflate', alan_vasco_clapper: 'worried', alan_owe_one: 'tender', gag_alan_withhold: 'stern',
-    alan_thu_truth: 'worried', alan_thu_return: 'delight', alan_thu_owe: 'hopeful', alan_love_1: 'tender' };
+    alan_thu_truth: 'worried', alan_thu_return: 'delight', alan_thu_owe: 'hopeful', alan_love_1: 'tender',
+    alan_vasco_sorry_2: 'deflate', alan_withhold_2: 'tender', alan_vcall_2: 'worried', alan_vcall_4: 'tender' };
   const vreact = function (id) {
     if (!/^(alan_|gag_alan_)/.test(id)) return null;
     const a = G.npc('vasco'), P = S.CHARS.vasco.frames.poses;
@@ -614,12 +615,20 @@
       if (v) { v.dir = 'n'; await T(700); }
       await say('vasco_tag');
       if (v) { v.dir = 'w'; await v.walkTo(p.x + 130, p.y - 2); v.dir = 'w'; }
+      // Rui told Alan about the complaint (Chapter II): he asks, straight, before he takes anything
+      if (F().knows_withdrawn) {
+        await say('alan_vcall_2', 'vasco_vcall_2', 'alan_vcall_3');
+        await T(900); // [pause]
+        await say('vasco_vcall_3');
+        await T(900); // [pause]
+        await say('alan_vcall_4');
+      }
       sfx('brass_heavy', 0.4);
       await say('vasco_store_loan', 'alan_owe_one');
       give('twin'); F().twin_lent = true;
       // he doesn't let go of it
       await S.withPair('clapper', async () => { await say('vasco_dust', 'alan_dust'); await T(1400); });
-      await say('vasco_not_here', 'gag_alan_withhold', 'vasco_thursday_truth');
+      await say('vasco_not_here', 'alan_withhold_2', 'vasco_thursday_truth');
       F().vasco_thursday = true; // (saves where the heist never happened: this is their Thursday too)
       // back up the stairs; Vasco stays with his crates
       await G.fade(true);
@@ -644,21 +653,23 @@
     if (v) { await v.walkTo(STORE_SHELF[0] + 60, STORE_SHELF[1] - 10); v.dir = 'w'; }
     await p.walkTo(STORE_SHELF[0] - 60, STORE_SHELF[1]); p.dir = 'e';
     await say('vasco_love_1', 'alan_love_1', 'vasco_love_2');
-    // against the shelving, the tie pulled loose
+    // against the shelving, the tie pulled loose (the painted pair, as in the pit)
     sfx('v_alan_mmm', 0.5);
-    await S.withPair(window.SPRITES.pair_vasco_shelf ? 'shelf' : 'kiss', async () => { await T(1800); await say('alan_love_tie'); });
-    await S.withPair(window.SPRITES.pair_vasco_tie ? 'tie' : 'kiss', () => say('vasco_love_tie'));
+    await S.withPair('kiss', async () => { await T(1600); await say('alan_love_tie', 'vasco_love_tie'); });
     if (S.discreet()) { // Discreet: from the kiss straight to the afterwards, in the dark
       await G.fade(true);
       await G.say('narr_store', { offscreen: true });
       await say('vasco_after_2', 'alan_after_every');
     } else {
       sfx('v_vasco_laugh', 0.45);
-      await S.withPair('shirtless', async () => { await T(1600); await say('vasco_love_romans', 'alan_love_romans'); });
-      await G.fade(true);
-      await T(900);
-      await G.say('narr_store', { offscreen: true });
-      // later: on a crate, shirts open, laughing, the clapper between them
+      await S.withPair('shirtless', async () => { await T(1400); await say('vasco_love_romans', 'alan_love_romans'); });
+      // the painting and the fade, like every romance in the game: the two of them against the shelves under the work lamp
+      if (G.image('still:still_store_kiss')) {
+        sfx('v_alan_sigh', 0.45);
+        await G.showStill('still_store_kiss', () => G.say('narr_store', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.48, 0.4]], keep: true });
+      } else { await G.fade(true); await T(900); await G.say('narr_store', { offscreen: true }); }
+      await G.fade(true); await T(700);
+      // later: on the floor against a crate, shirts open, laughing, the clapper between them
       await S.still('still_store_after', 'se_store', async () => {
         await G.fade(false);
         sfx('v_alan_chuckle', 0.45); await T(700);

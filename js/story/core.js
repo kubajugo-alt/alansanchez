@@ -223,4 +223,20 @@
     g.fillStyle = u; g.beginPath(); g.moveTo(129, 320); g.lineTo(229, 318); g.lineTo(231, 323); g.quadraticCurveTo(180, 327, 129, 325); g.closePath(); g.fill();
     g.restore();
   };
+
+  // ---------------------------------------------------------------- idle cigarette
+  // Twenty seconds without input and Alan lights up (the engine runs it: Game.idleSmoke).
+  // Never in a church (the Sé, the Carmo), and never mid-scene, posed or undressed.
+  S.CHURCH = new Set(['se_museum', 'se_cloister', 'se_tower', 'se_store', 'convent', 'convent_night']);
+  G.idleSmoke = {
+    frames: { light: 'alan_smoke_light', inhale: 'alan_smoke_inhale', exhale: 'alan_smoke_exhale', hold: 'alan_smoke_hold' },
+    // where the smoke comes from on each frame (sprite px): his mouth, the cigarette's lit tip
+    points: {
+      alan_smoke_light: { mouth: [0, 0], tip: [0, 0] },
+      alan_smoke_inhale: { mouth: [0, 0], tip: [0, 0] },
+      alan_smoke_exhale: { mouth: [0, 0], tip: [0, 0] },
+      alan_smoke_hold: { mouth: [0, 0], tip: [0, 0] },
+    },
+    allowed: room => !(S.CHURCH.has(room.id) || room.church || /^se_/.test(room.id)),
+  };
 })();

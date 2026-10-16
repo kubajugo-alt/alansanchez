@@ -28,6 +28,7 @@
     bgs: ['bedroom_after_cop', 'bedroom_after_guitar'],
     bgFn: () => visitor === 'cop_bed' ? 'bedroom_after_cop' : visitor === 'guitar_floor' ? 'bedroom_after_guitar' : 'bedroom', noSave: true, music: null, ambience: 'shop', floor: 'wood',
     walk: [[330, 500], [860, 500], [1010, 716], [120, 716]], // between the bookshelf and the bed
+    unlit: /^pair_guitar_/, // Alan and Duarte on the bed are shown as painted: no room light, rims or cast shadows over them
     scale: [490, 400, 716, 500],
     light: { ambient: 'rgb(205,180,150)', base: 0.8, rim: 'rgba(255,210,160,0.25)', rimSide: 1 },
     lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
@@ -403,7 +404,7 @@
     amalia: [['amalia_gossip_1', 'alan_deny_amalia_1', 'duarte_scene'], ['amalia_gossip_2', 'alan_deny_amalia_2']],
     rui: [['rui_gossip_1b', 'alan_deny_rui_1', 'teixeira_scene'], ['rui_gossip_2', 'alan_deny_rui_2', 'teixeira_scene'], ['rui_gossip_3', 'alan_deny_rui_3', 'vasco_thursday']],
     // Chapter III: the Sé's bell-ringer and the Carmo's priest have both noticed the curator
-    abilio: [['abilio_gossip_1', 'alan_deny_abilio_1', 'vasco_thursday']],
+    abilio: [['abilio_gossip_1b', 'alan_deny_abilio_1', 'vasco_thursday']],
     tomas: [['tomas_gossip_1', 'alan_deny_tomas_1', 'vasco_thursday']],
   };
   S.gossip = async function (who) {

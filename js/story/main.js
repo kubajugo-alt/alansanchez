@@ -42,7 +42,7 @@
   };
 
   // ---------------------------------------------------------------- art the engine preloads
-  window.STILLS = ['still_intro', 'still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn',
+  window.STILLS = ['still_intro', 'still_bell_legend', 'still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn',
     'still_newspaper', 'still_tideclock_hand', 'still_alfama_sign', 'still_1755', 'still_1955_a', 'still_1955_b', 'still_1955_c', 'still_city_morning', 'still_drawer', 'still_shop_after',
     'still_phone', 'still_amalia_box', 'still_tavern_full', 'still_quay_sweater', 'still_abilio_ring', 'still_jacket', 'still_shelf', 'still_ze_kiss', 'still_ze_bunk', 'still_cop_shelf', 'still_guitar_bed', 'still_cop_cuffed'].concat(window.EXTRA_STILLS || []);
   window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks'];
@@ -78,7 +78,9 @@
     bench: { flags: { ch: 2, heard_machine: true }, room: 'street', pos: [860, 640, 'e'], run: () => S.benchTalk() },
     ineskey: { flags: { ch: 3, teixeira_scene: true, visit_cop: true }, room: 'shop', pos: [760, 612, 'w'], run: async () => { await S.inesKey(); await S.teixeiraKey(); } },
     duarteines: { flags: { ch: 4, duarte_scene: true, flirted_guitar: true, visit_guitar: true, ch3_done: true }, room: 'shop', pos: [1080, 700, 'w'], run: () => S.duarteInes() },
-    quayfish: { flags: { ch: 4, harbour: true }, room: 'cais', pos: [540, 650, 'w'], run: () => S.fishTalk() },
+    quayfish: { flags: { ch: 4, harbour: true, cais_entered: true, celeste_after: true, ze_awake: true, ze_believes: true, ze_in_cabin: true, ze_saved: true, ze_romance: true }, room: 'cais', pos: [540, 650, 'w'], run: () => S.fishTalk() }, // Rosa's dig comes only after Zé's boat
+    // the washhouse after the bath: the woman under the sheets, and Celeste shutting her down
+    laundry: { flags: { ch: 2, met_celeste: true, bathed: true }, room: 'lavadouro', pos: [800, 650, 'w'], run: () => S.laundryRemark() },
     lacthreat: { flags: { ch: 3, vasco_thursday: true }, room: 'antiques', pos: [700, 650, 'e'], run: () => S.talkLacerda() },
     guitar: { flags: { ch: 1, heard_song: true }, room: 'tavern', pos: [812, 648, 'w'], run: () => S.flirtGuitar() },
     // the washhouse: Alan's first meeting with Celeste (the sheet, then her questions)
@@ -149,6 +151,7 @@
       await G.fade(true);
       if (window.Sound) Sound.ambience('street_night');
       await S.paint('still_intro', () => say('narr_intro_1'), { zoom: [1.0, 1.16], pan: [[0.4, 0.55], [0.6, 0.5]] });
+      if (S.introLegend) await S.introLegend(); // the drowned bell, as the old women tell it
       const painted = S.mariaPaintings && await S.mariaPaintings();
       if (!painted && S.coldOpen) await S.coldOpen(); // fallback: Madragoa, 04:01, staged in a room
       if (S.introCity && G.image('still:still_newspaper')) await S.introCity();
@@ -179,7 +182,7 @@
         await G.goRoom('shop', null, { instant: true, noEnter: true, pos: SHOP_IN });
         await G.fade(false);
       } else { p.visible = true; await say('alan_wake_up'); }
-      await p.walkTo(500, 640);
+      await p.walkTo(470, 640);
       if (ines) ines.dir = 'w';
       p.dir = 'e'; pose('yawn'); await T(900);
       await say('ines_wake_look');

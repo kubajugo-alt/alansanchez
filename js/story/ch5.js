@@ -128,9 +128,8 @@
       if (F().finaleIntro) return;
       F().finaleIntro = true; F().water = 0; F().strikes = 0;
       await G.player.walkTo(330, 640); G.player.dir = 'e';
-      await say('lacerda_joaquim', 'alan_fin_angry', 'lacerda_spared', 'lacerda_ze', 'lacerda_demand', 'lacerda_font', 'lacerda_interrupted', 'lacerda_father', 'alan_father');
+      await say('lacerda_joaquim', 'alan_fin_angry', 'lacerda_spared_2', 'lacerda_ze', 'lacerda_demand', 'lacerda_font', 'lacerda_interrupted', 'lacerda_father', 'alan_father');
       S.lore && S.lore('father');
-      if (F().vasco_thursday) await say('lacerda_curator', 'alan_thursday_threat');
       await say('ines_warn', 'lacerda_quiet');
       G.checkpoint();
     },

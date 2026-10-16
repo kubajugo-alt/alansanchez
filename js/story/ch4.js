@@ -114,7 +114,6 @@
     if (!F().ze_saved) return say('alan_phone_cais_early');
     if (F().rang_shop) return say('alan_fail_04');
     F().rang_shop = true;
-    if (G.has('vasco_card') && !F().vasco_dialled) { F().vasco_dialled = true; await S.callVasco(); } // he tries Vasco first, and can't
     await posed('phone', async () => { sfx('payphone_coins'); sfx('phone_dial_long'); await G.wait(window.FAST ? 20 : 2600); sfx('ringout', 0.35); await G.wait(window.FAST ? 20 : 4500); await say('alan_ringout'); });
     await S.ch4End();
   };
