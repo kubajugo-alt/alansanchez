@@ -3,7 +3,8 @@
 # For each ordered pair a>b it stores, on the mesh-warp grid of frame a (11 x 27 vertices,
 # in a's sprite pixels), where each point of a sits in b (frames aligned on their anchors).
 # The engine slides a painting along these paths while it cross-fades, instead of
-# overlaying two pictures. Pairs the flow can't explain (very different poses) are skipped.
+# overlaying two pictures. Pairs the plain flow can't explain (very different poses) get a
+# coarse-to-fine silhouette registration; pairs even that can't explain are skipped.
 import sys, json, os, itertools, numpy as np, cv2
 from PIL import Image
 COLS, ROWS = 10, 26
@@ -43,7 +44,27 @@ def smooth_flow(fl, a):
     f = f * t + g * (1 - t)
     # inside the paint keep the detailed flow
     return np.where(w[..., None] > 0, cv2.GaussianBlur(fl, (0, 0), 2.5), f)
-def pair(a, b):
+def sdf(c):
+    # signed distance to the silhouette: gives the flow something to hold on to when limbs swing far
+    m = (c[..., 3] > 128).astype(np.uint8)
+    s = np.clip(cv2.distanceTransform(m, cv2.DIST_L2, 5), 0, 40) - np.clip(cv2.distanceTransform(1 - m, cv2.DIST_L2, 5), 0, 40)
+    return np.clip(128 + s * 3, 0, 255).astype(np.uint8)
+dis2 = cv2.DISOpticalFlow_create(cv2.DISOPTICAL_FLOW_PRESET_MEDIUM)
+dis2.setFinestScale(1); dis2.setPatchSize(16); dis2.setPatchStride(4); dis2.setGradientDescentIterations(40); dis2.setVariationalRefinementIterations(8)
+def register(A, B, mix, blur):
+    # coarse-to-fine registration: silhouette at 1/4, 1/2, full size, then paint + silhouette; each
+    # stage measures the flow from A to B pulled back through the flow so far and composes it
+    H, W = A.shape[:2]; yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    dA, dB = sdf(A), sdf(B)
+    fa = (gray(A) * (1 - mix) + dA * mix).astype(np.uint8); fb = (gray(B) * (1 - mix) + dB * mix).astype(np.uint8)
+    fab = np.zeros((H, W, 2), np.float32)
+    for lev, ia, ib in [(4, dA, dB), (2, dA, dB), (1, dA, dB), (1, fa, fb)]:
+        sa = cv2.resize(ia, (W // lev, H // lev))
+        sb = cv2.resize(cv2.remap(ib, xx + fab[..., 0], yy + fab[..., 1], cv2.INTER_LINEAR, borderValue=int(ib[0, 0])), (W // lev, H // lev))
+        f = cv2.GaussianBlur(cv2.resize(dis2.calc(sa, sb, None), (W, H)) * lev, (0, 0), blur * lev)
+        fab = f + cv2.remap(fab, xx + f[..., 0], yy + f[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    return fab
+def pair(a, b, reg=None):
     ma, mb = META[a], META[b]
     sc = ma['h'] / mb['h']  # engine draws both at the actor's height
     W = int(max(ma['w'], mb['w'] * sc) * 2 + 80); H = int(max(ma['hh'], mb['hh'] * sc) + 80)
@@ -56,8 +77,11 @@ def pair(a, b):
     if abs(sx) > W * 0.25 or abs(sy) > H * 0.25 or resp < 0.05: sx = sy = 0.0
     Mt = np.float32([[1, 0, -sx], [0, 1, -sy]])
     gb2 = cv2.warpAffine(gb, Mt, (W, H), borderValue=96)
-    fab = dis.calc(ga, gb2, None)
-    fab[..., 0] += sx; fab[..., 1] += sy
+    if reg:
+        fab = register(A, B, *reg)
+    else:
+        fab = dis.calc(ga, gb2, None)
+        fab[..., 0] += sx; fab[..., 1] += sy
     fab = smooth_flow(fab, A[..., 3] / 255)
     # quality: pull B back through the flow and compare with A, against plain overlap
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
@@ -82,6 +106,10 @@ for name, frames in sets:
         if a not in META or b not in META: continue
         g, e0, e1, iou = pair(a, b)
         ok = e1 < e0 * 0.8 and iou > 0.8
+        if not ok:  # very different poses: register the silhouettes coarse-to-fine and try again
+            for reg in [(0.6, 1.5), (0.4, 1.0), (0.8, 2.0)]:
+                g2, e0, e1b, iou2 = pair(a, b, reg)
+                if e1b < e0 * 0.8 and iou2 > 0.8: g, e1, iou, ok = g2, e1b, iou2, True; break
         print(f'{key:55s} overlap {e0:5.1f} morph {e1:5.1f} iou {iou:.2f} {"OK" if ok else "skip"}')
         if ok: MORPHS[key] = g; done += 1
         else: MORPHS.pop(key, None); skipped += 1
