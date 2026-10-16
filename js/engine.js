@@ -212,6 +212,9 @@
       const px0 = fx, py0 = fy - neck * F;
       const swayAt = v => { const q = sm(root, 1, v); return sway * h * q * q; };
       const pxN = px0 + swayAt(neck);
+      // turning round: the figure narrows through the turn and opens out facing the new way
+      const tp = this.turnT0 != null ? (time - this.turnT0) / 0.22 : 1;
+      const turnS = tp < 1 ? 0.3 + 0.7 * sm(0, 1, tp) : 1;
       return (x, y) => {
         const v = (fy - y) / F;
         let nx = x, ny = y;
@@ -227,6 +230,7 @@
           nx = pxN + rx * (1 - a + a * ca) - ry * a * sa; ny = py0 + rx * a * sa + ry * (1 - a + a * ca);
         }
         ny += bob * wh;
+        if (turnS < 1) nx = fx + (nx - fx) * turnS;
         return [nx, ny];
       };
     }
@@ -249,7 +253,7 @@
         this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
       }
-      if (turned) { this.prev = null; this.fadeT = 0; }
+      if (turned) { this.prev = null; this.fadeT = 0; if (this.cur && !window.FAST) this.turnT0 = time; } // the turn swings round (see motion)
       const A = this.place(key, flipped);
       if (!A) return;
       let B = this.prev && this.fadeT > 0 ? this.place(this.prev, this.prevFlip) : null;
