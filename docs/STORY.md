@@ -80,7 +80,7 @@ Alan is 37, single, lives above the shop he inherited in all but paperwork, and 
 
 6.  **Other characters react.** Inês rolls her eyes and scores his jokes out of ten; Rui ignores them; Amália laughs at the dirty ones; Lacerda finds them "charming"; Abílio mishears them into better ones.
 
-7.  **Lisbon, 1995, isn't always kind.** A few people let him know what they think of a bachelor bookseller: the woman under the washing after his bath (II), Rosa the fishwife on the quay until the old mender tells her to stop (IV), and Lacerda, who threatens to tell the Patriarchate about Vasco (III). These are low-key and never slurs. Alan never answers back and never jokes. He looks away and goes quiet, and the narrator says once what it costs him.
+7.  **Lisbon, 1995, isn't always kind.** A few people let him know what they think of a bachelor bookseller: the woman under the washing after his bath (II), Senhor Armando on the bench, who means it kindly (I–IV), Rosa the fishwife on the quay until the old mender tells her to stop (IV), and Lacerda, who threatens to tell the Patriarchate about Vasco (III). These are low-key and never slurs. Alan never answers back and never jokes. He looks away and goes quiet, and the narrator says once what it costs him.
 
 **The two-meaning motifs and where they pay off:**
 
