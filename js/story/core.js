@@ -11,7 +11,7 @@
       const p = G.player, fl = FLUSTER.test(id) && p && p.visible && !p.pose;
       if (fl) p.pose = 'fluster';
       // a line can carry its speaker's pose (S.LINE_POSE[id] = [npc id, pose]) while it plays
-      const lp = S.LINE_POSE[id], a = lp && G.npc(lp[0]), ap = a && a.visible && !a.pose && a.c.frames.poses && a.c.frames.poses[lp[1]];
+      const lp = S.LINE_POSE[id], a = lp && G.npc(lp[0]), ap = a && a.visible && !a.pose && !a.set && a.c.frames.poses && a.c.frames.poses[lp[1]];
       if (ap) a.pose = lp[1];
       try { await G.says(id); } finally { if (fl) p.pose = null; if (ap && a.pose === lp[1]) a.pose = null; }
     }
