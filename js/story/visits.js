@@ -216,10 +216,10 @@
       await say('phone_cuff_1');
       await shelf('cuffs_b', 300); // dangling them in front of his face
       await say('alan_cuff_2'); sfx('handcuff_click', 0.8);
-      // later: one wrist on the bedframe, the hat, the jacket, and no key
-      if (G.image('still:still_cop_cuffed')) {
+      // later: Alan in bed with a cigarette, the officer's cap on the bedpost and the cuff on the footboard
+      if (G.image('still:still_cop_smoke')) {
         await G.fade(true);
-        await G.showStill('still_cop_cuffed', async () => {
+        await G.showStill('still_cop_smoke', async () => {
           await G.fade(false);
           sfx('v_cop_whimper', 0.5); await T(900);
           await G.say('narr_cuff', { offscreen: true }); // over the painting, only the narrator
