@@ -46,7 +46,7 @@
   Object.assign(VPOSE, { fluster: VPOSE.fluster.concat(['vasco_shirt_1', 'vasco_shirt_3', 'vasco_lookup']),
     laugh: VPOSE.laugh.concat(['vasco_warm_1', 'vasco_warm_4']), delight: VPOSE.delight.concat(['vasco_warm_2']),
     tender: VPOSE.tender.concat(['vasco_warm_3', 'vasco_collar_2']), sheepish: VPOSE.sheepish.concat(['vasco_why', 'vasco_rescue']),
-    deflate: VPOSE.deflate.concat(['vasco_cool_1', 'vasco_cool_3', 'vasco_sus_3', 'vasco_hook_2']) });
+    deflate: VPOSE.deflate.concat(['vasco_cool_1', 'vasco_cool_3', 'vasco_sus_3', 'vasco_hook_2']), amused: VPOSE.amused.concat(['vasco_hook_3', 'vasco_liar']) });
   for (const [pose, ids] of Object.entries(VPOSE)) if (S.CHARS.vasco.frames.poses[pose]) ids.forEach(id => { S.LINE_POSE[id] = ['vasco', pose]; });
   // his face answers Alan's lines while he's in the scene (the mood each one gets; others, now and then, a smile)
   const VREACT = { alan_vasco_hello: 'amused', alan_relation: 'laugh', alan_romantic: 'tender', alan_vasco_flirt: 'fluster', alan_bottom: 'scandalised',
@@ -164,8 +164,6 @@
     ],
     ambient: [
       { id: 'npc_guard', name: 'Museum guard', frames: ['npc_guard', 'npc_guard_b'], x: 1090, y: 605, h: 230, look: 'alan_npc_guard', idleHold: [6, 12], variantHold: [3, 6] },
-      // in front of the curator's desk, gawping at the reserve door: clear of every exhibit
-      { id: 'npc_tourists', name: 'Tourists', frames: ['npc_tourists', 'npc_tourists_b'], x: 930, y: 712, h: 342, look: 'alan_npc_tourists', idleHold: [5, 9], variantHold: [3, 5] },
     ],
     hotspots: [
       { name: 'Panorama of Lisbon, 1700', rect: [0, 118, 332, 254], at: [220, 650], face: 'n', look: () => S.exhibit('panorama') },
@@ -211,7 +209,12 @@
       { x: 660, y: 250, rgb: '238,240,244', power: 0.34, reach: 1400, rim: 0.5, shadow: 0.5, floor: [660, 520], height: 700 }, // daylight from the garth
     ],
     entries: { default: [1190, 650, 'w'], se_museum: [1190, 650, 'w'], se_tower: [140, 640, 'e'] },
-    anim(g, t) { pitStage(G.player); pitStage(G.npc('vasco')); FX.leaves(g, t, 600, 690, 11); },
+    anim(g, t) {
+      pitStage(G.player); pitStage(G.npc('vasco')); FX.leaves(g, t, 600, 690, 11);
+      // the find tray's glass lid catches the light while Vasco looks into it (the heist)
+      const gl = S.glassGlint && (performance.now() - S.glassGlint) / 1000;
+      if (gl > 0 && gl < 4) FX.glow(g, 905, 400, 26, '255,248,225', 0.55 * Math.sin(Math.PI * gl / 4));
+    },
     leave() { for (const a of [G.player, G.npc('vasco')]) if (a && a._pit) { a._pit = false; a.sink = 0; a.h = null; } },
     async enter() { if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) await S.cloisterCh3(); },
     npcs: [
@@ -368,8 +371,17 @@
     }
     G.takeItem('reserve_key'); F().key_tossed = true;
     await G.say('narr_catch', { offscreen: true });
-    G.refreshNpcs(); // Inês slips off to the reserve
+    // she slips off along the arcade, and Vasco catches her in the glass of the find tray by him.
+    // He watches her go, and says nothing (he lets it happen; that's Thursday's secret, not today's)
     p.dir = 'e';
+    if (ines && ines.visible && !window.FAST) ines.walkTo(120, 610);
+    S.glassGlint = performance.now();
+    if (v) { v.pose = null; v.dir = 'n'; }
+    await T(900);
+    await G.say('narr_glimpse', { offscreen: true });
+    await T(600);
+    if (v) { v.dir = 'w'; v.pose = kneel; }
+    G.refreshNpcs(); // Inês is in the reserve
     await say('vasco_inscription_2');
     if (v) v.pose = null;
     await S.pitGame();
@@ -440,7 +452,7 @@
     await say('alan_collar_2');
     await S.withPair('lanyard', () => say('vasco_collar_2'));
     await say('alan_collar_3');
-    await G.say('narr_key_clip', { offscreen: true });
+    await G.say('narr_key_clip_2', { offscreen: true });
     F().in_pit = false; F().heist_done = true; F().key_returned = true;
     // back up the ladder
     p.x = PIT[0] - 30; p.y = PIT[1] + 10; p.dir = 'e';
@@ -449,6 +461,7 @@
     await S.withPair('card', () => say('vasco_card'));
     give('vasco_card');
     await joke('alan_thursday');
+    await say('vasco_liar'); // he knows; he isn't saying
     F().vasco_thursday = true;
     await say('ines_handover');
     give('brotherhood_charter');
@@ -598,7 +611,7 @@
   S.vascoTwin = async function () {
     const p = G.player;
     await G.busy(async () => {
-      if (F().heist_done) await say('alan_vasco_sorry_2', 'vasco_hook_2', 'vasco_forgive');
+      if (F().heist_done) await say('alan_vasco_sorry_2', 'vasco_hook_3', 'vasco_forgive'); // wry: he knew all along
       else await say('vasco_what');
       await say('alan_vasco_clapper', 'vasco_come_down');
       // he leads the way back through the museum and down into the reserve
