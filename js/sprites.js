@@ -2013,6 +2013,54 @@ window.SPRITES = {
   "top": 3.2,
   "facesLeft": true
  },
+ "npc_washer2_beckon": {
+  "w": 407,
+  "hh": 756,
+  "h": 720.0,
+  "ax": 209.6,
+  "fy": 752.2,
+  "top": 3.2
+ },
+ "npc_washer2_cackle": {
+  "w": 366,
+  "hh": 759,
+  "h": 720.0,
+  "ax": 193.6,
+  "fy": 755.2,
+  "top": 3.2
+ },
+ "npc_washer2_hips": {
+  "w": 323,
+  "hh": 763,
+  "h": 720.0,
+  "ax": 97.6,
+  "fy": 759.2,
+  "top": 3.2
+ },
+ "npc_washer2_scrub2": {
+  "w": 375,
+  "hh": 727,
+  "h": 720.0,
+  "ax": 177.9,
+  "fy": 723.2,
+  "top": 3.2
+ },
+ "npc_washer2_slap": {
+  "w": 379,
+  "hh": 727,
+  "h": 720.0,
+  "ax": 178.2,
+  "fy": 726.0,
+  "top": 3.2
+ },
+ "npc_washer2_wheeze": {
+  "w": 304,
+  "hh": 728,
+  "h": 720.0,
+  "ax": 103.8,
+  "fy": 725.8,
+  "top": 3.2
+ },
  "pair_brow": {
   "w": 312,
   "hh": 729,
