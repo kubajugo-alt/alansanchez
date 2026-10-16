@@ -155,7 +155,7 @@
       const painted = S.mariaPaintings && await S.mariaPaintings();
       if (!painted && S.coldOpen) await S.coldOpen(); // fallback: Madragoa, 04:01, staged in a room
       if (S.introCity && G.image('still:still_newspaper')) await S.introCity();
-      else await S.paint('still_intro', () => say('narr_intro_2'), { zoom: [1.08, 1.16], pan: [[0.55, 0.5], [0.6, 0.5]] });
+      else await S.paint('still_intro', async () => { await say('narr_intro_2'); await say('narr_intro_tiles'); }, { zoom: [1.08, 1.16], pan: [[0.55, 0.5], [0.6, 0.5]] });
       await G.fade(true);
       await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);
     });
