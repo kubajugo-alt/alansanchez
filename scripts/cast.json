@@ -100,6 +100,11 @@
       "voice_id": "EI3BL0ECeQayX8N4doHx",
       "name": "(existing)",
       "role": "Gruff net mender"
+    },
+    "bench": {
+      "voice_id": "jAW0IMxOTz75sgLAYWp6",
+      "name": "Desmond (UK) - Distinguished Persuasion",
+      "role": "Senhor Armando, old man on the bench by the tavern"
     }
   }
 }

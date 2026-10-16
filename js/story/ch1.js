@@ -78,6 +78,20 @@
     async enter() { if (F().ch >= 5 && !F().ines_gone_seen) { F().ines_gone_seen = true; await say('alan_ines_gone'); } },
   };
 
+  // Senhor Armando means well: the kind of advice that tells Alan what the street says behind his back
+  S.benchTalk = async function () {
+    if (F().bench_advice) return say('bench_again');
+    F().bench_advice = true;
+    const p = G.player, b = G.npc('npc_bench');
+    await say('bench_wake', 'bench_advice_1');
+    await G.wait(window.FAST ? 20 : 900);
+    await say('alan_bench_1');
+    await say('bench_advice_2');
+    await G.wait(window.FAST ? 20 : 700);
+    if (b) p.dir = b.x < p.x ? 'e' : 'w';    // he turns away before he says it
+    await G.wait(window.FAST ? 20 : 600);
+    await say('alan_bench_2');
+  };
   S.pessoaToRadiator = async function () {
     const p = G.npc('pessoa'); if (!p) return;
     p.pose = 'jump'; sfx('cat_land'); await G.wait(window.FAST ? 20 : 350); p.pose = null;
@@ -200,7 +214,7 @@
     },
     animFg(g, t) { S.drawTram(g, t); },
     ambient: [
-      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_b'], idleHold: [12, 26], variantHold: [1.6, 2.6], x: 940, y: 592, h: 150, look: 'alan_npc_bench', when: () => F().ch <= 4 }, // dozes, now and then wakes with a start
+      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_b'], idleHold: [12, 26], variantHold: [1.6, 2.6], x: 940, y: 592, h: 150, look: 'alan_npc_bench', talkFrames: ['npc_bench_b'], talk: () => S.benchTalk(), when: () => F().ch <= 4 }, // dozes, now and then wakes with a start
     ],
     occluders: [{ y: 206, poly: [[60, 150], [215, 150], [215, 215], [60, 215]] }], // balcony railing in front of the laundry woman
     hotspots: [
