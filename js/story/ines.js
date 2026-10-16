@@ -42,7 +42,7 @@
   const S = window.S, { G, F } = S, has = k => !!window.SPRITES[k];
   const C = S.CHARS.ines, P = C.frames.poses;
   const JOBS = [
-    { k: 'shelve', at: [270, 575], dir: 'w' },
+    { k: 'shelve', at: [345, 550], dir: 'w' },
     { k: 'dust', at: [430, 552], dir: 'e' },
     { k: 'kettle', at: [545, 552], dir: 'e' },
     { k: 'ledger', at: [760, 565], dir: 'e' },
