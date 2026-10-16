@@ -23,7 +23,8 @@
   ROOMS.cais = {
     name: 'Cais do Sodré', bg: 'cais', music: 'tension', ambience: 'harbour', floor: 'cobble',
     fog: 0.34, fogRGB: '200,205,210',
-    walk: [[150, 462], [500, 456], [1110, 716], [0, 716], [0, 604], [150, 596]], // clear of the crate stack
+    // clear of the crate stack, and of the fishwife's stool, the big bollard and the menders' crates: round the front of them
+    walk: [[150, 462], [500, 456], [522, 466], [522, 598], [548, 606], [548, 713], [960, 713], [960, 652], [1119, 720], [0, 720], [0, 604], [150, 596]], // (down to the frame's edge, so the strip in front of the menders is wide enough to walk)
     scale: [460, 222, 716, 420],
     light: { ambient: 'rgb(170,175,185)', base: 0.78 },
     lights: [
@@ -31,7 +32,7 @@
       { x: 474, y: 299, rgb: '255,190,110', kind: 'gas', seed: 7, glow: 60, ga: 0.3, power: 0.3, reach: 500, floor: [474, 470], height: 260 },
       { x: 273, y: 122, rgb: '255,235,190', glow: 50, ga: 0.18, power: 0.12, reach: 500, shadow: false },
     ],
-    entries: { default: [140, 640, 'e'], map: [140, 640, 'e'], boat: [880, 640, 'w'] },
+    entries: { default: [140, 640, 'e'], map: [140, 640, 'e'], boat: [1000, 702, 'w'] },
     anim(g, t) {
       FX.water(g, t, 700, 560, 580, 160, '200,210,220');
       for (let i = 0; i < 4; i++) FX.wisps(g, t + i * 2.2, 760 + i * 130, 600, { n: 3, rise: 40, spread: 70, rgb: '215,220,228', a: 0.05, size: 60, speed: 0.05 });
@@ -62,7 +63,7 @@
       { name: 'Telephone box', rect: [96, 245, 117, 256], at: [230, 520], face: 'w', look: 'narr_look_phonebox', use: () => S.quayPhone(), items: { vasco_card: () => S.quayPhone() } },
       { name: 'Crates', rect: [0, 395, 160, 213], look: 'narr_look_crates' },
       { name: 'Gulls', rect: [500, 400, 260, 130], look: 'alan_npc_gulls' },
-      { name: 'Fishing boats', rect: [565, 300, 680, 320], at: [900, 650], face: 'e', look: 'narr_look_boats', exit: 'boat', entry: 'cais', locked: () => F().ze_saved },
+      { name: 'Fishing boats', rect: [565, 300, 680, 320], at: [1000, 702], face: 'e', look: 'narr_look_boats', exit: 'boat', entry: 'cais', locked: () => F().ze_saved },
       { name: 'Way out', rect: [0, 660, 60, 56], at: [30, 690], exit: 'map', entry: 'cais', locked: () => F().ch === 4 && !F().ch4_done, lockedLine: () => F().ze_saved ? 'alan_ring_first' : 'celeste_hint_boat' },
     ],
     async enter(entry) {
@@ -155,7 +156,7 @@
       { name: 'Porthole', rect: [747, 416, 85, 75], at: [790, 620], face: 'n', look: async () => { if (F().ze_awake) return say('narr_look_porthole_empty'); await S.showPorthole(); await say('narr_look_porthole'); } }, // once Zé is up, the bunk is empty
       { name: 'Mooring line', rect: [0, 341, 280, 200], at: [230, 620], face: 'w', look: 'narr_look_line',
         use: () => S.mooring(), take: () => S.mooring() },
-      { name: "Ship's bell", rect: [855, 238, 40, 46], at: [900, 610], face: 'n', look: 'narr_look_shipbell', use: async () => { sfx('ship_bell', 0.8); await say('alan_ring_shipbell'); } },
+      { name: "Ship's bell", rect: [855, 238, 40, 46], get at() { return F().ze_awake && !F().ze_in_cabin ? [795, 612] : [900, 610]; }, face: 'n', look: 'narr_look_shipbell', use: async () => { sfx('ship_bell', 0.8); await say('alan_ring_shipbell'); } }, // beside Zé when he stands under it, not inside him
       { name: 'Back to the quay', rect: [0, 540, 130, 176], at: [110, 690], exit: 'cais', entry: 'boat' },
     ],
     async enter() {
@@ -240,7 +241,7 @@
       { y: 548, polys: [[[760, 387], [814, 387], [814, 548], [760, 548]]] },                                            // sea chest
       { y: 718, base: [[810, 583], [1000, 718]], polys: [[[810, 425], [840, 415], [1280, 300], [1280, 720], [1000, 720], [837, 585], [810, 585]]] }, // bunk
     ],
-    walk: [[384, 522], [830, 522], [830, 716], [384, 716]],
+    walk: [[384, 522], [750, 522], [754, 600], [830, 600], [830, 716], [384, 716]], // not into the bedside chest or behind the bunk's head
     scale: [500, 330, 716, 420],
     light: { ambient: 'rgb(170,150,130)', base: 0.66, flickerShade: 0.25 },
     lights: [

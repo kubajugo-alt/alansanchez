@@ -86,7 +86,9 @@
   // ================================================================ THE MUSEUM
   ROOMS.se_museum = {
     name: 'Sé de Lisboa · museum', bg: 'se_museum', music: 'church', ambience: 'museum', acoustic: 'convent', floor: 'stone',
-    walk: [[50, 650], [440, 608], [800, 610], [1050, 598], [1150, 600], [1280, 610], [1280, 716], [0, 716], [0, 660]],
+    // in front of the guard's chair and off the foot of the left stanchion
+    walk: [[0, 680], [66, 676], [70, 648], [440, 608], [800, 610], [1000, 603], [1015, 616], [1160, 616], [1175, 602], [1280, 610], [1280, 716], [0, 716]],
+    occluders: [{ y: 670, polys: [[[24, 500], [46, 500], [48, 516], [41, 524], [41, 648], [62, 660], [63, 672], [4, 672], [6, 660], [29, 648], [29, 524], [22, 516]]] }], // the left stanchion, knob to foot
     scale: [600, 300, 716, 365],
     light: { ambient: 'rgb(214,208,200)', base: 0.86, rim: 'rgba(255,236,205,0.16)', rimSide: 1 },
     lights: [
@@ -136,7 +138,9 @@
     entries: { default: [1190, 650, 'w'], se_museum: [1190, 650, 'w'], se_tower: [140, 640, 'e'] },
     anim(g, t) { FX.leaves(g, t, 600, 690, 11); },
     // Thursday: Vasco stands in the pit, the near rim hides his legs
-    occluders: [{ y: 706, when: () => F().thursday, polys: [[[548, 598], [1064, 598], [1064, 720], [548, 720]]] }],
+    // (with the coffees, Alan stands on the floor at the left of the painting: only Vasco's half goes behind the rim)
+    occluders: [{ y: 706, when: () => F().thursday && G.player.pose !== 'pair_vasco_coffee', polys: [[[548, 598], [1064, 598], [1064, 720], [548, 720]]] },
+      { y: 706, when: () => F().thursday && G.player.pose === 'pair_vasco_coffee', polys: [[[650, 598], [1064, 598], [1064, 720], [650, 720]]] }],
     async enter() { if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) await S.cloisterCh3(); },
     npcs: [
       { id: 'vasco', x: 1110, y: 640, dir: 'w', name: 'Dr. Vasco Teles', when: vascoHere, look: 'narr_look_vasco', talk: () => S.talkVasco(),

@@ -21,7 +21,7 @@
       { actor: 'alan', off: [0.15, -0.45], offs: { alan_lantern: [0.15, -0.45], alan_lwalk1: [0.19, -0.39], alan_lwalk2: [0.21, -0.4] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 70, ga: 0.35, power: 0.5, reach: 500, rim: 0.7, height: 160, when: () => F().has_lantern },
       { x: 1158, y: 470, rgb: '255,140,80', kind: 'candle', seed: 5, glow: 55, ga: 0.25, power: 0.15, reach: 300, shadow: false },
     ],
-    entries: { default: [70, 670, 'e'], map: [70, 670, 'e'], cistern: [880, 650, 'w'] },
+    entries: { default: [70, 670, 'e'], map: [70, 670, 'e'], cistern: [740, 650, 'w'] }, // up from the cistern: beside the open grate, not in it
     animBack(g, t) { FX.masked(g, G.mask(), m => FX.drawClouds(m, S.nightClouds, t, 7, 0, 1)); },
     anim(g, t) { S.carry(); for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 1.3, 900 + i * 90, 640, { n: 5, rise: 120, spread: 30, rgb: '120,255,180', a: 0.06, size: 26, speed: 0.12 }); },
     npcs: [
@@ -64,12 +64,13 @@
   // palm, 5 the tongue on the marks, last to first. Six marks of water.
   const ORDER = ['sanches', 'coutinho', 'bastos', 'ferreira'];
   const MARKS = { ferreira: [585, 232], coutinho: [692, 226], sanches: [604, 316], bastos: [706, 322] };
-  const PLATFORM = [690, 432];
+  const PLATFORM = [690, 420], CAUSEWAY_END = [600, 428]; // on the platform's front band; the walkway's top, where it meets it
   const watched = () => !F().lacerda_distracted || F().strikes > 0;
   ROOMS.cistern = {
     name: 'The Cistern', bg: 'cistern', noSave: true, music: null, ambience: 'cistern', floor: 'wet',
     fog: () => F().won ? 0 : 0.16, fogRGB: '90,140,120',
-    walk: [[0, 560], [214, 560], [570, 430], [708, 430], [704, 446], [332, 560], [960, 560], [960, 604], [1228, 604], [1280, 640], [1280, 716], [0, 716]], // the walkway stops at the bell's pedestal (the rim hangs too low to stand under) and keeps off the pillar's plinth
+    // the walkway between its two curbs, out to the front of the bell's platform (the rim hangs too low to stand under), and off the pillar's plinth
+    walk: [[0, 560], [196, 560], [200, 540], [568, 428], [600, 421], [712, 419], [714, 423], [640, 425], [612, 432], [370, 540], [372, 560], [960, 560], [960, 604], [1228, 604], [1280, 640], [1280, 716], [0, 716]],
     scale: [420, 192, 716, 378],
     light: () => F().won ? { ambient: 'rgb(200,190,170)', base: 0.8 } : { ambient: 'rgb(150,165,135)', base: 0.6, flickerShade: 0.32 },
     lights: [
@@ -281,7 +282,7 @@
     ines.pose = null;
   };
   // Inês takes the lamp out along the walkway, close to the bell
-  const LAMP_SPOT = [520, 482];
+  const LAMP_SPOT = [462, 482]; // mid-walkway (its curbs are at x 377 and 510 here)
   S.giveLantern = async function () {
     if (!F().ines_free) return say('ines_hint_free');
     if (F().bell_lit) return say('alan_fail_04');
@@ -306,7 +307,7 @@
   S.toPlatform = async function () {
     const p = G.player;
     if (p.y < 470) return;
-    await p.walkTo(272, 556); await p.walkTo(PLATFORM[0], PLATFORM[1]);
+    await p.walkTo(272, 556); await p.walkTo(CAUSEWAY_END[0], CAUSEWAY_END[1]); await p.walkTo(PLATFORM[0], PLATFORM[1]);
     p.dir = 'w';
   };
   S.strike = async function (id) {
@@ -393,8 +394,9 @@
     F().won = true;
     await say('narr_still');
     ines.set = null; ines.def.fixedDir = false;
+    if (p.y < 470) await p.walkTo(CAUSEWAY_END[0], CAUSEWAY_END[1]);
     await p.walkTo(272, 556); await p.walkTo(420, 640);
-    if (ines.y < 560) await ines.walkTo(330, 566);
+    if (ines.y < 560) await ines.walkTo(300, 566);
     await ines.walkTo(p.x + 140, p.y + 4); ines.dir = 'w'; p.dir = 'e';
     await say('ines_end', 'alan_end', 'gag_ines_2', 'gag_alan_ines_2');
     G.cutscene = false;

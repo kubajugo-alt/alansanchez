@@ -76,7 +76,9 @@
       return new Promise(res => {
         if (this.resolve) this.resolve();
         if (Math.hypot(x - this.x, y - this.y) < 2) { res(); return; }
-        this.target = { x, y }; this.resolve = res; this.walking = true;
+        // Alan goes round the furniture cut out of the floor, not through it
+        const [first, ...rest] = this === player && room && room.walk ? route([this.x, this.y], [x, y], room.walk) : [[x, y]];
+        this.target = { x: first[0], y: first[1] }; this.path = rest; this.resolve = res; this.walking = true;
       });
     }
     cycle() {
@@ -109,7 +111,7 @@
           const contact = cyc.length >= 8 ? idx % 4 === 0 : idx % 2 === 0;
           if (contact && this.visible && this.x > -40 && this.x < 1320) Sound.step((room && room.floor) || 'stone', this === player ? 1 : 0.35 + 0.4 * Math.max(0, Math.min(1, (this.y - 520) / 200)), this.x);
         }
-        if (gd <= step) this.stop();
+        if (gd <= step) { if (this.path && this.path.length) { const [nx, ny] = this.path.shift(); this.target = { x: nx, y: ny }; } else this.stop(); }
       }
       if (this.talking) {
         this.talkT -= dt;
@@ -147,7 +149,7 @@
       }
     }
     loopActive() { const F = this.F; return !!(this.loop && F.loops && F.loops[this.loop] && !this.engaged && this.resumeT <= 0 && !this.talking); }
-    stop() { this.target = null; this.walking = false; this.phase = 0; this.stepIdx = -1; const r = this.resolve; this.resolve = null; if (r) r(); }
+    stop() { this.target = null; this.path = null; this.walking = false; this.phase = 0; this.stepIdx = -1; const r = this.resolve; this.resolve = null; if (r) r(); }
     height() { return (this.h || scaleAt(this.y)) * (this.c.scale || 1); }
     // frames not painted yet fall back to the character's idle (then talk) frame
     frameKey() {
@@ -556,6 +558,53 @@
     const mx = p.reduce((a, q) => a + q[0], 0) / p.length, my = p.reduce((a, q) => a + q[1], 0) / p.length;
     const dx = mx - best[0], dy = my - best[1], dl = Math.hypot(dx, dy) || 1;
     return [best[0] + dx / dl * 3, best[1] + dy / dl * 3];
+  }
+  // A walk across a cut-out (a notch round a basin, a stool, a pit) follows the
+  // shortest way round its corners; a straight line that stays on the floor is kept.
+  function segInside(a, b, p) {
+    const n = Math.max(2, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 4));
+    for (let i = 1; i < n; i++) { const t = i / n; if (!inPoly(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, p)) return false; }
+    return true;
+  }
+  function edgeDist(x, y, p) {
+    let d = Infinity;
+    for (let i = 0; i < p.length; i++) {
+      const [ax, ay] = p[i], [bx, by] = p[(i + 1) % p.length], vx = bx - ax, vy = by - ay;
+      const t = Math.max(0, Math.min(1, ((x - ax) * vx + (y - ay) * vy) / (vx * vx + vy * vy || 1)));
+      d = Math.min(d, Math.hypot(x - ax - vx * t, y - ay - vy * t));
+    }
+    return d;
+  }
+  function route(a, b, p) {
+    if (!inPoly(a[0], a[1], p) || !inPoly(b[0], b[1], p) || segInside(a, b, p)) return [b];
+    const nodes = [a, b];
+    for (const [vx, vy] of p) { // each corner, nudged just inside the floor
+      let best = null, bd = -1;
+      for (let k = 0; k < 16; k++) {
+        const an = k * Math.PI / 8, q = [vx + Math.cos(an) * 4, vy + Math.sin(an) * 4];
+        if (!inPoly(q[0], q[1], p)) continue;
+        const d = edgeDist(q[0], q[1], p); if (d > bd) { bd = d; best = q; }
+      }
+      if (best) nodes.push(best);
+    }
+    const cost = (u, v) => Math.hypot(u[0] - v[0], (u[1] - v[1]) * GROUND_K);
+    const dist = nodes.map(() => Infinity), prev = nodes.map(() => -1), done = nodes.map(() => false);
+    dist[0] = 0;
+    for (;;) {
+      let u = -1;
+      for (let i = 0; i < nodes.length; i++) if (!done[i] && dist[i] < Infinity && (u < 0 || dist[i] < dist[u])) u = i;
+      if (u < 0 || u === 1) break;
+      done[u] = true;
+      for (let v = 0; v < nodes.length; v++) {
+        if (done[v]) continue;
+        const d = dist[u] + cost(nodes[u], nodes[v]);
+        if (d < dist[v] && segInside(nodes[u], nodes[v], p)) { dist[v] = d; prev[v] = u; }
+      }
+    }
+    if (prev[1] < 0) return [b];
+    const out = [];
+    for (let i = 1; i > 0; i = prev[i]) out.unshift(nodes[i]);
+    return out;
   }
   function hitShape(h, x, y) {
     if (h.poly) return inPoly(x, y, h.poly);

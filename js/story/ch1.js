@@ -95,7 +95,7 @@
   S.pessoaToRadiator = async function () {
     const p = G.npc('pessoa'); if (!p) return;
     p.pose = 'jump'; sfx('cat_land'); await G.wait(window.FAST ? 20 : 350); p.pose = null;
-    p.h = 40; p.x = 300; p.y = 560;
+    p.h = 40; p.x = 350; p.y = 560; // down beside the desk, not inside it
     await p.walkTo(735, 545);
     p.pose = 'jump'; await G.wait(window.FAST ? 20 : 300); p.pose = null;
     const r = PESSOA_AT.radiator; p.x = r[0]; p.y = r[1]; p.h = 46; p.dir = 'w';
@@ -104,7 +104,7 @@
     if (F().ch < 5) return say('alan_fail_09');
     const p = G.npc('pessoa'); G.takeItem('sardine');
     p.pose = 'jump'; sfx('cat_chirp'); await G.wait(window.FAST ? 20 : 400);
-    p.x = 960; p.y = 600; p.h = 58; p.pose = 'eat'; sfx('cat_eat');
+    p.x = 900; p.y = 640; p.h = 58; p.pose = 'eat'; sfx('cat_eat'); // on the floor in front of the counter
     F().ledger_found = true; give('ledger');
     await say('alan_pessoa');
     F().pessoa_fed = true;
@@ -193,7 +193,7 @@
     name: 'Alfama', bg: 'street',
     music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog', ambience: 'street', floor: 'cobble',
     fog: () => F().ch >= 5 ? 0.42 : 0.32, fogRGB: '214,218,216',
-    walk: [[0, 578], [1280, 600], [1280, 716], [0, 716]],
+    walk: [[0, 578], [870, 593], [880, 612], [1010, 612], [1020, 595], [1280, 600], [1280, 716], [0, 716]], // in front of the bench, not among its legs
     scale: [578, 196, 716, 250],
     light: { ambient: 'rgb(214,214,214)', base: 0.9 },
     lights: [
@@ -513,12 +513,12 @@
   S.ruiLeaves = async function () {
     await say('rui_watch');
     const rui = G.npc('rui');
-    if (rui) { await rui.walkTo(150, 650); sfx('door'); rui.visible = false; }
+    if (rui) { await rui.walkTo(300, 565); await rui.walkTo(150, 650); sfx('door'); rui.visible = false; } // behind the desk and round its end, not through it
     F().rui_out = true; S.copFace();
   };
   S.ruiReturns = async function () {
     const rui = G.npc('rui');
-    if (rui) { rui.x = 150; rui.y = 650; rui.visible = true; sfx('door'); F().rui_out = false; await rui.walkTo(836, 560); rui.dir = 'w'; }
+    if (rui) { rui.x = 150; rui.y = 650; rui.visible = true; sfx('door'); F().rui_out = false; await rui.walkTo(300, 565); await rui.walkTo(836, 560); rui.dir = 'w'; }
     F().rui_out = false;
     await say('rui_constable');
     F().teixeira_flirt = true; F().flirted_cop = true; S.copFace();
