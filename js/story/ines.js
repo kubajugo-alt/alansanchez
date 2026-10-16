@@ -35,3 +35,58 @@
   LP(['ines_gossip_1', 'ines_gossip_2', 'ines_gossip_4', 'ines_gossip_5', 'ines_back_cop'], 'write');
   LP(['ines_go', 'ines_hint_ch3_done', 'ines_hint_police', 'ines_bye', 'ines_kettle'], 'point');
 })();
+
+// Inês at work: in the shop she moves between jobs (shelving, dusting, carrying, coffee, the ledger),
+// stops when anything happens, and her face answers what Alan says.
+(function () {
+  const S = window.S, { G, F } = S, has = k => !!window.SPRITES[k];
+  const C = S.CHARS.ines, P = C.frames.poses;
+  const JOBS = [
+    { k: 'shelve', at: [270, 575], dir: 'w' },
+    { k: 'dust', at: [430, 552], dir: 'e' },
+    { k: 'kettle', at: [545, 552], dir: 'e' },
+    { k: 'ledger', at: [760, 565], dir: 'e' },
+    { k: 'carry', at: [640, 610], dir: 'w' },
+  ].filter(j => has('ines_act_' + j.k + '_a'));
+  for (const j of JOBS) { P['act_' + j.k + '_a'] = 'ines_act_' + j.k + '_a'; P['act_' + j.k + '_b'] = has('ines_act_' + j.k + '_b') ? 'ines_act_' + j.k + '_b' : 'ines_act_' + j.k + '_a'; }
+  for (const k of ['amused', 'deadpan', 'fond', 'annoyed', 'scandalised', 'impressed', 'sympathetic', 'teasing']) if (has('ines_' + k)) P[k] = 'ines_' + k;
+
+  const ines = () => { const a = G.npc('ines'); return a && a.visible && G.room === S.ROOMS.shop ? a : null; };
+  const quiet = () => !G.isBusy && !G.cutscene && !document.querySelector('#dialog.open');
+  let job = null, phase = 'rest', until = 0, lastJob = null, swapAt = 0, frame = 0;
+  const end = a => { if (a && a.pose && String(a.pose).startsWith('act_')) a.pose = null; job = null; phase = 'rest'; until = performance.now() + 3000 + Math.random() * 3000; };
+  setInterval(() => {
+    if (window.FAST || !JOBS.length) return;
+    const a = ines(); if (!a) { job = null; return; }
+    if (a.set || (a.pose && !String(a.pose).startsWith('act_'))) return;   // a scene has her
+    if (!quiet() || a.talking || a.engaged) { if (a.walking) a.stop(); if (job) end(a); return; }  // something's happening: drop it, look up
+    const now = performance.now();
+    if (phase === 'rest' && now > until) {
+      const pool = JOBS.filter(j => j !== lastJob); job = pool[Math.floor(Math.random() * pool.length)]; lastJob = job;
+      phase = 'walk'; a.pose = null; a.walkTo(job.at[0], job.at[1]).then(() => {
+        if (job && phase === 'walk') { phase = 'work'; a.dir = job.dir; until = performance.now() + 7000 + Math.random() * 7000; swapAt = 0; }
+      });
+    } else if (phase === 'work') {
+      if (now > swapAt) { frame ^= 1; a.pose = 'act_' + job.k + (frame ? '_b' : '_a'); swapAt = now + 1100 + Math.random() * 900; }
+      if (now > until) end(a);
+    }
+  }, 200);
+
+  // her face answers Alan: jokes get a look, tender lines a softer one, flirting a smirk
+  const LINES = window.LINES || {};
+  const pickR = l => l.filter(k => P[k])[Math.floor(Math.random() * l.filter(k => P[k]).length)];
+  S.onLine = function (id) {
+    if (!/^(alan_|gag_alan_)/.test(id)) return null;
+    const a = G.npc('ines'); if (!a || !a.visible || a.set || a.walking || (a.pose && !String(a.pose).startsWith('act_'))) return null;
+    const t = String((LINES[id] || [])[1] || ''), low = t.toLowerCase();
+    let k = null;
+    if (/\[pause\]|\[quiet|\[softly|grandfather|avô|mother|sorry/.test(low)) k = pickR(['fond', 'sympathetic']);
+    else if (/flirt|wink|handsome|gorgeous|date|kiss/.test(id + ' ' + low)) k = pickR(['teasing', 'scandalised', 'amused']);
+    else if (/!\s*$|\bwhat\?|no way|stole|steal|murder/.test(low)) k = pickR(['scandalised', 'impressed', 'annoyed']);
+    else if (Math.random() < 0.45) k = pickR(['amused', 'deadpan', 'teasing', 'amused', 'impressed']);
+    if (!k) return null;
+    const prev = a.pose; a.pose = k;
+    if (a.dir !== (G.player && G.player.x > a.x ? 'e' : 'w') && G.player) a.dir = G.player.x > a.x ? 'e' : 'w';
+    return () => { if (a.pose === k) a.pose = String(prev || '').startsWith('act_') ? null : prev; };
+  };
+})();

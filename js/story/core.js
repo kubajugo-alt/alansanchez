@@ -13,7 +13,9 @@
       // a line can carry its speaker's pose (S.LINE_POSE[id] = [npc id, pose]) while it plays
       const lp = S.LINE_POSE[id], a = lp && G.npc(lp[0]), ap = a && a.visible && !a.pose && !a.set && a.c.frames.poses && a.c.frames.poses[lp[1]];
       if (ap) a.pose = lp[1];
-      try { await G.says(id); } finally { if (fl) p.pose = null; if (ap && a.pose === lp[1]) a.pose = null; }
+      // listeners react to what's said (S.onLine returns a function that ends the reaction)
+      let lr = null; try { lr = !ap && S.onLine ? S.onLine(id) : null; } catch (e) { lr = null; }
+      try { await G.says(id); } finally { if (fl) p.pose = null; if (ap && a.pose === lp[1]) a.pose = null; if (lr) lr(); }
     }
   };
   const S = window.S = { G, F, say, ROOMS: {}, LINE_POSE: {} };
