@@ -79,10 +79,18 @@
   };
 
   // Senhor Armando means well: the kind of advice that tells Alan what the street says behind his back
+  // he sits up for the conversation (the 'awake' set) and dozes off again afterwards
+  S.LINE_POSE.bench_wake = ['npc_bench', 'wake']; S.LINE_POSE.bench_advice_1 = ['npc_bench', 'confide'];
+  S.LINE_POSE.bench_advice_2 = ['npc_bench', 'wistful']; S.LINE_POSE.bench_again = ['npc_bench', 'drowsy'];
   S.benchTalk = async function () {
+    const b = G.npc('npc_bench');
+    if (b) b.set = 'awake';
+    try { await benchTalk(b); } finally { if (b) b.set = null; }
+  };
+  async function benchTalk(b) {
     if (F().bench_advice) return say('bench_again');
     F().bench_advice = true;
-    const p = G.player, b = G.npc('npc_bench');
+    const p = G.player;
     await say('bench_wake', 'bench_advice_1');
     await G.wait(window.FAST ? 20 : 900);
     await say('alan_bench_1');
@@ -91,7 +99,7 @@
     if (b) p.dir = b.x < p.x ? 'e' : 'w';    // he turns away before he says it
     await G.wait(window.FAST ? 20 : 600);
     await say('alan_bench_2');
-  };
+  }
   S.pessoaToRadiator = async function () {
     const p = G.npc('pessoa'); if (!p) return;
     p.pose = 'jump'; sfx('cat_land'); await G.wait(window.FAST ? 20 : 350); p.pose = null;
@@ -214,7 +222,8 @@
     },
     animFg(g, t) { S.drawTram(g, t); },
     ambient: [
-      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_b'], idleHold: [12, 26], variantHold: [1.6, 2.6], x: 940, y: 592, h: 150, look: 'alan_npc_bench', talkFrames: ['npc_bench_b'], talk: () => S.benchTalk(), when: () => F().ch <= 4 }, // dozes, now and then wakes with a start
+      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_doze2', 'npc_bench_doze2', 'npc_bench_b'], idleHold: [9, 18], variantHold: [2.2, 4], x: 940, y: 592, h: 150, look: 'alan_npc_bench', talkFrames: ['npc_bench_talk1', 'npc_bench_talk2', 'npc_bench_talk3'], talk: () => S.benchTalk(), when: () => F().ch <= 4, // dozes (head lolling one way, then the other), now and then wakes with a start
+        sets: { awake: { idle: ['npc_bench_awake', 'npc_bench_greet'], talk: ['npc_bench_talk1', 'npc_bench_talk2', 'npc_bench_talk3'], poses: { wake: 'npc_bench_b', confide: 'npc_bench_confide', wistful: 'npc_bench_wistful', drowsy: 'npc_bench_drowsy' } } } },
     ],
     occluders: [{ y: 206, poly: [[60, 150], [215, 150], [215, 215], [60, 215]] }], // balcony railing in front of the laundry woman
     hotspots: [
