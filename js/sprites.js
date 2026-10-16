@@ -1939,12 +1939,36 @@ window.SPRITES = {
   "fy": 728.7,
   "top": 3.2
  },
+ "npc_washer1_howl": {
+  "w": 302,
+  "hh": 626,
+  "h": 720.0,
+  "ax": 167.9,
+  "fy": 621.0,
+  "top": 3.2
+ },
  "npc_washer1_laugh": {
   "w": 327,
   "hh": 727,
   "h": 720.0,
   "ax": 199.6,
   "fy": 723.9,
+  "top": 3.2
+ },
+ "npc_washer1_lift": {
+  "w": 315,
+  "hh": 728,
+  "h": 720.0,
+  "ax": 173.3,
+  "fy": 729.2,
+  "top": 3.2
+ },
+ "npc_washer1_peek": {
+  "w": 296,
+  "hh": 719,
+  "h": 720.0,
+  "ax": 171.5,
+  "fy": 715.8,
   "top": 3.2
  },
  "npc_washer1_rest": {
@@ -2636,6 +2660,14 @@ window.SPRITES = {
   "h": 720,
   "ax": 137.7,
   "fy": 713.0,
+  "top": 3.0
+ },
+ "vasco_deflate": {
+  "w": 215,
+  "hh": 710,
+  "h": 720,
+  "ax": 116.9,
+  "fy": 706.8,
   "top": 3.0
  },
  "vasco_delight": {

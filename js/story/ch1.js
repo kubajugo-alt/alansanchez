@@ -2,6 +2,19 @@
 (function () {
   const { G, F, say, ROOMS, posed, joke, give, spendCoin, sfx } = window.S;
 
+  // Bystanders react to what's said near them: S.REACT[line id] = [[npc id, pose], ...]. A listener
+  // already holding a pose (or speaking) is left alone; the reaction ends with the line.
+  window.S.REACT = window.S.REACT || {};
+  window.S.listeners.push(id => {
+    const list = window.S.REACT[id]; if (!list) return null;
+    const done = [];
+    for (const [who, pose] of list) {
+      const a = G.npc(who); if (!a || !a.visible || a.pose || a.talking) continue;
+      a.pose = pose; done.push([a, pose]);
+    }
+    return done.length ? () => done.forEach(([a, pose]) => { if (a.pose === pose) a.pose = null; }) : null;
+  });
+
   // ================================================================ BOOKSHOP
   const PESSOA_AT = { desk: [250, 452, 'w'], radiator: [765, 362, 'w'], machine: [1015, 372, 'w'], floor: [700, 600, 'e'] };
   const pessoaSpot = () => F().ch >= 5 && !F().ledger_found ? 'machine' : F().lampOff ? 'radiator' : 'desk';
