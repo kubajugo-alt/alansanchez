@@ -285,7 +285,7 @@
     key_jingle: 'pickup', key_pickup: 'pickup', paper_take: 'page', book_take: 'page', brass_heavy: 'pickup', matchbox: 'pickup', knife_take: 'knife',
     sardine_catch: 'pickup', keys_ring: 'pickup', stone_clack: 'pickup', cash_register: 'coin', ladder_creak: 'stairs',
     cloth_jacket: 'sheet_slap', cloth_shirt: 'sheet_slap', cloth_sweater: 'sheet_slap', jeans_off: 'sheet_slap', belt_buckle: 'click', belt_snap: 'click',
-    books_fall: 'page', applause_tavern: null, bell_great_backward: 'bell_backward', bell_hum: null, pencil: 'page', cat_purr: null, door_rattle: 'drawer_scrape',
+    books_fall: 'page', applause_tavern: null, bell_great_backward: 'bell_backward', bell_hum: null, pencil: 'pencil_scribble', pencil_scribble: 'page', cat_purr: null, door_rattle: 'drawer_scrape',
     lamp_switch: 'lamp_click', clock_tick_shop: null, laundry_flap: 'sheet_slap', shop_bell_distant: null, tram_distant: null, house_creak: null, dog_distant: null, foghorn: null,
     phone_ring_office: null, paper_shuffle: 'page', card_slap: null, chair_scrape: null, murmur_laugh: null, water_pour_basin: 'pour', cuckoo: null, halyard_ping: null, water_slap: null,
     hull_creak: 'boat_creak', wind_arches: null, broom_sweep: null, footsteps_distant: null, cough_distant: null, wind_gust: null, bell_hum_soft: null, drip_echo: null, stone_settle: null, owl: null,
@@ -338,7 +338,8 @@
   // a sound placed in the scene: panned by its x (0..1280), softer at the edges
   function sfxAt(name, x, vol, rate) { const p = Math.max(-1, Math.min(1, ((x == null ? 640 : x) - 640) / 640)) * 0.7; return sfx(name, (vol == null ? 1 : vol) * (1 - Math.abs(p) * 0.25), rate, p); }
   // short clips decoded in the background once audio is up, so first plays are on time
-  function preloadSfx() { let i = 0; const names = [...sfxFiles].filter(n => !/^amb_/.test(n)); const next = () => { if (i >= names.length) return; load(names[i++]).then(() => setTimeout(next, 30)); }; next(); }
+  // one-shots decode up front; the long beds stream in when their room opens
+  function preloadSfx() { let i = 0; const beds = new Set(Object.values(LOOPS).flatMap(l => Array.isArray(l[0]) ? l.map(x => x[0]) : [l[0]])); const names = [...sfxFiles].filter(n => !/^amb_/.test(n) && !beds.has(n)); const next = () => { if (i >= names.length) return; load(names[i++]).then(() => setTimeout(next, 30)); }; next(); }
 
   // ---------------------------------------------------------------- footsteps
   let noiseBuf = null;
@@ -420,24 +421,24 @@
   const AMB = {
     shop: { setup() { bed('lowpass', 500, 0.5, 0.012, 0.07); }, tick(t) { if (Math.random() < 0.012) gull(t, 0.4); if (Math.random() < 0.01) burst(t, 0.3, 'bandpass', 180, 4, 0.03); } },
     street: { setup() { bed('bandpass', 600, 0.4, 0.03, 0.09); }, tick(t) { if (Math.random() < 0.006) gull(t, 1); } },
-    street_night: { setup() { bed('bandpass', 380, 0.5, 0.025, 0.06); }, tick(t) { if (Math.random() < 0.02) drip(t, 0.25); } },
-    shop_night: { setup() { bed('lowpass', 300, 0.5, 0.01, 0.05); }, tick(t) { if (Math.random() < 0.004) burst(t, 0.3, 'bandpass', 160, 4, 0.025); } },
-    museum: { setup() { bed('lowpass', 250, 0.5, 0.008, 0.04); }, tick() {} },
+    street_night: { recordedOnly: true, setup() { bed('bandpass', 380, 0.5, 0.025, 0.06); }, tick(t) { if (Math.random() < 0.02) drip(t, 0.25); } },
+    shop_night: { recordedOnly: true, setup() { bed('lowpass', 300, 0.5, 0.01, 0.05); }, tick(t) { if (Math.random() < 0.004) burst(t, 0.3, 'bandpass', 160, 4, 0.025); } },
+    museum: { recordedOnly: true, setup() { bed('lowpass', 250, 0.5, 0.008, 0.04); }, tick() {} },
     ferreira: { setup() {}, tick(t, s) { if (s % 5 === 0) burst(t, 0.02, 'bandpass', 2900, 4, 0.025); } },
     cistern_calm: { setup() { bed('lowpass', 200, 0.7, 0.012, 0.04); }, tick(t) { if (Math.random() < 0.03) drip(t, 0.5); } },
     cabin: { recordedOnly: true, setup() { bed('lowpass', 250, 0.6, 0.025, 0.06); }, tick() {} },
     office: { setup() { hum(100, 0.006); bed('highpass', 4000, 0.5, 0.003); }, tick(t) { if (Math.random() < 0.015) for (let i = 0; i < 6 + Math.random() * 10; i++) burst(t + i * (0.09 + Math.random() * 0.08), 0.03, 'bandpass', 2600, 3, 0.012); } },
     tavern: { setup() { bed('lowpass', 300, 0.5, 0.01, 0.05); }, tick(t) { if (Math.random() < 0.008) tone(2400 + Math.random() * 800, t, 0.5, 0.008, 'sine', sfxBus); if (Math.random() < 0.01) burst(t, 0.4, 'bandpass', 150, 6, 0.03); } },
-    convent: { setup() { bed('bandpass', 420, 0.6, 0.04, 0.11); }, tick(t) { if (Math.random() < 0.012) coo(t); if (Math.random() < 0.01) gull(t, 0.3); } },
-    night: { setup() { bed('bandpass', 300, 0.6, 0.05, 0.08); }, tick(t) { if (Math.random() < 0.2) for (let i = 0; i < 3; i++) tone(4300 + Math.random() * 200, t + i * 0.05, 0.03, 0.004, 'sine', sfxBus); } },
+    convent: { recordedOnly: true, setup() { bed('bandpass', 420, 0.6, 0.04, 0.11); }, tick(t) { if (Math.random() < 0.012) coo(t); if (Math.random() < 0.01) gull(t, 0.3); } },
+    night: { recordedOnly: true, setup() { bed('bandpass', 300, 0.6, 0.05, 0.08); }, tick(t) { if (Math.random() < 0.2) for (let i = 0; i < 3; i++) tone(4300 + Math.random() * 200, t + i * 0.05, 0.03, 0.004, 'sine', sfxBus); } },
     clocks: { setup() {}, tick(t, s) { if (s % 5 === 0) burst(t, 0.02, 'bandpass', 3200, 4, 0.03); if (s % 5 === 2) burst(t, 0.02, 'bandpass', 2600, 4, 0.025); if (s % 7 === 3) burst(t, 0.02, 'bandpass', 4100, 4, 0.015); } },
     cistern: { setup() { hum(55, 0.004); bed('lowpass', 200, 0.7, 0.02, 0.05); }, tick(t) { if (Math.random() < 0.06) drip(t, 0.6 + Math.random() * 0.6); } },
     washhouse: { recordedOnly: true, setup() { bed('bandpass', 1800, 0.4, 0.02, 0.2); }, tick(t) { if (Math.random() < 0.02) burst(t, 0.25, 'lowpass', 600, 0.8, 0.05, 0.3); } },
     harbour: { recordedOnly: true, setup() { bed('lowpass', 400, 0.5, 0.03, 0.07); }, tick(t) { if (Math.random() < 0.03) gull(t, 0.8); } },
     // the Sé cloister: stone and pigeons, an organ practising somewhere inside, the quarters overhead
-    cloister: { setup() { bed('bandpass', 420, 0.6, 0.035, 0.1); }, tick(t, s) {
+    cloister: { recordedOnly: true, setup() { bed('bandpass', 420, 0.6, 0.035, 0.1); }, tick(t, s) {
       if (Math.random() < 0.01) coo(t);
-      if (s % 90 === 20) { const root = [N(43), N(48), N(45), N(41)][Math.floor(s / 90) % 4]; pad([root, root * 1.5, root * 2], t, 9, 0.006); }
+      if (s % 90 === 20 && !sfxFiles.has('organ_distant')) { const root = [N(43), N(48), N(45), N(41)][Math.floor(s / 90) % 4]; pad([root, root * 1.5, root * 2], t, 9, 0.006); }
       if (s % 450 === 300) SFX.quarter();
     } },
     tower: { recordedOnly: true, setup() { bed('bandpass', 500, 0.6, 0.04, 0.12); }, tick(t) { if (Math.random() < 0.01) coo(t); } },
@@ -445,10 +446,12 @@
   };
   // recorded ambience loops (ElevenLabs), mixed under the procedural details
   // recorded ambience loops: volumes set so every room sits about 18-20 dB under the dialogue
-  const LOOPS = { shop: ['amb_city', 0.16], street: ['amb_city', 0.5], office: ['amb_office', 0.4], tavern: ['amb_tavern', 0.28], clocks: ['amb_clocks', 0.4],
-    cistern: ['amb_cistern', 0.4], washhouse: ['amb_washhouse', 0.2], harbour: ['amb_harbour', 0.55], tower: ['amb_tower', 0.25],
-    boat: [['boat_creak', 0.35], ['amb_harbour', 0.35]], cabin: [['boat_creak', 0.3], ['hull_lap', 0.45]],
-    museum: ['amb_museum', 0.35], shop_night: ['amb_shop_night', 0.35], street_night: ['amb_street_night', 0.4], ferreira: ['amb_ferreira', 0.35], cistern_calm: ['amb_cistern_calm', 0.4] };
+  const LOOPS = { shop: ['amb_city', 0.16], street: ['amb_city', 0.5], tavern: ['amb_tavern', 0.28], clocks: [['amb_clocks', 0.4], ['grandfather_tick', 0.18]],
+    office: [['amb_office', 0.4], ['fluorescent_buzz', 0.08]], cistern: [['amb_cistern', 0.4], ['torch_fire', 0.12]],
+    washhouse: [['amb_washhouse', 0.2], ['tap_running', 0.12]], harbour: [['amb_harbour', 0.55], ['halyards', 0.25]], tower: ['amb_tower', 0.25],
+    boat: [['boat_creak', 0.35], ['amb_harbour', 0.35], ['halyards', 0.2]], cabin: [['boat_creak', 0.3], ['hull_lap', 0.45]],
+    museum: ['amb_museum', 0.35], shop_night: ['amb_shop_night', 0.35], street_night: ['amb_street_night', 0.4], ferreira: ['amb_ferreira', 0.3], cistern_calm: ['amb_cistern_calm', 0.4],
+    convent: ['amb_convent', 0.4], cloister: ['amb_convent', 0.3], night: ['amb_night_city', 0.35] };
   function loopFile(name, vol) {
     const g = ctx.createGain(); g.gain.value = 0.0001; g.connect(ambBus); ambNodes.push(g);
     // loop points trimmed past the mp3 padding, so the seam doesn't click or dip
@@ -458,24 +461,28 @@
   }
   // occasional details per room, each on its own random clock: [name, every [min,max] s, vol [a,b], pan [a,b], rate [a,b]]
   const EXTRAS = {
-    street: [['tram', [70, 140], [0.18, 0.3], [-0.8, 0.8], [0.95, 1.05]], ['pigeons', [25, 55], [0.25, 0.4], [-0.6, 0.6]], ['gulls', [35, 80], [0.12, 0.22], [-0.9, 0.9]],
-      ['shop_bell_distant', [50, 110], [0.15, 0.25], [-0.7, 0.7]], ['laundry_flap', [20, 45], [0.15, 0.25], [-0.5, 0.5]]],
+    street: [['tram_distant', [40, 90], [0.15, 0.25], [-0.8, 0.8]], ['pigeons', [25, 55], [0.25, 0.4], [-0.6, 0.6]], ['pigeon_wings', [40, 90], [0.15, 0.25], [-0.7, 0.7]], ['gulls', [35, 80], [0.12, 0.22], [-0.9, 0.9]],
+      ['laundry_flap', [20, 45], [0.15, 0.25], [-0.5, 0.5]], ['shutter_bang', [70, 150], [0.12, 0.2], [-0.8, 0.8]], ['church_bells_distant', [150, 300], [0.08, 0.14], [-0.6, 0.6]]],
     street_night: [['foghorn', [40, 90], [0.15, 0.25], [-0.4, 0.4]], ['dog_distant', [60, 140], [0.1, 0.18], [-0.9, 0.9]]],
-    shop: [['page', [18, 40], [0.15, 0.3], [-0.3, 0.3]], ['tram_distant', [90, 180], [0.1, 0.18], [0.3, 0.8]], ['gulls', [70, 150], [0.06, 0.1], [0, 0.6]], ['clock_tick_shop', [40, 80], [0.08, 0.12], [-0.6, -0.3]]],
-    shop_night: [['foghorn', [45, 100], [0.1, 0.16], [0.2, 0.6]], ['house_creak', [30, 70], [0.15, 0.25], [-0.6, 0.6]]],
-    office: [['typewriter', [20, 50], [0.18, 0.3], [-0.7, 0.2]], ['phone_ring_office', [60, 140], [0.12, 0.2], [0.3, 0.9]], ['coffee_machine', [90, 200], [0.12, 0.2], [0.5, 0.8]], ['paper_shuffle', [25, 60], [0.15, 0.25], [-0.5, 0.5]]],
-    tavern: [['glass_clink', [12, 30], [0.3, 0.5], [-0.8, 0.8]], ['card_slap', [10, 25], [0.25, 0.4], [-0.6, -0.3]], ['chair_scrape', [40, 90], [0.15, 0.25], [-0.8, 0.8]], ['murmur_laugh', [30, 70], [0.15, 0.25], [-0.6, 0.6]]],
-    washhouse: [['sheet_slap', [6, 14], [0.2, 0.35], [-0.7, 0.3]], ['wring', [15, 35], [0.2, 0.3], [-0.5, 0.5]], ['water_pour_basin', [20, 45], [0.15, 0.25], [-0.6, 0.6]], ['pigeons', [40, 90], [0.15, 0.25], [-0.5, 0.5]]],
-    clocks: [['clock_chime', [50, 110], [0.15, 0.25], [-0.7, 0.7]], ['cuckoo', [120, 240], [0.12, 0.2], [-0.8, 0.8]]],
-    harbour: [['gulls', [12, 30], [0.25, 0.45], [-0.9, 0.9]], ['halyard_ping', [8, 20], [0.15, 0.3], [-0.8, 0.8]], ['water_slap', [6, 14], [0.2, 0.35], [-0.6, 0.6]], ['foghorn', [60, 140], [0.15, 0.25], [0.3, 0.8]], ['mooring', [30, 70], [0.2, 0.3], [-0.6, 0.6]]],
-    boat: [['water_slap', [5, 12], [0.25, 0.4], [-0.7, 0.7]], ['gulls', [20, 45], [0.2, 0.35], [-0.9, 0.9]], ['halyard_ping', [10, 25], [0.15, 0.25], [-0.6, 0.6]]],
-    cabin: [['water_slap', [6, 14], [0.2, 0.3], [-0.5, 0.5]], ['hull_creak', [10, 25], [0.2, 0.3], [-0.6, 0.6]]],
-    convent: [['pigeons', [20, 45], [0.2, 0.35], [-0.6, 0.6]], ['wind_arches', [30, 70], [0.12, 0.2], [-0.8, 0.8]], ['broom_sweep', [25, 60], [0.12, 0.2], [-0.3, 0.3]]],
-    museum: [['footsteps_distant', [25, 60], [0.1, 0.18], [-0.8, 0.8]], ['cough_distant', [60, 140], [0.08, 0.14], [-0.8, 0.8]]],
-    tower: [['wind_gust', [15, 35], [0.15, 0.25], [-0.8, 0.8]], ['pigeons', [25, 55], [0.2, 0.3], [-0.6, 0.6]], ['bell_hum_soft', [40, 90], [0.06, 0.1], [-0.3, 0.3]]],
+    shop: [['page', [18, 40], [0.15, 0.3], [-0.3, 0.3]], ['tram_distant', [90, 180], [0.1, 0.18], [0.3, 0.8]], ['gulls', [70, 150], [0.06, 0.1], [0, 0.6]], ['radiator_clank', [80, 180], [0.1, 0.16], [-0.6, -0.2]]],
+    shop_night: [['foghorn', [45, 100], [0.1, 0.16], [0.2, 0.6]], ['building_creak', [30, 70], [0.15, 0.25], [-0.6, 0.6]]],
+    office: [['typewriter', [20, 50], [0.18, 0.3], [-0.7, 0.2]], ['office_phone', [60, 140], [0.12, 0.2], [0.3, 0.9]], ['coffee_machine', [90, 200], [0.12, 0.2], [0.5, 0.8]], ['paper_shuffle', [25, 60], [0.15, 0.25], [-0.5, 0.5]],
+      ['filing_cabinet', [40, 90], [0.12, 0.2], [-0.8, 0.8]], ['corridor_steps', [35, 80], [0.1, 0.18], [-0.9, 0.9]]],
+    tavern: [['glass_clink', [12, 30], [0.3, 0.5], [-0.8, 0.8]], ['glass_set', [20, 45], [0.2, 0.3], [0.4, 0.9]], ['card_slap', [10, 25], [0.25, 0.4], [-0.6, -0.3]], ['chair_scrape', [40, 90], [0.15, 0.25], [-0.8, 0.8]],
+      ['tavern_laugh', [30, 70], [0.15, 0.25], [-0.6, 0.6]], ['coins_clink', [35, 80], [0.15, 0.22], [-0.5, 0.5]]],
+    washhouse: [['sheet_slap', [6, 14], [0.2, 0.35], [-0.7, 0.3]], ['washing_scrub', [10, 25], [0.15, 0.25], [-0.6, 0.6]], ['wring', [15, 35], [0.2, 0.3], [-0.5, 0.5]], ['pail_set', [30, 70], [0.15, 0.25], [-0.6, 0.6]], ['pigeons', [40, 90], [0.15, 0.25], [-0.5, 0.5]]],
+    clocks: [['clock_chime', [50, 110], [0.15, 0.25], [-0.7, 0.7]], ['cuckoo_clock', [120, 240], [0.12, 0.2], [-0.8, 0.8]], ['floor_creak', [40, 90], [0.1, 0.16], [-0.6, 0.6]]],
+    ferreira: [['spring_ping', [40, 90], [0.1, 0.16], [-0.6, 0.6]]],
+    harbour: [['gulls', [12, 30], [0.25, 0.45], [-0.9, 0.9]], ['quay_slap', [6, 14], [0.2, 0.35], [-0.6, 0.6]], ['net_rope_creak', [15, 35], [0.15, 0.25], [-0.2, 0.5]], ['ferry_horn', [60, 120], [0.12, 0.2], [0.3, 0.8]], ['foghorn', [90, 180], [0.12, 0.2], [0.3, 0.8]], ['mooring', [30, 70], [0.2, 0.3], [-0.6, 0.6]]],
+    boat: [['quay_slap', [5, 12], [0.25, 0.4], [-0.7, 0.7]], ['gulls', [20, 45], [0.2, 0.35], [-0.9, 0.9]], ['ferry_horn', [70, 140], [0.1, 0.18], [0.3, 0.8]]],
+    cabin: [['cabin_drip', [6, 14], [0.15, 0.25], [-0.5, 0.5]], ['timber_creak', [10, 25], [0.2, 0.3], [-0.6, 0.6]]],
+    convent: [['pigeons', [20, 45], [0.2, 0.35], [-0.6, 0.6]], ['pigeon_wings', [30, 70], [0.15, 0.25], [-0.7, 0.7]], ['swifts', [40, 90], [0.12, 0.2], [-0.8, 0.8]], ['church_bells_distant', [120, 240], [0.08, 0.14], [-0.6, 0.6]]],
+    cloister: [['organ_distant', [60, 120], [0.12, 0.2], [-0.3, 0.3]], ['trowel_scrape', [20, 50], [0.1, 0.18], [0, 0.4]], ['pigeon_wings', [40, 90], [0.12, 0.2], [-0.7, 0.7]]],
+    museum: [['corridor_steps', [25, 60], [0.08, 0.14], [-0.8, 0.8]], ['organ_distant', [80, 160], [0.06, 0.1], [-0.3, 0.3]]],
+    tower: [['tower_wind', [20, 40], [0.15, 0.25], [-0.8, 0.8]], ['pigeons', [25, 55], [0.2, 0.3], [-0.6, 0.6]], ['pigeon_wings', [30, 70], [0.15, 0.25], [-0.7, 0.7]], ['rope_creak', [30, 70], [0.1, 0.16], [-0.3, 0.3]]],
     cistern: [['drip_echo', [3, 9], [0.15, 0.35], [-0.9, 0.9]], ['stone_settle', [40, 100], [0.1, 0.18], [-0.7, 0.7]]],
     cistern_calm: [['drip_echo', [5, 12], [0.12, 0.25], [-0.9, 0.9]]],
-    night: [['owl', [60, 140], [0.08, 0.14], [-0.9, 0.9]], ['foghorn', [60, 140], [0.08, 0.14], [-0.5, 0.5]]],
+    night: [['owl', [60, 140], [0.08, 0.14], [-0.9, 0.9]], ['candle_flutter', [30, 70], [0.08, 0.14], [0.4, 0.8]], ['foghorn', [60, 140], [0.08, 0.14], [-0.5, 0.5]]],
   };
   let extraTimers = [];
   const rnd = (r, d) => (r ? r[0] + Math.random() * (r[1] - r[0]) : d);
