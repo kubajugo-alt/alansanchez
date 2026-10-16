@@ -659,7 +659,7 @@
     const keep = reset ? new Map() : new Map(npcs.map(a => [a.id, a]));
     // extras whose sprites are not painted yet are simply absent
     const amb = (room.ambient || []).filter(a => IMG['spr:' + a.frames[0]]).map(a => {
-      if (!CHARS[a.id]) CHARS[a.id] = { scale: a.scale || 1, idleHold: a.idleHold || [8, 20], variantHold: a.variantHold || [1.6, 3.2], frames: { idle: a.frames, walk: a.walk, talk: a.talkFrames } };
+      if (!CHARS[a.id]) CHARS[a.id] = { scale: a.scale || 1, idleHold: a.idleHold || [8, 20], variantHold: a.variantHold || [1.6, 3.2], frames: { idle: a.frames, walk: a.walk, talk: a.talkFrames, poses: a.poses, sets: a.sets } };
       return Object.assign({ ambient: true, fixedDir: true, ch: a.id }, a);
     });
     npcs = (room.npcs || []).concat(amb).filter(n => !n.when || n.when()).map(n => {

@@ -11,7 +11,7 @@
       const p = G.player, fl = FLUSTER.test(id) && p && p.visible && !p.pose;
       if (fl) p.pose = 'fluster';
       // a line can carry its speaker's pose (S.LINE_POSE[id] = [npc id, pose]) while it plays
-      const lp = S.LINE_POSE[id], a = lp && G.npc(lp[0]), ap = a && a.visible && !a.pose && !a.set && a.c.frames.poses && a.c.frames.poses[lp[1]];
+      const lp = S.LINE_POSE[id], a = lp && G.npc(lp[0]), lpP = a && (a.set ? ((a.c.frames.sets || {})[a.set] || {}).poses : a.c.frames.poses), ap = a && a.visible && !a.pose && lpP && lpP[lp[1]]; // in a set, only the set's own poses
       if (ap) a.pose = lp[1];
       // listeners react to what's said (S.onLine and each of S.listeners return a function that ends the reaction)
       const lr = ap ? null : S.react(id);

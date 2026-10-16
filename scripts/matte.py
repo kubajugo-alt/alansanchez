@@ -28,6 +28,7 @@ LEG_ANCHOR = {'alan_ring', 'robe_terror', 'robe_lunge', 'ines_tied_struggle', 't
 # measured on the shoes near the body axis, not on the lowest pixel
 FEET_BAND = {'tomas', 'tomas_talk', 'tomas_sweep', 'tomas_sweepL', 'tomas_sweepR', 'ines_free'}
 def char_of(name):
+    if os.environ.get('MATTE_CHAR'): return os.environ['MATTE_CHAR']  # a batch of one character's new frames
     if name.startswith('lacerda_robe') or name.startswith('robe'): return 'robe'
     if name.startswith('npc_') or name.startswith('prop_'): return re.sub(r'_(b|talk)$', '', name)
     return re.split('_', name)[0]
@@ -39,7 +40,7 @@ def raw_fig_height(path):
 # measure reference heights for any base frame present in this batch
 for c, base in list(BASES.items()) + [(os.path.basename(f)[:-4], os.path.basename(f)[:-4]) for f in glob.glob(os.path.join(src, 'npc_*.png')) + glob.glob(os.path.join(src, 'prop_*.png')) if not re.search(r'_(b|talk)\.png$', f)]:
     p = os.path.join(src, base + '.png')
-    if os.path.exists(p): REF[c] = raw_fig_height(p)
+    if os.path.exists(p) and not os.environ.get('MATTE_CHAR'): REF[c] = raw_fig_height(p)
 json.dump({k: v for k, v in REF.items() if k not in ('alan', 'ines', 'rui', 'amalia', 'tomas', 'lacerda', 'robe')}, open(REF_FILE, 'w'), indent=1)
 for f in sorted(glob.glob(os.path.join(src, '*.png'))):
     name = os.path.basename(f)[:-4]
