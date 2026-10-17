@@ -46,7 +46,9 @@ def on_key(im):
     bg.alpha_composite(im, (pad, pad)); return bg.convert('RGB')
 
 
-def png_b64(im):
+def png_b64(im, max_side=1024):
+    if max(im.size) > max_side:  # keep requests small; the result is re-framed to the reference anyway
+        s = max_side / max(im.size); im = im.resize((round(im.width * s), round(im.height * s)), Image.LANCZOS)
     buf = io.BytesIO(); im.save(buf, 'PNG'); return base64.b64encode(buf.getvalue()).decode()
 
 
@@ -145,7 +147,7 @@ def main():
     a = p.parse_args()
 
     from google import genai
-    client = genai.Client(api_key=api_key())
+    client = genai.Client(api_key=api_key(), http_options={'timeout': 240_000})
     main_ref = Image.open(a.ref[0]).convert('RGBA'); meta = sprite_meta(a.ref[0])
     keyed = on_key(main_ref)
     style = sorted(glob.glob(os.path.join(ROOT, 'art/style_refs/*.png')))
