@@ -1461,6 +1461,11 @@
     if (s.target === 0 && s.alpha < 0.02) still = null;
   }
   function paintStill(s, dt, alpha, black) {
+    // the fades and the pan run on the wall clock (up to a quarter second a frame), so a slow device still
+    // dissolves on cue with the music; fixed-step test recordings keep their steps
+    const nowMs = performance.now();
+    if (!window.STEP_DT && s.lastMs) dt = Math.min(0.25, (nowMs - s.lastMs) / 1000);
+    s.lastMs = nowMs;
     s.t += dt;
     s.alpha += (s.target - s.alpha) * Math.min(1, dt * (s.rate || 3.2));
     if (s !== still) alpha = 1; // the outgoing painting stays opaque under the incoming one
@@ -1503,7 +1508,7 @@
       dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
     if (window.FAST) { still.alpha = 1; still.prev = null; }
   }
-  const stillShowing = () => !!still;
+  const stillShowing = () => still ? still.name : null; // the painting up now (or fading out)
 
   // ---------------------------------------------------------------- close-ups
   // Documents and objects seen up close: painted image plus HTML text, paged.
@@ -1537,15 +1542,21 @@
   // ---------------------------------------------------------------- clock overlay
   function setClock(text) {
     const c = $('#clock');
+    if (state) state.clockText = text || null; // the overlay is part of the save (Cais do Sodré countdown, the Carmo at midnight)
     if (!text) { c.classList.remove('on'); return; }
     if (c.textContent !== text) { c.textContent = text; c.classList.remove('tick'); void c.offsetWidth; c.classList.add('tick'); }
     c.classList.add('on');
   }
 
   // ---------------------------------------------------------------- saves
-  function snapshot() { return JSON.stringify(Object.assign({}, state, { px: player.x, py: player.y, dir: player.dir })); }
-  function autosave() { if (/[?&]scene=/.test(location.search) || (state && state.flags.dawn)) return; // past dawn the save is wiped, not rewritten
-    try { localStorage.setItem(SAVE_KEY, snapshot()); } catch (e) { /* storage unavailable */ } }
+  // a save holds the whole of `state` (room, inventory, flags: chapter in flags.ch, the painted clock in
+  // flags.clock), plus where Alan stands, the clock overlay and the scene's music cue (Sound.musicState)
+  function snapshot() {
+    let music = null; try { music = Sound.musicState ? Sound.musicState() : null; } catch (e) { music = null; }
+    return JSON.stringify(Object.assign({}, state, { px: player.x, py: player.y, dir: player.dir, music, savedAt: Date.now() }));
+  }
+  function autosave() { if (/[?&]scene=/.test(location.search) || (state && state.flags.dawn)) return false; // past dawn the save is wiped, not rewritten
+    try { localStorage.setItem(SAVE_KEY, snapshot()); return true; } catch (e) { return false; /* storage unavailable */ } }
   function hasSave() { try { return !!localStorage.getItem(SAVE_KEY); } catch (e) { return false; } }
   async function loadSave(json) {
     let data = json;
@@ -1559,8 +1570,15 @@
     if (state.flags.sketched_tile && !state.inv.includes('sketch')) state.inv.push('sketch');
     state.inv = state.inv.filter(id => id !== 'weight'); // the brass weight was taken out of the game
     selItem = null; renderInv();
+    // loading over a game in progress: put the old room away cleanly first (its leave hook, Alan's pose, the cigarette, any line)
+    noteInput(); if (player) { player.pose = null; player.stop(); }
+    try { Sound.stopVoice && Sound.stopVoice(); } catch (e) { /* ignore */ }
+    clearSpeech();
+    if (room && room.leave) { try { room.leave(); } catch (e) { /* ignore */ } }
     room = null;
-    await goRoom(state.room, null, { pos: [state.px, state.py, state.dir], noEnter: true });
+    await goRoom(state.room, null, { pos: [state.px, state.py, state.dir], noEnter: true, noSave: true });
+    setClock(state.clockText || null);
+    try { if (Sound.restoreMusic && state.music) Sound.restoreMusic(state.music); } catch (e) { /* ignore */ }
     return true;
   }
   function checkpoint() { state.flags._checkpoint = null; state.flags._checkpoint = snapshot(); }
@@ -1579,8 +1597,18 @@
   $('#menu-btn').onclick = e => { e.stopPropagation(); $('#menu').classList.toggle('open'); };
   $('#opt-music').onclick = e => { e.stopPropagation(); Sound.setMusic(!Sound.musicOn); syncOptions(); };
   $('#opt-voice').onclick = e => { e.stopPropagation(); Sound.setVoice(!Sound.voiceOn); syncOptions(); };
-  $('#opt-save').onclick = e => { e.stopPropagation(); if (busy) return; autosave(); toast('Game saved'); };
-  $('#opt-load').onclick = async e => { e.stopPropagation(); if (busy) return; toast((await loadSave()) ? 'Game loaded' : 'No saved game'); };
+  // (never silent: a refused save or load says why)
+  const midScene = () => busy > 0 || !!dialogResolve || cutscene > 0;
+  $('#opt-save').onclick = e => { e.stopPropagation(); $('#menu').classList.remove('open');
+    if (!state || !room) return toast('Nothing to save yet');
+    if (midScene()) return toast("Can't save during a scene");
+    if (room.noSave) return toast("Can't save here");
+    if (state.flags.dawn) return toast('The story is over');
+    toast(autosave() ? 'Game saved' : 'Saving failed (browser storage is off)'); };
+  $('#opt-load').onclick = async e => { e.stopPropagation(); $('#menu').classList.remove('open');
+    if (midScene()) return toast("Can't load during a scene");
+    if (!hasSave()) return toast('No saved game');
+    toast((await loadSave()) ? 'Game loaded' : 'That save could not be read'); };
   function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 1500); }
 
   // ---------------------------------------------------------------- boot

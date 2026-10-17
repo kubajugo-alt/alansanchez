@@ -159,14 +159,15 @@
     const m = meta[this.id] || {}, d = (el && isFinite(el.duration) && el.duration) || m.dur || 0;
     return { inp: m.inp || 0, out: Math.min(d || Infinity, m.out || d || Infinity) };
   };
-  Track.prototype.voice = function (offset, fadeIn) {
+  Track.prototype.voice = function (offset, fadeIn, armOnly) {
     const p = acquire(), v = { p, started: false, ending: false, next: null };
     p.gain.gain.cancelScheduledValues(0); p.gain.gain.value = 0; p.gain.connect(this.lp);
     p.el.src = trackUrl(this.id) + (offset > 0.05 ? '#t=' + offset.toFixed(2) : '');
     p.el.muted = false; p.el.volume = 1;
     p.el.onplaying = () => { if (v.started || this.dead) return; v.started = true; ramp(p.gain.gain, 1, fadeIn); };
     p.el.onended = () => { this.drop(v); if (!this.dead && this.voices.length === 0) this.ended(); };
-    const r = p.el.play(); if (r && r.catch) r.catch(() => {});
+    v.go = () => { v.goAt = performance.now(); const r = p.el.play(); if (r && r.catch) r.catch(() => {}); };
+    if (armOnly) { v.armed = true; try { p.el.load(); } catch (e) { /* ignore */ } } else v.go();
     this.voices.push(v); return v;
   };
   Track.prototype.drop = function (v) { const i = this.voices.indexOf(v); if (i >= 0) this.voices.splice(i, 1); release(v.p); };
@@ -191,7 +192,7 @@
   // runs a few times a second: loop crossfades, timed cues
   Track.prototype.tick = function () {
     if (this.dead) return;
-    const v = this.voices.filter(x => !x.ending).pop(); if (!v || !v.started) return;
+    const v = this.voices.filter(x => !x.ending && !x.armed).pop(); if (!v || !v.started) return;
     const el = v.p.el, t = el.currentTime, s = this.spec, b = this.bounds(el);
     if (s.dur) { // a timed excerpt: fade out at its end
       const end = (s.start != null ? s.start : b.inp) + s.dur, fade = s.fade || 2;
@@ -200,11 +201,14 @@
     }
     if (s.loop === false || !isFinite(b.out)) return;
     // loop: a second copy starts LOOP_XF before the end and the two cross over (no seam, no cut)
-    if (!v.next && t >= b.out - LOOP_XF - 0.6) {
-      const nv = this.voice(b.inp, LOOP_XF); v.next = nv;
+    // the next copy is loaded and waiting, cued to its start, well before it is needed
+    if (!v.next && t >= b.out - LOOP_XF - 12) v.next = this.voice(b.inp, LOOP_XF, true);
+    if (v.next && v.next.armed && t >= b.out - LOOP_XF - 0.15) {
+      const nv = v.next; nv.armed = false; nv.go();
       const go = () => this.fadeVoice(v, Math.max(0.3, Math.min(LOOP_XF, b.out - el.currentTime - 0.05)));
       const chk = setInterval(() => { if (nv.started || this.dead || el.currentTime >= b.out - LOOP_XF) { clearInterval(chk); go(); } }, 40);
-      this.loops = (this.loops || 0) + 1; logMusic('loop', this.id);
+      this.loops = (this.loops || 0) + 1; logMusic('loop', this.id, { at: +t.toFixed(2) });
+      nv.p.el.addEventListener('playing', () => logMusic('loop-in', this.id, { lag: Math.round(performance.now() - nv.goAt) }), { once: true });
     }
   };
   let active = null, roomSpec = null, cue = null, cueSticky = false, songs = 0, musicTimer = null;
@@ -770,6 +774,8 @@
     init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
     cue: setCue, refreshMusic, transitionMusic, musicState, restoreMusic, setMusicVolume, trackUrl, meter, musicLog,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; }, get musicVolume() { return musicVol; },
+    _wave: () => { if (!musicAn) return null; const d = new Float32Array(musicAn.fftSize); musicAn.getFloatTimeDomainData(d); return Array.from(d); }, // (diagnostics)
+    _voices: () => active ? active.voices.map(v => ({ t: +v.p.el.currentTime.toFixed(2), g: +v.p.gain.gain.value.toFixed(3), armed: !!v.armed, started: v.started, ending: v.ending, rs: v.p.el.readyState })) : [], // (diagnostics)
     get nowPlaying() { return active && !active.dead ? active.id : null; }, get musicCue() { return cue ? cue.spec : null; },
   };
 })();

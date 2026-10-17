@@ -389,7 +389,8 @@
     S.inesWanderOn = false;
     if (ines && ines.visible) { if (ines.walking) await Promise.race([ines.walkTo(ines.x, ines.y), T(300)]); ines.dir = ines.x < p.x ? 'e' : 'w'; p.dir = ines.x < p.x ? 'w' : 'e'; }
     await say('alan_toss_ines');
-    p.pose = 'throw1'; // the wind-up, low and quiet
+    const faceInes = () => { if (ines && ines.visible) p.dir = ines.x < p.x ? 'w' : 'e'; }; // (speaking turned him to Vasco)
+    faceInes(); p.pose = window.SPRITES.alan_throw1 ? 'throw1' : null; // the wind-up, low and quiet
     const ok = await tossGame();
     if (!ok) { // too early or too late: he looks up, and Alan is still holding it
       p.pose = null; if (v) { v.pose = null; v.dir = 'w'; } p.dir = 'e';
@@ -397,7 +398,7 @@
       S.inesWanderOn = true;
       return;
     }
-    await S.throwKey(p, ines);
+    faceInes(); await S.throwKey(p, ines);
     G.takeItem('reserve_key'); F().key_tossed = true;
     await G.say('narr_catch', { offscreen: true });
     // she slips off to the left along the arcade, and Vasco catches her in the glass of the find tray by him.
