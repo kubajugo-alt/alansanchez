@@ -119,6 +119,7 @@
   };
 
   // ================================================================ THE MARIA FÉ (deck)
+  const PULL_AT = [167, 620]; // Alan's feet when hauling the mooring line: his fists sit on the painted rope
   ROOMS.boat = {
     name: 'The Maria Fé', bg: 'boat', music: 'tension', ambience: 'boat', floor: 'wood',
     layers: [{ img: 'boat_noline', x: 0, y: 0, full: true, when: () => F().line_free || F().ze_awake }],
@@ -157,7 +158,7 @@
         },
         get talk() { return F().ze_awake ? null : async () => { F().knocked = true; await say('alan_shout'); sfx('snore'); }; } },
       { name: 'Porthole', rect: [747, 416, 85, 75], at: [790, 620], face: 'n', look: async () => { if (F().ze_awake) return say('narr_look_porthole_empty'); await S.showPorthole(); await say('narr_look_porthole'); } }, // once Zé is up, the bunk is empty
-      { name: 'Mooring line', rect: [0, 341, 280, 200], at: [230, 620], face: 'w', look: 'narr_look_line',
+      { name: 'Mooring line', rect: [0, 341, 280, 200], at: PULL_AT, face: 'w', look: 'narr_look_line',
         use: () => S.mooring(), take: () => S.mooring() },
       { name: "Ship's bell", rect: [855, 238, 40, 46], get at() { return F().ze_awake && !F().ze_in_cabin ? [795, 612] : [900, 610]; }, face: 'n', look: 'narr_look_shipbell', use: async () => { sfx('ship_bell', 0.8); await say('alan_ring_shipbell'); } }, // beside Zé when he stands under it, not inside him
       { name: 'Back to the quay', rect: [0, 540, 130, 176], at: [110, 690], exit: 'cais', entry: 'boat' },
@@ -194,7 +195,9 @@
     if (F().ze_awake) return say('alan_fail_04');
     if (!F().wake_rule && !F().knocked) return say('narr_look_line');
     const p = G.player;
-    p.pose = 'untie';
+    // the line is the painted one: he stands where both fists close on it, and hauls
+    p.x = PULL_AT[0]; p.y = PULL_AT[1]; p.dir = 'w';
+    p.pose = 'pull';
     if (!F().knot_tried) {
       F().knot_tried = true; await G.wait(window.FAST ? 20 : 900); p.pose = null;
       await say('alan_knot_fail'); await say('celeste_knot'); return;
