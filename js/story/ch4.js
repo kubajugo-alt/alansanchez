@@ -395,8 +395,13 @@
       await T(500); await G.fade(false);
       await say('alan_rom_2');
       if (ze) ze.pose = 'ze_dress';
-      p.pose = 'undress2'; await T(900); // jeans on, shirt coming down
-      p.pose = 'undress1'; if (ze) ze.pose = 'ze_suspenders'; await T(800);
+      // dressing again, the same frames as after the bath and upstairs: trunks, jeans, tee, jacket
+      const D = k => window.SPRITES['alan_dress' + k] ? 'alan_dress' + k : null;
+      p.pose = 'undress4'; await T(700);                                   // trunks back on
+      if (D(1)) { p.pose = D(1); await T(700); }                           // jeans in hand
+      if (D(2)) { p.pose = D(2); await T(800); }                           // hopping into them
+      p.pose = D(3) || 'undress2'; await T(800);                           // the tee coming down
+      p.pose = D(4) || 'undress1'; if (ze) ze.pose = 'ze_suspenders'; await T(800); // jacket back on
       p.pose = 'button';
       await say('ze_rom_3');
       if (ze) ze.pose = null; p.pose = null;
