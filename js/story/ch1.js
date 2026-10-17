@@ -49,6 +49,7 @@
     layers: [],
     animBack(g, t) {
       if (F().ch < 5) S.windowFog(g, t, [430, 32, 410, 282], '235,238,240', 0.16);
+      if (S.shopSideboard) S.shopSideboard(g); // the kettle on the sideboard (in Inês's hand while she makes coffee), her book while it's put down
       if (F().ch < 5) { g.save(); g.beginPath(); g.rect(430, 32, 410, 282); g.clip(); FX.birds(g, t + 4, { y0: 70, y1: 200, n: 2, period: 19, color: 'rgba(90,92,98,0.5)', size: 7, x0: 400, x1: 870 }); g.restore(); }
     },
     anim(g, t) {

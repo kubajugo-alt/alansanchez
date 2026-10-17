@@ -103,10 +103,9 @@
     vascolove: { flags: { ch: 5, vasco_thursday: true, twin_lent: true, heist_done: true, dawn: true, thursday: true }, room: 'se_cloister', pos: [700, 640, 'e'], run: () => S.vascoLove() },
   };
   // the chapter transitions (js/story/transitions.js): ?scene=tr1 … tr4 play the paintings and the next chapter card,
-  // tr5 the end of chapter V; ?scene=fado gives Amália the ginjinha (the song with the painting slideshow)
+  // tr5 the end of chapter V (?scene=fado plays the song with its painting slideshow)
   [1, 2, 3, 4].forEach(n => { PREVIEW['tr' + n] = { flags: { ch: n }, room: 'shop', pos: [815, 616, 'e'], run: () => S.chapter(n + 1, 'narr_ch' + (n + 1) + '_card') }; });
   PREVIEW.tr5 = { flags: { ch: 5 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await S.transition(5, { toBlack: true }); await G.fade(false); } };
-  PREVIEW.fado = { flags: { ch: 1, heard_machine: true, askedSong: true, duarte_flirt: true, ginja: 1 }, room: 'tavern', pos: [812, 648, 'w'], run: () => { G.giveItem('ginja', true); return S.giveGinja(); } };
   async function preview(k) {
     const P = PREVIEW[k];
     G.giveItem('notebook', true); Object.assign(F(), P.flags);
