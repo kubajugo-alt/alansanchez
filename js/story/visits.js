@@ -135,8 +135,8 @@
       if (lines.length) await say(...lines);
     }
     await T(300); p.pose = null;
-    p.dir = 'w'; await p.walkTo(150, 690); // out past the bookshelf, down the stairs
-    sfx('stairs', 0.6);
+    p.dir = 'w'; await p.walkTo(-90, 700); // out past the bookshelf and out of the room...
+    p.visible = false; sfx('stairs', 0.6);  // ...then down the stairs
     if (coda) { await T(500); await say(coda); } // whoever is left behind gets the last word
     if (S.flingBeat) await S.flingBeat(state === 'cop_bed' ? 1 : 2, true); // alone on the stairs
     await downstairs(state === 'cop_bed' ? ['ines_back_cop', 'alan_back_cop'] : ['ines_back_guitar', 'alan_back_guitar']);

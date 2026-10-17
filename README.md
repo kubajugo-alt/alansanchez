@@ -95,7 +95,7 @@ ELEVENLABS_API_KEY=... node scripts/generate-voices.mjs --force    # everything
 <summary>Click to reveal</summary>
 
 **Chapter I: The Ninth Night**
-1. **Bookshop:** play the answering machine. Take the coins from the register and the key from the sugar tin, switch on the lamp and use the key on the desk to get the ledger. Take the magnifier and the brass weight from the bookbinding press.
+1. **Bookshop:** play the answering machine. Take the coins from the register and the key from the sugar tin, switch on the lamp and use the key on the desk to open the drawer, then take the ledger from it. Take the magnifier from the desk.
 2. **Street:** use the magnifier on the sea-monster tile. **Polícia Judiciária:** ask Rui about the drownings and what he found, then use the notebook on the evidence bag.
 3. **Bookshop:** give the sketch to Inês.
 4. **Taberna:** look at the photograph, take the matches. Ask Amália what Inês said, buy a ginjinha at the bar and give it to her. Take the empty glass.
@@ -108,7 +108,7 @@ ELEVENLABS_API_KEY=... node scripts/generate-voices.mjs --force    # everything
 **Chapter III: The Founders**
 8. **Convento do Carmo:** ask Tomás about the bell-founders and the ninth day. Fill the glass at the stoup, wash the weeping stone with it, use the magnifier and then the ledger on it, and decode the page.
 9. **Sé tower:** Abílio is deaf. Write in the notebook to ask him about Joaquim, 1955, the backward ringing and the order. Use the magnifier on each bell's founder mark.
-10. **Antiguidades Lacerda:** ask about the clocks and the glass case, look at the music box and ask about it. While he is away you have three actions: open the case with the vitrine key and swap the brass weight for the bell's tongue.
+10. **Antiguidades Lacerda:** ask about the clocks and the glass case, look at the music box and ask about it. While he is away you have three actions: open the case with the vitrine key and swap the twin from the Sé reserve for the bell's tongue.
 
 **Chapter IV: Coutinho**
 11. **Cais do Sodré:** ask Celeste about Zé and which boat. Knock on the hatch, then pull the mooring line twice. Show Zé the tide card.

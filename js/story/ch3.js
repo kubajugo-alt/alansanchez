@@ -287,8 +287,6 @@
         take: () => S.lacerdaHere() ? say('lacerda_hands') : F().case_open ? S.grabTongue() : say('alan_case_locked'),
         items: {
           vkey: async () => { if (S.lacerdaHere()) return say('lacerda_hands'); if (F().case_open) return say('alan_fail_04'); F().case_open = true; sfx('case_open'); await say('alan_case_open'); },
-          // the brass weight won't do: he said he'd notice a hair moved on that velvet
-          weight: () => S.lacerdaHere() ? say('lacerda_hands') : say('alan_weight_no'),
           magnifier: () => F().tongue_sketched ? joke('alan_look_case') : S.sketchTongue(),
           notebook: () => F().tongue_sketched ? joke('alan_look_case') : S.sketchTongue(),
           // the twin from the Sé reserve: same pour, same marks, same weight
@@ -405,7 +403,7 @@
     const lac = G.npc('lacerda'); lac.visible = true; lac.h = null; lac.x = 520; lac.y = 600; lac.dir = 'e';
     await G.fade(false);
     await lac.walkTo(700, 600); lac.dir = 'e';
-    await G.say(F().twin_swapped ? 'narr_ch3_lacerda2' : 'narr_ch3_lacerda', { offscreen: true });
+    await G.say('narr_ch3_lacerda2', { offscreen: true }); // the chapter only ends after the swap (the old brass-weight line is retired)
     await G.fade(true);
     F().steaming = false;
     await S.chapter(4, 'narr_ch4_card');

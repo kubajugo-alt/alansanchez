@@ -351,17 +351,6 @@
       noShadow(g, () => { g.strokeStyle = 'rgba(255,255,255,0.8)'; g.lineWidth = 3; g.lineCap = 'round'; g.beginPath(); g.arc(cx, cy, 14, Math.PI * 1.05, Math.PI * 1.45); g.stroke();
         g.fillStyle = 'rgba(255,255,255,0.9)'; g.beginPath(); g.arc(cx + 8, cy + 8, 2, 0, 7); g.fill(); });
     },
-    weight(g) {
-      g.fillStyle = 'rgba(0,0,0,0.3)'; g.beginPath(); g.ellipse(48, 78, 28, 7, 0, 0, 7); g.fill();
-      const brass = lg(g, 20, 0, 76, 0, '#7a5014', '#f4d48a', '#c8963a', '#8a5a18', '#4a2c08');
-      g.beginPath(); g.moveTo(22, 74); g.lineTo(24, 48); g.ellipse(48, 48, 24, 7, 0, Math.PI, 0); g.lineTo(74, 74); g.ellipse(48, 74, 26, 7, 0, 0, Math.PI); fillInk(g, brass);
-      g.beginPath(); g.ellipse(48, 48, 24, 7, 0, 0, 7); fillInk(g, lg(g, 24, 41, 72, 55, '#fff0b0', '#d8aa4a', '#9a6a1c'));
-      // neck and knob
-      g.beginPath(); g.moveTo(42, 48); g.lineTo(43, 38); g.lineTo(53, 38); g.lineTo(54, 48); fillInk(g, lg(g, 42, 0, 54, 0, '#8a5a18', '#e8c060', '#6a4410'), 1.5);
-      g.beginPath(); g.arc(48, 31, 9, 0, 7); fillInk(g, rg(g, 45, 28, 1, 10, '#fff4c0', '#d4a43a', '#7a5014'));
-      noShadow(g, () => { g.fillStyle = 'rgba(70,40,6,0.75)'; g.font = 'bold 13px Georgia, serif'; g.textAlign = 'center'; g.fillText('2 kg', 48, 67); });
-      shine(g, [[33, 54], [32, 72]], 3, 0.55); shine(g, [[44, 27], [47, 25]], 2, 0.8);
-    },
     ginja(g) {
       for (const x of [30, 64]) liqueurGlass(g, x, x => {
         poly(g, [[x - 12.3, 40], [x + 12.3, 40], [x + 9.6, 74], [x - 9.6, 74]]); g.fillStyle = lg(g, 0, 40, 0, 74, '#e0405a', '#a01028', '#4a0410'); g.fill();
@@ -558,7 +547,7 @@
   // Painted (Canva) inventory icons in art/icons/<id>.webp, 192px with transparency. They are
   // preloaded; an icon asked for before its painting arrives shows the canvas drawing above
   // until the painting loads, then the inventory redraws. A missing file keeps the drawing.
-  const PAINTED = ['notebook', 'sketch', 'bunktile', 'coins', 'key', 'ledger', 'magnifier', 'weight', 'ginja', 'matches', 'glass', 'holywater', 'coffee', 'file55',
+  const PAINTED = ['notebook', 'sketch', 'bunktile', 'coins', 'key', 'ledger', 'magnifier', 'ginja', 'matches', 'glass', 'holywater', 'coffee', 'file55',
     'fkey', 'tidecard', 'vkey', 'tongue', 'tongue_wet', 'knife', 'sardine', 'lantern', 'newspaper', 'brotherhood_charter', 'reserve_key', 'vasco_card', 'sanches_fragment', 'lyrics_sheet'];
   const iconCache = {}, iconImg = {};
   function paintIcon(c, id) {

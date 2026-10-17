@@ -11,7 +11,7 @@
     poses: { kneel: 'vasco_kneel', climb: 'vasco_climb', trowel: 'vasco_trowel', coffee: 'vasco_coffee',
       fluster: 'vasco_fluster', laugh: 'vasco_laugh', sheepish: 'vasco_idle3', find: 'vasco_find', give: 'vasco_give',
       kneeltalk: 'vasco_kneel_talk', sit: 'vasco_sit' }, front: 'vasco_front', back: 'vasco_back' } };
-  S.CHARS.vasco.seatedFrames = /^vasco_(kneel|kneel_talk|sit)$/; // these sway from the knees / the seat
+  S.CHARS.vasco.seatedFrames = /^vasco_(kneel|kneel_talk|kneel_down|sit)$/; // these sway from the knees / the seat
   if (window.SPRITES.vasco_pass1) S.CHARS.vasco.frameStep = 0.085; else S.CHARS.vasco.frames.walk = ['vasco_walk1', 'vasco_walk2'];
   // his full range: every frame below is optional, only painted ones are used (as in ines.js)
   {
@@ -69,6 +69,11 @@
   };
   (S.listeners || (S.listeners = [])).push(vreact);
   S.CHARS.alan.frames.poses.coffees = 'alan_coffees'; // Thursday morning: two coffees
+  // the heist: Alan's underarm toss (wind-up, release), Inês's catch, Vasco reading with his head down
+  if (window.SPRITES.alan_throw1) S.CHARS.alan.frames.poses.throw1 = 'alan_throw1';
+  if (window.SPRITES.alan_throw2) S.CHARS.alan.frames.poses.throw2 = 'alan_throw2';
+  if (window.SPRITES.ines_catch) S.CHARS.ines.frames.poses.catch = 'ines_catch';
+  if (window.SPRITES.vasco_kneel_down) S.CHARS.vasco.frames.poses.kneeldown = 'vasco_kneel_down';
   // Alan and Vasco painted together (Alan left, Vasco right): played as Alan's pose with Vasco hidden,
   // anchored on the middle of the couple
   ['catch', 'lanyard', 'thumb', 'kneel', 'kiss', 'card', 'fragment', 'coffee', 'ladder', 'clapper', 'shelf', 'tie'].forEach(k => { S.CHARS.alan.frames.poses['pair_vasco_' + k] = 'pair_vasco_' + k; });
@@ -214,9 +219,14 @@
       // the find tray's glass lid catches the light while Vasco looks into it (the heist)
       const gl = S.glassGlint && (performance.now() - S.glassGlint) / 1000;
       if (gl > 0 && gl < 4) FX.glow(g, 905, 400, 26, '255,248,225', 0.55 * Math.sin(Math.PI * gl / 4));
+      S.inesWander();
     },
     leave() { for (const a of [G.player, G.npc('vasco')]) if (a && a._pit) { a._pit = false; a.sink = 0; a.h = null; } },
-    async enter() { if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) await S.cloisterCh3(); },
+    async enter() {
+      if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) await S.cloisterCh3();
+      if (inesAtSe() && F().se_plan_on && !F().key_tossed) S.inesArrive(); // (not awaited: Alan is free to move)
+    },
+    animFg(g) { S.drawKeyFlight(g); },
     npcs: [
       { id: 'vasco', x: 1110, y: 640, dir: 'w', name: 'Dr. Vasco Teles', when: vascoHere, look: 'narr_look_vasco', talk: () => S.talkVasco(),
         items: { any: 'alan_fail_04' },
@@ -245,6 +255,17 @@
   };
 
   // ---------------------------------------------------------------- Vasco
+  // his idle remarks (B10): a shuffled deck of twenty, dealt without repeats until it runs out
+  S.vascoIdle = function () {
+    const f = F(); let deck = f.vasco_idle_deck;
+    if (!deck || !deck.length) {
+      deck = Array.from({ length: 20 }, (_, i) => i + 1);
+      for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+      if (deck[0] === f.vasco_idle_last && deck.length > 1) deck.push(deck.shift()); // no repeat across a reshuffle
+    }
+    const n = deck.shift(); f.vasco_idle_deck = deck; f.vasco_idle_last = n;
+    return say('vasco_idle_' + n);
+  };
   S.talkVasco = async function () {
     // Chapter III: Alan comes to ask for the twin, honestly this time
     if (F().ch === 3 && F().knows_twin && !F().twin_lent) {
@@ -256,7 +277,7 @@
     }
     if (F().heist_done) {
       if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) return S.cloisterCh3();
-      return say('vasco_busy');
+      return S.vascoIdle();
     }
     if (!F().met_vasco) { F().met_vasco = true; await say('vasco_hello', 'alan_vasco_hello'); }
     if (F().in_pit) return S.pitTalk();
@@ -290,7 +311,8 @@
     await p.walkTo(PIT_LADDER - 30, 628); p.dir = 'e';
     p.pose = 'wobble'; sfx('ladder_creak', 0.5); await T(500); p.pose = null;
     F().in_pit = true; p.x = 760; p.y = PIT_RIM; p.dir = 'e';
-    await say('vasco_close', 'alan_close');
+    await S.withPair('catch', () => say('vasco_close'));
+    await say('alan_close');
   };
 
   // in the pit: the shirt (and, quietly, the key), the inscription (and the throw), then the long conversation
@@ -358,32 +380,37 @@
     const p = G.player, v = G.npc('vasco'), ines = G.npc('ines');
     await say(F().inscription_tried ? 'vasco_inscription_again' : 'vasco_inscription_1');
     F().inscription_tried = true;
-    const kneel = window.SPRITES.vasco_kneel ? 'kneel' : null;
-    if (v) v.pose = kneel;
-    if (ines && ines.visible) p.dir = ines.x < p.x ? 'w' : 'e';
+    // he kneels with his back to Alan, head right down over his own boot
+    const kneel = S.kneelDown();
+    if (v) { v.pose = kneel; v.dir = 'e'; }
+    S.inesWanderOn = false;
+    if (ines && ines.visible) { if (ines.walking) await Promise.race([ines.walkTo(ines.x, ines.y), T(300)]); ines.dir = ines.x < p.x ? 'e' : 'w'; p.dir = ines.x < p.x ? 'w' : 'e'; }
     await say('alan_toss_ines');
+    p.pose = 'throw1'; // the wind-up, low and quiet
     const ok = await tossGame();
-    p.pose = 'reach'; sfx('key_jingle'); await T(400); p.pose = null;
     if (!ok) { // too early or too late: he looks up, and Alan is still holding it
-      if (v) v.pose = null; p.dir = 'e';
+      p.pose = null; if (v) { v.pose = null; v.dir = 'w'; } p.dir = 'e';
       await say('vasco_lookup', 'alan_lookup');
+      S.inesWanderOn = true;
       return;
     }
+    await S.throwKey(p, ines);
     G.takeItem('reserve_key'); F().key_tossed = true;
     await G.say('narr_catch', { offscreen: true });
-    // she slips off along the arcade, and Vasco catches her in the glass of the find tray by him.
+    // she slips off to the left along the arcade, and Vasco catches her in the glass of the find tray by him.
     // He watches her go, and says nothing (he lets it happen; that's Thursday's secret, not today's)
     p.dir = 'e';
-    if (ines && ines.visible && !window.FAST) ines.walkTo(120, 610);
+    let gone = null;
+    if (ines && ines.visible) { ines.pose = null; ines.dir = 'w'; gone = ines.walkTo(-90, 612); }
     S.glassGlint = performance.now();
     if (v) { v.pose = null; v.dir = 'n'; }
     await T(900);
     await G.say('narr_glimpse', { offscreen: true });
-    await T(600);
-    if (v) { v.dir = 'w'; v.pose = kneel; }
+    if (gone) await Promise.race([gone, T(2500)]);
+    if (v) { v.dir = 'e'; v.pose = kneel; }
     G.refreshNpcs(); // Inês is in the reserve
     await say('vasco_inscription_2');
-    if (v) v.pose = null;
+    if (v) { v.pose = null; v.dir = 'w'; }
     await S.pitGame();
   };
   S.tossKey = () => say('alan_toss_wait'); // (the key on Inês: only while his head is down)
@@ -443,11 +470,11 @@
     const p = G.player, v = G.npc('vasco');
     // she's back at the rim while he shows Alan the Roman floor, on his knees, eyes down
     F().ines_back = true; G.refreshNpcs();
-    if (v && window.SPRITES.vasco_kneel) v.pose = 'kneel';
+    if (v) { v.pose = S.kneelDown(); v.dir = 'e'; }
     await say('vasco_roman');
     sfx('key_jingle', 0.2);
     await G.say('narr_key_back', { offscreen: true });
-    if (v) v.pose = null;
+    if (v) { v.pose = null; v.dir = 'w'; }
     // and back where it came from, with the same hands
     await say('alan_collar_2');
     await S.withPair('lanyard', () => say('vasco_collar_2'));
@@ -463,18 +490,91 @@
     await joke('alan_thursday');
     await say('vasco_liar'); // he knows; he isn't saying
     F().vasco_thursday = true;
+    // goodbye to Vasco, and back down the ladder he goes
+    await say('alan_bye_vasco', 'vasco_bye_alan');
+    if (v) { v.walkTo(PIT_LADDER, 626); }
+    // Inês and Alan walk into the museum together, and only there does she open the bag
+    await say('ines_walk_museum');
+    const ines = G.npc('ines');
+    if (!window.FAST) { if (ines) ines.walkTo(1180, 640); await p.walkTo(1200, 650); }
+    F().ines_museum = true;
+    await G.goRoom('se_museum', 'se_cloister');
+    const i2 = G.npc('ines'), p2 = G.player;
+    if (i2) { i2.x = p2.x - 120; i2.y = Math.min(700, p2.y + 6); i2.dir = 'e'; }
+    if (!window.FAST) { await p2.walkTo(p2.x - 40, p2.y); }
+    p2.dir = 'w';
     await say('ines_handover');
     give('brotherhood_charter');
     await S.readJoaquimCard();
-    await say('alan_donated', 'alan_told_museum');
+    await say('alan_donated');
     S.lore('joaquim_card');
     await say('ines_home');
-    F().ines_back = false; G.refreshNpcs();
+    // she heads off home with the register; Alan has the charter and the card
+    if (i2 && !window.FAST) await Promise.race([i2.walkTo(-80, 690), T(4000)]);
+    F().ines_back = false; F().ines_museum = false; G.refreshNpcs();
   };
   S.pitKiss = S.pitEnd; // (the old name)
 
   // Inês walks back into the cloister for the last exchange only
-  ROOMS.se_cloister.npcs.push({ id: 'ines', x: 600, y: 650, dir: 'e', name: 'Inês', when: () => F().ines_back, look: 'narr_look_ines', talk: () => say('ines_home') });
+  ROOMS.se_cloister.npcs.push({ id: 'ines', x: 600, y: 650, dir: 'e', name: 'Inês', when: () => F().ines_back && !F().ines_museum, look: 'narr_look_ines', talk: () => say('ines_home') });
+  ROOMS.se_museum.npcs.push({ id: 'ines', x: 1060, y: 660, dir: 'e', name: 'Inês', when: () => !!F().ines_museum, look: 'narr_look_ines', talk: () => say('ines_home') });
+
+  // ---------------------------------------------------------------- Inês in the cloister (A24)
+  // she wanders like a visitor: the arches, the tombs, the chained stair, never standing still for long
+  const WANDER = [[300, 606, 'n'], [470, 600, 'n'], [380, 640, 'w'], [210, 614, 'w'], [520, 612, 'n']];
+  S.inesArrive = async function () {
+    const i = G.npc('ines'); if (!i) return;
+    if (window.FAST) { S.inesWanderOn = false; return; } // (the scripted test wants her where she is)
+    S.inesWanderOn = false;
+    i.x = -80; i.y = 612; i.dir = 'e';
+    await T(2600);
+    if (G.npc('ines') !== i || !i.visible || F().key_tossed) return;
+    await i.walkTo(380, 606); i.dir = 'n';
+    i._wNext = performance.now() + 2500; S.inesWanderOn = true;
+  };
+  S.inesWander = function () {
+    const i = S.inesWanderOn && G.npc('ines');
+    if (!i || !i.visible || i.walking || i.engaged || i.pose || G.isBusy || F().key_tossed) return;
+    const now = performance.now();
+    if (!i._wNext) { i._wNext = now + 3000 + Math.random() * 3000; return; }
+    if (now < i._wNext) return;
+    const opts = WANDER.filter(w => Math.hypot(w[0] - i.x, w[1] - i.y) > 40), w = opts[Math.floor(Math.random() * opts.length)];
+    i._wNext = Infinity;
+    i.walkTo(w[0], w[1]).then(() => { if (!i.walking) i.dir = w[2]; i._wNext = performance.now() + 3500 + Math.random() * 4000; });
+  };
+  // Vasco reading the mark: head right down, where that frame is painted
+  S.kneelDown = () => window.SPRITES.vasco_kneel_down ? 'kneeldown' : window.SPRITES.vasco_kneel ? 'kneel' : null;
+
+  // ---------------------------------------------------------------- the throw (A26)
+  // wind-up (already held), release, the key's arc, and Inês's catch
+  let flight = null;
+  S.throwKey = async function (p, ines) {
+    p.pose = window.SPRITES.alan_throw2 ? 'throw2' : 'reach';
+    sfx('key_jingle', 0.6);
+    if (ines && ines.visible) {
+      const s = p.dir === 'w' ? -1 : 1;
+      const from = [p.x + s * 34, PIT_RIM - 112];
+      const ih = ines.height ? ines.height() : 300;
+      const to = [ines.x - s * 26, ines.y - ih * 0.86];
+      const dur = window.FAST ? 30 : 650;
+      flight = { t0: performance.now(), dur, from, to };
+      await T(dur * 0.8);
+      if (window.SPRITES.ines_catch) ines.pose = 'catch';
+      await T(dur * 0.2 + 60);
+      flight = null; sfx('key_pickup', 0.35);
+      await T(window.FAST ? 20 : 500);
+    } else await T(400);
+    p.pose = null;
+  };
+  S.drawKeyFlight = function (g) {
+    if (!flight) return;
+    const k = Math.min(1, (performance.now() - flight.t0) / flight.dur), [x0, y0] = flight.from, [x1, y1] = flight.to;
+    const x = x0 + (x1 - x0) * k, y = y0 + (y1 - y0) * k - Math.sin(Math.PI * k) * 130;
+    const ic = FX.icon('reserve_key'); if (!ic) return;
+    g.save(); g.translate(x, y); g.rotate(k * Math.PI * 3); g.globalAlpha = 0.95;
+    g.drawImage(ic, -11, -11, 22, 22); g.restore();
+    FX.glow(g, x, y, 10, '255,236,180', 0.35);
+  };
 
   // ---------------------------------------------------------------- documents
   const PAPER = 'close:paper_aged';
@@ -599,7 +699,7 @@
     ],
     entries: { default: STORE_STAIR.concat('e'), se_museum: STORE_STAIR.concat('e') },
     anim(g, t) { FX.motes(g, t, 300, 100, 700, 420, 30, '245,230,200'); },
-    npcs: [{ id: 'vasco', x: 260, y: 640, dir: 'e', name: 'Dr. Vasco Teles', when: inStore, look: 'narr_look_vasco', talk: () => say('vasco_busy'), items: { any: 'alan_fail_04' } }],
+    npcs: [{ id: 'vasco', x: 260, y: 640, dir: 'e', name: 'Dr. Vasco Teles', when: inStore, look: 'narr_look_vasco', talk: () => S.vascoIdle(), items: { any: 'alan_fail_04' } }],
     hotspots: [
       { name: 'Shelves', rect: [280, 150, 700, 370], look: 'narr_look_store' },
       { name: 'Stairs up', rect: [40, 120, 240, 460], at: [200, 610], exit: 'se_museum', entry: 'se_store' },

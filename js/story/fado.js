@@ -92,8 +92,11 @@
       }
       // Duarte: bent to the strings in the verses, head back and a hand raised to her in the choruses
       if (gui) {
-        const k = chorus || peak ? pick(['duarte_play3', 'duarte_play2', 'duarte_play2', 'duarte_play1'], beat >> 2)
-          : pick(['duarte_play1', 'duarte_play3'], beat >> 3);
+        // his hands never rest: the strumming hand and the fretting hand change every couple of beats
+        // (duarte_play4-6: tremolo at the bridge, the flourish off the strings, the stretch up the neck)
+        const k = chorus || peak ? pick(['duarte_play3', 'duarte_play5', 'duarte_play2', 'duarte_play4', 'duarte_play2', 'duarte_play6', 'duarte_play1', 'duarte_play5'], beat >> 1)
+          : mourn ? pick(['duarte_play4', 'duarte_play1', 'duarte_play6', 'duarte_play3'], beat >> 1)
+          : pick(['duarte_play1', 'duarte_play4', 'duarte_play3', 'duarte_play6'], beat >> 1);
         if (k) gui.pose = k;
       }
       // Lino on the bass, eyes shut, rocking on the beat

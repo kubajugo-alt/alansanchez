@@ -196,7 +196,7 @@ Five chapters over one day, each ending on a turn in what Alan knows. The in-gam
 
 | Ch. | Title                  | Clock       | Question the player answers                                | Rooms                                       | New this chapter                                                |
 |-----|------------------------|-------------|------------------------------------------------------------|---------------------------------------------|-----------------------------------------------------------------|
-| I   | The Fog                | 11:00–13:30 | What is killing people, and why is our name on the list?   | shop, street, police, tavern                | Pessoa desk gag, dripping hang-up, brass weight, matches, glass |
+| I   | The Fog                | 11:00–13:30 | What is killing people, and why is our name on the list?   | shop, street, police, tavern                | Pessoa desk gag, dripping hang-up, matches, glass |
 | II  | The Unexplained Drawer | 13:30–15:30 | Has this happened before, and when do they die?            | police, lavadouro, ferreira, shop           | All new chapter: 1955 file, Celeste, tide clock, vitrine key    |
 | III | The Weeping Stone      | 15:30–17:15 | What is the bell, who is ringing it, and how do I stop it? | convent, se_tower, antiques, tavern (opt.)  | Holy-water stone, Abílio, founder order, the J.C. clock         |
 | IV  | The Founders' Blood    | 17:15–18:25 | Who is the next to die, and can I get there first?         | shop, cais, boat                            | All new chapter: Zé, the tile broken with the tongue            |
@@ -242,7 +242,7 @@ The narrator opens on the city: nine days of fog, three drowned, the trams ringi
 
 Logic: cats follow heat; the player has seen the lamp lit over the sleeping cat. Inês hint: "He only sleeps there because it's warm. Like you."
 
-**Free pickups:** three coins from the register; the magnifier from the window shelf; the brass weight (two kilos) from the bookbinding press ("Every adventurer should carry something pointless."). Alan starts with his notebook.
+**Free pickups:** three coins from the register; the magnifier from grandfather's desk, beside the sleeping cat. (The brass weight on the bookbinding press was removed from the game.) Alan starts with his notebook.
 
 - **alan_look_ledger**: "Letters like a drunk's alphabet. And at the end, Grandfather's hand."
 
@@ -317,7 +317,6 @@ Add these to lines.js alongside the lines above. Inês's score lines (ines_score
 | alan_look_pessoa    | Look at Pessoa                | "Named after a poet with seventy personalities. This one has one, and it's asleep."                                                                     |
 | alan_lamp_off ★     | Lamp switched off, cat leaves | "No warmth, no company. He's like every relationship I've had."                                                                                         |
 | alan_take_ledger ★  | Take ledger                   | "Grandfather kept the books. I just sell them. Neither of us ever balanced."                                                                            |
-| alan_take_weight    | Take brass weight             | "Every adventurer should carry a dead weight. Inês carries me."                                                                                         |
 | alan_take_magnifier | Take magnifier                | "For the small print. In this family, it's all small print."                                                                                            |
 | alan_look_monster   | Look at sea-monster tile      | "It has a knowing look. It's seen me before eleven, which almost nobody has."                                                                           |
 | alan_mag_monster ★  | Magnifier on tile             | "It's holding a bell. Everyone in this city is ringing something except me."                                                                            |
@@ -538,7 +537,7 @@ Clocks everywhere, all keeping different times. Lacerda in a cream linen suit, a
     - Use the vitrine key (Ferreira's spare) on the case, then the twin on the tongue. **alan_swap_twin**: "One bronze tongue for its twin. Same weight, same marks, same dent in the velvet. Only one of them has ever rung."
     - Lacerda returns, winds the box, and it plays "O Sino Afogado". **lacerda_pale**: "You look pale, Senhor Sanchez. Another day." He doesn't notice the swap.
 
-Logic: Lacerda himself said he'd notice the velvet, so only something identical will do. The brass weight is refused (**alan_weight_no**: "He'd notice. He said so."). Taking the tongue without a swap, or running out of actions, triggers **lacerda_putback** ("Put it back. Patience is not infinite.") and resets the theft. The case shows the same tongue before and after the swap, since the two are twins.
+Logic: Lacerda himself said he'd notice the velvet, so only something identical will do. Taking the tongue without a swap, or running out of actions, triggers **lacerda_putback** ("Put it back. Patience is not infinite.") and resets the theft. The case shows the same tongue before and after the swap, since the two are twins.
 
 Inês's hints follow the same order: look at Lacerda's case, show the sketch to Abílio, ask Vasco, then the swap with the music box as the distraction.
 
@@ -1092,7 +1091,7 @@ Existing characters need new states; new characters need full sets.
 |-------------------------------------------------|-------------------------------------------------------------------------|-------------------------------|
 | Amália sends Alan straight to Tomás             | Amália sends him to the police about 1955; convent unlocks after Ch. II | amalia\_\* lines, map unlocks |
 | Decoding names Lacerda and ends the stone scene | Decoding gives three pages; genealogy pages stay stuck until Ch. IV     | Cipher result, ledger item    |
-| Theft by distraction only                       | Theft needs the vitrine key and the brass weight swap                   | Antiques hotspots             |
+| Theft by distraction only                       | Theft needs the vitrine key and the twin swap                           | Antiques hotspots             |
 | Inês gone at the start of Ch. III               | Inês gone at the start of Ch. V                                         | Chapter flags, shop state     |
 | Finale: ledger, then use clapper                | Five-step rite with a water meter                                       | Cistern room                  |
 | Alan's grandmother unnamed                      | Graça                                                                   | New lines only                |

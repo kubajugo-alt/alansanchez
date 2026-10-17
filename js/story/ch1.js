@@ -18,12 +18,20 @@
   // ================================================================ BOOKSHOP
   const PESSOA_AT = { desk: [250, 452, 'w'], radiator: [765, 362, 'w'], machine: [1015, 372, 'w'], floor: [700, 600, 'e'] };
   const MAG_RECT = [278, 414, 62, 32]; // the brass magnifying glass on the desk, right of where Pessoa sleeps
+  // the ledger comes out of grandfather's open drawer only when Alan takes it; then the drawer shuts
+  async function takeLedger() {
+    if (F().got_ledger) return say('alan_drawer_empty');
+    const p = G.player; p.pose = 'reach'; await G.wait(window.FAST ? 20 : 700);
+    F().got_ledger = true; give('ledger'); p.pose = null;
+    await G.wait(window.FAST ? 20 : 300);
+    sfx('drawer_scrape', 0.5); await joke('alan_take_ledger');
+  }
   const pessoaSpot = () => F().ch >= 5 && !F().ledger_found ? 'machine' : F().lampOff ? 'radiator' : 'desk';
   ROOMS.shop = {
     name: 'Livraria Sanchez', bg: 'shop', bgs: ['shop_night', 'shop_nomag', 'shop_drawer', 'shop_drawer_nomag'],
-    // day variants: grandfather's drawer pulled open on the ledger (only while Alan takes it), and the
+    // day variants: grandfather's drawer pulled open on the ledger (from the key until Alan takes it), and the
     // desk without the magnifying glass once he has it
-    bgFn: () => F().ch >= 5 ? 'shop_night' : 'shop' + (S.shopDrawerOpen ? '_drawer' : '') + (F().magTaken ? '_nomag' : ''),
+    bgFn: () => F().ch >= 5 ? 'shop_night' : 'shop' + (F().shop_drawer && !F().got_ledger ? '_drawer' : '') + (F().magTaken ? '_nomag' : ''),
     music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog',
     ambience: () => F().ch >= 5 ? 'shop_night' : 'shop', floor: 'wood',
     walk: [[345, 535], [792, 535], [1004, 716], [215, 716]],
@@ -41,8 +49,6 @@
     animBack(g, t) {
       if (F().ch < 5) S.windowFog(g, t, [430, 32, 410, 282], '235,238,240', 0.16);
       if (F().ch < 5) { g.save(); g.beginPath(); g.rect(430, 32, 410, 282); g.clip(); FX.birds(g, t + 4, { y0: 70, y1: 200, n: 2, period: 19, color: 'rgba(90,92,98,0.5)', size: 7, x0: 400, x1: 870 }); g.restore(); }
-      // the brass weight on the press, until it's taken
-      if (!F().weightTaken) S.drawWeight(g, 345, 318, 0.9);
     },
     anim(g, t) {
       if (F().ch < 5 && F().lampOff) S.lampOut(g);
@@ -61,30 +67,25 @@
     hotspots: [
       { name: 'Bookshelves', rect: [0, 0, 290, 300], look: () => say('alan_shelf_' + ((F().shelf_n = ((F().shelf_n || 0) % 20) + 1))) },
       { name: "Grandfather's desk", rect: [40, 330, 300, 280], at: [380, 600], face: 'w', look: () => say(F().got_ledger ? 'narr_look_desk_open' : 'narr_look_desk'),
-        use: () => F().got_ledger ? say('alan_drawer_empty') : pessoaSpot() === 'desk' ? say('alan_desk_cat') : G.has('key') ? say('alan_desk_usekey') : say('alan_drawer_locked'),
+        use: () => F().got_ledger ? say('alan_drawer_empty') : F().shop_drawer ? takeLedger() : pessoaSpot() === 'desk' ? say('alan_desk_cat') : G.has('key') ? say('alan_desk_usekey') : say('alan_drawer_locked'),
         items: { key: async () => {
           if (F().got_ledger) return say('alan_drawer_empty');
+          if (F().shop_drawer) return takeLedger();
           if (pessoaSpot() === 'desk') return say('alan_desk_cat');
-          sfx('drawer_open'); S.shopDrawerOpen = true;
-          try {
-            await say('alan_unlock');
-            const p = G.player; p.pose = 'reach'; await G.wait(window.FAST ? 20 : 700);
-            F().got_ledger = true; give('ledger'); p.pose = null;
-            await G.wait(window.FAST ? 20 : 300);
-          } finally { S.shopDrawerOpen = false; }
-          sfx('drawer_scrape', 0.5); await joke('alan_take_ledger');
+          // the drawer opens on the ledger and stays open until he takes it
+          sfx('drawer_open'); F().shop_drawer = true;
+          await say('alan_unlock');
         }, any: 'alan_fail_02' } },
+      { name: 'Ledger', rect: [212, 472, 72, 30], at: [380, 600], face: 'w', when: () => F().shop_drawer && !F().got_ledger && F().ch < 5, look: 'narr_look_ledger_drawer', take: () => takeLedger(), use: () => takeLedger() },
       { name: "Banker's lamp", rect: [118, 286, 118, 70], at: [380, 600], face: 'w', look: () => say(F().lampOff && F().ch < 5 ? 'narr_look_lamp_off' : 'narr_look_lamp_banker'),
         use: async () => {
           if (F().ch >= 5) { sfx('lamp_switch'); return say('alan_lamp_machine'); }
           if (F().lampOff) return say('alan_lamp_again');
-          sfx('lamp_switch'); F().lampOff = true; S.lampOffAt = performance.now(); await S.pessoaToRadiator(); await joke('alan_lamp_off');
+          sfx('lamp_switch'); F().lampOff = true; S.lampOffAt = performance.now(); S.pessoaToRadiator().catch(() => {}); await joke('alan_lamp_off'); // not awaited: the walk never holds up the player
         } },
       { name: 'Window', rect: [412, 22, 445, 288], look: 'narr_look_window' },
       { name: 'Magnifying glass', rect: MAG_RECT, at: [380, 600], face: 'w', when: () => !F().magTaken && F().ch < 5, look: 'narr_look_magnifier_desk',
         take: async () => { const p = G.player; p.pose = 'reach'; await G.wait(window.FAST ? 20 : 500); F().magTaken = true; give('magnifier'); p.pose = null; await say('alan_take_magnifier'); } },
-      { name: 'Brass weight', rect: [326, 290, 40, 34], at: [395, 565], face: 'w', when: () => !F().weightTaken, look: 'narr_look_press',
-        take: async () => { F().weightTaken = true; give('weight'); await joke('alan_take_weight'); } },
       { name: 'Kettle', rect: [470, 330, 95, 85], look: () => say(F().ch >= 5 ? 'narr_look_kettle_dry' : 'narr_look_kettle') },
       { name: 'Sugar tin', rect: [672, 355, 54, 60], at: [690, 562], face: 'n', look: 'narr_look_tin',
         take: async () => { if (F().tinTaken) return say('alan_fail_take'); F().tinTaken = true; give('key'); await say('alan_sugar_tin'); } },
@@ -263,7 +264,7 @@
     bgFn: () => S.streetNight() ? 'street_night' : 'street',
     music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog', ambience: () => S.streetNight() ? 'street_night' : 'street', floor: 'cobble',
     fog: () => S.streetNight() ? 0.22 : 0.32, get fogRGB() { return S.streetNight() ? '70,80,105' : '214,218,216'; },
-    walk: [[0, 578], [870, 593], [880, 612], [1010, 612], [1020, 595], [1280, 600], [1280, 716], [0, 716]], // in front of the bench, not among its legs
+    walk: [[0, 578], [800, 593], [810, 612], [940, 612], [950, 595], [1280, 600], [1280, 716], [0, 716]], // in front of the bench, not among its legs
     scale: [578, 196, 716, 250],
     light: () => S.streetNight() ? { ambient: 'rgb(105,115,150)', base: 0.55 } : { ambient: 'rgb(214,214,214)', base: 0.9 },
     lights: () => S.streetNight() ? [
@@ -289,7 +290,7 @@
     },
     animFg(g, t) { S.drawTram(g, t); },
     ambient: [
-      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_doze2', 'npc_bench_doze2', 'npc_bench_b'], idleHold: [9, 18], variantHold: [2.2, 4], x: 940, y: 592, h: 150, look: 'alan_npc_bench', talkFrames: ['npc_bench_talk1', 'npc_bench_talk2', 'npc_bench_talk3'], talk: () => S.benchTalk(), when: () => F().ch <= 4, // dozes (head lolling one way, then the other), now and then wakes with a start
+      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_doze2', 'npc_bench_doze2', 'npc_bench_b'], idleHold: [9, 18], variantHold: [2.2, 4], x: 870, y: 592, h: 150, look: 'alan_npc_bench', talkFrames: ['npc_bench_talk1', 'npc_bench_talk2', 'npc_bench_talk3'], talk: () => S.benchTalk(), when: () => F().ch <= 4, // dozes (head lolling one way, then the other), now and then wakes with a start
         sets: { awake: { idle: ['npc_bench_awake', 'npc_bench_greet'], talk: ['npc_bench_talk1', 'npc_bench_talk2', 'npc_bench_talk3'], poses: { wake: 'npc_bench_b', confide: 'npc_bench_confide', wistful: 'npc_bench_wistful', drowsy: 'npc_bench_drowsy' } } } },
     ],
     occluders: [{ y: 206, poly: [[60, 150], [215, 150], [215, 215], [60, 215]] }], // balcony railing in front of the laundry woman

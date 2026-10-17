@@ -15,17 +15,6 @@
     }
     g.restore();
   };
-  // a squat polished brass bookbinder's weight
-  S.drawWeight = function (g, x, y, s) {
-    g.save(); g.translate(x, y); g.scale(s, s);
-    g.fillStyle = 'rgba(0,0,0,0.35)'; g.beginPath(); g.ellipse(0, 2, 15, 4, 0, 0, 7); g.fill();
-    const gr = g.createLinearGradient(-14, 0, 14, 0); gr.addColorStop(0, '#6a4a14'); gr.addColorStop(0.35, '#f2d27a'); gr.addColorStop(0.6, '#b8862e'); gr.addColorStop(1, '#4a3008');
-    g.fillStyle = gr; g.strokeStyle = '#2a1a06'; g.lineWidth = 1.2;
-    g.beginPath(); g.moveTo(-14, 0); g.lineTo(-14, -14); g.ellipse(0, -14, 14, 4, 0, Math.PI, 0); g.lineTo(14, 0); g.ellipse(0, 0, 14, 4, 0, 0, Math.PI); g.closePath(); g.fill(); g.stroke();
-    g.beginPath(); g.ellipse(0, -14, 14, 4, 0, 0, 7); g.fillStyle = '#e8c468'; g.fill(); g.stroke();
-    g.beginPath(); g.arc(0, -20, 5, 0, 7); g.fillStyle = gr; g.fill(); g.stroke();
-    g.restore();
-  };
   // covers a taken object with nearby painting (the window shelf, etc.)
   S.patchBg = function (g, dst, src) {
     const im = G.bgImage(); if (!im) return;
@@ -170,21 +159,24 @@
       const ines = G.npc('ines'); if (ines) ines.dir = 'w';
       await T(900);
       await say('narr_intro_3', 'ines_wake_up');
+      // a real yawn: the yawning frame and the sound together, then back to his own frames
+      const yawn = async () => { pose('yawn'); S.sfx('yawn', 0.9); await T(1700); pose(null); };
       if (G.image('bg:bedroom')) {
         await G.fade(true);
         await G.goRoom('bedroom', null, { instant: true, noEnter: true, noSave: true, pos: [800, 640, 'w'] }); // up beside the bed
-        pose('yawn');
         await G.fade(false);
-        await say('alan_wake_up');
-        pose(null);
-        await p.walkTo(150, 712);   // off down the stairs
+        await T(400); await yawn();
+        await say('alan_wake_up');               // talking frames, not the yawn
+        await p.walkTo(-90, 705);                // out of the room to the stairs...
+        S.sfx('stairs', 0.6); await T(900);      // ...and only then the stairs
         await G.fade(true);
-        await G.goRoom('shop', null, { instant: true, noEnter: true, pos: SHOP_IN });
+        await G.goRoom('shop', null, { instant: true, noEnter: true, pos: [-90, 712, 'e'] }); // in from the stairs, off left
         await G.fade(false);
       } else { p.visible = true; await say('alan_wake_up'); }
       await p.walkTo(470, 640);
-      if (ines) ines.dir = 'w';
-      p.dir = 'e'; pose('yawn'); await T(900);
+      // he yawns and stretches facing Inês, wherever her chores have taken her
+      if (ines) { p.dir = ines.x > p.x ? 'e' : 'w'; ines.dir = ines.x > p.x ? 'w' : 'e'; }
+      await yawn();
       await say('ines_wake_look');
       pose('stretch');
       await say('alan_wake_stretch');

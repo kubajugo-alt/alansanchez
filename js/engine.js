@@ -1183,7 +1183,7 @@
   function has(id) { return state.inv.includes(id); }
   const ITEM_SFX = { key: 'key_pickup', fkey: 'key_pickup', vkey: 'keys_ring', reserve_key: 'key_jingle', ledger: 'book_take', coins: 'cash_register',
     newspaper: 'paper_take', file55: 'paper_take', tidecard: 'paper_take', lyrics_sheet: 'paper_take', sketch: 'paper_take', brotherhood_charter: 'paper_take', vasco_card: 'paper_take',
-    weight: 'brass_heavy', tongue: 'brass_heavy', twin: 'brass_heavy', matches: 'matchbox', glass: 'glass_set', lantern: 'lantern', knife: 'knife_take', sardine: 'sardine_catch', sanches_fragment: 'stone_clack', magnifier: 'pickup' };
+    tongue: 'brass_heavy', twin: 'brass_heavy', matches: 'matchbox', glass: 'glass_set', lantern: 'lantern', knife: 'knife_take', sardine: 'sardine_catch', sanches_fragment: 'stone_clack', magnifier: 'pickup' };
   function giveItem(id, silent) {
     if (has(id)) return;
     state.inv.push(id); renderInv();
@@ -1452,22 +1452,29 @@
   // Full-screen painted stills for cutscenes, with a slow Ken Burns move.
   let still = null;
   function drawStill(dt) {
-    const s = still; s.t += dt;
-    s.alpha += (s.target - s.alpha) * Math.min(1, dt * 3.2);
+    const s = still;
+    // a cross-fade (stillTo with cross): the previous painting keeps moving underneath until the new one covers it
+    if (s.prev) { paintStill(s.prev, dt, 1, false); if (s.alpha > 0.985) s.prev = null; }
+    paintStill(s, dt, s.alpha, !s.prev);
+    if (s.target === 0 && s.alpha < 0.02) still = null;
+  }
+  function paintStill(s, dt, alpha, black) {
+    s.t += dt;
+    s.alpha += (s.target - s.alpha) * Math.min(1, dt * (s.rate || 3.2));
+    if (s !== still) alpha = 1; // the outgoing painting stays opaque under the incoming one
     const im = IMG['still:' + s.name] || IMG['close:' + s.name] || IMG['bg:' + s.name];
     const p = Math.min(1, s.t / s.dur), e = p * p * (3 - 2 * p);
     const z = s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e;
     // the pan centre is clamped so the painting always covers the screen (no black edge at low zoom)
     const m = z >= 1 ? 0.5 / z : 0.5, clampP = v => Math.max(m, Math.min(1 - m, v));
     const cx = clampP(s.pan[0][0] + (s.pan[1][0] - s.pan[0][0]) * e), cy = clampP(s.pan[0][1] + (s.pan[1][1] - s.pan[0][1]) * e);
-    g.save(); g.globalAlpha = Math.max(0, Math.min(1, s.alpha));
-    g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
+    g.save(); g.globalAlpha = Math.max(0, Math.min(1, alpha));
+    if (black) { g.fillStyle = '#000'; g.fillRect(0, 0, W, H); }
     if (im) { const w = W * z, h = H * z; g.drawImage(im, W / 2 - w * cx, H / 2 - h * cy, w, h); }
     if (s.sepia) { g.globalCompositeOperation = 'multiply'; g.fillStyle = 'rgba(255,225,180,0.25)'; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over'; }
     FX.vignette(g, s.vignette != null ? s.vignette : 0.55);
     if (s.grain) for (let i = 0; i < 60; i++) { g.fillStyle = `rgba(255,240,210,${Math.random() * 0.08})`; g.fillRect(Math.random() * W, Math.random() * H, 1 + Math.random() * 2, 1); }
     g.restore();
-    if (s.target === 0 && s.alpha < 0.02) still = null;
   }
   // Shows a still while fn() runs (lines, waits), then fades back to the room.
   async function showStill(name, fn, opts) {
@@ -1483,6 +1490,18 @@
     }
   }
   function endStill() { if (still) still.target = 0; }
+  // Puts up a painting at once and returns (no wait, the speech box is left alone): with opts.cross it
+  // dissolves over the painting already showing instead of rising from black. Used by the chapter
+  // transitions and the fado slideshow (js/story/transitions.js); endStill() fades the last one out.
+  function stillTo(name, opts) {
+    opts = opts || {};
+    const prev = still && still.target > 0 && still.alpha > 0.05 ? still : null;
+    if (prev) prev.prev = null;
+    still = { name, t: 0, alpha: prev && !opts.cross ? prev.alpha : 0, target: 1, rate: opts.rate, prev: opts.cross ? prev : null,
+      dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
+    if (window.FAST) { still.alpha = 1; still.prev = null; }
+  }
+  const stillShowing = () => !!still;
 
   // ---------------------------------------------------------------- close-ups
   // Documents and objects seen up close: painted image plus HTML text, paged.
@@ -1536,6 +1555,7 @@
     state = Object.assign(freshState(), parsed);
     // saves from before the sketch became an item: hand it over so Inês and Celeste can take it
     if (state.flags.sketched_tile && !state.inv.includes('sketch')) state.inv.push('sketch');
+    state.inv = state.inv.filter(id => id !== 'weight'); // the brass weight was taken out of the game
     selItem = null; renderInv();
     room = null;
     await goRoom(state.room, null, { pos: [state.px, state.py, state.dir], noEnter: true });
@@ -1585,7 +1605,7 @@
   }
 
   window.Game = {
-    init, begin, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, closeup, setClock, renderInv,
+    init, begin, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, stillTo, stillShowing, closeup, setClock, renderInv,
     set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
     giveItem, takeItem, has, toast,
     get state() { return state; }, get flags() { return state.flags; },
