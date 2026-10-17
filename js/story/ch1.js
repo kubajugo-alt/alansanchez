@@ -88,7 +88,7 @@
       { name: 'Window', rect: [412, 22, 445, 288], look: 'narr_look_window' },
       { name: 'Magnifying glass', rect: MAG_RECT, at: [380, 600], face: 'w', when: () => !F().magTaken && F().ch < 5, look: 'narr_look_magnifier_desk',
         take: async () => { const p = G.player; p.pose = 'reach'; await G.wait(window.FAST ? 20 : 500); F().magTaken = true; give('magnifier'); p.pose = null; await say('alan_take_magnifier'); } },
-      { name: 'Kettle', rect: [470, 330, 95, 85], look: () => say(F().ch >= 5 ? 'narr_look_kettle_dry' : 'narr_look_kettle') },
+      { name: 'Kettle', rect: [480, 366, 50, 48], look: () => say(F().ch >= 5 ? 'narr_look_kettle_dry' : 'narr_look_kettle') },
       { name: 'Sugar tin', rect: [672, 355, 54, 60], at: [690, 562], face: 'n', look: 'narr_look_tin',
         take: async () => { if (F().tinTaken) return say('alan_fail_take'); F().tinTaken = true; give('key'); await say('alan_sugar_tin'); } },
       { name: 'Radiator', rect: [736, 352, 58, 150], at: [760, 560], face: 'n', look: 'narr_look_radiator' },

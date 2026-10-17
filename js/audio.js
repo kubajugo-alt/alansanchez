@@ -157,7 +157,7 @@
   }
   Track.prototype.bounds = function (el) {
     const m = meta[this.id] || {}, d = (el && isFinite(el.duration) && el.duration) || m.dur || 0;
-    return { inp: m.inp || 0, out: Math.min(d || Infinity, m.out || d || Infinity) };
+    return { inp: m.inp || 0, loop: m.loop || m.inp || 0, out: Math.min(d || Infinity, m.out || d || Infinity) }; // loop: where a repeat comes back in (past a quiet intro)
   };
   Track.prototype.voice = function (offset, fadeIn, armOnly) {
     const p = acquire(), v = { p, started: false, ending: false, next: null };
@@ -202,7 +202,7 @@
     if (s.loop === false || !isFinite(b.out)) return;
     // loop: a second copy starts LOOP_XF before the end and the two cross over (no seam, no cut)
     // the next copy is loaded and waiting, cued to its start, well before it is needed
-    if (!v.next && t >= b.out - LOOP_XF - 12) v.next = this.voice(b.inp, LOOP_XF, true);
+    if (!v.next && t >= b.out - LOOP_XF - 12) v.next = this.voice(b.loop, LOOP_XF, true);
     if (v.next && v.next.armed && t >= b.out - LOOP_XF - 0.15) {
       const nv = v.next; nv.armed = false; nv.go();
       const go = () => this.fadeVoice(v, Math.max(0.3, Math.min(LOOP_XF, b.out - el.currentTime - 0.05)));
