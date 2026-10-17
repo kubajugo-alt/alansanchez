@@ -261,6 +261,15 @@
     if (typeof st.cue !== 'string' && !(st.cue && st.cue.id)) return;
     setCue(st.cue); // not sticky: the next room the player walks into plays its own music
   }
+  // the paintings between chapters (js/story/transitions.js): the main theme, low; the chapter
+  // card's Bell motif takes over straight after (S.chapter), and after Chapter V the theme carries on into the dawn
+  let transCue = null;
+  function transitionMusic(on, n) {
+    if (on) { transCue = { id: 'main_theme', vol: 'low' }; setCue(transCue, { sticky: true }); return; }
+    if (n >= 5) { setCue('main_theme', { sticky: true }); transCue = null; return; }
+    const mine = transCue; transCue = null;
+    setTimeout(() => { if (cue && cue.spec === mine) setCue(null); }, 1000); // (only if nothing followed it)
+  }
   function setMusicVolume(v) {
     musicVol = Math.max(0, Math.min(1, +v || 0));
     try { localStorage.setItem(VOL_KEY, String(musicVol)); } catch (e) { /* storage unavailable */ }
@@ -745,7 +754,7 @@
 
   window.Sound = {
     init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
-    cue: setCue, refreshMusic, musicState, restoreMusic, setMusicVolume, trackUrl, meter, musicLog,
+    cue: setCue, refreshMusic, transitionMusic, musicState, restoreMusic, setMusicVolume, trackUrl, meter, musicLog,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; }, get musicVolume() { return musicVol; },
     get nowPlaying() { return active && !active.dead ? active.id : null; }, get musicCue() { return cue ? cue.spec : null; },
   };

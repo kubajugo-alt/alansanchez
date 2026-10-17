@@ -437,7 +437,15 @@
     if (F().drawer_unlocked) return;
     if (!F().lock_tried) { F().lock_tried = true; await say('alan_drawer_lock'); }
     const open = await S.drawerLock();
-    if (open) { await say('alan_0312'); }
+    if (!open) return;
+    await say('alan_0312');
+    // the drawer slides out on the tide table, and Alan pockets it there and then
+    if (!G.has('tidecard') && !F().tidecardTaken) {
+      await G.wait(window.FAST ? 20 : 700);
+      G.player.pose = 'reach'; await G.wait(window.FAST ? 20 : 450);
+      F().tidecardTaken = true; give('tidecard'); sfx('page'); G.player.pose = null;
+      await say('alan_tide_card'); await S.readTideCard(); await say('alan_tide_today');
+    }
   };
   // Puzzle II-D: the newspaper's tide table against Rui's times of death
   S.deduce = async function () {
