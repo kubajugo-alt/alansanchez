@@ -1406,6 +1406,24 @@ window.SPRITES = {
   "fy": 722.9,
   "top": 2.9
  },
+ "lacerda_pass1": {
+  "w": 201,
+  "hh": 719,
+  "h": 738.0,
+  "ax": 100.1,
+  "fy": 712.0,
+  "top": 2.9,
+  "facesLeft": true
+ },
+ "lacerda_pass2": {
+  "w": 219,
+  "hh": 716,
+  "h": 738.0,
+  "ax": 103.5,
+  "fy": 712.0,
+  "top": 2.9,
+  "facesLeft": true
+ },
  "lacerda_robe": {
   "w": 396,
   "hh": 726,
@@ -1429,6 +1447,24 @@ window.SPRITES = {
   "ax": 110.5,
   "fy": 726.0,
   "top": 2.9
+ },
+ "lacerda_walk1": {
+  "w": 354,
+  "hh": 719,
+  "h": 738.0,
+  "ax": 186.3,
+  "fy": 713.0,
+  "top": 2.9,
+  "facesLeft": true
+ },
+ "lacerda_walk2": {
+  "w": 348,
+  "hh": 718,
+  "h": 738.0,
+  "ax": 184.4,
+  "fy": 712.0,
+  "top": 2.9,
+  "facesLeft": true
  },
  "lacerda_walkA": {
   "w": 238,
@@ -2603,6 +2639,30 @@ window.SPRITES = {
   "h": 720,
   "ax": 213.5,
   "fy": 712.3,
+  "top": 3.1
+ },
+ "pair_wring_1": {
+  "w": 908,
+  "hh": 728,
+  "h": 720,
+  "ax": 483.0,
+  "fy": 724.6,
+  "top": 3.1
+ },
+ "pair_wring_2": {
+  "w": 936,
+  "hh": 727,
+  "h": 720,
+  "ax": 483.5,
+  "fy": 723.0,
+  "top": 3.1
+ },
+ "pair_wring_3": {
+  "w": 905,
+  "hh": 705,
+  "h": 720,
+  "ax": 479.0,
+  "fy": 701.0,
   "top": 3.1
  },
  "pessoa_eat": {

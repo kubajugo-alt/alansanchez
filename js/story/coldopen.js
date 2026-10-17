@@ -91,7 +91,7 @@
     await G.fade(true);
   };
   const paint = S.paint;
-  const MARIA = ['still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn'];
+  const MARIA = ['still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water']; // still_maria_dawn is optional
 
   // Madragoa, 04:01: Maria Coutinho's last minute. Returns false (and plays nothing) if the paintings are missing.
   S.mariaPaintings = async function () {
@@ -119,7 +119,7 @@
     }, { zoom: [1.0, 1.15], pan: [[0.5, 0.65], [0.5, 0.45]] });
     // f. dawn: the room empty, the boards dry, the tile on the floor
     await T(900);
-    await paint('still_maria_dawn', async () => { await T(600); sfx('cabin_drip', 0.45); await T(900); await say('narr_maria_6'); await T(1200); },
+    if (has('still_maria_dawn')) await paint('still_maria_dawn', async () => { await T(600); sfx('cabin_drip', 0.45); await T(900); await say('narr_maria_6'); await T(1200); },
       { zoom: [1.12, 1.0], pan: [[0.5, 0.6], [0.5, 0.5]] });
     return true;
   };

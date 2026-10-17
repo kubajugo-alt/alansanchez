@@ -1455,7 +1455,9 @@
     const im = IMG['still:' + s.name] || IMG['close:' + s.name] || IMG['bg:' + s.name];
     const p = Math.min(1, s.t / s.dur), e = p * p * (3 - 2 * p);
     const z = s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e;
-    const cx = s.pan[0][0] + (s.pan[1][0] - s.pan[0][0]) * e, cy = s.pan[0][1] + (s.pan[1][1] - s.pan[0][1]) * e;
+    // the pan centre is clamped so the painting always covers the screen (no black edge at low zoom)
+    const m = z >= 1 ? 0.5 / z : 0.5, clampP = v => Math.max(m, Math.min(1 - m, v));
+    const cx = clampP(s.pan[0][0] + (s.pan[1][0] - s.pan[0][0]) * e), cy = clampP(s.pan[0][1] + (s.pan[1][1] - s.pan[0][1]) * e);
     g.save(); g.globalAlpha = Math.max(0, Math.min(1, s.alpha));
     g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
     if (im) { const w = W * z, h = H * z; g.drawImage(im, W / 2 - w * cx, H / 2 - h * cy, w, h); }
