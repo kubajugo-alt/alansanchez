@@ -3093,6 +3093,14 @@ window.SPRITES = {
   "fy": 506.5,
   "top": 3.0
  },
+ "vasco_kneel_down": {
+  "w": 302,
+  "hh": 439,
+  "h": 720,
+  "ax": 213.5,
+  "fy": 435.0,
+  "top": 3.0
+ },
  "vasco_kneel_talk": {
   "w": 276,
   "hh": 511,
