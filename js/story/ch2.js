@@ -329,9 +329,9 @@
   // ================================================================ RELOJOARIA FERREIRA
   const lit = () => F().ferreira_lit;
   ROOMS.ferreira = {
-    name: 'Relojoaria Ferreira', bg: 'ferreira', bgs: ['ferreira_lock', 'ferreira_drawer', 'ferreira_drawer_empty'],
-    // lit: the desk drawer with its clockmaker's dial lock; open, with the tide card in it; then empty
-    bgFn: () => !lit() ? 'ferreira' : !F().drawer_unlocked ? 'ferreira_lock' : (G.has('tidecard') || F().tidecardTaken) ? 'ferreira_drawer_empty' : 'ferreira_drawer',
+    name: 'Relojoaria Ferreira', bg: 'ferreira', bgs: ['ferreira_drawer', 'ferreira_drawer_empty'],
+    // the desk drawer (painted): shut; pulled open with the tide card in it; then empty
+    bgFn: () => !lit() || !F().drawer_unlocked ? 'ferreira' : (G.has('tidecard') || F().tidecardTaken) ? 'ferreira_drawer_empty' : 'ferreira_drawer',
     music: null, ambience: () => F().tide_wound ? 'ferreira' : null, floor: 'wood',
     walk: [[0, 615], [1280, 615], [1280, 716], [0, 716]],
     scale: [615, 335, 716, 382],
@@ -343,16 +343,6 @@
       { x: 1140, y: 330, rgb: '190,200,215', power: 0.3, reach: 700, rim: 0.7, floor: [1140, 600], height: 500 },
     ],
     entries: { default: [1080, 650, 'w'], map: [1080, 650, 'w'] },
-    // until the painted drawer backgrounds are in, a plain drawer is drawn on the desk, behind Alan
-    animBack(g) {
-      if (!lit() || G.image('bg:ferreira_drawer')) return;
-      g.save();
-      if (F().drawer_unlocked) {
-        g.fillStyle = '#2a1a0c'; g.fillRect(562, 488, 156, 30); g.fillStyle = '#5a3a1c'; g.fillRect(556, 514, 168, 10);
-        if (!G.has('tidecard') && !F().tidecardTaken) { g.fillStyle = '#efe4c8'; g.save(); g.translate(640, 502); g.rotate(-0.05); g.fillRect(-36, -8, 72, 16); g.restore(); }
-      } else { g.fillStyle = '#c9a24f'; g.beginPath(); g.arc(640, 485, 6, 0, 7); g.fill(); g.fillStyle = '#3a2810'; g.fillRect(630, 491, 20, 5); }
-      g.restore();
-    },
     // unlit, the workshop is black but for the grey light at the door
     animFg(g, t) {
       if (lit()) { FX.motes(g, t, 300, 250, 500, 300, 20, '255,210,150'); return; }
@@ -396,7 +386,7 @@
         }, any: 'alan_fail_02' } },
       { name: 'Desk drawer', rect: [560, 470, 160, 30], at: [800, 640], face: 'w', // beside the drawer, not in front of it when: () => lit() && !F().drawer_unlocked,
         look: 'alan_drawer_lock', use: () => S.ferreiraDrawer(), take: () => S.ferreiraDrawer() },
-      { name: 'Tide card', rect: [575, 500, 130, 26], at: [800, 640], face: 'w', when: () => lit() && F().drawer_unlocked && !G.has('tidecard') && !F().tidecardTaken,
+      { name: 'Tide card', rect: [628, 486, 66, 32], at: [800, 640], face: 'w', when: () => lit() && F().drawer_unlocked && !G.has('tidecard') && !F().tidecardTaken,
         look: 'alan_look_tidecard', take: async () => { F().tidecardTaken = true; give('tidecard'); sfx('page'); await say('alan_tide_card'); await S.readTideCard(); await say('alan_tide_today'); } },
       { name: 'Key board', rect: [917, 160, 118, 256], at: [970, 640], face: 'n', when: lit, look: 'narr_look_keyboard',
         take: async () => { if (F().vkeyTaken) return say('alan_fail_take'); F().vkeyTaken = true; give('vkey'); await say('alan_spare'); } },
