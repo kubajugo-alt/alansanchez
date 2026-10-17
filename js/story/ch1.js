@@ -502,6 +502,7 @@
     anim(g, t) {
       if (F().ch < 5) FX.wisps(g, t + 2, 420, 400, { n: 5, rise: 90, spread: 14, rgb: '215,205,190', a: 0.05, size: 10, speed: 0.12 }); // pipe smoke over the cards
       if (F().ch < 5) { FX.motes(g, t, 360, 120, 700, 300, 26, '255,210,150'); }
+      if (S.glassFloor) S.drawGlass(g, S.GLASS_FLOOR[0], S.GLASS_FLOOR[1]); // Amália's glass, set down on the floor in front of her
     },
     npcs: [
       { id: 'amalia', x: 1000, y: 618, dir: 'w', name: 'Dona Amália', look: 'narr_look_amalia', talk: () => S.talkAmalia(),
@@ -577,6 +578,7 @@
     am.pose = 'toast'; G.player.pose = 'drink';
     await say('amalia_toast', 'alan_toast');
     am.pose = null; G.player.pose = null; G.takeItem('ginja');
+    if (!G.has('glass') && !F().glassUsed) S.glassFloor = true; // she sets her glass down at her feet to sing
     // the song: the room freezes, the guitarist plays, Amália sings
     G.cutscene = true;
     try {
@@ -592,7 +594,14 @@
     await joke('alan_ringer'); await say('amalia_called');
     await say('amalia_1955');
     F().heard_song = true;
-    if (!G.has('glass') && !F().glassUsed) { G.player.pose = 'pickup'; await G.wait(window.FAST ? 20 : 500); G.player.pose = null; give('glass'); await say('alan_take_glass'); }
+    if (!G.has('glass') && !F().glassUsed) {
+      // Alan crouches for the glass on the floor in front of Amália: his fingers close on it
+      const p = G.player; S.glassFloor = true;
+      await p.walkTo(S.GLASS_FLOOR[0] - 27, S.GLASS_FLOOR[1] + 4); p.dir = 'e';
+      p.pose = 'pickup'; await G.wait(window.FAST ? 20 : 450); S.glassFloor = false; give('glass'); await G.wait(window.FAST ? 20 : 300); p.pose = null;
+      await say('alan_take_glass');
+    }
+    S.glassFloor = false;
     await S.ch1End();
   };
   S.talkAmalia = async function () {
@@ -798,7 +807,8 @@
     g.strokeStyle = 'rgba(255,255,255,0.35)'; g.beginPath(); g.moveTo(-9.5, -9.4); g.lineTo(13, -9.4); g.stroke();
     g.restore();
   };
-  S.glassOnBar = () => F().heard_song && !G.has('glass') && !F().glassUsed;
+  S.glassOnBar = () => F().heard_song && !G.has('glass') && !F().glassUsed && !S.glassFloor;
+  S.GLASS_FLOOR = [940, 642]; // on the boards just in front of Amália (she stands at 1000, 618)
   // a small ginjinha glass left on the bar, with a red dreg and a highlight
   S.drawGlass = function (g, x, y) {
     g.save(); g.translate(x, y);
