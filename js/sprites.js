@@ -355,6 +355,38 @@ window.SPRITES = {
   "fy": 723.1,
   "top": 3.1
  },
+ "alan_smoke_exhale": {
+  "w": 187,
+  "hh": 723,
+  "h": 720,
+  "ax": 93.2,
+  "fy": 719.0,
+  "top": 3.1
+ },
+ "alan_smoke_hold": {
+  "w": 176,
+  "hh": 720,
+  "h": 720,
+  "ax": 91.4,
+  "fy": 716.4,
+  "top": 3.1
+ },
+ "alan_smoke_inhale": {
+  "w": 188,
+  "hh": 720,
+  "h": 720,
+  "ax": 87.0,
+  "fy": 716.4,
+  "top": 3.1
+ },
+ "alan_smoke_light": {
+  "w": 186,
+  "hh": 724,
+  "h": 720,
+  "ax": 87.1,
+  "fy": 720.5,
+  "top": 3.1
+ },
  "alan_stretch": {
   "w": 204,
   "hh": 834,

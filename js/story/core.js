@@ -232,10 +232,10 @@
     frames: { light: 'alan_smoke_light', inhale: 'alan_smoke_inhale', exhale: 'alan_smoke_exhale', hold: 'alan_smoke_hold' },
     // where the smoke comes from on each frame (sprite px): his mouth, the cigarette's lit tip
     points: {
-      alan_smoke_light: { mouth: [0, 0], tip: [0, 0] },
-      alan_smoke_inhale: { mouth: [0, 0], tip: [0, 0] },
-      alan_smoke_exhale: { mouth: [0, 0], tip: [0, 0] },
-      alan_smoke_hold: { mouth: [0, 0], tip: [0, 0] },
+      alan_smoke_light: { mouth: [127, 108], tip: [154, 117] },
+      alan_smoke_inhale: { mouth: [130, 87], tip: [153, 88] },
+      alan_smoke_exhale: { mouth: [139, 79], tip: [182, 252] },
+      alan_smoke_hold: { mouth: [142, 85], tip: [170, 307] },
     },
     allowed: room => !(S.CHURCH.has(room.id) || room.church || /^se_/.test(room.id)),
   };
