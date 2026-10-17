@@ -61,16 +61,17 @@
   "feet_shift_px": 0.0
  },
  "alan_climb": {
-  "old_ax": 119.0,
-  "old_h": 720,
-  "fy": 719.5,
-  "drawn_before": 710.0,
-  "feet_x": 277.9,
-  "kind": "stand",
-  "new_ax": 277.9,
-  "new_h": 710.0,
-  "drawn_after": 720.0,
-  "feet_shift_px": 158.9
+  "old_ax": 128.5,
+  "old_h": 720.0,
+  "fy": 310.0,
+  "drawn_before": 304.0,
+  "feet_x": 185.6,
+  "kind": "context",
+  "note": "climbing out of the tank",
+  "new_ax": 128.5,
+  "new_h": 720.0,
+  "drawn_after": 304.0,
+  "feet_shift_px": 0.0
  },
  "alan_coffees": {
   "old_ax": 119.6,
@@ -109,16 +110,16 @@
   "feet_shift_px": 0.0
  },
  "alan_dress2": {
-  "old_ax": 172.8,
-  "old_h": 733.0,
+  "old_ax": 212.3,
+  "old_h": 771.0,
   "fy": 777.0,
-  "drawn_before": 757.3,
+  "drawn_before": 720.0,
   "feet_x": 212.3,
   "kind": "stand",
   "new_ax": 212.3,
   "new_h": 771.0,
   "drawn_after": 720.0,
-  "feet_shift_px": 39.5
+  "feet_shift_px": 0.0
  },
  "alan_dress3": {
   "old_ax": 177.3,
@@ -145,28 +146,28 @@
   "feet_shift_px": 0.0
  },
  "alan_dress_boot": {
-  "old_ax": 172.8,
-  "old_h": 720,
+  "old_ax": 171.9,
+  "old_h": 737.0,
   "fy": 743.5,
-  "drawn_before": 737.0,
+  "drawn_before": 720.0,
   "feet_x": 171.9,
   "kind": "stand",
   "new_ax": 171.9,
   "new_h": 737.0,
   "drawn_after": 720.0,
-  "feet_shift_px": -0.9
+  "feet_shift_px": 0.0
  },
  "alan_dress_final": {
-  "old_ax": 152.8,
-  "old_h": 720,
+  "old_ax": 193.4,
+  "old_h": 753.0,
   "fy": 759.5,
-  "drawn_before": 753.0,
+  "drawn_before": 720.0,
   "feet_x": 193.4,
   "kind": "stand",
   "new_ax": 193.4,
   "new_h": 753.0,
   "drawn_after": 720.0,
-  "feet_shift_px": 40.6
+  "feet_shift_px": 0.0
  },
  "alan_drink": {
   "old_ax": 128.6,
@@ -181,16 +182,16 @@
   "feet_shift_px": 0.0
  },
  "alan_drip": {
-  "old_ax": 117.0,
-  "old_h": 720,
+  "old_ax": 195.0,
+  "old_h": 749.0,
   "fy": 755.5,
-  "drawn_before": 749.0,
+  "drawn_before": 720.0,
   "feet_x": 195.0,
   "kind": "stand",
   "new_ax": 195.0,
   "new_h": 749.0,
   "drawn_after": 720.0,
-  "feet_shift_px": 78.0
+  "feet_shift_px": 0.0
  },
  "alan_enchanted1": {
   "old_ax": 120.0,
@@ -347,6 +348,45 @@
   "new_ax": 189.9,
   "new_h": 720,
   "drawn_after": 557.0,
+  "feet_shift_px": 0.0
+ },
+ "alan_jump_crouch": {
+  "old_ax": 134.0,
+  "old_h": 710.0,
+  "fy": 719.3,
+  "drawn_before": 711.9,
+  "feet_x": 207.2,
+  "kind": "context",
+  "note": "leap (placed by the jump arc)",
+  "new_ax": 134.0,
+  "new_h": 710.0,
+  "drawn_after": 711.9,
+  "feet_shift_px": 0.0
+ },
+ "alan_jump_fall": {
+  "old_ax": 195.9,
+  "old_h": 720.0,
+  "fy": 582.0,
+  "drawn_before": 576.0,
+  "feet_x": 145.0,
+  "kind": "context",
+  "note": "leap (placed by the jump arc)",
+  "new_ax": 195.9,
+  "new_h": 720.0,
+  "drawn_after": 576.0,
+  "feet_shift_px": 0.0
+ },
+ "alan_jump_rise": {
+  "old_ax": 195.9,
+  "old_h": 720.0,
+  "fy": 592.0,
+  "drawn_before": 586.0,
+  "feet_x": 23.7,
+  "kind": "context",
+  "note": "leap (placed by the jump arc)",
+  "new_ax": 195.9,
+  "new_h": 720.0,
+  "drawn_after": 586.0,
   "feet_shift_px": 0.0
  },
  "alan_lantern": {
@@ -507,18 +547,6 @@
   "new_h": 720,
   "drawn_after": 720.0,
   "feet_shift_px": 0.0
- },
- "alan_run_back": {
-  "old_ax": 136.5,
-  "old_h": 720,
-  "fy": 744.5,
-  "drawn_before": 735.0,
-  "feet_x": 220.5,
-  "kind": "walk",
-  "new_ax": 220.5,
-  "new_h": 757.73,
-  "drawn_after": 698.4,
-  "feet_shift_px": 84.0
  },
  "alan_side": {
   "old_ax": 81.2,
@@ -693,17 +721,53 @@
   "drawn_after": 709.0,
   "feet_shift_px": 0.0
  },
+ "alan_trunks_down": {
+  "old_ax": 117.0,
+  "old_h": 710.0,
+  "fy": 719.3,
+  "drawn_before": 718.0,
+  "feet_x": 195.5,
+  "kind": "walk",
+  "new_ax": 195.5,
+  "new_h": 745.26,
+  "drawn_after": 684.0,
+  "feet_shift_px": 78.5
+ },
+ "alan_trunks_on": {
+  "old_ax": 201.0,
+  "old_h": 720.0,
+  "fy": 761.5,
+  "drawn_before": 724.0,
+  "feet_x": 208.7,
+  "kind": "stand",
+  "new_ax": 208.7,
+  "new_h": 724.0,
+  "drawn_after": 720.0,
+  "feet_shift_px": 7.7
+ },
  "alan_trunks_snap": {
-  "old_ax": 155.6,
-  "old_h": 720,
+  "old_ax": 212.2,
+  "old_h": 748.0,
   "fy": 754.5,
-  "drawn_before": 748.0,
+  "drawn_before": 720.0,
   "feet_x": 212.2,
   "kind": "stand",
   "new_ax": 212.2,
   "new_h": 748.0,
   "drawn_after": 720.0,
-  "feet_shift_px": 56.6
+  "feet_shift_px": 0.0
+ },
+ "alan_trunks_step": {
+  "old_ax": 131.0,
+  "old_h": 720.0,
+  "fy": 721.5,
+  "drawn_before": 715.0,
+  "feet_x": 217.7,
+  "kind": "stand",
+  "new_ax": 217.7,
+  "new_h": 715.0,
+  "drawn_after": 720.0,
+  "feet_shift_px": 86.7
  },
  "alan_undress1": {
   "old_ax": 132.1,
@@ -718,16 +782,16 @@
   "feet_shift_px": 0.0
  },
  "alan_undress1b": {
-  "old_ax": 138.1,
-  "old_h": 720,
+  "old_ax": 213.4,
+  "old_h": 758.0,
   "fy": 764.5,
-  "drawn_before": 758.0,
+  "drawn_before": 720.0,
   "feet_x": 213.4,
   "kind": "stand",
   "new_ax": 213.4,
   "new_h": 758.0,
   "drawn_after": 720.0,
-  "feet_shift_px": 75.3
+  "feet_shift_px": 0.0
  },
  "alan_undress2": {
   "old_ax": 109.1,
@@ -741,17 +805,41 @@
   "drawn_after": 717.1,
   "feet_shift_px": 0.0
  },
- "alan_undress3": {
-  "old_ax": 107.1,
-  "old_h": 702.0,
-  "fy": 743.0,
-  "drawn_before": 755.9,
-  "feet_x": 172.2,
+ "alan_undress2a": {
+  "old_ax": 219.4,
+  "old_h": 720.0,
+  "fy": 791.5,
+  "drawn_before": 785.0,
+  "feet_x": 245.4,
   "kind": "stand",
-  "new_ax": 172.2,
-  "new_h": 737.0,
+  "new_ax": 245.4,
+  "new_h": 785.0,
   "drawn_after": 720.0,
-  "feet_shift_px": 65.1
+  "feet_shift_px": 26.0
+ },
+ "alan_undress2b": {
+  "old_ax": 219.4,
+  "old_h": 720.0,
+  "fy": 770.5,
+  "drawn_before": 764.0,
+  "feet_x": 209.5,
+  "kind": "stand",
+  "new_ax": 209.5,
+  "new_h": 764.0,
+  "drawn_after": 720.0,
+  "feet_shift_px": -9.9
+ },
+ "alan_undress3": {
+  "old_ax": 178.2,
+  "old_h": 720.0,
+  "fy": 749.5,
+  "drawn_before": 738.0,
+  "feet_x": 225.0,
+  "kind": "stand",
+  "new_ax": 225.0,
+  "new_h": 738.0,
+  "drawn_after": 720.0,
+  "feet_shift_px": 46.8
  },
  "alan_undress4": {
   "old_ax": 149.6,
@@ -766,28 +854,52 @@
   "feet_shift_px": 0.0
  },
  "alan_undress_belt": {
-  "old_ax": 140.1,
-  "old_h": 720,
-  "fy": 774.5,
-  "drawn_before": 768.0,
-  "feet_x": 91.5,
+  "old_ax": 97.5,
+  "old_h": 720.0,
+  "fy": 791.5,
+  "drawn_before": 785.0,
+  "feet_x": 167.7,
   "kind": "arms-up",
-  "new_ax": 91.5,
-  "new_h": 647.0,
-  "drawn_after": 854.7,
-  "feet_shift_px": -48.6
+  "new_ax": 167.7,
+  "new_h": 661.0,
+  "drawn_after": 855.1,
+  "feet_shift_px": 70.2
  },
  "alan_undress_boot": {
-  "old_ax": 107.1,
-  "old_h": 720,
-  "fy": 716.5,
-  "drawn_before": 701.0,
-  "feet_x": 159.4,
+  "old_ax": 191.4,
+  "old_h": 720.0,
+  "fy": 722.5,
+  "drawn_before": 709.0,
+  "feet_x": 191.7,
   "kind": "stand",
-  "new_ax": 159.4,
-  "new_h": 701.0,
+  "new_ax": 191.7,
+  "new_h": 709.0,
   "drawn_after": 720.0,
-  "feet_shift_px": 52.3
+  "feet_shift_px": 0.3
+ },
+ "alan_undress_jeans": {
+  "old_ax": 179.5,
+  "old_h": 720.0,
+  "fy": 823.0,
+  "drawn_before": 817.0,
+  "feet_x": 202.0,
+  "kind": "walk",
+  "new_ax": 202.0,
+  "new_h": 860.0,
+  "drawn_after": 684.0,
+  "feet_shift_px": 22.5
+ },
+ "alan_undress_unbutton": {
+  "old_ax": 179.5,
+  "old_h": 720.0,
+  "fy": 806.5,
+  "drawn_before": 800.0,
+  "feet_x": 228.5,
+  "kind": "stand",
+  "new_ax": 228.5,
+  "new_h": 800.0,
+  "drawn_after": 720.0,
+  "feet_shift_px": 49.0
  },
  "alan_untie": {
   "old_ax": 245.4,
@@ -887,6 +999,58 @@
   "new_ax": 113.5,
   "new_h": 720,
   "drawn_after": 290.0,
+  "feet_shift_px": 0.0
+ },
+ "alan_wash4": {
+  "old_ax": 119.5,
+  "old_h": 720.0,
+  "fy": 304.2,
+  "drawn_before": 297.0,
+  "feet_x": 106.1,
+  "kind": "context",
+  "note": "at the basin (close-up)",
+  "new_ax": 119.5,
+  "new_h": 720.0,
+  "drawn_after": 297.0,
+  "feet_shift_px": 0.0
+ },
+ "alan_wash5": {
+  "old_ax": 119.5,
+  "old_h": 720.0,
+  "fy": 304.2,
+  "drawn_before": 315.0,
+  "feet_x": 123.6,
+  "kind": "context",
+  "note": "at the basin (close-up)",
+  "new_ax": 119.5,
+  "new_h": 720.0,
+  "drawn_after": 315.0,
+  "feet_shift_px": 0.0
+ },
+ "alan_wash6": {
+  "old_ax": 132.5,
+  "old_h": 720.0,
+  "fy": 304.2,
+  "drawn_before": 289.0,
+  "feet_x": 132.1,
+  "kind": "context",
+  "note": "at the basin (close-up)",
+  "new_ax": 132.5,
+  "new_h": 720.0,
+  "drawn_after": 289.0,
+  "feet_shift_px": 0.0
+ },
+ "alan_wash_surface": {
+  "old_ax": 133.5,
+  "old_h": 720.0,
+  "fy": 321.0,
+  "drawn_before": 296.0,
+  "feet_x": 131.3,
+  "kind": "context",
+  "note": "at the basin (close-up)",
+  "new_ax": 133.5,
+  "new_h": 720.0,
+  "drawn_after": 296.0,
   "feet_shift_px": 0.0
  },
  "alan_wink": {

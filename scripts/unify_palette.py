@@ -25,7 +25,8 @@ WARM = ['alan_walkDown', 'alan_walkUp', 'alan_asleep', 'alan_back', 'alan_coffee
         'alan_enchanted2', 'alan_rapt1', 'alan_rapt2', 'alan_rapt3', 'alan_lantern', 'alan_lwalk1', 'alan_lwalk2',
         'alan_yawn', 'alan_stretch', 'alan_undress1', 'alan_undress2', 'alan_dress3', 'alan_dress4']
 # the frames painted with Gemini (bare-chested ones: jeans and boots only, see NO_LEATHER)
-WARM += ['alan_undress1b', 'alan_dress_final', 'alan_undress_belt', 'alan_undress_boot', 'alan_dress_boot', 'alan_trunks_snap']
+WARM += ['alan_undress1b', 'alan_dress_final', 'alan_undress_belt', 'alan_undress_boot', 'alan_dress_boot', 'alan_trunks_snap',
+         'alan_undress2a', 'alan_undress2b', 'alan_undress_unbutton', 'alan_undress_jeans']
 WARM = list(dict.fromkeys(WARM))
 
 
@@ -51,7 +52,8 @@ WARM = list(dict.fromkeys(WARM + (list(PAIRS) if '--pairs' in sys.argv else []))
 NO_LEATHER = {'pair_cop_' + k for k in ['belt', 'belt2', 'buttons', 'shelf2', 'trousers', 'tshirt']} | \
              {'pair_guitar_' + k for k in ['d1', 'd2', 'h1', 'h2', 'hop', 'lasso', 's1', 's2', 'shirtfly', 'u1', 'u2', 'undress2',
                                            'l1', 'l2']} | {'pair_vasco_shirtless'} | \
-             {'alan_undress_belt', 'alan_undress_boot', 'alan_dress_boot', 'alan_trunks_snap'}
+             {'alan_undress_belt', 'alan_undress_boot', 'alan_dress_boot', 'alan_trunks_snap', 'alan_undress2a', 'alan_undress2b',
+              'alan_undress_unbutton', 'alan_undress_jeans'}
 CUR = None  # frame being processed (for BOXES / PAIRS)
 
 

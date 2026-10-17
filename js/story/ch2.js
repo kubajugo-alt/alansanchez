@@ -137,11 +137,17 @@
       sfx('sheet_slap', 0.25); await pose('undress1', 850);               // the jacket slides off the shoulders
       shocked(true);
       if (!(await pose('undress1b', 750))) await pose('alan_dress4', 750); // ...and over one shoulder
+      await pose('undress2a', 650);                                       // the tee comes up
       p.pose = 'undress2'; sfx('sheet_slap', 0.3); await T(950);          // tee over the head
-      if (await pose('uboot', 0)) await hop(4, 4, 170);                   // hopping out of the boots
+      if (await pose('undress2b', 0)) { sfx('sheet_slap', 0.2); await T(750); } // ...and off, swung aside
       if (await pose('ubelt', 0)) { sfx('sheet_slap', 0.2); await T(850); } // the belt, with a flourish
+      if (await pose('uboot', 0)) await hop(4, 4, 170);                   // hopping out of the boots
+      await pose('unbutton', 700);                                        // the top button
+      await pose('ujeans', 750);                                          // jeans down to the knees
       p.pose = 'undress3'; await hop(6, 4, 160);                          // stepping out of the jeans
       p.pose = 'undress4'; await T(1100);                                 // trunks: a flex and a wink
+      // the jacket comes round to the front and the trunks come off behind it
+      if (await pose('tdown', 0)) { await T(750); await pose('tstep', 650); }
       // the jacket comes round to the front and the trunks go over his shoulder
       if (!(await pose('fling', 0))) p.pose = 'jacket';
       await T(250);
@@ -157,21 +163,23 @@
       await pose('jgrin', 700);                                           // jacket snatched back up, re-adjusted
       if (!(await pose('jwink', 0))) p.pose = 'jacket';
       await say('alan_bath_2');                                           // with a wink
-      // the run-up: Full content only, a Carry-On sprint for the tank, seen from behind
-      if (cheeky && has('runback')) { p.pose = 'runback'; await hop(7, 4, 110); }
       // the leap: a hop up and over the rim of the tank, into the corner where the basket used to stand
       const x0 = p.x, y0 = p.y, x1 = WASH.x, y1 = WASH.y;
-      p.h = p.height(); p.pose = 'jump';
+      p.h = p.height();
+      if (await pose('jcrouch', 0)) await T(380);                         // knees bent, arms back
+      const arc = k => k < 0.3 && has('jrise') ? 'jrise' : k < 0.66 || !has('jfall') ? 'jump' : 'jfall';
       for (let k = 0; k <= 1.0001; k += window.FAST ? 0.5 : 0.035) {
+        p.pose = arc(k);                                                  // up, tucked at the top, feet first down
         p.x = x0 + (x1 - x0) * k; p.y = y0 + (y1 - y0) * k - Math.sin(k * Math.PI) * 170;
         await G.wait(16);
       }
       sfx('splash'); p.visible = false; splash = { x: x1, y: y1, t0: performance.now() };
       await T(700);
       // standing in the tank, the water at his waist: washing, not swimming
-      const washing = ['wash1', 'wash2', 'wash3'].filter(has);
+      const washing = ['wash1', 'wash4', 'wash2', 'wash5', 'wash3', 'wash6'].filter(has);
       swimmer = { y: y1 }; p.x = x1; p.y = y1; p.visible = true; p.sink = 0.0001; // no floor shadow on the water
-      if (!washing.length) p.pose = 'swim'; else { p.h = WASH.h; p.pose = washing[0]; }
+      if (!washing.length) p.pose = 'swim'; else { p.h = WASH.h; p.pose = has('wsurface') ? 'wsurface' : washing[0]; }
+      if (has('wsurface')) await T(900);                                  // up for air, hair pushed back
       let on = true;
       (async () => {
         let i = 0;
@@ -187,15 +195,15 @@
       else p.pose = 'swimwave';
       sfx('splash', 0.3);
       await T(1400);
+      if (washing.length && await pose('climb', 0)) { sfx('splash', 0.2); await T(1100); } // a knee up on the rim
       await G.fade(true);
       shocked(false); if (c) c.pose = null;
       swimmer = null; shorts = null; p.sink = 0; p.h = null; p.x = 800; p.y = 650; p.dir = 'w';
       // out of the tank and back into his clothes: trunks, jeans, boots, tee, jacket
-      p.pose = has('climb') ? 'climb' : null;
+      p.pose = has('drip') ? 'drip' : 'jacket';                           // out, dripping, jacket in front
       await G.fade(false);
-      if (await pose('climb', 0)) { await hop(-5, 3, 180); await T(300); }  // over the rim, knee first
-      if (!(await pose('drip', 0))) p.pose = 'jacket';                    // dripping, jacket in front
       await say('celeste_bath_2');
+      await pose('tron', 850);                                            // into the trunks behind the jacket
       if (!(await pose('snap', 750))) { p.pose = 'undress4'; await T(750); } // trunks back on: the waistband snaps
       const dress = async (k, ms) => { if (window.SPRITES['alan_dress' + k]) { p.pose = 'alan_dress' + k; await T(ms); } };
       await dress(1, 700);                                                // jeans in hand

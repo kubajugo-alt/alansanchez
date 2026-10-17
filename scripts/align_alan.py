@@ -17,15 +17,17 @@ TARGET = 720.0
 # walking bob, as head height relative to standing: contact > down < passing > up (about 2.5% overall)
 WALK = {'alan_walkA': 0.985, 'alan_walkB': 0.985, 'alan_walkDown': 0.975, 'alan_pass': 0.997, 'alan_walkUp': 0.99,
         'alan_lwalk1': 0.985, 'alan_lwalk2': 0.975, 'alan_front_walk1': 0.99, 'alan_front_walk2': 0.99,
-        'alan_back_walk1': 0.99, 'alan_back_walk2': 0.99, 'alan_run_back': 0.97}
+        'alan_back_walk1': 0.99, 'alan_back_walk2': 0.99, 'alan_undress_jeans': 0.95, 'alan_trunks_down': 0.95}
 CONTEXT = {'alan_asleep': 'sits on the stool', 'alan_pickup': 'crouched, hand on the floor', 'alan_jump': 'mid-air',
            'alan_swim': 'in the water', 'alan_swim2': 'in the water', 'alan_swim_wave': 'in the water',
            'alan_wash1': 'at the basin (close-up)', 'alan_wash2': 'at the basin (close-up)',
            'alan_pull': 'hauling a rope', 'alan_untie': 'hauling a rope', 'alan_wring': 'rope shared with Celeste',
-           'alan_ring': 'swinging at the bell', 'alan_wash3': 'at the basin (close-up)', 'alan_throw1': 'aimed throw (Se)', 'alan_throw2': 'aimed throw (Se)'}
+           'alan_ring': 'swinging at the bell', 'alan_wash3': 'at the basin (close-up)', 'alan_wash4': 'at the basin (close-up)', 'alan_wash5': 'at the basin (close-up)',
+           'alan_wash6': 'at the basin (close-up)', 'alan_wash_surface': 'at the basin (close-up)', 'alan_climb': 'climbing out of the tank',
+           'alan_jump_crouch': 'leap (placed by the jump arc)', 'alan_jump_rise': 'leap (placed by the jump arc)', 'alan_jump_fall': 'leap (placed by the jump arc)', 'alan_throw1': 'aimed throw (Se)', 'alan_throw2': 'aimed throw (Se)'}
 # arms-up frames: the outline's top is a hand, so his head-to-feet height (in sprite px) is estimated from the
 # waistband to the soles, using the waist ratio of a frame of the same view (front 0.573, towel set 0.699)
-ARMS_UP = {'alan_stretch': 757, 'alan_fling': 709, 'alan_undress2': 745, 'alan_dress3': 728, 'alan_undress_belt': 647}
+ARMS_UP = {'alan_stretch': 757, 'alan_fling': 709, 'alan_undress2': 745, 'alan_dress3': 728, 'alan_undress_belt': 661}
 
 
 def load_meta():
