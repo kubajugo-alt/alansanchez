@@ -82,6 +82,22 @@ def key_out(im):
     return out
 
 
+def defringe(im):
+    """Remove the pale 'sticker' outline Gemini draws: pale, unsaturated pixels within 3px of
+    transparency become transparent, then the edge is softened by one pixel."""
+    import cv2
+    a = np.asarray(im).copy(); al = a[..., 3]
+    rgb = a[..., :3].astype(np.int16); mx, mn = rgb.max(-1), rgb.min(-1)
+    pale = (mx > 60) & (mx - mn < 40)          # lighter than the ink line and greyish: halo, not paint
+    for _ in range(4):                         # peel the rim from the outside in, up to 4px
+        edge = cv2.dilate((al <= 128).astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool)
+        kill = edge & pale & (al > 0)
+        if not kill.any(): break
+        al[kill] = 0
+    al[:] = cv2.GaussianBlur(al, (3, 3), 0.6)
+    a[..., 3] = al; return Image.fromarray(a, 'RGBA')
+
+
 def match_palette(im, ref):
     """Lock colours: per-channel mean/std transfer in Lab over opaque pixels (Reinhard)."""
     import cv2
@@ -171,7 +187,7 @@ def main():
     stem = os.path.splitext(a.out)[0]
     raw.save(stem + '_raw.png')
 
-    new = match_palette(key_out(raw), main_ref)
+    new = match_palette(defringe(key_out(raw)), main_ref)
     if not a.no_frame: new = frame_to(new, main_ref, meta)
     new.save(a.out)
     side_by_side(main_ref, new, stem + '_sbs.png')
