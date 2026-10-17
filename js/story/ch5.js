@@ -18,7 +18,7 @@
       { actor: 'lacerda', off: null, offs: { robe_kneel: [-0.16, -0.86] }, // the torch, only while he kneels with it
         rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
         when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
-      { actor: 'alan', off: [0.15, -0.45], offs: { alan_lantern: [0.15, -0.45], alan_lwalk1: [0.19, -0.39], alan_lwalk2: [0.21, -0.4] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 70, ga: 0.35, power: 0.5, reach: 500, rim: 0.7, height: 160, when: () => F().has_lantern },
+      { actor: 'alan', off: [0.152, -0.44], offs: { alan_lantern: [0.152, -0.44], alan_lwalk1: [0.15, -0.391], alan_lwalk2: [0.181, -0.42] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 70, ga: 0.35, power: 0.5, reach: 500, rim: 0.7, height: 160, when: () => F().has_lantern },
       { x: 1158, y: 470, rgb: '255,140,80', kind: 'candle', seed: 5, glow: 55, ga: 0.25, power: 0.15, reach: 300, shadow: false },
     ],
     entries: { default: [70, 670, 'e'], map: [70, 670, 'e'], cistern: [740, 650, 'w'] }, // up from the cistern: beside the open grate, not in it
@@ -81,7 +81,7 @@
       { actor: 'lacerda', off: null, offs: { robe_kneel: [-0.16, -0.86] }, // the torch, only while he kneels with it
         rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
         when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
-      { actor: 'alan', off: [0.15, -0.45], offs: { alan_lantern: [0.15, -0.45], alan_lwalk1: [0.19, -0.39], alan_lwalk2: [0.21, -0.4] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 60, ga: 0.3, power: 0.4, reach: 450, rim: 0.6, height: 160, when: () => F().has_lantern && !F().bell_lit },
+      { actor: 'alan', off: [0.152, -0.44], offs: { alan_lantern: [0.152, -0.44], alan_lwalk1: [0.15, -0.391], alan_lwalk2: [0.181, -0.42] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 60, ga: 0.3, power: 0.4, reach: 450, rim: 0.6, height: 160, when: () => F().has_lantern && !F().bell_lit },
     ],
     entries: { default: [140, 640, 'e'], convent: [140, 640, 'e'] },
     layers: [

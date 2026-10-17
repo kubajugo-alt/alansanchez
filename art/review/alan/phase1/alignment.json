@@ -116,8 +116,8 @@
   "feet_x": 177.3,
   "kind": "arms-up",
   "new_ax": 177.3,
-  "new_h": 720,
-  "drawn_after": 748.0,
+  "new_h": 728.0,
+  "drawn_after": 739.8,
   "feet_shift_px": -34.0
  },
  "alan_dress4": {
@@ -176,8 +176,8 @@
   "feet_x": 181.4,
   "kind": "arms-up",
   "new_ax": 181.4,
-  "new_h": 720,
-  "drawn_after": 708.0,
+  "new_h": 709.0,
+  "drawn_after": 719.0,
   "feet_shift_px": 12.2
  },
  "alan_flirt": {
@@ -528,8 +528,8 @@
   "feet_x": 88.6,
   "kind": "arms-up",
   "new_ax": 88.6,
-  "new_h": 720,
-  "drawn_after": 824.0,
+  "new_h": 757.0,
+  "drawn_after": 783.7,
   "feet_shift_px": -8.1
  },
  "alan_swim": {
@@ -653,8 +653,8 @@
   "feet_x": 109.1,
   "kind": "arms-up",
   "new_ax": 109.1,
-  "new_h": 720,
-  "drawn_after": 742.0,
+  "new_h": 745.0,
+  "drawn_after": 717.1,
   "feet_shift_px": 14.4
  },
  "alan_undress3": {

@@ -23,7 +23,9 @@ CONTEXT = {'alan_asleep': 'sits on the stool', 'alan_pickup': 'crouched, hand on
            'alan_wash1': 'at the basin (close-up)', 'alan_wash2': 'at the basin (close-up)',
            'alan_pull': 'hauling a rope', 'alan_untie': 'hauling a rope', 'alan_wring': 'rope shared with Celeste',
            'alan_ring': 'swinging at the bell', 'alan_throw1': 'aimed throw (Se)', 'alan_throw2': 'aimed throw (Se)'}
-ARMS_UP = {'alan_stretch', 'alan_fling', 'alan_undress2', 'alan_dress3'}
+# arms-up frames: the outline's top is a hand, so his head-to-feet height (in sprite px) is estimated from the
+# waistband to the soles, using the waist ratio of a frame of the same view (front 0.573, towel set 0.699)
+ARMS_UP = {'alan_stretch': 757, 'alan_fling': 709, 'alan_undress2': 745, 'alan_dress3': 728}
 
 
 def load_meta():
@@ -60,7 +62,7 @@ def main():
             r.update(kind='context', note=CONTEXT[k], new_ax=m['ax'], new_h=m['h'])
         else:
             target = TARGET * WALK.get(k, 1.0)
-            new_h = m['h'] if k in ARMS_UP else round((bot - top) * TARGET / target, 2)
+            new_h = round((ARMS_UP[k] if k in ARMS_UP else bot - top) * TARGET / target, 2)
             r.update(kind='walk' if k in WALK else ('arms-up' if k in ARMS_UP else 'stand'),
                      new_ax=round(fx, 1), new_h=new_h)
         r['drawn_after'] = round((bot - top) / r['new_h'] * TARGET, 1)
