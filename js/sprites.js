@@ -1054,6 +1054,14 @@ window.SPRITES = {
   "fy": 720.5,
   "top": 3.1
  },
+ "ines_catch": {
+  "w": 298,
+  "hh": 727,
+  "h": 720,
+  "ax": 172.0,
+  "fy": 723.1,
+  "top": 3.1
+ },
  "ines_deadpan": {
   "w": 194,
   "hh": 728,
