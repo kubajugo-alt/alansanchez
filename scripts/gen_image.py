@@ -120,23 +120,37 @@ def feet(im):
     return float(xs[sel].mean()), float(bot)
 
 
-def frame_to(im, ref, meta):
-    """Scale the figure to the reference's height and place it on the reference canvas at its anchor."""
-    al = np.asarray(im)[..., 3] > 128; ys, xs = np.where(al)
-    im = im.crop((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
-    ra = np.asarray(ref)[..., 3] > 128; rys, rxs = np.where(ra)
-    s = (rys.max() - rys.min() + 1) / im.height
+def frame_to(im, ref, meta, keyed_size):
+    """Put the result in the reference's pixel space, keeping Gemini's own composition: the reference was sent
+    padded on the key colour, and the result has the same aspect, so one scale maps it back (pose changes
+    such as a raised arm no longer shrink him). Feet that land near the reference's feet line snap onto it.
+    Returns (image, meta): the canvas grows to fit the figure, and meta holds the reference's anchor moved
+    into the new canvas."""
+    kw, kh = keyed_size; pad = (kw - ref.width) // 2
+    s = kh / im.height
     im = im.resize((max(1, round(im.width * s)), max(1, round(im.height * s))), Image.LANCZOS)
-    fx, fy = feet(im)
-    if meta: ax, ay = meta['ax'], meta['fy']
-    else: ax, ay = feet(ref)
-    canvas = Image.new('RGBA', ref.size, (0, 0, 0, 0))
-    canvas.alpha_composite(im, (round(ax - fx), round(ay - fy))) if im.width <= ref.width else None
-    if im.width > ref.width:  # wider pose than the reference: grow the canvas, keep the anchor
-        grow = im.width - ref.width + 20
-        canvas = Image.new('RGBA', (ref.width + grow, ref.height), (0, 0, 0, 0))
-        canvas.alpha_composite(im, (round(ax + grow / 2 - fx), round(ay - fy)))
-    return canvas
+    al = np.asarray(im)[..., 3] > 128; ys, xs = np.where(al)
+    x0, y0, x1, y1 = xs.min() - pad, ys.min() - pad, xs.max() + 1 - pad, ys.max() + 1 - pad  # figure box in ref coords
+    fy = meta['fy'] if meta else float(np.where(np.asarray(ref)[..., 3] > 128)[0].max())
+    dy = fy - (y1 - 1) if abs(fy - (y1 - 1)) < ref.height * 0.08 else 0             # stand on the feet line
+    L, T = min(0, x0) - 6, min(0, y0 + dy) - 6
+    R, B = max(ref.width, x1) + 6, max(ref.height, y1 + dy) + 6
+    canvas = Image.new('RGBA', (int(R - L), int(B - T)), (0, 0, 0, 0))
+    canvas.alpha_composite(im.crop((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1)), (int(x0 - L), int(y0 + dy - T)))
+    m = dict(meta or {}); m['ax'] = round((meta['ax'] if meta else ref.width / 2) - L, 1); m['fy'] = round(fy - T, 1)
+    m['w'], m['hh'] = canvas.width, canvas.height
+    return canvas, m
+
+
+def reframe(raw_path, ref_path, out, palette=True):
+    """Re-run keying, clean-up, palette and framing on a saved raw result (no API call). palette=False for a
+    new pose whose clothes differ from the reference (a whole-figure colour match would tint them)."""
+    ref = Image.open(ref_path).convert('RGBA'); meta = sprite_meta(ref_path); keyed = on_key(ref)
+    new = defringe(key_out(Image.open(raw_path)))
+    if palette: new = match_palette(new, ref)
+    new, m = frame_to(new, ref, meta, keyed.size)
+    new.save(out); json.dump(m, open(os.path.splitext(out)[0] + '_meta.json', 'w'))
+    side_by_side(ref, new, os.path.splitext(out)[0] + '_sbs.png')
 
 
 def side_by_side(ref, new, path):
@@ -160,6 +174,7 @@ def main():
     p.add_argument('--model', default=MODEL)
     p.add_argument('--size', default='2K', choices=['1K', '2K'])
     p.add_argument('--no-frame', action='store_true', help='skip anchor/size matching (e.g. close-ups)')
+    p.add_argument('--no-palette', action='store_true', help='new pose with different clothes: skip the whole-figure colour match')
     a = p.parse_args()
 
     from google import genai
@@ -187,8 +202,11 @@ def main():
     stem = os.path.splitext(a.out)[0]
     raw.save(stem + '_raw.png')
 
-    new = match_palette(defringe(key_out(raw)), main_ref)
-    if not a.no_frame: new = frame_to(new, main_ref, meta)
+    new = defringe(key_out(raw))
+    if not a.no_palette: new = match_palette(new, main_ref)
+    if not a.no_frame:
+        new, m = frame_to(new, main_ref, meta, keyed.size)
+        json.dump(m, open(stem + '_meta.json', 'w'))
     new.save(a.out)
     side_by_side(main_ref, new, stem + '_sbs.png')
 
