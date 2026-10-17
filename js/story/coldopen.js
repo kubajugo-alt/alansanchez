@@ -121,7 +121,7 @@
     // f. dawn: the room empty, the boards dry, the tile on the floor
     await T(900);
     if (has('still_maria_dawn')) await paint('still_maria_dawn', async () => { await T(600); sfx('cabin_drip', 0.45); await T(900); await say('narr_maria_6'); await T(1200); },
-      { zoom: [1.12, 1.0], pan: [[0.5, 0.6], [0.5, 0.5]] });
+      { zoom: [1.05, 1.35], pan: [[0.5, 0.5], [0.53, 0.66]] }); // a slow push in onto the wet tile, kept above the caption
     return true;
   };
 
