@@ -340,7 +340,7 @@
     music: null, ambience: () => F().tide_wound ? 'ferreira' : null, floor: 'wood',
     walk: [[0, 615], [1280, 615], [1280, 716], [0, 716]],
     scale: [615, 335, 716, 382],
-    light: () => lit() ? { ambient: 'rgb(210,170,120)', base: 0.6, flickerShade: 0.25 } : { ambient: 'rgb(70,70,85)', base: 0.35 },
+    light: () => lit() ? { ambient: 'rgb(180,140,95)', base: 0.48, flickerShade: 0.25 } : { ambient: 'rgb(70,70,85)', base: 0.35 },
     lights: () => lit() ? [
       { x: 523, y: 372, rgb: '255,190,110', kind: 'flame', seed: 6, glow: 160, ga: 0.32, power: 0.8, reach: 900, rim: 0.7, floor: [523, 620], height: 260 },
       { x: 1140, y: 330, rgb: '190,200,215', power: 0.18, reach: 600, floor: [1140, 600], height: 500 },
@@ -348,6 +348,16 @@
       { x: 1140, y: 330, rgb: '190,200,215', power: 0.3, reach: 700, rim: 0.7, floor: [1140, 600], height: 500 },
     ],
     entries: { default: [1080, 650, 'w'], map: [1080, 650, 'w'] },
+    // lit, it is still a dim shop: one oil lamp, the rest falling away into shadow
+    animBack(g, t) {
+      if (!lit()) return;
+      const f = 1 + 0.03 * Math.sin(t * 7.3) * Math.sin(t * 3.1);
+      g.save();
+      const gr = g.createRadialGradient(523, 400, 60 * f, 560, 420, 760);
+      gr.addColorStop(0, 'rgba(8,5,2,0)'); gr.addColorStop(0.35, 'rgba(8,5,2,0.28)'); gr.addColorStop(1, 'rgba(6,4,2,0.62)');
+      g.fillStyle = gr; g.fillRect(0, 0, 1280, 720);
+      g.restore();
+    },
     // unlit, the workshop is black but for the grey light at the door
     animFg(g, t) {
       if (lit()) { FX.motes(g, t, 300, 250, 500, 300, 20, '255,210,150'); return; }

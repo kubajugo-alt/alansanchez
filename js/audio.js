@@ -1,8 +1,7 @@
-// Procedural soundtrack (Web Audio) + ElevenLabs voice-over playback.
+// Recorded soundtrack (streamed, crossfaded, ducked under speech), effects and ambience (Web Audio) + ElevenLabs voice-over playback.
 (function () {
   let ctx = null, master = null, musicBus = null, sfxBus = null, ambBus = null, reverb = null;
   let musicOn = true, voiceOn = true;
-  let currentTrack = null, trackTimer = null, nextTime = 0, step = 0;
   let manifest = null, voiceVer = {};
   let voiceEl = null;
 
@@ -30,7 +29,10 @@
     if (ctx) { if (ctx.state !== 'running') ctx.resume().catch(() => {}); return; }
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination);
-    musicBus = ctx.createGain(); musicBus.gain.value = 0.32;
+    // music: tracks -> duck (speech) -> bus (level x the player's volume) -> master
+    musicBus = ctx.createGain(); musicBus.gain.value = MUSIC_LEVEL * userGain();
+    musicDuck = ctx.createGain(); musicDuck.gain.value = 1; musicDuck.connect(musicBus);
+    musicAn = ctx.createAnalyser(); musicAn.fftSize = 2048; musicBus.connect(musicAn);
     sfxBus = ctx.createGain(); sfxBus.gain.value = 0.6; sfxBus.connect(master);
     if (sfxFiles.size) setTimeout(preloadSfx, 500);
     ambBus = ctx.createGain(); ambBus.gain.value = 1; ambBus.connect(sfxBus); // ambience loops, ducked under speech
@@ -40,59 +42,17 @@
     for (let ch = 0; ch < 2; ch++) { const d = buf.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
     reverb.buffer = buf;
     const wet = ctx.createGain(); wet.gain.value = 0.45;
-    musicBus.connect(master); musicBus.connect(reverb); reverb.connect(wet); wet.connect(master);
+    musicBus.connect(master); reverb.connect(wet); wet.connect(master);
+    unlockPool();
+    apply(0.8); // anything asked for before the first tap starts now
   }
 
-  // The guitarra portuguesa: Karplus-Strong strings, a plucked-position comb
-  // in the excitation, paired courses (unison above, octave below) and a small
-  // resonant body. Each track plays into its own bus so tracks crossfade.
-  const pluckCache = {};
-  function pluckBuffer(freq, bright) {
-    const k = Math.round(freq) + (bright ? 'b' : '');
-    if (pluckCache[k]) return pluckCache[k];
-    const sr = ctx.sampleRate, n = Math.floor(sr * (freq < 200 ? 3 : 2.2)), period = Math.round(sr / freq);
-    const buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
-    const ring = new Float32Array(period), pos = Math.max(1, Math.round(period * 0.13));
-    let lp = 0;
-    for (let i = 0; i < period; i++) { const r = Math.random() * 2 - 1; lp += (r - lp) * (bright ? 0.75 : 0.45); ring[i] = lp; }
-    for (let i = period - 1; i >= pos; i--) ring[i] -= ring[i - pos] * 0.9; // plucked near the bridge
-    const damp = freq < 200 ? 0.9985 : 0.9965;
-    let idx = 0;
-    for (let i = 0; i < n; i++) {
-      const nxt = (idx + 1) % period;
-      const v = (ring[idx] * 0.55 + ring[nxt] * 0.45) * damp;
-      d[i] = ring[idx]; ring[idx] = v; idx = nxt;
-    }
-    let peak = 0; for (let i = 0; i < Math.min(n, sr * 0.1); i++) peak = Math.max(peak, Math.abs(d[i]));
-    if (peak) for (let i = 0; i < n; i++) d[i] /= peak;
-    return (pluckCache[k] = buf);
-  }
-  let out = null, playing = null; // the scheduling track's input; the playing track's fader
-  function bus() { return out || musicBus; }
-  function trackBus() {
-    const gain = ctx.createGain(); gain.gain.value = 0.0001; gain.connect(musicBus);
-    // a small wooden body: warm low resonance and a bright, nasal top
-    const low = ctx.createBiquadFilter(); low.type = 'peaking'; low.frequency.value = 230; low.Q.value = 1.2; low.gain.value = 4;
-    const top = ctx.createBiquadFilter(); top.type = 'peaking'; top.frequency.value = 2600; top.Q.value = 1.4; top.gain.value = 3;
-    const air = ctx.createBiquadFilter(); air.type = 'highshelf'; air.frequency.value = 6000; air.gain.value = -6;
-    low.connect(top); top.connect(air); air.connect(gain);
-    return { gain, input: low };
-  }
+  // effects and the cloister's organ fallback play on the effects bus
+  function bus() { return sfxBus; }
   function panned(node, pan) {
     if (!pan || !ctx.createStereoPanner) { node.connect(bus()); return; }
     const p = ctx.createStereoPanner(); p.pan.value = pan; node.connect(p); p.connect(bus());
   }
-  function pluck(freq, t, vol, pan) {
-    t += (Math.random() - 0.5) * 0.014; vol *= 0.85 + Math.random() * 0.3; // a human hand
-    const bright = vol > 0.3;
-    const courses = freq < 200 ? [[1, 1, 0], [2, 0.35, 0.006]] : [[1, 1, 0], [1.0028, 0.7, 0.004]];
-    for (const [m, v, dt] of courses) {
-      const src = ctx.createBufferSource(); src.buffer = pluckBuffer(freq * m, bright);
-      const g = ctx.createGain(); g.gain.value = vol * v * 1.4;
-      src.connect(g); panned(g, (pan || 0) + (m === 1 ? -0.08 : 0.08)); src.start(t + dt);
-    }
-  }
-  function trill(f1, f2, t, vol, pan) { pluck(f1, t, vol, pan); pluck(f2, t + 0.07, vol * 0.7, pan); pluck(f1, t + 0.14, vol * 0.8, pan); }
   function tone(freq, t, dur, vol, type, b, attack) {
     const o = ctx.createOscillator(); o.type = type || 'sine'; o.frequency.value = freq;
     const g = ctx.createGain();
@@ -121,122 +81,201 @@
   }
   const N = n => 440 * Math.pow(2, (n - 69) / 12);
 
-  // Each track: tempo (sec per step) + a step function that schedules notes.
-  const TRACKS = {
-    fado: { spb: 0.26, fn(s, t) {
-      // Am | Dm | E7 | Am  arpeggiated; the melody varies phrase to phrase
-      // and the guitarra ornaments its long notes with a trill
-      const chords = [[45, 57, 60, 64], [50, 57, 62, 65], [40, 56, 59, 62], [45, 57, 60, 64]];
-      const bar = Math.floor(s / 8) % 4, beat = s % 8, ch = chords[bar];
-      const pat = [0, 2, 1, 3, 2, 1, 3, 2];
-      pluck(N(ch[pat[beat]]), t, beat === 0 ? 0.42 : 0.24, 0.15);
-      if (beat === 0 || beat === 4) pluck(N(ch[0] - (beat ? 5 : 0)), t, 0.38, -0.1);
-      const PH = [
-        [[76, 74, 72, 71], [77, 76, 74, 72], [71, 72, 74, 68], [69, 71, 72, 69]],
-        [[72, 71, 69, 72], [74, 72, 77, 76], [74, 71, 68, 71], [69, 0, 64, 69]],
-        [[81, 79, 77, 76], [77, 74, 76, 77], [76, 74, 71, 68], [69, 72, 71, 69]],
-      ];
-      const ph = PH[Math.floor(s / 64) % PH.length], mel = ph[bar];
-      if (beat % 2 === 0 && Math.floor(s / 32) % 2 === 1) {
-        const n = mel[beat / 2]; if (!n) return;
-        if (beat === 6 && bar === 3) trill(N(n), N(n + 2), t + 0.01, 0.3, -0.2);
-        else pluck(N(n), t + 0.01, beat === 0 ? 0.36 : 0.28, -0.2);
-      }
-    } },
-    fog: { spb: 0.5, fn(s, t) {
-      if (s % 16 === 0) pad([N(45), N(52), N(57)], t, 8.5, 0.035);
-      if (s % 16 === 8) pad([N(44), N(52), N(56)], t, 8.5, 0.03);
-      if (s % 24 === 4) bell(N(57), t, 0.05);
-      if (s % 40 === 20) foghorn(t);
-      if (s % 6 === 3 && Math.random() < 0.5) pluck(N([69, 72, 76, 74, 71][Math.floor(Math.random() * 5)]), t, 0.12);
-    } },
-    office: { spb: 0.4, fn(s, t) {
-      const bass = [40, 40, 43, 38][Math.floor(s / 8) % 4];
-      if (s % 2 === 0) tone(N(bass), t, 0.35, 0.12, 'triangle');
-      if (s % 8 === 4) tone(N(bass + 15), t, 1.2, 0.04, 'sine');
-      if (s % 16 === 0) pad([N(52), N(55), N(59)], t, 6, 0.02);
-    } },
-    church: { spb: 0.6, fn(s, t) {
-      const ch = [[57, 60, 64], [53, 57, 60], [55, 59, 62], [52, 56, 59]][Math.floor(s / 8) % 4];
-      if (s % 8 === 0) pad(ch.map(N), t, 5.2, 0.03);
-      if (s % 16 === 0) bell(N(45), t, 0.07);
-      if (s % 4 === 2) tone(N(ch[s % 3] + 12), t, 2.5, 0.025, 'sine');
-    } },
-    antiques: { spb: 0.25, fn(s, t) {
-      // music-box waltz, slightly out of tune
-      const mel = [76, 79, 83, 81, 79, 76, 74, 76, 72, 76, 79, 77, 76, 74, 71, 74];
-      if (s % 2 === 0) tone(N(mel[(s / 2) % 16]) * 1.004, t, 0.9, 0.05, 'triangle');
-      if (s % 6 === 0) tone(N([45, 52, 48][Math.floor(s / 6) % 3]), t, 1.2, 0.05, 'sine');
-      if (s % 4 === 0) tone(3000, t, 0.03, 0.01, 'square'); // ticking
-    } },
-    tension: { spb: 0.3, fn(s, t) {
-      if (s % 4 === 0) tone(N(33), t, 0.6, 0.18, 'triangle');
-      if (s % 4 === 2) tone(N(34), t, 0.3, 0.1, 'triangle');
-      if (s % 32 === 0) pad([N(45), N(48), N(51)], t, 9, 0.035);
-      if (s % 24 === 12) bell(N(40), t, 0.06);
-    } },
-    dawn: { spb: 0.3, fn(s, t) {
-      const ch = [[57, 61, 64], [62, 66, 69], [64, 68, 71], [57, 61, 64]][Math.floor(s / 8) % 4];
-      pluck(N(ch[[0, 1, 2, 1][s % 4]]), t, 0.3);
-      if (s % 8 === 0) pad(ch.map(n => N(n - 12)), t, 2.6, 0.02);
-      if (s % 16 === 0) bell(N(69), t, 0.03);
-    } },
-    // "O Sino Afogado", played alone on Duarte's guitarra: slow, rubato-ish, a tolling
-    // low A under each phrase like the drowned bell, ornamented long notes
-    sino: { spb: 0.34, fn(s, t) {
-      const chords = [[45, 57, 60, 64], [41, 57, 60, 65], [40, 56, 59, 64], [45, 57, 60, 64],
-        [38, 57, 62, 65], [45, 57, 60, 64], [40, 56, 59, 62], [45, 57, 60, 69]];
-      const bar = Math.floor(s / 8) % 8, beat = s % 8, ch = chords[bar];
-      if (beat % 2 === 0) pluck(N(ch[[1, 2, 3, 2][beat / 2]]), t, 0.16, 0.2);
-      if (beat === 0) { pluck(N(ch[0]), t, 0.34, -0.15); if (bar % 4 === 0) bell(N(33), t, 0.05); }
-      const MEL = [[72, 0, 71, 69, 71, 0, 72, 74], [77, 0, 76, 74, 72, 0, 0, 0], [71, 0, 72, 74, 76, 0, 74, 72],
-        [69, 0, 0, 0, 64, 0, 69, 72], [74, 0, 72, 74, 77, 0, 76, 74], [76, 0, 72, 0, 69, 0, 72, 76],
-        [74, 0, 71, 68, 71, 0, 74, 71], [69, 0, 0, 0, 0, 0, 0, 0]];
-      const n = MEL[bar][beat]; if (!n) return;
-      const long = MEL[bar][beat + 1] === 0;
-      if (long && beat === 0 && (bar === 1 || bar === 3)) trill(N(n), N(n + 2), t + 0.02, 0.32, -0.25);
-      else pluck(N(n), t + 0.02, long ? 0.4 : 0.3, -0.25);
-    } },
-    title: { spb: 0.5, fn(s, t) {
-      if (s % 16 === 0) bell(N(45), t, 0.08);
-      if (s % 16 === 8) bell(N(43), t, 0.05);
-      if (s % 8 === 0) pad([N(45), N(48), N(52)], t, 4.5, 0.03);
-      if (s >= 16 && s % 2 === 0) pluck(N([69, 72, 76, 72, 71, 72, 74, 71][(s / 2) % 8]), t, 0.18);
-    } },
+  // ---------------------------------------------------------------- music: the recorded score
+  // Every track is a file in audio/music: <id>.opus.m4a (Opus in MP4) and <id>.aac.m4a (AAC-LC),
+  // both loudness-normalised to the same integrated level (docs/MUSIC.md). Opus where the browser
+  // plays it in MP4, AAC otherwise. Tracks stream through <audio> elements wired into Web Audio
+  // (decoded PCM would be ~75 MB a track), so nothing loads until it is needed.
+  // A spec is a track id or { id, vol: number|'low'|'quiet', lowpass: Hz, start: s, dur: s, fade: s,
+  // fadeIn: s, loop: bool }. Rooms set their music (engine: playMusic on entry); story scenes lay a
+  // cue over it (cue(spec, { sticky })). A non-sticky cue ends at the next room change.
+  const ROOM_XF = 1.5, LOOP_XF = 3, MUSIC_LEVEL = 0.5; // files at -23 LUFS: the bed sits ~10 dB under the voices
+  const VOL = { full: 1, low: 0.5, quiet: 0.35 };
+  const DUCK = { voice: 0.5, dry: 0.316, sung: 0.71 }; // -6 dB under lines, -10 dB under the narrator/machine/phone
+  // names the procedural score used, kept so an old call never falls silent
+  const LEGACY = { fado: 'tavern_day', fog: 'alfama_day', office: 'police_station', church: 'carmo_day', antiques: 'antiques_shop', tension: 'quay_cais_do_sodre', dawn: 'main_theme', sino: 'tavern_night', title: 'main_theme' };
+  const VOL_KEY = 'drowned-bell-music-volume';
+  let musicVol = 1;
+  try { const v = parseFloat(localStorage.getItem(VOL_KEY)); if (v >= 0 && v <= 1) musicVol = v; } catch (e) { /* storage unavailable */ }
+  try { if (localStorage.getItem(VOL_KEY + '-off') === '1') musicOn = false; } catch (e) { /* storage unavailable */ }
+  let musicDuck = null, meta = {}, fmt = null;
+  function format() {
+    if (fmt) return fmt;
+    let opus = false;
+    try { const a = document.createElement('audio'); opus = !!(a.canPlayType && a.canPlayType('audio/mp4; codecs="opus"')); } catch (e) { /* no media */ }
+    return (fmt = opus ? 'opus' : 'aac');
+  }
+  function trackUrl(id) { const m = meta[id]; return 'audio/music/' + id + '.' + format() + '.m4a' + (m && m.v ? '?v=' + m.v : ''); }
+  function loadMeta() { return fetch('audio/music/tracks.json', { cache: 'no-cache' }).then(r => r.json()).then(j => { meta = j || {}; }).catch(() => { meta = {}; }); }
+  loadMeta();
+  const userGain = () => musicVol * musicVol; // the slider is perceptual-ish: 50% is -12 dB
+  function norm(spec) {
+    if (typeof spec === 'function') { try { spec = spec(); } catch (e) { spec = null; } }
+    if (!spec || spec === 'silence') return null;
+    if (typeof spec === 'string') spec = { id: spec };
+    if (!spec.id || spec.id === 'silence') return null;
+    const id = LEGACY[spec.id] || spec.id;
+    const vol = typeof spec.vol === 'number' ? spec.vol : VOL[spec.vol] || 1;
+    return Object.assign({}, spec, { id, vol });
+  }
+  // a pool of media elements: unlocked by a play() inside the first tap (iOS lets them play later)
+  const pool = [];
+  let silentUrl = null;
+  function makeEl() {
+    const el = new Audio(); el.preload = 'auto'; el.setAttribute('playsinline', '');
+    const gain = ctx.createGain(); gain.gain.value = 0;
+    let src = null; try { src = ctx.createMediaElementSource(el); src.connect(gain); } catch (e) { src = null; }
+    const p = { el, src, gain, busy: false }; pool.push(p); return p;
+  }
+  function unlockPool() {
+    if (pool.length) return;
+    silentUrl = silentUrl || silentLoop();
+    for (let i = 0; i < 6; i++) { const p = makeEl(); try { p.el.src = silentUrl; const r = p.el.play(); if (r) r.then(() => p.el.pause()).catch(() => {}); } catch (e) { /* ignore */ } }
+  }
+  function acquire() { const p = pool.find(x => !x.busy) || makeEl(); p.busy = true; return p; }
+  function release(p) {
+    if (!p || !p.busy) return;
+    p.busy = false; p.el.onended = p.el.onplaying = null;
+    try { p.el.pause(); } catch (e) { /* ignore */ }
+    try { p.gain.disconnect(); } catch (e) { /* ignore */ }
+    p.gain.gain.cancelScheduledValues(0); p.gain.gain.value = 0;
+    try { p.el.removeAttribute('src'); p.el.load(); } catch (e) { /* ignore */ }
+  }
+  // equal-power ramps: a fade in follows sin, a fade out cos, from wherever the gain is now
+  function ramp(param, to, secs, at) {
+    const t = at || ctx.currentTime, from = param.value, n = 64, c = new Float32Array(n);
+    for (let i = 0; i < n; i++) { const x = i / (n - 1); c[i] = to > from ? from + (to - from) * Math.sin(x * Math.PI / 2) : to + (from - to) * Math.cos(x * Math.PI / 2); }
+    param.cancelScheduledValues(t); param.setValueAtTime(from, t);
+    try { param.setValueCurveAtTime(c, t, Math.max(0.02, secs)); } catch (e) { param.linearRampToValueAtTime(to, t + secs); }
+  }
+  // one track: its fader (room crossfades), a low-pass (the cabin), and one or two voices (loop crossfades)
+  function Track(spec) {
+    this.spec = spec; this.id = spec.id; this.voices = []; this.dead = false; this.t0 = performance.now();
+    this.fader = ctx.createGain(); this.fader.gain.value = 0;
+    this.lp = ctx.createBiquadFilter(); this.lp.type = 'lowpass'; this.lp.Q.value = 0.5; this.lp.frequency.value = spec.lowpass || 20000;
+    this.lp.connect(this.fader); this.fader.connect(musicDuck);
+  }
+  Track.prototype.bounds = function (el) {
+    const m = meta[this.id] || {}, d = (el && isFinite(el.duration) && el.duration) || m.dur || 0;
+    return { inp: m.inp || 0, out: Math.min(d || Infinity, m.out || d || Infinity) };
   };
-
-  function foghorn(t) {
-    for (const f of [73, 73.6, 146]) {
-      const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f;
-      const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 400;
-      const g = ctx.createGain();
-      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.03, t + 0.6); g.gain.linearRampToValueAtTime(0.0001, t + 3);
-      o.connect(lp); lp.connect(g); g.connect(bus()); o.start(t); o.stop(t + 3.1);
+  Track.prototype.voice = function (offset, fadeIn) {
+    const p = acquire(), v = { p, started: false, ending: false, next: null };
+    p.gain.gain.cancelScheduledValues(0); p.gain.gain.value = 0; p.gain.connect(this.lp);
+    p.el.src = trackUrl(this.id) + (offset > 0.05 ? '#t=' + offset.toFixed(2) : '');
+    p.el.muted = false; p.el.volume = 1;
+    p.el.onplaying = () => { if (v.started || this.dead) return; v.started = true; ramp(p.gain.gain, 1, fadeIn); };
+    p.el.onended = () => { this.drop(v); if (!this.dead && this.voices.length === 0) this.ended(); };
+    const r = p.el.play(); if (r && r.catch) r.catch(() => {});
+    this.voices.push(v); return v;
+  };
+  Track.prototype.drop = function (v) { const i = this.voices.indexOf(v); if (i >= 0) this.voices.splice(i, 1); release(v.p); };
+  Track.prototype.fadeVoice = function (v, secs) { if (v.ending) return; v.ending = true; ramp(v.p.gain.gain, 0, secs); setTimeout(() => this.drop(v), secs * 1000 + 150); };
+  Track.prototype.start = function (fadeIn) {
+    const s = this.spec, b = this.bounds();
+    this.fader.gain.value = s.vol;
+    this.voice(s.start != null ? s.start : b.inp, fadeIn); // the voice ramps up once it is really playing
+  };
+  Track.prototype.stop = function (secs) {
+    if (this.dead) return; this.dead = true;
+    ramp(this.fader.gain, 0, secs);
+    setTimeout(() => { for (const v of this.voices.slice()) this.drop(v); try { this.fader.disconnect(); } catch (e) { /* ignore */ } }, secs * 1000 + 200);
+  };
+  Track.prototype.retune = function (spec) { // same track, new level or filter: glide, never restart
+    this.spec = spec; const t = ctx.currentTime;
+    this.fader.gain.cancelScheduledValues(t); this.fader.gain.setTargetAtTime(spec.vol, t, 0.5);
+    this.lp.frequency.cancelScheduledValues(t); this.lp.frequency.setTargetAtTime(spec.lowpass || 20000, t, 0.4);
+  };
+  // the end of the file (a track that doesn't loop): its cue is over
+  Track.prototype.ended = function () { if (this === active) { if (this.isCue) endCue(this.spec.fade || 2); else { active = null; } } };
+  // runs a few times a second: loop crossfades, timed cues
+  Track.prototype.tick = function () {
+    if (this.dead) return;
+    const v = this.voices.filter(x => !x.ending).pop(); if (!v || !v.started) return;
+    const el = v.p.el, t = el.currentTime, s = this.spec, b = this.bounds(el);
+    if (s.dur) { // a timed excerpt: fade out at its end
+      const end = (s.start != null ? s.start : b.inp) + s.dur, fade = s.fade || 2;
+      if (t >= end - fade && this === active) { if (this.isCue) endCue(fade); else { stopActive(fade); } }
+      return;
     }
+    if (s.loop === false || !isFinite(b.out)) return;
+    // loop: a second copy starts LOOP_XF before the end and the two cross over (no seam, no cut)
+    if (!v.next && t >= b.out - LOOP_XF - 0.6) {
+      const nv = this.voice(b.inp, LOOP_XF); v.next = nv;
+      const go = () => this.fadeVoice(v, Math.max(0.3, Math.min(LOOP_XF, b.out - el.currentTime - 0.05)));
+      const chk = setInterval(() => { if (nv.started || this.dead || el.currentTime >= b.out - LOOP_XF) { clearInterval(chk); go(); } }, 40);
+      this.loops = (this.loops || 0) + 1; logMusic('loop', this.id);
+    }
+  };
+  let active = null, roomSpec = null, cue = null, cueSticky = false, songs = 0, musicTimer = null;
+  const musicLog = [];
+  function logMusic(what, id, extra) {
+    const e = Object.assign({ t: Math.round(performance.now()), what, id: id || null }, extra || {});
+    musicLog.push(e); if (musicLog.length > 400) musicLog.shift();
+    if (window.MUSIC_DEBUG) console.log('[music]', what, id || '-', extra ? JSON.stringify(extra) : '');
   }
-
-  function playMusic(name) {
+  function desired() { if (!musicOn || songs > 0) return null; return norm(cue ? cue.spec : roomSpec); }
+  function stopActive(secs) { if (active) { active.stop(secs); logMusic('stop', active.id); active = null; } }
+  // bring what is sounding in line with what should be
+  function apply(xf) {
+    if (!ctx || !musicDuck) return;
+    const want = desired(), secs = xf != null ? xf : want && want.fadeIn != null ? want.fadeIn : ROOM_XF;
+    if (!want) { stopActive(xf != null ? xf : ROOM_XF); return; }
+    if (active && !active.dead && active.id === want.id && !want.restart) { // the same track: keep playing, never restart
+      const s = active.spec;
+      if (s.vol !== want.vol || (s.lowpass || 0) !== (want.lowpass || 0)) { active.retune(want); logMusic('retune', want.id, { vol: want.vol, lowpass: want.lowpass || 0 }); }
+      else active.spec = want;
+      active.isCue = !!cue;
+      return;
+    }
+    stopActive(secs);
+    const tr = new Track(want); tr.isCue = !!cue; active = tr; tr.start(secs);
+    logMusic('play', want.id, { vol: want.vol, lowpass: want.lowpass || 0, cue: !!cue });
+    if (!musicTimer) musicTimer = setInterval(() => { try { if (active) active.tick(); } catch (e) { /* music never stops the game */ } }, 150);
+  }
+  function endCue(fade) { if (!cue) return; logMusic('cue-end', cue.spec && cue.spec.id); cue = null; cueSticky = false; apply(fade); }
+  // the room's own music (engine, on entry): a scene's cue that isn't sticky ends here
+  function playMusic(spec) {
+    roomSpec = spec === undefined ? null : spec;
+    if (cue && !cueSticky) { logMusic('cue-end', cue.spec && cue.spec.id); cue = null; }
     if (!ctx) return;
-    if (typeof name === 'function') name = name();
-    if (name && !TRACKS[name]) name = null; // an unknown track is silence, never an error
-    if (currentTrack === name) return;
-    currentTrack = name;
-    clearInterval(trackTimer);
-    if (playing) { const old = playing, now = ctx.currentTime; old.gain.gain.cancelScheduledValues(now); old.gain.gain.setValueAtTime(old.gain.gain.value, now); old.gain.gain.linearRampToValueAtTime(0.0001, now + 1.6); setTimeout(() => old.gain.disconnect(), 9000); playing = null; }
-    if (!name || !musicOn) return;
-    step = 0; nextTime = ctx.currentTime + 0.1;
-    const tb = trackBus(); tb.gain.gain.setValueAtTime(0.0001, ctx.currentTime); tb.gain.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.2);
-    playing = { gain: tb.gain }; const input = tb.input;
-    const tr = TRACKS[name];
-    trackTimer = setInterval(() => {
-      while (nextTime < ctx.currentTime + 0.25) {
-        const was = out; out = input;
-        try { tr.fn(step, nextTime); } catch (e) { /* never let music kill the game */ }
-        out = was;
-        step++; nextTime += tr.spb;
-      }
-    }, 60);
+    apply();
   }
+  // re-reads the room's music (its spec may be a function of the story's flags), cue untouched
+  function refreshMusic() { if (window.Game && Game.room) roomSpec = Game.room.music; if (ctx) apply(); }
+  // a story cue over the room: cue(spec, { sticky, xf }); cue(null) hands back to the room; cue('silence') holds silence
+  function setCue(spec, opts) {
+    opts = opts || {};
+    if (spec == null) { if (cue) { logMusic('cue-end', cue.spec && cue.spec.id); cue = null; cueSticky = false; } }
+    else { cue = { spec }; cueSticky = !!opts.sticky; logMusic('cue', typeof spec === 'string' ? spec : spec.id, { sticky: cueSticky }); }
+    if (ctx) apply(opts.xf);
+  }
+  // what a save needs: the scene's cue (rooms re-derive theirs); timed excerpts aren't worth restoring
+  function musicState() {
+    const s = cue && cue.spec;
+    if (!s || typeof s === 'function' || (typeof s === 'object' && s.dur)) return { v: 1, cue: null };
+    return { v: 1, cue: typeof s === 'string' ? s : Object.assign({}, s) };
+  }
+  function restoreMusic(st) {
+    if (!st || typeof st !== 'object' || st.v !== 1 || !st.cue) return;
+    if (typeof st.cue !== 'string' && !(st.cue && st.cue.id)) return;
+    setCue(st.cue); // not sticky: the next room the player walks into plays its own music
+  }
+  function setMusicVolume(v) {
+    musicVol = Math.max(0, Math.min(1, +v || 0));
+    try { localStorage.setItem(VOL_KEY, String(musicVol)); } catch (e) { /* storage unavailable */ }
+    if (musicBus) musicBus.gain.setTargetAtTime(MUSIC_LEVEL * userGain(), ctx.currentTime, 0.08);
+    for (const s of liveSongs) s.level();
+  }
+  // the title screen: the main theme from the first tap (the context can't start before one)
+  function titleTap() {
+    const t = document.getElementById('title');
+    if (!t || t.classList.contains('hidden')) return;
+    init();
+    if (!roomSpec && !cue) playMusic('main_theme');
+  }
+  window.addEventListener('pointerdown', titleTap, { passive: true });
+  window.addEventListener('keydown', titleTap, { passive: true });
 
   const SFX = {
     click() { tone(1200, ctx.currentTime, 0.05, 0.05, 'square', sfxBus); },
@@ -610,7 +649,7 @@
         if (roomVerb && !dry) src.connect(roomVerb);
         voiceSrc = src; voiceEnd = ctx.currentTime + buf.duration;
         src.onended = () => { if (voiceSrc === src) { voiceSrc = null; duck(false); } };
-        duck(true, /_sing/.test(id)); // a sung line keeps its guitar under it
+        duck(true, /_sing/.test(id), dry); // a sung line keeps its guitar under it; dry voices go deeper
         src.start();
         return buf.duration;
       } catch (e) { /* decode failed or too slow: play it the old way */ }
@@ -622,17 +661,19 @@
       const fin = v => { if (!done) { done = true; resolve(v); } };
       el.addEventListener('loadedmetadata', () => fin(el.duration));
       el.addEventListener('error', () => fin(null));
-      duck(true, /_sing/.test(id));
+      duck(true, /_sing/.test(id), dry);
       el.addEventListener('ended', () => { if (voiceEl === el) duck(false); });
       el.play().catch(() => fin(null));
       setTimeout(() => fin(null), 4000);
     });
   }
-  // music and ambience step back while someone speaks
-  function duck(on, song) {
+  // music and ambience step back while someone speaks: about 6 dB under a line, 10 dB under the
+  // narrator over a painting, the answering machine and the phone (dry voices), and back up smoothly
+  function duck(on, song, dry) {
     if (!ctx) return;
-    if (musicBus) musicBus.gain.setTargetAtTime(on ? (song ? 0.24 : 0.1) : 0.32, ctx.currentTime, on ? 0.15 : 0.4);
-    if (ambBus) ambBus.gain.setTargetAtTime(on ? 0.4 : 1, ctx.currentTime, on ? 0.15 : 0.5);
+    const t = ctx.currentTime;
+    if (musicDuck) { musicDuck.gain.cancelScheduledValues(t); musicDuck.gain.setTargetAtTime(on ? (song ? DUCK.sung : dry ? DUCK.dry : DUCK.voice) : 1, t, on ? 0.12 : 0.45); }
+    if (ambBus) ambBus.gain.setTargetAtTime(on ? 0.4 : 1, t, on ? 0.15 : 0.5);
   }
   function voicePlaying() {
     if (voiceSrc) return ctx.currentTime < voiceEnd;
@@ -644,9 +685,11 @@
     duck(false);
   }
 
-  // a recorded song (Amália's fado): plays over everything, the synth music stopped under it
-  // loudness of the song now playing, 0..~1 (smoothed), for performers to move with
+  // a recorded song performed in the scene (Amália's fado, Duarte's song): the score stops under it,
+  // it is never ducked, and it follows the music volume. songLevel() is its loudness, 0..~1
+  // (smoothed), for the performers to move with.
   let songAn = null, songBuf = null, songLvl = 0, songT = 0;
+  const liveSongs = new Set();
   function songLevel() {
     if (!songAn) return 0;
     const now = performance.now(); if (now - songT < 30) return songLvl; songT = now;
@@ -658,27 +701,52 @@
     return songLvl;
   }
   function playSong(url, vol) {
-    playMusic(null);
-    const el = new Audio(url); el.preload = 'auto';
-    let src = null;
-    try { if (ctx) { src = ctx.createMediaElementSource(el); const g = ctx.createGain(); g.gain.value = vol == null ? 0.9 : vol; src.connect(g); g.connect(ctx.destination); songAn = ctx.createAnalyser(); songAn.fftSize = 1024; g.connect(songAn); } } catch (e) { src = null; }
-    if (!src) el.volume = Math.min(1, vol == null ? 0.9 : vol);
-    if (!musicOn) el.muted = true;
+    const base = vol == null ? 0.9 : vol;
+    let p = null, g = null, el;
+    if (ctx) { p = acquire(); el = p.el; if (p.src) { g = ctx.createGain(); p.gain.gain.cancelScheduledValues(0); p.gain.gain.value = 1; p.gain.connect(g); g.connect(ctx.destination); songAn = ctx.createAnalyser(); songAn.fftSize = 1024; g.connect(songAn); } }
+    else el = new Audio();
+    const target = () => (musicOn ? base * userGain() : 0);
+    const song = { el, level() { if (g) g.gain.setTargetAtTime(target(), ctx.currentTime, 0.05); else el.volume = Math.min(1, target()); } };
+    if (g) g.gain.value = target(); else el.volume = Math.min(1, target());
+    el.muted = false; el.src = url;
+    liveSongs.add(song); songs++; logMusic('song', url.replace(/^.*\//, '').replace(/\..*$/, ''));
+    apply(1.2); // the score fades out under it
     if (ambBus) ambBus.gain.setTargetAtTime(0.25, ctx.currentTime, 0.3);
-    const ended = new Promise(res => { el.addEventListener('ended', res); el.addEventListener('error', res); });
-    el.play().catch(() => {});
-    const restore = () => { if (ambBus) ambBus.gain.setTargetAtTime(1, ctx.currentTime, 0.6); };
-    ended.then(() => { restore(); songAn = null; songLvl = 0; });
-    return { el, ended, stop(fadeMs) {
-      const steps = 12, ms = fadeMs || 1200; let i = 0, v0 = el.volume;
-      const iv = setInterval(() => { i++; el.volume = Math.max(0, v0 * (1 - i / steps)); if (i >= steps) { clearInterval(iv); el.pause(); el.dispatchEvent(new Event('ended')); } }, ms / steps);
-    } };
+    let done = false;
+    const ended = new Promise(res => { el.addEventListener('ended', res, { once: true }); el.addEventListener('error', res, { once: true }); song._end = res; });
+    const r = el.play(); if (r && r.catch) r.catch(() => {});
+    ended.then(() => {
+      if (done) return; done = true;
+      liveSongs.delete(song); songs = Math.max(0, songs - 1); songAn = null; songLvl = 0;
+      if (ambBus) ambBus.gain.setTargetAtTime(1, ctx.currentTime, 0.6);
+      if (p) release(p); else el.pause();
+      if (g) setTimeout(() => { try { g.disconnect(); } catch (e) { /* ignore */ } }, 100);
+      logMusic('song-end', null); apply();
+    });
+    song.ended = ended;
+    song.stop = fadeMs => {
+      const ms = fadeMs || 1200;
+      if (g) ramp(g.gain, 0, ms / 1000); else { const v0 = el.volume; let i = 0; const iv = setInterval(() => { el.volume = Math.max(0, v0 * (1 - ++i / 12)); if (i >= 12) clearInterval(iv); }, ms / 12); }
+      setTimeout(() => { try { el.pause(); } catch (e) { /* ignore */ } song._end(); }, ms + 30);
+    };
+    return song;
   }
-  function setMusic(on) { musicOn = on; const t = currentTrack; currentTrack = null; if (on) playMusic(t); else { clearInterval(trackTimer); currentTrack = t; } }
+  function setMusic(on) {
+    musicOn = !!on;
+    try { localStorage.setItem(VOL_KEY + '-off', musicOn ? '0' : '1'); } catch (e) { /* storage unavailable */ }
+    for (const s of liveSongs) s.level();
+    apply();
+  }
+  // levels for tests and tuning: RMS in dBFS of the music bus and of the voice now playing
+  let musicAn = null, meterBuf = null;
+  function rmsDb(an) { if (!an) return -120; if (!meterBuf || meterBuf.length !== an.fftSize) meterBuf = new Float32Array(an.fftSize); an.getFloatTimeDomainData(meterBuf); let e = 0; for (let i = 0; i < meterBuf.length; i++) e += meterBuf[i] * meterBuf[i]; return 10 * Math.log10(e / meterBuf.length + 1e-12); }
+  function meter() { return { music: rmsDb(musicAn), voice: voicePlaying() ? rmsDb(analyser) : -120, duck: musicDuck ? musicDuck.gain.value : 1, song: songAn ? rmsDb(songAn) : -120 }; }
   function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
 
   window.Sound = {
     init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
-    get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; },
+    cue: setCue, refreshMusic, musicState, restoreMusic, setMusicVolume, trackUrl, meter, musicLog,
+    get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; }, get musicVolume() { return musicVol; },
+    get nowPlaying() { return active && !active.dead ? active.id : null; }, get musicCue() { return cue ? cue.spec : null; },
   };
 })();

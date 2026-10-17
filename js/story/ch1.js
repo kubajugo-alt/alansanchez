@@ -156,7 +156,7 @@
     }
     if (F().heard_machine) return say('alan_machine_again');
     sfx('beep');
-    await G.say('rui_msg_1', { offscreen: true, label: 'Answering machine' });
+    await G.say('rui_msg_2', { offscreen: true, label: 'Answering machine' }); // a warning to a friend (rui_msg_1 retired)
     sfx('beep');
     await say('narr_msg_2'); sfx('drip_hangup'); await G.wait(window.FAST ? 20 : 2500);
     await say('alan_hangup');
@@ -390,9 +390,11 @@
     // Rui and the officer stand behind the desk: the desk and what's on it are traced
     occluders: [{ y: 600, polys: [
       [[320, 397], [945, 397], [945, 426], [930, 428], [930, 606], [336, 606], [336, 428], [320, 426]],
-      [[362, 338], [487, 338], [492, 406], [360, 406]], [[370, 318], [448, 318], [448, 340], [370, 340]],
-      [[491, 365], [580, 365], [582, 403], [489, 403]], [[610, 343], [684, 343], [686, 403], [608, 403]],
-      [[724, 356], [780, 356], [780, 406], [724, 406]], [[806, 372], [811, 357], [834, 350], [871, 350], [890, 357], [894, 371], [886, 381], [891, 408], [776, 408], [776, 391], [812, 386], [818, 381]], // the desk phone, traced
+      // the typewriter (paper, platen knobs, carriage), the file stack, the evidence bag on its papers, the mug
+      [[369, 326], [377, 320], [442, 320], [445, 326], [448, 337], [465, 334], [477, 339], [484, 347], [478, 356], [474, 361], [481, 373], [489, 378], [489, 394], [484, 404], [378, 405], [374, 397], [374, 361], [366, 354], [363, 346], [366, 340], [375, 337], [383, 334], [384, 330]],
+      [[497, 376], [521, 366], [571, 367], [575, 371], [577, 387], [575, 399], [561, 401], [497, 401], [494, 391], [495, 378]],
+      [[616, 344], [680, 343], [680, 381], [697, 381], [699, 403], [580, 403], [581, 394], [597, 383], [615, 381]],
+      [[723, 368], [733, 366], [733, 362], [740, 360], [767, 360], [770, 364], [770, 404], [734, 404], [733, 392], [724, 390]], [[806, 372], [811, 357], [834, 350], [871, 350], [890, 357], [894, 371], [886, 381], [891, 408], [776, 408], [776, 391], [812, 386], [818, 381]], // the desk phone, traced
     ], draw: g => S.copCordDesk(g) }], // the receiver's cord, where it lies across the desk
     animBack(g, t) { S.windowFog(g, t, [780, 202, 276, 126], '230,232,236', 0.22); if (S.copOnDuty()) { S.copFace(); S.copCordDesk(g); } },
     // the cord to the receiver when Alan has Teixeira in a pair frame (Teixeira himself draws it otherwise)
@@ -407,7 +409,7 @@
         items: { coffee: () => say('rui_coffee'), file55: () => say('rui_times'), any: 'alan_fail_rui_item' } },
     ],
     ambient: [
-      { id: 'npc_phone', name: 'Officer Teixeira', frames: ['npc_phone', 'npc_phone_b'], x: S.COP_AT[0], y: S.COP_AT[1], dir: 'w', at: [S.COP_AT[0] + 105, S.COP_AT[1]], face: 'w', look: 'alan_npc_phone', talk: () => S.flirtCop(), when: () => S.copOnDuty(), variantHold: [3, 6], overlay: (g, a) => S.copCord(g, a), items: { any: 'alan_fail_rui_item' } }, // front right, at the end of the desk, on the desk phone (the Inspector keeps to the other end)
+      { id: 'npc_phone', name: 'Officer Teixeira', frames: ['npc_phone', ['npc_phone_b', 'npc_phone_b2', 'npc_phone_b3', 'npc_phone_b2', 'npc_phone_b']], talkFrames: ['npc_phone_b_talk', 'npc_phone_b2', 'npc_phone_b_talk', 'npc_phone_b3', 'npc_phone_talk'], poses: { blush: 'npc_phone_blush', firm: 'npc_phone_proud' }, x: S.COP_AT[0], y: S.COP_AT[1], dir: 'w', at: [S.COP_AT[0] + 105, S.COP_AT[1] + 33], face: 'w', look: 'alan_npc_phone', talk: () => S.flirtCop(), when: () => S.copOnDuty(), variantHold: [3, 6], overlay: (g, a) => S.copCord(g, a), items: { any: 'alan_fail_rui_item' } }, // front right, at the end of the desk, on the desk phone (the Inspector keeps to the other end)
     ],
     hotspots: [
       { name: 'Corkboard', rect: [275, 95, 355, 230], look: 'narr_look_board' },
@@ -450,7 +452,7 @@
       { name: "Rui's coffee", rect: [724, 356, 56, 50], look: 'narr_look_coffee' },
       // today's Diário de Notícias on the front desk: weather, football, and the tides
       { name: 'Newspaper', rect: [491, 365, 90, 38], at: [540, 645], face: 'n', when: () => !F().paper_taken, look: 'alan_paper',
-        take: async () => { F().paper_taken = true; give('newspaper'); sfx('page'); await say('alan_paper'); } },
+        take: async () => { if (!F().ferreira_told) return say('alan_paper_wait'); F().paper_taken = true; give('newspaper'); sfx('page'); await say('alan_paper'); } }, // only once Rui has offered it (B9)
       { name: 'Door', rect: [70, 40, 120, 510], at: [150, 645], exit: 'map', entry: 'police' },
     ],
   };
@@ -479,7 +481,9 @@
       }, get bye() { return !!F().rui_out; } },
       { line: 'alan_ask_strange', when: () => F().ch === 1, once: true, run: () => say('rui_drawer_1', 'rui_drawer_2') },
       { line: 'alan_ask_1955', when: () => F().ch >= 2 && !F().askedDrawer, run: async () => { await say('rui_1955', 'rui_drawer_crowbars'); F().askedDrawer = true; } },
-      { line: 'alan_ask_fog', once: true, run: () => say('rui_fog') },
+      { line: 'alan_ask_fog', once: true, run: async () => { await say('rui_fog'); F().rui_fog_heard = true; } },
+      { line: 'alan_what_now', once: true, when: () => !!F().rui_fog_heard, run: () => say('rui_mother_2') }, // his mother's message, again
+      { line: 'alan_tell_ferreira', when: () => F().ch === 2 && !!F().ferreira_lit && !F().ferreira_told, run: async () => { await say('rui_paper'); F().ferreira_told = true; } },
       { label: 'Goodbye.', bye: true, run: () => say('rui_bye') },
     ]);
   };
@@ -628,6 +632,7 @@
     cop.def.flip = wall; cop.dir = 'w';
   };
   S.ruiLeaves = async function () {
+    await say('rui_leave'); // the coroner is waiting downstairs
     await say('rui_watch');
     const rui = G.npc('rui');
     if (rui) { for (const [x, y] of S.RUI_EXIT) await rui.walkTo(x, y); sfx('door'); rui.visible = false; } // behind the desk and round its end, not through it
@@ -639,7 +644,7 @@
     let rui = G.npc('rui'); const cop = G.npc('npc_phone'), p = G.player, T = ms => G.wait(window.FAST ? 20 : ms);
     let paired = false;
     if (cop) {
-      await p.walkTo(cop.x + 105, cop.y); p.dir = 'w';
+      await S.toCop(p, cop); p.dir = 'w';
       F().teixeira_wall = false; S.copFace(); // he turns back to Alan
       if (window.SPRITES.pair_cop_chest) { cop.visible = false; p.x = cop.x + 52; p.dir = 'e'; p.pose = 'pair_cop_chest'; paired = true; }
     }
@@ -665,7 +670,7 @@
     await say('alan_back');
     if (cop) cop.pose = null; p.pose = null;
     if (rui) { const back = S.RUI_EXIT.slice(0, -2).reverse().concat([S.RUI_DESK]); for (const [x, y] of back) await rui.walkTo(x, y); rui.dir = 'e'; }
-    await say('rui_back_2'); // ('rui_constable' no longer plays: he was out of the room)
+    await say('rui_back_3'); // a friend's warning ('rui_constable' and 'rui_back_2' no longer play)
     F().teixeira_flirt = true; F().flirted_cop = true; S.copFace();
   };
   S.flirtCop = async function () {
@@ -674,8 +679,8 @@
     // before the Inspector leaves, and after the sketch: just a blush
     if (!F().rui_out || F().teixeira_wall) { copPose('npc_phone_blush'); await say('phone_flirt_1'); copPose(null); return; }
     const pairUp = k => { if (!cop || !window.SPRITES[k]) return false; cop.visible = false; p.x = cop.x + 52; p.dir = 'e'; p.pose = k; return true; };
-    const unpair = () => { if (cop) cop.visible = true; if (cop) p.x = cop.x + 105; p.pose = null; };
-    const close = async () => { if (cop && Math.abs(p.x - (cop.x + 105)) > 8) { await p.walkTo(cop.x + 105, cop.y); } p.dir = 'w'; };
+    const unpair = () => { if (cop) cop.visible = true; if (cop) p.x = cop.x + 105; p.pose = null; p.dir = 'w'; }; // facing him again
+    const close = async () => { if (cop && Math.abs(p.x - (cop.x + 105)) > 8) await S.toCop(p, cop); p.dir = 'w'; };
     const step = () => F().teixeira_step || 0;
     await G.dialog([
       { line: 'alan_flirt_cop_1', when: () => step() === 0, run: async () => {
@@ -692,7 +697,8 @@
         await say('phone_flirt_3'); await say('alan_flirt_cop_4');
         unpair(); copPose('npc_phone_blush');
         if (cop) { await p.walkTo(cop.x + 190, cop.y); p.dir = 'w'; }
-        p.pose = 'swoon'; await T(600); p.pose = null; copPose(null);
+        p.pose = 'swoon'; await T(600); p.pose = null;
+        await say('teixeira_fine'); copPose(null); // (blushing through it)
         F().teixeira_step = 3; F().teixeira_wall = true; S.copFace(); // he turns to the wall, scarlet
       } },
       { label: 'Goodbye.', bye: true, run: () => {} },
@@ -744,7 +750,15 @@
   // (or in the pair frame when Alan is with him). CORD_AT: where the cord meets the receiver in
   // each frame, as fractions of the painting (unmirrored).
   S.CORD_AT = { npc_phone: [0.3088, 0.1887], npc_phone_b: [0.5327, 0.2045], npc_phone_blush: [0.3351, 0.2503], npc_phone_proud: [0.6652, 0.5268],
-    pair_cop_chest: [0.2225, 0.3719], pair_cop_arm: [0.2154, 0.1873] };
+    pair_cop_chest: [0.2225, 0.3719], pair_cop_arm: [0.2154, 0.1873],
+    npc_phone_talk: [0.3088, 0.1887], npc_phone_b_talk: [0.5327, 0.2045], npc_phone_b2: [0.5327, 0.2045], npc_phone_b3: [0.5327, 0.2045] };
+  // Alan goes round the front of the officer to his right-hand side, never behind his back (A22)
+  S.toCop = async function (p, cop) {
+    if (p.x < cop.x + 60) await p.walkTo(Math.max(cop.x - 40, Math.min(p.x, cop.x + 40)), Math.min(712, cop.y + 36));
+    await p.walkTo(cop.x + 105, cop.y);
+  };
+  // his gestures follow what he says: scarlet on the flustered lines, squared up on the refusal's second go
+  Object.assign(S.LINE_POSE, { phone_flirt_1: ['npc_phone', 'blush'], teixeira_mae1: ['npc_phone', 'blush'], teixeira_nodraw_2: ['npc_phone', 'blush'] });
   S.CORD_DESK = [[800, 381], [806, 396], [818, 409], [872, 412], [916, 411]]; // from the base to the desk's front corner
   S.coilPath = function (g, pts, amp) {
     // a coiled cord: little loops along the path, a dark line and a faint highlight
@@ -772,8 +786,11 @@
   S.copCord = function (g, a) {
     const end = S.cordEnd(a); if (!end) return;
     const [x0, y0] = S.CORD_DESK[S.CORD_DESK.length - 1], [x1, y1] = end;
-    // a little slack: the cord sags below the straight line from the desk to the hand
-    const pts = []; for (let i = 0; i <= 12; i++) { const u = i / 12; pts.push([x0 + (x1 - x0) * u, y0 + (y1 - y0) * u + Math.sin(u * Math.PI) * 26]); }
+    // slack: the cord drops from the receiver in a loose hanging loop, then climbs to the desk's corner
+    const drop = Math.max(40, Math.min(150, (y0 - y1) * 0.9 + 40));
+    const c1 = [x1 - (x1 - x0) * 0.1, y1 + drop], c2 = [x0 + (x1 - x0) * 0.15, y0 + 30];
+    const pts = []; for (let i = 0; i <= 24; i++) { const u = 1 - i / 24, v = 1 - u;
+      pts.push([v * v * v * x0 + 3 * v * v * u * c2[0] + 3 * v * u * u * c1[0] + u * u * u * x1, v * v * v * y0 + 3 * v * v * u * c2[1] + 3 * v * u * u * c1[1] + u * u * u * y1]); }
     g.save(); S.coilPath(g, pts, 2.3); g.restore();
   };
   // (the old wall telephone's cord, no longer used: Teixeira is on the desk phone)

@@ -55,7 +55,7 @@
         tied: { idle: ['ines_tied', 'ines_tied_struggle'], talk: ['ines_tied_shout', 'ines_tied_struggle'] },
         lantern: { idle: 'ines_lantern', talk: ['ines_lantern_talk', 'ines_lantern'], walk: ['ines_lwalk1', 'ines_lwalk2'] },
       } } },
-    rui: { scale: 0.96, frames: { idle: ['rui', 'rui_idle2', 'rui_idle3'], talk: ['rui_talk', 'rui_talk2'],
+    rui: { scale: 0.96, frames: { idle: ['rui', 'rui_idle2', 'rui_idle3'], talk: ['rui_talk', 'rui_talk2'], walk: S.RUI_WALK || ['rui'], // never his coffee and eye-rubbing frames as steps
       sets: { gate: { idle: 'rui_smoke', talk: ['rui_smoke', 'rui_talk'] }, coffee: { idle: 'rui_coffees', talk: 'rui_coffees' } } } },
     amalia: { scale: 0.9, frames: {
       idle: ['amalia', 'amalia_idle2'], talk: ['amalia_talk', 'amalia_idle2'], poses: { toast: 'amalia_toast' },
@@ -145,6 +145,9 @@
     4: ['CHAPTER IV', "The Founders' Blood", '17:15'], 5: ['CHAPTER V', 'The Drowned Bell', '19:00'],
   };
   S.chapter = async function (n, line) {
+    // the paintings that close the chapter before (js/story/transitions.js); the last one stays up under the card
+    const kept = n > 1 && S.transition ? await S.transition(n - 1) : false;
+    if (kept) G.wait(window.FAST ? 20 : 1100).then(() => G.endStill()); // gone while the card is fully up
     F().ch = n; F().clock = CH[n][2]; if (G.room) G.refreshNpcs(); // the cast changes with the chapter, even mid-room
     Sound.sfx('chapter_toll', 0.35); // a bell somewhere under the city, every chapter
     await G.card(CH[n][0], `${CH[n][1]}  ·  ${CH[n][2]}`, 3000);
@@ -158,7 +161,7 @@
     { id: 'street', x: 1060, y: 330, text: 'Alfama · Livraria Sanchez', open: () => true },
     { id: 'police', x: 560, y: 205, text: 'Polícia Judiciária', open: () => F().heard_machine && (F().ch || 1) <= 2 },
     { id: 'lavadouro', x: 1150, y: 415, text: 'Lavadouro do Alfama', open: () => F().drawer_open && (F().ch || 1) <= 4 },
-    { id: 'ferreira', x: 600, y: 390, text: 'Relojoaria Ferreira · Baixa', open: () => F().drawer_open && (G.has('fkey') || F().ferreira_open) && (F().ch || 1) <= 3,
+    { id: 'ferreira', x: 600, y: 390, text: 'Relojoaria Ferreira · Baixa', open: () => F().drawer_open && (G.has('fkey') || F().ferreira_open) && (F().ch || 1) <= 3 && !S.ferreiraDone(),
       // shown but locked until Teixeira brings the key round
       waiting: () => F().drawer_open && !G.has('fkey') && !F().ferreira_open && (F().ch || 1) <= 3, waitText: 'Waiting for the key' },
     { id: 'convent', x: 262, y: 318, text: () => F().ch >= 5 ? 'Convento do Carmo · midnight' : 'Convento do Carmo', open: () => (F().ch2_done && F().ch <= 3) || (F().ledger_found && (F().rui_called || !F().ines_plan)) },
@@ -168,6 +171,10 @@
     { id: 'antiques', x: 410, y: 440, text: 'Antiguidades Lacerda · Chiado', open: () => F().decoded && !F().has_tongue && (F().chose_chiado || !F().decoded_v6) },
     { id: 'cais', x: 250, y: 585, text: 'Cais do Sodré', open: () => (F().genealogy_read || F().ch3_done) && F().ch === 4 },
   ];
+
+  // the workshop is finished once the tide clock is wound with the key, the repair register read, the
+  // tide card in Alan's pocket and the spare key off the board: then it leaves the map for good
+  S.ferreiraDone = () => { const f = F(); return !!(f.tide_wound && f.read_repair && f.tide_known && (f.tidecardTaken || G.has('tidecard')) && f.vkeyTaken); };
 
   // ---------------------------------------------------------------- hints (Inês, "What now?")
   S.hint = function () {
@@ -197,7 +204,12 @@
     }
     if (!f.knows_1955_boy) return 'ines_hint_file';
     if (f.ch === 2 && f.lock_tried && !f.drawer_unlocked) return 'ines_hint_clocks'; // the clockmaker's lock
-    if (f.ch === 2 && !f.turnings_deduced) return 'ines_hint_paper';
+    if (f.ch === 2 && !f.turnings_deduced) { // B9: Ferreira's -> Rui -> his Diário -> the notebook
+      if (!has('newspaper') && !f.ferreira_told) return 'ines_hint_paper_2';
+      if (!has('newspaper')) return 'ines_hint_paper_3';
+      if (!f.lore_turnings) return 'ines_hint_river';
+      return 'ines_hint_paper_4';
+    }
     if (!f.decoded && f.ch2_done && S.needBells && S.needBells()) return f.charter_shown ? 'ines_hint_bells2' : 'ines_hint_bells';
     if (!f.decoded) return f.stone_washed ? (f.stone_read ? 'ines_hint_wheel' : 'ines_hint_mag') : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
     if (!f.founder_order) return 'ines_hint_order';

@@ -801,7 +801,7 @@ window.SPRITES = {
  "cop_walk1": {
   "w": 324,
   "hh": 716,
-  "h": 878.02,
+  "h": 705.0,
   "ax": 118.6,
   "fy": 686.9,
   "top": 3.0
@@ -809,7 +809,7 @@ window.SPRITES = {
  "cop_walk2": {
   "w": 344,
   "hh": 716,
-  "h": 884.38,
+  "h": 705.0,
   "ax": 136.7,
   "fy": 687.1,
   "top": 3.0
@@ -1398,6 +1398,14 @@ window.SPRITES = {
   "fy": 722.9,
   "top": 2.9
  },
+ "lacerda_front": {
+  "w": 221,
+  "hh": 729,
+  "h": 720,
+  "ax": 112.3,
+  "fy": 725.9,
+  "top": 2.9
+ },
  "lacerda_idle2": {
   "w": 249,
   "hh": 726,
@@ -1405,6 +1413,15 @@ window.SPRITES = {
   "ax": 117.9,
   "fy": 722.9,
   "top": 2.9
+ },
+ "lacerda_idle3": {
+  "w": 233,
+  "hh": 729,
+  "h": 720,
+  "ax": 119.6,
+  "fy": 725.4,
+  "top": 2.9,
+  "facesLeft": true
  },
  "lacerda_pass1": {
   "w": 201,
@@ -1447,6 +1464,24 @@ window.SPRITES = {
   "ax": 110.5,
   "fy": 726.0,
   "top": 2.9
+ },
+ "lacerda_talk3": {
+  "w": 308,
+  "hh": 728,
+  "h": 720,
+  "ax": 196.0,
+  "fy": 724.9,
+  "top": 2.9,
+  "facesLeft": true
+ },
+ "lacerda_talk4": {
+  "w": 220,
+  "hh": 728,
+  "h": 720,
+  "ax": 124.7,
+  "fy": 724.9,
+  "top": 2.9,
+  "facesLeft": true
  },
  "lacerda_walk1": {
   "w": 354,
@@ -2023,6 +2058,30 @@ window.SPRITES = {
   "fy": 707.5,
   "top": 3.0
  },
+ "npc_phone_b2": {
+  "w": 306,
+  "hh": 709,
+  "h": 720.0,
+  "ax": 168.0,
+  "fy": 707.5,
+  "top": 3.0
+ },
+ "npc_phone_b3": {
+  "w": 306,
+  "hh": 709,
+  "h": 720.0,
+  "ax": 168.0,
+  "fy": 707.5,
+  "top": 3.0
+ },
+ "npc_phone_b_talk": {
+  "w": 306,
+  "hh": 709,
+  "h": 720.0,
+  "ax": 168.0,
+  "fy": 707.5,
+  "top": 3.0
+ },
  "npc_phone_blush": {
   "w": 191,
   "hh": 727,
@@ -2037,6 +2096,14 @@ window.SPRITES = {
   "h": 720.0,
   "ax": 79.3,
   "fy": 719.7,
+  "top": 3.0
+ },
+ "npc_phone_talk": {
+  "w": 285,
+  "hh": 726,
+  "h": 720,
+  "ax": 98.7,
+  "fy": 723.0,
   "top": 3.0
  },
  "npc_tourists": {
@@ -2823,7 +2890,8 @@ window.SPRITES = {
   "h": 720.0,
   "ax": 170.4,
   "fy": 733.6,
-  "top": 3.1
+  "top": 3.1,
+  "facesLeft": true
  },
  "rui_smoke": {
   "w": 280,

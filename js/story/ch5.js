@@ -404,6 +404,7 @@
 
   // ================================================================ DAWN & EPILOGUE
   S.dawn = async function () {
+    if (S.transition) await S.transition(5, { toBlack: true }); // end of chapter V: the paintings (js/story/transitions.js)
     await G.fade(true);
     F().dawn = true;
     await G.goRoom('convent', 'map', { instant: true, noEnter: true, noSave: true, pos: [880, 650, 'w'] });

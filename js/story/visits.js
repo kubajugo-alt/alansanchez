@@ -28,7 +28,8 @@
     bgs: ['bedroom_after_cop', 'bedroom_after_guitar'],
     bgFn: () => visitor === 'cop_bed' ? 'bedroom_after_cop' : visitor === 'guitar_floor' ? 'bedroom_after_guitar' : 'bedroom', noSave: true, music: null, ambience: 'shop', floor: 'wood',
     walk: [[330, 500], [860, 500], [1010, 716], [120, 716]], // between the bookshelf and the bed
-    unlit: /^pair_guitar_/, // Alan and Duarte on the bed are shown as painted: no room light, rims or cast shadows over them
+    // Alan and his visitor are shown as painted here: no room light, rims or cast shadows over them
+    get unlit() { return visitor ? /^(pair_|cop_|guitar_|alan)/ : /^pair_guitar_/; },
     scale: [490, 400, 716, 500],
     light: { ambient: 'rgb(205,180,150)', base: 0.8, rim: 'rgba(255,210,160,0.25)', rimSide: 1 },
     lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
@@ -87,10 +88,10 @@
     }
     await T(ms);
   }
-  async function upstairs(who, at) {
+  async function upstairs(who, at, vx) {
     await G.fade(true);
     await G.goRoom('bedroom', null, { instant: true, noEnter: true, noSave: true, pos: at });
-    const v = G.npc(who === 'cop' ? 'npc_phone' : 'npc_guitar'); if (v) v.dir = 'e';
+    const v = G.npc(who === 'cop' ? 'npc_phone' : 'npc_guitar'); if (v) { v.dir = 'e'; if (vx != null) v.x = vx; }
     G.player.dir = 'w';
     await G.fade(false);
     return v;
@@ -180,11 +181,11 @@
       F().teixeira_scene = true;
       await beats([null, 'alan_visit_cop'], ['fluster', 'ines_visit_after']);
       const disc = S.discreet(); // Discreet: straight from the arrival to the afterwards
-      const v = disc ? await upstairsDark('cop') : await upstairs('cop', [660, 645, 'w']);
+      const v = disc ? await upstairsDark('cop') : await upstairs('cop', [660, 645, 'w'], 236); // he backs up to the bookshelf: where the paintings have him
       if (!disc) { await say('phone_room_1', 'alan_room_cop_1');
       // Alan takes the lead: against the bookshelf, the shirt, the neck
       // the officer backed against the room's own bookshelf, Alan very much in charge
-      const home = p.x; if (v) { p.x = 410; v.visible = false; }
+      const home = p.x; if (v) { await p.walkTo(345, 645); p.dir = 'w'; v.visible = false; } // Alan crosses to him; nobody jumps
       // a breath, a gasp, a groan as each frame lands (sound only, no caption)
       const VOX = { neck: 'v_cop_moan', shelf: 'v_cop_gasp', jacket: 'v_alan_mmm', tshirt: 'v_cop_whimper', buttons: 'v_alan_groan',
         shelf2: 'v_cop_moan', belt: 'v_cop_gasp', belt2: 'v_alan_mmm', trousers: 'v_cop_whimper', cuffs_a: 'v_alan_chuckle', cuffs_b: 'v_cop_gasp' };
@@ -390,10 +391,16 @@
     G.player.dir = 'w';
     await G.fade(false);
     await say('teixeira_bye'); if (!G.has('fkey')) give('fkey'); // he gave Alan the Ferreira key when he arrived: now he just slips out
+    G.player.dir = 'w'; await say('alan_teixeira_sorry'); // (B8)
     if (v && !window.FAST) await v.walkTo(1370, 700);
     sfx('door'); visitor = null; G.refreshNpcs(); G.autosave();
   };
   S.setVisitor = v => { visitor = v; G.refreshNpcs(true); }; // for testing
+
+  // A14: the officer's own frames in the shop are shown as painted (no grey rim from the window light);
+  // in a pair frame the speech bubble goes over the pair, not into the narrator's box
+  if (!ROOMS.shop.unlit) ROOMS.shop.unlit = /^cop_/;
+  G.pairSpeaker = k => /^pair_cop_/.test(k) ? 'phone' : /^pair_guitar_/.test(k) ? 'guitar' : null;
 
   // the rolling gag: everyone who saw Alan with the officer or Duarte has something to say about it,
   // and Alan denies everything. One remark per conversation, each said once, in order.

@@ -1028,7 +1028,9 @@
   let speaking = null;
   function actorFor(who) {
     if (who === 'alan') return player.visible ? player : null;
-    return npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible) || null;
+    return npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible)
+      // someone painted into Alan's pair frame speaks from the pair (Game.pairSpeaker: pose -> speaker id)
+      || (player.visible && player.pose && window.Game.pairSpeaker && window.Game.pairSpeaker(player.pose) === who ? player : null);
   }
   // Speakers face each other: an NPC turns to Alan when it speaks, and Alan turns
   // to whoever he is talking with (the last NPC who spoke, else the nearest one).
@@ -1605,7 +1607,7 @@
   }
 
   window.Game = {
-    init, begin, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, stillTo, stillShowing, closeup, setClock, renderInv,
+    init, begin, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, stillTo, stillShowing, skipLine: () => { if (skipFn) skipFn(); }, closeup, setClock, renderInv,
     set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
     giveItem, takeItem, has, toast,
     get state() { return state; }, get flags() { return state.flags; },

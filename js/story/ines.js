@@ -43,18 +43,33 @@
   const C = S.CHARS.ines, P = C.frames.poses;
   const JOBS = [
     { k: 'shelve', at: [345, 550], dir: 'w' },
-    { k: 'dust', at: [430, 552], dir: 'e' },
+    { k: 'dust', at: [372, 640], dir: 'w', need: 'ines_act_dustdesk_a' },  // the grandfather desk, and only the desk
     { k: 'kettle', at: [545, 552], dir: 'e' },
     { k: 'ledger', at: [760, 565], dir: 'e' },
-    { k: 'carry', at: [640, 610], dir: 'w' },
-  ].filter(j => has('ines_act_' + j.k + '_a'));
+    { k: 'read', at: [962, 690], dir: 'e' },  // the newspaper on the counter: a finger down the columns
+  ].filter(j => has(j.need || 'ines_act_' + j.k + '_a'));
+  // the desk-dusting frames replace the old free-standing ones
+  if (has('ines_act_dustdesk_a')) { window.SPRITES.ines_act_dust_a = window.SPRITES.ines_act_dustdesk_a; window.SPRITES.ines_act_dust_b = window.SPRITES.ines_act_dustdesk_b || window.SPRITES.ines_act_dustdesk_a; }
   for (const j of JOBS) { P['act_' + j.k + '_a'] = 'ines_act_' + j.k + '_a'; P['act_' + j.k + '_b'] = has('ines_act_' + j.k + '_b') ? 'ines_act_' + j.k + '_b' : 'ines_act_' + j.k + '_a'; }
   for (const k of ['amused', 'deadpan', 'fond', 'annoyed', 'scandalised', 'impressed', 'sympathetic', 'teasing']) if (has('ines_' + k)) P[k] = 'ines_' + k;
 
   const ines = () => { const a = G.npc('ines'); return a && a.visible && G.room === S.ROOMS.shop ? a : null; };
   const quiet = () => !G.isBusy && !G.cutscene && !document.querySelector('#dialog.open');
   let job = null, phase = 'rest', until = 0, lastJob = null, swapAt = 0, frame = 0;
-  const end = a => { if (a && a.pose && String(a.pose).startsWith('act_')) a.pose = null; job = null; phase = 'rest'; until = performance.now() + 3000 + Math.random() * 3000; };
+  const end = a => { if (a && a.pose && String(a.pose).startsWith('act_')) a.pose = null; job = null; phase = 'rest'; bookDown = false; until = performance.now() + 3000 + Math.random() * 3000; };
+  // the kettle job: she puts her book down on the sideboard first, makes the coffee with the kettle
+  // that stands there (the painted one disappears while it's in her hand), and takes the book back
+  let bookDown = false, putUntil = 0;
+  const PUT = has('ines_act_kettle_put');
+  if (PUT) P.act_kettle_put = 'ines_act_kettle_put';
+  const img = n => { const i = new Image(); i.src = 'art/layers/' + n + '.webp'; return i; };
+  const KETTLE = img('shop_kettle'), BOOK = img('shop_book');
+  S.shopSideboard = function (g) {
+    if (F().ch >= 5) return;
+    const a = G.npc('ines'), held = a && a.visible && /^act_kettle_[ab]$/.test(a.pose || '');
+    if (!held && KETTLE.complete && KETTLE.naturalWidth) g.drawImage(KETTLE, 486, 410 - KETTLE.naturalHeight / 2, KETTLE.naturalWidth / 2, KETTLE.naturalHeight / 2);
+    if (bookDown && BOOK.complete && BOOK.naturalWidth) g.drawImage(BOOK, 566, 410 - BOOK.naturalHeight / 2, BOOK.naturalWidth / 2, BOOK.naturalHeight / 2);
+  };
   setInterval(() => {
     if (window.FAST || !JOBS.length) return;
     const a = ines(); if (!a) { job = null; return; }
@@ -67,8 +82,13 @@
         if (job && phase === 'walk') { phase = 'work'; a.dir = job.dir; until = performance.now() + 7000 + Math.random() * 7000; swapAt = 0; }
       });
     } else if (phase === 'work') {
+      if (job.k === 'kettle' && PUT && !bookDown) { a.pose = 'act_kettle_put'; bookDown = true; putUntil = now + 1300; swapAt = putUntil; return; }  // the book goes down first
+      if (now < putUntil) return;
+      if (now > until) {
+        if (job.k === 'kettle' && PUT && a.pose !== 'act_kettle_put') { a.pose = 'act_kettle_put'; putUntil = now + 1100; until = putUntil + 50; return; }  // and back into her hand
+        end(a); return;
+      }
       if (now > swapAt) { frame ^= 1; a.pose = 'act_' + job.k + (frame ? '_b' : '_a'); swapAt = now + 1100 + Math.random() * 900; }
-      if (now > until) end(a);
     }
   }, 200);
 

@@ -118,10 +118,13 @@
         if (k) p.pose = k;
       }
     }, window.FAST ? 20 : 820);
+    // the legend in paintings over the verses, the live room for the final refrain (js/story/transitions.js)
+    const slides = song && S.fadoSlides ? S.fadoSlides(song) : null;
     try {
       if (song) await G.lyrics(song, S.SINO_LYRICS, 'amalia');
       else await S.say('amalia_sing_1', 'amalia_sing_2', 'amalia_sing_3');
     } finally {
+      if (slides) slides.stop();
       clearInterval(tick);
       performers.forEach(([a]) => { a.perform = 0; });
       if (am) am.pose = null; if (gui) gui.pose = null; if (cards) cards.pose = null;
