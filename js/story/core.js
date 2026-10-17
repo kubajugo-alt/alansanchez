@@ -99,6 +99,7 @@
     ledger: { name: () => F().genealogy_read ? "Grandfather's ledger (genealogy)" : F().decoded ? "Grandfather's ledger (decoded)" : "Grandfather's ledger",
       look: () => S.readLedger() },
     magnifier: { name: 'Magnifying glass', look: 'alan_look_magnifier' },
+    weight: { name: 'Brass weight', look: 'alan_look_weight' },
     ginja: { name: () => F().ginja === 2 ? 'Two ginjinhas' : 'A ginjinha', look: () => say(F().ginja === 2 ? 'alan_look_ginja' : 'alan_look_ginja_one') },
     matches: { name: 'Matches', look: 'alan_look_matches' },
     glass: { name: () => F().glassHoly ? 'Glass of holy water' : 'Empty ginjinha glass', icon: () => F().glassHoly ? 'holywater' : 'glass',
