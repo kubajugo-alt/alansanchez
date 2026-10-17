@@ -160,7 +160,7 @@
   // ---------------------------------------------------------------- map
   // Pins light up as places are learned; finished places stay visitable.
   S.PINS = [
-    { id: 'street', x: 1060, y: 330, text: 'Alfama · Livraria Sanchez', open: () => true },
+    { id: 'street', x: 1060, y: 330, text: 'Alfama · Livraria Sanches', open: () => true },
     { id: 'police', x: 560, y: 205, text: 'Polícia Judiciária', open: () => F().heard_machine && (F().ch || 1) <= 2 },
     { id: 'lavadouro', x: 1150, y: 415, text: 'Lavadouro do Alfama', open: () => F().drawer_open && (F().ch || 1) <= 4 },
     { id: 'ferreira', x: 600, y: 390, text: 'Relojoaria Ferreira · Baixa', open: () => F().drawer_open && (G.has('fkey') || F().ferreira_open) && (F().ch || 1) <= 3 && !S.ferreiraDone(),

@@ -29,7 +29,7 @@
   S.inesGone = () => F().ch >= 5 || (F().ch === 4 && !!F().ze_saved) || !!(S.inesAtSe && S.inesAtSe() && F().se_visited); // (Inês's own `when`, turned round)
   const pessoaSpot = () => F().ch >= 5 && !F().ledger_found ? 'machine' : F().lampOff ? 'radiator' : 'desk';
   ROOMS.shop = {
-    name: 'Livraria Sanchez', bg: 'shop', bgs: ['shop_night', 'shop_nomag', 'shop_drawer', 'shop_drawer_nomag'],
+    name: 'Livraria Sanches', bg: 'shop', bgs: ['shop_night', 'shop_nomag', 'shop_drawer', 'shop_drawer_nomag'],
     // day variants: grandfather's drawer pulled open on the ledger (from the key until Alan takes it), and the
     // desk without the magnifying glass once he has it
     bgFn: () => F().ch >= 5 ? 'shop_night' : 'shop' + (F().shop_drawer && !F().got_ledger ? '_drawer' : '') + (F().magTaken ? '_nomag' : ''),
@@ -316,7 +316,7 @@
       { name: 'Street lamp', rect: [455, 140, 95, 410], look: 'narr_look_lamp' },
       { name: 'The Alfama', rect: [600, 90, 300, 440], look: 'narr_look_street' },
       { name: 'Tram', rect: [0, 560, 1280, 160], when: () => S.tramVisible(), look: 'alan_npc_tram' },
-      { name: 'Livraria Sanchez', rect: [322, 335, 95, 205], at: [368, 595], exit: 'shop', entry: 'street' },
+      { name: 'Livraria Sanches', rect: [322, 335, 95, 205], at: [368, 595], exit: 'shop', entry: 'street' },
       { name: 'Taberna da Saudade', rect: [1035, 280, 90, 270], at: [1078, 612], exit: 'tavern', entry: 'street', look: 'narr_look_tavern_door', locked: () => !F().heard_song && !(F().reserve_raided || (F().knows_brotherhood && !F().ines_plan)), lockedLine: 'alan_tavern_shut' },
       { name: 'Tram 28 stop', rect: [515, 255, 55, 280], at: [548, 612], exit: 'map', entry: 'street', look: 'narr_look_tram' },
     ],

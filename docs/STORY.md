@@ -24,7 +24,7 @@ The main changes:
 
 Lisbon, 1995. For nine days a fog has sat on the city, and people have drowned in their beds: in locked rooms, half a mile uphill from the river, their lungs full of cold Atlantic seawater. A small blue tile lies on each pillow, showing a bronze bell beneath curling waves.
 
-Alan Sanchez is a lazy, witty bookseller in the Alfama. His grandfather Joaquim died ten days ago of what the doctor called a weak heart. The fog came the next morning. Now Alan finds the family name on the killer's list and a ledger in a locked drawer that nobody can read.
+Alan Sanches is a lazy, witty bookseller in the Alfama. His grandfather Joaquim died ten days ago of what the doctor called a weak heart. The fog came the next morning. Now Alan finds the family name on the killer's list and a ledger in a locked drawer that nobody can read.
 
 He is the last of the Sineiros, the bell-founder line whose blood keeps an ancient bell asleep beneath the city. In 1755 that bell was rung on the tenth morning of a nine-day fog, and Lisbon died three times: earthquake, fire and wave. In 1955 the fog came back, and a 43-year-old Joaquim stopped it, but only halfway: he took the tongue and ran instead of silencing the bell. He hid it for forty years and never told anyone. Today is the ninth day again.
 
@@ -149,7 +149,7 @@ Eleven speaking roles: seven returning, four new. New characters need ElevenLabs
 
 | Character            | Role                               | Voice                       | Wants                                                                    | Secret or wound                                                                                    | Arc in v2                                                                                                                                  |
 |----------------------|------------------------------------|-----------------------------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| Alan Sanchez (37)    | Bookseller, last Sineiro           | Roger, laid-back            | To be left alone                                                         | Raised by Joaquim above the shop. Has his mother's number in St. Augustine, Florida and hasn't called in two years. | From asleep at eleven to doing what his grandfather ran from. Calls his mother at dawn.                                                    |
+| Alan Sanches (37)    | Bookseller, last Sineiro           | Roger, laid-back            | To be left alone                                                         | Raised by Joaquim above the shop. Has his mother's number in St. Augustine, Florida and hasn't called in two years. | From asleep at eleven to doing what his grandfather ran from. Calls his mother at dawn.                                                    |
 | Inês Carvalho        | Historian, assistant, best friend, conscience. A Black Brazilian woman from Salvador who moved to Lisbon for her doctorate and stayed: sassy, confident, curvy, very smart. Wears a black blazer over a faded grunge band tee, high-waisted jeans, heels, gold hoops and bangles | Taciana, vibrant Brazilian | To finish her thesis on 1755; to make Alan try                           | Joaquim confided in her more than in Alan, but never about bells                                   | Hint-giver at the shop in Ch. I–IV. Kidnapped in Ch. V; warns Alan while tied, then holds the lantern for the rite.                        |
 | Insp. Rui Mendonça   | Polícia Judiciária                 | Callum, husky               | To close the case without believing in it                                | His mother says "the river is breathing" and he's starting to agree                                   | Gives the list (I), opens the 1955 drawer and lends the Ferreira key (II), waits outside the Carmo (V). Closes the drawer in the epilogue. |
 | Dona Amália (81)     | Fado singer, Taberna da Saudade    | Mora, gritty and enigmatic  | Not to sing that song                                                    | Loved Joaquim; he married someone sensible                                                         | Sings the song (I), identifies the music box from her photo (III, optional), gives a blessing on the last night (V, optional).             |
@@ -173,7 +173,7 @@ Fourteen rooms, nine of them existing. New rooms need a 1280×720 painting, walk
 
 | Room id             | Place                            | Mood and light                                                                  | Who's there                              | Chapters                |
 |---------------------|----------------------------------|---------------------------------------------------------------------------------|------------------------------------------|-------------------------|
-| shop                | Livraria Sanchez, Alfama         | Grey fog light, banker's lamp. Ch. V: cold, door open, lamp only.               | Inês (I–IV), Pessoa                      | I–V                     |
+| shop                | Livraria Sanches, Alfama         | Grey fog light, banker's lamp. Ch. V: cold, door open, lamp only.               | Inês (I–IV), Pessoa                      | I–V                     |
 | street              | Alfama street, tram stop         | Fog, gas lamps lit at noon, laundry lines, sea-monster azulejo                  | (no one)                                 | I–V                     |
 | map                 | Map of Lisbon (travel)           | Locations unlock as learned                                                     | (none)                                   | I–V                     |
 | police              | Polícia Judiciária office        | Flickering tube, evidence desk, coffee machine, the drawer that won't close     | Rui                                      | I–II                    |
@@ -270,7 +270,7 @@ Rui is behind a desk under a flickering tube. Dialogue topics:
 
 - **alan_list_hand**: "That's my grandfather's writing. He's been dead ten days. He wrote this before any of them died."
 
-- **rui_water**: "Stay away from water, Sanchez." **alan_water**: "Inspector, I've been avoiding water for thirty-seven years. Ask my bathtub."
+- **rui_water**: "Stay away from water, Sanches." **alan_water**: "Inspector, I've been avoiding water for thirty-seven years. Ask my bathtub."
 
 ### I.5 The shop again
 
@@ -508,7 +508,7 @@ Clocks everywhere, all keeping different times. Lacerda in a cream linen suit, a
 
 - **The clocks:** "I collect time. Other people's."
 
-- **The glass case:** a bronze bell's tongue on velvet: the drowned bell's real tongue, taken from Joaquim's flat in 1995. "Eighteenth century. Not for sale. Some things are only for keeping." He adds: "I would notice a single hair moved on that velvet, Senhor Sanchez."
+- **The glass case:** a bronze bell's tongue on velvet: the drowned bell's real tongue, taken from Joaquim's flat in 1995. "Eighteenth century. Not for sale. Some things are only for keeping." He adds: "I would notice a single hair moved on that velvet, Senhor Sanches."
 
 - **Joaquim:** "I knew of him. A careful man. Careful men usually live a long time."
 
@@ -535,7 +535,7 @@ Clocks everywhere, all keeping different times. Lacerda in a cream linen suit, a
 4.  **Antiques: the swap.** This is the old theft structure, with the twin in place of the brass weight.
     - Ask about the music box. Lacerda: "Its key is in the back. Touch nothing." He exits, and Alan has three actions before he returns.
     - Use the vitrine key (Ferreira's spare) on the case, then the twin on the tongue. **alan_swap_twin**: "One bronze tongue for its twin. Same weight, same marks, same dent in the velvet. Only one of them has ever rung."
-    - Lacerda returns, winds the box, and it plays "O Sino Afogado". **lacerda_pale**: "You look pale, Senhor Sanchez. Another day." He doesn't notice the swap.
+    - Lacerda returns, winds the box, and it plays "O Sino Afogado". **lacerda_pale**: "You look pale, Senhor Sanches. Another day." He doesn't notice the swap.
 
 Logic: Lacerda himself said he'd notice the velvet, so only something identical will do. Taking the tongue without a swap, or running out of actions, triggers **lacerda_putback** ("Put it back. Patience is not infinite.") and resets the theft. The case shows the same tongue before and after the swap, since the two are twins.
 
@@ -694,7 +694,7 @@ The door is open. The room is cold, and a line of salt runs across the floor lik
 
 Logic: the player has the sardine from Zé and has already seen that the cat must be bribed off things; the lamp failing first is a joke that also points to the new answer.
 
-**Message 3, Lacerda:** "Senhor Sanchez. Your assistant is reading to me; she has a lovely voice for dates. Bring the tongue. Bring your blood. Come alone. The river turns at twenty-five to one." The machine then replays message 2, the dripping hang-up. **alan_hangup_reveal**: "He rang this morning to see if I was home. He's been patient all day."
+**Message 3, Lacerda:** "Senhor Sanches. Your assistant is reading to me; she has a lovely voice for dates. Bring the tongue. Bring your blood. Come alone. The river turns at twenty-five to one." The machine then replays message 2, the dripping hang-up. **alan_hangup_reveal**: "He rang this morning to see if I was home. He's been patient all day."
 
 **The telephone (optional, recommended):** call Rui. **rui_gate**: "Midnight at the Carmo. I'll be outside the gate. If I go in, it's a police matter, and then it's in a drawer forever." With amalia_box: **rui_murder**: "Then it's murder. Unexplained, but murder." Flag: rui_called.
 
@@ -728,7 +728,7 @@ Stone steps end on a ledge above black-green water. The Drowned Bell hangs on a 
 
 - **lacerda_ze**: "You broke my tile. Clumsy. No matter. The bell needs only one hand, and you brought it."
 
-- **lacerda_demand**: "Cut your hand, wet the bronze, and ring. She walks out of here. Patient, Senhor Sanchez. I have been patient for forty years."
+- **lacerda_demand**: "Cut your hand, wet the bronze, and ring. She walks out of here. Patient, Senhor Sanches. I have been patient for forty years."
 
 - **ines_warn**: "Alan, the water comes up every time he speaks to it. Don't do what he says."
 
@@ -1069,7 +1069,7 @@ Existing characters need new states; new characters need full sets.
 
 - The key is 7. The plaintext header is THE BROTHERHOOD RANG THE DROWNED BELL; the rite and Joaquim's page are separate decoded pages.
 
-- Old spelling is Sanches, modern is Sanchez. Foundry marks on bells use the old spelling.
+- The family name is spelled the Portuguese way, Sanches, everywhere: the shop sign, the foundry marks on the bells, the case files.
 
 - Founder order, first to last: Ferreira 1611, Bastos 1648, Coutinho 1702, Sanches 1739. The rite is last to first.
 

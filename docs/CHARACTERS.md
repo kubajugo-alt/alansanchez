@@ -32,19 +32,19 @@ Joaquim marries 1935. Pedro born 1936. Celeste born 1925. Vicente born
 Pedro dies 1967. Inês born 1962. Vasco born 1957. Joaquim dies ten days
 before the game.
 
-## Alan Sanchez
+## Alan Sanches
 
 |        |                                                                                                                |
 |--------|----------------------------------------------------------------------------------------------------------------|
 | Born   | 1958, Lisbon; 37 in 1995                                                                                       |
-| Work   | Owner of Livraria Sanchez, Alfama, since Joaquim stepped back; the last Sineiro                                |
+| Work   | Owner of Livraria Sanches, Alfama, since Joaquim stepped back; the last Sineiro                                |
 | Family | Father Pedro (d. 1967); mother Eleanor Solana, American, from St. Augustine; raised by his grandfather Joaquim |
 | Look   | Leather jacket, a cream suit for occasions, a cigarette when idle                                              |
 | Voice  | Laid-back, quick, warm; ElevenLabs Roger                                                                       |
 
-**Backstory.** Alan's name is his mother's doing: "Alan" and the z in
-"Sanchez" are Eleanor's American spellings, and they marked him as
-foreign in every Alfama classroom. His father Pedro died in 1967, when
+**Backstory.** Alan's first name is his mother's doing: "Alan" is
+Eleanor's American choice, and it marked him as foreign in every Alfama
+classroom. His father Pedro died in 1967, when
 Alan was nine. Within months Eleanor left Lisbon and left him with
 Joaquim, above the shop. She sent cards, then fewer. He has her number
 and hasn't called in two years.
@@ -225,7 +225,7 @@ Vasco laugh at himself; Vasco makes Alan stop talking, listen and wait.
 
 **In play.** The heist (Ch. I), the fragment gift (Ch. III), the phone
 call (Ch. V), Thursday. His secret about the reliquary glass is planted
-with a glance and "You're a terrible liar, Senhor Sanchez. Don't
+with a glance and "You're a terrible liar, Senhor Sanches. Don't
 change."
 
 **In the sequel.** The one, and it's rocky. He wants to be seen, to walk
@@ -297,7 +297,7 @@ knows Alan only as the last Sineiro.
 |            |                                                                          |
 |------------|--------------------------------------------------------------------------|
 | Born       | 1914, Alfama; drowned ten days before the game, aged 81                  |
-| Work       | Bookseller, founder of Livraria Sanchez; the Sineiro before Alan         |
+| Work       | Bookseller, founder of Livraria Sanches; the Sineiro before Alan         |
 | Family     | Wife Rosa **(new)**, d. 1979; son Pedro (d. 1967); grandson Alan         |
 | Present as | His ledger, his cipher, his 1955 page, the fado, other people's memories |
 
@@ -512,7 +512,7 @@ about Vasco, not about him.
 
 **In play.** Saved (IV), gives Alan his knife and a sardine, pulls
 Lacerda's jacket from the Tagus (post-credits). In the sequel: the
-bucket gag, and "Breathe, Sanchez".
+bucket gag, and "Breathe, Sanches".
 
 ## Celeste, Tomás and Abílio
 
@@ -719,7 +719,7 @@ list every changed line id so I can regenerate audio:
 1. Celeste is Rui's mother, not his grandmother: replace "avó" /
 "grandmother" with "mãe" / "mother" wherever it refers to Celeste.  
 2. Alan's legal name is Alan. Remove every "Álvaro" line; where Inês
-used it in anger, she says "Alan Sanchez" instead.  
+used it in anger, she says "Alan Sanches" instead.  
 3. Alan's mother lives in St. Augustine, Florida, not Porto. Fix any
 reference to her number or home being in Porto.  
 4. Alan's father Pedro was lost at sea in the colonial wars in 1967. Fix

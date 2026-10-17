@@ -1,8 +1,8 @@
-# Alan Sanchez: The Drowned Bell
+# Alan Sanches: The Drowned Bell
 
 A hand-painted point-and-click mystery in the spirit of *Gabriel Knight* and *Broken Sword*, fully voiced with ElevenLabs.
 
-> **Lisbon, 1995.** For nine days the fog has not lifted from the river, and for nine days people have been drowning in their own beds, in locked rooms, half a mile from the water. Alan Sanchez, a lazy bookseller in the Alfama, finds his own family name on the killer's list, and a ledger in his late grandfather's drawer that nobody can read.
+> **Lisbon, 1995.** For nine days the fog has not lifted from the river, and for nine days people have been drowning in their own beds, in locked rooms, half a mile from the water. Alan Sanches, a lazy bookseller in the Alfama, finds his own family name on the killer's list, and a ledger in his late grandfather's drawer that nobody can read.
 
 ## Play
 
@@ -25,7 +25,7 @@ It takes about two to three hours to finish. There are five chapters across four
 | Character | Who they are | ElevenLabs voice |
 |---|---|---|
 | Narrator | The voice of the city | Eleanor – Gracious and Authoritative |
-| **Alan Sanchez** | Bookseller, reluctant hero, last of the *Sineiros* | Roger – Laid-Back, Casual |
+| **Alan Sanches** | Bookseller, reluctant hero, last of the *Sineiros* | Roger – Laid-Back, Casual |
 | Inês Carvalho | Historian, Alan's assistant and conscience | Sarah – Mature, Confident |
 | Insp. Rui Mendonça | Polícia Judiciária, tired of the weird | Callum – Husky |
 | Dona Amália | Fado singer who once loved Alan's grandfather | Mora – Gritty and Enigmatic |
