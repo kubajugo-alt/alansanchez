@@ -1,0 +1,335 @@
+{
+ "reference_frames": [
+  "alan_side",
+  "alan_idle2",
+  "alan_talk",
+  "alan_talk2",
+  "alan_walkA",
+  "alan_walkB",
+  "alan_pass",
+  "alan_read",
+  "alan_write",
+  "alan_smoke_hold",
+  "alan_drink",
+  "alan_phone"
+ ],
+ "reference_leather_Lab": [
+  60.8,
+  140.1,
+  150.9
+ ],
+ "frames": {
+  "alan_front": {
+   "leather_before_Lab": [
+    56.5,
+    145.4,
+    151.1
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_front_walk1": {
+   "leather_before_Lab": [
+    55.4,
+    146.7,
+    151.8
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_front_walk2": {
+   "leather_before_Lab": [
+    57.4,
+    147.4,
+    152.3
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_back": {
+   "leather_before_Lab": [
+    59.5,
+    144.6,
+    153.7
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_back_walk1": {
+   "leather_before_Lab": [
+    58.7,
+    146.3,
+    154.4
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_back_walk2": {
+   "leather_before_Lab": [
+    61.5,
+    146.6,
+    155.2
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_flirt": {
+   "leather_before_Lab": [
+    57.9,
+    145.9,
+    152.9
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_wink": {
+   "leather_before_Lab": [
+    54.7,
+    145.3,
+    150.8
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_fluster": {
+   "leather_before_Lab": [
+    60.9,
+    145.7,
+    153.2
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_swoon": {
+   "leather_before_Lab": [
+    51.4,
+    144.9,
+    150.2
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_button": {
+   "leather_before_Lab": [
+    58.0,
+    146.4,
+    152.3
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_coffees": {
+   "leather_before_Lab": [
+    58.2,
+    146.3,
+    151.6
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_enchanted1": {
+   "leather_before_Lab": [
+    58.0,
+    143.4,
+    151.0
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_enchanted2": {
+   "leather_before_Lab": [
+    56.3,
+    145.2,
+    151.9
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_rapt1": {
+   "leather_before_Lab": [
+    59.9,
+    144.8,
+    151.6
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_rapt2": {
+   "leather_before_Lab": [
+    60.5,
+    145.1,
+    152.1
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_rapt3": {
+   "leather_before_Lab": [
+    57.6,
+    145.0,
+    151.2
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_lantern": {
+   "leather_before_Lab": [
+    60.5,
+    145.5,
+    151.6
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_lwalk1": {
+   "leather_before_Lab": [
+    63.7,
+    145.8,
+    153.7
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_lwalk2": {
+   "leather_before_Lab": [
+    55.0,
+    145.7,
+    152.0
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_yawn": {
+   "leather_before_Lab": [
+    65.5,
+    147.0,
+    155.1
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_stretch": {
+   "leather_before_Lab": [
+    54.1,
+    145.7,
+    150.6
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_undress1": {
+   "leather_before_Lab": [
+    55.3,
+    142.7,
+    149.7
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_undress2": {
+   "leather_before_Lab": [
+    70.3,
+    146.5,
+    154.9
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_dress3": {
+   "leather_before_Lab": [
+    52.8,
+    146.0,
+    150.5
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  },
+  "alan_dress4": {
+   "leather_before_Lab": [
+    53.0,
+    144.5,
+    149.9
+   ],
+   "after_Lab": [
+    60.8,
+    140.1,
+    150.9
+   ]
+  }
+ }
+}
