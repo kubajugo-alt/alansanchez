@@ -1,6 +1,7 @@
 # Makes Alan's clothes the same colour in every frame: the muted leather and denim of the side/walk set.
 #   python3 scripts/unify_palette.py                 -> art/review/alan/colour/ (proposals + before/after sheet)
 #   python3 scripts/unify_palette.py --apply         -> also overwrites art/sprites/<frame>.webp
+#   add --pairs to include the shared frames (only Alan's side of each picture is touched)
 # Only leather (jacket, boots, belt) and denim pixels move, by a Lab mean/spread transfer toward the
 # reference set, feathered at the mask edge. Skin, the T-shirt and the outlines are left alone. A frame is
 # only touched when a material is visibly off (lightness > 3 or colour > 2 Lab units from the reference).
@@ -33,7 +34,29 @@ BOXES = {'alan_jacket': [(0, .43, 1, .66)], 'alan_jacket_grin': [(0, .44, 1, .68
          'alan_undress2': [(.55, .08, 1, .43), (0, .9, 1, 1)], 'alan_undress3': [(.45, .12, .75, .33), (0, .9, 1, 1)],
          'alan_undress4': [(.65, .30, 1, .60)], 'alan_dress1': [(.5, .32, .95, .55)], 'alan_dress2': [(0, .2, .4, .55)],
          'alan_dress3': [(0, .15, .3, .55), (0, .9, 1, 1)]}
-CUR = None  # frame being processed (for BOXES)
+# shared frames: only Alan's side of the picture (x0, x1 as fractions of the width)
+PAIRS = {'pair_brow': (.45, 1), 'pair_kiss': (.5, 1), 'pair_unbutton': (.5, 1),
+         **{f'pair_cop_{k}': (.5, 1) for k in ['arm', 'belt', 'belt2', 'buttons', 'chest', 'shelf2', 'trousers', 'tshirt']},
+         **{f'pair_cop_{k}': (.45, 1) for k in ['jacket', 'neck', 'shelf']},
+         **{f'pair_guitar_{k}': (.5, 1) for k in ['d1', 'd2', 'h1', 'h2', 'hop', 'j0', 'j1', 'j2', 'jackets', 'lasso', 's1', 's2',
+                                                   'shirtfly', 'u1', 'u2', 'undress2', 'l1', 'l2']},
+         'pair_guitar_lesson': (.45, 1),
+         **{f'pair_vasco_{k}': (0, .48) for k in ['card', 'catch', 'clapper', 'coffee', 'fragment', 'kiss', 'kneel', 'ladder',
+                                                   'lanyard', 'shirtless', 'thumb']},
+         **{f'pair_wring_{k}': (.55, 1) for k in '123'}}
+WARM = list(dict.fromkeys(WARM + (list(PAIRS) if '--pairs' in sys.argv else [])))
+# shared frames where Alan is shirtless: only his jeans are corrected (his skin reads as leather)
+NO_LEATHER = {'pair_cop_' + k for k in ['belt', 'belt2', 'buttons', 'shelf2', 'trousers', 'tshirt']} | \
+             {'pair_guitar_' + k for k in ['d1', 'd2', 'h1', 'h2', 'hop', 'lasso', 's1', 's2', 'shirtfly', 'u1', 'u2', 'undress2',
+                                           'l1', 'l2']} | {'pair_vasco_shirtless'}
+CUR = None  # frame being processed (for BOXES / PAIRS)
+
+
+def pair_limit(keep):
+    if CUR in PAIRS:
+        x0, x1 = PAIRS[CUR]; W = keep.shape[1]; lim = np.zeros_like(keep); lim[:, int(x0 * W):int(x1 * W)] = 1
+        keep = keep * lim
+    return keep
 
 
 def load(k):
@@ -51,6 +74,7 @@ def leather(a):
     keep = np.zeros_like(m)
     for i in range(1, n):
         if st[i, cv2.CC_STAT_AREA] >= 400: keep[lab == i] = 1
+    keep = pair_limit(keep)
     if CUR in BOXES:
         box = np.zeros_like(keep); H, W = keep.shape
         for x0, y0, x1, y1 in BOXES[CUR]: box[int(y0 * H):int(y1 * H), int(x0 * W):int(x1 * W)] = 1
@@ -68,6 +92,7 @@ def denim(a):
     keep = np.zeros_like(m)
     for i in range(1, n):
         if st[i, cv2.CC_STAT_AREA] >= 400: keep[lab == i] = 1
+    keep = pair_limit(keep)
     return cv2.GaussianBlur(keep.astype(np.float32), (5, 5), 1.2)
 
 
@@ -105,9 +130,11 @@ def main():
     rows, report = [], {}
     global CUR
     for k in WARM:
+        if '--only-pairs' in sys.argv and k not in PAIRS: continue
         CUR = k
         a = load(k); b = a; changed = {}
         for name, fn in MATERIALS.items():
+            if name == 'leather' and k in NO_LEATHER: continue
             m = fn(b) > 0.5
             if m.sum() < 500: continue
             mu = cv2.cvtColor(np.ascontiguousarray(b[..., :3]), cv2.COLOR_RGB2LAB).astype(np.float32)[m].mean(0)
