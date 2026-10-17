@@ -445,7 +445,7 @@
     G.showModal('ending', true);
     await G.fade(false);
     G.cutscene = false;
-    try { localStorage.removeItem('drowned-bell-save-v3'); } catch (e) { /* ignore */ }
+    try { localStorage.removeItem('drowned-bell-save-v3'); localStorage.removeItem('drowned-bell-save-v3-manual'); } catch (e) { /* ignore */ }
   };
   document.getElementById('btn-again').onclick = () => location.reload();
 })();

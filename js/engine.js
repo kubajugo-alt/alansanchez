@@ -8,7 +8,8 @@
   const wrap = $('#game'), speechEl = $('#speech'), narrEl = $('#narration'), hoverEl = $('#hover');
   const invEl = $('#inventory'), invBar = $('#invbar'), dialogEl = $('#dialog'), labelsEl = $('#labels');
 
-  const SAVE_KEY = 'drowned-bell-save-v3';
+  const SAVE_KEY = 'drowned-bell-save-v3';             // the autosave: every room change, chapter card, finished scene
+  const SAVE_KEY_MANUAL = 'drowned-bell-save-v3-manual'; // the menu's Save: kept until the player saves again
   const COLORS = { alan: '#ffe2a0', ines: '#ffab9a', rui: '#a8d4ff', amalia: '#e2b0ff', tomas: '#cfeab8', lacerda: '#ff7d6a', celeste: '#ffd0a0', ze: '#9fd8ff', abilio: '#f0e68c', lino: '#f2c79a', phone: '#b9c9ff', guitar: '#d8c0a0', cards: '#d9c8a8', fish: '#ffb8b8', mender1: '#c8d8c0', mender2: '#b8d0b0', nun: '#e0e0f0', washer1: '#f0c8b0', washer2: '#d8c0e0', laundry: '#e8d0b8', bench: '#d8c8a8', narr: '#eee6d6' };
   const NAMES = { alan: 'Alan', ines: 'Inês', rui: 'Rui', amalia: 'Amália', tomas: 'Father Tomás', lacerda: 'Lacerda', celeste: 'Celeste', ze: 'Zé', abilio: 'Abílio', lino: 'Lino', phone: 'Officer Teixeira', guitar: 'Duarte', cards: 'Card player', fish: 'Fishwife', mender1: 'Old fisherman', mender2: 'Fisherman', nun: 'Sister', washer1: 'Washerwoman', washer2: 'Graça', laundry: 'Woman with the washing', bench: 'Senhor Armando', vasco: 'Dr. Teles', narr: '' };
 
@@ -1575,10 +1576,19 @@
   }
   function autosave() { if (/[?&]scene=/.test(location.search) || (state && state.flags.dawn)) return false; // past dawn the save is wiped, not rewritten
     try { localStorage.setItem(SAVE_KEY, snapshot()); return true; } catch (e) { return false; /* storage unavailable */ } }
-  function hasSave() { try { return !!localStorage.getItem(SAVE_KEY); } catch (e) { return false; } }
+  const readKey = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  function hasSave() { return !!(readKey(SAVE_KEY) || readKey(SAVE_KEY_MANUAL)); }
+  function saveManual() { if (state && state.flags.dawn) return false; try { localStorage.setItem(SAVE_KEY_MANUAL, snapshot()); return true; } catch (e) { return false; } }
+  // Continue picks whichever save is newer (the autosave or the menu's); Load from the menu prefers the menu's save
+  function newestSave() {
+    const a = readKey(SAVE_KEY), m = readKey(SAVE_KEY_MANUAL);
+    const t = j => { try { return JSON.parse(j).savedAt || 0; } catch (e) { return -1; } };
+    return !m ? a : !a ? m : (t(m) >= t(a) ? m : a);
+  }
+  function clearSaves() { try { localStorage.removeItem(SAVE_KEY); localStorage.removeItem(SAVE_KEY_MANUAL); } catch (e) { /* ignore */ } }
   async function loadSave(json) {
     let data = json;
-    if (!data) { try { data = localStorage.getItem(SAVE_KEY); } catch (e) { data = null; } }
+    if (!data) data = newestSave();
     if (!data) return false;
     let parsed;
     try { parsed = JSON.parse(data); } catch (e) { parsed = null; }
@@ -1622,11 +1632,11 @@
     if (midScene()) return toast("Can't save during a scene");
     if (room.noSave) return toast("Can't save here");
     if (state.flags.dawn) return toast('The story is over');
-    toast(autosave() ? 'Game saved' : 'Saving failed (browser storage is off)'); };
+    toast(saveManual() ? 'Game saved' : 'Saving failed (browser storage is off)'); };
   $('#opt-load').onclick = async e => { e.stopPropagation(); $('#menu').classList.remove('open');
     if (midScene()) return toast("Can't load during a scene");
     if (!hasSave()) return toast('No saved game');
-    toast((await loadSave()) ? 'Game loaded' : 'That save could not be read'); };
+    toast((await loadSave(readKey(SAVE_KEY_MANUAL) || readKey(SAVE_KEY))) ? 'Game loaded' : 'That save could not be read'); };
   function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 1500); }
 
   // ---------------------------------------------------------------- boot
@@ -1654,7 +1664,7 @@
 
   window.Game = {
     init, begin, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, stillTo, stillShowing, skipLine: () => { if (skipFn) skipFn(); }, closeup, setClock, renderInv,
-    set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
+    set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, clearSaves, showModal, refreshNpcs, renderLabels,
     giveItem, takeItem, has, toast, readItem,
     get state() { return state; }, get flags() { return state.flags; },
     get player() { return player; }, get room() { return room; }, get npcs() { return npcs; },
