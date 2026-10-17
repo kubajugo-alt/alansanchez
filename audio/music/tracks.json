@@ -1,0 +1,158 @@
+{
+ "alan_theme": {
+  "dur": 147.453,
+  "inp": 0.0,
+  "out": 146.6,
+  "v": "aed4ef9b"
+ },
+ "alfama_day": {
+  "dur": 203.974,
+  "inp": 0.09,
+  "out": 202.61,
+  "v": "ae7d5d1b"
+ },
+ "alfama_night": {
+  "dur": 198.013,
+  "inp": 0.88,
+  "out": 198.01,
+  "v": "5bfd7971"
+ },
+ "antiques_shop": {
+  "dur": 174.694,
+  "inp": 0.12,
+  "out": 172.96,
+  "v": "1fa89bd7"
+ },
+ "carmo_day": {
+  "dur": 198.613,
+  "inp": 0.0,
+  "out": 198.61,
+  "v": "be143ba9"
+ },
+ "carmo_night": {
+  "dur": 189.214,
+  "inp": 0.71,
+  "out": 189.21,
+  "v": "629dcd6a"
+ },
+ "cistern_deep": {
+  "dur": 208.814,
+  "inp": 1.01,
+  "out": 208.81,
+  "v": "179aca29"
+ },
+ "cold_open": {
+  "dur": 164.013,
+  "inp": 1.1,
+  "out": 164.01,
+  "v": "b7c6a322"
+ },
+ "ferreira_workshop": {
+  "dur": 144.413,
+  "inp": 0.02,
+  "out": 144.41,
+  "v": "412a4c3a"
+ },
+ "lacerda_theme": {
+  "dur": 152.814,
+  "inp": 0.11,
+  "out": 152.81,
+  "v": "be4d524a"
+ },
+ "lavadouro": {
+  "dur": 169.573,
+  "inp": 0.12,
+  "out": 168.79,
+  "v": "3658886b"
+ },
+ "main_theme": {
+  "dur": 212.374,
+  "inp": 0.11,
+  "out": 212.37,
+  "v": "356d038f"
+ },
+ "map_lisbon": {
+  "dur": 44.014,
+  "inp": 0.07,
+  "out": 43.34,
+  "v": "667deae9"
+ },
+ "meu_lindo_guarda_livros": {
+  "dur": 150.814,
+  "inp": 0.0,
+  "out": 150.81,
+  "v": "5fefd488"
+ },
+ "police_station": {
+  "dur": 162.814,
+  "inp": 0.0,
+  "out": 161.53,
+  "v": "a809d586"
+ },
+ "quay_cais_do_sodre": {
+  "dur": 152.774,
+  "inp": 0.32,
+  "out": 152.15,
+  "v": "78378863"
+ },
+ "se_bell_tower": {
+  "dur": 214.173,
+  "inp": 0.0,
+  "out": 214.17,
+  "v": "d5daff72"
+ },
+ "se_cloister": {
+  "dur": 184.413,
+  "inp": 0.0,
+  "out": 184.41,
+  "v": "50ea9fbe"
+ },
+ "se_exhibition": {
+  "dur": 175.013,
+  "inp": 0.0,
+  "out": 173.94,
+  "v": "78640c50"
+ },
+ "shop_day": {
+  "dur": 164.853,
+  "inp": 0.0,
+  "out": 163.32,
+  "v": "f8f56ce4"
+ },
+ "shop_night": {
+  "dur": 149.013,
+  "inp": 0.0,
+  "out": 147.78,
+  "v": "2c9e0a67"
+ },
+ "tavern_day": {
+  "dur": 188.774,
+  "inp": 0.12,
+  "out": 188.77,
+  "v": "aec626d0"
+ },
+ "tavern_night": {
+  "dur": 213.214,
+  "inp": 0.14,
+  "out": 211.52,
+  "v": "8216d254"
+ },
+ "bell_motif": {
+  "dur": 182.774,
+  "inp": 1.03,
+  "out": 182.77,
+  "v": "c8926294"
+ },
+ "vasco_theme": {
+  "dur": 199.974,
+  "inp": 0.11,
+  "out": 199.97,
+  "v": "a7d9a767"
+ },
+ "ze_boat_deck": {
+  "dur": 118.493,
+  "inp": 0.1,
+  "out": 118.49,
+  "v": "f3e43380"
+ }
+}

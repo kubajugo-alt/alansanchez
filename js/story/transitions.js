@@ -60,6 +60,7 @@
     const fadeEl = document.getElementById('fade'), wasBlack = !!(fadeEl && fadeEl.classList.contains('on'));
     let skipped = false, current = null, onSkip = null;
     const skipP = new Promise(r => { onSkip = r; });
+    if (window.Sound && Sound.preloadVoice) shots.forEach(s => Sound.preloadVoice(s[1])); // decode the lines up front
     G.cutscene = true;
     // MUSIC HOOK (js/audio.js, music agent): chapter transition starts → "Main Theme, low"
     if (window.Sound && Sound.transitionMusic) try { Sound.transitionMusic(true, n); } catch (e) { /* music is optional */ }
@@ -73,7 +74,7 @@
         await Promise.race([T(i === 0 ? 900 : 1100), skipP]);
         if (skipped) break;
         let said = false; current = G.say(line, { offscreen: true }).then(() => { said = true; });
-        await Promise.race([Promise.all([current, T(5600)]), skipP]);
+        await Promise.race([Promise.all([current, T(5200)]), skipP]);
         if (said) current = null;
       }
     } finally {

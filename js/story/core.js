@@ -66,7 +66,8 @@
     tomas_night: { scale: 0.95, frames: { idle: 'tomas_night', talk: 'tomas_night_talk', poses: { kneel: 'tomas_kneel' },
       sets: { pray: { idle: 'tomas_kneel', talk: ['tomas_kneel'] } } } }, // after he gives Alan his lantern
     lacerda: { scale: 1.0, frames: {
-      idle: ['lacerda', 'lacerda_idle2'], talk: ['lacerda_talk', 'lacerda_talk2'], poses: { wind: 'lacerda_wind' },
+      idle: ['lacerda', 'lacerda_idle2', 'lacerda_idle3'], talk: ['lacerda_talk', 'lacerda_talk3', 'lacerda_talk4'], front: 'lacerda_front',
+      poses: { wind: 'lacerda_wind', warn: 'lacerda_talk2' }, // talks in the stance he stands in; the squarer finger-wag is a pose of its own
       walk: ['lacerda_walk1', 'lacerda_pass1', 'lacerda_walk2', 'lacerda_pass2'] }, frameStep: 0.17 }, // stride, passing, stride, passing: half a step per frame
     lacerda_robe: { scale: 1.02, frames: {
       idle: 'robe_idle', talk: ['robe_talk', 'lacerda_robe'],

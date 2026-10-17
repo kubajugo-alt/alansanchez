@@ -62,9 +62,10 @@
   if (PUT) P.act_kettle_put = 'ines_act_kettle_put';
   const img = n => { const i = new Image(); i.src = 'art/layers/' + n + '.webp'; return i; };
   const KETTLE = img('shop_kettle'), BOOK = img('shop_book');
+  S.kettleHeld = () => { const a = G.npc('ines'); return !!(a && a.visible && G.room === S.ROOMS.shop && /^(act_kettle_[ab]|steam)$/.test(a.pose || '')); };
   S.shopSideboard = function (g) {
     if (F().ch >= 5) return;
-    const a = G.npc('ines'), held = a && a.visible && /^act_kettle_[ab]$/.test(a.pose || '');
+    const held = S.kettleHeld();
     if (!held && KETTLE.complete && KETTLE.naturalWidth) g.drawImage(KETTLE, 486, 410 - KETTLE.naturalHeight / 2, KETTLE.naturalWidth / 2, KETTLE.naturalHeight / 2);
     if (bookDown && BOOK.complete && BOOK.naturalWidth) g.drawImage(BOOK, 566, 410 - BOOK.naturalHeight / 2, BOOK.naturalWidth / 2, BOOK.naturalHeight / 2);
   };
