@@ -361,7 +361,12 @@
     F().ines_key = true;
     const p = G.player, ines = G.npc('ines');
     await G.fade(true);
-    await G.say('narr_key_later', { offscreen: true });
+    // the hour he took over his cigarettes, painted: fog, azulejos, a match cupped in his hands
+    if (G.image('still:still_cigarettes')) {
+      await G.showStill('still_cigarettes', async () => { await G.fade(false); await G.say('narr_key_later', { offscreen: true }); },
+        { zoom: [1.02, 1.1], pan: [[0.45, 0.5], [0.6, 0.42]], keep: true });
+      await G.fade(true); G.endStill();
+    } else await G.say('narr_key_later', { offscreen: true });
     p.x = 760; p.y = 612; p.dir = 'w'; p.pose = null;
     await G.fade(false);
     const face = (k, f) => async () => {

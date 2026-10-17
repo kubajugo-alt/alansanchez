@@ -430,7 +430,7 @@
     await shot('still_drawer', 'police', async () => { await say('narr_epi_drawer'); sfx('drawer_scrape'); await say('rui_click'); }, { zoom: [1.08, 1.0] });
     await shot('still_shop_after', 'shop', () => say('narr_epi_shop2') /* the brass weight is gone from the game */, { zoom: [1.0, 1.1] });
     if (F().amalia_box && F().rui_called) await shot('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });
-    if (F().amalia_night) await shot('still_tavern_full', 'tavern', () => say('narr_vig_night'), { zoom: [1.0, 1.1] });
+    if (F().amalia_night) { Sound.cue('tavern_day', { sticky: true }); await shot('still_tavern_full', 'tavern', () => say('narr_vig_night'), { zoom: [1.0, 1.1] }); Sound.cue('main_theme', { sticky: true }); } // the taberna full again: its busy tune
     await shot('still_quay_sweater', 'cais', () => say('narr_vig_ze'), { zoom: [1.0, 1.1] });
     Sound.cue('silence', { sticky: true, xf: 3 }); // the post-credits pictures: silence, then the clock
     await shot('still_jacket', 'boat', () => say('ze_back'), { zoom: [1.0, 1.1] });
