@@ -2923,6 +2923,14 @@ window.SPRITES = {
   "fy": 711.1,
   "top": 3.1
  },
+ "rui_front": {
+  "w": 294,
+  "hh": 727,
+  "h": 719.0,
+  "ax": 160.9,
+  "fy": 723.1,
+  "top": 3.1
+ },
  "rui_idle2": {
   "w": 321,
   "hh": 735,
@@ -2938,6 +2946,15 @@ window.SPRITES = {
   "h": 720.0,
   "ax": 170.4,
   "fy": 733.6,
+  "top": 3.1,
+  "facesLeft": true
+ },
+ "rui_idle4": {
+  "w": 244,
+  "hh": 727,
+  "h": 720.0,
+  "ax": 123.0,
+  "fy": 723.1,
   "top": 3.1,
   "facesLeft": true
  },
@@ -2964,6 +2981,24 @@ window.SPRITES = {
   "ax": 179.1,
   "fy": 710.1,
   "top": 3.1
+ },
+ "rui_talk3": {
+  "w": 309,
+  "hh": 727,
+  "h": 719.0,
+  "ax": 167.6,
+  "fy": 723.1,
+  "top": 3.1,
+  "facesLeft": true
+ },
+ "rui_talk4": {
+  "w": 331,
+  "hh": 727,
+  "h": 719.0,
+  "ax": 155.1,
+  "fy": 723.1,
+  "top": 3.1,
+  "facesLeft": true
  },
  "tomas": {
   "w": 339,
