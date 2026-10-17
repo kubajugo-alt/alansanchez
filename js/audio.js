@@ -283,6 +283,20 @@
     init();
     if (!roomSpec && !cue) playMusic('main_theme');
   }
+  // Settings: a music-volume slider under the Music on/off button (kept per browser)
+  function volumeSlider() {
+    const btn = document.getElementById('opt-music');
+    if (!btn || document.getElementById('opt-music-vol')) return;
+    const box = document.createElement('label'); box.id = 'opt-music-vol'; box.title = 'Music volume';
+    box.style.cssText = "display:flex;align-items:center;gap:.5em;padding:.3em 1em;font:700 .8em 'Cinzel',serif;color:var(--gold);background:rgba(28,18,10,.92);border:1px solid rgba(224,184,102,.6)";
+    box.innerHTML = '<span>Music volume</span><input type="range" min="0" max="100" step="1" style="width:7em;accent-color:#c8a060">';
+    const r = box.querySelector('input'); r.value = Math.round(musicVol * 100);
+    const stop = e => e.stopPropagation();
+    ['click', 'pointerdown', 'mousedown', 'touchstart'].forEach(ev => box.addEventListener(ev, stop));
+    r.addEventListener('input', () => setMusicVolume(r.value / 100));
+    btn.insertAdjacentElement('afterend', box);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', volumeSlider); else volumeSlider();
   window.addEventListener('pointerdown', titleTap, { passive: true });
   window.addEventListener('keydown', titleTap, { passive: true });
 

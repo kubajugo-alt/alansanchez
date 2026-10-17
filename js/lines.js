@@ -1423,7 +1423,7 @@ window.LINES = {
   vasco_liar: ['vasco', "[a small, knowing smile] You're a terrible liar, Senhor Sanchez. Don't change."],
   // the Sé (prompts A/B): goodbye to Vasco, the walk to the museum, and his twenty idle remarks
   alan_bye_vasco: ['alan', "Thursday, then, Doctor. Don't let the Moors keep you up."],
-  vasco_bye_alan: ['vasco', "[smiling, already heading back to the ladder] Thursday, Senhor Sanches."],
+  vasco_bye_alan: ['vasco', "[smiling] Thursday, Senhor Sanches."],
   ines_walk_museum: ['ines', "[linking her arm through his, low] Walk with me, querido. Not here."],
   vasco_idle_1: ['vasco', "[not looking up] Sorry. Found a sherd."],
   vasco_idle_2: ['vasco', "Roman. Probably. Possibly Moorish. Definitely broken."],
