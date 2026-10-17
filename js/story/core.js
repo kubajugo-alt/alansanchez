@@ -92,7 +92,7 @@
   // ---------------------------------------------------------------- items
   const posedLook = (pose, id) => () => S.posed(pose, () => say(id));
   S.ITEMS = {
-    notebook: { name: 'Notebook', look: async () => { await S.readNotebook(); await S.posed('write', () => say(F().vasco_thursday ? 'alan_two_numbers' : 'alan_look_notebook')); } },
+    notebook: { name: 'Notebook', read: () => S.readNotebook(), look: async () => { await S.readNotebook(); await S.posed('write', () => say(F().vasco_thursday ? 'alan_two_numbers' : 'alan_look_notebook')); } },
     sketch: { name: 'Sketch of the tile', look: 'alan_look_sketch' },
     bunktile: { name: 'Blue tile', look: 'narr_look_bunktile', with: { tongue: () => S.breakTile() } },
     coins: { name: () => F().coins === 1 ? 'One escudo coin' : `${F().coins || 0} escudo coins`, look: 'alan_look_coins' },

@@ -1205,12 +1205,28 @@
       slot.appendChild(c);
       slot.title = itemName(id);
       slot.onclick = e => { e.stopPropagation(); clickItem(id); };
+      if (ITEMS[id] && ITEMS[id].read) { // the notebook: a Read tab on its icon (also the N key and the ✎ button)
+        const rb = document.createElement('button'); rb.className = 'read'; rb.textContent = 'Read'; rb.title = itemName(id) + ' (N)';
+        rb.onclick = e => { e.stopPropagation(); readItem(id); };
+        slot.appendChild(rb);
+      }
       slot.oncontextmenu = e => { e.preventDefault(); e.stopPropagation(); if (!busy) lookItem(id); };
       slot.onmouseenter = () => { if (!busy) showHoverText(selItem && selItem !== id ? `Use ${itemName(selItem)} with ${itemName(id)}` : itemName(id), slot); };
       slot.onmouseleave = () => hideHover();
       invEl.appendChild(slot);
     });
     updateCursor();
+    const nb = $('#nb-btn'); if (nb) nb.classList.toggle('hidden', !state.inv.includes('notebook'));
+  }
+  // read an item's pages (the notebook): N key, the ✎ button, the Read tab on its inventory icon
+  async function readItem(id) {
+    id = id || 'notebook';
+    const cu = $('#closeup');
+    if (cu && !cu.classList.contains('hidden')) { const x = cu.querySelector('.x'); if (x) x.click(); return; } // a second press closes it
+    if (!state.inv.includes(id) || !ITEMS[id]) return;
+    if (busy || dialogResolve || cutscene) { toast('Not now'); return; }
+    noteInput(); selItem = null; renderInv(); invBar.classList.remove('show');
+    busy++; try { await runHandler(ITEMS[id].read || ITEMS[id].look); } finally { busy--; updateHover(); }
   }
   async function lookItem(id) {
     busy++; try { await runHandler(ITEMS[id].look); } finally { busy--; }
@@ -1246,6 +1262,7 @@
   invBar.addEventListener('mouseenter', () => { invHover = true; invBar.classList.add('show'); });
   invBar.addEventListener('mouseleave', () => { invHover = false; if (!selItem) invBar.classList.remove('show'); });
   $('#bag').addEventListener('click', e => { e.stopPropagation(); invBar.classList.toggle('show'); });
+  $('#nb-btn').addEventListener('click', e => { e.stopPropagation(); readItem('notebook'); });
 
   function targetAt(x, y) {
     if (!room) return null;
@@ -1350,6 +1367,7 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' || e.key === '.' || e.key === ' ') { if (skipFn) { skipFn(); e.preventDefault(); } return; }
     if (e.key === 'i' || e.key === 'I') invBar.classList.toggle('show');
+    if ((e.key === 'n' || e.key === 'N') && !e.ctrlKey && !e.metaKey && !e.altKey && $('#title').classList.contains('hidden')) readItem('notebook'); // (not on the title screen)
     const n = parseInt(e.key, 10);
     if (dialogResolve && n >= 1) { const btn = dialogEl.querySelectorAll('button')[n - 1]; if (btn) btn.click(); }
   });
@@ -1637,7 +1655,7 @@
   window.Game = {
     init, begin, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, stillTo, stillShowing, skipLine: () => { if (skipFn) skipFn(); }, closeup, setClock, renderInv,
     set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, showModal, refreshNpcs, renderLabels,
-    giveItem, takeItem, has, toast,
+    giveItem, takeItem, has, toast, readItem,
     get state() { return state; }, get flags() { return state.flags; },
     get player() { return player; }, get room() { return room; }, get npcs() { return npcs; },
     bgImage: () => room && IMG['bg:' + curBg()],

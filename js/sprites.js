@@ -454,6 +454,14 @@ window.SPRITES = {
   "fy": 726.1,
   "top": 3.1
  },
+ "alan_throw2": {
+  "w": 338,
+  "hh": 716,
+  "h": 720,
+  "ax": 189.0,
+  "fy": 716.3,
+  "top": 3.1
+ },
  "alan_undress1": {
   "w": 276,
   "hh": 741,
