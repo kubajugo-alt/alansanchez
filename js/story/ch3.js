@@ -6,7 +6,7 @@
   const CONVENT_WALK = [[230, 560], [1050, 560], [1280, 640], [1280, 716], [0, 716], [0, 640]];
   S.CONVENT_WALK = CONVENT_WALK;
   ROOMS.convent = {
-    name: 'Convento do Carmo', bg: 'convent', music: 'church', ambience: 'convent', floor: 'stone', skyMask: 'convent_sky',
+    name: 'Convento do Carmo', bg: 'convent', music: () => F().dawn ? 'main_theme' : 'carmo_day', ambience: 'convent', floor: 'stone', skyMask: 'convent_sky',
     fog: 0.22, fogRGB: '220,214,226',
     walk: CONVENT_WALK, scale: [560, 230, 716, 360],
     light: { ambient: 'rgb(218,212,224)', base: 0.9, rim: 'rgba(255,240,220,0.18)', rimSide: 1 },
@@ -126,6 +126,7 @@
     });
   };
   S.decodeScene = async function () {
+    Sound.cue('bell_motif'); // the cipher gives, 1755 comes back: the bell's motif
     sfx('page');
     await G.say('narr_decode_1', { offscreen: true });
     await posed('read', () => say('alan_decode_1'));
@@ -140,6 +141,7 @@
     await say('tomas_go_home', 'alan_choice');
     if (tm) tm.engaged--;
     F().chose_chiado = true;
+    Sound.cue(null);
   };
 
   // ================================================================ SÉ BELL TOWER
@@ -150,7 +152,7 @@
     { id: 'sanches', name: 'Small bell', rect: [981, 190, 108, 155], at: [940, 635], face: 'e', text: 'SANCHES · MDCCXXXIX', line: 'alan_bell_sanches', joke: true },
   ];
   ROOMS.se_tower = {
-    name: 'Sé de Lisboa · bell tower', bg: 'se_tower', music: 'church', ambience: 'tower', floor: 'wood',
+    name: 'Sé de Lisboa · bell tower', bg: 'se_tower', music: 'se_bell_tower', ambience: 'tower', floor: 'wood',
     // Abílio's stool with his cap and thermos (legs traced one by one, floor shows between them)
     occluders: [{ y: 672, polys: [
       [[1104, 505], [1150, 490], [1158, 463], [1190, 463], [1192, 540], [1230, 548], [1228, 566], [1098, 566], [1096, 548], [1104, 540]],
@@ -248,7 +250,7 @@
 
   // ================================================================ ANTIGUIDADES LACERDA
   ROOMS.antiques = {
-    name: 'Antiguidades Lacerda', bg: 'antiques', music: 'antiques', ambience: 'clocks', floor: 'wood',
+    name: 'Antiguidades Lacerda', bg: 'antiques', music: 'antiques_shop', ambience: 'clocks', floor: 'wood',
     walk: [[0, 650], [460, 555], [1280, 555], [1280, 716], [0, 716]],
     scale: [555, 330, 716, 410],
     light: { ambient: 'rgb(205,172,128)', base: 0.8, rim: 'rgba(255,200,120,0.18)', rimSide: -1 },

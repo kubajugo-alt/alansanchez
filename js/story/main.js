@@ -34,7 +34,7 @@
   window.STILLS = ['still_intro', 'still_bell_legend', 'still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn',
     'still_newspaper', 'still_tideclock_hand', 'still_alfama_sign', 'still_1755', 'still_1955_a', 'still_1955_b', 'still_1955_c', 'still_city_morning', 'still_drawer', 'still_shop_after',
     'still_phone', 'still_amalia_box', 'still_tavern_full', 'still_quay_sweater', 'still_abilio_ring', 'still_jacket', 'still_shelf', 'still_ze_kiss', 'still_ze_bunk', 'still_cop_shelf', 'still_guitar_bed', 'still_cop_smoke'].concat(window.EXTRA_STILLS || []);
-  window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks'];
+  window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks', 'close_drawerlock'];
 
   // ---------------------------------------------------------------- new game
   // preview links: ?scene=bath | cop | guitar | celeste | visitcop | visitguitar | romance | finale jumps straight to that scene (no autosave)
@@ -102,6 +102,11 @@
     // the end of the game: Thursday's debt paid, and downstairs to the reserve (the last romance)
     vascolove: { flags: { ch: 5, vasco_thursday: true, twin_lent: true, heist_done: true, dawn: true, thursday: true }, room: 'se_cloister', pos: [700, 640, 'e'], run: () => S.vascoLove() },
   };
+  // the chapter transitions (js/story/transitions.js): ?scene=tr1 … tr4 play the paintings and the next chapter card,
+  // tr5 the end of chapter V; ?scene=fado gives Amália the ginjinha (the song with the painting slideshow)
+  [1, 2, 3, 4].forEach(n => { PREVIEW['tr' + n] = { flags: { ch: n }, room: 'shop', pos: [815, 616, 'e'], run: () => S.chapter(n + 1, 'narr_ch' + (n + 1) + '_card') }; });
+  PREVIEW.tr5 = { flags: { ch: 5 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await S.transition(5, { toBlack: true }); await G.fade(false); } };
+  PREVIEW.fado = { flags: { ch: 1, heard_machine: true, askedSong: true, duarte_flirt: true, ginja: 1 }, room: 'tavern', pos: [812, 648, 'w'], run: () => { G.giveItem('ginja', true); return S.giveGinja(); } };
   async function preview(k) {
     const P = PREVIEW[k];
     G.giveItem('notebook', true); Object.assign(F(), P.flags);
@@ -139,13 +144,16 @@
     await G.busy(async () => {
       await G.fade(true);
       if (window.Sound) Sound.ambience('street_night');
+      Sound.cue({ id: 'main_theme', vol: 'low' }, { sticky: true }); // the paintings between chapters: the main theme, low
       await S.paint('still_intro', () => say('narr_intro_1'), { zoom: [1.0, 1.16], pan: [[0.4, 0.55], [0.6, 0.5]] });
       if (S.introLegend) await S.introLegend(); // the drowned bell, as the old women tell it
       const painted = S.mariaPaintings && await S.mariaPaintings();
       if (!painted && S.coldOpen) await S.coldOpen(); // fallback: Madragoa, 04:01, staged in a room
+      Sound.cue({ id: 'main_theme', vol: 'low' }, { sticky: true });
       if (S.introCity && G.image('still:still_newspaper')) await S.introCity();
       else await S.paint('still_intro', async () => { await say('narr_intro_2'); await say('narr_intro_tiles'); }, { zoom: [1.08, 1.16], pan: [[0.55, 0.5], [0.6, 0.5]] });
       await G.fade(true);
+      Sound.cue({ id: 'bell_motif', dur: 12, fade: 3 }, { sticky: true }); // as every chapter card
       await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);
     });
     // the shop without him: Inês calls up the stairs, Alan surfaces in his room and comes down yawning

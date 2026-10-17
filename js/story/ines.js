@@ -43,13 +43,11 @@
   const C = S.CHARS.ines, P = C.frames.poses;
   const JOBS = [
     { k: 'shelve', at: [345, 550], dir: 'w' },
-    { k: 'dust', at: [372, 640], dir: 'w', need: 'ines_act_dustdesk_a' },  // the grandfather desk, and only the desk
+    { k: 'dust', at: [372, 640], dir: 'w' },  // the grandfather desk, and only the desk
     { k: 'kettle', at: [545, 552], dir: 'e' },
     { k: 'ledger', at: [760, 565], dir: 'e' },
     { k: 'read', at: [962, 690], dir: 'e' },  // the newspaper on the counter: a finger down the columns
-  ].filter(j => has(j.need || 'ines_act_' + j.k + '_a'));
-  // the desk-dusting frames replace the old free-standing ones
-  if (has('ines_act_dustdesk_a')) { window.SPRITES.ines_act_dust_a = window.SPRITES.ines_act_dustdesk_a; window.SPRITES.ines_act_dust_b = window.SPRITES.ines_act_dustdesk_b || window.SPRITES.ines_act_dustdesk_a; }
+  ].filter(j => has('ines_act_' + j.k + '_a'));
   for (const j of JOBS) { P['act_' + j.k + '_a'] = 'ines_act_' + j.k + '_a'; P['act_' + j.k + '_b'] = has('ines_act_' + j.k + '_b') ? 'ines_act_' + j.k + '_b' : 'ines_act_' + j.k + '_a'; }
   for (const k of ['amused', 'deadpan', 'fond', 'annoyed', 'scandalised', 'impressed', 'sympathetic', 'teasing']) if (has('ines_' + k)) P[k] = 'ines_' + k;
 

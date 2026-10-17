@@ -26,13 +26,14 @@
     await G.wait(window.FAST ? 20 : 300);
     sfx('drawer_scrape', 0.5); await joke('alan_take_ledger');
   }
+  S.inesGone = () => F().ch >= 5 || (F().ch === 4 && !!F().ze_saved) || !!(S.inesAtSe && S.inesAtSe() && F().se_visited); // (Inês's own `when`, turned round)
   const pessoaSpot = () => F().ch >= 5 && !F().ledger_found ? 'machine' : F().lampOff ? 'radiator' : 'desk';
   ROOMS.shop = {
     name: 'Livraria Sanchez', bg: 'shop', bgs: ['shop_night', 'shop_nomag', 'shop_drawer', 'shop_drawer_nomag'],
     // day variants: grandfather's drawer pulled open on the ledger (from the key until Alan takes it), and the
     // desk without the magnifying glass once he has it
     bgFn: () => F().ch >= 5 ? 'shop_night' : 'shop' + (F().shop_drawer && !F().got_ledger ? '_drawer' : '') + (F().magTaken ? '_nomag' : ''),
-    music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog',
+    music: () => S.inesGone() ? 'shop_night' : 'shop_day', // Chapter V, and whenever Inês is away: the empty shop
     ambience: () => F().ch >= 5 ? 'shop_night' : 'shop', floor: 'wood',
     walk: [[345, 535], [792, 535], [1004, 716], [215, 716]],
     scale: [535, 362, 716, 482],
@@ -144,6 +145,7 @@
     if (F().ch >= 5) {
       if (!F().ledger_found) return say('alan_lamp_machine');
       if (F().heard_msg3) return say('alan_machine_again');
+      Sound.cue('lacerda_theme'); // Lacerda, on the tape
       sfx('beep');
       await G.say('lacerda_msg3', { offscreen: true, label: 'Answering machine' });
       await G.say('lacerda_msg3_ledger', { offscreen: true, label: 'Answering machine' }); // appended: the young lady insists
@@ -152,6 +154,7 @@
       await joke('alan_queue'); await say('alan_alone');
       await say('narr_msg2_again'); sfx('drip_hangup'); await G.wait(window.FAST ? 20 : 1500);
       await say('alan_hangup_reveal');
+      Sound.cue(null);
       return;
     }
     if (F().heard_machine) return say('alan_machine_again');
@@ -189,6 +192,7 @@
     if (!F().rui_called) return say('alan_call_rui_first');
     F().vasco_called = true;
     const hold = ms => G.wait(window.FAST ? 20 : ms);
+    Sound.cue('vasco_theme');
     await posed('phone', async () => {
       sfx('phone_pickup'); sfx('phone_dial_long'); await hold(2600);
       await say('alan_fcall_1');
@@ -208,6 +212,7 @@
       if (tone && tone.stop) try { tone.stop(0.15); } catch (e) { /* ignore */ }
       sfx('phone_hangup', 0.6); await hold(500);
     });
+    Sound.cue(null);
   };
   // Chapter II, the first time Alan is back at the station after the heist: Rui tells him the curator
   // withdrew the complaint. (Face to face, Alan brings it up with Vasco in the museum store room.)
@@ -262,7 +267,7 @@
   ROOMS.street = {
     name: 'Alfama', bg: 'street', bgs: ['street_night'],
     bgFn: () => S.streetNight() ? 'street_night' : 'street',
-    music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog', ambience: () => S.streetNight() ? 'street_night' : 'street', floor: 'cobble',
+    music: () => S.streetNight() ? 'alfama_night' : 'alfama_day', ambience: () => S.streetNight() ? 'street_night' : 'street', floor: 'cobble',
     fog: () => S.streetNight() ? 0.22 : 0.32, get fogRGB() { return S.streetNight() ? '70,80,105' : '214,218,216'; },
     walk: [[0, 578], [800, 593], [810, 612], [940, 612], [950, 595], [1280, 600], [1280, 716], [0, 716]], // in front of the bench, not among its legs
     scale: [578, 196, 716, 250],
@@ -348,7 +353,7 @@
   // ================================================================ MAP
   ROOMS.map = {
     name: 'Lisbon', bg: 'map', player: false, vignette: 0.3, noSave: true,
-    music: () => F().ch >= 5 ? null : F().ch >= 4 ? 'tension' : 'fog',
+    music: 'map_lisbon',
     anim(g, t) {
       for (const m of S.PINS) {
         const open = m.open(), seen = F()['seen_' + m.id] || (m.waiting && m.waiting());
@@ -376,7 +381,7 @@
   S.RUI_EXIT = [[285, 562], [228, 604], [150, 650]]; // (he crosses the desk's front line already clear of its end)
   S.COP_AT = [950, 672];
   ROOMS.police = {
-    name: 'Polícia Judiciária', bg: 'police', music: 'office', ambience: 'office', floor: 'tile',
+    name: 'Polícia Judiciária', bg: 'police', music: 'police_station', ambience: 'office', floor: 'tile',
     walk: [[60, 620], [1220, 620], [1280, 716], [0, 716]],
     scale: [606, 440, 716, 490],
     light: { ambient: 'rgb(206,220,196)', base: 0.8, flickerShade: 0.22 },
@@ -492,7 +497,7 @@
   ROOMS.tavern = {
     name: 'Taberna da Saudade', bg: 'tavern', bgs: ['tavern_night'],
     bgFn: () => F().ch >= 5 ? 'tavern_night' : 'tavern',
-    music: () => F().ch >= 5 ? null : 'fado', ambience: () => F().ch >= 5 ? null : 'tavern', floor: 'wood',
+    music: () => F().ch >= 5 ? 'tavern_night' : 'tavern_day', ambience: () => F().ch >= 5 ? null : 'tavern', floor: 'wood',
     walk: [[0, 614], [1280, 614], [1280, 716], [0, 716]],
     scale: [568, 385, 716, 450],
     light: () => F().ch >= 5 ? { ambient: 'rgb(110,105,140)', base: 0.5, flickerShade: 0.25 } : { ambient: 'rgb(200,142,98)', base: 0.72, flickerShade: 0.3 },

@@ -150,7 +150,7 @@
 
   // ================================================================ THE MUSEUM
   ROOMS.se_museum = {
-    name: 'Sé de Lisboa · museum', bg: 'se_museum', music: 'church', ambience: 'museum', acoustic: 'convent', floor: 'stone',
+    name: 'Sé de Lisboa · museum', bg: 'se_museum', music: 'se_exhibition', ambience: 'museum', acoustic: 'convent', floor: 'stone',
     // in front of the guard's chair and off the foot of the left stanchion
     walk: [[0, 680], [66, 676], [70, 648], [440, 608], [800, 610], [1000, 603], [1015, 616], [1160, 616], [1175, 602], [1280, 610], [1280, 716], [0, 716]],
     occluders: [{ y: 670, polys: [[[24, 500], [46, 500], [48, 516], [41, 524], [41, 648], [62, 660], [63, 672], [4, 672], [6, 660], [29, 648], [29, 524], [22, 516]]] }], // the left stanchion, knob to foot
@@ -204,8 +204,10 @@
     else if (a._pit) { a._pit = false; a.sink = 0; a.h = null; }
   };
   S.PIT_RIM = PIT_RIM;
+  // the heist: Alan's theme from the moment he meets Vasco, Vasco's from the shirt buttons on; Thursday is Vasco's
+  S.cloisterMusic = () => F().thursday ? 'vasco_theme' : F().ines_plan && F().met_vasco && !F().heist_done ? (F().lanyard_taken ? 'vasco_theme' : 'alan_theme') : 'se_cloister';
   ROOMS.se_cloister = {
-    name: 'Sé de Lisboa · cloister', bg: 'se_cloister', bgs: ['se_cloister_morning'], bgFn: () => F().thursday ? 'se_cloister_morning' : 'se_cloister', music: null, ambience: 'cloister', acoustic: 'convent', floor: 'stone',
+    name: 'Sé de Lisboa · cloister', bg: 'se_cloister', bgs: ['se_cloister_morning'], bgFn: () => F().thursday ? 'se_cloister_morning' : 'se_cloister', music: () => S.cloisterMusic(), ambience: 'cloister', acoustic: 'convent', floor: 'stone',
     // round the open pit, never into it; once Alan is down in it, along its floor
     get walk() { return F().in_pit ? PIT_WALK : FLOOR_WALK; },
     scale: [565, 250, 716, 345],
@@ -279,7 +281,7 @@
       if (F().ch === 3 && F().vasco_thursday && !F().vasco_cameo) return S.cloisterCh3();
       return S.vascoIdle();
     }
-    if (!F().met_vasco) { F().met_vasco = true; await say('vasco_hello', 'alan_vasco_hello'); }
+    if (!F().met_vasco) { F().met_vasco = true; Sound.refreshMusic(); await say('vasco_hello', 'alan_vasco_hello'); }
     if (F().in_pit) return S.pitTalk();
     const asked = F().dig_asked || (F().dig_asked = {});
     // each question asked counts; the third ends the conversation (he has to show Alan the bottom)
@@ -333,6 +335,7 @@
     await say('vasco_shirt_1', 'alan_shirt_1');
     if (v && !window.FAST) { await p.walkTo(Math.max(PIT_X[0] + 20, v.x - 110), PIT_RIM); p.dir = 'e'; v.dir = 'w'; }
     // close: Alan's hands at his collar (the lanyard frame), Vasco looking at his face
+    Sound.cue('vasco_theme', { xf: 4 }); // the shirt buttons: Alan's theme gives way to Vasco's
     await S.withPair('lanyard', async () => {
       await say('vasco_shirt_2', 'alan_shirt_2');
       sfx('key_jingle', 0.12);
@@ -601,6 +604,7 @@
   S.cloisterCh3 = async function () {
     if (F().vasco_cameo) return;
     F().vasco_cameo = true;
+    Sound.cue('vasco_theme');
     await G.busy(async () => {
       const p = G.player, v = G.npc('vasco');
       if (v) {
@@ -611,6 +615,7 @@
       give('sanches_fragment');
       await say('vasco_sleep', 'alan_fine', 'vasco_thursday_then', 'alan_cameo');
     });
+    Sound.cue(null);
   };
   // after each fling: a moment alone, and the narrator, who isn't fooled
   S.flingBeat = async function (n, stayDark) {
@@ -625,6 +630,7 @@
   S.thursday = async function () {
     if (!F().vasco_thursday) return;
     F().thursday = true;
+    Sound.cue('vasco_theme', { sticky: true }); // Thursday, the coffees, the reserve
     await G.fade(true); G.endStill();
     await G.goRoom('se_cloister', 'map', { instant: true, noEnter: true, noSave: true, pos: [260, 650, 'e'] });
     const p = G.player, v = G.npc('vasco');
@@ -688,7 +694,7 @@
   const STORE_STAIR = [250, 612], STORE_SHELF = [560, 592];
   const inStore = () => !!F().store_scene;
   ROOMS.se_store = {
-    name: 'Sé de Lisboa · reserve', bg: 'se_store', music: null, ambience: 'museum', acoustic: 'convent', floor: 'stone', noSave: true,
+    name: 'Sé de Lisboa · reserve', bg: 'se_store', music: () => F().store_scene ? 'vasco_theme' : 'se_exhibition', ambience: 'museum', acoustic: 'convent', floor: 'stone', noSave: true,
     // the flagstones, clear of the stairs (left) and the big crate (right)
     walk: [[0, 600], [290, 578], [305, 548], [1060, 548], [1070, 642], [1280, 646], [1280, 716], [0, 716]],
     scale: [548, 250, 716, 372],
@@ -710,6 +716,7 @@
   // Chapter III: honest for once. The apology, the clapper, and very nearly a kiss
   S.vascoTwin = async function () {
     const p = G.player;
+    Sound.cue('vasco_theme', { sticky: true }); // down to the reserve with him, and back
     await G.busy(async () => {
       if (F().heist_done) await say('alan_vasco_sorry_2', 'vasco_hook_3', 'vasco_forgive'); // wry: he knew all along
       else await say('vasco_what');
@@ -748,6 +755,7 @@
       F().store_scene = false;
       await G.goRoom('se_museum', 'se_store', { instant: true, noEnter: true });
       await G.fade(false);
+      Sound.cue(null);
       await say('alan_twin_guilt');
     });
     G.autosave();

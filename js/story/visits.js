@@ -26,7 +26,7 @@
     name: "Alan's room", bg: 'bedroom',
     // afterwards: the bed wrecked and the visitor's clothes all over the floor
     bgs: ['bedroom_after_cop', 'bedroom_after_guitar'],
-    bgFn: () => visitor === 'cop_bed' ? 'bedroom_after_cop' : visitor === 'guitar_floor' ? 'bedroom_after_guitar' : 'bedroom', noSave: true, music: null, ambience: 'shop', floor: 'wood',
+    bgFn: () => visitor === 'cop_bed' ? 'bedroom_after_cop' : visitor === 'guitar_floor' ? 'bedroom_after_guitar' : 'bedroom', noSave: true, music: { id: 'alan_theme', vol: 'quiet' }, ambience: 'shop', floor: 'wood',
     walk: [[330, 500], [860, 500], [1010, 716], [120, 716]], // between the bookshelf and the bed
     // Alan and his visitor are shown as painted here: no room light, rims or cast shadows over them
     get unlit() { return visitor ? /^(pair_|cop_|guitar_|alan)/ : /^pair_guitar_/; },
@@ -126,10 +126,10 @@
     const p = G.player, ready = ['cop_bed', 'guitar_floor'].includes(state) && window.SPRITES[state === 'cop_bed' ? 'cop_side1' : 'guitar_floor1'];
     visitor = ready ? state : (state === 'cop_bed' ? 'cop' : 'guitar');
     G.refreshNpcs(true);
-    if (state === 'guitar_floor') Sound.playMusic('fado'); // Duarte plays while Alan dresses
     const dress = k => { p.pose = window.SPRITES['alan_dress' + k] ? 'alan_dress' + k : null; };
     p.x = 640; p.y = 650; p.dir = 'e'; dress(1);
     await T(500); await G.fade(false); await T(900); // let the painting finish fading first
+    if (state === 'guitar_floor' && S.duarteSong) await S.duarteSong(); // he plays Alan his song, all of it
     for (const [stage, ...lines] of beats) {
       if (typeof stage === 'function') { await stage(); continue; }
       dress(stage); if (stage === 2) for (let i = 0; i < 4; i++) { p.x -= 5; await T(140); } else await T(500);
@@ -163,6 +163,7 @@
   S.visitCop = async function () {
     F().visit_cop = true;
     const p = G.player;
+    Sound.cue('alan_theme', { sticky: true }); // Teixeira's visit, upstairs and down
     await G.busy(async () => {
       await arrive('cop');
       // in front of Ines: a polite yard apart, both scarlet
@@ -238,6 +239,7 @@
         [4, 'alan_after_1'],                          // "Ten minutes. Don't go anywhere, Officer."
       ], 'phone_after_2', async () => { if (S.inesKey) await S.inesKey(); await S.teixeiraKey(); });
     });
+    Sound.cue(null);
   };
 
   S.visitGuitar = async function () {
@@ -252,14 +254,13 @@
       // declined: he plays her song on his stool, shrugs, and leaves the words behind
       const gv = G.npc('npc_guitar');
       // the opening bars of Amália's fado, the guitarra alone (the synth tune if the recording is missing)
-      const song = S.SINO_SONG ? Sound.playSong(S.SINO_SONG, 0.8) : (Sound.playMusic('sino'), null);
-      if (song) setTimeout(() => song.stop(2500), window.FAST ? 20 : 16500);
+      // his melody on the stool, under the empty-tavern tune (his own song is only ever for Alan's room)
+      Sound.cue('tavern_night', { sticky: true });
       const play = ['npc_guitar', 'npc_guitar_b'].filter(k => window.SPRITES[k]);
       let pi = 0; const iv = gv && play.length ? setInterval(() => { gv.pose = play[pi++ % play.length]; }, window.FAST ? 20 : 900) : null;
       try { await T(window.FAST ? 20 : 6000); await G.say('narr_melody', { offscreen: true }); await T(window.FAST ? 20 : 3000); }
       finally { if (iv) clearInterval(iv); if (gv) gv.pose = null; }
-      if (song) { song.stop(800); await song.ended; }
-      Sound.playMusic(G.room && G.room.music || 'fog');
+      Sound.cue(null);
       await say('duarte_shrug', 'duarte_lyrics_stool');
       if (gv) F().lyrics_at = [Math.round(gv.x), Math.round(gv.y)]; F().lyrics_on_stool = true;
       if (gv && !window.FAST) await gv.walkTo(1370, 700);
@@ -267,6 +268,7 @@
       return;
       }
       F().duarte_scene = true;
+      Sound.cue('alan_theme', { sticky: true }); // upstairs: Alan's theme, until Duarte picks up the guitar
       // Alan scarlet; Duarte perfectly at ease
       await beats([null, 'alan_visit_guitar'], ['fluster', 'ines_visit_after']);
       await say('ines_drowning'); await say('alan_schedule'); // the river keeps a timetable
@@ -315,6 +317,7 @@
         [async () => { await say('duarte_lyrics', 'alan_lyrics', 'duarte_lyrics2'); if (!G.has('lyrics_sheet')) { give('lyrics_sheet'); sfx('page'); } }],
       ], 'guitar_after_1');
     });
+    Sound.cue(null);
   };
 
   // back with the coffee Duarte asked for, Alan finds him downstairs being charming to Inês.
@@ -381,6 +384,66 @@
       sfx('stairs', 0.5); await T(600);
     });
     G.autosave();
+  };
+
+  // ---------------------------------------------------------------- "Meu Lindo Guarda-Livros"
+  // The accept path only: afterwards, on the floor of Alan's room, Duarte plays him the song he
+  // wrote about him. Diegetic: the score stops, nothing ducks it, it plays in full, and he plays
+  // along to it (his frames step with the recording's loudness, the warp sways him with it).
+  // Captions in English, a line at a time, timed from the recording (docs/MUSIC.md).
+  const SONG_CHORUS = [
+    "Oh, my handsome bookkeeper, close the shop up slowly,",
+    "for I've brought my passion with no receipt to sign.",
+    "If the artist tunes his guitar, there's a terrible to-do:",
+    "he wants to touch his fingers; I want his heart.",
+  ];
+  S.GUARDA_LIVROS_LYRICS = [
+    [12.2, "The accountant of Rua do Sol"],
+    [16.5, "has ledger eyes that never get it wrong;"],
+    [21.0, "he balances my spending, checks my accounts,"],
+    [25.2, "and I end up owing him a kiss, interest-free."],
+    [29.0, ''],
+    [29.8, SONG_CHORUS[0]], [34.4, SONG_CHORUS[1]], [38.7, SONG_CHORUS[2]], [42.8, SONG_CHORUS[3]],
+    [48.5, ''],
+    [50.4, "The musician, poor thing, has ink on his hand,"],
+    [54.8, "and swears he's painting a portrait of his love;"],
+    [59.1, "but when he smiles, he loses his way,"],
+    [63.2, "and out comes a sonnet that doesn't add up."],
+    [67.2, ''],
+    [67.9, SONG_CHORUS[0]], [72.8, SONG_CHORUS[1]], [77.0, SONG_CHORUS[2]], [81.2, SONG_CHORUS[3]],
+    [86.2, ''],
+    [87.2, "One asks him for a portrait, another asks for the key;"],
+    [91.5, "the handsome boy works out who pays the best."],
+    [95.6, "I say: “My darling, don't be so serious:"],
+    [100.0, "some accounts close better in private, my love.”"],
+    [105.8, ''],
+    [111.8, "Oh, my handsome bookkeeper, leave the account open,"],
+    [117.1, "for I've a few sums I'd rather settle myself."],
+    [121.2, "If the artist knocks at the door, let him wait in the hall:"],
+    [125.2, "today the book is mine… and I've come to collect love."],
+    [129.3, ''],
+    [129.9, "Close the shop, my dear, but don't close your smile;"],
+    [138.0, "there's a balance between us that's paid with good sense…"],
+    [146.6, "or with no sense at all."],
+    [150.0, ''],
+  ];
+  S.duarteSong = async function () {
+    const d = G.npc('npc_guitar');
+    Sound.cue(null); // the love scene's music gives way; after the song, the room's own, quietly
+    const song = Sound.playSong(Sound.trackUrl('meu_lindo_guarda_livros'), 1.5); // up front, where the voices sit
+    G.card('My Handsome Bookkeeper', '“Meu Lindo Guarda-Livros”  ·  Duarte', 4200); // (not awaited: the guitar has started)
+    // his playing: the floor frames advance with the music, faster as it swells, held in the quiet bars
+    const frames = ['guitar_floor1', 'guitar_floor3', 'guitar_floor2', 'guitar_floor4'].filter(k => window.SPRITES[k]);
+    let ph = 0, fi = 0;
+    if (d) d.perform = 1;
+    const iv = d && frames.length ? setInterval(() => {
+      const lv = Sound.songLevel();
+      ph += 0.04 + lv * 0.5;
+      if (ph >= 1) { ph = 0; fi = (fi + 1) % frames.length; d.pose = frames[fi]; }
+    }, window.FAST ? 20 : 120) : null;
+    try { await G.lyrics(song, S.GUARDA_LIVROS_LYRICS, 'guitar'); }
+    finally { if (iv) clearInterval(iv); if (d) { d.perform = 0; d.pose = null; } }
+    await T(900);
   };
 
   S.ITEMS.lyrics_sheet = { name: "Duarte's lyrics", look: () => S.readLyrics() };

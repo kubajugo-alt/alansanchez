@@ -4,7 +4,7 @@
 
   // ================================================================ LAVADOURO
   ROOMS.lavadouro = {
-    name: 'Lavadouro do Alfama', bg: 'lavadouro', music: 'fog', ambience: 'washhouse', floor: 'wet',
+    name: 'Lavadouro do Alfama', bg: 'lavadouro', music: 'lavadouro', ambience: 'washhouse', floor: 'wet',
     fog: 0.18, fogRGB: '225,228,228',
     walk: [[0, 508], [836, 505], [836, 692], [1280, 702], [1280, 716], [0, 716]], // stops at the stone basin
     scale: [505, 218, 716, 440],
@@ -337,7 +337,7 @@
     name: 'Relojoaria Ferreira', bg: 'ferreira', bgs: ['ferreira_drawer', 'ferreira_drawer_empty'],
     // the desk drawer (painted): shut; pulled open with the tide card in it; then empty
     bgFn: () => !lit() || !F().drawer_unlocked ? 'ferreira' : (G.has('tidecard') || F().tidecardTaken) ? 'ferreira_drawer_empty' : 'ferreira_drawer',
-    music: null, ambience: () => F().tide_wound ? 'ferreira' : null, floor: 'wood',
+    music: () => ({ id: 'ferreira_workshop', vol: lit() ? 1 : 'low' }), ambience: () => F().tide_wound ? 'ferreira' : null, floor: 'wood', // in the dark, quieter
     walk: [[0, 615], [1280, 615], [1280, 716], [0, 716]],
     scale: [615, 335, 716, 382],
     light: () => lit() ? { ambient: 'rgb(180,140,95)', base: 0.48, flickerShade: 0.25 } : { ambient: 'rgb(70,70,85)', base: 0.35 },
@@ -374,7 +374,7 @@
         use: () => say(lit() ? 'alan_fail_04' : 'alan_dark'),
         items: { matches: async () => {
           if (lit()) return say('alan_fail_04');
-          sfx('match'); F().ferreira_lit = true; G.takeItem('matches');
+          sfx('match'); F().ferreira_lit = true; Sound.refreshMusic(); G.takeItem('matches');
           await G.wait(window.FAST ? 20 : 500);
           await say('alan_lamp_lit'); await say('alan_enter_ferreira'); await say('alan_clocks');
         }, any: 'alan_dark' } },

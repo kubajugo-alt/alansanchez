@@ -150,6 +150,7 @@
     if (kept) G.wait(window.FAST ? 20 : 1100).then(() => G.endStill()); // gone while the card is fully up
     F().ch = n; F().clock = CH[n][2]; if (G.room) G.refreshNpcs(); // the cast changes with the chapter, even mid-room
     Sound.sfx('chapter_toll', 0.35); // a bell somewhere under the city, every chapter
+    Sound.cue({ id: 'bell_motif', dur: 12, fade: 3 }, { sticky: true }); // the Bell motif's first 12 s, fading, then the room's music
     await G.card(CH[n][0], `${CH[n][1]}  ·  ${CH[n][2]}`, 3000);
     if (line) await G.say(line, { offscreen: true });
     G.autosave();

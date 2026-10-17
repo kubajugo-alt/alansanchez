@@ -1401,9 +1401,9 @@ window.SPRITES = {
  "lacerda_front": {
   "w": 221,
   "hh": 729,
-  "h": 720,
-  "ax": 112.3,
-  "fy": 725.9,
+  "h": 753.93,
+  "ax": 94.6,
+  "fy": 668.4,
   "top": 2.9
  },
  "lacerda_idle2": {
@@ -1417,9 +1417,9 @@ window.SPRITES = {
  "lacerda_idle3": {
   "w": 233,
   "hh": 729,
-  "h": 720,
-  "ax": 119.6,
-  "fy": 725.4,
+  "h": 750.0,
+  "ax": 137.3,
+  "fy": 619.7,
   "top": 2.9,
   "facesLeft": true
  },
@@ -1468,18 +1468,18 @@ window.SPRITES = {
  "lacerda_talk3": {
   "w": 308,
   "hh": 728,
-  "h": 720,
-  "ax": 196.0,
-  "fy": 724.9,
+  "h": 711.11,
+  "ax": 213.3,
+  "fy": 637.9,
   "top": 2.9,
   "facesLeft": true
  },
  "lacerda_talk4": {
   "w": 220,
   "hh": 728,
-  "h": 720,
-  "ax": 124.7,
-  "fy": 724.9,
+  "h": 742.27,
+  "ax": 141.3,
+  "fy": 753.8,
   "top": 2.9,
   "facesLeft": true
  },

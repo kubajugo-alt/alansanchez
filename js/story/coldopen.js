@@ -12,7 +12,7 @@
   const PILLOW = [818, 368]; // where the tile lies
 
   ROOMS.cold_open = {
-    name: 'Madragoa', bg: 'cold_open', noSave: true, music: null, ambience: 'night', floor: 'wood', player: false,
+    name: 'Madragoa', bg: 'cold_open', noSave: true, music: 'cold_open', ambience: 'night', floor: 'wood', player: false,
     walk: [[300, 600], [1000, 600], [1100, 716], [200, 716]],
     scale: [560, 360, 716, 420],
     light: { ambient: 'rgb(120,140,175)', base: 0.75, rim: 'rgba(255,190,120,0.2)', rimSide: 1 },
@@ -97,6 +97,7 @@
   S.mariaPaintings = async function () {
     if (!MARIA.every(has)) return false;
     const A = Snd();
+    if (window.Sound && Sound.cue) Sound.cue('cold_open', { sticky: true });
     // a. the street: one lit window
     A.ambience('street_night');
     await paint('still_madragoa', async () => { sfx('foghorn', 0.25); await say('narr_maria_1'); await T(600); },
@@ -127,6 +128,7 @@
   // The legend, straight after the fog: the bell under the city, rung in 1755, breathing in a nine-day fog.
   S.introLegend = async function () {
     if (!has('still_bell_legend')) return;
+    if (window.Sound && Sound.cue) Sound.cue('bell_motif', { sticky: true }); // the legend is the bell's: its motif
     Snd().ambience('night');
     await paint('still_bell_legend', async () => { sfx('bell_hum', 0.3); await T(400); await say('narr_intro_legend'); await T(700); },
       { zoom: [1.0, 1.14], pan: [[0.5, 0.35], [0.5, 0.6]] });

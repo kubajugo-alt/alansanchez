@@ -21,7 +21,7 @@
 
   // ================================================================ CAIS DO SODRÉ
   ROOMS.cais = {
-    name: 'Cais do Sodré', bg: 'cais', music: 'tension', ambience: 'harbour', floor: 'cobble',
+    name: 'Cais do Sodré', bg: 'cais', music: () => F().ze_saved ? { id: 'quay_cais_do_sodre', vol: 'low' } : 'quay_cais_do_sodre', // after 18:25, low ambience: 'harbour', floor: 'cobble',
     fog: 0.34, fogRGB: '200,205,210',
     // clear of the crate stack, and of the fishwife's stool, the big bollard and the menders' crates: round the front of them
     walk: [[150, 462], [500, 456], [522, 466], [522, 598], [548, 606], [548, 713], [960, 713], [960, 652], [1119, 720], [0, 720], [0, 604], [150, 596]], // (down to the frame's edge, so the strip in front of the menders is wide enough to walk)
@@ -121,7 +121,7 @@
   // ================================================================ THE MARIA FÉ (deck)
   const PULL_AT = [167, 620]; // Alan's feet when hauling the mooring line: his fists sit on the painted rope
   ROOMS.boat = {
-    name: 'The Maria Fé', bg: 'boat', music: 'tension', ambience: 'boat', floor: 'wood',
+    name: 'The Maria Fé', bg: 'boat', music: 'ze_boat_deck', // the race to 18:25 ambience: 'boat', floor: 'wood',
     layers: [{ img: 'boat_noline', x: 0, y: 0, full: true, when: () => F().line_free || F().ze_awake }],
     occluders: [
       { y: 628, polys: [[[1070, 470], [1120, 455], [1165, 470], [1178, 530], [1172, 600], [1160, 618], [1100, 628], [1040, 640], [1012, 636], [1030, 610], [1062, 560]]] }, // orange float in its net
@@ -244,7 +244,7 @@
     name: 'The cabin', bg: 'cabin',
     layers: [{ img: 'cabin_notile', x: 0, y: 0, full: true, when: () => F().ze_saved || F().tile_held }],
     animFg(g, t) { S.drawStrike(g, t); },
-    music: () => F().ze_saved ? null : 'tension', ambience: 'boat', floor: 'wood',
+    music: () => F().ze_saved ? null : { id: 'ze_boat_deck', lowpass: 900 }, ambience: 'boat', floor: 'wood', // the deck's music through the boards; Zé's scene has none
     occluders: [
       { y: 548, polys: [[[760, 387], [814, 387], [814, 548], [760, 548]]] },                                            // sea chest
       { y: 718, base: [[810, 583], [1000, 718]], polys: [[[810, 425], [840, 415], [1280, 300], [1280, 720], [1000, 720], [837, 585], [810, 585]]] }, // bunk
@@ -337,11 +337,12 @@
     p.pose = 'reach'; await T(450); p.pose = null;
     strike = { at: tileSpot(), t0: performance.now() };
     p.pose = 'ring'; await T(500);
-    sfx('tile_shatter'); strike.broken = true; strike.t0 = performance.now();
+    sfx('tile_shatter'); Sound.cue('bell_motif'); strike.broken = true; strike.t0 = performance.now();
     G.takeItem('bunktile'); F().tile_held = false; F().ze_saved = true;
     await T(700); p.pose = null;
     await G.showStill('cais', async () => { clock('18:25'); sfx('water_drain'); await G.say('narr_turn', { offscreen: true }); }, { hold: 2500, zoom: [1.0, 1.06] });
     G.refreshNpcs();
+    Sound.cue(null, { xf: 3 }); // then only the boat: water and timber
     await say('alan_turned', 'ze_knew', 'alan_two_sentences');
     await S.romance();
     if (S.flingBeat) await S.flingBeat(3);
@@ -416,6 +417,7 @@
     if (F().ch4_done) return;
     F().ch4_done = true;
     G.setClock(null);
+    Sound.cue({ id: 'main_theme', vol: 'low' }, { sticky: true });
     await G.showStill('shop_night', () => G.say('narr_ch4_end', { offscreen: true }), { zoom: [1.0, 1.12], pan: [[0.45, 0.55], [0.4, 0.55]] });
     await S.chapter(5, 'narr_ch5_card');
     await G.goRoom('shop', 'map', { pos: [880, 600, 'w'] });

@@ -6,7 +6,7 @@
 
   // ================================================================ CARMO AT MIDNIGHT
   ROOMS.convent_night = {
-    name: 'Convento do Carmo — midnight', bg: 'convent_night', music: null, ambience: 'night', floor: 'stone', skyMask: 'convent_night_sky',
+    name: 'Convento do Carmo — midnight', bg: 'convent_night', music: 'carmo_night', ambience: 'night', floor: 'stone', skyMask: 'convent_night_sky',
     fog: 0.3, fogRGB: '120,135,180',
     walk: [[0, 640], [230, 560], [1000, 560], [1000, 594], [790, 594], [778, 716], [0, 716]], // around the open grate, and not behind the grating leaning on the wall
     scale: [560, 230, 716, 360],
@@ -67,7 +67,7 @@
   const PLATFORM = [690, 420], CAUSEWAY_END = [600, 428]; // on the platform's front band; the walkway's top, where it meets it
   const watched = () => !F().lacerda_distracted || F().strikes > 0;
   ROOMS.cistern = {
-    name: 'The Cistern', bg: 'cistern', noSave: true, music: null, ambience: 'cistern', floor: 'wet',
+    name: 'The Cistern', bg: 'cistern', noSave: true, music: () => F().won ? null : F().bell_lit ? 'bell_motif' : 'cistern_deep', // the rite: the bell's motif ambience: 'cistern', floor: 'wet',
     fog: () => F().won ? 0 : 0.16, fogRGB: '90,140,120',
     // the walkway between its two curbs, out to the front of the bell's platform (the rim hangs too low to stand under), and off the pillar's plinth
     walk: [[0, 560], [196, 560], [200, 540], [568, 428], [600, 421], [712, 419], [714, 423], [640, 425], [612, 432], [370, 540], [372, 560], [960, 560], [960, 604], [1228, 604], [1280, 640], [1280, 716], [0, 716]],
@@ -127,10 +127,12 @@
     async enter() {
       if (F().finaleIntro) return;
       F().finaleIntro = true; F().water = 0; F().strikes = 0;
+      Sound.cue('lacerda_theme'); // Lacerda, with Inês tied up behind him
       await G.player.walkTo(330, 640); G.player.dir = 'e';
       await say('lacerda_joaquim', 'alan_fin_angry', 'lacerda_spared_2', 'lacerda_ze', 'lacerda_demand', 'lacerda_font', 'lacerda_interrupted', 'lacerda_father', 'alan_father');
       S.lore && S.lore('father');
       await say('ines_warn', 'lacerda_quiet');
+      Sound.cue(null);
       G.checkpoint();
     },
   };
@@ -293,7 +295,7 @@
       await ines.walkTo(272, 556); await ines.walkTo(LAMP_SPOT[0], LAMP_SPOT[1]);
       ines.dir = 'e';
     });
-    F().bell_lit = true;
+    F().bell_lit = true; Sound.refreshMusic();
     await say('narr_bell_lit');
   };
   S.cutPalm = async function () {
@@ -339,6 +341,7 @@
     await G.busy(async () => {
       const lac = G.npc('lacerda');
       if (lac) { lac.set = null; lac.pose = 'lunge'; }
+      Sound.cue('bell_motif'); // game over
       await say('lacerda_death');
       sfx('splash');
       await G.fade(true);
@@ -389,7 +392,9 @@
     F().ringing = false; F().sinkAt = null;
     for (let w = F().water || 0; w > 0; w -= window.FAST ? 6 : 0.05) { F().water = Math.max(0, w); await G.wait(16); }
     F().water = 0;
-    Sound.ambience(null); await say('narr_silence');
+    Sound.ambience(null); Sound.cue('silence', { sticky: true, xf: 1.2 });
+    setTimeout(() => Sound.cue({ id: 'main_theme', fadeIn: 6 }, { sticky: true }), window.FAST ? 30 : 6200); // five seconds of nothing, then the theme
+    await say('narr_silence');
     F().won = true;
     await say('narr_still');
     ines.set = null; ines.def.fixedDir = false;
@@ -408,7 +413,7 @@
     await G.fade(true);
     F().dawn = true;
     await G.goRoom('convent', 'map', { instant: true, noEnter: true, noSave: true, pos: [880, 650, 'w'] });
-    Sound.playMusic('dawn');
+    Sound.cue('main_theme', { sticky: true }); // (already up since the silence: it carries on)
     const tm = G.npc('tomas'); if (tm) { tm.loop = null; tm.pose = 'kneel'; tm.x = 560; tm.y = 600; }
     await G.fade(false);
     await joke('alan_dawn');
@@ -427,12 +432,15 @@
     if (F().amalia_box && F().rui_called) await shot('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });
     if (F().amalia_night) await shot('still_tavern_full', 'tavern', () => say('narr_vig_night'), { zoom: [1.0, 1.1] });
     await shot('still_quay_sweater', 'cais', () => say('narr_vig_ze'), { zoom: [1.0, 1.1] });
+    Sound.cue('silence', { sticky: true, xf: 3 }); // the post-credits pictures: silence, then the clock
     await shot('still_jacket', 'boat', () => say('ze_back'), { zoom: [1.0, 1.1] });
     if (F().founder_order && !(F().struck_wrong)) await shot('still_abilio_ring', 'se_tower', async () => { sfx('bell_forward', 0.6); await say('narr_vig_abilio'); }, { zoom: [1.0, 1.12] });
-    await shot('still_shelf', 'antiques', async () => { sfx('clock_chime', 0.6); await say('narr_post'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.15] });
+    await shot('still_shelf', 'antiques', async () => { sfx('clock_chime', 0.6); await say('narr_post'); sfx('tideclock_tick', 0.5); await G.wait(window.FAST ? 20 : 2500); }, { zoom: [1.0, 1.15] });
     // the last picture: Alan rings his mother. Then the end.
+    Sound.cue('main_theme', { sticky: true });
     await shot('still_phone', 'shop', async () => { sfx('phone_dial_long', 0.6); await G.wait(window.FAST ? 20 : 2000); sfx('phone_ring_distant', 0.5); await G.wait(window.FAST ? 20 : 2500); await say('narr_call'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.08] });
     if (S.thursday) await S.thursday(); // Thursday morning, the cloister
+    Sound.cue('main_theme', { sticky: true }); // the credits
     await G.fade(true);
     G.showModal('ending', true);
     await G.fade(false);
