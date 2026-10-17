@@ -56,7 +56,8 @@
         lantern: { idle: 'ines_lantern', talk: ['ines_lantern_talk', 'ines_lantern'], walk: ['ines_lwalk1', 'ines_lwalk2'] },
       } } },
     rui: { scale: 0.96, frames: { idle: ['rui', 'rui_idle2', 'rui_idle3'], talk: ['rui_talk', 'rui_talk2'], walk: S.RUI_WALK || ['rui'], // never his coffee and eye-rubbing frames as steps
-      sets: { gate: { idle: 'rui_smoke', talk: ['rui_smoke', 'rui_talk'] }, coffee: { idle: 'rui_coffees', talk: 'rui_coffees' } } } },
+      front: 'rui_front', // (no cup in the frames below: at the gate he has no coffee)
+      sets: { gate: { idle: ['rui_smoke', 'rui_idle4'], talk: ['rui_talk3', 'rui_smoke', 'rui_talk4'] }, coffee: { idle: 'rui_coffees', talk: 'rui_coffees' } } } },
     amalia: { scale: 0.9, frames: {
       idle: ['amalia', 'amalia_idle2'], talk: ['amalia_talk', 'amalia_idle2'], poses: { toast: 'amalia_toast' },
       sets: { sing: { idle: 'amalia_sing1', talk: ['amalia_sing1', 'amalia_sing2', 'amalia_sing1', 'amalia_idle2'] } } } },
