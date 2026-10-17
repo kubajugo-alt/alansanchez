@@ -1457,6 +1457,9 @@
       busy--;
       if (room && room.onAction && verb !== 'exit') { busy++; try { await room.onAction(t, verb); } finally { busy--; } }
       updateHover();
+      // every finished action is autosaved: a walk through a door (goRoom's own autosave is skipped while
+      // the click is still running), an item taken, a puzzle solved, a conversation over
+      if (!busy && !dialogResolve && !cutscene && room && !room.noSave) autosave();
     }
   }
   // Alan reaches toward what he takes, uses or hands over.
@@ -1630,7 +1633,7 @@
   $('#opt-save').onclick = e => { e.stopPropagation(); $('#menu').classList.remove('open');
     if (!state || !room) return toast('Nothing to save yet');
     if (midScene()) return toast("Can't save during a scene");
-    if (room.noSave) return toast("Can't save here");
+    if (room.noSave && room.id !== 'map') return toast("Can't save here"); // (the map is fine: Continue opens it again)
     if (state.flags.dawn) return toast('The story is over');
     toast(saveManual() ? 'Game saved' : 'Saving failed (browser storage is off)'); };
   $('#opt-load').onclick = async e => { e.stopPropagation(); $('#menu').classList.remove('open');

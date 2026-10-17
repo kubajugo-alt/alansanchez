@@ -237,7 +237,9 @@
     logMusic('play', want.id, { vol: want.vol, lowpass: want.lowpass || 0, cue: !!cue });
     if (!musicTimer) musicTimer = setInterval(() => { try { if (active) active.tick(); } catch (e) { /* music never stops the game */ } }, 150);
   }
-  function endCue(fade) { if (!cue) return; logMusic('cue-end', cue.spec && cue.spec.id); cue = null; cueSticky = false; apply(fade); }
+  // the room's music, read afresh (a function of the story's flags: they may have moved since the room was entered)
+  function roomNow() { if (window.Game && Game.room && Game.room.music !== undefined) roomSpec = Game.room.music; }
+  function endCue(fade) { if (!cue) return; logMusic('cue-end', cue.spec && cue.spec.id); cue = null; cueSticky = false; roomNow(); apply(fade); }
   // the room's own music (engine, on entry): a scene's cue that isn't sticky ends here
   function playMusic(spec) {
     roomSpec = spec === undefined ? null : spec;
@@ -246,11 +248,11 @@
     apply();
   }
   // re-reads the room's music (its spec may be a function of the story's flags), cue untouched
-  function refreshMusic() { if (window.Game && Game.room) roomSpec = Game.room.music; if (ctx) apply(); }
+  function refreshMusic() { roomNow(); if (ctx) apply(); }
   // a story cue over the room: cue(spec, { sticky, xf }); cue(null) hands back to the room; cue('silence') holds silence
   function setCue(spec, opts) {
     opts = opts || {};
-    if (spec == null) { if (cue) { logMusic('cue-end', cue.spec && cue.spec.id); cue = null; cueSticky = false; } }
+    if (spec == null) { if (cue) { logMusic('cue-end', cue.spec && cue.spec.id); cue = null; cueSticky = false; } roomNow(); }
     else { cue = { spec }; cueSticky = !!opts.sticky; logMusic('cue', typeof spec === 'string' ? spec : spec.id, { sticky: cueSticky }); }
     if (ctx) apply(opts.xf);
   }

@@ -43,7 +43,7 @@
   const C = S.CHARS.ines, P = C.frames.poses;
   const JOBS = [
     { k: 'shelve', at: [345, 550], dir: 'w' },
-    { k: 'dust', at: [372, 640], dir: 'w' },  // the grandfather desk, and only the desk
+    { k: 'dust', at: [445, 632], dir: 'w' },  // the grandfather desk, and only the desk
     { k: 'kettle', at: [545, 552], dir: 'e' },
     { k: 'ledger', at: [760, 565], dir: 'e' },
     { k: 'read', at: [962, 690], dir: 'e' },  // the newspaper on the counter: a finger down the columns

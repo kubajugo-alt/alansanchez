@@ -70,7 +70,7 @@
       poses: { wind: 'lacerda_wind', warn: 'lacerda_talk2' }, // talks in the stance he stands in; the squarer finger-wag is a pose of its own
       walk: ['lacerda_walk1', 'lacerda_pass1', 'lacerda_walk2', 'lacerda_pass2'] }, frameStep: 0.17 }, // stride, passing, stride, passing: half a step per frame
     lacerda_robe: { scale: 1.02, frames: {
-      idle: 'robe_idle', talk: ['robe_talk', 'lacerda_robe'],
+      idle: ['robe_idle', 'robe_idle2'], talk: ['robe_talk', 'robe_talk2', 'lacerda_robe', 'robe_talk3'],
       poses: { lunge: 'robe_lunge', terror: 'robe_terror', read: 'robe_read', kneel: 'robe_kneel', realise: 'robe_realise' },
       sets: { read: { idle: 'robe_kneel', talk: ['robe_kneel'] } } } },
     celeste: { scale: 0.86, frames: {
