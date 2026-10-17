@@ -1213,6 +1213,13 @@ window.LINES = {
   ines_hint_paper_3: ['ines', "[dry] Rui offered you his Diário. Go and take it before he lines a drawer with it."],
   ines_hint_paper_4: ['ines', "The Diário's tide table, and Rui's times of death. Put them side by side in your notebook."],
   ines_hint_river: ['ines', "Ask Celeste about the river. Rui's mother knows things the coroner doesn't."],
+  // B7 / A23 (approved): the theft is Alan's question now; no suspect named over a surname; no "old spelling"
+  rui_list_1b: ['rui', "A list, in Maria Coutinho's apron. Four old names. Ferreira. Bastos. Coutinho. And Sanches. Any relation?"],
+  alan_ask_theft: ['alan', "Anything new on the Sé break-in?"],
+  rui_withdrawn_2: ['rui', "Funny you should ask. The curator came in and withdrew the complaint himself. 'On loan to a scholar,' he says. [looks at Alan] I didn't ask which scholar."],
+  alan_covered: ['alan', "[pause, quietly] ...He covered for me."],
+  alan_lacerda_name_2: ['alan', "A. Lacerda, antiquarian. Found dead in the cistern under the Carmo, the same week. Another name on a list nobody finished reading."],
+  ines_hint_rui_theft: ['ines', "[dry] Ask Rui about the Sé break-in. He's been sitting on something, and it isn't his hat."],
   amalia_conditions: ['amalia', "[dry] Not sober, menino. Never alone. And never without Duarte."],
   duarte_listen: ['guitar', "I play for people who listen, not for people who drink."],
   duarte_agree: ['guitar', "[smiling] Fine. I'll play. For you."],

@@ -217,7 +217,15 @@
   };
   // Chapter II, the first time Alan is back at the station after the heist: Rui tells him the curator
   // withdrew the complaint. (Face to face, Alan brings it up with Vasco in the museum store room.)
-  S.ruiReveal = async function () {
+  // B7: the curator's withdrawn complaint, asked about rather than announced (sets knows_withdrawn,
+  // which the Chapter III store-room scene picks up; the Chapter V phone call is the last fallback)
+  S.theftDue = () => !F().knows_withdrawn && F().ch >= 2 && F().ch < 5 && !!(F().vasco_thursday || F().heist_done);
+  S.theftTalk = async function (asked) {
+    F().knows_withdrawn = true;
+    if (!asked) await say('alan_ask_theft');
+    await say('rui_withdrawn_2', 'alan_covered');
+  };
+  S.ruiReveal = async function () { // (no longer called: kept for old references)
     if (F().knows_withdrawn || F().ch < 2 || F().ch >= 5 || !(F().vasco_thursday || F().heist_done)) return;
     const rui = G.npc('rui'); if (!rui || !rui.visible) return;
     F().knows_withdrawn = true;
@@ -391,7 +399,7 @@
       { x: 915, y: 265, rgb: '205,220,238', power: 0.28, reach: 800, rim: 0.6, shadow: 0.45, floor: [915, 500], height: 600 },
     ],
     entries: { default: [160, 655, 'e'], map: [160, 655, 'e'] },
-    async enter() { S.copFace(); await S.ruiReveal(); },
+    async enter() { S.copFace(); }, // (the curator's withdrawn complaint is now Alan's question: alan_ask_theft)
     layers: [{ img: 'police_drawer', x: 0, y: 0, when: () => F().drawer_open, full: true }, { img: 'police_cradle', x: 0, y: 0, full: true, when: () => S.copOnDuty() }], // the desk phone with its receiver lifted: Teixeira has it
     // Rui and the officer stand behind the desk: the desk and what's on it are traced
     occluders: [{ y: 600, polys: [
@@ -467,7 +475,7 @@
     give('file55'); sfx('page');
     await S.readFile55();
     await posed('read', () => say('alan_read_file'));
-    await say('alan_lacerda_name');
+    await say('alan_lacerda_name_2'); // no suspect named over a surname (alan_lacerda_name retired)
     // the key to Ferreira's comes round later with Teixeira (rui_key no longer plays);
     // saves from before the flirt became a puzzle get it straight away, as before
     if (F().flirted_cop) await say('rui_times', 'rui_avo', 'rui_key_2'); // he'll find a way (it turns out to be Teixeira, unannounced)
@@ -476,20 +484,20 @@
   };
   S.talkRui = async function () {
     if (!F().metRui) { F().metRui = true; await say('rui_hello'); await joke('alan_rui_hello'); }
-    await S.ruiReveal();
     await S.gossip('rui');
     await G.dialog([
       { line: 'alan_ask_murders', run: async () => { await say('rui_murders_1', 'rui_murders_2'); if (!F().ruiMurders) await joke('alan_rui_locked'); F().ruiMurders = true; } },
       { line: 'alan_ask_victims', when: () => F().ruiMurders, once: true, run: () => say('rui_victims_1', 'rui_victims_2') },
       { line: 'alan_ask_list', when: () => F().ruiMurders && !F().saw_list, run: async () => {
-        await say('rui_list_1'); await S.readList(); await say('alan_list_hand', 'rui_water'); await joke('alan_water'); F().saw_list = true;
+        await say('rui_list_1b'); await S.readList(); // (rui_list_1 had 'old spelling') await say('alan_list_hand', 'rui_water'); await joke('alan_water'); F().saw_list = true;
         if (F().ch === 1 && !F().teixeira_flirt) await S.ruiLeaves();
       }, get bye() { return !!F().rui_out; } },
       { line: 'alan_ask_strange', when: () => F().ch === 1, once: true, run: () => say('rui_drawer_1', 'rui_drawer_2') },
       { line: 'alan_ask_1955', when: () => F().ch >= 2 && !F().askedDrawer, run: async () => { await say('rui_1955', 'rui_drawer_crowbars'); F().askedDrawer = true; } },
       { line: 'alan_ask_fog', once: true, run: async () => { await say('rui_fog'); F().rui_fog_heard = true; } },
       { line: 'alan_what_now', once: true, when: () => !!F().rui_fog_heard, run: () => say('rui_mother_2') }, // his mother's message, again
-      { line: 'alan_tell_ferreira', when: () => F().ch === 2 && !!F().ferreira_lit && !F().ferreira_told, run: async () => { await say('rui_paper'); F().ferreira_told = true; } },
+      { line: 'alan_ask_theft', when: () => S.theftDue(), run: () => S.theftTalk(true) },
+      { line: 'alan_tell_ferreira', when: () => F().ch === 2 && !!F().ferreira_lit && !F().ferreira_told, run: async () => { await say('rui_paper'); F().ferreira_told = true; if (S.theftDue()) await S.theftTalk(false); } },
       { label: 'Goodbye.', bye: true, run: () => say('rui_bye') },
     ]);
   };

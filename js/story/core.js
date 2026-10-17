@@ -212,6 +212,7 @@
       if (!f.lore_turnings) return 'ines_hint_river';
       return 'ines_hint_paper_4';
     }
+    if (f.ch === 2 && f.heist_done && !f.knows_withdrawn && f.turnings_deduced) return 'ines_hint_rui_theft'; // B7: Rui's news about the Sé
     if (!f.decoded && f.ch2_done && S.needBells && S.needBells()) return f.charter_shown ? 'ines_hint_bells2' : 'ines_hint_bells';
     if (!f.decoded) return f.stone_washed ? (f.stone_read ? 'ines_hint_wheel' : 'ines_hint_mag') : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
     if (!f.founder_order) return 'ines_hint_order';
