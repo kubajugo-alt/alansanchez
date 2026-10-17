@@ -926,22 +926,6 @@ window.SPRITES = {
   "fy": 724.6,
   "top": 3.1
  },
- "ines_act_carry_a": {
-  "w": 210,
-  "hh": 730,
-  "h": 720,
-  "ax": 122.4,
-  "fy": 726.1,
-  "top": 3.1
- },
- "ines_act_carry_b": {
-  "w": 214,
-  "hh": 731,
-  "h": 720,
-  "ax": 123.9,
-  "fy": 727.1,
-  "top": 3.1
- },
  "ines_act_dust_a": {
   "w": 431,
   "hh": 726,
@@ -974,6 +958,14 @@ window.SPRITES = {
   "fy": 726.1,
   "top": 3.1
  },
+ "ines_act_kettle_put": {
+  "w": 320,
+  "hh": 719,
+  "h": 720,
+  "ax": 123.4,
+  "fy": 711.9,
+  "top": 3.1
+ },
  "ines_act_ledger_a": {
   "w": 263,
   "hh": 730,
@@ -988,6 +980,22 @@ window.SPRITES = {
   "h": 720,
   "ax": 122.3,
   "fy": 727.6,
+  "top": 3.1
+ },
+ "ines_act_read_a": {
+  "w": 308,
+  "hh": 719,
+  "h": 720,
+  "ax": 95.8,
+  "fy": 711.4,
+  "top": 3.1
+ },
+ "ines_act_read_b": {
+  "w": 308,
+  "hh": 719,
+  "h": 720,
+  "ax": 94.3,
+  "fy": 711.9,
   "top": 3.1
  },
  "ines_act_shelve_a": {
