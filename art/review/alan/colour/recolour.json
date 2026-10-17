@@ -26,441 +26,381 @@
   ]
  },
  "frames_changed_by (Lab offset before)": {
-  "pair_brow": {
-   "leather": [
-    3.4,
-    1.2,
-    1.7
-   ],
+  "alan_walkDown": {
    "denim": [
-    18.2,
-    3.9,
-    -5.8
+    -0.6,
+    0.9,
+    2.5
    ]
   },
-  "pair_kiss": {
+  "alan_walkUp": {
    "denim": [
-    26.7,
-    3.2,
-    -6.2
+    -3.0,
+    0.9,
+    2.5
    ]
   },
-  "pair_unbutton": {
-   "leather": [
-    -6.0,
-    5.1,
-    -1.1
-   ],
+  "alan_asleep": {
    "denim": [
-    21.1,
-    2.6,
-    -7.5
-   ]
-  },
-  "pair_cop_arm": {
-   "leather": [
-    -3.2,
-    2.8,
-    -0.6
-   ],
-   "denim": [
-    9.9,
-    2.8,
-    -4.4
-   ]
-  },
-  "pair_cop_belt": {
-   "denim": [
-    9.4,
-    1.3,
-    -3.3
-   ]
-  },
-  "pair_cop_belt2": {
-   "denim": [
-    5.9,
-    1.6,
-    -3.1
-   ]
-  },
-  "pair_cop_buttons": {
-   "denim": [
-    13.8,
+    -0.7,
     1.1,
-    -5.4
+    2.9
    ]
   },
-  "pair_cop_chest": {
-   "leather": [
-    -7.1,
-    3.6,
-    -0.2
-   ],
+  "alan_back": {
    "denim": [
-    9.6,
-    1.2,
-    -5.2
-   ]
-  },
-  "pair_cop_shelf2": {
-   "denim": [
-    7.9,
-    1.2,
-    -5.2
-   ]
-  },
-  "pair_cop_trousers": {
-   "denim": [
-    19.5,
-    3.4,
-    0.5
-   ]
-  },
-  "pair_cop_tshirt": {
-   "denim": [
-    12.9,
-    -0.4,
-    -1.5
-   ]
-  },
-  "pair_cop_jacket": {
-   "leather": [
-    -9.6,
-    3.1,
-    -1.5
-   ],
-   "denim": [
-    -1.0,
-    1.3,
-    -5.0
-   ]
-  },
-  "pair_cop_neck": {
-   "leather": [
-    -9.9,
-    2.6,
-    -1.1
-   ],
-   "denim": [
-    8.8,
-    1.5,
-    -3.6
-   ]
-  },
-  "pair_cop_shelf": {
-   "leather": [
-    -11.6,
-    2.3,
-    -2.4
-   ],
-   "denim": [
-    2.4,
-    1.2,
-    -4.4
-   ]
-  },
-  "pair_guitar_d1": {
-   "denim": [
-    10.6,
-    2.6,
-    -3.2
-   ]
-  },
-  "pair_guitar_d2": {
-   "denim": [
-    0.5,
-    2.8,
-    -1.8
-   ]
-  },
-  "pair_guitar_h1": {
-   "denim": [
-    -6.7,
-    1.5,
-    2.8
-   ]
-  },
-  "pair_guitar_h2": {
-   "denim": [
-    11.9,
-    2.5,
-    -2.3
-   ]
-  },
-  "pair_guitar_hop": {
-   "denim": [
-    -2.5,
-    1.1,
-    -3.2
-   ]
-  },
-  "pair_guitar_j0": {
-   "leather": [
-    -15.1,
-    3.4,
-    -2.6
-   ],
-   "denim": [
-    5.2,
     2.7,
-    -7.2
-   ]
-  },
-  "pair_guitar_j1": {
-   "leather": [
-    -11.2,
-    4.5,
-    -1.4
-   ],
-   "denim": [
-    7.6,
-    1.8,
-    -6.3
-   ]
-  },
-  "pair_guitar_j2": {
-   "leather": [
-    -3.9,
-    3.4,
-    -1.0
-   ],
-   "denim": [
-    3.4,
-    1.2,
-    -4.7
-   ]
-  },
-  "pair_guitar_jackets": {
-   "leather": [
-    -12.7,
     2.7,
-    -1.9
-   ],
-   "denim": [
-    9.4,
-    2.6,
-    -6.8
-   ]
-  },
-  "pair_guitar_lasso": {
-   "denim": [
-    4.0,
-    2.5,
-    0.2
-   ]
-  },
-  "pair_guitar_s1": {
-   "denim": [
-    14.0,
-    2.1,
-    -5.4
-   ]
-  },
-  "pair_guitar_s2": {
-   "denim": [
-    12.8,
-    1.5,
-    -5.6
-   ]
-  },
-  "pair_guitar_shirtfly": {
-   "denim": [
-    12.1,
-    2.2,
-    -5.8
-   ]
-  },
-  "pair_guitar_u1": {
-   "denim": [
-    10.0,
-    1.6,
-    -5.5
-   ]
-  },
-  "pair_guitar_u2": {
-   "denim": [
-    8.9,
-    1.3,
-    -3.1
-   ]
-  },
-  "pair_guitar_undress2": {
-   "denim": [
-    16.7,
-    4.3,
-    -6.1
-   ]
-  },
-  "pair_guitar_l1": {
-   "denim": [
-    -0.8,
-    2.3,
     0.7
    ]
   },
-  "pair_guitar_lesson": {
+  "alan_coffees": {
    "denim": [
-    15.7,
-    0.1,
-    -0.4
+    3.7,
+    2.6,
+    -3.1
    ]
   },
-  "pair_vasco_card": {
+  "alan_cutpalm": {
    "leather": [
-    -7.9,
-    3.9,
-    -1.1
-   ],
-   "denim": [
-    14.5,
-    1.4,
-    -1.9
-   ]
-  },
-  "pair_vasco_catch": {
-   "leather": [
-    -5.0,
-    4.8,
-    0.5
-   ],
-   "denim": [
-    20.6,
-    0.1,
-    -6.1
-   ]
-  },
-  "pair_vasco_clapper": {
-   "leather": [
-    -5.8,
-    3.1,
-    -1.5
-   ],
-   "denim": [
-    4.0,
+    -3.1,
     0.2,
-    -0.2
+    -0.8
    ]
   },
-  "pair_vasco_coffee": {
-   "leather": [
-    -2.3,
-    3.8,
-    0.8
-   ],
+  "alan_dress1": {
    "denim": [
-    20.3,
-    3.9,
-    -8.3
-   ]
-  },
-  "pair_vasco_fragment": {
-   "leather": [
-    -7.1,
-    4.5,
-    -0.2
-   ],
-   "denim": [
-    7.5,
-    3.2,
-    -3.4
-   ]
-  },
-  "pair_vasco_kiss": {
-   "leather": [
-    -3.9,
-    3.4,
-    -1.6
-   ],
-   "denim": [
-    9.9,
     1.4,
-    -0.9
+    2.1,
+    1.8
    ]
   },
-  "pair_vasco_kneel": {
+  "alan_dress2": {
    "leather": [
-    -5.1,
-    2.7,
-    0.8
+    -6.3,
+    1.1,
+    -2.7
    ],
    "denim": [
-    12.3,
+    8.0,
+    -0.2,
+    1.3
+   ]
+  },
+  "alan_pull": {
+   "denim": [
+    -3.1,
     1.0,
-    -2.4
+    3.3
    ]
   },
-  "pair_vasco_ladder": {
-   "leather": [
-    -1.8,
-    3.1,
-    -0.1
-   ],
+  "alan_reach": {
    "denim": [
-    13.7,
+    -0.1,
+    -0.2,
+    -2.3
+   ]
+  },
+  "alan_ring": {
+   "denim": [
+    -1.2,
     0.9,
-    -3.6
+    3.2
    ]
   },
-  "pair_vasco_lanyard": {
+  "alan_throw2": {
+   "denim": [
+    1.1,
+    -0.4,
+    -2.3
+   ]
+  },
+  "alan_wring": {
+   "denim": [
+    3.5,
+    -1.0,
+    -0.2
+   ]
+  },
+  "alan_smoke_inhale": {
+   "denim": [
+    -1.2,
+    0.8,
+    3.2
+   ]
+  },
+  "alan_undress3": {
    "leather": [
-    -8.9,
+    15.3,
+    3.3,
+    4.1
+   ],
+   "denim": [
+    -1.5,
+    3.4,
+    1.0
+   ]
+  },
+  "alan_undress4": {
+   "denim": [
     2.8,
-    -1.4
-   ],
-   "denim": [
-    13.5,
-    3.0,
-    -5.4
+    1.7,
+    4.7
    ]
   },
-  "pair_vasco_shirtless": {
+  "alan_write": {
    "denim": [
-    15.5,
-    0.6,
-    -8.5
-   ]
-  },
-  "pair_vasco_thumb": {
-   "leather": [
-    -7.6,
-    2.7,
-    -0.4
-   ],
-   "denim": [
-    11.3,
-    1.9,
-    -4.3
-   ]
-  },
-  "pair_wring_1": {
-   "leather": [
-    -3.9,
-    0.2,
-    -2.2
-   ]
-  },
-  "pair_wring_2": {
-   "leather": [
-    -7.1,
-    1.5,
-    -2.0
-   ],
-   "denim": [
-    -3.9,
-    -0.3,
-    -2.1
-   ]
-  },
-  "pair_wring_3": {
-   "leather": [
-    -7.6,
-    1.5,
-    -2.2
-   ],
-   "denim": [
-    -8.5,
+    3.5,
     -0.7,
-    -1.1
+    -2.6
+   ]
+  },
+  "alan_drink": {
+   "denim": [
+    -0.0,
+    0.9,
+    2.5
+   ]
+  },
+  "alan_phone": {
+   "denim": [
+    0.8,
+    0.8,
+    2.6
+   ]
+  },
+  "alan_pass": {
+   "denim": [
+    -1.1,
+    1.1,
+    2.7
+   ]
+  },
+  "alan_jump": {
+   "leather": [
+    -2.5,
+    2.4,
+    -0.6
+   ]
+  },
+  "alan_front": {
+   "denim": [
+    1.9,
+    2.9,
+    -0.3
+   ]
+  },
+  "alan_front_walk1": {
+   "denim": [
+    2.0,
+    3.1,
+    -0.6
+   ]
+  },
+  "alan_front_walk2": {
+   "denim": [
+    -0.3,
+    3.0,
+    0.7
+   ]
+  },
+  "alan_back_walk1": {
+   "denim": [
+    2.1,
+    3.0,
+    0.8
+   ]
+  },
+  "alan_back_walk2": {
+   "denim": [
+    2.7,
+    2.7,
+    0.8
+   ]
+  },
+  "alan_flirt": {
+   "denim": [
+    4.1,
+    1.0,
+    2.1
+   ]
+  },
+  "alan_wink": {
+   "denim": [
+    2.4,
+    3.5,
+    0.3
+   ]
+  },
+  "alan_fluster": {
+   "denim": [
+    2.4,
+    2.4,
+    -1.3
+   ]
+  },
+  "alan_swoon": {
+   "denim": [
+    1.3,
+    2.7,
+    0.1
+   ]
+  },
+  "alan_button": {
+   "denim": [
+    1.8,
+    2.0,
+    0.6
+   ]
+  },
+  "alan_enchanted1": {
+   "denim": [
+    1.5,
+    2.5,
+    1.0
+   ]
+  },
+  "alan_enchanted2": {
+   "denim": [
+    2.5,
+    2.3,
+    0.3
+   ]
+  },
+  "alan_rapt1": {
+   "denim": [
+    3.2,
+    2.9,
+    2.0
+   ]
+  },
+  "alan_rapt2": {
+   "denim": [
+    3.8,
+    2.7,
+    2.1
+   ]
+  },
+  "alan_rapt3": {
+   "denim": [
+    4.5,
+    2.3,
+    2.0
+   ]
+  },
+  "alan_lantern": {
+   "denim": [
+    2.3,
+    3.5,
+    0.1
+   ]
+  },
+  "alan_lwalk1": {
+   "denim": [
+    2.0,
+    3.2,
+    -1.0
+   ]
+  },
+  "alan_lwalk2": {
+   "denim": [
+    2.1,
+    2.7,
+    0.6
+   ]
+  },
+  "alan_yawn": {
+   "denim": [
+    3.4,
+    2.7,
+    0.3
+   ]
+  },
+  "alan_stretch": {
+   "denim": [
+    0.2,
+    3.0,
+    2.2
+   ]
+  },
+  "alan_undress1": {
+   "denim": [
+    1.9,
+    2.6,
+    -0.4
+   ]
+  },
+  "alan_undress2": {
+   "denim": [
+    2.5,
+    2.2,
+    -0.1
+   ]
+  },
+  "alan_dress3": {
+   "denim": [
+    1.4,
+    2.9,
+    0.6
+   ]
+  },
+  "alan_dress4": {
+   "denim": [
+    3.0,
+    2.6,
+    0.4
+   ]
+  },
+  "alan_undress1b": {
+   "leather": [
+    11.1,
+    2.7,
+    1.8
+   ],
+   "denim": [
+    3.4,
+    3.9,
+    -0.5
+   ]
+  },
+  "alan_dress_final": {
+   "leather": [
+    -1.7,
+    -0.5,
+    -4.0
+   ],
+   "denim": [
+    2.9,
+    4.0,
+    -0.1
+   ]
+  },
+  "alan_undress_belt": {
+   "denim": [
+    5.6,
+    3.3,
+    -0.6
+   ]
+  },
+  "alan_undress_boot": {
+   "denim": [
+    7.1,
+    3.5,
+    -2.9
+   ]
+  },
+  "alan_dress_boot": {
+   "denim": [
+    9.3,
+    2.8,
+    -1.3
+   ]
+  },
+  "alan_trunks_snap": {
+   "denim": [
+    -14.2,
+    3.6,
+    3.8
    ]
   }
  }
