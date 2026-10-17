@@ -828,7 +828,9 @@
     convent_night: ['#30508a', 0.18, '#03070d'], cistern: ['#3c6a68', 0.16, '#020505'],
   };
   function grade(bg) {
-    const c = GRADES[bg]; if (!c) return;
+    // a variant painting of a room (the tavern with its guitar taken down, a drawer pulled open...)
+    // keeps the room's grade: without it the warm wash dropped out and the room looked unlit
+    const c = GRADES[bg] || (room && GRADES[room.bg]); if (!c) return;
     g.save(); g.globalCompositeOperation = 'soft-light'; g.globalAlpha = c[1] * 2.2;
     g.fillStyle = c[0]; g.fillRect(0, 0, W, H);
     if (c[2]) { g.globalCompositeOperation = 'screen'; g.globalAlpha = 1; g.fillStyle = c[2]; g.fillRect(0, 0, W, H); }

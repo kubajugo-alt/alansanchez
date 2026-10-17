@@ -67,7 +67,7 @@
       sets: { pray: { idle: 'tomas_kneel', talk: ['tomas_kneel'] } } } }, // after he gives Alan his lantern
     lacerda: { scale: 1.0, frames: {
       idle: ['lacerda', 'lacerda_idle2'], talk: ['lacerda_talk', 'lacerda_talk2'], poses: { wind: 'lacerda_wind' },
-      walk: ['lacerda_walkA', 'lacerda', 'lacerda_walkB', 'lacerda'] } },
+      walk: ['lacerda_walk1', 'lacerda_pass1', 'lacerda_walk2', 'lacerda_pass2'] }, frameStep: 0.17 }, // stride, passing, stride, passing: half a step per frame
     lacerda_robe: { scale: 1.02, frames: {
       idle: 'robe_idle', talk: ['robe_talk', 'lacerda_robe'],
       poses: { lunge: 'robe_lunge', terror: 'robe_terror', read: 'robe_read', kneel: 'robe_kneel', realise: 'robe_realise' },
