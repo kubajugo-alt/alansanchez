@@ -70,7 +70,10 @@
   function frame(now) {
     requestAnimationFrame(frame); // queued first: a throwing hook skips one frame, never the loop
     if (window.HOLD) { if (!(window.ADVANCE > 0)) { last = now; return; } window.ADVANCE--; } // test recordings: step frame by frame
-    const dt = (window.STEP_DT || Math.min(0.05, (now - last) / 1000)) * (window.TIME_SCALE || 1); last = now; E.time += dt; // STEP_DT: fixed steps for test recordings; TIME_SCALE: the review screen's slow motion
+    // STEP_DT: fixed steps for test recordings; TIME_SCALE: the review screen's slow motion
+    const dt = (window.STEP_DT || Math.min(0.05, (now - last) / 1000)) * (window.TIME_SCALE || 1);
+    last = now;
+    E.time += dt;
     // a device that can't keep up with the mesh warp falls back to flat frames
     if (window.WARP == null && !window.FAST) { // (WARP = true forces it on, false off)
       slowT = (now - last0 > 45) ? slowT + 1 : Math.max(0, slowT - 2); last0 = now;

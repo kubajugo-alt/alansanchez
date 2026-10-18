@@ -82,7 +82,10 @@
     // a cast shadow is darkest where it meets the feet and thins out toward the
     // head's end, so a figure lit from behind stays planted instead of floating
     sg.globalCompositeOperation = 'destination-in';
-    const fade = sg.createLinearGradient(0, -U.y, 0, 0); fade.addColorStop(0, 'rgba(0,0,0,1)'); fade.addColorStop(0.35, 'rgba(0,0,0,0.75)'); fade.addColorStop(1, 'rgba(0,0,0,0.28)');
+    const fade = sg.createLinearGradient(0, -U.y, 0, 0);
+    fade.addColorStop(0, 'rgba(0,0,0,1)');
+    fade.addColorStop(0.35, 'rgba(0,0,0,0.75)');
+    fade.addColorStop(1, 'rgba(0,0,0,0.28)');
     sg.fillStyle = fade; sg.fillRect(0, 0, bw, bh);
     sg.globalCompositeOperation = 'source-over';
     for (const o of casters) {

@@ -13,7 +13,10 @@
 
   function targetAt(x, y) {
     if (!E.room) return null;
-    if (E.selItem && E.player.visible) { const b = E.player.bbox(); if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return { kind: 'self', def: { name: 'Alan', items: (E.room.self && E.room.self.items) || {} } }; }
+    if (E.selItem && E.player.visible) {
+      const b = E.player.bbox();
+      if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return { kind: 'self', def: { name: 'Alan', items: (E.room.self && E.room.self.items) || {} } };
+    }
     // the smallest hotspot under the cursor wins, so a box of matches on the bar
     // or a tile on the bunk is never swallowed by the bigger thing around it;
     // small props also win over the empty corners of a person's bounding box
@@ -52,7 +55,11 @@
   }
   function showHoverText(txt, el) {
     hoverEl.textContent = txt; hoverEl.style.display = txt ? 'block' : 'none';
-    if (el) { const r = el.getBoundingClientRect(), gr = wrap.getBoundingClientRect(); hoverEl.style.left = ((r.left + r.width / 2 - gr.left) / gr.width * 100) + '%'; hoverEl.style.top = ((r.top - gr.top) / gr.height * 100 - 4) + '%'; }
+    if (el) {
+      const r = el.getBoundingClientRect(), gr = wrap.getBoundingClientRect();
+      hoverEl.style.left = ((r.left + r.width / 2 - gr.left) / gr.width * 100) + '%';
+      hoverEl.style.top = ((r.top - gr.top) / gr.height * 100 - 4) + '%';
+    }
     else { hoverEl.style.left = (mouse.x / W * 100) + '%'; hoverEl.style.top = (mouse.y / H * 100 - 5) + '%'; }
     if (txt) E.keepInside(hoverEl, 8);
   }
@@ -133,7 +140,10 @@
     }
     await E.player.walkTo(x, y);
     if (def.face) E.player.dir = def.face;
-    else if (actor) { E.player.dir = actor.x > E.player.x ? 'e' : 'w'; if (E.canTurn(actor) || (E.turnsFreely(actor) && !actor.def.fixedDir)) actor.dir = E.player.x > actor.x ? 'e' : 'w'; }
+    else if (actor) {
+      E.player.dir = actor.x > E.player.x ? 'e' : 'w';
+      if (E.canTurn(actor) || (E.turnsFreely(actor) && !actor.def.fixedDir)) actor.dir = E.player.x > actor.x ? 'e' : 'w';
+    }
   }
   // A failed use always gets an Alan line: the target's own, then a
   // character-specific refusal, then the shared pool (no immediate repeats).
@@ -157,7 +167,11 @@
         E.lastPartner = t.actor;
         if (verb !== 'look' && verb !== 'exit' && E.canTurn(E.player) && Math.abs(t.actor.x - E.player.x) > 30) E.player.dir = t.actor.x > E.player.x ? 'e' : 'w';
       }
-      if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk) && !(item && def.items && def.items[item])) { if (item) { E.selItem = null; E.renderInv(); } await E.say('alan_npc_busy'); return; }
+      if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk) && !(item && def.items && def.items[item])) {
+        if (item) { E.selItem = null; E.renderInv(); }
+        await E.say('alan_npc_busy');
+        return;
+      }
       if (t.kind === 'self') {
         const h = def.items[item] || def.items.any;
         E.selItem = null; E.renderInv(); invBar.classList.remove('show');
@@ -169,7 +183,11 @@
         await runHandler(def.look || failLine(t, 'look'), t); return;
       }
       if (verb === 'exit') {
-        if (def.locked && def.locked()) { if (def.exit) Sound.sfx('door_rattle', 0.6); await E.say((typeof def.lockedLine === 'function' ? def.lockedLine() : def.lockedLine) || 'alan_fail_04'); return; }
+        if (def.locked && def.locked()) {
+          if (def.exit) Sound.sfx('door_rattle', 0.6);
+          await E.say((typeof def.lockedLine === 'function' ? def.lockedLine() : def.lockedLine) || 'alan_fail_04');
+          return;
+        }
         await approach(def, t.actor);
         await E.goRoom(typeof def.exit === 'function' ? def.exit() : def.exit, def.entry || E.room.id); return;
       }

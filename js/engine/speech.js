@@ -123,7 +123,10 @@
     const tick = setInterval(() => {
       const now = song.el.currentTime; let k = -1;
       cues.forEach(([at], i) => { if (now >= at) k = i; });
-      if (k !== shown) { shown = k; if (k >= 0 && cues[k][1]) { t.textContent = cues[k][1]; narrEl.style.display = 'block'; } else narrEl.style.display = 'none'; }
+      if (k !== shown) {
+        shown = k;
+        if (k >= 0 && cues[k][1]) { t.textContent = cues[k][1]; narrEl.style.display = 'block'; } else narrEl.style.display = 'none';
+      }
     }, 120);
     const skip = () => { if (!over) song.stop(900); };
     E.skipFn = skip;

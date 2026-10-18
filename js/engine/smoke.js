@@ -73,7 +73,13 @@
   let smokeRoom = null;
   function idleSmokeTick(dt) {
     if (E.room !== smokeRoom) { smokeRoom = E.room; puffs.length = 0; } // smoke doesn't follow him through a door
-    for (const p of puffs) { p.life += dt; p.x += (p.vx + Math.sin(E.time * 1.3 + p.seed) * 4) * dt; p.y += p.vy * dt; p.vx *= 1 - dt * 0.5; p.vy *= 1 - dt * 0.25; }
+    for (const p of puffs) {
+      p.life += dt;
+      p.x += (p.vx + Math.sin(E.time * 1.3 + p.seed) * 4) * dt;
+      p.y += p.vy * dt;
+      p.vx *= 1 - dt * 0.5;
+      p.vy *= 1 - dt * 0.25;
+    }
     for (let i = puffs.length - 1; i >= 0; i--) if (puffs[i].life > puffs[i].max) puffs.splice(i, 1);
     if (!smk && !puffs.length && E.player.overlay === drawSmoke) { E.player.overlay = smokeSaved; smokeSaved = null; }
     const ok = smokeOK();

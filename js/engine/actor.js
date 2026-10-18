@@ -170,7 +170,9 @@
         const lvl = E.speaking && E.speaking.actor === this ? Sound.voiceLevel() : 0.5;
         this.lvl = (this.lvl || 0) + (lvl - (this.lvl || 0)) * Math.min(1, dt * 12);
         this.quietT = lvl < 0.06 ? this.quietT + dt : 0;
-        if (E.speaking && E.speaking.actor === this) { if (lvl >= 0.06) this.voiced = true; else if (this.voiced && this.quietT > 0.28) { this.voiced = false; E.phraseEndT = E.time; } }
+        if (E.speaking && E.speaking.actor === this) {
+          if (lvl >= 0.06) this.voiced = true; else if (this.voiced && this.quietT > 0.28) { this.voiced = false; E.phraseEndT = E.time; }
+        }
         const n = arr(F.talk).length;
         if (this.quietT > 0.45 && this.talkIdx >= 0 && this.talkT < 0.5) { this.talkIdx = -1; this.talkT = 0.3; }
         else if (this.talkT <= 0) {
@@ -182,7 +184,13 @@
       if (!(E.cutscene && this.def && this.def.ambient)) this.idleT -= dt; // ambient extras freeze during cutscenes
       if (this.idleT <= 0) {
         const vh = this.c.variantHold || [2, 4.5], ih = this.c.idleHold || [4, 10];
-        if (this.idleIdx === 0 && nIdle > 1) { this.idleIdx = 1 + Math.floor(Math.random() * (nIdle - 1)); this.idleT = vh[0] + Math.random() * (vh[1] - vh[0]); const v = arr(F.idle)[this.idleIdx]; if (Array.isArray(v)) this.idleT *= Math.max(1, v.length * 0.6); this.idleDur = this.idleT; }
+        if (this.idleIdx === 0 && nIdle > 1) {
+          this.idleIdx = 1 + Math.floor(Math.random() * (nIdle - 1));
+          this.idleT = vh[0] + Math.random() * (vh[1] - vh[0]);
+          const v = arr(F.idle)[this.idleIdx];
+          if (Array.isArray(v)) this.idleT *= Math.max(1, v.length * 0.6);
+          this.idleDur = this.idleT;
+        }
         else { this.idleIdx = 0; this.idleT = ih[0] + Math.random() * (ih[1] - ih[0]); }
       }
       // background extras that walk a beat (dockworkers, etc.)
@@ -205,7 +213,15 @@
     stop() {
       if (this.walking && !window.FAST) this.leanV -= (this.dir === 'e' ? 1 : this.dir === 'w' ? -1 : 0) * LEAN_SETTLE; // planted: the body rocks back a touch
       if (this.walking) this.stopAt = E.time;
-      this.target = null; this.path = null; this.walking = false; this.phase = 0; this.stepIdx = -1; this.walkT = 0; const r = this.resolve; this.resolve = null; if (r) r();
+      this.target = null;
+      this.path = null;
+      this.walking = false;
+      this.phase = 0;
+      this.stepIdx = -1;
+      this.walkT = 0;
+      const r = this.resolve;
+      this.resolve = null;
+      if (r) r();
     }
     height() { return (this.h || E.scaleAt(this.y)) * (this.c.scale || 1); }
     // frames not painted yet fall back to the character's idle (then talk) frame
@@ -372,7 +388,11 @@
         const forced = this.xfNext > 0 && this.prev;
         const similar = forced || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
         if (!morph && !similar) this.prev = null;
-        this.fadeDur = forced ? this.xfNext : similar ? XFADE_SHORT : MORPH_T; this.xfNext = 0; this.fadeSim = !!similar; this.fadeHand = !!forced; this.viaOut = false;
+        this.fadeDur = forced ? this.xfNext : similar ? XFADE_SHORT : MORPH_T;
+        this.xfNext = 0;
+        this.fadeSim = !!similar;
+        this.fadeHand = !!forced;
+        this.viaOut = false;
         this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
       }

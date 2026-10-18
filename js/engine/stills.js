@@ -31,7 +31,12 @@
     g.save(); g.globalAlpha = Math.max(0, Math.min(1, alpha));
     if (black) { g.fillStyle = '#000'; g.fillRect(0, 0, W, H); }
     if (im) { const w = W * z, h = H * z; g.drawImage(im, W / 2 - w * cx, H / 2 - h * cy, w, h); }
-    if (s.sepia) { g.globalCompositeOperation = 'multiply'; g.fillStyle = 'rgba(255,225,180,0.25)'; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over'; }
+    if (s.sepia) {
+      g.globalCompositeOperation = 'multiply';
+      g.fillStyle = 'rgba(255,225,180,0.25)';
+      g.fillRect(0, 0, W, H);
+      g.globalCompositeOperation = 'source-over';
+    }
     FX.vignette(g, s.vignette != null ? s.vignette : 0.55);
     if (s.grain) for (let i = 0; i < 60; i++) { g.fillStyle = `rgba(255,240,210,${Math.random() * 0.08})`; g.fillRect(Math.random() * W, Math.random() * H, 1 + Math.random() * 2, 1); }
     g.restore();
@@ -76,13 +81,27 @@
         page.className = 'page ' + (p.cls || '');
         page.style.backgroundImage = p.img ? `url(${(IMG[p.img] || {}).src || ''})` : 'none';
         page.innerHTML = p.html || '';
-        if (p.canvas) { const c = document.createElement('canvas'); c.width = p.canvas.w; c.height = p.canvas.h; c.className = 'draw'; page.appendChild(c); p.canvas.draw(c); }
+        if (p.canvas) {
+          const c = document.createElement('canvas');
+          c.width = p.canvas.w;
+          c.height = p.canvas.h;
+          c.className = 'draw';
+          page.appendChild(c);
+          p.canvas.draw(c);
+        }
         prev.style.visibility = i > 0 ? 'visible' : 'hidden';
         next.style.visibility = i < pages.length - 1 ? 'visible' : 'hidden';
         Sound.sfx('page');
       };
       let closed = false;
-      const close = () => { if (closed) return; closed = true; closeEl.classList.add('hidden'); prev.onclick = next.onclick = closeEl.onclick = null; E.busy--; resolve(); };
+      const close = () => {
+        if (closed) return;
+        closed = true;
+        closeEl.classList.add('hidden');
+        prev.onclick = next.onclick = closeEl.onclick = null;
+        E.busy--;
+        resolve();
+      };
       prev.onclick = ev => { ev.stopPropagation(); if (i > 0) { i--; show(); } };
       next.onclick = ev => { ev.stopPropagation(); if (i < pages.length - 1) { i++; show(); } };
       closeEl.onclick = ev => { if (ev.target === closeEl || ev.target.classList.contains('x')) close(); };

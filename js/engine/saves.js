@@ -17,7 +17,10 @@
     try { localStorage.setItem(SAVE_KEY, snapshot()); return true; } catch (e) { return false; /* storage unavailable */ } }
   const readKey = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
   function hasSave() { return !!(readKey(SAVE_KEY) || readKey(SAVE_KEY_MANUAL)); }
-  function saveManual() { if (E.state && E.state.flags.dawn) return false; try { localStorage.setItem(SAVE_KEY_MANUAL, snapshot()); return true; } catch (e) { return false; } }
+  function saveManual() {
+    if (E.state && E.state.flags.dawn) return false;
+    try { localStorage.setItem(SAVE_KEY_MANUAL, snapshot()); return true; } catch (e) { return false; }
+  }
   // Continue picks whichever save is newer (the autosave or the menu's); Load from the menu prefers the menu's save
   function newestSave() {
     const a = readKey(SAVE_KEY), m = readKey(SAVE_KEY_MANUAL);

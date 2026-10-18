@@ -16,7 +16,11 @@
     if (!silent) { Sound.sfx(ITEM_SFX[id] || 'pickup', 0.8); flashInv(); }
   }
   function takeItem(id) { E.state.inv = E.state.inv.filter(i => i !== id); if (E.selItem === id) E.selItem = null; renderInv(); }
-  function flashInv() { invBar.classList.add('show', 'flash'); setTimeout(() => invBar.classList.remove('flash'), 900); setTimeout(() => { if (!E.invHover && !E.selItem) invBar.classList.remove('show'); }, 1800); }
+  function flashInv() {
+    invBar.classList.add('show', 'flash');
+    setTimeout(() => invBar.classList.remove('flash'), 900);
+    setTimeout(() => { if (!E.invHover && !E.selItem) invBar.classList.remove('show'); }, 1800);
+  }
   function itemName(id) { const it = ITEMS[id]; return typeof it.name === 'function' ? it.name() : it.name; }
   function renderInv() {
     invEl.innerHTML = '';
