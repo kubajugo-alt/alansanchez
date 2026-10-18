@@ -153,10 +153,11 @@ def match_height(im, m, refs, meta):
     hs = [fig_height(Image.open(r).convert('RGBA')) / sprite_meta(r)['h'] for r in refs if sprite_meta(r)]
     if not hs or not meta: return im, m
     k = (sum(hs) / len(hs)) * meta['h'] / fig_height(im)
-    if abs(k - 1) < 0.01: return im, m
+    if abs(k - 1) < 0.01: k = 1.0
     print(f'height matched: x{k:.3f}')
     im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))), Image.LANCZOS)
-    m = dict(m); m['ax'] = round(m['ax'] * k, 1); m['fy'] = round(m['fy'] * k, 1); m['w'], m['hh'] = im.width, im.height
+    m = dict(m); m['ax'] = round(m['ax'] * k, 1); m['w'], m['hh'] = im.width, im.height
+    m['fy'] = round(feet(im)[1] + 0.5, 1)  # his painted feet are the floor line (Gemini can leave them high)
     return im, m
 
 
