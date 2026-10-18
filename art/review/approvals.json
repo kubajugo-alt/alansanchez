@@ -1,7 +1,343 @@
 {
- "wire_alan_untie": {
+ "alan_ib_coffee_walk1": {
   "decision": "approved",
-  "at": "2026-10-18T02:25:18Z",
-  "note": "Proposal A, approved by the user"
+  "at": "2026-10-18T02:48:35.964Z"
+ },
+ "alan_ib_coffee_walk2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:48:39.290Z"
+ },
+ "alan_ib_cut": {
+  "decision": "approved",
+  "at": "2026-10-18T02:47:04.348Z"
+ },
+ "alan_ib_drink": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:59.068Z"
+ },
+ "alan_ib_lantern": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:48:25.026Z",
+  "note": "Alan too small"
+ },
+ "alan_ib_phone": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:53.468Z"
+ },
+ "alan_ib_pick1": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:47:15.927Z",
+  "note": "nothing changes in the new frame vs alan.side"
+ },
+ "alan_ib_pick2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:47:33.206Z"
+ },
+ "alan_ib_pull": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:48:11.935Z",
+  "note": "Rope is code now"
+ },
+ "alan_ib_reach": {
+  "decision": "approved",
+  "at": "2026-10-18T02:47:07.456Z"
+ },
+ "alan_ib_read": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:47.402Z"
+ },
+ "alan_ib_ring": {
+  "decision": "approved",
+  "at": "2026-10-18T02:47:45.488Z"
+ },
+ "alan_ib_smoke_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:27.289Z"
+ },
+ "alan_ib_smoke_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:32.231Z"
+ },
+ "alan_ib_stretch1": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:39.554Z"
+ },
+ "alan_ib_stretch2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:42.406Z"
+ },
+ "alan_ib_stretch_down": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:44.888Z"
+ },
+ "alan_ib_throw": {
+  "decision": "approved",
+  "at": "2026-10-18T02:47:40.264Z"
+ },
+ "alan_ib_turn34": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:19.913Z"
+ },
+ "alan_ib_turn34back": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:22.447Z"
+ },
+ "alan_ib_walk_start": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:45:22.322Z",
+  "note": "Alan is scaled down"
+ },
+ "alan_ib_walk_stop": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:18.255Z",
+  "note": "Not the last step"
+ },
+ "alan_ib_weight_shift": {
+  "decision": "approved",
+  "at": "2026-10-18T02:49:00.392Z"
+ },
+ "alan_ib_wobble": {
+  "decision": "approved",
+  "at": "2026-10-18T02:48:21.377Z"
+ },
+ "alan_ib_write": {
+  "decision": "approved",
+  "at": "2026-10-18T02:46:49.735Z"
+ },
+ "pair_ib_cop_arm_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:49:24.139Z"
+ },
+ "pair_ib_cop_arm_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:49:28.423Z"
+ },
+ "pair_ib_cop_belt2__trousers": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:56.845Z"
+ },
+ "pair_ib_cop_belt__belt2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:46.460Z"
+ },
+ "pair_ib_cop_chest_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:49:10.247Z"
+ },
+ "pair_ib_cop_chest_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:49:19.756Z"
+ },
+ "pair_ib_cop_jacket__tshirt": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:32.893Z"
+ },
+ "pair_ib_cop_neck__shelf": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:20.334Z"
+ },
+ "pair_ib_cop_neck_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:09.338Z"
+ },
+ "pair_ib_cop_shelf2__belt": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:42.659Z"
+ },
+ "pair_ib_cop_shelf__jacket": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:29.543Z"
+ },
+ "pair_ib_cop_trousers__cuffs": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:01.018Z"
+ },
+ "pair_ib_cop_tshirt__buttons": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:37.410Z"
+ },
+ "pair_ib_guitar_d1__d2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:52.910Z"
+ },
+ "pair_ib_guitar_d2__hop": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:56.544Z"
+ },
+ "pair_ib_guitar_h1__h2": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:56:09.567Z",
+  "note": "pant's look to be pulled up again"
+ },
+ "pair_ib_guitar_h2__lasso": {
+  "decision": "approved",
+  "at": "2026-10-18T02:56:25.685Z"
+ },
+ "pair_ib_guitar_hop__h1": {
+  "decision": "approved",
+  "at": "2026-10-18T02:56:01.622Z"
+ },
+ "pair_ib_guitar_j0__jackets": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:05.405Z"
+ },
+ "pair_ib_guitar_j0_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:13.843Z"
+ },
+ "pair_ib_guitar_j1__j2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:14.180Z"
+ },
+ "pair_ib_guitar_j2__u1": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:19.172Z"
+ },
+ "pair_ib_guitar_jackets__j1": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:08.546Z"
+ },
+ "pair_ib_guitar_l1__l2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:56:34.580Z"
+ },
+ "pair_ib_guitar_l2__underwear": {
+  "decision": "approved",
+  "at": "2026-10-18T02:56:37.939Z"
+ },
+ "pair_ib_guitar_lasso__l1": {
+  "decision": "approved",
+  "at": "2026-10-18T02:56:32.801Z"
+ },
+ "pair_ib_guitar_lesson_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:49:36.702Z",
+  "note": "check the height of Alan"
+ },
+ "pair_ib_guitar_s1__s2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:39.830Z"
+ },
+ "pair_ib_guitar_s2__undress2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:44.238Z"
+ },
+ "pair_ib_guitar_shirtfly__s1": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:31.794Z"
+ },
+ "pair_ib_guitar_u1__u2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:23.597Z"
+ },
+ "pair_ib_guitar_u2__shirtfly": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:26.292Z"
+ },
+ "pair_ib_guitar_underwear__p1": {
+  "decision": "approved",
+  "at": "2026-10-18T02:56:44.322Z"
+ },
+ "pair_ib_guitar_undress2__d1": {
+  "decision": "approved",
+  "at": "2026-10-18T02:55:48.297Z"
+ },
+ "pair_ib_kiss__brow": {
+  "decision": "approved",
+  "at": "2026-10-18T02:56:56.123Z"
+ },
+ "pair_ib_unbutton__kiss": {
+  "decision": "approved",
+  "at": "2026-10-18T02:56:50.255Z"
+ },
+ "pair_ib_unbutton_in": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:50:35.951Z",
+  "note": "this one and \"pair unbutton\" show slighly different, bulkier Alan"
+ },
+ "pair_ib_vasco_card_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:52:31.347Z"
+ },
+ "pair_ib_vasco_card_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:52:34.855Z"
+ },
+ "pair_ib_vasco_catch_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:51:10.593Z"
+ },
+ "pair_ib_vasco_clapper_in": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:53:17.763Z",
+  "note": "alan should be receiving the clapper"
+ },
+ "pair_ib_vasco_clapper_out": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:53:28.418Z",
+  "note": "Alan should be receiving the clapper"
+ },
+ "pair_ib_vasco_coffee_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:52:50.613Z"
+ },
+ "pair_ib_vasco_coffee_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:52:53.443Z"
+ },
+ "pair_ib_vasco_fragment_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:52:39.417Z"
+ },
+ "pair_ib_vasco_fragment_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:52:43.927Z"
+ },
+ "pair_ib_vasco_kiss_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:53:47.759Z"
+ },
+ "pair_ib_vasco_kiss_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:53:53.421Z"
+ },
+ "pair_ib_vasco_lanyard_in": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:51:20.305Z",
+  "note": "we need Alan fixing vasco's shirt - this was based on old lanyard scene, als alan should be vasco's height"
+ },
+ "pair_ib_vasco_lanyard_out": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:51:53.667Z",
+  "note": "Alan should be vascos' height"
+ },
+ "pair_ib_vasco_shirtless_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:53:59.284Z"
+ },
+ "pair_ib_vasco_shirtless_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:54:01.772Z"
+ },
+ "pair_ib_wring_1__2": {
+  "decision": "approved",
+  "at": "2026-10-18T02:57:00.316Z"
+ },
+ "pair_ib_wring_1_in": {
+  "decision": "approved",
+  "at": "2026-10-18T02:50:18.305Z"
+ },
+ "pair_ib_wring_1_out": {
+  "decision": "approved",
+  "at": "2026-10-18T02:50:22.339Z"
+ },
+ "pair_ib_wring_2__3": {
+  "decision": "approved",
+  "at": "2026-10-18T02:57:02.722Z"
+ },
+ "wire_alan_untie": {
+  "decision": "rejected",
+  "at": "2026-10-18T02:48:44.256Z",
+  "note": "Rope is code now"
  }
 }
