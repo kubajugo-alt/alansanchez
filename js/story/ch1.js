@@ -466,9 +466,16 @@
       { name: "Rui's coffee", rect: [724, 356, 56, 50], look: 'narr_look_coffee' },
       // today's Diário de Notícias on the front desk: weather, football, and the tides
       { name: 'Newspaper', rect: [491, 365, 90, 38], at: [540, 645], face: 'n', when: () => !F().paper_taken, look: 'alan_paper',
-        take: async () => { if (!F().ferreira_told) return say('alan_paper_wait'); F().paper_taken = true; give('newspaper'); sfx('page'); await say('alan_paper'); } }, // only once Rui has offered it (B9)
+        take: async () => { if (!F().ferreira_told) return say('alan_paper_wait'); await S.takePaper(); } }, // only once Rui has offered it (B9)
       { name: 'Door', rect: [70, 40, 120, 510], at: [150, 645], exit: 'map', entry: 'police' },
     ],
+  };
+  // Rui's Diário lies on the papers he stands in front of: once he's offered it, Alan reaches past him for it
+  S.takePaper = async function () {
+    if (F().paper_taken || G.has('newspaper')) return;
+    const p = G.player;
+    if (p.visible && !window.FAST) { await p.walkTo(600, 645); p.dir = 'w'; p.pose = 'reach'; await G.wait(500); p.pose = null; }
+    F().paper_taken = true; give('newspaper'); sfx('page'); await say('alan_paper');
   };
   S.takeFile = async function () {
     if (G.has('file55')) return say('alan_look_file');
@@ -497,7 +504,9 @@
       { line: 'alan_ask_fog', once: true, run: async () => { await say('rui_fog'); F().rui_fog_heard = true; } },
       { line: 'alan_what_now', once: true, when: () => !!F().rui_fog_heard, run: () => say('rui_mother_2') }, // his mother's message, again
       { line: 'alan_ask_theft', when: () => S.theftDue(), run: () => S.theftTalk(true) },
-      { line: 'alan_tell_ferreira', when: () => F().ch === 2 && !!F().ferreira_lit && !F().ferreira_told, run: async () => { await say('rui_paper'); F().ferreira_told = true; if (S.theftDue()) await S.theftTalk(false); } },
+      { line: 'alan_tell_ferreira', when: () => F().ch === 2 && !!F().ferreira_lit && !F().ferreira_told, run: async () => { await say('rui_paper'); F().ferreira_told = true; await S.takePaper(); if (S.theftDue()) await S.theftTalk(false); } },
+      // (a save from before he handed it over: the Diário is under his elbow, so ask for it)
+      { label: 'Your Diário, Inspector?', when: () => !!F().ferreira_told && !F().paper_taken && !G.has('newspaper'), run: async () => { await say('rui_paper'); await S.takePaper(); } },
       { label: 'Goodbye.', bye: true, run: () => say('rui_bye') },
     ]);
   };
@@ -660,7 +669,7 @@
     if (cop) {
       await S.toCop(p, cop); p.dir = 'w';
       F().teixeira_wall = false; S.copFace(); // he turns back to Alan
-      if (window.SPRITES.pair_cop_chest) { cop.visible = false; p.x = cop.x + 52; p.dir = 'e'; p.pose = 'pair_cop_chest'; paired = true; }
+      if (window.SPRITES.pair_cop_chest) paired = await S.pairIn(cop, 'pair_cop_chest');
     }
     await say('alan_cop_thanks');
     F().rui_out = false;
@@ -669,7 +678,7 @@
     sfx('door'); await T(250);
     // caught: both step smartly apart
     if (cop) {
-      if (paired) { cop.visible = true; p.x = cop.x + 105; p.pose = null; }
+      if (paired) await S.pairOut(cop, { dir: 'w' });
       cop.pose = 'npc_phone_blush';
       await Promise.all([p.walkTo(cop.x + 205, cop.y + 8), cop.walkTo(cop.x - 18, cop.y)]); // Alan one way, Teixeira (a half-step, the receiver to his ear) the other
       p.dir = 'w'; p.pose = 'fluster';
@@ -692,8 +701,9 @@
     const copPose = k => { if (cop) cop.pose = k; };
     // before the Inspector leaves, and after the sketch: just a blush
     if (!F().rui_out || F().teixeira_wall) { copPose('npc_phone_blush'); await say('phone_flirt_1'); copPose(null); return; }
-    const pairUp = k => { if (!cop || !window.SPRITES[k]) return false; cop.visible = false; p.x = cop.x + 52; p.dir = 'e'; p.pose = k; return true; };
-    const unpair = () => { if (cop) cop.visible = true; if (cop) p.x = cop.x + 105; p.pose = null; p.dir = 'w'; }; // facing him again
+    // the pair frames: Alan steps to the spot where the painting leaves Teixeira exactly where he stands
+    const pairUp = async k => !!(cop && window.SPRITES[k]) && S.pairIn(cop, k);
+    const unpair = () => (p.pairKey ? S.pairOut(cop, { dir: 'w' }) : null); // facing him again
     const close = async () => { if (cop && Math.abs(p.x - (cop.x + 105)) > 8) await S.toCop(p, cop); p.dir = 'w'; };
     const step = () => F().teixeira_step || 0;
     await G.dialog([
@@ -701,15 +711,15 @@
         p.pose = 'wink'; await T(200); p.pose = null; copPose('npc_phone_blush'); await say('teixeira_mae1'); copPose(null); F().teixeira_step = 1;
       } },
       { line: 'alan_flirt_cop_2', silent: true, when: () => step() === 1, run: async () => {
-        await close(); if (!pairUp('pair_cop_chest')) { p.pose = 'flirt'; copPose('npc_phone_blush'); }
+        await close(); if (!await pairUp('pair_cop_chest')) { p.pose = 'flirt'; copPose('npc_phone_blush'); }
         await say('alan_flirt_cop_2'); // the hand goes to his chest as Alan says it
-        await T(500); unpair(); copPose(null); F().teixeira_step = 2;
+        await T(500); await unpair(); copPose(null); F().teixeira_step = 2;
       } },
       { line: 'alan_flirt_cop_3', silent: true, when: () => step() === 2, bye: true, run: async () => {
-        await close(); if (!pairUp('pair_cop_arm')) { p.pose = 'flirt'; copPose('npc_phone_proud'); }
+        await close(); if (!await pairUp('pair_cop_arm')) { p.pose = 'flirt'; copPose('npc_phone_proud'); }
         await say('alan_flirt_cop_3'); // ...and to his arm on the bicep line
         await say('phone_flirt_3'); await say('alan_flirt_cop_4');
-        unpair(); copPose('npc_phone_blush');
+        await unpair(); copPose('npc_phone_blush');
         if (cop) { await p.walkTo(cop.x + 190, cop.y); p.dir = 'w'; }
         p.pose = 'swoon'; await T(600); p.pose = null;
         await say('teixeira_fine'); copPose(null); // (blushing through it)
@@ -747,10 +757,9 @@
         p.pose = 'fluster'; gPose('npc_guitar_lean'); await say('alan_flirt_guitar_3'); p.pose = null;
         // the lesson: his hand over Alan's on the neck of the guitar
         if (gt && window.SPRITES.pair_guitar_lesson) {
-          await p.walkTo(gt.x + 110, gt.y + 30);
-          const py = p.y; gt.visible = false; p.x = gt.x + 30; p.y = gt.y + 16; p.dir = 'e'; p.pose = 'pair_guitar_lesson';
+          await S.pairIn(gt, 'pair_guitar_lesson');
           await say('guitar_flirt_4', 'alan_flirt_guitar_4');
-          p.pose = null; p.y = py; gt.visible = true; p.x = gt.x + 110; p.dir = 'w';
+          await S.pairOut(gt, { dir: 'w' });
         } else await say('guitar_flirt_4', 'alan_flirt_guitar_4');
         gPose('npc_guitar_serenade'); await say('duarte_agree'); gPose(null);
         F().duarte_step = 3; F().duarte_flirt = true; F().flirted_guitar = true;
