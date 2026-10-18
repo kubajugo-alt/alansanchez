@@ -23,7 +23,10 @@
     ],
     entries: { default: [70, 670, 'e'], map: [70, 670, 'e'], cistern: [740, 650, 'w'] }, // up from the cistern: beside the open grate, not in it
     animBack(g, t) { FX.masked(g, G.mask(), m => FX.drawClouds(m, S.nightClouds, t, 7, 0, 1)); },
-    anim(g, t) { S.carry(); for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 1.3, 900 + i * 90, 640, { n: 5, rise: 120, spread: 30, rgb: '120,255,180', a: 0.06, size: 26, speed: 0.12 }); },
+    anim(g, t) {
+      S.carry();
+      for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 1.3, 900 + i * 90, 640, { n: 5, rise: 120, spread: 30, rgb: '120,255,180', a: 0.06, size: 26, speed: 0.12 });
+    },
     npcs: [
       { id: 'tomas', ch: 'tomas_night', x: 430, y: 600, dir: 'e', set: () => F().confessed ? 'pray' : null, name: 'Father Tomás', look: 'narr_look_tomas_night', talk: () => S.tomasConfession(), when: () => !F().won,
         items: { any: 'alan_fail_07' } },
@@ -40,7 +43,10 @@
         } },
       { name: 'Way out', rect: [0, 590, 60, 126], at: [30, 672], exit: 'map', entry: 'convent' },
     ],
-    async enter() { G.setClock('00:10'); if (!F().night_entered) { F().night_entered = true; await say('narr_look_convent_night'); await say('tomas_night_hello'); } },
+    async enter() {
+      G.setClock('00:10');
+      if (!F().night_entered) { F().night_entered = true; await say('narr_look_convent_night'); await say('tomas_night_hello'); }
+    },
   };
   S.moonLevel = t => 1 - 0.75 * S.nightClouds.alphaAt(800 + FX.cloudOffset(S.nightClouds, t, 7), 188);
   S.tomasConfession = async function () {
@@ -167,7 +173,14 @@
     g.font = "700 13px 'Cinzel', serif"; g.textAlign = 'center';
     for (let k = 1; k <= 6; k++) {
       const y = 568 - k * 46, on = (F().water || 0) >= k;
-      const arc = (dy, col, w) => { g.strokeStyle = col; g.lineWidth = w; g.beginPath(); g.moveTo(1034, y + dy); g.quadraticCurveTo(1080, y + 10 + dy, 1140, y + 2 + dy); g.stroke(); };
+      const arc = (dy, col, w) => {
+        g.strokeStyle = col;
+        g.lineWidth = w;
+        g.beginPath();
+        g.moveTo(1034, y + dy);
+        g.quadraticCurveTo(1080, y + 10 + dy, 1140, y + 2 + dy);
+        g.stroke();
+      };
       if (on) { arc(0, `rgba(140,255,200,${0.7 + 0.2 * Math.sin(t * 6 + k)})`, 3); FX.glow(g, 1071, y + 4, 46, '120,255,180', 0.12); }
       else { arc(1.6, 'rgba(255,236,200,0.32)', 2.2); arc(0, 'rgba(18,12,6,0.75)', 2.6); }   // groove: dark cut, lit lower lip
       if (!on) { g.fillStyle = 'rgba(255,236,200,0.3)'; g.fillText(NUM[k - 1], 1023.8, y + 5.2); }
@@ -202,7 +215,10 @@
     }
     for (let i = 0; i < 14; i++) {
       const a = t * 3 + i * 0.45, r = rx * (0.5 + 0.45 * Math.sin(t * 2.3 + i));
-      g.fillStyle = 'rgba(220,255,235,0.7)'; g.beginPath(); g.arc(x + Math.cos(a) * r, y + Math.sin(a) * r * 0.25 - Math.abs(Math.sin(t * 6 + i)) * 10, 2.5, 0, 7); g.fill();
+      g.fillStyle = 'rgba(220,255,235,0.7)';
+      g.beginPath();
+      g.arc(x + Math.cos(a) * r, y + Math.sin(a) * r * 0.25 - Math.abs(Math.sin(t * 6 + i)) * 10, 2.5, 0, 7);
+      g.fill();
     }
     g.restore();
   };
@@ -215,7 +231,10 @@
     // the body of black-green water, shallower (lighter) toward its edge
     g.beginPath(); g.moveTo(0, top); g.lineTo(1280, top); shore(); g.closePath();
     const gr = g.createLinearGradient(0, top, 0, front + 6);
-    gr.addColorStop(0, 'rgba(8,30,24,0)'); gr.addColorStop(Math.min(0.5, 24 / (front + 6 - top)), 'rgba(8,30,24,0.84)'); gr.addColorStop(0.7, 'rgba(18,58,44,0.64)'); gr.addColorStop(1, 'rgba(40,96,74,0.36)');
+    gr.addColorStop(0, 'rgba(8,30,24,0)');
+    gr.addColorStop(Math.min(0.5, 24 / (front + 6 - top)), 'rgba(8,30,24,0.84)');
+    gr.addColorStop(0.7, 'rgba(18,58,44,0.64)');
+    gr.addColorStop(1, 'rgba(40,96,74,0.36)');
     g.fillStyle = gr; g.fill(); g.clip();
     // torchlight and lantern glints: broken streaks drifting on the surface
     const r = FX.rng(9);
@@ -232,7 +251,10 @@
     // the lapping foam line, broken up
     for (const [off, a, lw] of [[0, 0.34, 2], [3, 0.12, 4]]) {
       g.strokeStyle = `rgba(190,255,225,${a})`; g.lineWidth = lw; g.beginPath();
-      for (let x = 0; x <= 1280; x += 6) { const y = edge(x) - off; if (Math.sin(x * 0.071 + t * 1.5) + Math.sin(x * 0.023 + 2.1) * 0.9 + Math.sin(x * 0.17) * 0.4 > -0.5) g.lineTo(x, y); else g.moveTo(x, y); }
+      for (let x = 0; x <= 1280; x += 6) {
+        const y = edge(x) - off;
+        if (Math.sin(x * 0.071 + t * 1.5) + Math.sin(x * 0.023 + 2.1) * 0.9 + Math.sin(x * 0.17) * 0.4 > -0.5) g.lineTo(x, y); else g.moveTo(x, y);
+      }
       g.stroke();
     }
     g.restore();
@@ -268,7 +290,11 @@
   S.readingTick = function (t) {
     if (!F().read1 || F().strikes > 0 || F().won || G.isBusy || S.dead) return;
     if (!readFrom) readFrom = t;
-    if (t > nextPage) { nextPage = t + 5 + Math.random() * 5; Sound.sfx('page', 0.5); if (!F().read2 && t - readFrom > 10) { F().read2 = true; G.busy(() => say('lacerda_read_2')); } }
+    if (t > nextPage) {
+      nextPage = t + 5 + Math.random() * 5;
+      Sound.sfx('page', 0.5);
+      if (!F().read2 && t - readFrom > 10) { F().read2 = true; G.busy(() => say('lacerda_read_2')); }
+    }
   };
   S.cutRopes = async function () {
     if (F().ines_free) return say('alan_fail_04');
@@ -359,7 +385,16 @@
     const cp = G.flags._checkpoint;
     await G.loadSave(cp);
     G.flags._checkpoint = cp;
-    if (keep) { Object.assign(G.flags, keep, { lamp_ok: true }); G.takeItem('ledger'); G.takeItem('lantern'); G.refreshNpcs(true); G.player.x = PLATFORM[0] - 300; G.player.y = 600; const ines = G.npc('ines'); if (ines) { ines.x = LAMP_SPOT[0]; ines.y = LAMP_SPOT[1]; ines.dir = 'e'; ines.def.fixedDir = false; } }
+    if (keep) {
+      Object.assign(G.flags, keep, { lamp_ok: true });
+      G.takeItem('ledger');
+      G.takeItem('lantern');
+      G.refreshNpcs(true);
+      G.player.x = PLATFORM[0] - 300;
+      G.player.y = 600;
+      const ines = G.npc('ines');
+      if (ines) { ines.x = LAMP_SPOT[0]; ines.y = LAMP_SPOT[1]; ines.dir = 'e'; ines.def.fixedDir = false; }
+    }
     F().water = 0; F().strikes = 0; F().struck = [];
     await G.fade(false);
   };
@@ -430,15 +465,31 @@
     await shot('still_drawer', 'police', async () => { await say('narr_epi_drawer'); sfx('drawer_scrape'); await say('rui_click'); }, { zoom: [1.08, 1.0] });
     await shot('still_shop_after', 'shop', () => say('narr_epi_shop2') /* the brass weight is gone from the game */, { zoom: [1.0, 1.1] });
     if (F().amalia_box && F().rui_called) await shot('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });
-    if (F().amalia_night) { Sound.cue('tavern_day', { sticky: true }); await shot('still_tavern_full', 'tavern', () => say('narr_vig_night'), { zoom: [1.0, 1.1] }); Sound.cue('main_theme', { sticky: true }); } // the taberna full again: its busy tune
+    if (F().amalia_night) {
+      Sound.cue('tavern_day', { sticky: true });
+      await shot('still_tavern_full', 'tavern', () => say('narr_vig_night'), { zoom: [1.0, 1.1] });
+      Sound.cue('main_theme', { sticky: true });
+    } // the taberna full again: its busy tune
     await shot('still_quay_sweater', 'cais', () => say('narr_vig_ze'), { zoom: [1.0, 1.1] });
     Sound.cue('silence', { sticky: true, xf: 3 }); // the post-credits pictures: silence, then the clock
     await shot('still_jacket', 'boat', () => say('ze_back'), { zoom: [1.0, 1.1] });
     if (F().founder_order && !(F().struck_wrong)) await shot('still_abilio_ring', 'se_tower', async () => { sfx('bell_forward', 0.6); await say('narr_vig_abilio'); }, { zoom: [1.0, 1.12] });
-    await shot('still_shelf', 'antiques', async () => { sfx('clock_chime', 0.6); await say('narr_post'); sfx('tideclock_tick', 0.5); await G.wait(window.FAST ? 20 : 2500); }, { zoom: [1.0, 1.15] });
+    await shot('still_shelf', 'antiques', async () => {
+      sfx('clock_chime', 0.6);
+      await say('narr_post');
+      sfx('tideclock_tick', 0.5);
+      await G.wait(window.FAST ? 20 : 2500);
+    }, { zoom: [1.0, 1.15] });
     // the last picture: Alan rings his mother. Then the end.
     Sound.cue('main_theme', { sticky: true });
-    await shot('still_phone', 'shop', async () => { sfx('phone_dial_long', 0.6); await G.wait(window.FAST ? 20 : 2000); sfx('phone_ring_distant', 0.5); await G.wait(window.FAST ? 20 : 2500); await say('narr_call'); await G.wait(window.FAST ? 20 : 1500); }, { zoom: [1.0, 1.08] });
+    await shot('still_phone', 'shop', async () => {
+      sfx('phone_dial_long', 0.6);
+      await G.wait(window.FAST ? 20 : 2000);
+      sfx('phone_ring_distant', 0.5);
+      await G.wait(window.FAST ? 20 : 2500);
+      await say('narr_call');
+      await G.wait(window.FAST ? 20 : 1500);
+    }, { zoom: [1.0, 1.08] });
     if (S.thursday) await S.thursday(); // Thursday morning, the cloister
     Sound.cue('main_theme', { sticky: true }); // the credits
     await G.fade(true);

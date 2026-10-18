@@ -97,7 +97,11 @@
       g.fillStyle = `rgba(220,235,240,${0.8 * (1 - k)})`; g.beginPath(); g.arc(x, y, 5 + 4 * (1 - k), 0, 7); g.fill();
     }
     g.strokeStyle = `rgba(230,240,245,${0.7 * (1 - k)})`; g.lineWidth = 3;
-    for (let r = 0; r < 3; r++) { g.beginPath(); g.ellipse(splash.x, splash.y + 6, 40 + 200 * k * (1 + r * 0.4), 10 + 30 * k * (1 + r * 0.4), 0, 0, 7); g.stroke(); }
+    for (let r = 0; r < 3; r++) {
+      g.beginPath();
+      g.ellipse(splash.x, splash.y + 6, 40 + 200 * k * (1 + r * 0.4), 10 + 30 * k * (1 + r * 0.4), 0, 0, 7);
+      g.stroke();
+    }
     g.restore();
   };
   // after the bath, the two at the back basins have seen everything
@@ -132,7 +136,12 @@
       const hop = async (dx, n, ms) => { for (let i = 0; i < n; i++) { p.x += dx; await T(ms); } };
       // the women at the basins see what he's up to: a shocked face each, from the first button
       const SHOCK = [['npc_washer1', 'npc_washer1_shock'], ['npc_washer2', 'npc_washer2_shock'], ['npc_laundry', 'npc_laundry_shock'], ['celeste', 'celeste_shock']];
-      const shocked = on => { for (const [id, k] of SHOCK) { const w = G.npc(id); if (w && w.visible && window.SPRITES[k]) { if (on && id === 'celeste') w.set = null; w.pose = on ? k : null; } } };
+      const shocked = on => {
+        for (const [id, k] of SHOCK) {
+          const w = G.npc(id);
+          if (w && w.visible && window.SPRITES[k]) { if (on && id === 'celeste') w.set = null; w.pose = on ? k : null; }
+        }
+      };
       // jacket, tee, boots, belt, jeans, down to the trunks
       sfx('sheet_slap', 0.25); await pose('undress1', 850);               // the jacket slides off the shoulders
       shocked(true);
@@ -245,7 +254,6 @@
   S.laundryTalk = async function () {
     if (!F().bathed) return say('alan_npc_laundry');
     if (!F().laundry_remark) return S.laundryRemark();
-    const p = G.player, w = G.npc('npc_laundry');
     await say('laundry_remark_2');
   };
   // one sheet between the two of them, twisting tighter, water running out of it
@@ -257,20 +265,49 @@
     const k = Math.min(1, (performance.now() - wringing) / 2500), len = Math.hypot(bx - ax, by - ay), ang = Math.atan2(by - ay, bx - ax);
     g.save(); g.translate(ax, ay); g.rotate(ang);
     const th = 19 - 6 * k, sag = 6; // tighter as it twists
-    const cyl = g.createLinearGradient(0, -th / 2, 0, th / 2); cyl.addColorStop(0, '#b9b5aa'); cyl.addColorStop(0.35, '#f6f3ea'); cyl.addColorStop(0.7, '#d9d4c8'); cyl.addColorStop(1, '#8f8a80');
+    const cyl = g.createLinearGradient(0, -th / 2, 0, th / 2);
+    cyl.addColorStop(0, '#b9b5aa');
+    cyl.addColorStop(0.35, '#f6f3ea');
+    cyl.addColorStop(0.7, '#d9d4c8');
+    cyl.addColorStop(1, '#8f8a80');
     g.fillStyle = cyl; g.strokeStyle = 'rgba(60,55,50,0.45)'; g.lineWidth = 1;
-    g.beginPath(); g.moveTo(-4, -th / 2); g.quadraticCurveTo(len / 2, -th / 2 + sag, len + 4, -th / 2); g.quadraticCurveTo(len + 10, 0, len + 4, th / 2); g.quadraticCurveTo(len / 2, th / 2 + sag, -4, th / 2); g.quadraticCurveTo(-10, 0, -4, -th / 2); g.closePath(); g.fill(); g.stroke();
+    g.beginPath();
+    g.moveTo(-4, -th / 2);
+    g.quadraticCurveTo(len / 2, -th / 2 + sag, len + 4, -th / 2);
+    g.quadraticCurveTo(len + 10, 0, len + 4, th / 2);
+    g.quadraticCurveTo(len / 2, th / 2 + sag, -4, th / 2);
+    g.quadraticCurveTo(-10, 0, -4, -th / 2);
+    g.closePath();
+    g.fill();
+    g.stroke();
     // the twist: diagonal folds that run along the sheet as it turns
     g.save(); g.clip();
     const pitch = 15 - 6 * k, off = (t * 40) % pitch;
     for (let x = -pitch + off; x < len + pitch; x += pitch) {
-      g.strokeStyle = 'rgba(110,104,95,0.45)'; g.lineWidth = 2.4; g.beginPath(); g.moveTo(x, -th); g.quadraticCurveTo(x + th * 0.3, 0, x + th * 0.8, th); g.stroke();
-      g.strokeStyle = 'rgba(255,255,255,0.55)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x + 3, -th); g.quadraticCurveTo(x + 3 + th * 0.3, 0, x + 3 + th * 0.8, th); g.stroke();
+      g.strokeStyle = 'rgba(110,104,95,0.45)';
+      g.lineWidth = 2.4;
+      g.beginPath();
+      g.moveTo(x, -th);
+      g.quadraticCurveTo(x + th * 0.3, 0, x + th * 0.8, th);
+      g.stroke();
+      g.strokeStyle = 'rgba(255,255,255,0.55)';
+      g.lineWidth = 1.2;
+      g.beginPath();
+      g.moveTo(x + 3, -th);
+      g.quadraticCurveTo(x + 3 + th * 0.3, 0, x + 3 + th * 0.8, th);
+      g.stroke();
     }
     g.restore();
     // drips
     g.fillStyle = 'rgba(200,220,235,0.85)';
-    for (let i = 0; i < 6; i++) { const u = ((i * 0.37 + t * 0.9 + i * 0.13) % 1); const x = len * (0.15 + 0.12 * i); g.beginPath(); g.ellipse(x, th / 2 + u * 120, 1.6, 3, 0, 0, 7); g.globalAlpha = 1 - u; g.fill(); }
+    for (let i = 0; i < 6; i++) {
+      const u = ((i * 0.37 + t * 0.9 + i * 0.13) % 1);
+      const x = len * (0.15 + 0.12 * i);
+      g.beginPath();
+      g.ellipse(x, th / 2 + u * 120, 1.6, 3, 0, 0, 7);
+      g.globalAlpha = 1 - u;
+      g.fill();
+    }
     g.restore();
   };
   S.wringSheet = async function () {
@@ -286,7 +323,12 @@
       const t0 = performance.now();
       await S.pairIn(c, W[0], { walk: false });
       let on = true;
-      const twist = (async () => { for (let i = 1; on; i++) { await G.wait(window.FAST ? 20 : 750); if (on) { await S.pairStep(W[i % W.length]); if (i % W.length === 2) sfx('wring', 0.5); } } })();
+      const twist = (async () => {
+        for (let i = 1; on; i++) {
+          await G.wait(window.FAST ? 20 : 750);
+          if (on) { await S.pairStep(W[i % W.length]); if (i % W.length === 2) sfx('wring', 0.5); }
+        }
+      })();
       sfx('wring');
       await joke('alan_wring');
       if (!window.FAST) await G.wait(Math.max(0, 3200 - (performance.now() - t0))); // at least one full turn of the sheet
@@ -311,7 +353,13 @@
     if (!F().met_celeste) return say('celeste_twist');
     if (!first) { await say('celeste_hello'); await S.gossip('celeste'); }
     await G.dialog([
-      { line: 'alan_ask_river', once: true, run: async () => { await say('celeste_river'); await joke('alan_breathes'); await say('celeste_salt'); F().lore_turnings = true; if (F().lore_bronze) S.lore && S.lore('celeste'); } },
+      { line: 'alan_ask_river', once: true, run: async () => {
+        await say('celeste_river');
+        await joke('alan_breathes');
+        await say('celeste_salt');
+        F().lore_turnings = true;
+        if (F().lore_bronze) S.lore && S.lore('celeste');
+      } },
       { line: 'alan_ask_celeste_lacerda', once: true, when: () => F().ines_plan, run: () => say('celeste_godfather', 'celeste_font') },
       { line: 'alan_show_tile', silent: true, when: () => F().sketched_tile && !F().lore_bronze, run: () => S.celesteTile() },
       { line: 'alan_show_file', silent: true, when: () => G.has('file55') && !F().knows_1955_boy, run: () => S.celeste1955() },
@@ -388,7 +436,12 @@
         }, any: 'alan_dark' } },
       { name: 'Wall of clocks', rect: [100, 0, 900, 330], when: lit, look: 'narr_look_clockwall' },
       { name: 'Workbench', rect: [330, 420, 620, 190], when: lit, look: 'narr_look_workbench' },
-      { name: 'Repair book', rect: [640, 430, 118, 30], at: [690, 640], face: 'n', when: lit, look: async () => { await S.readRepair(); await say('alan_repair'); F().read_repair = true; await say('alan_repair_hint'); } },
+      { name: 'Repair book', rect: [640, 430, 118, 30], at: [690, 640], face: 'n', when: lit, look: async () => {
+        await S.readRepair();
+        await say('alan_repair');
+        F().read_repair = true;
+        await say('alan_repair_hint');
+      } },
       { name: 'Tide clock', rect: [757, 330, 118, 118], at: [810, 640], face: 'n', when: lit,
         look: async () => {
           if (!F().tide_wound) return say('narr_look_tideclock');
@@ -410,7 +463,14 @@
       { name: 'Desk drawer', rect: [560, 470, 160, 30], at: [800, 640], face: 'w', // beside the drawer, not in front of it when: () => lit() && !F().drawer_unlocked,
         look: 'alan_drawer_lock', use: () => S.ferreiraDrawer(), take: () => S.ferreiraDrawer() },
       { name: 'Tide card', rect: [628, 486, 66, 32], at: [800, 640], face: 'w', when: () => lit() && F().drawer_unlocked && !G.has('tidecard') && !F().tidecardTaken,
-        look: 'alan_look_tidecard', take: async () => { F().tidecardTaken = true; give('tidecard'); sfx('page'); await say('alan_tide_card'); await S.readTideCard(); await say('alan_tide_today'); } },
+        look: 'alan_look_tidecard', take: async () => {
+          F().tidecardTaken = true;
+          give('tidecard');
+          sfx('page');
+          await say('alan_tide_card');
+          await S.readTideCard();
+          await say('alan_tide_today');
+        } },
       { name: 'Key board', rect: [917, 160, 118, 256], at: [970, 640], face: 'n', when: lit, look: 'narr_look_keyboard',
         take: async () => { if (F().vkeyTaken) return say('alan_fail_take'); F().vkeyTaken = true; give('vkey'); await say('alan_spare'); } },
       { name: 'Shutters', rect: [0, 60, 100, 370], when: lit, look: 'narr_look_shutters' },

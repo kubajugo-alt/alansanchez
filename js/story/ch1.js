@@ -50,7 +50,14 @@
     animBack(g, t) {
       if (F().ch < 5) S.windowFog(g, t, [430, 32, 410, 282], '235,238,240', 0.16);
       if (S.shopSideboard) S.shopSideboard(g); // the kettle on the sideboard (in Inês's hand while she makes coffee), her book while it's put down
-      if (F().ch < 5) { g.save(); g.beginPath(); g.rect(430, 32, 410, 282); g.clip(); FX.birds(g, t + 4, { y0: 70, y1: 200, n: 2, period: 19, color: 'rgba(90,92,98,0.5)', size: 7, x0: 400, x1: 870 }); g.restore(); }
+      if (F().ch < 5) {
+        g.save();
+        g.beginPath();
+        g.rect(430, 32, 410, 282);
+        g.clip();
+        FX.birds(g, t + 4, { y0: 70, y1: 200, n: 2, period: 19, color: 'rgba(90,92,98,0.5)', size: 7, x0: 400, x1: 870 });
+        g.restore();
+      }
     },
     anim(g, t) {
       if (F().ch < 5 && F().lampOff) S.lampOut(g);
@@ -61,7 +68,12 @@
     npcs: [
       { id: 'ines', x: 610, y: 590, dir: 'w', name: 'Inês', when: () => F().ch < 5 && !(F().ch === 4 && F().ze_saved) && !(S.inesAtSe && S.inesAtSe() && F().se_visited), look: 'narr_look_ines', talk: () => S.talkInes(),
         items: { sketch: () => S.inesSketch(), notebook: () => S.inesSketch(), ledger: () => S.inesLedger(), tongue: () => say(F().twin_swapped ? 'ines_vandal2' : 'ines_vandal'), twin: () => say('ines_hint_swap'), any: 'alan_fail_ines_item' } },
-      { id: 'pessoa', h: 46, x: 0, y: 0, dir: 'w', fixedDir: true, name: 'Pessoa', when: () => !(F().ch >= 5 && F().pessoa_fed), init: a => { const p = PESSOA_AT[pessoaSpot()]; a.x = p[0]; a.y = p[1]; a.dir = p[2]; },
+      { id: 'pessoa', h: 46, x: 0, y: 0, dir: 'w', fixedDir: true, name: 'Pessoa', when: () => !(F().ch >= 5 && F().pessoa_fed), init: a => {
+        const p = PESSOA_AT[pessoaSpot()];
+        a.x = p[0];
+        a.y = p[1];
+        a.dir = p[2];
+      },
         look: () => say(pessoaSpot() === 'machine' ? 'alan_look_pessoa_machine' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_look_pessoa'),
         talk: () => (sfx('cat_purr', 0.5), say(pessoaSpot() === 'desk' ? 'alan_talk_pessoa' : pessoaSpot() === 'radiator' ? 'alan_look_pessoa_radiator' : 'alan_take_pessoa_machine')), take: () => pessoaSpot() === 'machine' ? (F().pessoa_tried ? say('alan_hint_bribe') : (F().pessoa_tried = true, say('alan_take_pessoa_machine'))) : say('alan_take_pessoa'), use: 'alan_push_pessoa',
         items: { sardine: () => S.feedPessoa(), any: 'alan_fail_09' } },
@@ -83,17 +95,35 @@
         use: async () => {
           if (F().ch >= 5) { sfx('lamp_switch'); return say('alan_lamp_machine'); }
           if (F().lampOff) return say('alan_lamp_again');
-          sfx('lamp_switch'); F().lampOff = true; S.lampOffAt = performance.now(); S.pessoaToRadiator().catch(() => {}); await joke('alan_lamp_off'); // not awaited: the walk never holds up the player
+          sfx('lamp_switch');
+          F().lampOff = true;
+          S.lampOffAt = performance.now();
+          S.pessoaToRadiator().catch(() => {}); // not awaited: the walk never holds up the player
+          await joke('alan_lamp_off');
         } },
       { name: 'Window', rect: [412, 22, 445, 288], look: 'narr_look_window' },
       { name: 'Magnifying glass', rect: MAG_RECT, at: [380, 600], face: 'w', when: () => !F().magTaken && F().ch < 5, look: 'narr_look_magnifier_desk',
-        take: async () => { const p = G.player; p.pose = 'reach'; await G.wait(window.FAST ? 20 : 500); F().magTaken = true; give('magnifier'); p.pose = null; await say('alan_take_magnifier'); } },
+        take: async () => {
+          const p = G.player;
+          p.pose = 'reach';
+          await G.wait(window.FAST ? 20 : 500);
+          F().magTaken = true;
+          give('magnifier');
+          p.pose = null;
+          await say('alan_take_magnifier');
+        } },
       { name: 'Kettle', rect: [480, 366, 50, 48], look: () => say(F().ch >= 5 ? 'narr_look_kettle_dry' : 'narr_look_kettle') },
       { name: 'Sugar tin', rect: [672, 355, 54, 60], at: [690, 562], face: 'n', look: 'narr_look_tin',
         take: async () => { if (F().tinTaken) return say('alan_fail_take'); F().tinTaken = true; give('key'); await say('alan_sugar_tin'); } },
       { name: 'Radiator', rect: [736, 352, 58, 150], at: [760, 560], face: 'n', look: 'narr_look_radiator' },
       { name: 'Cash register', rect: [850, 212, 180, 170], at: [820, 566], face: 'e', look: () => say(F().coinsTaken ? 'alan_register_empty' : 'alan_look_register'),
-        take: async () => { if (F().coinsTaken) return say('alan_register_empty'); F().coinsTaken = true; give('coins', 3); sfx('coin'); await say('alan_take_coins'); } },
+        take: async () => {
+          if (F().coinsTaken) return say('alan_register_empty');
+          F().coinsTaken = true;
+          give('coins', 3);
+          sfx('coin');
+          await say('alan_take_coins');
+        } },
       { name: 'Answering machine', rect: [955, 366, 120, 40], at: [830, 570], face: 'e', look: () => say(F().heard_machine ? 'narr_look_machine_heard' : 'narr_look_machine'), use: () => S.playMachine() },
       { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone(), items: { vasco_card: () => S.callVasco() } },
       { name: 'Newspaper', rect: [1035, 400, 222, 62], at: [880, 610], face: 'e', look: () => say('narr_look_news', 'alan_news') },
@@ -233,7 +263,7 @@
     await say('rui_withdrawn', 'alan_knew');
   };
 
-  // ---------- Inês
+  // ---------------------------------------------------------------- Inês
   const INES_HI = ['ines_hello_2', 'ines_hello_3', 'ines_hello_4'];
   S.talkInes = async function () {
     await say(F().ines_greeted ? INES_HI[(F().ines_greeted++) % INES_HI.length] : (F().ines_greeted = 1, 'ines_hello'));
@@ -373,7 +403,13 @@
         g.beginPath(); g.arc(m.x, m.y, 11, 0, 7); g.fill(); g.stroke();
         g.fillStyle = open ? '#ffd27a' : '#8a8070'; g.beginPath(); g.arc(m.x, m.y, 4.5, 0, 7); g.fill();
       }
-      if (F().clock) { g.font = "700 26px 'Cinzel', serif"; g.fillStyle = 'rgba(40,24,10,0.85)'; g.textAlign = 'right'; g.fillText(F().clock, 1240, 690); g.textAlign = 'left'; }
+      if (F().clock) {
+        g.font = "700 26px 'Cinzel', serif";
+        g.fillStyle = 'rgba(40,24,10,0.85)';
+        g.textAlign = 'right';
+        g.fillText(F().clock, 1240, 690);
+        g.textAlign = 'left';
+      }
     },
     hotspots: S.PINS.filter(m => m.waiting).map(m => ({ name: m.text + ' (' + m.waitText + ')', rect: [m.x - 30, m.y - 60, 60, 80], when: m.waiting,
       look: () => G.toast(m.waitText), use: () => G.toast(m.waitText) })).concat(S.PINS.map(m => ({ name: m.text, rect: [m.x - 30, m.y - 60, 60, 80], when: m.open,
@@ -493,10 +529,15 @@
     if (!F().metRui) { F().metRui = true; await say('rui_hello'); await joke('alan_rui_hello'); }
     await S.gossip('rui');
     await G.dialog([
-      { line: 'alan_ask_murders', run: async () => { await say('rui_murders_1', 'rui_murders_2'); if (!F().ruiMurders) await joke('alan_rui_locked'); F().ruiMurders = true; } },
+      { line: 'alan_ask_murders', run: async () => {
+        await say('rui_murders_1', 'rui_murders_2');
+        if (!F().ruiMurders) await joke('alan_rui_locked');
+        F().ruiMurders = true;
+      } },
       { line: 'alan_ask_victims', when: () => F().ruiMurders, once: true, run: () => say('rui_victims_1', 'rui_victims_2') },
       { line: 'alan_ask_list', when: () => F().ruiMurders && !F().saw_list, run: async () => {
-        await say('rui_list_1b'); await S.readList(); // (rui_list_1 had 'old spelling') await say('alan_list_hand', 'rui_water'); await joke('alan_water'); F().saw_list = true;
+        await say('rui_list_1b');
+        await S.readList(); // (rui_list_1 had 'old spelling') await say('alan_list_hand', 'rui_water'); await joke('alan_water'); F().saw_list = true;
         if (F().ch === 1 && !F().teixeira_flirt) await S.ruiLeaves();
       }, get bye() { return !!F().rui_out; } },
       { line: 'alan_ask_strange', when: () => F().ch === 1, once: true, run: () => say('rui_drawer_1', 'rui_drawer_2') },
@@ -504,7 +545,12 @@
       { line: 'alan_ask_fog', once: true, run: async () => { await say('rui_fog'); F().rui_fog_heard = true; } },
       { line: 'alan_what_now', once: true, when: () => !!F().rui_fog_heard, run: () => say('rui_mother_2') }, // his mother's message, again
       { line: 'alan_ask_theft', when: () => S.theftDue(), run: () => S.theftTalk(true) },
-      { line: 'alan_tell_ferreira', when: () => F().ch === 2 && !!F().ferreira_lit && !F().ferreira_told, run: async () => { await say('rui_paper'); F().ferreira_told = true; await S.takePaper(); if (S.theftDue()) await S.theftTalk(false); } },
+      { line: 'alan_tell_ferreira', when: () => F().ch === 2 && !!F().ferreira_lit && !F().ferreira_told, run: async () => {
+        await say('rui_paper');
+        F().ferreira_told = true;
+        await S.takePaper();
+        if (S.theftDue()) await S.theftTalk(false);
+      } },
       // (a save from before he handed it over: the Diário is under his elbow, so ask for it)
       { label: 'Your Diário, Inspector?', when: () => !!F().ferreira_told && !F().paper_taken && !G.has('newspaper'), run: async () => { await say('rui_paper'); await S.takePaper(); } },
       { label: 'Goodbye.', bye: true, run: () => say('rui_bye') },
@@ -542,14 +588,28 @@
       { id: 'npc_guitar', name: 'Duarte', anim: { seated: true }, frames: ['npc_guitar', 'npc_guitar_b'], talkFrames: ['npc_guitar_talk1', 'npc_guitar_talk2', 'npc_guitar_talk3'], x: 676, y: 606, h: 326, at: [812, 648], face: 'w', look: 'alan_npc_guitar', talk: () => S.flirtGuitar(), when: () => F().ch < 5 && !F().duarte_scene }, // gone for good once he has visited Alan
       { id: 'npc_couple', name: 'A couple', frames: ['npc_couple', 'npc_couple_b'], x: 770, y: 610, h: 285, look: 'alan_npc_couple', when: () => false }, // retired: Alan and Duarte need the room
     ],
-    occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => { if (!F().matchesTaken) S.drawMatches(g, 912, 380); if (S.glassOnBar()) S.drawGlass(g, 1086, 392); } }], // the bar, in front of Lino (Amália's glass sits on it)
+    occluders: [{ y: 600, polys: [[[880, 365], [1280, 365], [1280, 590], [880, 590]]], draw: g => {
+      if (!F().matchesTaken) S.drawMatches(g, 912, 380);
+      if (S.glassOnBar()) S.drawGlass(g, 1086, 392);
+    } }], // the bar, in front of Lino (Amália's glass sits on it)
     hotspots: [
       { name: 'Door', rect: [20, 100, 215, 450], at: [140, 640], exit: 'street', entry: 'tavern' },
       { name: 'Fado poster', rect: [265, 130, 135, 210], look: 'narr_look_tavern' },
-      { name: 'Old photograph', rect: [548, 178, 103, 100], at: [600, 625], face: 'n', look: async () => { await say('narr_look_photo'); await S.showPhoto(); await say('alan_photo'); F().saw_photo = true; } },
+      { name: 'Old photograph', rect: [548, 178, 103, 100], at: [600, 625], face: 'n', look: async () => {
+        await say('narr_look_photo');
+        await S.showPhoto();
+        await say('alan_photo');
+        F().saw_photo = true;
+      } },
       { name: 'Guitarra portuguesa', rect: [722, 135, 80, 210], look: 'narr_look_guitar' },
       { name: 'Box of matches', rect: [892, 362, 44, 30], at: [905, 650], face: 'n', when: () => F().ch < 5 && !F().matchesTaken, look: 'narr_look_candle',
-        take: async () => { if (F().matchesTaken) return say('alan_fail_take'); F().matchesTaken = true; give('matches'); await say('amalia_matches'); await say('alan_matches'); } },
+        take: async () => {
+          if (F().matchesTaken) return say('alan_fail_take');
+          F().matchesTaken = true;
+          give('matches');
+          await say('amalia_matches');
+          await say('alan_matches');
+        } },
       { name: 'Bottles of ginjinha', rect: [960, 100, 320, 260], at: [1150, 660], face: 'n', look: 'narr_look_bottles',
         take: () => say(F().ch < 5 ? 'alan_take_bottle' : 'alan_fail_take'), items: { coins: () => S.buyGinja() } },
       { name: 'Bar', rect: [880, 362, 400, 220], at: [1150, 660], face: 'n', look: 'narr_look_bottles', items: { coins: () => S.buyGinja(), any: 'alan_fail_03' } },
@@ -574,7 +634,14 @@
     const lino = G.npc('npc_lino');
     if (lino) await say('lino_sell');
     spendCoin(2); sfx('coin');
-    if (lino) { lino.idleIdx = 1; sfx('pour'); await G.wait(window.FAST ? 20 : 1100); await say('lino_poured'); lino.idleIdx = 0; if (!F().gag_lino && !F().visit_guitar) { F().gag_lino = true; await say('gag_lino', 'gag_alan_lino'); } }
+    if (lino) {
+      lino.idleIdx = 1;
+      sfx('pour');
+      await G.wait(window.FAST ? 20 : 1100);
+      await say('lino_poured');
+      lino.idleIdx = 0;
+      if (!F().gag_lino && !F().visit_guitar) { F().gag_lino = true; await say('gag_lino', 'gag_alan_lino'); }
+    }
     else sfx('pour');
     give('ginja', 2);
     await joke('alan_ginjinhas');
@@ -637,7 +704,13 @@
     await say('amalia_hello');
     await S.gossip('amalia');
     await G.dialog([
-      { line: 'alan_ask_amalia_who', once: true, run: async () => { await say('amalia_who'); const sh = S.showPhoto(); await say('amalia_photo'); await sh; F().saw_photo = true; } }, // the photograph opens on its own: it's the key to the box
+      { line: 'alan_ask_amalia_who', once: true, run: async () => {
+        await say('amalia_who');
+        const sh = S.showPhoto();
+        await say('amalia_photo');
+        await sh;
+        F().saw_photo = true;
+      } }, // the photograph opens on its own: it's the key to the box
       { line: 'alan_ask_amalia_fog', once: true, run: () => say('amalia_fog') },
       { line: 'alan_ask_amalia_photo', once: true, when: () => false, run: () => say('amalia_photo') }, // folded into the Joaquim topic
       { line: 'alan_ask_amalia_song', when: () => F().knows_brotherhood && F().saw_photo && !F().heard_song, run: async () => { await say('amalia_conditions'); F().askedSong = true; } },
@@ -796,7 +869,11 @@
     }
     g.lineCap = 'round'; g.lineJoin = 'round';
     g.strokeStyle = 'rgba(8,9,11,0.95)'; g.lineWidth = 1.9; g.beginPath(); out.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke();
-    g.strokeStyle = 'rgba(120,128,134,0.35)'; g.lineWidth = 0.7; g.beginPath(); out.forEach(([x, y], i) => i ? g.lineTo(x + 0.4, y - 0.5) : g.moveTo(x + 0.4, y - 0.5)); g.stroke();
+    g.strokeStyle = 'rgba(120,128,134,0.35)';
+    g.lineWidth = 0.7;
+    g.beginPath();
+    out.forEach(([x, y], i) => i ? g.lineTo(x + 0.4, y - 0.5) : g.moveTo(x + 0.4, y - 0.5));
+    g.stroke();
   };
   S.copCordDesk = function (g) { if (!S.copOnDuty()) return; g.save(); S.coilPath(g, S.CORD_DESK, 2.1); g.restore(); };
   // where the receiver is: Teixeira's hand, or his hand in the pair frame
@@ -816,22 +893,6 @@
       pts.push([v * v * v * x0 + 3 * v * v * u * c2[0] + 3 * v * u * u * c1[0] + u * u * u * x1, v * v * v * y0 + 3 * v * v * u * c2[1] + 3 * v * u * u * c1[1] + u * u * u * y1]); }
     g.save(); S.coilPath(g, pts, 2.3); g.restore();
   };
-  // (the old wall telephone's cord, no longer used: Teixeira is on the desk phone)
-  S.wallPhone = function (g, x, y) {
-    // the telephone itself is painted (layer police_phone); only its cord is drawn,
-    // coiling down from the base to the handset in Teixeira's hand
-    g.save(); g.translate(x, y);
-    // coiled cord: loops along a sagging curve down behind the officer
-    g.strokeStyle = '#2a2620'; g.lineWidth = 1.6; g.beginPath();
-    const [x0, y0, x1, y1] = [0, 52, 44, 190];
-    for (let i = 0; i <= 120; i++) {
-      const u = i / 120, px = x0 + (x1 - x0) * u - Math.sin(u * Math.PI) * 10, py = y0 + (y1 - y0) * u;
-      const a = u * 24 * Math.PI;
-      g.lineTo(px + Math.cos(a) * 3.2, py + Math.sin(a) * 1.4);
-    }
-    g.stroke();
-    g.restore();
-  };
   // a matchbox with a sailing ship on the lid, at the near end of the bar
   S.drawMatches = function (g, x, y) {
     g.save(); g.translate(x, y);
@@ -844,7 +905,17 @@
     g.fillStyle = '#f3e6c4'; g.beginPath(); g.moveTo(-3, -6.2); g.lineTo(5, -6.2); g.lineTo(4, -5.4); g.lineTo(-2, -5.4); g.closePath(); g.fill();
     g.beginPath(); g.moveTo(0.6, -9.4); g.lineTo(0.6, -6.4); g.lineTo(-2.4, -6.4); g.closePath(); g.fill();
     g.beginPath(); g.moveTo(1.4, -9); g.lineTo(1.4, -6.4); g.lineTo(3.8, -6.4); g.closePath(); g.fill();
-    g.strokeStyle = 'rgba(40,25,15,0.85)'; g.lineWidth = 1; g.beginPath(); g.moveTo(-12, 1); g.lineTo(-12, -5); g.lineTo(-10, -10); g.lineTo(14, -10); g.lineTo(14, -4); g.lineTo(12, 1); g.closePath(); g.stroke();
+    g.strokeStyle = 'rgba(40,25,15,0.85)';
+    g.lineWidth = 1;
+    g.beginPath();
+    g.moveTo(-12, 1);
+    g.lineTo(-12, -5);
+    g.lineTo(-10, -10);
+    g.lineTo(14, -10);
+    g.lineTo(14, -4);
+    g.lineTo(12, 1);
+    g.closePath();
+    g.stroke();
     g.strokeStyle = 'rgba(255,255,255,0.35)'; g.beginPath(); g.moveTo(-9.5, -9.4); g.lineTo(13, -9.4); g.stroke();
     g.restore();
   };

@@ -201,7 +201,10 @@
       // a breath, a gasp, a groan as each frame lands (sound only, no caption)
       const VOX = { neck: 'v_cop_moan', shelf: 'v_cop_gasp', jacket: 'v_alan_mmm', tshirt: 'v_cop_whimper', buttons: 'v_alan_groan',
         shelf2: 'v_cop_moan', belt: 'v_cop_gasp', belt2: 'v_alan_mmm', trousers: 'v_cop_whimper', cuffs_a: 'v_alan_chuckle', cuffs_b: 'v_cop_gasp' };
-      const shelf = (k, ms) => { if (VOX[k] && window.SPRITES['pair_cop_' + k]) { sfx(VOX[k], 0.55); ms = Math.max(ms, 1300); } return pair('pair_cop_' + k, ms, SHELF, TORSO[k]); };
+      const shelf = (k, ms) => {
+        if (VOX[k] && window.SPRITES['pair_cop_' + k]) { sfx(VOX[k], 0.55); ms = Math.max(ms, 1300); }
+        return pair('pair_cop_' + k, ms, SHELF, TORSO[k]);
+      };
       p.dir = 'e'; sfx('sheet_slap', 0.2); await shelf('neck', 900); // straight into his neck, backed against the shelf
       await say('phone_room_2', 'alan_room_cop_2');
       await shelf('shelf', 600); // then his wrists, pinned above his head
@@ -255,7 +258,6 @@
 
   S.visitGuitar = async function () {
     F().visit_guitar = true;
-    const p = G.player;
     await G.busy(async () => {
       await arrive('guitar');
       await beats(['swoon', 'guitar_visit_1'], ['fluster', 'ines_visit_guitar'], ['swoon', 'guitar_visit_2']);

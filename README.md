@@ -48,7 +48,7 @@ The game is plain HTML, CSS and JavaScript with no build step.
 | `art/bg/*.jpg` | Hand-painted backgrounds (1280×720), generated with Canva's image AI in one shared style |
 | `art/sprites/*.webp` | Painted character frames (Canva), cut out with `scripts/matte.py`, which also writes `js/sprites.js` (sizes and foot/head anchors) |
 | `art/layers/*.webp` | Animation layers and sky masks cut from the backgrounds by `scripts/layers.py` |
-| `js/engine.js` | Adventure engine: per-room depth scaling and walk areas, occluders cut from the paintings (so characters walk behind desks and counters), lighting that tints the sprites to each room, a smart cursor, inventory, dialogue, cutscenes and saves |
+| `js/engine.js`, `js/engine/*.js` | Adventure engine (split by concern; see [`docs/CODEMAP.md`](docs/CODEMAP.md)): per-room depth scaling and walk areas, occluders cut from the paintings (so characters walk behind desks and counters), lighting that tints the sprites to each room, a smart cursor, inventory, dialogue, cutscenes and saves |
 | `js/fx.js` | Atmosphere (drifting fog, flickering lamps and torches, light shafts, dust, water shimmer) and painted inventory icons |
 | `js/audio.js` | Procedural soundtrack using Web Audio (fado guitar, bells, foghorns) and voice playback |
 | `js/story/*.js` | The game: `core.js` (cast, items, helpers), `docs.js` (ledger, police file, tide card and other readable documents), `ch1.js`–`ch5.js` (rooms, hotspots and puzzles per chapter), `main.js` (intro and new game) |

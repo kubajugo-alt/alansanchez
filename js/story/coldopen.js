@@ -8,7 +8,7 @@
   S.CHARS.maria = { scale: 1.0, frames: { idle: ['maria_grip'], talk: ['maria_grip'],
     poses: { sleep: 'maria_sleep', wake: 'maria_wake', grip: 'maria_grip' } } };
 
-  let water = 0, tileOn = true, t0 = 0; // water: 0..1 of the room's height
+  let water = 0, tileOn = true; // water: 0..1 of the room's height
   const PILLOW = [818, 368]; // where the tile lies
 
   ROOMS.cold_open = {
@@ -71,7 +71,10 @@
       set('grip', 520, 650); await T(1200);
       // under the boards, the river turns
       sfx('water_rise', 0.6);
-      const rise = (async () => { const n = window.FAST ? 2 : 160; for (let i = 0; i <= n; i++) { water = 0.6 * i / n; await G.wait(window.FAST ? 5 : 60); } })();
+      const rise = (async () => {
+        const n = window.FAST ? 2 : 160;
+        for (let i = 0; i <= n; i++) { water = 0.6 * i / n; await G.wait(window.FAST ? 5 : 60); }
+      })();
       await G.say('narr_cold_open', { offscreen: true });
       await rise;
       sfx('splash', 0.4); await T(800);
@@ -120,7 +123,13 @@
     }, { zoom: [1.0, 1.15], pan: [[0.5, 0.65], [0.5, 0.45]] });
     // f. dawn: the room empty, the boards dry, the tile on the floor
     await T(900);
-    if (has('still_maria_dawn')) await paint('still_maria_dawn', async () => { await T(600); sfx('cabin_drip', 0.45); await T(900); await say('narr_maria_6'); await T(1200); },
+    if (has('still_maria_dawn')) await paint('still_maria_dawn', async () => {
+      await T(600);
+      sfx('cabin_drip', 0.45);
+      await T(900);
+      await say('narr_maria_6');
+      await T(1200);
+    },
       { zoom: [1.05, 1.35], pan: [[0.5, 0.5], [0.53, 0.66]] }); // a slow push in onto the wet tile, kept above the caption
     return true;
   };

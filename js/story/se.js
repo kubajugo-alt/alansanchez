@@ -84,7 +84,16 @@
     if (!window.SPRITES[key] || !v || !v.visible) return null;
     const keep = { pd: p.dir, vp: v.pose }, at = S.pairSpot(key, v.x, v.y);
     p.x = at.x; p.y = at.y; p.dir = 'e'; p.pose = key; p.pairWho = v.id; v.visible = false;
-    return () => { const o = S.pairPartnerAt(key); v.x = o.x; v.y = o.y; p.pose = null; p.pairWho = null; p.dir = keep.pd; v.visible = true; v.pose = keep.vp; };
+    return () => {
+      const o = S.pairPartnerAt(key);
+      v.x = o.x;
+      v.y = o.y;
+      p.pose = null;
+      p.pairWho = null;
+      p.dir = keep.pd;
+      v.visible = true;
+      v.pose = keep.vp;
+    };
   };
   // Alan steps into the pair (Vasco keeps his place), and out again where the painting left them
   S.withPair = async function (k, fn, opts) {
@@ -393,7 +402,11 @@
     const kneel = S.kneelDown();
     if (v) { v.pose = kneel; v.dir = 'e'; }
     S.inesWanderOn = false;
-    if (ines && ines.visible) { if (ines.walking) await Promise.race([ines.walkTo(ines.x, ines.y), T(300)]); ines.dir = ines.x < p.x ? 'e' : 'w'; p.dir = ines.x < p.x ? 'w' : 'e'; }
+    if (ines && ines.visible) {
+      if (ines.walking) await Promise.race([ines.walkTo(ines.x, ines.y), T(300)]);
+      ines.dir = ines.x < p.x ? 'e' : 'w';
+      p.dir = ines.x < p.x ? 'w' : 'e';
+    }
     await say('alan_toss_ines');
     const faceInes = () => { if (ines && ines.visible) p.dir = ines.x < p.x ? 'w' : 'e'; }; // (speaking turned him to Vasco)
     faceInes(); p.pose = window.SPRITES.alan_throw1 ? 'throw1' : null; // the wind-up, low and quiet
@@ -423,7 +436,6 @@
     if (v) { v.pose = null; v.dir = 'w'; }
     await S.pitGame();
   };
-  S.tossKey = () => say('alan_toss_wait'); // (the key on Inês: only while his head is down)
 
   // ---------------------------------------------------------------- keeping him talking
   // While Inês is in the reserve: four exchanges, three replies each, one of each tone.
@@ -615,7 +627,12 @@
     await G.busy(async () => {
       const p = G.player, v = G.npc('vasco');
       if (v) {
-        if (v._pit || inPit(v)) { await v.walkTo(PIT_LADDER, PIT_RIM); if (window.SPRITES.vasco_climb) { v.pose = 'climb'; sfx('ladder_creak', 0.4); await T(700); v.pose = null; } v.x = PIT_LADDER; v.y = 626; }
+        if (v._pit || inPit(v)) {
+          await v.walkTo(PIT_LADDER, PIT_RIM);
+          if (window.SPRITES.vasco_climb) { v.pose = 'climb'; sfx('ladder_creak', 0.4); await T(700); v.pose = null; }
+          v.x = PIT_LADDER;
+          v.y = 626;
+        }
         await v.walkTo(p.x + (p.x < 900 ? 150 : -150), p.y); v.dir = v.x > p.x ? 'w' : 'e'; p.dir = v.x > p.x ? 'e' : 'w';
       }
       await S.withPair('fragment', () => say('vasco_fragment'));
@@ -642,7 +659,10 @@
     await G.goRoom('se_cloister', 'map', { instant: true, noEnter: true, noSave: true, pos: [260, 650, 'e'] });
     const p = G.player, v = G.npc('vasco');
     // Vasco is down in the pit with his trowel (it stays in his hand while he talks, when that frame is painted)
-    const trowel = c => { if (!v) return; if (S.CHARS.vasco.frames.sets && S.CHARS.vasco.frames.sets.trowel) { v.pose = null; v.set = c ? 'trowel' : null; } else v.pose = c && window.SPRITES.vasco_trowel ? 'trowel' : null; };
+    const trowel = c => {
+      if (!v) return;
+      if (S.CHARS.vasco.frames.sets && S.CHARS.vasco.frames.sets.trowel) { v.pose = null; v.set = c ? 'trowel' : null; } else v.pose = c && window.SPRITES.vasco_trowel ? 'trowel' : null;
+    };
     if (v) { v.x = 880; v.y = PIT_RIM; v.dir = 'w'; trowel(true); }
     // two coffees: with an approved carry walk he walks with them (the 'coffees' set), else he holds the pose
     const cs = S.CHARS.alan.frames.sets && S.CHARS.alan.frames.sets.coffees, carry = !!(cs && cs.walk && cs.walk.length);
@@ -801,7 +821,12 @@
       } else { await G.fade(true); await T(900); await G.say('narr_store', { offscreen: true }); }
       await G.fade(true); await T(700);
       // later: on the floor against a crate, shirts open, laughing, the clapper between them
-      const after = async () => { await G.fade(false); sfx('v_alan_chuckle', 0.45); await T(700); await say('vasco_after_1', 'alan_after_v', 'vasco_after_2', 'alan_after_every'); };
+      const after = async () => {
+        await G.fade(false);
+        sfx('v_alan_chuckle', 0.45);
+        await T(700);
+        await say('vasco_after_1', 'alan_after_v', 'vasco_after_2', 'alan_after_every');
+      };
       if (G.image('still:still_store_after')) await G.showStill('still_store_after', after, { zoom: [1.0, 1.1], pan: [[0.5, 0.5], [0.5, 0.45]], keep: true });
       else { G.endStill && G.endStill(); await S.withPair('shirtless', after); } // (until the painting exists: the two of them in the room)
     }

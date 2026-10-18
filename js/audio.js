@@ -39,7 +39,10 @@
     // synthetic hall reverb
     reverb = ctx.createConvolver();
     const len = ctx.sampleRate * 2.6, buf = ctx.createBuffer(2, len, ctx.sampleRate);
-    for (let ch = 0; ch < 2; ch++) { const d = buf.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+    for (let ch = 0; ch < 2; ch++) {
+      const d = buf.getChannelData(ch);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+    }
     reverb.buffer = buf;
     const wet = ctx.createGain(); wet.gain.value = 0.45;
     musicBus.connect(master); reverb.connect(wet); wet.connect(master);
@@ -106,7 +109,9 @@
     return (fmt = opus ? 'opus' : 'aac');
   }
   function trackUrl(id) { const m = meta[id]; return 'audio/music/' + id + '.' + format() + '.m4a' + (m && m.v ? '?v=' + m.v : ''); }
-  function loadMeta() { return fetch('audio/music/tracks.json', { cache: 'no-cache' }).then(r => r.json()).then(j => { meta = j || {}; }).catch(() => { meta = {}; }); }
+  function loadMeta() {
+    return fetch('audio/music/tracks.json', { cache: 'no-cache' }).then(r => r.json()).then(j => { meta = j || {}; }).catch(() => { meta = {}; });
+  }
   loadMeta();
   const userGain = () => musicVol * musicVol; // the slider is perceptual-ish: 50% is -12 dB
   function norm(spec) {
@@ -130,7 +135,10 @@
   function unlockPool() {
     if (pool.length) return;
     silentUrl = silentUrl || silentLoop();
-    for (let i = 0; i < 6; i++) { const p = makeEl(); try { p.el.src = silentUrl; const r = p.el.play(); if (r) r.then(() => p.el.pause()).catch(() => {}); } catch (e) { /* ignore */ } }
+    for (let i = 0; i < 6; i++) {
+      const p = makeEl();
+      try { p.el.src = silentUrl; const r = p.el.play(); if (r) r.then(() => p.el.pause()).catch(() => {}); } catch (e) { /* ignore */ }
+    }
   }
   function acquire() { const p = pool.find(x => !x.busy) || makeEl(); p.busy = true; return p; }
   function release(p) {
@@ -171,7 +179,12 @@
     this.voices.push(v); return v;
   };
   Track.prototype.drop = function (v) { const i = this.voices.indexOf(v); if (i >= 0) this.voices.splice(i, 1); release(v.p); };
-  Track.prototype.fadeVoice = function (v, secs) { if (v.ending) return; v.ending = true; ramp(v.p.gain.gain, 0, secs); setTimeout(() => this.drop(v), secs * 1000 + 150); };
+  Track.prototype.fadeVoice = function (v, secs) {
+    if (v.ending) return;
+    v.ending = true;
+    ramp(v.p.gain.gain, 0, secs);
+    setTimeout(() => this.drop(v), secs * 1000 + 150);
+  };
   Track.prototype.start = function (fadeIn) {
     const s = this.spec, b = this.bounds();
     this.fader.gain.value = s.vol;
@@ -317,17 +330,27 @@
       const t = ctx.currentTime;
       for (const f of [55, 82.4, 110, 138.6]) {
         const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(f * 2, t); o.frequency.exponentialRampToValueAtTime(f, t + 4);
-        const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.2, t + 3.5); g.gain.exponentialRampToValueAtTime(0.0001, t + 4.2);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.2, t + 3.5);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 4.2);
         o.connect(g); g.connect(sfxBus); g.connect(reverb); o.start(t); o.stop(t + 4.3);
       }
     },
     page() { burst(ctx.currentTime, 0.12, 'highpass', 2500, 0.7, 0.03); },
     // the Sé striking the quarter overhead: four notes, distant and wet
-    quarter() { const t = ctx.currentTime; [N(76), N(72), N(74), N(67)].forEach((f, i) => { bell(f, t + i * 0.7, 0.05, sfxBus); bell(f, t + i * 0.7, 0.03, reverb); }); },
+    quarter() {
+      const t = ctx.currentTime;
+      [N(76), N(72), N(74), N(67)].forEach((f, i) => { bell(f, t + i * 0.7, 0.05, sfxBus); bell(f, t + i * 0.7, 0.03, reverb); });
+    },
     // the Sé's hour bell, one stroke
     hour() { const t = ctx.currentTime; bell(N(45), t, 0.12, sfxBus); bell(N(45), t, 0.06, reverb); },
     // a trowel dropped on brick: a bright clank and a skitter
-    trowel() { const t = ctx.currentTime; for (const [d, f, v] of [[0, 2300, 0.07], [0.09, 1700, 0.04], [0.21, 2600, 0.025]]) { tone(f, t + d, 0.25, v, 'triangle', sfxBus); tone(f * 1.53, t + d, 0.18, v * 0.6, 'sine', sfxBus); } burst(t, 0.08, 'highpass', 3000, 0.8, 0.04); },
+    trowel() {
+      const t = ctx.currentTime;
+      for (const [d, f, v] of [[0, 2300, 0.07], [0.09, 1700, 0.04], [0.21, 2600, 0.025]]) { tone(f, t + d, 0.25, v, 'triangle', sfxBus); tone(f * 1.53, t + d, 0.18, v * 0.6, 'sine', sfxBus); }
+      burst(t, 0.08, 'highpass', 3000, 0.8, 0.04);
+    },
     splash() {
       const t = ctx.currentTime, n = ctx.sampleRate * 1.2, buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
       for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
@@ -341,7 +364,12 @@
   let sfxFiles = new Set(), sfxVer = {}; const sfxBufs = {};
   const sfxUrl = name => 'audio/sfx/' + name + '.mp3' + (sfxVer[name] ? '?v=' + sfxVer[name] : '');
   async function loadSfx() {
-    try { const r = await fetch('audio/sfx/manifest.json', { cache: 'no-cache' }); const j = await r.json(); sfxVer = Array.isArray(j) ? {} : j; sfxFiles = new Set(Array.isArray(j) ? j : Object.keys(j)); } catch (e) { sfxFiles = new Set(); }
+    try {
+      const r = await fetch('audio/sfx/manifest.json', { cache: 'no-cache' });
+      const j = await r.json();
+      sfxVer = Array.isArray(j) ? {} : j;
+      sfxFiles = new Set(Array.isArray(j) ? j : Object.keys(j));
+    } catch (e) { sfxFiles = new Set(); }
     if (ctx) preloadSfx();
   }
   // A sound that isn't recorded yet plays its nearest relative meanwhile (then the procedural one).
@@ -370,7 +398,13 @@
   }
   // plays a recorded clip; returns a handle that can stop it (fading) even before it has loaded
   function playFile(name, vol, rate, pan) {
-    const h = { src: null, gain: null, stopped: false, stop(fade) { this.stopped = true; if (this.gain) { this.gain.gain.setTargetAtTime(0.0001, ctx.currentTime, (fade || 0.3) / 3); try { this.src.stop(ctx.currentTime + (fade || 0.3) + 0.1); } catch (e) { /* ignore */ } } } };
+    const h = { src: null, gain: null, stopped: false, stop(fade) {
+      this.stopped = true;
+      if (this.gain) {
+        this.gain.gain.setTargetAtTime(0.0001, ctx.currentTime, (fade || 0.3) / 3);
+        try { this.src.stop(ctx.currentTime + (fade || 0.3) + 0.1); } catch (e) { /* ignore */ }
+      }
+    } };
     load(name).then(buf => {
       if (!buf || h.stopped) return;
       const s = ctx.createBufferSource(); s.buffer = buf; s.playbackRate.value = rate || 1;
@@ -407,7 +441,13 @@
   function sfxAt(name, x, vol, rate) { const p = Math.max(-1, Math.min(1, ((x == null ? 640 : x) - 640) / 640)) * 0.7; return sfx(name, (vol == null ? 1 : vol) * (1 - Math.abs(p) * 0.25), rate, p); }
   // short clips decoded in the background once audio is up, so first plays are on time
   // one-shots decode up front; the long beds stream in when their room opens
-  function preloadSfx() { let i = 0; const beds = new Set(Object.values(LOOPS).flatMap(l => Array.isArray(l[0]) ? l.map(x => x[0]) : [l[0]])); const names = [...sfxFiles].filter(n => !/^amb_/.test(n) && !beds.has(n)); const next = () => { if (i >= names.length) return; load(names[i++]).then(() => setTimeout(next, 30)); }; next(); }
+  function preloadSfx() {
+    let i = 0;
+    const beds = new Set(Object.values(LOOPS).flatMap(l => Array.isArray(l[0]) ? l.map(x => x[0]) : [l[0]]));
+    const names = [...sfxFiles].filter(n => !/^amb_/.test(n) && !beds.has(n));
+    const next = () => { if (i >= names.length) return; load(names[i++]).then(() => setTimeout(next, 30)); };
+    next();
+  }
 
   // ---------------------------------------------------------------- footsteps
   let noiseBuf = null;
@@ -433,13 +473,20 @@
     wet(t, v) { burst(t, 0.07, 'bandpass', 700 + Math.random() * 200, 1.4, 0.12 * v, 0.6); burst(t + 0.01, 0.12, 'highpass', 2500, 0.7, 0.03 * v, 0.4); },
     carpet(t, v) { burst(t, 0.08, 'lowpass', 380, 0.8, 0.12 * v); },
     // a boat deck: hollow planks with a little boom under them
-    deck(t, v) { burst(t, 0.12, 'bandpass', 180 + Math.random() * 40, 1.6, 0.22 * v); burst(t + 0.01, 0.2, 'lowpass', 120, 2, 0.08 * v); burst(t, 0.03, 'bandpass', 1500, 2, 0.04 * v); },
+    deck(t, v) {
+      burst(t, 0.12, 'bandpass', 180 + Math.random() * 40, 1.6, 0.22 * v);
+      burst(t + 0.01, 0.2, 'lowpass', 120, 2, 0.08 * v);
+      burst(t, 0.03, 'bandpass', 1500, 2, 0.04 * v);
+    },
   };
   // footsteps sit where the walker is: panned by x, the bus swapped for a panner node
   let stepPan = null;
   function footstep(surface, vol, x) {
     if (!ctx || !STEPS[surface]) return;
-    if (x != null && ctx.createStereoPanner) { if (!stepPan) { stepPan = ctx.createStereoPanner(); stepPan.connect(sfxBus); } stepPan.pan.value = Math.max(-1, Math.min(1, (x - 640) / 640)) * 0.6; }
+    if (x != null && ctx.createStereoPanner) {
+      if (!stepPan) { stepPan = ctx.createStereoPanner(); stepPan.connect(sfxBus); }
+      stepPan.pan.value = Math.max(-1, Math.min(1, (x - 640) / 640)) * 0.6;
+    }
     const bus = sfxBus; if (x != null && stepPan) sfxBus = stepPan;
     try { STEPS[surface](ctx.currentTime, (vol || 1) * (0.85 + Math.random() * 0.3)); } catch (e) { /* ignore */ } finally { sfxBus = bus; }
   }
@@ -452,7 +499,16 @@
     const f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q;
     const g = ctx.createGain(); g.gain.value = 0.0001; g.gain.setTargetAtTime(vol, ctx.currentTime, 1.2);
     s.connect(f); f.connect(g); g.connect(sfxBus); s.start();
-    if (lfo) { const o = ctx.createOscillator(); o.frequency.value = lfo; const og = ctx.createGain(); og.gain.value = vol * 0.6; o.connect(og); og.connect(g.gain); o.start(); ambNodes.push(o); }
+    if (lfo) {
+      const o = ctx.createOscillator();
+      o.frequency.value = lfo;
+      const og = ctx.createGain();
+      og.gain.value = vol * 0.6;
+      o.connect(og);
+      og.connect(g.gain);
+      o.start();
+      ambNodes.push(o);
+    }
     ambNodes.push(s, g);
   }
   function hum(freq, vol) {
@@ -466,7 +522,10 @@
       const o = ctx.createOscillator(); o.type = 'triangle';
       const st = t + i * 0.32, f0 = 1500 + Math.random() * 300;
       o.frequency.setValueAtTime(f0, st); o.frequency.exponentialRampToValueAtTime(f0 * 0.62, st + 0.24);
-      const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, st); g.gain.exponentialRampToValueAtTime(0.018 * v, st + 0.03); g.gain.exponentialRampToValueAtTime(0.0001, st + 0.27);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, st);
+      g.gain.exponentialRampToValueAtTime(0.018 * v, st + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.0001, st + 0.27);
       const w = ctx.createGain(); w.gain.value = 0.6;
       o.connect(g); g.connect(sfxBus); g.connect(w); w.connect(reverb); o.start(st); o.stop(st + 0.3);
     }
@@ -475,19 +534,28 @@
     for (let i = 0; i < 3; i++) {
       const o = ctx.createOscillator(); o.type = 'sine'; const st = t + i * 0.45;
       o.frequency.setValueAtTime(330, st); o.frequency.linearRampToValueAtTime(260, st + 0.35);
-      const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, st); g.gain.exponentialRampToValueAtTime(0.02, st + 0.08); g.gain.exponentialRampToValueAtTime(0.0001, st + 0.4);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, st);
+      g.gain.exponentialRampToValueAtTime(0.02, st + 0.08);
+      g.gain.exponentialRampToValueAtTime(0.0001, st + 0.4);
       o.connect(g); g.connect(sfxBus); o.start(st); o.stop(st + 0.45);
     }
   }
   function drip(t, v) {
     const o = ctx.createOscillator(); o.type = 'sine'; const f0 = 900 + Math.random() * 900;
     o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f0 * 1.9, t + 0.06);
-    const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.05 * v, t + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.05 * v, t + 0.005);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
     const w = ctx.createGain(); w.gain.value = 1.4;
     o.connect(g); g.connect(sfxBus); g.connect(w); w.connect(reverb); o.start(t); o.stop(t + 0.15);
   }
   const AMB = {
-    shop: { setup() { bed('lowpass', 500, 0.5, 0.012, 0.07); }, tick(t) { if (Math.random() < 0.012) gull(t, 0.4); if (Math.random() < 0.01) burst(t, 0.3, 'bandpass', 180, 4, 0.03); } },
+    shop: { setup() { bed('lowpass', 500, 0.5, 0.012, 0.07); }, tick(t) {
+      if (Math.random() < 0.012) gull(t, 0.4);
+      if (Math.random() < 0.01) burst(t, 0.3, 'bandpass', 180, 4, 0.03);
+    } },
     street: { setup() { bed('bandpass', 600, 0.4, 0.03, 0.09); }, tick(t) { if (Math.random() < 0.006) gull(t, 1); } },
     street_night: { recordedOnly: true, setup() { bed('bandpass', 380, 0.5, 0.025, 0.06); }, tick(t) { if (Math.random() < 0.02) drip(t, 0.25); } },
     shop_night: { recordedOnly: true, setup() { bed('lowpass', 300, 0.5, 0.01, 0.05); }, tick(t) { if (Math.random() < 0.004) burst(t, 0.3, 'bandpass', 160, 4, 0.025); } },
@@ -495,11 +563,25 @@
     ferreira: { setup() {}, tick(t, s) { if (s % 5 === 0) burst(t, 0.02, 'bandpass', 2900, 4, 0.025); } },
     cistern_calm: { setup() { bed('lowpass', 200, 0.7, 0.012, 0.04); }, tick(t) { if (Math.random() < 0.03) drip(t, 0.5); } },
     cabin: { recordedOnly: true, setup() { bed('lowpass', 250, 0.6, 0.025, 0.06); }, tick() {} },
-    office: { setup() { hum(100, 0.006); bed('highpass', 4000, 0.5, 0.003); }, tick(t) { if (Math.random() < 0.015) for (let i = 0; i < 6 + Math.random() * 10; i++) burst(t + i * (0.09 + Math.random() * 0.08), 0.03, 'bandpass', 2600, 3, 0.012); } },
-    tavern: { setup() { bed('lowpass', 300, 0.5, 0.01, 0.05); }, tick(t) { if (Math.random() < 0.008) tone(2400 + Math.random() * 800, t, 0.5, 0.008, 'sine', sfxBus); if (Math.random() < 0.01) burst(t, 0.4, 'bandpass', 150, 6, 0.03); } },
-    convent: { recordedOnly: true, setup() { bed('bandpass', 420, 0.6, 0.04, 0.11); }, tick(t) { if (Math.random() < 0.012) coo(t); if (Math.random() < 0.01) gull(t, 0.3); } },
-    night: { recordedOnly: true, setup() { bed('bandpass', 300, 0.6, 0.05, 0.08); }, tick(t) { if (Math.random() < 0.2) for (let i = 0; i < 3; i++) tone(4300 + Math.random() * 200, t + i * 0.05, 0.03, 0.004, 'sine', sfxBus); } },
-    clocks: { setup() {}, tick(t, s) { if (s % 5 === 0) burst(t, 0.02, 'bandpass', 3200, 4, 0.03); if (s % 5 === 2) burst(t, 0.02, 'bandpass', 2600, 4, 0.025); if (s % 7 === 3) burst(t, 0.02, 'bandpass', 4100, 4, 0.015); } },
+    office: { setup() { hum(100, 0.006); bed('highpass', 4000, 0.5, 0.003); }, tick(t) {
+      if (Math.random() < 0.015) for (let i = 0; i < 6 + Math.random() * 10; i++) burst(t + i * (0.09 + Math.random() * 0.08), 0.03, 'bandpass', 2600, 3, 0.012);
+    } },
+    tavern: { setup() { bed('lowpass', 300, 0.5, 0.01, 0.05); }, tick(t) {
+      if (Math.random() < 0.008) tone(2400 + Math.random() * 800, t, 0.5, 0.008, 'sine', sfxBus);
+      if (Math.random() < 0.01) burst(t, 0.4, 'bandpass', 150, 6, 0.03);
+    } },
+    convent: { recordedOnly: true, setup() { bed('bandpass', 420, 0.6, 0.04, 0.11); }, tick(t) {
+      if (Math.random() < 0.012) coo(t);
+      if (Math.random() < 0.01) gull(t, 0.3);
+    } },
+    night: { recordedOnly: true, setup() { bed('bandpass', 300, 0.6, 0.05, 0.08); }, tick(t) {
+      if (Math.random() < 0.2) for (let i = 0; i < 3; i++) tone(4300 + Math.random() * 200, t + i * 0.05, 0.03, 0.004, 'sine', sfxBus);
+    } },
+    clocks: { setup() {}, tick(t, s) {
+      if (s % 5 === 0) burst(t, 0.02, 'bandpass', 3200, 4, 0.03);
+      if (s % 5 === 2) burst(t, 0.02, 'bandpass', 2600, 4, 0.025);
+      if (s % 7 === 3) burst(t, 0.02, 'bandpass', 4100, 4, 0.015);
+    } },
     cistern: { setup() { hum(55, 0.004); bed('lowpass', 200, 0.7, 0.02, 0.05); }, tick(t) { if (Math.random() < 0.06) drip(t, 0.6 + Math.random() * 0.6); } },
     washhouse: { recordedOnly: true, setup() { bed('bandpass', 1800, 0.4, 0.02, 0.2); }, tick(t) { if (Math.random() < 0.02) burst(t, 0.25, 'lowpass', 600, 0.8, 0.05, 0.3); } },
     harbour: { recordedOnly: true, setup() { bed('lowpass', 400, 0.5, 0.03, 0.07); }, tick(t) { if (Math.random() < 0.03) gull(t, 0.8); } },
@@ -523,7 +605,18 @@
   function loopFile(name, vol) {
     const g = ctx.createGain(); g.gain.value = 0.0001; g.connect(ambBus); ambNodes.push(g);
     // loop points trimmed past the mp3 padding, so the seam doesn't click or dip
-    const start = buf => { if (!ambNodes.includes(g)) return; const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.loopStart = Math.min(0.06, buf.duration * 0.01); s.loopEnd = Math.max(s.loopStart + 1, buf.duration - 0.06); s.connect(g); s.start(0, s.loopStart + Math.random() * (s.loopEnd - s.loopStart) * 0.5); ambNodes.push(s); g.gain.setTargetAtTime(vol, ctx.currentTime, 1.0); };
+    const start = buf => {
+      if (!ambNodes.includes(g)) return;
+      const s = ctx.createBufferSource();
+      s.buffer = buf;
+      s.loop = true;
+      s.loopStart = Math.min(0.06, buf.duration * 0.01);
+      s.loopEnd = Math.max(s.loopStart + 1, buf.duration - 0.06);
+      s.connect(g);
+      s.start(0, s.loopStart + Math.random() * (s.loopEnd - s.loopStart) * 0.5);
+      ambNodes.push(s);
+      g.gain.setTargetAtTime(vol, ctx.currentTime, 1.0);
+    };
     if (sfxBufs[name] instanceof AudioBuffer) start(sfxBufs[name]);
     else fetch(sfxUrl(name)).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; start(buf); }).catch(() => {});
   }
@@ -568,7 +661,9 @@
     if (!ctx || name === ambName) return;
     ambName = name; clearInterval(ambTimer);
     const old = ambNodes; ambNodes = [];
-    for (const n of old) { try { if (n.gain) n.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.4); else n.stop(ctx.currentTime + 1.5); } catch (e) { /* ignore */ } }
+    for (const n of old) {
+      try { if (n.gain) n.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.4); else n.stop(ctx.currentTime + 1.5); } catch (e) { /* ignore */ }
+    }
     // one or more recorded beds (a room can layer, e.g. a deck: harbour and creaking timbers)
     const lps = (LOOPS[name] ? (Array.isArray(LOOPS[name][0]) ? LOOPS[name] : [LOOPS[name]]) : []).filter(l => sfxFiles.has(l[0]));
     for (const l of lps) loopFile(l[0], l[1]);
@@ -662,7 +757,12 @@
   function preloadVoice(id) { if (ctx && hasVoice(id)) loadVoice(id).catch(() => {}); }
   let voiceSrc = null, voiceEnd = 0;
   function ensureAnalyser() {
-    if (!analyser) { analyser = ctx.createAnalyser(); analyser.fftSize = 1024; levelBuf = new Float32Array(analyser.fftSize); analyser.connect(ctx.destination); }
+    if (!analyser) {
+      analyser = ctx.createAnalyser();
+      analyser.fftSize = 1024;
+      levelBuf = new Float32Array(analyser.fftSize);
+      analyser.connect(ctx.destination);
+    }
   }
   async function playVoice(id, dry) {
     stopVoice();
@@ -732,7 +832,20 @@
   function playSong(url, vol) {
     const base = vol == null ? 0.9 : vol;
     let p = null, g = null, el;
-    if (ctx) { p = acquire(); el = p.el; if (p.src) { g = ctx.createGain(); p.gain.gain.cancelScheduledValues(0); p.gain.gain.value = 1; p.gain.connect(g); g.connect(ctx.destination); songAn = ctx.createAnalyser(); songAn.fftSize = 1024; g.connect(songAn); } }
+    if (ctx) {
+      p = acquire();
+      el = p.el;
+      if (p.src) {
+        g = ctx.createGain();
+        p.gain.gain.cancelScheduledValues(0);
+        p.gain.gain.value = 1;
+        p.gain.connect(g);
+        g.connect(ctx.destination);
+        songAn = ctx.createAnalyser();
+        songAn.fftSize = 1024;
+        g.connect(songAn);
+      }
+    }
     else el = new Audio();
     const target = () => (musicOn ? base * userGain() : 0);
     const song = { el, level() { if (g) g.gain.setTargetAtTime(target(), ctx.currentTime, 0.05); else el.volume = Math.min(1, target()); } };
@@ -742,7 +855,11 @@
     apply(1.2); // the score fades out under it
     if (ambBus) ambBus.gain.setTargetAtTime(0.25, ctx.currentTime, 0.3);
     let done = false;
-    const ended = new Promise(res => { el.addEventListener('ended', res, { once: true }); el.addEventListener('error', res, { once: true }); song._end = res; });
+    const ended = new Promise(res => {
+      el.addEventListener('ended', res, { once: true });
+      el.addEventListener('error', res, { once: true });
+      song._end = res;
+    });
     const r = el.play(); if (r && r.catch) r.catch(() => {});
     ended.then(() => {
       if (done) return; done = true;
@@ -755,7 +872,11 @@
     song.ended = ended;
     song.stop = fadeMs => {
       const ms = fadeMs || 1200;
-      if (g) ramp(g.gain, 0, ms / 1000); else { const v0 = el.volume; let i = 0; const iv = setInterval(() => { el.volume = Math.max(0, v0 * (1 - ++i / 12)); if (i >= 12) clearInterval(iv); }, ms / 12); }
+      if (g) ramp(g.gain, 0, ms / 1000); else {
+        const v0 = el.volume;
+        let i = 0;
+        const iv = setInterval(() => { el.volume = Math.max(0, v0 * (1 - ++i / 12)); if (i >= 12) clearInterval(iv); }, ms / 12);
+      }
       setTimeout(() => { try { el.pause(); } catch (e) { /* ignore */ } song._end(); }, ms + 30);
     };
     return song;
@@ -768,7 +889,14 @@
   }
   // levels for tests and tuning: RMS in dBFS of the music bus and of the voice now playing
   let musicAn = null, meterBuf = null;
-  function rmsDb(an) { if (!an) return -120; if (!meterBuf || meterBuf.length !== an.fftSize) meterBuf = new Float32Array(an.fftSize); an.getFloatTimeDomainData(meterBuf); let e = 0; for (let i = 0; i < meterBuf.length; i++) e += meterBuf[i] * meterBuf[i]; return 10 * Math.log10(e / meterBuf.length + 1e-12); }
+  function rmsDb(an) {
+    if (!an) return -120;
+    if (!meterBuf || meterBuf.length !== an.fftSize) meterBuf = new Float32Array(an.fftSize);
+    an.getFloatTimeDomainData(meterBuf);
+    let e = 0;
+    for (let i = 0; i < meterBuf.length; i++) e += meterBuf[i] * meterBuf[i];
+    return 10 * Math.log10(e / meterBuf.length + 1e-12);
+  }
   function meter() { return { music: rmsDb(musicAn), voice: voicePlaying() ? rmsDb(analyser) : -120, duck: musicDuck ? musicDuck.gain.value : 1, song: songAn ? rmsDb(songAn) : -120 }; }
   function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
 
@@ -776,7 +904,12 @@
     init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
     cue: setCue, refreshMusic, transitionMusic, musicState, restoreMusic, setMusicVolume, trackUrl, meter, musicLog,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; }, get musicVolume() { return musicVol; },
-    _wave: () => { if (!musicAn) return null; const d = new Float32Array(musicAn.fftSize); musicAn.getFloatTimeDomainData(d); return Array.from(d); }, // (diagnostics)
+    _wave: () => {
+      if (!musicAn) return null;
+      const d = new Float32Array(musicAn.fftSize);
+      musicAn.getFloatTimeDomainData(d);
+      return Array.from(d);
+    }, // (diagnostics)
     _voices: () => active ? active.voices.map(v => ({ t: +v.p.el.currentTime.toFixed(2), g: +v.p.gain.gain.value.toFixed(3), armed: !!v.armed, started: v.started, ending: v.ending, rs: v.p.el.readyState })) : [], // (diagnostics)
     get nowPlaying() { return active && !active.dead ? active.id : null; }, get musicCue() { return cue ? cue.spec : null; },
   };

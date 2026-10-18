@@ -1,4 +1,5 @@
-// The Drowned Bell v2 — boot: shared effects, chapter hooks, new game, init.
+// The Drowned Bell v2 — boot: shared effects, chapter hooks, the ?scene= previews, the content
+// setting, the opening and new game, approved review frames, init.
 (function () {
   const { G, F, say, ROOMS, joke, posed } = window.S;
 
@@ -14,12 +15,6 @@
       g.fillStyle = gr; g.fillRect(x - 160, y - 80, 320, 160);
     }
     g.restore();
-  };
-  // covers a taken object with nearby painting (the window shelf, etc.)
-  S.patchBg = function (g, dst, src) {
-    const im = G.bgImage(); if (!im) return;
-    const k = im.width / 1280;
-    g.drawImage(im, src[0] * k, src[1] * k, dst[2] * k, dst[3] * k, dst[0], dst[1], dst[2], dst[3]);
   };
 
   // ---------------------------------------------------------------- chapter hooks in the shop
@@ -49,7 +44,11 @@
     // Amália's fado (the recorded "O Sino Afogado", with captions)
     fado: { flags: { ch: 1, askedSong: true, duarte_flirt: true, flirted_guitar: true, saw_photo: true, knows_brotherhood: true }, room: 'tavern', pos: [860, 640, 'e'], run: () => { G.giveItem('ginja'); return S.giveGinja(); } },
     // Maria Coutinho's last night (the paintings; the staged room if they are missing)
-    coldopen: { flags: { ch: 1 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await G.busy(async () => { if (!(await S.mariaPaintings())) await S.coldOpen(); }); G.endStill(); await G.fade(false); } },
+    coldopen: { flags: { ch: 1 }, room: 'shop', pos: [815, 616, 'e'], run: async () => {
+      await G.busy(async () => { if (!(await S.mariaPaintings())) await S.coldOpen(); });
+      G.endStill();
+      await G.fade(false);
+    } },
     // the whole opening, from the fog over Lisbon to Inês waking Alan
     intro: { flags: { ch: 1, clock: '11:00' }, room: 'shop', pos: [815, 616, 'e'], run: () => opening() },
     romance: { flags: { ch: 4, ze_awake: true, ze_believes: true, ze_in_cabin: true, ze_saved: true }, room: 'cabin', pos: [560, 640, 'e'], run: () => S.romance() },
@@ -114,6 +113,7 @@
     await G.wait(800);
     await P.run();
   }
+  // ---------------------------------------------------------------- content: Full or Discreet
   // Content: Full or Discreet. Asked once, on the first new game; changeable any time from the menu.
   const contentLabel = () => 'Content: ' + (S.discreet() ? 'Discreet' : 'Full');
   (function settingsButton() {
@@ -132,10 +132,18 @@
         <p>Alan's love life is part of this story. <b>Full</b> plays the romantic scenes as written. <b>Discreet</b> skips from each build-up straight to its afterwards and hides those paintings; every joke and every clue stays.</p>
         <p style="font-size:.85em;opacity:.75">You can change this at any time from the menu.</p>
         <p><button data-v="full" style="margin:6px 10px;padding:8px 22px">Full</button><button data-v="discreet" style="margin:6px 10px;padding:8px 22px">Discreet</button></p></div>`;
-      box.querySelectorAll('button').forEach(b => b.onclick = e => { e.stopPropagation(); S.setContent(b.dataset.v); const o = document.querySelector('#opt-content'); if (o) o.textContent = contentLabel(); box.remove(); resolve(); });
+      box.querySelectorAll('button').forEach(b => b.onclick = e => {
+        e.stopPropagation();
+        S.setContent(b.dataset.v);
+        const o = document.querySelector('#opt-content');
+        if (o) o.textContent = contentLabel();
+        box.remove();
+        resolve();
+      });
       (document.querySelector('#game') || document.body).appendChild(box);
     });
   }
+  // ---------------------------------------------------------------- the opening
   // The opening: the fog over Lisbon, Maria Coutinho's last night in paintings (the old staged
   // room only if the paintings are missing), the city waking to it, the chapter card, the shop.
   S.CHARS.alan.frames.poses.yawn = 'alan_yawn'; S.CHARS.alan.frames.poses.stretch = 'alan_stretch'; // waking up
@@ -207,6 +215,7 @@
   window.Story = { newGame };
   document.getElementById('btn-new').onclick = () => G.begin(true);
   document.getElementById('btn-continue').onclick = () => G.begin(false);
+  // ---------------------------------------------------------------- approved review frames
   // Gemini frames reach the game only once approved on the review screen (art/review/approvals.json;
   // a reviewer's own decisions, kept in their browser, preview here too)
   S.applyCandidate = (c, ok) => {
@@ -217,10 +226,19 @@
     if (W.walkStop) F.walkStop = c.id;
     if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
     if (W.poses) Object.assign(F.poses, W.poses);
-    if (W.pairIb) { F.pairIb = F.pairIb || {}; for (const [k, io] of Object.entries(W.pairIb)) { const d = F.pairIb[k] = F.pairIb[k] || {}; for (const [w, seq] of Object.entries(io)) d[w] = seq.filter(live); } }
+    if (W.pairIb) {
+      F.pairIb = F.pairIb || {};
+      for (const [k, io] of Object.entries(W.pairIb)) {
+        const d = F.pairIb[k] = F.pairIb[k] || {};
+        for (const [w, seq] of Object.entries(io)) d[w] = seq.filter(live);
+      }
+    }
     if (W.set) {
       F.sets = F.sets || {};
-      for (const [n, d] of Object.entries(W.set)) { const st = F.sets[n] = F.sets[n] || {}; for (const [k, v] of Object.entries(d)) st[k] = Array.isArray(v) ? v.filter(live) : v; }
+      for (const [n, d] of Object.entries(W.set)) {
+        const st = F.sets[n] = F.sets[n] || {};
+        for (const [k, v] of Object.entries(d)) st[k] = Array.isArray(v) ? v.filter(live) : v;
+      }
     }
   };
   async function loadApproved() {
@@ -231,6 +249,7 @@
     S.REVIEW = { candidates: (C && C.candidates) || [], decisions: dec, saved: A };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c, ok);
   }
+  // ---------------------------------------------------------------- start
   // the animation review screen: only with ?review in the address, never in normal play or the menus
   const review = new URLSearchParams(location.search).has('review');
   loadApproved().then(() => {

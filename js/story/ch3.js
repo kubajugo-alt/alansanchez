@@ -54,13 +54,24 @@
             F().stone_washed = true; await say('narr_stone_washed');
           },
           magnifier: async () => { if (!F().stone_washed) return say('alan_stone_crusted'); F().stone_read = true; await say('alan_stone_mag'); },
-          ledger: async () => { if (!F().stone_washed) return say('alan_stone_crusted'); if (!F().stone_read) return say('alan_stone_nomag'); if (F().decoded) return say('alan_look_ledger_decoded'); await S.openCipher(); },
+          ledger: async () => {
+            if (!F().stone_washed) return say('alan_stone_crusted');
+            if (!F().stone_read) return say('alan_stone_nomag');
+            if (F().decoded) return say('alan_look_ledger_decoded');
+            await S.openCipher();
+          },
           any: 'alan_fail_03',
         } },
-      { name: 'Iron grate', rect: [790, 588, 450, 108], at: [760, 650], face: 'e', look: 'narr_look_grate', use: async () => { await say('alan_grate'); if (G.npc('tomas')) await say('tomas_grate'); } },
+      { name: 'Iron grate', rect: [790, 588, 450, 108], at: [760, 650], face: 'e', look: 'narr_look_grate', use: async () => {
+        await say('alan_grate');
+        if (G.npc('tomas')) await say('tomas_grate');
+      } },
       { name: 'Way out', rect: [0, 590, 60, 126], at: [30, 672], exit: 'map', entry: 'convent' },
     ],
-    async enter() { if (F().ch >= 5) return G.goRoom('convent_night', 'map', { instant: true }); if (!F().carmo_entered) { F().carmo_entered = true; await joke('alan_enter_carmo'); } },
+    async enter() {
+      if (F().ch >= 5) return G.goRoom('convent_night', 'map', { instant: true });
+      if (!F().carmo_entered) { F().carmo_entered = true; await joke('alan_enter_carmo'); }
+    },
   };
   // the Sé's charter opens Tomás up about bells; the stone waits until Alan has heard him
   // (saves from before the Sé chapter never had the charter, so they keep the old rule)
@@ -93,7 +104,8 @@
     ]);
   };
 
-  // --- the cipher wheel: shift 7, from Amália's fado
+  // ---------------------------------------------------------------- the cipher wheel
+  // shift 7, from Amália's fado
   S.openCipher = function () {
     const { ABC, shift, PLAIN } = S.cipher;
     const CIPHER = shift(PLAIN, 7);
@@ -131,7 +143,12 @@
     await G.say('narr_decode_1', { offscreen: true });
     await posed('read', () => say('alan_decode_1'));
     await G.showStill('still_1755', () => say('narr_1755'), { sepia: true, grain: true, zoom: [1.02, 1.14], pan: [[0.45, 0.5], [0.55, 0.48]] });
-    await posed('read', async () => { await say('alan_rite_1'); await G.say('narr_rite_2', { offscreen: true }); await say('alan_page3_read'); await G.say('narr_page3', { offscreen: true }); });
+    await posed('read', async () => {
+      await say('alan_rite_1');
+      await G.say('narr_rite_2', { offscreen: true });
+      await say('alan_page3_read');
+      await G.say('narr_page3', { offscreen: true });
+    });
     await say('tomas_renounce'); // moved here from the Bells topic: "At a baptism you renounce"
     await say('alan_page3', 'alan_surname');
     const tm = G.npc('tomas'); if (tm) { tm.engaged++; await say('tomas_order'); tm.engaged--; }
@@ -277,7 +294,12 @@
     ],
     hotspots: [
       { name: 'Clocks', rect: [0, 0, 480, 230], look: 'narr_look_clocks' },
-      { name: 'Tagged clocks', rect: [150, 230, 330, 110], at: [520, 600], face: 'w', look: async () => { await say('narr_look_tagged'); await S.showClocks(); F().saw_jc_clock = true; await say('alan_jc'); } },
+      { name: 'Tagged clocks', rect: [150, 230, 330, 110], at: [520, 600], face: 'w', look: async () => {
+        await say('narr_look_tagged');
+        await S.showClocks();
+        F().saw_jc_clock = true;
+        await say('alan_jc');
+      } },
       { name: 'Grandfather clock', rect: [500, 10, 140, 510], look: 'narr_look_clocks' },
       { name: "Ship's bell", rect: [680, 70, 140, 200], look: 'narr_look_antiques' },
       { name: 'Curios', rect: [880, 20, 240, 280], look: 'narr_look_antiques' },
@@ -288,7 +310,13 @@
         use: () => S.lacerdaHere() ? say('lacerda_hands') : say(F().case_open ? 'alan_noswap' : 'alan_case_locked'),
         take: () => S.lacerdaHere() ? say('lacerda_hands') : F().case_open ? S.grabTongue() : say('alan_case_locked'),
         items: {
-          vkey: async () => { if (S.lacerdaHere()) return say('lacerda_hands'); if (F().case_open) return say('alan_fail_04'); F().case_open = true; sfx('case_open'); await say('alan_case_open'); },
+          vkey: async () => {
+            if (S.lacerdaHere()) return say('lacerda_hands');
+            if (F().case_open) return say('alan_fail_04');
+            F().case_open = true;
+            sfx('case_open');
+            await say('alan_case_open');
+          },
           magnifier: () => F().tongue_sketched ? joke('alan_look_case') : S.sketchTongue(),
           notebook: () => F().tongue_sketched ? joke('alan_look_case') : S.sketchTongue(),
           // the twin from the Sé reserve: same pour, same marks, same weight
@@ -311,7 +339,12 @@
     },
     leave() {
       if (F().has_tongue && !F().slipped) { F().slipped = true; }
-      if (F().lac_away && !F().swapped) { F().lac_away = false; F().lac_actions = 0; F().case_open = false; if (F().grabbed) { G.takeItem('tongue'); F().grabbed = false; F().has_tongue = false; } }
+      if (F().lac_away && !F().swapped) {
+        F().lac_away = false;
+        F().lac_actions = 0;
+        F().case_open = false;
+        if (F().grabbed) { G.takeItem('tongue'); F().grabbed = false; F().has_tongue = false; }
+      }
     },
     async enter() {
       if (F().has_tongue && !F().slip_said) { /* returning later */ }
@@ -335,7 +368,14 @@
   S.talkLacerda = async function () {
     await say('lacerda_hello_2'); // they have never met: he knows of Alan only as the last Sineiro
     await G.dialog([
-      { line: 'alan_lac_clocks', once: true, run: async () => { await say('lacerda_clocks'); await joke('alan_collect'); await say('lacerda_charming'); await S.showClocks(); F().saw_jc_clock = true; await say('alan_jc'); } },
+      { line: 'alan_lac_clocks', once: true, run: async () => {
+        await say('lacerda_clocks');
+        await joke('alan_collect');
+        await say('lacerda_charming');
+        await S.showClocks();
+        F().saw_jc_clock = true;
+        await say('alan_jc');
+      } },
       { line: 'alan_lac_case', once: true, run: async () => { await say('lacerda_case', 'lacerda_velvet'); F().case_known = true; } },
       { line: 'alan_lac_joaquim', once: true, run: () => say('lacerda_joaquim_day') },
       { line: 'alan_lac_fog', once: true, run: () => say('lacerda_fog') },

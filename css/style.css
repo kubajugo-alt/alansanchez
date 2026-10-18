@@ -1,9 +1,12 @@
+/* The Drowned Bell: the game frame, scene and cursors, captions, inventory, menus, dialogue,
+   cards, modals (title, death, ending, cipher), the clock overlay and the close-up documents. */
 :root {
   --gold: #e0b866;
   --gold-dim: #8a6a30;
   --ink: #f2e8d2;
   --panel: rgba(18, 12, 8, 0.86);
 }
+/* ---------- page and game frame ---------- */
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-family: 'Alegreya Sans', sans-serif; overflow: hidden; }
 #frame { width: 100vw; height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center; }
@@ -12,12 +15,14 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
   font-size: calc(min(100vw, calc(100dvh * 16 / 9)) / 1280 * 16);
   user-select: none; -webkit-user-select: none;
 }
+/* ---------- scene and cursors ---------- */
 #scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M16 4v24M4 16h24' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M16 5v22M5 16h22' stroke='%23f0d890' stroke-width='2'/%3E%3C/svg%3E") 16 16, crosshair; }
 #scene.c-look { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ccircle cx='15' cy='15' r='9' fill='none' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M22 22l9 9' stroke='%23000' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='15' cy='15' r='9' fill='rgba(180,220,240,.3)' stroke='%23f0d890' stroke-width='2.5'/%3E%3Cpath d='M22 22l9 9' stroke='%23a0703a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") 15 15, help; }
 #scene.c-use { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cpath d='M12 30V12a2.5 2.5 0 015 0v8-12a2.5 2.5 0 015 0v12-9a2.5 2.5 0 015 0v10-6a2.5 2.5 0 014 0v9c0 5-4 8-9 8h-3c-4 0-6-2-8-5l-4-6a2.4 2.4 0 014-3z' fill='%23f0d890' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 14 4, pointer; }
 #scene.c-talk { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='34'%3E%3Cpath d='M4 4h30v18H16l-8 8v-8H4z' fill='%23f0d890' stroke='%23000' stroke-width='2.5' stroke-linejoin='round'/%3E%3Ccircle cx='13' cy='13' r='2' fill='%23000'/%3E%3Ccircle cx='19' cy='13' r='2' fill='%23000'/%3E%3Ccircle cx='25' cy='13' r='2' fill='%23000'/%3E%3C/svg%3E") 4 4, pointer; }
 #scene.c-exit { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cpath d='M4 13h16V5l13 13-13 13v-8H4z' fill='%23f0d890' stroke='%23000' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E") 30 18, pointer; }
 
+/* ---------- speech, narration, hover names, room labels ---------- */
 .outlined { text-shadow: 0 0 3px #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0 3px 6px rgba(0,0,0,.8); }
 #speech {
   position: absolute; width: max-content; max-width: 52%; transform: translate(-50%, -100%); text-align: center;
@@ -44,6 +49,7 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
   box-shadow: 0 3px 10px rgba(0,0,0,.45);
 }
 
+/* ---------- inventory bar and the corner buttons ---------- */
 #invbar {
   position: absolute; left: 0; right: 0; bottom: 0; height: 15%; transform: translateY(100%); transition: transform .25s ease;
   background: linear-gradient(rgba(20,13,8,0), rgba(20,13,8,.92) 30%); display: flex; align-items: flex-end; justify-content: center; padding-bottom: .6%;
@@ -69,6 +75,7 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #inventory .slot { position: relative; }
 #inventory .slot .read { position: absolute; left: 50%; bottom: -.2em; transform: translateX(-50%); font: 700 .62em 'Cinzel', serif; color: var(--gold); background: rgba(20,13,8,.92); border: 1px solid rgba(224,184,102,.6); border-radius: .3em; padding: .05em .45em; cursor: pointer; }
 #inventory .slot .read:hover { color: #ffe9b0; border-color: #ffe9b0; }
+/* ---------- menu and dialogue choices ---------- */
 #menu { position: absolute; top: 9%; right: 1.2%; display: none; flex-direction: column; gap: .3em; }
 #menu.open { display: flex; }
 #menu button, .modal button, #dialog button {
@@ -85,6 +92,7 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #dialog button { text-align: left; font-family: 'Alegreya Sans', sans-serif; font-weight: 500; font-size: 1.3em; color: #f4e6c4; background: transparent; border: none; padding: .2em .5em; }
 #dialog button:hover { background: rgba(224,184,102,.15); color: #fff; }
 #dialog .n { display: inline-block; width: 1.6em; color: var(--gold-dim); font-family: 'Cinzel', serif; }
+/* ---------- toast, fade, chapter card ---------- */
 #toast { position: absolute; top: 3%; left: 50%; transform: translateX(-50%); padding: .3em 1em; background: var(--panel); border: 1px solid var(--gold-dim); opacity: 0; transition: opacity .3s; pointer-events: none; font-family: 'Cinzel', serif; }
 #toast.on { opacity: 1; }
 
@@ -96,6 +104,7 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #card .t1 { font-family: 'Cinzel', serif; color: var(--gold-dim); font-size: 1.4em; letter-spacing: .5em; }
 #card .t2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 3.4em; margin-top: .2em; letter-spacing: .06em; }
 
+/* ---------- modals: title, death, ending ---------- */
 .modal { position: absolute; inset: 0; background: rgba(5,4,3,.94); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4%; }
 .modal.hidden { display: none; }
 .modal h1 { margin: 0; font-family: 'Cinzel', serif; color: var(--gold); font-size: 4.6em; font-weight: 700; letter-spacing: .08em; text-shadow: 0 4px 24px rgba(0,0,0,.9), 0 0 40px rgba(224,184,102,.25); }
@@ -114,6 +123,7 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #death { background: rgba(0, 14, 22, .92); }
 #death h2 { color: #8ac0d8; }
 #ending .credits p { font-size: 1.05em; color: #9a8a68; margin: .2em; }
+/* ---------- cipher wheel ---------- */
 #cipher { background: rgba(10, 10, 14, .96); }
 #cipher .hint { font-style: italic; }
 #cipher .wheel { font-family: 'Cinzel', serif; font-size: 1.35em; letter-spacing: .4em; margin: .5em 0 1em; padding: .6em 1.2em; border: 1px solid #5a5a6a; background: #191920; border-radius: .3em; }

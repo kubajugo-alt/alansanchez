@@ -88,7 +88,10 @@ window.Warp = (function () {
     gl.uniform1f(U.uLit, L ? 1 : 0);
     if (L) {
       gl.uniform2f(U.uTex, tw, th); gl.uniform1f(U.uR, Math.max(2, L.fig * 0.012)); gl.uniform1f(U.uFeet, L.feet); gl.uniform1f(U.uFig, L.fig);
-      gl.uniform3fv(U.uAmb, L.amb); gl.uniform4fv(U.uFog, L.fog || [0, 0, 0, 0]); gl.uniform4fv(U.uKey, L.key || [0, 0, 0, 0]); gl.uniform1f(U.uKeySide, L.keySide || 1);
+      gl.uniform3fv(U.uAmb, L.amb);
+      gl.uniform4fv(U.uFog, L.fog || [0, 0, 0, 0]);
+      gl.uniform4fv(U.uKey, L.key || [0, 0, 0, 0]);
+      gl.uniform1f(U.uKeySide, L.keySide || 1);
       const lp = new Float32Array(16), lc = new Float32Array(12);
       (L.lights || []).slice(0, 4).forEach((l, i) => { lp.set([l.x, l.y, l.I, l.rim], i * 4); lc.set(l.rgb, i * 3); });
       gl.uniform4fv(U.uLP, lp); gl.uniform3fv(U.uLC, lc);
