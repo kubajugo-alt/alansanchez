@@ -15,6 +15,7 @@ THREE_Q = ['alan_front', 'alan_flirt', 'alan_wink', 'alan_fluster', 'alan_swoon'
 
 # name, made from (originals), what it shows, wiring once approved
 PHASE2 = [
+    ('ib_weight_shift', ['alan_side', 'alan_walkA'], 'Proposal D: the weight shifting back just before the first step', {'walkStart': 0}),
     ('ib_walk_start', ['alan_side', 'alan_walkA'], 'the first step of a walk', {'walkStart': True}),
     ('ib_walk_stop', ['alan_walkB', 'alan_side'], 'the last step of a walk', {'walkStop': True}),
     ('ib_turn34', ['alan_side', 'alan_front'], 'turning toward us (3/4)', {'inbetween': {f'alan_side>{k}': ['@'] for k in THREE_Q}}),

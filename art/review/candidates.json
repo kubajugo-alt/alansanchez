@@ -1,6 +1,29 @@
 {
  "candidates": [
   {
+   "id": "alan_ib_weight_shift",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "Proposal D: the weight shifting back just before the first step",
+   "src": "art/review/candidates/alan_ib_weight_shift.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_walkA.webp"
+   ],
+   "meta": {
+    "w": 212.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 116.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "walkStart": 0
+   }
+  },
+  {
    "id": "alan_ib_walk_start",
    "char": "alan",
    "phase": 2,

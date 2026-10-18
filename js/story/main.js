@@ -222,7 +222,11 @@
     if (c.meta) window.SPRITES[c.id] = Object.assign({ src: c.src }, c.meta);
     const F = S.CHARS[c.char].frames, W = c.wire || {};
     const live = k => !!window.SPRITES[k] && (!/_ib_/.test(k) || ok(k));
-    if (W.walkStart) F.walkStart = c.id;
+    if (W.walkStart != null && W.walkStart !== false) { // its place in the opening run (true: the first step); the run is kept in order
+      const at = W.walkStart === true ? 1 : W.walkStart;
+      F.walkStartRun = (F.walkStartRun || []).filter(r => r[1] !== c.id).concat([[at, c.id]]).sort((a, b) => a[0] - b[0]);
+      F.walkStart = F.walkStartRun.map(r => r[1]);
+    }
     if (W.walkStop) F.walkStop = c.id;
     if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
     if (W.poses) Object.assign(F.poses, W.poses);

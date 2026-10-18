@@ -275,7 +275,7 @@
     S.applyCandidate(c, ok);
     if (ch !== c.char) { ch = c.char; $('#rv-ch').value = ch; await stage(); }
     const W = c.wire || {};
-    if (W.walkStart || W.walkStop) return playState('walk');
+    if (W.walkStart != null || W.walkStop) return playState('walk');
     if (W.set) return playState('set:' + Object.keys(W.set)[0]).then(() => apply('walk', loopTok));
     const k = W.inbetween && Object.keys(W.inbetween)[0];
     if (k) { const [a, b] = k.split('>'); playTransition(a === 'alan_side' ? 'idle' : 'pose:' + a, 'pose:' + b); }

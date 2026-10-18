@@ -231,11 +231,12 @@
       return window.FAST ? key : this.between(key, ok);
     }
     // In-betweens (frames.inbetween: { 'from>to': [frame, ...] }, played backwards for 'to>from'): a big
-    // pose change passes through them, IB_STEP each; a walk opens with frames.walkStart and ends on
+    // pose change passes through them, IB_STEP each; a walk opens with frames.walkStart (one frame or a run) and ends on
     // frames.walkStop (side views only). Each hand-over is still morphed or cross-faded as usual.
     between(key, ok) {
       const F = this.F, side = this.dir === 'e' || this.dir === 'w';
-      if (side && !this.pose && this.walking && this.walkT < WALK_EDGE && ok(F.walkStart)) return F.walkStart;
+      const ws = arr(F.walkStart).filter(ok); // a walk can open on a short run of frames (weight shift, first step)
+      if (side && !this.pose && this.walking && ws.length && this.walkT < WALK_EDGE * ws.length) return ws[Math.floor(this.walkT / WALK_EDGE)];
       if (side && !this.pose && !this.walking && this.stopAt != null && E.time - this.stopAt < WALK_EDGE && ok(F.walkStop)) return F.walkStop;
       const IB = F.inbetween;
       if (!IB) { this.settled = key; return key; }
