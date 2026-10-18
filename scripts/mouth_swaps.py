@@ -1,8 +1,8 @@
 # Lower-face swaps for lip-sync (Phase 4 prototype, alan_side): aligns each Gemini mouth painting to the head crop,
 # keeps his chin from jutting forward, and swaps only the mouth and jaw (from TOP down, LEFT forward) back into the sprite.
-#   python3 scripts/mouth_swaps.py 315 245
+#   python3 scripts/mouth_swaps.py TOP LEFT EXT JAWX   (crop px at 6x; current: 275 195 40 215)
 import os,sys,numpy as np,cv2
-sys.path.insert(0,'scripts'); TOP,LEFT=int(sys.argv[1]),int(sys.argv[2]); sys.argv=['x']
+sys.path.insert(0,'scripts'); TOP,LEFT=int(sys.argv[1]),int(sys.argv[2]); EXT=int(sys.argv[3]) if len(sys.argv)>3 else 10; JAWX=int(sys.argv[4]) if len(sys.argv)>4 else 290; sys.argv=['x']
 import gen_image as g
 from PIL import Image
 P='art/review/alan/phase4/'; L=os.environ.get('PREVIEW_DIR', 'art/review/alan/phase4/preview/')
@@ -30,10 +30,12 @@ for s in 'ABCDEFGH':
         ramp=np.clip((yy-370)/50,0,1)*dx
         a=cv2.remap(a,(xx+ramp).astype(np.float32),yy.astype(np.float32),cv2.INTER_LINEAR,borderMode=cv2.BORDER_CONSTANT,borderValue=0)
     c=chin(a); bot=max(c,bchin)+8
-    R=np.clip((yy-TOP)/22,0,1)*np.clip((xx-LEFT)/35,0,1)*np.clip((bot+10-yy)/10,0,1)
-    R*=np.where(yy>440,np.clip((xx-290)/30,0,1),1)
+    # TOP/LEFT: where the swap starts (under the nose, behind the mouth); it runs back along the jaw toward the ear
+    # and blends into his own neck over EXT px below the chin, so the moving jaw has no hard edge
+    R=np.clip((yy-TOP)/30,0,1)*np.clip((xx-LEFT)/40,0,1)*np.clip((bot+EXT-yy)/EXT,0,1)
+    R*=np.where(yy>440,np.clip((xx-JAWX)/40,0,1),1)
     r=R[...,None]; comp=a*r+base*(1-r)
-    under=(yy>c)&(yy<=bot+10)&(xx>300)&(a[...,3]<60)&(R>0.5); comp[under,3]=0
+    under=(yy>c)&(yy<=bot+EXT)&(xx>300)&(a[...,3]<60)&(R>0.5); comp[under,3]=0
     Image.fromarray(comp.astype(np.uint8),'RGBA').resize((80,90),Image.LANCZOS).save(P+f'head_side_{s}.png')
     arr=np.asarray(spr).copy(); arr[30:120,70:150]=np.asarray(Image.fromarray(comp.astype(np.uint8),'RGBA').resize((80,90),Image.LANCZOS)); s2=Image.fromarray(arr,'RGBA')
     c2=s2.crop((60,10,175,140)).resize((345,390),Image.LANCZOS); bg=Image.new('RGBA',c2.size,(38,43,55,255)); bg.alpha_composite(c2); bg.convert('RGB').save(L+f'face_{s}.webp',quality=90)
