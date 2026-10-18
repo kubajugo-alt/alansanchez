@@ -4,21 +4,28 @@
 // before it is lit and bent, so breath, sway and the head's tilt carry them like the rest of the face.
 (function () {
   const E = window.Engine;
-  const FACES = window.FACES || {};
+  // a frame's set is used once approved on the review page ("ok"); ?faces=all shows the ones still waiting
+  const ALL = /[?&]faces=all\b/.test(location.search);
+  const FACES = Object.fromEntries(Object.entries(window.FACES || {}).filter(([, D]) => D.ok !== false || ALL));
 
   // ---------------------------------------------------------------- the patches
-  const PATCH = {}; // 'frame_state' -> Image, loaded once the game is up
+  const PATCH = {}; // 'frame_state' -> Image
   function patch(n) {
     let im = PATCH[n];
     if (!im) { im = PATCH[n] = new Image(); im.src = 'art/faces/' + n + '.webp'; }
     return im.complete && im.naturalWidth ? im : null;
   }
+  // a frame's patches load the first time it is on screen (the side frames he stands and talks in, up front)
+  const asked = new Set();
+  function want(f) {
+    const D = FACES[f];
+    if (asked.has(f) || !D) return;
+    asked.add(f);
+    D.mouths.forEach(s => patch(f + '_' + s));
+    D.eyes.forEach(s => patch(f + '_eyes_' + s));
+  }
   function preload() {
-    if (window.FAST) return;
-    for (const [f, D] of Object.entries(FACES)) {
-      D.mouths.forEach(s => patch(f + '_' + s));
-      D.eyes.forEach(s => patch(f + '_eyes_' + s));
-    }
+    if (!window.FAST) ['alan_side', 'alan_idle2', 'alan_talk', 'alan_talk2'].forEach(want);
   }
 
   // ---------------------------------------------------------------- the cues
@@ -86,15 +93,28 @@
     return null;
   }
 
+  // the nearest shape a frame has: most frames have A to F only (G, F/V, borrows B; H, L, borrows C), and only the
+  // side frames have the jaw's in-betweens (a jaw on its way open shows B until it is most of the way there)
+  const STANDIN = { G: 'B', H: 'C', X: 'A' };
+  function mouthFor(D, m) {
+    if (D.mouths.includes(m)) return m;
+    let [k, f] = m.split('_');
+    if (f && +f < 60) k = 'B';
+    if (!D.mouths.includes(k)) k = STANDIN[k];
+    return k && D.mouths.includes(k) ? k : null;
+  }
+
   // ---------------------------------------------------------------- the painting with its face
   const cache = new Map();
   // the frame `key` as painted, or with the actor's mouth and eyelids laid in (a canvas the size of the painting)
   function faceImage(a, key, im) {
     const D = FACES[key];
     if (!D || window.FAST || !im || !im.naturalWidth || (E.SPRITES[key] && E.SPRITES[key].src)) return im;
+    want(key);
     if (a.faceAt !== E.time) { a.faceAt = E.time; a.faceM = mouthOf(a); a.faceL = lidOf(a); } // once a frame, whichever paintings are up
-    const mn = a.faceM && D.mouths.includes(a.faceM.split('_')[0]) ? key + '_' + a.faceM : null;
-    const ln = a.faceL && D.eyes.includes(a.faceL) ? key + '_eyes_' + a.faceL : null;
+    const m = a.faceM && mouthFor(D, a.faceM), mn = m ? key + '_' + m : null;
+    const lid = a.faceL && (D.eyes.includes(a.faceL) ? a.faceL : D.eyes.includes('closed') ? 'closed' : null); // no half-shut painting: shut for the whole blink
+    const ln = lid ? key + '_eyes_' + lid : null;
     const mp = mn && patch(mn), lp = ln && patch(ln);
     if (!mp && !lp) return im;
     const ck = key + '|' + (mp ? mn : '') + '|' + (lp ? ln : '');
