@@ -460,7 +460,8 @@
           F().tide_known = true; await say(F().turnings_deduced ? 'alan_clock_agrees' : 'alan_clock_puzzled');
           await say('alan_tide_today'); // 18:25 and 00:35
         }, any: 'alan_fail_02' } },
-      { name: 'Desk drawer', rect: [560, 470, 160, 30], at: [800, 640], face: 'w', // beside the drawer, not in front of it when: () => lit() && !F().drawer_unlocked,
+      { name: 'Desk drawer', rect: [560, 470, 160, 30], at: [800, 640], face: 'w', // beside the drawer, not in front of it
+        when: () => lit() && !F().drawer_unlocked,
         look: 'alan_drawer_lock', use: () => S.ferreiraDrawer(), take: () => S.ferreiraDrawer() },
       { name: 'Tide card', rect: [628, 486, 66, 32], at: [800, 640], face: 'w', when: () => lit() && F().drawer_unlocked && !G.has('tidecard') && !F().tidecardTaken,
         look: 'alan_look_tidecard', take: async () => {

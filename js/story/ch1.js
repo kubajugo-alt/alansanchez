@@ -537,7 +537,10 @@
       { line: 'alan_ask_victims', when: () => F().ruiMurders, once: true, run: () => say('rui_victims_1', 'rui_victims_2') },
       { line: 'alan_ask_list', when: () => F().ruiMurders && !F().saw_list, run: async () => {
         await say('rui_list_1b');
-        await S.readList(); // (rui_list_1 had 'old spelling') await say('alan_list_hand', 'rui_water'); await joke('alan_water'); F().saw_list = true;
+        await S.readList(); // (rui_list_1 had 'old spelling')
+        await say('alan_list_hand', 'rui_water');
+        await joke('alan_water');
+        F().saw_list = true;
         if (F().ch === 1 && !F().teixeira_flirt) await S.ruiLeaves();
       }, get bye() { return !!F().rui_out; } },
       { line: 'alan_ask_strange', when: () => F().ch === 1, once: true, run: () => say('rui_drawer_1', 'rui_drawer_2') },
