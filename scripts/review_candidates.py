@@ -201,6 +201,8 @@ def main():
     cands.append({'id': 'wire_alan_untie', 'char': 'alan', 'phase': 2, 'kind': 'wiring',
                   'what': 'Proposal A: the successful haul on the mooring line (Ch. IV) uses the unused alan_untie; the failed first try keeps alan_pull',
                   'src': SP('alan_untie'), 'originals': [SP('alan_pull')], 'meta': None, 'wire': {'poses': {'untie': 'alan_untie'}}})
+    # promoted to game sprites (scripts/promote.py): no longer a candidate
+    cands = [c for c in cands if not os.path.exists(os.path.join(ROOT, f"art/sprites/{c['id']}.webp")) and c['id'] != 'pair_vasco_clapper_long']
     json.dump({'candidates': cands}, open(os.path.join(REV, 'candidates.json'), 'w'), indent=1)
     ap = os.path.join(REV, 'approvals.json')
     if not os.path.exists(ap): json.dump({}, open(ap, 'w'))

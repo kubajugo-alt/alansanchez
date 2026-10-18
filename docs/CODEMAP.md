@@ -36,10 +36,11 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 | 28 | `js/story/ch5.js` | Chapter V: Carmo at midnight, the cistern rite, dawn and epilogue. |
 | 29 | `js/story/visits.js` | Teixeira's and Duarte's visits to the shop, and Alan's room upstairs. |
 | 30 | `js/story/se.js` | The Sé: museum, cloister and casting pit (the toss), Vasco's arc, the reserve. |
-| 31 | `js/story/coldopen.js` | The cold open (Maria Coutinho's last minute). |
-| 32 | `js/story/fado.js` | "O Sino Afogado" staged in the Taberna. |
-| 33 | `js/story/transitions.js` | Chapter transitions and the fado slideshow. |
-| 34 | `js/story/main.js` | Shared painted effects, shop chapter hooks, `?scene=` previews, the content setting, the opening and `window.Story.newGame`, approved review frames, `Game.init`. |
+| 31 | `js/story/vasco.js` | Vasco at work in the pit: his jobs (trowel, brush, sieve, a sherd, his notebook, a coin), alternating painted frames, stopping when anything happens. |
+| 32 | `js/story/coldopen.js` | The cold open (Maria Coutinho's last minute). |
+| 33 | `js/story/fado.js` | "O Sino Afogado" staged in the Taberna. |
+| 34 | `js/story/transitions.js` | Chapter transitions and the fado slideshow. |
+| 35 | `js/story/main.js` | Shared painted effects, shop chapter hooks, `?scene=` previews, the content setting, the opening and `window.Story.newGame`, approved review frames, `Game.init`. |
 | - | `js/review.js` | The `?review` animation review screen. Not in `index.html`: `main.js` loads it only when `?review` is in the address. |
 | - | `css/style.css` | All styling (frame, captions, inventory, menus, modals, close-ups). |
 
@@ -70,7 +71,7 @@ Engine state lives on `E` so the engine files can share it: `E.state` (what a sa
 
 | File | Regenerate with |
 |---|---|
-| `js/sprites.js` | `scripts/matte.py` (cut-outs and anchors); `scripts/align_alan.py --apply` (Alan's solo anchors); `scripts/pair_anchors.py --apply` (pair anchors) |
+| `js/sprites.js` | `scripts/matte.py` (cut-outs and anchors); `scripts/align_alan.py --apply` (Alan's solo anchors); `scripts/pair_anchors.py --apply` (pair anchors); `scripts/promote.py` (approved review frames made game sprites) |
 | `js/morphs.js` | `python3 scripts/morphs.py framesets.json` |
 | `js/similar.js` | `python3 scripts/similar.py [THRESHOLD]` |
 | `audio/voice/manifest.json`, `audio/sfx/manifest.json`, the `?v=` hashes in `index.html` | `node scripts/build-manifest.mjs` (also the Netlify build command) |

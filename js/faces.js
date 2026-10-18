@@ -2127,10 +2127,10 @@ window.FACES = {
  },
  "pair_vasco_clapper": {
   "box": [
-   137,
-   56,
-   34,
-   68
+   152,
+   61,
+   33,
+   66
   ],
   "mouths": [
    "A",
@@ -2816,7 +2816,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_catch__vasco": {
   "box": [
@@ -2836,7 +2836,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_coffee__vasco": {
   "box": [
@@ -2856,7 +2856,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_fragment__vasco": {
   "box": [
@@ -2876,7 +2876,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_kneel__vasco": {
   "box": [
@@ -2896,7 +2896,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_ladder__vasco": {
   "box": [
@@ -2916,7 +2916,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_lanyard__vasco": {
   "box": [
@@ -2936,7 +2936,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_shirtless__vasco": {
   "box": [
@@ -2956,7 +2956,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_thumb__vasco": {
   "box": [
@@ -2976,6 +2976,700 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
+ },
+ "pair_vasco_after__vasco": {
+  "box": [
+   303,
+   227,
+   62,
+   48
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": true
+ },
+ "vasco_act_bag_a": {
+  "box": [
+   196,
+   66,
+   43,
+   22
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_act_bag_b": {
+  "box": [
+   221,
+   79,
+   39,
+   25
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_act_notes_a": {
+  "box": [
+   201,
+   66,
+   36,
+   21
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_act_notes_b": {
+  "box": [
+   213,
+   62,
+   36,
+   15
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_act_sherd_a": {
+  "box": [
+   199,
+   57,
+   30,
+   14
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_act_sherd_b": {
+  "box": [
+   210,
+   59,
+   34,
+   17
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_act_sieve_a": {
+  "box": [
+   187,
+   62,
+   39,
+   19
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_act_sieve_b": {
+  "box": [
+   199,
+   61,
+   42,
+   19
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_act_trowel_a": {
+  "box": [
+   154,
+   91,
+   40,
+   14
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_act_trowel_b": {
+  "box": [
+   154,
+   80,
+   42,
+   22
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_amused": {
+  "box": [
+   161,
+   52,
+   62,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_callup": {
+  "box": [
+   173,
+   35,
+   26,
+   17
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_clapper_give": {
+  "box": [
+   145,
+   55,
+   44,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_clapper_hold": {
+  "box": [
+   205,
+   71,
+   40,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_clapper_lift": {
+  "box": [
+   159,
+   75,
+   48,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_clapper_talk": {
+  "box": [
+   221,
+   61,
+   40,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_coffee_sip": {
+  "box": [
+   160,
+   49,
+   29,
+   13
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_coffee_talk": {
+  "box": [
+   182,
+   46,
+   42,
+   72
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_hand_out": {
+  "box": [
+   204,
+   69,
+   53,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_hopeful": {
+  "box": [
+   156,
+   50,
+   55,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_keys": {
+  "box": [
+   192,
+   59,
+   48,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_kneel_lookup": {
+  "box": [
+   200,
+   61,
+   55,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_scandalised": {
+  "box": [
+   176,
+   50,
+   39,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_stand_up": {
+  "box": [
+   194,
+   56,
+   32,
+   56
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_stepback": {
+  "box": [
+   196,
+   56,
+   43,
+   72
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_stern": {
+  "box": [
+   176,
+   48,
+   38,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_talk4": {
+  "box": [
+   173,
+   53,
+   40,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_talk_count": {
+  "box": [
+   181,
+   51,
+   38,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_talk_point": {
+  "box": [
+   158,
+   46,
+   33,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_trowel_talk": {
+  "box": [
+   155,
+   43,
+   34,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_walk_far": {
+  "box": [
+   221,
+   56,
+   33,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_walk_passF": {
+  "box": [
+   230,
+   70,
+   36,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_walk_passN": {
+  "box": [
+   211,
+   55,
+   33,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_walk_preF": {
+  "box": [
+   229,
+   60,
+   32,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_walk_upN": {
+  "box": [
+   216,
+   66,
+   35,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "vasco_worried": {
+  "box": [
+   189,
+   50,
+   37,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "pair_vasco_clapper__vasco": {
+  "box": [
+   184,
+   61,
+   33,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
+ },
+ "pair_vasco_after": {
+  "box": [
+   214,
+   207,
+   52,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true
  }
 };

@@ -103,9 +103,11 @@ SIDE = ['alan_side', 'alan_idle2', 'alan_talk', 'alan_talk2', 'alan_drink', 'ala
         'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_throw1', 'alan_untie',
         'alan_walkA', 'alan_walkB', 'alan_walkDown']  # alan_walkUp didn't line up; ring and wring grimace (their own set keeps it)
 # no mouth: a cigarette, a hand or another face at his lips, or asleep; no blink: his eyes are shut or squeezed already
-NO_MOUTH = {'vasco_laugh', 'vasco_kneel_down', 'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_yawn', 'alan_asleep',
+NO_MOUTH = {'vasco_laugh', 'vasco_kneel_down', 'vasco_coffee_sip', 'vasco_act_notes_b', 'vasco_callup', 'vasco_crouch', 'vasco_kneel_look',
+            'vasco_act_bag_a', 'vasco_act_bag_b', 'vasco_act_brush_a', 'vasco_act_notes_a', 'vasco_act_sherd_a', 'vasco_act_sherd_b',
+            'vasco_act_sieve_a', 'vasco_act_sieve_b', 'vasco_act_trowel_a', 'vasco_act_trowel_b', 'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_yawn', 'alan_asleep',
             'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss'}
-NO_EYES = {'vasco_kneel_down', 'alan_asleep', 'alan_wash1', 'alan_wash2', 'alan_wash4', 'alan_wash5', 'alan_wash6', 'alan_wash_surface', 'alan_swoon',
+NO_EYES = {'vasco_kneel_down', 'vasco_crouch', 'vasco_kneel_look', 'vasco_act_brush_a', 'alan_asleep', 'alan_wash1', 'alan_wash2', 'alan_wash4', 'alan_wash5', 'alan_wash6', 'alan_wash_surface', 'alan_swoon',
            'alan_yawn', 'alan_wink', 'alan_jacket_wink', 'alan_enchanted2', 'alan_swim_wave', 'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss'}
 BG = (60, 64, 80)
 
@@ -114,11 +116,12 @@ BG = (60, 64, 80)
 # while the lips move), so for these the smile is let go across the lower face and the patch covers the cheeks
 SMILING = {'pair_cop_belt', 'pair_cop_belt2', 'pair_cop_buttons', 'pair_cop_cuffs', 'pair_cop_jacket', 'pair_cop_shelf2',
            'pair_guitar_lesson', 'pair_vasco_card', 'pair_vasco_thumb',
+           'vasco_amused', 'vasco_hopeful', 'vasco_hand_out', 'vasco_clapper_give', 'pair_vasco_after',
            'vasco_climb', 'vasco_coffee', 'vasco_delight', 'vasco_find', 'vasco_fluster', 'vasco_front', 'vasco_give', 'vasco_kneel_talk', 'vasco_trowel'}
 
 # the same, for a partner's face in a pair painting (keyed by the frame, so kept apart from Alan's own list)
 PARTNER_SMILING = {'vasco': {'pair_vasco_card', 'pair_vasco_catch', 'pair_vasco_coffee', 'pair_vasco_fragment', 'pair_vasco_lanyard',
-                             'pair_vasco_shirtless', 'pair_vasco_thumb', 'pair_vasco_ladder'}}
+                             'pair_vasco_shirtless', 'pair_vasco_thumb', 'pair_vasco_ladder', 'pair_vasco_after'}}
 
 
 def smiling(fr):
@@ -138,7 +141,7 @@ def jobs(fr):
                  f'middle of saying a word. Mouth shape for lip-sync: {k}: {v}.') for k, v in MOUTHS.items()]
     elif fr not in NO_MOUTH: out += [('mouth_' + k, 'Repaint ONLY his mouth, lips and, where the shape needs it, a slight drop of the jaw and chin, '
                                     f'to make this mouth shape for lip-sync: {k}: {v}.') for k, v in MOUTHS.items()]
-    if fr not in NO_EYES: out.append(('eyes_closed', 'Repaint ONLY his eyes and eyelids: both eyes fully CLOSED, the upper eyelids down so only '
+    if fr not in NO_EYES and not (CHAR == 'vasco' and fr == 'pair_vasco_after'): out.append(('eyes_closed', 'Repaint ONLY his eyes and eyelids: both eyes fully CLOSED, the upper eyelids down so only '
                                       'the lash lines show, as at the bottom of a blink. Keep his eyebrows exactly where they are.'))
     return out
 
