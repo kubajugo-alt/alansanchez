@@ -12,6 +12,26 @@ Before the deploy, the clean export passed the smoke tests on every scene, and a
 - Even timing per frame (`S.walkTiming`): timing each frame by its own foot travel made contacts flash and passing frames hold, another source of the skip. Every step has a morph.
 - All or nothing: the new cycle replaces the original only when all seven walk candidates are approved.
 
+**Vasco (in progress, waiting for approval).**
+- New frames: `scripts/vasco_frames.json` lists them and `scripts/gen_vasco.py` paints them. They go on the review screen as `vasco_*` candidates:
+  - story actions;
+  - idle activities, as a/b pairs;
+  - moods and talk gestures.
+  The ladder frames were dropped at the user's request. Once approved, they still have to be wired into the scenes, and Vasco moves into the pit in Ch. I (agreed).
+- Walk: the same fix as Alan's, with a far-leg step from `scripts/walk_swap_cut.py`. The 8-step cycle applies all or nothing (`walkBase`).
+- Love scene:
+  - `pair_vasco_after` is the two of them on the store floor against the background shelves (no crate), with the clapper between them.
+  - The Canva stills `still_store_kiss` (MAHYYLvMwYE) and `still_store_after` (v2 MAHYYyNgV2U, against the shelves) are painted in the user's Canva. They are waiting on Canva's export cool-down to be brought in.
+- The clapper must match the finale's (`alan_ring`: long, heavy banded head, ring loop). Redone on:
+  - the clapper frames;
+  - `pair_vasco_clapper_long`, which replaces the sprite file by hand once approved;
+  - the two clapper pair in-betweens, whose approvals were reset.
+- Faces:
+  - Lip-sync cues: `scripts/lipsync.py --speaker vasco` (104 lines).
+  - Face sets: `FACE_CHAR=vasco scripts/face_kit.py find|gen|build`. 24 solo frames, all `"ok": false`.
+  - Review page: https://claude.ai/artifact/2RPS8ao2m3tQgTr4KhSfGp (db collection `faces`).
+  - Not done yet: his face in the pair paintings. `js/faces.js` holds one face per frame (Alan's), so it needs a partner set that animates when the hidden partner speaks.
+
 **Faces for Alan's other frames (in progress, waiting for approval).** 58 more frames have lip-sync and blinking, all with `"ok": false` in `js/faces.js` (shown in the game only with `?faces=all`):
 - 13 side-like frames take alan_side's set through `scripts/face_transfer.py`; the smoking frames blink only.
 - 42 have their own Gemini set (`scripts/face_kit.py gen`: mouths A-F and shut eyes at 1K, about $0.04 an edit), cut by `face_kit.py build`.

@@ -85,33 +85,33 @@
   "group": "C",
   "refs": [
    "vasco",
-   "pair_vasco_clapper"
+   "alan_ring"
   ],
   "height": true,
   "what": "the store: lifting the clapper off the shelf",
-  "prompt": "Lifting the same bronze bell clapper as the one the two men hold between them in the second image: a short, thick, green-patinated bronze cylinder with raised bands round it, heavy, with both hands at chest height, taking its weight, knees slightly bent, careful, eyes on it."
+  "prompt": "Lifting the same bronze bell clapper that Alan swings in the second image: a big, heavy, drum-shaped head of green-patinated bronze with a small ring loop on its end, on a long thick bronze shaft ending in a knob; the whole clapper is about as long as his arm, with both hands, one under the heavy head and one on the shaft, at chest height, taking its weight, knees slightly bent, careful, eyes on it."
  },
  {
   "name": "clapper_hold",
   "group": "C",
   "refs": [
    "vasco",
-   "pair_vasco_clapper"
+   "alan_ring"
   ],
   "height": true,
   "what": "the store: holding the clapper",
-  "prompt": "Holding the same bronze bell clapper as the one the two men hold between them in the second image: a short, thick, green-patinated bronze cylinder with raised bands round it, heavy, against his chest with both arms like something precious, looking down at it, quiet and tender."
+  "prompt": "Holding the same bronze bell clapper that Alan swings in the second image: a big, heavy, drum-shaped head of green-patinated bronze with a small ring loop on its end, on a long thick bronze shaft ending in a knob; the whole clapper is about as long as his arm, upright against his chest with both arms, the heavy head by his shoulder and the shaft down along his body, like something precious, looking down at it, quiet and tender."
  },
  {
   "name": "clapper_give",
   "group": "C",
   "refs": [
    "vasco_give",
-   "pair_vasco_clapper"
+   "alan_ring"
   ],
   "height": true,
   "what": "the store: holding the clapper out to Alan (the loan)",
-  "prompt": "Holding out the same bronze bell clapper as the one the two men hold between them in the second image: a short, thick, green-patinated bronze cylinder with raised bands round it, heavy, in both hands toward someone in front of him, offering it, a small serious smile."
+  "prompt": "Holding out the same bronze bell clapper that Alan swings in the second image: a big, heavy, drum-shaped head of green-patinated bronze with a small ring loop on its end, on a long thick bronze shaft ending in a knob; the whole clapper is about as long as his arm, in both hands toward someone in front of him, level, offering it, a small serious smile."
  },
  {
   "name": "coffee_sip",
@@ -313,7 +313,7 @@
   ],
   "height": false,
   "what": "talk: holding the clapper (the store)",
-  "prompt": "Talking while still holding the same bronze clapper against his chest: mouth open mid-word, looking up at the listener, earnest."
+  "prompt": "Talking while still holding the same long bronze clapper against his chest exactly as here: mouth open mid-word, looking up at the listener, earnest."
  },
  {
   "name": "act_trowel_b",

@@ -22,7 +22,7 @@
  "alan_ib_pick1": {
   "decision": "rejected",
   "at": "2026-10-18T02:47:15.927Z",
-  "note": "nothing changes in the new frame vs alan.side · dropped"
+  "note": "nothing changes in the new frame vs alan.side \u00b7 dropped"
  },
  "alan_ib_pick2": {
   "decision": "approved",
@@ -31,7 +31,7 @@
  "alan_ib_pull": {
   "decision": "rejected",
   "at": "2026-10-18T02:48:11.935Z",
-  "note": "Rope is code now · dropped: the rope is code now"
+  "note": "Rope is code now \u00b7 dropped: the rope is code now"
  },
  "alan_ib_reach": {
   "decision": "approved",
@@ -293,7 +293,7 @@
  "wire_alan_untie": {
   "decision": "rejected",
   "at": "2026-10-18T02:48:44.256Z",
-  "note": "Rope is code now · dropped: the rope is code now"
+  "note": "Rope is code now \u00b7 dropped: the rope is code now"
  },
  "alan_ib_lantern": {
   "decision": "rejected",
@@ -319,14 +319,6 @@
  "pair_ib_unbutton_in": {
   "decision": "approved",
   "at": "2026-10-18T03:16:06.563Z"
- },
- "pair_ib_vasco_clapper_in": {
-  "decision": "approved",
-  "at": "2026-10-18T03:16:27.846Z"
- },
- "pair_ib_vasco_clapper_out": {
-  "decision": "approved",
-  "at": "2026-10-18T03:16:30.738Z"
  },
  "pair_ib_vasco_lanyard_in": {
   "decision": "approved",

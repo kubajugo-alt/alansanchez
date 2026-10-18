@@ -2324,5 +2324,478 @@ window.FACES = {
    "closed"
   ],
   "ok": true
+ },
+ "vasco": {
+  "box": [
+   131,
+   50,
+   32,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_climb": {
+  "box": [
+   88,
+   79,
+   87,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_coffee": {
+  "box": [
+   94,
+   46,
+   44,
+   57
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_deflate": {
+  "box": [
+   119,
+   59,
+   43,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_delight": {
+  "box": [
+   128,
+   47,
+   51,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_find": {
+  "box": [
+   117,
+   48,
+   42,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_fluster": {
+  "box": [
+   131,
+   58,
+   54,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_front": {
+  "box": [
+   83,
+   47,
+   68,
+   58
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_give": {
+  "box": [
+   121,
+   54,
+   42,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_idle2": {
+  "box": [
+   147,
+   51,
+   34,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_idle3": {
+  "box": [
+   141,
+   61,
+   43,
+   55
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_kneel": {
+  "box": [
+   117,
+   44,
+   46,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_kneel_talk": {
+  "box": [
+   137,
+   44,
+   39,
+   58
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_laugh": {
+  "box": [
+   129,
+   50,
+   35,
+   16
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_pass1": {
+  "box": [
+   149,
+   53,
+   35,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_pass2": {
+  "box": [
+   174,
+   51,
+   34,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_sit": {
+  "box": [
+   142,
+   52,
+   37,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_talk": {
+  "box": [
+   131,
+   49,
+   32,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_talk2": {
+  "box": [
+   125,
+   52,
+   35,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_talk3": {
+  "box": [
+   163,
+   56,
+   34,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_tender": {
+  "box": [
+   126,
+   52,
+   41,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_trowel": {
+  "box": [
+   93,
+   38,
+   36,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_walk1": {
+  "box": [
+   196,
+   52,
+   37,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "vasco_walk2": {
+  "box": [
+   213,
+   52,
+   32,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
  }
 };

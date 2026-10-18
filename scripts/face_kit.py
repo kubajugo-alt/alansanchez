@@ -10,7 +10,12 @@ cv2.setLogLevel(2) if hasattr(cv2, 'setLogLevel') else None
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-WORK = os.path.join(ROOT, 'art/review/alan/faces/')
+# whose faces: FACE_CHAR=vasco python3 scripts/face_kit.py find ... (Alan by default). Another character's frames are his
+# own solo paintings; in the pair paintings his face is the partner's, which this doesn't cover yet
+CHAR = os.environ.get('FACE_CHAR', 'alan')
+WORK = os.path.join(ROOT, f'art/review/{CHAR}/faces/')
+DESC = {'alan': 'the head of Alan, a man with dark curly hair, clean-shaven',
+        'vasco': 'the head of Vasco, a man in his thirties with dark tousled hair and light stubble'}[CHAR]
 MODELS = os.path.join(ROOT, 'scripts/models/')
 ZOO = 'https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/'
 NETS = {'yunet.onnx': 'face_detection_yunet/face_detection_yunet_2023mar.onnx',
@@ -30,7 +35,8 @@ def net(name):
 
 
 def frames():
-    return sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and (f.startswith('alan_') or f.startswith('pair_')))
+    mine = ('alan_', 'pair_') if CHAR == 'alan' else (CHAR + '_', CHAR + '.')
+    return sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith(mine))
 
 
 def on_bg(fr):
@@ -63,12 +69,12 @@ def find():
                     o = next(o for o in out if abs(d['box'][0] - o['box'][0]) <= 15 and abs(d['box'][1] - o['box'][1]) <= 15)
                     if d['score'] > o['score']: out[out.index(o)] = d
         faces[fr] = out
-    me = np.mean([f['emb'] for fr, fs in faces.items() if fr.startswith('alan_') for f in fs], 0); me /= np.linalg.norm(me)
+    me = np.mean([f['emb'] for fr, fs in faces.items() if fr.startswith(CHAR) for f in fs], 0); me /= np.linalg.norm(me)
     index = {}
     for fr, fs in faces.items():
         if not fs or fr.startswith(HIDDEN): continue
         fs.sort(key=lambda f: f['box'][0])
-        f = max(fs, key=lambda f: f['score']) if fr.startswith('alan_') else fs[0] if fr.startswith(LEFT) else fs[-1]
+        f = max(fs, key=lambda f: f['score']) if fr.startswith(CHAR) else fs[0] if fr.startswith(LEFT) else fs[-1]
         x, y, w, h = f['box']; cx, cy = x + w / 2, y + h * 0.5; s = 1.9 * max(w, h)
         im, _ = on_bg(fr)
         hb = [int(round(cx - s / 2)), int(round(cy - s * 0.55)), int(round(s)), int(round(s))]
@@ -96,9 +102,9 @@ SIDE = ['alan_side', 'alan_idle2', 'alan_talk', 'alan_talk2', 'alan_drink', 'ala
         'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_throw1', 'alan_untie',
         'alan_walkA', 'alan_walkB', 'alan_walkDown']  # alan_walkUp didn't line up; ring and wring grimace (their own set keeps it)
 # no mouth: a cigarette, a hand or another face at his lips, or asleep; no blink: his eyes are shut or squeezed already
-NO_MOUTH = {'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_yawn', 'alan_asleep',
+NO_MOUTH = {'vasco_laugh', 'vasco_kneel_down', 'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_yawn', 'alan_asleep',
             'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss'}
-NO_EYES = {'alan_asleep', 'alan_wash1', 'alan_wash2', 'alan_wash4', 'alan_wash5', 'alan_wash6', 'alan_wash_surface', 'alan_swoon',
+NO_EYES = {'vasco_kneel_down', 'alan_asleep', 'alan_wash1', 'alan_wash2', 'alan_wash4', 'alan_wash5', 'alan_wash6', 'alan_wash_surface', 'alan_swoon',
            'alan_yawn', 'alan_wink', 'alan_jacket_wink', 'alan_enchanted2', 'alan_swim_wave', 'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss'}
 BG = (60, 64, 80)
 
@@ -106,7 +112,8 @@ BG = (60, 64, 80)
 # smiling paintings: a talking mouth inside a painted grin looks wrong (the raised cheeks and smile lines stay put
 # while the lips move), so for these the smile is let go across the lower face and the patch covers the cheeks
 SMILING = {'pair_cop_belt', 'pair_cop_belt2', 'pair_cop_buttons', 'pair_cop_cuffs', 'pair_cop_jacket', 'pair_cop_shelf2',
-           'pair_guitar_lesson', 'pair_vasco_card', 'pair_vasco_thumb'}
+           'pair_guitar_lesson', 'pair_vasco_card', 'pair_vasco_thumb',
+           'vasco_climb', 'vasco_coffee', 'vasco_delight', 'vasco_find', 'vasco_fluster', 'vasco_front', 'vasco_give', 'vasco_kneel_talk', 'vasco_trowel'}
 
 # frames whose painted smile crease lies outside what the new mouths change: the whole mouth-and-cheek zone is replaced
 FULL_ZONE = {'pair_cop_belt2'}
@@ -134,8 +141,7 @@ def gen_one(fr, name, edit):
     head = Image.open(WORK + fr + '/head.png').convert('RGBA')
     bg = Image.new('RGBA', head.size, BG + (255,)); bg.alpha_composite(head); bg = bg.convert('RGB')
     pair = fr.startswith('pair_')
-    text = ('This is a close-up from a painted 1990s point-and-click adventure game: the head of Alan, a man with dark curly hair, '
-            'clean-shaven' + (', with part of another person beside him' if pair else '') + '. ' + edit +
+    text = ('This is a close-up from a painted 1990s point-and-click adventure game: ' + DESC + (', with part of another person beside him' if pair else '') + '. ' + edit +
             ' Everything else stays pixel-identical: the same head position, angle and size, eyes, eyebrows, nose, ears, hair, stubble, '
             'skin colour, lighting, line work and framing' + (', and the other person exactly as they are' if pair else '') +
             ', on the same flat background. Same painted style.')

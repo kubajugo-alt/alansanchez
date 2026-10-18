@@ -175,6 +175,14 @@ def main():
         cands.append({'id': key, 'char': 'alan', 'phase': 3, 'kind': 'pose', 'what': 'The love scene, afterwards: on the floor against a crate, shirts open, laughing, the clapper between them',
                       'src': f'art/review/candidates/{key}.webp', 'originals': [SP('pair_vasco_shirtless'), SP('pair_vasco_clapper')], 'meta': meta,
                       'wire': {'poses': {key: key}}})
+    # the clapper made to match the finale's (alan_ring: long, the heavy banded head, the ring loop): the pair painting
+    # in the game gets the new one in its place once approved (the file is swapped by hand)
+    src_png = os.path.join(REV, 'vasco/pair_clapper_long.png')
+    if os.path.exists(src_png):
+        key = 'pair_vasco_clapper_long'
+        put(src_png, key)
+        cands.append({'id': key, 'char': 'alan', 'phase': 3, 'kind': 'wiring', 'what': "The store: the pair with the clapper, now the finale's long clapper (replaces pair_vasco_clapper)",
+                      'src': f'art/review/candidates/{key}.webp', 'originals': [SP('pair_vasco_clapper'), SP('alan_ring')], 'meta': None, 'wire': {}})
     # Vasco's walk, the same fix as Alan's: every painted stride had his near leg in front. 8 steps: walk1 (near leg
     # forward), pass1, passN, upN, walk_far (far leg forward: scripts/walk_swap_cut.py, repainted), preF, passF, pass2.
     # walkBase is the cycle the slots go into (all or none, like Alan's)

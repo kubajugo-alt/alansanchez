@@ -1332,14 +1332,14 @@
     "art/sprites/alan_side.webp"
    ],
    "meta": {
-    "w": 375.0,
-    "hh": 740.0,
+    "w": 400.0,
+    "hh": 752.0,
     "h": 711.0,
-    "ax": 97.9,
-    "fy": 726.5,
-    "top": 11.0,
-    "px": 293.0,
-    "pfy": 728.5,
+    "ax": 103.2,
+    "fy": 732.5,
+    "top": 18.0,
+    "px": 298.8,
+    "pfy": 734.5,
     "rigid": true
    },
    "wire": {
@@ -1366,14 +1366,14 @@
     "art/sprites/alan_side.webp"
    ],
    "meta": {
-    "w": 403.0,
-    "hh": 740.0,
-    "h": 705.0,
-    "ax": 109.2,
-    "fy": 713.5,
+    "w": 415.0,
+    "hh": 757.0,
+    "h": 716.0,
+    "ax": 97.3,
+    "fy": 723.5,
     "top": 6.0,
-    "px": 309.9,
-    "pfy": 729.5,
+    "px": 313.4,
+    "pfy": 740.5,
     "rigid": true
    },
    "wire": {
@@ -3515,15 +3515,14 @@
    "what": "Vasco (C): the store: lifting the clapper off the shelf",
    "src": "art/review/candidates/vasco_clapper_lift.webp",
    "originals": [
-    "art/sprites/vasco.webp",
-    "art/sprites/pair_vasco_clapper.webp"
+    "art/sprites/vasco.webp"
    ],
    "meta": {
-    "w": 364.0,
-    "hh": 727.0,
+    "w": 378.0,
+    "hh": 735.0,
     "h": 720.0,
-    "ax": 127.1,
-    "fy": 717.5,
+    "ax": 128.5,
+    "fy": 725.5,
     "top": 3.0
    },
    "wire": {
@@ -3540,15 +3539,14 @@
    "what": "Vasco (C): the store: holding the clapper",
    "src": "art/review/candidates/vasco_clapper_hold.webp",
    "originals": [
-    "art/sprites/vasco.webp",
-    "art/sprites/pair_vasco_clapper.webp"
+    "art/sprites/vasco.webp"
    ],
    "meta": {
-    "w": 322.0,
-    "hh": 737.0,
+    "w": 338.0,
+    "hh": 740.0,
     "h": 720.0,
-    "ax": 128.9,
-    "fy": 727.5,
+    "ax": 129.5,
+    "fy": 730.5,
     "top": 3.0
    },
    "wire": {
@@ -3565,15 +3563,14 @@
    "what": "Vasco (C): the store: holding the clapper out to Alan (the loan)",
    "src": "art/review/candidates/vasco_clapper_give.webp",
    "originals": [
-    "art/sprites/vasco_give.webp",
-    "art/sprites/pair_vasco_clapper.webp"
+    "art/sprites/vasco_give.webp"
    ],
    "meta": {
-    "w": 364.0,
-    "hh": 728.0,
+    "w": 390.0,
+    "hh": 729.0,
     "h": 720.0,
     "ax": 134.1,
-    "fy": 719.5,
+    "fy": 720.5,
     "top": 3.0
    },
    "wire": {
@@ -4051,12 +4048,12 @@
     "art/review/vasco/clapper_hold.png"
    ],
    "meta": {
-    "ax": 127.4,
-    "fy": 733.5,
-    "w": 337.0,
-    "hh": 749.0,
+    "ax": 139.0,
+    "fy": 736.5,
+    "w": 356.0,
+    "hh": 752.0,
     "h": 720.0,
-    "top": 19.0
+    "top": 10.0
    },
    "wire": {
     "poses": {
@@ -4220,14 +4217,14 @@
     "art/sprites/pair_vasco_clapper.webp"
    ],
    "meta": {
-    "w": 519,
-    "hh": 728,
-    "h": 709.0,
-    "ax": 148.2,
-    "fy": 718.5,
-    "top": 3.1,
-    "px": 335.8,
-    "pfy": 712.5,
+    "ax": 155.5,
+    "fy": 724.5,
+    "w": 531.0,
+    "hh": 740.0,
+    "h": 710.4,
+    "top": 157.0,
+    "px": 343.5,
+    "pfy": 718.5,
     "rigid": true
    },
    "wire": {
@@ -4235,6 +4232,20 @@
      "pair_vasco_after": "pair_vasco_after"
     }
    }
+  },
+  {
+   "id": "pair_vasco_clapper_long",
+   "char": "alan",
+   "phase": 3,
+   "kind": "wiring",
+   "what": "The store: the pair with the clapper, now the finale's long clapper (replaces pair_vasco_clapper)",
+   "src": "art/review/candidates/pair_vasco_clapper_long.webp",
+   "originals": [
+    "art/sprites/pair_vasco_clapper.webp",
+    "art/sprites/alan_ring.webp"
+   ],
+   "meta": null,
+   "wire": {}
   },
   {
    "id": "vasco_walk_passN",
