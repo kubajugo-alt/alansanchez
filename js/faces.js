@@ -1378,5 +1378,951 @@ window.FACES = {
    "closed"
   ],
   "ok": false
+ },
+ "alan_ring": {
+  "box": [
+   265,
+   118,
+   35,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_trunks_down": {
+  "box": [
+   191,
+   73,
+   61,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_trunks_on": {
+  "box": [
+   175,
+   88,
+   60,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_trunks_snap": {
+  "box": [
+   168,
+   54,
+   57,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress1": {
+  "box": [
+   124,
+   53,
+   48,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress1b": {
+  "box": [
+   156,
+   56,
+   57,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress2a": {
+  "box": [
+   188,
+   61,
+   52,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress2b": {
+  "box": [
+   153,
+   59,
+   53,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress3": {
+  "box": [
+   177,
+   56,
+   55,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress4": {
+  "box": [
+   96,
+   45,
+   48,
+   58
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress_boot": {
+  "box": [
+   141,
+   65,
+   54,
+   57
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress_jeans": {
+  "box": [
+   266,
+   64,
+   71,
+   85
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress_unbutton": {
+  "box": [
+   202,
+   62,
+   60,
+   77
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_walkUp": {
+  "box": [
+   161,
+   48,
+   34,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_wash1": {
+  "box": [
+   107,
+   74,
+   46,
+   43
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_wash2": {
+  "box": [
+   108,
+   77,
+   42,
+   44
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_wash4": {
+  "box": [
+   110,
+   83,
+   47,
+   39
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_wash5": {
+  "box": [
+   117,
+   130,
+   57,
+   51
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_wash6": {
+  "box": [
+   102,
+   77,
+   48,
+   41
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_wash_surface": {
+  "box": [
+   125,
+   76,
+   49,
+   51
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_wink": {
+  "box": [
+   131,
+   80,
+   57,
+   41
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_wobble": {
+  "box": [
+   223,
+   49,
+   40,
+   82
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_wring": {
+  "box": [
+   88,
+   43,
+   38,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_arm": {
+  "box": [
+   231,
+   58,
+   42,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_belt": {
+  "box": [
+   282,
+   69,
+   42,
+   71
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_belt2": {
+  "box": [
+   317,
+   72,
+   43,
+   57
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_buttons": {
+  "box": [
+   225,
+   58,
+   37,
+   58
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_chest": {
+  "box": [
+   201,
+   60,
+   33,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_cuffs": {
+  "box": [
+   328,
+   50,
+   39,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_jacket": {
+  "box": [
+   167,
+   75,
+   39,
+   58
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_shelf": {
+  "box": [
+   157,
+   75,
+   37,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_shelf2": {
+  "box": [
+   310,
+   54,
+   47,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_trousers": {
+  "box": [
+   310,
+   71,
+   53,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_cop_tshirt": {
+  "box": [
+   360,
+   53,
+   41,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_guitar_lesson": {
+  "box": [
+   174,
+   61,
+   60,
+   56
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_unbutton": {
+  "box": [
+   194,
+   48,
+   34,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_card": {
+  "box": [
+   121,
+   62,
+   35,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_catch": {
+  "box": [
+   186,
+   62,
+   34,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_clapper": {
+  "box": [
+   137,
+   56,
+   34,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_fragment": {
+  "box": [
+   116,
+   62,
+   47,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_kneel": {
+  "box": [
+   154,
+   65,
+   44,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_ladder": {
+  "box": [
+   116,
+   46,
+   57,
+   56
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_lanyard": {
+  "box": [
+   101,
+   89,
+   38,
+   58
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_shirtless": {
+  "box": [
+   126,
+   51,
+   35,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_thumb": {
+  "box": [
+   128,
+   55,
+   44,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_wring_1": {
+  "box": [
+   771,
+   55,
+   40,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_wring_2": {
+  "box": [
+   811,
+   50,
+   41,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_wring_3": {
+  "box": [
+   750,
+   66,
+   48,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
  }
 };

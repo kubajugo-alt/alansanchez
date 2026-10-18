@@ -93,6 +93,23 @@
   };
 
   // ---------------------------------------------------------------- cast
+  // Alan's walk: where the foot carrying his weight is in each walk frame (from the anchor, in his heights;
+  // scripts/walk_plant.py). [lead, trail]: lead is that foot from this frame on; a contact frame (heel just down)
+  // also gives trail, the foot that carried him up to it. Each frame of the walk lasts exactly as far as that foot
+  // travels to the next frame (walkLen), so it stays on its spot of floor: equal steps per frame made it slide
+  // and jerk (he looked like he was skipping).
+  S.WALK_PLANT = {
+    alan_walkA: [0.170, -0.163], alan_walkB: [0.177, -0.159], alan_walk_contact2: [0.170, -0.163],
+    alan_walkDown: [0.139], alan_walk_down2: [0.138],
+    alan_pass: [-0.009], alan_walk_pass1: [0.022], alan_walk_pass_new: [-0.009],
+    alan_walkUp: [-0.136], alan_walk_up1: [-0.101],
+  };
+  S.walkTiming = F => {
+    const W = F.walk, P = S.WALK_PLANT;
+    if (!W || !W.every(f => P[f])) { delete F.walkLen; delete F.walkSteps; return; }
+    F.walkLen = W.map((f, i) => { const n = W[(i + 1) % W.length]; return Math.max(0.01, P[f][0] - (P[n].length > 1 ? P[n][1] : P[n][0])); });
+    F.walkSteps = W.map((f, i) => (P[f].length > 1 ? i : -1)).filter(i => i >= 0); // a footstep as each heel lands
+  };
   // Painted frames (js/sprites.js). Sprites face right unless flagged
   // facesLeft; the engine mirrors them. `scale` is relative body height.
   S.CHARS = {

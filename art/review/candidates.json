@@ -2614,6 +2614,546 @@
    }
   },
   {
+   "id": "alan_ib_undress1b__undress2a",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "pulling the jacket off one arm as he starts to lift the T-shirt",
+   "src": "art/review/candidates/alan_ib_undress1b__undress2a.webp",
+   "originals": [
+    "art/sprites/alan_undress1b.webp",
+    "art/sprites/alan_undress2a.webp"
+   ],
+   "meta": {
+    "w": 385.0,
+    "hh": 778.0,
+    "ax": 215.4,
+    "fy": 764.5,
+    "top": 6.0,
+    "h": 758.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_undress1b>alan_undress2a": [
+      "alan_ib_undress1b__undress2a"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_undress2b__undress_belt",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "the T-shirt coming free and his hands moving down to the belt buckle",
+   "src": "art/review/candidates/alan_ib_undress2b__undress_belt.webp",
+   "originals": [
+    "art/sprites/alan_undress2b.webp",
+    "art/sprites/alan_undress_belt.webp"
+   ],
+   "meta": {
+    "w": 467.0,
+    "hh": 873.0,
+    "ax": 236.0,
+    "fy": 850.5,
+    "top": 6.0,
+    "h": 764.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_undress2b>alan_undress_belt": [
+      "alan_ib_undress2b__undress_belt"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_undress_belt__undress_boot",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "the belt open, one foot lifting toward his hands to pull the boot off",
+   "src": "art/review/candidates/alan_ib_undress_belt__undress_boot.webp",
+   "originals": [
+    "art/sprites/alan_undress_belt.webp",
+    "art/sprites/alan_undress_boot.webp"
+   ],
+   "meta": {
+    "w": 396.0,
+    "hh": 771.0,
+    "ax": 164.9,
+    "fy": 752.5,
+    "top": 6.0,
+    "h": 661.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_undress_belt>alan_undress_boot": [
+      "alan_ib_undress_belt__undress_boot"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_undress_jeans__undress3",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "the jeans sliding down his legs as he steps out of them",
+   "src": "art/review/candidates/alan_ib_undress_jeans__undress3.webp",
+   "originals": [
+    "art/sprites/alan_undress_jeans.webp",
+    "art/sprites/alan_undress3.webp"
+   ],
+   "meta": {
+    "w": 403.0,
+    "hh": 872.0,
+    "ax": 211.7,
+    "fy": 845.5,
+    "top": 6.0,
+    "h": 860.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_undress_jeans>alan_undress3": [
+      "alan_ib_undress_jeans__undress3"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_undress3__undress4",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "stepping clear of the jeans and straightening up in his trunks",
+   "src": "art/review/candidates/alan_ib_undress3__undress4.webp",
+   "originals": [
+    "art/sprites/alan_undress3.webp",
+    "art/sprites/alan_undress4.webp"
+   ],
+   "meta": {
+    "w": 392.0,
+    "hh": 763.0,
+    "ax": 226.4,
+    "fy": 743.5,
+    "top": 11.0,
+    "h": 738.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_undress3>alan_undress4": [
+      "alan_ib_undress3__undress4"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_undress4__trunks_down",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "his thumbs hooked in the waistband of the trunks, starting to push them down",
+   "src": "art/review/candidates/alan_ib_undress4__trunks_down.webp",
+   "originals": [
+    "art/sprites/alan_undress4.webp",
+    "art/sprites/alan_trunks_down.webp"
+   ],
+   "meta": {
+    "w": 347.0,
+    "hh": 698.0,
+    "h": 701.0,
+    "ax": 149.8,
+    "fy": 689.5,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_undress4>alan_trunks_down": [
+      "alan_ib_undress4__trunks_down"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_jacket_wink__jump_crouch",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "lowering the jacket and bending his knees as he gets ready to jump",
+   "src": "art/review/candidates/alan_ib_jacket_wink__jump_crouch.webp",
+   "originals": [
+    "art/sprites/alan_jacket_wink.webp",
+    "art/sprites/alan_jump_crouch.webp"
+   ],
+   "meta": {
+    "w": 385.0,
+    "hh": 747.0,
+    "h": 717.0,
+    "ax": 121.1,
+    "fy": 737.5,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_jacket_wink>alan_jump_crouch": [
+      "alan_ib_jacket_wink__jump_crouch"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_jump_crouch__jump_rise",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "springing up from the crouch, legs straightening, arms swinging up",
+   "src": "art/review/candidates/alan_ib_jump_crouch__jump_rise.webp",
+   "originals": [
+    "art/sprites/alan_jump_crouch.webp",
+    "art/sprites/alan_jump_rise.webp"
+   ],
+   "meta": {
+    "w": 373.0,
+    "hh": 668.0,
+    "ax": 126.2,
+    "fy": 653.5,
+    "top": 17.0,
+    "h": 710.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_jump_crouch>alan_jump_rise": [
+      "alan_ib_jump_crouch__jump_rise"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_jump_rise__jump",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "rising into the air, arms reaching up",
+   "src": "art/review/candidates/alan_ib_jump_rise__jump.webp",
+   "originals": [
+    "art/sprites/alan_jump_rise.webp",
+    "art/sprites/alan_jump.webp"
+   ],
+   "meta": {
+    "w": 365.0,
+    "hh": 649.0,
+    "ax": 211.3,
+    "fy": 626.5,
+    "top": 6.0,
+    "h": 720.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_jump_rise>alan_jump": [
+      "alan_ib_jump_rise__jump"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_jump__jump_fall",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "at the top of the jump, starting to drop, legs tucking",
+   "src": "art/review/candidates/alan_ib_jump__jump_fall.webp",
+   "originals": [
+    "art/sprites/alan_jump.webp",
+    "art/sprites/alan_jump_fall.webp"
+   ],
+   "meta": {
+    "w": 344.0,
+    "hh": 609.0,
+    "h": 720.0,
+    "ax": 200.0,
+    "fy": 593.5,
+    "top": 18.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_jump>alan_jump_fall": [
+      "alan_ib_jump__jump_fall"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_climb__drip",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "climbing up out of the water onto the edge, dripping",
+   "src": "art/review/candidates/alan_ib_climb__drip.webp",
+   "originals": [
+    "art/sprites/alan_climb.webp",
+    "art/sprites/alan_drip.webp"
+   ],
+   "meta": {
+    "w": 413.0,
+    "hh": 556.0,
+    "ax": 217.2,
+    "fy": 523.5,
+    "top": 6.0,
+    "h": 720.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_climb>alan_drip": [
+      "alan_ib_climb__drip"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_trunks_snap__dress1",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "reaching for his clothes after snapping the waistband",
+   "src": "art/review/candidates/alan_ib_trunks_snap__dress1.webp",
+   "originals": [
+    "art/sprites/alan_trunks_snap.webp",
+    "art/sprites/alan_dress1.webp"
+   ],
+   "meta": {
+    "w": 428.0,
+    "hh": 775.0,
+    "ax": 218.2,
+    "fy": 761.5,
+    "top": 6.0,
+    "h": 748.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_trunks_snap>alan_dress1": [
+      "alan_ib_trunks_snap__dress1"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_undress4__dress1",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "reaching for his clothes",
+   "src": "art/review/candidates/alan_ib_undress4__dress1.webp",
+   "originals": [
+    "art/sprites/alan_undress4.webp",
+    "art/sprites/alan_dress1.webp"
+   ],
+   "meta": {
+    "w": 403.0,
+    "hh": 750.0,
+    "h": 701.0,
+    "ax": 180.5,
+    "fy": 740.5,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_undress4>alan_dress1": [
+      "alan_ib_undress4__dress1"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_dress1__dress2",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "pulling his clothes on, halfway through the movement",
+   "src": "art/review/candidates/alan_ib_dress1__dress2.webp",
+   "originals": [
+    "art/sprites/alan_dress1.webp",
+    "art/sprites/alan_dress2.webp"
+   ],
+   "meta": {
+    "w": 404.0,
+    "hh": 789.0,
+    "h": 731.0,
+    "ax": 192.6,
+    "fy": 778.5,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_dress1>alan_dress2": [
+      "alan_ib_dress1__dress2"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_dress_boot__dress3",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "the boot on, standing up to pull on the next piece of clothing",
+   "src": "art/review/candidates/alan_ib_dress_boot__dress3.webp",
+   "originals": [
+    "art/sprites/alan_dress_boot.webp",
+    "art/sprites/alan_dress3.webp"
+   ],
+   "meta": {
+    "w": 384.0,
+    "hh": 772.0,
+    "ax": 179.9,
+    "fy": 757.5,
+    "top": 6.0,
+    "h": 737.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_dress_boot>alan_dress3": [
+      "alan_ib_dress_boot__dress3"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_dress2__dress3",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "pulling his clothes on, halfway through the movement",
+   "src": "art/review/candidates/alan_ib_dress2__dress3.webp",
+   "originals": [
+    "art/sprites/alan_dress2.webp",
+    "art/sprites/alan_dress3.webp"
+   ],
+   "meta": {
+    "w": 400.0,
+    "hh": 809.0,
+    "h": 771.0,
+    "ax": 218.3,
+    "fy": 794.5,
+    "top": 6.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_dress2>alan_dress3": [
+      "alan_ib_dress2__dress3"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_dress4__button",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "his hands moving up to the buttons",
+   "src": "art/review/candidates/alan_ib_dress4__button.webp",
+   "originals": [
+    "art/sprites/alan_dress4.webp",
+    "art/sprites/alan_button.webp"
+   ],
+   "meta": {
+    "w": 344.0,
+    "hh": 765.0,
+    "h": 743.0,
+    "ax": 152.8,
+    "fy": 756.5,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_dress4>alan_button": [
+      "alan_ib_dress4__button"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_button__fluster",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "letting go of the buttons as his face turns flustered",
+   "src": "art/review/candidates/alan_ib_button__fluster.webp",
+   "originals": [
+    "art/sprites/alan_button.webp",
+    "art/sprites/alan_fluster.webp"
+   ],
+   "meta": {
+    "w": 315.0,
+    "hh": 757.0,
+    "h": 742.0,
+    "ax": 131.8,
+    "fy": 748.5,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_button>alan_fluster": [
+      "alan_ib_button__fluster"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_dress_final__fluster",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "dressed, his expression turning flustered",
+   "src": "art/review/candidates/alan_ib_dress_final__fluster.webp",
+   "originals": [
+    "art/sprites/alan_dress_final.webp",
+    "art/sprites/alan_fluster.webp"
+   ],
+   "meta": {
+    "w": 350.0,
+    "hh": 773.0,
+    "ax": 194.5,
+    "fy": 759.5,
+    "top": 6.0,
+    "h": 753.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_dress_final>alan_fluster": [
+      "alan_ib_dress_final__fluster"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_jacket__undress4",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "lowering the jacket he held in front of him",
+   "src": "art/review/candidates/alan_ib_jacket__undress4.webp",
+   "originals": [
+    "art/sprites/alan_jacket.webp",
+    "art/sprites/alan_undress4.webp"
+   ],
+   "meta": {
+    "w": 346.0,
+    "hh": 729.0,
+    "h": 710.0,
+    "ax": 117.0,
+    "fy": 719.5,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_jacket>alan_undress4": [
+      "alan_ib_jacket__undress4"
+     ]
+    }
+   }
+  },
+  {
    "id": "alan_walk_pass1",
    "char": "alan",
    "phase": 2,
@@ -2706,21 +3246,21 @@
    }
   },
   {
-   "id": "alan_walk_pass2",
+   "id": "alan_walk_pass_new",
    "char": "alan",
    "phase": 2,
    "kind": "walk",
-   "what": "walk: the other step: passing (near leg standing, far leg swinging through)",
-   "src": "art/review/candidates/alan_walk_pass2.webp",
+   "what": "walk: the other step: passing (near leg standing), repainted to match the jacket and build of the other walk frames",
+   "src": "art/review/candidates/alan_walk_pass_new.webp",
    "originals": [
     "art/sprites/alan_walkDown.webp",
     "art/sprites/alan_walkUp.webp"
    ],
    "meta": {
-    "ax": 207.3,
+    "ax": 98.8,
     "fy": 698.5,
-    "w": 380.0,
-    "hh": 713.0,
+    "w": 204.0,
+    "hh": 707.0,
     "h": 720.0,
     "top": 3.1
    },

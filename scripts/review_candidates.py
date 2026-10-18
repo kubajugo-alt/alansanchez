@@ -72,7 +72,7 @@ WALK2 = [('pass1', 2, 'walk: passing (far leg standing, near leg swinging throug
          ('up1', 3, 'walk: up (near leg swinging forward)'),
          ('contact2', 4, 'walk: the other step: near leg in front, heel down'),
          ('down2', 5, 'walk: the other step: weight on the near leg'),
-         ('pass2', 6, 'walk: the other step: passing (near leg standing, far leg swinging through)')]
+         ('pass_new', 6, 'walk: the other step: passing (near leg standing), repainted to match the jacket and build of the other walk frames')]
 
 
 def put(src_png, key):
@@ -118,6 +118,19 @@ def main():
                       'what': f'{scene}: from {a} to {b}',
                       'src': f'art/review/candidates/{key}.webp', 'originals': [SP(a), SP(b)], 'meta': pair_meta(src_png, side),
                       'wire': {'pairIb': {f'{a}>{b}': {'step': [key]}}}})
+    # the scripted sequences (bath, swim, dressing): one painting halfway through each change (scripts/gen_seq_ibs.py;
+    # camera cuts into close-ups stay cuts)
+    for a, b, what in json.load(open(os.path.join(ROOT, 'scripts/seq_ibs.json'))):
+        name = f"ib_{a.replace('alan_', '')}__{b.replace('alan_', '')}"
+        src_png = os.path.join(REV, f'alan/phase2/{name}.png')
+        if not os.path.exists(src_png): continue
+        key = 'alan_' + name
+        put(src_png, key)
+        meta = json.load(open(os.path.join(REV, f'alan/phase2/{name}_meta.json')))
+        meta = {k: float(v) for k, v in meta.items() if k in ('w', 'hh', 'h', 'ax', 'fy', 'top')}
+        cands.append({'id': key, 'char': 'alan', 'phase': 2, 'kind': 'inbetween', 'what': what,
+                      'src': f'art/review/candidates/{key}.webp', 'originals': [SP(a), SP(b)], 'meta': meta,
+                      'wire': {'inbetween': {f'{a}>{b}': [key]}}})
     # the full walk (both legs): each new painting takes its slot in the 8-step cycle once approved
     for name, slot, what in WALK2:
         src_png = os.path.join(REV, f'alan/walk2/{name}.png')

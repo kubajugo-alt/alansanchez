@@ -41,7 +41,7 @@
       if (q.has('mute')) Sound.mute(); // the left of the pair stays quiet (nothing saved)
       if (q.get('walk') === '6') { // the walk without the passing frame (review: walk cycles)
         S.CHARS.alan.frames.walk = ['alan_walkA', 'alan_walkDown', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_walkUp'];
-        S.CHARS.alan.frameStep = 0.68 / 6; // the same stride over six frames
+        S.walkTiming(S.CHARS.alan.frames);
       }
       for (let i = 0; i < (window.FAST ? 1 : 20); i++) { // once in the tests, on a loop for the eye
         await p.walkTo(980, 690); await G.wait(1800); await say('alan_water'); await G.wait(3500);
@@ -269,6 +269,7 @@
     const ok = id => !!(dec[id] && dec[id].decision === 'approved') || (walkNew && id.startsWith('alan_walk_'));
     S.REVIEW = { candidates: (C && C.candidates) || [], decisions: dec, saved: A };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c, ok);
+    S.walkTiming(S.CHARS.alan.frames);
   }
   // ---------------------------------------------------------------- start
   // the animation review screen: only with ?review in the address, never in normal play or the menus
