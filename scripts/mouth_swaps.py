@@ -70,22 +70,14 @@ for s in 'ABCDEFGH':
     if n>1: mk=(lab==1+np.argmax(st[1:,cv2.CC_STAT_AREA])).astype(np.uint8)   # the mouth, not stray stubble
     mk=cv2.dilate(mk,np.ones((13,13),np.uint8))
     mz=cv2.GaussianBlur(mk.astype(np.float32),(0,0),5)*np.clip((yy-286)/12,0,1)
-    mz=mz*(a[...,3]/255)                        # only where Gemini painted his face (never its background)
+    # in front of the mouth, Gemini's outline wins: from the mouth's back edge to the front of each row, its painting
+    # (an open mouth seen side-on is a hollow, background included) replaces whatever was there
+    for y in range(H):
+        xs=np.where(mk[y])[0]
+        if len(xs): mz[y,xs.min():]=np.maximum(mz[y,xs.min():],np.clip((xx[y,xs.min():]-xs.min())/10,0,1)*mz[y,xs.min():].max())
     m=mz[...,None]; comp[...,:3]=a[...,:3]*m+comp[...,:3]*(1-m)
-    comp[...,3]=np.where(mz>0.5,np.maximum(comp[...,3],a[...,3]),comp[...,3])
-    # between the lips, in profile: the dark inside of the mouth, up to the front of the lips (never background)
-    dark=a[...,:3][(a[...,3]>200)&(mz>0.3)&(a[...,:3].sum(-1)<180)]
-    ink=dark.mean(0) if len(dark) else np.array([60,25,20.])
-    rows=range(300,int(lip_bot)+10)
-    fronts=[(y,np.where(comp[y,:,3]>128)[0].max()) for y in rows if (comp[y,:,3]>128).any()]
-    if fronts:
-        lim={}
-        for i,(y,f) in enumerate(fronts):  # the lips' front edge: the furthest-forward lip above and below this row
-            above=[f2 for y2,f2 in fronts if y-25<=y2<y]; below=[f2 for y2,f2 in fronts if y<y2<=y+25]
-            lim[y]=min(max(above) if above else f, max(below) if below else f)
-        for y,f in fronts:
-            gap=(xx[y]>f)&(xx[y]<=lim[y]-2)
-            comp[y,gap,:3]=ink; comp[y,gap,3]=255
+    comp[...,3]=a[...,3]*mz+comp[...,3]*(1-mz)
+    if os.environ.get('DEBUG'): Image.fromarray(comp.astype(np.uint8),'RGBA').save(os.environ['DEBUG']+f'/big_{s}.png'); Image.fromarray((np.dstack([mz]*3)*255).astype(np.uint8)).save(os.environ['DEBUG']+f'/mz_{s}.png'); Image.fromarray(a.astype(np.uint8),'RGBA').save(os.environ['DEBUG']+f'/gem_{s}.png')
     Image.fromarray(comp.astype(np.uint8),'RGBA').resize((80,90),Image.LANCZOS).save(P+f'head_side_{s}.png')
     arr=np.asarray(spr).copy(); arr[30:120,70:150]=np.asarray(Image.fromarray(comp.astype(np.uint8),'RGBA').resize((80,90),Image.LANCZOS)); s2=Image.fromarray(arr,'RGBA')
     c2=s2.crop((60,10,175,140)).resize((345,390),Image.LANCZOS); bgc=Image.new('RGBA',c2.size,(38,43,55,255)); bgc.alpha_composite(c2); bgc.convert('RGB').save(L+f'face_{s}.webp',quality=90)
