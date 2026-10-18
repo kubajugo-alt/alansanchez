@@ -1,7 +1,7 @@
 # Animation handoff
 
 State of the four-phase animation plan as of 2026-10-18, branch `lore-se-museum` (everything committed and pushed).
-The live site (https://alan-sanchez-drowned-bell.netlify.app) runs **`e9ef055`**: Netlify deploy `6ad4584bc9604d71e07d557f`, made 2026-10-18 at the user's request.
+The live site (https://alan-sanchez-drowned-bell.netlify.app) runs **`857755a`**: Netlify deploy `6ad4c78d821c722a3f548533`, made 2026-10-18 at the user's request (the rig trial is in it, off unless `?rig=1` or the review screen's Rig tab).
 It has Phase 4 lip-sync and blinking on Alan's four side frames (`alan_side`, `alan_idle2`, `alan_talk`, `alan_talk2`), the story-audit fixes and the date (Tuesday 31 October 1995).
 Before the deploy, the clean export passed the smoke tests on every scene, and a non-FAST bath-scene run checked the lip-sync. The full playthrough passed on the working tree (story-fixes agent).
 
