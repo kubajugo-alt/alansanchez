@@ -1,4 +1,5 @@
-// The Drowned Bell v2 — boot: shared effects, chapter hooks, new game, init.
+// The Drowned Bell v2 — boot: shared effects, chapter hooks, the ?scene= previews, the content
+// setting, the opening and new game, approved review frames, init.
 (function () {
   const { G, F, say, ROOMS, joke, posed } = window.S;
 
@@ -112,6 +113,7 @@
     await G.wait(800);
     await P.run();
   }
+  // ---------------------------------------------------------------- content: Full or Discreet
   // Content: Full or Discreet. Asked once, on the first new game; changeable any time from the menu.
   const contentLabel = () => 'Content: ' + (S.discreet() ? 'Discreet' : 'Full');
   (function settingsButton() {
@@ -141,6 +143,7 @@
       (document.querySelector('#game') || document.body).appendChild(box);
     });
   }
+  // ---------------------------------------------------------------- the opening
   // The opening: the fog over Lisbon, Maria Coutinho's last night in paintings (the old staged
   // room only if the paintings are missing), the city waking to it, the chapter card, the shop.
   S.CHARS.alan.frames.poses.yawn = 'alan_yawn'; S.CHARS.alan.frames.poses.stretch = 'alan_stretch'; // waking up
@@ -212,6 +215,7 @@
   window.Story = { newGame };
   document.getElementById('btn-new').onclick = () => G.begin(true);
   document.getElementById('btn-continue').onclick = () => G.begin(false);
+  // ---------------------------------------------------------------- approved review frames
   // Gemini frames reach the game only once approved on the review screen (art/review/approvals.json;
   // a reviewer's own decisions, kept in their browser, preview here too)
   S.applyCandidate = (c, ok) => {
@@ -245,6 +249,7 @@
     S.REVIEW = { candidates: (C && C.candidates) || [], decisions: dec, saved: A };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c, ok);
   }
+  // ---------------------------------------------------------------- start
   // the animation review screen: only with ?review in the address, never in normal play or the menus
   const review = new URLSearchParams(location.search).has('review');
   loadApproved().then(() => {

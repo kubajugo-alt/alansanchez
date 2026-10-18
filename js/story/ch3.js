@@ -104,7 +104,8 @@
     ]);
   };
 
-  // --- the cipher wheel: shift 7, from Amália's fado
+  // ---------------------------------------------------------------- the cipher wheel
+  // shift 7, from Amália's fado
   S.openCipher = function () {
     const { ABC, shift, PLAIN } = S.cipher;
     const CIPHER = shift(PLAIN, 7);

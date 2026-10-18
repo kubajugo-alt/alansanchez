@@ -17,8 +17,8 @@
   const XFADE = 0.2, MORPH_T = 0.34;
   const IB_STEP = 0.11;         // how long each in-between frame of a pose change is held (s)
   const WALK_EDGE = 0.13;       // the start step and the stop step of a walk are held this long (s)
-  const PAIR_FADE = 0.25;
-  const PAIR_STEP = 0.16;       // one pair painting to the next (an unbutton, a kiss): a quick dissolve       // into and out of a combined sprite (Alan with someone): a 250 ms cross-fade
+  const PAIR_FADE = 0.25;       // into and out of a combined sprite (Alan with someone): a 250 ms cross-fade
+  const PAIR_STEP = 0.16;       // one pair painting to the next (an unbutton, a kiss): a quick dissolve
   const XFADE_SHORT = 0.1;      // near-identical frames (talk, idle variants, a cigarette drag): a 100 ms eased cross-fade
   // Movement feel (all tunable; 0 switches a feature off). Lengths are in walker heights.
   const WALK_EASE_IN = 0.24;    // s from a standstill to full pace (the first steps are shorter and slower)
@@ -464,9 +464,9 @@
   // the new frame starts in the old one's shape and settles into its own while the old one
   // flows towards the new and fades out on top.
   const MCOLS = 10, MROWS = 26;
-  // painted sitting down: they sway from the seat, not the feet
   // the front-view swing: how long a turning figure shows its front view between the two sides
   const TURN_VIA = 0.15;
+  // painted sitting down: they sway from the seat, not the feet
   const SEATED = new Set(['npc_bench', 'npc_cards', 'npc_couple', 'npc_fish', 'npc_guard', 'npc_guitar', 'npc_mender1', 'npc_mender2', 'npc_washer1']);
   function morphBlit(ctx, P, U, F, amt, alpha) {
     const ox = P.x - U.x, oy = P.y - U.y, sw = P.sp.w, sh = P.sp.hh, s = P.s, fl = P.flipped;
