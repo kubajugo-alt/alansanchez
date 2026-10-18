@@ -28,7 +28,7 @@ Before the deploy, the clean export passed the smoke tests on every scene, and a
   - the two clapper pair in-betweens, whose approvals were reset.
 - Faces:
   - Lip-sync cues: `scripts/lipsync.py --speaker vasco` (104 lines).
-  - Face sets: `FACE_CHAR=vasco scripts/face_kit.py find|gen|build`. 24 solo frames, all `"ok": false`.
+  - Face sets: `FACE_CHAR=vasco scripts/face_kit.py find|gen|build`. All 24 solo frames approved and on in play.
   - Review page: https://claude.ai/artifact/2RPS8ao2m3tQgTr4KhSfGp (db collection `faces`).
   - Not done yet: his face in the pair paintings. `js/faces.js` holds one face per frame (Alan's), so it needs a partner set that animates when the hidden partner speaks.
 
