@@ -53,8 +53,13 @@
   }
 
   window.Game = {
-    init, begin, sandbox, goRoom: E.goRoom, say: E.say, says: E.says, lyrics: E.lyrics, wait, dialog: E.dialog, reach: E.reach, showStill: E.showStill, endStill: E.endStill, stillTo: E.stillTo, stillShowing: E.stillShowing, skipLine: () => { if (E.skipFn) E.skipFn(); }, closeup: E.closeup, setClock: E.setClock, renderInv: E.renderInv,
-    set cutscene(v) { E.cutscene = Math.max(0, E.cutscene + (v ? 1 : -1)); }, card: E.card, fade: E.fade, checkpoint: E.checkpoint, loadSave: E.loadSave, autosave: E.autosave, clearSaves: E.clearSaves, showModal: E.showModal, refreshNpcs: E.refreshNpcs, renderLabels: E.renderLabels,
+    init, begin, sandbox, goRoom: E.goRoom,
+    say: E.say, says: E.says, lyrics: E.lyrics, wait, dialog: E.dialog, reach: E.reach,
+    showStill: E.showStill, endStill: E.endStill, stillTo: E.stillTo, stillShowing: E.stillShowing,
+    skipLine: () => { if (E.skipFn) E.skipFn(); }, closeup: E.closeup, setClock: E.setClock, renderInv: E.renderInv,
+    set cutscene(v) { E.cutscene = Math.max(0, E.cutscene + (v ? 1 : -1)); }, card: E.card, fade: E.fade,
+    checkpoint: E.checkpoint, loadSave: E.loadSave, autosave: E.autosave, clearSaves: E.clearSaves,
+    showModal: E.showModal, refreshNpcs: E.refreshNpcs, renderLabels: E.renderLabels,
     giveItem: E.giveItem, takeItem: E.takeItem, has: E.has, toast: E.toast, readItem: E.readItem,
     get state() { return E.state; }, get flags() { return E.state.flags; },
     get player() { return E.player; }, get room() { return E.room; }, get npcs() { return E.npcs; },
