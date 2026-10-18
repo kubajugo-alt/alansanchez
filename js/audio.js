@@ -4,6 +4,7 @@
   let musicOn = true, voiceOn = true;
   let manifest = null, voiceVer = {};
   let voiceEl = null, voiceAt = 0, voiceCur = null;
+  let muted = false; // mute(): silent for this page only, nothing saved (the review screen's second game)
 
   // iPhone: Web Audio obeys the ring/silent switch and can be suspended when the page
   // seems idle. Asking for a 'playback' audio session (like a video) and keeping a
@@ -26,7 +27,7 @@
   }
   function init() {
     holdSession();
-    if (ctx) { if (ctx.state !== 'running') ctx.resume().catch(() => {}); return; }
+    if (ctx) { if (ctx.state !== 'running' && !muted) ctx.resume().catch(() => {}); return; }
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination);
     // music: tracks -> duck (speech) -> bus (level x the player's volume) -> master
@@ -731,7 +732,7 @@
     } catch (e) { manifest = new Set(); }
   }
   // any tap, or coming back to the tab, wakes a context the phone has put to sleep
-  const wake = () => { if (!ctx) return; holdSession(); if (ctx.state !== 'running') ctx.resume().catch(() => {}); };
+  const wake = () => { if (!ctx || muted) return; holdSession(); if (ctx.state !== 'running') ctx.resume().catch(() => {}); };
   ['pointerdown', 'touchend', 'keydown'].forEach(e => window.addEventListener(e, wake, { passive: true }));
   document.addEventListener('visibilitychange', () => { if (!document.hidden) wake(); });
   function hasVoice(id) { return voiceOn && manifest && manifest.has(id); }
@@ -766,6 +767,7 @@
   }
   async function playVoice(id, dry) {
     stopVoice();
+    if (muted) return null;
     if (!hasVoice(id)) return null;
     if (ctx) {
       if (ctx.state !== 'running') { try { await ctx.resume(); } catch (e) { /* falls back below */ } }
@@ -913,9 +915,10 @@
   }
   function meter() { return { music: rmsDb(musicAn), voice: voicePlaying() ? rmsDb(analyser) : -120, duck: musicDuck ? musicDuck.gain.value : 1, song: songAn ? rmsDb(songAn) : -120 }; }
   function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
+  function mute() { muted = true; stopVoice(); if (ctx) ctx.suspend().catch(() => {}); }
 
   window.Sound = {
-    init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, voiceTime, voiceId, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
+    init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, voiceTime, voiceId, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice, mute,
     cue: setCue, refreshMusic, transitionMusic, musicState, restoreMusic, setMusicVolume, trackUrl, meter, musicLog,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; }, get musicVolume() { return musicVol; },
     _wave: () => {

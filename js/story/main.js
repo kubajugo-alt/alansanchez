@@ -34,6 +34,15 @@
   // ---------------------------------------------------------------- new game
   // preview links: ?scene=bath | cop | guitar | celeste | visitcop | visitguitar | romance | finale jumps straight to that scene (no autosave)
   const PREVIEW = {
+    // the skeletal-rig trial (review screen, ?rig=0 / ?rig=1 side by side): he walks the room, stops, talks, stands
+    rigtest: { flags: { ch: 1 }, room: 'police', pos: [300, 690, 'e'], run: async () => {
+      const p = G.player;
+      if (new URLSearchParams(location.search).has('mute')) Sound.mute(); // the left of the pair stays quiet (nothing saved)
+      for (let i = 0; i < 20; i++) {
+        await p.walkTo(980, 690); await G.wait(1800); await say('alan_water'); await G.wait(3500);
+        await p.walkTo(300, 690); await G.wait(2600);
+      }
+    } },
     bath: { flags: { ch: 2, met_celeste: true }, room: 'lavadouro', pos: [800, 640, 'e'], run: () => S.bathEgg() },
     cop: { flags: { ch: 1 }, room: 'police', pos: [420, 690, 'w'], run: () => S.flirtCop() },
     // the Judiciária with the Inspector out and Teixeira guarding the evidence (the flirt, then the sketch)

@@ -141,8 +141,12 @@
             if (m < rest) { this.phase += m / len; m = 0; } else { this.phase = i0 + 1; m -= rest; }
           }
         } else this.phase += moved / (hh * (this.c.frameStep || (cyc.length >= 8 ? 0.085 : 0.17))); // frameStep: ground per frame (a 4-frame stride + passing cycle uses half)
+        if (this.rigS && this.cur && this.cur.startsWith('rig:')) {
+          const u0 = this.rigS.u; this.rigS.u += moved / (hh * E.rigStride(this.ch));
+          if (Math.floor(u0 * 2) !== Math.floor(this.rigS.u * 2) && this.visible) Sound.step((E.room && E.room.floor) || 'stone', this === E.player ? 1 : 0.5, this.x);
+        }
         const idx = Math.floor(this.phase) % cyc.length;
-        if (idx !== this.stepIdx) {
+        if (idx !== this.stepIdx && !(this.cur && this.cur.startsWith('rig:'))) {
           this.stepIdx = idx;
           const steps = !this.dir || this.dir === 'e' || this.dir === 'w' ? this.F.walkSteps : null;
           const contact = steps && lens ? steps.includes(idx) : cyc.length >= 8 ? idx % 4 === 0 : idx % 2 === 0;
@@ -234,6 +238,7 @@
     // pose change passes through them, IB_STEP each; a walk opens with frames.walkStart (one frame or a run) and ends on
     // frames.walkStop (side views only). Each hand-over is still morphed or cross-faded as usual.
     between(key, ok) {
+      if (key.startsWith('rig:')) { this.settled = key; return key; } // the rig makes its own way in and out of a walk
       const F = this.F, side = this.dir === 'e' || this.dir === 'w';
       const ws = arr(F.walkStart).filter(ok); // a walk can open on a short run of frames (weight shift, first step)
       if (side && !this.pose && this.walking && ws.length && this.walkT < WALK_EDGE * ws.length) return ws[Math.floor(this.walkT / WALK_EDGE)];
@@ -252,6 +257,7 @@
     }
     rawKey() {
       const F = this.F;
+      if (E.rigOn && E.rigOn(this.ch) && !this.pose && !this.set && !this.loopActive() && (this.dir === 'e' || this.dir === 'w')) return 'rig:' + this.ch;
       if (this.pose) return (F.poses && F.poses[this.pose]) || this.pose;
       if (this.walking) { const c = this.cycle(); return c[Math.floor(this.phase) % c.length]; }
       if (this.dir === 'n' && F.back) return arr(F.back)[0];
@@ -310,10 +316,11 @@
       const ahead = this.listen * fs > 0 ? 1 : 0.45;
       const nu = (E.time - this.nodAt) / 0.5, nod = nu > 0 && nu < 1 ? Math.pow(Math.sin(nu * Math.PI), 2) : 0;
       const hear = wide ? 0 : (side ? this.listen * ahead * LISTEN_TILT + fs * nod * LISTEN_NOD : 0);
-      const tilt = wide ? 0 : k('nod', 1) * (0.02 + perf * 0.055) * Math.sin(phTilt + 2.1) + (this.walking ? 0.012 * Math.sin(this.phase * Math.PI) : 0) + hear;
+      const rigged = key && key.startsWith('rig:');
+      const tilt = wide ? 0 : k('nod', 1) * (0.02 + perf * 0.055) * Math.sin(phTilt + 2.1) + (this.walking && !rigged ? 0.012 * Math.sin(this.phase * Math.PI) : 0) + hear;
       const bob = wide ? 0 : (perf * 0.006 * (0.5 + 0.5 * Math.sin(phBeat)) + nod * 0.008) * F;
       // walking: the body rises over the passing foot and settles on the stride
-      const step = this.walking ? -0.007 * F * Math.pow(Math.sin(this.phase * Math.PI), 2) : 0;
+      const step = this.walking && !rigged ? -0.007 * F * Math.pow(Math.sin(this.phase * Math.PI), 2) : 0;
       const neck = 0.855, ca = Math.cos(tilt), sa = Math.sin(tilt);
       const sm = (a, z, v) => { const q = Math.max(0, Math.min(1, (v - a) / (z - a))); return q * q * (3 - 2 * q); };
       const px0 = fx, py0 = fy - neck * F;
@@ -351,6 +358,7 @@
     }
     drawBody() {
       let key = this.frameKey();
+      if (key.startsWith('rig:')) E.rigDraw(this);
       let sp = E.SPRITES[key];
       if (!sp) return;
       // background extras keep the pose they were painted in (unless they walk)

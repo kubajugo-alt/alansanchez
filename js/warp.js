@@ -83,7 +83,7 @@ window.Warp = (function () {
     gl.uniform2f(uRes, cv.width, cv.height);
     gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
     gl.bindTexture(gl.TEXTURE_2D, tex);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src); texVer = null;
     const tw = src.width, th = src.height;
     gl.uniform1f(U.uLit, L ? 1 : 0);
     if (L) {
@@ -110,5 +110,37 @@ window.Warp = (function () {
     g.drawImage(cv, 0, 0, W, H, dx - pad, dy - pad, W, H);
     return true;
   }
-  return { draw, get ok() { return init(); } };
+  // Several meshes from one texture in one pass (the skeletal rig's parts): the texture is uploaded only when its
+  // version changes, the meshes are drawn in order (painter's), and the result is copied to g once.
+  // meshes: [{ sx, sy, sw, sh (where the part sits in the texture), ox, oy (where its origin goes), fn }]
+  let texVer = null;
+  function drawMany(g, src, ver, meshes, W, H) {
+    if (!init()) return false; // the rig is made of bends: it keeps them even where the figures' breathing is turned off for speed
+    if (cv.width < W || cv.height < H) { cv.width = Math.max(cv.width, W); cv.height = Math.max(cv.height, H); }
+    gl.viewport(0, 0, cv.width, cv.height);
+    gl.uniform2f(uRes, cv.width, cv.height);
+    gl.uniform1f(U.uLit, 0);
+    gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    if (texVer !== ver) { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src); texVer = ver; }
+    gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA); // premultiplied: each part over the ones before
+    const tw = src.width, th = src.height;
+    for (const m of meshes) {
+      let k = 0;
+      for (let j = 0; j <= ROWS; j++) {
+        const y = m.sh * j / ROWS;
+        for (let i = 0; i <= COLS; i++) {
+          const x = m.sw * i / COLS, q = m.fn(x, y);
+          pos[k] = q[0] + m.ox; pos[k + 1] = q[1] + m.oy; uv[k] = (m.sx + x) / tw; uv[k + 1] = (m.sy + y) / th; k += 2;
+        }
+      }
+      gl.bindBuffer(gl.ARRAY_BUFFER, pbuf); gl.bufferData(gl.ARRAY_BUFFER, pos, gl.DYNAMIC_DRAW);
+      gl.bindBuffer(gl.ARRAY_BUFFER, tbuf); gl.bufferData(gl.ARRAY_BUFFER, uv, gl.DYNAMIC_DRAW);
+      gl.drawElements(gl.TRIANGLES, nIdx, gl.UNSIGNED_SHORT, 0);
+    }
+    gl.disable(gl.BLEND);
+    g.drawImage(cv, 0, 0, W, H, 0, 0, W, H);
+    return true;
+  }
+  return { draw, drawMany, get ok() { return init(); } };
 })();

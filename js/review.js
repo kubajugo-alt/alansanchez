@@ -63,7 +63,7 @@
       <label class="muted">speed <input id="rv-speed" type="range" min="0.25" max="1" step="0.05" value="1" style="width:80px"> <span id="rv-sv">1×</span></label>
       <button class="b" id="rv-pause">⏸ pause</button><button class="b" id="rv-step">⏭ step</button><button class="b" id="rv-hide" title="hide the panel (the scene behind it)">⇥ hide</button>
       <span class="muted" id="rv-now"></span></div>
-    <div class="tabs"><button data-t="states" class="on">States</button><button data-t="walk">Walk</button><button data-t="voice">Voice</button><button data-t="cands">New frames</button><button data-t="combined">Combined</button></div>
+    <div class="tabs"><button data-t="states" class="on">States</button><button data-t="walk">Walk</button><button data-t="voice">Voice</button><button data-t="cands">New frames</button><button data-t="combined">Combined</button><button data-t="rig">Rig</button></div>
     <div class="body" id="rv-body"></div>`;
   let tab = 'states';
 
@@ -202,6 +202,15 @@
         });
       });
       $('#rv-save').onclick = save;
+    } else if (tab === 'rig') {
+      const on = (() => { try { return localStorage.getItem('rig-alan') === '1'; } catch (e) { return false; } })();
+      B.innerHTML = `<h3>Skeletal rig (trial): Alan, side view</h3>
+        <p class="muted">His side view cut into parts (from the walking frame where both legs and arms show), bent at soft joints and posed by the game: the legs are solved from where the feet go, so a planted foot never slides; idle and walk never repeat exactly. It covers walking and standing (and talking, with lip-sync and blinking on the rig's head); every other pose is still a painted frame. The far arm and leg are the near ones in shadow (the painting hides too much of them).</p>
+        <button class="b" id="rv-rigcmpb">▶ compare side by side (full screen)</button>
+        <h3>In the game</h3>
+        <label><input type="checkbox" id="rv-rigon"${on ? ' checked' : ''}> play the whole game with the rig (this browser only; reload to apply)</label>`;
+      $('#rv-rigcmpb').onclick = rigCompare;
+      $('#rv-rigon').onchange = e => { try { localStorage.setItem('rig-alan', e.target.checked ? '1' : '0'); } catch (err) { /* private mode */ } };
     } else if (tab === 'combined') {
       const mode = localStorage.getItem('pair-transition') || 'xfade';
       B.innerHTML = `<h3>Scenes with combined sprites</h3><p class="muted">Opens the scene itself, so you see the entry into and the exit from each combined sprite as it plays.</p>
@@ -235,6 +244,25 @@
       B.querySelectorAll('[data-sc]').forEach(b => { b.onclick = () => { location.href = location.pathname + '?scene=' + b.dataset.sc + '&review'; }; });
       B.querySelectorAll('[name=pt]').forEach(r => { r.onchange = () => localStorage.setItem('pair-transition', r.value); });
     }
+  }
+  // the skeletal-rig trial: the same scene twice, side by side (frames on the left, the rig on the right)
+  function rigCompare() {
+    let O = $('#rv-rigcmp');
+    if (O) { O.remove(); return; }
+    O = document.createElement('div'); O.id = 'rv-rigcmp';
+    O.style.cssText = 'position:fixed;inset:0;z-index:200;background:#111;display:flex;flex-direction:column;gap:6px;padding:8px;font:13px system-ui;color:#ddd';
+    const url = r => location.pathname + '?scene=rigtest&rig=' + r + (r === '0' ? '&mute' : '');
+    O.innerHTML = `<div style="display:flex;gap:10px;align-items:center"><b style="color:#d8b46a">Alan: painted frames (left) and the skeletal rig (right)</b>
+        <span class="muted">Same room, same light. He walks across, stops, says a line, stands, walks back, on a loop. The left one is muted.</span>
+        <button class="b" id="rv-rigre">↻ restart both</button><button class="b" id="rv-rigx" style="margin-left:auto">✕ close</button></div>
+      <div style="display:flex;gap:6px;flex:1;min-height:0">
+        <iframe src="${url('0')}" style="flex:1;border:0;background:#000"></iframe>
+        <iframe src="${url('1')}" style="flex:1;border:0;background:#000"></iframe></div>`;
+    document.body.appendChild(O);
+    // both games start on their own (the title is skipped for the comparison)
+    O.querySelectorAll('iframe').forEach(f => { f.onload = () => { const w = f.contentWindow, go = () => (w.document.querySelector('#title.ready') ? w.Game.begin(true) : setTimeout(go, 300)); go(); }; });
+    $('#rv-rigx').onclick = () => O.remove();
+    $('#rv-rigre').onclick = () => O.querySelectorAll('iframe').forEach(f => { f.src = f.src; });
   }
   // the first combined-sprite scene, staged on its own: into and out of the two cop pairs with either transition
   async function pairTest(which) {

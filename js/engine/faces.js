@@ -18,7 +18,7 @@
   // a frame's patches load the first time it is on screen (the side frames he stands and talks in, up front)
   const asked = new Set();
   function want(f) {
-    const D = FACES[f];
+    const D = FACES[f] || (window.FACES || {})[f];
     if (asked.has(f) || !D) return;
     asked.add(f);
     D.mouths.forEach(s => patch(f + '_' + s));
@@ -107,8 +107,8 @@
   // ---------------------------------------------------------------- the painting with its face
   const cache = new Map();
   // the frame `key` as painted, or with the actor's mouth and eyelids laid in (a canvas the size of the painting)
-  function faceImage(a, key, im) {
-    const D = FACES[key];
+  function faceImage(a, key, im, any) {
+    const D = FACES[key] || (any && (window.FACES || {})[key]); // any: the rig's head uses its base frame's set, approved or not
     if (!D || window.FAST || !im || !im.naturalWidth || (E.SPRITES[key] && E.SPRITES[key].src)) return im;
     want(key);
     if (a.faceAt !== E.time) { a.faceAt = E.time; a.faceM = mouthOf(a); a.faceL = lidOf(a); } // once a frame, whichever paintings are up
