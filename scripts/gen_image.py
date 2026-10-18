@@ -194,19 +194,24 @@ def main():
     p.add_argument('--size', default='2K', choices=['1K', '2K'])
     p.add_argument('--no-frame', action='store_true', help='skip anchor/size matching (e.g. close-ups)')
     p.add_argument('--no-palette', action='store_true', help='new pose with different clothes: skip the whole-figure colour match')
+    p.add_argument('--still', action='store_true', help='a full-screen painting (stills, close-ups): sent as it is, no key colour, returned at its own size')
     p.add_argument('--match-height', action='store_true', help='solo in-betweens: scale the figure to the mean height of the --ref sprites (Gemini sometimes paints him smaller)')
     a = p.parse_args()
 
     from google import genai
     client = genai.Client(api_key=api_key(), http_options={'timeout': 240_000})
     main_ref = Image.open(a.ref[0]).convert('RGBA'); meta = sprite_meta(a.ref[0])
-    keyed = on_key(main_ref)
+    keyed = main_ref.convert('RGB') if a.still else on_key(main_ref)
     style = sorted(glob.glob(os.path.join(ROOT, 'art/style_refs/*.png')))
     style = [s for s in style if os.path.basename(s).split('.')[0] != os.path.basename(a.ref[0]).split('.')[0]]
     text = (f'{STYLE}\n\nThe FIRST image is the character to edit. The other images are style references only. '
             f'Keep exactly the same person, clothes, face and proportions as the first image. '
             f'Full figure, head to feet, nothing cropped, on a perfectly flat plain green background '
             f'(RGB {KEY_RGB}) with no shadow, floor or scenery.\n\nEdit: {a.prompt}')
+    if a.still:
+        text = (f'{STYLE}\n\nThe FIRST image is a full-screen painting from the game to edit. The other images are references '
+                f'(characters, objects and the game\'s painted style). Keep the painting exactly as it is: the same composition, '
+                f'framing, camera, lighting, colour grade, brushwork and every detail the edit does not mention.\n\nEdit: {a.prompt}')
     parts = [{'type': 'text', 'text': text}, {'type': 'image', 'data': png_b64(keyed), 'mime_type': 'image/png'}]
     for extra in a.ref[1:]:
         parts.append({'type': 'image', 'data': png_b64(on_key(Image.open(extra))), 'mime_type': 'image/png'})
@@ -222,9 +227,13 @@ def main():
     stem = os.path.splitext(a.out)[0]
     raw.save(stem + '_raw.png')
 
-    new = defringe(key_out(raw))
-    if not a.no_palette: new = match_palette(new, main_ref)
-    if not a.no_frame:
+    if a.still:
+        new = raw.convert('RGBA').resize(main_ref.size, Image.LANCZOS)
+        if not a.no_palette: new = match_palette(new, main_ref)
+    else:
+        new = defringe(key_out(raw))
+        if not a.no_palette: new = match_palette(new, main_ref)
+    if not a.no_frame and not a.still:
         new, m = frame_to(new, main_ref, meta, keyed.size)
         if a.match_height: new, m = match_height(new, m, a.ref, meta)
         json.dump(m, open(stem + '_meta.json', 'w'))
