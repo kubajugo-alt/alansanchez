@@ -20,7 +20,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_phone": {
   "box": [
@@ -40,7 +40,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_coffee": {
   "box": [
@@ -60,7 +60,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_side": {
   "box": [
@@ -225,7 +225,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_pass": {
   "box": [
@@ -258,7 +258,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_pull": {
   "box": [
@@ -291,7 +291,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_reach": {
   "box": [
@@ -324,7 +324,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_smoke_exhale": {
   "box": [
@@ -338,7 +338,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_smoke_hold": {
   "box": [
@@ -352,7 +352,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_smoke_inhale": {
   "box": [
@@ -366,7 +366,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_smoke_light": {
   "box": [
@@ -380,7 +380,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_throw1": {
   "box": [
@@ -413,7 +413,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_untie": {
   "box": [
@@ -446,7 +446,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_walkA": {
   "box": [
@@ -479,7 +479,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_walkB": {
   "box": [
@@ -512,7 +512,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_walkDown": {
   "box": [
@@ -545,7 +545,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_button": {
   "box": [
@@ -565,7 +565,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_climb": {
   "box": [
@@ -585,7 +585,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_coffees": {
   "box": [
@@ -605,7 +605,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_cutpalm": {
   "box": [
@@ -625,7 +625,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_dress1": {
   "box": [
@@ -645,7 +645,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_dress2": {
   "box": [
@@ -665,7 +665,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_dress3": {
   "box": [
@@ -685,7 +685,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_dress4": {
   "box": [
@@ -705,7 +705,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_dress_boot": {
   "box": [
@@ -725,7 +725,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_dress_final": {
   "box": [
@@ -745,7 +745,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_drip": {
   "box": [
@@ -765,7 +765,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_enchanted1": {
   "box": [
@@ -785,7 +785,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_enchanted2": {
   "box": [
@@ -803,7 +803,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_fling": {
   "box": [
@@ -823,7 +823,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_flirt": {
   "box": [
@@ -843,7 +843,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_fluster": {
   "box": [
@@ -863,7 +863,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_front_walk1": {
   "box": [
@@ -883,7 +883,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_front_walk2": {
   "box": [
@@ -903,7 +903,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jacket": {
   "box": [
@@ -923,7 +923,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jacket_grin": {
   "box": [
@@ -943,7 +943,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jacket_wink": {
   "box": [
@@ -961,7 +961,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_jump": {
   "box": [
@@ -981,7 +981,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jump_crouch": {
   "box": [
@@ -1001,7 +1001,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jump_fall": {
   "box": [
@@ -1021,7 +1021,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jump_rise": {
   "box": [
@@ -1041,7 +1041,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_lantern": {
   "box": [
@@ -1061,7 +1061,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_lwalk1": {
   "box": [
@@ -1081,7 +1081,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_lwalk2": {
   "box": [
@@ -1101,7 +1101,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_pickup": {
   "box": [
@@ -1121,7 +1121,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_rapt1": {
   "box": [
@@ -1141,7 +1141,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_rapt2": {
   "box": [
@@ -1161,7 +1161,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_rapt3": {
   "box": [
@@ -1181,7 +1181,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_read": {
   "box": [
@@ -1201,7 +1201,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_trunks_step": {
   "box": [
@@ -1221,7 +1221,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress_belt": {
   "box": [
@@ -1241,7 +1241,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_write": {
   "box": [
@@ -1261,7 +1261,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_stretch": {
   "box": [
@@ -1281,7 +1281,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_swim": {
   "box": [
@@ -1301,7 +1301,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_swim2": {
   "box": [
@@ -1321,7 +1321,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_swim_wave": {
   "box": [
@@ -1339,7 +1339,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_swoon": {
   "box": [
@@ -1357,7 +1357,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_throw2": {
   "box": [
@@ -1377,7 +1377,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_ring": {
   "box": [
@@ -1397,7 +1397,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_trunks_down": {
   "box": [
@@ -1417,7 +1417,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_trunks_on": {
   "box": [
@@ -1437,7 +1437,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_trunks_snap": {
   "box": [
@@ -1457,7 +1457,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress1": {
   "box": [
@@ -1477,7 +1477,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress1b": {
   "box": [
@@ -1497,7 +1497,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress2a": {
   "box": [
@@ -1517,7 +1517,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress2b": {
   "box": [
@@ -1537,7 +1537,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress3": {
   "box": [
@@ -1557,7 +1557,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress4": {
   "box": [
@@ -1577,7 +1577,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress_boot": {
   "box": [
@@ -1597,7 +1597,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress_jeans": {
   "box": [
@@ -1617,7 +1617,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress_unbutton": {
   "box": [
@@ -1637,7 +1637,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_walkUp": {
   "box": [
@@ -1657,7 +1657,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_wash1": {
   "box": [
@@ -1675,7 +1675,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash2": {
   "box": [
@@ -1693,7 +1693,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash4": {
   "box": [
@@ -1711,7 +1711,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash5": {
   "box": [
@@ -1729,7 +1729,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash6": {
   "box": [
@@ -1747,7 +1747,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash_surface": {
   "box": [
@@ -1765,7 +1765,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wink": {
   "box": [
@@ -1783,7 +1783,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wobble": {
   "box": [
@@ -1803,7 +1803,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_wring": {
   "box": [
@@ -1823,7 +1823,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_arm": {
   "box": [
@@ -1843,14 +1843,14 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_belt": {
   "box": [
-   282,
+   281,
    69,
-   42,
-   71
+   52,
+   68
   ],
   "mouths": [
    "A",
@@ -1863,14 +1863,14 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_belt2": {
   "box": [
    317,
    72,
-   43,
-   57
+   58,
+   58
   ],
   "mouths": [
    "A",
@@ -1889,7 +1889,7 @@ window.FACES = {
   "box": [
    225,
    58,
-   37,
+   44,
    58
   ],
   "mouths": [
@@ -1903,7 +1903,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_chest": {
   "box": [
@@ -1923,13 +1923,13 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_cuffs": {
   "box": [
    328,
    50,
-   39,
+   46,
    61
   ],
   "mouths": [
@@ -1943,14 +1943,14 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_jacket": {
   "box": [
    167,
    75,
-   39,
-   58
+   47,
+   59
   ],
   "mouths": [
    "A",
@@ -1963,7 +1963,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_shelf": {
   "box": [
@@ -1983,13 +1983,13 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_shelf2": {
   "box": [
    310,
    54,
-   47,
+   57,
    68
   ],
   "mouths": [
@@ -2003,7 +2003,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_trousers": {
   "box": [
@@ -2023,7 +2023,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_tshirt": {
   "box": [
@@ -2043,13 +2043,13 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_guitar_lesson": {
   "box": [
    174,
    61,
-   60,
+   68,
    56
   ],
   "mouths": [
@@ -2063,7 +2063,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_unbutton": {
   "box": [
@@ -2083,13 +2083,13 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_card": {
   "box": [
-   121,
+   114,
    62,
-   35,
+   42,
    61
   ],
   "mouths": [
@@ -2103,7 +2103,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_catch": {
   "box": [
@@ -2123,7 +2123,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_clapper": {
   "box": [
@@ -2143,7 +2143,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_fragment": {
   "box": [
@@ -2163,7 +2163,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_kneel": {
   "box": [
@@ -2183,7 +2183,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_ladder": {
   "box": [
@@ -2203,7 +2203,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_lanyard": {
   "box": [
@@ -2223,7 +2223,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_shirtless": {
   "box": [
@@ -2243,13 +2243,13 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_vasco_thumb": {
   "box": [
-   128,
+   119,
    55,
-   44,
+   54,
    61
   ],
   "mouths": [
@@ -2263,7 +2263,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_wring_1": {
   "box": [
@@ -2283,7 +2283,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_wring_2": {
   "box": [
@@ -2303,7 +2303,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_wring_3": {
   "box": [
@@ -2323,6 +2323,6 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  }
 };

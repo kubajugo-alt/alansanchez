@@ -103,9 +103,23 @@ NO_EYES = {'alan_asleep', 'alan_wash1', 'alan_wash2', 'alan_wash4', 'alan_wash5'
 BG = (60, 64, 80)
 
 
+# smiling paintings: a talking mouth inside a painted grin looks wrong (the raised cheeks and smile lines stay put
+# while the lips move), so for these the smile is let go across the lower face and the patch covers the cheeks
+SMILING = {'pair_cop_belt', 'pair_cop_belt2', 'pair_cop_buttons', 'pair_cop_cuffs', 'pair_cop_jacket', 'pair_cop_shelf2',
+           'pair_guitar_lesson', 'pair_vasco_card', 'pair_vasco_thumb'}
+
+# frames whose painted smile crease lies outside what the new mouths change: the whole mouth-and-cheek zone is replaced
+FULL_ZONE = {'pair_cop_belt2'}
+
+
 def jobs(fr):
     out = []
-    if fr not in NO_MOUTH: out += [('mouth_' + k, 'Repaint ONLY his mouth, lips and, where the shape needs it, a slight drop of the jaw and chin, '
+    if fr in SMILING:
+        out += [('mouth_' + k, 'Repaint his mouth, lips, the corners of his mouth, his cheeks and the lines beside his mouth, and where the shape '
+                 'needs it a slight drop of the jaw and chin, so that he is TALKING, not smiling: his smile is gone from the whole lower face, '
+                 'the corners of the lips relaxed (not pulled up), the cheeks relaxed and lowered, no smile creases or dimples' + (' (paint the cheek beside the mouth smooth: no dark line, mark or dimple there)' if fr in FULL_ZONE else '') + ', as a man in the '
+                 f'middle of saying a word. Mouth shape for lip-sync: {k}: {v}.') for k, v in MOUTHS.items()]
+    elif fr not in NO_MOUTH: out += [('mouth_' + k, 'Repaint ONLY his mouth, lips and, where the shape needs it, a slight drop of the jaw and chin, '
                                     f'to make this mouth shape for lip-sync: {k}: {v}.') for k, v in MOUTHS.items()]
     if fr not in NO_EYES: out.append(('eyes_closed', 'Repaint ONLY his eyes and eyelids: both eyes fully CLOSED, the upper eyelids down so only '
                                       'the lash lines show, as at the bottom of a blink. Keep his eyebrows exactly where they are.'))
@@ -181,7 +195,8 @@ def build_one(fr, info):
     mc = (m1 + m2) / 2; mw = np.clip(np.linalg.norm(m2 - m1), 0.25 * bw_ * UP, 0.5 * bw_ * UP); drop = max(mc[1] - nose[1], mw * 0.35)
     ec = (e1 + e2) / 2; ew = np.clip(np.linalg.norm(e2 - e1), 0.3 * bw_ * UP, 0.55 * bw_ * UP)
     # zones: the mouth and chin (from under the nose to below the chin), the eyes (a band through both)
-    mzone = (((xx - mc[0]) / (mw * 1.15)) ** 2 + ((yy - (mc[1] + drop * 0.45)) / (drop * 1.75)) ** 2 < 1) & (yy > nose[1] + drop * 0.2)
+    wide = 1.7 if fr in SMILING else 1.15                               # a smile reaches into the cheeks
+    mzone = (((xx - mc[0]) / (mw * wide)) ** 2 + ((yy - (mc[1] + drop * 0.45)) / (drop * 1.75)) ** 2 < 1) & (yy > nose[1] - (drop * 0.3 if fr in SMILING else -drop * 0.2))
     ezone = np.zeros_like(mzone)
     for e in (e1, e2): ezone |= ((xx - e[0]) / (ew * 0.42)) ** 2 + ((yy - e[1]) / (ew * 0.26)) ** 2 < 1
     states = sorted(f[:-4] for f in os.listdir(WORK + fr) if f.startswith(('mouth_', 'eyes_')) and f.endswith('.png'))
@@ -206,6 +221,9 @@ def build_one(fr, info):
         return cv2.GaussianBlur(R, (0, 0), 5)
     mouths = [s for s in states if s.startswith('mouth_')]; eyes = [s for s in states if s.startswith('eyes_')]
     RM = region(mouths, mzone) if mouths else np.zeros((H6, W6), np.float32)
+    if fr in FULL_ZONE and mouths:  # the painting's own smile crease goes too, up the cheek to just under the eye
+        cheek = (np.abs(xx - mc[0]) < mw * 2.2) & (yy > ec[1] + ew * 0.35) & (yy < mc[1] + drop * 1.6) & (al[..., 0] > 0.5)
+        RM = cv2.GaussianBlur((mzone | cheek).astype(np.float32), (0, 0), 6)
     RE = region(eyes, ezone) if eyes else np.zeros((H6, W6), np.float32)
     # his own lips painted out under the mouth region, so none of them shows through its soft edge
     lips = np.zeros((H6, W6), np.uint8); cv2.ellipse(lips, (int(mc[0]), int(mc[1])), (int(mw * 0.7), int(mw * 0.3)), 0, 0, 360, 255, -1)
