@@ -48,7 +48,17 @@ for s in 'ABCDEFGH':
     # 2. Gemini's lips and open mouth, from under the nose to the top of the swung jaw
     M=rot(np.dstack([np.zeros((H,W,3)),(jaw>0.02).astype(np.float32)*255]),deg)[...,3]/255  # where the jaw now is
     lip_bot=352+drop(deg)*0.85
-    mz=np.clip((yy-292)/16,0,1)*np.clip((lip_bot+8-yy)/14,0,1)*np.clip((xx-232)/30,0,1)*(1-0.85*M*(yy>lip_bot))
+    # the mouth as Gemini painted it: lips, teeth and the dark opening, found where its painting differs from his face
+    # (compared with his face with the jaw swung), closed up, grown a little and feathered
+    ref=comp[...,:3]
+    diff=np.abs(a[...,:3]-ref).sum(-1)
+    zone=(yy>292)&(yy<chin(a)-12)&(xx>235)&(a[...,3]>128)
+    mk=((diff>70)&zone).astype(np.uint8)
+    mk=cv2.morphologyEx(mk,cv2.MORPH_CLOSE,np.ones((15,15),np.uint8))
+    n,lab,st,_=cv2.connectedComponentsWithStats(mk,8)
+    if n>1: mk=(lab==1+np.argmax(st[1:,cv2.CC_STAT_AREA])).astype(np.uint8)   # the mouth, not stray stubble
+    mk=cv2.dilate(mk,np.ones((13,13),np.uint8))
+    mz=cv2.GaussianBlur(mk.astype(np.float32),(0,0),5)*np.clip((yy-286)/12,0,1)
     mz=mz*(a[...,3]/255)                        # only where Gemini painted his face (never its background)
     m=mz[...,None]; comp[...,:3]=a[...,:3]*m+comp[...,:3]*(1-m)
     comp[...,3]=np.where(mz>0.5,np.maximum(comp[...,3],a[...,3]),comp[...,3])
