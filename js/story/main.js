@@ -49,7 +49,11 @@
     // Amália's fado (the recorded "O Sino Afogado", with captions)
     fado: { flags: { ch: 1, askedSong: true, duarte_flirt: true, flirted_guitar: true, saw_photo: true, knows_brotherhood: true }, room: 'tavern', pos: [860, 640, 'e'], run: () => { G.giveItem('ginja'); return S.giveGinja(); } },
     // Maria Coutinho's last night (the paintings; the staged room if they are missing)
-    coldopen: { flags: { ch: 1 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await G.busy(async () => { if (!(await S.mariaPaintings())) await S.coldOpen(); }); G.endStill(); await G.fade(false); } },
+    coldopen: { flags: { ch: 1 }, room: 'shop', pos: [815, 616, 'e'], run: async () => {
+      await G.busy(async () => { if (!(await S.mariaPaintings())) await S.coldOpen(); });
+      G.endStill();
+      await G.fade(false);
+    } },
     // the whole opening, from the fog over Lisbon to Inês waking Alan
     intro: { flags: { ch: 1, clock: '11:00' }, room: 'shop', pos: [815, 616, 'e'], run: () => opening() },
     romance: { flags: { ch: 4, ze_awake: true, ze_believes: true, ze_in_cabin: true, ze_saved: true }, room: 'cabin', pos: [560, 640, 'e'], run: () => S.romance() },
@@ -132,7 +136,14 @@
         <p>Alan's love life is part of this story. <b>Full</b> plays the romantic scenes as written. <b>Discreet</b> skips from each build-up straight to its afterwards and hides those paintings; every joke and every clue stays.</p>
         <p style="font-size:.85em;opacity:.75">You can change this at any time from the menu.</p>
         <p><button data-v="full" style="margin:6px 10px;padding:8px 22px">Full</button><button data-v="discreet" style="margin:6px 10px;padding:8px 22px">Discreet</button></p></div>`;
-      box.querySelectorAll('button').forEach(b => b.onclick = e => { e.stopPropagation(); S.setContent(b.dataset.v); const o = document.querySelector('#opt-content'); if (o) o.textContent = contentLabel(); box.remove(); resolve(); });
+      box.querySelectorAll('button').forEach(b => b.onclick = e => {
+        e.stopPropagation();
+        S.setContent(b.dataset.v);
+        const o = document.querySelector('#opt-content');
+        if (o) o.textContent = contentLabel();
+        box.remove();
+        resolve();
+      });
       (document.querySelector('#game') || document.body).appendChild(box);
     });
   }
@@ -217,10 +228,19 @@
     if (W.walkStop) F.walkStop = c.id;
     if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
     if (W.poses) Object.assign(F.poses, W.poses);
-    if (W.pairIb) { F.pairIb = F.pairIb || {}; for (const [k, io] of Object.entries(W.pairIb)) { const d = F.pairIb[k] = F.pairIb[k] || {}; for (const [w, seq] of Object.entries(io)) d[w] = seq.filter(live); } }
+    if (W.pairIb) {
+      F.pairIb = F.pairIb || {};
+      for (const [k, io] of Object.entries(W.pairIb)) {
+        const d = F.pairIb[k] = F.pairIb[k] || {};
+        for (const [w, seq] of Object.entries(io)) d[w] = seq.filter(live);
+      }
+    }
     if (W.set) {
       F.sets = F.sets || {};
-      for (const [n, d] of Object.entries(W.set)) { const st = F.sets[n] = F.sets[n] || {}; for (const [k, v] of Object.entries(d)) st[k] = Array.isArray(v) ? v.filter(live) : v; }
+      for (const [n, d] of Object.entries(W.set)) {
+        const st = F.sets[n] = F.sets[n] || {};
+        for (const [k, v] of Object.entries(d)) st[k] = Array.isArray(v) ? v.filter(live) : v;
+      }
     }
   };
   async function loadApproved() {

@@ -182,7 +182,10 @@
   // small talk with background characters: one exchange, then a short repeat line
   S.chat = (flag, first, again) => () => F()[flag] ? say(...again) : (F()[flag] = true, say(...first));
   // Alan carries Tomás's lantern in hand from the hand-over until Inês takes it
-  S.carry = () => { const p = G.player, want = G.has('lantern') && window.SPRITES.alan_lantern ? 'lantern' : null; if (p && p.set !== want && (!p.set || p.set === 'lantern')) p.set = want; };
+  S.carry = () => {
+    const p = G.player, want = G.has('lantern') && window.SPRITES.alan_lantern ? 'lantern' : null;
+    if (p && p.set !== want && (!p.set || p.set === 'lantern')) p.set = want;
+  };
   S.once = (flag, fn) => async (...a) => { if (F()[flag]) return; F()[flag] = true; await fn(...a); };
   // ★ jokes: Inês scores them when she's in the room
   let lastScore = 0;
@@ -288,7 +291,16 @@
     const k = S.lampOffAt ? (performance.now() - S.lampOffAt) / 1000 : 9;
     if (k < 0.45 && Math.sin(k * 60) > 0) return FX.glow(g, 180, 318, 70, '255,215,140', 0.25 * (1 - k / 0.45));
     g.save();
-    g.beginPath(); g.moveTo(126, 316); g.lineTo(132, 300); g.lineTo(148, 291); g.lineTo(212, 290); g.lineTo(226, 297); g.lineTo(234, 318); g.lineTo(230, 324); g.lineTo(128, 325); g.closePath();
+    g.beginPath();
+    g.moveTo(126, 316);
+    g.lineTo(132, 300);
+    g.lineTo(148, 291);
+    g.lineTo(212, 290);
+    g.lineTo(226, 297);
+    g.lineTo(234, 318);
+    g.lineTo(230, 324);
+    g.lineTo(128, 325);
+    g.closePath();
     g.globalCompositeOperation = 'multiply'; g.fillStyle = 'rgb(120,128,118)'; g.fill();
     g.globalCompositeOperation = 'source-over';
     const u = g.createLinearGradient(0, 319, 0, 326); u.addColorStop(0, 'rgba(46,40,28,0.95)'); u.addColorStop(1, 'rgba(30,24,16,0.9)');

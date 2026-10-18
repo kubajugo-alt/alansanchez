@@ -9,7 +9,8 @@
   set(F, 'idle', ['ines', 'ines_idle2', 'ines_idle3', 'ines_idle4']);
   set(F, 'talk', ['ines_talk', 'ines_talk2', 'ines_talk3', 'ines_talk4']);
   if (['ines_walk1', 'ines_pass1', 'ines_walk2', 'ines_pass2'].every(has)) {
-    F.walk = ['ines_walk1', 'ines_pass1', 'ines_walk2', 'ines_pass2']; C.frameStep = 0.17; // half a step per frame: her painted stride (~0.34 of her height a step, like Alan's) so the planted foot doesn't skate
+    F.walk = ['ines_walk1', 'ines_pass1', 'ines_walk2', 'ines_pass2'];
+    C.frameStep = 0.17; // half a step per frame: her painted stride (~0.34 of her height a step, like Alan's) so the planted foot doesn't skate
   }
   if (has('ines_front')) F.front = ['ines_front'];
   if (has('ines_back')) F.back = ['ines_back'];
@@ -54,7 +55,14 @@
   const ines = () => { const a = G.npc('ines'); return a && a.visible && G.room === S.ROOMS.shop ? a : null; };
   const quiet = () => !G.isBusy && !G.cutscene && !document.querySelector('#dialog.open');
   let job = null, phase = 'rest', until = 0, lastJob = null, swapAt = 0, frame = 0;
-  const end = a => { if (a && a.pose && String(a.pose).startsWith('act_')) a.pose = null; job = null; phase = 'rest'; bookDown = false; putUntil = 0; until = performance.now() + 3000 + Math.random() * 3000; };
+  const end = a => {
+    if (a && a.pose && String(a.pose).startsWith('act_')) a.pose = null;
+    job = null;
+    phase = 'rest';
+    bookDown = false;
+    putUntil = 0;
+    until = performance.now() + 3000 + Math.random() * 3000;
+  };
   // the kettle job: she puts her book down on the sideboard first, makes the coffee with the kettle
   // that stands there (the painted one disappears while it's in her hand), and takes the book back
   let bookDown = false, putUntil = 0;
@@ -81,10 +89,21 @@
         if (job && phase === 'walk') { phase = 'work'; a.dir = job.dir; until = performance.now() + 7000 + Math.random() * 7000; swapAt = 0; }
       });
     } else if (phase === 'work') {
-      if (job.k === 'kettle' && PUT && !bookDown) { a.pose = 'act_kettle_put'; bookDown = true; putUntil = now + 1300; swapAt = putUntil; return; }  // the book goes down first
+      if (job.k === 'kettle' && PUT && !bookDown) {
+        a.pose = 'act_kettle_put';
+        bookDown = true;
+        putUntil = now + 1300;
+        swapAt = putUntil;
+        return;
+      }  // the book goes down first
       if (putUntil === Infinity ? now <= until : now < putUntil) return;  // holding the put-down / pick-up frame
       if (now > until) {
-        if (job.k === 'kettle' && PUT && a.pose !== 'act_kettle_put') { a.pose = 'act_kettle_put'; putUntil = Infinity; until = now + 1150; return; }  // and back into her hand
+        if (job.k === 'kettle' && PUT && a.pose !== 'act_kettle_put') {
+          a.pose = 'act_kettle_put';
+          putUntil = Infinity;
+          until = now + 1150;
+          return;
+        }  // and back into her hand
         end(a); return;
       }
       if (now > swapAt) { frame ^= 1; a.pose = 'act_' + job.k + (frame ? '_b' : '_a'); swapAt = now + 1100 + Math.random() * 900; }

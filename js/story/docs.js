@@ -139,7 +139,10 @@
           g.fillStyle = '#24170a'; g.font = 'bold 92px Georgia, serif'; g.fillText(code[i], x, WY + 4);
           // the wheel's curve: darker toward the top and bottom of the window
           const sh = g.createLinearGradient(0, WY - HH, 0, WY + HH);
-          sh.addColorStop(0, 'rgba(40,24,6,0.55)'); sh.addColorStop(0.28, 'rgba(40,24,6,0)'); sh.addColorStop(0.72, 'rgba(40,24,6,0)'); sh.addColorStop(1, 'rgba(40,24,6,0.6)');
+          sh.addColorStop(0, 'rgba(40,24,6,0.55)');
+          sh.addColorStop(0.28, 'rgba(40,24,6,0)');
+          sh.addColorStop(0.72, 'rgba(40,24,6,0)');
+          sh.addColorStop(1, 'rgba(40,24,6,0.6)');
           g.fillStyle = sh; g.fillRect(x - HW, WY - HH, HW * 2, HH * 2);
           g.restore();
         });
@@ -171,7 +174,19 @@
       if (!c.isConnected) return;
       g.clearRect(0, 0, 600, 600);
       const s = ticking ? (now - t0) / 1000 : 0;
-      const hand = (cx, cy, ang, len, w, col) => { g.save(); g.translate(cx, cy); g.rotate(ang); g.strokeStyle = col; g.lineWidth = w; g.lineCap = 'round'; g.beginPath(); g.moveTo(0, len * 0.15); g.lineTo(0, -len); g.stroke(); g.restore(); };
+      const hand = (cx, cy, ang, len, w, col) => {
+        g.save();
+        g.translate(cx, cy);
+        g.rotate(ang);
+        g.strokeStyle = col;
+        g.lineWidth = w;
+        g.lineCap = 'round';
+        g.beginPath();
+        g.moveTo(0, len * 0.15);
+        g.lineTo(0, -len);
+        g.stroke();
+        g.restore();
+      };
       hand(300, 270, (3 + 12 / 60) / 12 * Math.PI * 2 + s * 0.002, 110, 9, '#2a1a0a');
       hand(300, 270, (12 / 60) * Math.PI * 2 + s * 0.02, 170, 6, '#2a1a0a');
       hand(300, 270, s * Math.PI * 2 / 60, 180, 2, '#8a1a10');

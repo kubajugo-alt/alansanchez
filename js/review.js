@@ -167,7 +167,15 @@
         const q = $('#rv-q').value.toLowerCase();
         $('#rv-lines').innerHTML = L.filter(([k, v]) => !q || k.includes(q) || v[1].toLowerCase().includes(q)).slice(0, 200)
           .map(([k, v]) => `<div><button class="b" data-l="${k}">▶</button> <span class="muted">${k}</span> ${v[1].replace(/\[[^\]]*\]/g, '').slice(0, 90)}</div>`).join('');
-        $('#rv-lines').querySelectorAll('[data-l]').forEach(b => { b.onclick = async () => { loopTok++; reset(); if (actor !== G.player) actor.id = sp; await G.say(b.dataset.l); if (actor !== G.player) actor.id = 'rv_actor'; }; });
+        $('#rv-lines').querySelectorAll('[data-l]').forEach(b => {
+          b.onclick = async () => {
+            loopTok++;
+            reset();
+            if (actor !== G.player) actor.id = sp;
+            await G.say(b.dataset.l);
+            if (actor !== G.player) actor.id = 'rv_actor';
+          };
+        });
       };
       $('#rv-q').oninput = list; list();
     } else if (tab === 'cands') {
@@ -212,8 +220,18 @@
         <button class="b" data-pt="xfade">▶ cross-fade</button><button class="b" data-pt="gemini">▶ Gemini in-betweens</button><button class="b" data-pt="both">▶ both, one after the other</button>
         <div class="muted" id="rv-ptnote"></div>`;
       B.querySelectorAll('[data-pt]').forEach(b => { b.onclick = () => pairTest(b.dataset.pt); });
-      B.querySelectorAll('[data-st]').forEach(b => { b.onclick = () => { $('#rv-now').textContent = b.dataset.st; G.showStill(b.dataset.st, () => wait(5000), { zoom: [1.0, 1.08] }); }; });
-      B.querySelectorAll('[data-pv]').forEach(b => { b.onclick = async () => { if (ch !== 'alan') { ch = 'alan'; $('#rv-ch').value = 'alan'; } await stage(G.room && G.room.id); G.player.dir = 'e'; G.player.pose = b.dataset.pv; $('#rv-now').textContent = b.dataset.pv; }; });
+      B.querySelectorAll('[data-st]').forEach(b => {
+        b.onclick = () => { $('#rv-now').textContent = b.dataset.st; G.showStill(b.dataset.st, () => wait(5000), { zoom: [1.0, 1.08] }); };
+      });
+      B.querySelectorAll('[data-pv]').forEach(b => {
+        b.onclick = async () => {
+          if (ch !== 'alan') { ch = 'alan'; $('#rv-ch').value = 'alan'; }
+          await stage(G.room && G.room.id);
+          G.player.dir = 'e';
+          G.player.pose = b.dataset.pv;
+          $('#rv-now').textContent = b.dataset.pv;
+        };
+      });
       B.querySelectorAll('[data-sc]').forEach(b => { b.onclick = () => { location.href = location.pathname + '?scene=' + b.dataset.sc + '&review'; }; });
       B.querySelectorAll('[name=pt]').forEach(r => { r.onchange = () => localStorage.setItem('pair-transition', r.value); });
     }
@@ -246,7 +264,9 @@
           await S.pairOut(cop, { dir: 'w' }); await wait(700); if (tok !== loopTok) return;
         }
       }
-    } finally { try { if (keep == null) localStorage.removeItem('pair-transition'); else localStorage.setItem('pair-transition', keep); } catch (e) { /* private mode */ } }
+    } finally {
+      try { if (keep == null) localStorage.removeItem('pair-transition'); else localStorage.setItem('pair-transition', keep); } catch (e) { /* private mode */ }
+    }
   }
   // preview a candidate in motion before deciding (this session only)
   async function tryCandidate(c) {
@@ -273,15 +293,23 @@
         p.dir = 'e'; p.pose = a; await wait(1400); if (tok !== loopTok) return;
         await S.pairStep(b); await wait(1400); if (tok !== loopTok) return;
       }
-    } finally { try { if (keep == null) localStorage.removeItem('pair-transition'); else localStorage.setItem('pair-transition', keep); } catch (e) { /* private mode */ } }
+    } finally {
+      try { if (keep == null) localStorage.removeItem('pair-transition'); else localStorage.setItem('pair-transition', keep); } catch (e) { /* private mode */ }
+    }
   }
   async function save() {
     const d = Object.assign({}, (S.REVIEW && S.REVIEW.saved) || {}, dec()), body = JSON.stringify(d, null, 1);
     if (LOCAL) {
-      try { const r = await fetch('/api/approvals', { method: 'POST', headers: { 'content-type': 'application/json' }, body }); if (r.ok) { $('#rv-saved').textContent = 'saved to art/review/approvals.json'; return; } } catch (e) { /* no review server */ }
+      try {
+        const r = await fetch('/api/approvals', { method: 'POST', headers: { 'content-type': 'application/json' }, body });
+        if (r.ok) { $('#rv-saved').textContent = 'saved to art/review/approvals.json'; return; }
+      } catch (e) { /* no review server */ }
     }
     // the live site can't write to the project: download the file (and copy it) to send to Claude
-    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([body], { type: 'application/json' })); a.download = 'approvals.json'; a.click();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([body], { type: 'application/json' }));
+    a.download = 'approvals.json';
+    a.click();
     try { await navigator.clipboard.writeText(body); } catch (e) { /* no clipboard */ }
     $('#rv-saved').textContent = 'downloaded approvals.json (also copied): send it to Claude to commit';
   }
@@ -294,7 +322,13 @@
     $('#rv-ch').innerHTML = chars.map(k => `<option${k === ch ? ' selected' : ''}>${k}</option>`).join('');
     $('#rv-ch').onchange = async e => { ch = e.target.value; await stage(G.room && G.room.id); render(); };
     $('#rv-speed').oninput = e => { window.TIME_SCALE = +e.target.value; $('#rv-sv').textContent = (+e.target.value).toFixed(2).replace(/0$/, '') + '×'; };
-    $('#rv-pause').onclick = () => { paused = !paused; window.STEP_DT = paused ? 1 / 30 : 0; window.HOLD = paused; window.ADVANCE = 0; $('#rv-pause').textContent = paused ? '▶ play' : '⏸ pause'; };
+    $('#rv-pause').onclick = () => {
+      paused = !paused;
+      window.STEP_DT = paused ? 1 / 30 : 0;
+      window.HOLD = paused;
+      window.ADVANCE = 0;
+      $('#rv-pause').textContent = paused ? '▶ play' : '⏸ pause';
+    };
     $('#rv-step').onclick = () => { if (!paused) $('#rv-pause').click(); window.ADVANCE = 1; };
     const show = document.createElement('button'); show.id = 'rv-show'; show.className = 'b'; show.textContent = '⇤ review panel';
     show.style.cssText += ';background:#2b2a26;color:#eee;border:1px solid #d8b46a;border-radius:4px;padding:4px 10px;cursor:pointer';

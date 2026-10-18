@@ -114,7 +114,14 @@
     if (!F().ze_saved) return say('alan_phone_cais_early');
     if (F().rang_shop) return say('alan_fail_04');
     F().rang_shop = true;
-    await posed('phone', async () => { sfx('payphone_coins'); sfx('phone_dial_long'); await G.wait(window.FAST ? 20 : 2600); sfx('ringout', 0.35); await G.wait(window.FAST ? 20 : 4500); await say('alan_ringout'); });
+    await posed('phone', async () => {
+      sfx('payphone_coins');
+      sfx('phone_dial_long');
+      await G.wait(window.FAST ? 20 : 2600);
+      sfx('ringout', 0.35);
+      await G.wait(window.FAST ? 20 : 4500);
+      await say('alan_ringout');
+    });
     await S.ch4End();
   };
 
@@ -157,7 +164,11 @@
           sfx('knock'); await G.wait(window.FAST ? 20 : 600); sfx('snore'); F().knocked = true; await say('alan_knock');
         },
         get talk() { return F().ze_awake ? null : async () => { F().knocked = true; await say('alan_shout'); sfx('snore'); }; } },
-      { name: 'Porthole', rect: [747, 416, 85, 75], at: [790, 620], face: 'n', look: async () => { if (F().ze_awake) return say('narr_look_porthole_empty'); await S.showPorthole(); await say('narr_look_porthole'); } }, // once Zé is up, the bunk is empty
+      { name: 'Porthole', rect: [747, 416, 85, 75], at: [790, 620], face: 'n', look: async () => {
+        if (F().ze_awake) return say('narr_look_porthole_empty');
+        await S.showPorthole();
+        await say('narr_look_porthole');
+      } }, // once Zé is up, the bunk is empty
       { name: 'Mooring line', rect: [0, 341, 280, 200], at: PULL_AT, face: 'w', look: 'narr_look_line',
         use: () => S.mooring(), take: () => S.mooring() },
       { name: "Ship's bell", rect: [855, 238, 40, 46], get at() { return F().ze_awake && !F().ze_in_cabin ? [795, 612] : [900, 610]; }, face: 'n', look: 'narr_look_shipbell', use: async () => { sfx('ship_bell', 0.8); await say('alan_ring_shipbell'); } }, // beside Zé when he stands under it, not inside him
@@ -340,7 +351,11 @@
     sfx('tile_shatter'); Sound.cue('bell_motif'); strike.broken = true; strike.t0 = performance.now();
     G.takeItem('bunktile'); F().tile_held = false; F().ze_saved = true;
     await T(700); p.pose = null;
-    await G.showStill('cais', async () => { clock('18:25'); sfx('water_drain'); await G.say('narr_turn', { offscreen: true }); }, { hold: 2500, zoom: [1.0, 1.06] });
+    await G.showStill('cais', async () => {
+      clock('18:25');
+      sfx('water_drain');
+      await G.say('narr_turn', { offscreen: true });
+    }, { hold: 2500, zoom: [1.0, 1.06] });
     G.refreshNpcs();
     Sound.cue(null, { xf: 3 }); // then only the boat: water and timber
     await say('alan_turned', 'ze_knew', 'alan_two_sentences');
@@ -363,7 +378,16 @@
       if (ze) { ze.pose = null; await p.walkTo(ze.x + 120, ze.y); p.dir = 'w'; ze.dir = 'e'; }
       await say('ze_rom_1');
       // the sweater comes off over his head
-      if (ze) { ze.pose = 'ze_strip1'; await T(800); ze.pose = 'ze_dress'; await T(800); ze.pose = 'ze_strip3'; sfx('sheet_slap', 0.25); await T(900); ze.pose = 'ze_shirtless'; }
+      if (ze) {
+        ze.pose = 'ze_strip1';
+        await T(800);
+        ze.pose = 'ze_dress';
+        await T(800);
+        ze.pose = 'ze_strip3';
+        sfx('sheet_slap', 0.25);
+        await T(900);
+        ze.pose = 'ze_shirtless';
+      }
       // he's already half in love with someone else: he says so, Zé leaves him the door, and Alan chooses
       await G.wait(window.FAST ? 20 : 700);
       await say('ze_rom_admire');
