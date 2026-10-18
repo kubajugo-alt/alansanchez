@@ -867,22 +867,27 @@
         await G.showStill('still_store_kiss', () => G.say('narr_store', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.48, 0.4]], keep: true });
       } else { await G.fade(true); await T(900); await G.say('narr_store', { offscreen: true }); }
       await G.fade(true); await T(700);
-      // later: on the floor against a crate, shirts open, laughing, the clapper between them
+      // later: on the floor against the shelves, shirts open, laughing, the clapper between them: the two of them in the
+      // room (pair_vasco_after, a cut under the black); the narrator has the last word over them, then the dark
       const after = async () => {
         await G.fade(false);
         sfx('v_alan_chuckle', 0.45);
         await T(700);
-        await say('vasco_after_1', 'alan_after_v', 'vasco_after_2', 'alan_after_every');
+        await say('vasco_after_1', 'alan_after_v', 'vasco_after_3', 'alan_after_know', 'vasco_after_2', 'alan_after_every');
+        await T(600);
+        await G.say('narr_fun_4', { offscreen: true }); // the narrator, who isn't fooled, and isn't joking either
       };
-      if (G.image('still:still_store_after')) await G.showStill('still_store_after', after, { zoom: [1.0, 1.1], pan: [[0.5, 0.5], [0.5, 0.45]], keep: true });
-      else if (window.SPRITES.pair_vasco_after) { // (until the painting exists: the two of them in the room, on the floor against the crate: a cut under the black)
-        G.endStill && G.endStill(); const end = S.vpair('after'); await after(); if (end) end();
-      } else { G.endStill && G.endStill(); await S.withPair('shirtless', after); }
+      G.endStill && G.endStill();
+      if (window.SPRITES.pair_vasco_after) { const end = S.vpair('after'); await after(); if (end) end(); }
+      else await S.withPair('shirtless', after);
+      F().store_scene = false;
+      await G.fade(true);
+      return;
     }
     F().store_scene = false;
     await S.flingBeat(4, true); // the narrator, who isn't fooled, and isn't joking either
     G.endStill();
   };
 
-  window.EXTRA_STILLS = ['still_se_reserve', 'still_store_kiss', 'still_store_after'];
+  window.EXTRA_STILLS = ['still_se_reserve', 'still_store_kiss'];
 })();

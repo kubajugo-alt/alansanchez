@@ -1417,6 +1417,8 @@ window.LINES = {
   narr_store: ['narr', "Upstairs, the Sé struck ten, and the museum opened to the public. Nobody came down to the reserve. Nobody ever does."],
   vasco_after_1: ['vasco', "[laughing softly] I'm going to have to catalogue this."],
   alan_after_v: ['alan', "[softly] Provenance known."],
+  vasco_after_3: ['vasco', "[laughing softly, nudging the clapper with his boot] And him. Back on his shelf by Monday. Nobody will ever know he left."],
+  alan_after_know: ['alan', "[quietly] I'll know."],
   vasco_after_2: ['vasco', "[softly] Thursday?"],
   alan_after_every: ['alan', "[quietly, meaning it] Every Thursday."],
   narr_fun_4: ['narr', "It wasn't fun. Alan had had fun. This was the other thing, the one he had never had a joke for, and for once in his life he didn't go looking for one."],
