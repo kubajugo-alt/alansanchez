@@ -2797,5 +2797,185 @@ window.FACES = {
    "closed"
   ],
   "ok": true
+ },
+ "pair_vasco_card__vasco": {
+  "box": [
+   289,
+   54,
+   42,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_catch__vasco": {
+  "box": [
+   243,
+   57,
+   45,
+   58
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_coffee__vasco": {
+  "box": [
+   375,
+   51,
+   43,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_fragment__vasco": {
+  "box": [
+   314,
+   51,
+   43,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_kneel__vasco": {
+  "box": [
+   223,
+   68,
+   52,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_ladder__vasco": {
+  "box": [
+   184,
+   62,
+   51,
+   54
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_lanyard__vasco": {
+  "box": [
+   193,
+   60,
+   41,
+   52
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_shirtless__vasco": {
+  "box": [
+   281,
+   56,
+   42,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "pair_vasco_thumb__vasco": {
+  "box": [
+   274,
+   57,
+   42,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
  }
 };

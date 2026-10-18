@@ -35,7 +35,7 @@ def net(name):
 
 
 def frames():
-    mine = ('alan_', 'pair_') if CHAR == 'alan' else (CHAR + '_', CHAR + '.')
+    mine = ('alan_', 'pair_') if CHAR == 'alan' else (CHAR + '_', CHAR + '.', f'pair_{CHAR}_')  # his own, and the pairs he's painted into
     return sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith(mine))
 
 
@@ -74,7 +74,8 @@ def find():
     for fr, fs in faces.items():
         if not fs or fr.startswith(HIDDEN): continue
         fs.sort(key=lambda f: f['box'][0])
-        f = max(fs, key=lambda f: f['score']) if fr.startswith(CHAR) else fs[0] if fr.startswith(LEFT) else fs[-1]
+        mine_left = fr.startswith(LEFT) == (CHAR == 'alan')   # in LEFT pairs Alan is the left face, his partner the right
+        f = max(fs, key=lambda f: f['score']) if fr.startswith(CHAR) else fs[0] if mine_left else fs[-1]
         x, y, w, h = f['box']; cx, cy = x + w / 2, y + h * 0.5; s = 1.9 * max(w, h)
         im, _ = on_bg(fr)
         hb = [int(round(cx - s / 2)), int(round(cy - s * 0.55)), int(round(s)), int(round(s))]
@@ -115,13 +116,22 @@ SMILING = {'pair_cop_belt', 'pair_cop_belt2', 'pair_cop_buttons', 'pair_cop_cuff
            'pair_guitar_lesson', 'pair_vasco_card', 'pair_vasco_thumb',
            'vasco_climb', 'vasco_coffee', 'vasco_delight', 'vasco_find', 'vasco_fluster', 'vasco_front', 'vasco_give', 'vasco_kneel_talk', 'vasco_trowel'}
 
+# the same, for a partner's face in a pair painting (keyed by the frame, so kept apart from Alan's own list)
+PARTNER_SMILING = {'vasco': {'pair_vasco_card', 'pair_vasco_catch', 'pair_vasco_coffee', 'pair_vasco_fragment', 'pair_vasco_lanyard',
+                             'pair_vasco_shirtless', 'pair_vasco_thumb', 'pair_vasco_ladder'}}
+
+
+def smiling(fr):
+    return fr in PARTNER_SMILING.get(CHAR, ()) if CHAR != 'alan' and fr.startswith('pair_') else fr in SMILING
+
+
 # frames whose painted smile crease lies outside what the new mouths change: the whole mouth-and-cheek zone is replaced
 FULL_ZONE = {'pair_cop_belt2'}
 
 
 def jobs(fr):
     out = []
-    if fr in SMILING:
+    if smiling(fr):
         out += [('mouth_' + k, 'Repaint his mouth, lips, the corners of his mouth, his cheeks and the lines beside his mouth, and where the shape '
                  'needs it a slight drop of the jaw and chin, so that he is TALKING, not smiling: his smile is gone from the whole lower face, '
                  'the corners of the lips relaxed (not pulled up), the cheeks relaxed and lowered, no smile creases or dimples' + (' (paint the cheek beside the mouth smooth: no dark line, mark or dimple there)' if fr in FULL_ZONE else '') + ', as a man in the '
@@ -182,7 +192,7 @@ def gen(names):
 def gray(a): return cv2.cvtColor((a[..., :3] / 255).astype(np.float32), cv2.COLOR_RGB2GRAY)
 
 
-def build_one(fr, info):
+def build_one(fr, info, name=None):
     """Lines each Gemini edit up with the frame's head, keeps only what changed around the mouth (one region for all the
     shapes, so each replaces the same area) and the eyes, and composes the patches at sprite px over the painting itself."""
     head = Image.open(WORK + fr + '/head.png').convert('RGBA'); H6, W6 = head.size[1], head.size[0]
@@ -201,8 +211,8 @@ def build_one(fr, info):
     mc = (m1 + m2) / 2; mw = np.clip(np.linalg.norm(m2 - m1), 0.25 * bw_ * UP, 0.5 * bw_ * UP); drop = max(mc[1] - nose[1], mw * 0.35)
     ec = (e1 + e2) / 2; ew = np.clip(np.linalg.norm(e2 - e1), 0.3 * bw_ * UP, 0.55 * bw_ * UP)
     # zones: the mouth and chin (from under the nose to below the chin), the eyes (a band through both)
-    wide = 1.7 if fr in SMILING else 1.15                               # a smile reaches into the cheeks
-    mzone = (((xx - mc[0]) / (mw * wide)) ** 2 + ((yy - (mc[1] + drop * 0.45)) / (drop * 1.75)) ** 2 < 1) & (yy > nose[1] - (drop * 0.3 if fr in SMILING else -drop * 0.2))
+    wide = 1.7 if smiling(fr) else 1.15                               # a smile reaches into the cheeks
+    mzone = (((xx - mc[0]) / (mw * wide)) ** 2 + ((yy - (mc[1] + drop * 0.45)) / (drop * 1.75)) ** 2 < 1) & (yy > nose[1] - (drop * 0.3 if smiling(fr) else -drop * 0.2))
     ezone = np.zeros_like(mzone)
     for e in (e1, e2): ezone |= ((xx - e[0]) / (ew * 0.42)) ** 2 + ((yy - e[1]) / (ew * 0.26)) ** 2 < 1
     states = sorted(f[:-4] for f in os.listdir(WORK + fr) if f.startswith(('mouth_', 'eyes_')) and f.endswith('.png'))
@@ -254,6 +264,7 @@ def build_one(fr, info):
     lip_s = small(cv2.GaussianBlur(lips.astype(np.float32) / 255, (0, 0), 4))[..., None]
     under = base.copy(); under[..., :3] = base[..., :3] * (1 - lip_s) + small(clean) * lip_s
     os.makedirs(ROOT + '/art/faces', exist_ok=True)
+    name = name or fr                                                     # the set's key: the frame, or <frame>__<char> for a partner
     out = {'box': [int(sx), int(sy), bw, bh], 'mouths': [], 'eyes': [], 'fit': {}}
     for st in states:
         g, cc = A[st]; out['fit'][st] = round(cc, 3)
@@ -266,11 +277,11 @@ def build_one(fr, info):
         if st.startswith('mouth_'):
             p = under.copy(); p[..., :3] = gs * rm + under[..., :3] * (1 - rm)
             p[..., 3:] = np.maximum(under[..., 3:], rm * solid * 255)
-            Image.fromarray(np.clip(p, 0, 255).astype(np.uint8), 'RGBA').save(f'{ROOT}/art/faces/{fr}_{st[6:]}.webp', lossless=True)
+            Image.fromarray(np.clip(p, 0, 255).astype(np.uint8), 'RGBA').save(f'{ROOT}/art/faces/{name}_{st[6:]}.webp', lossless=True)
             out['mouths'].append(st[6:])
         else:
             p = np.dstack([gs, re_[..., 0] * base[..., 3] / 255 * 255])
-            Image.fromarray(np.clip(p, 0, 255).astype(np.uint8), 'RGBA').save(f'{ROOT}/art/faces/{fr}_eyes_{st[5:]}.webp', lossless=True)
+            Image.fromarray(np.clip(p, 0, 255).astype(np.uint8), 'RGBA').save(f'{ROOT}/art/faces/{name}_eyes_{st[5:]}.webp', lossless=True)
             out['eyes'].append(st[5:])
     return out
 
@@ -281,10 +292,11 @@ def build(names):
     except (OSError, ValueError, IndexError): data = {}
     for fr in (names or index):
         if fr not in index or fr in SIDE: continue
-        r = build_one(fr, index[fr])
+        key = fr + '__' + CHAR if CHAR != 'alan' and fr.startswith('pair_') else fr   # a partner's face in a pair painting
+        r = build_one(fr, index[fr], key)
         if not r: continue
-        fit = r.pop('fit'); r['ok'] = (data.get(fr) or {}).get('ok', False)   # in the game once approved on the review page
-        data[fr] = r
+        fit = r.pop('fit'); r['ok'] = (data.get(key) or {}).get('ok', False)   # in the game once approved on the review page
+        data[key] = r
         print(fr, r['box'], ' '.join(f'{k}:{v}' for k, v in fit.items()), flush=True)
     open(os.path.join(ROOT, 'js/faces.js'), 'w').write(
         '// Generated by scripts/face_transfer.py (the side frames) and scripts/face_kit.py (the rest): lip-sync mouths and\n'

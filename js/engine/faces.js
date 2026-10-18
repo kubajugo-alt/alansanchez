@@ -80,10 +80,10 @@
   }
 
   // ---------------------------------------------------------------- blinking
-  // every 2 to 6 s: half shut, shut, half shut (150 ms), now and then twice
+  // every 2 to 6 s: half shut, shut, half shut (150 ms), now and then twice; `slot` keeps a pair partner's blink apart
   const BLINK = [[0.04, 'half'], [0.11, 'closed'], [0.15, 'half']];
-  function lidOf(a) {
-    const b = a.blink || (a.blink = { next: E.time + 1 + Math.random() * 4, t0: -1 });
+  function lidOf(a, slot = 'blink') {
+    const b = a[slot] || (a[slot] = { next: E.time + 1 + Math.random() * 4, t0: -1 });
     if (b.t0 < 0 && E.time >= b.next) b.t0 = E.time;
     if (b.t0 < 0) return null;
     const u = E.time - b.t0, s = BLINK.find(([end]) => u < end);
@@ -106,26 +106,48 @@
 
   // ---------------------------------------------------------------- the painting with its face
   const cache = new Map();
+  // a pair painting holds its partner's face too, as the set '<frame>__<speaker>' (Vasco in pair_vasco_card:
+  // 'pair_vasco_card__vasco'); a partner's line, spoken through Alan's actor (speech.js actorFor), moves only that face
+  const partners = new Map();
+  function partnerSets(key, any) {
+    const src = any ? (window.FACES || {}) : FACES, ck = key + (any ? '|any' : '');
+    if (!partners.has(ck)) partners.set(ck, Object.keys(src).filter(k => k.startsWith(key + '__')).map(k => [k, src[k], k.slice(key.length + 2)]));
+    return partners.get(ck);
+  }
   // the frame `key` as painted, or with the actor's mouth and eyelids laid in (a canvas the size of the painting)
   function faceImage(a, key, im, any) {
     const D = FACES[key] || (any && (window.FACES || {})[key]); // any: the rig's head uses its base frame's set, approved or not
-    if (!D || window.FAST || !im || !im.naturalWidth || (E.SPRITES[key] && E.SPRITES[key].src)) return im;
-    want(key);
-    if (a.faceAt !== E.time) { a.faceAt = E.time; a.faceM = mouthOf(a); a.faceL = lidOf(a); } // once a frame, whichever paintings are up
-    const m = a.faceM && mouthFor(D, a.faceM), mn = m ? key + '_' + m : null;
-    const lid = a.faceL && (D.eyes.includes(a.faceL) ? a.faceL : D.eyes.includes('closed') ? 'closed' : null); // no half-shut painting: shut for the whole blink
-    const ln = lid ? key + '_eyes_' + lid : null;
-    const mp = mn && patch(mn), lp = ln && patch(ln);
-    if (!mp && !lp) return im;
-    const ck = key + '|' + (mp ? mn : '') + '|' + (lp ? ln : '');
+    if (window.FAST || !im || !im.naturalWidth || (E.SPRITES[key] && E.SPRITES[key].src)) return im;
+    const P = partnerSets(key, any), self = a === E.player ? a.ch : null; // Alan's own face moves only to his own lines; anyone else's to whatever they say
+    const sets = (D ? [[key, D, self]] : []).concat(P);
+    if (!sets.length) return im;
+    if (a.faceAt !== E.time) { // once a frame, whichever paintings are up
+      a.faceAt = E.time; a.faceM = mouthOf(a); a.faceWho = a.faceM ? (a.talkWho || a.ch) : null; a.faceL = {};
+    }
+    const layers = [];
+    for (const [k, S, who] of sets) {
+      want(k);
+      const own = k === key, lidAt = own ? 'blink' : 'blink_' + who;
+      if (!(lidAt in a.faceL)) a.faceL[lidAt] = lidOf(a, lidAt);
+      const talks = own ? a.faceWho && (who === null || who === a.faceWho) && !P.some(p => p[2] === a.faceWho) : a.faceWho === who;
+      const m = talks && mouthFor(S, a.faceM), mn = m ? k + '_' + m : null; // only the speaker's own face talks
+      const l = a.faceL[lidAt], lid = l && (S.eyes.includes(l) ? l : S.eyes.includes('closed') ? 'closed' : null); // no half-shut painting: shut for the whole blink
+      const ln = lid ? k + '_eyes_' + lid : null;
+      const mp = mn && patch(mn), lp = ln && patch(ln);
+      if (mp || lp) layers.push([S.box, mp, lp, (mp ? mn : '') + '|' + (lp ? ln : '')]);
+    }
+    if (!layers.length) return im;
+    const ck = key + '|' + layers.map(l => l[3]).join('|');
     let cv = cache.get(ck);
     if (!cv) {
       if (cache.size > 120) cache.clear();
       cv = document.createElement('canvas'); cv.width = im.naturalWidth; cv.height = im.naturalHeight;
-      const c = cv.getContext('2d'), [x, y, w, h] = D.box;
+      const c = cv.getContext('2d');
       c.drawImage(im, 0, 0);
-      if (mp) { c.clearRect(x, y, w, h); c.drawImage(mp, x, y, w, h); } // the lower face replaces the box, so no painted lips show under it
-      if (lp) c.drawImage(lp, x, y, w, h);
+      // the lower face replaces the box, so no painted lips show under it; eyes after every mouth (two faces close together
+      // in a pair painting can share some of a box)
+      for (const [[x, y, w, h], mp] of layers) if (mp) { c.clearRect(x, y, w, h); c.drawImage(mp, x, y, w, h); }
+      for (const [[x, y, w, h], , lp] of layers) if (lp) c.drawImage(lp, x, y, w, h);
       cache.set(ck, cv);
     }
     return cv;
