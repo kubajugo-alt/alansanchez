@@ -1105,14 +1105,14 @@
     "art/sprites/alan_side.webp"
    ],
    "meta": {
-    "w": 473.0,
+    "w": 474.0,
     "hh": 727.0,
     "h": 720.0,
     "ax": 108.4,
-    "fy": 701.5,
-    "top": 6.0,
-    "px": 349.5,
-    "pfy": 707.5,
+    "fy": 700.5,
+    "top": 9.0,
+    "px": 350.1,
+    "pfy": 706.5,
     "rigid": true
    },
    "wire": {
@@ -1445,13 +1445,13 @@
     "art/sprites/alan_side.webp"
    ],
    "meta": {
-    "w": 466.0,
+    "w": 456.0,
     "hh": 728.0,
-    "h": 709.0,
-    "ax": 129.5,
-    "fy": 718.5,
-    "top": 9.0,
-    "px": 362.2,
+    "h": 713.0,
+    "ax": 118.0,
+    "fy": 719.5,
+    "top": 6.0,
+    "px": 352.5,
     "pfy": 716.5,
     "rigid": true
    },
@@ -1479,14 +1479,14 @@
     "art/sprites/alan_side.webp"
    ],
    "meta": {
-    "w": 495.0,
-    "hh": 729.0,
-    "h": 714.0,
-    "ax": 99.3,
-    "fy": 720.5,
-    "top": 6.0,
-    "px": 390.3,
-    "pfy": 717.5,
+    "w": 456.0,
+    "hh": 728.0,
+    "h": 711.0,
+    "ax": 126.6,
+    "fy": 718.5,
+    "top": 7.0,
+    "px": 350.6,
+    "pfy": 715.5,
     "rigid": true
    },
    "wire": {
@@ -1562,6 +1562,1029 @@
      "pair_guitar_j0": {
       "in": [
        "pair_ib_guitar_j0_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_neck__shelf",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_neck",
+   "what": "bedroom visit: Teixeira: from pair_cop_neck to pair_cop_shelf",
+   "src": "art/review/candidates/pair_ib_cop_neck__shelf.webp",
+   "originals": [
+    "art/sprites/pair_cop_neck.webp",
+    "art/sprites/pair_cop_shelf.webp"
+   ],
+   "meta": {
+    "w": 368.0,
+    "hh": 739.0,
+    "h": 722.0,
+    "ax": 275.7,
+    "fy": 728.5,
+    "top": 6.0,
+    "px": 114.1,
+    "pfy": 729.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_neck>pair_cop_shelf": {
+      "step": [
+       "pair_ib_cop_neck__shelf"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_shelf__jacket",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_shelf",
+   "what": "bedroom visit: Teixeira: from pair_cop_shelf to pair_cop_jacket",
+   "src": "art/review/candidates/pair_ib_cop_shelf__jacket.webp",
+   "originals": [
+    "art/sprites/pair_cop_shelf.webp",
+    "art/sprites/pair_cop_jacket.webp"
+   ],
+   "meta": {
+    "w": 386.0,
+    "hh": 743.0,
+    "h": 708.0,
+    "ax": 282.9,
+    "fy": 733.5,
+    "top": 6.0,
+    "px": 120.8,
+    "pfy": 725.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_shelf>pair_cop_jacket": {
+      "step": [
+       "pair_ib_cop_shelf__jacket"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_jacket__tshirt",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_jacket",
+   "what": "bedroom visit: Teixeira: from pair_cop_jacket to pair_cop_tshirt",
+   "src": "art/review/candidates/pair_ib_cop_jacket__tshirt.webp",
+   "originals": [
+    "art/sprites/pair_cop_jacket.webp",
+    "art/sprites/pair_cop_tshirt.webp"
+   ],
+   "meta": {
+    "w": 444.0,
+    "hh": 739.0,
+    "h": 702.0,
+    "ax": 371.5,
+    "fy": 729.5,
+    "top": 20.0,
+    "px": 90.1,
+    "pfy": 687.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_jacket>pair_cop_tshirt": {
+      "step": [
+       "pair_ib_cop_jacket__tshirt"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_tshirt__buttons",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_tshirt",
+   "what": "bedroom visit: Teixeira: from pair_cop_tshirt to pair_cop_buttons",
+   "src": "art/review/candidates/pair_ib_cop_tshirt__buttons.webp",
+   "originals": [
+    "art/sprites/pair_cop_tshirt.webp",
+    "art/sprites/pair_cop_buttons.webp"
+   ],
+   "meta": {
+    "w": 599.0,
+    "hh": 740.0,
+    "h": 718.0,
+    "ax": 502.4,
+    "fy": 731.5,
+    "top": 6.0,
+    "px": 182.8,
+    "pfy": 688.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_tshirt>pair_cop_buttons": {
+      "step": [
+       "pair_ib_cop_tshirt__buttons"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_shelf2__belt",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_shelf2",
+   "what": "bedroom visit: Teixeira: from pair_cop_shelf2 to pair_cop_belt",
+   "src": "art/review/candidates/pair_ib_cop_shelf2__belt.webp",
+   "originals": [
+    "art/sprites/pair_cop_shelf2.webp",
+    "art/sprites/pair_cop_belt.webp"
+   ],
+   "meta": {
+    "w": 528.0,
+    "hh": 739.0,
+    "h": 719.0,
+    "ax": 398.2,
+    "fy": 729.5,
+    "top": 8.0,
+    "px": 157.8,
+    "pfy": 726.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_shelf2>pair_cop_belt": {
+      "step": [
+       "pair_ib_cop_shelf2__belt"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_belt__belt2",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_belt",
+   "what": "bedroom visit: Teixeira: from pair_cop_belt to pair_cop_belt2",
+   "src": "art/review/candidates/pair_ib_cop_belt__belt2.webp",
+   "originals": [
+    "art/sprites/pair_cop_belt.webp",
+    "art/sprites/pair_cop_belt2.webp"
+   ],
+   "meta": {
+    "w": 485.0,
+    "hh": 739.0,
+    "h": 698.0,
+    "ax": 367.7,
+    "fy": 729.5,
+    "top": 12.0,
+    "px": 146.2,
+    "pfy": 727.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_belt>pair_cop_belt2": {
+      "step": [
+       "pair_ib_cop_belt__belt2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_belt2__trousers",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_belt2",
+   "what": "bedroom visit: Teixeira: from pair_cop_belt2 to pair_cop_trousers",
+   "src": "art/review/candidates/pair_ib_cop_belt2__trousers.webp",
+   "originals": [
+    "art/sprites/pair_cop_belt2.webp",
+    "art/sprites/pair_cop_trousers.webp"
+   ],
+   "meta": {
+    "w": 523.0,
+    "hh": 743.0,
+    "h": 711.0,
+    "ax": 411.0,
+    "fy": 734.5,
+    "top": 6.0,
+    "px": 151.1,
+    "pfy": 731.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_belt2>pair_cop_trousers": {
+      "step": [
+       "pair_ib_cop_belt2__trousers"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_trousers__cuffs",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_trousers",
+   "what": "bedroom visit: Teixeira: from pair_cop_trousers to pair_cop_cuffs",
+   "src": "art/review/candidates/pair_ib_cop_trousers__cuffs.webp",
+   "originals": [
+    "art/sprites/pair_cop_trousers.webp",
+    "art/sprites/pair_cop_cuffs.webp"
+   ],
+   "meta": {
+    "w": 486.0,
+    "hh": 742.0,
+    "h": 719.0,
+    "ax": 382.8,
+    "fy": 725.5,
+    "top": 6.0,
+    "px": 102.8,
+    "pfy": 722.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_trousers>pair_cop_cuffs": {
+      "step": [
+       "pair_ib_cop_trousers__cuffs"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_j0__jackets",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_j0",
+   "what": "bedroom visit: Duarte: from pair_guitar_j0 to pair_guitar_jackets",
+   "src": "art/review/candidates/pair_ib_guitar_j0__jackets.webp",
+   "originals": [
+    "art/sprites/pair_guitar_j0.webp",
+    "art/sprites/pair_guitar_jackets.webp"
+   ],
+   "meta": {
+    "w": 463.0,
+    "hh": 745.0,
+    "h": 730.0,
+    "ax": 335.2,
+    "fy": 736.5,
+    "top": 6.0,
+    "px": 114.0,
+    "pfy": 735.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_j0>pair_guitar_jackets": {
+      "step": [
+       "pair_ib_guitar_j0__jackets"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_jackets__j1",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_jackets",
+   "what": "bedroom visit: Duarte: from pair_guitar_jackets to pair_guitar_j1",
+   "src": "art/review/candidates/pair_ib_guitar_jackets__j1.webp",
+   "originals": [
+    "art/sprites/pair_guitar_jackets.webp",
+    "art/sprites/pair_guitar_j1.webp"
+   ],
+   "meta": {
+    "w": 478.0,
+    "hh": 739.0,
+    "h": 717.0,
+    "ax": 336.1,
+    "fy": 729.5,
+    "top": 12.0,
+    "px": 108.7,
+    "pfy": 728.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_jackets>pair_guitar_j1": {
+      "step": [
+       "pair_ib_guitar_jackets__j1"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_j1__j2",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_j1",
+   "what": "bedroom visit: Duarte: from pair_guitar_j1 to pair_guitar_j2",
+   "src": "art/review/candidates/pair_ib_guitar_j1__j2.webp",
+   "originals": [
+    "art/sprites/pair_guitar_j1.webp",
+    "art/sprites/pair_guitar_j2.webp"
+   ],
+   "meta": {
+    "w": 508.0,
+    "hh": 740.0,
+    "h": 725.0,
+    "ax": 357.5,
+    "fy": 731.5,
+    "top": 6.0,
+    "px": 121.7,
+    "pfy": 730.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_j1>pair_guitar_j2": {
+      "step": [
+       "pair_ib_guitar_j1__j2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_j2__u1",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_j2",
+   "what": "bedroom visit: Duarte: from pair_guitar_j2 to pair_guitar_u1",
+   "src": "art/review/candidates/pair_ib_guitar_j2__u1.webp",
+   "originals": [
+    "art/sprites/pair_guitar_j2.webp",
+    "art/sprites/pair_guitar_u1.webp"
+   ],
+   "meta": {
+    "w": 628.0,
+    "hh": 745.0,
+    "h": 729.0,
+    "ax": 453.8,
+    "fy": 735.5,
+    "top": 6.0,
+    "px": 170.1,
+    "pfy": 736.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_j2>pair_guitar_u1": {
+      "step": [
+       "pair_ib_guitar_j2__u1"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_u1__u2",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_u1",
+   "what": "bedroom visit: Duarte: from pair_guitar_u1 to pair_guitar_u2",
+   "src": "art/review/candidates/pair_ib_guitar_u1__u2.webp",
+   "originals": [
+    "art/sprites/pair_guitar_u1.webp",
+    "art/sprites/pair_guitar_u2.webp"
+   ],
+   "meta": {
+    "w": 531.0,
+    "hh": 741.0,
+    "h": 712.0,
+    "ax": 413.2,
+    "fy": 725.5,
+    "top": 6.0,
+    "px": 150.6,
+    "pfy": 725.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_u1>pair_guitar_u2": {
+      "step": [
+       "pair_ib_guitar_u1__u2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_u2__shirtfly",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_u2",
+   "what": "bedroom visit: Duarte: from pair_guitar_u2 to pair_guitar_shirtfly",
+   "src": "art/review/candidates/pair_ib_guitar_u2__shirtfly.webp",
+   "originals": [
+    "art/sprites/pair_guitar_u2.webp",
+    "art/sprites/pair_guitar_shirtfly.webp"
+   ],
+   "meta": {
+    "w": 522.0,
+    "hh": 742.0,
+    "h": 727.0,
+    "ax": 419.2,
+    "fy": 733.5,
+    "top": 6.0,
+    "px": 133.6,
+    "pfy": 720.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_u2>pair_guitar_shirtfly": {
+      "step": [
+       "pair_ib_guitar_u2__shirtfly"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_shirtfly__s1",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_shirtfly",
+   "what": "bedroom visit: Duarte: from pair_guitar_shirtfly to pair_guitar_s1",
+   "src": "art/review/candidates/pair_ib_guitar_shirtfly__s1.webp",
+   "originals": [
+    "art/sprites/pair_guitar_shirtfly.webp",
+    "art/sprites/pair_guitar_s1.webp"
+   ],
+   "meta": {
+    "w": 475.0,
+    "hh": 738.0,
+    "h": 720.0,
+    "ax": 376.5,
+    "fy": 728.5,
+    "top": 33.0,
+    "px": 135.1,
+    "pfy": 716.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_shirtfly>pair_guitar_s1": {
+      "step": [
+       "pair_ib_guitar_shirtfly__s1"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_s1__s2",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_s1",
+   "what": "bedroom visit: Duarte: from pair_guitar_s1 to pair_guitar_s2",
+   "src": "art/review/candidates/pair_ib_guitar_s1__s2.webp",
+   "originals": [
+    "art/sprites/pair_guitar_s1.webp",
+    "art/sprites/pair_guitar_s2.webp"
+   ],
+   "meta": {
+    "w": 570.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 472.9,
+    "fy": 729.5,
+    "top": 34.0,
+    "px": 100.7,
+    "pfy": 713.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_s1>pair_guitar_s2": {
+      "step": [
+       "pair_ib_guitar_s1__s2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_s2__undress2",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_s2",
+   "what": "bedroom visit: Duarte: from pair_guitar_s2 to pair_guitar_undress2",
+   "src": "art/review/candidates/pair_ib_guitar_s2__undress2.webp",
+   "originals": [
+    "art/sprites/pair_guitar_s2.webp",
+    "art/sprites/pair_guitar_undress2.webp"
+   ],
+   "meta": {
+    "w": 620.0,
+    "hh": 740.0,
+    "h": 720.0,
+    "ax": 396.3,
+    "fy": 729.5,
+    "top": 40.0,
+    "px": 179.1,
+    "pfy": 714.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_s2>pair_guitar_undress2": {
+      "step": [
+       "pair_ib_guitar_s2__undress2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_undress2__d1",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_undress2",
+   "what": "bedroom visit: Duarte: from pair_guitar_undress2 to pair_guitar_d1",
+   "src": "art/review/candidates/pair_ib_guitar_undress2__d1.webp",
+   "originals": [
+    "art/sprites/pair_guitar_undress2.webp",
+    "art/sprites/pair_guitar_d1.webp"
+   ],
+   "meta": {
+    "w": 604.0,
+    "hh": 739.0,
+    "h": 701.0,
+    "ax": 498.5,
+    "fy": 728.5,
+    "top": 11.0,
+    "px": 86.6,
+    "pfy": 699.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_undress2>pair_guitar_d1": {
+      "step": [
+       "pair_ib_guitar_undress2__d1"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_d1__d2",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_d1",
+   "what": "bedroom visit: Duarte: from pair_guitar_d1 to pair_guitar_d2",
+   "src": "art/review/candidates/pair_ib_guitar_d1__d2.webp",
+   "originals": [
+    "art/sprites/pair_guitar_d1.webp",
+    "art/sprites/pair_guitar_d2.webp"
+   ],
+   "meta": {
+    "w": 545.0,
+    "hh": 740.0,
+    "h": 693.0,
+    "ax": 374.6,
+    "fy": 725.5,
+    "top": 18.0,
+    "px": 133.1,
+    "pfy": 727.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_d1>pair_guitar_d2": {
+      "step": [
+       "pair_ib_guitar_d1__d2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_d2__hop",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_d2",
+   "what": "bedroom visit: Duarte: from pair_guitar_d2 to pair_guitar_hop",
+   "src": "art/review/candidates/pair_ib_guitar_d2__hop.webp",
+   "originals": [
+    "art/sprites/pair_guitar_d2.webp",
+    "art/sprites/pair_guitar_hop.webp"
+   ],
+   "meta": {
+    "w": 538.0,
+    "hh": 740.0,
+    "h": 722.0,
+    "ax": 377.4,
+    "fy": 728.5,
+    "top": 6.0,
+    "px": 178.1,
+    "pfy": 729.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_d2>pair_guitar_hop": {
+      "step": [
+       "pair_ib_guitar_d2__hop"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_hop__h1",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_hop",
+   "what": "bedroom visit: Duarte: from pair_guitar_hop to pair_guitar_h1",
+   "src": "art/review/candidates/pair_ib_guitar_hop__h1.webp",
+   "originals": [
+    "art/sprites/pair_guitar_hop.webp",
+    "art/sprites/pair_guitar_h1.webp"
+   ],
+   "meta": {
+    "w": 572.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 379.2,
+    "fy": 726.5,
+    "top": 6.0,
+    "px": 199.9,
+    "pfy": 728.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_hop>pair_guitar_h1": {
+      "step": [
+       "pair_ib_guitar_hop__h1"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_h1__h2",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_h1",
+   "what": "bedroom visit: Duarte: from pair_guitar_h1 to pair_guitar_h2",
+   "src": "art/review/candidates/pair_ib_guitar_h1__h2.webp",
+   "originals": [
+    "art/sprites/pair_guitar_h1.webp",
+    "art/sprites/pair_guitar_h2.webp"
+   ],
+   "meta": {
+    "w": 650.0,
+    "hh": 745.0,
+    "h": 708.0,
+    "ax": 474.3,
+    "fy": 714.5,
+    "top": 6.0,
+    "px": 104.6,
+    "pfy": 724.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_h1>pair_guitar_h2": {
+      "step": [
+       "pair_ib_guitar_h1__h2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_h2__lasso",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_h2",
+   "what": "bedroom visit: Duarte: from pair_guitar_h2 to pair_guitar_lasso",
+   "src": "art/review/candidates/pair_ib_guitar_h2__lasso.webp",
+   "originals": [
+    "art/sprites/pair_guitar_h2.webp",
+    "art/sprites/pair_guitar_lasso.webp"
+   ],
+   "meta": {
+    "w": 525.0,
+    "hh": 745.0,
+    "h": 703.0,
+    "ax": 389.1,
+    "fy": 709.5,
+    "top": 6.0,
+    "px": 107.8,
+    "pfy": 722.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_h2>pair_guitar_lasso": {
+      "step": [
+       "pair_ib_guitar_h2__lasso"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_lasso__l1",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_lasso",
+   "what": "bedroom visit: Duarte: from pair_guitar_lasso to pair_guitar_l1",
+   "src": "art/review/candidates/pair_ib_guitar_lasso__l1.webp",
+   "originals": [
+    "art/sprites/pair_guitar_lasso.webp",
+    "art/sprites/pair_guitar_l1.webp"
+   ],
+   "meta": {
+    "w": 495.0,
+    "hh": 739.0,
+    "h": 709.0,
+    "ax": 343.1,
+    "fy": 715.5,
+    "top": 6.0,
+    "px": 91.5,
+    "pfy": 722.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_lasso>pair_guitar_l1": {
+      "step": [
+       "pair_ib_guitar_lasso__l1"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_l1__l2",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_l1",
+   "what": "bedroom visit: Duarte: from pair_guitar_l1 to pair_guitar_l2",
+   "src": "art/review/candidates/pair_ib_guitar_l1__l2.webp",
+   "originals": [
+    "art/sprites/pair_guitar_l1.webp",
+    "art/sprites/pair_guitar_l2.webp"
+   ],
+   "meta": {
+    "w": 601.0,
+    "hh": 740.0,
+    "h": 706.0,
+    "ax": 435.9,
+    "fy": 724.5,
+    "top": 12.0,
+    "px": 78.9,
+    "pfy": 510.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_l1>pair_guitar_l2": {
+      "step": [
+       "pair_ib_guitar_l1__l2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_l2__underwear",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_l2",
+   "what": "bedroom visit: Duarte: from pair_guitar_l2 to pair_guitar_underwear",
+   "src": "art/review/candidates/pair_ib_guitar_l2__underwear.webp",
+   "originals": [
+    "art/sprites/pair_guitar_l2.webp",
+    "art/sprites/pair_guitar_underwear.webp"
+   ],
+   "meta": {
+    "w": 364.0,
+    "hh": 757.0,
+    "h": 730.0,
+    "ax": 261.7,
+    "fy": 744.5,
+    "top": 6.0,
+    "px": 36.5,
+    "pfy": 745.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_l2>pair_guitar_underwear": {
+      "step": [
+       "pair_ib_guitar_l2__underwear"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_underwear__p1",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_underwear",
+   "what": "bedroom visit: Duarte: from pair_guitar_underwear to pair_guitar_p1",
+   "src": "art/review/candidates/pair_ib_guitar_underwear__p1.webp",
+   "originals": [
+    "art/sprites/pair_guitar_underwear.webp",
+    "art/sprites/pair_guitar_p1.webp"
+   ],
+   "meta": {
+    "w": 527.0,
+    "hh": 739.0,
+    "h": 724.0,
+    "ax": 433.5,
+    "fy": 730.5,
+    "top": 6.0,
+    "px": 108.2,
+    "pfy": 711.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_underwear>pair_guitar_p1": {
+      "step": [
+       "pair_ib_guitar_underwear__p1"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_unbutton__kiss",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_unbutton",
+   "what": "Ch. IV cabin: from pair_unbutton to pair_kiss",
+   "src": "art/review/candidates/pair_ib_unbutton__kiss.webp",
+   "originals": [
+    "art/sprites/pair_unbutton.webp",
+    "art/sprites/pair_kiss.webp"
+   ],
+   "meta": {
+    "w": 356.0,
+    "hh": 744.0,
+    "h": 727.0,
+    "ax": 273.5,
+    "fy": 734.5,
+    "top": 6.0,
+    "px": 104.5,
+    "pfy": 724.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_unbutton>pair_kiss": {
+      "step": [
+       "pair_ib_unbutton__kiss"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_kiss__brow",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_kiss",
+   "what": "Ch. IV cabin: from pair_kiss to pair_brow",
+   "src": "art/review/candidates/pair_ib_kiss__brow.webp",
+   "originals": [
+    "art/sprites/pair_kiss.webp",
+    "art/sprites/pair_brow.webp"
+   ],
+   "meta": {
+    "w": 354.0,
+    "hh": 753.0,
+    "h": 737.0,
+    "ax": 256.0,
+    "fy": 743.5,
+    "top": 6.0,
+    "px": 108.9,
+    "pfy": 737.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_kiss>pair_brow": {
+      "step": [
+       "pair_ib_kiss__brow"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_wring_1__2",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_wring_1",
+   "what": "washhouse: wringing the sheet: from pair_wring_1 to pair_wring_2",
+   "src": "art/review/candidates/pair_ib_wring_1__2.webp",
+   "originals": [
+    "art/sprites/pair_wring_1.webp",
+    "art/sprites/pair_wring_2.webp"
+   ],
+   "meta": {
+    "w": 1008.0,
+    "hh": 745.0,
+    "h": 727.0,
+    "ax": 807.7,
+    "fy": 733.5,
+    "top": 6.0,
+    "px": 194.3,
+    "pfy": 734.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_wring_1>pair_wring_2": {
+      "step": [
+       "pair_ib_wring_1__2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_wring_2__3",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_wring_2",
+   "what": "washhouse: wringing the sheet: from pair_wring_2 to pair_wring_3",
+   "src": "art/review/candidates/pair_ib_wring_2__3.webp",
+   "originals": [
+    "art/sprites/pair_wring_2.webp",
+    "art/sprites/pair_wring_3.webp"
+   ],
+   "meta": {
+    "w": 1012.0,
+    "hh": 739.0,
+    "h": 717.0,
+    "ax": 810.9,
+    "fy": 726.5,
+    "top": 9.0,
+    "px": 190.7,
+    "pfy": 727.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_wring_2>pair_wring_3": {
+      "step": [
+       "pair_ib_wring_2__3"
       ]
      }
     }

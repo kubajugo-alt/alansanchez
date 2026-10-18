@@ -286,7 +286,7 @@
       const t0 = performance.now();
       await S.pairIn(c, W[0], { walk: false });
       let on = true;
-      const twist = (async () => { for (let i = 1; on; i++) { await G.wait(window.FAST ? 20 : 750); if (on) { p.pose = W[i % W.length]; if (i % W.length === 2) sfx('wring', 0.5); } } })();
+      const twist = (async () => { for (let i = 1; on; i++) { await G.wait(window.FAST ? 20 : 750); if (on) { await S.pairStep(W[i % W.length]); if (i % W.length === 2) sfx('wring', 0.5); } } })();
       sfx('wring');
       await joke('alan_wring');
       if (!window.FAST) await G.wait(Math.max(0, 3200 - (performance.now() - t0))); // at least one full turn of the sheet

@@ -77,9 +77,10 @@
     // the rooms after the visits: the officer gone from the station, Duarte gone from the tavern
     stationafter: { flags: { ch: 2, visit_cop: true, flirted_cop: true }, room: 'police', pos: [560, 680, 'w'], run: async () => {} },
     tavernafter: { flags: { ch: 2, visit_guitar: true, flirted_guitar: true }, room: 'tavern', pos: [720, 660, 'w'], run: async () => {} },
-    // the visits: walk into the shop from the street with Inês minding it
-    visitcop: { flags: { ch: 2, heard_machine: true, flirted_cop: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
-    visitguitar: { flags: { ch: 2, heard_machine: true, flirted_guitar: true, visit_cop: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
+    // the visits: Teixeira's, walking into the shop from the street once the drawer is open (Inês minding the shop);
+    // Duarte's, while Inês steams the ledger at the end of Chapter III (S.ch3End)
+    visitcop: { flags: { ch: 2, heard_machine: true, flirted_cop: true, drawer_open: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
+    visitguitar: { flags: { ch: 3, heard_machine: true, flirted_guitar: true, visit_cop: true, ch3_done: true, steaming: true, pages_steaming: true }, room: 'shop', pos: [716, 618, 'w'], run: () => S.visitGuitar() },
     // the Sé: the museum with Inês, and the cloister with the dig questions done (Vasco about to show Alan the pit)
     semuseum: { flags: { ch: 1, heard_machine: true, knows_brotherhood: true, ines_plan: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('se_museum', 'map') },
     sepit: { flags: { ch: 1, heard_machine: true, knows_brotherhood: true, ines_plan: true, se_visited: true, se_exhibits: 4, se_plan_on: true, saw_pit: true, saw_marks: true, saw_frags: true, met_vasco: true },

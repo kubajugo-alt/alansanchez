@@ -54,6 +54,14 @@
   S.pairPartnerAt = k => { const p = G.player, m = window.SPRITES[k], s = p.height() / m.h; return { x: p.x + (m.px - m.ax) * s, y: p.y + (m.pfy - m.fy) * s }; };
   const IB_HOLD = 110;
   async function pairSteps(seq) { const p = G.player; for (const f of seq) { p.crossFade(0.1); p.pose = f; await G.wait(window.FAST ? 0 : IB_HOLD); } }
+  // from the pair painting Alan is in now to pair k (at x, if the painting needs him elsewhere): in 'gemini' mode the
+  // approved in-between for that change plays first (either way round: it's the moment half way), else one dissolves into the next
+  S.pairStep = async function (k, x) {
+    const p = G.player, from = p.pose, IB = S.pairMode() === 'gemini' && (S.CHARS.alan.frames.pairIb || {});
+    const ib = IB && (IB[from + '>' + k] || IB[k + '>' + from]), seq = (ib && ib.step) || [];
+    if (seq.length) { if (x != null) p.x = (p.x + x) / 2; await pairSteps(seq); p.crossFade(0.1); }
+    p.pose = k; if (x != null) p.x = x;
+  };
   // into pair k with npc: { walk: false } skips the walk (he's already there, or the scene has just cut in)
   S.pairIn = async function (npc, k, opts) {
     opts = opts || {};

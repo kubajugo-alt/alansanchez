@@ -49,6 +49,7 @@ PHASE2 = [
 # the pairs themselves (scripts/pair_anchors.py: Alan's feet, the partner's feet); played when the review
 # screen's pair transition is set to 'gemini'
 PHASE3_T = json.load(open(os.path.join(ROOT, 'scripts/pair_ibs.json')))['pairs']
+PHASE3_STEPS = json.load(open(os.path.join(ROOT, 'scripts/pair_ibs.json')))['steps']
 
 
 def pair_meta(png, side):
@@ -87,6 +88,20 @@ def main():
                           'what': f'{scene}: {"stepping into" if d == "in" else "stepping out of"} {pk}',
                           'src': f'art/review/candidates/{key}.webp', 'originals': [SP(pk), SP(solo), SP('alan_side')], 'meta': pair_meta(src_png, side),
                           'wire': {'pairIb': {pk: {d: [key]}}}})
+    # the steps from one pair painting to the next (S.pairStep), on the same side as the sequence's pairs
+    sides = {p[0]: p[3] for p in PHASE3_T}
+    for a, b, who, scene, *_ in PHASE3_STEPS:
+        side = sides.get(a) or next((v for k, v in sides.items() if k.split('_')[:2] == a.split('_')[:2]), None)
+        if side is None: side = next(sides[s[0]] for s in PHASE3_STEPS if s[1] == a and s[0] in sides)
+        name = f'ib_{a[5:]}__{b.split("_")[-1]}'
+        key = 'pair_ib_' + name[3:]
+        src_png = os.path.join(REV, f'alan/phase3/{name}.png')
+        if not os.path.exists(src_png): continue
+        Image.open(src_png).convert('RGBA').save(os.path.join(OUT, key + '.webp'), lossless=True)
+        cands.append({'id': key, 'char': 'alan', 'phase': 3, 'kind': 'pair-inbetween', 'pair': a,
+                      'what': f'{scene}: from {a} to {b}',
+                      'src': f'art/review/candidates/{key}.webp', 'originals': [SP(a), SP(b)], 'meta': pair_meta(src_png, side),
+                      'wire': {'pairIb': {f'{a}>{b}': {'step': [key]}}}})
     # phase 1 flagged frames: a proposal that needs no new painting
     cands.append({'id': 'wire_alan_untie', 'char': 'alan', 'phase': 2, 'kind': 'wiring',
                   'what': 'Proposal A: the successful haul on the mooring line (Ch. IV) uses the unused alan_untie; the failed first try keeps alan_pull',

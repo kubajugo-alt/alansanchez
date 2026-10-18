@@ -96,7 +96,7 @@
         await Promise.all([v.walkTo(o.x, o.y), p.walkTo(x, p.y)]); v.x = o.x; v.y = o.y;
       }
       await S.pairIn(v, pose);
-    } else { p.pose = pose; p.x = x; }
+    } else await S.pairStep(pose, x);
     await T(ms);
   }
   async function upstairs(who, at, vx) {

@@ -1,6 +1,6 @@
 # Gemini in-betweens for the way into and out of every combined sprite (scripts/pair_ibs.json), 4 at a time.
 #   python3 scripts/gen_pair_ibs.py [pair_key ... | steps]     (existing results are kept; delete one to redo it)
-# 'steps': the in-betweens from one pair painting to the next in a sequence (scripts/pair_ibs.json 'steps').
+# 'steps': the in-betweens from one pair painting to the next in a sequence (scripts/pair_ibs.json 'steps'), with an optional note.
 # Each call edits the pair painting itself, with the partner's and Alan's solo frames as the other references,
 # so both people stay the same; the results go to art/review/alan/phase3/ib_<pair>_<in|out>.png for review.
 import json, os, subprocess, sys
@@ -35,13 +35,13 @@ def job(args):
 
 
 def step_job(args):
-    a, b, who = args
+    a, b, who, note = args
     out = f'art/review/alan/phase3/ib_{a[5:]}__{b.split("_")[-1]}.png'
     if os.path.exists(os.path.join(ROOT, out)): return f'{out} (kept)'
     pr = (f'TWO people, exactly as in the first image: {who} and Alan (dark hair, blue jeans), the same size, on the same floor line, '
           'in the same framing as the first image. This is an in-between frame from the pose in the FIRST image to the pose in the SECOND image: '
           'draw the moment half way between the two, the same two people in the same places, their arms, hands and heads part way '
-          'from the first pose to the second, with clothes exactly as in the FIRST image. Keep both faces, builds and clothes exactly as in the images.')
+          'from the first pose to the second, with clothes exactly as in the FIRST image. ' + (note + ' ' if note else '') + 'Keep both faces, builds and clothes exactly as in the images.')
     r = subprocess.run([sys.executable, 'scripts/gen_image.py', '--ref', SP(a), '--ref', SP(b), '--prompt', pr, '--out', out], cwd=ROOT, capture_output=True, text=True)
     return (r.stdout.strip().splitlines() or [''])[-1] if r.returncode == 0 else f'{out} FAILED: {(r.stderr or r.stdout).strip().splitlines()[-1:]}'
 
@@ -50,7 +50,7 @@ only = sys.argv[1:]
 steps = json.load(open(os.path.join(ROOT, 'scripts/pair_ibs.json'))).get('steps', [])
 if not only or 'steps' in only:
     with ThreadPoolExecutor(4) as ex:
-        for line in ex.map(step_job, [(a, b, w) for a, b, w, _ in steps]): print(line, flush=True)
+        for line in ex.map(step_job, [(s[0], s[1], s[2], s[4] if len(s) > 4 else '') for s in steps]): print(line, flush=True)
     if only: sys.exit()
 jobs = [(r[0], r[1], r[2], r[3], d, r[6] if len(r) > 6 else '') for r in T if not only or r[0] in only for d in r[4]]
 with ThreadPoolExecutor(4) as ex:

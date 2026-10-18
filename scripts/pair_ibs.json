@@ -1,5 +1,5 @@
 {
- "_": "In-between paintings into / out of each combined sprite: [pair key, partner's solo frame, partner, Alan's side (x range), directions, scene, (note)]. Used by scripts/gen_pair_ibs.py and scripts/review_candidates.py. steps: [from pair, to pair, partner, scene]: an in-between for each change from one pair painting to the next.",
+ "_": "In-between paintings into / out of each combined sprite: [pair key, partner's solo frame, partner, Alan's side (x range), directions, scene, (note)]. Used by scripts/gen_pair_ibs.py and scripts/review_candidates.py. steps: [from pair, to pair, partner, scene, (note)]: an in-between for each change from one pair painting to the next.",
  "pairs": [
   [
    "pair_cop_chest",
@@ -329,7 +329,8 @@
    "pair_guitar_d2",
    "pair_guitar_hop",
    "Duarte the guitarist",
-   "bedroom visit: Duarte"
+   "bedroom visit: Duarte",
+   "Both men still have their shoes on, on both feet, exactly as in both images: no bare feet."
   ],
   [
    "pair_guitar_hop",
@@ -353,13 +354,15 @@
    "pair_guitar_lasso",
    "pair_guitar_l1",
    "Duarte the guitarist",
-   "bedroom visit: Duarte"
+   "bedroom visit: Duarte",
+   "Alan has just let go of the jeans: they fly up and away over his head toward the top right, out of his hands. Both men wear only black briefs and are barefoot."
   ],
   [
    "pair_guitar_l1",
    "pair_guitar_l2",
    "Duarte the guitarist",
-   "bedroom visit: Duarte"
+   "bedroom visit: Duarte",
+   "Both men wear ONLY black briefs and are barefoot, exactly as in both images: no shirts, no jackets, no trousers, no shoes. Duarte (moustache) is in mid-air, leaping from behind onto Alan's back, his arms reaching for Alan's shoulders; the jeans are gone (thrown away)."
   ],
   [
    "pair_guitar_l2",

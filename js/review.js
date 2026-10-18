@@ -203,7 +203,7 @@
         <h3>Combined paintings (stills)</h3>
         ${COMBINED_STILLS.map(c => `<div style="margin:6px 0"><button class="b" data-sc="${c.scene}">▶ ${c.label}</button>
           <div>${c.stills.map(k => `<button class="b" data-st="${k}" style="font-size:11px">${k.replace('still_', '')}</button>`).join('')}</div></div>`).join('')}
-        <h3>Transition in/out of a combined sprite</h3>
+        <h3>Transition in/out of a combined sprite, and from one to the next</h3>
         <label><input type="radio" name="pt" value="xfade"${mode === 'xfade' ? ' checked' : ''}> cross-fade (0.25 s)</label><br>
         <label><input type="radio" name="pt" value="gemini"${mode === 'gemini' ? ' checked' : ''}> Gemini in-between frames (every scene, once approved under New frames)</label>
         <p class="muted">The choice is kept in this browser and used by the scenes above.</p>
@@ -259,6 +259,21 @@
     if (W.set) return playState('set:' + Object.keys(W.set)[0]).then(() => apply('walk', loopTok));
     const k = W.inbetween && Object.keys(W.inbetween)[0];
     if (k) { const [a, b] = k.split('>'); playTransition(a === 'alan_side' ? 'idle' : 'pose:' + a, 'pose:' + b); }
+    const pk = W.pairIb && Object.keys(W.pairIb).find(k => k.includes('>'));
+    if (pk) { const [a, b] = pk.split('>'); return tryPairStep(a, b); }
+  }
+  // a step between two pair paintings, played twice through its in-between (as the scenes play it in 'gemini' mode)
+  async function tryPairStep(a, b) {
+    const tok = ++loopTok, p = G.player;
+    await stage(G.room && G.room.id); loopTok = tok;
+    let keep = null; try { keep = localStorage.getItem('pair-transition'); localStorage.setItem('pair-transition', 'gemini'); } catch (e) { /* private mode */ }
+    try {
+      $('#rv-now').textContent = a.replace('pair_', '') + ' → ' + b.replace('pair_', '');
+      for (let i = 0; i < 2; i++) {
+        p.dir = 'e'; p.pose = a; await wait(1400); if (tok !== loopTok) return;
+        await S.pairStep(b); await wait(1400); if (tok !== loopTok) return;
+      }
+    } finally { try { if (keep == null) localStorage.removeItem('pair-transition'); else localStorage.setItem('pair-transition', keep); } catch (e) { /* private mode */ } }
   }
   async function save() {
     const d = Object.assign({}, (S.REVIEW && S.REVIEW.saved) || {}, dec()), body = JSON.stringify(d, null, 1);
