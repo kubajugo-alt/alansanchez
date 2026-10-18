@@ -13,15 +13,18 @@
   const COLORS = { alan: '#ffe2a0', ines: '#ffab9a', rui: '#a8d4ff', amalia: '#e2b0ff', tomas: '#cfeab8', lacerda: '#ff7d6a', celeste: '#ffd0a0', ze: '#9fd8ff', abilio: '#f0e68c', lino: '#f2c79a', phone: '#b9c9ff', guitar: '#d8c0a0', cards: '#d9c8a8', fish: '#ffb8b8', mender1: '#c8d8c0', mender2: '#b8d0b0', nun: '#e0e0f0', washer1: '#f0c8b0', washer2: '#d8c0e0', laundry: '#e8d0b8', bench: '#d8c8a8', narr: '#eee6d6' };
   const NAMES = { alan: 'Alan', ines: 'Inês', rui: 'Rui', amalia: 'Amália', tomas: 'Father Tomás', lacerda: 'Lacerda', celeste: 'Celeste', ze: 'Zé', abilio: 'Abílio', lino: 'Lino', phone: 'Officer Teixeira', guitar: 'Duarte', cards: 'Card player', fish: 'Fishwife', mender1: 'Old fisherman', mender2: 'Fisherman', nun: 'Sister', washer1: 'Washerwoman', washer2: 'Graça', laundry: 'Woman with the washing', bench: 'Senhor Armando', vasco: 'Dr. Teles', narr: '' };
 
+  const E = window.Engine = {};
   const ROOMS = {}, ITEMS = {}, CHARS = {};
   const IMG = {}; // loaded images by key
-  let state = freshState();
-  let room = null, fogA = null, fogB = null;
-  let player = null, npcs = [];
-  let selItem = null;
-  let busy = 0, mouse = { x: -1, y: -1 }, hoverTarget = null, cutscene = 0;
-  let skipFn = null, dialogResolve = null;
-  let time = 0, last = performance.now(), last0 = performance.now(), slowT = 0;
+  E.state = freshState();
+  E.room = null; E.fogA = null; E.fogB = null;
+  E.player = null; E.npcs = [];
+  E.selItem = null;
+  E.busy = 0; E.cutscene = 0;
+  let mouse = { x: -1, y: -1 }, hoverTarget = null;
+  E.skipFn = null; E.dialogResolve = null;
+  E.time = 0;
+  let last = performance.now(), last0 = performance.now(), slowT = 0;
 
   function freshState() { return { room: 'shop', inv: [], flags: {}, px: 300, py: 600, dir: 'w' }; }
 
@@ -40,7 +43,7 @@
     for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) jobs.push(['bg:' + b, 'art/bg/' + b + '.jpg']);
     for (const s of (window.STILLS || [])) jobs.push(['still:' + s, 'art/stills/' + s + '.jpg']);
     for (const c of (window.CLOSEUPS || [])) jobs.push(['close:' + c, 'art/closeups/' + c + '.jpg']);
-    for (const k in SPRITES) jobs.push(['spr:' + k, SPRITES[k].src || 'art/sprites/' + k + '.webp']); // src: an approved review frame
+    for (const k in E.SPRITES) jobs.push(['spr:' + k, E.SPRITES[k].src || 'art/sprites/' + k + '.webp']); // src: an approved review frame
     for (const id in ROOMS) for (const l of (ROOMS[id].layers || [])) jobs.push(['lay:' + l.img, 'art/layers/' + l.img + '.webp']);
     for (const id in ROOMS) if (ROOMS[id].skyMask) jobs.push(['mask:' + ROOMS[id].skyMask, 'art/layers/' + ROOMS[id].skyMask + '.webp']);
     let done = 0;
@@ -78,7 +81,7 @@
   const LISTEN_RANGE = 900;     // only people within this many px of the speaker listen
   const IDLE_RATE_JITTER = 0.22; // each figure breathes and sways at its own tempo (+/- this fraction)
   const CALM_RATE = 2.2;        // how quickly breath and sway return after a walk (1/s)
-  let phraseEndT = -1;          // when the current speaker last came to the end of a phrase
+  E.phraseEndT = -1;           // when the current speaker last came to the end of a phrase
 
   class Actor {
     constructor(id, ch, x, y, dir) {
@@ -90,7 +93,7 @@
       this.cur = null; this.prev = null; this.fadeT = 0; this.lastFlip = false;
       this.breath = Math.random() * 10; this.sink = 0; this.turnT = 0; this.stepIdx = -1;
       this.rate = 1 + (Math.random() * 2 - 1) * IDLE_RATE_JITTER; // no two figures breathe in step
-      this.leanX = 0; this.leanV = 0; this.calm = 1; this.walkT = 0; this.pace = 1; this.listen = 0; this.heardT = phraseEndT; this.nodAt = -9;
+      this.leanX = 0; this.leanV = 0; this.calm = 1; this.walkT = 0; this.pace = 1; this.listen = 0; this.heardT = E.phraseEndT; this.nodAt = -9;
       this.alpha = 1; this.alphaTo = null; this.xfNext = 0; // fade(): the whole figure; crossFade(): the next frame change
       this.perf = 0; this.swayPh = Math.random() * 60; this.tiltPh = Math.random() * 60; this.beatPh = Math.random() * 60;
     }
@@ -104,7 +107,7 @@
         if (this.resolve) this.resolve();
         if (Math.hypot(x - this.x, y - this.y) < 2) { res(); return; }
         // Alan goes round the furniture cut out of the floor, not through it
-        const [first, ...rest] = this === player && room && room.walk ? roundCorners([this.x, this.y], route([this.x, this.y], [x, y], room.walk), room.walk, this.height()) : [[x, y]];
+        const [first, ...rest] = this === E.player && E.room && E.room.walk ? E.roundCorners([this.x, this.y], E.route([this.x, this.y], [x, y], E.room.walk), E.room.walk, this.height()) : [[x, y]];
         if (!this.walking) this.walkT = 0; // a fresh start eases in; a change of mind mid-stride keeps the pace
         this.target = { x: first[0], y: first[1] }; this.path = rest; this.resolve = res; this.walking = true;
       });
@@ -190,7 +193,7 @@
           this.stepIdx = idx;
           const steps = !this.dir || this.dir === 'e' || this.dir === 'w' ? this.F.walkSteps : null;
           const contact = steps && lens ? steps.includes(idx) : cyc.length >= 8 ? idx % 4 === 0 : idx % 2 === 0;
-          if (contact && this.visible && this.x > -40 && this.x < 1320) Sound.step((room && room.floor) || 'stone', this === player ? 1 : 0.35 + 0.4 * Math.max(0, Math.min(1, (this.y - 520) / 200)), this.x);
+          if (contact && this.visible && this.x > -40 && this.x < 1320) Sound.step((E.room && E.room.floor) || 'stone', this === E.player ? 1 : 0.35 + 0.4 * Math.max(0, Math.min(1, (this.y - 520) / 200)), this.x);
         }
         if (arrived) this.stop();
       }
@@ -204,17 +207,17 @@
         if (Math.abs(this.leanX) > 0.05) this.leanX = Math.sign(this.leanX) * 0.05;
       } else { this.leanX = 0; this.leanV = 0; }
       // listening: the head inclines toward whoever is speaking; now and then a nod as a phrase ends
-      const spk = speaking && speaking.actor;
+      const spk = E.speaking && E.speaking.actor;
       let lt = 0;
       if (spk && spk !== this && spk.visible && this.visible && !this.talking && !this.walking && Math.abs(spk.x - this.x) < LISTEN_RANGE) lt = spk.x > this.x ? 1 : spk.x < this.x ? -1 : 0;
       this.listen += (lt - this.listen) * Math.min(1, dt * 3.5);
-      if (phraseEndT > this.heardT) { this.heardT = phraseEndT; if (lt && Math.random() < LISTEN_NOD_P) this.nodAt = time + 0.12 + Math.random() * 0.35; }
+      if (E.phraseEndT > this.heardT) { this.heardT = E.phraseEndT; if (lt && Math.random() < LISTEN_NOD_P) this.nodAt = E.time + 0.12 + Math.random() * 0.35; }
       if (this.talking) {
         this.talkT -= dt;
-        const lvl = speaking && speaking.actor === this ? Sound.voiceLevel() : 0.5;
+        const lvl = E.speaking && E.speaking.actor === this ? Sound.voiceLevel() : 0.5;
         this.lvl = (this.lvl || 0) + (lvl - (this.lvl || 0)) * Math.min(1, dt * 12);
         this.quietT = lvl < 0.06 ? this.quietT + dt : 0;
-        if (speaking && speaking.actor === this) { if (lvl >= 0.06) this.voiced = true; else if (this.voiced && this.quietT > 0.28) { this.voiced = false; phraseEndT = time; } }
+        if (E.speaking && E.speaking.actor === this) { if (lvl >= 0.06) this.voiced = true; else if (this.voiced && this.quietT > 0.28) { this.voiced = false; E.phraseEndT = E.time; } }
         const n = arr(F.talk).length;
         if (this.quietT > 0.45 && this.talkIdx >= 0 && this.talkT < 0.5) { this.talkIdx = -1; this.talkT = 0.3; }
         else if (this.talkT <= 0) {
@@ -223,14 +226,14 @@
         }
       } else { this.talkIdx = 0; this.talkT = 0; this.quietT = 0; this.lvl = 0; }
       const nIdle = arr(F.idle).length;
-      if (!(cutscene && this.def && this.def.ambient)) this.idleT -= dt; // ambient extras freeze during cutscenes
+      if (!(E.cutscene && this.def && this.def.ambient)) this.idleT -= dt; // ambient extras freeze during cutscenes
       if (this.idleT <= 0) {
         const vh = this.c.variantHold || [2, 4.5], ih = this.c.idleHold || [4, 10];
         if (this.idleIdx === 0 && nIdle > 1) { this.idleIdx = 1 + Math.floor(Math.random() * (nIdle - 1)); this.idleT = vh[0] + Math.random() * (vh[1] - vh[0]); const v = arr(F.idle)[this.idleIdx]; if (Array.isArray(v)) this.idleT *= Math.max(1, v.length * 0.6); this.idleDur = this.idleT; }
         else { this.idleIdx = 0; this.idleT = ih[0] + Math.random() * (ih[1] - ih[0]); }
       }
       // background extras that walk a beat (dockworkers, etc.)
-      if (this.def && this.def.patrol && !this.walking && !cutscene) {
+      if (this.def && this.def.patrol && !this.walking && !E.cutscene) {
         this.patrolT = (this.patrolT || 0) - dt;
         if (this.patrolT <= 0) {
           const P = this.def.patrol; this.patrolI = ((this.patrolI || 0) + 1) % P.points.length;
@@ -239,22 +242,22 @@
         }
       }
       // NPCs turn toward Alan (after a human beat), unless busy or posed
-      if (this !== player && player && player.visible && !this.walking && !this.pose && !this.loopActive() && !(this.def && (this.def.fixedDir || this.def.ambient)) && (this.dir === 'e' || this.dir === 'w') && turnsFreely(this)) {
-        const want = player.x > this.x ? 'e' : 'w';
-        if (want !== this.dir && Math.abs(player.x - this.x) > 40) { this.turnT += dt; if (this.turnT > 0.6) { this.dir = want; this.turnT = 0; } }
+      if (this !== E.player && E.player && E.player.visible && !this.walking && !this.pose && !this.loopActive() && !(this.def && (this.def.fixedDir || this.def.ambient)) && (this.dir === 'e' || this.dir === 'w') && E.turnsFreely(this)) {
+        const want = E.player.x > this.x ? 'e' : 'w';
+        if (want !== this.dir && Math.abs(E.player.x - this.x) > 40) { this.turnT += dt; if (this.turnT > 0.6) { this.dir = want; this.turnT = 0; } }
         else this.turnT = 0;
       }
     }
     loopActive() { const F = this.F; return !!(this.loop && F.loops && F.loops[this.loop] && !this.engaged && this.resumeT <= 0 && !this.talking); }
     stop() {
       if (this.walking && !window.FAST) this.leanV -= (this.dir === 'e' ? 1 : this.dir === 'w' ? -1 : 0) * LEAN_SETTLE; // planted: the body rocks back a touch
-      if (this.walking) this.stopAt = time;
+      if (this.walking) this.stopAt = E.time;
       this.target = null; this.path = null; this.walking = false; this.phase = 0; this.stepIdx = -1; this.walkT = 0; const r = this.resolve; this.resolve = null; if (r) r();
     }
-    height() { return (this.h || scaleAt(this.y)) * (this.c.scale || 1); }
+    height() { return (this.h || E.scaleAt(this.y)) * (this.c.scale || 1); }
     // frames not painted yet fall back to the character's idle (then talk) frame
     frameKey() {
-      const k = this.rawKey(), ok = f => f && SPRITES[f] && IMG['spr:' + f];
+      const k = this.rawKey(), ok = f => f && E.SPRITES[f] && IMG['spr:' + f];
       const F = this.F, key = ok(k) ? k : arr(F.idle).concat(arr(F.talk)).find(ok) || k;
       return window.FAST ? key : this.between(key, ok);
     }
@@ -264,7 +267,7 @@
     between(key, ok) {
       const F = this.F, side = this.dir === 'e' || this.dir === 'w';
       if (side && !this.pose && this.walking && this.walkT < WALK_EDGE && ok(F.walkStart)) return F.walkStart;
-      if (side && !this.pose && !this.walking && this.stopAt != null && time - this.stopAt < WALK_EDGE && ok(F.walkStop)) return F.walkStop;
+      if (side && !this.pose && !this.walking && this.stopAt != null && E.time - this.stopAt < WALK_EDGE && ok(F.walkStop)) return F.walkStop;
       const IB = F.inbetween;
       if (!IB) { this.settled = key; return key; }
       if (this.ibSeq && this.ibTarget !== key) this.ibSeq = null; // changed its mind: go straight there
@@ -284,7 +287,7 @@
       if (this.dir === 'n' && F.back) return arr(F.back)[0];
       if (this.dir === 's' && F.front) return arr(F.front)[0];
       if (this.talking) { const t = arr(F.talk); return t.length && this.talkIdx >= 0 ? t[this.talkIdx % t.length] : arr(F.idle)[0]; }
-      if (this.loopActive()) { const L = F.loops[this.loop]; return L.frames[Math.floor(time * L.fps) % L.frames.length]; }
+      if (this.loopActive()) { const L = F.loops[this.loop]; return L.frames[Math.floor(E.time * L.fps) % L.frames.length]; }
       const id = arr(F.idle), v = id[this.idleIdx % id.length];
       // an idle variant can be a little action, [frame, frame, ...], played through over its hold
       return Array.isArray(v) ? v[Math.min(v.length - 1, Math.floor((1 - Math.max(0, this.idleT) / (this.idleDur || 1)) * v.length))] : v;
@@ -300,11 +303,11 @@
       let u = (x - this.x - A.x) / A.w, v = (y - this.y - A.y) / A.h;
       if (u < 0 || u > 1 || v < 0 || v > 1) return false;
       if (A.flipped) u = 1 - u;
-      return alphaAt(A.im, u, v) > 40;
+      return E.alphaAt(A.im, u, v) > 40;
     }
     // sprite placement relative to the feet, in scene px
     place(key, flipped) {
-      const sp = SPRITES[key], im = IMG['spr:' + key];
+      const sp = E.SPRITES[key], im = IMG['spr:' + key];
       if (!sp || !im) return null;
       const s = this.height() / sp.h;
       const ax = flipped ? sp.w - sp.ax : sp.ax;
@@ -314,7 +317,7 @@
     // breath in the chest, a slow sway from the feet (from the seat when sitting), the head tilting
     // on the neck, nods with the voice, a bob in the step; performers move with the music.
     motion(h, fx, fy, sp, b, key) {
-      const t = (window.ANIM_T != null ? window.ANIM_T : time) * this.rate + (this.seed || (this.seed = Math.random() * 100));
+      const t = (window.ANIM_T != null ? window.ANIM_T : E.time) * this.rate + (this.seed || (this.seed = Math.random() * 100));
       const c = this.c.anim || {}, d = (this.def && this.def.anim) || {};
       const k = (n, def) => (d[n] != null ? d[n] : c[n] != null ? c[n] : def);
       const s = h / sp.h, F = Math.max(1, (sp.fy - sp.top) * s);
@@ -335,7 +338,7 @@
       // (stronger when the speaker is in front of them), and the nod's envelope
       const fs = (sp.facesLeft ? -1 : 1) * (this.lastFlip ? -1 : 1), side = !(this.F.front && arr(this.F.front).includes(key)) && !(this.F.back && arr(this.F.back).includes(key));
       const ahead = this.listen * fs > 0 ? 1 : 0.45;
-      const nu = (time - this.nodAt) / 0.5, nod = nu > 0 && nu < 1 ? Math.pow(Math.sin(nu * Math.PI), 2) : 0;
+      const nu = (E.time - this.nodAt) / 0.5, nod = nu > 0 && nu < 1 ? Math.pow(Math.sin(nu * Math.PI), 2) : 0;
       const hear = wide ? 0 : (side ? this.listen * ahead * LISTEN_TILT + fs * nod * LISTEN_NOD : 0);
       const tilt = wide ? 0 : k('nod', 1) * (0.02 + perf * 0.055) * Math.sin(phTilt + 2.1) + (this.walking ? 0.012 * Math.sin(this.phase * Math.PI) : 0) + hear;
       const bob = wide ? 0 : (perf * 0.006 * (0.5 + 0.5 * Math.sin(phBeat)) + nod * 0.008) * F;
@@ -349,7 +352,7 @@
       const swayAt = v => { const q = sm(root, 1, v); return (sway + lean) * h * q * q; };
       const pxN = px0 + swayAt(neck);
       // turning round: the figure narrows through the turn and opens out facing the new way
-      const tp = this.turnT0 != null ? (time - this.turnT0) / 0.22 : 1;
+      const tp = this.turnT0 != null ? (E.time - this.turnT0) / 0.22 : 1;
       const turnS = tp < 1 ? 0.3 + 0.7 * sm(0, 1, tp) : 1;
       return (x, y) => {
         const v = (fy - y) / F;
@@ -378,7 +381,7 @@
     }
     drawBody() {
       let key = this.frameKey();
-      let sp = SPRITES[key];
+      let sp = E.SPRITES[key];
       if (!sp) return;
       // background extras keep the pose they were painted in (unless they walk)
       const ambientHold = this.def && this.def.ambient && !this.walking && !this.def.flip;
@@ -387,15 +390,15 @@
       // Turning round between east and west: a figure with a painted front view swings through it
       // (side, front, other side), like an old adventure game; others dissolve from one facing to
       // the other instead of narrowing into a flat card.
-      const F = this.F, fk = F.front && arr(F.front)[0], frontOK = fk && SPRITES[fk] && IMG['spr:' + fk];
+      const F = this.F, fk = F.front && arr(F.front)[0], frontOK = fk && E.SPRITES[fk] && IMG['spr:' + fk];
       // a real turn is a change of facing, not two paintings that happen to face different ways
       const ew = this.dir === 'e' || this.dir === 'w', faceTurn = ew && this.lastEW && this.dir !== this.lastEW && !ambientHold;
       if (faceTurn && !this.walking && !window.FAST) this.leanV += (this.dir === 'e' ? 1 : -1) * LEAN_TURN; // weight onto the new side
       if (ew) this.lastEW = this.dir;
-      if (this.viaT == null && faceTurn && this.cur && !window.FAST && frontOK && key !== fk && this.cur !== fk && !this.pose) this.viaT = time;
+      if (this.viaT == null && faceTurn && this.cur && !window.FAST && frontOK && key !== fk && this.cur !== fk && !this.pose) this.viaT = E.time;
       let via = false;
       if (this.viaT != null) {
-        if (time - this.viaT < TURN_VIA && frontOK) { via = true; key = fk; sp = SPRITES[fk]; flipped = !!sp.facesLeft; }
+        if (E.time - this.viaT < TURN_VIA && frontOK) { via = true; key = fk; sp = E.SPRITES[fk]; flipped = !!sp.facesLeft; }
         else { this.viaT = null; this.lastFlip = flipped; this.viaOut = true; } // out of the front view: no second turn
       }
       this.lastFlip = flipped;
@@ -411,7 +414,7 @@
         // a drag on the cigarette) get a quick eased cross-fade; anything else is a clean cut
         const SIM = window.SIMILAR, ibHand = this.ibSeq || this.ibWas; this.ibWas = !!this.ibSeq; // in-between frames hand over with a quick cross-fade too
         // into or out of a combined sprite, or from one pair painting to the next: a plain dissolve (pairs never morph)
-        const pairs = this.prev && SPRITES[key] && SPRITES[this.prev] && SPRITES[key].rigid && SPRITES[this.prev].rigid;
+        const pairs = this.prev && E.SPRITES[key] && E.SPRITES[this.prev] && E.SPRITES[key].rigid && E.SPRITES[this.prev].rigid;
         if (pairs && !(this.xfNext > 0)) this.xfNext = PAIR_STEP;
         const forced = this.xfNext > 0 && this.prev;
         const similar = forced || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
@@ -438,16 +441,16 @@
       const U = { x: Math.min(A.x, B ? B.x : A.x), y: Math.min(A.y, B ? B.y : A.y) };
       U.r = Math.max(A.x + A.w, B ? B.x + B.w : -1e9); U.b = Math.max(A.y + A.h, B ? B.y + B.h : -1e9);
       const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
-      const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh, false, this.fadeSim, !!(SPRITES[key].rigid || (B && B.sp.rigid)), this.fadeHand);
+      const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh, false, this.fadeSim, !!(E.SPRITES[key].rigid || (B && B.sp.rigid)), this.fadeHand);
       const sinkPx = this.sink * h;
-      const unlit = !!(room && room.unlit && room.unlit.test(key));
-      const lights = unlit ? [] : lightsOn(this.x, this.y - h * 0.55, h, this);
-      if (!sinkPx && !unlit) groundShadows(this, comp, U, bw, bh, h, lights);
+      const unlit = !!(E.room && E.room.unlit && E.room.unlit.test(key));
+      const lights = unlit ? [] : E.lightsOn(this.x, this.y - h * 0.55, h, this);
+      if (!sinkPx && !unlit) E.groundShadows(this, comp, U, bw, bh, h, lights);
       const shaded = !unlit && !window.FAST && window.Warp && window.WARP !== false && window.LIT3D !== false && Warp.ok;
-      const lit = shaded || unlit ? comp : lightSprite(comp, bw, bh, U, h, lights);
-      const LP = shaded ? lightParams(U, h, lights) : null;
+      const lit = shaded || unlit ? comp : E.lightSprite(comp, bw, bh, U, h, lights);
+      const LP = shaded ? E.lightParams(U, h, lights) : null;
       // a combined sprite (two people in one painting) is never bent or stretched: no breath, sway or tilt
-      const rigid = !!(SPRITES[key].rigid || (B && B.sp.rigid));
+      const rigid = !!(E.SPRITES[key].rigid || (B && B.sp.rigid));
       // breathing: the chest rises and widens a touch above the hips; feet stay put
       const b = rigid ? 0 : this.calm * (0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045);
       const sx = 1 + b * 0.45, sy = 1 + b;
@@ -456,9 +459,9 @@
       g.save();
       if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
       // the painting is drawn through a mesh that bends with the figure: breath, sway, head, steps
-      const warped = !rigid && !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, SPRITES[key], b, key), h * 0.1, LP);
+      const warped = !rigid && !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, E.SPRITES[key], b, key), h * 0.1, LP);
       if (!warped) {
-        if (shaded) { const L2 = lightSprite(comp, bw, bh, U, h, lights); g.drawImage(L2, 0, 0, bw, bh, X0, Y0, bw, bh); g.restore(); return; }
+        if (shaded) { const L2 = E.lightSprite(comp, bw, bh, U, h, lights); g.drawImage(L2, 0, 0, bw, bh, X0, Y0, bw, bh); g.restore(); return; }
         // lower body: untouched
         g.drawImage(lit, 0, hipBy, bw, bh - hipBy, X0, Y0 + hipBy, bw, bh - hipBy);
         // upper body: scaled about the hip line and the body axis
@@ -517,7 +520,7 @@
   const band = (a, z, v) => { const q = Math.max(0, Math.min(1, (v - a) / (z - a))); return q * q * (3 - 2 * q); };
   // which way a frame faces on screen: 1 right, -1 left, 0 front/back views (painted facing x mirror)
   function facing(key, flipped) {
-    const sp = SPRITES[key]; if (!sp) return 0;
+    const sp = E.SPRITES[key]; if (!sp) return 0;
     if (/_(front|back)(_|\d|$)/.test(key)) return 0;
     return (!!sp.facesLeft !== !!flipped) ? -1 : 1;
   }
@@ -569,13 +572,13 @@
     },
     pulse: (t, s) => 0.78 + 0.22 * Math.sin(t * 2 + s),
   };
-  let roomLights = [];
+  E.roomLights = [];
   function updateLights(t) {
-    const ls = typeof room.lights === 'function' ? room.lights() : (room.lights || []);
-    roomLights = ls.filter(l => !l.when || l.when()).map(l => {
+    const ls = typeof E.room.lights === 'function' ? E.room.lights() : (E.room.lights || []);
+    E.roomLights = ls.filter(l => !l.when || l.when()).map(l => {
       let x = l.x, y = l.y;
       if (l.actor) {
-        const a = l.actor === 'alan' ? player : npcs.find(n => n.id === l.actor);
+        const a = l.actor === 'alan' ? E.player : E.npcs.find(n => n.id === l.actor);
         if (!a || !a.visible) return null;
         const h = a.height(), side = a.lastFlip ? -1 : 1;
         // a carried light can follow the prop frame by frame (offs: { frame: [dx, dy] });
@@ -590,12 +593,12 @@
     }).filter(Boolean);
   }
   function drawGlows() {
-    for (const l of roomLights) if (l.glow) FX.glow(g, l.x, l.y, l.glow * (0.9 + 0.1 * l.f), l.rgb, (l.ga || 0.3) * l.f);
+    for (const l of E.roomLights) if (l.glow) FX.glow(g, l.x, l.y, l.glow * (0.9 + 0.1 * l.f), l.rgb, (l.ga || 0.3) * l.f);
   }
   // Light reaching a point on a character (their chest).
   function lightsOn(x, y, h, who) {
     const out = [];
-    for (const l of roomLights) {
+    for (const l of E.roomLights) {
       if (!l.power) continue;
       const d = Math.hypot(l.x - x, (l.y - y) * 1.3);
       const fall = Math.max(0, 1 - d / (l.reach || 900));
@@ -719,9 +722,9 @@
     return litBuf;
   }
 
-  function roomLight() { const L = room && room.light; return (typeof L === 'function' ? L() : L) || {}; }
+  function roomLight() { const L = E.room && E.room.light; return (typeof L === 'function' ? L() : L) || {}; }
   function scaleAt(y) {
-    const sc = (room && room.scale) || [540, 300, 716, 360];
+    const sc = (E.room && E.room.scale) || [540, 300, 716, 360];
     const t = Math.max(0, Math.min(1, (y - sc[0]) / (sc[2] - sc[0])));
     return sc[1] + (sc[3] - sc[1]) * t;
   }
@@ -850,42 +853,42 @@
   }
   async function goRoom(id, entry, opts) {
     opts = opts || {};
-    busy++;
-    if (room && !opts.instant) { const s = opts.sound !== undefined ? opts.sound : passSound(room.id, id); if (s) Sound.sfx(s); await fade(true); }
-    if (room && room.leave) room.leave();
-    room = ROOMS[id];
-    state.room = id;
-    if (room.fog) {
-      fogA = FX.makeFog(id.length * 31 + 1, room.fogRGB || '214,218,214', 1);
-      fogB = FX.makeFog(id.length * 17 + 7, room.fogRGB || '200,206,206', 0.8);
+    E.busy++;
+    if (E.room && !opts.instant) { const s = opts.sound !== undefined ? opts.sound : passSound(E.room.id, id); if (s) Sound.sfx(s); await fade(true); }
+    if (E.room && E.room.leave) E.room.leave();
+    E.room = ROOMS[id];
+    E.state.room = id;
+    if (E.room.fog) {
+      E.fogA = FX.makeFog(id.length * 31 + 1, E.room.fogRGB || '214,218,214', 1);
+      E.fogB = FX.makeFog(id.length * 17 + 7, E.room.fogRGB || '200,206,206', 0.8);
     }
-    const e = (entry && room.entries && room.entries[entry]) || (room.entries && room.entries.default) || [640, 640, 'e'];
-    if (opts.pos) { player.x = opts.pos[0]; player.y = opts.pos[1]; player.dir = opts.pos[2] || 'e'; }
-    else { player.x = e[0]; player.y = e[1]; player.dir = e[2] || 'e'; }
-    player.stop();
-    player.visible = room.player !== false;
+    const e = (entry && E.room.entries && E.room.entries[entry]) || (E.room.entries && E.room.entries.default) || [640, 640, 'e'];
+    if (opts.pos) { E.player.x = opts.pos[0]; E.player.y = opts.pos[1]; E.player.dir = opts.pos[2] || 'e'; }
+    else { E.player.x = e[0]; E.player.y = e[1]; E.player.dir = e[2] || 'e'; }
+    E.player.stop();
+    E.player.visible = E.room.player !== false;
     refreshNpcs(true);
     renderLabels();
-    Sound.playMusic(typeof room.music === 'function' ? room.music() : room.music);
-    Sound.ambience((typeof room.ambience === 'function' ? room.ambience() : room.ambience) || null);
-    Sound.setRoom(room.acoustic || room.id);
-    clearSpeech();
+    Sound.playMusic(typeof E.room.music === 'function' ? E.room.music() : E.room.music);
+    Sound.ambience((typeof E.room.ambience === 'function' ? E.room.ambience() : E.room.ambience) || null);
+    Sound.setRoom(E.room.acoustic || E.room.id);
+    E.clearSpeech();
     if (!opts.instant) await fade(false);
-    busy--;
-    if (!opts.noEnter && room.enter) { busy++; try { await room.enter(entry); } finally { busy--; } }
-    if (!busy && !room.noSave && !opts.noSave) autosave();
-    updateHover();
+    E.busy--;
+    if (!opts.noEnter && E.room.enter) { E.busy++; try { await E.room.enter(entry); } finally { E.busy--; } }
+    if (!E.busy && !E.room.noSave && !opts.noSave) E.autosave();
+    E.updateHover();
   }
   function refreshNpcs(reset) {
-    const keep = reset ? new Map() : new Map(npcs.map(a => [a.id, a]));
+    const keep = reset ? new Map() : new Map(E.npcs.map(a => [a.id, a]));
     // extras whose sprites are not painted yet are simply absent
-    const amb = (room.ambient || []).filter(a => IMG['spr:' + a.frames[0]]).map(a => {
+    const amb = (E.room.ambient || []).filter(a => IMG['spr:' + a.frames[0]]).map(a => {
       if (!CHARS[a.id]) CHARS[a.id] = { scale: a.scale || 1, idleHold: a.idleHold || [8, 20], variantHold: a.variantHold || [1.6, 3.2], frames: { idle: a.frames, walk: a.walk, talk: a.talkFrames, poses: a.poses, sets: a.sets } };
       return Object.assign({ ambient: true, fixedDir: true, ch: a.id }, a);
     });
-    npcs = (room.npcs || []).concat(amb).filter(n => !n.when || n.when()).map(n => {
+    E.npcs = (E.room.npcs || []).concat(amb).filter(n => !n.when || n.when()).map(n => {
       if (keep.has(n.id)) return keep.get(n.id);
-      const a = new Actor(n.id, n.ch || n.id, n.x, n.y, n.dir);
+      const a = new E.Actor(n.id, n.ch || n.id, n.x, n.y, n.dir);
       a.def = n; a.h = n.h || null; a.overlay = n.overlay || null; a.loop = n.loop || null; a.set = (typeof n.set === 'function' ? n.set() : n.set) || null;
       if (n.init) n.init(a);
       return a;
@@ -893,12 +896,12 @@
   }
   function renderLabels() {
     labelsEl.innerHTML = '';
-    for (const l of (room.labels || [])) {
+    for (const l of (E.room.labels || [])) {
       if (l.when && !l.when()) continue;
       const d = document.createElement('div');
       d.className = 'lbl'; d.textContent = typeof l.text === 'function' ? l.text() : l.text;
       d.style.left = (l.x / W * 100) + '%'; d.style.top = (l.y / H * 100) + '%';
-      labelsEl.appendChild(d); keepInside(d, 6);
+      labelsEl.appendChild(d); E.keepInside(d, 6);
     }
   }
   function fade(on) { $('#fade').classList.toggle('on', on); return wait(480); }
@@ -921,13 +924,13 @@
   function grade(bg) {
     // a variant painting of a room (the tavern with its guitar taken down, a drawer pulled open...)
     // keeps the room's grade: without it the warm wash dropped out and the room looked unlit
-    const c = GRADES[bg] || (room && GRADES[room.bg]); if (!c) return;
+    const c = GRADES[bg] || (E.room && GRADES[E.room.bg]); if (!c) return;
     g.save(); g.globalCompositeOperation = 'soft-light'; g.globalAlpha = c[1] * 2.2;
     g.fillStyle = c[0]; g.fillRect(0, 0, W, H);
     if (c[2]) { g.globalCompositeOperation = 'screen'; g.globalAlpha = 1; g.fillStyle = c[2]; g.fillRect(0, 0, W, H); }
     g.restore();
   }
-  function curBg() { const b = typeof room.bgFn === 'function' ? room.bgFn() : room.bg; return IMG['bg:' + b] ? b : room.bg; }
+  function curBg() { const b = typeof E.room.bgFn === 'function' ? E.room.bgFn() : E.room.bg; return IMG['bg:' + b] ? b : E.room.bg; }
   function drawOccluder(o) {
     const im = IMG['bg:' + curBg()]; if (!im) return;
     g.save(); g.beginPath();
@@ -935,8 +938,8 @@
     g.clip();
     g.drawImage(im, 0, 0, W, H);
     drawLayers(true);
-    drawGlows(); // keep lamp halos continuous across the repainted patch
-    if (o.draw) o.draw(g, time); // props that sit on the occluding furniture
+    E.drawGlows(); // keep lamp halos continuous across the repainted patch
+    if (o.draw) o.draw(g, E.time); // props that sit on the occluding furniture
     g.restore();
   }
   // Depth of an occluder. Furniture painted at an angle gives a `base` line (its
@@ -947,17 +950,17 @@
     const [[x0, y0], [x1, y1]] = o.base;
     const at = x => y0 + (y1 - y0) * Math.max(0, Math.min(1, (x - x0) / (x1 - x0)));
     let behind = -Infinity;
-    for (const a of npcs.concat(player)) if (a.visible && a.y < at(a.x)) behind = Math.max(behind, a.y);
+    for (const a of E.npcs.concat(E.player)) if (a.visible && a.y < at(a.x)) behind = Math.max(behind, a.y);
     return behind === -Infinity ? -1e6 : behind + 0.01;
   }
   // Painted layers cut from clean plates: static fills for things that were
   // taken, and moving parts (pendulums, bells) that swing about a pivot.
   function drawLayers(staticOnly) {
-    for (const l of (room.layers || [])) {
+    for (const l of (E.room.layers || [])) {
       if (l.when && !l.when()) continue;
       const im = IMG['lay:' + l.img]; if (!im) continue;
       const w = l.w || im.width * (l.k || 1), h = l.h || im.height * (l.k || 1);
-      const ang = l.swing ? l.swing(time) : 0;
+      const ang = l.swing ? l.swing(E.time) : 0;
       if (!ang) { g.drawImage(im, l.x, l.y, w, h); continue; }
       if (staticOnly) continue;
       g.save(); g.translate(l.pivot[0], l.pivot[1]); g.rotate(ang * Math.PI / 180);
@@ -976,28 +979,28 @@
   ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart'].forEach(ev => document.addEventListener(ev, noteInput, { capture: true, passive: true }));
   function smokeOK() {
     const C = window.Game && Game.idleSmoke;
-    if (!C || !room || !player || window.FAST) return false;
-    if (!Object.values(C.frames).every(f => SPRITES[f] && IMG['spr:' + f])) return false; // not until every frame is painted
-    if (busy || cutscene || dialogResolve || still || selItem || speaking) return false;
-    if (!player.visible || player.walking || player.ch !== 'alan' || player.set || room.player === false) return false;
-    if (player.pose && !(smk && player.pose === smk.pose)) return false; // a special pose (or undressed) is never interrupted
+    if (!C || !E.room || !E.player || window.FAST) return false;
+    if (!Object.values(C.frames).every(f => E.SPRITES[f] && IMG['spr:' + f])) return false; // not until every frame is painted
+    if (E.busy || E.cutscene || E.dialogResolve || E.still || E.selItem || E.speaking) return false;
+    if (!E.player.visible || E.player.walking || E.player.ch !== 'alan' || E.player.set || E.room.player === false) return false;
+    if (E.player.pose && !(smk && E.player.pose === smk.pose)) return false; // a special pose (or undressed) is never interrupted
     if ($('#menu').classList.contains('open')) return false;
-    return !C.allowed || C.allowed(room);
+    return !C.allowed || C.allowed(E.room);
   }
   function stopSmoke() {
     if (!smk) return;
-    if (player.pose === smk.pose) player.pose = null; // morphs back to his stance
+    if (E.player.pose === smk.pose) E.player.pose = null; // morphs back to his stance
     smk = null; // (the overlay stays until the last of the smoke has drifted away)
   }
   function smokeAnchor(key, pt) {
-    const A = player.place(key, player.lastFlip); if (!A || !pt) return null;
-    return [player.x + A.x + (A.flipped ? A.sp.w - pt[0] : pt[0]) * A.s, player.y + A.y + pt[1] * A.s, A.s];
+    const A = E.player.place(key, E.player.lastFlip); if (!A || !pt) return null;
+    return [E.player.x + A.x + (A.flipped ? A.sp.w - pt[0] : pt[0]) * A.s, E.player.y + A.y + pt[1] * A.s, A.s];
   }
   function puff(x, y, s, vx, vy, n, size, a) {
     for (let i = 0; i < n; i++) puffs.push({ x, y, vx: vx * (0.7 + Math.random() * 0.6) + (Math.random() - 0.5) * 6 * s * 3, vy: vy * (0.7 + Math.random() * 0.6), r: size * (0.6 + Math.random() * 0.6), a, life: 0, max: 2.2 + Math.random() * 1.6, seed: Math.random() * 10 });
   }
   function drawSmoke(gc, a, t) {
-    const C = Game.idleSmoke, key = smk && player.cur;
+    const C = Game.idleSmoke, key = smk && E.player.cur;
     const P = smk && C && C.points && C.points[key];
     if (smk && P) {
       const tip = smokeAnchor(key, P.tip), k = smk.step;
@@ -1030,20 +1033,21 @@
     gc.restore();
     if (smokeSaved) smokeSaved(gc, a, t);
   }
+  const smoking = () => !!smk, smokeStep = () => smk && smk.step;
   let smokeRoom = null;
   function idleSmokeTick(dt) {
-    if (room !== smokeRoom) { smokeRoom = room; puffs.length = 0; } // smoke doesn't follow him through a door
-    for (const p of puffs) { p.life += dt; p.x += (p.vx + Math.sin(time * 1.3 + p.seed) * 4) * dt; p.y += p.vy * dt; p.vx *= 1 - dt * 0.5; p.vy *= 1 - dt * 0.25; }
+    if (E.room !== smokeRoom) { smokeRoom = E.room; puffs.length = 0; } // smoke doesn't follow him through a door
+    for (const p of puffs) { p.life += dt; p.x += (p.vx + Math.sin(E.time * 1.3 + p.seed) * 4) * dt; p.y += p.vy * dt; p.vx *= 1 - dt * 0.5; p.vy *= 1 - dt * 0.25; }
     for (let i = puffs.length - 1; i >= 0; i--) if (puffs[i].life > puffs[i].max) puffs.splice(i, 1);
-    if (!smk && !puffs.length && player.overlay === drawSmoke) { player.overlay = smokeSaved; smokeSaved = null; }
+    if (!smk && !puffs.length && E.player.overlay === drawSmoke) { E.player.overlay = smokeSaved; smokeSaved = null; }
     const ok = smokeOK();
     if (!ok) { if (smk) stopSmoke(); lastInput = Math.max(lastInput, performance.now() - 1000 * SMOKE_AFTER * 0.5); return; } // after a scene, a fresh wait
     const C = Game.idleSmoke, F = C.frames;
     if (!smk) {
       if ((performance.now() - lastInput) / 1000 < SMOKE_AFTER) return;
-      if (player.dir === 'n' || player.dir === 's') player.dir = player.lastEW || 'e'; // the frames are side views
+      if (E.player.dir === 'n' || E.player.dir === 's') E.player.dir = E.player.lastEW || 'e'; // the frames are side views
       smk = { i: -1, t: 0, dur: 0, step: null, pose: null };
-      if (player.overlay !== drawSmoke) { smokeSaved = player.overlay; player.overlay = drawSmoke; }
+      if (E.player.overlay !== drawSmoke) { smokeSaved = E.player.overlay; E.player.overlay = drawSmoke; }
     }
     smk.t += dt;
     if (smk.t >= smk.dur) {
@@ -1051,13 +1055,13 @@
       const SEQ = [['light', 2.4], ['inhale', 1.4], ['exhale', 1.8], ['hold', 4 + Math.random() * 3]];
       smk.i = smk.i < 0 ? 0 : smk.i + 1 >= SEQ.length ? 1 : smk.i + 1;
       const [step, dur] = SEQ[smk.i];
-      smk.step = step; smk.t = 0; smk.dur = dur; smk.pose = F[step]; player.pose = smk.pose;
+      smk.step = step; smk.t = 0; smk.dur = dur; smk.pose = F[step]; E.player.pose = smk.pose;
       if (step === 'light' && window.Sound) Sound.sfx('match', 0.35);
     }
     // smoke: a breath of it out of his mouth on the exhale, a thin thread off the tip otherwise
-    const key = player.cur, P = C.points && C.points[key];
+    const key = E.player.cur, P = C.points && C.points[key];
     if (!P) return;
-    const dirX = player.lastFlip ? -1 : 1;
+    const dirX = E.player.lastFlip ? -1 : 1;
     if (smk.step === 'exhale' && smk.t > 0.15 && smk.t < 1.3) {
       const m = smokeAnchor(key, P.mouth);
       if (m && Math.random() < dt * 22) puff(m[0], m[1], m[2], dirX * 34 * m[2] * 3.3, -6 * m[2] * 3.3, 1, 5 * m[2] * 3.3, 0.22);
@@ -1071,7 +1075,7 @@
   function frame(now) {
     requestAnimationFrame(frame); // queued first: a throwing hook skips one frame, never the loop
     if (window.HOLD) { if (!(window.ADVANCE > 0)) { last = now; return; } window.ADVANCE--; } // test recordings: step frame by frame
-    const dt = (window.STEP_DT || Math.min(0.05, (now - last) / 1000)) * (window.TIME_SCALE || 1); last = now; time += dt; // STEP_DT: fixed steps for test recordings; TIME_SCALE: the review screen's slow motion
+    const dt = (window.STEP_DT || Math.min(0.05, (now - last) / 1000)) * (window.TIME_SCALE || 1); last = now; E.time += dt; // STEP_DT: fixed steps for test recordings; TIME_SCALE: the review screen's slow motion
     // a device that can't keep up with the mesh warp falls back to flat frames
     if (window.WARP == null && !window.FAST) { // (WARP = true forces it on, false off)
       slowT = (now - last0 > 45) ? slowT + 1 : Math.max(0, slowT - 2); last0 = now;
@@ -1080,70 +1084,70 @@
     try { drawFrame(dt); } catch (e) { if (frameErr++ < 5) console.error('frame', e); }
   }
   function drawFrame(dt) {
-    if (room) {
-      player.update(dt); npcs.forEach(a => a.update(dt));
-      idleSmokeTick(dt);
-      updateLights(time);
+    if (E.room) {
+      E.player.update(dt); E.npcs.forEach(a => a.update(dt));
+      E.idleSmokeTick(dt);
+      E.updateLights(E.time);
       drawBg(curBg());
-      if (room.animBack) room.animBack(g, time);
+      if (E.room.animBack) E.room.animBack(g, E.time);
       drawLayers(false);
-      if (room.anim) room.anim(g, time);
-      drawGlows();
+      if (E.room.anim) E.room.anim(g, E.time);
+      E.drawGlows();
       // depth-sorted actors + occluders cut from the painting
       const items = [];
-      for (const a of npcs) if (a.visible) items.push({ y: a.y, fn: () => { a.draw(); if (a.overlay) a.overlay(g, a, time); } });
-      if (player.visible) items.push({ y: player.y, fn: () => { player.draw(); if (player.overlay) player.overlay(g, player, time); } });
-      for (const o of (room.occluders || [])) if (!o.when || o.when()) items.push({ y: occluderY(o), fn: () => drawOccluder(o) });
+      for (const a of E.npcs) if (a.visible) items.push({ y: a.y, fn: () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); } });
+      if (E.player.visible) items.push({ y: E.player.y, fn: () => { E.player.draw(); if (E.player.overlay) E.player.overlay(g, E.player, E.time); } });
+      for (const o of (E.room.occluders || [])) if (!o.when || o.when()) items.push({ y: occluderY(o), fn: () => drawOccluder(o) });
       items.sort((a, b) => a.y - b.y).forEach(i => i.fn());
-      if (room.animFg) room.animFg(g, time);
-      if (room.fog) {
-        const f = typeof room.fog === 'function' ? room.fog() : room.fog;
-        if (f) { FX.drawFog(g, fogA, time, f, 12, 0); FX.drawFog(g, fogB, time, f * 0.7, 22, 40); }
+      if (E.room.animFg) E.room.animFg(g, E.time);
+      if (E.room.fog) {
+        const f = typeof E.room.fog === 'function' ? E.room.fog() : E.room.fog;
+        if (f) { FX.drawFog(g, E.fogA, E.time, f, 12, 0); FX.drawFog(g, E.fogB, E.time, f * 0.7, 22, 40); }
       }
       // the whole room breathes with its flames (characters included)
-      const L = roomLight();
+      const L = E.roomLight();
       if (L.flickerShade) {
-        const fl = roomLights.filter(l => l.kind && l.kind !== 'steady');
+        const fl = E.roomLights.filter(l => l.kind && l.kind !== 'steady');
         const avg = fl.length ? fl.reduce((s, l) => s + l.f, 0) / fl.length : 1;
         g.fillStyle = `rgba(0,0,0,${Math.max(0, L.flickerShade * (1 - avg)).toFixed(3)})`; g.fillRect(0, 0, W, H);
       }
-      if (room.grade) { g.fillStyle = room.grade; g.fillRect(0, 0, W, H); }
+      if (E.room.grade) { g.fillStyle = E.room.grade; g.fillRect(0, 0, W, H); }
       grade(curBg());
-      FX.vignette(g, room.vignette != null ? room.vignette : 0.45);
-      positionSpeech();
+      FX.vignette(g, E.room.vignette != null ? E.room.vignette : 0.45);
+      E.positionSpeech();
     }
-    if (still) drawStill(dt);
+    if (E.still) E.drawStill(dt);
   }
 
   // ---------------------------------------------------------------- speech
-  let speaking = null;
+  E.speaking = null;
   function actorFor(who) {
-    if (who === 'alan') return player.visible ? player : null;
-    return npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible)
+    if (who === 'alan') return E.player.visible ? E.player : null;
+    return E.npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible)
       // someone painted into Alan's pair frame speaks from the pair (Game.pairSpeaker: pose -> speaker id)
-      || (player.visible && player.pose && ((player.pairWho && (player.pairWho === who || player.pairWho === 'npc_' + who))
-        || (window.Game.pairSpeaker && window.Game.pairSpeaker(player.pose) === who)) ? player : null);
+      || (E.player.visible && E.player.pose && ((E.player.pairWho && (E.player.pairWho === who || E.player.pairWho === 'npc_' + who))
+        || (window.Game.pairSpeaker && window.Game.pairSpeaker(E.player.pose) === who)) ? E.player : null);
   }
   // Speakers face each other: an NPC turns to Alan when it speaks, and Alan turns
   // to whoever he is talking with (the last NPC who spoke, else the nearest one).
-  let lastPartner = null;
+  E.lastPartner = null;
   // Only the people who move around the rooms with Alan turn to follow him (Alan, Inês, Vasco, or a
   // def with turns: true). Everyone else keeps the facing their room gives them: no flipping back and
   // forth; Alan comes to the side they already face (see approach).
   const TURNERS = new Set(['ines', 'vasco']);
-  const turnsFreely = a => a === player || TURNERS.has(a.id) || !!(a.def && a.def.turns);
+  const turnsFreely = a => a === E.player || TURNERS.has(a.id) || !!(a.def && a.def.turns);
   const canTurn = a => a && a.visible && !a.walking && !a.pose && (a.dir === 'e' || a.dir === 'w') && !(a.def && (a.def.fixedDir || a.def.ambient)) && turnsFreely(a);
   function faceEachOther(actor) {
-    if (!player.visible) return;
-    if (actor && actor !== player) {
-      lastPartner = actor;
-      if (canTurn(actor) && Math.abs(player.x - actor.x) > 30) actor.dir = player.x > actor.x ? 'e' : 'w';
-      if (canTurn(player) || (player.visible && !player.walking && !player.pose && (player.dir === 'n' || player.dir === 's'))) player.dir = actor.x > player.x ? 'e' : 'w';
-    } else if (actor === player) {
-      let other = lastPartner && lastPartner.visible && npcs.includes(lastPartner) ? lastPartner : null;
-      if (!other) other = npcs.filter(a => a.visible && !(a.def && a.def.ambient)).sort((a, b) => Math.abs(a.x - player.x) - Math.abs(b.x - player.x))[0];
-      if (other && Math.abs(other.x - player.x) > 30 && Math.abs(other.x - player.x) < 900 && !player.walking && !player.pose) player.dir = other.x > player.x ? 'e' : 'w';
-      if (other && canTurn(other)) other.dir = player.x > other.x ? 'e' : 'w';
+    if (!E.player.visible) return;
+    if (actor && actor !== E.player) {
+      E.lastPartner = actor;
+      if (canTurn(actor) && Math.abs(E.player.x - actor.x) > 30) actor.dir = E.player.x > actor.x ? 'e' : 'w';
+      if (canTurn(E.player) || (E.player.visible && !E.player.walking && !E.player.pose && (E.player.dir === 'n' || E.player.dir === 's'))) E.player.dir = actor.x > E.player.x ? 'e' : 'w';
+    } else if (actor === E.player) {
+      let other = E.lastPartner && E.lastPartner.visible && E.npcs.includes(E.lastPartner) ? E.lastPartner : null;
+      if (!other) other = E.npcs.filter(a => a.visible && !(a.def && a.def.ambient)).sort((a, b) => Math.abs(a.x - E.player.x) - Math.abs(b.x - E.player.x))[0];
+      if (other && Math.abs(other.x - E.player.x) > 30 && Math.abs(other.x - E.player.x) < 900 && !E.player.walking && !E.player.pose) E.player.dir = other.x > E.player.x ? 'e' : 'w';
+      if (other && canTurn(other)) other.dir = E.player.x > other.x ? 'e' : 'w';
     }
   }
   // Nudges an overlay placed in % back inside the game frame, measuring the box it
@@ -1163,20 +1167,20 @@
     if (dy) el.style.top = `calc(${el.style.top} + ${dy / gr.height * 100}%)`;
   }
   function positionSpeech() {
-    if (!speaking || !speaking.actor) return;
-    const b = speaking.actor.bbox();
+    if (!E.speaking || !E.speaking.actor) return;
+    const b = E.speaking.actor.bbox();
     speechEl.style.left = ((b.x + b.w / 2) / W * 100) + '%'; speechEl.style.top = ((b.y - 10) / H * 100) + '%';
     keepInside(speechEl, 14);
   }
   function clearSpeech() {
-    if (speaking && speaking.actor) phraseEndT = time; // the line is over: listeners may nod
+    if (E.speaking && E.speaking.actor) E.phraseEndT = E.time; // the line is over: listeners may nod
     speechEl.style.display = 'none'; narrEl.style.display = 'none';
-    if (speaking && speaking.actor) speaking.actor.talking = false;
-    speaking = null;
+    if (E.speaking && E.speaking.actor) E.speaking.actor.talking = false;
+    E.speaking = null;
   }
   const strip = t => t.replace(/\[[^\]]*\]\s*/g, '');
 
-  const cutsceneHold = () => room && room.holdFacing && room.holdFacing();
+  const cutsceneHold = () => E.room && E.room.holdFacing && E.room.holdFacing();
   // One voice at a time: if two scripts ever try to speak at once, the second
   // waits its turn, so the caption on screen is always the line being heard.
   let speechChain = Promise.resolve();
@@ -1192,10 +1196,10 @@
     if (!L) { console.warn('missing line', id); return; }
     const [who, raw] = L;
     const text = strip(raw);
-    busy++;
+    E.busy++;
     clearSpeech();
-    const actor = (opts.offscreen || still) ? null : actorFor(who);
-    speaking = { id, actor };
+    const actor = (opts.offscreen || E.still) ? null : actorFor(who);
+    E.speaking = { id, actor };
     if (actor) {
       actor.talking = true; actor.talkPose = true; actor.talkT = 0.6; actor.talkWho = who;
       if (!cutsceneHold()) faceEachOther(actor);
@@ -1215,17 +1219,17 @@
       let finished = false, t = setTimeout(check, ms);
       // a slow-loading voice can outlast the estimate: hold the line until it has finished
       function check() { if (finished) return; if (!window.FAST && Sound.voicePlaying && Sound.voicePlaying()) t = setTimeout(check, 120); else done(); }
-      function done() { if (finished) return; finished = true; clearTimeout(t); if (skipFn === done) skipFn = null; res(); }
-      setTimeout(() => { if (!finished) skipFn = done; }, 180);
+      function done() { if (finished) return; finished = true; clearTimeout(t); if (E.skipFn === done) E.skipFn = null; res(); }
+      setTimeout(() => { if (!finished) E.skipFn = done; }, 180);
     });
     Sound.stopVoice();
     clearSpeech();
-    busy--;
+    E.busy--;
     await wait(110);
   }
   // a recorded song with timed captions: cues [[seconds, text], ...]; a click ends it early
   async function lyrics(song, cues, who) {
-    busy++;
+    E.busy++;
     const t = narrEl.querySelector('.txt');
     narrEl.querySelector('.who').textContent = NAMES[who] || '';
     t.style.fontStyle = 'italic'; t.style.color = COLORS[who] || '#fff';
@@ -1236,12 +1240,12 @@
       if (k !== shown) { shown = k; if (k >= 0 && cues[k][1]) { t.textContent = cues[k][1]; narrEl.style.display = 'block'; } else narrEl.style.display = 'none'; }
     }, 120);
     const skip = () => { if (!over) song.stop(900); };
-    skipFn = skip;
+    E.skipFn = skip;
     if (window.FAST) song.stop(10);
     await song.ended; over = true;
-    clearInterval(tick); if (skipFn === skip) skipFn = null;
+    clearInterval(tick); if (E.skipFn === skip) E.skipFn = null;
     narrEl.style.display = 'none'; t.style.fontStyle = 'normal';
-    busy--;
+    E.busy--;
   }
   async function says(...ids) { if (Sound.preloadVoice) ids.forEach(id => Sound.preloadVoice(id)); for (const id of ids) await say(id); }
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -1252,7 +1256,7 @@
     for (;;) {
       const avail = topics.filter(t => (!t.when || t.when()) && !(t.once && used.has(t)));
       const pick = await new Promise(res => {
-        dialogResolve = res;
+        E.dialogResolve = res;
         dialogEl.innerHTML = '';
         avail.forEach((t, i) => {
           const b = document.createElement('button');
@@ -1263,7 +1267,7 @@
         });
         dialogEl.classList.add('open');
       });
-      dialogResolve = null;
+      E.dialogResolve = null;
       dialogEl.classList.remove('open');
       used.add(pick);
       // the story layer can stage a chosen line like any other (speaker poses, listeners' faces)
@@ -1274,24 +1278,24 @@
   }
 
   // ---------------------------------------------------------------- inventory
-  function has(id) { return state.inv.includes(id); }
+  function has(id) { return E.state.inv.includes(id); }
   const ITEM_SFX = { key: 'key_pickup', fkey: 'key_pickup', vkey: 'keys_ring', reserve_key: 'key_jingle', ledger: 'book_take', coins: 'cash_register',
     newspaper: 'paper_take', file55: 'paper_take', tidecard: 'paper_take', lyrics_sheet: 'paper_take', sketch: 'paper_take', brotherhood_charter: 'paper_take', vasco_card: 'paper_take',
     tongue: 'brass_heavy', twin: 'brass_heavy', matches: 'matchbox', glass: 'glass_set', lantern: 'lantern', knife: 'knife_take', sardine: 'sardine_catch', sanches_fragment: 'stone_clack', magnifier: 'pickup' };
   function giveItem(id, silent) {
     if (has(id)) return;
-    state.inv.push(id); renderInv();
+    E.state.inv.push(id); renderInv();
     // each thing taken sounds like itself: a key jingles, paper rustles, brass is heavy
     if (!silent) { Sound.sfx(ITEM_SFX[id] || 'pickup', 0.8); flashInv(); }
   }
-  function takeItem(id) { state.inv = state.inv.filter(i => i !== id); if (selItem === id) selItem = null; renderInv(); }
-  function flashInv() { invBar.classList.add('show', 'flash'); setTimeout(() => invBar.classList.remove('flash'), 900); setTimeout(() => { if (!invHover && !selItem) invBar.classList.remove('show'); }, 1800); }
+  function takeItem(id) { E.state.inv = E.state.inv.filter(i => i !== id); if (E.selItem === id) E.selItem = null; renderInv(); }
+  function flashInv() { invBar.classList.add('show', 'flash'); setTimeout(() => invBar.classList.remove('flash'), 900); setTimeout(() => { if (!E.invHover && !E.selItem) invBar.classList.remove('show'); }, 1800); }
   function itemName(id) { const it = ITEMS[id]; return typeof it.name === 'function' ? it.name() : it.name; }
   function renderInv() {
     invEl.innerHTML = '';
-    state.inv.forEach(id => {
+    E.state.inv.forEach(id => {
       const slot = document.createElement('div');
-      slot.className = 'slot' + (selItem === id ? ' selected' : '');
+      slot.className = 'slot' + (E.selItem === id ? ' selected' : '');
       const c = document.createElement('canvas'); c.width = 96; c.height = 96;
       c.getContext('2d').drawImage(iconFor(id), 0, 0, 96, 96);
       slot.appendChild(c);
@@ -1302,38 +1306,38 @@
         rb.onclick = e => { e.stopPropagation(); readItem(id); };
         slot.appendChild(rb);
       }
-      slot.oncontextmenu = e => { e.preventDefault(); e.stopPropagation(); if (!busy) lookItem(id); };
-      slot.onmouseenter = () => { if (!busy) showHoverText(selItem && selItem !== id ? `Use ${itemName(selItem)} with ${itemName(id)}` : itemName(id), slot); };
-      slot.onmouseleave = () => hideHover();
+      slot.oncontextmenu = e => { e.preventDefault(); e.stopPropagation(); if (!E.busy) lookItem(id); };
+      slot.onmouseenter = () => { if (!E.busy) E.showHoverText(E.selItem && E.selItem !== id ? `Use ${itemName(E.selItem)} with ${itemName(id)}` : itemName(id), slot); };
+      slot.onmouseleave = () => E.hideHover();
       invEl.appendChild(slot);
     });
     updateCursor();
-    const nb = $('#nb-btn'); if (nb) nb.classList.toggle('hidden', !state.inv.includes('notebook'));
+    const nb = $('#nb-btn'); if (nb) nb.classList.toggle('hidden', !E.state.inv.includes('notebook'));
   }
   // read an item's pages (the notebook): N key, the ✎ button, the Read tab on its inventory icon
   async function readItem(id) {
     id = id || 'notebook';
     const cu = $('#closeup');
     if (cu && !cu.classList.contains('hidden')) { const x = cu.querySelector('.x'); if (x) x.click(); return; } // a second press closes it
-    if (!state.inv.includes(id) || !ITEMS[id]) return;
-    if (busy || dialogResolve || cutscene) { toast('Not now'); return; }
-    noteInput(); selItem = null; renderInv(); invBar.classList.remove('show');
-    busy++; try { await runHandler(ITEMS[id].read || ITEMS[id].look); } finally { busy--; updateHover(); }
+    if (!E.state.inv.includes(id) || !ITEMS[id]) return;
+    if (E.busy || E.dialogResolve || E.cutscene) { E.toast('Not now'); return; }
+    E.noteInput(); E.selItem = null; renderInv(); invBar.classList.remove('show');
+    E.busy++; try { await E.runHandler(ITEMS[id].read || ITEMS[id].look); } finally { E.busy--; E.updateHover(); }
   }
   async function lookItem(id) {
-    busy++; try { await runHandler(ITEMS[id].look); } finally { busy--; }
+    E.busy++; try { await E.runHandler(ITEMS[id].look); } finally { E.busy--; }
   }
   function clickItem(id) {
-    if (busy) return;
+    if (E.busy) return;
     Sound.sfx('click');
-    if (selItem && selItem !== id) {
-      const a = ITEMS[selItem], b = ITEMS[id];
-      const h = (a.with && a.with[id]) || (b.with && b.with[selItem]);
-      selItem = null; renderInv();
-      busy++; runHandler(h || 'alan_def_item').finally(() => { busy--; });
+    if (E.selItem && E.selItem !== id) {
+      const a = ITEMS[E.selItem], b = ITEMS[id];
+      const h = (a.with && a.with[id]) || (b.with && b.with[E.selItem]);
+      E.selItem = null; renderInv();
+      E.busy++; E.runHandler(h || 'alan_def_item').finally(() => { E.busy--; });
       return;
     }
-    selItem = selItem === id ? null : id;
+    E.selItem = E.selItem === id ? null : id;
     renderInv();
   }
   function iconFor(id) {
@@ -1341,34 +1345,34 @@
     return FX.icon(key);
   }
   function updateCursor() {
-    wrap.classList.toggle('holding', !!selItem);
-    if (selItem) {
+    wrap.classList.toggle('holding', !!E.selItem);
+    if (E.selItem) {
       const [c, cg] = FX.mk(64, 64);
-      cg.drawImage(iconFor(selItem), 0, 0, 64, 64);
+      cg.drawImage(iconFor(E.selItem), 0, 0, 64, 64);
       canvas.style.cursor = `url(${c.toDataURL()}) 8 8, pointer`;
     } else canvas.style.cursor = '';
   }
 
   // ---------------------------------------------------------------- input
-  let invHover = false;
-  invBar.addEventListener('mouseenter', () => { invHover = true; invBar.classList.add('show'); });
-  invBar.addEventListener('mouseleave', () => { invHover = false; if (!selItem) invBar.classList.remove('show'); });
+  E.invHover = false;
+  invBar.addEventListener('mouseenter', () => { E.invHover = true; invBar.classList.add('show'); });
+  invBar.addEventListener('mouseleave', () => { E.invHover = false; if (!E.selItem) invBar.classList.remove('show'); });
   $('#bag').addEventListener('click', e => { e.stopPropagation(); invBar.classList.toggle('show'); });
-  $('#nb-btn').addEventListener('click', e => { e.stopPropagation(); readItem('notebook'); });
+  $('#nb-btn').addEventListener('click', e => { e.stopPropagation(); E.readItem('notebook'); });
 
   function targetAt(x, y) {
-    if (!room) return null;
-    if (selItem && player.visible) { const b = player.bbox(); if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return { kind: 'self', def: { name: 'Alan', items: (room.self && room.self.items) || {} } }; }
+    if (!E.room) return null;
+    if (E.selItem && E.player.visible) { const b = E.player.bbox(); if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return { kind: 'self', def: { name: 'Alan', items: (E.room.self && E.room.self.items) || {} } }; }
     // the smallest hotspot under the cursor wins, so a box of matches on the bar
     // or a tile on the bunk is never swallowed by the bigger thing around it;
     // small props also win over the empty corners of a person's bounding box
     let best = null, bestA = Infinity;
-    for (const h of room.hotspots || []) {
+    for (const h of E.room.hotspots || []) {
       if (h.when && !h.when()) continue;
-      if (!hitShape(h, x, y)) continue;
-      const ar = hotArea(h); if (ar <= bestA) { best = h; bestA = ar; }
+      if (!E.hitShape(h, x, y)) continue;
+      const ar = E.hotArea(h); if (ar <= bestA) { best = h; bestA = ar; }
     }
-    const people = npcs.filter(a => a.visible && a.def).sort((a, b) => b.y - a.y);
+    const people = E.npcs.filter(a => a.visible && a.def).sort((a, b) => b.y - a.y);
     const inBox = a => { const b = a.bbox(); return x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h; };
     // a click on someone's painted body is always that person
     for (const a of people) if (inBox(a) && a.opaqueAt(x, y)) return { kind: 'npc', actor: a, def: a.def };
@@ -1405,18 +1409,18 @@
   }
   const CURSOR_CLASS = { exit: 'c-exit', talk: 'c-talk', use: 'c-use', take: 'c-use', look: 'c-look' };
   function updateHover() {
-    if (busy || !room || mouse.x < 0) { hideHover(); canvas.className = ''; return; }
+    if (E.busy || !E.room || mouse.x < 0) { hideHover(); canvas.className = ''; return; }
     hoverTarget = targetAt(mouse.x, mouse.y);
     if (!hoverTarget) { canvas.className = ''; hideHover(); return; }
-    canvas.className = selItem ? '' : CURSOR_CLASS[defaultVerb(hoverTarget.def)];
+    canvas.className = E.selItem ? '' : CURSOR_CLASS[defaultVerb(hoverTarget.def)];
     const name = nameOf(hoverTarget);
-    showHoverText(selItem ? `Use ${itemName(selItem)} on ${name}` : name);
+    showHoverText(E.selItem ? `Use ${E.itemName(E.selItem)} on ${name}` : name);
   }
   function showHoverText(txt, el) {
     hoverEl.textContent = txt; hoverEl.style.display = txt ? 'block' : 'none';
     if (el) { const r = el.getBoundingClientRect(), gr = wrap.getBoundingClientRect(); hoverEl.style.left = ((r.left + r.width / 2 - gr.left) / gr.width * 100) + '%'; hoverEl.style.top = ((r.top - gr.top) / gr.height * 100 - 4) + '%'; }
     else { hoverEl.style.left = (mouse.x / W * 100) + '%'; hoverEl.style.top = (mouse.y / H * 100 - 5) + '%'; }
-    if (txt) keepInside(hoverEl, 8);
+    if (txt) E.keepInside(hoverEl, 8);
   }
   function hideHover() { hoverEl.style.display = 'none'; }
   function sceneCoords(e) {
@@ -1425,77 +1429,77 @@
   }
   canvas.addEventListener('mousemove', e => {
     mouse = sceneCoords(e); updateHover();
-    if (mouse.y > H - 60 && !busy) invBar.classList.add('show');
-    else if (!invHover && !selItem && mouse.y < H - 140) invBar.classList.remove('show');
+    if (mouse.y > H - 60 && !E.busy) invBar.classList.add('show');
+    else if (!E.invHover && !E.selItem && mouse.y < H - 140) invBar.classList.remove('show');
   });
   canvas.addEventListener('mouseleave', () => { mouse = { x: -1, y: -1 }; hideHover(); });
   canvas.addEventListener('contextmenu', e => {
     e.preventDefault();
-    if (skipFn) { skipFn(); return; }
-    if (busy) return;
-    if (selItem) { selItem = null; renderInv(); updateHover(); return; }
+    if (E.skipFn) { E.skipFn(); return; }
+    if (E.busy) return;
+    if (E.selItem) { E.selItem = null; E.renderInv(); updateHover(); return; }
     const p = sceneCoords(e), t = targetAt(p.x, p.y);
     if (t) interact(t, 'look');
   });
   canvas.addEventListener('click', e => {
-    if (skipFn) { skipFn(); return; }
-    if (busy || !room) return;
+    if (E.skipFn) { E.skipFn(); return; }
+    if (E.busy || !E.room) return;
     const p = sceneCoords(e);
     const t = targetAt(p.x, p.y);
     if (!t) {
-      if (room.walk && player.visible) { const [x, y] = clampToPoly(p.x, p.y, room.walk); player.walkTo(x, y); }
-      if (selItem) { selItem = null; renderInv(); }
+      if (E.room.walk && E.player.visible) { const [x, y] = E.clampToPoly(p.x, p.y, E.room.walk); E.player.walkTo(x, y); }
+      if (E.selItem) { E.selItem = null; E.renderInv(); }
       return;
     }
-    interact(t, selItem ? 'item' : defaultVerb(t.def));
+    interact(t, E.selItem ? 'item' : defaultVerb(t.def));
   });
   // long-press = examine on touch devices
   let pressT = null;
   canvas.addEventListener('touchstart', e => {
     const tch = e.touches[0]; const p = sceneCoords(tch);
-    pressT = setTimeout(() => { pressT = null; const t = targetAt(p.x, p.y); if (t && !busy) interact(t, 'look'); }, 550);
+    pressT = setTimeout(() => { pressT = null; const t = targetAt(p.x, p.y); if (t && !E.busy) interact(t, 'look'); }, 550);
   }, { passive: true });
   canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' || e.key === '.' || e.key === ' ') { if (skipFn) { skipFn(); e.preventDefault(); } return; }
+    if (e.key === 'Escape' || e.key === '.' || e.key === ' ') { if (E.skipFn) { E.skipFn(); e.preventDefault(); } return; }
     if (e.key === 'i' || e.key === 'I') invBar.classList.toggle('show');
-    if ((e.key === 'n' || e.key === 'N') && !e.ctrlKey && !e.metaKey && !e.altKey && $('#title').classList.contains('hidden')) readItem('notebook'); // (not on the title screen)
+    if ((e.key === 'n' || e.key === 'N') && !e.ctrlKey && !e.metaKey && !e.altKey && $('#title').classList.contains('hidden')) E.readItem('notebook'); // (not on the title screen)
     const n = parseInt(e.key, 10);
-    if (dialogResolve && n >= 1) { const btn = dialogEl.querySelectorAll('button')[n - 1]; if (btn) btn.click(); }
+    if (E.dialogResolve && n >= 1) { const btn = dialogEl.querySelectorAll('button')[n - 1]; if (btn) btn.click(); }
   });
 
   async function runHandler(h, ctx) {
     if (!h) return;
-    if (typeof h === 'string') return say(LINES[h] ? h : failLine(ctx || { def: {} }, 'use'));
+    if (typeof h === 'string') return E.say(LINES[h] ? h : failLine(ctx || { def: {} }, 'use'));
     if (Array.isArray(h)) { for (const x of h) await runHandler(x, ctx); return; }
     if (typeof h === 'function') return h(ctx);
   }
   async function approach(def, actor) {
-    if (!player.visible || !room.walk) return;
+    if (!E.player.visible || !E.room.walk) return;
     let at = def.at;
     if (!at && actor) {
       // someone who keeps their facing is met on the side they face; anyone else on Alan's side
-      const gap = actor.height() * 0.42, holds = !turnsFreely(actor) && (actor.dir === 'e' || actor.dir === 'w');
-      const side = holds ? (actor.dir === 'e' ? 1 : -1) : (actor.x > player.x ? -1 : 1);
+      const gap = actor.height() * 0.42, holds = !E.turnsFreely(actor) && (actor.dir === 'e' || actor.dir === 'w');
+      const side = holds ? (actor.dir === 'e' ? 1 : -1) : (actor.x > E.player.x ? -1 : 1);
       at = [actor.x + side * gap, actor.y + 6];
     }
     if (!at) return;
-    let [x, y] = clampToPoly(at[0], at[1], room.walk);
+    let [x, y] = E.clampToPoly(at[0], at[1], E.room.walk);
     // talking to someone: stand beside them, never in front covering them. If the spot would put
     // Alan over the figure (closer than the two half-widths, at or in front of their depth), step
     // out to whichever side of them is free on the floor, nearer side first.
     if (actor && actor.visible) {
-      const gap = (actor.height() + player.height()) * 0.21;
+      const gap = (actor.height() + E.player.height()) * 0.21;
       if (y >= actor.y - 12 && Math.abs(x - actor.x) < gap) {
-        const holds = !turnsFreely(actor) && (actor.dir === 'e' || actor.dir === 'w');
-        const near = holds ? (actor.dir === 'e' ? 1 : -1) : (player.x < actor.x ? -1 : 1), opts = [near, -near].map(sd => clampToPoly(actor.x + sd * gap, y, room.walk));
+        const holds = !E.turnsFreely(actor) && (actor.dir === 'e' || actor.dir === 'w');
+        const near = holds ? (actor.dir === 'e' ? 1 : -1) : (E.player.x < actor.x ? -1 : 1), opts = [near, -near].map(sd => E.clampToPoly(actor.x + sd * gap, y, E.room.walk));
         const best = opts.find(([cx]) => Math.abs(cx - actor.x) >= gap * 0.85) || opts.sort((a, b) => Math.abs(b[0] - actor.x) - Math.abs(a[0] - actor.x))[0];
         [x, y] = best;
       }
     }
-    await player.walkTo(x, y);
-    if (def.face) player.dir = def.face;
-    else if (actor) { player.dir = actor.x > player.x ? 'e' : 'w'; if (canTurn(actor) || (turnsFreely(actor) && !actor.def.fixedDir)) actor.dir = player.x > actor.x ? 'e' : 'w'; }
+    await E.player.walkTo(x, y);
+    if (def.face) E.player.dir = def.face;
+    else if (actor) { E.player.dir = actor.x > E.player.x ? 'e' : 'w'; if (E.canTurn(actor) || (E.turnsFreely(actor) && !actor.def.fixedDir)) actor.dir = E.player.x > actor.x ? 'e' : 'w'; }
   }
   // A failed use always gets an Alan line: the target's own, then a
   // character-specific refusal, then the shared pool (no immediate repeats).
@@ -1511,67 +1515,67 @@
   }
   const FAIL_BY_CHAR = { lacerda: 'alan_fail_lacerda_item', ze: 'alan_fail_ze_item', abilio: 'alan_fail_abilio_item', ines: 'alan_fail_ines_item', rui: 'alan_fail_rui_item' };
   async function interact(t, verb) {
-    const def = t.def, item = verb === 'item' ? selItem : null;
-    busy++;
+    const def = t.def, item = verb === 'item' ? E.selItem : null;
+    E.busy++;
     hideHover(); canvas.className = '';
     try {
-      if (t.actor && t.actor !== player) { // Alan's lines go to whoever he is dealing with, and he turns to them
-        lastPartner = t.actor;
-        if (verb !== 'look' && verb !== 'exit' && canTurn(player) && Math.abs(t.actor.x - player.x) > 30) player.dir = t.actor.x > player.x ? 'e' : 'w';
+      if (t.actor && t.actor !== E.player) { // Alan's lines go to whoever he is dealing with, and he turns to them
+        E.lastPartner = t.actor;
+        if (verb !== 'look' && verb !== 'exit' && E.canTurn(E.player) && Math.abs(t.actor.x - E.player.x) > 30) E.player.dir = t.actor.x > E.player.x ? 'e' : 'w';
       }
-      if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk) && !(item && def.items && def.items[item])) { if (item) { selItem = null; renderInv(); } await say('alan_npc_busy'); return; }
+      if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk) && !(item && def.items && def.items[item])) { if (item) { E.selItem = null; E.renderInv(); } await E.say('alan_npc_busy'); return; }
       if (t.kind === 'self') {
         const h = def.items[item] || def.items.any;
-        selItem = null; renderInv(); invBar.classList.remove('show');
+        E.selItem = null; E.renderInv(); invBar.classList.remove('show');
         await runHandler(h || failLine(t, 'item'), t); return;
       }
       if (verb === 'look') {
-        if (player.visible && def.at && !t.actor) player.dir = def.at[0] > player.x ? 'e' : 'w';
-        if (t.actor && t.actor !== player && canTurn(player) && Math.abs(t.actor.x - player.x) > 30) player.dir = t.actor.x > player.x ? 'e' : 'w';
+        if (E.player.visible && def.at && !t.actor) E.player.dir = def.at[0] > E.player.x ? 'e' : 'w';
+        if (t.actor && t.actor !== E.player && E.canTurn(E.player) && Math.abs(t.actor.x - E.player.x) > 30) E.player.dir = t.actor.x > E.player.x ? 'e' : 'w';
         await runHandler(def.look || failLine(t, 'look'), t); return;
       }
       if (verb === 'exit') {
-        if (def.locked && def.locked()) { if (def.exit) Sound.sfx('door_rattle', 0.6); await say((typeof def.lockedLine === 'function' ? def.lockedLine() : def.lockedLine) || 'alan_fail_04'); return; }
+        if (def.locked && def.locked()) { if (def.exit) Sound.sfx('door_rattle', 0.6); await E.say((typeof def.lockedLine === 'function' ? def.lockedLine() : def.lockedLine) || 'alan_fail_04'); return; }
         await approach(def, t.actor);
-        await goRoom(typeof def.exit === 'function' ? def.exit() : def.exit, def.entry || room.id); return;
+        await E.goRoom(typeof def.exit === 'function' ? def.exit() : def.exit, def.entry || E.room.id); return;
       }
       if (t.actor) t.actor.engaged++;
       await approach(def, t.actor);
-      if ((verb === 'take' || verb === 'use' || item) && player.visible && def.reach !== false) await reach(t);
+      if ((verb === 'take' || verb === 'use' || item) && E.player.visible && def.reach !== false) await reach(t);
       if (item) {
         const h = def.items && (def.items[item] || def.items.any);
-        selItem = null; renderInv(); invBar.classList.remove('show');
+        E.selItem = null; E.renderInv(); invBar.classList.remove('show');
         await runHandler(h || failLine(t, 'item'), t);
       } else await runHandler(def[verb] || failLine(t, verb), t);
     } finally {
       if (t.actor) { t.actor.engaged = Math.max(0, t.actor.engaged - 1); t.actor.resumeT = 1.4; }
-      busy--;
-      if (room && room.onAction && verb !== 'exit') { busy++; try { await room.onAction(t, verb); } finally { busy--; } }
+      E.busy--;
+      if (E.room && E.room.onAction && verb !== 'exit') { E.busy++; try { await E.room.onAction(t, verb); } finally { E.busy--; } }
       updateHover();
       // every finished action is autosaved: a walk through a door (goRoom's own autosave is skipped while
       // the click is still running), an item taken, a puzzle solved, a conversation over
-      if (!busy && !dialogResolve && !cutscene && room && !room.noSave) autosave();
+      if (!E.busy && !E.dialogResolve && !E.cutscene && E.room && !E.room.noSave) E.autosave();
     }
   }
   // Alan reaches toward what he takes, uses or hands over.
   async function reach(t) {
-    const cx = t.actor ? t.actor.x : t.def.rect ? t.def.rect[0] + t.def.rect[2] / 2 : player.x;
-    if (Math.abs(cx - player.x) > 8) player.dir = cx > player.x ? 'e' : 'w';
-    else if (player.dir === 'n' || player.dir === 's') player.dir = player.lastFlip ? 'w' : 'e';
-    player.pose = 'reach';
+    const cx = t.actor ? t.actor.x : t.def.rect ? t.def.rect[0] + t.def.rect[2] / 2 : E.player.x;
+    if (Math.abs(cx - E.player.x) > 8) E.player.dir = cx > E.player.x ? 'e' : 'w';
+    else if (E.player.dir === 'n' || E.player.dir === 's') E.player.dir = E.player.lastFlip ? 'w' : 'e';
+    E.player.pose = 'reach';
     await wait(window.FAST ? 30 : 520);
-    player.pose = null;
+    E.player.pose = null;
   }
 
   // ---------------------------------------------------------------- stills
   // Full-screen painted stills for cutscenes, with a slow Ken Burns move.
-  let still = null;
+  E.still = null;
   function drawStill(dt) {
-    const s = still;
+    const s = E.still;
     // a cross-fade (stillTo with cross): the previous painting keeps moving underneath until the new one covers it
     if (s.prev) { paintStill(s.prev, dt, 1, false); if (s.alpha > 0.985) s.prev = null; }
     paintStill(s, dt, s.alpha, !s.prev);
-    if (s.target === 0 && s.alpha < 0.02) still = null;
+    if (s.target === 0 && s.alpha < 0.02) E.still = null;
   }
   function paintStill(s, dt, alpha, black) {
     // the fades and the pan run on the wall clock (up to a quarter second a frame), so a slow device still
@@ -1581,7 +1585,7 @@
     s.lastMs = nowMs;
     s.t += dt;
     s.alpha += (s.target - s.alpha) * Math.min(1, dt * (s.rate || 3.2));
-    if (s !== still) alpha = 1; // the outgoing painting stays opaque under the incoming one
+    if (s !== E.still) alpha = 1; // the outgoing painting stays opaque under the incoming one
     const im = IMG['still:' + s.name] || IMG['close:' + s.name] || IMG['bg:' + s.name];
     const p = Math.min(1, s.t / s.dur), e = p * p * (3 - 2 * p);
     const z = s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e;
@@ -1599,29 +1603,29 @@
   // Shows a still while fn() runs (lines, waits), then fades back to the room.
   async function showStill(name, fn, opts) {
     opts = opts || {};
-    busy++; cutscene++;
-    still = { name, t: 0, alpha: still ? still.alpha : 0, target: 1, dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
-    clearSpeech();
+    E.busy++; E.cutscene++;
+    E.still = { name, t: 0, alpha: E.still ? E.still.alpha : 0, target: 1, dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
+    E.clearSpeech();
     await wait(window.FAST ? 20 : 700);
     try { if (fn) await fn(); else await wait(window.FAST ? 20 : (opts.hold || 3000)); }
     finally {
-      if (!opts.keep) { still.target = 0; await wait(window.FAST ? 20 : 700); }
-      busy--; cutscene--;
+      if (!opts.keep) { E.still.target = 0; await wait(window.FAST ? 20 : 700); }
+      E.busy--; E.cutscene--;
     }
   }
-  function endStill() { if (still) still.target = 0; }
+  function endStill() { if (E.still) E.still.target = 0; }
   // Puts up a painting at once and returns (no wait, the speech box is left alone): with opts.cross it
   // dissolves over the painting already showing instead of rising from black. Used by the chapter
   // transitions and the fado slideshow (js/story/transitions.js); endStill() fades the last one out.
   function stillTo(name, opts) {
     opts = opts || {};
-    const prev = still && still.target > 0 && still.alpha > 0.05 ? still : null;
+    const prev = E.still && E.still.target > 0 && E.still.alpha > 0.05 ? E.still : null;
     if (prev) prev.prev = null;
-    still = { name, t: 0, alpha: prev && !opts.cross ? prev.alpha : 0, target: 1, rate: opts.rate, prev: opts.cross ? prev : null,
+    E.still = { name, t: 0, alpha: prev && !opts.cross ? prev.alpha : 0, target: 1, rate: opts.rate, prev: opts.cross ? prev : null,
       dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
-    if (window.FAST) { still.alpha = 1; still.prev = null; }
+    if (window.FAST) { E.still.alpha = 1; E.still.prev = null; }
   }
-  const stillShowing = () => still ? still.name : null; // the painting up now (or fading out)
+  const stillShowing = () => E.still ? E.still.name : null; // the painting up now (or fading out)
 
   // ---------------------------------------------------------------- close-ups
   // Documents and objects seen up close: painted image plus HTML text, paged.
@@ -1629,7 +1633,7 @@
   function closeup(pages, opts) {
     opts = opts || {};
     return new Promise(resolve => {
-      let i = 0; busy++;
+      let i = 0; E.busy++;
       const page = closeEl.querySelector('.page'), prev = closeEl.querySelector('.prev'), next = closeEl.querySelector('.next');
       const show = () => {
         const p = pages[i];
@@ -1642,7 +1646,7 @@
         Sound.sfx('page');
       };
       let closed = false;
-      const close = () => { if (closed) return; closed = true; closeEl.classList.add('hidden'); prev.onclick = next.onclick = closeEl.onclick = null; busy--; resolve(); };
+      const close = () => { if (closed) return; closed = true; closeEl.classList.add('hidden'); prev.onclick = next.onclick = closeEl.onclick = null; E.busy--; resolve(); };
       prev.onclick = ev => { ev.stopPropagation(); if (i > 0) { i--; show(); } };
       next.onclick = ev => { ev.stopPropagation(); if (i < pages.length - 1) { i++; show(); } };
       closeEl.onclick = ev => { if (ev.target === closeEl || ev.target.classList.contains('x')) close(); };
@@ -1655,7 +1659,7 @@
   // ---------------------------------------------------------------- clock overlay
   function setClock(text) {
     const c = $('#clock');
-    if (state) state.clockText = text || null; // the overlay is part of the save (Cais do Sodré countdown, the Carmo at midnight)
+    if (E.state) E.state.clockText = text || null; // the overlay is part of the save (Cais do Sodré countdown, the Carmo at midnight)
     if (!text) { c.classList.remove('on'); return; }
     if (c.textContent !== text) { c.textContent = text; c.classList.remove('tick'); void c.offsetWidth; c.classList.add('tick'); }
     c.classList.add('on');
@@ -1666,13 +1670,13 @@
   // flags.clock), plus where Alan stands, the clock overlay and the scene's music cue (Sound.musicState)
   function snapshot() {
     let music = null; try { music = Sound.musicState ? Sound.musicState() : null; } catch (e) { music = null; }
-    return JSON.stringify(Object.assign({}, state, { px: player.x, py: player.y, dir: player.dir, music, savedAt: Date.now() }));
+    return JSON.stringify(Object.assign({}, E.state, { px: E.player.x, py: E.player.y, dir: E.player.dir, music, savedAt: Date.now() }));
   }
-  function autosave() { if (/[?&]scene=/.test(location.search) || (state && state.flags.dawn)) return false; // past dawn the save is wiped, not rewritten
+  function autosave() { if (/[?&]scene=/.test(location.search) || (E.state && E.state.flags.dawn)) return false; // past dawn the save is wiped, not rewritten
     try { localStorage.setItem(SAVE_KEY, snapshot()); return true; } catch (e) { return false; /* storage unavailable */ } }
   const readKey = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
   function hasSave() { return !!(readKey(SAVE_KEY) || readKey(SAVE_KEY_MANUAL)); }
-  function saveManual() { if (state && state.flags.dawn) return false; try { localStorage.setItem(SAVE_KEY_MANUAL, snapshot()); return true; } catch (e) { return false; } }
+  function saveManual() { if (E.state && E.state.flags.dawn) return false; try { localStorage.setItem(SAVE_KEY_MANUAL, snapshot()); return true; } catch (e) { return false; } }
   // Continue picks whichever save is newer (the autosave or the menu's); Load from the menu prefers the menu's save
   function newestSave() {
     const a = readKey(SAVE_KEY), m = readKey(SAVE_KEY_MANUAL);
@@ -1687,23 +1691,23 @@
     let parsed;
     try { parsed = JSON.parse(data); } catch (e) { parsed = null; }
     if (!parsed || !parsed.flags || !ROOMS[parsed.room]) return false; // corrupt or from a retired build: start fresh
-    state = Object.assign(freshState(), parsed);
+    E.state = Object.assign(freshState(), parsed);
     // saves from before the sketch became an item: hand it over so Inês and Celeste can take it
-    if (state.flags.sketched_tile && !state.inv.includes('sketch')) state.inv.push('sketch');
-    state.inv = state.inv.filter(id => id !== 'weight'); // the brass weight was taken out of the game
-    selItem = null; renderInv();
+    if (E.state.flags.sketched_tile && !E.state.inv.includes('sketch')) E.state.inv.push('sketch');
+    E.state.inv = E.state.inv.filter(id => id !== 'weight'); // the brass weight was taken out of the game
+    E.selItem = null; E.renderInv();
     // loading over a game in progress: put the old room away cleanly first (its leave hook, Alan's pose, the cigarette, any line)
-    noteInput(); if (player) { player.pose = null; player.stop(); }
+    E.noteInput(); if (E.player) { E.player.pose = null; E.player.stop(); }
     try { Sound.stopVoice && Sound.stopVoice(); } catch (e) { /* ignore */ }
-    clearSpeech();
-    if (room && room.leave) { try { room.leave(); } catch (e) { /* ignore */ } }
-    room = null;
-    await goRoom(state.room, null, { pos: [state.px, state.py, state.dir], noEnter: true, noSave: true });
-    setClock(state.clockText || null);
-    try { if (Sound.restoreMusic && state.music) Sound.restoreMusic(state.music); } catch (e) { /* ignore */ }
+    E.clearSpeech();
+    if (E.room && E.room.leave) { try { E.room.leave(); } catch (e) { /* ignore */ } }
+    E.room = null;
+    await E.goRoom(E.state.room, null, { pos: [E.state.px, E.state.py, E.state.dir], noEnter: true, noSave: true });
+    E.setClock(E.state.clockText || null);
+    try { if (Sound.restoreMusic && E.state.music) Sound.restoreMusic(E.state.music); } catch (e) { /* ignore */ }
     return true;
   }
-  function checkpoint() { state.flags._checkpoint = null; state.flags._checkpoint = snapshot(); }
+  function checkpoint() { E.state.flags._checkpoint = null; E.state.flags._checkpoint = snapshot(); }
 
   // ---------------------------------------------------------------- cards & menu
   async function card(t1, t2, ms) {
@@ -1720,12 +1724,12 @@
   $('#opt-music').onclick = e => { e.stopPropagation(); Sound.setMusic(!Sound.musicOn); syncOptions(); };
   $('#opt-voice').onclick = e => { e.stopPropagation(); Sound.setVoice(!Sound.voiceOn); syncOptions(); };
   // (never silent: a refused save or load says why)
-  const midScene = () => busy > 0 || !!dialogResolve || cutscene > 0;
+  const midScene = () => E.busy > 0 || !!E.dialogResolve || E.cutscene > 0;
   $('#opt-save').onclick = e => { e.stopPropagation(); $('#menu').classList.remove('open');
-    if (!state || !room) return toast('Nothing to save yet');
+    if (!E.state || !E.room) return toast('Nothing to save yet');
     if (midScene()) return toast("Can't save during a scene");
-    if (room.noSave && room.id !== 'map') return toast("Can't save here"); // (the map is fine: Continue opens it again)
-    if (state.flags.dawn) return toast('The story is over');
+    if (E.room.noSave && E.room.id !== 'map') return toast("Can't save here"); // (the map is fine: Continue opens it again)
+    if (E.state.flags.dawn) return toast('The story is over');
     toast(saveManual() ? 'Game saved' : 'Saving failed (browser storage is off)'); };
   $('#opt-load').onclick = async e => { e.stopPropagation(); $('#menu').classList.remove('open');
     if (midScene()) return toast("Can't load during a scene");
@@ -1734,60 +1738,72 @@
   function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 1500); }
 
   // ---------------------------------------------------------------- boot
-  let SPRITES = {};
+  E.SPRITES = {};
   async function init(chars, items, rooms, sprites) {
-    Object.assign(CHARS, chars); Object.assign(ITEMS, items); Object.assign(ROOMS, rooms); SPRITES = sprites;
+    Object.assign(CHARS, chars); Object.assign(ITEMS, items); Object.assign(ROOMS, rooms); E.SPRITES = sprites;
     for (const id in ROOMS) ROOMS[id].id = id;
-    player = new Actor('alan', 'alan', 300, 600, 'w');
-    renderInv(); syncOptions();
-    $('#btn-continue').disabled = !hasSave();
+    E.player = new E.Actor('alan', 'alan', 300, 600, 'w');
+    E.renderInv(); E.syncOptions();
+    $('#btn-continue').disabled = !E.hasSave();
     Sound.loadManifest(); Sound.loadSfx();
     const bar = $('#loadbar');
     await preload(p => { bar.style.width = Math.round(p * 100) + '%'; });
     $('#title').classList.add('ready');
-    requestAnimationFrame(frame);
+    requestAnimationFrame(E.frame);
   }
   let started = false;
   // the animation review screen (?review): a room to stage characters in, with no story running
-  function sandbox() { started = true; Sound.init(); showModal('title', false); state = freshState(); renderInv(); }
+  function sandbox() { started = true; Sound.init(); E.showModal('title', false); E.state = freshState(); E.renderInv(); }
   async function begin(fresh) {
     if (started) return; // a double-click on New game would run the intro twice, voices over each other
     started = true;
     Sound.init();
-    showModal('title', false);
-    if (fresh || !(await loadSave())) { state = freshState(); renderInv(); await window.Story.newGame(); }
+    E.showModal('title', false);
+    if (fresh || !(await E.loadSave())) { E.state = freshState(); E.renderInv(); await window.Story.newGame(); }
   }
 
+  Object.assign(E, { Actor });
+  Object.assign(E, { updateLights, drawGlows, lightsOn, groundShadows, lightParams, lightSprite, roomLight });
+  Object.assign(E, { scaleAt, goRoom, refreshNpcs, renderLabels, fade });
+  Object.assign(E, { clampToPoly, route, roundCorners, hitShape, alphaAt, hotArea });
+  Object.assign(E, { curBg, frame });
+  Object.assign(E, { noteInput, idleSmokeTick, smoking, smokeStep });
+  Object.assign(E, { turnsFreely, canTurn, keepInside, positionSpeech, clearSpeech, say, lyrics, says, dialog });
+  Object.assign(E, { has, giveItem, takeItem, itemName, renderInv, readItem });
+  Object.assign(E, { defaultVerb, updateHover, showHoverText, hideHover, runHandler, interact, reach });
+  Object.assign(E, { drawStill, showStill, endStill, stillTo, stillShowing, closeup, setClock });
+  Object.assign(E, { autosave, hasSave, clearSaves, loadSave, checkpoint, card, showModal, syncOptions, toast });
+
   window.Game = {
-    init, begin, sandbox, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, stillTo, stillShowing, skipLine: () => { if (skipFn) skipFn(); }, closeup, setClock, renderInv,
-    set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, clearSaves, showModal, refreshNpcs, renderLabels,
-    giveItem, takeItem, has, toast, readItem,
-    get state() { return state; }, get flags() { return state.flags; },
-    get player() { return player; }, get room() { return room; }, get npcs() { return npcs; },
-    bgImage: () => room && IMG['bg:' + curBg()],
+    init, begin, sandbox, goRoom: E.goRoom, say: E.say, says: E.says, lyrics: E.lyrics, wait, dialog: E.dialog, reach: E.reach, showStill: E.showStill, endStill: E.endStill, stillTo: E.stillTo, stillShowing: E.stillShowing, skipLine: () => { if (E.skipFn) E.skipFn(); }, closeup: E.closeup, setClock: E.setClock, renderInv: E.renderInv,
+    set cutscene(v) { E.cutscene = Math.max(0, E.cutscene + (v ? 1 : -1)); }, card: E.card, fade: E.fade, checkpoint: E.checkpoint, loadSave: E.loadSave, autosave: E.autosave, clearSaves: E.clearSaves, showModal: E.showModal, refreshNpcs: E.refreshNpcs, renderLabels: E.renderLabels,
+    giveItem: E.giveItem, takeItem: E.takeItem, has: E.has, toast: E.toast, readItem: E.readItem,
+    get state() { return E.state; }, get flags() { return E.state.flags; },
+    get player() { return E.player; }, get room() { return E.room; }, get npcs() { return E.npcs; },
+    bgImage: () => E.room && IMG['bg:' + E.curBg()],
     image: key => IMG[key],
-    mask: () => room && room.skyMask && IMG['mask:' + room.skyMask],
-    idleSmoke: null, noteInput, get smoking() { return !!smk; }, get smokeStep() { return smk && smk.step; },
-    get isBusy() { return busy > 0 || !!dialogResolve || (player && player.walking); },
-    npc: id => npcs.find(a => a.id === id),
-    rooms: () => Object.keys(ROOMS), roomDef: id => ROOMS[id], chars: () => CHARS, Actor: (...a) => new Actor(...a),
+    mask: () => E.room && E.room.skyMask && IMG['mask:' + E.room.skyMask],
+    idleSmoke: null, noteInput: E.noteInput, get smoking() { return E.smoking(); }, get smokeStep() { return E.smokeStep(); },
+    get isBusy() { return E.busy > 0 || !!E.dialogResolve || (E.player && E.player.walking); },
+    npc: id => E.npcs.find(a => a.id === id),
+    rooms: () => Object.keys(ROOMS), roomDef: id => ROOMS[id], chars: () => CHARS, Actor: (...a) => new E.Actor(...a),
     // add (or replace) a painted frame at run time (the review screen previews a frame before it's approved)
-    addSprite(k, meta) { SPRITES[k] = meta; delete IMG['spr:' + k]; return loadImage('spr:' + k, meta.src || 'art/sprites/' + k + '.webp'); },
+    addSprite(k, meta) { E.SPRITES[k] = meta; delete IMG['spr:' + k]; return loadImage('spr:' + k, meta.src || 'art/sprites/' + k + '.webp'); },
     // test hook: act on a hotspot (by name) or an actor (by id), optionally with an item
     async act(target, verb, item) {
-      noteInput(); // a scripted action counts as input (puts the cigarette away)
+      E.noteInput(); // a scripted action counts as input (puts the cigarette away)
       let t = null;
-      const a = npcs.find(n => n.id === target && n.visible);
+      const a = E.npcs.find(n => n.id === target && n.visible);
       if (a) t = { kind: 'npc', actor: a, def: a.def };
-      else if (target === 'self') t = { kind: 'self', def: { name: 'Alan', items: (room.self && room.self.items) || {} } };
+      else if (target === 'self') t = { kind: 'self', def: { name: 'Alan', items: (E.room.self && E.room.self.items) || {} } };
       else {
-        const h = (room.hotspots || []).find(h => (!h.when || h.when()) && (typeof h.name === 'function' ? h.name() : h.name) === target);
+        const h = (E.room.hotspots || []).find(h => (!h.when || h.when()) && (typeof h.name === 'function' ? h.name() : h.name) === target);
         if (h) t = { kind: 'hot', def: h };
       }
-      if (!t) throw new Error('no target ' + target + ' in ' + room.id);
-      if (item) { if (!has(item)) throw new Error('no item ' + item); selItem = item; }
-      await interact(t, item ? 'item' : (verb || defaultVerb(t.def)));
+      if (!t) throw new Error('no target ' + target + ' in ' + E.room.id);
+      if (item) { if (!E.has(item)) throw new Error('no item ' + item); E.selItem = item; }
+      await E.interact(t, item ? 'item' : (verb || E.defaultVerb(t.def)));
     },
-    busy: async fn => { busy++; try { return await fn(); } finally { busy--; updateHover(); if (!busy && room && !room.noSave) autosave(); } },
+    busy: async fn => { E.busy++; try { return await fn(); } finally { E.busy--; E.updateHover(); if (!E.busy && E.room && !E.room.noSave) E.autosave(); } },
   };
 })();
