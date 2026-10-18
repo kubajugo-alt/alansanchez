@@ -152,7 +152,7 @@ What this means on the live site:
   - `scripts/similar.py`: `js/similar.js`.
   - `scripts/unify_palette.py`: palette.
   - `node scripts/build-manifest.mjs`: asset version hashes in `index.html`.
-- **Engine and story:** `js/engine.js` (Actor, `composeFrames`, `sameFacing`) and `js/story/core.js` (Alan's frames, the pair helpers).
+- **Engine and story:** `js/engine/actor.js` (Actor, `composeFrames`, `sameFacing`; the engine was split into `js/engine/*.js` after this handoff, see `docs/CODEMAP.md`) and `js/story/core.js` (Alan's frames, the pair helpers).
 - **Tests:**
   - Smoke test: a Playwright script that opens each `?scene=` preview and checks for page errors (scene keys in `PREVIEW`, `js/story/main.js`).
   - Full playthrough script: plays the game to the end and must finish with `won: true` and no errors.
