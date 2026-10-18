@@ -57,6 +57,9 @@
   // cross-dissolved.
   const arr = v => v == null ? [] : Array.isArray(v) ? v : [v];
   const XFADE = 0.2, MORPH_T = 0.34, GROUND_K = 2.2;
+  const IB_STEP = 0.11;         // how long each in-between frame of a pose change is held (s)
+  const WALK_EDGE = 0.13;       // the start step and the stop step of a walk are held this long (s)
+  const XFADE_SHORT = 0.1;      // near-identical frames (talk, idle variants, a cigarette drag): a 100 ms eased cross-fade
   // Movement feel (all tunable; 0 switches a feature off). Lengths are in walker heights.
   const WALK_EASE_IN = 0.24;    // s from a standstill to full pace (the first steps are shorter and slower)
   const WALK_START_PACE = 0.3;  // pace of the very first step, as a fraction of full pace
@@ -109,9 +112,16 @@
       if (this.dir === 's' && F.frontWalk) return F.frontWalk;
       return F.walk || arr(F.idle).filter(x => !Array.isArray(x));
     }
+    // ground covered by each frame of the current cycle (in heights), measured from where the planted
+    // foot sits in each painting; null = the even default (frameStep)
+    cycleLens(cyc) {
+      const F = this.F, L = this.dir === 'n' && F.backWalk ? F.backWalkLen : this.dir === 's' && F.frontWalk ? F.frontWalkLen : F.walkLen;
+      return L && L.length === cyc.length ? L : null;
+    }
     update(dt) {
       const F = this.F;
       if (this.fadeT > 0) this.fadeT = Math.max(0, this.fadeT - dt);
+      if (this.ibSeq && (this.ibT += dt) >= IB_STEP) { this.ibT = 0; this.ibI++; }
       if (this.resumeT > 0) this.resumeT -= dt;
       this.breath += dt * this.rate;
       // performers move with the music. The song's loudness is smoothed per figure and only changes
@@ -151,12 +161,19 @@
           } else { this.x += dx / gd * budget; this.y += dy / gd * budget; moved += budget; budget = 0; }
         }
         // the cycle advances by ground covered, so planted feet never slide
-        const cyc = this.cycle();
-        this.phase += moved / (hh * (this.c.frameStep || (cyc.length >= 8 ? 0.085 : 0.17))); // frameStep: ground per frame (a 4-frame stride + passing cycle uses half)
+        const cyc = this.cycle(), lens = this.cycleLens(cyc);
+        if (lens) { // each frame lasts exactly as far as its planted foot travels: no sliding
+          let m = moved / hh;
+          for (let g = 0; g < 64 && m > 1e-9; g++) {
+            const i0 = Math.floor(this.phase), len = lens[((i0 % lens.length) + lens.length) % lens.length], rest = (i0 + 1 - this.phase) * len;
+            if (m < rest) { this.phase += m / len; m = 0; } else { this.phase = i0 + 1; m -= rest; }
+          }
+        } else this.phase += moved / (hh * (this.c.frameStep || (cyc.length >= 8 ? 0.085 : 0.17))); // frameStep: ground per frame (a 4-frame stride + passing cycle uses half)
         const idx = Math.floor(this.phase) % cyc.length;
         if (idx !== this.stepIdx) {
           this.stepIdx = idx;
-          const contact = cyc.length >= 8 ? idx % 4 === 0 : idx % 2 === 0;
+          const steps = !this.dir || this.dir === 'e' || this.dir === 'w' ? this.F.walkSteps : null;
+          const contact = steps && lens ? steps.includes(idx) : cyc.length >= 8 ? idx % 4 === 0 : idx % 2 === 0;
           if (contact && this.visible && this.x > -40 && this.x < 1320) Sound.step((room && room.floor) || 'stone', this === player ? 1 : 0.35 + 0.4 * Math.max(0, Math.min(1, (this.y - 520) / 200)), this.x);
         }
         if (arrived) this.stop();
@@ -215,15 +232,34 @@
     loopActive() { const F = this.F; return !!(this.loop && F.loops && F.loops[this.loop] && !this.engaged && this.resumeT <= 0 && !this.talking); }
     stop() {
       if (this.walking && !window.FAST) this.leanV -= (this.dir === 'e' ? 1 : this.dir === 'w' ? -1 : 0) * LEAN_SETTLE; // planted: the body rocks back a touch
+      if (this.walking) this.stopAt = time;
       this.target = null; this.path = null; this.walking = false; this.phase = 0; this.stepIdx = -1; this.walkT = 0; const r = this.resolve; this.resolve = null; if (r) r();
     }
     height() { return (this.h || scaleAt(this.y)) * (this.c.scale || 1); }
     // frames not painted yet fall back to the character's idle (then talk) frame
     frameKey() {
       const k = this.rawKey(), ok = f => f && SPRITES[f] && IMG['spr:' + f];
-      if (ok(k)) return k;
-      const F = this.F;
-      return arr(F.idle).concat(arr(F.talk)).find(ok) || k;
+      const F = this.F, key = ok(k) ? k : arr(F.idle).concat(arr(F.talk)).find(ok) || k;
+      return window.FAST ? key : this.between(key, ok);
+    }
+    // In-betweens (frames.inbetween: { 'from>to': [frame, ...] }, played backwards for 'to>from'): a big
+    // pose change passes through them, IB_STEP each; a walk opens with frames.walkStart and ends on
+    // frames.walkStop (side views only). Each hand-over is still morphed or cross-faded as usual.
+    between(key, ok) {
+      const F = this.F, side = this.dir === 'e' || this.dir === 'w';
+      if (side && !this.pose && this.walking && this.walkT < WALK_EDGE && ok(F.walkStart)) return F.walkStart;
+      if (side && !this.pose && !this.walking && this.stopAt != null && time - this.stopAt < WALK_EDGE && ok(F.walkStop)) return F.walkStop;
+      const IB = F.inbetween;
+      if (!IB) { this.settled = key; return key; }
+      if (this.ibSeq && this.ibTarget !== key) this.ibSeq = null; // changed its mind: go straight there
+      if (!this.ibSeq && this.settled && key !== this.settled) {
+        const fwd = IB[this.settled + '>' + key], rev = IB[key + '>' + this.settled];
+        const seq = (fwd || (rev ? rev.slice().reverse() : [])).filter(ok);
+        if (seq.length) { this.ibSeq = seq; this.ibI = 0; this.ibT = 0; this.ibTarget = key; }
+      }
+      if (this.ibSeq && this.ibI < this.ibSeq.length) return this.ibSeq[this.ibI];
+      this.ibSeq = null; this.settled = key;
+      return key;
     }
     rawKey() {
       const F = this.F;
@@ -350,10 +386,11 @@
         const tf = this.talking && !this.walking && !this.pose ? arr(F.talk).concat(arr(F.idle).flat()) : null;
         const talkSwap = !!(tf && tf.includes(key) && tf.includes(this.prev));
         const M = window.MORPHS, morph = this.prev && !talkSwap && this.prevFlip === flipped && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
-        // only a pair with morph data moves between poses; anything else is a clean cut, so two
-        // paintings are never on screen at once
-        if (!morph) this.prev = null;
-        this.fadeDur = MORPH_T; this.viaOut = false;
+        // a pair with morph data moves between poses; two near-identical paintings (a mouth, a hand,
+        // a drag on the cigarette) get a quick eased cross-fade; anything else is a clean cut
+        const SIM = window.SIMILAR, similar = !morph && this.prev && this.prevFlip === flipped && SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]);
+        if (!morph && !similar) this.prev = null;
+        this.fadeDur = similar ? XFADE_SHORT : MORPH_T; this.fadeSim = !!similar; this.viaOut = false;
         this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
       }
@@ -375,7 +412,7 @@
       const U = { x: Math.min(A.x, B ? B.x : A.x), y: Math.min(A.y, B ? B.y : A.y) };
       U.r = Math.max(A.x + A.w, B ? B.x + B.w : -1e9); U.b = Math.max(A.y + A.h, B ? B.y + B.h : -1e9);
       const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
-      const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh);
+      const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh, false, this.fadeSim);
       const sinkPx = this.sink * h;
       const unlit = !!(room && room.unlit && room.unlit.test(key));
       const lights = unlit ? [] : lightsOn(this.x, this.y - h * 0.55, h, this);
@@ -443,7 +480,7 @@
   // being left behind in a pose change (kB runs 1 -> 0, eased)
   // the shapes slide over the whole change, the pictures swap only in its middle
   const band = (a, z, v) => { const q = Math.max(0, Math.min(1, (v - a) / (z - a))); return q * q * (3 - 2 * q); };
-  function composeFrames(A, B, kB, U, w, h, linear) {
+  function composeFrames(A, B, kB, U, w, h, linear, similar) {
     fit(compBuf, cg, w, h);
     const M = window.MORPHS, fAB = B && M && M[A.key + '>' + B.key], fBA = B && M && M[B.key + '>' + A.key];
     if (B && kB > 0 && fAB && fBA && window.Warp && window.WARP !== false && !window.FAST) {
@@ -457,6 +494,10 @@
       fit(compBuf, cg, w, h);
     }
     if (linear) { blit(cg, A, U, 1); return compBuf; }
+    if (B && kB > 0 && similar) { // near-identical frames: the new one eases in over the old
+      const e = kB * kB * (3 - 2 * kB);
+      blit(cg, B, U, 1); blit(cg, A, U, 1 - e); return compBuf;
+    }
     // no morph for this pair: a clean cut, never two paintings overlaid
     blit(cg, A, U, 1);
     return compBuf;

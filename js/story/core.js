@@ -42,7 +42,11 @@
   S.CHARS = {
     alan: { scale: 1, frames: {
       idle: ['alan_side', 'alan_idle2'], talk: ['alan_talk', 'alan_talk2'],
-      walk: ['alan_walkA', 'alan_walkDown', 'alan_pass', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_pass', 'alan_walkUp'],
+      // contact, passing, toe-off on each foot. walkLen is the ground each frame covers (heights), measured
+      // from where the planted foot sits in each painting, so his feet stay put (walkDown left out: its
+      // planted foot sits ahead of the contact frame's, so it slid forward and snapped back every stride)
+      walk: ['alan_walkA', 'alan_pass', 'alan_walkUp', 'alan_walkB', 'alan_pass', 'alan_walkUp'],
+      walkLen: [0.176, 0.103, 0.064, 0.176, 0.103, 0.064], walkSteps: [0, 3],
       front: 'alan_front', frontWalk: ['alan_front_walk1', 'alan_front', 'alan_front_walk2', 'alan_front'],
       back: 'alan_back', backWalk: ['alan_back_walk1', 'alan_back', 'alan_back_walk2', 'alan_back'],
       poses: { pair_unbutton: 'pair_unbutton', pair_kiss: 'pair_kiss', pair_brow: 'pair_brow', button: 'alan_button', undress1: 'alan_undress1', undress2: 'alan_undress2', undress3: 'alan_undress3', undress4: 'alan_undress4', jacket: 'alan_jacket', jump: 'alan_jump', undress1b: 'alan_undress1b', uboot: 'alan_undress_boot', ubelt: 'alan_undress_belt', fling: 'alan_fling', jwink: 'alan_jacket_wink', jgrin: 'alan_jacket_grin', hands: 'alan_hands', climb: 'alan_climb', undress2a: 'alan_undress2a', undress2b: 'alan_undress2b', unbutton: 'alan_undress_unbutton', ujeans: 'alan_undress_jeans', tdown: 'alan_trunks_down', tstep: 'alan_trunks_step', jcrouch: 'alan_jump_crouch', jrise: 'alan_jump_rise', jfall: 'alan_jump_fall', wsurface: 'alan_wash_surface', wash4: 'alan_wash4', wash5: 'alan_wash5', wash6: 'alan_wash6', tron: 'alan_trunks_on', drip: 'alan_drip', snap: 'alan_trunks_snap', dboot: 'alan_dress_boot', dfinal: 'alan_dress_final', swim: 'alan_swim', swim2: 'alan_swim2', swimwave: 'alan_swim_wave', wash1: 'alan_wash1', wash2: 'alan_wash2', wash3: 'alan_wash3', flirt: 'alan_flirt', wink: 'alan_wink', swoon: 'alan_swoon', fluster: 'alan_fluster', reach: 'alan_reach', read: 'alan_read', ring: 'alan_ring', asleep: 'alan_asleep', pickup: 'alan_pickup', write: 'alan_write',
