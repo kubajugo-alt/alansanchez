@@ -38,7 +38,7 @@
     rigtest: { flags: { ch: 1 }, room: 'police', pos: [300, 690, 'e'], run: async () => {
       const p = G.player;
       if (new URLSearchParams(location.search).has('mute')) Sound.mute(); // the left of the pair stays quiet (nothing saved)
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < (window.FAST ? 1 : 20); i++) { // once in the tests, on a loop for the eye
         await p.walkTo(980, 690); await G.wait(1800); await say('alan_water'); await G.wait(3500);
         await p.walkTo(300, 690); await G.wait(2600);
       }
