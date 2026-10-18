@@ -27,6 +27,13 @@ def drop(deg):
     M=cv2.getRotationMatrix2D((HX,HY),-deg,1.0); p=M@np.array([340,bchin,1.0]); return p[1]-bchin
 spr=Image.open('art/sprites/alan_side.webp').convert('RGBA')
 band=(yy>250)&(yy<275)&(xx>230)&(base[...,3]>200)
+# his own mouth painted out first (lips and smile line filled from the skin around them), so neither the swung jaw
+# nor the new mouth's soft edge shows the old lips underneath
+lips=np.zeros((H,W),np.uint8)
+cv2.ellipse(lips,(318,327),(66,24),4,0,360,255,-1)
+lips[base[...,3]<200]=0
+clean=base.copy()
+clean[...,:3]=cv2.inpaint(base[...,:3].astype(np.uint8),lips,9,cv2.INPAINT_TELEA).astype(np.float32)
 for s in 'ABCDEFGH':
     im=Image.open(P+f'mouth_{s}.png').convert('RGBA').resize((kw,kh),Image.LANCZOS).crop((pad[0],pad[1],pad[0]+W,pad[1]+H))
     Ag=cv2.cvtColor((np.asarray(im.convert('RGB'))/255).astype(np.float32),cv2.COLOR_RGB2GRAY)
@@ -40,8 +47,8 @@ for s in 'ABCDEFGH':
     deg=0.0
     while drop(deg)<want and deg<14: deg+=0.25
     # 1. his own jaw, swung down
-    jr=rot(np.dstack([base[...,:3],base[...,3]*jaw]),deg)
-    comp=base.copy()
+    jr=rot(np.dstack([clean[...,:3],clean[...,3]*jaw]),deg)
+    comp=clean.copy()
     # the old chin goes where the swung chin no longer covers it (in front of the throat), so there's one outline
     front=(jaw>0.3)&(xx>300)&(yy>360); comp[front,3]=0
     al=jr[...,3:4]/255; comp[...,:3]=jr[...,:3]*al+comp[...,:3]*(1-al); comp[...,3]=np.maximum(comp[...,3],jr[...,3])
