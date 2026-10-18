@@ -39,12 +39,14 @@
       const p = G.player;
       const q = new URLSearchParams(location.search);
       if (q.has('mute')) Sound.mute(); // the left of the pair stays quiet (nothing saved)
+      const vasco = q.get('who') === 'vasco'; // Vasco's walk instead (review: walk cycles)
+      if (vasco) p.ch = 'vasco';
       if (q.get('walk') === '6') { // the walk without the passing frame (review: walk cycles)
         S.CHARS.alan.frames.walk = ['alan_walkA', 'alan_walkDown', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_walkUp'];
         S.walkTiming(S.CHARS.alan.frames);
       }
       for (let i = 0; i < (window.FAST ? 1 : 20); i++) { // once in the tests, on a loop for the eye
-        await p.walkTo(980, 690); await G.wait(1800); await say('alan_water'); await G.wait(3500);
+        await p.walkTo(980, 690); await G.wait(1800); if (!vasco) await say('alan_water'); await G.wait(3500);
         await p.walkTo(300, 690); await G.wait(2600);
       }
     } },
@@ -241,7 +243,10 @@
       F.walkStartRun = (F.walkStartRun || []).filter(r => r[1] !== c.id).concat([[at, c.id]]).sort((a, b) => a[0] - b[0]);
       F.walkStart = F.walkStartRun.map(r => r[1]);
     }
-    if (W.walkSlot != null && c.walkAll) { F.walk = F.walk.slice(); F.walk[W.walkSlot] = c.id; } // a slot of the 8-step walk (all or none: see loadApproved)
+    if (W.walkSlot != null && c.walkAll) { // a slot of the 8-step walk (all or none: see loadApproved)
+      F.walk = W.walkBase && F.walk.length !== W.walkBase.length ? W.walkBase.slice() : F.walk.slice();
+      F.walk[W.walkSlot] = c.id;
+    }
     if (W.walkStop) F.walkStop = c.id;
     if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
     if (W.poses) Object.assign(F.poses, W.poses);
@@ -266,12 +271,11 @@
     let mine = {}; try { mine = JSON.parse(localStorage.getItem('review-approvals') || '{}'); } catch (e) { /* private mode */ }
     const dec = Object.assign({}, A, mine);
     const walkNew = new URLSearchParams(location.search).get('walk') === 'new'; // the review screen's walk comparison: the new walk, approved or not
-    const ok = id => !!(dec[id] && dec[id].decision === 'approved') || (walkNew && id.startsWith('alan_walk_'));
+    const ok = id => !!(dec[id] && dec[id].decision === 'approved') || (walkNew && /^(alan|vasco)_walk_/.test(id));
     S.REVIEW = { candidates: (C && C.candidates) || [], decisions: dec, saved: A };
-    // the new walk goes in whole or not at all: its frames mixed with the old ones lose the alternating legs
-    const walk = S.REVIEW.candidates.filter(c => c.wire && c.wire.walkSlot != null);
-    const walkAll = walk.length > 0 && walk.every(c => ok(c.id));
-    for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c.wire && c.wire.walkSlot != null ? Object.assign({ walkAll }, c) : c, ok);
+    // a character's new walk goes in whole or not at all: its frames mixed with the old ones lose the alternating legs
+    const walkAll = ch => { const w = S.REVIEW.candidates.filter(c => c.char === ch && c.wire && c.wire.walkSlot != null); return w.length > 0 && w.every(c => ok(c.id)); };
+    for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c.wire && c.wire.walkSlot != null ? Object.assign({ walkAll: walkAll(c.char) }, c) : c, ok);
     S.walkTiming(S.CHARS.alan.frames);
   }
   // ---------------------------------------------------------------- start

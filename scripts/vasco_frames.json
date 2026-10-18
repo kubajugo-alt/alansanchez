@@ -1,0 +1,378 @@
+[
+ {
+  "name": "crouch",
+  "group": "C",
+  "refs": [
+   "vasco",
+   "vasco_kneel_down"
+  ],
+  "height": false,
+  "what": "kneeling down and getting up: halfway between standing and kneeling",
+  "prompt": "The moment EXACTLY HALFWAY between standing (first image) and kneeling on one knee (second image): knees bent, his body lowered about halfway, one hand reaching down toward the ground, the other on his thigh, looking down at the ground in front of him."
+ },
+ {
+  "name": "kneel_look",
+  "group": "C",
+  "refs": [
+   "vasco_kneel"
+  ],
+  "height": false,
+  "what": "the inscription: still kneeling, glancing down into the find tray beside him",
+  "prompt": "Still kneeling on one knee exactly as here, but his head turned down to his side, peering closely into a shallow wooden finds tray on the ground beside his knee, something glinting in it."
+ },
+ {
+  "name": "kneel_lookup",
+  "group": "C",
+  "refs": [
+   "vasco_kneel_down"
+  ],
+  "height": false,
+  "what": "the inscription: kneeling, looking up suddenly",
+  "prompt": "Still kneeling on one knee exactly as here, but his head snapped up, looking up suddenly and high, eyebrows raised, surprised, one hand still near the ground."
+ },
+ {
+  "name": "stepback",
+  "group": "C",
+  "refs": [
+   "vasco"
+  ],
+  "height": true,
+  "what": "the pit game: taking a step back, startled",
+  "prompt": "Taking a quick step backwards, startled: his weight on the back foot, the front foot lifting off the floor, his body leaning back a little, both hands raised slightly in front of his chest, eyes wide."
+ },
+ {
+  "name": "callup",
+  "group": "C",
+  "refs": [
+   "vasco"
+  ],
+  "height": true,
+  "what": "the pit game: calling up to the arcade",
+  "prompt": "Looking up toward something high above him, his head tipped back, one hand cupped beside his mouth calling up, the other hand on his hip."
+ },
+ {
+  "name": "keys",
+  "group": "C",
+  "refs": [
+   "vasco"
+  ],
+  "height": true,
+  "what": "the twin: a long look, then his keys",
+  "prompt": "Taking a bunch of old iron keys on a ring out of his trouser pocket with one hand, looking down at them, serious and thoughtful."
+ },
+ {
+  "name": "back_unlock",
+  "group": "C",
+  "refs": [
+   "vasco_back"
+  ],
+  "height": true,
+  "what": "the store: unlocking the door (back view)",
+  "prompt": "Seen from behind exactly as here, but his right arm raised in front of him at chest height turning a key in a lock, his head bent slightly toward his hand."
+ },
+ {
+  "name": "back_read",
+  "group": "C",
+  "refs": [
+   "vasco_back"
+  ],
+  "height": true,
+  "what": "the store: reading the tag on the shelf (back view)",
+  "prompt": "Seen from behind exactly as here, but both hands raised in front of his face holding up a small brown paper tag on a string, his head tilted, reading it."
+ },
+ {
+  "name": "clapper_lift",
+  "group": "C",
+  "refs": [
+   "vasco",
+   "pair_vasco_clapper"
+  ],
+  "height": true,
+  "what": "the store: lifting the clapper off the shelf",
+  "prompt": "Lifting the same bronze bell clapper as the one the two men hold between them in the second image: a short, thick, green-patinated bronze cylinder with raised bands round it, heavy, with both hands at chest height, taking its weight, knees slightly bent, careful, eyes on it."
+ },
+ {
+  "name": "clapper_hold",
+  "group": "C",
+  "refs": [
+   "vasco",
+   "pair_vasco_clapper"
+  ],
+  "height": true,
+  "what": "the store: holding the clapper",
+  "prompt": "Holding the same bronze bell clapper as the one the two men hold between them in the second image: a short, thick, green-patinated bronze cylinder with raised bands round it, heavy, against his chest with both arms like something precious, looking down at it, quiet and tender."
+ },
+ {
+  "name": "clapper_give",
+  "group": "C",
+  "refs": [
+   "vasco_give",
+   "pair_vasco_clapper"
+  ],
+  "height": true,
+  "what": "the store: holding the clapper out to Alan (the loan)",
+  "prompt": "Holding out the same bronze bell clapper as the one the two men hold between them in the second image: a short, thick, green-patinated bronze cylinder with raised bands round it, heavy, in both hands toward someone in front of him, offering it, a small serious smile."
+ },
+ {
+  "name": "coffee_sip",
+  "group": "C",
+  "refs": [
+   "vasco_coffee"
+  ],
+  "height": true,
+  "what": "Thursday: sipping the coffee",
+  "prompt": "Lifting the same paper coffee cup to his mouth and sipping from it, eyes half closed, content."
+ },
+ {
+  "name": "stand_up",
+  "group": "C",
+  "refs": [
+   "vasco_sit",
+   "vasco"
+  ],
+  "height": false,
+  "what": "Thursday: getting up from sitting",
+  "prompt": "The moment EXACTLY HALFWAY between sitting (first image) and standing (second image): rising, his weight coming forward over his feet, hands pushing on his knees, his body half straightened."
+ },
+ {
+  "name": "hand_out",
+  "group": "C",
+  "refs": [
+   "vasco"
+  ],
+  "height": true,
+  "what": "Thursday: standing, holding out his hand",
+  "prompt": "Holding his open hand out in front of him, palm up, reaching down a little toward someone to help them up, smiling warmly."
+ },
+ {
+  "name": "act_trowel_a",
+  "group": "A",
+  "refs": [
+   "vasco_kneel_talk",
+   "vasco_trowel"
+  ],
+  "height": false,
+  "what": "idle activity: kneeling, scraping the trench floor with his trowel",
+  "prompt": "Kneeling on one knee as in the first image, leaning forward, scraping the soil in front of his knee with a small pointed archaeologist's trowel (as in the second image) held flat in his right hand, his other hand on his thigh, concentrating."
+ },
+ {
+  "name": "act_brush_a",
+  "group": "A",
+  "refs": [
+   "vasco_kneel_down"
+  ],
+  "height": false,
+  "what": "idle activity: kneeling, brushing the earth off a stone",
+  "prompt": "Kneeling as here, leaning low over the ground, gently brushing earth off a flat old stone on the ground with a small soft paintbrush in his right hand, his other hand steadying himself, absorbed."
+ },
+ {
+  "name": "act_sieve_a",
+  "group": "A",
+  "refs": [
+   "vasco"
+  ],
+  "height": true,
+  "what": "idle activity: shaking soil through a sieve over a bucket",
+  "prompt": "Standing, holding a round wooden-rimmed garden sieve in both hands at waist height and shaking it, a little soil falling through it into a battered metal bucket on the ground at his feet, looking into the sieve."
+ },
+ {
+  "name": "act_sherd_a",
+  "group": "A",
+  "refs": [
+   "vasco_find"
+  ],
+  "height": true,
+  "what": "idle activity: holding a sherd up to the light",
+  "prompt": "Holding a small curved piece of old glazed pottery up to the light between finger and thumb, head tilted, studying it closely, delighted."
+ },
+ {
+  "name": "act_notes_a",
+  "group": "A",
+  "refs": [
+   "vasco"
+  ],
+  "height": true,
+  "what": "idle activity: writing up the finds in his notebook",
+  "prompt": "Writing in a small battered field notebook held open in his left hand, a pencil in his right, head bent over it, thoughtful."
+ },
+ {
+  "name": "act_bag_a",
+  "group": "A",
+  "refs": [
+   "vasco"
+  ],
+  "height": true,
+  "what": "idle activity: bagging and labelling a coin",
+  "prompt": "Holding a small clear plastic finds bag open in his left hand and dropping a tiny dark old coin into it with his right hand, looking down at it carefully."
+ },
+ {
+  "name": "worried",
+  "group": "B",
+  "refs": [
+   "vasco_talk"
+  ],
+  "height": true,
+  "what": "mood: worried (vasco_fall, vasco_what; Alan's 'fine', the twin, the call)",
+  "prompt": "Talking, worried: brows drawn together, mouth slightly open mid-word, one hand raised a little toward the listener as if to stop him, shoulders tense."
+ },
+ {
+  "name": "amused",
+  "group": "B",
+  "refs": [
+   "vasco_talk"
+  ],
+  "height": true,
+  "what": "mood: amused (rope, closed, loan, hook_3, liar; his commonest reaction)",
+  "prompt": "Amused: a wry, crooked half-smile, one eyebrow raised, head tilted, arms loosely folded across his chest."
+ },
+ {
+  "name": "scandalised",
+  "group": "B",
+  "refs": [
+   "vasco_talk"
+  ],
+  "height": true,
+  "what": "mood: scandalised (much_3; Alan's 'bottom')",
+  "prompt": "Scandalised but secretly delighted: eyes wide, eyebrows high, mouth open in mock outrage, one hand pressed flat to his chest."
+ },
+ {
+  "name": "hopeful",
+  "group": "B",
+  "refs": [
+   "vasco_talk"
+  ],
+  "height": true,
+  "what": "mood: hopeful (cameo, Thursday, thu_down, after_2)",
+  "prompt": "Hopeful and a little shy: a soft, tentative smile, eyebrows slightly raised, looking at the listener, hands together in front of him fiddling with the key on its cord."
+ },
+ {
+  "name": "stern",
+  "group": "B",
+  "refs": [
+   "vasco_talk"
+  ],
+  "height": true,
+  "what": "mood: stern (his standards; Alan withholding)",
+  "prompt": "Stern and professional: no smile, a level, serious look, chin up, one finger raised as he makes a point."
+ },
+ {
+  "name": "talk4",
+  "group": "B",
+  "refs": [
+   "vasco_talk2"
+  ],
+  "height": true,
+  "what": "talk: explaining with both hands open",
+  "prompt": "Talking, explaining something with enthusiasm: mouth open mid-word, both hands open in front of him at chest height, palms up, as if holding the shape of an idea."
+ },
+ {
+  "name": "talk_count",
+  "group": "B",
+  "refs": [
+   "vasco_talk"
+  ],
+  "height": true,
+  "what": "talk: counting off on his fingers (dates, centuries)",
+  "prompt": "Talking, counting off points on his fingers: his left hand raised with two fingers up, his right index finger touching them, mouth open mid-word, eyebrows raised."
+ },
+ {
+  "name": "talk_point",
+  "group": "B",
+  "refs": [
+   "vasco_talk"
+  ],
+  "height": true,
+  "what": "talk: pointing up and away (the arcade, the inscription, the shelf)",
+  "prompt": "Talking and pointing up and away to something high on his right with his whole arm stretched out, looking at it, mouth open mid-word."
+ },
+ {
+  "name": "trowel_talk",
+  "group": "B",
+  "refs": [
+   "vasco_trowel"
+  ],
+  "height": true,
+  "what": "talk: with the trowel in his hand (Thursday)",
+  "prompt": "Talking with the same trowel still in his hand: mouth open mid-word, a friendly smile, gesturing loosely with the trowel hand."
+ },
+ {
+  "name": "coffee_talk",
+  "group": "B",
+  "refs": [
+   "vasco_coffee"
+  ],
+  "height": true,
+  "what": "talk: with the coffee cup in his hand (Thursday)",
+  "prompt": "Talking with the same coffee cup still in his hand, held at chest height: mouth open mid-word, a warm smile, his other hand gesturing."
+ },
+ {
+  "name": "clapper_talk",
+  "group": "B",
+  "refs": [
+   "art/review/vasco/clapper_hold.png"
+  ],
+  "height": false,
+  "what": "talk: holding the clapper (the store)",
+  "prompt": "Talking while still holding the same bronze clapper against his chest: mouth open mid-word, looking up at the listener, earnest."
+ },
+ {
+  "name": "act_trowel_b",
+  "group": "A",
+  "refs": [
+   "art/review/vasco/act_trowel_a.png"
+  ],
+  "height": false,
+  "what": "idle activity: trowel, second frame (alternates with act_trowel_a)",
+  "prompt": "The same scene a moment later: the trowel drawn back toward his knee at the end of its scrape, a little loose soil lifted on its blade, his head tilted to look at the cut. Everything else exactly as in the first image: same props, same place, same size."
+ },
+ {
+  "name": "act_brush_b",
+  "group": "A",
+  "refs": [
+   "art/review/vasco/act_brush_a.png"
+  ],
+  "height": false,
+  "what": "idle activity: brush, second frame (alternates with act_brush_a)",
+  "prompt": "The same scene a moment later: the brush swept to the other side of the stone, his free hand now resting on the stone, leaning closer. Everything else exactly as in the first image: same props, same place, same size."
+ },
+ {
+  "name": "act_sieve_b",
+  "group": "A",
+  "refs": [
+   "art/review/vasco/act_sieve_a.png"
+  ],
+  "height": false,
+  "what": "idle activity: sieve, second frame (alternates with act_sieve_a)",
+  "prompt": "The same scene a moment later: the sieve tilted the other way in mid-shake, a little more soil falling into the bucket, his elbows moved. Everything else exactly as in the first image: same props, same place, same size."
+ },
+ {
+  "name": "act_sherd_b",
+  "group": "A",
+  "refs": [
+   "art/review/vasco/act_sherd_a.png"
+  ],
+  "height": false,
+  "what": "idle activity: sherd, second frame (alternates with act_sherd_a)",
+  "prompt": "The same scene a moment later: the sherd turned over in his fingers to see its other side, his head tilted the other way, still smiling. Everything else exactly as in the first image: same props, same place, same size."
+ },
+ {
+  "name": "act_notes_b",
+  "group": "A",
+  "refs": [
+   "art/review/vasco/act_notes_a.png"
+  ],
+  "height": false,
+  "what": "idle activity: notes, second frame (alternates with act_notes_a)",
+  "prompt": "The same scene a moment later: pencil lifted from the page, tapping it against his lips, looking up from the notebook, thinking. Everything else exactly as in the first image: same props, same place, same size."
+ },
+ {
+  "name": "act_bag_b",
+  "group": "A",
+  "refs": [
+   "art/review/vasco/act_bag_a.png"
+  ],
+  "height": false,
+  "what": "idle activity: bag, second frame (alternates with act_bag_a)",
+  "prompt": "The same scene a moment later: pinching the bag closed and writing on its white label with a pen, head bent over it. Everything else exactly as in the first image: same props, same place, same size."
+ }
+]

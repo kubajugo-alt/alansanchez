@@ -3315,6 +3315,1093 @@
    }
   },
   {
+   "id": "vasco_crouch",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): kneeling down and getting up: halfway between standing and kneeling",
+   "src": "art/review/candidates/vasco_crouch.webp",
+   "originals": [
+    "art/sprites/vasco.webp",
+    "art/sprites/vasco_kneel_down.webp"
+   ],
+   "meta": {
+    "w": 387.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 134.1,
+    "fy": 718.0,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "crouch": "vasco_crouch"
+    }
+   }
+  },
+  {
+   "id": "vasco_kneel_look",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the inscription: still kneeling, glancing down into the find tray beside him",
+   "src": "art/review/candidates/vasco_kneel_look.webp",
+   "originals": [
+    "art/sprites/vasco_kneel.webp"
+   ],
+   "meta": {
+    "w": 286.0,
+    "hh": 527.0,
+    "h": 720.0,
+    "ax": 177.7,
+    "fy": 518.0,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "kneel_look": "vasco_kneel_look"
+    }
+   }
+  },
+  {
+   "id": "vasco_kneel_lookup",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the inscription: kneeling, looking up suddenly",
+   "src": "art/review/candidates/vasco_kneel_lookup.webp",
+   "originals": [
+    "art/sprites/vasco_kneel_down.webp"
+   ],
+   "meta": {
+    "w": 314.0,
+    "hh": 461.0,
+    "h": 720.0,
+    "ax": 219.5,
+    "fy": 451.0,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "kneel_lookup": "vasco_kneel_lookup"
+    }
+   }
+  },
+  {
+   "id": "vasco_stepback",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the pit game: taking a step back, startled",
+   "src": "art/review/candidates/vasco_stepback.webp",
+   "originals": [
+    "art/sprites/vasco.webp"
+   ],
+   "meta": {
+    "w": 376.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 127.1,
+    "fy": 718.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "stepback": "vasco_stepback"
+    }
+   }
+  },
+  {
+   "id": "vasco_callup",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the pit game: calling up to the arcade",
+   "src": "art/review/candidates/vasco_callup.webp",
+   "originals": [
+    "art/sprites/vasco.webp"
+   ],
+   "meta": {
+    "w": 349.0,
+    "hh": 723.0,
+    "h": 720.0,
+    "ax": 125.7,
+    "fy": 714.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "callup": "vasco_callup"
+    }
+   }
+  },
+  {
+   "id": "vasco_keys",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the twin: a long look, then his keys",
+   "src": "art/review/candidates/vasco_keys.webp",
+   "originals": [
+    "art/sprites/vasco.webp"
+   ],
+   "meta": {
+    "w": 306.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 127.1,
+    "fy": 718.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "keys": "vasco_keys"
+    }
+   }
+  },
+  {
+   "id": "vasco_back_unlock",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the store: unlocking the door (back view)",
+   "src": "art/review/candidates/vasco_back_unlock.webp",
+   "originals": [
+    "art/sprites/vasco_back.webp"
+   ],
+   "meta": {
+    "w": 354.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 123.1,
+    "fy": 717.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "back_unlock": "vasco_back_unlock"
+    }
+   }
+  },
+  {
+   "id": "vasco_back_read",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the store: reading the tag on the shelf (back view)",
+   "src": "art/review/candidates/vasco_back_read.webp",
+   "originals": [
+    "art/sprites/vasco_back.webp"
+   ],
+   "meta": {
+    "w": 294.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 123.1,
+    "fy": 717.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "back_read": "vasco_back_read"
+    }
+   }
+  },
+  {
+   "id": "vasco_clapper_lift",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the store: lifting the clapper off the shelf",
+   "src": "art/review/candidates/vasco_clapper_lift.webp",
+   "originals": [
+    "art/sprites/vasco.webp",
+    "art/sprites/pair_vasco_clapper.webp"
+   ],
+   "meta": {
+    "w": 364.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 127.1,
+    "fy": 717.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "clapper_lift": "vasco_clapper_lift"
+    }
+   }
+  },
+  {
+   "id": "vasco_clapper_hold",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the store: holding the clapper",
+   "src": "art/review/candidates/vasco_clapper_hold.webp",
+   "originals": [
+    "art/sprites/vasco.webp",
+    "art/sprites/pair_vasco_clapper.webp"
+   ],
+   "meta": {
+    "w": 322.0,
+    "hh": 737.0,
+    "h": 720.0,
+    "ax": 128.9,
+    "fy": 727.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "clapper_hold": "vasco_clapper_hold"
+    }
+   }
+  },
+  {
+   "id": "vasco_clapper_give",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): the store: holding the clapper out to Alan (the loan)",
+   "src": "art/review/candidates/vasco_clapper_give.webp",
+   "originals": [
+    "art/sprites/vasco_give.webp",
+    "art/sprites/pair_vasco_clapper.webp"
+   ],
+   "meta": {
+    "w": 364.0,
+    "hh": 728.0,
+    "h": 720.0,
+    "ax": 134.1,
+    "fy": 719.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "clapper_give": "vasco_clapper_give"
+    }
+   }
+  },
+  {
+   "id": "vasco_coffee_sip",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): Thursday: sipping the coffee",
+   "src": "art/review/candidates/vasco_coffee_sip.webp",
+   "originals": [
+    "art/sprites/vasco_coffee.webp"
+   ],
+   "meta": {
+    "w": 321.0,
+    "hh": 724.0,
+    "h": 720.0,
+    "ax": 141.1,
+    "fy": 715.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "coffee_sip": "vasco_coffee_sip"
+    }
+   }
+  },
+  {
+   "id": "vasco_stand_up",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): Thursday: getting up from sitting",
+   "src": "art/review/candidates/vasco_stand_up.webp",
+   "originals": [
+    "art/sprites/vasco_sit.webp",
+    "art/sprites/vasco.webp"
+   ],
+   "meta": {
+    "w": 297.0,
+    "hh": 551.0,
+    "h": 720.0,
+    "ax": 140.4,
+    "fy": 541.7,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "stand_up": "vasco_stand_up"
+    }
+   }
+  },
+  {
+   "id": "vasco_hand_out",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (C): Thursday: standing, holding out his hand",
+   "src": "art/review/candidates/vasco_hand_out.webp",
+   "originals": [
+    "art/sprites/vasco.webp"
+   ],
+   "meta": {
+    "w": 375.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 127.1,
+    "fy": 717.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "hand_out": "vasco_hand_out"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_trowel_a",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: kneeling, scraping the trench floor with his trowel",
+   "src": "art/review/candidates/vasco_act_trowel_a.webp",
+   "originals": [
+    "art/sprites/vasco_kneel_talk.webp",
+    "art/sprites/vasco_trowel.webp"
+   ],
+   "meta": {
+    "w": 288.0,
+    "hh": 523.0,
+    "h": 720.0,
+    "ax": 153.2,
+    "fy": 513.0,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "act_trowel_a": "vasco_act_trowel_a"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_brush_a",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: kneeling, brushing the earth off a stone",
+   "src": "art/review/candidates/vasco_act_brush_a.webp",
+   "originals": [
+    "art/sprites/vasco_kneel_down.webp"
+   ],
+   "meta": {
+    "w": 341.0,
+    "hh": 461.0,
+    "h": 720.0,
+    "ax": 219.5,
+    "fy": 451.0,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "act_brush_a": "vasco_act_brush_a"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_sieve_a",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: shaking soil through a sieve over a bucket",
+   "src": "art/review/candidates/vasco_act_sieve_a.webp",
+   "originals": [
+    "art/sprites/vasco.webp"
+   ],
+   "meta": {
+    "w": 345.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 127.1,
+    "fy": 717.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "act_sieve_a": "vasco_act_sieve_a"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_sherd_a",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: holding a sherd up to the light",
+   "src": "art/review/candidates/vasco_act_sherd_a.webp",
+   "originals": [
+    "art/sprites/vasco_find.webp"
+   ],
+   "meta": {
+    "w": 333.0,
+    "hh": 724.0,
+    "h": 720.0,
+    "ax": 135.4,
+    "fy": 715.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "act_sherd_a": "vasco_act_sherd_a"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_notes_a",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: writing up the finds in his notebook",
+   "src": "art/review/candidates/vasco_act_notes_a.webp",
+   "originals": [
+    "art/sprites/vasco.webp"
+   ],
+   "meta": {
+    "w": 319.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 127.1,
+    "fy": 717.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "act_notes_a": "vasco_act_notes_a"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_bag_a",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: bagging and labelling a coin",
+   "src": "art/review/candidates/vasco_act_bag_a.webp",
+   "originals": [
+    "art/sprites/vasco.webp"
+   ],
+   "meta": {
+    "w": 313.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 127.1,
+    "fy": 717.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "act_bag_a": "vasco_act_bag_a"
+    }
+   }
+  },
+  {
+   "id": "vasco_worried",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): mood: worried (vasco_fall, vasco_what; Alan's 'fine', the twin, the call)",
+   "src": "art/review/candidates/vasco_worried.webp",
+   "originals": [
+    "art/sprites/vasco_talk.webp"
+   ],
+   "meta": {
+    "w": 339.0,
+    "hh": 723.0,
+    "h": 720.0,
+    "ax": 125.7,
+    "fy": 714.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "worried": "vasco_worried"
+    }
+   }
+  },
+  {
+   "id": "vasco_amused",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): mood: amused (rope, closed, loan, hook_3, liar; his commonest reaction)",
+   "src": "art/review/candidates/vasco_amused.webp",
+   "originals": [
+    "art/sprites/vasco_talk.webp"
+   ],
+   "meta": {
+    "w": 289.0,
+    "hh": 728.0,
+    "h": 720.0,
+    "ax": 127.3,
+    "fy": 719.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "amused": "vasco_amused"
+    }
+   }
+  },
+  {
+   "id": "vasco_scandalised",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): mood: scandalised (much_3; Alan's 'bottom')",
+   "src": "art/review/candidates/vasco_scandalised.webp",
+   "originals": [
+    "art/sprites/vasco_talk.webp"
+   ],
+   "meta": {
+    "w": 333.0,
+    "hh": 723.0,
+    "h": 720.0,
+    "ax": 125.7,
+    "fy": 714.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "scandalised": "vasco_scandalised"
+    }
+   }
+  },
+  {
+   "id": "vasco_hopeful",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): mood: hopeful (cameo, Thursday, thu_down, after_2)",
+   "src": "art/review/candidates/vasco_hopeful.webp",
+   "originals": [
+    "art/sprites/vasco_talk.webp"
+   ],
+   "meta": {
+    "w": 278.0,
+    "hh": 723.0,
+    "h": 720.0,
+    "ax": 125.9,
+    "fy": 714.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "hopeful": "vasco_hopeful"
+    }
+   }
+  },
+  {
+   "id": "vasco_stern",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): mood: stern (his standards; Alan withholding)",
+   "src": "art/review/candidates/vasco_stern.webp",
+   "originals": [
+    "art/sprites/vasco_talk.webp"
+   ],
+   "meta": {
+    "w": 320.0,
+    "hh": 723.0,
+    "h": 720.0,
+    "ax": 124.8,
+    "fy": 714.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "stern": "vasco_stern"
+    }
+   }
+  },
+  {
+   "id": "vasco_talk4",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): talk: explaining with both hands open",
+   "src": "art/review/candidates/vasco_talk4.webp",
+   "originals": [
+    "art/sprites/vasco_talk2.webp"
+   ],
+   "meta": {
+    "w": 349.0,
+    "hh": 724.0,
+    "h": 720.0,
+    "ax": 127.3,
+    "fy": 715.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "talk4": "vasco_talk4"
+    }
+   }
+  },
+  {
+   "id": "vasco_talk_count",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): talk: counting off on his fingers (dates, centuries)",
+   "src": "art/review/candidates/vasco_talk_count.webp",
+   "originals": [
+    "art/sprites/vasco_talk.webp"
+   ],
+   "meta": {
+    "w": 307.0,
+    "hh": 728.0,
+    "h": 720.0,
+    "ax": 127.3,
+    "fy": 719.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "talk_count": "vasco_talk_count"
+    }
+   }
+  },
+  {
+   "id": "vasco_talk_point",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): talk: pointing up and away (the arcade, the inscription, the shelf)",
+   "src": "art/review/candidates/vasco_talk_point.webp",
+   "originals": [
+    "art/sprites/vasco_talk.webp"
+   ],
+   "meta": {
+    "w": 390.0,
+    "hh": 729.0,
+    "h": 720.0,
+    "ax": 127.3,
+    "fy": 720.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "talk_point": "vasco_talk_point"
+    }
+   }
+  },
+  {
+   "id": "vasco_trowel_talk",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): talk: with the trowel in his hand (Thursday)",
+   "src": "art/review/candidates/vasco_trowel_talk.webp",
+   "originals": [
+    "art/sprites/vasco_trowel.webp"
+   ],
+   "meta": {
+    "w": 303.0,
+    "hh": 723.0,
+    "h": 720.0,
+    "ax": 141.6,
+    "fy": 714.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "trowel_talk": "vasco_trowel_talk"
+    }
+   }
+  },
+  {
+   "id": "vasco_coffee_talk",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): talk: with the coffee cup in his hand (Thursday)",
+   "src": "art/review/candidates/vasco_coffee_talk.webp",
+   "originals": [
+    "art/sprites/vasco_coffee.webp"
+   ],
+   "meta": {
+    "w": 360.0,
+    "hh": 724.0,
+    "h": 720.0,
+    "ax": 139.9,
+    "fy": 715.5,
+    "top": 3.0
+   },
+   "wire": {
+    "poses": {
+     "coffee_talk": "vasco_coffee_talk"
+    }
+   }
+  },
+  {
+   "id": "vasco_clapper_talk",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (B): talk: holding the clapper (the store)",
+   "src": "art/review/candidates/vasco_clapper_talk.webp",
+   "originals": [
+    "art/review/vasco/clapper_hold.png"
+   ],
+   "meta": {
+    "ax": 127.4,
+    "fy": 733.5,
+    "w": 337.0,
+    "hh": 749.0,
+    "h": 720.0,
+    "top": 19.0
+   },
+   "wire": {
+    "poses": {
+     "clapper_talk": "vasco_clapper_talk"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_trowel_b",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: trowel, second frame (alternates with act_trowel_a)",
+   "src": "art/review/candidates/vasco_act_trowel_b.webp",
+   "originals": [
+    "art/review/vasco/act_trowel_a.png"
+   ],
+   "meta": {
+    "ax": 154.7,
+    "fy": 519.5,
+    "w": 300.0,
+    "hh": 535.0,
+    "h": 720.0,
+    "top": 20.0
+   },
+   "wire": {
+    "poses": {
+     "act_trowel_b": "vasco_act_trowel_b"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_brush_b",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: brush, second frame (alternates with act_brush_a)",
+   "src": "art/review/candidates/vasco_act_brush_b.webp",
+   "originals": [
+    "art/review/vasco/act_brush_a.png"
+   ],
+   "meta": {
+    "ax": 210.5,
+    "fy": 457.5,
+    "w": 353.0,
+    "hh": 473.0,
+    "h": 720.0,
+    "top": 34.0
+   },
+   "wire": {
+    "poses": {
+     "act_brush_b": "vasco_act_brush_b"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_sieve_b",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: sieve, second frame (alternates with act_sieve_a)",
+   "src": "art/review/candidates/vasco_act_sieve_b.webp",
+   "originals": [
+    "art/review/vasco/act_sieve_a.png"
+   ],
+   "meta": {
+    "ax": 142.1,
+    "fy": 723.5,
+    "w": 362.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "top": 6.0
+   },
+   "wire": {
+    "poses": {
+     "act_sieve_b": "vasco_act_sieve_b"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_sherd_b",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: sherd, second frame (alternates with act_sherd_a)",
+   "src": "art/review/candidates/vasco_act_sherd_b.webp",
+   "originals": [
+    "art/review/vasco/act_sherd_a.png"
+   ],
+   "meta": {
+    "ax": 158.9,
+    "fy": 721.5,
+    "w": 352.0,
+    "hh": 736.0,
+    "h": 720.0,
+    "top": 6.0
+   },
+   "wire": {
+    "poses": {
+     "act_sherd_b": "vasco_act_sherd_b"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_notes_b",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: notes, second frame (alternates with act_notes_a)",
+   "src": "art/review/candidates/vasco_act_notes_b.webp",
+   "originals": [
+    "art/review/vasco/act_notes_a.png"
+   ],
+   "meta": {
+    "ax": 128.6,
+    "fy": 723.5,
+    "w": 343.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "top": 13.0
+   },
+   "wire": {
+    "poses": {
+     "act_notes_b": "vasco_act_notes_b"
+    }
+   }
+  },
+  {
+   "id": "vasco_act_bag_b",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "pose",
+   "what": "Vasco (A): idle activity: bag, second frame (alternates with act_bag_a)",
+   "src": "art/review/candidates/vasco_act_bag_b.webp",
+   "originals": [
+    "art/review/vasco/act_bag_a.png"
+   ],
+   "meta": {
+    "ax": 153.6,
+    "fy": 723.5,
+    "w": 335.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "top": 25.0
+   },
+   "wire": {
+    "poses": {
+     "act_bag_b": "vasco_act_bag_b"
+    }
+   }
+  },
+  {
+   "id": "pair_vasco_after",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pose",
+   "what": "The love scene, afterwards: on the floor against a crate, shirts open, laughing, the clapper between them",
+   "src": "art/review/candidates/pair_vasco_after.webp",
+   "originals": [
+    "art/sprites/pair_vasco_shirtless.webp",
+    "art/sprites/pair_vasco_clapper.webp"
+   ],
+   "meta": {
+    "w": 519,
+    "hh": 728,
+    "h": 709.0,
+    "ax": 148.2,
+    "fy": 718.5,
+    "top": 3.1,
+    "px": 335.8,
+    "pfy": 712.5,
+    "rigid": true
+   },
+   "wire": {
+    "poses": {
+     "pair_vasco_after": "pair_vasco_after"
+    }
+   }
+  },
+  {
+   "id": "vasco_walk_passN",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "Vasco walk: passing (near leg standing, the far foot swinging past)",
+   "src": "art/review/candidates/vasco_walk_passN.webp",
+   "originals": [
+    "art/sprites/vasco_walk1.webp",
+    "art/sprites/vasco_pass1.webp"
+   ],
+   "meta": {
+    "ax": 199.8,
+    "fy": 723.5,
+    "w": 299.0,
+    "hh": 739.0,
+    "top": 9.0,
+    "h": 725.3
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "vasco_walk1",
+     "vasco_pass1",
+     "vasco_pass1",
+     "vasco_walk2",
+     "vasco_walk2",
+     "vasco_pass2",
+     "vasco_pass2",
+     "vasco_pass2"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk_upN",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "Vasco walk: standing on the near leg, the far leg reaching forward",
+   "src": "art/review/candidates/vasco_walk_upN.webp",
+   "originals": [
+    "art/sprites/vasco_walk1.webp",
+    "art/sprites/vasco_pass1.webp"
+   ],
+   "meta": {
+    "ax": 203.8,
+    "fy": 729.5,
+    "w": 360.0,
+    "hh": 751.0,
+    "top": 21.0,
+    "h": 719.2
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "vasco_walk1",
+     "vasco_pass1",
+     "vasco_pass1",
+     "vasco_walk2",
+     "vasco_walk2",
+     "vasco_pass2",
+     "vasco_pass2",
+     "vasco_pass2"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk_far",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "Vasco walk: the other step: the FAR leg forward, heel down, the near arm swinging forward",
+   "src": "art/review/candidates/vasco_walk_far.webp",
+   "originals": [
+    "art/sprites/vasco_walk1.webp",
+    "art/sprites/vasco_pass1.webp"
+   ],
+   "meta": {
+    "ax": 205.2,
+    "fy": 718.5,
+    "w": 378.0,
+    "hh": 728.0,
+    "top": 12.0,
+    "h": 717.2
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "vasco_walk1",
+     "vasco_pass1",
+     "vasco_pass1",
+     "vasco_walk2",
+     "vasco_walk2",
+     "vasco_pass2",
+     "vasco_pass2",
+     "vasco_pass2"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk_preF",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "Vasco walk: the other step: a short step, the far leg in front taking his weight",
+   "src": "art/review/candidates/vasco_walk_preF.webp",
+   "originals": [
+    "art/sprites/vasco_walk1.webp",
+    "art/sprites/vasco_pass1.webp"
+   ],
+   "meta": {
+    "ax": 212.2,
+    "fy": 724.5,
+    "w": 390.0,
+    "hh": 740.0,
+    "top": 12.0,
+    "h": 723.3
+   },
+   "wire": {
+    "walkSlot": 5,
+    "walkBase": [
+     "vasco_walk1",
+     "vasco_pass1",
+     "vasco_pass1",
+     "vasco_walk2",
+     "vasco_walk2",
+     "vasco_pass2",
+     "vasco_pass2",
+     "vasco_pass2"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk_passF",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "Vasco walk: the other step: passing (far leg standing, the near foot swinging past)",
+   "src": "art/review/candidates/vasco_walk_passF.webp",
+   "originals": [
+    "art/sprites/vasco_walk1.webp",
+    "art/sprites/vasco_pass1.webp"
+   ],
+   "meta": {
+    "ax": 214.8,
+    "fy": 730.5,
+    "w": 402.0,
+    "hh": 752.0,
+    "top": 22.0,
+    "h": 719.2
+   },
+   "wire": {
+    "walkSlot": 6,
+    "walkBase": [
+     "vasco_walk1",
+     "vasco_pass1",
+     "vasco_pass1",
+     "vasco_walk2",
+     "vasco_walk2",
+     "vasco_pass2",
+     "vasco_pass2",
+     "vasco_pass2"
+    ]
+   }
+  },
+  {
    "id": "wire_alan_untie",
    "char": "alan",
    "phase": 2,

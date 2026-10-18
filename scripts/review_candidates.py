@@ -79,6 +79,12 @@ WALK2 = [('pre2_low', 1, 'walk: just after the heel lands, a short step: the nea
          ('pass1_low', 6, 'walk: the other step: passing (far leg standing, the near foot swinging low)'),
          ('up1_low', 7, 'walk: the other step: standing on the far leg, the near leg reaching forward, low')]
 
+VASCO_WALK = [('walk_passN', 2, 'walk: passing (near leg standing, the far foot swinging past)'),
+              ('walk_upN', 3, 'walk: standing on the near leg, the far leg reaching forward'),
+              ('walk_far', 4, 'walk: the other step: the FAR leg forward, heel down, the near arm swinging forward'),
+              ('walk_preF', 5, 'walk: the other step: a short step, the far leg in front taking his weight'),
+              ('walk_passF', 6, 'walk: the other step: passing (far leg standing, the near foot swinging past)')]
+
 
 def put(src_png, key):
     """The candidate's image, written once: later fixes to it (jeans colour, cut-out edges) are kept on a rebuild."""
@@ -147,6 +153,42 @@ def main():
         cands.append({'id': key, 'char': 'alan', 'phase': 2, 'kind': 'walk', 'what': what,
                       'src': f'art/review/candidates/{key}.webp', 'originals': [SP('alan_walkDown'), SP('alan_walkUp')], 'meta': meta,
                       'wire': {'walkSlot': slot}})
+    # Vasco's new paintings (scripts/gen_vasco.py, the map's groups A-E): each one a pose of his own once approved;
+    # the scenes that use them are wired after approval
+    for j in json.load(open(os.path.join(ROOT, 'scripts/vasco_frames.json'))):
+        src_png = os.path.join(REV, f"vasco/{j['name']}.png")
+        if not os.path.exists(src_png): continue
+        key = 'vasco_' + j['name']
+        put(src_png, key)
+        meta = json.load(open(os.path.join(REV, f"vasco/{j['name']}_meta.json")))
+        meta = {k: float(v) for k, v in meta.items() if k in ('w', 'hh', 'h', 'ax', 'fy', 'top')}
+        cands.append({'id': key, 'char': 'vasco', 'phase': 2, 'kind': 'pose', 'what': f"Vasco ({j['group']}): {j['what']}",
+                      'src': f'art/review/candidates/{key}.webp', 'originals': [SP(r) if '/' not in r else r for r in j['refs'] if 'vasco' in r], 'meta': meta,
+                      'wire': {'poses': {j['name']: key}}})
+    # the love scene, afterwards (se.js S.vascoLove): the two of them on the store floor against a crate, the clapper
+    # between them; in the room until the Canva still (still_store_after) exists
+    src_png = os.path.join(REV, 'vasco/pair_after.png')
+    if os.path.exists(src_png):
+        key = 'pair_vasco_after'
+        put(src_png, key)
+        meta = json.load(open(os.path.join(REV, 'vasco/pair_after_meta.json')))
+        cands.append({'id': key, 'char': 'alan', 'phase': 3, 'kind': 'pose', 'what': 'The love scene, afterwards: on the floor against a crate, shirts open, laughing, the clapper between them',
+                      'src': f'art/review/candidates/{key}.webp', 'originals': [SP('pair_vasco_shirtless'), SP('pair_vasco_clapper')], 'meta': meta,
+                      'wire': {'poses': {key: key}}})
+    # Vasco's walk, the same fix as Alan's: every painted stride had his near leg in front. 8 steps: walk1 (near leg
+    # forward), pass1, passN, upN, walk_far (far leg forward: scripts/walk_swap_cut.py, repainted), preF, passF, pass2.
+    # walkBase is the cycle the slots go into (all or none, like Alan's)
+    base = ['vasco_walk1', 'vasco_pass1', 'vasco_pass1', 'vasco_walk2', 'vasco_walk2', 'vasco_pass2', 'vasco_pass2', 'vasco_pass2']
+    for name, slot, what in VASCO_WALK:
+        src_png = os.path.join(REV, f'vasco/{name}.png')
+        if not os.path.exists(src_png): continue
+        key = 'vasco_' + name
+        put(src_png, key)
+        meta = json.load(open(os.path.join(REV, f'vasco/{name}_meta.json')))
+        meta = {k: float(v) for k, v in meta.items() if k in ('w', 'hh', 'h', 'ax', 'fy', 'top')}
+        cands.append({'id': key, 'char': 'vasco', 'phase': 2, 'kind': 'walk', 'what': 'Vasco ' + what,
+                      'src': f'art/review/candidates/{key}.webp', 'originals': [SP('vasco_walk1'), SP('vasco_pass1')], 'meta': meta,
+                      'wire': {'walkSlot': slot, 'walkBase': base}})
     # phase 1 flagged frames: a proposal that needs no new painting
     cands.append({'id': 'wire_alan_untie', 'char': 'alan', 'phase': 2, 'kind': 'wiring',
                   'what': 'Proposal A: the successful haul on the mooring line (Ch. IV) uses the unused alan_untie; the failed first try keeps alan_pull',

@@ -102,7 +102,7 @@
     try { await fn(); } finally { await S.pairOut(v, { dir: keep.pd }); v.pose = keep.vp; }
   };
   // the two of them sitting on the ladder / kneeling in the pit sway from the seat, not the feet
-  if (!S.CHARS.alan.seatedFrames) S.CHARS.alan.seatedFrames = /^pair_vasco_(ladder|kneel)$/;
+  if (!S.CHARS.alan.seatedFrames) S.CHARS.alan.seatedFrames = /^pair_vasco_(ladder|kneel|after)$/; // (after: on the store floor)
   S.CHARS.alan.frames.poses.pair_vasco_shirtless = 'pair_vasco_shirtless'; // the two of them, shirts off (not yet placed in a scene)
   if (window.SPRITES.ines_plaque) S.CHARS.ines.frames.poses.plaque = 'ines_plaque';
 
@@ -828,7 +828,9 @@
         await say('vasco_after_1', 'alan_after_v', 'vasco_after_2', 'alan_after_every');
       };
       if (G.image('still:still_store_after')) await G.showStill('still_store_after', after, { zoom: [1.0, 1.1], pan: [[0.5, 0.5], [0.5, 0.45]], keep: true });
-      else { G.endStill && G.endStill(); await S.withPair('shirtless', after); } // (until the painting exists: the two of them in the room)
+      else if (window.SPRITES.pair_vasco_after) { // (until the painting exists: the two of them in the room, on the floor against the crate: a cut under the black)
+        G.endStill && G.endStill(); const end = S.vpair('after'); await after(); if (end) end();
+      } else { G.endStill && G.endStill(); await S.withPair('shirtless', after); }
     }
     F().store_scene = false;
     await S.flingBeat(4, true); // the narrator, who isn't fooled, and isn't joking either
