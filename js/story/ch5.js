@@ -472,7 +472,7 @@
     } // the taberna full again: its busy tune
     await shot('still_quay_sweater', 'cais', () => say('narr_vig_ze'), { zoom: [1.0, 1.1] });
     Sound.cue('silence', { sticky: true, xf: 3 }); // the post-credits pictures: silence, then the clock
-    await shot('still_jacket', 'boat', () => say('ze_back'), { zoom: [1.0, 1.1] });
+    // (Zé and Lacerda's jacket in his net: cut, at the author's request)
     if (F().founder_order && !(F().struck_wrong)) await shot('still_abilio_ring', 'se_tower', async () => { sfx('bell_forward', 0.6); await say('narr_vig_abilio'); }, { zoom: [1.0, 1.12] });
     await shot('still_shelf', 'antiques', async () => {
       sfx('clock_chime', 0.6);
