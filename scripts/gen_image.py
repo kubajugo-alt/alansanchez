@@ -142,6 +142,24 @@ def frame_to(im, ref, meta, keyed_size):
     return canvas, m
 
 
+def fig_height(im):
+    ys = np.where((np.asarray(im)[..., 3] > 128).any(1))[0]
+    return float(ys.max() - ys.min())
+
+
+def match_height(im, m, refs, meta):
+    """Scale the framed result so the figure is as tall as the references are on average (each measured in
+    its own standing height h, and put in the main reference's), about the feet; h stays the reference's."""
+    hs = [fig_height(Image.open(r).convert('RGBA')) / sprite_meta(r)['h'] for r in refs if sprite_meta(r)]
+    if not hs or not meta: return im, m
+    k = (sum(hs) / len(hs)) * meta['h'] / fig_height(im)
+    if abs(k - 1) < 0.01: return im, m
+    print(f'height matched: x{k:.3f}')
+    im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))), Image.LANCZOS)
+    m = dict(m); m['ax'] = round(m['ax'] * k, 1); m['fy'] = round(m['fy'] * k, 1); m['w'], m['hh'] = im.width, im.height
+    return im, m
+
+
 def reframe(raw_path, ref_path, out, palette=True):
     """Re-run keying, clean-up, palette and framing on a saved raw result (no API call). palette=False for a
     new pose whose clothes differ from the reference (a whole-figure colour match would tint them)."""
@@ -175,6 +193,7 @@ def main():
     p.add_argument('--size', default='2K', choices=['1K', '2K'])
     p.add_argument('--no-frame', action='store_true', help='skip anchor/size matching (e.g. close-ups)')
     p.add_argument('--no-palette', action='store_true', help='new pose with different clothes: skip the whole-figure colour match')
+    p.add_argument('--match-height', action='store_true', help='solo in-betweens: scale the figure to the mean height of the --ref sprites (Gemini sometimes paints him smaller)')
     a = p.parse_args()
 
     from google import genai
@@ -206,6 +225,7 @@ def main():
     if not a.no_palette: new = match_palette(new, main_ref)
     if not a.no_frame:
         new, m = frame_to(new, main_ref, meta, keyed.size)
+        if a.match_height: new, m = match_height(new, m, a.ref, meta)
         json.dump(m, open(stem + '_meta.json', 'w'))
     new.save(a.out)
     side_by_side(main_ref, new, stem + '_sbs.png')

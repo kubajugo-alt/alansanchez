@@ -15,11 +15,6 @@
   "decision": "approved",
   "at": "2026-10-18T02:46:59.068Z"
  },
- "alan_ib_lantern": {
-  "decision": "rejected",
-  "at": "2026-10-18T02:48:25.026Z",
-  "note": "Alan too small"
- },
  "alan_ib_phone": {
   "decision": "approved",
   "at": "2026-10-18T02:46:53.468Z"
@@ -81,11 +76,6 @@
  "alan_ib_turn34back": {
   "decision": "approved",
   "at": "2026-10-18T02:46:22.447Z"
- },
- "alan_ib_walk_start": {
-  "decision": "rejected",
-  "at": "2026-10-18T02:45:22.322Z",
-  "note": "Alan is scaled down"
  },
  "alan_ib_walk_stop": {
   "decision": "rejected",
@@ -164,11 +154,6 @@
   "decision": "approved",
   "at": "2026-10-18T02:55:56.544Z"
  },
- "pair_ib_guitar_h1__h2": {
-  "decision": "rejected",
-  "at": "2026-10-18T02:56:09.567Z",
-  "note": "pant's look to be pulled up again"
- },
  "pair_ib_guitar_h2__lasso": {
   "decision": "approved",
   "at": "2026-10-18T02:56:25.685Z"
@@ -209,11 +194,6 @@
   "decision": "approved",
   "at": "2026-10-18T02:56:32.801Z"
  },
- "pair_ib_guitar_lesson_in": {
-  "decision": "approved",
-  "at": "2026-10-18T02:49:36.702Z",
-  "note": "check the height of Alan"
- },
  "pair_ib_guitar_s1__s2": {
   "decision": "approved",
   "at": "2026-10-18T02:55:39.830Z"
@@ -250,11 +230,6 @@
   "decision": "approved",
   "at": "2026-10-18T02:56:50.255Z"
  },
- "pair_ib_unbutton_in": {
-  "decision": "rejected",
-  "at": "2026-10-18T02:50:35.951Z",
-  "note": "this one and \"pair unbutton\" show slighly different, bulkier Alan"
- },
  "pair_ib_vasco_card_in": {
   "decision": "approved",
   "at": "2026-10-18T02:52:31.347Z"
@@ -266,16 +241,6 @@
  "pair_ib_vasco_catch_out": {
   "decision": "approved",
   "at": "2026-10-18T02:51:10.593Z"
- },
- "pair_ib_vasco_clapper_in": {
-  "decision": "rejected",
-  "at": "2026-10-18T02:53:17.763Z",
-  "note": "alan should be receiving the clapper"
- },
- "pair_ib_vasco_clapper_out": {
-  "decision": "rejected",
-  "at": "2026-10-18T02:53:28.418Z",
-  "note": "Alan should be receiving the clapper"
  },
  "pair_ib_vasco_coffee_in": {
   "decision": "approved",
@@ -300,16 +265,6 @@
  "pair_ib_vasco_kiss_out": {
   "decision": "approved",
   "at": "2026-10-18T02:53:53.421Z"
- },
- "pair_ib_vasco_lanyard_in": {
-  "decision": "rejected",
-  "at": "2026-10-18T02:51:20.305Z",
-  "note": "we need Alan fixing vasco's shirt - this was based on old lanyard scene, als alan should be vasco's height"
- },
- "pair_ib_vasco_lanyard_out": {
-  "decision": "rejected",
-  "at": "2026-10-18T02:51:53.667Z",
-  "note": "Alan should be vascos' height"
  },
  "pair_ib_vasco_shirtless_in": {
   "decision": "approved",
