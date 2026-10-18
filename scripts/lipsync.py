@@ -1,0 +1,66 @@
+# Mouth cues for the voice-over (Phase 4 lip-sync), one JSON per line id: lipsync/<speaker>/<id>.json
+#   python3 scripts/lipsync.py [--speaker alan] [--force] [line_id ...]
+# Each line's mp3 goes through ffmpeg (16 kHz mono WAV) and Rhubarb Lip Sync, with the subtitle text
+# (performance tags stripped) passed as the dialog hint (-d). Rhubarb isn't in the repo: point RHUBARB at the
+# binary (https://github.com/DanielSWolf/rhubarb-lip-sync, v1.13.0). A line is redone only when its mp3 changed.
+# Output: {"src": sha1 of the mp3, "d": duration in s, "c": [[start s, shape], ...]}, shapes A-H and X (rest).
+import argparse, hashlib, json, os, re, subprocess, sys, tempfile
+from concurrent.futures import ThreadPoolExecutor
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RHUBARB = os.environ.get('RHUBARB', 'rhubarb')
+
+
+def lines():
+    js = 'global.window = {}; require(process.argv[1]); process.stdout.write(JSON.stringify(window.LINES));'
+    return json.loads(subprocess.run(['node', '-e', js, os.path.join(ROOT, 'js/lines.js')], capture_output=True, text=True, check=True).stdout)
+
+
+def subtitle(text):  # as the game shows it: no [tags], no stage spacing
+    return re.sub(r'\s+', ' ', re.sub(r'\[[^\]]*\]', ' ', text)).strip()
+
+
+def cue(args):
+    lid, text, out, force = args
+    mp3 = os.path.join(ROOT, 'audio/voice', lid + '.mp3')
+    if not os.path.exists(mp3): return f'{lid}: no audio'
+    sha = hashlib.sha1(open(mp3, 'rb').read()).hexdigest()
+    if not force and os.path.exists(out):
+        try:
+            if json.load(open(out)).get('src') == sha: return None
+        except ValueError: pass
+    with tempfile.TemporaryDirectory() as tmp:
+        wav, dlg = os.path.join(tmp, 'a.wav'), os.path.join(tmp, 'a.txt')
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', mp3, '-ac', '1', '-ar', '16000', wav], check=True)
+        open(dlg, 'w').write(subtitle(text))
+        r = subprocess.run([RHUBARB, '-q', '-f', 'json', '-r', 'pocketSphinx', '-d', dlg, wav], capture_output=True, text=True)
+        if r.returncode: return f'{lid}: rhubarb failed: {r.stderr.strip()[-200:]}'
+    R = json.loads(r.stdout)
+    data = {'src': sha, 'd': round(R['metadata']['duration'], 2), 'c': [[round(c['start'], 2), c['value']] for c in R['mouthCues']]}
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    json.dump(data, open(out, 'w'), separators=(',', ':'))
+    return f'{lid}: {len(data["c"])} cues'
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--speaker', default='alan')
+    ap.add_argument('--force', action='store_true')
+    ap.add_argument('ids', nargs='*')
+    a = ap.parse_args()
+    L = lines()
+    ids = a.ids or [k for k, v in L.items() if v[0] == a.speaker]
+    jobs = [(k, L[k][1], os.path.join(ROOT, 'lipsync', L[k][0], k + '.json'), a.force) for k in ids]
+    done = failed = 0
+    with ThreadPoolExecutor(os.cpu_count() or 4) as ex:
+        for msg in ex.map(cue, jobs):
+            if msg is None: continue
+            print(msg, flush=True)
+            if 'cues' in msg: done += 1
+            else: failed += 1
+    print(f'{done} written, {failed} failed, {len(jobs) - done - failed} unchanged', file=sys.stderr)
+    sys.exit(1 if failed else 0)
+
+
+if __name__ == '__main__':
+    main()
