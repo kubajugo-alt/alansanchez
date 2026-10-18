@@ -22,7 +22,7 @@
  "alan_ib_pick1": {
   "decision": "rejected",
   "at": "2026-10-18T02:47:15.927Z",
-  "note": "nothing changes in the new frame vs alan.side \u00b7 dropped"
+  "note": "nothing changes in the new frame vs alan.side · dropped"
  },
  "alan_ib_pick2": {
   "decision": "approved",
@@ -31,7 +31,7 @@
  "alan_ib_pull": {
   "decision": "rejected",
   "at": "2026-10-18T02:48:11.935Z",
-  "note": "Rope is code now \u00b7 dropped: the rope is code now"
+  "note": "Rope is code now · dropped: the rope is code now"
  },
  "alan_ib_reach": {
   "decision": "approved",
@@ -71,7 +71,7 @@
  },
  "alan_ib_turn34": {
   "decision": "approved",
-  "at": "2026-10-18T02:46:19.913Z"
+  "at": "2026-10-18T15:45:02.897Z"
  },
  "alan_ib_turn34back": {
   "decision": "approved",
@@ -293,7 +293,7 @@
  "wire_alan_untie": {
   "decision": "rejected",
   "at": "2026-10-18T02:48:44.256Z",
-  "note": "Rope is code now \u00b7 dropped: the rope is code now"
+  "note": "Rope is code now · dropped: the rope is code now"
  },
  "alan_ib_lantern": {
   "decision": "rejected",
@@ -335,5 +335,105 @@
  "pair_ib_vasco_lanyard_out": {
   "decision": "rejected",
   "at": "2026-10-18T03:16:24.879Z"
+ },
+ "alan_walk_pass_new": {
+  "decision": "approved",
+  "at": "2026-10-18T15:46:59.236Z"
+ },
+ "alan_walk_down2": {
+  "decision": "approved",
+  "at": "2026-10-18T15:47:16.142Z"
+ },
+ "alan_walk_contact2": {
+  "decision": "approved",
+  "at": "2026-10-18T15:47:18.858Z"
+ },
+ "alan_walk_up1": {
+  "decision": "approved",
+  "at": "2026-10-18T15:47:23.758Z"
+ },
+ "alan_walk_pass1": {
+  "decision": "approved",
+  "at": "2026-10-18T15:47:26.091Z"
+ },
+ "alan_ib_jacket__undress4": {
+  "decision": "approved",
+  "at": "2026-10-18T15:47:34.574Z"
+ },
+ "alan_ib_dress_final__fluster": {
+  "decision": "approved",
+  "at": "2026-10-18T15:47:44.424Z"
+ },
+ "alan_ib_button__fluster": {
+  "decision": "approved",
+  "at": "2026-10-18T15:47:53.032Z"
+ },
+ "alan_ib_dress4__button": {
+  "decision": "approved",
+  "at": "2026-10-18T15:47:56.199Z"
+ },
+ "alan_ib_dress2__dress3": {
+  "decision": "approved",
+  "at": "2026-10-18T15:48:01.432Z"
+ },
+ "alan_ib_dress_boot__dress3": {
+  "decision": "approved",
+  "at": "2026-10-18T15:48:03.749Z"
+ },
+ "alan_ib_dress1__dress2": {
+  "decision": "approved",
+  "at": "2026-10-18T15:48:06.857Z"
+ },
+ "alan_ib_undress4__dress1": {
+  "decision": "approved",
+  "at": "2026-10-18T15:48:10.498Z"
+ },
+ "alan_ib_trunks_snap__dress1": {
+  "decision": "approved",
+  "at": "2026-10-18T15:48:23.273Z"
+ },
+ "alan_ib_climb__drip": {
+  "decision": "approved",
+  "at": "2026-10-18T15:48:31.799Z"
+ },
+ "alan_ib_jump__jump_fall": {
+  "decision": "approved",
+  "at": "2026-10-18T15:48:37.165Z"
+ },
+ "alan_ib_jump_rise__jump": {
+  "decision": "rejected",
+  "at": "2026-10-18T15:48:43.098Z"
+ },
+ "alan_ib_jump_crouch__jump_rise": {
+  "decision": "approved",
+  "at": "2026-10-18T15:48:47.840Z"
+ },
+ "alan_ib_jacket_wink__jump_crouch": {
+  "decision": "approved",
+  "at": "2026-10-18T15:48:51.040Z"
+ },
+ "alan_ib_undress4__trunks_down": {
+  "decision": "approved",
+  "at": "2026-10-18T15:49:03.540Z"
+ },
+ "alan_ib_undress3__undress4": {
+  "decision": "approved",
+  "at": "2026-10-18T15:49:06.273Z"
+ },
+ "alan_ib_undress_jeans__undress3": {
+  "decision": "approved",
+  "at": "2026-10-18T15:49:13.085Z"
+ },
+ "alan_ib_undress_belt__undress_boot": {
+  "decision": "approved",
+  "at": "2026-10-18T15:49:15.357Z"
+ },
+ "alan_ib_undress2b__undress_belt": {
+  "decision": "approved",
+  "at": "2026-10-18T15:49:19.840Z"
+ },
+ "alan_ib_undress1b__undress2a": {
+  "decision": "approved",
+  "at": "2026-10-18T15:49:22.698Z"
  }
 }

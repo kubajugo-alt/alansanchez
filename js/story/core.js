@@ -103,11 +103,17 @@
     alan_walkDown: [0.139], alan_walk_down2: [0.138],
     alan_pass: [-0.009], alan_walk_pass1: [0.022], alan_walk_pass_new: [-0.009],
     alan_walkUp: [-0.136], alan_walk_up1: [-0.101],
+    alan_walk_pass1L: [0.061], alan_walk_up1L: [-0.105], alan_walk_pass2L: [-0.002], alan_walk_up2L: [0.004],
+    alan_walk_pre1L: [0.102], alan_walk_pre2L: [0.106], alan_walk_contact_farL: [0.176, -0.170], // the low-swing walk
   };
   S.walkTiming = F => {
     const W = F.walk, P = S.WALK_PLANT;
     if (!W || !W.every(f => P[f])) { delete F.walkLen; delete F.walkSteps; return; }
-    F.walkLen = W.map((f, i) => { const n = W[(i + 1) % W.length]; return Math.max(0.01, P[f][0] - (P[n].length > 1 ? P[n][1] : P[n][0])); });
+    // the stride is the standing foot's travel over the whole cycle, shared evenly between the frames: timing each
+    // frame by its own foot travel made contacts flash and passing frames hold, which read as skipping
+    const len = W.map((f, i) => { const n = W[(i + 1) % W.length]; return Math.max(0.01, P[f][0] - (P[n].length > 1 ? P[n][1] : P[n][0])); });
+    const even = len.reduce((a, b) => a + b, 0) / W.length;
+    F.walkLen = W.map(() => even);
     F.walkSteps = W.map((f, i) => (P[f].length > 1 ? i : -1)).filter(i => i >= 0); // a footstep as each heel lands
   };
   // Painted frames (js/sprites.js). Sprites face right unless flagged

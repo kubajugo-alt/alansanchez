@@ -68,11 +68,16 @@ def pair_meta(png, side):
 
 # the walk with both legs (cycle: A, down, passing, up, then the other leg's contact, down, passing, up); until
 # a frame is approved its slot keeps the old one (the second step reused the first step's paintings)
-WALK2 = [('pass1', 2, 'walk: passing (far leg standing, near leg swinging through)'),
-         ('up1', 3, 'walk: up (near leg swinging forward)'),
-         ('contact2', 4, 'walk: the other step: near leg in front, heel down'),
-         ('down2', 5, 'walk: the other step: weight on the near leg'),
-         ('pass_new', 6, 'walk: the other step: passing (near leg standing), repainted to match the jacket and build of the other walk frames')]
+# the cycle: walkA (near leg forward), the near leg carrying him (pre2, pass2, up2), then the far leg forward and carrying
+# him (contact_far, pre1, pass1, up1). Every painting before contact_far had the near leg in front, so each step was
+# taken with the same leg: a skip.
+WALK2 = [('pre2_low', 1, 'walk: just after the heel lands, a short step: the near leg in front taking his weight, the far heel lifting'),
+         ('pass2_low', 2, 'walk: passing (near leg standing, the far foot swinging low)'),
+         ('up2_low', 3, 'walk: standing on the near leg, the far leg reaching forward, low'),
+         ('contact_far_low', 4, 'walk: the other step: the FAR leg forward, heel down, the near arm swinging forward'),
+         ('pre1_low', 5, 'walk: the other step: a short step, the far leg in front taking his weight, the near heel lifting'),
+         ('pass1_low', 6, 'walk: the other step: passing (far leg standing, the near foot swinging low)'),
+         ('up1_low', 7, 'walk: the other step: standing on the far leg, the near leg reaching forward, low')]
 
 
 def put(src_png, key):
@@ -135,7 +140,7 @@ def main():
     for name, slot, what in WALK2:
         src_png = os.path.join(REV, f'alan/walk2/{name}.png')
         if not os.path.exists(src_png): continue
-        key = 'alan_walk_' + name
+        key = 'alan_walk_' + name.replace('_low', 'L')
         put(src_png, key)
         meta = json.load(open(os.path.join(REV, f'alan/walk2/{name}_meta.json')))
         meta = {k: float(v) for k, v in meta.items() if k in ('w', 'hh', 'h', 'ax', 'fy', 'top')}

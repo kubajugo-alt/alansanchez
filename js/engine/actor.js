@@ -259,7 +259,12 @@
       const F = this.F;
       if (E.rigOn && E.rigOn(this.ch) && !this.pose && !this.set && !this.loopActive() && (this.dir === 'e' || this.dir === 'w')) return 'rig:' + this.ch;
       if (this.pose) return (F.poses && F.poses[this.pose]) || this.pose;
-      if (this.walking) { const c = this.cycle(); return c[Math.floor(this.phase) % c.length]; }
+      if (this.walking) {
+        const c = this.cycle(), i = Math.floor(this.phase) % c.length, a = c[i], b = c[(i + 1) % c.length], M = window.MORPHS;
+        // a step with no morph shows its next painting from half way: the planted foot slips half as far, either side of the cut
+        const morphs = M && M[a + '>' + b] && M[b + '>' + a];
+        return !morphs && this.phase - Math.floor(this.phase) >= 0.5 ? b : a;
+      }
       if (this.dir === 'n' && F.back) return arr(F.back)[0];
       if (this.dir === 's' && F.front) return arr(F.front)[0];
       if (this.talking) { const t = arr(F.talk); return t.length && this.talkIdx >= 0 ? t[this.talkIdx % t.length] : arr(F.idle)[0]; }

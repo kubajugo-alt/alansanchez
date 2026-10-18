@@ -5,6 +5,13 @@ The live site (https://alan-sanchez-drowned-bell.netlify.app) runs **`857755a`**
 It has Phase 4 lip-sync and blinking on Alan's four side frames (`alan_side`, `alan_idle2`, `alan_talk`, `alan_talk2`), the story-audit fixes and the date (Tuesday 31 October 1995).
 Before the deploy, the clean export passed the smoke tests on every scene, and a non-FAST bath-scene run checked the lip-sync. The full playthrough passed on the working tree (story-fixes agent).
 
+**Side walk (rebuilt, waiting for approval on the review screen's Walk tab, `?scene=rigtest&walk=new`).** The user found every walk unnatural ("he looks like he's skipping") and spotted the cause: no painting had his FAR leg stepping forward. Every contact frame (walkA, walkB, contact2) had the near leg in front and the near arm back, so each step was taken with the same leg.
+- New cycle (`scripts/review_candidates.py` WALK2): walkA (near leg forward) → pre2L → pass2L → up2L (the near leg carrying him) → **contact_farL** (far leg forward, near arm forward) → pre1L → pass1L → up1L (the far leg carrying him).
+- contact_farL: Gemini would not swap the legs from a painting, so `scripts/walk_swap_step.py` roughs it out from walkA's rig parts, and Gemini repaints the rough.
+- The pre and up frames are short steps (feet about a third of his height apart; the contacts are half), so the legs open and close gradually instead of snapping. They were painted from the passing frame alone: with a wide frame as a second reference, Gemini copies its full stride.
+- Even timing per frame (`S.walkTiming`): timing each frame by its own foot travel made contacts flash and passing frames hold, another source of the skip. Every step has a morph.
+- All or nothing: the new cycle replaces the original only when all seven walk candidates are approved.
+
 **Faces for Alan's other frames (in progress, waiting for approval).** 58 more frames have lip-sync and blinking, all with `"ok": false` in `js/faces.js` (shown in the game only with `?faces=all`):
 - 13 side-like frames take alan_side's set through `scripts/face_transfer.py`; the smoking frames blink only.
 - 42 have their own Gemini set (`scripts/face_kit.py gen`: mouths A-F and shut eyes at 1K, about $0.04 an edit), cut by `face_kit.py build`.
