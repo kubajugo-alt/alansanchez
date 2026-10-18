@@ -97,8 +97,8 @@ window.FACES = {
  },
  "alan_idle2": {
   "box": [
-   74,
-   29,
+   75,
+   30,
    80,
    90
   ],
@@ -131,7 +131,7 @@ window.FACES = {
  "alan_talk": {
   "box": [
    67,
-   29,
+   26,
    80,
    90
   ],
@@ -163,8 +163,8 @@ window.FACES = {
  },
  "alan_talk2": {
   "box": [
-   80,
-   29,
+   79,
+   28,
    80,
    90
   ],
