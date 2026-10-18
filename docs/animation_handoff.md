@@ -1,7 +1,8 @@
 # Animation handoff
 
-State of the four-phase animation plan as of 2026-10-18, branch `lore-se-museum`, last commit `2f3b066` (a work-in-progress checkpoint, pushed).
-The live site (https://alan-sanchez-drowned-bell.netlify.app) runs the bath-scene deploy (`e13beed`). Nothing after it has been deployed.
+State of the four-phase animation plan as of 2026-10-18, branch `lore-se-museum` (everything committed and pushed).
+The live site (https://alan-sanchez-drowned-bell.netlify.app) runs **`f2b227f`**: Netlify deploy `6ad4230d4eecced746990fc4`, made 2026-10-18 at the user's request, "as it stands". That includes the unfinished Phase 3 Part B work.
+Before that deploy, the clean export passed the smoke tests on all 11 pair scenes plus the bath scene and a new game, with no errors. The full playthrough (`play_v9.js`) was **not** run, so run it first thing in the next session.
 
 ## Standing rules (from the user)
 
@@ -41,7 +42,13 @@ The live site (https://alan-sanchez-drowned-bell.netlify.app) runs the bath-scen
 
 ## Where it stopped (Phase 3 Part B)
 
-The user asked to stop mid-task. Everything is committed in `2f3b066`.
+The user asked to stop mid-task. The work is committed (`2f3b066`) and, since then, deployed (`f2b227f`).
+
+What this means on the live site:
+
+- The combined sprites already stand on Alan's feet, draw rigid, and cross-fade in and out (0.25 s).
+- No Gemini frames are live: `approvals.json` is `{}`, and the game loads only approved candidates.
+- `?review` works on the live site. Decisions made there are kept in that browser, and "save" downloads `approvals.json` to send back for committing.
 
 **Done:**
 
@@ -88,8 +95,8 @@ The user asked to stop mid-task. Everything is committed in `2f3b066`.
 
 ## Also changed this session (outside the phases)
 
-- **Walk regression (reported by the user after the last deploy).** Phase 1 had re-anchored the walk frames on the hips with a per-frame scale "bob", so his feet slid. The walk cycle frames are restored to their old hand-tuned `ax`/`h`, the original 8-frame cycle is back (with `walkDown`; no `walkLen`), their morphs are rebuilt, and `scripts/align_alan.py` now leaves the walk cycles alone. **Not deployed.**
-- **Rui's newspaper (the user was stuck after the clockmaker).** The desk hotspot sat behind Rui. Now he hands the Diário over when he offers it, and a save past that point gets "Your Diário, Inspector?". Commit `faa267c`. **Not deployed.**
+- **Walk regression (reported by the user after the last deploy).** Phase 1 had re-anchored the walk frames on the hips with a per-frame scale "bob", so his feet slid. The walk cycle frames are restored to their old hand-tuned `ax`/`h`, the original 8-frame cycle is back (with `walkDown`; no `walkLen`), their morphs are rebuilt, and `scripts/align_alan.py` now leaves the walk cycles alone. **Deployed** (`f2b227f`).
+- **Rui's newspaper (the user was stuck after the clockmaker).** The desk hotspot sat behind Rui. Now he hands the Diário over when he offers it, and a save past that point gets "Your Diário, Inspector?". Commit `faa267c`. **Deployed** (`f2b227f`).
 
 ## Waiting for the user
 
@@ -103,7 +110,11 @@ The user asked to stop mid-task. Everything is committed in `2f3b066`.
   - (B) leave `alan_hands` out (Gemini refused to paint it; the scene uses the towel pose);
   - (C) keep `alan_asleep` unused;
   - (D) an optional extra "weight shift" frame at the start of a walk.
-- **Deploy.** Only when asked. The walk fix and the newspaper fix are both waiting for one.
+- **Deploy.** Only when asked. The last deploy was `f2b227f`, on request.
+- **Feedback on the live build:**
+  - Is the walk smooth again?
+  - Is the Diário reachable now?
+  - Do the pair scenes enter and leave without jumps?
 
 ## Things I was unsure about
 
@@ -142,3 +153,15 @@ The user asked to stop mid-task. Everything is committed in `2f3b066`.
   - `scripts/unify_palette.py`: palette.
   - `node scripts/build-manifest.mjs`: asset version hashes in `index.html`.
 - **Engine and story:** `js/engine.js` (Actor, `composeFrames`, `sameFacing`) and `js/story/core.js` (Alan's frames, the pair helpers).
+- **Tests:**
+  - Smoke test: a Playwright script that opens each `?scene=` preview and checks for page errors (scene keys in `PREVIEW`, `js/story/main.js`).
+  - Full playthrough script: plays the game to the end and must finish with `won: true` and no errors.
+  - Both scripts lived in the old session's scratchpad and **did not survive**, so rewrite them if needed.
+  - Serve the working tree with `npx http-server -p 8097 -c-1`. Chromium for Playwright is at `/opt/pw-browsers/chromium`.
+- **Deploy (only when the user asks):**
+  1. `git archive HEAD | tar -x -C <empty dir>`, then `git init` and one commit there.
+  2. Smoke-test that folder on its own port.
+  3. Call the Netlify MCP `deploy-site` tool with site id `9d2c5b0d-c539-48f1-ab5a-acdc2920aae9`.
+  4. Run the `npx -y @netlify/mcp@latest --site-id … --proxy-path …` command it returns, from the export folder.
+  5. Check the live JS and that `/.env` returns 404.
+  6. `.gitattributes` keeps `art/review/**` out of the export, except the candidates and `approvals.json`.
