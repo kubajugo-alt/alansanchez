@@ -79,6 +79,7 @@ for s in 'ABCDEFGH':
     comp[...,3]=a[...,3]*mz+comp[...,3]*(1-mz)
     if os.environ.get('DEBUG'): Image.fromarray(comp.astype(np.uint8),'RGBA').save(os.environ['DEBUG']+f'/big_{s}.png'); Image.fromarray((np.dstack([mz]*3)*255).astype(np.uint8)).save(os.environ['DEBUG']+f'/mz_{s}.png'); Image.fromarray(a.astype(np.uint8),'RGBA').save(os.environ['DEBUG']+f'/gem_{s}.png')
     Image.fromarray(comp.astype(np.uint8),'RGBA').resize((80,90),Image.LANCZOS).save(P+f'head_side_{s}.png')
+    os.makedirs(P+'full', exist_ok=True); Image.fromarray(np.clip(comp,0,255).astype(np.uint8),'RGBA').save(P+f'full/side_{s}.png')  # for scripts/face_transfer.py
     arr=np.asarray(spr).copy(); arr[30:120,70:150]=np.asarray(Image.fromarray(comp.astype(np.uint8),'RGBA').resize((80,90),Image.LANCZOS)); s2=Image.fromarray(arr,'RGBA')
     c2=s2.crop((60,10,175,140)).resize((345,390),Image.LANCZOS); bgc=Image.new('RGBA',c2.size,(38,43,55,255)); bgc.alpha_composite(c2); bgc.convert('RGB').save(L+f'face_{s}.webp',quality=90)
     print(s,'jaw opens',deg,'deg, chin drop',round(drop(deg)/6,1),'px at sprite size')
@@ -100,7 +101,7 @@ for s in 'ABCDEFGH':
             ml=lo[...,4]/255
             c[...,:3]=lo[...,:3]*ml[...,None]+c[...,:3]*(1-ml[...,None]); c[...,3]=lo[...,3]*ml+c[...,3]*(1-ml)
             tag=f'{s}_{int(f*100)}'
-            small=Image.fromarray(np.clip(c,0,255).astype(np.uint8),'RGBA').resize((80,90),Image.LANCZOS); small.save(P+f'head_side_{tag}.png')
+            small=Image.fromarray(np.clip(c,0,255).astype(np.uint8),'RGBA').resize((80,90),Image.LANCZOS); small.save(P+f'head_side_{tag}.png'); Image.fromarray(np.clip(c,0,255).astype(np.uint8),'RGBA').save(P+f'full/side_{tag}.png')
             arr=np.asarray(spr).copy(); arr[30:120,70:150]=np.asarray(small); s3=Image.fromarray(arr,'RGBA')
             c3=s3.crop((60,10,175,140)).resize((345,390),Image.LANCZOS); bg3=Image.new('RGBA',c3.size,(38,43,55,255)); bg3.alpha_composite(c3); bg3.convert('RGB').save(L+f'face_{tag}.webp',quality=90)
 Image.open(L+'face_A.webp').save(L+'face_X.webp',quality=90)

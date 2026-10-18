@@ -409,6 +409,8 @@
           if (N) { B = N; walkF = this.phase - Math.floor(this.phase); }
         }
       }
+      // the mouth and eyelids (js/engine/faces.js) go into the painting before it is lit and bent
+      if (E.faceImage) { A.im = E.faceImage(this, A.key, A.im); if (B) B.im = E.faceImage(this, B.key, B.im); }
       const h = this.height();
       // union of both frames, in feet-relative coordinates
       const U = { x: Math.min(A.x, B ? B.x : A.x), y: Math.min(A.y, B ? B.y : A.y) };

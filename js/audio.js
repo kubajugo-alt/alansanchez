@@ -3,7 +3,7 @@
   let ctx = null, master = null, musicBus = null, sfxBus = null, ambBus = null, reverb = null;
   let musicOn = true, voiceOn = true;
   let manifest = null, voiceVer = {};
-  let voiceEl = null;
+  let voiceEl = null, voiceAt = 0, voiceCur = null;
 
   // iPhone: Web Audio obeys the ring/silent switch and can be suspended when the page
   // seems idle. Asking for a 'playback' audio session (like a video) and keeping a
@@ -776,7 +776,7 @@
         const src = ctx.createBufferSource(); src.buffer = buf; src.connect(analyser);
         // characters speak into the room; the narrator, the answering machine and voices over stills don't
         if (roomVerb && !dry) src.connect(roomVerb);
-        voiceSrc = src; voiceEnd = ctx.currentTime + buf.duration;
+        voiceSrc = src; voiceEnd = ctx.currentTime + buf.duration; voiceAt = ctx.currentTime; voiceCur = id;
         src.onended = () => { if (voiceSrc === src) { voiceSrc = null; duck(false); } };
         duck(true, /_sing/.test(id), dry); // a sung line keeps its guitar under it; dry voices go deeper
         src.start();
@@ -785,7 +785,7 @@
     }
     return new Promise(resolve => {
       const el = new Audio(voiceUrl(id));
-      voiceEl = el;
+      voiceEl = el; voiceCur = id;
       let done = false;
       const fin = v => { if (!done) { done = true; resolve(v); } };
       el.addEventListener('loadedmetadata', () => fin(el.duration));
@@ -808,7 +808,21 @@
     if (voiceSrc) return ctx.currentTime < voiceEnd;
     return voiceEl && !voiceEl.paused && !voiceEl.ended;
   }
+  // where the voice is now, as heard (s, for lip-sync): the audio clock moves in blocks, so the
+  // real clock fills in between them, and what is scheduled reaches the speakers a little later
+  let clkLast = -1, clkAt = 0;
+  function voiceTime() {
+    let t;
+    if (voiceSrc) t = ctx.currentTime - voiceAt - (ctx.outputLatency || ctx.baseLatency || 0);
+    else if (voiceEl && !voiceEl.paused) t = voiceEl.currentTime;
+    else return null;
+    const p = performance.now();
+    if (t !== clkLast) { clkLast = t; clkAt = p; return t; }
+    return t + Math.min(0.1, (p - clkAt) / 1000);
+  }
+  function voiceId() { return voicePlaying() ? voiceCur : null; }
   function stopVoice() {
+    voiceCur = null;
     if (voiceSrc) { try { voiceSrc.onended = null; voiceSrc.stop(); } catch (e) { /* already stopped */ } voiceSrc = null; }
     if (voiceEl) { voiceEl.pause(); voiceEl = null; }
     duck(false);
@@ -901,7 +915,7 @@
   function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
 
   window.Sound = {
-    init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
+    init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, voiceTime, voiceId, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice,
     cue: setCue, refreshMusic, transitionMusic, musicState, restoreMusic, setMusicVolume, trackUrl, meter, musicLog,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; }, get musicVolume() { return musicVol; },
     _wave: () => {
