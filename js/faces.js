@@ -1883,7 +1883,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "pair_cop_buttons": {
   "box": [
