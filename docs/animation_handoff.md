@@ -1,8 +1,13 @@
 # Animation handoff
 
 State of the four-phase animation plan as of 2026-10-18, branch `lore-se-museum` (everything committed and pushed).
-The live site (https://alan-sanchez-drowned-bell.netlify.app) runs **`f2b227f`**: Netlify deploy `6ad4230d4eecced746990fc4`, made 2026-10-18 at the user's request, "as it stands". That includes the unfinished Phase 3 Part B work.
-Before that deploy, the clean export passed the smoke tests on all 11 pair scenes plus the bath scene and a new game, with no errors. The full playthrough (`play_v9.js`) was **not** run, so run it first thing in the next session.
+The live site (https://alan-sanchez-drowned-bell.netlify.app) runs **`e9ef055`**: Netlify deploy `6ad4584bc9604d71e07d557f`, made 2026-10-18 at the user's request.
+It has Phase 4 lip-sync and blinking on Alan's four side frames (`alan_side`, `alan_idle2`, `alan_talk`, `alan_talk2`), the story-audit fixes and the date (Tuesday 31 October 1995).
+Before the deploy, the clean export passed the smoke tests on every scene, and a non-FAST bath-scene run checked the lip-sync. The full playthrough passed on the working tree (story-fixes agent).
+
+**Paused at the user's request: faces for Alan's other frames.** `scripts/face_kit.py find` has located his face in all 135 frames that show it (`art/review/alan/faces/index.json`).
+`faces_sim.json` lists which heads are alike: about 27 frames match `alan_side` closely enough to take its set through `scripts/face_transfer.py`. The rest need their own Gemini set (`face_kit.py gen`/`build`, not written yet), at about $0.65 per head.
+**Next job (assessment given, not started):** a hybrid skeletal + sprite Alan. The user's six-step brief is in the session; stop after each step for approval.
 
 ## Standing rules (from the user)
 
