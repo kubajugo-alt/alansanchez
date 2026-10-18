@@ -256,9 +256,11 @@ real and what the game invents, so nobody mistakes one for the other.
 | 1956                  | Joaquim deposits the Brotherhood's papers with the Sé                                                                                          | Fiction                               |
 | 1967                  | Pedro Sanches is lost at sea in the colonial wars                                                                                              | War real; Pedro fiction               |
 | 1988                  | The Chiado fire; Lacerda rebuilds his shop exactly as it was                                                                                   | Fire real; the shop is fiction        |
-| 1995, ten days before | Vicente drowns Joaquim and begins the novena. The fog comes                                                                                    | Fiction                               |
-| 1995, the Wednesday   | Maria Coutinho drowns at 04:01. The game begins at 11:00                                                                                       | Fiction                               |
-| 1995, Thursday        | Alan waits for Vasco in the casting pit                                                                                                        | Fiction                               |
+| 1995, ten days before | Vicente drowns Joaquim and begins the novena. The fog comes on Monday 23 October (fog day 1)                                                   | Fiction                               |
+| Mon 30 Oct 1995       | Fog day 8. Maria Coutinho drowns at the 04:01 turning, before dawn                                                                             | Fiction                               |
+| Tue 31 Oct 1995       | Fog day 9, the eve of All Saints'. The game begins at 11:00; the rite is at the 00:35 turning, just after midnight                             | Fiction                               |
+| Wed 1 Nov 1995        | All Saints' Day, the 240th anniversary of the earthquake: the tenth dawn, and the fog lifts                                                    | Fiction                               |
+| Thu 2 Nov 1995        | Alan waits for Vasco in the casting pit                                                                                                        | Fiction                               |
 
 ## How it ends
 

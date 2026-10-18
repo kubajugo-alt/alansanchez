@@ -496,8 +496,8 @@ Maria Coutinho, the cold-open victim; Celeste's godson.
 **Backstory.** His father was lost at sea when he was a boy **(new)**,
 and his mother raised him on fish sold from a basket. He took the boat
 at sixteen. He has had men before, discreetly, never anyone from the
-quay **(new)**. This morning his mother drowned in a locked room, and a
-blue tile appeared in his bunk. He didn't know he was a founder.
+quay **(new)**. Before dawn yesterday (Monday 30 October) his mother
+drowned in a locked room, and a blue tile appeared in his bunk. He didn't know he was a founder.
 
 **Psychology.** Wound: the sea took his father and now his mother.
 Defence: silence, work and control; on the boat, he decides. Fear: grief

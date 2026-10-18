@@ -40,6 +40,8 @@ This pass records the game as it is built; no story was invented. The walkthroug
 
 - **Endings.** The epilogue order as built (post-credits pictures before the phone call); the vignette texts; Thursday without the twin.
 
+- **The date.** The date is fixed as Tuesday 31 October 1995: fog day 1 is Monday 23 October, Maria drowns at 04:01 on Monday 30 (day 8), and the game ends at dawn on Wednesday 1 November, All Saints' Day, the anniversary of 1755. The Diário's tide rows read Seg 23 to Ter 31.
+
 - **Tables.** Cast (Vasco, Teixeira, Duarte added), Locations (nineteen rooms), Structure, map unlocks, Items (twenty-six, the magnifier on the desk, the brass weight gone), Flags, Alan's line tables (retired ids replaced: alan_wake, alan_wheel_wrong, alan_glacier; lacerda_mine, alan_answers, alan_ledger and rui_coffee_back no longer play), Production decisions 4, 12 and 14 corrected, 15 to 18 added. Humour rule 7: Lacerda's threat about Vasco is cut from the build.
 
 ## Premise
@@ -52,7 +54,7 @@ He is the last of the Sineiros, the bell-founder line whose blood keeps an ancie
 
 **Logline:** a man who never leaves his shop has one day to finish what his grandfather started, before the sea walks into Lisbon a second time.
 
-**The day at a glance:** the game runs from 11:00 on the ninth day to dawn on the tenth. The river "turns" (slack water) four times a day, and the murders happen at the turnings. The two that matter are 18:25 (Zé Coutinho's death, if Alan is late) and 00:35 (high water, when the cistern opens and Lacerda performs the rite).
+**The day at a glance:** the game runs from 11:00 on the ninth day, Tuesday 31 October 1995, to dawn on the tenth, Wednesday 1 November, All Saints' Day. The river "turns" (slack water) four times a day, and the murders happen at the turnings. The two that matter are 18:25 (Zé Coutinho's death, if Alan is late) and 00:35 (high water, when the cistern opens and Lacerda performs the rite).
 
 ## Tone and style
 
@@ -161,7 +163,7 @@ Only a founder can ring the bell, forward or backward. Any founder who knows the
 | 1955    | The tongue resurfaces in an estate sale. Afonso Lacerda raises the fog. Joaquim (43) and altar boy Tomás (11) go down into the cistern. Afonso drowns in his own water in the struggle. Joaquim has the tongue and the bell in front of him, and runs. Vicente, Afonso's son (12), watches. The fog lifts on the tenth dawn. Police file the drownings as "unexplained". |
 | 1956 on | Tomás swears to keep the Carmo grate locked and becomes its priest. Joaquim hides the tongue and never speaks of it. He deposits the Brotherhood's papers and the tongue's unconsecrated twin in the Sé reserve, on Abílio's advice.                                                                                                                                                                                                                                                     |
 | 1958    | Alan is born. His father dies when Alan is nine; his mother goes home to St. Augustine, Florida. Joaquim raises him above the shop.                                                                                                                                                                                                                                                           |
-| 1995    | Vicente Lacerda (52) kills Joaquim (83) and takes the tongue. Nine days of fog. Alan is 37. Today is the ninth day.                                                                                                                                                                                                                                                      |
+| 1995    | Vicente Lacerda (52) kills Joaquim (83) and takes the tongue. Nine days of fog, from Monday 23 October. Alan is 37. Today is the ninth day, Tuesday 31 October; the tenth dawn is All Saints' Day.                                                                                                                                                                                                                                                      |
 
 ## Cast
 
@@ -1273,9 +1275,9 @@ Existing characters need new states; new characters need full sets.
 
 ### Continuity checklist
 
-- Today is the ninth day. The rite happens at the 00:35 turning; the fog lifts at the tenth dawn.
+- Today is the ninth day, Tuesday 31 October 1995 (fog day 1 was Monday 23). The rite happens at the 00:35 turning, just into Wednesday 1 November; the fog lifts at the tenth dawn, All Saints' Day.
 
-- Today's turnings: 18:25 (Zé) and 00:35 (the rite). Deaths: Ferreira 03:12, Bastos 15:38, Maria Coutinho 04:01, each on a turning.
+- Today's turnings: 18:25 (Zé) and 00:35 (the rite). Deaths: Ferreira 03:12 (day 2, Tue 24), Bastos 15:38 (day 5, Fri 27), Maria Coutinho 04:01 (day 8, Mon 30), each on a turning.
 
 - The key is 7. The plaintext header is THE BROTHERHOOD RANG THE DROWNED BELL; the rite and Joaquim's page are separate decoded pages.
 

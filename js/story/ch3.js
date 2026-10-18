@@ -236,7 +236,8 @@
     const read = async ms => { p.pose = 'reach'; ab.pose = 'read'; await G.wait(window.FAST ? 20 : ms); ab.pose = null; p.pose = 'write'; };
     p.pose = 'write';
     try { await G.dialog([
-      { line: 'alan_w_blood', once: true, when: () => !F().heard_blood, run: async () => {
+      // 'YOURS HAS FOUR FAMILIES' needs him to know Alan is a Sanches: the Joaquim note comes first
+      { line: 'alan_w_blood', once: true, when: () => !F().heard_blood && F().abilio_joaquim, run: async () => {
         await read(700);
         await say('abilio_blood', 'abilio_drowned'); S.lore && S.lore('blood');
         await say('abilio_order'); // abilio_tongue is an optional follow-up now
@@ -246,7 +247,7 @@
       { label: 'Write: "And the tongue?"', once: true, when: () => F().heard_blood, run: async () => { await read(700); await say('abilio_tongue'); } },
       // the sketch from Lacerda's case: the drowned bell's tongue, and its twin in the Sé reserve
       { line: 'alan_w_sketch', once: true, when: () => F().tongue_sketched && !F().knows_twin, run: () => S.abilioSketch(read) },
-      { line: 'alan_w_joaquim', once: true, run: async () => { await read(700); await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); } },
+      { line: 'alan_w_joaquim', once: true, run: async () => { await read(700); await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); F().abilio_joaquim = true; } },
       { line: 'alan_w_1955', once: true, run: async () => { await read(700); await say('abilio_1955'); } },
       { line: 'alan_w_backward', once: true, run: async () => { await read(700); await say('abilio_backward_2'); } },
       { line: 'alan_w_order', run: async () => { await read(600); ab.pose = 'point'; await say('abilio_eyes'); ab.pose = null; } },
@@ -366,7 +367,8 @@
     await say('alan_noswap');
   };
   S.talkLacerda = async function () {
-    await say('lacerda_hello_2'); // they have never met: he knows of Alan only as the last Sineiro
+    // they have never met: he knows of Alan only as the last Sineiro (said once; later talks open without it)
+    if (!F().lac_greeted) { F().lac_greeted = true; await say('lacerda_hello_2'); }
     await G.dialog([
       { line: 'alan_lac_clocks', once: true, run: async () => {
         await say('lacerda_clocks');

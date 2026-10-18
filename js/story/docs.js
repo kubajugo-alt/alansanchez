@@ -74,7 +74,7 @@
     { img: PAPER, cls: 'doc-hand', html: `<p>1961 — note for the next man at this bench:</p><p>All my founder locks share one key-square. Ferreira, Bastos, Coutinho, Sanches. Old habit. Old families.</p>` },
   ]);
   S.readNotebook = () => G.closeup([
-    { img: PAPER, cls: 'doc-hand', html: `<p>milk · coffee · sardines (P.)</p><p><i>Sonnet XIV (unfinished)</i><br>The fog sits on the city like a cat…</p><p style="margin-top:2em">Mãe — 22 31 70 4?</p>${F().vasco_thursday ? '<p>Dr. V. Teles — Sé, quintas (card)</p>' : ''}` },
+    { img: PAPER, cls: 'doc-hand', html: `<p>milk · coffee · sardines (P.)</p><p><i>Sonnet XIV (unfinished)</i><br>The fog sits on the city like a cat…</p><p style="margin-top:2em">Mãe — 001 904 82? …</p>${F().vasco_thursday ? '<p>Dr. V. Teles — Sé, quintas (card)</p>' : ''}` },
     ...(F().sketched_tile ? [{ img: PAPER, cls: 'doc-hand', html: `<p>The tile: a bell under three waves. Blue on white.</p><svg viewBox="0 0 120 110" style="display:block;width:55%;margin:0.5em auto" fill="none" stroke="#2f3f78" stroke-width="2.4" stroke-linecap="round"><path d="M42 20 Q42 8 60 8 Q78 8 78 20 L86 58 L34 58 Z"/><path d="M30 58 L90 58"/><circle cx="60" cy="64" r="4"/><path d="M10 80 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/><path d="M10 92 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/><path d="M10 104 q10-8 20 0 t20 0 t20 0 t20 0 t20 0"/></svg>` }] : []),
     ...(F().tongue_sketched ? [{ img: PAPER, cls: 'doc-hand', html: `<p>Lacerda's glass case. 'Not for sale.'</p><svg viewBox="0 0 160 70" style="display:block;width:70%;margin:0.6em auto" fill="none" stroke="#3a3428" stroke-width="2.2" stroke-linecap="round"><circle cx="14" cy="35" r="6"/><path d="M20 35 L28 35"/><rect x="28" y="14" width="40" height="42" rx="7"/><path d="M36 15 L36 55 M60 15 L60 55"/><path d="M68 28 L78 30 L78 40 L68 42"/><path d="M78 32 L140 33 M78 38 L140 37"/><rect x="140" y="29" width="10" height="12" rx="4"/></svg><p>Loop, drum of a bob, collar, long shank, knob. Green in the dents.</p>${F().knows_twin ? '<p>A. says: <i>founders pour twice.</i> The twin is in the Sé reserve. Same pour, same marks. Never rung.</p>' : ''}` }] : []),
     ...(F().founder_order ? [{ img: PAPER, cls: 'doc-hand', html: `<p>Ferreira 1611</p><p>Bastos 1648</p><p>Coutinho 1702</p><p>Sanches 1739</p><p>— ring last to first —</p>` }] : []),
@@ -95,7 +95,7 @@
     ['order', 'Ring it backward, last to first: Sanches, Coutinho, Bastos, Ferreira. It renounces the sea.'],
     ['case', "Lacerda keeps a bell's tongue under glass. Not for sale. He'd notice a hair moved on the velvet."],
     ['twin', 'The founders cast two tongues from one pour. Only one was blessed and rung. The twin is in the Sé reserve. Grandfather put it there.'],
-    ['father', 'Lacerda wants his father back. <s>So do I. Mine at least sent postcards.</s>'],
+    ['father', 'Lacerda wants his father back. <s>So do I. Mine never came home either.</s>'],
   ];
 
   // Duarte's lyrics sheet: the fado written out in Portuguese, and in English for the foreigner
@@ -105,9 +105,11 @@
     { img: PAPER, cls: 'doc-hand', html: `<div style="font-size:0.62em;line-height:1.45">${S.LYRICS_PT}</div>` },
     { img: PAPER, cls: 'doc-hand', html: `<div style="font-size:0.62em;line-height:1.45">${S.LYRICS_EN}<p style="text-align:right;margin-top:.6em">D.</p></div>` },
   ]);
-  // the Diário de Notícias: weather, football, and a week of tides
+  // the Diário de Notícias: weather, football, and a week of tides. Fog day 1 is Monday 23 October 1995,
+  // so today, the ninth day, is Tuesday 31 (the tenth dawn is 1 November, All Saints')
+  const FOG_DAY1 = 23, WEEKDAY = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
   S.readPaper = () => {
-    const rows = S.tideRows().slice(0, 9).map((r, i) => `<tr><th>${['Sex', 'Sáb', 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'][i]} ${i + 6}</th>${r.map(m => `<td>${hm(m)}</td>`).join('')}</tr>`).join('');
+    const rows = S.tideRows().slice(0, 9).map((r, i) => `<tr><th>${WEEKDAY[i % 7]} ${i + FOG_DAY1}</th>${r.map(m => `<td>${hm(m)}</td>`).join('')}</tr>`).join('');
     return G.closeup([{ img: PAPER, cls: '', html: `<h3 style="font-family:'IM Fell English',serif;letter-spacing:.08em">DIÁRIO DE NOTÍCIAS</h3>
       <p style="font-size:.75em;margin:.2em 0 .6em">NEVOEIRO CONTINUA SOBRE A CIDADE · Benfica empata em Setúbal · O tempo: frio, nevoeiro cerrado</p>
       <h4 style="margin:.2em 0">Marés · preia-mar e baixa-mar, Cais do Sodré</h4><table class="doc-table">${rows}</table>` }]);
@@ -115,8 +117,8 @@
   // the deduction, in Alan's notebook: the three deaths against the tide table
   S.deductionPage = () => {
     const rows = S.tideRows().slice(0, 9);
-    const deaths = { 1: 192, 4: 938, 7: 241 }; // Ferreira 03:12 (day 2), Bastos 15:38 (day 5), Maria 04:01 (day 8)
-    const html = rows.map((r, i) => `<tr><th>${i + 6}</th>${r.map(m => `<td class="${deaths[i] === m ? 'circled' : ''}">${hm(m)}</td>`).join('')}<td style="font-family:'Homemade Apple',cursive;font-size:.8em">${{ 1: 'Ferreira', 4: 'Bastos', 7: 'M. Coutinho' }[i] || ''}</td></tr>`).join('');
+    const deaths = { 1: 192, 4: 938, 7: 241 }; // Ferreira 03:12 (day 2, Tue 24), Bastos 15:38 (day 5, Fri 27), Maria 04:01 (day 8, Mon 30)
+    const html = rows.map((r, i) => `<tr><th>${i + FOG_DAY1}</th>${r.map(m => `<td class="${deaths[i] === m ? 'circled' : ''}">${hm(m)}</td>`).join('')}<td style="font-family:'Homemade Apple',cursive;font-size:.8em">${{ 1: 'Ferreira', 4: 'Bastos', 7: 'M. Coutinho' }[i] || ''}</td></tr>`).join('');
     return G.closeup([{ img: PAPER, cls: '', html: `<h3 class="doc-hand" style="margin:0">turnings vs. deaths</h3><table class="doc-table">${html}</table>
       <p class="doc-hand" style="margin-top:.6em">03:12 · 15:38 · 04:01 — every one on a turning.</p>` }]);
   };

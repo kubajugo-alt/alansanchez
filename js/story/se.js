@@ -612,7 +612,7 @@
     await say('alan_charter_read');
   };
   S.ITEMS.brotherhood_charter = { name: 'Charter of the Brotherhood', look: () => S.readCharter() };
-  S.ITEMS.reserve_key = { name: "Dr. Teles's reserve key", look: 'alan_lanyard_far' };
+  S.ITEMS.reserve_key = { name: "Dr. Teles's reserve key", look: 'alan_toss_wait' };
   S.ITEMS.vasco_card = { name: "Dr. Teles's card", look: 'alan_two_numbers' };
   S.ITEMS.sanches_fragment = { name: 'Fragment of Sanches bronze', look: 'alan_look_fragment' };
   // the drowned bell's twin tongue, on loan from the Sé reserve: it looks exactly like the real one

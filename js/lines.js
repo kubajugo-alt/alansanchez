@@ -1076,7 +1076,7 @@ window.LINES = {
   alan_w_blood: ['alan', "[writing] 'Founders' blood?'"],
   abilio_blood: ['abilio', "[shouting] EVERY BELL UP HERE HAS A DROP OF ITS FOUNDER IN THE BRONZE. SO IT KNOWS ITS FATHER."],
   abilio_drowned: ['abilio', "[shouting] YOURS HAS FOUR FAMILIES IN IT. ONLY THEIR HANDS CAN MAKE IT TALK."],
-  abilio_tongue: ['abilio', "[shouting, then lower] THEY CUT OUT ITS TONGUE AND BLED ON THE STUMP. While their hearts beat, it waits for them."],
+  abilio_tongue: ['abilio', "[shouting, then lower] THEY CUT OUT ITS TONGUE AND BLED ON THE STUMP. WHILE THEIR HEARTS BEAT, IT WAITS FOR THEM."],
   abilio_order: ['abilio', "[shouting] LAST TO FIRST. YOU UNPICK A KNOT FROM THE LAST LOOP, NOT THE FIRST."],
   alan_lac_family: ['alan', "Your family has been in Lisbon a long time."],
   lacerda_godfather: ['lacerda', "My family stood godfather to something very old. Godparents are patient. We answer for the child."],

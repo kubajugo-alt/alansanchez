@@ -486,13 +486,12 @@
   // and Alan denies everything. One remark per conversation, each said once, in order.
   const GOSSIP = {
     ines: [['ines_gossip_1', 'alan_deny_ines_1', 'teixeira_scene'], ['ines_gossip_2', 'alan_deny_ines_2', 'duarte_scene'], ['ines_gossip_3', 'alan_deny_ines_3', 'duarte_ines'], // the stairs-rent remark waits for Duarte's visit to the shop
-      ['ines_gossip_4', 'alan_deny_ines_4', 'vasco_thursday'], ['ines_gossip_5', 'alan_deny_ines_5', 'vasco_thursday']],
-    celeste: [['celeste_gossip_1', 'alan_deny_celeste_1'], ['celeste_gossip_2', 'alan_deny_celeste_2', 'duarte_scene']],
+      ['ines_gossip_4', 'alan_deny_ines_4', 'vasco_thursday']],
+    celeste: [['celeste_gossip_1', 'alan_deny_celeste_1']], // her Duarte remark is retired: she's gone from the lavadouro by then
     amalia: [['amalia_gossip_1', 'alan_deny_amalia_1', 'duarte_scene'], ['amalia_gossip_2', 'alan_deny_amalia_2']],
-    rui: [['rui_gossip_1b', 'alan_deny_rui_1', 'teixeira_scene'], ['rui_gossip_2', 'alan_deny_rui_2', 'teixeira_scene'], ['rui_gossip_3', 'alan_deny_rui_3', 'vasco_thursday']],
-    // Chapter III: the Sé's bell-ringer and the Carmo's priest have both noticed the curator
+    rui: [['rui_gossip_1b', 'alan_deny_rui_1', 'teixeira_scene'], ['rui_gossip_2', 'alan_deny_rui_2', 'teixeira_scene']],
+    // Chapter III: the Sé's bell-ringer has noticed the curator (Tomás's "coming to Mass" is retired: they met this morning)
     abilio: [['abilio_gossip_1b', 'alan_deny_abilio_1', 'vasco_thursday']],
-    tomas: [['tomas_gossip_1', 'alan_deny_tomas_1', 'vasco_thursday']],
   };
   S.gossip = async function (who) {
     const said = F().gossip || (F().gossip = {});

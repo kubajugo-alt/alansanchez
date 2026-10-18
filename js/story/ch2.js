@@ -353,7 +353,8 @@
     if (!F().met_celeste) return say('celeste_twist');
     if (!first) { await say('celeste_hello'); await S.gossip('celeste'); }
     await G.dialog([
-      { line: 'alan_ask_river', once: true, run: async () => {
+      // "Rui says..." only if Rui told him about the fog; otherwise an unvoiced question
+      { get line() { return F().rui_fog_heard ? 'alan_ask_river' : null; }, get label() { return F().rui_fog_heard ? null : 'Tell me about the river.'; }, once: true, run: async () => {
         await say('celeste_river');
         await joke('alan_breathes');
         await say('celeste_salt');
