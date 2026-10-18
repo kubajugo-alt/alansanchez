@@ -241,6 +241,7 @@
       F.walkStartRun = (F.walkStartRun || []).filter(r => r[1] !== c.id).concat([[at, c.id]]).sort((a, b) => a[0] - b[0]);
       F.walkStart = F.walkStartRun.map(r => r[1]);
     }
+    if (W.walkSlot != null) { F.walk = F.walk.slice(); F.walk[W.walkSlot] = c.id; } // a slot of the 8-step walk
     if (W.walkStop) F.walkStop = c.id;
     if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
     if (W.poses) Object.assign(F.poses, W.poses);
@@ -263,7 +264,9 @@
     const get = async u => { try { const r = await fetch(u, { cache: 'no-cache' }); return r.ok ? await r.json() : null; } catch (e) { return null; } };
     const C = await get('art/review/candidates.json'), A = await get('art/review/approvals.json') || {};
     let mine = {}; try { mine = JSON.parse(localStorage.getItem('review-approvals') || '{}'); } catch (e) { /* private mode */ }
-    const dec = Object.assign({}, A, mine), ok = id => !!(dec[id] && dec[id].decision === 'approved');
+    const dec = Object.assign({}, A, mine);
+    const walkNew = new URLSearchParams(location.search).get('walk') === 'new'; // the review screen's walk comparison: the new walk, approved or not
+    const ok = id => !!(dec[id] && dec[id].decision === 'approved') || (walkNew && id.startsWith('alan_walk_'));
     S.REVIEW = { candidates: (C && C.candidates) || [], decisions: dec, saved: A };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c, ok);
   }

@@ -1,3 +1,5 @@
+# Run once per frame (name the new ones: python3 scripts/denim_unify.py --apply alan_walk_up1 ...): the target is read
+# from frames this has already moved, so a second run would shift them again.
 # Gives Alan's jeans one colour in every frame: the faded grey-blue most of his paintings have (the user chose it over
 # the bright blue of a few side and walk frames, which made the jeans flicker as he walked).
 # The denim (blue, below his chest) of a frame that is visibly off moves by a Lab mean/spread transfer toward the
@@ -45,9 +47,11 @@ def unify(a, t):
 
 
 def frames():
+    only = [a for a in sys.argv[1:] if not a.startswith('--')]  # named files only (a second run on a treated file would treat it again)
     out = [(os.path.basename(p)[:-5], p) for p in sorted(glob.glob(f'{ROOT}/art/sprites/alan_*.webp'))]
     c = json.load(open(f'{ROOT}/art/review/candidates.json'))['candidates']
     out += [(x['id'], os.path.join(ROOT, x['src'])) for x in c if x.get('char') == 'alan' and x['id'].startswith('alan_') and x.get('src')]
+    if only: out = [o for o in out if any((o[1] if isinstance(o, tuple) else o).endswith(n + '.webp') or (o[1] if isinstance(o, tuple) else o).endswith(n) for n in only)]
     return out
 
 

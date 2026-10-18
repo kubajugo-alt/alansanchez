@@ -9,6 +9,9 @@ import sys, json, os, re, itertools, numpy as np, cv2
 from PIL import Image
 COLS, ROWS = 10, 26
 txt = open('js/sprites.js').read(); META = json.loads(txt[txt.index('{'):txt.rindex('}') + 1])
+# review candidates (art/review/candidates/), so frames waiting for approval can be morphed with the rest
+CAND = {c['id']: c for c in json.load(open('art/review/candidates.json'))['candidates'] if c.get('meta') and c['src'].startswith('art/review/candidates/')}
+for k, c in CAND.items(): META.setdefault(k, c['meta'])
 out_path = 'js/morphs.js'
 MORPHS = {}
 if os.path.exists(out_path):
@@ -16,7 +19,7 @@ if os.path.exists(out_path):
 sets = json.load(open(sys.argv[1]))
 force = os.environ.get('FORCE')
 def load(n):
-    im = np.asarray(Image.open(f'art/sprites/{n}.webp').convert('RGBA')).astype(np.float32)
+    im = np.asarray(Image.open(CAND[n]['src'] if n in CAND and not os.path.exists(f'art/sprites/{n}.webp') else f'art/sprites/{n}.webp').convert('RGBA')).astype(np.float32)
     return im
 def place(n, cx, cy, W, H, scale):
     m = META[n]; im = load(n)
@@ -133,7 +136,7 @@ for name, frames in sets:
         if f'{a}>{b}' in MORPHS or f'{b}>{a}' not in MORPHS or a not in META or b not in META or opposite(a, b): continue
         for reg in [('inv', 0.6, 1.5), ('inv', 0.4, 1.0), ('inv', 0.8, 2.0), ('inv', 0.2, 0.8)]:
             g, e0, e1, iou = pair(a, b, reg)
-            if e1 < e0 * 0.8 and iou > 0.72:
+            if e1 < e0 * 0.8 and iou > float(os.environ.get('INV_IOU', 0.72)):  # INV_IOU: looser for a pair checked by eye
                 MORPHS[f'{a}>{b}'] = g; done += 1; skipped -= 1
                 print(f'{a + ">" + b:55s} overlap {e0:5.1f} morph {e1:5.1f} iou {iou:.2f} OK (inverse)'); break
 with open(out_path, 'w') as fh:

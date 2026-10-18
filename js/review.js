@@ -149,11 +149,14 @@
       $('#rv-stop').onclick = () => { loopTok++; reset(); now(''); };
     } else if (tab === 'walk') {
       B.innerHTML = `<h3>Walk cycles (Alan)</h3><p class="muted">Now: 8 steps (A, down, passing, up, B, down, passing, up). The passing frame is a different painting that doesn't morph with its neighbours, so the walk pops on it. Without it: 6 steps (A, down, up, B, down, up), every step morphed both ways.</p>
+        <p class="muted">New (needs your approval under New frames): 8 steps with both legs: A, down, passing, up, then the other leg's contact, down, passing, up. Five new paintings; until one is approved its slot keeps the old frame.</p>
+        <button class="b" id="rv-walknew">▶ compare: now (left) and the new 8-step walk (right)</button>
         <button class="b" id="rv-walkcmp">▶ compare: now (left) and without the passing frame (right)</button>
         <h3>Walk across a room</h3><select id="rv-room">${G.rooms().sort().map(r => `<option${G.room && G.room.id === r ? ' selected' : ''}>${r}</option>`).join('')}</select>
         <button class="b" id="rv-walk">▶ walk across and back</button>
         <p class="muted">Watch the planted foot: it should stay put on the floor while the body passes over it. Slow it down with the speed slider, or pause and step.</p>
         <div id="rv-scale" class="muted"></div>`;
+      $('#rv-walknew').onclick = () => compare('Alan\'s walk: now (left) and with both legs (right)', 'walk=8', 'walk=new');
       $('#rv-walkcmp').onclick = () => compare('Alan\'s walk: now (left) and without the passing frame (right)', 'walk=8', 'walk=6');
       $('#rv-walk').onclick = async () => {
         const r = $('#rv-room').value; await stage(r);

@@ -4,6 +4,7 @@
 # stays; then the soft edge pixels that are left take the colour of the paint just inside them (no white tint).
 #   python3 scripts/defringe.py            -> art/review/alan/fringe/ (sheet of what would go, in red), nothing written
 #   python3 scripts/defringe.py --apply    -> also rewrites the images (sprites and approved review frames)
+# Run once per image (name new ones: --apply alan_walk_up1 ...): each run shaves the soft edge a little further.
 import glob, json, os, sys
 import numpy as np, cv2
 from PIL import Image, ImageDraw
@@ -69,9 +70,11 @@ def clean(a, wet=False):
 
 
 def images():
+    only = [a for a in sys.argv[1:] if not a.startswith('--')]  # named files only (a second run on a treated file would treat it again)
     out = sorted(glob.glob(f'{ROOT}/art/sprites/alan_*.webp') + glob.glob(f'{ROOT}/art/sprites/pair_*.webp'))
     c = json.load(open(f'{ROOT}/art/review/candidates.json'))['candidates']
     out += [os.path.join(ROOT, x['src']) for x in c if x.get('src') and (x['id'].startswith('alan_') or x['id'].startswith('pair_'))]
+    if only: out = [o for o in out if any((o[1] if isinstance(o, tuple) else o).endswith(n + '.webp') or (o[1] if isinstance(o, tuple) else o).endswith(n) for n in only)]
     return out
 
 

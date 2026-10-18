@@ -66,6 +66,21 @@ def pair_meta(png, side):
             'top': float(ys.min()), 'px': round(px, 1), 'pfy': round(pfy + 0.5, 1), 'rigid': True}
 
 
+# the walk with both legs (cycle: A, down, passing, up, then the other leg's contact, down, passing, up); until
+# a frame is approved its slot keeps the old one (the second step reused the first step's paintings)
+WALK2 = [('pass1', 2, 'walk: passing (far leg standing, near leg swinging through)'),
+         ('up1', 3, 'walk: up (near leg swinging forward)'),
+         ('contact2', 4, 'walk: the other step: near leg in front, heel down'),
+         ('down2', 5, 'walk: the other step: weight on the near leg'),
+         ('pass2', 6, 'walk: the other step: passing (near leg standing, far leg swinging through)')]
+
+
+def put(src_png, key):
+    """The candidate's image, written once: later fixes to it (jeans colour, cut-out edges) are kept on a rebuild."""
+    dst = os.path.join(OUT, key + '.webp')
+    if not os.path.exists(dst): Image.open(src_png).convert('RGBA').save(dst, lossless=True)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     cands = []
@@ -73,7 +88,7 @@ def main():
         src_png = os.path.join(REV, f'alan/phase2/{name}.png')
         if not os.path.exists(src_png): continue
         key = 'alan_' + name
-        Image.open(src_png).convert('RGBA').save(os.path.join(OUT, key + '.webp'), lossless=True)
+        put(src_png, key)
         meta = json.load(open(os.path.join(REV, f'alan/phase2/{name}_meta.json')))
         meta = {k: (float(v) if isinstance(v, (int, float)) else v) for k, v in meta.items() if k in ('w', 'hh', 'h', 'ax', 'fy', 'top', 'facesLeft')}
         cands.append({'id': key, 'char': 'alan', 'phase': 2, 'kind': 'inbetween', 'what': what,
@@ -84,7 +99,7 @@ def main():
             name, key = f'ib_{pk[5:]}_{d}', pk.replace('pair_', 'pair_ib_', 1) + '_' + d
             src_png = os.path.join(REV, f'alan/phase3/{name}.png')
             if not os.path.exists(src_png): continue
-            Image.open(src_png).convert('RGBA').save(os.path.join(OUT, key + '.webp'), lossless=True)
+            put(src_png, key)
             cands.append({'id': key, 'char': 'alan', 'phase': 3, 'kind': 'pair-inbetween', 'pair': pk,
                           'what': f'{scene}: {"stepping into" if d == "in" else "stepping out of"} {pk}',
                           'src': f'art/review/candidates/{key}.webp', 'originals': [SP(pk), SP(solo), SP('alan_side')], 'meta': pair_meta(src_png, side),
@@ -98,11 +113,22 @@ def main():
         key = 'pair_ib_' + name[3:]
         src_png = os.path.join(REV, f'alan/phase3/{name}.png')
         if not os.path.exists(src_png): continue
-        Image.open(src_png).convert('RGBA').save(os.path.join(OUT, key + '.webp'), lossless=True)
+        put(src_png, key)
         cands.append({'id': key, 'char': 'alan', 'phase': 3, 'kind': 'pair-inbetween', 'pair': a,
                       'what': f'{scene}: from {a} to {b}',
                       'src': f'art/review/candidates/{key}.webp', 'originals': [SP(a), SP(b)], 'meta': pair_meta(src_png, side),
                       'wire': {'pairIb': {f'{a}>{b}': {'step': [key]}}}})
+    # the full walk (both legs): each new painting takes its slot in the 8-step cycle once approved
+    for name, slot, what in WALK2:
+        src_png = os.path.join(REV, f'alan/walk2/{name}.png')
+        if not os.path.exists(src_png): continue
+        key = 'alan_walk_' + name
+        put(src_png, key)
+        meta = json.load(open(os.path.join(REV, f'alan/walk2/{name}_meta.json')))
+        meta = {k: float(v) for k, v in meta.items() if k in ('w', 'hh', 'h', 'ax', 'fy', 'top')}
+        cands.append({'id': key, 'char': 'alan', 'phase': 2, 'kind': 'walk', 'what': what,
+                      'src': f'art/review/candidates/{key}.webp', 'originals': [SP('alan_walkDown'), SP('alan_walkUp')], 'meta': meta,
+                      'wire': {'walkSlot': slot}})
     # phase 1 flagged frames: a proposal that needs no new painting
     cands.append({'id': 'wire_alan_untie', 'char': 'alan', 'phase': 2, 'kind': 'wiring',
                   'what': 'Proposal A: the successful haul on the mooring line (Ch. IV) uses the unused alan_untie; the failed first try keeps alan_pull',
