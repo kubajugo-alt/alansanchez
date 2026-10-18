@@ -34,6 +34,10 @@ cv2.ellipse(lips,(318,327),(66,24),4,0,360,255,-1)
 lips[base[...,3]<200]=0
 clean=base.copy()
 clean[...,:3]=cv2.inpaint(base[...,:3].astype(np.uint8),lips,9,cv2.INPAINT_TELEA).astype(np.float32)
+# ...and the old lips' front outline (the pale rim of his profile at the mouth), so the new mouth draws its own
+for y in range(298,368):
+    r=np.where(clean[y,:,3]>40)[0]
+    if len(r): clean[y,r.max()-12:,3]=0
 for s in 'ABCDEFGH':
     im=Image.open(P+f'mouth_{s}.png').convert('RGBA').resize((kw,kh),Image.LANCZOS).crop((pad[0],pad[1],pad[0]+W,pad[1]+H))
     Ag=cv2.cvtColor((np.asarray(im.convert('RGB'))/255).astype(np.float32),cv2.COLOR_RGB2GRAY)
