@@ -15,12 +15,6 @@
     }
     g.restore();
   };
-  // covers a taken object with nearby painting (the window shelf, etc.)
-  S.patchBg = function (g, dst, src) {
-    const im = G.bgImage(); if (!im) return;
-    const k = im.width / 1280;
-    g.drawImage(im, src[0] * k, src[1] * k, dst[2] * k, dst[3] * k, dst[0], dst[1], dst[2], dst[3]);
-  };
 
   // ---------------------------------------------------------------- chapter hooks in the shop
   const shopEnter = ROOMS.shop.enter;

@@ -254,7 +254,6 @@
   S.laundryTalk = async function () {
     if (!F().bathed) return say('alan_npc_laundry');
     if (!F().laundry_remark) return S.laundryRemark();
-    const p = G.player, w = G.npc('npc_laundry');
     await say('laundry_remark_2');
   };
   // one sheet between the two of them, twisting tighter, water running out of it

@@ -258,7 +258,6 @@
 
   S.visitGuitar = async function () {
     F().visit_guitar = true;
-    const p = G.player;
     await G.busy(async () => {
       await arrive('guitar');
       await beats(['swoon', 'guitar_visit_1'], ['fluster', 'ines_visit_guitar'], ['swoon', 'guitar_visit_2']);

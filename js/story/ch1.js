@@ -893,22 +893,6 @@
       pts.push([v * v * v * x0 + 3 * v * v * u * c2[0] + 3 * v * u * u * c1[0] + u * u * u * x1, v * v * v * y0 + 3 * v * v * u * c2[1] + 3 * v * u * u * c1[1] + u * u * u * y1]); }
     g.save(); S.coilPath(g, pts, 2.3); g.restore();
   };
-  // (the old wall telephone's cord, no longer used: Teixeira is on the desk phone)
-  S.wallPhone = function (g, x, y) {
-    // the telephone itself is painted (layer police_phone); only its cord is drawn,
-    // coiling down from the base to the handset in Teixeira's hand
-    g.save(); g.translate(x, y);
-    // coiled cord: loops along a sagging curve down behind the officer
-    g.strokeStyle = '#2a2620'; g.lineWidth = 1.6; g.beginPath();
-    const [x0, y0, x1, y1] = [0, 52, 44, 190];
-    for (let i = 0; i <= 120; i++) {
-      const u = i / 120, px = x0 + (x1 - x0) * u - Math.sin(u * Math.PI) * 10, py = y0 + (y1 - y0) * u;
-      const a = u * 24 * Math.PI;
-      g.lineTo(px + Math.cos(a) * 3.2, py + Math.sin(a) * 1.4);
-    }
-    g.stroke();
-    g.restore();
-  };
   // a matchbox with a sailing ship on the lid, at the near end of the bar
   S.drawMatches = function (g, x, y) {
     g.save(); g.translate(x, y);

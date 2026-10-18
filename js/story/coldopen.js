@@ -8,7 +8,7 @@
   S.CHARS.maria = { scale: 1.0, frames: { idle: ['maria_grip'], talk: ['maria_grip'],
     poses: { sleep: 'maria_sleep', wake: 'maria_wake', grip: 'maria_grip' } } };
 
-  let water = 0, tileOn = true, t0 = 0; // water: 0..1 of the room's height
+  let water = 0, tileOn = true; // water: 0..1 of the room's height
   const PILLOW = [818, 368]; // where the tile lies
 
   ROOMS.cold_open = {

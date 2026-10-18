@@ -436,7 +436,6 @@
     if (v) { v.pose = null; v.dir = 'w'; }
     await S.pitGame();
   };
-  S.tossKey = () => say('alan_toss_wait'); // (the key on Inês: only while his head is down)
 
   // ---------------------------------------------------------------- keeping him talking
   // While Inês is in the reserve: four exchanges, three replies each, one of each tone.

@@ -365,9 +365,8 @@
       if (faceTurn && !this.walking && !window.FAST) this.leanV += (this.dir === 'e' ? 1 : -1) * LEAN_TURN; // weight onto the new side
       if (ew) this.lastEW = this.dir;
       if (this.viaT == null && faceTurn && this.cur && !window.FAST && frontOK && key !== fk && this.cur !== fk && !this.pose) this.viaT = E.time;
-      let via = false;
       if (this.viaT != null) {
-        if (E.time - this.viaT < TURN_VIA && frontOK) { via = true; key = fk; sp = E.SPRITES[fk]; flipped = !!sp.facesLeft; }
+        if (E.time - this.viaT < TURN_VIA && frontOK) { key = fk; sp = E.SPRITES[fk]; flipped = !!sp.facesLeft; }
         else { this.viaT = null; this.lastFlip = flipped; this.viaOut = true; } // out of the front view: no second turn
       }
       this.lastFlip = flipped;
@@ -480,10 +479,6 @@
     ctx.restore();
     return ok;
   }
-  // linear: B is the frame coming next in a walk (kB = 1 - progress); otherwise B is the frame
-  // being left behind in a pose change (kB runs 1 -> 0, eased)
-  // the shapes slide over the whole change, the pictures swap only in its middle
-  const band = (a, z, v) => { const q = Math.max(0, Math.min(1, (v - a) / (z - a))); return q * q * (3 - 2 * q); };
   // which way a frame faces on screen: 1 right, -1 left, 0 front/back views (painted facing x mirror)
   function facing(key, flipped) {
     const sp = E.SPRITES[key]; if (!sp) return 0;
@@ -493,6 +488,9 @@
   // a frame facing right never morphs into one facing left (any character): that bends one painting
   // into its mirror image. Front and back views can morph with either side.
   const sameFacing = (a, af, b, bf) => { const x = facing(a, af), y = facing(b, bf); return !x || !y || x === y; };
+  // linear: B is the frame coming next in a walk (kB = 1 - progress); otherwise B is the frame
+  // being left behind in a pose change (kB runs 1 -> 0, eased)
+  // the shapes slide over the whole change, the pictures swap only in its middle
   function composeFrames(A, B, kB, U, w, h, linear, similar, rigid, hand) {
     fit(compBuf, cg, w, h);
     const M = window.MORPHS, fAB = B && M && M[A.key + '>' + B.key], fBA = B && M && M[B.key + '>' + A.key];

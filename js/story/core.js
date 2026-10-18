@@ -148,7 +148,6 @@
   };
 
   // ---------------------------------------------------------------- items
-  const posedLook = (pose, id) => () => S.posed(pose, () => say(id));
   S.ITEMS = {
     notebook: { name: 'Notebook', read: () => S.readNotebook(), look: async () => { await S.readNotebook(); await S.posed('write', () => say(F().vasco_thursday ? 'alan_two_numbers' : 'alan_look_notebook')); } },
     sketch: { name: 'Sketch of the tile', look: 'alan_look_sketch' },
