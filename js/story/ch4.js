@@ -197,7 +197,7 @@
     const p = G.player;
     // the line is the painted one: he stands where both fists close on it, and hauls
     p.x = PULL_AT[0]; p.y = PULL_AT[1]; p.dir = 'w';
-    p.pose = 'pull';
+    p.pose = F().knot_tried ? 'untie' : 'pull'; // the successful haul has its own frame once approved (poses.untie)
     if (!F().knot_tried) {
       F().knot_tried = true; await G.wait(window.FAST ? 20 : 900); p.pose = null;
       await say('alan_knot_fail'); await say('celeste_knot'); return;

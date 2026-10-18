@@ -1,1 +1,5 @@
-art/review export-ignore
+art/review/** export-ignore
+art/review/candidates -export-ignore
+art/review/candidates/** -export-ignore
+art/review/candidates.json -export-ignore
+art/review/approvals.json -export-ignore

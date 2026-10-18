@@ -69,6 +69,7 @@
   };
   (S.listeners || (S.listeners = [])).push(vreact);
   S.CHARS.alan.frames.poses.coffees = 'alan_coffees'; // Thursday morning: two coffees
+  S.CHARS.alan.frames.sets = Object.assign({ coffees: { idle: 'alan_coffees', talk: ['alan_coffees'] } }, S.CHARS.alan.frames.sets); // + walk, once approved
   // the heist: Alan's underarm toss (wind-up, release), Inês's catch, Vasco reading with his head down
   if (window.SPRITES.alan_throw1) S.CHARS.alan.frames.poses.throw1 = 'alan_throw1';
   if (window.SPRITES.alan_throw2) S.CHARS.alan.frames.poses.throw2 = 'alan_throw2';
@@ -638,12 +639,15 @@
     // Vasco is down in the pit with his trowel (it stays in his hand while he talks, when that frame is painted)
     const trowel = c => { if (!v) return; if (S.CHARS.vasco.frames.sets && S.CHARS.vasco.frames.sets.trowel) { v.pose = null; v.set = c ? 'trowel' : null; } else v.pose = c && window.SPRITES.vasco_trowel ? 'trowel' : null; };
     if (v) { v.x = 880; v.y = PIT_RIM; v.dir = 'w'; trowel(true); }
-    p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
+    // two coffees: with an approved carry walk he walks with them (the 'coffees' set), else he holds the pose
+    const cs = S.CHARS.alan.frames.sets && S.CHARS.alan.frames.sets.coffees, carry = !!(cs && cs.walk && cs.walk.length);
+    const coffees = on => { if (carry) { p.set = on ? 'coffees' : null; p.pose = null; } else p.pose = on && window.SPRITES.alan_coffees ? 'coffees' : null; };
+    coffees(true);
     await G.fade(false);
     // Alan comes to the rim and looks down at him
-    await p.walkTo(700, 628); p.dir = 'e'; p.pose = window.SPRITES.alan_coffees ? 'coffees' : null;
+    await p.walkTo(700, 628); p.dir = 'e'; coffees(true);
     await say('alan_romans', 'vasco_closed', 'alan_wait', 'alan_documents', 'vasco_loan');
-    p.pose = null; trowel(false);
+    coffees(false); trowel(false);
     // he comes up the ladder for his coffee
     if (v) {
       await v.walkTo(PIT_LADDER, PIT_RIM); v.dir = 'w';

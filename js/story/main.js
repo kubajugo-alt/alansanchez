@@ -206,5 +206,33 @@
   window.Story = { newGame };
   document.getElementById('btn-new').onclick = () => G.begin(true);
   document.getElementById('btn-continue').onclick = () => G.begin(false);
-  G.init(S.CHARS, S.ITEMS, ROOMS, window.SPRITES);
+  // Gemini frames reach the game only once approved on the review screen (art/review/approvals.json;
+  // a reviewer's own decisions, kept in their browser, preview here too)
+  S.applyCandidate = (c, ok) => {
+    if (c.meta) window.SPRITES[c.id] = Object.assign({ src: c.src }, c.meta);
+    const F = S.CHARS[c.char].frames, W = c.wire || {};
+    const live = k => !!window.SPRITES[k] && (!/_ib_/.test(k) || ok(k));
+    if (W.walkStart) F.walkStart = c.id;
+    if (W.walkStop) F.walkStop = c.id;
+    if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
+    if (W.poses) Object.assign(F.poses, W.poses);
+    if (W.set) {
+      F.sets = F.sets || {};
+      for (const [n, d] of Object.entries(W.set)) { const st = F.sets[n] = F.sets[n] || {}; for (const [k, v] of Object.entries(d)) st[k] = Array.isArray(v) ? v.filter(live) : v; }
+    }
+  };
+  async function loadApproved() {
+    const get = async u => { try { const r = await fetch(u, { cache: 'no-cache' }); return r.ok ? await r.json() : null; } catch (e) { return null; } };
+    const C = await get('art/review/candidates.json'), A = await get('art/review/approvals.json') || {};
+    let mine = {}; try { mine = JSON.parse(localStorage.getItem('review-approvals') || '{}'); } catch (e) { /* private mode */ }
+    const dec = Object.assign({}, A, mine), ok = id => !!(dec[id] && dec[id].decision === 'approved');
+    S.REVIEW = { candidates: (C && C.candidates) || [], decisions: dec, saved: A };
+    for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c, ok);
+  }
+  // the animation review screen: only with ?review in the address, never in normal play or the menus
+  const review = new URLSearchParams(location.search).has('review');
+  loadApproved().then(() => {
+    if (review) { const sc = document.createElement('script'); sc.src = 'js/review.js?v=' + Date.now(); document.head.appendChild(sc); }
+    G.init(S.CHARS, S.ITEMS, ROOMS, window.SPRITES);
+  });
 })();

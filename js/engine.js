@@ -40,7 +40,7 @@
     for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) jobs.push(['bg:' + b, 'art/bg/' + b + '.jpg']);
     for (const s of (window.STILLS || [])) jobs.push(['still:' + s, 'art/stills/' + s + '.jpg']);
     for (const c of (window.CLOSEUPS || [])) jobs.push(['close:' + c, 'art/closeups/' + c + '.jpg']);
-    for (const k in SPRITES) jobs.push(['spr:' + k, 'art/sprites/' + k + '.webp']);
+    for (const k in SPRITES) jobs.push(['spr:' + k, SPRITES[k].src || 'art/sprites/' + k + '.webp']); // src: an approved review frame
     for (const id in ROOMS) for (const l of (ROOMS[id].layers || [])) jobs.push(['lay:' + l.img, 'art/layers/' + l.img + '.webp']);
     for (const id in ROOMS) if (ROOMS[id].skyMask) jobs.push(['mask:' + ROOMS[id].skyMask, 'art/layers/' + ROOMS[id].skyMask + '.webp']);
     let done = 0;
@@ -388,7 +388,8 @@
         const M = window.MORPHS, morph = this.prev && !talkSwap && this.prevFlip === flipped && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
         // a pair with morph data moves between poses; two near-identical paintings (a mouth, a hand,
         // a drag on the cigarette) get a quick eased cross-fade; anything else is a clean cut
-        const SIM = window.SIMILAR, similar = !morph && this.prev && this.prevFlip === flipped && SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]);
+        const SIM = window.SIMILAR, ibHand = this.ibSeq || this.ibWas; this.ibWas = !!this.ibSeq; // in-between frames hand over with a quick cross-fade too
+        const similar = !morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key])));
         if (!morph && !similar) this.prev = null;
         this.fadeDur = similar ? XFADE_SHORT : MORPH_T; this.fadeSim = !!similar; this.viaOut = false;
         this.fadeT = this.prev ? this.fadeDur : 0;
@@ -1022,7 +1023,7 @@
   function frame(now) {
     requestAnimationFrame(frame); // queued first: a throwing hook skips one frame, never the loop
     if (window.HOLD) { if (!(window.ADVANCE > 0)) { last = now; return; } window.ADVANCE--; } // test recordings: step frame by frame
-    const dt = window.STEP_DT || Math.min(0.05, (now - last) / 1000); last = now; time += dt; // STEP_DT: fixed steps for test recordings
+    const dt = (window.STEP_DT || Math.min(0.05, (now - last) / 1000)) * (window.TIME_SCALE || 1); last = now; time += dt; // STEP_DT: fixed steps for test recordings; TIME_SCALE: the review screen's slow motion
     // a device that can't keep up with the mesh warp falls back to flat frames
     if (window.WARP == null && !window.FAST) { // (WARP = true forces it on, false off)
       slowT = (now - last0 > 45) ? slowT + 1 : Math.max(0, slowT - 2); last0 = now;
@@ -1698,6 +1699,8 @@
     requestAnimationFrame(frame);
   }
   let started = false;
+  // the animation review screen (?review): a room to stage characters in, with no story running
+  function sandbox() { started = true; Sound.init(); showModal('title', false); state = freshState(); renderInv(); }
   async function begin(fresh) {
     if (started) return; // a double-click on New game would run the intro twice, voices over each other
     started = true;
@@ -1707,7 +1710,7 @@
   }
 
   window.Game = {
-    init, begin, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, stillTo, stillShowing, skipLine: () => { if (skipFn) skipFn(); }, closeup, setClock, renderInv,
+    init, begin, sandbox, goRoom, say, says, lyrics, wait, dialog, reach, showStill, endStill, stillTo, stillShowing, skipLine: () => { if (skipFn) skipFn(); }, closeup, setClock, renderInv,
     set cutscene(v) { cutscene = Math.max(0, cutscene + (v ? 1 : -1)); }, card, fade, checkpoint, loadSave, autosave, clearSaves, showModal, refreshNpcs, renderLabels,
     giveItem, takeItem, has, toast, readItem,
     get state() { return state; }, get flags() { return state.flags; },
@@ -1718,6 +1721,9 @@
     idleSmoke: null, noteInput, get smoking() { return !!smk; }, get smokeStep() { return smk && smk.step; },
     get isBusy() { return busy > 0 || !!dialogResolve || (player && player.walking); },
     npc: id => npcs.find(a => a.id === id),
+    rooms: () => Object.keys(ROOMS), roomDef: id => ROOMS[id], chars: () => CHARS, Actor: (...a) => new Actor(...a),
+    // add (or replace) a painted frame at run time (the review screen previews a frame before it's approved)
+    addSprite(k, meta) { SPRITES[k] = meta; delete IMG['spr:' + k]; return loadImage('spr:' + k, meta.src || 'art/sprites/' + k + '.webp'); },
     // test hook: act on a hotspot (by name) or an actor (by id), optionally with an item
     async act(target, verb, item) {
       noteInput(); // a scripted action counts as input (puts the cigarette away)

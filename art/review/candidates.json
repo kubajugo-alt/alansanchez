@@ -1,0 +1,704 @@
+{
+ "candidates": [
+  {
+   "id": "alan_ib_walk_start",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "the first step of a walk",
+   "src": "art/review/candidates/alan_ib_walk_start.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_walkA.webp"
+   ],
+   "meta": {
+    "w": 194.0,
+    "hh": 742.0,
+    "h": 720.0,
+    "ax": 98.2,
+    "fy": 732.1,
+    "top": 3.1
+   },
+   "wire": {
+    "walkStart": true
+   }
+  },
+  {
+   "id": "alan_ib_walk_stop",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "the last step of a walk",
+   "src": "art/review/candidates/alan_ib_walk_stop.webp",
+   "originals": [
+    "art/sprites/alan_walkB.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 370.0,
+    "hh": 723.0,
+    "h": 714.72,
+    "ax": 190.5,
+    "fy": 713.7,
+    "top": 3.1
+   },
+   "wire": {
+    "walkStop": true
+   }
+  },
+  {
+   "id": "alan_ib_turn34",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "turning toward us (3/4)",
+   "src": "art/review/candidates/alan_ib_turn34.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 216.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 120.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_ib_turn34"
+     ],
+     "alan_side>alan_flirt": [
+      "alan_ib_turn34"
+     ],
+     "alan_side>alan_wink": [
+      "alan_ib_turn34"
+     ],
+     "alan_side>alan_fluster": [
+      "alan_ib_turn34"
+     ],
+     "alan_side>alan_swoon": [
+      "alan_ib_turn34"
+     ],
+     "alan_side>alan_button": [
+      "alan_ib_turn34"
+     ],
+     "alan_side>alan_yawn": [
+      "alan_ib_turn34"
+     ],
+     "alan_side>alan_enchanted1": [
+      "alan_ib_turn34"
+     ],
+     "alan_side>alan_rapt1": [
+      "alan_ib_turn34"
+     ],
+     "alan_side>alan_coffees": [
+      "alan_ib_turn34"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_turn34back",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "turning away (3/4 back)",
+   "src": "art/review/candidates/alan_ib_turn34back.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_back.webp"
+   ],
+   "meta": {
+    "w": 213.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 117.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_back": [
+      "alan_ib_turn34back"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_smoke_in",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "hand to the pocket for a cigarette",
+   "src": "art/review/candidates/alan_ib_smoke_in.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_smoke_light.webp"
+   ],
+   "meta": {
+    "w": 214.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 118.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_smoke_light": [
+      "alan_ib_smoke_in"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_smoke_out",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "flicking the cigarette away",
+   "src": "art/review/candidates/alan_ib_smoke_out.webp",
+   "originals": [
+    "art/sprites/alan_smoke_exhale.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 233.0,
+    "hh": 735.0,
+    "h": 716.0,
+    "ax": 126.7,
+    "fy": 725.0,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_smoke_exhale>alan_side": [
+      "alan_ib_smoke_out"
+     ],
+     "alan_smoke_hold>alan_side": [
+      "alan_ib_smoke_out"
+     ],
+     "alan_smoke_inhale>alan_side": [
+      "alan_ib_smoke_out"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_stretch1",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "arms rising (1 of 2)",
+   "src": "art/review/candidates/alan_ib_stretch1.webp",
+   "originals": [
+    "art/sprites/alan_yawn.webp",
+    "art/sprites/alan_stretch.webp"
+   ],
+   "meta": {
+    "w": 410.0,
+    "hh": 731.0,
+    "h": 708.0,
+    "ax": 139.9,
+    "fy": 719.0,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_yawn>alan_stretch": [
+      "alan_ib_stretch1",
+      "alan_ib_stretch2"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_stretch2",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "arms rising (2 of 2)",
+   "src": "art/review/candidates/alan_ib_stretch2.webp",
+   "originals": [
+    "art/sprites/alan_yawn.webp",
+    "art/sprites/alan_stretch.webp"
+   ],
+   "meta": {
+    "w": 289.0,
+    "hh": 731.0,
+    "h": 708.0,
+    "ax": 124.9,
+    "fy": 719.0,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_yawn>alan_stretch": [
+      "alan_ib_stretch1",
+      "alan_ib_stretch2"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_stretch_down",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "arms coming down",
+   "src": "art/review/candidates/alan_ib_stretch_down.webp",
+   "originals": [
+    "art/sprites/alan_stretch.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 228.0,
+    "hh": 846.0,
+    "h": 757.0,
+    "ax": 106.6,
+    "fy": 838.5,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_stretch>alan_side": [
+      "alan_ib_stretch_down"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_read",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "bringing the book up",
+   "src": "art/review/candidates/alan_ib_read.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_read.webp"
+   ],
+   "meta": {
+    "w": 219.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 123.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_read": [
+      "alan_ib_read"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_write",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "bringing the notebook up",
+   "src": "art/review/candidates/alan_ib_write.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_write.webp"
+   ],
+   "meta": {
+    "w": 217.0,
+    "hh": 748.0,
+    "h": 720.0,
+    "ax": 121.2,
+    "fy": 739.0,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_write": [
+      "alan_ib_write"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_phone",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "receiver half way to the ear",
+   "src": "art/review/candidates/alan_ib_phone.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_phone.webp"
+   ],
+   "meta": {
+    "w": 208.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 112.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_phone": [
+      "alan_ib_phone"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_drink",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "the glass at chest height",
+   "src": "art/review/candidates/alan_ib_drink.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_drink.webp"
+   ],
+   "meta": {
+    "w": 207.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 111.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_drink": [
+      "alan_ib_drink"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_cut",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "knife and palm coming together",
+   "src": "art/review/candidates/alan_ib_cut.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_cutpalm.webp"
+   ],
+   "meta": {
+    "w": 219.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 123.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_cutpalm": [
+      "alan_ib_cut"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_reach",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "arm half out",
+   "src": "art/review/candidates/alan_ib_reach.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 209.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 113.2,
+    "fy": 730.0,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_ib_reach"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_pick1",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "starting to bend (1 of 2)",
+   "src": "art/review/candidates/alan_ib_pick1.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_pickup.webp"
+   ],
+   "meta": {
+    "w": 203.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 107.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_pickup": [
+      "alan_ib_pick1",
+      "alan_ib_pick2"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_pick2",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "half way down (2 of 2)",
+   "src": "art/review/candidates/alan_ib_pick2.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_pickup.webp"
+   ],
+   "meta": {
+    "w": 220.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 124.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_pickup": [
+      "alan_ib_pick1",
+      "alan_ib_pick2"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_throw",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "the wind-up",
+   "src": "art/review/candidates/alan_ib_throw.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_throw1.webp"
+   ],
+   "meta": {
+    "w": 207.0,
+    "hh": 743.0,
+    "h": 720.0,
+    "ax": 111.2,
+    "fy": 734.0,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_throw1": [
+      "alan_ib_throw"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_ring",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "lifting the hammer",
+   "src": "art/review/candidates/alan_ib_ring.webp",
+   "originals": [
+    "art/sprites/alan_ring.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 411.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 203.2,
+    "fy": 729.6,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_ring": [
+      "alan_ib_ring"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_pull",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "taking hold of the rope",
+   "src": "art/review/candidates/alan_ib_pull.webp",
+   "originals": [
+    "art/sprites/alan_pull.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 445.0,
+    "hh": 638.0,
+    "h": 720.0,
+    "ax": 219.6,
+    "fy": 628.8,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_pull": [
+      "alan_ib_pull"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_wobble",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "first loss of balance",
+   "src": "art/review/candidates/alan_ib_wobble.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_wobble.webp"
+   ],
+   "meta": {
+    "w": 208.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 112.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_wobble": [
+      "alan_ib_wobble"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_lantern",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "lifting the lantern",
+   "src": "art/review/candidates/alan_ib_lantern.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_lantern.webp"
+   ],
+   "meta": {
+    "w": 210.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 114.2,
+    "fy": 729.1,
+    "top": 3.1
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_lantern": [
+      "alan_ib_lantern"
+     ]
+    }
+   }
+  },
+  {
+   "id": "alan_ib_coffee_walk1",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "carry walk with the coffees: contact step",
+   "src": "art/review/candidates/alan_ib_coffee_walk1.webp",
+   "originals": [
+    "art/sprites/alan_coffees.webp",
+    "art/sprites/alan_walkA.webp"
+   ],
+   "meta": {
+    "w": 372.0,
+    "hh": 728.0,
+    "h": 709.0,
+    "ax": 125.6,
+    "fy": 718.8,
+    "top": 3.1
+   },
+   "wire": {
+    "set": {
+     "coffees": {
+      "walk": [
+       "alan_ib_coffee_walk1",
+       "alan_ib_coffee_walk2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "alan_ib_coffee_walk2",
+   "char": "alan",
+   "phase": 2,
+   "kind": "inbetween",
+   "what": "carry walk with the coffees: passing step",
+   "src": "art/review/candidates/alan_ib_coffee_walk2.webp",
+   "originals": [
+    "art/sprites/alan_coffees.webp",
+    "art/sprites/alan_pass.webp"
+   ],
+   "meta": {
+    "w": 375.0,
+    "hh": 728.0,
+    "h": 709.0,
+    "ax": 125.6,
+    "fy": 718.8,
+    "top": 3.1
+   },
+   "wire": {
+    "set": {
+     "coffees": {
+      "walk": [
+       "alan_ib_coffee_walk1",
+       "alan_ib_coffee_walk2"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "wire_alan_untie",
+   "char": "alan",
+   "phase": 2,
+   "kind": "wiring",
+   "what": "Proposal A: the successful haul on the mooring line (Ch. IV) uses the unused alan_untie; the failed first try keeps alan_pull",
+   "src": "art/sprites/alan_untie.webp",
+   "originals": [
+    "art/sprites/alan_pull.webp"
+   ],
+   "meta": null,
+   "wire": {
+    "poses": {
+     "untie": "alan_untie"
+    }
+   }
+  }
+ ]
+}
