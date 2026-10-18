@@ -216,6 +216,7 @@
     if (W.walkStop) F.walkStop = c.id;
     if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
     if (W.poses) Object.assign(F.poses, W.poses);
+    if (W.pairIb) { F.pairIb = F.pairIb || {}; for (const [k, io] of Object.entries(W.pairIb)) { const d = F.pairIb[k] = F.pairIb[k] || {}; for (const [w, seq] of Object.entries(io)) d[w] = seq.filter(live); } }
     if (W.set) {
       F.sets = F.sets || {};
       for (const [n, d] of Object.entries(W.set)) { const st = F.sets[n] = F.sets[n] || {}; for (const [k, v] of Object.entries(d)) st[k] = Array.isArray(v) ? v.filter(live) : v; }

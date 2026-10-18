@@ -78,14 +78,25 @@
   const SHELF = 150; // the front of the bookshelf, where the officer's back meets it
   // where the officer's torso starts in each frame (sprite px at chest height); the cuffs frame sets the mark
   const TORSO = { shelf: 65, jacket: 61, neck: 28, tshirt: 73, buttons: 108, shelf2: 61, belt: 22, belt2: 57, trousers: 29, cuffs: 66 };
-  // the two of them as one painted pair, anchored on the couple's middle (as with Zé)
+  // the two of them as one painted pair, standing on Alan's feet (as with Zé). The first painting takes
+  // over from the two figures: both step to where it has them, then it dissolves in (S.pairIn)
+  let pairV = null;
   async function pair(pose, ms, wall, torso) {
     if (!window.SPRITES[pose]) return; // a frame that was never painted is simply skipped
-    const p = G.player; p.pose = pose;
+    const p = G.player;
+    let x = p.x;
     if (wall != null) { // the left figure's back against the wall, lined up on his torso rather than a raised arm
       const A = p.place(pose, false);
-      if (A) p.x = wall - A.x + (torso == null ? 0 : (TORSO.cuffs - torso) * A.w / A.sp.w);
+      if (A) x = wall - A.x + (torso == null ? 0 : (TORSO.cuffs - torso) * A.w / A.sp.w);
     }
+    if (pairV && pairV.visible) {
+      const v = pairV; pairV = null;
+      if (wall != null) { // he backs up to the shelf as Alan crosses to him
+        const x0 = p.x; p.x = x; const o = S.pairPartnerAt(pose); p.x = x0;
+        await Promise.all([v.walkTo(o.x, o.y), p.walkTo(x, p.y)]); v.x = o.x; v.y = o.y;
+      }
+      await S.pairIn(v, pose);
+    } else { p.pose = pose; p.x = x; }
     await T(ms);
   }
   async function upstairs(who, at, vx) {
@@ -127,7 +138,7 @@
     visitor = ready ? state : (state === 'cop_bed' ? 'cop' : 'guitar');
     G.refreshNpcs(true);
     const dress = k => { p.pose = window.SPRITES['alan_dress' + k] ? 'alan_dress' + k : null; };
-    p.x = 640; p.y = 650; p.dir = 'e'; dress(1);
+    p.x = 640; p.y = 650; p.dir = 'e'; dress(1); p.pairWho = p.pairNpc = p.pairKey = null; pairV = null;
     await T(500); await G.fade(false); await T(900); // let the painting finish fading first
     if (state === 'guitar_floor' && S.duarteSong) await S.duarteSong(); // he plays Alan his song, all of it
     for (const [stage, ...lines] of beats) {
@@ -186,7 +197,7 @@
       if (!disc) { await say('phone_room_1', 'alan_room_cop_1');
       // Alan takes the lead: against the bookshelf, the shirt, the neck
       // the officer backed against the room's own bookshelf, Alan very much in charge
-      const home = p.x; if (v) { await p.walkTo(345, 645); p.dir = 'w'; v.visible = false; } // Alan crosses to him; nobody jumps
+      pairV = v; // Alan crosses to him; nobody jumps (pair, above)
       // a breath, a gasp, a groan as each frame lands (sound only, no caption)
       const VOX = { neck: 'v_cop_moan', shelf: 'v_cop_gasp', jacket: 'v_alan_mmm', tshirt: 'v_cop_whimper', buttons: 'v_alan_groan',
         shelf2: 'v_cop_moan', belt: 'v_cop_gasp', belt2: 'v_alan_mmm', trousers: 'v_cop_whimper', cuffs_a: 'v_alan_chuckle', cuffs_b: 'v_cop_gasp' };
@@ -276,8 +287,7 @@
       const v = disc ? await upstairsDark('guitar') : await upstairs('guitar', [660, 645, 'w']);
       if (!disc) { await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed
-      const home = p.x; if (v) { p.x = (v.x + p.x) / 2; v.visible = false; }
-      p.dir = 'e'; // Duarte on the left, Alan on the right
+      pairV = v; // Duarte on the left, Alan on the right: Alan steps into the painting, Duarte stays put
       const VOX = { jackets: 'v_duarte_hum', j2: 'v_alan_mmm', u1: 'v_duarte_laugh', s2: 'v_alan_chuckle', d1: 'v_duarte_hum', d2: 'v_duarte_groan',
         h1: 'v_duarte_laugh', underwear: 'v_alan_groan', p1: 'v_duarte_groan', };
       const g = async (k, ...lines) => {

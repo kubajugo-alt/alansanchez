@@ -45,6 +45,25 @@ PHASE2 = [
 ]
 
 
+# phase 3: in-between paintings for the way into and out of a combined sprite (Alan with someone), anchored like
+# the pairs themselves (scripts/pair_anchors.py: Alan's feet, the partner's feet); played when the review
+# screen's pair transition is set to 'gemini'
+PHASE3_T = json.load(open(os.path.join(ROOT, 'scripts/pair_ibs.json')))['pairs']
+
+
+def pair_meta(png, side):
+    import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import numpy as np
+    from pair_anchors import feet
+    al = np.asarray(Image.open(png).convert('RGBA'))[..., 3] > 128; W, H = al.shape[1], al.shape[0]
+    a0, a1 = side
+    ax, fy, top = feet(al, int(a0 * W), int(a1 * W))
+    px, pfy, _ = feet(al, *((int(a1 * W), W) if a0 == 0 else (0, int(a0 * W))))
+    ys = np.where(al.any(1))[0]
+    return {'w': float(W), 'hh': float(H), 'h': float(round(fy - top)) if fy - top >= 690 else 720.0, 'ax': round(ax, 1), 'fy': round(fy + 0.5, 1),
+            'top': float(ys.min()), 'px': round(px, 1), 'pfy': round(pfy + 0.5, 1), 'rigid': True}
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     cands = []
@@ -58,6 +77,16 @@ def main():
         cands.append({'id': key, 'char': 'alan', 'phase': 2, 'kind': 'inbetween', 'what': what,
                       'src': f'art/review/candidates/{key}.webp', 'originals': [SP(o) for o in orig], 'meta': meta,
                       'wire': json.loads(json.dumps(wire).replace('"@"', json.dumps(key)).replace('"#ib_', '"alan_ib_'))})
+    for pk, solo, who, side, dirs, scene, *_ in PHASE3_T:
+        for d in dirs:
+            name, key = f'ib_{pk[5:]}_{d}', pk.replace('pair_', 'pair_ib_', 1) + '_' + d
+            src_png = os.path.join(REV, f'alan/phase3/{name}.png')
+            if not os.path.exists(src_png): continue
+            Image.open(src_png).convert('RGBA').save(os.path.join(OUT, key + '.webp'), lossless=True)
+            cands.append({'id': key, 'char': 'alan', 'phase': 3, 'kind': 'pair-inbetween', 'pair': pk,
+                          'what': f'{scene}: {"stepping into" if d == "in" else "stepping out of"} {pk}',
+                          'src': f'art/review/candidates/{key}.webp', 'originals': [SP(pk), SP(solo), SP('alan_side')], 'meta': pair_meta(src_png, side),
+                          'wire': {'pairIb': {pk: {d: [key]}}}})
     # phase 1 flagged frames: a proposal that needs no new painting
     cands.append({'id': 'wire_alan_untie', 'char': 'alan', 'phase': 2, 'kind': 'wiring',
                   'what': 'Proposal A: the successful haul on the mooring line (Ch. IV) uses the unused alan_untie; the failed first try keeps alan_pull',

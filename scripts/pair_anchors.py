@@ -5,7 +5,8 @@
 #   ax, fy  = the point between Alan's boots (the anchor the engine draws on, like his solo frames)
 #   h       = his head-to-feet height when he's standing, so he's drawn the size of his solo frames
 #   px, pfy = the point between the partner's feet: the scene stands the partner there before and after
-# Pairs where Alan isn't standing (kneeling, seated, piggyback, hopping) keep their scale.
+# Pairs where Alan isn't standing (kneeling, seated, piggyback, hopping) or stoops well below his standing height
+# (leaning in, bending: under 690 px) keep their scale, so the painting is never blown up to make him tall.
 import json, os, sys
 import numpy as np, cv2
 from PIL import Image
@@ -50,7 +51,7 @@ def main():
         px, pfy, ptop = feet(al, p0, p1)
         m = M[k]; r = dict(old_ax=m['ax'], old_fy=m['fy'], old_h=m['h'], ax=round(ax, 1), fy=round(fy + 0.5, 1), px=round(px, 1), pfy=round(pfy + 0.5, 1),
                            alan_height=round(fy - top), partner_height=round(pfy - ptop), standing=k not in NOT_STANDING)
-        r['h'] = float(round(fy - top)) if r['standing'] else m['h']
+        r['h'] = float(round(fy - top)) if r['standing'] and fy - top >= 690 else m['h']
         out[k] = r
     os.makedirs(os.path.join(ROOT, 'art/review/alan/phase3'), exist_ok=True)
     json.dump(out, open(os.path.join(ROOT, 'art/review/alan/phase3/pair_anchors.json'), 'w'), indent=1)

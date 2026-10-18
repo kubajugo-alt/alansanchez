@@ -279,12 +279,12 @@
     const W = ['pair_wring_1', 'pair_wring_2', 'pair_wring_3', 'pair_wring_2'];
     if (W.every(k => window.SPRITES[k])) {
       // Celeste backs off a step to stretch the sheet out (keeping the two of them clear of the big tank), Alan takes the other end
-      const cx = c.x - 100;
-      await Promise.all([c.walkTo(cx, c.y), p.walkTo(cx + 200, c.y)]); p.dir = 'w'; c.dir = 'e';
-      // the two of them as one painting, Celeste on the left: the sheet twists tighter and back, each frame flowing into the next.
-      // The painting is anchored between their heads, half a sheet's length from each, so Celeste stays where she stood
-      const home = p.x, mid = c.x + 148, t0 = performance.now();
-      c.visible = false; p.x = mid; p.dir = 'e'; p.pose = W[0];
+      const cx = c.x - 100, at = S.pairSpot(W[0], cx, c.y);
+      await Promise.all([c.walkTo(cx, c.y), p.walkTo(at.x, at.y)]); p.dir = 'w'; c.dir = 'e';
+      // the two of them as one painting, Celeste on the left: the sheet twists tighter and back, one frame dissolving into the next.
+      // The painting stands on Alan's feet, with Celeste's painted feet where she stood
+      const t0 = performance.now();
+      await S.pairIn(c, W[0], { walk: false });
       let on = true;
       const twist = (async () => { for (let i = 1; on; i++) { await G.wait(window.FAST ? 20 : 750); if (on) { p.pose = W[i % W.length]; if (i % W.length === 2) sfx('wring', 0.5); } } })();
       sfx('wring');
@@ -292,7 +292,7 @@
       if (!window.FAST) await G.wait(Math.max(0, 3200 - (performance.now() - t0))); // at least one full turn of the sheet
       on = false; await twist;
       p.pose = W[0]; await G.wait(window.FAST ? 20 : 500);
-      p.pose = null; p.x = home; p.dir = 'w'; c.visible = true; c.set = null;
+      c.set = null; await S.pairOut(c, { dir: 'w' });
     } else {
       await p.walkTo(c.x + 170, c.y); p.dir = 'w'; c.dir = 'e';
       p.pose = 'wring'; c.set = 'wring'; wringing = performance.now();

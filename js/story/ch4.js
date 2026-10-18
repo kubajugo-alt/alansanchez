@@ -377,10 +377,9 @@
       await say('alan_rom_1', 'ze_rom_2');
       const home = p.x;
       if (!S.discreet()) { // Discreet: straight from the build-up to the afterwards
-      // the two of them as one painted pair: Zé on the left, Alan on the right
-      const mid = ze ? (ze.x + p.x) / 2 : p.x; // pair frames are anchored on the couple's middle
-      if (ze) ze.visible = false;
-      p.x = mid; p.dir = 'e'; p.pose = 'pair_unbutton'; sfx('sheet_slap', 0.2); sfx('v_ze_sigh', 0.5);
+      // the two of them as one painted pair: Zé on the left, Alan on the right (Alan steps into it, Zé stays put)
+      if (!ze || !await S.pairIn(ze, 'pair_unbutton')) { p.dir = 'e'; p.pose = 'pair_unbutton'; }
+      sfx('sheet_slap', 0.2); sfx('v_ze_sigh', 0.5);
       await T(2200);
       p.pose = 'pair_kiss'; sfx('v_alan_mmm', 0.5); await T(1200); sfx('v_ze_moan', 0.45); await T(1300);
       p.pose = 'pair_brow'; sfx('v_alan_sigh', 0.45); await T(1600);
@@ -394,7 +393,7 @@
       await G.fade(true); G.endStill();
       } else { if (ze) ze.visible = false; await G.fade(true); await T(900); }
       // apart again, putting themselves back together (Alan's washhouse frames, played backwards)
-      p.x = home; p.dir = 'w'; p.pose = 'jacket'; // nothing on but the jacket held in front
+      p.x = home; p.dir = 'w'; p.pose = 'jacket'; p.pairWho = p.pairNpc = p.pairKey = null; // nothing on but the jacket held in front
       if (ze) { ze.visible = true; ze.pose = 'ze_shirtless'; }
       await T(500); await G.fade(false);
       await say('alan_rom_2');

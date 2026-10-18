@@ -75,18 +75,23 @@
   if (window.SPRITES.alan_throw2) S.CHARS.alan.frames.poses.throw2 = 'alan_throw2';
   if (window.SPRITES.ines_catch) S.CHARS.ines.frames.poses.catch = 'ines_catch';
   if (window.SPRITES.vasco_kneel_down) S.CHARS.vasco.frames.poses.kneeldown = 'vasco_kneel_down';
-  // Alan and Vasco painted together (Alan left, Vasco right): played as Alan's pose with Vasco hidden,
-  // anchored on the middle of the couple
+  // Alan and Vasco painted together (Alan left, Vasco right): played as Alan's pose with Vasco hidden.
+  // The painting stands on Alan's feet; Vasco's painted feet land where Vasco stood (S.pairIn / S.pairOut)
   ['catch', 'lanyard', 'thumb', 'kneel', 'kiss', 'card', 'fragment', 'coffee', 'ladder', 'clapper', 'shelf', 'tie'].forEach(k => { S.CHARS.alan.frames.poses['pair_vasco_' + k] = 'pair_vasco_' + k; });
+  // (a cut: under a fade to black, or a scene that has just placed the two of them)
   S.vpair = function (k) {
     const key = 'pair_vasco_' + k, p = G.player, v = G.npc('vasco');
     if (!window.SPRITES[key] || !v || !v.visible) return null;
-    const keep = { px: p.x, py: p.y, pd: p.dir, vp: v.pose };
-    const left = Math.min(p.x, v.x), right = Math.max(p.x, v.x);
-    p.x = (left + right) / 2; p.y = Math.max(p.y, v.y); p.dir = 'e'; p.pose = key; v.visible = false;
-    return () => { p.pose = null; p.x = keep.px; p.y = keep.py; p.dir = keep.pd; v.visible = true; v.pose = keep.vp; };
+    const keep = { pd: p.dir, vp: v.pose }, at = S.pairSpot(key, v.x, v.y);
+    p.x = at.x; p.y = at.y; p.dir = 'e'; p.pose = key; p.pairWho = v.id; v.visible = false;
+    return () => { const o = S.pairPartnerAt(key); v.x = o.x; v.y = o.y; p.pose = null; p.pairWho = null; p.dir = keep.pd; v.visible = true; v.pose = keep.vp; };
   };
-  S.withPair = async function (k, fn) { const undo = S.vpair(k); try { await fn(); } finally { if (undo) undo(); } };
+  // Alan steps into the pair (Vasco keeps his place), and out again where the painting left them
+  S.withPair = async function (k, fn, opts) {
+    const key = 'pair_vasco_' + k, v = G.npc('vasco'), keep = { pd: G.player.dir, vp: v && v.pose };
+    if (!window.SPRITES[key] || !v || !v.visible || !await S.pairIn(v, key, opts)) return fn();
+    try { await fn(); } finally { await S.pairOut(v, { dir: keep.pd }); v.pose = keep.vp; }
+  };
   // the two of them sitting on the ladder / kneeling in the pit sway from the seat, not the feet
   if (!S.CHARS.alan.seatedFrames) S.CHARS.alan.seatedFrames = /^pair_vasco_(ladder|kneel)$/;
   S.CHARS.alan.frames.poses.pair_vasco_shirtless = 'pair_vasco_shirtless'; // the two of them, shirts off (not yet placed in a scene)
@@ -314,7 +319,7 @@
     await p.walkTo(PIT_LADDER - 30, 628); p.dir = 'e';
     p.pose = 'wobble'; sfx('ladder_creak', 0.5); await T(500); p.pose = null;
     F().in_pit = true; p.x = 760; p.y = PIT_RIM; p.dir = 'e';
-    await S.withPair('catch', () => say('vasco_close'));
+    await S.withPair('catch', () => say('vasco_close'), { walk: false }); // (a fall: straight into his arms)
     await say('alan_close');
   };
 

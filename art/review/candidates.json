@@ -684,6 +684,890 @@
    }
   },
   {
+   "id": "pair_ib_cop_chest_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_chest",
+   "what": "police station: stepping into pair_cop_chest",
+   "src": "art/review/candidates/pair_ib_cop_chest_in.webp",
+   "originals": [
+    "art/sprites/pair_cop_chest.webp",
+    "art/sprites/npc_phone.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 403.0,
+    "hh": 738.0,
+    "h": 694.0,
+    "ax": 300.7,
+    "fy": 728.5,
+    "top": 12.0,
+    "px": 119.8,
+    "pfy": 714.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_chest": {
+      "in": [
+       "pair_ib_cop_chest_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_chest_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_chest",
+   "what": "police station: stepping out of pair_cop_chest",
+   "src": "art/review/candidates/pair_ib_cop_chest_out.webp",
+   "originals": [
+    "art/sprites/pair_cop_chest.webp",
+    "art/sprites/npc_phone.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 408.0,
+    "hh": 738.0,
+    "h": 703.0,
+    "ax": 298.9,
+    "fy": 728.5,
+    "top": 8.0,
+    "px": 139.4,
+    "pfy": 715.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_chest": {
+      "out": [
+       "pair_ib_cop_chest_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_arm_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_arm",
+   "what": "police station: stepping into pair_cop_arm",
+   "src": "art/review/candidates/pair_ib_cop_arm_in.webp",
+   "originals": [
+    "art/sprites/pair_cop_arm.webp",
+    "art/sprites/npc_phone.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 447.0,
+    "hh": 738.0,
+    "h": 693.0,
+    "ax": 349.8,
+    "fy": 720.5,
+    "top": 17.0,
+    "px": 135.5,
+    "pfy": 728.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_arm": {
+      "in": [
+       "pair_ib_cop_arm_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_arm_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_arm",
+   "what": "police station: stepping out of pair_cop_arm",
+   "src": "art/review/candidates/pair_ib_cop_arm_out.webp",
+   "originals": [
+    "art/sprites/pair_cop_arm.webp",
+    "art/sprites/npc_phone.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 411.0,
+    "hh": 738.0,
+    "h": 716.0,
+    "ax": 308.0,
+    "fy": 728.5,
+    "top": 8.0,
+    "px": 136.8,
+    "pfy": 728.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_arm": {
+      "out": [
+       "pair_ib_cop_arm_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_lesson_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_lesson",
+   "what": "tavern: the guitar lesson: stepping into pair_guitar_lesson",
+   "src": "art/review/candidates/pair_ib_guitar_lesson_in.webp",
+   "originals": [
+    "art/sprites/pair_guitar_lesson.webp",
+    "art/sprites/npc_guitar.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 417.0,
+    "hh": 781.0,
+    "h": 720.0,
+    "ax": 256.9,
+    "fy": 667.5,
+    "top": 6.0,
+    "px": 123.7,
+    "pfy": 729.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_lesson": {
+      "in": [
+       "pair_ib_guitar_lesson_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_lesson_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_lesson",
+   "what": "tavern: the guitar lesson: stepping out of pair_guitar_lesson",
+   "src": "art/review/candidates/pair_ib_guitar_lesson_out.webp",
+   "originals": [
+    "art/sprites/pair_guitar_lesson.webp",
+    "art/sprites/npc_guitar.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 394.0,
+    "hh": 779.0,
+    "h": 720.0,
+    "ax": 220.3,
+    "fy": 665.5,
+    "top": 6.0,
+    "px": 125.1,
+    "pfy": 727.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_lesson": {
+      "out": [
+       "pair_ib_guitar_lesson_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_wring_1_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_wring_1",
+   "what": "washhouse: wringing the sheet: stepping into pair_wring_1",
+   "src": "art/review/candidates/pair_ib_wring_1_in.webp",
+   "originals": [
+    "art/sprites/pair_wring_1.webp",
+    "art/sprites/celeste.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 1029.0,
+    "hh": 740.0,
+    "h": 722.0,
+    "ax": 855.5,
+    "fy": 728.5,
+    "top": 6.0,
+    "px": 179.4,
+    "pfy": 728.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_wring_1": {
+      "in": [
+       "pair_ib_wring_1_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_wring_1_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_wring_1",
+   "what": "washhouse: wringing the sheet: stepping out of pair_wring_1",
+   "src": "art/review/candidates/pair_ib_wring_1_out.webp",
+   "originals": [
+    "art/sprites/pair_wring_1.webp",
+    "art/sprites/celeste.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 1003.0,
+    "hh": 740.0,
+    "h": 719.0,
+    "ax": 800.3,
+    "fy": 726.5,
+    "top": 7.0,
+    "px": 214.2,
+    "pfy": 728.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_wring_1": {
+      "out": [
+       "pair_ib_wring_1_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_unbutton_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_unbutton",
+   "what": "Ch. IV cabin: stepping into pair_unbutton",
+   "src": "art/review/candidates/pair_ib_unbutton_in.webp",
+   "originals": [
+    "art/sprites/pair_unbutton.webp",
+    "art/sprites/ze.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 405.0,
+    "hh": 739.0,
+    "h": 718.0,
+    "ax": 307.8,
+    "fy": 724.5,
+    "top": 6.0,
+    "px": 85.5,
+    "pfy": 728.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_unbutton": {
+      "in": [
+       "pair_ib_unbutton_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_catch_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_catch",
+   "what": "S\u00e9 pit: the catch: stepping out of pair_vasco_catch",
+   "src": "art/review/candidates/pair_ib_vasco_catch_out.webp",
+   "originals": [
+    "art/sprites/pair_vasco_catch.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 468.0,
+    "hh": 756.0,
+    "h": 720.0,
+    "ax": 135.3,
+    "fy": 692.5,
+    "top": 6.0,
+    "px": 345.6,
+    "pfy": 713.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_catch": {
+      "out": [
+       "pair_ib_vasco_catch_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_lanyard_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_lanyard",
+   "what": "S\u00e9 pit: the shirt buttons: stepping into pair_vasco_lanyard",
+   "src": "art/review/candidates/pair_ib_vasco_lanyard_in.webp",
+   "originals": [
+    "art/sprites/pair_vasco_lanyard.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 391.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 90.6,
+    "fy": 680.5,
+    "top": 10.0,
+    "px": 277.9,
+    "pfy": 710.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_lanyard": {
+      "in": [
+       "pair_ib_vasco_lanyard_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_lanyard_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_lanyard",
+   "what": "S\u00e9 pit: the shirt buttons: stepping out of pair_vasco_lanyard",
+   "src": "art/review/candidates/pair_ib_vasco_lanyard_out.webp",
+   "originals": [
+    "art/sprites/pair_vasco_lanyard.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 382.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 84.3,
+    "fy": 694.5,
+    "top": 6.0,
+    "px": 258.9,
+    "pfy": 711.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_lanyard": {
+      "out": [
+       "pair_ib_vasco_lanyard_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_card_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_card",
+   "what": "S\u00e9: the card: stepping into pair_vasco_card",
+   "src": "art/review/candidates/pair_ib_vasco_card_in.webp",
+   "originals": [
+    "art/sprites/pair_vasco_card.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 473.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 108.4,
+    "fy": 701.5,
+    "top": 6.0,
+    "px": 349.5,
+    "pfy": 707.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_card": {
+      "in": [
+       "pair_ib_vasco_card_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_card_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_card",
+   "what": "S\u00e9: the card: stepping out of pair_vasco_card",
+   "src": "art/review/candidates/pair_ib_vasco_card_out.webp",
+   "originals": [
+    "art/sprites/pair_vasco_card.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 476.0,
+    "hh": 727.0,
+    "h": 720.0,
+    "ax": 97.3,
+    "fy": 680.5,
+    "top": 6.0,
+    "px": 353.1,
+    "pfy": 707.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_card": {
+      "out": [
+       "pair_ib_vasco_card_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_fragment_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_fragment",
+   "what": "S\u00e9: the fragment: stepping into pair_vasco_fragment",
+   "src": "art/review/candidates/pair_ib_vasco_fragment_in.webp",
+   "originals": [
+    "art/sprites/pair_vasco_fragment.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 521.0,
+    "hh": 739.0,
+    "h": 720.0,
+    "ax": 118.7,
+    "fy": 701.5,
+    "top": 6.0,
+    "px": 413.9,
+    "pfy": 720.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_fragment": {
+      "in": [
+       "pair_ib_vasco_fragment_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_fragment_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_fragment",
+   "what": "S\u00e9: the fragment: stepping out of pair_vasco_fragment",
+   "src": "art/review/candidates/pair_ib_vasco_fragment_out.webp",
+   "originals": [
+    "art/sprites/pair_vasco_fragment.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 526.0,
+    "hh": 733.0,
+    "h": 690.0,
+    "ax": 116.5,
+    "fy": 698.5,
+    "top": 6.0,
+    "px": 412.2,
+    "pfy": 714.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_fragment": {
+      "out": [
+       "pair_ib_vasco_fragment_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_coffee_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_coffee",
+   "what": "Thursday: the coffees: stepping into pair_vasco_coffee",
+   "src": "art/review/candidates/pair_ib_vasco_coffee_in.webp",
+   "originals": [
+    "art/sprites/pair_vasco_coffee.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 561.0,
+    "hh": 747.0,
+    "h": 703.0,
+    "ax": 130.8,
+    "fy": 718.5,
+    "top": 6.0,
+    "px": 442.8,
+    "pfy": 728.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_coffee": {
+      "in": [
+       "pair_ib_vasco_coffee_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_coffee_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_coffee",
+   "what": "Thursday: the coffees: stepping out of pair_vasco_coffee",
+   "src": "art/review/candidates/pair_ib_vasco_coffee_out.webp",
+   "originals": [
+    "art/sprites/pair_vasco_coffee.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 555.0,
+    "hh": 741.0,
+    "h": 720.0,
+    "ax": 122.2,
+    "fy": 700.5,
+    "top": 6.0,
+    "px": 438.8,
+    "pfy": 722.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_coffee": {
+      "out": [
+       "pair_ib_vasco_coffee_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_clapper_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_clapper",
+   "what": "S\u00e9 store room: the dust: stepping into pair_vasco_clapper",
+   "src": "art/review/candidates/pair_ib_vasco_clapper_in.webp",
+   "originals": [
+    "art/sprites/pair_vasco_clapper.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 450.0,
+    "hh": 740.0,
+    "h": 709.0,
+    "ax": 107.2,
+    "fy": 726.5,
+    "top": 16.0,
+    "px": 344.4,
+    "pfy": 728.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_clapper": {
+      "in": [
+       "pair_ib_vasco_clapper_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_clapper_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_clapper",
+   "what": "S\u00e9 store room: the dust: stepping out of pair_vasco_clapper",
+   "src": "art/review/candidates/pair_ib_vasco_clapper_out.webp",
+   "originals": [
+    "art/sprites/pair_vasco_clapper.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 409.0,
+    "hh": 741.0,
+    "h": 710.0,
+    "ax": 95.8,
+    "fy": 716.5,
+    "top": 6.0,
+    "px": 316.1,
+    "pfy": 730.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_clapper": {
+      "out": [
+       "pair_ib_vasco_clapper_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_kiss_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_kiss",
+   "what": "S\u00e9 store room: the love scene: stepping into pair_vasco_kiss",
+   "src": "art/review/candidates/pair_ib_vasco_kiss_in.webp",
+   "originals": [
+    "art/sprites/pair_vasco_kiss.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 432.0,
+    "hh": 728.0,
+    "h": 694.0,
+    "ax": 112.2,
+    "fy": 718.5,
+    "top": 20.0,
+    "px": 328.9,
+    "pfy": 717.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_kiss": {
+      "in": [
+       "pair_ib_vasco_kiss_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_kiss_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_kiss",
+   "what": "S\u00e9 store room: the love scene: stepping out of pair_vasco_kiss",
+   "src": "art/review/candidates/pair_ib_vasco_kiss_out.webp",
+   "originals": [
+    "art/sprites/pair_vasco_kiss.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 418.0,
+    "hh": 728.0,
+    "h": 720.0,
+    "ax": 95.8,
+    "fy": 704.5,
+    "top": 18.0,
+    "px": 313.2,
+    "pfy": 718.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_kiss": {
+      "out": [
+       "pair_ib_vasco_kiss_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_shirtless_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_shirtless",
+   "what": "S\u00e9 store room: the love scene: stepping into pair_vasco_shirtless",
+   "src": "art/review/candidates/pair_ib_vasco_shirtless_in.webp",
+   "originals": [
+    "art/sprites/pair_vasco_shirtless.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 466.0,
+    "hh": 728.0,
+    "h": 709.0,
+    "ax": 129.5,
+    "fy": 718.5,
+    "top": 9.0,
+    "px": 362.2,
+    "pfy": 716.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_shirtless": {
+      "in": [
+       "pair_ib_vasco_shirtless_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_vasco_shirtless_out",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_vasco_shirtless",
+   "what": "S\u00e9 store room: the love scene: stepping out of pair_vasco_shirtless",
+   "src": "art/review/candidates/pair_ib_vasco_shirtless_out.webp",
+   "originals": [
+    "art/sprites/pair_vasco_shirtless.webp",
+    "art/sprites/vasco.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 495.0,
+    "hh": 729.0,
+    "h": 714.0,
+    "ax": 99.3,
+    "fy": 720.5,
+    "top": 6.0,
+    "px": 390.3,
+    "pfy": 717.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_vasco_shirtless": {
+      "out": [
+       "pair_ib_vasco_shirtless_out"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_cop_neck_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_cop_neck",
+   "what": "bedroom visit: Teixeira: stepping into pair_cop_neck",
+   "src": "art/review/candidates/pair_ib_cop_neck_in.webp",
+   "originals": [
+    "art/sprites/pair_cop_neck.webp",
+    "art/sprites/cop_visit.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 399.0,
+    "hh": 739.0,
+    "h": 701.0,
+    "ax": 290.7,
+    "fy": 726.5,
+    "top": 14.0,
+    "px": 97.8,
+    "pfy": 729.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_cop_neck": {
+      "in": [
+       "pair_ib_cop_neck_in"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "pair_ib_guitar_j0_in",
+   "char": "alan",
+   "phase": 3,
+   "kind": "pair-inbetween",
+   "pair": "pair_guitar_j0",
+   "what": "bedroom visit: Duarte: stepping into pair_guitar_j0",
+   "src": "art/review/candidates/pair_ib_guitar_j0_in.webp",
+   "originals": [
+    "art/sprites/pair_guitar_j0.webp",
+    "art/sprites/guitar_visit.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 481.0,
+    "hh": 739.0,
+    "h": 704.0,
+    "ax": 362.0,
+    "fy": 721.5,
+    "top": 12.0,
+    "px": 133.7,
+    "pfy": 729.5,
+    "rigid": true
+   },
+   "wire": {
+    "pairIb": {
+     "pair_guitar_j0": {
+      "in": [
+       "pair_ib_guitar_j0_in"
+      ]
+     }
+    }
+   }
+  },
+  {
    "id": "wire_alan_untie",
    "char": "alan",
    "phase": 2,

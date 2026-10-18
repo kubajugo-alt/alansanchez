@@ -1,0 +1,401 @@
+{
+ "_": "In-between paintings into / out of each combined sprite: [pair key, partner's solo frame, partner, Alan's side (x range), directions, scene, (note)]. Used by scripts/gen_pair_ibs.py and scripts/review_candidates.py. steps: [from pair, to pair, partner, scene]: an in-between for each change from one pair painting to the next.",
+ "pairs": [
+  [
+   "pair_cop_chest",
+   "npc_phone",
+   "the police officer (phone receiver at his ear)",
+   [
+    0.5,
+    1
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "police station"
+  ],
+  [
+   "pair_cop_arm",
+   "npc_phone",
+   "the police officer (phone receiver at his ear)",
+   [
+    0.5,
+    1
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "police station"
+  ],
+  [
+   "pair_guitar_lesson",
+   "npc_guitar",
+   "Duarte the guitarist, seated with his Portuguese guitar",
+   [
+    0.45,
+    1
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "tavern: the guitar lesson"
+  ],
+  [
+   "pair_wring_1",
+   "celeste",
+   "Celeste the washerwoman, holding one end of the wet sheet",
+   [
+    0.55,
+    1
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "washhouse: wringing the sheet"
+  ],
+  [
+   "pair_unbutton",
+   "ze",
+   "Zé the fisherman",
+   [
+    0.5,
+    1
+   ],
+   [
+    "in"
+   ],
+   "Ch. IV cabin"
+  ],
+  [
+   "pair_vasco_catch",
+   "vasco",
+   "Vasco the archaeologist",
+   [
+    0,
+    0.5
+   ],
+   [
+    "out"
+   ],
+   "Sé pit: the catch"
+  ],
+  [
+   "pair_vasco_lanyard",
+   "vasco",
+   "Vasco the archaeologist",
+   [
+    0,
+    0.5
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "Sé pit: the shirt buttons"
+  ],
+  [
+   "pair_vasco_card",
+   "vasco",
+   "Vasco the archaeologist",
+   [
+    0,
+    0.5
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "Sé: the card",
+   "Alan is seen in profile facing Vasco, as in the first image, never with his back to us."
+  ],
+  [
+   "pair_vasco_fragment",
+   "vasco",
+   "Vasco the archaeologist",
+   [
+    0,
+    0.5
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "Sé: the fragment"
+  ],
+  [
+   "pair_vasco_coffee",
+   "vasco",
+   "Vasco the archaeologist",
+   [
+    0,
+    0.5
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "Thursday: the coffees"
+  ],
+  [
+   "pair_vasco_clapper",
+   "vasco",
+   "Vasco the archaeologist",
+   [
+    0,
+    0.5
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "Sé store room: the dust"
+  ],
+  [
+   "pair_vasco_kiss",
+   "vasco",
+   "Vasco the archaeologist",
+   [
+    0,
+    0.5
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "Sé store room: the love scene"
+  ],
+  [
+   "pair_vasco_shirtless",
+   "vasco",
+   "Vasco the archaeologist",
+   [
+    0,
+    0.5
+   ],
+   [
+    "in",
+    "out"
+   ],
+   "Sé store room: the love scene",
+   "Both of them are shirtless exactly as in the first image: no shirts, no jackets, bare chests."
+  ],
+  [
+   "pair_cop_neck",
+   "cop_visit",
+   "the police officer, off duty",
+   [
+    0.45,
+    1
+   ],
+   [
+    "in"
+   ],
+   "bedroom visit: Teixeira"
+  ],
+  [
+   "pair_guitar_j0",
+   "guitar_visit",
+   "Duarte the guitarist",
+   [
+    0.5,
+    1
+   ],
+   [
+    "in"
+   ],
+   "bedroom visit: Duarte"
+  ]
+ ],
+ "steps": [
+  [
+   "pair_cop_neck",
+   "pair_cop_shelf",
+   "the officer (Teixeira)",
+   "bedroom visit: Teixeira"
+  ],
+  [
+   "pair_cop_shelf",
+   "pair_cop_jacket",
+   "the officer (Teixeira)",
+   "bedroom visit: Teixeira"
+  ],
+  [
+   "pair_cop_jacket",
+   "pair_cop_tshirt",
+   "the officer (Teixeira)",
+   "bedroom visit: Teixeira"
+  ],
+  [
+   "pair_cop_tshirt",
+   "pair_cop_buttons",
+   "the officer (Teixeira)",
+   "bedroom visit: Teixeira"
+  ],
+  [
+   "pair_cop_shelf2",
+   "pair_cop_belt",
+   "the officer (Teixeira)",
+   "bedroom visit: Teixeira"
+  ],
+  [
+   "pair_cop_belt",
+   "pair_cop_belt2",
+   "the officer (Teixeira)",
+   "bedroom visit: Teixeira"
+  ],
+  [
+   "pair_cop_belt2",
+   "pair_cop_trousers",
+   "the officer (Teixeira)",
+   "bedroom visit: Teixeira"
+  ],
+  [
+   "pair_cop_trousers",
+   "pair_cop_cuffs",
+   "the officer (Teixeira)",
+   "bedroom visit: Teixeira"
+  ],
+  [
+   "pair_guitar_j0",
+   "pair_guitar_jackets",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_jackets",
+   "pair_guitar_j1",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_j1",
+   "pair_guitar_j2",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_j2",
+   "pair_guitar_u1",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_u1",
+   "pair_guitar_u2",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_u2",
+   "pair_guitar_shirtfly",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_shirtfly",
+   "pair_guitar_s1",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_s1",
+   "pair_guitar_s2",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_s2",
+   "pair_guitar_undress2",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_undress2",
+   "pair_guitar_d1",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_d1",
+   "pair_guitar_d2",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_d2",
+   "pair_guitar_hop",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_hop",
+   "pair_guitar_h1",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_h1",
+   "pair_guitar_h2",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_h2",
+   "pair_guitar_lasso",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_lasso",
+   "pair_guitar_l1",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_l1",
+   "pair_guitar_l2",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_l2",
+   "pair_guitar_underwear",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_guitar_underwear",
+   "pair_guitar_p1",
+   "Duarte the guitarist",
+   "bedroom visit: Duarte"
+  ],
+  [
+   "pair_unbutton",
+   "pair_kiss",
+   "Zé the fisherman",
+   "Ch. IV cabin"
+  ],
+  [
+   "pair_kiss",
+   "pair_brow",
+   "Zé the fisherman",
+   "Ch. IV cabin"
+  ],
+  [
+   "pair_wring_1",
+   "pair_wring_2",
+   "Celeste the washerwoman",
+   "washhouse: wringing the sheet"
+  ],
+  [
+   "pair_wring_2",
+   "pair_wring_3",
+   "Celeste the washerwoman",
+   "washhouse: wringing the sheet"
+  ]
+ ]
+}

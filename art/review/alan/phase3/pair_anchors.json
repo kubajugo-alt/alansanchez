@@ -335,7 +335,7 @@
   "alan_height": 676,
   "partner_height": 700,
   "standing": true,
-  "h": 676.0
+  "h": 720
  },
  "pair_guitar_p1": {
   "old_ax": 278.9,
@@ -361,7 +361,7 @@
   "alan_height": 658,
   "partner_height": 704,
   "standing": true,
-  "h": 658.0
+  "h": 720
  },
  "pair_guitar_s2": {
   "old_ax": 174.4,
@@ -374,7 +374,7 @@
   "alan_height": 676,
   "partner_height": 703,
   "standing": true,
-  "h": 676.0
+  "h": 720
  },
  "pair_guitar_shirtfly": {
   "old_ax": 129.5,
@@ -478,7 +478,7 @@
   "alan_height": 685,
   "partner_height": 708,
   "standing": true,
-  "h": 685.0
+  "h": 720
  },
  "pair_vasco_catch": {
   "old_ax": 221.0,
@@ -491,7 +491,7 @@
   "alan_height": 655,
   "partner_height": 708,
   "standing": true,
-  "h": 655.0
+  "h": 720
  },
  "pair_vasco_clapper": {
   "old_ax": 170.0,
@@ -582,7 +582,7 @@
   "alan_height": 672,
   "partner_height": 708,
   "standing": true,
-  "h": 672.0
+  "h": 720
  },
  "pair_vasco_shirtless": {
   "old_ax": 220.0,

@@ -9,17 +9,29 @@
   const STAGE_ROOMS = ['street', 'shop', 'cais', 'lavadouro', 'se_cloister', 'police', 'tavern'];
   const LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
   // scenes with combined sprites (Alan with someone else), as preview links
+  const P_ = (pre, ks) => ks.map(k => pre + k);
   const COMBINED = [
-    { scene: 'cop', label: 'Police station: Teixeira (chest, arm)', frames: 'pair_cop_chest, pair_cop_arm', first: true },
-    { scene: 'guitar', label: 'Tavern: the guitar lesson with Duarte', frames: 'pair_guitar_lesson' },
-    { scene: 'celeste', label: 'Washhouse: wringing the sheet with Celeste', frames: 'pair_wring_1-3' },
-    { scene: 'visitcop', label: 'Bedroom visit: Teixeira', frames: 'pair_cop_shelf … pair_cop_cuffs' },
-    { scene: 'visitguitar', label: 'Bedroom visit: Duarte', frames: 'pair_guitar_j0 … pair_guitar_underwear' },
-    { scene: 'romance', label: 'Ch. IV cabin: Zé', frames: 'pair_unbutton, pair_kiss, pair_brow' },
-    { scene: 'semuseum', label: 'Sé museum: Vasco', frames: 'pair_vasco_card, fragment, lanyard …' },
-    { scene: 'vascostore', label: 'Sé store room: Vasco', frames: 'pair_vasco_catch, clapper, kneel …' },
-    { scene: 'vascolove', label: 'Sé store room: the love scene', frames: 'pair_vasco_kiss, thumb, shirtless' },
-    { scene: 'thursday', label: 'Thursday: coffee with Vasco', frames: 'pair_vasco_coffee, ladder' },
+    { scene: 'copguard', label: 'Police station: flirting with Teixeira', frames: ['pair_cop_chest', 'pair_cop_arm'], first: true },
+    { scene: 'copreturn', label: 'Police station: the Inspector walks in on them', frames: ['pair_cop_chest'] },
+    { scene: 'guitar', label: 'Tavern: the guitar lesson with Duarte', frames: ['pair_guitar_lesson'] },
+    { scene: 'celeste', label: 'Washhouse: wringing the sheet with Celeste', frames: ['pair_wring_1', 'pair_wring_2', 'pair_wring_3'] },
+    { scene: 'visitcop', label: 'Bedroom visit: Teixeira', frames: P_('pair_cop_', ['neck', 'shelf', 'jacket', 'tshirt', 'buttons', 'shelf2', 'belt', 'belt2', 'trousers', 'cuffs']) },
+    { scene: 'visitguitar', label: 'Bedroom visit: Duarte', frames: P_('pair_guitar_', ['j0', 'jackets', 'j1', 'j2', 'u1', 'u2', 'shirtfly', 's1', 's2', 'undress2', 'd1', 'd2', 'hop', 'h1', 'h2', 'lasso', 'l1', 'l2', 'underwear', 'p1']) },
+    { scene: 'romance', label: 'Ch. IV cabin: Zé', frames: ['pair_unbutton', 'pair_kiss', 'pair_brow'] },
+    { scene: 'sepit', label: 'Sé pit: the catch, the shirt buttons', frames: ['pair_vasco_catch', 'pair_vasco_lanyard'] },
+    { scene: 'sepitgame', label: 'Sé pit: the five exchanges, the card', frames: ['pair_vasco_lanyard', 'pair_vasco_card'] },
+    { scene: 'sech3', label: 'Sé cloister, Ch. III: the fragment', frames: ['pair_vasco_fragment'] },
+    { scene: 'vascostore', label: 'Sé store room: the dust', frames: ['pair_vasco_clapper'] },
+    { scene: 'thursday', label: 'Thursday: coffee with Vasco, the ladder', frames: ['pair_vasco_coffee', 'pair_vasco_ladder'] },
+    { scene: 'vascolove', label: 'Sé store room: the love scene', frames: ['pair_vasco_kiss', 'pair_vasco_shirtless'] },
+    { scene: null, label: 'Painted, not placed in any scene yet', frames: ['pair_vasco_kneel', 'pair_vasco_thumb'] },
+  ];
+  // full-screen paintings of Alan with someone (they fade in and out over the scene; no feet to line up)
+  const COMBINED_STILLS = [
+    { scene: 'visitcop', label: 'Bedroom visit: Teixeira', stills: ['still_cop_shelf', 'still_cop_bed', 'still_cop_cuffed', 'still_cop_smoke'] },
+    { scene: 'visitguitar', label: 'Bedroom visit: Duarte', stills: ['still_guitar_bed'] },
+    { scene: 'romance', label: 'Ch. IV cabin: Zé', stills: ['still_ze_kiss', 'still_ze_bunk'] },
+    { scene: 'sepitgame', label: 'Sé pit: Vasco', stills: ['still_se_pit', 'still_se_kiss'] },
   ];
 
   let ch = 'alan', actor = null, loopTok = 0, paused = false;
@@ -42,13 +54,14 @@
   #rv .cand.approved{border-color:#5c8a4a}#rv .cand.rejected{border-color:#8a4a4a;opacity:.7}
   #rv .imgs{display:flex;gap:4px;align-items:flex-end;background:#2a2e36;padding:4px;border-radius:4px}
   #rv .imgs figure{margin:0;text-align:center;font-size:11px;color:#aaa}#rv .imgs img{height:150px;display:block}
+  #rv.hid{transform:translateX(100%)}#rv{transition:transform .2s}#rv-show{position:absolute;top:8px;right:8px;z-index:91;display:none}
   #rv .new img{outline:2px solid #4a7ab0}#rv .muted{color:#999;font-size:12px}#rv .state{font-weight:600;color:#f0d79a}`;
   const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   const P = document.createElement('div'); P.id = 'rv';
   P.innerHTML = `<div class="bar"><b style="font-family:Cinzel;color:#d8b46a">Animation review</b>
       <select id="rv-ch"></select>
       <label class="muted">speed <input id="rv-speed" type="range" min="0.25" max="1" step="0.05" value="1" style="width:80px"> <span id="rv-sv">1×</span></label>
-      <button class="b" id="rv-pause">⏸ pause</button><button class="b" id="rv-step">⏭ step</button>
+      <button class="b" id="rv-pause">⏸ pause</button><button class="b" id="rv-step">⏭ step</button><button class="b" id="rv-hide" title="hide the panel (the scene behind it)">⇥ hide</button>
       <span class="muted" id="rv-now"></span></div>
     <div class="tabs"><button data-t="states" class="on">States</button><button data-t="walk">Walk</button><button data-t="voice">Voice</button><button data-t="cands">New frames</button><button data-t="combined">Combined</button></div>
     <div class="body" id="rv-body"></div>`;
@@ -184,14 +197,56 @@
     } else if (tab === 'combined') {
       const mode = localStorage.getItem('pair-transition') || 'xfade';
       B.innerHTML = `<h3>Scenes with combined sprites</h3><p class="muted">Opens the scene itself, so you see the entry into and the exit from each combined sprite as it plays.</p>
-        ${COMBINED.map(c => `<div style="margin:4px 0"><button class="b" data-sc="${c.scene}">▶ ${c.label}</button><div class="muted">${c.frames}${c.first ? ' (first scene: both transition options)' : ''}</div></div>`).join('')}
+        <p class="muted">All ${COMBINED.reduce((n, c) => n + c.frames.length, 0)} combined sprites, by the scene that plays them. ▶ opens the scene; a sprite's name shows it here on its own (rigid, on Alan's feet).</p>
+        ${COMBINED.map(c => `<div style="margin:6px 0">${c.scene ? `<button class="b" data-sc="${c.scene}">▶ ${c.label}</button>` : `<b>${c.label}</b>`}
+          <div>${c.frames.map(k => `<button class="b" data-pv="${k}" style="font-size:11px">${k.replace('pair_', '')}</button>`).join('')}</div></div>`).join('')}
+        <h3>Combined paintings (stills)</h3>
+        ${COMBINED_STILLS.map(c => `<div style="margin:6px 0"><button class="b" data-sc="${c.scene}">▶ ${c.label}</button>
+          <div>${c.stills.map(k => `<button class="b" data-st="${k}" style="font-size:11px">${k.replace('still_', '')}</button>`).join('')}</div></div>`).join('')}
         <h3>Transition in/out of a combined sprite</h3>
         <label><input type="radio" name="pt" value="xfade"${mode === 'xfade' ? ' checked' : ''}> cross-fade (0.25 s)</label><br>
-        <label><input type="radio" name="pt" value="gemini"${mode === 'gemini' ? ' checked' : ''}> Gemini in-between frames (police station only, once approved)</label>
-        <p class="muted">The choice is kept in this browser and used by the scenes above.</p>`;
+        <label><input type="radio" name="pt" value="gemini"${mode === 'gemini' ? ' checked' : ''}> Gemini in-between frames (every scene, once approved under New frames)</label>
+        <p class="muted">The choice is kept in this browser and used by the scenes above.</p>
+        <h3>Transition test: the police station</h3>
+        <p class="muted">Alan steps up to Teixeira, into the chest frame and out, then the arm frame. Use the speed slider and ⏭ step.</p>
+        <button class="b" data-pt="xfade">▶ cross-fade</button><button class="b" data-pt="gemini">▶ Gemini in-betweens</button><button class="b" data-pt="both">▶ both, one after the other</button>
+        <div class="muted" id="rv-ptnote"></div>`;
+      B.querySelectorAll('[data-pt]').forEach(b => { b.onclick = () => pairTest(b.dataset.pt); });
+      B.querySelectorAll('[data-st]').forEach(b => { b.onclick = () => { $('#rv-now').textContent = b.dataset.st; G.showStill(b.dataset.st, () => wait(5000), { zoom: [1.0, 1.08] }); }; });
+      B.querySelectorAll('[data-pv]').forEach(b => { b.onclick = async () => { if (ch !== 'alan') { ch = 'alan'; $('#rv-ch').value = 'alan'; } await stage(G.room && G.room.id); G.player.dir = 'e'; G.player.pose = b.dataset.pv; $('#rv-now').textContent = b.dataset.pv; }; });
       B.querySelectorAll('[data-sc]').forEach(b => { b.onclick = () => { location.href = location.pathname + '?scene=' + b.dataset.sc + '&review'; }; });
       B.querySelectorAll('[name=pt]').forEach(r => { r.onchange = () => localStorage.setItem('pair-transition', r.value); });
     }
+  }
+  // the first combined-sprite scene, staged on its own: into and out of the two cop pairs with either transition
+  async function pairTest(which) {
+    const tok = ++loopTok, modes = which === 'both' ? ['xfade', 'gemini'] : [which];
+    if (ch !== 'alan') { ch = 'alan'; $('#rv-ch').value = 'alan'; }
+    Object.assign(G.flags, { ch: 1, teixeira_scene: false, rui_out: true, teixeira_wall: false }); // Teixeira on the phone, the Inspector out
+    if (G.room && G.room.id === 'police') G.refreshNpcs(true);
+    await stage('police'); loopTok = tok;
+    const cop = G.npc('npc_phone'), p = G.player, note = $('#rv-ptnote');
+    if (!cop) { if (note) note.textContent = 'Teixeira is not in the station in this state.'; return; }
+    let keep = null; try { keep = localStorage.getItem('pair-transition'); } catch (e) { /* private mode */ }
+    try {
+      for (const mode of modes) {
+        if (mode === 'gemini') { // preview the painted in-betweens even before they're approved (this session only)
+          for (const c of ((S.REVIEW && S.REVIEW.candidates) || []).filter(c => c.kind === 'pair-inbetween')) {
+            await G.addSprite(c.id, Object.assign({ src: c.src }, c.meta)); S.applyCandidate(c, () => true);
+          }
+        }
+        const ib = (S.CHARS.alan.frames.pairIb || {}).pair_cop_chest;
+        if (note) note.textContent = mode === 'gemini' && !(ib && (ib.in || []).length) ? 'Gemini: no in-between painted yet, so this plays the cross-fade.' : (mode === 'gemini' ? 'Gemini in-betweens (preview: approve or reject them under New frames)' : 'cross-fade, 0.25 s');
+        try { localStorage.setItem('pair-transition', mode); } catch (e) { /* private mode */ }
+        cop.visible = true; cop.alpha = 1; cop.pose = null; S.copFace && S.copFace();
+        p.pose = null; p.x = cop.x + 260; p.y = cop.y + 10; p.dir = 'w';
+        await wait(500); if (tok !== loopTok) return;
+        for (const k of ['pair_cop_chest', 'pair_cop_arm']) {
+          await S.pairIn(cop, k); await wait(1400); if (tok !== loopTok) return;
+          await S.pairOut(cop, { dir: 'w' }); await wait(700); if (tok !== loopTok) return;
+        }
+      }
+    } finally { try { if (keep == null) localStorage.removeItem('pair-transition'); else localStorage.setItem('pair-transition', keep); } catch (e) { /* private mode */ } }
   }
   // preview a candidate in motion before deciding (this session only)
   async function tryCandidate(c) {
@@ -226,6 +281,11 @@
     $('#rv-speed').oninput = e => { window.TIME_SCALE = +e.target.value; $('#rv-sv').textContent = (+e.target.value).toFixed(2).replace(/0$/, '') + '×'; };
     $('#rv-pause').onclick = () => { paused = !paused; window.STEP_DT = paused ? 1 / 30 : 0; window.HOLD = paused; window.ADVANCE = 0; $('#rv-pause').textContent = paused ? '▶ play' : '⏸ pause'; };
     $('#rv-step').onclick = () => { if (!paused) $('#rv-pause').click(); window.ADVANCE = 1; };
+    const show = document.createElement('button'); show.id = 'rv-show'; show.className = 'b'; show.textContent = '⇤ review panel';
+    show.style.cssText += ';background:#2b2a26;color:#eee;border:1px solid #d8b46a;border-radius:4px;padding:4px 10px;cursor:pointer';
+    $('#game').appendChild(show);
+    $('#rv-hide').onclick = () => { P.classList.add('hid'); show.style.display = 'block'; };
+    show.onclick = () => { P.classList.remove('hid'); show.style.display = 'none'; };
     P.querySelectorAll('.tabs button').forEach(b => { b.onclick = () => { tab = b.dataset.t; render(); }; });
     await stage(); render();
   }

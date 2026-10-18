@@ -59,6 +59,8 @@
   const XFADE = 0.2, MORPH_T = 0.34, GROUND_K = 2.2;
   const IB_STEP = 0.11;         // how long each in-between frame of a pose change is held (s)
   const WALK_EDGE = 0.13;       // the start step and the stop step of a walk are held this long (s)
+  const PAIR_FADE = 0.25;
+  const PAIR_STEP = 0.16;       // one pair painting to the next (an unbutton, a kiss): a quick dissolve       // into and out of a combined sprite (Alan with someone): a 250 ms cross-fade
   const XFADE_SHORT = 0.1;      // near-identical frames (talk, idle variants, a cigarette drag): a 100 ms eased cross-fade
   // Movement feel (all tunable; 0 switches a feature off). Lengths are in walker heights.
   const WALK_EASE_IN = 0.24;    // s from a standstill to full pace (the first steps are shorter and slower)
@@ -89,6 +91,7 @@
       this.breath = Math.random() * 10; this.sink = 0; this.turnT = 0; this.stepIdx = -1;
       this.rate = 1 + (Math.random() * 2 - 1) * IDLE_RATE_JITTER; // no two figures breathe in step
       this.leanX = 0; this.leanV = 0; this.calm = 1; this.walkT = 0; this.pace = 1; this.listen = 0; this.heardT = phraseEndT; this.nodAt = -9;
+      this.alpha = 1; this.alphaTo = null; this.xfNext = 0; // fade(): the whole figure; crossFade(): the next frame change
       this.perf = 0; this.swayPh = Math.random() * 60; this.tiltPh = Math.random() * 60; this.beatPh = Math.random() * 60;
     }
     get c() { return CHARS[this.ch]; }
@@ -118,9 +121,22 @@
       const F = this.F, L = this.dir === 'n' && F.backWalk ? F.backWalkLen : this.dir === 's' && F.frontWalk ? F.frontWalkLen : F.walkLen;
       return L && L.length === cyc.length ? L : null;
     }
+    // the whole figure fades in or out (a partner melting into a combined sprite and back out of it)
+    fade(to, dur) {
+      if (window.FAST || !(dur > 0)) { this.alpha = to; this.alphaTo = null; return Promise.resolve(); }
+      if (this.alphaTo && this.alphaTo.done) this.alphaTo.done();
+      return new Promise(done => { this.alphaTo = { from: this.alpha, to, t: 0, dur, done }; });
+    }
+    // the next frame change dissolves over dur seconds instead of cutting (into and out of a combined sprite)
+    crossFade(dur) { this.xfNext = window.FAST ? 0 : (dur || PAIR_FADE); }
     update(dt) {
       const F = this.F;
       if (this.fadeT > 0) this.fadeT = Math.max(0, this.fadeT - dt);
+      if (this.alphaTo) {
+        const A = this.alphaTo, u = Math.min(1, (A.t += dt) / A.dur);
+        this.alpha = A.from + (A.to - A.from) * u * u * (3 - 2 * u);
+        if (u >= 1) { this.alphaTo = null; A.done(); }
+      }
       if (this.ibSeq && (this.ibT += dt) >= IB_STEP) { this.ibT = 0; this.ibI++; }
       if (this.resumeT > 0) this.resumeT -= dt;
       this.breath += dt * this.rate;
@@ -355,7 +371,12 @@
       };
     }
     draw() {
-      if (!this.visible) return;
+      if (!this.visible || this.alpha <= 0.005) return;
+      if (this.alpha >= 1) return this.drawBody();
+      g.save(); g.globalAlpha = this.alpha;
+      try { this.drawBody(); } finally { g.restore(); }
+    }
+    drawBody() {
       let key = this.frameKey();
       let sp = SPRITES[key];
       if (!sp) return;
@@ -385,13 +406,17 @@
         // a mouth or gesture change while speaking is a clean frame swap, never a mesh morph
         const tf = this.talking && !this.walking && !this.pose ? arr(F.talk).concat(arr(F.idle).flat()) : null;
         const talkSwap = !!(tf && tf.includes(key) && tf.includes(this.prev));
-        const M = window.MORPHS, morph = this.prev && !talkSwap && this.prevFlip === flipped && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
+        const M = window.MORPHS, morph = this.prev && !talkSwap && this.prevFlip === flipped && sameFacing(key, flipped, this.prev, this.prevFlip) && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
         // a pair with morph data moves between poses; two near-identical paintings (a mouth, a hand,
         // a drag on the cigarette) get a quick eased cross-fade; anything else is a clean cut
         const SIM = window.SIMILAR, ibHand = this.ibSeq || this.ibWas; this.ibWas = !!this.ibSeq; // in-between frames hand over with a quick cross-fade too
-        const similar = !morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key])));
+        // into or out of a combined sprite, or from one pair painting to the next: a plain dissolve (pairs never morph)
+        const pairs = this.prev && SPRITES[key] && SPRITES[this.prev] && SPRITES[key].rigid && SPRITES[this.prev].rigid;
+        if (pairs && !(this.xfNext > 0)) this.xfNext = PAIR_STEP;
+        const forced = this.xfNext > 0 && this.prev;
+        const similar = forced || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
         if (!morph && !similar) this.prev = null;
-        this.fadeDur = similar ? XFADE_SHORT : MORPH_T; this.fadeSim = !!similar; this.viaOut = false;
+        this.fadeDur = forced ? this.xfNext : similar ? XFADE_SHORT : MORPH_T; this.xfNext = 0; this.fadeSim = !!similar; this.fadeHand = !!forced; this.viaOut = false;
         this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
       }
@@ -403,7 +428,7 @@
       let walkF = 0;
       if (!B && this.walking && window.MORPHS && window.WARP !== false && !window.FAST) {
         const c = this.cycle(), i = Math.floor(this.phase) % c.length, nk = c[(i + 1) % c.length];
-        if (nk !== key && MORPHS[key + '>' + nk] && MORPHS[nk + '>' + key]) {
+        if (nk !== key && MORPHS[key + '>' + nk] && MORPHS[nk + '>' + key] && sameFacing(key, flipped, nk, flipped)) {
           const N = this.place(nk, flipped);
           if (N) { B = N; walkF = this.phase - Math.floor(this.phase); }
         }
@@ -413,7 +438,7 @@
       const U = { x: Math.min(A.x, B ? B.x : A.x), y: Math.min(A.y, B ? B.y : A.y) };
       U.r = Math.max(A.x + A.w, B ? B.x + B.w : -1e9); U.b = Math.max(A.y + A.h, B ? B.y + B.h : -1e9);
       const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
-      const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh, false, this.fadeSim);
+      const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh, false, this.fadeSim, !!(SPRITES[key].rigid || (B && B.sp.rigid)), this.fadeHand);
       const sinkPx = this.sink * h;
       const unlit = !!(room && room.unlit && room.unlit.test(key));
       const lights = unlit ? [] : lightsOn(this.x, this.y - h * 0.55, h, this);
@@ -421,15 +446,17 @@
       const shaded = !unlit && !window.FAST && window.Warp && window.WARP !== false && window.LIT3D !== false && Warp.ok;
       const lit = shaded || unlit ? comp : lightSprite(comp, bw, bh, U, h, lights);
       const LP = shaded ? lightParams(U, h, lights) : null;
+      // a combined sprite (two people in one painting) is never bent or stretched: no breath, sway or tilt
+      const rigid = !!(SPRITES[key].rigid || (B && B.sp.rigid));
       // breathing: the chest rises and widens a touch above the hips; feet stay put
-      const b = this.calm * (0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045);
+      const b = rigid ? 0 : this.calm * (0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045);
       const sx = 1 + b * 0.45, sy = 1 + b;
       const feetBy = -U.y, hipBy = Math.max(1, Math.round(feetBy - h * 0.47));
       const X0 = this.x + U.x, Y0 = this.y + U.y + sinkPx;
       g.save();
       if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
       // the painting is drawn through a mesh that bends with the figure: breath, sway, head, steps
-      const warped = !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, SPRITES[key], b, key), h * 0.1, LP);
+      const warped = !rigid && !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, SPRITES[key], b, key), h * 0.1, LP);
       if (!warped) {
         if (shaded) { const L2 = lightSprite(comp, bw, bh, U, h, lights); g.drawImage(L2, 0, 0, bw, bh, X0, Y0, bw, bh); g.restore(); return; }
         // lower body: untouched
@@ -437,6 +464,13 @@
         // upper body: scaled about the hip line and the body axis
         const hipY = Y0 + hipBy;
         g.drawImage(lit, 0, 0, bw, hipBy + 1, this.x + U.x * sx, hipY - hipBy * sy, bw * sx, (hipBy + 1) * sy);
+      }
+      // mouth-only swaps on a combined sprite: MOUTHS[key][speaker] = { x, y, frames: [shut, half, open] }
+      // (sprite px, top-left of the patch). The painting itself never changes while either of them talks.
+      const MO = !B && window.MOUTHS && MOUTHS[key], mo = MO && this.talking && MO[this.talkWho];
+      if (mo && !A.flipped) {
+        const fk = mo.frames[this.talkIdx % mo.frames.length], im = IMG['spr:' + fk];
+        if (im && im.complete) g.drawImage(im, X0 - U.x + A.x + mo.x * A.s, Y0 - U.y + A.y + mo.y * A.s, im.width * A.s, im.height * A.s);
       }
       g.restore();
     }
@@ -481,10 +515,23 @@
   // being left behind in a pose change (kB runs 1 -> 0, eased)
   // the shapes slide over the whole change, the pictures swap only in its middle
   const band = (a, z, v) => { const q = Math.max(0, Math.min(1, (v - a) / (z - a))); return q * q * (3 - 2 * q); };
-  function composeFrames(A, B, kB, U, w, h, linear, similar) {
+  // which way a frame faces on screen: 1 right, -1 left, 0 front/back views (painted facing x mirror)
+  function facing(key, flipped) {
+    const sp = SPRITES[key]; if (!sp) return 0;
+    if (/_(front|back)(_|\d|$)/.test(key)) return 0;
+    return (!!sp.facesLeft !== !!flipped) ? -1 : 1;
+  }
+  // a frame facing right never morphs into one facing left (any character): that bends one painting
+  // into its mirror image. Front and back views can morph with either side.
+  const sameFacing = (a, af, b, bf) => { const x = facing(a, af), y = facing(b, bf); return !x || !y || x === y; };
+  function composeFrames(A, B, kB, U, w, h, linear, similar, rigid, hand) {
     fit(compBuf, cg, w, h);
     const M = window.MORPHS, fAB = B && M && M[A.key + '>' + B.key], fBA = B && M && M[B.key + '>' + A.key];
-    if (B && kB > 0 && fAB && fBA && window.Warp && window.WARP !== false && !window.FAST) {
+    if (B && kB > 0 && hand) { // into / out of a combined sprite: the new painting comes up, then the old one goes
+      const e = kB * kB * (3 - 2 * kB);
+      blit(cg, B, U, Math.min(1, 2 * e)); blit(cg, A, U, Math.min(1, 2 * (1 - e))); return compBuf;
+    }
+    if (B && kB > 0 && fAB && fBA && !rigid && sameFacing(A.key, A.flipped, B.key, B.flipped) && window.Warp && window.WARP !== false && !window.FAST) {
       const e = linear ? kB : kB * kB * (3 - 2 * kB); // weight of A's own shape is 1 - e
       // Both paintings bend toward a shared in-between shape, but only one is ever on screen:
       // the outgoing one up to the middle, then the incoming one. Never two at once (no extra hands).
@@ -593,7 +640,8 @@
       const len = h * Math.max(0.3, Math.min(1.5, 0.3 + dist / (o.l.height || 650))) * Math.min(1, 0.25 + dist / 260);
       const ex = vx * len, ey = vy * len * 0.42;
       // strength follows the light (and its flicker), but stays readable
-      const alpha = Math.min(0.62, 0.1 + o.I * 2.4) * (typeof o.l.shadow === 'number' ? o.l.shadow : 1) * Math.min(1, o.l.f);
+      if (a.alpha < 0.6) continue; // a figure fading in or out casts no shadow (two overlapping ones would double up)
+      const alpha = Math.min(0.62, 0.1 + o.I * 2.4) * (typeof o.l.shadow === 'number' ? o.l.shadow : 1) * Math.min(1, o.l.f) * a.alpha;
       g.save();
       g.globalAlpha = alpha;
       g.filter = `blur(${Math.max(1.5, h * 0.008 + len * 0.006).toFixed(1)}px)`;
@@ -1073,7 +1121,8 @@
     if (who === 'alan') return player.visible ? player : null;
     return npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible)
       // someone painted into Alan's pair frame speaks from the pair (Game.pairSpeaker: pose -> speaker id)
-      || (player.visible && player.pose && window.Game.pairSpeaker && window.Game.pairSpeaker(player.pose) === who ? player : null);
+      || (player.visible && player.pose && ((player.pairWho && (player.pairWho === who || player.pairWho === 'npc_' + who))
+        || (window.Game.pairSpeaker && window.Game.pairSpeaker(player.pose) === who)) ? player : null);
   }
   // Speakers face each other: an NPC turns to Alan when it speaks, and Alan turns
   // to whoever he is talking with (the last NPC who spoke, else the nearest one).
@@ -1148,7 +1197,7 @@
     const actor = (opts.offscreen || still) ? null : actorFor(who);
     speaking = { id, actor };
     if (actor) {
-      actor.talking = true; actor.talkPose = true; actor.talkT = 0.6;
+      actor.talking = true; actor.talkPose = true; actor.talkT = 0.6; actor.talkWho = who;
       if (!cutsceneHold()) faceEachOther(actor);
       speechEl.textContent = text; speechEl.style.color = COLORS[who] || '#fff';
       speechEl.style.display = 'block'; positionSpeech();

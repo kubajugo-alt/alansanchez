@@ -5,7 +5,7 @@
 # The engine slides a painting along these paths while it cross-fades, instead of
 # overlaying two pictures. Pairs the plain flow can't explain (very different poses) get a
 # coarse-to-fine silhouette registration; pairs even that can't explain are skipped.
-import sys, json, os, itertools, numpy as np, cv2
+import sys, json, os, re, itertools, numpy as np, cv2
 from PIL import Image
 COLS, ROWS = 10, 26
 txt = open('js/sprites.js').read(); META = json.loads(txt[txt.index('{'):txt.rindex('}') + 1])
@@ -105,12 +105,17 @@ def pair(a, b, reg=None):
             xi, yi = int(np.clip(round(x), 0, W - 1)), int(np.clip(round(y), 0, H - 1))
             g += [int(round(fab[yi, xi, 0])), int(round(fab[yi, xi, 1]))]
     return g, e0, e1, iou
+# a frame painted facing right never morphs into one painted facing left (front/back views go either way)
+VIEW = re.compile(r'_(front|back)(_|\d|$)')
+def opposite(a, b):
+    return not VIEW.search(a) and not VIEW.search(b) and bool(META[a].get('facesLeft')) != bool(META[b].get('facesLeft'))
+for k in [k for k in MORPHS if all(x in META for x in k.split('>')) and opposite(*k.split('>'))]: MORPHS.pop(k)
 done = skipped = 0
 for name, frames in sets:
     for a, b in itertools.permutations(frames, 2):
         key = f'{a}>{b}'
         if key in MORPHS and not force: continue
-        if a not in META or b not in META: continue
+        if a not in META or b not in META or opposite(a, b): continue
         g, e0, e1, iou = pair(a, b)
         ok = e1 < e0 * 0.8 and iou > 0.8
         if not ok:  # very different poses: register the silhouettes coarse-to-fine and try again
@@ -125,7 +130,7 @@ for name, frames in sets:
 # (a slightly looser fit is fine, the inverse of a verified field stays coherent)
 for name, frames in sets:
     for a, b in itertools.permutations(frames, 2):
-        if f'{a}>{b}' in MORPHS or f'{b}>{a}' not in MORPHS or a not in META or b not in META: continue
+        if f'{a}>{b}' in MORPHS or f'{b}>{a}' not in MORPHS or a not in META or b not in META or opposite(a, b): continue
         for reg in [('inv', 0.6, 1.5), ('inv', 0.4, 1.0), ('inv', 0.8, 2.0), ('inv', 0.2, 0.8)]:
             g, e0, e1, iou = pair(a, b, reg)
             if e1 < e0 * 0.8 and iou > 0.72:

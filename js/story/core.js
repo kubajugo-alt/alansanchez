@@ -36,17 +36,62 @@
   S.setContent = v => { try { localStorage.setItem(CONTENT_KEY, v); } catch (e) { /* private mode: lasts this session */ } S._content = v; };
   S.discreet = () => (S.content() || S._content) === 'discreet';
 
+  // ---------------------------------------------------------------- combined sprites (Alan with someone)
+  // A pair painting is anchored on Alan's feet (ax, fy, like his solo frames, at his standing height h);
+  // px, pfy mark the partner's feet (scripts/pair_anchors.py). Going in, Alan steps to the one spot where
+  // the painted partner lands on the partner's own feet, so neither of them moves; coming out, the partner
+  // is stood where the painting had them. The hand-over is a 250 ms cross-fade, or (review screen choice,
+  // 'pair-transition' = 'gemini') the painted in-between frames once they're approved.
+  S.pairMode = () => { try { return localStorage.getItem('pair-transition') || 'xfade'; } catch (e) { return 'xfade'; } };
+  const pairScale = (k, y) => { const p = G.player, m = window.SPRITES[k], y0 = p.y; p.y = y; const s = p.height() / m.h; p.y = y0; return s; };
+  // where Alan stands for pair k with the partner standing at (x, y)
+  S.pairSpot = (k, x, y) => {
+    const m = window.SPRITES[k]; let s = pairScale(k, y), ay = y - (m.pfy - m.fy) * s;
+    s = pairScale(k, ay); ay = y - (m.pfy - m.fy) * s; // (the scale follows his depth)
+    return { x: x - (m.px - m.ax) * s, y: ay };
+  };
+  // where pair k (drawn now, Alan at p.x, p.y) has the partner standing
+  S.pairPartnerAt = k => { const p = G.player, m = window.SPRITES[k], s = p.height() / m.h; return { x: p.x + (m.px - m.ax) * s, y: p.y + (m.pfy - m.fy) * s }; };
+  const IB_HOLD = 110;
+  async function pairSteps(seq) { const p = G.player; for (const f of seq) { p.crossFade(0.1); p.pose = f; await G.wait(window.FAST ? 0 : IB_HOLD); } }
+  // into pair k with npc: { walk: false } skips the walk (he's already there, or the scene has just cut in)
+  S.pairIn = async function (npc, k, opts) {
+    opts = opts || {};
+    const p = G.player, m = window.SPRITES[k];
+    if (!npc || !m) return false;
+    const at = S.pairSpot(k, npc.x, npc.y);
+    if (opts.walk !== false && Math.hypot(p.x - at.x, p.y - at.y) > 3) await p.walkTo(at.x, at.y);
+    p.x = at.x; p.y = at.y; p.pairWho = npc.id; p.pairNpc = npc; p.pairKey = k;
+    const ib = S.pairMode() === 'gemini' && (S.CHARS.alan.frames.pairIb || {})[k];
+    const seq = (ib && ib.in) || [];
+    p.dir = 'e'; p.crossFade(seq.length ? 0.12 : 0.25);
+    const gone = npc.fade(0, seq.length ? 0.12 : 0.25);
+    if (seq.length) { p.pose = seq[0]; await gone; await pairSteps(seq.slice(1).concat([k])); } else { p.pose = k; await gone; }
+    npc.visible = false; npc.alpha = 1;
+    return true;
+  };
+  // out of the pair: Alan keeps his place (and takes pose / faces dir), the partner steps out of the painting
+  S.pairOut = async function (npc, opts) {
+    opts = opts || {};
+    const p = G.player, k = (p.cur && window.SPRITES[p.cur] && window.SPRITES[p.cur].rigid) ? p.cur : p.pairKey || p.pose, m = window.SPRITES[k];
+    npc = npc || p.pairNpc; p.pairWho = null; p.pairNpc = null; p.pairKey = null;
+    if (!m || !m.rigid) { if (npc) npc.visible = true; p.pose = opts.pose || null; if (opts.dir) p.dir = opts.dir; return; }
+    const ib = S.pairMode() === 'gemini' && (S.CHARS.alan.frames.pairIb || {})[k];
+    const seq = (ib && ib.out) || [];
+    if (seq.length) await pairSteps(seq);
+    if (npc) { const at = S.pairPartnerAt(k); npc.x = at.x; npc.y = at.y; npc.alpha = 0; npc.visible = true; }
+    p.crossFade(seq.length ? 0.12 : 0.25); p.pose = opts.pose || null; if (opts.dir) p.dir = opts.dir;
+    if (npc) await npc.fade(1, seq.length ? 0.12 : 0.25);
+  };
+
   // ---------------------------------------------------------------- cast
   // Painted frames (js/sprites.js). Sprites face right unless flagged
   // facesLeft; the engine mirrors them. `scale` is relative body height.
   S.CHARS = {
     alan: { scale: 1, frames: {
       idle: ['alan_side', 'alan_idle2'], talk: ['alan_talk', 'alan_talk2'],
-      // contact, passing, toe-off on each foot. walkLen is the ground each frame covers (heights), measured
-      // from where the planted foot sits in each painting, so his feet stay put (walkDown left out: its
-      // planted foot sits ahead of the contact frame's, so it slid forward and snapped back every stride)
-      walk: ['alan_walkA', 'alan_pass', 'alan_walkUp', 'alan_walkB', 'alan_pass', 'alan_walkUp'],
-      walkLen: [0.176, 0.103, 0.064, 0.176, 0.103, 0.064], walkSteps: [0, 3],
+      // contact, down, passing, up on each foot: the original cycle, on its hand-tuned anchors (even steps)
+      walk: ['alan_walkA', 'alan_walkDown', 'alan_pass', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_pass', 'alan_walkUp'],
       front: 'alan_front', frontWalk: ['alan_front_walk1', 'alan_front', 'alan_front_walk2', 'alan_front'],
       back: 'alan_back', backWalk: ['alan_back_walk1', 'alan_back', 'alan_back_walk2', 'alan_back'],
       poses: { pair_unbutton: 'pair_unbutton', pair_kiss: 'pair_kiss', pair_brow: 'pair_brow', button: 'alan_button', undress1: 'alan_undress1', undress2: 'alan_undress2', undress3: 'alan_undress3', undress4: 'alan_undress4', jacket: 'alan_jacket', jump: 'alan_jump', undress1b: 'alan_undress1b', uboot: 'alan_undress_boot', ubelt: 'alan_undress_belt', fling: 'alan_fling', jwink: 'alan_jacket_wink', jgrin: 'alan_jacket_grin', hands: 'alan_hands', climb: 'alan_climb', undress2a: 'alan_undress2a', undress2b: 'alan_undress2b', unbutton: 'alan_undress_unbutton', ujeans: 'alan_undress_jeans', tdown: 'alan_trunks_down', tstep: 'alan_trunks_step', jcrouch: 'alan_jump_crouch', jrise: 'alan_jump_rise', jfall: 'alan_jump_fall', wsurface: 'alan_wash_surface', wash4: 'alan_wash4', wash5: 'alan_wash5', wash6: 'alan_wash6', tron: 'alan_trunks_on', drip: 'alan_drip', snap: 'alan_trunks_snap', dboot: 'alan_dress_boot', dfinal: 'alan_dress_final', swim: 'alan_swim', swim2: 'alan_swim2', swimwave: 'alan_swim_wave', wash1: 'alan_wash1', wash2: 'alan_wash2', wash3: 'alan_wash3', flirt: 'alan_flirt', wink: 'alan_wink', swoon: 'alan_swoon', fluster: 'alan_fluster', reach: 'alan_reach', read: 'alan_read', ring: 'alan_ring', asleep: 'alan_asleep', pickup: 'alan_pickup', write: 'alan_write',
