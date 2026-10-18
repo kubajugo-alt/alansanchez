@@ -546,5 +546,837 @@ window.FACES = {
    "closed"
   ],
   "ok": false
+ },
+ "alan_button": {
+  "box": [
+   93,
+   55,
+   53,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_climb": {
+  "box": [
+   82,
+   49,
+   45,
+   53
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_coffees": {
+  "box": [
+   98,
+   49,
+   56,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_cutpalm": {
+  "box": [
+   111,
+   63,
+   45,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_dress1": {
+  "box": [
+   145,
+   49,
+   57,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_dress2": {
+  "box": [
+   171,
+   61,
+   58,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_dress3": {
+  "box": [
+   153,
+   55,
+   52,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_dress4": {
+  "box": [
+   174,
+   57,
+   62,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_dress_boot": {
+  "box": [
+   210,
+   72,
+   59,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_dress_final": {
+  "box": [
+   186,
+   51,
+   51,
+   71
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_drip": {
+  "box": [
+   162,
+   53,
+   57,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_enchanted1": {
+  "box": [
+   80,
+   43,
+   52,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_enchanted2": {
+  "box": [
+   100,
+   84,
+   63,
+   33
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_fling": {
+  "box": [
+   168,
+   46,
+   49,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_flirt": {
+  "box": [
+   150,
+   55,
+   60,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_fluster": {
+  "box": [
+   127,
+   54,
+   58,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_front_walk1": {
+  "box": [
+   98,
+   51,
+   58,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_front_walk2": {
+  "box": [
+   98,
+   54,
+   57,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_jacket": {
+  "box": [
+   76,
+   46,
+   58,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_jacket_grin": {
+  "box": [
+   99,
+   49,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_jacket_wink": {
+  "box": [
+   99,
+   71,
+   53,
+   42
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_jump": {
+  "box": [
+   212,
+   60,
+   35,
+   71
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_jump_crouch": {
+  "box": [
+   335,
+   75,
+   50,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_jump_fall": {
+  "box": [
+   183,
+   43,
+   31,
+   51
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_jump_rise": {
+  "box": [
+   167,
+   95,
+   28,
+   57
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_lantern": {
+  "box": [
+   129,
+   50,
+   34,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_lwalk1": {
+  "box": [
+   197,
+   50,
+   36,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_lwalk2": {
+  "box": [
+   196,
+   50,
+   32,
+   55
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_pickup": {
+  "box": [
+   265,
+   89,
+   47,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_rapt1": {
+  "box": [
+   118,
+   42,
+   43,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_rapt2": {
+  "box": [
+   107,
+   43,
+   45,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_rapt3": {
+  "box": [
+   117,
+   43,
+   51,
+   73
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_read": {
+  "box": [
+   108,
+   69,
+   42,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_trunks_step": {
+  "box": [
+   203,
+   47,
+   54,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_undress_belt": {
+  "box": [
+   110,
+   189,
+   58,
+   57
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_write": {
+  "box": [
+   104,
+   65,
+   46,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_stretch": {
+  "box": [
+   102,
+   137,
+   47,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_swim": {
+  "box": [
+   283,
+   94,
+   92,
+   104
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_swim2": {
+  "box": [
+   197,
+   80,
+   86,
+   110
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "alan_swim_wave": {
+  "box": [
+   274,
+   269,
+   100,
+   80
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_swoon": {
+  "box": [
+   114,
+   58,
+   48,
+   47
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "alan_throw2": {
+  "box": [
+   154,
+   47,
+   37,
+   72
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
  }
 };

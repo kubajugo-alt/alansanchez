@@ -269,9 +269,30 @@ def build(names):
         'window.FACES = ' + json.dumps(data, indent=1) + ';\n')
 
 
+# ---------------------------------------------------------------- borrow: another frame's set, for the same painted head
+def borrow(target, source):
+    """For a frame whose head is the same painting as one already done (faces_sim.json): the source's Gemini edits,
+    lined up on the target's head, stand in for its own (build then cuts them as usual). Noted in borrowed.txt."""
+    t = Image.open(WORK + target + '/head.png').convert('RGBA'); W6, H6 = t.size
+    sh = Image.open(WORK + source + '/head.png').convert('RGBA').resize((W6, H6), Image.LANCZOS)
+    flat = lambda im: (np.asarray(im).astype(np.float32)[..., :3] * (np.asarray(im)[..., 3:] / 255) + np.array(BG, np.float32) * (1 - np.asarray(im)[..., 3:] / 255))
+    w = np.eye(2, 3, dtype=np.float32)
+    cc, w = cv2.findTransformECC(gray(flat(t)), gray(flat(sh)), w, cv2.MOTION_AFFINE, (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 300, 1e-6),
+                                 (np.asarray(t)[..., 3] > 128).astype(np.uint8) * 255, 5)
+    for n, _ in jobs(target):
+        src = f'{WORK}{source}/{n}.png'
+        if not os.path.exists(src): continue
+        g = np.asarray(Image.open(src).convert('RGB').resize((W6, H6), Image.LANCZOS)).astype(np.float32)
+        g = cv2.warpAffine(g, w, (W6, H6), flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
+        Image.fromarray(np.clip(g, 0, 255).astype(np.uint8)).save(f'{WORK}{target}/{n}.png')
+    open(f'{WORK}{target}/borrowed.txt', 'w').write(f'{source} {cc:.3f}\n')
+    print(target, '<-', source, 'fit', round(float(cc), 3))
+
+
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else ''
     if cmd == 'find': find()
     elif cmd == 'gen': gen(sys.argv[2:])
     elif cmd == 'build': build(sys.argv[2:])
+    elif cmd == 'borrow': borrow(*sys.argv[2:4])
     else: sys.exit(__doc__ if False else 'usage: face_kit.py find | gen [frame ...] | build [frame ...]')

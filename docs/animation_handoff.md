@@ -5,8 +5,13 @@ The live site (https://alan-sanchez-drowned-bell.netlify.app) runs **`e9ef055`**
 It has Phase 4 lip-sync and blinking on Alan's four side frames (`alan_side`, `alan_idle2`, `alan_talk`, `alan_talk2`), the story-audit fixes and the date (Tuesday 31 October 1995).
 Before the deploy, the clean export passed the smoke tests on every scene, and a non-FAST bath-scene run checked the lip-sync. The full playthrough passed on the working tree (story-fixes agent).
 
-**Paused at the user's request: faces for Alan's other frames.** `scripts/face_kit.py find` has located his face in all 135 frames that show it (`art/review/alan/faces/index.json`).
-`faces_sim.json` lists which heads are alike: about 27 frames match `alan_side` closely enough to take its set through `scripts/face_transfer.py`. The rest need their own Gemini set (`face_kit.py gen`/`build`, not written yet), at about $0.65 per head.
+**Faces for Alan's other frames (in progress, waiting for approval).** 58 more frames have lip-sync and blinking, all with `"ok": false` in `js/faces.js` (shown in the game only with `?faces=all`):
+- 13 side-like frames take alan_side's set through `scripts/face_transfer.py`; the smoking frames blink only.
+- 42 have their own Gemini set (`scripts/face_kit.py gen`: mouths A-F and shut eyes at 1K, about $0.04 an edit), cut by `face_kit.py build`.
+- 3 borrow the set of a frame with the same painted head (`face_kit.py borrow`): trunks_step (fling), undress_belt (front_walk1), write (read).
+- Review page: https://claude.ai/artifact/BermCuEtYFLfErj9WBMnPw (db collection `faces`, one doc per frame: `decision` approved/rejected). Set `"ok": true` in `js/faces.js` for the approved ones.
+- **Blocked: the Gemini prepaid credit ran out** (HTTP 402) after about $12 of this run. 70 frames still need a set: most undress/trunks/wash frames, all the cop/guitar/Vasco pair paintings except pair_vasco_coffee, alan_ring, alan_wring, alan_walkUp (their side transfer was wrong), alan_wobble. Once the credit is topped up, `python3 scripts/face_kit.py gen` resumes (finished edits are kept), then `build`.
+
 **Next job (assessment given, not started):** a hybrid skeletal + sprite Alan. The user's six-step brief is in the session; stop after each step for approval.
 
 ## Standing rules (from the user)
