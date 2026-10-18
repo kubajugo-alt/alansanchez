@@ -37,7 +37,12 @@
     // the skeletal-rig trial (review screen, ?rig=0 / ?rig=1 side by side): he walks the room, stops, talks, stands
     rigtest: { flags: { ch: 1 }, room: 'police', pos: [300, 690, 'e'], run: async () => {
       const p = G.player;
-      if (new URLSearchParams(location.search).has('mute')) Sound.mute(); // the left of the pair stays quiet (nothing saved)
+      const q = new URLSearchParams(location.search);
+      if (q.has('mute')) Sound.mute(); // the left of the pair stays quiet (nothing saved)
+      if (q.get('walk') === '6') { // the walk without the passing frame (review: walk cycles)
+        S.CHARS.alan.frames.walk = ['alan_walkA', 'alan_walkDown', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_walkUp'];
+        S.CHARS.alan.frameStep = 0.68 / 6; // the same stride over six frames
+      }
       for (let i = 0; i < (window.FAST ? 1 : 20); i++) { // once in the tests, on a loop for the eye
         await p.walkTo(980, 690); await G.wait(1800); await say('alan_water'); await G.wait(3500);
         await p.walkTo(300, 690); await G.wait(2600);

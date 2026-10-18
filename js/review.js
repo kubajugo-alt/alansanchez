@@ -148,10 +148,13 @@
       $('#rv-go').onclick = () => playTransition($('#rv-a').value, $('#rv-b').value);
       $('#rv-stop').onclick = () => { loopTok++; reset(); now(''); };
     } else if (tab === 'walk') {
-      B.innerHTML = `<h3>Walk across a room</h3><select id="rv-room">${G.rooms().sort().map(r => `<option${G.room && G.room.id === r ? ' selected' : ''}>${r}</option>`).join('')}</select>
+      B.innerHTML = `<h3>Walk cycles (Alan)</h3><p class="muted">Now: 8 steps (A, down, passing, up, B, down, passing, up). The passing frame is a different painting that doesn't morph with its neighbours, so the walk pops on it. Without it: 6 steps (A, down, up, B, down, up), every step morphed both ways.</p>
+        <button class="b" id="rv-walkcmp">▶ compare: now (left) and without the passing frame (right)</button>
+        <h3>Walk across a room</h3><select id="rv-room">${G.rooms().sort().map(r => `<option${G.room && G.room.id === r ? ' selected' : ''}>${r}</option>`).join('')}</select>
         <button class="b" id="rv-walk">▶ walk across and back</button>
         <p class="muted">Watch the planted foot: it should stay put on the floor while the body passes over it. Slow it down with the speed slider, or pause and step.</p>
         <div id="rv-scale" class="muted"></div>`;
+      $('#rv-walkcmp').onclick = () => compare('Alan\'s walk: now (left) and without the passing frame (right)', 'walk=8', 'walk=6');
       $('#rv-walk').onclick = async () => {
         const r = $('#rv-room').value; await stage(r);
         const def = G.roomDef(r), e = (def.entries && (def.entries.default || Object.values(def.entries)[0])) || [560, 690];
@@ -245,25 +248,26 @@
       B.querySelectorAll('[name=pt]').forEach(r => { r.onchange = () => localStorage.setItem('pair-transition', r.value); });
     }
   }
-  // the skeletal-rig trial: the same scene twice, side by side (frames on the left, the rig on the right)
-  function rigCompare() {
+  // the same scene twice, side by side (the left one muted): the skeletal rig against the frames, or two walk cycles
+  function compare(title, left, right) {
     let O = $('#rv-rigcmp');
-    if (O) { O.remove(); return; }
+    if (O) O.remove();
     O = document.createElement('div'); O.id = 'rv-rigcmp';
     O.style.cssText = 'position:fixed;inset:0;z-index:200;background:#111;display:flex;flex-direction:column;gap:6px;padding:8px;font:13px system-ui;color:#ddd';
-    const url = r => location.pathname + '?scene=rigtest&rig=' + r + (r === '0' ? '&mute' : '');
-    O.innerHTML = `<div style="display:flex;gap:10px;align-items:center"><b style="color:#d8b46a">Alan: painted frames (left) and the skeletal rig (right)</b>
+    const url = q => location.pathname + '?scene=rigtest&' + q;
+    O.innerHTML = `<div style="display:flex;gap:10px;align-items:center"><b style="color:#d8b46a">${title}</b>
         <span class="muted">Same room, same light. He walks across, stops, says a line, stands, walks back, on a loop. The left one is muted.</span>
         <button class="b" id="rv-rigre">↻ restart both</button><button class="b" id="rv-rigx" style="margin-left:auto">✕ close</button></div>
       <div style="display:flex;gap:6px;flex:1;min-height:0">
-        <iframe src="${url('0')}" style="flex:1;border:0;background:#000"></iframe>
-        <iframe src="${url('1')}" style="flex:1;border:0;background:#000"></iframe></div>`;
+        <iframe src="${url(left + '&mute')}" style="flex:1;border:0;background:#000"></iframe>
+        <iframe src="${url(right)}" style="flex:1;border:0;background:#000"></iframe></div>`;
     document.body.appendChild(O);
     // both games start on their own (the title is skipped for the comparison)
     O.querySelectorAll('iframe').forEach(f => { f.onload = () => { const w = f.contentWindow, go = () => (w.document.querySelector('#title.ready') ? w.Game.begin(true) : setTimeout(go, 300)); go(); }; });
     $('#rv-rigx').onclick = () => O.remove();
     $('#rv-rigre').onclick = () => O.querySelectorAll('iframe').forEach(f => { f.src = f.src; });
   }
+  const rigCompare = () => compare('Alan: painted frames (left) and the skeletal rig (right)', 'rig=0', 'rig=1');
   // the first combined-sprite scene, staged on its own: into and out of the two cop pairs with either transition
   async function pairTest(which) {
     const tok = ++loopTok, modes = which === 'both' ? ['xfade', 'gemini'] : [which];
