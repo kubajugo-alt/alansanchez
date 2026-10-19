@@ -24,10 +24,13 @@ def key_out(rgb):
 def main(k, src, pads, out):
     orig = Image.open(f'art/sprites/{k}.webp').convert('RGBA'); W, H = orig.size
     p = json.load(open(pads))[k]; PW, PH = p['pad']; bx, by, bw, bh = p['box']
-    gen = key_out(np.asarray(Image.open(src).convert('RGB')))
+    s0 = Image.open(src)
+    # a cut-out already (Gemini's restyles come back with alpha, on their own canvas): no green to key out
+    cut = s0.mode == 'RGBA' and s0.getextrema()[3][0] < 255
+    gen = np.asarray(s0.convert('RGBA')) if cut else key_out(np.asarray(s0.convert('RGB')))
     oa = np.asarray(orig)[..., 3] > 128
     gi = Image.fromarray(gen, 'RGBA')
-    if abs(gi.width / gi.height - PW / PH) < 0.04 * PW / PH:
+    if not cut and abs(gi.width / gi.height - PW / PH) < 0.04 * PW / PH:
         # the export is the padded canvas, rescaled: back to it, then to the sprite's own pixels
         g = gi.resize((PW, PH), Image.LANCZOS).crop((bx, by, bx + bw, by + bh)).resize((W, H), Image.LANCZOS)
     else:
