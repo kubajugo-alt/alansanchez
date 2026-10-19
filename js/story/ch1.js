@@ -430,6 +430,9 @@
   const DOOR = ['npc_phone_door1', 'npc_phone_door2', 'npc_phone_door3', 'npc_phone_door4', 'npc_phone_door_talk', 'npc_phone_door_blush'];
   // (into the sprite table before the game starts, so they preload with everything else; src: the review candidate)
   if (COP_DOOR) for (const k of DOOR) window.SPRITES[k] = { w: 350, hh: 720, h: 720, ax: 136.7, fy: 718, top: 2, facesLeft: true, src: 'art/review/candidates/' + k + '.webp' };
+  // his reactions to Alan: shocked, embarrassed, blushing (the door set); the old set only had the blush
+  const REACT = { shock: 'npc_phone_door_shock', embarrassed: 'npc_phone_door_embarrassed', blush: 'npc_phone_door_blush' };
+  S.copReact = k => (!COP_DOOR ? 'npc_phone_blush' : window.SPRITES[REACT[k]] ? REACT[k] : REACT.blush);
   S.copStationFrames = () => COP_DOOR
     ? { frames: ['npc_phone_door1', ['npc_phone_door2', 'npc_phone_door1', 'npc_phone_door3', 'npc_phone_door1', 'npc_phone_door4']], talkFrames: ['npc_phone_door_talk', 'npc_phone_door1', 'npc_phone_door_talk', 'npc_phone_door4'],
         poses: { blush: 'npc_phone_door_blush', firm: 'npc_phone_proud' } }
@@ -764,7 +767,7 @@
     // caught: both step smartly apart
     if (cop) {
       if (paired) await S.pairOut(cop, { dir: 'w' });
-      cop.pose = 'npc_phone_blush';
+      cop.pose = S.copReact('shock');
       await Promise.all([p.walkTo(cop.x + 205, cop.y + 8), cop.walkTo(cop.x - 18, cop.y)]); // Alan one way, Teixeira (a half-step, the receiver to his ear) the other
       p.dir = 'w'; p.pose = 'fluster';
     }
@@ -785,7 +788,7 @@
     const cop = G.npc('npc_phone'), p = G.player, T = ms => G.wait(window.FAST ? 20 : ms);
     const copPose = k => { if (cop) cop.pose = k; };
     // before the Inspector leaves, and after the sketch: just a blush
-    if (!F().rui_out || F().teixeira_wall) { copPose('npc_phone_blush'); await say('phone_flirt_1'); copPose(null); return; }
+    if (!F().rui_out || F().teixeira_wall) { copPose(S.copReact('blush')); await say('phone_flirt_1'); copPose(null); return; }
     // the pair frames: Alan steps to the spot where the painting leaves Teixeira exactly where he stands
     const pairUp = async k => !!(cop && window.SPRITES[k]) && S.pairIn(cop, k);
     const unpair = () => (p.pairKey ? S.pairOut(cop, { dir: 'w' }) : null); // facing him again
@@ -793,10 +796,10 @@
     const step = () => F().teixeira_step || 0;
     await G.dialog([
       { line: 'alan_flirt_cop_1', when: () => step() === 0, run: async () => {
-        p.pose = 'wink'; await T(200); p.pose = null; copPose('npc_phone_blush'); await say('teixeira_mae1'); copPose(null); F().teixeira_step = 1;
+        p.pose = 'wink'; await T(200); p.pose = null; copPose(S.copReact('shock')); await say('teixeira_mae1'); copPose(null); F().teixeira_step = 1;
       } },
       { line: 'alan_flirt_cop_2', silent: true, when: () => step() === 1, run: async () => {
-        if (!await pairUp('pair_cop_chest')) { await close(); p.pose = 'flirt'; copPose('npc_phone_blush'); } // (the pair walks him to its own spot)
+        if (!await pairUp('pair_cop_chest')) { await close(); p.pose = 'flirt'; copPose(S.copReact('embarrassed')); } // (the pair walks him to its own spot)
         await say('alan_flirt_cop_2'); // the hand goes to his chest as Alan says it
         await T(500); await unpair(); copPose(null); F().teixeira_step = 2;
       } },
@@ -804,8 +807,8 @@
         if (!await pairUp('pair_cop_arm')) { await close(); p.pose = 'flirt'; copPose('npc_phone_proud'); }
         await say('alan_flirt_cop_3'); // ...and to his arm on the bicep line
         await say('phone_flirt_3'); await say('alan_flirt_cop_4');
-        await unpair(); copPose('npc_phone_blush');
-        p.dir = 'w'; p.pose = 'swoon'; // where he stands, still facing him (stepping back turned him away and back) await T(600); p.pose = null;
+        await unpair(); copPose(S.copReact('blush'));
+        p.dir = 'w'; p.pose = 'swoon'; await T(600); p.pose = null; // where he stands, still facing him (stepping back turned him away and back)
         await say('teixeira_fine'); copPose(null); // (blushing through it)
         F().teixeira_step = 3; F().teixeira_wall = true; S.copFace(); // he turns to the wall, scarlet
       } },
