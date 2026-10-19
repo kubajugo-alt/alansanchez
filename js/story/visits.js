@@ -187,6 +187,17 @@
     if (v && !window.FAST) { const [x, y] = [v.x, v.y]; v.x = 1370; v.y = 700; await v.walkTo(x, y); v.dir = 'w'; }
   }
 
+  // in bed afterwards, cuffed to the headboard, while Alan dresses (also the ?scene=copbed preview)
+  const copAfter = () => afterwards('cop_bed', [
+    [1, 'phone_key_1', 'alan_key_1'],           // the key turns up in his hat
+    [2, 'teixeira_shift'],                       // (phone_key_2/3, alan_key_2/3 no longer play)
+    [() => { sfx('v_alan_chuckle', 0.5); return T(700); }],
+    [3, 'alan_persuasive', 'teixeira_keep'],     // ...and the key stays in Alan's pocket
+    [() => say('ines_cuff', 'alan_cuff_5')],      // the station is asking after its officer
+    [4, 'alan_after_1'],                          // "Ten minutes. Don't go anywhere, Officer."
+  ], 'phone_after_2', async () => { if (S.inesKey) await S.inesKey(); await S.teixeiraKey(); });
+  S.copAfter = () => G.busy(copAfter);
+
   S.visitCop = async function () {
     F().visit_cop = true;
     const p = G.player;
@@ -260,14 +271,7 @@
       }
       }
       await G.fade(true); G.endStill();
-      await afterwards('cop_bed', [
-        [1, 'phone_key_1', 'alan_key_1'],           // the key turns up in his hat
-        [2, 'teixeira_shift'],                       // (phone_key_2/3, alan_key_2/3 no longer play)
-        [() => { sfx('v_alan_chuckle', 0.5); return T(700); }],
-        [3, 'alan_persuasive', 'teixeira_keep'],     // ...and the key stays in Alan's pocket
-        [() => say('ines_cuff', 'alan_cuff_5')],      // the station is asking after its officer
-        [4, 'alan_after_1'],                          // "Ten minutes. Don't go anywhere, Officer."
-      ], 'phone_after_2', async () => { if (S.inesKey) await S.inesKey(); await S.teixeiraKey(); });
+      await copAfter();
     });
     Sound.cue(null);
   };

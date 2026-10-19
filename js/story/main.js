@@ -32,7 +32,7 @@
   window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks', 'close_drawerlock'];
 
   // ---------------------------------------------------------------- new game
-  // preview links: ?scene=bath | cop | guitar | celeste | visitcop | visitguitar | romance | finale jumps straight to that scene (no autosave)
+  // preview links: ?scene=bath | cop | guitar | celeste | visitcop | copbed | visitguitar | romance | finale jumps straight to that scene (no autosave)
   const PREVIEW = {
     // the skeletal-rig trial (review screen, ?rig=0 / ?rig=1 side by side): he walks the room, stops, talks, stands
     rigtest: { flags: { ch: 1 }, room: 'police', pos: [300, 690, 'e'], run: async () => {
@@ -94,6 +94,7 @@
     tavernafter: { flags: { ch: 2, visit_guitar: true, flirted_guitar: true }, room: 'tavern', pos: [720, 660, 'w'], run: async () => {} },
     // the visits: Teixeira's, walking into the shop from the street once the drawer is open (Inês minding the shop);
     // Duarte's, while Inês steams the ledger at the end of Chapter III (S.ch3End)
+    copbed: { flags: { ch: 2, heard_machine: true, flirted_cop: true, drawer_open: true, visit_cop: true, teixeira_scene: true }, room: 'bedroom', pos: [640, 650, 'e'], run: () => S.copAfter() },
     visitcop: { flags: { ch: 2, heard_machine: true, flirted_cop: true, drawer_open: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
     visitguitar: { flags: { ch: 3, heard_machine: true, flirted_guitar: true, visit_cop: true, ch3_done: true, steaming: true, pages_steaming: true }, room: 'shop', pos: [716, 618, 'w'], run: () => S.visitGuitar() },
     // the Sé: the museum with Inês, and the cloister with the dig questions done (Vasco about to show Alan the pit)
