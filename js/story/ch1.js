@@ -427,7 +427,7 @@
   // ear (Canva) and, by Gemini from it, twirling the cord, a look at his watch, his weight on the other hip, talking.
   // The old set mixed front views with frames writing in a notepad held in the air.
   const COP_DOOR = /[?&]copdoor=new\b/.test(location.search);
-  const DOOR = ['npc_phone_door1', 'npc_phone_door2', 'npc_phone_door3', 'npc_phone_door4', 'npc_phone_door_talk', 'npc_phone_door_blush'];
+  const DOOR = ['npc_phone_door1', 'npc_phone_door2', 'npc_phone_door3', 'npc_phone_door4', 'npc_phone_door_talk', 'npc_phone_door_blush', 'npc_phone_door_shock', 'npc_phone_door_embarrassed'];
   // (into the sprite table before the game starts, so they preload with everything else; src: the review candidate)
   if (COP_DOOR) for (const k of DOOR) window.SPRITES[k] = { w: 350, hh: 720, h: 720, ax: 136.7, fy: 718, top: 2, facesLeft: true, src: 'art/review/candidates/' + k + '.webp' };
   // his reactions to Alan: shocked, embarrassed, blushing (the door set); the old set only had the blush
@@ -859,7 +859,7 @@
   // leaves the base, lies across the front of the desk and rises to the receiver in Teixeira's hand
   // (or in the pair frame when Alan is with him). CORD_AT: where the cord meets the receiver in
   // each frame, as fractions of the painting (unmirrored).
-  S.CORD_AT = { npc_phone_door1: [0.286, 0.176], npc_phone_door2: [0.306, 0.178], npc_phone_door3: [0.30, 0.157], npc_phone_door4: [0.306, 0.178], npc_phone_door_talk: [0.306, 0.178], npc_phone_door_blush: [0.39, 0.15],
+  S.CORD_AT = { npc_phone_door1: [0.286, 0.176], npc_phone_door2: [0.306, 0.178], npc_phone_door3: [0.30, 0.157], npc_phone_door4: [0.306, 0.178], npc_phone_door_talk: [0.306, 0.178], npc_phone_door_blush: [0.39, 0.15], npc_phone_door_shock: [0.30, 0.24], npc_phone_door_embarrassed: [0.56, 0.52],
     npc_phone: [0.3088, 0.1887], npc_phone_b: [0.5327, 0.2045], npc_phone_blush: [0.3351, 0.2503], npc_phone_proud: [0.6652, 0.5268],
     pair_cop_chest: [0.2225, 0.3719], pair_cop_arm: [0.2154, 0.1873],
     npc_phone_talk: [0.3088, 0.1887], npc_phone_b_talk: [0.5327, 0.2045], npc_phone_b2: [0.5327, 0.2045], npc_phone_b3: [0.5327, 0.2045] };
