@@ -4080,5 +4080,109 @@ window.SPRITES = {
   "hh": 752.0,
   "top": 22.0,
   "h": 719.2
+ },
+ "npc_phone_door1": {
+  "w": 350,
+  "hh": 720,
+  "h": 720,
+  "ax": 136.7,
+  "fy": 718,
+  "top": 2,
+  "facesLeft": true
+ },
+ "npc_phone_door2": {
+  "w": 350,
+  "hh": 720,
+  "h": 720,
+  "ax": 136.7,
+  "fy": 718,
+  "top": 2,
+  "facesLeft": true
+ },
+ "npc_phone_door3": {
+  "w": 350,
+  "hh": 720,
+  "h": 720,
+  "ax": 136.7,
+  "fy": 718,
+  "top": 2,
+  "facesLeft": true
+ },
+ "npc_phone_door4": {
+  "w": 350,
+  "hh": 720,
+  "h": 720,
+  "ax": 136.7,
+  "fy": 718,
+  "top": 2,
+  "facesLeft": true
+ },
+ "npc_phone_door_talk": {
+  "w": 350,
+  "hh": 720,
+  "h": 720,
+  "ax": 136.7,
+  "fy": 718,
+  "top": 2,
+  "facesLeft": true
+ },
+ "npc_phone_door_blush": {
+  "w": 350,
+  "hh": 720,
+  "h": 720,
+  "ax": 136.7,
+  "fy": 718,
+  "top": 2,
+  "facesLeft": true
+ },
+ "npc_phone_door_shock": {
+  "w": 350,
+  "hh": 720,
+  "h": 720,
+  "ax": 136.7,
+  "fy": 718,
+  "top": 2,
+  "facesLeft": true
+ },
+ "npc_phone_door_embarrassed": {
+  "w": 350,
+  "hh": 720,
+  "h": 720,
+  "ax": 136.7,
+  "fy": 718,
+  "top": 2,
+  "facesLeft": true
+ },
+ "cop_bed1": {
+  "w": 760,
+  "hh": 483,
+  "h": 483,
+  "ax": 250,
+  "fy": 400,
+  "top": 0
+ },
+ "cop_bed2": {
+  "w": 760,
+  "hh": 483,
+  "h": 483,
+  "ax": 250,
+  "fy": 400,
+  "top": 0
+ },
+ "cop_bed3": {
+  "w": 760,
+  "hh": 483,
+  "h": 483,
+  "ax": 250,
+  "fy": 400,
+  "top": 0
+ },
+ "cop_bed4": {
+  "w": 760,
+  "hh": 483,
+  "h": 483,
+  "ax": 250,
+  "fy": 400,
+  "top": 0
  }
 };
