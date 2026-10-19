@@ -423,13 +423,13 @@
   S.RUI_DESK = [540, 562];
   S.RUI_EXIT = [[285, 562], [228, 604], [150, 650]]; // (he crosses the desk's front line already clear of its end)
   S.COP_AT = [950, 672];
-  // Teixeira at the desk phone. The new set (waiting for approval, ?copdoor=new) all faces the door: the phone at his
-  // ear (Canva) and, by Gemini from it, twirling the cord, a look at his watch, his weight on the other hip, talking.
-  // The old set mixed front views with frames writing in a notepad held in the air.
-  const COP_DOOR = /[?&]copdoor=new\b/.test(location.search);
+  // Teixeira at the desk phone. The set (approved) all faces the door: the phone at his ear (Canva) and, by Gemini from
+  // it, twirling the cord, a look at his watch, his weight on the other hip, talking. ?copdoor=old brings back the old
+  // set, which mixed front views with frames writing in a notepad held in the air.
+  const COP_DOOR = !/[?&]copdoor=old\b/.test(location.search);
   const DOOR = ['npc_phone_door1', 'npc_phone_door2', 'npc_phone_door3', 'npc_phone_door4', 'npc_phone_door_talk', 'npc_phone_door_blush', 'npc_phone_door_shock', 'npc_phone_door_embarrassed'];
-  // (into the sprite table before the game starts, so they preload with everything else; src: the review candidate)
-  if (COP_DOOR) for (const k of DOOR) window.SPRITES[k] = { w: 350, hh: 720, h: 720, ax: 136.7, fy: 718, top: 2, facesLeft: true, src: 'art/review/candidates/' + k + '.webp' };
+  // (into the sprite table before the game starts, so they preload with everything else)
+  if (COP_DOOR) for (const k of DOOR) window.SPRITES[k] = { w: 350, hh: 720, h: 720, ax: 136.7, fy: 718, top: 2, facesLeft: true, src: 'art/sprites/' + k + '.webp' };
   // his reactions to Alan: shocked, embarrassed, blushing (the door set); the old set only had the blush
   const REACT = { shock: 'npc_phone_door_shock', embarrassed: 'npc_phone_door_embarrassed', blush: 'npc_phone_door_blush' };
   S.copReact = k => (!COP_DOOR ? 'npc_phone_blush' : window.SPRITES[REACT[k]] ? REACT[k] : REACT.blush);

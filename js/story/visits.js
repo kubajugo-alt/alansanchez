@@ -10,13 +10,13 @@
   S.CHARS.cop_visit = { scale: 1.0, speed: 0.8, frames: { idle: ['cop_visit'], talk: ['cop_visit_talk', 'cop_visit'], walk: strides('cop') } };
   // after the paintings: the officer cuffed on the bed, Duarte on the floor with his guitar (small looping idles)
   S.CHARS.cop_bed = { scale: 1.0, idleHold: [1.6, 2.6], variantHold: [0.9, 1.6], frames: { idle: ['cop_side1', 'cop_side2', 'cop_side3', 'cop_side4'], talk: ['cop_side2', 'cop_side1'] } };
-  // the new pose (waiting for approval, ?copbed=new): Teixeira up on the bed against the pillows, legs along the mattress,
+  // the bed pose (approved; ?copbed=old for the old one on the floor): Teixeira up on the bed against the pillows, legs along the mattress,
   // the jacket bunched between his legs, his wrist cuffed up by his head to the headboard (Canva; three small idle moves
   // by Gemini: a glance at the cuff, a tug on the chain, a hand on the jacket). The room painting is the usual one.
-  const COP_BED_NEW = /[?&]copbed=new\b/.test(location.search);
+  const COP_BED_NEW = !/[?&]copbed=old\b/.test(location.search);
   // (registered when the scene starts: the sprite table is rebuilt after the story files load)
   const copBedSprites = () => {};
-  if (COP_BED_NEW) for (let i = 1; i <= 4; i++) window.SPRITES['cop_bed' + i] = { w: 760, hh: 483, h: 483, ax: 250, fy: 400, top: 0, src: 'art/review/candidates/cop_bed' + i + '.webp' };
+  if (COP_BED_NEW) for (let i = 1; i <= 4; i++) window.SPRITES['cop_bed' + i] = { w: 760, hh: 483, h: 483, ax: 250, fy: 400, top: 0, src: 'art/sprites/cop_bed' + i + '.webp' };
   if (COP_BED_NEW) {
     S.CHARS.cop_bed = { scale: 1.0, idleHold: [1.4, 2.4], variantHold: [0.8, 1.4], anim: { sway: 0.3, nod: 0.6, rig: 'flat' },
       frames: { idle: ['cop_bed1', 'cop_bed2', 'cop_bed1', 'cop_bed3', 'cop_bed1', 'cop_bed4'], talk: ['cop_bed1', 'cop_bed2'] } };
@@ -51,7 +51,7 @@
       { id: 'npc_guitar', ch: 'guitar_floor', x: 975, y: 706, h: 360, dir: 'w', fixedDir: true, name: 'Duarte', when: () => visitor === 'guitar_floor' },
     ]),
     hotspots: [],
-    // the new pose's contact shadow on the bedding (only with ?copbed=new)
+    // the bed pose's contact shadow on the bedding (not with ?copbed=old)
     layers: [{ img: 'cop_bed_shadow', x: 834, y: 227, when: () => COP_BED_NEW && visitor === 'cop_bed' }],
   };
 

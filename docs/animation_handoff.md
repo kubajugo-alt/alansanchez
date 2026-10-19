@@ -12,6 +12,8 @@ Before the deploy, the clean export passed the smoke tests on every scene, and a
 - Even timing per frame (`S.walkTiming`): timing each frame by its own foot travel made contacts flash and passing frames hold, another source of the skip. Every step has a morph.
 - All or nothing: the new cycle replaces the original only when all seven walk candidates are approved.
 
+**Teixeira (in the game, approved 2026-10-19).** The station set facing the door (`npc_phone_door*`: four idles, talking, and the shocked / embarrassed / blushing reactions through `S.copReact`; earpiece removed by Gemini) and the bed pose chained to the headboard (`cop_bed1-4`, shadow layer `art/layers/cop_bed_shadow.webp`) are the defaults, in `art/sprites/`. `?copdoor=old` and `?copbed=old` bring back the old sets.
+
 **Vasco (in the game; the user approved moving forward and will flag anything odd in play).**
 - 44 new frames are game sprites (`scripts/promote.py`). They're painted by `scripts/gen_vasco.py` from `scripts/vasco_frames.json`.
 - Wired in `se.js`:
