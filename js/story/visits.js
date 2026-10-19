@@ -10,6 +10,15 @@
   S.CHARS.cop_visit = { scale: 1.0, speed: 0.8, frames: { idle: ['cop_visit'], talk: ['cop_visit_talk', 'cop_visit'], walk: strides('cop') } };
   // after the paintings: the officer cuffed on the bed, Duarte on the floor with his guitar (small looping idles)
   S.CHARS.cop_bed = { scale: 1.0, idleHold: [1.6, 2.6], variantHold: [0.9, 1.6], frames: { idle: ['cop_side1', 'cop_side2', 'cop_side3', 'cop_side4'], talk: ['cop_side2', 'cop_side1'] } };
+  // the new pose (waiting for approval, ?copbed=new): Teixeira up on the bed against the pillows, legs along the mattress,
+  // his wrist cuffed to the headboard (Canva, painted into the room). His legs, the chain and the bed are in the painting
+  // (bedroom_cop_bed); only his head, chest and raised arm are a figure, laid exactly over the painted ones, so he breathes
+  // and talks without the footboard ever crossing him wrongly. Kept still-ish: a sway would pull the fist off the cuff.
+  const COP_BED_NEW = /[?&]copbed=new\b/.test(location.search);
+  if (COP_BED_NEW) {
+    window.Game.addSprite('cop_bed_up', { w: 300, hh: 400, h: 400, ax: 210, fy: 387, top: 0, src: 'art/review/candidates/cop_bed_up.webp' });
+    S.CHARS.cop_bed = { scale: 1.0, anim: { sway: 0.25, nod: 0.5 }, frames: { idle: ['cop_bed_up'], talk: ['cop_bed_up'] } };
+  }
   S.CHARS.guitar_floor = { scale: 1.0, idleHold: [1.2, 2], variantHold: [0.8, 1.4], frames: { idle: ['guitar_floor1', 'guitar_floor3', 'guitar_floor2', 'guitar_floor4'], talk: ['guitar_floor2', 'guitar_floor4'] } };
   S.CHARS.guitar_visit = { scale: 1.0, speed: 0.75, frames: { idle: ['guitar_visit'], talk: ['guitar_visit_talk', 'guitar_visit'], walk: strides('guitar') } };
 
@@ -25,8 +34,8 @@
   ROOMS.bedroom = {
     name: "Alan's room", bg: 'bedroom',
     // afterwards: the bed wrecked and the visitor's clothes all over the floor
-    bgs: ['bedroom_after_cop', 'bedroom_after_guitar'],
-    bgFn: () => visitor === 'cop_bed' ? 'bedroom_after_cop' : visitor === 'guitar_floor' ? 'bedroom_after_guitar' : 'bedroom', noSave: true, music: { id: 'alan_theme', vol: 'quiet' }, ambience: 'shop', floor: 'wood',
+    bgs: ['bedroom_after_cop', 'bedroom_after_guitar', 'bedroom_cop_bed'],
+    bgFn: () => visitor === 'cop_bed' ? (COP_BED_NEW ? 'bedroom_cop_bed' : 'bedroom_after_cop') : visitor === 'guitar_floor' ? 'bedroom_after_guitar' : 'bedroom', noSave: true, music: { id: 'alan_theme', vol: 'quiet' }, ambience: 'shop', floor: 'wood',
     walk: [[330, 500], [860, 500], [1010, 716], [120, 716]], // between the bookshelf and the bed
     // Alan and his visitor are shown as painted here: no room light, rims or cast shadows over them
     get unlit() { return visitor ? /^(pair_|cop_|guitar_|alan)/ : /^pair_guitar_/; },
@@ -35,7 +44,8 @@
     lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
     entries: { default: [700, 640, 'w'] },
     npcs: visitorDefs(440, 640, 'e').concat([
-      { id: 'npc_phone', ch: 'cop_bed', x: 1080, y: 786, h: 540, dir: 'w', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' },
+      COP_BED_NEW ? { id: 'npc_phone', ch: 'cop_bed', x: 960.06, y: 360.66, h: 189.87, dir: 'e', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' }
+        : { id: 'npc_phone', ch: 'cop_bed', x: 1080, y: 786, h: 540, dir: 'w', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' },
       { id: 'npc_guitar', ch: 'guitar_floor', x: 975, y: 706, h: 360, dir: 'w', fixedDir: true, name: 'Duarte', when: () => visitor === 'guitar_floor' },
     ]),
     hotspots: [],
