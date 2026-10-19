@@ -15,7 +15,8 @@
   // by Gemini: a glance at the cuff, a tug on the chain, a hand on the jacket). The room painting is the usual one.
   const COP_BED_NEW = /[?&]copbed=new\b/.test(location.search);
   // (registered when the scene starts: the sprite table is rebuilt after the story files load)
-  const copBedSprites = () => { for (let i = 1; i <= 4; i++) if (!window.SPRITES['cop_bed' + i]) window.Game.addSprite('cop_bed' + i, { w: 760, hh: 483, h: 483, ax: 250, fy: 400, top: 0, src: 'art/review/candidates/cop_bed' + i + '.webp' }); };
+  const copBedSprites = () => {};
+  if (COP_BED_NEW) for (let i = 1; i <= 4; i++) window.SPRITES['cop_bed' + i] = { w: 760, hh: 483, h: 483, ax: 250, fy: 400, top: 0, src: 'art/review/candidates/cop_bed' + i + '.webp' };
   if (COP_BED_NEW) {
     S.CHARS.cop_bed = { scale: 1.0, idleHold: [1.4, 2.4], variantHold: [0.8, 1.4], anim: { sway: 0.3, nod: 0.6, rig: 'flat' },
       frames: { idle: ['cop_bed1', 'cop_bed2', 'cop_bed1', 'cop_bed3', 'cop_bed1', 'cop_bed4'], talk: ['cop_bed1', 'cop_bed2'] } };
