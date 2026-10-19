@@ -1,4 +1,4 @@
-// The Drowned Bell — parallax (a trial, off unless the address has ?parallax): a room painting with a depth map
+// The Drowned Bell — parallax (on in every room; ?noparallax turns it off): a room painting with a depth map
 // (art/bg/<room>_depth.png, white = near; scripts/depth_map.py) is drawn through a shader that slides each pixel
 // by its depth as a gentle virtual camera drifts with Alan, so the near pillars move more than the far garth.
 // Everything else drawn into the scene (figures, painted layers, the furniture cut out in front of them) is moved
@@ -10,7 +10,7 @@ window.Parallax = (function () {
   let cv = null, gl = null, prog = null, tBg = null, tD = null, bgIm = null, dIm = null, failed = false, U = {};
   let dData = null, dFor = null;
   const cam = { x: 0, y: 0 };
-  const on = /[?&]parallax\b/.test(location.search);
+  let on = !/[?&](noparallax|parallax=0)\b/.test(location.search);
 
   function init() {
     if (gl || failed) return !!gl;
@@ -57,10 +57,11 @@ window.Parallax = (function () {
     const ty = 1.1 * Math.sin(t * 0.17 + 1.3);
     const k = Math.min(1, dt * 1.4); cam.x += (tx - cam.x) * k; cam.y += (ty - cam.y) * k;
   }
-  // the painting, slid by depth (null when there's no depth map or no WebGL: the caller draws it flat)
-  function draw(bg, depth) {
+  // the painting, slid by depth (null when there's no depth map or no WebGL: the caller draws it flat). `live`: the
+  // source is a canvas redrawn every frame (the painting with what moves in it), so it's uploaded every frame
+  function draw(bg, depth, live) {
     if (!on || !bg || !depth || !init()) return null;
-    if (bg !== bgIm) { upload(tBg, 0, bg); bgIm = bg; }
+    if (bg !== bgIm || live) { upload(tBg, 0, bg); bgIm = bg; }
     if (depth !== dIm) { upload(tD, 1, depth); dIm = depth; depthData(depth); }
     gl.viewport(0, 0, W, H);
     gl.uniform2f(U.uC, cam.x / W, cam.y / H); gl.uniform1f(U.uZ, Z); gl.uniform1f(U.uD0, D0);
@@ -80,5 +81,5 @@ window.Parallax = (function () {
   }
   // screen -> scene (clicks), the zoom undone at the depth of the floor there
   const unzoom = (x, y) => [(x - W / 2) / Z + W / 2, (y - H / 2) / Z + H / 2];
-  return { on, update, draw, at, apply, unzoom, cam, depthAt, get active() { return on && !!gl && !!dIm; } };
+  return { get on() { return on; }, off() { on = false; }, update, draw, at, apply, unzoom, cam, depthAt, get active() { return on && !!gl && !!dIm; } };
 })();

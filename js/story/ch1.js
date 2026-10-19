@@ -389,7 +389,7 @@
 
   // ================================================================ MAP
   ROOMS.map = {
-    name: 'Lisbon', bg: 'map', player: false, vignette: 0.3, noSave: true,
+    name: 'Lisbon', bg: 'map', parallax: false, player: false, vignette: 0.3, noSave: true,
     music: 'map_lisbon',
     anim(g, t) {
       for (const m of S.PINS) {

@@ -58,23 +58,20 @@
   }
   // Painted layers cut from clean plates: static fills for things that were
   // taken, and moving parts (pendulums, bells) that swing about a pivot.
-  function drawLayers(staticOnly) {
+  function drawLayers(staticOnly, ctx) {
+    const g = ctx || E.g;
     for (const l of (E.room.layers || [])) {
       if (l.when && !l.when()) continue;
       const im = IMG['lay:' + l.img]; if (!im) continue;
       const w = l.w || im.width * (l.k || 1), h = l.h || im.height * (l.k || 1);
       const ang = l.swing ? l.swing(E.time) : 0;
-      const px = PX() && !staticOnly; // (inside an occluder the transform is already the occluder's)
-      if (px) { g.save(); Parallax.apply(g, l.x + w / 2, l.y + h); }
-      if (!ang) g.drawImage(im, l.x, l.y, w, h);
-      else if (!staticOnly) {
-        g.save(); g.translate(l.pivot[0], l.pivot[1]); g.rotate(ang * Math.PI / 180);
-        g.drawImage(im, l.x - l.pivot[0], l.y - l.pivot[1], w, h); g.restore();
-      }
-      if (px) g.restore();
+      if (!ang) { g.drawImage(im, l.x, l.y, w, h); continue; }
+      if (staticOnly) continue;
+      g.save(); g.translate(l.pivot[0], l.pivot[1]); g.rotate(ang * Math.PI / 180);
+      g.drawImage(im, l.x - l.pivot[0], l.y - l.pivot[1], w, h); g.restore();
     }
   }
-  let last = performance.now(), last0 = performance.now(), slowT = 0;
+  let last = performance.now(), last0 = performance.now(), slowT = 0, bgc = null, bgKey = '';
   let frameErr = 0;
   function frame(now) {
     requestAnimationFrame(frame); // queued first: a throwing hook skips one frame, never the loop
@@ -86,7 +83,7 @@
     // a device that can't keep up with the mesh warp falls back to flat frames
     if (window.WARP == null && !window.FAST) { // (WARP = true forces it on, false off)
       slowT = (now - last0 > 45) ? slowT + 1 : Math.max(0, slowT - 2); last0 = now;
-      if (slowT > 120) { window.WARP = false; slowT = 0; console.info('Warp off: frames too slow on this device'); }
+      if (slowT > 120) { window.WARP = false; slowT = 0; if (window.Parallax) Parallax.off(); console.info('Warp and parallax off: frames too slow on this device'); }
     }
     try { drawFrame(dt); } catch (e) { if (frameErr++ < 5) console.error('frame', e); }
   }
@@ -95,14 +92,27 @@
       E.player.update(dt); E.npcs.forEach(a => a.update(dt));
       E.idleSmokeTick(dt);
       E.updateLights(E.time);
+      // parallax: the painting with what moves in it (its animated back, its layers) drawn together, then slid by depth
       const dm = window.Parallax && Parallax.on && E.room.depth && IMG['depth:' + E.room.depth];
-      if (dm) Parallax.update(dt, E.time, E.player.visible ? E.player.x : null);
-      const pc = dm && Parallax.draw(IMG['bg:' + curBg()], dm);
-      if (pc) g.drawImage(pc, 0, 0, W, H); else drawBg(curBg());
+      let pc = null;
+      if (dm) {
+        Parallax.update(dt, E.time, E.player.visible ? E.player.x : null);
+        if (!bgc) { bgc = document.createElement('canvas'); bgc.width = W; bgc.height = H; }
+        // redrawn (and sent to the GPU) only when something in it moves or changes: a still room costs nothing
+        const ls = (E.room.layers || []).filter(l => !l.when || l.when());
+        const key = E.room.id + '|' + curBg() + '|' + ls.map(l => l.img).join(','), live = !!E.room.animBack || ls.some(l => l.swing) || key !== bgKey;
+        if (live) {
+          const x = bgc.getContext('2d'), im = IMG['bg:' + curBg()];
+          if (im) x.drawImage(im, 0, 0, W, H); else { x.fillStyle = '#000'; x.fillRect(0, 0, W, H); }
+          if (E.room.animBack) E.room.animBack(x, E.time);
+          drawLayers(false, x); bgKey = key;
+        }
+        pc = Parallax.draw(bgc, dm, live);
+      }
+      if (pc) g.drawImage(pc, 0, 0, W, H);
+      else { drawBg(curBg()); if (E.room.animBack) E.room.animBack(g, E.time); drawLayers(false); }
       // what's painted over the room at no particular depth (motes, mist, glows) takes the zoom only
       const flat = fn => { if (!PX()) return fn(); g.save(); Parallax.apply(g); try { fn(); } finally { g.restore(); } };
-      if (E.room.animBack) flat(() => E.room.animBack(g, E.time));
-      drawLayers(false);
       if (E.room.anim) flat(() => E.room.anim(g, E.time));
       flat(() => E.drawGlows());
       // depth-sorted actors + occluders cut from the painting (each moves as the floor under its feet)
