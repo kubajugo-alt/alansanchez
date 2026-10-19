@@ -201,12 +201,12 @@ def gen_one(fr, name, edit):
 
 
 def gen(names):
-    from concurrent.futures import ThreadPoolExecutor
+    from concurrent.futures import ThreadPoolExecutor, as_completed
     index = json.load(open(WORK + 'index.json'))
     todo = [(fr, n, e) for fr in (names or index) if fr in index and fr not in SIDE for n, e in jobs(fr)]
     print(len(todo), 'edits', flush=True)
     with ThreadPoolExecutor(8) as ex:
-        for msg in ex.map(lambda j: gen_one(*j), todo): print(msg, flush=True)
+        for f in as_completed([ex.submit(gen_one, *j) for j in todo]): print(f.result(), flush=True)  # (as each finishes: one slow call doesn't hold the log)
 
 
 # ---------------------------------------------------------------- build: patches for the game
