@@ -13,8 +13,8 @@
       kneeltalk: 'vasco_kneel_talk', sit: 'vasco_sit' }, front: 'vasco_front', back: 'vasco_back' } };
   S.CHARS.vasco.seatedFrames = /^vasco_(kneel|kneel_talk|kneel_down|kneel_look|kneel_lookup|sit|act_trowel_[ab]|act_brush_[ab])$/; // these sway from the knees / the seat
   if (window.SPRITES.vasco_pass1) S.CHARS.vasco.frameStep = 0.085; else S.CHARS.vasco.frames.walk = ['vasco_walk1', 'vasco_walk2'];
-  // the walk on both legs: the near leg forward (walk1), then the far leg (walk_far), short steps and passing frames between
-  const VW = ['vasco_walk1', 'vasco_pass1', 'vasco_walk_passN', 'vasco_walk_upN', 'vasco_walk_far', 'vasco_walk_preF', 'vasco_walk_passF', 'vasco_pass2'];
+  // the walk on both legs, in the order the user set on the Walk Cycle Bench (19 Oct): passN plays twice
+  const VW = ['vasco_walk_upN', 'vasco_walk_passN', 'vasco_walk_far', 'vasco_walk_passF', 'vasco_walk2', 'vasco_pass1', 'vasco_walk_passN'];
   if (VW.every(k => window.SPRITES[k])) S.CHARS.vasco.frames.walk = VW;
   // his full range: every frame below is optional, only painted ones are used (as in ines.js)
   {
