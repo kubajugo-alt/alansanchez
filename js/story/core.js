@@ -88,7 +88,8 @@
     const seq = (ib && ib.out) || [];
     if (seq.length) await pairSteps(seq);
     if (npc) { const at = S.pairPartnerAt(k); npc.x = at.x; npc.y = at.y; npc.alpha = 0; npc.visible = true; }
-    p.crossFade(seq.length ? 0.12 : 0.25); p.pose = opts.pose || null; if (opts.dir) p.dir = opts.dir;
+    p.crossFade(seq.length ? 0.12 : 0.25); p.pose = opts.pose || null;
+    if (opts.dir) p.dir = opts.dir; else if (npc && Math.abs(npc.x - p.x) > 20) p.dir = npc.x > p.x ? 'e' : 'w'; // facing the partner, where the painting left them
     if (npc) await npc.fade(1, seq.length ? 0.12 : 0.25);
   };
 

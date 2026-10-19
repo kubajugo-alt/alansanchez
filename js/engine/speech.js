@@ -88,7 +88,12 @@
     E.speaking = { id, actor };
     if (actor) {
       actor.talking = true; actor.talkPose = true; actor.talkT = 0.6; actor.talkWho = who;
+      const pd = E.player.dir;
       if (!cutsceneHold()) faceEachOther(actor);
+      // Alan turning to the speaker (now, or just before): the line waits for the turn, so nobody is spoken to over his shoulder
+      // (or set but not drawn yet: the frame on screen still looks the other way)
+      const p = E.player, unshown = (p.dir === 'e' || p.dir === 'w') && !p.pairKey && p.lastLooksLeft != null && p.lastLooksLeft !== (p.dir === 'w');
+      if (!window.FAST && p.visible && (p.dir !== pd || p.viaT != null || unshown)) await wait(220);
       speechEl.textContent = text; speechEl.style.color = COLORS[who] || '#fff';
       speechEl.style.display = 'block'; positionSpeech();
     } else {

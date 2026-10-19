@@ -63,6 +63,8 @@
       let q = [this.target.x, this.target.y];
       for (const p of (this.path || [])) { legs.push([q[0], q[1], p[0], p[1]]); q = p; }
       const SHORT = hh * 0.33, ew = this.dir === 'e' || this.dir === 'w' ? this.dir : null;
+      // a step or two into place with a facing to end on (approach): take it already facing that way, no turn and back
+      if (this.endFace && legs.reduce((s, [x0, y0, x1, y1]) => s + Math.hypot(x1 - x0, (y1 - y0) * GROUND_K), 0) < hh * 0.5) return this.endFace;
       for (const [x0, y0, x1, y1] of legs) {
         const dx = x1 - x0, dy = (y1 - y0) * GROUND_K, len = Math.hypot(dx, dy);
         if (len < SHORT) continue;
@@ -74,7 +76,8 @@
       const tx = (this.path && this.path.length ? this.path[this.path.length - 1][0] : this.target.x) - this.x;
       return ew && Math.abs(tx) < hh * 0.2 ? ew : tx > 0 ? 'e' : 'w';
     }
-    walkTo(x, y) {
+    walkTo(x, y, endFace) {
+      this.endFace = endFace || null;
       return new Promise(res => {
         if (this.resolve) this.resolve();
         if (Math.hypot(x - this.x, y - this.y) < 2) { res(); return; }

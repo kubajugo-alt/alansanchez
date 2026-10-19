@@ -6,8 +6,10 @@
 
   // ---------------------------------------------------------------- input
   let mouse = { x: -1, y: -1 }, hoverTarget = null;
-  invBar.addEventListener('mouseenter', () => { E.invHover = true; invBar.classList.add('show'); });
-  invBar.addEventListener('mouseleave', () => { E.invHover = false; if (!E.selItem) invBar.classList.remove('show'); });
+  // only the box of items takes the mouse: the faded band around it lets clicks through to the scene (an exit along the
+  // bottom edge, like the antiques shop's door, stays clickable with the bar open)
+  E.invEl.addEventListener('mouseenter', () => { E.invHover = true; invBar.classList.add('show'); });
+  E.invEl.addEventListener('mouseleave', () => { E.invHover = false; if (!E.selItem) invBar.classList.remove('show'); });
   $('#bag').addEventListener('click', e => { e.stopPropagation(); invBar.classList.toggle('show'); });
   $('#nb-btn').addEventListener('click', e => { e.stopPropagation(); E.readItem('notebook'); });
 
@@ -129,7 +131,8 @@
     // talking to someone: stand beside them, never in front covering them. If the spot would put
     // Alan over the figure (closer than the two half-widths, at or in front of their depth), step
     // out to whichever side of them is free on the floor, nearer side first.
-    if (actor && actor.visible) {
+    // (a spot the room names, def.at, is where the scene wants him: kept as it is)
+    if (actor && actor.visible && !def.at) {
       const gap = (actor.height() + E.player.height()) * 0.21;
       if (y >= actor.y - 12 && Math.abs(x - actor.x) < gap) {
         const holds = !E.turnsFreely(actor) && (actor.dir === 'e' || actor.dir === 'w');
@@ -138,10 +141,12 @@
         [x, y] = best;
       }
     }
-    await E.player.walkTo(x, y);
+    // the way he'll end up facing, so a short step into place is taken already facing it
+    const end = def.face || (actor && Math.abs(actor.x - x) > 12 ? (actor.x > x ? 'e' : 'w') : null);
+    await E.player.walkTo(x, y, end);
     if (def.face) E.player.dir = def.face;
     else if (actor) {
-      E.player.dir = actor.x > E.player.x ? 'e' : 'w';
+      if (Math.abs(actor.x - E.player.x) > 12 || E.player.dir === 'n' || E.player.dir === 's') E.player.dir = actor.x > E.player.x ? 'e' : 'w'; // (right on top of them: keep the way he came)
       if (E.canTurn(actor) || (E.turnsFreely(actor) && !actor.def.fixedDir)) actor.dir = E.player.x > actor.x ? 'e' : 'w';
     }
   }
@@ -165,7 +170,8 @@
     try {
       if (t.actor && t.actor !== E.player) { // Alan's lines go to whoever he is dealing with, and he turns to them
         E.lastPartner = t.actor;
-        if (verb !== 'look' && verb !== 'exit' && E.canTurn(E.player) && Math.abs(t.actor.x - E.player.x) > 30) E.player.dir = t.actor.x > E.player.x ? 'e' : 'w';
+        // (only when he won't walk to them: a walk sets his facing at the end, and turning first to then walk away is a flick)
+        if (verb !== 'look' && verb !== 'exit' && !(E.player.visible && E.room.walk && (t.def.at || t.actor)) && E.canTurn(E.player) && Math.abs(t.actor.x - E.player.x) > 30) E.player.dir = t.actor.x > E.player.x ? 'e' : 'w';
       }
       if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk) && !(item && def.items && def.items[item])) {
         if (item) { E.selItem = null; E.renderInv(); }

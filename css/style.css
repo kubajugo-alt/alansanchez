@@ -53,7 +53,9 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #invbar {
   position: absolute; left: 0; right: 0; bottom: 0; height: 15%; transform: translateY(100%); transition: transform .25s ease;
   background: linear-gradient(rgba(20,13,8,0), rgba(20,13,8,.92) 30%); display: flex; align-items: flex-end; justify-content: center; padding-bottom: .6%;
+  pointer-events: none; /* (the band is see-through to clicks: only the items box below takes them) */
 }
+#invbar #inventory { pointer-events: auto; }
 #invbar.show, #game.holding #invbar { transform: none; }
 #invbar.flash #inventory { box-shadow: 0 0 22px rgba(224,184,102,.8); }
 #inventory {

@@ -110,7 +110,7 @@
       v.y = o.y;
       p.pose = null;
       p.pairWho = null;
-      p.dir = keep.pd;
+      p.dir = Math.abs(v.x - p.x) > 20 ? (v.x > p.x ? 'e' : 'w') : keep.pd; // facing him
       v.visible = true;
       v.pose = keep.vp;
     };
@@ -119,7 +119,7 @@
   S.withPair = async function (k, fn, opts) {
     const key = 'pair_vasco_' + k, v = G.npc('vasco'), keep = { pd: G.player.dir, vp: v && v.pose };
     if (!window.SPRITES[key] || !v || !v.visible || !await S.pairIn(v, key, opts)) return fn();
-    try { await fn(); } finally { await S.pairOut(v, { dir: keep.pd }); v.pose = keep.vp; }
+    try { await fn(); } finally { await S.pairOut(v); v.pose = keep.vp; } // (out facing him, where the painting left him)
   };
   // the two of them sitting on the ladder / kneeling in the pit sway from the seat, not the feet
   if (!S.CHARS.alan.seatedFrames) S.CHARS.alan.seatedFrames = /^pair_vasco_(ladder|kneel|after)$/; // (after: on the store floor)
