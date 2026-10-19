@@ -15,7 +15,17 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CHAR = os.environ.get('FACE_CHAR', 'alan')
 WORK = os.path.join(ROOT, f'art/review/{CHAR}/faces/')
 DESC = {'alan': 'the head of Alan, a man with dark curly hair, clean-shaven',
-        'vasco': 'the head of Vasco, a man in his thirties with dark tousled hair and light stubble'}[CHAR]
+        'vasco': 'the head of Vasco, a man in his thirties with dark tousled hair and light stubble',
+        'ines': 'the head of Inês, a young woman with long dark curly hair, red-framed glasses pushed up on her head and gold hoop earrings'}[CHAR]
+SHE = CHAR in ('ines',)   # the prompts are written for a man: these get her / she
+
+
+def pron(t):
+    if not SHE: return t
+    import re
+    for a, b in ((r'\bhis\b', 'her'), (r'\bhim\b', 'her'), (r'\bhe\b', 'she'), (r'\bHis\b', 'Her'), (r'\bHe\b', 'She'), (r'\ba man\b', 'a woman')):
+        t = re.sub(a, b, t)
+    return t
 MODELS = os.path.join(ROOT, 'scripts/models/')
 ZOO = 'https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/'
 NETS = {'yunet.onnx': 'face_detection_yunet/face_detection_yunet_2023mar.onnx',
@@ -103,11 +113,16 @@ SIDE = ['alan_side', 'alan_idle2', 'alan_talk', 'alan_talk2', 'alan_drink', 'ala
         'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_throw1', 'alan_untie',
         'alan_walkA', 'alan_walkB', 'alan_walkDown']  # alan_walkUp didn't line up; ring and wring grimace (their own set keeps it)
 # no mouth: a cigarette, a hand or another face at his lips, or asleep; no blink: his eyes are shut or squeezed already
-NO_MOUTH = {'vasco_laugh', 'vasco_kneel_down', 'vasco_coffee_sip', 'vasco_act_notes_b', 'vasco_callup', 'vasco_crouch', 'vasco_kneel_look',
+NO_MOUTH = {'ines_act_dust_a', 'ines_act_dust_b', 'ines_act_kettle_a', 'ines_act_kettle_b', 'ines_act_kettle_put', 'ines_act_ledger_a',
+            'ines_act_ledger_b', 'ines_act_read_a', 'ines_act_read_b', 'ines_act_shelve_a', 'ines_act_shelve_b', 'ines_scandalised',
+            'ines_laugh', 'ines_tied_shout', 'ines_tied_struggle',
+            'vasco_laugh', 'vasco_kneel_down', 'vasco_coffee_sip', 'vasco_act_notes_b', 'vasco_callup', 'vasco_crouch', 'vasco_kneel_look',
             'vasco_act_bag_a', 'vasco_act_bag_b', 'vasco_act_brush_a', 'vasco_act_notes_a', 'vasco_act_sherd_a', 'vasco_act_sherd_b',
             'vasco_act_sieve_a', 'vasco_act_sieve_b', 'vasco_act_trowel_a', 'vasco_act_trowel_b', 'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_yawn', 'alan_asleep',
             'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss'}
-NO_EYES = {'vasco_kneel_down', 'vasco_crouch', 'vasco_kneel_look', 'vasco_act_brush_a', 'alan_asleep', 'alan_wash1', 'alan_wash2', 'alan_wash4', 'alan_wash5', 'alan_wash6', 'alan_wash_surface', 'alan_swoon',
+NO_EYES = {'ines_act_read_a', 'ines_act_read_b', 'ines_act_kettle_a', 'ines_act_kettle_b', 'ines_act_ledger_a', 'ines_act_shelve_b',
+           'ines_write', 'ines_eyeroll', 'ines_laugh', 'ines_steam',
+           'vasco_kneel_down', 'vasco_crouch', 'vasco_kneel_look', 'vasco_act_brush_a', 'alan_asleep', 'alan_wash1', 'alan_wash2', 'alan_wash4', 'alan_wash5', 'alan_wash6', 'alan_wash_surface', 'alan_swoon',
            'alan_yawn', 'alan_wink', 'alan_jacket_wink', 'alan_enchanted2', 'alan_swim_wave', 'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss'}
 BG = (60, 64, 80)
 
@@ -116,6 +131,8 @@ BG = (60, 64, 80)
 # while the lips move), so for these the smile is let go across the lower face and the patch covers the cheeks
 SMILING = {'pair_cop_belt', 'pair_cop_belt2', 'pair_cop_buttons', 'pair_cop_cuffs', 'pair_cop_jacket', 'pair_cop_shelf2',
            'pair_guitar_lesson', 'pair_vasco_card', 'pair_vasco_thumb',
+           'ines', 'ines_amused', 'ines_fond', 'ines_teasing', 'ines_idle4', 'ines_free', 'ines_front', 'ines_front_pass1', 'ines_front_pass2',
+           'ines_front_walk1', 'ines_front_walk2', 'ines_catch', 'ines_plaque', 'ines_lantern', 'ines_deadpan', 'ines_impressed',
            'vasco_amused', 'vasco_hopeful', 'vasco_hand_out', 'vasco_clapper_give', 'pair_vasco_after',
            'vasco_climb', 'vasco_coffee', 'vasco_delight', 'vasco_find', 'vasco_fluster', 'vasco_front', 'vasco_give', 'vasco_kneel_talk', 'vasco_trowel'}
 
@@ -154,7 +171,8 @@ def gen_one(fr, name, edit):
     head = Image.open(WORK + fr + '/head.png').convert('RGBA')
     bg = Image.new('RGBA', head.size, BG + (255,)); bg.alpha_composite(head); bg = bg.convert('RGB')
     pair = fr.startswith('pair_')
-    text = ('This is a close-up from a painted 1990s point-and-click adventure game: ' + DESC + (', with part of another person beside him' if pair else '') + '. ' + edit +
+    edit = pron(edit)
+    text = ('This is a close-up from a painted 1990s point-and-click adventure game: ' + DESC + ((pron(', with part of another person beside him') if pair else '')) + '. ' + edit +
             ' Everything else stays pixel-identical: the same head position, angle and size, eyes, eyebrows, nose, ears, hair, stubble, '
             'skin colour, lighting, line work and framing' + (', and the other person exactly as they are' if pair else '') +
             ', on the same flat background. Same painted style.')
