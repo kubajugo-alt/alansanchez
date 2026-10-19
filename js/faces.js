@@ -3671,5 +3671,963 @@ window.FACES = {
    "closed"
   ],
   "ok": true
+ },
+ "ines": {
+  "box": [
+   77,
+   52,
+   56,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_act_dust_a": {
+  "box": [
+   149,
+   53,
+   26,
+   15
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_act_dust_b": {
+  "box": [
+   146,
+   51,
+   29,
+   15
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_act_kettle_put": {
+  "box": [
+   132,
+   52,
+   30,
+   15
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_act_ledger_b": {
+  "box": [
+   84,
+   54,
+   53,
+   21
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_act_shelve_a": {
+  "box": [
+   104,
+   115,
+   39,
+   22
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_amused": {
+  "box": [
+   84,
+   54,
+   69,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_annoyed": {
+  "box": [
+   113,
+   53,
+   55,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_catch": {
+  "box": [
+   111,
+   53,
+   58,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_deadpan": {
+  "box": [
+   82,
+   51,
+   53,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_eyeroll": {
+  "box": [
+   104,
+   76,
+   54,
+   40
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "ines_fond": {
+  "box": [
+   81,
+   52,
+   57,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_free": {
+  "box": [
+   131,
+   55,
+   57,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_front": {
+  "box": [
+   75,
+   53,
+   57,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_front_pass1": {
+  "box": [
+   82,
+   55,
+   68,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_front_pass2": {
+  "box": [
+   82,
+   54,
+   74,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_front_walk1": {
+  "box": [
+   85,
+   51,
+   64,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_front_walk2": {
+  "box": [
+   95,
+   53,
+   55,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_idle2": {
+  "box": [
+   102,
+   59,
+   50,
+   56
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_idle3": {
+  "box": [
+   78,
+   52,
+   55,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_idle4": {
+  "box": [
+   118,
+   60,
+   62,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_impressed": {
+  "box": [
+   102,
+   55,
+   60,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_lantern": {
+  "box": [
+   98,
+   107,
+   54,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_lantern_talk": {
+  "box": [
+   163,
+   111,
+   43,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_lpass1": {
+  "box": [
+   167,
+   55,
+   36,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_lpass2": {
+  "box": [
+   174,
+   55,
+   33,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_lwalk1": {
+  "box": [
+   203,
+   56,
+   35,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_lwalk2": {
+  "box": [
+   175,
+   54,
+   40,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_pass1": {
+  "box": [
+   135,
+   53,
+   33,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_pass2": {
+  "box": [
+   135,
+   53,
+   33,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_plaque": {
+  "box": [
+   133,
+   51,
+   49,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_point": {
+  "box": [
+   126,
+   57,
+   49,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_scandalised": {
+  "box": [
+   93,
+   52,
+   53,
+   21
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_shelve": {
+  "box": [
+   85,
+   136,
+   39,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_steam": {
+  "box": [
+   139,
+   81,
+   38,
+   35
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
+ },
+ "ines_surprised": {
+  "box": [
+   109,
+   51,
+   57,
+   75
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_sympathetic": {
+  "box": [
+   104,
+   56,
+   55,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_talk": {
+  "box": [
+   173,
+   51,
+   51,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_talk2": {
+  "box": [
+   109,
+   52,
+   53,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_talk3": {
+  "box": [
+   157,
+   47,
+   46,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_talk4": {
+  "box": [
+   79,
+   50,
+   55,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_teasing": {
+  "box": [
+   105,
+   55,
+   61,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_think": {
+  "box": [
+   82,
+   50,
+   50,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_tied": {
+  "box": [
+   67,
+   52,
+   54,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_tied_shout": {
+  "box": [
+   55,
+   56,
+   54,
+   20
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_tied_struggle": {
+  "box": [
+   109,
+   56,
+   56,
+   21
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_walk1": {
+  "box": [
+   198,
+   53,
+   37,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_walk2": {
+  "box": [
+   207,
+   53,
+   36,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_worried": {
+  "box": [
+   81,
+   54,
+   55,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_wrists": {
+  "box": [
+   78,
+   52,
+   54,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false
+ },
+ "ines_write": {
+  "box": [
+   88,
+   86,
+   48,
+   38
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "ok": false
  }
 };
