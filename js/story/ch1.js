@@ -785,17 +785,16 @@
         p.pose = 'wink'; await T(200); p.pose = null; copPose('npc_phone_blush'); await say('teixeira_mae1'); copPose(null); F().teixeira_step = 1;
       } },
       { line: 'alan_flirt_cop_2', silent: true, when: () => step() === 1, run: async () => {
-        await close(); if (!await pairUp('pair_cop_chest')) { p.pose = 'flirt'; copPose('npc_phone_blush'); }
+        if (!await pairUp('pair_cop_chest')) { await close(); p.pose = 'flirt'; copPose('npc_phone_blush'); } // (the pair walks him to its own spot)
         await say('alan_flirt_cop_2'); // the hand goes to his chest as Alan says it
         await T(500); await unpair(); copPose(null); F().teixeira_step = 2;
       } },
       { line: 'alan_flirt_cop_3', silent: true, when: () => step() === 2, bye: true, run: async () => {
-        await close(); if (!await pairUp('pair_cop_arm')) { p.pose = 'flirt'; copPose('npc_phone_proud'); }
+        if (!await pairUp('pair_cop_arm')) { await close(); p.pose = 'flirt'; copPose('npc_phone_proud'); }
         await say('alan_flirt_cop_3'); // ...and to his arm on the bicep line
         await say('phone_flirt_3'); await say('alan_flirt_cop_4');
         await unpair(); copPose('npc_phone_blush');
-        if (cop) { await p.walkTo(cop.x + 190, cop.y); p.dir = 'w'; }
-        p.pose = 'swoon'; await T(600); p.pose = null;
+        p.dir = 'w'; p.pose = 'swoon'; // where he stands, still facing him (stepping back turned him away and back) await T(600); p.pose = null;
         await say('teixeira_fine'); copPose(null); // (blushing through it)
         F().teixeira_step = 3; F().teixeira_wall = true; S.copFace(); // he turns to the wall, scarlet
       } },

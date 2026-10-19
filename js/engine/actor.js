@@ -55,6 +55,25 @@
       const f = this.c.frames, s = this.set && f.sets && f.sets[this.set];
       return s ? Object.assign({}, f, s) : f;
     }
+    // Which way he faces along the leg he's starting (this.target, then this.path): a short leg (a small correction
+    // round a corner or into place) doesn't turn him, it takes the facing of the next real leg, else keeps his own;
+    // the front and back walks are for a long walk mostly up or down the room, never for a shuffle
+    facingFor(hh, F) {
+      const legs = [[this.x, this.y, this.target.x, this.target.y]];
+      let q = [this.target.x, this.target.y];
+      for (const p of (this.path || [])) { legs.push([q[0], q[1], p[0], p[1]]); q = p; }
+      const SHORT = hh * 0.33, ew = this.dir === 'e' || this.dir === 'w' ? this.dir : null;
+      for (const [x0, y0, x1, y1] of legs) {
+        const dx = x1 - x0, dy = (y1 - y0) * GROUND_K, len = Math.hypot(dx, dy);
+        if (len < SHORT) continue;
+        if (F.frontWalk && F.backWalk && Math.abs(dx) <= Math.abs(dy) * 0.75 && len > hh * 0.8) return dy > 0 ? 's' : 'n';
+        if (Math.abs(dx) < hh * 0.06) return ew || (dx > 0 ? 'e' : 'w'); // straight up or down a little: no turn
+        return dx > 0 ? 'e' : 'w';
+      }
+      // nothing but short legs: keep his side facing, unless he's going somewhere clearly to the other side
+      const tx = (this.path && this.path.length ? this.path[this.path.length - 1][0] : this.target.x) - this.x;
+      return ew && Math.abs(tx) < hh * 0.2 ? ew : tx > 0 ? 'e' : 'w';
+    }
     walkTo(x, y) {
       return new Promise(res => {
         if (this.resolve) this.resolve();
@@ -124,8 +143,8 @@
           const dx = this.target.x - this.x, dy = this.target.y - this.y;
           const gd = Math.hypot(dx, dy * GROUND_K); // distance on the ground plane
           if (gd > 0.5) {
-            if (!(F.frontWalk && F.backWalk) || Math.abs(dx) > Math.abs(dy * GROUND_K) * 0.75) this.dir = dx > 0 ? 'e' : 'w';
-            else this.dir = dy > 0 ? 's' : 'n';
+            if (this.legFor !== this.target) { this.legFor = this.target; this.legDir = this.facingFor(hh, F); } // once per leg
+            if (this.legDir) this.dir = this.legDir;
           }
           if (gd <= budget) {
             this.x = this.target.x; this.y = this.target.y; budget -= gd; moved += gd;
@@ -375,9 +394,15 @@
       // the other instead of narrowing into a flat card.
       const F = this.F, fk = F.front && arr(F.front)[0], frontOK = fk && E.SPRITES[fk] && IMG['spr:' + fk];
       // a real turn is a change of facing, not two paintings that happen to face different ways
-      const ew = this.dir === 'e' || this.dir === 'w', faceTurn = ew && this.lastEW && this.dir !== this.lastEW && !ambientHold;
-      if (faceTurn && !this.walking && !window.FAST) this.leanV += (this.dir === 'e' ? 1 : -1) * LEAN_TURN; // weight onto the new side
-      if (ew) this.lastEW = this.dir;
+      // ...and judged by which way he faces on screen: in a painting of two, his own figure's facing (he stands right of
+      // his partner looking left, but left of Vasco and of Duarte in two of theirs, looking right), so stepping in and out
+      // of a pair that keeps him facing his partner is no turn at all
+      const ew = this.dir === 'e' || this.dir === 'w';
+      const paintedLeft = /^pair_/.test(key) ? !/^pair_(ib_)?(vasco_|guitar_p1|guitar_underwear)/.test(key) : !!sp.facesLeft;
+      const looksLeft = flipped ? !paintedLeft : paintedLeft;
+      const faceTurn = ew && this.lastLooksLeft != null && looksLeft !== this.lastLooksLeft && !ambientHold;
+      if (faceTurn && !this.walking && !window.FAST) this.leanV += (looksLeft ? -1 : 1) * LEAN_TURN; // weight onto the new side
+      if (ew) { this.lastLooksLeft = looksLeft; this.lastEW = this.dir; } // (lastEW: his last side facing, for smoke.js)
       if (this.viaT == null && faceTurn && this.cur && !window.FAST && frontOK && key !== fk && this.cur !== fk && !this.pose) this.viaT = E.time;
       if (this.viaT != null) {
         if (E.time - this.viaT < TURN_VIA && frontOK) { key = fk; sp = E.SPRITES[fk]; flipped = !!sp.facesLeft; }
