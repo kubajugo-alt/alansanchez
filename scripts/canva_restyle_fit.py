@@ -36,6 +36,20 @@ def main(k, src, pads, out):
         oy, ox = np.nonzero(oa); s = (oy.max() + 1 - oy.min()) / fig.height
         fig = fig.resize((max(1, round(fig.width * s)), oy.max() + 1 - oy.min()), Image.LANCZOS)
         g = Image.new('RGBA', (W, H)); g.paste(fig, (round((ox.min() + ox.max()) / 2 - fig.width / 2), int(oy.min())), fig)
+    if os.environ.get('FIT_MODE') == 'stand':
+        # standing frames: Canva draws him taller and leaner, so a silhouette match stretches him; instead head-to-toe
+        # height to the original's, feet on its floor line, the head over its head
+        def ext(a):
+            ys, xs = np.nonzero(a); top, bot = ys.min(), ys.max() + 1
+            hy = a[top:top + max(4, (bot - top) // 12)]; hx = np.nonzero(hy)[1].mean()
+            return top, bot, hx
+        ga0 = np.asarray(g)[..., 3] > 128
+        gt, gb, gx = ext(ga0); ot, ob, ox_ = ext(oa); s = (ob - ot) / (gb - gt)
+        M = np.float32([[s, 0, ox_ - gx * s], [0, s, ob - gb * s]])
+        fit = cv2.warpAffine(np.asarray(g), M, (W, H), flags=cv2.INTER_LANCZOS4, borderValue=(0, 0, 0, 0))
+        Image.fromarray(fit, 'RGBA').save(out, 'WEBP', quality=92, method=6)
+        fa = fit[..., 3] > 128
+        print(f'{k}: stand fit scale {s:.2f} iou {(fa & oa).sum() / max(1, (fa | oa).sum()):.3f} -> {out}'); return
     ga = np.asarray(g)[..., 3] > 128
     # fine fit: scale about the centre and shift, on masks at a quarter size
     s4 = 4; o4 = cv2.resize(oa.astype(np.uint8), (W // s4, H // s4)) > 0
