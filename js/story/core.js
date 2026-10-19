@@ -19,6 +19,10 @@
     }
   };
   const S = window.S = { G, F, say, ROOMS: {}, LINE_POSE: {} };
+  // who Alan is talking to on a line, when it isn't the last to speak to him and he doesn't call them by name
+  // (speech.js addressee): an npc id, or false to keep the way he's facing (he can't look at her)
+  S.LINE_TO = { alan_key_deny_3: false };
+  G.lineTo = id => S.LINE_TO[id];
   G.sayChoice = id => say(id); // dialogue choices get the same staging as scripted lines
   // everyone present can react to a line: S.onLine (Inês's) plus any hooks pushed onto S.listeners
   S.listeners = [];

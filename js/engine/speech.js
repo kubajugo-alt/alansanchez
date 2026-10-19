@@ -23,14 +23,32 @@
   const canTurn = a => a && a.visible && !a.walking && !a.pose && (a.dir === 'e' || a.dir === 'w') && !(a.def && (a.def.fixedDir || a.def.ambient)) && turnsFreely(a);
   // Speakers face each other: an NPC turns to Alan when it speaks, and Alan turns
   // to whoever he is talking with (the last NPC who spoke, else the nearest one).
-  function faceEachOther(actor) {
+  // the names Alan calls people by, for addressee(): a name standing alone ("Inês. Catch.", "Thank you, Father.")
+  const CALLED = { ines: ['Inês'], vasco: ['Vasco', 'Dr. Teles'], rui: ['Rui'], ze: ['Zé'], celeste: ['Celeste'], amalia: ['Amália'], lacerda: ['Lacerda', 'Senhor Lacerda'],
+    guitar: ['Duarte'], phone: ['Teixeira'], abilio: ['Abílio'], lino: ['Lino'], tomas: ['Father', 'Father Tomás'] };
+  const visibleNpc = who => E.npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible);
+  function addressee(id) {
+    if (!id) return null;
+    const to = window.Game.lineTo && window.Game.lineTo(id);
+    if (to === false) return 'keep';
+    if (to) return visibleNpc(to) || null;
+    const L = LINES[id], text = L ? strip(L[1]) : '';
+    for (const [who, names] of Object.entries(CALLED))
+      for (const n of names) if (new RegExp('(^|[,.!?…]\\s*)' + n + '(?=[,.!?…])').test(text)) { const a = visibleNpc(who); if (a) return a; }
+    return null;
+  }
+  function faceEachOther(actor, id) {
     if (!E.player.visible) return;
     if (actor && actor !== E.player) {
       E.lastPartner = actor;
       if (canTurn(actor) && Math.abs(E.player.x - actor.x) > 30) actor.dir = E.player.x > actor.x ? 'e' : 'w';
       if (canTurn(E.player) || (E.player.visible && !E.player.walking && !E.player.pose && (E.player.dir === 'n' || E.player.dir === 's'))) E.player.dir = actor.x > E.player.x ? 'e' : 'w';
     } else if (actor === E.player) {
-      let other = E.lastPartner && E.lastPartner.visible && E.npcs.includes(E.lastPartner) ? E.lastPartner : null;
+      // whoever he's addressing: the script's say-so (Game.lineTo), or someone on screen he calls by name; else the last to speak to him
+      let other = addressee(id);
+      if (other === 'keep') return;
+      if (other) E.lastPartner = other;
+      else other = E.lastPartner && E.lastPartner.visible && E.npcs.includes(E.lastPartner) ? E.lastPartner : null;
       if (!other) other = E.npcs.filter(a => a.visible && !(a.def && a.def.ambient)).sort((a, b) => Math.abs(a.x - E.player.x) - Math.abs(b.x - E.player.x))[0];
       if (other && Math.abs(other.x - E.player.x) > 30 && Math.abs(other.x - E.player.x) < 900 && !E.player.walking && !E.player.pose) E.player.dir = other.x > E.player.x ? 'e' : 'w';
       if (other && canTurn(other)) other.dir = E.player.x > other.x ? 'e' : 'w';
@@ -89,7 +107,7 @@
     if (actor) {
       actor.talking = true; actor.talkPose = true; actor.talkT = 0.6; actor.talkWho = who;
       const pd = E.player.dir;
-      if (!cutsceneHold()) faceEachOther(actor);
+      if (!cutsceneHold()) faceEachOther(actor, id);
       // Alan turning to the speaker (now, or just before): the line waits for the turn, so nobody is spoken to over his shoulder
       // (or set but not drawn yet: the frame on screen still looks the other way)
       const p = E.player, unshown = (p.dir === 'e' || p.dir === 'w') && !p.pairKey && p.lastLooksLeft != null && p.lastLooksLeft !== (p.dir === 'w');
