@@ -66,6 +66,7 @@ Before the deploy, the clean export passed the smoke tests on every scene, and a
   - Never warp or scale them.
   - Alan stands exactly where his solo sprite stood, and neither character jumps on the way in or out.
 - **Facing:** a frame facing right must never morph into a frame facing left, for any character (stated 2026-10-18).
+- **Canva first, Gemini when Canva refuses** (stated 2026-10-19): art goes to Canva (`generate-image` with the sprite and Canva-style references, exported full size through the scratch design `DAHYZ-SDzRE`, fitted back with `scripts/canva_restyle_fit.py`). Whatever Canva refuses (its content-safety filter, or a failure) is done with Gemini instead, matching Canva's style (an edit of the same image, style references `alan_side` and `alan_undress2a` for Alan, a style-only prompt that names the ink outlines, brush texture and less gloss), and repeated until it is acceptable before it goes to the user. Canva allows one generation every several minutes ("quota_cooldown"): pace it, don't retry in a loop.
 - **Instructions apply everywhere:** a rule given for one example applies to every scene with combined characters, and to everything else in general, not only the example.
 - **Other characters:** don't change their solo sprites.
 - **Text:** spell the name "Sanches".
