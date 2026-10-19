@@ -16,7 +16,8 @@ CHAR = os.environ.get('FACE_CHAR', 'alan')
 WORK = os.path.join(ROOT, f'art/review/{CHAR}/faces/')
 DESC = {'alan': 'the head of Alan, a man with dark curly hair, clean-shaven',
         'vasco': 'the head of Vasco, a man in his thirties with dark tousled hair and light stubble',
-        'ines': 'the head of Inês, a young woman with long dark curly hair, red-framed glasses pushed up on her head and gold hoop earrings'}[CHAR]
+        'ines': 'the head of Inês, a young woman with long dark curly hair, red-framed glasses pushed up on her head and gold hoop earrings',
+        'cop': 'the head of Officer Teixeira, a young policeman with short dark hair and a navy police cap'}[CHAR]
 SHE = CHAR in ('ines',)   # the prompts are written for a man: these get her / she
 
 
@@ -44,7 +45,18 @@ def net(name):
     return p
 
 
+# Teixeira's frames don't share a prefix (npc_phone_* at the station, cop_* on his visit): the ones the game uses now
+COP = ['npc_phone_door1', 'npc_phone_door2', 'npc_phone_door3', 'npc_phone_door4', 'npc_phone_door_talk', 'npc_phone_door_blush',
+       'npc_phone_door_shock', 'npc_phone_door_embarrassed', 'npc_phone_proud', 'cop_visit', 'cop_visit_talk',
+       'cop_bed1', 'cop_bed2', 'cop_bed3', 'cop_bed4']
+
+
+def own(fr):
+    return fr in COP if CHAR == 'cop' else fr.startswith(CHAR)
+
+
 def frames():
+    if CHAR == 'cop': return COP
     mine = ('alan_', 'pair_') if CHAR == 'alan' else (CHAR + '_', CHAR + '.', f'pair_{CHAR}_')  # his own, and the pairs he's painted into
     return sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith(mine))
 
@@ -79,13 +91,13 @@ def find():
                     o = next(o for o in out if abs(d['box'][0] - o['box'][0]) <= 15 and abs(d['box'][1] - o['box'][1]) <= 15)
                     if d['score'] > o['score']: out[out.index(o)] = d
         faces[fr] = out
-    me = np.mean([f['emb'] for fr, fs in faces.items() if fr.startswith(CHAR) for f in fs], 0); me /= np.linalg.norm(me)
+    me = np.mean([f['emb'] for fr, fs in faces.items() if own(fr) for f in fs], 0); me /= np.linalg.norm(me)
     index = {}
     for fr, fs in faces.items():
         if not fs or fr.startswith(HIDDEN): continue
         fs.sort(key=lambda f: f['box'][0])
         mine_left = fr.startswith(LEFT) == (CHAR == 'alan')   # in LEFT pairs Alan is the left face, his partner the right
-        f = max(fs, key=lambda f: f['score']) if fr.startswith(CHAR) else fs[0] if mine_left else fs[-1]
+        f = max(fs, key=lambda f: f['score']) if own(fr) else fs[0] if mine_left else fs[-1]
         x, y, w, h = f['box']; cx, cy = x + w / 2, y + h * 0.5; s = 1.9 * max(w, h)
         im, _ = on_bg(fr)
         hb = [int(round(cx - s / 2)), int(round(cy - s * 0.55)), int(round(s)), int(round(s))]
