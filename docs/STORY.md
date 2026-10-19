@@ -1,6 +1,6 @@
 # The Drowned Bell — Story Bible v2 (Expanded)
 
-Oct 18, 2026 · @Kuba
+Oct 18, 2026 · @Kuba · updated Oct 19
 
 ## What changed from v1
 
@@ -19,6 +19,10 @@ The main changes:
 - **One canonical ending**, plus small epilogue variations driven by optional scenes. No branching that changes the plot.
 
 **v2.1:** Alan is now 37 (timeline re-dated), jokes constantly with double meanings (see Alan's humour and the line tables at the end of each chapter), the rooms have ambient NPCs, and a full production spec covers art, UI, audio, cutscenes, systems and hints.
+
+## What changed since Oct 18
+
+- **The reserve's afterwards (epilogue).** It now plays in the room as a painted pair, the two of them sitting against the reserve's shelves (the crate is gone everywhere), with two new lines (vasco_after_3, alan_after_know), and the narrator closes it over the scene. The clapper in every picture is the finale's: long and heavy.
 
 ## What changed since Oct 17
 
@@ -978,7 +982,7 @@ Played after still 3 if their flags are set. The order in the build: the city, t
 
 After the phone call, the last scene of the game: Thursday morning in the cloister, two coffees. "I came for the Romans." / "They're closed till ten." / "Then I'll wait." / "I owe you some documents." / "They're on loan." The two of them sit on the pit ladder while the Sé strikes nine (**narr_thursday**: "Alan Sanches, who had never waited for anything in his life, sat down in the hole where his family used to make bells, and waited."). If Vasco lent Alan the twin (twin_lent), Alan pays the debt with the truth, no jokes: **alan_thu_truth** (the key off the lanyard, the papers, the bell, the man in the Chiado; Vasco's clapper is in Lacerda's glass case). Vasco: "...You put a museum piece in a murderer's shop." Alan gives him the real tongue instead: "The one that rang. It's only bronze now." Vasco: "Clapper. Bronze. Provenance... known. I've never been able to write that before." Alan: "I still owe you one." Vasco: "Then come downstairs. The reserve is quiet before ten." Without the twin, the waiting is the ending.
 
-**The last romance (S.vascoLove, the reserve, se_store).** The shelves where they nearly kissed in Chapter III: "This is where I nearly kissed you. You were keeping something from me." / "I'm not keeping anything now." / "I know. You haven't made a single joke since the coffee. I've been counting." The painted pair kissing; Alan pulls Vasco's tie loose ("I've wanted to do that since the pit." / "It's a museum tie. It's catalogued."); the shirtless pair ("The Romans can wait." / "They've waited sixteen hundred years. They're professionals."). Then, as in every romance in the game, a painting and a fade: **still_store_kiss** with **narr_store** ("Upstairs, the Sé struck ten... Nobody came down to the reserve. Nobody ever does."), and the afterwards still **still_store_after** (on the floor against a crate, shirts open, laughing, the clapper between them): "I'm going to have to catalogue this." / "Provenance known." / "Thursday?" / "Every Thursday." The narrator closes it (**narr_fun_4**): "It wasn't fun... for once in his life he didn't go looking for one." Discreet mode goes from the kiss straight to the afterwards, in the dark. Nothing is explicit. The ending card follows.
+**The last romance (S.vascoLove, the reserve, se_store).** The shelves where they nearly kissed in Chapter III: "This is where I nearly kissed you. You were keeping something from me." / "I'm not keeping anything now." / "I know. You haven't made a single joke since the coffee. I've been counting." The painted pair kissing; Alan pulls Vasco's tie loose ("I've wanted to do that since the pit." / "It's a museum tie. It's catalogued."); the shirtless pair ("The Romans can wait." / "They've waited sixteen hundred years. They're professionals."). Then, as in every romance in the game, a painting and a fade: **still_store_kiss** with **narr_store** ("Upstairs, the Sé struck ten... Nobody came down to the reserve. Nobody ever does."), and the afterwards, played in the room rather than as a still (the painted pair **pair_vasco_after**: the two of them on the reserve floor, sitting against the shelves, shirts open, laughing, the clapper between them; no crate): "I'm going to have to catalogue this." / "Provenance known." / "And him. Back on his shelf by Monday. Nobody will ever know he left." (Vasco nudging the clapper with his boot) / "I'll know." / "Thursday?" / "Every Thursday." (vasco_after_1, alan_after_v, vasco_after_3, alan_after_know, vasco_after_2, alan_after_every). The narrator closes it over the scene (**narr_fun_4**): "It wasn't fun... for once in his life he didn't go looking for one." Then the fade. Discreet mode goes from the kiss straight to the afterwards, in the dark. Nothing is explicit. The ending card follows.
 
 ### Post-credits
 
