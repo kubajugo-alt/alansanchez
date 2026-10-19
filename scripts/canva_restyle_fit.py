@@ -3,7 +3,7 @@
 # silhouette lies over the original's (a small search on the masks), so anchors, feet and the frames around it stay
 # where they were. Writes a candidate the size of the original sprite.
 #   python3 scripts/canva_restyle_fit.py <sprite key> <canva export.png> <pads.json> <out.webp>
-import json, sys, numpy as np, cv2
+import json, os, sys, numpy as np, cv2
 from PIL import Image
 
 KEY = np.array([0, 177, 64], np.float32)
@@ -25,24 +25,37 @@ def main(k, src, pads, out):
     orig = Image.open(f'art/sprites/{k}.webp').convert('RGBA'); W, H = orig.size
     p = json.load(open(pads))[k]; PW, PH = p['pad']; bx, by, bw, bh = p['box']
     gen = key_out(np.asarray(Image.open(src).convert('RGB')))
-    # the export is the padded canvas, rescaled: back to it, then to the sprite's own pixels
-    g = Image.fromarray(gen, 'RGBA').resize((PW, PH), Image.LANCZOS).crop((bx, by, bx + bw, by + bh)).resize((W, H), Image.LANCZOS)
-    ga = np.asarray(g)[..., 3] > 128; oa = np.asarray(orig)[..., 3] > 128
+    oa = np.asarray(orig)[..., 3] > 128
+    gi = Image.fromarray(gen, 'RGBA')
+    if abs(gi.width / gi.height - PW / PH) < 0.04 * PW / PH:
+        # the export is the padded canvas, rescaled: back to it, then to the sprite's own pixels
+        g = gi.resize((PW, PH), Image.LANCZOS).crop((bx, by, bx + bw, by + bh)).resize((W, H), Image.LANCZOS)
+    else:
+        # Canva reframed it (another aspect): the figure's box scaled to the original's height, feet on its feet
+        ys, xs = np.nonzero(gen[..., 3] > 128); fig = gi.crop((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
+        oy, ox = np.nonzero(oa); s = (oy.max() + 1 - oy.min()) / fig.height
+        fig = fig.resize((max(1, round(fig.width * s)), oy.max() + 1 - oy.min()), Image.LANCZOS)
+        g = Image.new('RGBA', (W, H)); g.paste(fig, (round((ox.min() + ox.max()) / 2 - fig.width / 2), int(oy.min())), fig)
+    ga = np.asarray(g)[..., 3] > 128
     # fine fit: scale about the centre and shift, on masks at a quarter size
     s4 = 4; o4 = cv2.resize(oa.astype(np.uint8), (W // s4, H // s4)) > 0
+    # FIT_TOP=0.6: match only the top of the figure (head and shoulders), when Canva drew the body wider or smaller
+    top = float(os.environ.get('FIT_TOP', 1)); oy4 = np.nonzero(o4)[0]
+    roi = np.zeros_like(o4); roi[:int(oy4.min() + top * (oy4.max() + 1 - oy4.min()))] = True
     best = (-1, 1.0, 0, 0)
-    for sc in np.arange(0.92, 1.081, 0.01):
+    for sc in np.arange(0.85, 1.201, 0.01):
         M = cv2.getRotationMatrix2D((W / 2, H / 2), 0, sc)
         gs = cv2.warpAffine(ga.astype(np.uint8), M, (W, H), flags=cv2.INTER_NEAREST)
         g4 = cv2.resize(gs, (W // s4, H // s4)) > 0
         for dx in range(-10, 11):
             for dy in range(-10, 11):
                 sh = np.roll(np.roll(g4, dy, 0), dx, 1)
-                iou = (sh & o4).sum() / max(1, (sh | o4).sum())
+                iou = (sh & o4 & roi).sum() / max(1, ((sh | o4) & roi).sum())
                 if iou > best[0]: best = (iou, sc, dx * s4, dy * s4)
     iou, sc, dx, dy = best
     M = cv2.getRotationMatrix2D((W / 2, H / 2), 0, sc); M[0, 2] += dx; M[1, 2] += dy
     fit = cv2.warpAffine(np.asarray(g), M, (W, H), flags=cv2.INTER_LANCZOS4, borderValue=(0, 0, 0, 0))
+    fit[np.nonzero(oa)[0].max() + 3:, :, 3] = 0                       # nothing below the original's cut (Canva adds water lines)
     Image.fromarray(fit, 'RGBA').save(out, 'WEBP', quality=92, method=6)
     print(f'{k}: fit iou {iou:.3f} scale {sc:.2f} shift {dx},{dy} -> {out}')
 
