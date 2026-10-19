@@ -242,7 +242,7 @@
   // the heist: Alan's theme from the moment he meets Vasco, Vasco's from the shirt buttons on; Thursday is Vasco's
   S.cloisterMusic = () => F().thursday ? 'vasco_theme' : F().ines_plan && F().met_vasco && !F().heist_done ? (F().lanyard_taken ? 'vasco_theme' : 'alan_theme') : 'se_cloister';
   ROOMS.se_cloister = {
-    name: 'Sé de Lisboa · cloister', bg: 'se_cloister', bgs: ['se_cloister_morning'], bgFn: () => F().thursday ? 'se_cloister_morning' : 'se_cloister', music: () => S.cloisterMusic(), ambience: 'cloister', acoustic: 'convent', floor: 'stone',
+    name: 'Sé de Lisboa · cloister', bg: 'se_cloister', depth: 'se_cloister_depth', bgs: ['se_cloister_morning'], bgFn: () => F().thursday ? 'se_cloister_morning' : 'se_cloister', music: () => S.cloisterMusic(), ambience: 'cloister', acoustic: 'convent', floor: 'stone',
     // round the open pit, never into it; once Alan is down in it, along its floor
     get walk() { return F().in_pit ? PIT_WALK : FLOOR_WALK; },
     scale: [565, 250, 716, 345],

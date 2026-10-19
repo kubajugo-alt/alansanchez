@@ -13,6 +13,7 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 | 5 | `js/fx.js` | `window.FX`: fog, glows, light shafts, birds, water, vignette, clouds, painted inventory icons. |
 | 6 | `js/audio.js` | `window.Sound`: recorded music (crossfades, ducking), effects, ambience loops, footsteps, room acoustics, voice playback and level. |
 | 7 | `js/warp.js` | `window.Warp`: the WebGL mesh warp and GPU lighting for painted figures. |
+| 7b | `js/parallax.js` | `window.Parallax`: depth parallax for a room with a depth map (`depth:` on the room, `art/bg/<name>_depth.png` from `scripts/depth_map.py`). A trial, only with `?parallax` in the address; render.js moves figures, layers and occluders by the depth at their feet. |
 | 8 | `js/engine/base.js` | `window.Engine` (`E`): the canvas and DOM elements, the tables (`ROOMS`, `ITEMS`, `CHARS`, `IMG`), helpers (`fit`, `wait`, `freshState`), `GROUND_K`, and **all shared engine state** (`E.room`, `E.player`, `E.busy`, ...). |
 | 9 | `js/engine/actor.js` | `class Actor`: walking, idle and talk frames, in-betweens, breath and sway, listening, turning, frame mixing (`composeFrames`, `sameFacing`), drawing a figure. |
 | 10 | `js/engine/lights.js` | Room lights and flicker, glows, light on characters (`lightSprite`, `lightParams`), cast and contact shadows. |

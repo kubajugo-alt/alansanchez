@@ -72,8 +72,10 @@
   }
   function positionSpeech() {
     if (!E.speaking || !E.speaking.actor) return;
-    const b = E.speaking.actor.bbox();
-    speechEl.style.left = ((b.x + b.w / 2) / W * 100) + '%'; speechEl.style.top = ((b.y - 10) / H * 100) + '%';
+    const a = E.speaking.actor, b = a.bbox();
+    let [sx, sy] = [b.x + b.w / 2, b.y - 10];
+    if (window.Parallax && Parallax.active && E.room && E.room.depth) [sx, sy] = Parallax.at(sx, sy, a.x, a.y); // (where the parallax put them)
+    speechEl.style.left = (sx / W * 100) + '%'; speechEl.style.top = (sy / H * 100) + '%';
     keepInside(speechEl, 14);
   }
   function clearSpeech() {

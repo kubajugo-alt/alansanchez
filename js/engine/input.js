@@ -68,7 +68,9 @@
   function hideHover() { hoverEl.style.display = 'none'; }
   function sceneCoords(e) {
     const r = canvas.getBoundingClientRect();
-    return { x: (e.clientX - r.left) / r.width * W, y: (e.clientY - r.top) / r.height * H };
+    const x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
+    if (window.Parallax && Parallax.active && E.room && E.room.depth) { const [ux, uy] = Parallax.unzoom(x, y); return { x: ux, y: uy }; } // (the parallax zoom)
+    return { x, y };
   }
   canvas.addEventListener('mousemove', e => {
     mouse = sceneCoords(e); updateHover();

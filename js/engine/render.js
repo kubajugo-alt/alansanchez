@@ -29,9 +29,14 @@
     g.restore();
   }
   function curBg() { const b = typeof E.room.bgFn === 'function' ? E.room.bgFn() : E.room.bg; return IMG['bg:' + b] ? b : E.room.bg; }
+  // parallax (js/parallax.js): on in a room with a depth map when the address asks for it
+  const PX = () => window.Parallax && Parallax.active && E.room && E.room.depth;
   function drawOccluder(o) {
     const im = IMG['bg:' + curBg()]; if (!im) return;
-    g.save(); g.beginPath();
+    g.save();
+    // (the furniture moves as the floor at its front edge moves)
+    if (PX()) { const P = o.polys || [o.poly], xs = P.flat().map(p => p[0]); Parallax.apply(g, o.base ? (o.base[0][0] + o.base[1][0]) / 2 : (Math.min(...xs) + Math.max(...xs)) / 2, o.base ? (o.base[0][1] + o.base[1][1]) / 2 : o.y); }
+    g.beginPath();
     for (const p of (o.polys || [o.poly])) { p.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); }
     g.clip();
     g.drawImage(im, 0, 0, W, H);
@@ -59,10 +64,14 @@
       const im = IMG['lay:' + l.img]; if (!im) continue;
       const w = l.w || im.width * (l.k || 1), h = l.h || im.height * (l.k || 1);
       const ang = l.swing ? l.swing(E.time) : 0;
-      if (!ang) { g.drawImage(im, l.x, l.y, w, h); continue; }
-      if (staticOnly) continue;
-      g.save(); g.translate(l.pivot[0], l.pivot[1]); g.rotate(ang * Math.PI / 180);
-      g.drawImage(im, l.x - l.pivot[0], l.y - l.pivot[1], w, h); g.restore();
+      const px = PX() && !staticOnly; // (inside an occluder the transform is already the occluder's)
+      if (px) { g.save(); Parallax.apply(g, l.x + w / 2, l.y + h); }
+      if (!ang) g.drawImage(im, l.x, l.y, w, h);
+      else if (!staticOnly) {
+        g.save(); g.translate(l.pivot[0], l.pivot[1]); g.rotate(ang * Math.PI / 180);
+        g.drawImage(im, l.x - l.pivot[0], l.y - l.pivot[1], w, h); g.restore();
+      }
+      if (px) g.restore();
     }
   }
   let last = performance.now(), last0 = performance.now(), slowT = 0;
@@ -86,18 +95,24 @@
       E.player.update(dt); E.npcs.forEach(a => a.update(dt));
       E.idleSmokeTick(dt);
       E.updateLights(E.time);
-      drawBg(curBg());
-      if (E.room.animBack) E.room.animBack(g, E.time);
+      const dm = window.Parallax && Parallax.on && E.room.depth && IMG['depth:' + E.room.depth];
+      if (dm) Parallax.update(dt, E.time, E.player.visible ? E.player.x : null);
+      const pc = dm && Parallax.draw(IMG['bg:' + curBg()], dm);
+      if (pc) g.drawImage(pc, 0, 0, W, H); else drawBg(curBg());
+      // what's painted over the room at no particular depth (motes, mist, glows) takes the zoom only
+      const flat = fn => { if (!PX()) return fn(); g.save(); Parallax.apply(g); try { fn(); } finally { g.restore(); } };
+      if (E.room.animBack) flat(() => E.room.animBack(g, E.time));
       drawLayers(false);
-      if (E.room.anim) E.room.anim(g, E.time);
-      E.drawGlows();
-      // depth-sorted actors + occluders cut from the painting
+      if (E.room.anim) flat(() => E.room.anim(g, E.time));
+      flat(() => E.drawGlows());
+      // depth-sorted actors + occluders cut from the painting (each moves as the floor under its feet)
+      const planted = (a, fn) => { if (!PX()) return fn(); g.save(); Parallax.apply(g, a.x, a.y); try { fn(); } finally { g.restore(); } };
       const items = [];
-      for (const a of E.npcs) if (a.visible) items.push({ y: a.y, fn: () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); } });
-      if (E.player.visible) items.push({ y: E.player.y, fn: () => { E.player.draw(); if (E.player.overlay) E.player.overlay(g, E.player, E.time); } });
+      for (const a of E.npcs) if (a.visible) items.push({ y: a.y, fn: () => planted(a, () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); }) });
+      if (E.player.visible) items.push({ y: E.player.y, fn: () => planted(E.player, () => { E.player.draw(); if (E.player.overlay) E.player.overlay(g, E.player, E.time); }) });
       for (const o of (E.room.occluders || [])) if (!o.when || o.when()) items.push({ y: occluderY(o), fn: () => drawOccluder(o) });
       items.sort((a, b) => a.y - b.y).forEach(i => i.fn());
-      if (E.room.animFg) E.room.animFg(g, E.time);
+      if (E.room.animFg) flat(() => E.room.animFg(g, E.time));
       if (E.room.fog) {
         const f = typeof E.room.fog === 'function' ? E.room.fog() : E.room.fog;
         if (f) { FX.drawFog(g, E.fogA, E.time, f, 12, 0); FX.drawFog(g, E.fogB, E.time, f * 0.7, 22, 40); }

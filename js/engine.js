@@ -23,6 +23,7 @@
     for (const c of (window.CLOSEUPS || [])) jobs.push(['close:' + c, 'art/closeups/' + c + '.jpg']);
     for (const k in E.SPRITES) jobs.push(['spr:' + k, E.SPRITES[k].src || 'art/sprites/' + k + '.webp']); // src: an approved review frame
     for (const id in ROOMS) for (const l of (ROOMS[id].layers || [])) jobs.push(['lay:' + l.img, 'art/layers/' + l.img + '.webp']);
+    for (const id in ROOMS) if (ROOMS[id].depth && window.Parallax && Parallax.on) jobs.push(['depth:' + ROOMS[id].depth, 'art/bg/' + ROOMS[id].depth + '.png']); // (only when parallax is on)
     for (const id in ROOMS) if (ROOMS[id].skyMask) jobs.push(['mask:' + ROOMS[id].skyMask, 'art/layers/' + ROOMS[id].skyMask + '.webp']);
     let done = 0;
     await Promise.all(jobs.map(([k, s]) => loadImage(k, s).then(() => onProgress && onProgress(++done / jobs.length))));
