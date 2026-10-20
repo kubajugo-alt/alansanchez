@@ -119,6 +119,26 @@ session lived in the session's scratchpad and are gone; everything that matters 
    `new`); all 26 saved over `art/stills/<name>.jpg` as above. Oil originals are in git history (before this
    commit). Checked: smoke for coldopen, intro, fado, romance, copbed, visitcop, visitguitar, tr1-tr5 all pass.
    Not deployed.
+13. **Walks, step 2 for Alan: one-sheet 8-pose set, waiting for the user's decision** (not in the game).
+   `scripts/walk_sheet.py` asks Gemini for the WHOLE cycle in one image: walkA on green as the character, and the
+   2x4 sheet of the stick figures in art/review/walkref (top row 1 3 5 7 near leg leading, bottom 9 11 13 15 far leg
+   leading; guide saved as art/review/alan/walk6/guide.png). One call, $0.07. The 8 figures came back as the same
+   person, light and size. The script splits them, fits each onto walkA's canvas at ONE scale (median head-to-waist
+   fit; the 8 per-figure fits were 0.819-0.852), puts each row on its ground line, then:
+   - **stretches the legs** below the waist by one factor (x1.092): Gemini painted the legs ~9% shorter than the
+     game's frames (waist-to-floor 344 px against 372-381), so he would have shrunk on starting to walk. Heights
+     now 695-700 px (walkA 694). 16 px of headroom added above walkA's canvas (meta fy 714, hh 718).
+   - **puts the leading heel down** in the contact frames (`scripts/walk_heel_down.py`, a local shin stretch):
+     p9's front heel hung 26-29 px above the floor.
+   Candidates `alan_walk6_p1` … `p15` (art/review/candidates/, walkSlot 0-7, replacing the seven parked
+   `alan_walk_*L` candidates in candidates.json; their files stay). Plant data in `S.WALK_PLANT` (core.js); step
+   lengths 0.076-0.103 of his height, nearly even, and the planted boot lines up at all 8 hand-offs (overlay check).
+   Walk lab (locked, cut, by the foot): average drift 4.7-5.4 px (the readout's worst value is noisy: 11.6-21 px
+   between identical runs). Size column flags the bottom row's heads at -4.4 to -5.5%: that is the back of the hair
+   painted slimmer; chin and crown sit on the same lines (checked side by side), so accepted.
+   Review page with both walks playing as the engine plays them, approve/reject and a note:
+   https://claude.ai/artifact/RoCMGALM4FXgJWdTKrg3v9 (db doc `decision/alan_walk6`: `{pick, note}`). On approve:
+   mark the 8 ids approved in art/review/approvals.json (walkAll needs all 8), smoke, commit.
 
 ## Where things stand (session handoff, 2026-10-20)
 

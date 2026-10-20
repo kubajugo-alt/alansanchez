@@ -3154,167 +3154,6 @@
    }
   },
   {
-   "id": "alan_walk_pre2L",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk: just after the heel lands, a short step: the near leg in front taking his weight, the far heel lifting",
-   "src": "art/review/candidates/alan_walk_pre2L.webp",
-   "originals": [
-    "art/sprites/alan_walkDown.webp",
-    "art/sprites/alan_walkUp.webp"
-   ],
-   "meta": {
-    "ax": 133.9,
-    "fy": 710.0,
-    "w": 270.0,
-    "hh": 731.0,
-    "top": 10.0,
-    "h": 700.0
-   },
-   "wire": {
-    "walkSlot": 1
-   }
-  },
-  {
-   "id": "alan_walk_pass2L",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk: passing (near leg standing, the far foot swinging low)",
-   "src": "art/review/candidates/alan_walk_pass2L.webp",
-   "originals": [
-    "art/sprites/alan_walkDown.webp",
-    "art/sprites/alan_walkUp.webp"
-   ],
-   "meta": {
-    "w": 357.0,
-    "hh": 702.0,
-    "h": 720.0,
-    "ax": 172.2,
-    "fy": 698.0,
-    "top": 3.1
-   },
-   "wire": {
-    "walkSlot": 2
-   }
-  },
-  {
-   "id": "alan_walk_up2L",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk: standing on the near leg, the far leg reaching forward, low",
-   "src": "art/review/candidates/alan_walk_up2L.webp",
-   "originals": [
-    "art/sprites/alan_walkDown.webp",
-    "art/sprites/alan_walkUp.webp"
-   ],
-   "meta": {
-    "w": 357.0,
-    "hh": 722.0,
-    "h": 720.0,
-    "ax": 172.2,
-    "fy": 718.0,
-    "top": 6.0
-   },
-   "wire": {
-    "walkSlot": 3
-   }
-  },
-  {
-   "id": "alan_walk_contact_farL",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk: the other step: the FAR leg forward, heel down, the near arm swinging forward",
-   "src": "art/review/candidates/alan_walk_contact_farL.webp",
-   "originals": [
-    "art/sprites/alan_walkDown.webp",
-    "art/sprites/alan_walkUp.webp"
-   ],
-   "meta": {
-    "w": 357.0,
-    "hh": 702.0,
-    "h": 720.0,
-    "ax": 172.2,
-    "fy": 698.0,
-    "top": 3.1
-   },
-   "wire": {
-    "walkSlot": 4
-   }
-  },
-  {
-   "id": "alan_walk_pre1L",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk: the other step: a short step, the far leg in front taking his weight, the near heel lifting",
-   "src": "art/review/candidates/alan_walk_pre1L.webp",
-   "originals": [
-    "art/sprites/alan_walkDown.webp",
-    "art/sprites/alan_walkUp.webp"
-   ],
-   "meta": {
-    "w": 357.0,
-    "hh": 722.0,
-    "h": 720.0,
-    "ax": 172.2,
-    "fy": 718.0,
-    "top": 9.0
-   },
-   "wire": {
-    "walkSlot": 5
-   }
-  },
-  {
-   "id": "alan_walk_pass1L",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk: the other step: passing (far leg standing, the near foot swinging low)",
-   "src": "art/review/candidates/alan_walk_pass1L.webp",
-   "originals": [
-    "art/sprites/alan_walkDown.webp",
-    "art/sprites/alan_walkUp.webp"
-   ],
-   "meta": {
-    "w": 357.0,
-    "hh": 722.0,
-    "h": 720.0,
-    "ax": 172.2,
-    "fy": 718.0,
-    "top": 8.0
-   },
-   "wire": {
-    "walkSlot": 6
-   }
-  },
-  {
-   "id": "alan_walk_up1L",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk: the other step: standing on the far leg, the near leg reaching forward, low",
-   "src": "art/review/candidates/alan_walk_up1L.webp",
-   "originals": [
-    "art/sprites/alan_walkDown.webp",
-    "art/sprites/alan_walkUp.webp"
-   ],
-   "meta": {
-    "w": 357.0,
-    "hh": 722.0,
-    "h": 720.0,
-    "ax": 172.2,
-    "fy": 718.0,
-    "top": 12.0
-   },
-   "wire": {
-    "walkSlot": 7
-   }
-  },
-  {
    "id": "wire_alan_untie",
    "char": "alan",
    "phase": 2,
@@ -3329,6 +3168,182 @@
     "poses": {
      "untie": "alan_untie"
     }
+   }
+  },
+  {
+   "id": "alan_walk6_p1",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): contact: near leg forward, heel down",
+   "src": "art/review/candidates/alan_walk6_p1.webp",
+   "originals": [
+    "art/sprites/alan_walkA.webp"
+   ],
+   "meta": {
+    "w": 357,
+    "hh": 718,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 714.0,
+    "top": 12.0
+   },
+   "wire": {
+    "walkSlot": 0
+   }
+  },
+  {
+   "id": "alan_walk6_p3",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): down: near leg takes the weight",
+   "src": "art/review/candidates/alan_walk6_p3.webp",
+   "originals": [
+    "art/sprites/alan_walkDown.webp"
+   ],
+   "meta": {
+    "w": 357,
+    "hh": 718,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 714.0,
+    "top": 13.0
+   },
+   "wire": {
+    "walkSlot": 1
+   }
+  },
+  {
+   "id": "alan_walk6_p5",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): passing: near leg standing, far foot lifted behind",
+   "src": "art/review/candidates/alan_walk6_p5.webp",
+   "originals": [
+    "art/sprites/alan_pass.webp"
+   ],
+   "meta": {
+    "w": 357,
+    "hh": 718,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 714.0,
+    "top": 14.0
+   },
+   "wire": {
+    "walkSlot": 2
+   }
+  },
+  {
+   "id": "alan_walk6_p7",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): up: near leg standing, far leg swinging forward",
+   "src": "art/review/candidates/alan_walk6_p7.webp",
+   "originals": [
+    "art/sprites/alan_walkUp.webp"
+   ],
+   "meta": {
+    "w": 357,
+    "hh": 718,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 714.0,
+    "top": 13.0
+   },
+   "wire": {
+    "walkSlot": 3
+   }
+  },
+  {
+   "id": "alan_walk6_p9",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): contact: far leg forward, heel down",
+   "src": "art/review/candidates/alan_walk6_p9.webp",
+   "originals": [
+    "art/sprites/alan_walkB.webp"
+   ],
+   "meta": {
+    "w": 357,
+    "hh": 718,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 714.0,
+    "top": 13.0
+   },
+   "wire": {
+    "walkSlot": 4
+   }
+  },
+  {
+   "id": "alan_walk6_p11",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): down: far leg takes the weight",
+   "src": "art/review/candidates/alan_walk6_p11.webp",
+   "originals": [
+    "art/sprites/alan_walkDown.webp"
+   ],
+   "meta": {
+    "w": 357,
+    "hh": 718,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 714.0,
+    "top": 14.0
+   },
+   "wire": {
+    "walkSlot": 5
+   }
+  },
+  {
+   "id": "alan_walk6_p13",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): passing: far leg standing, near foot lifted behind",
+   "src": "art/review/candidates/alan_walk6_p13.webp",
+   "originals": [
+    "art/sprites/alan_pass.webp"
+   ],
+   "meta": {
+    "w": 357,
+    "hh": 718,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 714.0,
+    "top": 14.0
+   },
+   "wire": {
+    "walkSlot": 6
+   }
+  },
+  {
+   "id": "alan_walk6_p15",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): up: far leg standing, near leg swinging forward",
+   "src": "art/review/candidates/alan_walk6_p15.webp",
+   "originals": [
+    "art/sprites/alan_walkUp.webp"
+   ],
+   "meta": {
+    "w": 357,
+    "hh": 718,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 714.0,
+    "top": 14.0
+   },
+   "wire": {
+    "walkSlot": 7
    }
   }
  ]

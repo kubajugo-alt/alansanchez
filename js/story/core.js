@@ -110,6 +110,8 @@
     alan_walkUp: [-0.136], alan_walk_up1: [-0.101],
     alan_walk_pass1L: [0.061], alan_walk_up1L: [-0.105], alan_walk_pass2L: [-0.002], alan_walk_up2L: [0.004],
     alan_walk_pre1L: [0.102], alan_walk_pre2L: [0.106], alan_walk_contact_farL: [0.176, -0.170], // the low-swing walk
+    alan_walk6_p1: [0.188, -0.160], alan_walk6_p3: [0.111], alan_walk6_p5: [0.016], alan_walk6_p7: [-0.078], // the one-sheet set
+    alan_walk6_p9: [0.193, -0.171], alan_walk6_p11: [0.108], alan_walk6_p13: [0.026], alan_walk6_p15: [-0.076],
   };
   S.walkTiming = F => {
     const W = F.walk, P = S.WALK_PLANT;
