@@ -439,31 +439,38 @@
   "note": "user: move forward, review in the game"
  },
  "alan_walk_pre2L": {
-  "decision": "approved",
-  "at": "2026-10-20T04:20:50.000Z"
+  "decision": "parked",
+  "at": "2026-10-20T15:00:00.000Z",
+  "note": "Parked at the user's request (2026-10-20): the original cycle plays again while the walks are redone (walk lab). Was approved 2026-10-20T04:20:50Z."
  },
  "alan_walk_pass2L": {
-  "decision": "approved",
-  "at": "2026-10-20T04:20:50.000Z"
+  "decision": "parked",
+  "at": "2026-10-20T15:00:00.000Z",
+  "note": "Parked at the user's request (2026-10-20): the original cycle plays again while the walks are redone (walk lab). Was approved 2026-10-20T04:20:50Z."
  },
  "alan_walk_up2L": {
-  "decision": "approved",
-  "at": "2026-10-20T04:20:50.000Z"
+  "decision": "parked",
+  "at": "2026-10-20T15:00:00.000Z",
+  "note": "Parked at the user's request (2026-10-20): the original cycle plays again while the walks are redone (walk lab). Was approved 2026-10-20T04:20:50Z."
  },
  "alan_walk_contact_farL": {
-  "decision": "approved",
-  "at": "2026-10-20T04:20:50.000Z"
+  "decision": "parked",
+  "at": "2026-10-20T15:00:00.000Z",
+  "note": "Parked at the user's request (2026-10-20): the original cycle plays again while the walks are redone (walk lab). Was approved 2026-10-20T04:20:50Z."
  },
  "alan_walk_pre1L": {
-  "decision": "approved",
-  "at": "2026-10-20T04:20:50.000Z"
+  "decision": "parked",
+  "at": "2026-10-20T15:00:00.000Z",
+  "note": "Parked at the user's request (2026-10-20): the original cycle plays again while the walks are redone (walk lab). Was approved 2026-10-20T04:20:50Z."
  },
  "alan_walk_pass1L": {
-  "decision": "approved",
-  "at": "2026-10-20T04:20:50.000Z"
+  "decision": "parked",
+  "at": "2026-10-20T15:00:00.000Z",
+  "note": "Parked at the user's request (2026-10-20): the original cycle plays again while the walks are redone (walk lab). Was approved 2026-10-20T04:20:50Z."
  },
  "alan_walk_up1L": {
-  "decision": "approved",
-  "at": "2026-10-20T04:20:50.000Z"
+  "decision": "parked",
+  "at": "2026-10-20T15:00:00.000Z",
+  "note": "Parked at the user's request (2026-10-20): the original cycle plays again while the walks are redone (walk lab). Was approved 2026-10-20T04:20:50Z."
  }
 }

@@ -64,6 +64,18 @@ session lived in the session's scratchpad and are gone; everything that matters 
    the user finds the current 8-pose cycle worse than the original, "clunky" one. See the walk plan in the chat
    and, once agreed, in this file.
 
+9. **Walks, step 0** (the user found the 8-pose cycle "very bad", the original better if clunky). The seven slot
+   frames of the new cycle (`alan_walk_pre2L` … `alan_walk_up1L`) are marked `parked` in art/review/approvals.json
+   (files kept; their old approval time in the note), so `loadApproved`'s all-or-nothing rule plays the original
+   cycle again: walkA, walkDown, pass, walkUp, walkB, walkDown, pass, walkUp (walkStart frames unchanged).
+   Diagnosis of the new cycle, for the record: the two passing frames drawn ~8-10% smaller; the bob inverted
+   (lowest at passing); a high back-kick on the passing frames; three art sources (painted, Gemini, Canva) with
+   different faces and shading; mesh morphs stretching legs between mismatched poses.
+   **Plan agreed with the user (steps 1-4):** a walk lab test page with automatic checks; each character's cycle
+   generated as one coherent 8-pose set from their own standing sprite; simpler engine playback (advance by the
+   planted foot measured from the art, no mesh morph between walk frames); roll out Alan side, Alan front/back,
+   Inês, Vasco, Lacerda, Celeste, Zé, Rui, others.
+
 ## Where things stand (session handoff, 2026-10-20)
 
 **In the game now** (all deployed; the user approved each, and on 2026-10-20 said of the walk: "Don't expect my approval - if works for you, works for me"):
