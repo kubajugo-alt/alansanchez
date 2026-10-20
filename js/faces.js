@@ -1577,7 +1577,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress_boot": {
   "box": [
