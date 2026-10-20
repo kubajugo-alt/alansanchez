@@ -22,6 +22,9 @@ from walk_sheet import generate, POSES, ROOT
 from canva_restyle_fit import key_out
 
 CAST = {  # char key in S.CHARS: sprite prefix, reference walk frame, the walk frames in the game now, words for Gemini
+    # (Alan's chosen set is fitted by walk_sheet.py; he is here for the editor's library: his other tries, sheet_raw_<n>)
+    'alan': ('alan', 'alan_walkA', ['alan_walkA', 'alan_walkDown', 'alan_pass', 'alan_walkUp', 'alan_walkB'], 'his',
+             'a man with dark wavy hair, a brown leather jacket, a white T-shirt, blue jeans and brown boots'),
     'ines': ('ines', 'ines_walk1', ['ines_walk1', 'ines_walk2'], 'her',
              'a young woman with long dark curly hair, a black blazer over a printed top, high-waisted blue jeans and black heels, holding a dark blue book against her hip in her far hand, the book visible in the same hand in all eight figures'),
     'vasco': ('vasco', 'vasco_walk2', ['vasco_walk_upN', 'vasco_walk_passN', 'vasco_walk_far', 'vasco_walk_passF', 'vasco_walk2', 'vasco_pass1'], 'his',
@@ -169,6 +172,7 @@ def plant_of(n, a, ax, fy, h):
 
 
 def fit(ch):
+    if ch == 'alan': sys.exit("Alan's chosen set is fitted by scripts/walk_sheet.py (this would overwrite it)")
     pre, ref, cur, pron, who = CAST[ch]; d = os.path.join(ROOT, f'art/review/{pre}/walk6')
     W, H, ax, fy, m = fit_poses(ch, os.path.join(d, f'sheet_raw_{SHEET[ch]}.png' if ch in SHEET else 'sheet_raw.png'), d, REUSE.get(ch))
     # candidates and plant data
@@ -226,7 +230,13 @@ if __name__ == '__main__':
     cmd, who = sys.argv[1], sys.argv[2:] or list(CAST)
     for ch in who:
         pre, ref, cur, pron, desc = CAST[ch]; d = os.path.join(ROOT, f'art/review/{pre}/walk6'); os.makedirs(d, exist_ok=True)
-        if cmd == 'generate': generate(ref, desc, d, pron, flip=bool(SPR[ref].get('facesLeft')))
+        if cmd == 'generate':
+            if ch == 'alan':  # a try for the library: painted in a scratch folder, kept as the next sheet_raw_<n>
+                import shutil, tempfile; t = tempfile.mkdtemp(); generate(ref, desc, t, pron)
+                n = 2; existing = os.listdir(d)
+                while f'sheet_raw_{n}.png' in existing: n += 1
+                shutil.move(os.path.join(t, 'sheet_raw.png'), os.path.join(d, f'sheet_raw_{n}.png'))
+            else: generate(ref, desc, d, pron, flip=bool(SPR[ref].get('facesLeft')))
         elif cmd == 'fit': fit(ch)
         elif cmd == 'library':
             out = os.environ.get('LIB_OUT', '/tmp/walk_library'); os.makedirs(out, exist_ok=True)

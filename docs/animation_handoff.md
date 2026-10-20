@@ -207,6 +207,22 @@ session lived in the session's scratchpad and are gone; everything that matters 
    re-fitting Zé and Celeste reproduced the committed frames byte for byte.
    Checked: in the game the six walk with their new cycles and step lengths; smoke laundry, quayfish, lacthreat,
    semuseum, vascostore, visitcop, visitguitar, celeste, bench, walklab pass. Not deployed.
+18. **Walk cycle editor on the review page** (the user: "allow me to move the frames and choose the remaining ones",
+   "and also give you feedback for a missing frame"). Same link: https://claude.ai/artifact/RoCMGALM4FXgJWdTKrg3v9.
+   Per character: the cycle as a strip of steps (drag or arrows to reorder; duplicate; remove; nudge a step 2 px at a
+   time in the painting's pixels; mark a step, or add one, as a missing frame with a description), a library to
+   swap or add frames from (the proposed set, the other Gemini tries fitted by `walk_sheet_cast.py library`, and the
+   frames in the game now / from before), and both lanes playing with the engine's timing for the edited cycle
+   (each step's bar shows the planted foot's travel; amber when under 45% of the median, i.e. it flashes by).
+   Saved to db `decision/<char>` (Alan: `decision/alan_walk6`) as `{pick, note, edited, cycle: [{id, dx, dy} |
+   {gap: true, text}]}`, as a draft while editing; an edit after Approve clears the approval.
+   - Alan got two more Gemini tries for the library ($0.13): art/review/alan/walk6/sheet_raw_2.png, _3.png
+     (walk_sheet_cast.py now has an 'alan' entry for generate/library only; `fit alan` refuses, since his chosen set
+     is fitted by walk_sheet.py). Library tries are fitted into the scratchpad (LIB_OUT), not the repo.
+   - **To apply a saved cycle:** for each step, the frame (a candidate, a try's pose, or a current sprite) becomes
+     a candidate `<prefix>_walk7_s<i>` with its nudge baked into meta (ax -= dx, fy -= dy) and wire walkSlot i,
+     walkBase = the new ids; plant data = the frame's plant + dx/h; gaps are requests to paint (walk_sheet.py with
+     the description, or gen_image.py from the neighbouring frames).
 
 ## Where things stand (session handoff, 2026-10-20)
 

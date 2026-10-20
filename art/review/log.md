@@ -2068,3 +2068,5 @@
 | 2026-10-20 19:18 | gemini-nano-banana-2.1 | art/sprites/cop_walk1.webp, walkref sheet | walk sheet, 8 poses (scripts/walk_sheet.py) | art/review/cop/walk6/sheet_raw.png | 2594/1680+2022 | 0.0695 |
 | 2026-10-20 19:18 | gemini-nano-banana-2.1 | art/sprites/guitar_walk1.webp, walkref sheet | walk sheet, 8 poses (scripts/walk_sheet.py) | art/review/guitar/walk6/sheet_raw.png | 2589/1680+1549 | 0.0659 |
 | 2026-10-20 19:18 | gemini-nano-banana-2.1 | art/sprites/cop_walk1.webp, walkref sheet | walk sheet, 8 poses (scripts/walk_sheet.py) | art/review/cop/walk6/sheet_raw.png | 2594/1680+2180 | 0.0706 |
+| 2026-10-20 21:42 | gemini-nano-banana-2.1 | art/sprites/alan_walkA.webp, walkref sheet | walk sheet, 8 poses (scripts/walk_sheet.py) | ../../../tmp/tmpc0sugqpb/sheet_raw.png | 2574/1680+1639 | 0.0666 |
+| 2026-10-20 21:43 | gemini-nano-banana-2.1 | art/sprites/alan_walkA.webp, walkref sheet | walk sheet, 8 poses (scripts/walk_sheet.py) | ../../../tmp/tmpl7d7ieik/sheet_raw.png | 2574/1680+792 | 0.0602 |
