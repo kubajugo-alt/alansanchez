@@ -139,6 +139,25 @@ session lived in the session's scratchpad and are gone; everything that matters 
    Review page with both walks playing as the engine plays them, approve/reject and a note:
    https://claude.ai/artifact/RoCMGALM4FXgJWdTKrg3v9 (db doc `decision/alan_walk6`: `{pick, note}`). On approve:
    mark the 8 ids approved in art/review/approvals.json (walkAll needs all 8), smoke, commit.
+14. **Alan's one-sheet walk, three fixes the user asked for (1-3), still waiting for the decision.**
+   - **Hair:** the far-leg row's hair was painted slimmer at the back (a flicker twice a step).
+     `scripts/walk_head_swap.py` gives each far-leg frame its near-leg counterpart's head (1->9, 3->11, 5->13, 7->15),
+     aligned on the face (shifts of 1-2 px) and blended into the neck over 10 px below the chin (0.15 of the figure);
+     the join is invisible at 4x. Heads now agree to within 1%.
+   - **Head size:** heads were 91.5 px wide (walk lab measure) against 93 in today's walk and 94.5 standing.
+     `walk_sheet.py` HEAD_K x1.025 scales the whole set after the trunk fit (legs keep their stretch, so they're
+     ~385 px). Figures 713-718 px tall; headroom PAD 40 (meta fy 738, hh 742). Order to rebuild:
+     `walk_sheet.py --split-only ...`, then `walk_head_swap.py art/review/alan/walk6 0.15`, then the candidates'
+     webp/meta and plant data (walk_plant.py) as in entry 13.
+   - **Walk lab reading:** the drift number was read live, so it depended on frame timing, counted his start and stop
+     frames and could pair two different boots (12-21 px for the same cycle). Now the lab computes a "slip" for each
+     change of painting from the art, the plant data and the engine's walkLen: same answer every run. Each foot is
+     the centre of its boot over the bottom 10% of the figure (the point walk_plant.py measures; floor-contact centres
+     put a heel strike and a flat foot at different points). Floor band widened 1.5% -> 2.5% so a boot on its toes
+     counts. Readings: today's walk 1.5 px average / 3.8 worst; the new set 0.8 / 2.7. The live readout stays,
+     labelled as timing-dependent. (Tried and dropped: template-matching the boot between frames; the boot rotates
+     as the heel rolls, and in the far-leg half it matched the wrong boot.)
+   Review page republished with the fixed frames (same link).
 
 ## Where things stand (session handoff, 2026-10-20)
 

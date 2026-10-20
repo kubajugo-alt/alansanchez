@@ -6,7 +6,10 @@
 //   size   the head's width against the cycle's median frame (a frame drawn bigger or smaller makes him pulse)
 //   rise   the figure's height against the cycle's median frame (the bob: low just after the heel lands, high passing)
 //   floor  where the feet touch the ground
-// and, while he walks, how far the planted foot drifts on the floor per step. Nothing here changes the game.
+//   slip   at each change of painting, how far the next painting's boot lands from where the planted foot stood,
+//          computed from the art, the plant data (S.WALK_PLANT) and the step lengths the engine uses (walkLen), so
+//          the same cycle always gives the same numbers (the live readout under the buttons depends on timing)
+// Nothing here changes the game.
 (function () {
   const S = window.S, { G } = S, E = window.Engine;
   const $ = s => document.querySelector(s);
@@ -49,12 +52,37 @@
     const ws = [];
     for (let j = top; j < top + Math.max(4, fig * 0.09); j++) { let l = -1, r = -1; for (let i = 0; i < W; i++) if (a(i, j)) { if (l < 0) l = i; r = i; } if (l >= 0) ws.push(r - l); }
     ws.sort((p, q) => p - q);
-    // feet on the floor: opaque columns in the bottom 1.5% above the feet line, in runs
-    const band = Math.max(3, fig * 0.015), cols = [];
+    // feet on the floor: opaque columns in the bottom 2.5% above the feet line, in runs (a boot up on its toes still counts);
+    // each foot's position is the centre of its boot (the opaque pixels of that run over the bottom 10% of the figure),
+    // the same point scripts/walk_plant.py measures for S.WALK_PLANT, so a heel strike and a flat foot compare alike
+    const band = Math.max(3, fig * 0.025), cols = [];
     for (let i = 0; i < W; i++) { let on = false; for (let j = Math.round(fy - band); j <= fy; j++) if (j >= 0 && a(i, j)) { on = true; break; } cols.push(on); }
     const feet = []; let s0 = -1;
     cols.concat([false]).forEach((on, i) => { if (on && s0 < 0) s0 = i; if (!on && s0 >= 0) { if (i - s0 > 3) feet.push([s0, i - 1]); s0 = -1; } });
-    return (MEAS[key] = { head: (ws[ws.length >> 1] || 0) / sp.h, rise: fig / sp.h, feet, sp });
+    const boot = Math.max(6, fig * 0.10);
+    const centre = ([l, r]) => { // grow the run sideways over the boot band, then the mean x of its opaque pixels
+      let L = l, R = r, n = 0, sx = 0; const on = i => { for (let j = Math.round(fy - boot); j <= fy; j++) if (j >= 0 && a(i, j)) return true; return false; };
+      while (L > 0 && on(L - 1)) L--; while (R < W - 1 && on(R + 1)) R++;
+      for (let i = L; i <= R; i++) for (let j = Math.round(fy - boot); j <= fy; j++) if (j >= 0 && a(i, j)) { n++; sx += i; }
+      return n ? sx / n : (l + r) / 2;
+    };
+    const feetC = feet.map(centre);
+    return (MEAS[key] = { head: (ws[ws.length >> 1] || 0) / sp.h, rise: fig / sp.h, feet, feetC, sp });
+  }
+
+  // slip after each frame of a cycle, in px at the size he's drawn now: frame i is drawn with its anchor at 0, the next
+  // at walkLen[i] (the engine's step, in his heights); the planted foot is frame i's floor contact nearest its plant
+  // point, and the slip is how far the nearest floor contact of the next frame lands from it. null: no plant data.
+  function slips(frames) {
+    const P = S.WALK_PLANT || {}, F = S.CHARS[st.ch].frames, p = G.player;
+    if (!frames.length || !frames.every(k => P[k]) || !F.walkLen || F.walk.join() !== frames.join()) return frames.map(() => null);
+    const px = p && p.height ? p.height() : 300;
+    const contacts = k => { const m = measure(k); return m ? m.feetC.map(c => (c - m.sp.ax) / m.sp.h) : null; };
+    return frames.map((k, i) => {
+      const n = frames[(i + 1) % frames.length], ci = contacts(k), cn = contacts(n); if (!ci || !cn || !ci.length || !cn.length) return null;
+      const planted = ci.reduce((b, c) => Math.abs(c - P[k][0]) < Math.abs(b - P[k][0]) ? c : b);
+      return Math.min(...cn.map(c => Math.abs(F.walkLen[i] + c - planted))) * px;
+    });
   }
 
   // ---------------------------------------------------------------- the panel
@@ -75,12 +103,16 @@
     // sizes against the cycle's own median frame (the standing frame's hair is shaped differently)
     const ms = frames.map(measure).filter(Boolean), med = v => { const a = ms.map(v).sort((p, q) => p - q); return a[a.length >> 1]; };
     const m0 = ms.length ? { head: med(m => m.head), rise: med(m => m.rise) } : null;
-    const rows = frames.map(k => {
+    const slip = slips(frames), sl = slip.filter(v => v != null);
+    const slipLine = !sl.length ? '' : (() => { const avg = sl.reduce((a, b) => a + b, 0) / sl.length, mx = Math.max(...sl), at = frames[slip.indexOf(mx)];
+      return `Planted foot at each change of painting: average <b>${avg.toFixed(1)} px</b>, worst <b${mx > LIMITS.slide ? ' style="color:#ff9a8a"' : ''}>${mx.toFixed(1)} px</b> (after ${at.replace(st.ch + '_', '')}).`; })();
+    const sizeBad = frames.filter(k => { const m = measure(k); return m && m0 && Math.abs(m.head / m0.head - 1) > LIMITS.size; }).length;
+    const rows = frames.map((k, fi) => {
       const m = measure(k); if (!m || !m0) return `<tr><td>${k}</td><td colspan=3>(not loaded)</td></tr>`;
       const size = m.head / m0.head - 1, rise = m.rise / m0.rise - 1, bad = Math.abs(size) > LIMITS.size;
-      return `<tr${bad ? ' style="color:#ff9a8a"' : ''}><td>${k.replace(st.ch + '_', '')}</td><td>${(size * 100).toFixed(1)}%</td><td>${(rise * 100).toFixed(1)}%</td><td>${m.feet.length}</td></tr>`;
+      const sv = slip[fi];
+      return `<tr${bad ? ' style="color:#ff9a8a"' : ''}><td>${k.replace(st.ch + '_', '')}</td><td>${(size * 100).toFixed(1)}%</td><td>${(rise * 100).toFixed(1)}%</td><td>${m.feet.length}</td><td${sv > LIMITS.slide ? ' style="color:#ff9a8a"' : ''}>${sv == null ? '' : sv.toFixed(1)}</td></tr>`;
     }).join('');
-    const sizeBad = frames.filter(k => { const m = measure(k); return m && m0 && Math.abs(m.head / m0.head - 1) > LIMITS.size; }).length;
     box.innerHTML = `<b style="color:#e0b866">Walk lab</b> <span style="opacity:.7">(nothing here changes the game)</span><br>
       <label>Who <select id="wl-ch">${WALKERS().map(c => `<option${c === st.ch ? ' selected' : ''}>${c}</option>`).join('')}</select></label>
       <label>Cycle <select id="wl-cy">${names.map(n => `<option${n === st.cycle ? ' selected' : ''}>${n}</option>`).join('')}</select></label>
@@ -92,8 +124,9 @@
       Planted foot <select id="wl-lock">${[['1', 'locked'], ['0.5', 'half'], ['0', 'gliding (old)']].map(([v, n]) => `<option value="${v}"${+v === wo().lock ? ' selected' : ''}>${n}</option>`).join('')}</select>
       Between frames <select id="wl-blend">${['cut', 'dissolve', 'morph'].map(v => `<option${v === wo().blend ? ' selected' : ''}>${v}</option>`).join('')}</select>
       Timing <select id="wl-time">${[['foot', 'by the foot'], ['even', 'even (old)']].map(([v, n]) => `<option value="${v}"${v === wo().timing ? ' selected' : ''}>${n}</option>`).join('')}</select>
-      <div id="wl-live" style="margin-top:4px;color:#cfe8b0"></div>
-      <table style="margin-top:4px;border-collapse:collapse;font-size:11px" cellpadding="1"><tr style="color:#e0b866"><td>frame</td><td>size</td><td>rise</td><td>feet</td></tr>${rows}</table>
+      <div id="wl-slip" style="margin-top:4px;color:#cfe8b0">${slipLine}</div>
+      <div id="wl-live" style="margin-top:2px;opacity:.75"></div>
+      <table style="margin-top:4px;border-collapse:collapse;font-size:11px" cellpadding="1"><tr style="color:#e0b866"><td>frame</td><td>size</td><td>rise</td><td>feet</td><td>slip px</td></tr>${rows}</table>
       <div style="margin-top:3px">${frames.length ? `${frames.length} frames. Size ${sizeBad ? `<b style="color:#ff9a8a">${sizeBad} frame(s) more than ${LIMITS.size * 100}% off</b>` : 'consistent'}.` : '<b style="color:#ff9a8a">no walk cycle: this character glides</b>'}
       Rise: lowest just after a heel lands, highest passing.</div>`;
     $('#wl-ch').onchange = e => { st.ch = e.target.value; st.cycle = null; apply(); render(); };
@@ -170,7 +203,7 @@
     const live = $('#wl-live');
     if (live && slides.length) {
       const avg = slides.reduce((a, b) => a + b, 0) / slides.length, mx = Math.max(...slides);
-      live.innerHTML = `Planted foot drift per frame: average ${avg.toFixed(1)} px, worst ${mx.toFixed(1)} px ${avg > LIMITS.slide ? '<b style="color:#ff9a8a">(slides)</b>' : '(holds)'} · frame ${p.cur ? p.cur.replace(st.ch + '_', '') : ''}`;
+      live.innerHTML = `Live (depends on timing): drift per frame average ${avg.toFixed(1)} px, worst ${mx.toFixed(1)} px · frame ${p.cur ? p.cur.replace(st.ch + '_', '') : ''}`;
     } else if (live) live.textContent = p.cur ? 'frame ' + p.cur.replace(st.ch + '_', '') : '';
   }
   S.walkLab = async function () {

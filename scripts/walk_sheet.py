@@ -5,6 +5,7 @@
 # base frame's canvas at ONE shared scale (median of the head-to-waist fits), feet on the floor line, head over head.
 #   python3 scripts/walk_sheet.py alan alan_walkA "<who: a man in a brown leather jacket...>" art/review/alan/walk6
 #   python3 scripts/walk_sheet.py --split-only alan alan_walkA "" art/review/alan/walk6     (re-split a saved raw)
+# then, if the two halves' hair differs: python3 scripts/walk_head_swap.py art/review/alan/walk6 0.15
 # Logs to art/review/log.md like gen_image.py. The API key comes from .env and is never printed.
 import base64, datetime, io, json, os, sys
 import numpy as np
@@ -18,7 +19,11 @@ POSES = [1, 3, 5, 7, 9, 11, 13, 15]
 CURRENT = {'alan_walkA': ['alan_walkA', 'alan_walkDown', 'alan_pass', 'alan_walkUp', 'alan_walkB']}  # the frames in the game now
 _t = open(os.path.join(ROOT, 'js/sprites.js')).read(); SPR = json.loads(_t[_t.index('{'):_t.rindex('}') + 1])
 CW, CH = 480, 720
-PAD = 16  # headroom over the base frame's canvas: the stretched legs lift the head (the candidates' meta adds it to fy and hh)
+PAD = 40  # headroom over the base frame's canvas: the stretched legs lift the head (the candidates' meta adds it to fy and hh)
+# after the trunk fit, one more uniform scale so the head is the size it is in his other frames: Alan's sheet came
+# back with heads 91.5 px wide (walk lab measure) against 93 in the walk he has now and 94.5 standing; x1.025 puts
+# it between the two
+HEAD_K = {'alan_walkA': 1.025}
 
 
 def stick_sheet():
@@ -85,6 +90,7 @@ def split(base, out_dir):
     for f in figs:
         t, bo, x, w = measure(f); scales.append((bw - bt) / (w - t))
     s = float(np.median(scales)); print('per-figure scales', ' '.join(f'{k:.3f}' for k in scales), f'-> one scale {s:.3f}')
+    s *= HEAD_K.get(base, 1.0)
     ys = [measure(f)[1] for f in figs]
     for r in range(2):  # each row stands on one ground line: its lowest foot
         row_floor = max(ys[r * 4:(r + 1) * 4])
@@ -94,7 +100,7 @@ def split(base, out_dir):
     # current walk frames (median waist-to-floor) and he doesn't shrink when he starts walking
     cur = [measure(np.asarray(Image.open(os.path.join(ROOT, f'art/sprites/{k}.webp')).convert('RGBA'))) for k in CURRENT[base]]
     target = float(np.median([bo - w for t, bo, x, w in cur]))
-    legs = [(measure(f)[1] - measure(f)[3]) * s for f in figs]
+    legs = [(measure(f)[1] - measure(f)[3]) * s / HEAD_K.get(base, 1.0) for f in figs]  # the legs' target is set before the head scale
     k = target / float(np.median(legs)); print(f'legs {np.median(legs):.0f}px -> {target:.0f}px: stretched x{k:.3f}')
     for n_, f, floor in zip(POSES, figs, ys):
         gi = Image.fromarray(f, 'RGBA'); gi = gi.resize((round(gi.width * s), round(gi.height * s)), Image.LANCZOS)
