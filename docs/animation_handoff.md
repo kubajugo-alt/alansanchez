@@ -86,6 +86,21 @@ session lived in the session's scratchpad and are gone; everything that matters 
    10-14 px a frame (worst ~25): the engine moves the figure continuously while each painting is held, so the
    foot skates. That is the main thing step 3 fixes (lock the planted foot for the length of a frame).
    Gemini: the user supplied a key; it is in `.env` (gitignored, mode 600) as GEMINI_API_KEY. Never print or commit it.
+11. **Walks, step 3: the engine plays the walk properly** (js/engine/actor.js, js/story/core.js). Three options,
+   `window.WALK = { lock, blend, timing }`, defaults `{ lock: 1, blend: 'cut', timing: 'foot' }` (`WALK_DEFAULT`);
+   the walk lab has a select for each.
+   - `lock` (0-1): while a painting is held, the figure is drawn where it stood when that painting began
+     (`lockI/lockX/lockY`, `drawAt()`), so the planted foot stays put and the body catches up on the next painting.
+   - `blend`: `cut` (hard switch, each painting held for its whole step), `dissolve` (`WALK_DISSOLVE` 0.07 s),
+     `morph` (the old mesh morph between walk frames).
+   - `timing`: `foot` = each frame's share of the stride from its planted-foot data (`S.walkTiming` uses per-frame
+     `len`), `even` = equal shares.
+   Planted-foot drift (Alan's side walk, lab measure): old (lock 0, morph, even) avg 13.8 / worst 25.3 px;
+   lock 1 + cut 3.9 / 21.2; lock 1 + dissolve 3.4 / 5.7; lock 0.5 + cut 6.4 / 24.6. Frame strips: the dissolve
+   ghosts a double leg at walkDown→pass even at 0.04 s; the cut reads clean, so cut is the default. The one 21 px
+   worst case is a transition whose painted feet don't line up; step 2 (a coherent pose set) fixes that in the art.
+   Checked: node --check, validate (0 errors), smoke: all 38 scenes pass (run in two parts; one run of the whole
+   list hit my 15-minute timeout at abiliosketch, which then passed on its own).
 
 ## Where things stand (session handoff, 2026-10-20)
 

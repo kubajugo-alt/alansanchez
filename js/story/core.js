@@ -118,7 +118,9 @@
     // frame by its own foot travel made contacts flash and passing frames hold, which read as skipping
     const len = W.map((f, i) => { const n = W[(i + 1) % W.length]; return Math.max(0.01, P[f][0] - (P[n].length > 1 ? P[n][1] : P[n][0])); });
     const even = len.reduce((a, b) => a + b, 0) / W.length;
-    F.walkLen = W.map(() => even);
+    // with the planted foot locked (actor.js, window.WALK), each frame lasts as far as its own foot travels, so the next
+    // frame's foot lands exactly where this one's stood; 'even' shares the stride out equally
+    F.walkLen = ((window.WALK && window.WALK.timing) || 'foot') === 'foot' ? len : W.map(() => even);
     F.walkSteps = W.map((f, i) => (P[f].length > 1 ? i : -1)).filter(i => i >= 0); // a footstep as each heel lands
   };
   // Painted frames (js/sprites.js). Sprites face right unless flagged

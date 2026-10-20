@@ -21,6 +21,14 @@
   const PAIR_STEP = 0.16;       // one pair painting to the next (an unbutton, a kiss): a quick dissolve
   const canMorph = () => !!(window.Warp && window.WARP !== false && !window.FAST && Warp.ok); // the mesh warp is running
   const XFADE_SHORT = 0.1;
+  // Walking (the walk lab, ?scene=walklab, compares the settings; window.WALK overrides them):
+  //   lock    how much of the planted foot's slide is taken out: while a walk frame is up the figure is drawn where it
+  //           stood when that frame began (1: the foot stays put, then the next frame steps on; 0: it glides)
+  //   blend   between walk frames: 'cut', 'dissolve' (a very short cross-fade) or 'morph' (the mesh bends one into the next)
+  //   timing  'foot': each frame lasts as far as its planted foot travels in the art (S.WALK_PLANT); 'even': all alike
+  const WALK_DEFAULT = { lock: 1, blend: 'cut', timing: 'foot' };
+  const walkOpt = () => Object.assign({}, WALK_DEFAULT, window.WALK || {});
+  const WALK_DISSOLVE = 0.07;
   const OCC_BAND = 0.2;         // behind furniture: how far up the figure its shade reaches (of his height)
   const OCC_DARK = 0.6;         // ...and how dark it is right at the edge
   const WALK_XF = 0.14;         // standing into a stride and a stride into standing: a short eased cross-fade
@@ -173,6 +181,9 @@
           const u0 = this.rigS.u; this.rigS.u += moved / (hh * E.rigStride(this.ch));
           if (Math.floor(u0 * 2) !== Math.floor(this.rigS.u * 2) && this.visible) Sound.step((E.room && E.room.floor) || 'stone', this === E.player ? 1 : 0.5, this.x);
         }
+        // the planted foot stays put: remember where this walk frame began (drawn there, see drawAt)
+        const fi = Math.floor(this.phase);
+        if (fi !== this.lockI || this.lockX == null) { this.lockI = fi; this.lockX = this.x; this.lockY = this.y; }
         const idx = Math.floor(this.phase) % cyc.length;
         if (idx !== this.stepIdx && !(this.cur && this.cur.startsWith('rig:'))) {
           this.stepIdx = idx;
@@ -289,9 +300,10 @@
       if (this.pose) return (F.poses && F.poses[this.pose]) || this.pose;
       if (this.walking) {
         const c = this.cycle(), i = Math.floor(this.phase) % c.length, a = c[i], b = c[(i + 1) % c.length], M = window.MORPHS;
-        // a step with no morph shows its next painting from half way: the planted foot slips half as far, either side of the cut
-        const morphs = M && M[a + '>' + b] && M[b + '>' + a] && canMorph();
-        return !morphs && this.phase - Math.floor(this.phase) >= 0.5 ? b : a;
+        // a step with no morph shows its next painting from half way (the planted foot slips half as far, either side of
+        // the cut) unless the foot is locked: then each painting holds for its whole step and the foot doesn't slip at all
+        const morphs = walkOpt().blend === 'morph' && M && M[a + '>' + b] && M[b + '>' + a] && canMorph();
+        return !morphs && !(walkOpt().lock > 0 && !window.FAST) && this.phase - Math.floor(this.phase) >= 0.5 ? b : a;
       }
       if (this.dir === 'n' && F.back) return arr(F.back)[0];
       if (this.dir === 's' && F.front) return arr(F.front)[0];
@@ -383,11 +395,23 @@
         return [nx, ny];
       };
     }
+    // where the figure is drawn: its own position, less what the planted foot would have slid since the walk frame began
+    drawAt(dt) {
+      const L = window.FAST ? 0 : walkOpt().lock;
+      if (this.walking && L > 0 && this.lockX != null && !(this.cur && this.cur.startsWith('rig:'))) {
+        this.lockDX = L * (this.x - this.lockX); this.lockDY = L * (this.y - this.lockY);
+      } else { const k = Math.exp(-(dt || 0.016) * 18); this.lockDX = (this.lockDX || 0) * k; this.lockDY = (this.lockDY || 0) * k; if (!this.walking) this.lockX = null; }
+      return [this.x - (this.lockDX || 0), this.y - (this.lockDY || 0)];
+    }
     draw() {
       if (!this.visible || this.alpha <= 0.005) return;
-      if (this.alpha >= 1) return this.drawBody();
-      g.save(); g.globalAlpha = this.alpha;
-      try { this.drawBody(); } finally { g.restore(); }
+      const x = this.x, y = this.y, now = performance.now(), [dx, dy] = this.drawAt(this.drawMs ? (now - this.drawMs) / 1000 : 0.016);
+      this.drawMs = now; this.x = dx; this.y = dy;
+      try {
+        if (this.alpha >= 1) return this.drawBody();
+        g.save(); g.globalAlpha = this.alpha;
+        try { this.drawBody(); } finally { g.restore(); }
+      } finally { this.x = x; this.y = y; }
     }
     drawBody() {
       let key = this.frameKey();
@@ -423,7 +447,8 @@
       if (turned && key === this.cur) { this.prev = key; this.prevFlip = this.curFlip; this.fadeDur = this.fadeT = TURN_XF; this.fadeSim = true; this.fadeHand = false; }
       if (key !== this.cur) {
         const inCycle = this.walking && this.cycle().includes(key) && this.cycle().includes(this.cur);
-        this.prev = this.cur && !inCycle ? this.cur : null;
+        const stepX = inCycle && walkOpt().blend === 'dissolve' && !window.FAST; // a walk frame to the next: a very short cross-fade
+        this.prev = this.cur && (!inCycle || stepX) ? this.cur : null;
         this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
         // a mouth or gesture change while speaking is a clean frame swap, never a mesh morph
         const tf = this.talking && !this.walking && !this.pose ? arr(F.talk).concat(arr(F.idle).flat()) : null;
@@ -442,9 +467,9 @@
         // into a walk and out of one: the standing frame and the stride ease over each other instead of cutting
         const cyc = this.cycle(), edge = !!(this.prev && !morph && !talkSwap && this.prevFlip === flipped &&
           ((this.walking && !cyc.includes(this.prev) && this.walkT < 0.3) || (!this.walking && cyc.includes(this.prev))));
-        const similar = forced || flat || edge || (turned && this.prev) || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
+        const similar = forced || flat || edge || stepX || (turned && this.prev) || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
         if (!morph && !similar) this.prev = null;
-        this.fadeDur = forced ? this.xfNext : flat ? XFADE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT : MORPH_T;
+        this.fadeDur = forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT : MORPH_T;
         this.xfNext = 0;
         this.fadeSim = !!similar;
         this.fadeHand = !!forced;
@@ -458,7 +483,7 @@
       let B = this.prev && this.fadeT > 0 ? this.place(this.prev, this.prevFlip) : null;
       // walking: each step frame flows into the next with the ground covered (when the pair has a morph)
       let walkF = 0;
-      if (!B && this.walking && window.MORPHS && window.WARP !== false && !window.FAST) {
+      if (!B && this.walking && walkOpt().blend === 'morph' && window.MORPHS && window.WARP !== false && !window.FAST) {
         const c = this.cycle(), i = Math.floor(this.phase) % c.length, nk = c[(i + 1) % c.length];
         if (nk !== key && MORPHS[key + '>' + nk] && MORPHS[nk + '>' + key] && sameFacing(key, flipped, nk, flipped)) {
           const N = this.place(nk, flipped);

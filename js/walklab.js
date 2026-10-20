@@ -10,6 +10,7 @@
 (function () {
   const S = window.S, { G } = S, E = window.Engine;
   const $ = s => document.querySelector(s);
+  const wo = () => Object.assign({ lock: 1, blend: 'cut', timing: 'foot' }, window.WALK || {}); // (actor.js WALK_DEFAULT)
   const LIMITS = { size: 0.04, slide: 6 }; // head width within 4% of the cycle's median; a planted foot drifts under 6 px a step
 
   // ---------------------------------------------------------------- cycles to compare
@@ -87,7 +88,10 @@
       <button data-w="right">Walk →</button> <button data-w="left">← Walk</button> <button data-w="up">Up the room</button> <button data-w="down">Down</button>
       <label><input type="checkbox" id="wl-loop"${st.loop ? ' checked' : ''}> back and forth</label><br>
       Speed <button data-s="1">1×</button> <button data-s="0.5">½×</button> <button data-s="0.25">¼×</button> <button data-s="0">❚❚</button> <button id="wl-step">frame ▸</button>
-      <label><input type="checkbox" id="wl-feet"${st.feet ? ' checked' : ''}> feet on the floor</label>
+      <label><input type="checkbox" id="wl-feet"${st.feet ? ' checked' : ''}> feet on the floor</label><br>
+      Planted foot <select id="wl-lock">${[['1', 'locked'], ['0.5', 'half'], ['0', 'gliding (old)']].map(([v, n]) => `<option value="${v}"${+v === wo().lock ? ' selected' : ''}>${n}</option>`).join('')}</select>
+      Between frames <select id="wl-blend">${['cut', 'dissolve', 'morph'].map(v => `<option${v === wo().blend ? ' selected' : ''}>${v}</option>`).join('')}</select>
+      Timing <select id="wl-time">${[['foot', 'by the foot'], ['even', 'even (old)']].map(([v, n]) => `<option value="${v}"${v === wo().timing ? ' selected' : ''}>${n}</option>`).join('')}</select>
       <div id="wl-live" style="margin-top:4px;color:#cfe8b0"></div>
       <table style="margin-top:4px;border-collapse:collapse;font-size:11px" cellpadding="1"><tr style="color:#e0b866"><td>frame</td><td>size</td><td>rise</td><td>feet</td></tr>${rows}</table>
       <div style="margin-top:3px">${frames.length ? `${frames.length} frames. Size ${sizeBad ? `<b style="color:#ff9a8a">${sizeBad} frame(s) more than ${LIMITS.size * 100}% off</b>` : 'consistent'}.` : '<b style="color:#ff9a8a">no walk cycle: this character glides</b>'}
@@ -97,6 +101,10 @@
     $('#wl-room').onchange = e => { st.room = e.target.value; go(); };
     $('#wl-loop').onchange = e => { st.loop = e.target.checked; };
     $('#wl-feet').onchange = e => { st.feet = e.target.checked; };
+    const setW = (k, v) => { window.WALK = Object.assign({}, wo(), { [k]: v }); S.walkTiming(S.CHARS[st.ch].frames); slides.length = 0; trail.length = 0; };
+    $('#wl-lock').onchange = e => setW('lock', +e.target.value);
+    $('#wl-blend').onchange = e => setW('blend', e.target.value);
+    $('#wl-time').onchange = e => setW('timing', e.target.value);
     box.querySelectorAll('[data-w]').forEach(b => b.onclick = () => walk(b.dataset.w));
     box.querySelectorAll('[data-s]').forEach(b => b.onclick = () => { const v = +b.dataset.s; window.HOLD = v === 0; window.ADVANCE = 0; window.TIME_SCALE = v || 1; });
     $('#wl-step').onclick = () => { window.HOLD = true; window.ADVANCE = (window.ADVANCE || 0) + 1; };
@@ -106,7 +114,7 @@
     const p = G.player, cyc = cyclesFor(st.ch);
     p.ch = st.ch; p.pose = null; p.set = null;
     const F = S.CHARS[st.ch].frames;
-    if (st.cycle && cyc[st.cycle] && !/camera/.test(st.cycle)) { F.walk = cyc[st.cycle].slice(); if (st.ch === 'alan') S.walkTiming(F); }
+    if (st.cycle && cyc[st.cycle] && !/camera/.test(st.cycle)) { F.walk = cyc[st.cycle].slice(); S.walkTiming(F); }
     trail.length = 0;
   }
   async function go() {
@@ -140,7 +148,8 @@
   function feetNow() {
     const p = G.player, key = p.cur; if (!key) return [];
     const m = measure(key), A = p.place(key, p.lastFlip); if (!m || !A) return [];
-    return m.feet.map(([x0, x1]) => { const c = (x0 + x1) / 2, sx = A.flipped ? A.sp.w - c : c; return p.x + A.x + sx * A.s; });
+    const px = p.x - (p.lockDX || 0); // where the figure is drawn (actor.js drawAt)
+    return m.feet.map(([x0, x1]) => { const c = (x0 + x1) / 2, sx = A.flipped ? A.sp.w - c : c; return px + A.x + sx * A.s; });
   }
   function tick() {
     requestAnimationFrame(tick);
