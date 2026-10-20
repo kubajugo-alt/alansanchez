@@ -50,6 +50,15 @@ session lived in the session's scratchpad and are gone; everything that matters 
    buttons and inventory step aside during paintings; death screen fades in; title drifts; fade() doesn't wait
    when already black; Odete's caption and hover name (missed in T05). Walk-step morphs for Celeste, Zé, Vasco.
 
+7. **Occlusion edges** (the user: "the character sprites are just cut" behind furniture). Two changes, both in
+   code, for every occluder in every room: (a) render.js draws each occluder through a cached mask whose outline
+   is feathered over about 2 px (`OCC_SOFT`), so the painted furniture blends into the figure instead of a
+   vector-sharp cut; glows over the patch are redrawn outside the furniture's transform; (b) render.js
+   `markOccluded` finds, for whoever stands behind furniture, where its top edge crosses their body, and actor.js
+   darkens the figure softly towards that edge (`OCC_BAND` 0.2 of their height, `OCC_DARK` 0.6 at the edge), on
+   the figure's own pixels only. Checked before/after on Rui (police desk), Lino (tavern bar) and the washerwomen
+   (lavadouro basins); smoke test on the rooms with occluders.
+
 ## Where things stand (session handoff, 2026-10-20)
 
 **In the game now** (all deployed; the user approved each, and on 2026-10-20 said of the walk: "Don't expect my approval - if works for you, works for me"):

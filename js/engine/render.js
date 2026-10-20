@@ -31,19 +31,66 @@
   function curBg() { const b = typeof E.room.bgFn === 'function' ? E.room.bgFn() : E.room.bg; return IMG['bg:' + b] ? b : E.room.bg; }
   // parallax (js/parallax.js): on in a room with a depth map when the address asks for it
   const PX = () => window.Parallax && Parallax.active && E.room && E.room.depth;
+  // An occluder's outline as a mask, cached: solid inside, its edge thinned over a couple of pixels so the painted
+  // furniture blends into whoever stands behind it instead of cutting them with a vector-sharp line
+  const OCC_SOFT = 2.2; // px of feathered edge
+  const occPath = (x, P, ox, oy) => { x.beginPath(); for (const p of P) { p.forEach(([px, py], i) => (i ? x.lineTo(px - ox, py - oy) : x.moveTo(px - ox, py - oy))); x.closePath(); } };
+  function occMask(o) {
+    if (o._fm) return o._fm;
+    const P = o.polys || [o.poly], xs = P.flat().map(p => p[0]), ys = P.flat().map(p => p[1]), pad = 4;
+    const bx = Math.max(0, Math.floor(Math.min(...xs)) - pad), by = Math.max(0, Math.floor(Math.min(...ys)) - pad);
+    const bw = Math.max(1, Math.min(W, Math.ceil(Math.max(...xs)) + pad) - bx), bh = Math.max(1, Math.min(H, Math.ceil(Math.max(...ys)) + pad) - by);
+    const c = document.createElement('canvas'); c.width = bw; c.height = bh; const x = c.getContext('2d');
+    occPath(x, P, bx, by); x.fillStyle = '#fff'; x.fill();
+    x.globalCompositeOperation = 'destination-out'; x.lineJoin = 'round'; x.strokeStyle = '#000';
+    for (const [w, a] of [[OCC_SOFT * 2, 0.28], [OCC_SOFT, 0.32]]) { x.globalAlpha = a; x.lineWidth = w; occPath(x, P, bx, by); x.stroke(); }
+    return (o._fm = { bx, by, bw, bh, c });
+  }
+  let occBuf = null;
   function drawOccluder(o) {
     const im = IMG['bg:' + curBg()]; if (!im) return;
+    const P = o.polys || [o.poly], m = occMask(o);
+    if (!occBuf) occBuf = document.createElement('canvas');
+    if (occBuf.width < m.bw || occBuf.height < m.bh) { occBuf.width = Math.max(occBuf.width, m.bw); occBuf.height = Math.max(occBuf.height, m.bh); }
+    const t = occBuf.getContext('2d');
+    t.save(); t.clearRect(0, 0, m.bw, m.bh); t.translate(-m.bx, -m.by);
+    t.drawImage(im, 0, 0, W, H); drawLayers(true, t);
+    if (o.draw) o.draw(t, E.time); // props that sit on the occluding furniture
+    t.restore();
+    t.save(); t.globalCompositeOperation = 'destination-in'; t.drawImage(m.c, 0, 0); t.restore();
+    const T0 = g.getTransform();
     g.save();
     // (the furniture moves as the floor at its front edge moves)
-    if (PX()) { const P = o.polys || [o.poly], xs = P.flat().map(p => p[0]); Parallax.apply(g, o.base ? (o.base[0][0] + o.base[1][0]) / 2 : (Math.min(...xs) + Math.max(...xs)) / 2, o.base ? (o.base[0][1] + o.base[1][1]) / 2 : o.y); }
-    g.beginPath();
-    for (const p of (o.polys || [o.poly])) { p.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); }
-    g.clip();
-    g.drawImage(im, 0, 0, W, H);
-    drawLayers(true);
-    E.drawGlows(); // keep lamp halos continuous across the repainted patch
-    if (o.draw) o.draw(g, E.time); // props that sit on the occluding furniture
+    if (PX()) { const xs = P.flat().map(p => p[0]); Parallax.apply(g, o.base ? (o.base[0][0] + o.base[1][0]) / 2 : (Math.min(...xs) + Math.max(...xs)) / 2, o.base ? (o.base[0][1] + o.base[1][1]) / 2 : o.y); }
+    g.drawImage(occBuf, 0, 0, m.bw, m.bh, m.bx, m.by, m.bw, m.bh);
+    // keep lamp halos continuous across the repainted patch (each glow at its own lamp's depth, so outside this transform)
+    occPath(g, P, 0, 0); g.clip(); g.setTransform(T0); E.drawGlows();
     g.restore();
+  }
+  // where an occluder's top edge crosses the line x (the highest of its outlines there), or null
+  function occTopAt(o, x) {
+    let top = null;
+    for (const p of (o.polys || [o.poly])) for (let i = 0; i < p.length; i++) {
+      const [x0, y0] = p[i], [x1, y1] = p[(i + 1) % p.length];
+      if (x0 === x1 || x < Math.min(x0, x1) || x > Math.max(x0, x1)) continue;
+      const y = y0 + (y1 - y0) * (x - x0) / (x1 - x0); if (top == null || y < top) top = y;
+    }
+    return top;
+  }
+  // whoever stands behind a piece of furniture whose top edge crosses their body gets that edge (Actor.draw shades them
+  // a little towards it: the counter, desk or basin throws its shade on them, so they read as standing behind it)
+  function markOccluded(actors) {
+    for (const a of actors) a.occEdge = null;
+    for (const o of (E.room.occluders || [])) {
+      if (o.when && !o.when()) continue;
+      for (const a of actors) {
+        const behind = o.base ? a.y < o.base[0][1] + (o.base[1][1] - o.base[0][1]) * Math.max(0, Math.min(1, (a.x - o.base[0][0]) / (o.base[1][0] - o.base[0][0]))) : a.y < o.y;
+        if (!behind) continue;
+        const e = occTopAt(o, a.x), h = a.height();
+        if (e == null || e <= a.y - h * 0.95 || e >= a.y - 2) continue;
+        if (a.occEdge == null || e < a.occEdge) a.occEdge = e;
+      }
+    }
   }
   // Depth of an occluder. Furniture painted at an angle gives a `base` line (its
   // front edge on the floor) instead of a single y: whoever stands behind that
@@ -132,6 +179,7 @@
       // depth-sorted actors + occluders cut from the painting (each moves as the floor under its feet)
       const planted = (a, fn) => { if (!PX()) return fn(); g.save(); Parallax.apply(g, a.x, a.y); try { fn(); } finally { g.restore(); } };
       const items = [];
+      markOccluded(E.npcs.filter(a => a.visible).concat(E.player.visible ? [E.player] : []));
       for (const a of E.npcs) if (a.visible) items.push({ y: a.y, fn: () => planted(a, () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); }) });
       if (E.player.visible) items.push({ y: E.player.y, fn: () => planted(E.player, () => { E.player.draw(); if (E.player.overlay) E.player.overlay(g, E.player, E.time); }) });
       for (const o of (E.room.occluders || [])) if (!o.when || o.when()) items.push({ y: occluderY(o), fn: () => drawOccluder(o) });

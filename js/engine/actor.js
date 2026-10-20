@@ -21,6 +21,8 @@
   const PAIR_STEP = 0.16;       // one pair painting to the next (an unbutton, a kiss): a quick dissolve
   const canMorph = () => !!(window.Warp && window.WARP !== false && !window.FAST && Warp.ok); // the mesh warp is running
   const XFADE_SHORT = 0.1;
+  const OCC_BAND = 0.2;         // behind furniture: how far up the figure its shade reaches (of his height)
+  const OCC_DARK = 0.6;         // ...and how dark it is right at the edge
   const WALK_XF = 0.14;         // standing into a stride and a stride into standing: a short eased cross-fade
   const TURN_XF = 0.18;         // a turn with no front view: the two facings dissolve      // near-identical frames (talk, idle variants, a cigarette drag): a 100 ms eased cross-fade
   // Movement feel (all tunable; 0 switches a feature off). Lengths are in walker heights.
@@ -471,6 +473,16 @@
       U.r = Math.max(A.x + A.w, B ? B.x + B.w : -1e9); U.b = Math.max(A.y + A.h, B ? B.y + B.h : -1e9);
       const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
       const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh, false, this.fadeSim, !!(E.SPRITES[key].rigid || (B && B.sp.rigid)), this.fadeHand);
+      // standing behind furniture (render.js markOccluded): the figure darkens softly towards the furniture's top edge
+      if (this.occEdge != null && !window.FAST && comp.getContext) {
+        const yE = this.occEdge - (this.y + U.y), band = h * OCC_BAND;
+        if (yE > 0 && yE - band < bh) {
+          const c2 = comp.getContext('2d'); c2.save(); c2.globalCompositeOperation = 'source-atop';
+          const gr = c2.createLinearGradient(0, yE - band, 0, yE + 1);
+          gr.addColorStop(0, 'rgba(12,8,5,0)'); gr.addColorStop(0.65, `rgba(12,8,5,${OCC_DARK * 0.45})`); gr.addColorStop(1, `rgba(12,8,5,${OCC_DARK})`);
+          c2.fillStyle = gr; c2.fillRect(0, yE - band, bw, band + 2); c2.restore();
+        }
+      }
       const sinkPx = this.sink * h;
       const unlit = !!(E.room && E.room.unlit && E.room.unlit.test(key));
       const lights = unlit ? [] : E.lightsOn(this.x, this.y - h * 0.55, h, this);
