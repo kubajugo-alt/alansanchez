@@ -158,6 +158,15 @@ session lived in the session's scratchpad and are gone; everything that matters 
      labelled as timing-dependent. (Tried and dropped: template-matching the boot between frames; the boot rotates
      as the heel rolls, and in the far-leg half it matched the wrong boot.)
    Review page republished with the fixed frames (same link).
+15. **Sharper stills** (the user: "push the sharper paintings"). The game zooms stills up to 1.2x (stills.js ZMAX) on a
+   1280x720 canvas, and every still was stored at 1280x720, so zooms were upscaled and soft. `scripts/stills_hires.py`
+   rebuilds a still at 1536x864 from its Gemini full-size result (`<name>_raw.png`, 2752x1536), colour-matched to the
+   painting in the game (match_palette), only when the raw is the same picture (greyscale correlation > 0.97).
+   39 stills now 1536x864: the 26 repaints of entry 12 (raws in crisp2/, not committed, 180 MB) and the 13 crisp
+   repaints chosen on 2026-10-18 (raws in crisp/, committed). It skipped the 2026-10-18 candidates the user had
+   turned down (different pictures, r 0.90-0.96). The other 22 stills have no larger source and stay 1280x720.
+   art/stills 18 MB. Checked: a 1.2x zoom crop before/after (rigging and outlines crisp, colours unchanged);
+   smoke for coldopen, intro, fado, romance, copbed, visitguitar, tr1-tr5 pass.
 
 ## Where things stand (session handoff, 2026-10-20)
 
