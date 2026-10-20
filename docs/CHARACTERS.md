@@ -1,9 +1,9 @@
 > **Reference for writing dialogue and story (supplied by the author, Oct 2026).** Use it when building future dialogue and scenes. It is not a to-do list: do not apply its "canon corrections" section or its **(new)** proposals unless the author asks. Where it disagrees with the current build, the build wins unless the author decides otherwise.
 
 > **Author's decisions (Oct 2026), these override the rest of this document:**
-> - **Inês** stays as in the game: a Black Brazilian woman from Salvador, black blazer over a band tee, high-waisted jeans, heels, gold hoops. Ignore the Barreiro/glasses/Doc Martens version below.
-> - **Celeste is Rui's mother** (not his grandmother).
-> - **Alan's mother, Eleanor, lives in St. Augustine, Florida** (not Porto); this is explored in the sequel.
+> - **Inês** stays as in the game: a Black Brazilian woman from Salvador, black blazer over a band tee, high-waisted jeans, heels, gold hoops. The profile below has been updated to match.
+> - **Celeste is Rui's mother.**
+> - **Alan's mother, Eleanor, lives in St. Augustine, Florida**; this is explored in the sequel.
 > - **Rui's line:** the game version stays. "Stop feeling up my constable" is retired; when Rui walks back in, Alan and Teixeira spring apart and Rui comments, mildly surprised.
 
 # The Drowned Bell — Character Backstories & Psychological Profiles
@@ -26,10 +26,10 @@ Details marked **(new)** are invented in this document to fill gaps;
 they are proposals until you confirm them. Where the bible and the
 current build disagree, the build wins.
 
-**The timeline that holds it together.** Joaquim and Amália born 1914.
-Joaquim marries 1935. Pedro born 1936. Celeste born 1925. Vicente born
+**The timeline that holds it together.** Joaquim born 1912, Amália two
+years later. Joaquim marries 1935. Pedro born 1937. Celeste born 1925. Vicente born
 1943, Tomás 1944: both boys are in the cistern in 1955. Alan born 1958.
-Pedro dies 1967. Inês born 1962. Vasco born 1957. Joaquim dies ten days
+Pedro dies 1967; Eleanor goes home to St. Augustine. Inês born 1962. Vasco born 1957. Joaquim dies ten days
 before the game.
 
 ## Alan Sanches
@@ -82,6 +82,10 @@ Alfama knows. Nobody has heard him say it.
   brave once he commits. He runs a heist, races the tide and rings a
   drowned bell. Effort was never his problem; meaning was.
 
+Humour is avoidance. The fling-then-leave pattern is fear of being left
+(mother left when he was nine). Vasco is the first man who tells him
+not to change.
+
 **Humour as a symptom.** His jokes always carry a double meaning
 (ringing back, the tongue, turning, founder, keeping books). They stop
 at the \[pause\] beats, and those silences are where the real Alan is. A
@@ -107,14 +111,14 @@ her.
 
 |        |                                                                                                               |
 |--------|---------------------------------------------------------------------------------------------------------------|
-| Born   | 1962, Barreiro, on the industrial south bank; 33 in 1995                                                      |
+| Born   | 1962, Salvador, Bahia; 33 in 1995                                                                             |
 | Work   | Shop assistant since 1989; doctoral candidate, Faculdade de Letras                                            |
 | Thesis | *The Widows of 1755*, six years in progress                                                                   |
-| Look   | Round glasses, pencils in her hair, men's cardigans over band T-shirts, Doc Martens, a satchel of photocopies |
-| Voice  | Precise, quick, teasing; the Barreiro accent returns when she's angry; ElevenLabs Sarah                       |
+| Look   | Black blazer over a band tee, high-waisted jeans, heels, gold hoops                                           |
+| Voice  | Precise, quick, teasing; ElevenLabs Taciana                                                                   |
 
-**Backstory.** Her father worked at the CUF chemical works, her mother
-cleaned offices across the river. She was the first in her family at
+**Backstory.** Her father worked at a chemical works, her mother
+cleaned offices. She was the first in her family at
 university and has never quite believed she's allowed to be there. In
 1989, broke, she answered a handwritten card in the shop window. Joaquim
 hired her in five minutes and spent six years treating her as the
@@ -292,19 +296,24 @@ water. It's the only peace he gets, and it's tragic, not triumphant.
 threatening. He doesn't know Alan personally and has never met Vasco; he
 knows Alan only as the last Sineiro.
 
+Grief fixed at twelve; the rite is magical thinking (finish the sentence
+and father comes back); the ledger page is the permission he never had.
+Never write him as predatory towards Alan: his hunger is for the book
+and his father.
+
 ## Joaquim Sanches (posthumous)
 
 |            |                                                                          |
 |------------|--------------------------------------------------------------------------|
-| Born       | 1914, Alfama; drowned ten days before the game, aged 81                  |
+| Born       | 1912, Alfama; drowned ten days before the game, aged 83                  |
 | Work       | Bookseller, founder of Livraria Sanches; the Sineiro before Alan         |
-| Family     | Wife Rosa **(new)**, d. 1979; son Pedro (d. 1967); grandson Alan         |
+| Family     | Wife Graça; son Pedro (d. 1967); grandson Alan                           |
 | Present as | His ledger, his cipher, his 1955 page, the fado, other people's memories |
 
 **Backstory.** As a boy Joaquim rang the Sé bells beside Abílio and fell
 in love with Amália, a girl who sang in the street. His family knew what
-he was and what the bell was. At twenty-one he gave Amália up and
-married Rosa, "the sensible thing". Amália gave him a music box with a
+he was and what the bell was. At twenty-three he gave Amália up and
+married Graça, "the sensible thing". Amália gave him a music box with a
 silver ship on his wedding day.
 
 In 1955 he went down to the cistern under the Carmo with the bell's
@@ -345,14 +354,14 @@ fado: the refrain of "O Sino Afogado" is his love song to her.
 
 |        |                                                                |
 |--------|----------------------------------------------------------------|
-| Born   | 1914, Alfama; 81 in 1995                                       |
+| Born   | Alfama; 81 in 1995, two years younger than Joaquim             |
 | Work   | Fado singer, Taberna da Saudade, sixty years on the same stage |
 | Family | Never married **(new)**                                        |
 | Voice  | Gritty, enigmatic, unhurried; ElevenLabs Mora                  |
 
 **Backstory.** Amália sang in the streets as a girl and in the taverns
 by fifteen. She loved Joaquim from the bell-tower days and believed he
-would choose her. He married Rosa instead, and she gave him a music box
+would choose her. He married Graça instead, and she gave him a music box
 with a silver ship to prove she wasn't bitter. She was. She never
 married; she says it's because the stage was enough **(new)**. She
 stayed in the Alfama, sang his song every night for decades, then
@@ -415,7 +424,7 @@ never once made it Alan's problem.
   report goes in the drawer of unexplained cases, and the drawer gets
   closed.
 
-- **Fear:** that his avó is right and the river is breathing. If the
+- **Fear:** that his mother is right and the river is breathing. If the
   world isn't rational, his whole self is built on sand.
 
 - **Desire:** to close the case without having to believe in it.
@@ -582,7 +591,7 @@ home"), the midnight truth about 1955 and the lantern (V).
 
 ### Sr. Abílio
 
-**Vitals:** b. 1914, Alfama; 81. The last hand bell-ringer at the Sé.
+**Vitals:** b. Alfama, two years after Joaquim; 81. The last hand bell-ringer at the Sé.
 Deaf from sixty years of bells.
 
 **Backstory.** He rang beside Joaquim as a boy; Joaquim left the tower
@@ -615,7 +624,7 @@ last words weren't a prayer to the sea but a release for his son.
 "Vicente, let it go." He is the proof that the Lacerdas could have
 stopped, and the reason the finale works.
 
-### Pedro Sanches (1936–1967)
+### Pedro Sanches (1937–1967)
 
 Alan's father, Joaquim's only son. Warm, restless, the one Sanches who
 wanted to leave Lisbon; he met Eleanor when she came to Lisbon as a
@@ -627,7 +636,7 @@ inherited.
 
 ### Eleanor Solana
 
-Alan's mother, an American from St. Augustine, Florida. Her grandmother
+Alan's mother, an American from St. Augustine, Florida. Her mother's mother
 sent her to Lisbon in 1957 to marry into a founder line and bear "a
 child of both bloods". She fell in love with Pedro anyway. When he died,
 she understood what the Solanas wanted from her son, and she left Alan
@@ -638,16 +647,8 @@ She went back to St. Augustine, where she lives in 1995, and in the
 sequel she is married to Ambrose Pell. Alan has her number and hasn't
 called in two years. The dawn phone call is the start of a
 reconciliation; in Game 3 he hears the truth from her. **Fix in the
-bible:** the cast table says her number is "in Porto"; it should be St.
-Augustine.
-
-### Rosa Sanches (1915–1979) (new)
-
-Joaquim's wife, "the sensible thing": a kind, practical shopkeeper's
-daughter who knew she was loved second and made a good life anyway. She
-kept the shop's accounts, and the music box on the shelf. Alan remembers
-her vaguely and warmly. She gives Amália's jealousy someone real to be
-jealous of.
+bible:** the cast table gave her number in the wrong city; it should be
+St. Augustine.
 
 ### Maria Coutinho (1931–1995)
 
@@ -716,11 +717,11 @@ answers above.
 
 Canon corrections. Update dialogue, subtitles and the story bible, then
 list every changed line id so I can regenerate audio:  
-1. Celeste is Rui's mother, not his grandmother: replace "avó" /
-"grandmother" with "mãe" / "mother" wherever it refers to Celeste.  
+1. Celeste is Rui's mother: replace "avó" with "mãe" / "mother"
+wherever it refers to Celeste.  
 2. Alan's legal name is Alan. Remove every "Álvaro" line; where Inês
 used it in anger, she says "Alan Sanches" instead.  
-3. Alan's mother lives in St. Augustine, Florida, not Porto. Fix any
-reference to her number or home being in Porto.  
+3. Alan's mother lives in St. Augustine, Florida. Fix any reference to
+her number or home being anywhere else.  
 4. Alan's father Pedro was lost at sea in the colonial wars in 1967. Fix
 any line that contradicts this.

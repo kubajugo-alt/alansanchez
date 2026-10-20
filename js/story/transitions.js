@@ -16,7 +16,7 @@
   const IN = [1.06, 1.16], OUT = [1.16, 1.06];
   S.TRANSITIONS = {
     1: [['still_tr1_maria', 'narr_tr1_1', L2R, IN], ['still_tr1_list', 'narr_tr1_2', DOWN, IN], ['still_tr1_se_fog', 'narr_tr1_3', UP, OUT]],
-    2: [['still_tr2_lavadouro', 'narr_tr2_1', R2L, IN], ['still_tr2_tideclock', 'narr_tr2_2', UP, IN], ['still_tr2_ines', 'narr_tr2_3', L2R, OUT]],
+    2: [['still_tr2_lavadouro', 'narr_tr2_1', R2L, IN], ['still_tr2_ines', 'narr_tr2_3', L2R, OUT]], // (the tide-clock painting's line is merged into the first)
     3: [['still_tr3_bells', 'narr_tr3_1', UP, IN], ['still_tr3_tomas', 'narr_tr3_2', L2R, IN], ['still_tr3_case', 'narr_tr3_3', R2L, OUT]],
     4: [['still_tr4_boat', 'narr_tr4_1', L2R, IN], ['still_tr4_shop', 'narr_tr4_2', R2L, IN], ['still_tr4_machine', 'narr_tr4_3', DOWN, IN]],
     5: [['still_tr5_cistern', 'narr_tr5_1', UP, IN], ['still_tr5_dawn', 'narr_tr5_2', L2R, OUT], ['still_tr5_receiver', 'narr_tr5_3', R2L, IN]],

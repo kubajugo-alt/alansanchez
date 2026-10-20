@@ -46,7 +46,7 @@ This pass records the game as it is built; no story was invented. The walkthroug
 
 - **The date.** The date is fixed as Tuesday 31 October 1995: fog day 1 is Monday 23 October, Maria drowns at 04:01 on Monday 30 (day 8), and the game ends at dawn on Wednesday 1 November, All Saints' Day, the anniversary of 1755. The Diário's tide rows read Seg 23 to Ter 31.
 
-- **Tables.** Cast (Vasco, Teixeira, Duarte added), Locations (nineteen rooms), Structure, map unlocks, Items (twenty-six, the magnifier on the desk, the brass weight gone), Flags, Alan's line tables (retired ids replaced: alan_wake, alan_wheel_wrong, alan_glacier; lacerda_mine, alan_answers, alan_ledger and rui_coffee_back no longer play), Production decisions 4, 12 and 14 corrected, 15 to 18 added. Humour rule 7: Lacerda's threat about Vasco is cut from the build.
+- **Tables.** Cast (Vasco, Teixeira, Duarte added), Locations (nineteen rooms), Structure, map unlocks, Items (twenty-six, the magnifier on the desk, the brass weight gone), Flags, Alan's line tables (retired ids replaced: alan_wake, alan_wheel_wrong, alan_glacier; lacerda_mine and alan_answers are retired and rui_coffee_back no longer plays; alan_ledger plays again, after narr_reading and before narr_still), Production decisions 4, 12 and 14 corrected, 15 to 18 added. Humour rule 7: Lacerda's threat about Vasco is cut from the build.
 
 ## Premise
 
@@ -108,7 +108,7 @@ Alan is 37, single, lives above the shop he inherited in all but paperwork, and 
 
 6.  **Other characters react.** Inês rolls her eyes and scores his jokes out of ten; Rui ignores them; Amália laughs at the dirty ones; Lacerda finds them "charming"; Abílio mishears them into better ones.
 
-7.  **Lisbon, 1995, isn't always kind.** A few people let him know what they think of a bachelor bookseller: the woman under the washing after his bath (II), Senhor Armando on the bench, who means it kindly (I–IV), and Rosa the fishwife on the quay until the old mender tells her to stop (IV). (Lacerda's threat to tell the Patriarchate about Vasco was cut from the build: he and Alan meet for the first time in III.) These are low-key and never slurs. Alan never answers back and never jokes. He looks away and goes quiet, and the narrator says once what it costs him.
+7.  **Lisbon, 1995, isn't always kind.** A few people let him know what they think of a bachelor bookseller: the woman under the washing after his bath (II), Senhor Armando on the bench, who means it kindly (I–IV), and Rosa the fishwife on the quay until the old mender tells her to stop (IV). (Lacerda's threat to tell the Patriarchate about Vasco was cut from the build: he and Alan meet for the first time in III.) These are low-key and never slurs. Alan never answers back and never jokes. He looks away and goes quiet, and the narrator says once what it costs him. In the build this is **alan_laundry_quiet** and **narr_laundry**, at the lavadouro after laundry_remark and before celeste_laundry_enough: no joke, no score line.
 
 **The two-meaning motifs and where they pay off:**
 
@@ -128,11 +128,11 @@ The supernatural runs on five rules. Every puzzle and every line of exposition m
 
 1.  **The founders cast the bell, then bound it.** In 1754 the Brotherhood of the Drowned Bell paid the four founder families to cast a great bell for a cistern under the Carmo. A Sanches hand rang it on the tenth morning of the 1755 fog, believing it was a blessing. After the wave, the founders cut out its tongue (the clapper) and bound the bell with their blood. That is why Amália calls them "fools twice over": once for casting it, once for ringing it.
 
-2.  **While any founder line lives, the bell sleeps.** It cannot wake itself. It can only be woken by a founder's hand, with its own tongue (the one that was blessed and rung in 1755, not its twin; see rule 5), wet with that founder's blood, at a turning of the tide between the ninth night of a fog and the tenth dawn. Rung forward, it wakes and calls the sea. Rung backward, it is silenced forever.
+2.  **Only a founder can ring it, either way.** It cannot wake itself. It can only be woken by a founder's hand, with its own tongue (the one that was blessed and rung in 1755, not its twin; see rule 5), wet with that founder's blood, at a turning of the tide between the ninth night of a fog and the tenth dawn. Rung forward, it wakes and calls the sea. Rung backward, it is silenced forever.
 
-3.  **The tongue calls the fog.** When the tongue comes within reach of the cistern, the bell breathes and the fog rises for nine days. If nobody rings it by the tenth dawn, the fog lifts and the window closes for a generation.
+3.  **The Lacerdas call the fog.** A godparent who holds the tongue begins a novena at the cistern; the fog is the novena. Forty years of the tongue hidden in the Alfama raised nothing because no Lacerda held it.
 
-4.  **The water answers to the Lacerdas.** The Brotherhood's priests were Lacerdas, and their oath gives them command of the bell's water. The tiles are made of clay from the cistern floor, "a mouthful of the sea kept in clay". A tile left beside a sleeper drowns them at the next turning of the tide. Ordinary tools cannot break one; bronze from the bell can. When the bell is silenced, the oath breaks and the water takes its debt.
+4.  **The water answers to the Lacerdas.** The Brotherhood's priests were Lacerdas, and their oath gives them command of the bell's water. The tiles are made of clay from the cistern floor, "a mouthful of the sea kept in clay". A tile left beside a sleeper drowns them at the next turning of the tide. Ordinary tools cannot break one; bronze from the bell can. In the cistern the font is open and he needs no tile: the water goes where he looks. When the bell is silenced, the oath breaks and the water takes its debt.
 
 5.  **The founders poured twice.** Every founder casts a spare tongue from the same pour, in case the first one cracks. The drowned bell's twin has the same weight and the same marks, but it was never blessed and never rung, so it is ordinary bronze: "Only the bell knows the difference" (Abílio). The Sanches family kept the twin. In 1956 Joaquim asked Abílio where to hide bronze in plain sight ("A cathedral! Nobody looks at bronze twice in a cathedral") and deposited it in the Sé reserve, catalogued as "Clapper. Bronze. Provenance unknown. Deposited 1956", in the same year he gave the museum the Brotherhood's charter and register.
 
@@ -159,7 +159,7 @@ Only a founder can ring the bell, forward or backward. Any founder who knows the
 | Year    | Event                                                                                                                                                                                                                                                                                                                                                                    |
 |---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1754    | The Brotherhood commissions the bell from the Ferreira, Bastos, Coutinho and Sanches foundries. The Lacerda kiln makes the first tiles.                                                                                                                                                                                                                                  |
-| 1755    | Nine-day fog. On 1 November, the tenth morning, a Sanches founder rings the bell. Earthquake, fire and tsunami. The founders cut the tongue and bind the bell.                                                                                                                                                                                                           |
+| 1755    | Nine-day fog. At the dawn turning of 1 November the fog lifted and the bell was rung in clear weather; the earth answered at 09:40. Earthquake, fire and tsunami. The founders cut the tongue and bind the bell.                                                                                                                                                         |
 | 1756    | A cipher stone is set in the Carmo. Its salt crust gives it the name "weeping stone".                                                                                                                                                                                                                                                                                    |
 | 1926    | Joaquim (14) and Abílio (12) ring the Sé bells together as boys.                                                                                                                                                                                                                                                                                                         |
 | 1934    | Joaquim (22) and Amália (20): two years of songs. He writes "O Sino Afogado" for her, with the key inside it.                                                                                                                                                                                                                                                            |
@@ -259,7 +259,9 @@ Five chapters over one day, each ending on a turn in what Alan knows. The in-gam
 
 ### I.1 Intro
 
-The opening is a sequence of paintings with narration: the fog over Lisbon (**narr_intro_1**); the legend of the drowned bell, as the old women tell it (**narr_intro_legend**); Maria Coutinho's last night in Madragoa, the tile on her pillow at one minute to four, the list in her apron, the water (**narr_maria_1** to **narr_maria_6**, **narr_cold_open**); then the city waking to it: the newspaper (**narr_intro_2**, **narr_intro_tiles**), a patient man in the Chiado winding a clock and writing down the next name (**narr_intro_clock**), the shop sign in the Alfama (**narr_intro_alfama_2**). Chapter card. Then the empty shop: Inês calls up the stairs, Alan wakes in his room above it, yawns and comes down. She tells him there's been another one, a fishwife in Madragoa, and points him at the blinking answering machine.
+The opening is a sequence of paintings with narration, as now built: the fog over Lisbon, over the opening painting (**narr_intro_1**); Maria Coutinho's last night in Madragoa, in paintings (**narr_maria_1**, **narr_maria_2**, **narr_maria_3**, **narr_maria_4**, now: "She knew the paper by heart. Four names, in the hand of an old bookseller who had pressed it on her a year ago, and been buried last week.", then **narr_cold_open**, **narr_maria_6**); the newspaper painting (**narr_intro_2**, **narr_intro_tiles**); back over the fog painting, the one man who should be awake was asleep (**narr_intro_3**). Chapter I card. Then the shop: Inês calls up the stairs (**ines_wake_up**), Alan wakes in his room above it, yawns and comes down. She tells him there's been another one, a fishwife in Madragoa, and points him at the blinking answering machine.
+
+The bell-legend, Chiado clock and shop-sign paintings and their lines (**narr_intro_legend**, **narr_intro_clock**, **narr_intro_alfama**, **narr_intro_alfama_2**) are retired. Goal: the opening tells the player two things (the fog; the locked-room drownings) and plants one hook (a dead bookseller's list). No bell and no founder list before the card.
 
 - **narr_intro_1**: "For nine days the fog had sat on Lisbon like a cat on a warm book. Nobody could move it, and nobody quite liked to try."
 
@@ -531,9 +533,9 @@ While Alan is at the station after the heist, he can also ask about the Sé (**a
 
 ### II.4 The shop
 
-Inês pulls it together: the deaths follow the tide, Joaquim was in that cistern in 1955, and a church that prays without a roof can only be the Carmo (**ines_pull**). She adds a piece of her thesis: the 1755 fog also lasted nine days, and the wave came on the tenth morning. The convent unlocks.
+Inês pulls it together: Joaquim was in that cistern in 1955, and a church that prays without a roof can only be the Carmo (**ines_pull**). She adds a piece of her thesis: the 1755 fog also lasted nine days, and every eyewitness says that morning was clear. The convent unlocks.
 
-- **ines_tenth**: "Nine days of fog, Alan. Then the tenth morning. I've written forty pages about that morning."
+- **ines_tenth**: "And Alan... every eyewitness says that morning was clear. Bright. Nine days of fog, then sunshine, then at twenty to ten the earth opened. I've written forty pages on why nobody saw it coming."
 
 - **alan_tenth**: "Write a forty-first. Make it boring."
 
@@ -579,7 +581,7 @@ Tomás is sweeping the nave; a nun lights candles in the side chapel. Dialogue t
 
 - **Joaquim / 1955** (with the file): "Not here. Not in daylight. Ask me at midnight." (**tomas_notyet**) This plants the Ch. V confession.
 
-- **Bells** (with the Brotherhood's charter from the Sé). Alan shows him the charter. **tomas_charter**: "Where did you get this?" **alan_charter**: "A curator gave it to me. Indirectly." Then: "Bells are baptised, Alan. Holy water, a name, godparents. Then they're rung to drive storms away." (**tomas_baptism**) "Your bell was baptised in the sea. It doesn't drive the storm away. It invites it in." (**tomas_reverse**) "The Lacerda priest held it over the font and made the promise in its name... That's why the water answers to them." (**tomas_godparents**) Optional follow-up, **tomas_novena**: nine days of fog is a novena; in 1755 it ended on All Saints' Day, and they rang it to call their dead home. Flag: heard_bells. Until Alan has heard this, the stone waits (**alan_stone_wait**: "Father Tomás knows more about bells than he's telling.").
+- **Bells** (with the Brotherhood's charter from the Sé). Alan shows him the charter. **tomas_charter**: "Where did you get this?" **alan_charter**: "A curator gave it to me. Indirectly." Then: "Bells are baptised, Alan. Holy water, a name, godparents. Then they're rung to drive storms away." (**tomas_baptism**) "Your bell was baptised in the sea. It doesn't drive the storm away. It invites it in." (**tomas_reverse**) "A priest from one of the Brotherhood's families held it over the font and made the promise in its name. A godparent speaks for the child. That's why the water still answers to that family. I was never told which." (**tomas_godparents**) Optional follow-up, **tomas_novena**: nine days of fog is a novena; in 1755 it ended on All Saints' Day, and they rang it to call their dead home. Flag: heard_bells. Until Alan has heard this, the stone waits (**alan_stone_wait**: "Father Tomás knows more about bells than he's telling.").
 
 **Puzzle III-A: the weeping stone.** Goal: read it.
 
@@ -903,7 +905,7 @@ Stone steps end on a ledge above black-green water. The Drowned Bell hangs on a 
 
 **Puzzle V-B: the rite.** Five steps, each drawing on a different chapter.
 
-1.  **Distract him (ledger, Ch. I).** Inês: "Give him the ledger, Alan. The last page. He's waited forty years for it." (**ines_page**) On it, in Joaquim's hand: "Afonso Lacerda's last words, as the water rose, were for his son: 'Vicente, let it go.' J. S." Give the ledger to Lacerda: **alan_offer**: "You want the founders? Here. Every line you missed. Two hundred years. In my grandfather's hand." **lacerda_cant**: "Cipher. Of course. Joaquim, you careful old man." **alan_seven**: "The rite's in cipher. The founders' names aren't. Start at the back." Lacerda kneels on the drowned step with his torch, reading, his back to the bell (**lacerda_ledger**, **lacerda_read_1**). He is a collector before he is a killer.
+1.  **Distract him (ledger, Ch. I).** Inês: "Give him the ledger, Alan. The last page. He's waited forty years for it." (**ines_page**) On it, in Joaquim's hand: "Afonso Lacerda's last words, as the water rose, were for his son: 'Vicente, let it go.' J. S." Give the ledger to Lacerda: **alan_offer**: "You want the founders? Here. Every line you missed. Two hundred years. In my grandfather's hand." **lacerda_cant**: "Cipher. Of course. Joaquim, you careful old man." **alan_seven**: "The rite's in cipher. The founders' names aren't. Start at the back." Lacerda kneels on the drowned step with his torch, reading, his back to the bell (**lacerda_ledger**, **lacerda_read_1**, **lacerda_read_2**). He reaches the last page (**lacerda_read_father**): "'Afonso Lacerda's last words, as the water rose, were for his son.' '...Vicente, let it go.'" Then, barely audible (**lacerda_read_after**): "...He never said that to me. He said it to Joaquim." Inês, low (**ines_page_this**): "That's the page, Alan. The one about his father." Only then is Lacerda distracted (lacerda_distracted) and the bell can be struck. He is a collector before he is a killer.
 
 2.  **Free Inês (knife, Ch. IV).** **alan_ask_lamp**: "I can't strike what I can't see, and I need both hands. Let her hold the lantern." **lacerda_lamp_ok**, not looking up: "By all means. Cut her loose. The water answers to me, Senhor Sanches. Where would she go?" Use the knife on the ropes. **ines_free**: "You took your time." **alan_cat**: "I had a cat to bribe."
 
@@ -923,7 +925,7 @@ Stone steps end on a ledge above black-green water. The Drowned Bell hangs on a 
 
 A clean rite costs three marks, so the player can make exactly one mistake. Inês calls out the next step if the player hesitates for 20 seconds (hint, not an answer: "Last to first, Alan. Who came last?").
 
-**The silence.** **alan_ringback**: "I never rang anyone back in my life, Grandfather. Let's start with you." On the fourth strike the bell un-rings (**narr_ring**): the sound is pulled backward out of the air. **lacerda_realise**: "That was... backward. You rang it backward. All of it!" He doesn't fight it. He goes back to the ledger. **narr_renounce**: "The bell renounced the sea. And the sea, like any creditor, went looking for the man who had signed for the debt." The water rises around Lacerda alone, to his knees, his chest, his mouth, and he goes under with the ledger in his hands (**narr_end_1**). **narr_reading**: "He didn't fight the water. He was still reading." The fog is drawn down the steps like a breath, and the water stops obeying (**narr_silence**); five seconds of nothing, then the theme.
+**The silence.** **alan_ringback**: "I never rang anyone back in my life, Grandfather. Let's start with you." On the fourth strike the bell un-rings (**narr_ring**): the sound is pulled backward out of the air. **lacerda_realise**: "That was... backward. You rang it backward. All of it!" He doesn't fight it. He goes back to the ledger. **narr_renounce**: "The bell renounced the sea. And the sea, like any creditor, went looking for the man who had signed for the debt." The water rises around Lacerda alone, to his knees, his chest, his mouth, and he goes under with the ledger in his hands (**narr_end_1**). **narr_reading**: "He didn't fight the water. He was still reading." **alan_ledger**, quietly, after a silence (no joke, no score): "Some books should go with their readers." The fog is drawn down the steps like a breath, and the water stops obeying (**narr_silence**); five seconds of nothing, then the theme.
 
 **narr_still**: "The water goes still, and clear. The bell hangs silent, tongueless again. The tongue lies on the ledge, cold at last. Alan pockets it anyway. Old habit." **ines_end**: "Alan... the fog. Can you feel it? It's lifting." **alan_end**: "Come on. Let's go and see what the city looks like." On the way up she asks why he smells of tar and a fisherman's sweater (**gag_ines_2**).
 
@@ -1019,7 +1021,7 @@ Twenty-six items in the build (the brass weight is gone). Every item from the v2
 | Diário de Notícias | Rui's desk, once he offers it (II, police) | Notebook (II, the deduction)                                                                | Never            |
 | Tide card        | Ferreira's desk drawer, lock 0312 (II, ferreira) | Zé (IV, boat)                                                                             | Never            |
 | Vitrine key      | Key board (II, ferreira)            | Glass case (III, antiques)                                                                             | Never            |
-| Fragment of Sanches bronze | Vasco (III, se_cloister)  | (a keepsake)                                                                                           | Never            |
+| Fragment of Sanches bronze | Vasco (III, se_cloister)  | (a keepsake) Optional: the tile in the cabin (IV, alan_fragment_tile: it fails, nothing consumed); Zé after the tile breaks (IV, alan_fragment_ze / ze_fragment: he keeps it by Maria's photograph; sets fragment_given) | Given to Zé (optional), else never |
 | Bell tongue (the twin) | Vasco (III, se_store)         | Glass case swap (III, antiques)                                                                        | Swap             |
 | Duarte's lyrics  | Duarte (III, shop: upstairs, or left on his stool) | (read only)                                                                             | Never            |
 | Tongue (clapper) | Glass case (III, antiques)          | Zé's tile (IV, boat); four marks on the bell (V, cistern)                                              | End of game      |
@@ -1063,6 +1065,7 @@ Story state stays as plain flags on F(). The table lists the story flags in the 
 | met_celeste        | Wringing the sheet (II.2)                              | Topics; the bath                                        |
 | lore_turnings, lore_bronze, knows_1955_boy | Celeste's topics (II.2)        | The deduction; Ch. II gate                              |
 | bathed             | The bath (II.2, optional)                              | The washerwomen's teasing; laundry remark               |
+| mother_planted     | Celeste's "Your mother" topic heard (II.2)              | Nothing gated; selects an optional line only            |
 | ferreira_lit       | Matches on the oil lamp (II.3)                         | Workshop hotspots; telling Rui (II.3a)                  |
 | tide_wound, tide_known | Desk key on the tide clock (II.3)                  | Ch. II gate                                             |
 | drawer_unlocked    | 0312 on Ferreira's desk lock (II.3)                    | Tide card                                               |
@@ -1078,6 +1081,7 @@ Story state stays as plain flags on F(). The table lists the story flags in the 
 | heard_blood        | Abílio on the founders' blood (III.2)                  | The order                                               |
 | founder_order      | All four bells read, after heard_blood (III.2)         | Finale step 5; Abílio vignette                          |
 | saw_jc_clock       | Clocks topic with Lacerda (III.3, plays automatically) | alan_jc_click (IV.1)                                    |
+| saw_afonso         | Looking at Afonso's photograph behind Lacerda's counter (III.3) | Nothing gated; adds alan_father_photo before alan_father in the cistern (V.4) |
 | tongue_sketched    | Looking at the case (III.3)                            | Abílio reads the sketch                                 |
 | knows_twin         | Abílio on the twin (III.3)                             | Asking Vasco                                            |
 | twin_lent          | Vasco in the reserve (III.3)                           | The swap; Thursday's debt                               |
@@ -1090,10 +1094,12 @@ Story state stays as plain flags on F(). The table lists the story flags in the 
 | ze_awake           | Mooring line, second try (IV.3)                        | Zé conversation                                         |
 | ze_believes        | Tide card shown to Zé (IV.4)                           | The cabin                                               |
 | ze_saved           | Tongue on tile (IV.5)                                  | Zé's romance, knife and sardine                         |
+| fragment_given     | Fragment of Sanches bronze given to Zé after ze_saved (IV.6) | Nothing gated; adds alan_thu_fragment on Thursday (epilogue) |
 | ze_romance         | The cabin (IV.6)                                       | Rosa's dig on the quay                                  |
 | ch4_done           | The quay telephone (IV.6)                              | **End of Ch. IV**                                       |
 | ledger_found       | Sardine on Pessoa (V.1)                                | Message 3                                               |
 | heard_msg3         | Message 3 (V.1)                                        | The telephone                                           |
+| kettle_rang_seen   | The dry-kettle line played (V.1, shop)                 | Nothing gated; selects an optional line only            |
 | rui_called         | Phone call to Rui (V.1)                                | Shop door; convent_night on map; Rui at the gate (V.3); box vignette |
 | vasco_called       | Phone call to Vasco (V.1, with the card)               | Shop door                                               |
 | amalia_night       | Night visit (V.2, optional)                            | Epilogue vignette                                       |
@@ -1349,6 +1355,6 @@ Where the bible was silent or contradicted itself, the build made these choices.
 13. **Laundry in the street** barely moves ("hanging dead still"), with only the faintest sway so the street never looks frozen.
 14. **The theft counter.** While Lacerda is in the back room, each interaction with a hotspot counts as an action (walking doesn't). After three actions he returns (at once, once the swap is made). If Alan has lifted the tongue without swapping it he says `lacerda_putback`; if he hasn't touched it, `lacerda_another`. Either way everything resets, and the player can ask about the box again.
 15. **Content: Full or Discreet.** Asked once, before the first new game, and changeable from the menu at any time. Discreet goes from each romantic build-up straight to its afterwards and hides those paintings; every joke and every clue stays.
-16. **The gossip.** Everyone who saw Alan with Teixeira or Duarte (Inês, Celeste, Amália, Rui), and later the Sé's bell-ringer and the Carmo's priest about the curator, makes one remark per conversation, in order, each once; Alan denies everything, flustered.
+16. **The gossip.** Everyone who saw Alan with Teixeira or Duarte (Inês, Celeste, Amália, Rui), and later the Sé's bell-ringer and the Carmo's priest about the curator, makes one remark per conversation, in order, each once; Alan denies everything, flustered. Gossip refers to today only; the game is one day.
 17. **Rui's Diário** lies on the papers on Rui's desk, behind where he stands. Alan takes it the moment Rui offers it, reaching past him; a save from before that change can ask for it ("Your Diário, Inspector?").
 18. **Alan's idle cigarette.** Twenty seconds without input and he lights up; never in a church (the Sé, the Carmo) and never mid-scene.

@@ -237,6 +237,9 @@
     await say('laundry_remark');
     await G.wait(window.FAST ? 20 : 700);
     p.dir = w.x < p.x ? 'w' : 'e';            // he doesn't turn his back: he looks right at her
+    // what it costs him, in 1995 (no joke, no score)
+    await say('alan_laundry_quiet');
+    await G.say('narr_laundry', { offscreen: true });
     if (c && c.visible) {
       // Celeste rounds on her, loud enough for the whole washhouse
       c.dir = w.x < c.x ? 'w' : 'e'; c.set = null; c.pose = 'shout';
@@ -365,6 +368,10 @@
       { line: 'alan_show_tile', silent: true, when: () => F().sketched_tile && !F().lore_bronze, run: () => S.celesteTile() },
       { line: 'alan_show_file', silent: true, when: () => G.has('file55') && !F().knows_1955_boy, run: () => S.celeste1955() },
       { line: 'alan_ask_maria', once: true, when: () => !F().asked_maria, run: () => S.celesteMaria(true) },
+      { line: 'alan_ask_celeste_mother', once: true, when: () => !F().mother_planted, run: async () => {
+        await say('celeste_mother_1', 'alan_mother_1', 'celeste_mother_2'); // no joke, no score
+        F().mother_planted = true;
+      } },
       { line: 'alan_ask_rui', once: true, run: () => say('celeste_rui', 'alan_rui_eating', 'gag_celeste', 'gag_alan_celeste') },
       { label: 'Goodbye.', bye: true, run: async () => { await say('celeste_bye'); S.checkCh2(); } },
     ]);

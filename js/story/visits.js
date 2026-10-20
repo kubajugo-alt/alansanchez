@@ -190,7 +190,7 @@
     [() => { sfx('v_alan_chuckle', 0.5); return T(700); }],
     [3, 'alan_persuasive', 'teixeira_keep'],     // ...and the key stays in Alan's pocket
     [() => say('ines_cuff', 'alan_cuff_5')],      // the station is asking after its officer
-    [4, 'alan_after_1'],                          // "Ten minutes. Don't go anywhere, Officer."
+    [4, 'alan_after_1', 'teixeira_ten'],          // "Ten minutes. Don't go anywhere, Officer." / "Then I'm calling for backup."
   ], 'phone_after_2', async () => { if (S.inesKey) await S.inesKey(); await S.teixeiraKey(); });
   S.copAfter = () => G.busy(copAfter);
 
@@ -234,7 +234,7 @@
       await say('alan_room_cop_5', 'phone_room_5');
       await shelf('jacket', 2200); // wrists still pinned, the jacket shrugged off
       sfx('sheet_slap', 0.2); await shelf('tshirt', 900);
-      await say('phone_room_6', 'alan_room_cop_6');
+      await say('phone_room_6', 'alan_room_cop_6', 'teixeira_yes'); // and he says yes, clearly
       await shelf('buttons', 1200);
       await say('alan_room_cop_4', 'phone_room_4');
       // the bookshelf, close up: his shirt open, the books going over
@@ -503,7 +503,7 @@
   const GOSSIP = {
     ines: [['ines_gossip_1', 'alan_deny_ines_1', 'teixeira_scene'], ['ines_gossip_2', 'alan_deny_ines_2', 'duarte_scene'], ['ines_gossip_3', 'alan_deny_ines_3', 'duarte_ines'], // the stairs-rent remark waits for Duarte's visit to the shop
       ['ines_gossip_4', 'alan_deny_ines_4', 'vasco_thursday']],
-    celeste: [['celeste_gossip_1', 'alan_deny_celeste_1']], // her Duarte remark is retired: she's gone from the lavadouro by then
+    celeste: [['celeste_gossip_1', 'alan_deny_celeste_1', 'teixeira_scene']], // the policeman at two (her Duarte remark is retired)
     amalia: [['amalia_gossip_1', 'alan_deny_amalia_1', 'duarte_scene'], ['amalia_gossip_2', 'alan_deny_amalia_2']],
     rui: [['rui_gossip_1b', 'alan_deny_rui_1', 'teixeira_scene'], ['rui_gossip_2', 'alan_deny_rui_2', 'teixeira_scene']],
     // Chapter III: the Sé's bell-ringer has noticed the curator (Tomás's "coming to Mass" is retired: they met this morning)

@@ -278,12 +278,13 @@
     },
     npcs: [
       { id: 'ze', x: 740, y: 640, dir: 'w', name: 'Zé Coutinho', look: 'narr_look_ze', talk: () => F().ze_saved ? say('ze_river', 'ze_river_2') : say('ze_justdo'),
-        items: { any: 'alan_fail_ze_item' } },
+        items: { sanches_fragment: () => S.fragmentToZe(), any: 'alan_fail_ze_item' } },
     ],
     hotspots: [
       { name: 'Photograph', rect: [1067, 160, 64, 117], look: 'narr_look_maria' },
       { name: 'Tile on the bunk', rect: [1100, 480, 90, 50], at: [800, 650], face: 'e', when: () => !F().ze_saved && !F().tile_held, look: 'narr_look_bunktile',
-        take: async () => { F().tile_held = true; give('bunktile'); await say('alan_take_tile'); } },
+        take: async () => { F().tile_held = true; give('bunktile'); await say('alan_take_tile'); },
+        items: { sanches_fragment: 'alan_fragment_tile' } }, // never rung: nothing happens, nothing is used up
       { name: 'Hammer', rect: [130, 330, 120, 50], at: [420, 620], face: 'w', look: 'narr_look_hammer',
         take: () => S.hammerTile(), use: () => S.hammerTile(), items: { bunktile: () => S.hammerTile() } },
       { name: 'Bunk', rect: [832, 340, 448, 380], look: () => say(F().ze_saved ? 'narr_look_cabin' : F().tile_held ? 'alan_tile_pocket' : 'narr_look_bunktile'),
@@ -294,6 +295,12 @@
     async enter() {
       if (!F().ze_in_cabin) { F().ze_in_cabin = true; }
     },
+  };
+  // the fragment of Sanches bronze, given to Zé once the tile is broken (optional)
+  S.fragmentToZe = async function () {
+    if (!F().ze_saved) return say('alan_fail_ze_item');
+    G.takeItem('sanches_fragment'); F().fragment_given = true;
+    await say('alan_fragment_ze', 'ze_fragment');
   };
   // the tile set down on the boards in front of Alan, and what happens when he hits it
   let strike = null;
@@ -361,7 +368,16 @@
     await say('alan_turned', 'ze_knew', 'alan_two_sentences');
     await S.romance();
     if (S.flingBeat) await S.flingBeat(3);
-    const ze = G.npc('ze'); ze.pose = 'give';
+    const ze = G.npc('ze');
+    // a moment with his mother's photograph on the bulkhead (in both content modes)
+    if (ze) {
+      const fixed = ze.def.fixedDir; ze.def.fixedDir = true; ze.dir = 'e';
+      await G.wait(window.FAST ? 20 : 1600);
+      await say('ze_photo');
+      await G.wait(window.FAST ? 20 : 700);
+      ze.def.fixedDir = fixed; ze.dir = 'w';
+    }
+    ze.pose = 'give';
     await say('ze_knife'); give('knife'); ze.pose = null;
     await say('alan_pessoa_mention');
     ze.pose = 'toss'; await say('ze_sardine'); give('sardine'); ze.pose = null;

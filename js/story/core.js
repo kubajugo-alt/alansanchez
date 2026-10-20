@@ -179,7 +179,7 @@
   S.ITEMS = {
     notebook: { name: 'Notebook', read: () => S.readNotebook(), look: async () => { await S.readNotebook(); await S.posed('write', () => say(F().vasco_thursday ? 'alan_two_numbers' : 'alan_look_notebook')); } },
     sketch: { name: 'Sketch of the tile', look: 'alan_look_sketch' },
-    bunktile: { name: 'Blue tile', look: 'narr_look_bunktile', with: { tongue: () => S.breakTile() } },
+    bunktile: { name: 'Blue tile', look: 'narr_look_bunktile', with: { tongue: () => S.breakTile(), sanches_fragment: () => say('alan_fragment_tile') } },
     coins: { name: () => F().coins === 1 ? 'One escudo coin' : `${F().coins || 0} escudo coins`, look: 'alan_look_coins' },
     key: { name: 'Small iron key', look: 'alan_look_key' },
     ledger: { name: () => F().genealogy_read ? "Grandfather's ledger (genealogy)" : F().decoded ? "Grandfather's ledger (decoded)" : "Grandfather's ledger",
@@ -261,6 +261,15 @@
     { id: 'antiques', x: 410, y: 440, text: 'Antiguidades Lacerda · Chiado', open: () => F().decoded && !F().has_tongue && (F().chose_chiado || !F().decoded_v6) },
     { id: 'cais', x: 250, y: 585, text: 'Cais do Sodré', open: () => (F().genealogy_read || F().ch3_done) && F().ch === 4 },
   ];
+
+  // the map's "new" marker in Chapter III follows Inês's hints: Lacerda's case first, then Abílio at the Sé
+  S.pinNext = () => {
+    const f = F();
+    if (f.ch !== 3 || !f.chose_chiado || f.has_tongue) return null;
+    if (!f.tongue_sketched) return 'antiques';
+    if (!f.knows_twin) return 'se_tower';
+    return null;
+  };
 
   // the workshop is finished once the tide clock is wound with the key, the repair register read, the
   // tide card in Alan's pocket and the spare key off the board: then it leaves the map for good

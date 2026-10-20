@@ -383,8 +383,9 @@
   };
 
   // ---------------------------------------------------------------- the throw
-  // Vasco bends right down to read the mark; the gold band is the moment his head is down
-  function tossGame() {
+  // Vasco bends right down to read the mark; the gold band is the moment his head is down.
+  // After three misses the band is half as wide again; after five, the next throw can't miss.
+  function tossGame(misses = 0) {
     return new Promise(resolve => {
       let m = document.getElementById('toss');
       if (!m) {
@@ -398,7 +399,7 @@
         (document.getElementById('cipher').parentNode).appendChild(m);
       }
       const zone = m.querySelector('.zone'), mark = m.querySelector('.mark');
-      const z0 = 0.2 + Math.random() * 0.5, zw = 0.16;
+      const sure = misses >= 5, zw = sure ? 1 : misses >= 3 ? 0.24 : 0.16, z0 = sure ? 0 : 0.2 + Math.random() * 0.5;
       zone.style.left = (z0 * 100) + '%'; zone.style.width = (zw * 100) + '%';
       let x = 0, dir = 1, last = performance.now(), live = true;
       const step = now => {
@@ -409,9 +410,9 @@
         requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
-      m.querySelector('.go').onclick = e => { e.stopPropagation(); live = false; G.showModal('toss', false); resolve(x >= z0 && x <= z0 + zw); };
+      m.querySelector('.go').onclick = e => { e.stopPropagation(); live = false; G.showModal('toss', false); resolve(sure || (x >= z0 && x <= z0 + zw)); };
       G.showModal('toss', true);
-      if (window.FAST) { live = false; G.showModal('toss', false); resolve(!window.TOSS_MISS || !(window.TOSS_MISS--)); }
+      if (window.FAST) { live = false; G.showModal('toss', false); resolve(sure || !window.TOSS_MISS || !(window.TOSS_MISS--)); }
     });
   }
   // the founder's mark low on the pit wall: Vasco gets his nose right down to it
@@ -432,10 +433,11 @@
     await say('alan_toss_ines');
     const faceInes = () => { if (ines && ines.visible) p.dir = ines.x < p.x ? 'w' : 'e'; }; // (speaking turned him to Vasco)
     faceInes(); p.pose = window.SPRITES.alan_throw1 ? 'throw1' : null; // the wind-up, low and quiet
-    const ok = await tossGame();
+    const ok = await tossGame(F().toss_misses || 0);
     if (!ok) { // too early or too late: he looks up, and Alan is still holding it
       p.pose = null; if (v && window.SPRITES.vasco_kneel_lookup) v.pose = 'kneel_lookup'; p.dir = 'e';
       await say('vasco_lookup');
+      F().toss_misses = (F().toss_misses || 0) + 1;
       if (v) { v.pose = null; v.dir = 'w'; }
       await say('alan_lookup');
       S.inesWanderOn = true;
@@ -718,9 +720,15 @@
     // the Sé strikes nine
     for (let i = 0; i < 9; i++) setTimeout(() => sfx('hour'), window.FAST ? 0 : 400 + i * 1500);
     await G.say('narr_thursday', { offscreen: true });
-    await T(window.FAST ? 20 : 2500);
+    await T(window.FAST ? 20 : 1200);
+    await G.say('narr_thursday_2', { offscreen: true }); // All Souls': the Sé tolls for the dead at nine
+    await T(window.FAST ? 20 : 1500);
     // the debt: the truth about the twin, and the tongue that rang, only bronze now
-    if (F().twin_lent) await say('alan_thu_truth', 'vasco_thu_pause', 'alan_thu_return', 'vasco_thu_catalogue', 'alan_thu_owe');
+    if (F().twin_lent) {
+      await say('alan_thu_truth', 'vasco_thu_pause', 'alan_thu_return');
+      if (F().fragment_given) await say('alan_thu_fragment'); // the little one went to a fisherman
+      await say('vasco_thu_catalogue', 'alan_thu_owe');
+    }
     else await T(window.FAST ? 20 : 2500);
     if (sat) sat();
     if (v) v.set = null;

@@ -26,8 +26,8 @@
   };
 
   // ---------------------------------------------------------------- art the engine preloads
-  window.STILLS = ['still_intro', 'still_bell_legend', 'still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn',
-    'still_newspaper', 'still_tideclock_hand', 'still_alfama_sign', 'still_1755', 'still_1955_a', 'still_1955_b', 'still_1955_c', 'still_city_morning', 'still_drawer', 'still_shop_after',
+  window.STILLS = ['still_intro', 'still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn',
+    'still_newspaper', 'still_1755', 'still_1955_a', 'still_1955_b', 'still_1955_c', 'still_city_morning', 'still_drawer', 'still_shop_after',
     'still_phone', 'still_amalia_box', 'still_tavern_full', 'still_quay_sweater', 'still_abilio_ring', 'still_shelf', 'still_ze_kiss', 'still_ze_bunk', 'still_cop_shelf', 'still_guitar_bed', 'still_cop_bed', 'still_cigarettes'].concat(window.EXTRA_STILLS || []);
   window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks', 'close_drawerlock'];
 
@@ -162,7 +162,8 @@
   }
   // ---------------------------------------------------------------- the opening
   // The opening: the fog over Lisbon, Maria Coutinho's last night in paintings (the old staged
-  // room only if the paintings are missing), the city waking to it, the chapter card, the shop.
+  // room only if the paintings are missing), the drownings in the paper, the sleeping bookseller,
+  // the chapter card, the shop. No bell and no founder names before the card.
   S.CHARS.alan.frames.poses.yawn = 'alan_yawn'; S.CHARS.alan.frames.poses.stretch = 'alan_stretch'; // waking up
   const SHOP_IN = [235, 712, 'e']; // the foot of the stairs, front left of the shop
   async function opening() {
@@ -171,12 +172,13 @@
       if (window.Sound) Sound.ambience('street_night');
       Sound.cue({ id: 'main_theme', vol: 'low' }, { sticky: true }); // the paintings between chapters: the main theme, low
       await S.paint('still_intro', () => say('narr_intro_1'), { zoom: [1.0, 1.16], pan: [[0.4, 0.55], [0.6, 0.5]] });
-      if (S.introLegend) await S.introLegend(); // the drowned bell, as the old women tell it
       const painted = S.mariaPaintings && await S.mariaPaintings();
       if (!painted && S.coldOpen) await S.coldOpen(); // fallback: Madragoa, 04:01, staged in a room
       Sound.cue({ id: 'main_theme', vol: 'low' }, { sticky: true });
       if (S.introCity && G.image('still:still_newspaper')) await S.introCity();
       else await S.paint('still_intro', async () => { await say('narr_intro_2'); await say('narr_intro_tiles'); }, { zoom: [1.08, 1.16], pan: [[0.55, 0.5], [0.6, 0.5]] });
+      // the hook, over the fog again: the one man who should be awake
+      await S.paint('still_intro', () => say('narr_intro_3'), { zoom: [1.1, 1.2], pan: [[0.6, 0.5], [0.66, 0.46]] });
       await G.fade(true);
       Sound.cue({ id: 'bell_motif', dur: 12, fade: 3 }, { sticky: true }); // as every chapter card
       await G.card('CHAPTER I', 'The Fog  ·  11:00', 3000);
@@ -191,7 +193,7 @@
       const pose = k => { p.pose = S.CHARS.alan.frames.poses[k] && window.SPRITES[S.CHARS.alan.frames.poses[k]] ? k : null; };
       const ines = G.npc('ines'); if (ines) ines.dir = 'w';
       await T(900);
-      await say('narr_intro_3', 'ines_wake_up');
+      await say('ines_wake_up');
       // a real yawn: the yawning frame and the sound together, then back to his own frames
       const yawn = async () => { pose('yawn'); S.sfx('yawn', 0.9); await T(1700); pose(null); };
       if (G.image('bg:bedroom')) {

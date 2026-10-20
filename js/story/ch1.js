@@ -79,7 +79,7 @@
         items: { sardine: () => S.feedPessoa(), any: 'alan_fail_09' } },
     ],
     hotspots: [
-      { name: 'Bookshelves', rect: [0, 0, 290, 300], look: () => say('alan_shelf_' + ((F().shelf_n = ((F().shelf_n || 0) % 20) + 1))) },
+      { name: 'Bookshelves', rect: [0, 0, 290, 300], look: () => S.shelfLook() },
       { name: "Grandfather's desk", rect: [40, 330, 300, 280], at: [380, 600], face: 'w', look: () => say(F().got_ledger ? 'narr_look_desk_open' : 'narr_look_desk'),
         use: () => F().got_ledger ? say('alan_drawer_empty') : F().shop_drawer ? takeLedger() : pessoaSpot() === 'desk' ? say('alan_desk_cat') : G.has('key') ? say('alan_desk_usekey') : say('alan_drawer_locked'),
         items: { key: async () => {
@@ -112,7 +112,12 @@
           p.pose = null;
           await say('alan_take_magnifier');
         } },
-      { name: 'Kettle', rect: [480, 366, 50, 48], look: () => say(F().ch >= 5 ? 'narr_look_kettle_dry' : 'narr_look_kettle') },
+      { name: 'Kettle', rect: [480, 366, 50, 48], look: async () => {
+        if (F().ch < 5) return say('narr_look_kettle');
+        await say('narr_look_kettle_dry');
+        // the first time: Inês rang the quay twice while he was busy (no joke)
+        if (!F().kettle_rang_seen) { F().kettle_rang_seen = true; await say(F().ze_romance ? 'alan_kettle_rang' : 'alan_kettle_rang_b'); }
+      } },
       { name: 'Sugar tin', rect: [672, 355, 54, 60], at: [690, 562], face: 'n', look: 'narr_look_tin',
         take: async () => { if (F().tinTaken) return say('alan_fail_take'); F().tinTaken = true; give('key'); await say('alan_sugar_tin'); } },
       { name: 'Radiator', rect: [736, 352, 58, 150], at: [760, 560], face: 'n', look: 'narr_look_radiator' },
@@ -180,6 +185,7 @@
       sfx('beep');
       await G.say('lacerda_msg3', { offscreen: true, label: 'Answering machine' });
       F().heard_msg3 = true;
+      await say('alan_msg3_tongue');
       await joke('alan_queue'); await say('alan_alone');
       await say('narr_msg2_again'); sfx('drip_hangup'); await G.wait(window.FAST ? 20 : 1500);
       await say('alan_hangup_reveal');
@@ -263,13 +269,31 @@
 
   // ---------------------------------------------------------------- Inês
   const INES_HI = ['ines_hello_2', 'ines_hello_3', 'ines_hello_4'];
+  // the shelves: the narrator first, once; then one of Alan's twenty books at a time, at random,
+  // none again until all twenty have been heard; nothing in Chapter V
+  S.shelfLook = async function () {
+    if (F().ch >= 5) return;
+    if (!F().shelves_seen) { F().shelves_seen = true; return say('narr_look_shelves'); }
+    let left = (F().shelf_left || []).filter(n => n >= 1 && n <= 20);
+    if (!left.length) left = Array.from({ length: 20 }, (_, i) => i + 1);
+    const n = left.splice(Math.floor(Math.random() * left.length), 1)[0];
+    F().shelf_left = left;
+    await say('alan_shelf_' + n);
+  };
   S.talkInes = async function () {
     await say(F().ines_greeted ? INES_HI[(F().ines_greeted++) % INES_HI.length] : (F().ines_greeted = 1, 'ines_hello'));
     await S.gossip('ines');
     await G.dialog([
       { line: 'alan_ask_ines_now', run: () => say(S.hint()) },
       { line: 'alan_ask_ines_drowned', once: true, run: () => say('ines_drowned') },
-      { line: 'alan_ask_ines_fog', once: true, run: () => say('ines_fog') },
+      { line: 'alan_ask_ines_fog', once: true, run: async () => {
+        await say('ines_fog'); F().ines_fog_heard = true;
+        if (F().ch >= 2 && !F().ines_iemanja) { F().ines_iemanja = true; await say('ines_iemanja'); }
+      } },
+      // the follow-up, if he asked about the fog back in Chapter I
+      { label: 'What would they do about a fog like this, back home?', once: true, when: () => F().ch >= 2 && F().ines_fog_heard && !F().ines_iemanja,
+        run: async () => { F().ines_iemanja = true; await say('ines_iemanja'); } },
+      { label: 'Bells rung backward. Is that even a thing?', once: true, when: () => F().decoded && F().ch === 3, run: () => say('ines_backward_bells') },
       { line: 'alan_ask_ines_shop', once: true, run: () => say('ines_shop') },
       { line: 'alan_ask_ines_work', once: true, run: () => say('ines_work') },
       // bells only once the sketch has put them on the table
@@ -397,6 +421,11 @@
         if (!open && !seen) continue;
         const p = 0.5 + 0.5 * Math.sin(t * 3 + m.x);
         if (open) FX.glow(g, m.x, m.y, 40 + p * 14, '255,120,60', 0.45);
+        if (open && S.pinNext && S.pinNext() === m.id) { // the next place to go: a brighter glow and a ring
+          FX.glow(g, m.x, m.y, 60 + p * 20, '255,170,80', 0.5);
+          g.save(); g.strokeStyle = `rgba(255,210,122,${0.45 + 0.4 * p})`; g.lineWidth = 2.5;
+          g.beginPath(); g.arc(m.x, m.y, 18 + p * 5, 0, 7); g.stroke(); g.restore();
+        }
         g.fillStyle = open ? '#7a1408' : '#4a4038'; g.strokeStyle = '#2a0a04'; g.lineWidth = 3;
         g.beginPath(); g.arc(m.x, m.y, 11, 0, 7); g.fill(); g.stroke();
         g.fillStyle = open ? '#ffd27a' : '#8a8070'; g.beginPath(); g.arc(m.x, m.y, 4.5, 0, 7); g.fill();
@@ -697,7 +726,9 @@
       await S.fadoPerformance(am, S.SINO_SONG ? Sound.playSong(S.SINO_SONG) : null);
       Sound.playMusic(G.room.music);
     } finally { am.set = null; G.cutscene = false; }
-    await say('amalia_menino', 'amalia_baptised', 'amalia_after_song', 'amalia_face', 'alan_face_pause');
+    await say('amalia_menino');
+    await say('alan_song_back'); // 'ring it back': he hears a returned call, not a rite
+    await say('amalia_baptised', 'amalia_after_song', 'amalia_face', 'alan_face_pause');
     await joke('alan_ringer'); await say('amalia_called');
     await say('amalia_1955');
     F().heard_song = true;
@@ -714,6 +745,7 @@
   S.talkAmalia = async function () {
     if (F().ch >= 5) return say('amalia_alone');
     await say('amalia_hello');
+    if (!F().amalia_hello_2) { F().amalia_hello_2 = true; await say('amalia_hello_2'); } // the first time only
     await S.gossip('amalia');
     await G.dialog([
       { line: 'alan_ask_amalia_who', once: true, run: async () => {
@@ -778,7 +810,7 @@
     await say('alan_back');
     if (cop) cop.pose = null; p.pose = null;
     if (rui) { const back = S.RUI_EXIT.slice(0, -2).reverse().concat([S.RUI_DESK]); for (const [x, y] of back) await rui.walkTo(x, y); rui.dir = 'e'; }
-    await say('rui_back_3'); // a friend's warning ('rui_constable' and 'rui_back_2' no longer play)
+    await say('rui_back_3'); // a friend's warning ('rui_back_2' no longer plays)
     F().teixeira_flirt = true; F().flirted_cop = true; S.copFace();
   };
   S.flirtCop = async function () {

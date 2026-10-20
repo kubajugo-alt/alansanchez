@@ -30,7 +30,7 @@
     npcs: [
       { id: 'tomas', ch: 'tomas_night', x: 430, y: 600, dir: 'e', set: () => F().confessed ? 'pray' : null, name: 'Father Tomás', look: 'narr_look_tomas_night', talk: () => S.tomasConfession(), when: () => !F().won,
         items: { any: 'alan_fail_07' } },
-      { id: 'rui', x: 120, y: 600, dir: 'e', set: 'gate', name: 'Rui', when: () => F().rui_called && !F().won, look: 'narr_look_rui', talk: () => F().gag_rui ? say('rui_nothing', 'alan_rui_gate') : (F().gag_rui = true, say('gag_rui', 'gag_alan_rui')) },
+      { id: 'rui', x: 120, y: 600, dir: 'e', set: 'gate', name: 'Rui', when: () => F().rui_called && !F().won, look: 'narr_look_rui', talk: () => F().gag_rui ? say('rui_nothing', 'alan_rui_gate') : (F().gag_rui = true, say(F().teixeira_scene ? 'gag_rui_b' : 'gag_rui', 'gag_alan_rui')) },
     ],
     hotspots: [
       { name: 'Weeping stone', rect: [40, 125, 190, 345], look: 'narr_stone_washed' },
@@ -111,7 +111,7 @@
     },
     animFg(g, t) { S.drawFlood(g, t); S.drawVortex(g, t); if (F().won) { g.fillStyle = 'rgba(255,200,140,0.08)'; g.fillRect(0, 0, 1280, 720); } },
     npcs: [
-      { id: 'lacerda', ch: 'lacerda_robe', x: 845, y: 572, dir: 'w', fixedDir: true, set: () => F().lacerda_distracted ? 'read' : null, name: 'Lacerda', when: () => !F().won,
+      { id: 'lacerda', ch: 'lacerda_robe', x: 845, y: 572, dir: 'w', fixedDir: true, set: () => F().lacerda_distracted || F().read1 ? 'read' : null, name: 'Lacerda', when: () => !F().won,
         look: 'narr_look_lacerda_robe', talk: async () => { await say('alan_fin_angry'); await say(watched() ? 'lacerda_patient' : 'lacerda_ledger'); },
         take: () => S.cisternDeath(),
         items: { ledger: () => S.giveLedger(), tongue: () => S.cisternDeath(), knife: () => S.cisternDeath(), any: 'alan_fail_lacerda_item' } },
@@ -135,7 +135,9 @@
       F().finaleIntro = true; F().water = 0; F().strikes = 0;
       Sound.cue('lacerda_theme'); // Lacerda, with Inês tied up behind him
       await G.player.walkTo(330, 640); G.player.dir = 'e';
-      await say('lacerda_joaquim', 'alan_fin_angry', 'lacerda_spared_2', 'lacerda_ze', 'lacerda_demand', 'lacerda_font', 'lacerda_interrupted', 'lacerda_father', 'alan_father');
+      await say('lacerda_joaquim', 'alan_fin_angry', 'lacerda_spared_2', 'lacerda_ze', 'lacerda_demand', 'lacerda_font', 'lacerda_interrupted', 'lacerda_father');
+      if (F().saw_afonso) await say('alan_father_photo'); // the boy in the photograph behind his counter
+      await say('alan_father');
       S.lore && S.lore('father');
       await say('ines_warn', 'lacerda_quiet');
       Sound.cue(null);
@@ -259,11 +261,13 @@
     }
     g.restore();
   };
-  // Inês calls out the next step if the player hesitates for 20 seconds
+  // Inês calls out the next step if the player hesitates for 20 seconds (10 once the water has
+  // reached the top twice: the restarts count, the water's rules don't change)
   let lastAct = 0, hinted = 0;
   S.idleHint = function (t) {
     if (G.isBusy || F().won || !F().finaleIntro || S.dead) { lastAct = t; return; }
-    if (t - lastAct > 20 && t - hinted > 20) { hinted = t; lastAct = t; G.busy(() => say(S.cisternHint())); }
+    const wait = (F().cistern_floods || 0) >= 2 ? 10 : 20;
+    if (t - lastAct > wait && t - hinted > wait) { hinted = t; lastAct = t; G.busy(() => say(S.cisternHint())); }
   };
   S.cisternHint = () => !F().lacerda_distracted ? 'ines_hint_ledger' : !F().ines_free ? 'ines_hint_free' : !F().bell_lit ? 'ines_hint_light' : !F().blood ? 'ines_hint_blood' : 'ines_hint_lastfirst';
   const raise = async (n) => {
@@ -278,12 +282,19 @@
     await G.closeup([{ img: 'close:paper_aged', cls: 'doc-hand', html: `<p>&nbsp;</p><p>Afonso Lacerda's last words, as the water rose, were for his son:</p><p style="text-align:center">'Vicente, let it go.'</p><p style="text-align:right">J. S.</p>` }]);
     G.takeItem('ledger');
     await say('alan_offer', 'lacerda_cant', 'alan_seven');
-    const lac = G.npc('lacerda'); lac.set = 'read'; F().lacerda_distracted = true;
+    const lac = G.npc('lacerda'); lac.set = 'read';
     sfx('page');
     await say('lacerda_ledger');
     sfx('page', 0.7);
     await say('lacerda_read_1');
     F().read1 = true;
+    sfx('page', 0.5);
+    await say('lacerda_read_2');
+    F().read2 = true;
+    // the last page: his father's last words, which were never for him (no joke here, and no score)
+    sfx('page', 0.4);
+    await say('lacerda_read_father', 'lacerda_read_after', 'ines_page_this');
+    F().lacerda_distracted = true; // only now is he lost in it, and the bell can be struck
   };
   // while he reads, the pages keep turning
   let nextPage = 0, readFrom = 0;
@@ -364,6 +375,7 @@
   };
   S.cisternDeath = async function (step5) {
     S.dead = true;
+    F()._flooded = !!step5;
     await G.busy(async () => {
       const lac = G.npc('lacerda');
       if (lac) { lac.set = null; lac.pose = 'lunge'; }
@@ -382,9 +394,11 @@
     Sound.stopVoice();
     G.showModal('death', false);
     const keep = F()._deathStep5 ? { lacerda_distracted: true, ines_free: true, bell_lit: true, blood: true } : null;
+    const floods = (F().cistern_floods || 0) + (F()._flooded ? 1 : 0); // restarts from water level 6 (survives the reload)
     const cp = G.flags._checkpoint;
     await G.loadSave(cp);
     G.flags._checkpoint = cp;
+    G.flags.cistern_floods = floods;
     if (keep) {
       Object.assign(G.flags, keep, { lamp_ok: true });
       G.takeItem('ledger');
@@ -407,8 +421,8 @@
     await say('narr_ring');
     lac.set = null; lac.pose = 'realise';
     await say('lacerda_realise');
-    // (lacerda_mine, alan_answers, the lunge, lacerda_drag, alan_no_hand and alan_ledger no longer play:
-    // he doesn't fight it. He goes back to the ledger, reading, as the water comes up.)
+    // (the lunge, lacerda_drag and alan_no_hand no longer play: he doesn't fight it.
+    // He goes back to the ledger, reading, as the water comes up.)
     lac.pose = null; lac.set = 'read';
     await G.say('narr_renounce', { offscreen: true });
     sfx('water_rise'); vortex = { x: lac.x, y: lac.y + 2, t0: performance.now() };
@@ -421,6 +435,7 @@
     await say('narr_end_1');
     await sinking;
     await G.say('narr_reading', { offscreen: true });
+    await say('alan_ledger'); // no joke, no score
     F().sinkAt = [x1, y1];
     await G.wait(window.FAST ? 20 : 900);
     // the water lets go of everything else
@@ -461,7 +476,7 @@
       await G.fade(true);
       await S.still(name, fallback, async () => { await G.fade(false); await fn(); }, Object.assign({}, opts, { keep: true }));
     })();
-    await shot('still_city_morning', 'street', () => say('narr_epilogue'), { zoom: [1.0, 1.12], pan: [[0.5, 0.55], [0.5, 0.45]] });
+    await shot('still_city_morning', 'street', async () => { await say('narr_epilogue'); await say('narr_epi_city_2'); }, { zoom: [1.0, 1.12], pan: [[0.5, 0.55], [0.5, 0.45]] });
     await shot('still_drawer', 'police', async () => { await say('narr_epi_drawer'); sfx('drawer_scrape'); await say('rui_click'); }, { zoom: [1.08, 1.0] });
     await shot('still_shop_after', 'shop', () => say('narr_epi_shop2') /* the brass weight is gone from the game */, { zoom: [1.0, 1.1] });
     if (F().amalia_box && F().rui_called) await shot('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });

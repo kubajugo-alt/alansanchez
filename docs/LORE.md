@@ -303,16 +303,21 @@ marked (opt.) are optional topics.
 
 | Ch. | Who                   | Where             | What they reveal                   | Key line                                                                             |
 |-----|-----------------------|-------------------|------------------------------------|--------------------------------------------------------------------------------------|
-| I   | Vasco                 | Sé dig            | Bells call the dead; founder blood | "A tolled bell calls the dead home. Families paid the ringers for it."               |
-| I   | Amália                | Taberna           | The founders rang it               | "Fools twice over, your family. They made the bell, and then they rang it."          |
-| II  | Celeste               | Lavadouro         | The drowned; the tiles             | "The river's full of men nobody buried, menino. They listen for bells."              |
+| I   | Vasco                 | Sé dig            | Founder blood in the bronze        | "The master bled into the melt, so the bell would know its father." (vasco_blood)    |
+| I   | Amália                | Taberna           | The founders rang it               | "Men are fools, menino. Bell-founders, twice over." (amalia_who)                     |
+| II  | Celeste               | Lavadouro         | The tiles                          | "That's not a tile. That's a mouthful of the sea, kept in clay." (celeste_tile_1)    |
 | II  | Ferreira's tide clock | Workshop          | The turnings                       | (the clock face, no line)                                                            |
-| III | Abílio                | Sé tower          | Founders' blood and order          | "Your blood's in that bronze, boy! It knows you!"                                    |
-| III | Vasco (opt.)          | Cloister          | The oldest mark                    | "This is older than the Romans. Serpents. Nobody knows who cut it."                  |
-| III | Lacerda               | Antiques shop     | His theory                         | "My family has waited two hundred years for someone to finish a sentence."           |
-| III | Tomás                 | Carmo             | The chain; renunciation            | "The godparents answer for the bell. The bell answers for the drowned."              |
+| III | Tomás                 | Carmo             | The chain; the godparents          | "A godparent speaks for the child. That's why the water still answers to that family." (tomas_godparents) |
+| III | Abílio                | Sé tower          | Founders' blood and order          | "Every bell up here has a drop of its founder in the bronze. So it knows its father." (abilio_blood) |
+| V   | Tomás                 | Carmo at midnight | Why the water obeyed Lacerda       | "Afonso Lacerda spoke to the water the way you'd speak to a dog. It came when he called." (tomas_1955_water) |
+| V   | Lacerda               | Cistern           | His theory                         | "Your family cut its tongue in the middle of a sentence. The sea is still waiting to finish it." (lacerda_interrupted) |
+
+**Still to do (not in the build yet):**
+
+| Ch. | Who                   | Where             | What they reveal                   | Key line                                                                             |
+|-----|-----------------------|-------------------|------------------------------------|--------------------------------------------------------------------------------------|
 | V   | Tomás                 | Carmo at midnight | Why the dead drown the living      | "They don't hate us, Alan. They're coming home. They just can't come any other way." |
-| V   | (none)                | Cistern           | The Sea itself                     | The floor that isn't a floor                                                         |
+| V   | (none)                | Cistern           | The Sea itself                     | The floor that isn't a floor, for one second                                         |
 
 **The test.** After the credits a tester should be able to answer "What
 was the bell, and why did the water obey Lacerda?" in one breath. If

@@ -1,7 +1,22 @@
 # Animation handoff
 
-State as of 2026-10-20, branch `lore-se-museum` (everything committed and pushed). The live site
-(https://alan-sanchez-drowned-bell.netlify.app) runs the deploy recorded at the end of this section.
+State as of 2026-10-20. `master` now carries everything (it was fast-forwarded to `lore-se-museum`; work on
+`master` from here). The live site (https://alan-sanchez-drowned-bell.netlify.app) runs the deploy recorded
+at the end of this section.
+
+## Story review round 2 (2026-10-20): 50 lines still to voice before the next deploy
+
+The round-2 brief (Claude Doc "The Drowned Bell — Review round 2: Claude Code brief", tasks T01–T11) is in the
+code, lines and docs. The ElevenLabs plan's credits ran out during T11: 22 new lines are voiced; these 50 have
+their new text but **no audio yet** (the old recordings of the rewritten ones were removed, since they said the
+old words; they play as captions only):
+
+alan_fragment_ze, alan_look_ledger_decoded, alan_npc_cards, alan_room_guitar_2, alan_shelf_13, alan_take_tile, alan_teixeira_sorry, alan_thu_fragment, alan_tile_pocket, alan_washers_1, amalia_gossip_1, amalia_hello_2, amalia_night_sing, amalia_sing_3, celeste_gossip_1, celeste_knot, celeste_suit, gag_alan_rui, gag_alan_tomas, gag_alan_vandal2, guitar_room_14, ines_1755, ines_pull, ines_tenth, narr_call, narr_ch1_end, narr_epi_city_2, narr_look_arches, narr_maria_4, narr_rom_1, narr_rom_choice, narr_tr2_1, narr_tr2_3, narr_tr3_1, narr_tr4_2, narr_tr4_3, phone_cuff_1, phone_room_5, phone_room_7, rui_drawer_1, rui_leave, rui_list_1b, rui_msg_2, tomas_godparents, tomas_hello, vasco_coins, vasco_fcall_4, washer1_bath_1, ze_back, ze_fragment
+
+To finish: `ELEVENLABS_API_KEY=... node scripts/generate-voices.mjs` (no ids: it voices exactly the lines with no
+audio), then level them to the rest (-21.5 LUFS integrated, one linear gain, 64 kbps mono; every voice file is
+within ±1.5 LU of that after this session), `RHUBARB=... python3 scripts/lipsync.py --speaker <alan|ines|phone|vasco>`
+and `node scripts/build-manifest.mjs`. Don't deploy before then.
 
 ## Where things stand (session handoff, 2026-10-20)
 

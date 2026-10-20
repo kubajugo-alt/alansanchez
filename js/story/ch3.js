@@ -286,6 +286,7 @@
       { img: 'antiques_pendulum', x: 544, y: 224, pivot: [571, 228], swing: t => 2.4 * Math.sin(t * Math.PI) },
       { img: 'antiques_case_tongue', x: 0, y: 0, full: true, when: () => !F().grabbed }, // the tongue on the velvet (after the swap, its identical twin)
       { img: 'antiques_case', x: 686, y: 291, when: () => F().grabbed }, // lifted without a swap: bare velvet, until he notices
+      { img: 'antiques_photo', x: 372, y: 322 }, // Afonso and the boy, in a frame on the counter (every state)
     ],
     entries: { default: [640, 690, 'n'], map: [640, 690, 'n'] },
     anim(g, t) { FX.motes(g, t, 560, 80, 380, 420, 24, '255,220,170'); },
@@ -300,6 +301,10 @@
         await S.showClocks();
         F().saw_jc_clock = true;
         await say('alan_jc');
+      } },
+      { name: 'Photograph', rect: [366, 316, 46, 54], at: [520, 600], face: 'w', look: async () => {
+        await say('narr_look_afonso', 'alan_look_afonso');
+        F().saw_afonso = true;
       } },
       { name: 'Grandfather clock', rect: [500, 10, 140, 510], look: 'narr_look_clocks' },
       { name: "Ship's bell", rect: [680, 70, 140, 200], look: 'narr_look_antiques' },
