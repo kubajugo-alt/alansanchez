@@ -1561,9 +1561,9 @@ window.FACES = {
  },
  "alan_undress4": {
   "box": [
-   96,
+   86,
    51,
-   48,
+   58,
    62
   ],
   "mouths": [

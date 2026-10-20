@@ -141,7 +141,7 @@ BG = (60, 64, 80)
 
 # smiling paintings: a talking mouth inside a painted grin looks wrong (the raised cheeks and smile lines stay put
 # while the lips move), so for these the smile is let go across the lower face and the patch covers the cheeks
-SMILING = {'pair_cop_belt', 'pair_cop_belt2', 'pair_cop_buttons', 'pair_cop_cuffs', 'pair_cop_jacket', 'pair_cop_shelf2',
+SMILING = {'alan_undress4', 'pair_cop_belt', 'pair_cop_belt2', 'pair_cop_buttons', 'pair_cop_cuffs', 'pair_cop_jacket', 'pair_cop_shelf2',
            'pair_guitar_lesson', 'pair_vasco_card', 'pair_vasco_thumb',
            'ines', 'ines_amused', 'ines_fond', 'ines_teasing', 'ines_idle4', 'ines_free', 'ines_front', 'ines_front_pass1', 'ines_front_pass2',
            'ines_front_walk1', 'ines_front_walk2', 'ines_catch', 'ines_plaque', 'ines_lantern', 'ines_deadpan', 'ines_impressed',
