@@ -76,6 +76,17 @@ session lived in the session's scratchpad and are gone; everything that matters 
    planted foot measured from the art, no mesh morph between walk frames); roll out Alan side, Alan front/back,
    Inês, Vasco, Lacerda, Celeste, Zé, Rui, others.
 
+10. **Walks, step 1: the walk lab** (`?scene=walklab`, js/walklab.js, loaded only for that preview by main.js, which
+   also registers the walk candidates' sprites there so they can be compared). Pick a character, a cycle (in the
+   game now / the review screen's candidate / towards or away from the camera) and a room; walk left, right, up,
+   down, back and forth; 1x, 1/2x, 1/4x, pause, frame by frame. A trail of dots marks where the feet touch the
+   floor. Measured from the art per frame: size (head width against the cycle's median, limit 4%), rise (the bob),
+   feet on the floor; live: how far the planted foot drifts per frame (limit 6 px). First readings: Alan's original
+   cycle walkUp -4.3% size; the parked new cycle pass2L -5.3% and lowest; and in both, the planted foot drifts
+   10-14 px a frame (worst ~25): the engine moves the figure continuously while each painting is held, so the
+   foot skates. That is the main thing step 3 fixes (lock the planted foot for the length of a frame).
+   Gemini: the user supplied a key; it is in `.env` (gitignored, mode 600) as GEMINI_API_KEY. Never print or commit it.
+
 ## Where things stand (session handoff, 2026-10-20)
 
 **In the game now** (all deployed; the user approved each, and on 2026-10-20 said of the walk: "Don't expect my approval - if works for you, works for me"):

@@ -34,6 +34,8 @@
   // ---------------------------------------------------------------- new game
   // preview links: ?scene=bath | cop | guitar | celeste | visitcop | copbed | visitguitar | romance | finale jumps straight to that scene (no autosave)
   const PREVIEW = {
+    // the walk lab (js/walklab.js): walk cycles side by side, measured; nothing in it changes the game
+    walklab: { flags: { ch: 2 }, room: 'street', pos: [200, 670, 'e'], run: () => S.walkLab && S.walkLab() },
     // the skeletal-rig trial (review screen, ?rig=0 / ?rig=1 side by side): he walks the room, stops, talks, stands
     rigtest: { flags: { ch: 1 }, room: 'police', pos: [300, 690, 'e'], run: async () => {
       const p = G.player;
@@ -280,12 +282,16 @@
     const walkAll = ch => { const w = S.REVIEW.candidates.filter(c => c.char === ch && c.wire && c.wire.walkSlot != null); return w.length > 0 && w.every(c => ok(c.id)); };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c.wire && c.wire.walkSlot != null ? Object.assign({ walkAll: walkAll(c.char) }, c) : c, ok);
     S.walkTiming(S.CHARS.alan.frames);
+    // the walk lab measures the walk candidates too, approved or not: their sprites are registered (not wired in)
+    if (new URLSearchParams(location.search).get('scene') === 'walklab')
+      for (const c of S.REVIEW.candidates) if (c.meta && c.wire && c.wire.walkSlot != null && !window.SPRITES[c.id]) window.SPRITES[c.id] = Object.assign({ src: c.src }, c.meta);
   }
   // ---------------------------------------------------------------- start
   // the animation review screen: only with ?review in the address, never in normal play or the menus
   const review = new URLSearchParams(location.search).has('review');
   loadApproved().then(() => {
     if (review) { const sc = document.createElement('script'); sc.src = 'js/review.js?v=' + Date.now(); document.head.appendChild(sc); }
+    if (new URLSearchParams(location.search).get('scene') === 'walklab') { const sc = document.createElement('script'); sc.src = 'js/walklab.js?v=' + Date.now(); document.head.appendChild(sc); }
     G.init(S.CHARS, S.ITEMS, ROOMS, window.SPRITES);
   });
 })();
