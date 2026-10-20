@@ -8,3 +8,4 @@ __pycache__/
 scripts/models/
 art/review/alan/faces/*/
 art/review/alan/fringe/*.png
+art/review/stills/crisp2/*_raw.png

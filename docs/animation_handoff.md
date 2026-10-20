@@ -101,6 +101,20 @@ session lived in the session's scratchpad and are gone; everything that matters 
    worst case is a transition whose painted feet don't line up; step 2 (a coherent pose set) fixes that in the art.
    Checked: node --check, validate (0 errors), smoke: all 38 scenes pass (run in two parts; one run of the whole
    list hit my 15-minute timeout at abiliosketch, which then passed on its own).
+12. **Painting styles: Gemini repaints of the oil stills, waiting for the user's choice** (not in the game).
+   An agent sorted the 69 full-screen paintings: 29 already inked/cartoon (13 from the 2026-10-18 crisp round,
+   shelf, and 15 inked from the start), 38 oil, 2 neither. Canva's version of the recipe only got halfway (hatched
+   engraving), Gemini matched, and the user chose Gemini. The user ruled out: **room backgrounds, the title screen
+   (art/bg/title.jpg) and the five puzzle close-ups (art/closeups/close_*) stay as they are**. Unused stills were
+   skipped. Repainted 26 stills with the 2026-10-18 recipe (`scripts/gen_image.py --still`, refs: the still,
+   still_shop_after, still_abilio_ring; prompt in art/review/log.md), $1.80 in all, into
+   `art/review/stills/crisp2/<name>.png` (+ `_sbs.png`; the `_raw.png` 2752x1536 files are gitignored, so they
+   exist only in this session's container). Checked each side by side: compositions, faces, text (newspaper, the
+   names list) kept. Notes: still_tr2_ines gains a small puddle on the floor at the right; still_maria_dawn barely
+   changes. Review page: https://claude.ai/artifact/NXdCrquugizM39ea7bF1TN (drag to compare; per painting "Use
+   repaint" / "Keep oil"; no choice = repaint), choices in its db collection `choices` (`{pick: 'new'|'oil'}`).
+   To apply: save each chosen PNG as `art/stills/<name>.jpg` (1280x720, JPEG quality 90, like 87cd848), then
+   build-manifest, smoke, commit.
 
 ## Where things stand (session handoff, 2026-10-20)
 
