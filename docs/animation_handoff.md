@@ -21,6 +21,8 @@ State as of 2026-10-20, branch `lore-se-museum` (everything committed and pushed
 
 **Tools added this session** (all in `scripts/`): `walk_far_step.py`, `walk_canva_fit.py`, `skin_match.py` (one skin tone across a character's frames, face patches alike), `blush_tone.py` (scale a painted blush), `restyle_partial.sh` (restyle only the upper body when the whole frame is refused), `canva_restyle_fit.py` (Canva/Gemini restyles onto a sprite: `FIT_MODE=stand`, `FIT_TOP`, alpha input). Face kit: `FACE_CHAR=cop` is Teixeira (frame list `COP`); `alan_undress4` is in `SMILING`.
 
+**Live deploy:** commit `e9bbae7`, Netlify deploy `6ad6f2d10a403e78577a6fbe` (2026-10-20), from a clean `git archive` export after the full smoke test passed on all 38 scenes; `/.env` returns 404.
+
 **Session tooling that does not survive a new container:**
 - Tests: `scripts/tests/smoke.mjs` (copied into the repo 2026-10-20), `walknew.mjs` (walk frame order), `copbed2.mjs`. Serve the repo on 8098 and run `node scripts/tests/smoke.mjs http://localhost:8098/ [scenes]`. `probe.mjs` and `play.mjs` (CODEMAP) were not copied and are gone with the old scratchpad.
 - Rhubarb Lip Sync 1.13.0 (for `scripts/lipsync.py`) has to be downloaded again; point `RHUBARB` at the binary.
