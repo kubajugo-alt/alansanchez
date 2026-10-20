@@ -45,7 +45,7 @@
       if (vasco) p.ch = 'vasco';
       if (q.get('walk') === '6') { // the walk without the passing frame (review: walk cycles)
         S.CHARS.alan.frames.walk = ['alan_walkA', 'alan_walkDown', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_walkUp'];
-        S.walkTiming(S.CHARS.alan.frames);
+        for (const c of Object.values(S.CHARS)) if (c.frames && c.frames.walk) S.walkTiming(c.frames); // step lengths from S.WALK_PLANT, where a cycle has them
       }
       for (let i = 0; i < (window.FAST ? 1 : 20); i++) { // once in the tests, on a loop for the eye
         await p.walkTo(980, 690); await G.wait(1800); if (!vasco) await say('alan_water'); await G.wait(3500);
@@ -281,7 +281,7 @@
     // a character's new walk goes in whole or not at all: its frames mixed with the old ones lose the alternating legs
     const walkAll = ch => { const w = S.REVIEW.candidates.filter(c => c.char === ch && c.wire && c.wire.walkSlot != null); return w.length > 0 && w.every(c => ok(c.id)); };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c.wire && c.wire.walkSlot != null ? Object.assign({ walkAll: walkAll(c.char) }, c) : c, ok);
-    S.walkTiming(S.CHARS.alan.frames);
+    for (const c of Object.values(S.CHARS)) if (c.frames && c.frames.walk) S.walkTiming(c.frames); // step lengths from S.WALK_PLANT, where a cycle has them
     // the walk lab measures the walk candidates too, approved or not: their sprites are registered (not wired in)
     if (new URLSearchParams(location.search).get('scene') === 'walklab')
       for (const c of S.REVIEW.candidates) if (c.meta && c.wire && c.wire.walkSlot != null && !window.SPRITES[c.id]) window.SPRITES[c.id] = Object.assign({ src: c.src }, c.meta);

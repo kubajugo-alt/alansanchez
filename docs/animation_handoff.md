@@ -167,6 +167,33 @@ session lived in the session's scratchpad and are gone; everything that matters 
    turned down (different pictures, r 0.90-0.96). The other 22 stills have no larger source and stay 1280x720.
    art/stills 18 MB. Checked: a 1.2x zoom crop before/after (rigging and outlines crisp, colours unchanged);
    smoke for coldopen, intro, fado, romance, copbed, visitguitar, tr1-tr5 pass.
+16. **Walks, step 4: one-sheet walks for the rest of the cast, waiting for the user's decisions** (not in the game).
+   Inês, Vasco, Lacerda, Celeste, Zé, Teixeira (cop_visit) and Duarte (guitar_visit). Rui (no walk) and the cat are
+   not included. `scripts/walk_sheet_cast.py generate|fit <char>`: the same Gemini sheet as Alan's (walk_sheet.py, now
+   with a pronoun, mirrored reference for frames painted facing left (Lacerda), and two prompt rules learnt here: the
+   stick figures' white/dark colouring is not clothing (Lacerda's and Duarte's trousers came back half cream/grey,
+   half white/black), and props stay in all eight). Fitting is generic: one scale to the median height of the
+   character's current walk frames, then the head matched to those frames' heads with the legs (bottom half)
+   compensating, capped at +-10%; one canvas per character; feet = blobs of the bottom 10%; the weight-bearing foot
+   by pose (3/11 front, 5/13 lowest, 7/15 back; "the lowest foot" failed on heels and the long skirt); head swap when
+   the rows' heads differ by >2% (Vasco); heel-down on contact frames.
+   - **Tries:** 17 sheets in all ($1.20 total for step 4). Kept per character (SHEET in the script): Inês 2, Vasco 3,
+     Celeste 2, Zé 2, Teixeira 3, Duarte 2, Lacerda 1 (his third prompt). Chosen by how even the eight steps are (the
+     planted foot's travel per step as a share of the longest: Gemini often paints one pose with the feet a stride
+     apart, and that step shrinks to nothing so the pose never shows) and by props in all 8 (Teixeira's cap and
+     Duarte's case went missing in some tries). Unused tries are gitignored (they stay in this container only).
+   - **REUSE:** a bad pose takes its counterpart from the other half of the stride: Inês 13<-5 (two books), Celeste
+     15<-7, Zé 7<-15 (feet a stride apart in every try).
+   - **Results:** steps even to 0.73-0.90 of the longest (Alan's 0.74); walk lab: slip 0.1-0.2 px average, size
+     consistent (within 3.1%) for all. Plant data in core.js S.WALK_PLANT; main.js now runs S.walkTiming for every
+     character (it ran for Alan only). Walk lab: `_visit` characters are listed now; floor band 2.5% -> 5% (a heel
+     up on its toes is more than 2.5% of the height).
+   - **Checked:** smoke with today's walks and with every candidate approved (GEMINI=1): laundry, quayfish, lacthreat,
+     semuseum, vascostore, visitcop, visitguitar, ineskey, celeste, bench, intro pass; approved, all 8 walks wire in
+     with their step lengths.
+   - **Review page** (same link as Alan's, now one tab per character): https://claude.ai/artifact/RoCMGALM4FXgJWdTKrg3v9
+     db docs `decision/<char>` (Alan's stays `decision/alan_walk6`). On approve: mark that character's 8
+     `<prefix>_walk6_p*` ids approved in art/review/approvals.json (walkAll: all 8 or none), smoke, commit.
 
 ## Where things stand (session handoff, 2026-10-20)
 

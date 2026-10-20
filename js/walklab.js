@@ -35,7 +35,7 @@
     if (F.backWalk) out['away from the camera'] = F.backWalk;
     return out;
   }
-  const WALKERS = () => Object.keys(S.CHARS).filter(ch => !/^npc_|_visit$|_bed$|_floor$/.test(ch) && S.CHARS[ch].frames && (S.CHARS[ch].frames.walk || S.CHARS[ch].frames.idle));
+  const WALKERS = () => Object.keys(S.CHARS).filter(ch => !/^npc_|_bed$|_floor$/.test(ch) && S.CHARS[ch].frames && (S.CHARS[ch].frames.walk || S.CHARS[ch].frames.idle));
 
   // ---------------------------------------------------------------- measuring a frame from the art
   const MEAS = {};
@@ -52,10 +52,10 @@
     const ws = [];
     for (let j = top; j < top + Math.max(4, fig * 0.09); j++) { let l = -1, r = -1; for (let i = 0; i < W; i++) if (a(i, j)) { if (l < 0) l = i; r = i; } if (l >= 0) ws.push(r - l); }
     ws.sort((p, q) => p - q);
-    // feet on the floor: opaque columns in the bottom 2.5% above the feet line, in runs (a boot up on its toes still counts);
+    // feet on the floor: opaque columns in the bottom 5% above the feet line, in runs (a boot or a heel up on its toes still counts);
     // each foot's position is the centre of its boot (the opaque pixels of that run over the bottom 10% of the figure),
     // the same point scripts/walk_plant.py measures for S.WALK_PLANT, so a heel strike and a flat foot compare alike
-    const band = Math.max(3, fig * 0.025), cols = [];
+    const band = Math.max(3, fig * 0.05), cols = [];
     for (let i = 0; i < W; i++) { let on = false; for (let j = Math.round(fy - band); j <= fy; j++) if (j >= 0 && a(i, j)) { on = true; break; } cols.push(on); }
     const feet = []; let s0 = -1;
     cols.concat([false]).forEach((on, i) => { if (on && s0 < 0) s0 = i; if (!on && s0 >= 0) { if (i - s0 > 3) feet.push([s0, i - 1]); s0 = -1; } });

@@ -3345,6 +3345,1798 @@
    "wire": {
     "walkSlot": 7
    }
+  },
+  {
+   "id": "ines_walk6_p1",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 1 of the walk chart",
+   "src": "art/review/candidates/ines_walk6_p1.webp",
+   "originals": [
+    "art/sprites/ines_walk1.webp"
+   ],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 0,
+    "walkBase": [
+     "ines_walk6_p1",
+     "ines_walk6_p3",
+     "ines_walk6_p5",
+     "ines_walk6_p7",
+     "ines_walk6_p9",
+     "ines_walk6_p11",
+     "ines_walk6_p13",
+     "ines_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk6_p3",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 3 of the walk chart",
+   "src": "art/review/candidates/ines_walk6_p3.webp",
+   "originals": [
+    "art/sprites/ines_walk1.webp"
+   ],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 1,
+    "walkBase": [
+     "ines_walk6_p1",
+     "ines_walk6_p3",
+     "ines_walk6_p5",
+     "ines_walk6_p7",
+     "ines_walk6_p9",
+     "ines_walk6_p11",
+     "ines_walk6_p13",
+     "ines_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk6_p5",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 5 of the walk chart",
+   "src": "art/review/candidates/ines_walk6_p5.webp",
+   "originals": [
+    "art/sprites/ines_walk1.webp"
+   ],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "ines_walk6_p1",
+     "ines_walk6_p3",
+     "ines_walk6_p5",
+     "ines_walk6_p7",
+     "ines_walk6_p9",
+     "ines_walk6_p11",
+     "ines_walk6_p13",
+     "ines_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk6_p7",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 7 of the walk chart",
+   "src": "art/review/candidates/ines_walk6_p7.webp",
+   "originals": [
+    "art/sprites/ines_walk1.webp"
+   ],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "ines_walk6_p1",
+     "ines_walk6_p3",
+     "ines_walk6_p5",
+     "ines_walk6_p7",
+     "ines_walk6_p9",
+     "ines_walk6_p11",
+     "ines_walk6_p13",
+     "ines_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk6_p9",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 9 of the walk chart",
+   "src": "art/review/candidates/ines_walk6_p9.webp",
+   "originals": [
+    "art/sprites/ines_walk1.webp"
+   ],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 30.0
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "ines_walk6_p1",
+     "ines_walk6_p3",
+     "ines_walk6_p5",
+     "ines_walk6_p7",
+     "ines_walk6_p9",
+     "ines_walk6_p11",
+     "ines_walk6_p13",
+     "ines_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk6_p11",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 11 of the walk chart",
+   "src": "art/review/candidates/ines_walk6_p11.webp",
+   "originals": [
+    "art/sprites/ines_walk1.webp"
+   ],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 28.0
+   },
+   "wire": {
+    "walkSlot": 5,
+    "walkBase": [
+     "ines_walk6_p1",
+     "ines_walk6_p3",
+     "ines_walk6_p5",
+     "ines_walk6_p7",
+     "ines_walk6_p9",
+     "ines_walk6_p11",
+     "ines_walk6_p13",
+     "ines_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk6_p13",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 13 of the walk chart",
+   "src": "art/review/candidates/ines_walk6_p13.webp",
+   "originals": [
+    "art/sprites/ines_walk1.webp"
+   ],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 6,
+    "walkBase": [
+     "ines_walk6_p1",
+     "ines_walk6_p3",
+     "ines_walk6_p5",
+     "ines_walk6_p7",
+     "ines_walk6_p9",
+     "ines_walk6_p11",
+     "ines_walk6_p13",
+     "ines_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk6_p15",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 15 of the walk chart",
+   "src": "art/review/candidates/ines_walk6_p15.webp",
+   "originals": [
+    "art/sprites/ines_walk1.webp"
+   ],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 29.0
+   },
+   "wire": {
+    "walkSlot": 7,
+    "walkBase": [
+     "ines_walk6_p1",
+     "ines_walk6_p3",
+     "ines_walk6_p5",
+     "ines_walk6_p7",
+     "ines_walk6_p9",
+     "ines_walk6_p11",
+     "ines_walk6_p13",
+     "ines_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk6_p1",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 1 of the walk chart",
+   "src": "art/review/candidates/vasco_walk6_p1.webp",
+   "originals": [
+    "art/sprites/vasco_walk2.webp"
+   ],
+   "meta": {
+    "w": 383,
+    "hh": 745,
+    "h": 720,
+    "ax": 170.5,
+    "fy": 741.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 0,
+    "walkBase": [
+     "vasco_walk6_p1",
+     "vasco_walk6_p3",
+     "vasco_walk6_p5",
+     "vasco_walk6_p7",
+     "vasco_walk6_p9",
+     "vasco_walk6_p11",
+     "vasco_walk6_p13",
+     "vasco_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk6_p3",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 3 of the walk chart",
+   "src": "art/review/candidates/vasco_walk6_p3.webp",
+   "originals": [
+    "art/sprites/vasco_walk2.webp"
+   ],
+   "meta": {
+    "w": 383,
+    "hh": 745,
+    "h": 720,
+    "ax": 170.5,
+    "fy": 741.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 1,
+    "walkBase": [
+     "vasco_walk6_p1",
+     "vasco_walk6_p3",
+     "vasco_walk6_p5",
+     "vasco_walk6_p7",
+     "vasco_walk6_p9",
+     "vasco_walk6_p11",
+     "vasco_walk6_p13",
+     "vasco_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk6_p5",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 5 of the walk chart",
+   "src": "art/review/candidates/vasco_walk6_p5.webp",
+   "originals": [
+    "art/sprites/vasco_walk2.webp"
+   ],
+   "meta": {
+    "w": 383,
+    "hh": 745,
+    "h": 720,
+    "ax": 170.5,
+    "fy": 741.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "vasco_walk6_p1",
+     "vasco_walk6_p3",
+     "vasco_walk6_p5",
+     "vasco_walk6_p7",
+     "vasco_walk6_p9",
+     "vasco_walk6_p11",
+     "vasco_walk6_p13",
+     "vasco_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk6_p7",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 7 of the walk chart",
+   "src": "art/review/candidates/vasco_walk6_p7.webp",
+   "originals": [
+    "art/sprites/vasco_walk2.webp"
+   ],
+   "meta": {
+    "w": 383,
+    "hh": 745,
+    "h": 720,
+    "ax": 170.5,
+    "fy": 741.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "vasco_walk6_p1",
+     "vasco_walk6_p3",
+     "vasco_walk6_p5",
+     "vasco_walk6_p7",
+     "vasco_walk6_p9",
+     "vasco_walk6_p11",
+     "vasco_walk6_p13",
+     "vasco_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk6_p9",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 9 of the walk chart",
+   "src": "art/review/candidates/vasco_walk6_p9.webp",
+   "originals": [
+    "art/sprites/vasco_walk2.webp"
+   ],
+   "meta": {
+    "w": 383,
+    "hh": 745,
+    "h": 720,
+    "ax": 170.5,
+    "fy": 741.0,
+    "top": 23.0
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "vasco_walk6_p1",
+     "vasco_walk6_p3",
+     "vasco_walk6_p5",
+     "vasco_walk6_p7",
+     "vasco_walk6_p9",
+     "vasco_walk6_p11",
+     "vasco_walk6_p13",
+     "vasco_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk6_p11",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 11 of the walk chart",
+   "src": "art/review/candidates/vasco_walk6_p11.webp",
+   "originals": [
+    "art/sprites/vasco_walk2.webp"
+   ],
+   "meta": {
+    "w": 383,
+    "hh": 745,
+    "h": 720,
+    "ax": 170.5,
+    "fy": 741.0,
+    "top": 27.0
+   },
+   "wire": {
+    "walkSlot": 5,
+    "walkBase": [
+     "vasco_walk6_p1",
+     "vasco_walk6_p3",
+     "vasco_walk6_p5",
+     "vasco_walk6_p7",
+     "vasco_walk6_p9",
+     "vasco_walk6_p11",
+     "vasco_walk6_p13",
+     "vasco_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk6_p13",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 13 of the walk chart",
+   "src": "art/review/candidates/vasco_walk6_p13.webp",
+   "originals": [
+    "art/sprites/vasco_walk2.webp"
+   ],
+   "meta": {
+    "w": 383,
+    "hh": 745,
+    "h": 720,
+    "ax": 170.5,
+    "fy": 741.0,
+    "top": 27.0
+   },
+   "wire": {
+    "walkSlot": 6,
+    "walkBase": [
+     "vasco_walk6_p1",
+     "vasco_walk6_p3",
+     "vasco_walk6_p5",
+     "vasco_walk6_p7",
+     "vasco_walk6_p9",
+     "vasco_walk6_p11",
+     "vasco_walk6_p13",
+     "vasco_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "vasco_walk6_p15",
+   "char": "vasco",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 15 of the walk chart",
+   "src": "art/review/candidates/vasco_walk6_p15.webp",
+   "originals": [
+    "art/sprites/vasco_walk2.webp"
+   ],
+   "meta": {
+    "w": 383,
+    "hh": 745,
+    "h": 720,
+    "ax": 170.5,
+    "fy": 741.0,
+    "top": 28.0
+   },
+   "wire": {
+    "walkSlot": 7,
+    "walkBase": [
+     "vasco_walk6_p1",
+     "vasco_walk6_p3",
+     "vasco_walk6_p5",
+     "vasco_walk6_p7",
+     "vasco_walk6_p9",
+     "vasco_walk6_p11",
+     "vasco_walk6_p13",
+     "vasco_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "lacerda_walk6_p1",
+   "char": "lacerda",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 1 of the walk chart",
+   "src": "art/review/candidates/lacerda_walk6_p1.webp",
+   "originals": [
+    "art/sprites/lacerda_walk1.webp"
+   ],
+   "meta": {
+    "w": 374,
+    "hh": 750,
+    "h": 728.0,
+    "ax": 182.5,
+    "fy": 746.0,
+    "top": 23.0
+   },
+   "wire": {
+    "walkSlot": 0,
+    "walkBase": [
+     "lacerda_walk6_p1",
+     "lacerda_walk6_p3",
+     "lacerda_walk6_p5",
+     "lacerda_walk6_p7",
+     "lacerda_walk6_p9",
+     "lacerda_walk6_p11",
+     "lacerda_walk6_p13",
+     "lacerda_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "lacerda_walk6_p3",
+   "char": "lacerda",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 3 of the walk chart",
+   "src": "art/review/candidates/lacerda_walk6_p3.webp",
+   "originals": [
+    "art/sprites/lacerda_walk1.webp"
+   ],
+   "meta": {
+    "w": 374,
+    "hh": 750,
+    "h": 728.0,
+    "ax": 182.5,
+    "fy": 746.0,
+    "top": 29.0
+   },
+   "wire": {
+    "walkSlot": 1,
+    "walkBase": [
+     "lacerda_walk6_p1",
+     "lacerda_walk6_p3",
+     "lacerda_walk6_p5",
+     "lacerda_walk6_p7",
+     "lacerda_walk6_p9",
+     "lacerda_walk6_p11",
+     "lacerda_walk6_p13",
+     "lacerda_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "lacerda_walk6_p5",
+   "char": "lacerda",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 5 of the walk chart",
+   "src": "art/review/candidates/lacerda_walk6_p5.webp",
+   "originals": [
+    "art/sprites/lacerda_walk1.webp"
+   ],
+   "meta": {
+    "w": 374,
+    "hh": 750,
+    "h": 728.0,
+    "ax": 182.5,
+    "fy": 746.0,
+    "top": 26.0
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "lacerda_walk6_p1",
+     "lacerda_walk6_p3",
+     "lacerda_walk6_p5",
+     "lacerda_walk6_p7",
+     "lacerda_walk6_p9",
+     "lacerda_walk6_p11",
+     "lacerda_walk6_p13",
+     "lacerda_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "lacerda_walk6_p7",
+   "char": "lacerda",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 7 of the walk chart",
+   "src": "art/review/candidates/lacerda_walk6_p7.webp",
+   "originals": [
+    "art/sprites/lacerda_walk1.webp"
+   ],
+   "meta": {
+    "w": 374,
+    "hh": 750,
+    "h": 728.0,
+    "ax": 182.5,
+    "fy": 746.0,
+    "top": 29.0
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "lacerda_walk6_p1",
+     "lacerda_walk6_p3",
+     "lacerda_walk6_p5",
+     "lacerda_walk6_p7",
+     "lacerda_walk6_p9",
+     "lacerda_walk6_p11",
+     "lacerda_walk6_p13",
+     "lacerda_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "lacerda_walk6_p9",
+   "char": "lacerda",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 9 of the walk chart",
+   "src": "art/review/candidates/lacerda_walk6_p9.webp",
+   "originals": [
+    "art/sprites/lacerda_walk1.webp"
+   ],
+   "meta": {
+    "w": 374,
+    "hh": 750,
+    "h": 728.0,
+    "ax": 182.5,
+    "fy": 746.0,
+    "top": 23.0
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "lacerda_walk6_p1",
+     "lacerda_walk6_p3",
+     "lacerda_walk6_p5",
+     "lacerda_walk6_p7",
+     "lacerda_walk6_p9",
+     "lacerda_walk6_p11",
+     "lacerda_walk6_p13",
+     "lacerda_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "lacerda_walk6_p11",
+   "char": "lacerda",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 11 of the walk chart",
+   "src": "art/review/candidates/lacerda_walk6_p11.webp",
+   "originals": [
+    "art/sprites/lacerda_walk1.webp"
+   ],
+   "meta": {
+    "w": 374,
+    "hh": 750,
+    "h": 728.0,
+    "ax": 182.5,
+    "fy": 746.0,
+    "top": 34.0
+   },
+   "wire": {
+    "walkSlot": 5,
+    "walkBase": [
+     "lacerda_walk6_p1",
+     "lacerda_walk6_p3",
+     "lacerda_walk6_p5",
+     "lacerda_walk6_p7",
+     "lacerda_walk6_p9",
+     "lacerda_walk6_p11",
+     "lacerda_walk6_p13",
+     "lacerda_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "lacerda_walk6_p13",
+   "char": "lacerda",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 13 of the walk chart",
+   "src": "art/review/candidates/lacerda_walk6_p13.webp",
+   "originals": [
+    "art/sprites/lacerda_walk1.webp"
+   ],
+   "meta": {
+    "w": 374,
+    "hh": 750,
+    "h": 728.0,
+    "ax": 182.5,
+    "fy": 746.0,
+    "top": 28.0
+   },
+   "wire": {
+    "walkSlot": 6,
+    "walkBase": [
+     "lacerda_walk6_p1",
+     "lacerda_walk6_p3",
+     "lacerda_walk6_p5",
+     "lacerda_walk6_p7",
+     "lacerda_walk6_p9",
+     "lacerda_walk6_p11",
+     "lacerda_walk6_p13",
+     "lacerda_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "lacerda_walk6_p15",
+   "char": "lacerda",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 15 of the walk chart",
+   "src": "art/review/candidates/lacerda_walk6_p15.webp",
+   "originals": [
+    "art/sprites/lacerda_walk1.webp"
+   ],
+   "meta": {
+    "w": 374,
+    "hh": 750,
+    "h": 728.0,
+    "ax": 182.5,
+    "fy": 746.0,
+    "top": 31.0
+   },
+   "wire": {
+    "walkSlot": 7,
+    "walkBase": [
+     "lacerda_walk6_p1",
+     "lacerda_walk6_p3",
+     "lacerda_walk6_p5",
+     "lacerda_walk6_p7",
+     "lacerda_walk6_p9",
+     "lacerda_walk6_p11",
+     "lacerda_walk6_p13",
+     "lacerda_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "celeste_walk6_p1",
+   "char": "celeste",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 1 of the walk chart",
+   "src": "art/review/candidates/celeste_walk6_p1.webp",
+   "originals": [
+    "art/sprites/celeste_walkA.webp"
+   ],
+   "meta": {
+    "w": 393,
+    "hh": 698,
+    "h": 720,
+    "ax": 184.3,
+    "fy": 694.0,
+    "top": 27.0
+   },
+   "wire": {
+    "walkSlot": 0,
+    "walkBase": [
+     "celeste_walk6_p1",
+     "celeste_walk6_p3",
+     "celeste_walk6_p5",
+     "celeste_walk6_p7",
+     "celeste_walk6_p9",
+     "celeste_walk6_p11",
+     "celeste_walk6_p13",
+     "celeste_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "celeste_walk6_p3",
+   "char": "celeste",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 3 of the walk chart",
+   "src": "art/review/candidates/celeste_walk6_p3.webp",
+   "originals": [
+    "art/sprites/celeste_walkA.webp"
+   ],
+   "meta": {
+    "w": 393,
+    "hh": 698,
+    "h": 720,
+    "ax": 184.3,
+    "fy": 694.0,
+    "top": 26.0
+   },
+   "wire": {
+    "walkSlot": 1,
+    "walkBase": [
+     "celeste_walk6_p1",
+     "celeste_walk6_p3",
+     "celeste_walk6_p5",
+     "celeste_walk6_p7",
+     "celeste_walk6_p9",
+     "celeste_walk6_p11",
+     "celeste_walk6_p13",
+     "celeste_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "celeste_walk6_p5",
+   "char": "celeste",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 5 of the walk chart",
+   "src": "art/review/candidates/celeste_walk6_p5.webp",
+   "originals": [
+    "art/sprites/celeste_walkA.webp"
+   ],
+   "meta": {
+    "w": 393,
+    "hh": 698,
+    "h": 720,
+    "ax": 184.3,
+    "fy": 694.0,
+    "top": 26.0
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "celeste_walk6_p1",
+     "celeste_walk6_p3",
+     "celeste_walk6_p5",
+     "celeste_walk6_p7",
+     "celeste_walk6_p9",
+     "celeste_walk6_p11",
+     "celeste_walk6_p13",
+     "celeste_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "celeste_walk6_p7",
+   "char": "celeste",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 7 of the walk chart",
+   "src": "art/review/candidates/celeste_walk6_p7.webp",
+   "originals": [
+    "art/sprites/celeste_walkA.webp"
+   ],
+   "meta": {
+    "w": 393,
+    "hh": 698,
+    "h": 720,
+    "ax": 184.3,
+    "fy": 694.0,
+    "top": 27.0
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "celeste_walk6_p1",
+     "celeste_walk6_p3",
+     "celeste_walk6_p5",
+     "celeste_walk6_p7",
+     "celeste_walk6_p9",
+     "celeste_walk6_p11",
+     "celeste_walk6_p13",
+     "celeste_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "celeste_walk6_p9",
+   "char": "celeste",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 9 of the walk chart",
+   "src": "art/review/candidates/celeste_walk6_p9.webp",
+   "originals": [
+    "art/sprites/celeste_walkA.webp"
+   ],
+   "meta": {
+    "w": 393,
+    "hh": 698,
+    "h": 720,
+    "ax": 184.3,
+    "fy": 694.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "celeste_walk6_p1",
+     "celeste_walk6_p3",
+     "celeste_walk6_p5",
+     "celeste_walk6_p7",
+     "celeste_walk6_p9",
+     "celeste_walk6_p11",
+     "celeste_walk6_p13",
+     "celeste_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "celeste_walk6_p11",
+   "char": "celeste",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 11 of the walk chart",
+   "src": "art/review/candidates/celeste_walk6_p11.webp",
+   "originals": [
+    "art/sprites/celeste_walkA.webp"
+   ],
+   "meta": {
+    "w": 393,
+    "hh": 698,
+    "h": 720,
+    "ax": 184.3,
+    "fy": 694.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 5,
+    "walkBase": [
+     "celeste_walk6_p1",
+     "celeste_walk6_p3",
+     "celeste_walk6_p5",
+     "celeste_walk6_p7",
+     "celeste_walk6_p9",
+     "celeste_walk6_p11",
+     "celeste_walk6_p13",
+     "celeste_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "celeste_walk6_p13",
+   "char": "celeste",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 13 of the walk chart",
+   "src": "art/review/candidates/celeste_walk6_p13.webp",
+   "originals": [
+    "art/sprites/celeste_walkA.webp"
+   ],
+   "meta": {
+    "w": 393,
+    "hh": 698,
+    "h": 720,
+    "ax": 184.3,
+    "fy": 694.0,
+    "top": 23.0
+   },
+   "wire": {
+    "walkSlot": 6,
+    "walkBase": [
+     "celeste_walk6_p1",
+     "celeste_walk6_p3",
+     "celeste_walk6_p5",
+     "celeste_walk6_p7",
+     "celeste_walk6_p9",
+     "celeste_walk6_p11",
+     "celeste_walk6_p13",
+     "celeste_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "celeste_walk6_p15",
+   "char": "celeste",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 15 of the walk chart",
+   "src": "art/review/candidates/celeste_walk6_p15.webp",
+   "originals": [
+    "art/sprites/celeste_walkA.webp"
+   ],
+   "meta": {
+    "w": 393,
+    "hh": 698,
+    "h": 720,
+    "ax": 184.3,
+    "fy": 694.0,
+    "top": 27.0
+   },
+   "wire": {
+    "walkSlot": 7,
+    "walkBase": [
+     "celeste_walk6_p1",
+     "celeste_walk6_p3",
+     "celeste_walk6_p5",
+     "celeste_walk6_p7",
+     "celeste_walk6_p9",
+     "celeste_walk6_p11",
+     "celeste_walk6_p13",
+     "celeste_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ze_walk6_p1",
+   "char": "ze",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 1 of the walk chart",
+   "src": "art/review/candidates/ze_walk6_p1.webp",
+   "originals": [
+    "art/sprites/ze_walkA.webp"
+   ],
+   "meta": {
+    "w": 396,
+    "hh": 704,
+    "h": 720,
+    "ax": 193.9,
+    "fy": 700.0,
+    "top": 23.0
+   },
+   "wire": {
+    "walkSlot": 0,
+    "walkBase": [
+     "ze_walk6_p1",
+     "ze_walk6_p3",
+     "ze_walk6_p5",
+     "ze_walk6_p7",
+     "ze_walk6_p9",
+     "ze_walk6_p11",
+     "ze_walk6_p13",
+     "ze_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ze_walk6_p3",
+   "char": "ze",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 3 of the walk chart",
+   "src": "art/review/candidates/ze_walk6_p3.webp",
+   "originals": [
+    "art/sprites/ze_walkA.webp"
+   ],
+   "meta": {
+    "w": 396,
+    "hh": 704,
+    "h": 720,
+    "ax": 193.9,
+    "fy": 700.0,
+    "top": 28.0
+   },
+   "wire": {
+    "walkSlot": 1,
+    "walkBase": [
+     "ze_walk6_p1",
+     "ze_walk6_p3",
+     "ze_walk6_p5",
+     "ze_walk6_p7",
+     "ze_walk6_p9",
+     "ze_walk6_p11",
+     "ze_walk6_p13",
+     "ze_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ze_walk6_p5",
+   "char": "ze",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 5 of the walk chart",
+   "src": "art/review/candidates/ze_walk6_p5.webp",
+   "originals": [
+    "art/sprites/ze_walkA.webp"
+   ],
+   "meta": {
+    "w": 396,
+    "hh": 704,
+    "h": 720,
+    "ax": 193.9,
+    "fy": 700.0,
+    "top": 23.0
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "ze_walk6_p1",
+     "ze_walk6_p3",
+     "ze_walk6_p5",
+     "ze_walk6_p7",
+     "ze_walk6_p9",
+     "ze_walk6_p11",
+     "ze_walk6_p13",
+     "ze_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ze_walk6_p7",
+   "char": "ze",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 7 of the walk chart",
+   "src": "art/review/candidates/ze_walk6_p7.webp",
+   "originals": [
+    "art/sprites/ze_walkA.webp"
+   ],
+   "meta": {
+    "w": 396,
+    "hh": 704,
+    "h": 720,
+    "ax": 193.9,
+    "fy": 700.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "ze_walk6_p1",
+     "ze_walk6_p3",
+     "ze_walk6_p5",
+     "ze_walk6_p7",
+     "ze_walk6_p9",
+     "ze_walk6_p11",
+     "ze_walk6_p13",
+     "ze_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ze_walk6_p9",
+   "char": "ze",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 9 of the walk chart",
+   "src": "art/review/candidates/ze_walk6_p9.webp",
+   "originals": [
+    "art/sprites/ze_walkA.webp"
+   ],
+   "meta": {
+    "w": 396,
+    "hh": 704,
+    "h": 720,
+    "ax": 193.9,
+    "fy": 700.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "ze_walk6_p1",
+     "ze_walk6_p3",
+     "ze_walk6_p5",
+     "ze_walk6_p7",
+     "ze_walk6_p9",
+     "ze_walk6_p11",
+     "ze_walk6_p13",
+     "ze_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ze_walk6_p11",
+   "char": "ze",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 11 of the walk chart",
+   "src": "art/review/candidates/ze_walk6_p11.webp",
+   "originals": [
+    "art/sprites/ze_walkA.webp"
+   ],
+   "meta": {
+    "w": 396,
+    "hh": 704,
+    "h": 720,
+    "ax": 193.9,
+    "fy": 700.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 5,
+    "walkBase": [
+     "ze_walk6_p1",
+     "ze_walk6_p3",
+     "ze_walk6_p5",
+     "ze_walk6_p7",
+     "ze_walk6_p9",
+     "ze_walk6_p11",
+     "ze_walk6_p13",
+     "ze_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ze_walk6_p13",
+   "char": "ze",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 13 of the walk chart",
+   "src": "art/review/candidates/ze_walk6_p13.webp",
+   "originals": [
+    "art/sprites/ze_walkA.webp"
+   ],
+   "meta": {
+    "w": 396,
+    "hh": 704,
+    "h": 720,
+    "ax": 193.9,
+    "fy": 700.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 6,
+    "walkBase": [
+     "ze_walk6_p1",
+     "ze_walk6_p3",
+     "ze_walk6_p5",
+     "ze_walk6_p7",
+     "ze_walk6_p9",
+     "ze_walk6_p11",
+     "ze_walk6_p13",
+     "ze_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "ze_walk6_p15",
+   "char": "ze",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 15 of the walk chart",
+   "src": "art/review/candidates/ze_walk6_p15.webp",
+   "originals": [
+    "art/sprites/ze_walkA.webp"
+   ],
+   "meta": {
+    "w": 396,
+    "hh": 704,
+    "h": 720,
+    "ax": 193.9,
+    "fy": 700.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 7,
+    "walkBase": [
+     "ze_walk6_p1",
+     "ze_walk6_p3",
+     "ze_walk6_p5",
+     "ze_walk6_p7",
+     "ze_walk6_p9",
+     "ze_walk6_p11",
+     "ze_walk6_p13",
+     "ze_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "cop_walk6_p1",
+   "char": "cop_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 1 of the walk chart",
+   "src": "art/review/candidates/cop_walk6_p1.webp",
+   "originals": [
+    "art/sprites/cop_walk1.webp"
+   ],
+   "meta": {
+    "w": 387,
+    "hh": 754,
+    "h": 705.0,
+    "ax": 138.4,
+    "fy": 750.0,
+    "top": 28.0
+   },
+   "wire": {
+    "walkSlot": 0,
+    "walkBase": [
+     "cop_walk6_p1",
+     "cop_walk6_p3",
+     "cop_walk6_p5",
+     "cop_walk6_p7",
+     "cop_walk6_p9",
+     "cop_walk6_p11",
+     "cop_walk6_p13",
+     "cop_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "cop_walk6_p3",
+   "char": "cop_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 3 of the walk chart",
+   "src": "art/review/candidates/cop_walk6_p3.webp",
+   "originals": [
+    "art/sprites/cop_walk1.webp"
+   ],
+   "meta": {
+    "w": 387,
+    "hh": 754,
+    "h": 705.0,
+    "ax": 138.4,
+    "fy": 750.0,
+    "top": 34.0
+   },
+   "wire": {
+    "walkSlot": 1,
+    "walkBase": [
+     "cop_walk6_p1",
+     "cop_walk6_p3",
+     "cop_walk6_p5",
+     "cop_walk6_p7",
+     "cop_walk6_p9",
+     "cop_walk6_p11",
+     "cop_walk6_p13",
+     "cop_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "cop_walk6_p5",
+   "char": "cop_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 5 of the walk chart",
+   "src": "art/review/candidates/cop_walk6_p5.webp",
+   "originals": [
+    "art/sprites/cop_walk1.webp"
+   ],
+   "meta": {
+    "w": 387,
+    "hh": 754,
+    "h": 705.0,
+    "ax": 138.4,
+    "fy": 750.0,
+    "top": 23.0
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "cop_walk6_p1",
+     "cop_walk6_p3",
+     "cop_walk6_p5",
+     "cop_walk6_p7",
+     "cop_walk6_p9",
+     "cop_walk6_p11",
+     "cop_walk6_p13",
+     "cop_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "cop_walk6_p7",
+   "char": "cop_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 7 of the walk chart",
+   "src": "art/review/candidates/cop_walk6_p7.webp",
+   "originals": [
+    "art/sprites/cop_walk1.webp"
+   ],
+   "meta": {
+    "w": 387,
+    "hh": 754,
+    "h": 705.0,
+    "ax": 138.4,
+    "fy": 750.0,
+    "top": 31.0
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "cop_walk6_p1",
+     "cop_walk6_p3",
+     "cop_walk6_p5",
+     "cop_walk6_p7",
+     "cop_walk6_p9",
+     "cop_walk6_p11",
+     "cop_walk6_p13",
+     "cop_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "cop_walk6_p9",
+   "char": "cop_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 9 of the walk chart",
+   "src": "art/review/candidates/cop_walk6_p9.webp",
+   "originals": [
+    "art/sprites/cop_walk1.webp"
+   ],
+   "meta": {
+    "w": 387,
+    "hh": 754,
+    "h": 705.0,
+    "ax": 138.4,
+    "fy": 750.0,
+    "top": 28.0
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "cop_walk6_p1",
+     "cop_walk6_p3",
+     "cop_walk6_p5",
+     "cop_walk6_p7",
+     "cop_walk6_p9",
+     "cop_walk6_p11",
+     "cop_walk6_p13",
+     "cop_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "cop_walk6_p11",
+   "char": "cop_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 11 of the walk chart",
+   "src": "art/review/candidates/cop_walk6_p11.webp",
+   "originals": [
+    "art/sprites/cop_walk1.webp"
+   ],
+   "meta": {
+    "w": 387,
+    "hh": 754,
+    "h": 705.0,
+    "ax": 138.4,
+    "fy": 750.0,
+    "top": 40.0
+   },
+   "wire": {
+    "walkSlot": 5,
+    "walkBase": [
+     "cop_walk6_p1",
+     "cop_walk6_p3",
+     "cop_walk6_p5",
+     "cop_walk6_p7",
+     "cop_walk6_p9",
+     "cop_walk6_p11",
+     "cop_walk6_p13",
+     "cop_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "cop_walk6_p13",
+   "char": "cop_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 13 of the walk chart",
+   "src": "art/review/candidates/cop_walk6_p13.webp",
+   "originals": [
+    "art/sprites/cop_walk1.webp"
+   ],
+   "meta": {
+    "w": 387,
+    "hh": 754,
+    "h": 705.0,
+    "ax": 138.4,
+    "fy": 750.0,
+    "top": 32.0
+   },
+   "wire": {
+    "walkSlot": 6,
+    "walkBase": [
+     "cop_walk6_p1",
+     "cop_walk6_p3",
+     "cop_walk6_p5",
+     "cop_walk6_p7",
+     "cop_walk6_p9",
+     "cop_walk6_p11",
+     "cop_walk6_p13",
+     "cop_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "cop_walk6_p15",
+   "char": "cop_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 15 of the walk chart",
+   "src": "art/review/candidates/cop_walk6_p15.webp",
+   "originals": [
+    "art/sprites/cop_walk1.webp"
+   ],
+   "meta": {
+    "w": 387,
+    "hh": 754,
+    "h": 705.0,
+    "ax": 138.4,
+    "fy": 750.0,
+    "top": 36.0
+   },
+   "wire": {
+    "walkSlot": 7,
+    "walkBase": [
+     "cop_walk6_p1",
+     "cop_walk6_p3",
+     "cop_walk6_p5",
+     "cop_walk6_p7",
+     "cop_walk6_p9",
+     "cop_walk6_p11",
+     "cop_walk6_p13",
+     "cop_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "guitar_walk6_p1",
+   "char": "guitar_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 1 of the walk chart",
+   "src": "art/review/candidates/guitar_walk6_p1.webp",
+   "originals": [
+    "art/sprites/guitar_walk1.webp"
+   ],
+   "meta": {
+    "w": 386,
+    "hh": 749,
+    "h": 718.26,
+    "ax": 136.4,
+    "fy": 745.0,
+    "top": 26.0
+   },
+   "wire": {
+    "walkSlot": 0,
+    "walkBase": [
+     "guitar_walk6_p1",
+     "guitar_walk6_p3",
+     "guitar_walk6_p5",
+     "guitar_walk6_p7",
+     "guitar_walk6_p9",
+     "guitar_walk6_p11",
+     "guitar_walk6_p13",
+     "guitar_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "guitar_walk6_p3",
+   "char": "guitar_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 3 of the walk chart",
+   "src": "art/review/candidates/guitar_walk6_p3.webp",
+   "originals": [
+    "art/sprites/guitar_walk1.webp"
+   ],
+   "meta": {
+    "w": 386,
+    "hh": 749,
+    "h": 718.26,
+    "ax": 136.4,
+    "fy": 745.0,
+    "top": 40.0
+   },
+   "wire": {
+    "walkSlot": 1,
+    "walkBase": [
+     "guitar_walk6_p1",
+     "guitar_walk6_p3",
+     "guitar_walk6_p5",
+     "guitar_walk6_p7",
+     "guitar_walk6_p9",
+     "guitar_walk6_p11",
+     "guitar_walk6_p13",
+     "guitar_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "guitar_walk6_p5",
+   "char": "guitar_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 5 of the walk chart",
+   "src": "art/review/candidates/guitar_walk6_p5.webp",
+   "originals": [
+    "art/sprites/guitar_walk1.webp"
+   ],
+   "meta": {
+    "w": 386,
+    "hh": 749,
+    "h": 718.26,
+    "ax": 136.4,
+    "fy": 745.0,
+    "top": 28.0
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "guitar_walk6_p1",
+     "guitar_walk6_p3",
+     "guitar_walk6_p5",
+     "guitar_walk6_p7",
+     "guitar_walk6_p9",
+     "guitar_walk6_p11",
+     "guitar_walk6_p13",
+     "guitar_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "guitar_walk6_p7",
+   "char": "guitar_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 7 of the walk chart",
+   "src": "art/review/candidates/guitar_walk6_p7.webp",
+   "originals": [
+    "art/sprites/guitar_walk1.webp"
+   ],
+   "meta": {
+    "w": 386,
+    "hh": 749,
+    "h": 718.26,
+    "ax": 136.4,
+    "fy": 745.0,
+    "top": 30.0
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "guitar_walk6_p1",
+     "guitar_walk6_p3",
+     "guitar_walk6_p5",
+     "guitar_walk6_p7",
+     "guitar_walk6_p9",
+     "guitar_walk6_p11",
+     "guitar_walk6_p13",
+     "guitar_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "guitar_walk6_p9",
+   "char": "guitar_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 9 of the walk chart",
+   "src": "art/review/candidates/guitar_walk6_p9.webp",
+   "originals": [
+    "art/sprites/guitar_walk1.webp"
+   ],
+   "meta": {
+    "w": 386,
+    "hh": 749,
+    "h": 718.26,
+    "ax": 136.4,
+    "fy": 745.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "guitar_walk6_p1",
+     "guitar_walk6_p3",
+     "guitar_walk6_p5",
+     "guitar_walk6_p7",
+     "guitar_walk6_p9",
+     "guitar_walk6_p11",
+     "guitar_walk6_p13",
+     "guitar_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "guitar_walk6_p11",
+   "char": "guitar_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 11 of the walk chart",
+   "src": "art/review/candidates/guitar_walk6_p11.webp",
+   "originals": [
+    "art/sprites/guitar_walk1.webp"
+   ],
+   "meta": {
+    "w": 386,
+    "hh": 749,
+    "h": 718.26,
+    "ax": 136.4,
+    "fy": 745.0,
+    "top": 34.0
+   },
+   "wire": {
+    "walkSlot": 5,
+    "walkBase": [
+     "guitar_walk6_p1",
+     "guitar_walk6_p3",
+     "guitar_walk6_p5",
+     "guitar_walk6_p7",
+     "guitar_walk6_p9",
+     "guitar_walk6_p11",
+     "guitar_walk6_p13",
+     "guitar_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "guitar_walk6_p13",
+   "char": "guitar_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 13 of the walk chart",
+   "src": "art/review/candidates/guitar_walk6_p13.webp",
+   "originals": [
+    "art/sprites/guitar_walk1.webp"
+   ],
+   "meta": {
+    "w": 386,
+    "hh": 749,
+    "h": 718.26,
+    "ax": 136.4,
+    "fy": 745.0,
+    "top": 30.0
+   },
+   "wire": {
+    "walkSlot": 6,
+    "walkBase": [
+     "guitar_walk6_p1",
+     "guitar_walk6_p3",
+     "guitar_walk6_p5",
+     "guitar_walk6_p7",
+     "guitar_walk6_p9",
+     "guitar_walk6_p11",
+     "guitar_walk6_p13",
+     "guitar_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "guitar_walk6_p15",
+   "char": "guitar_visit",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk (one-sheet set): pose 15 of the walk chart",
+   "src": "art/review/candidates/guitar_walk6_p15.webp",
+   "originals": [
+    "art/sprites/guitar_walk1.webp"
+   ],
+   "meta": {
+    "w": 386,
+    "hh": 749,
+    "h": 718.26,
+    "ax": 136.4,
+    "fy": 745.0,
+    "top": 29.0
+   },
+   "wire": {
+    "walkSlot": 7,
+    "walkBase": [
+     "guitar_walk6_p1",
+     "guitar_walk6_p3",
+     "guitar_walk6_p5",
+     "guitar_walk6_p7",
+     "guitar_walk6_p9",
+     "guitar_walk6_p11",
+     "guitar_walk6_p13",
+     "guitar_walk6_p15"
+    ]
+   }
   }
  ]
 }

@@ -35,20 +35,24 @@ def stick_sheet():
     return sheet
 
 
-def generate(base, who, out_dir):
+def generate(base, who, out_dir, pron='his', flip=False):
     from google import genai
     client = genai.Client(api_key=api_key(), http_options={'timeout': 300_000})
     ref = Image.open(os.path.join(ROOT, f'art/sprites/{base}.webp')).convert('RGBA')
+    if flip: ref = ref.transpose(Image.FLIP_LEFT_RIGHT)  # a frame painted facing left: the sheet walks right
     sheet = stick_sheet(); sheet.save(os.path.join(out_dir, 'guide.png'))
     text = ('Match the FIRST image exactly: the same person, face, hair, clothes, colours, painted 1990s point-and-click '
             'adventure style, line weight and lighting.\n\n'
             f'Paint a walk-cycle sheet of this character ({who}): EIGHT full figures, head to feet, in two rows of four, laid '
             'out exactly like the stick figures in the SECOND image, every figure in the pose of the stick figure in the same '
             'place. All eight walk to the RIGHT, seen exactly from the side, at exactly the same size as each other, with the '
-            'feet of each row on one level ground line. In the stick figures the WHITE limbs are his NEAR arm and leg (the '
-            'side facing the viewer) and the DARK limbs are his FAR arm and leg (half hidden behind his body). Follow which '
-            'leg is in front in every figure: in the top row his NEAR leg is the one in front, in the bottom row his FAR '
+            f'feet of each row on one level ground line. In the stick figures the WHITE limbs are {pron} NEAR arm and leg (the '
+            f'side facing the viewer) and the DARK limbs are {pron} FAR arm and leg (half hidden behind {pron} body). Follow which '
+            f'leg is in front in every figure: in the top row {pron} NEAR leg is the one in front, in the bottom row {pron} FAR '
             'leg is in front. Keep the head height and body length the same in all eight; only the legs and arms change. '
+            'Anything the character carries stays exactly as in the first image. '
+            'The white and dark colours of the stick figures only mark which limb is near and which is far: paint BOTH legs '
+            'and BOTH arms in the character\'s own clothes, the same colours as in the first image. '
             f'Plain flat green background (RGB (0, 177, 64)) everywhere, no shadows, no floor, no lines, no numbers, '
             'figures well apart, nothing cropped.')
     parts = [{'type': 'text', 'text': text},

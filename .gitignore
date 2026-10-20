@@ -9,3 +9,16 @@ scripts/models/
 art/review/alan/faces/*/
 art/review/alan/fringe/*.png
 art/review/stills/crisp2/*_raw.png
+# walk sheets Gemini painted but the walk doesn't use (scripts/walk_sheet_cast.py SHEET picks one per character)
+art/review/ines/walk6/sheet_raw_1.png
+art/review/ines/walk6/sheet_raw_3.png
+art/review/vasco/walk6/sheet_raw_1.png
+art/review/vasco/walk6/sheet_raw_2.png
+art/review/celeste/walk6/sheet_raw_1.png
+art/review/celeste/walk6/sheet_raw_3.png
+art/review/ze/walk6/sheet_raw_1.png
+art/review/ze/walk6/sheet_raw_3.png
+art/review/cop/walk6/sheet_raw_1.png
+art/review/cop/walk6/sheet_raw_2.png
+art/review/guitar/walk6/sheet_raw_1.png
+art/review/guitar/walk6/sheet_raw_3.png

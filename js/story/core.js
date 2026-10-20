@@ -98,7 +98,7 @@
   };
 
   // ---------------------------------------------------------------- cast
-  // Alan's walk: where the foot carrying his weight is in each walk frame (from the anchor, in his heights;
+  // The walks: where the foot carrying the weight is in each walk frame (from the anchor, in his heights;
   // scripts/walk_plant.py). [lead, trail]: lead is that foot from this frame on; a contact frame (heel just down)
   // also gives trail, the foot that carried him up to it. Each frame of the walk lasts exactly as far as that foot
   // travels to the next frame (walkLen), so it stays on its spot of floor: equal steps per frame made it slide
@@ -112,6 +112,27 @@
     alan_walk_pre1L: [0.102], alan_walk_pre2L: [0.106], alan_walk_contact_farL: [0.176, -0.170], // the low-swing walk
     alan_walk6_p1: [0.190, -0.161], alan_walk6_p3: [0.115], alan_walk6_p5: [0.016], alan_walk6_p7: [-0.081], // the one-sheet set
     alan_walk6_p9: [0.196, -0.176], alan_walk6_p11: [0.112], alan_walk6_p13: [0.024], alan_walk6_p15: [-0.081],
+    // ines: the one-sheet set (scripts/walk_sheet_cast.py)
+    ines_walk6_p1: [0.220, -0.167], ines_walk6_p3: [0.140], ines_walk6_p5: [0.044], ines_walk6_p7: [-0.061],
+    ines_walk6_p9: [0.219, -0.155], ines_walk6_p11: [0.131], ines_walk6_p13: [0.044], ines_walk6_p15: [-0.066],
+    // vasco: the one-sheet set (scripts/walk_sheet_cast.py)
+    vasco_walk6_p1: [0.190, -0.148], vasco_walk6_p3: [0.112], vasco_walk6_p5: [0.028], vasco_walk6_p7: [-0.061],
+    vasco_walk6_p9: [0.207, -0.153], vasco_walk6_p11: [0.112], vasco_walk6_p13: [0.030], vasco_walk6_p15: [-0.065],
+    // lacerda: the one-sheet set (scripts/walk_sheet_cast.py)
+    lacerda_walk6_p1: [0.174, -0.176], lacerda_walk6_p3: [0.091], lacerda_walk6_p5: [0.001], lacerda_walk6_p7: [-0.089],
+    lacerda_walk6_p9: [0.172, -0.175], lacerda_walk6_p11: [0.085], lacerda_walk6_p13: [0.001], lacerda_walk6_p15: [-0.091],
+    // celeste: the one-sheet set (scripts/walk_sheet_cast.py)
+    celeste_walk6_p1: [0.191, -0.171], celeste_walk6_p3: [0.098], celeste_walk6_p5: [0.014], celeste_walk6_p7: [-0.079],
+    celeste_walk6_p9: [0.190, -0.171], celeste_walk6_p11: [0.091], celeste_walk6_p13: [0.015], celeste_walk6_p15: [-0.079],
+    // ze: the one-sheet set (scripts/walk_sheet_cast.py)
+    ze_walk6_p1: [0.163, -0.181], ze_walk6_p3: [0.083], ze_walk6_p5: [0.012], ze_walk6_p7: [-0.094],
+    ze_walk6_p9: [0.177, -0.177], ze_walk6_p11: [0.084], ze_walk6_p13: [0.013], ze_walk6_p15: [-0.094],
+    // cop_visit: the one-sheet set (scripts/walk_sheet_cast.py)
+    cop_walk6_p1: [0.257, -0.098], cop_walk6_p3: [0.165], cop_walk6_p5: [0.079], cop_walk6_p7: [-0.018],
+    cop_walk6_p9: [0.263, -0.108], cop_walk6_p11: [0.166], cop_walk6_p13: [0.081], cop_walk6_p15: [-0.017],
+    // guitar_visit: the one-sheet set (scripts/walk_sheet_cast.py)
+    guitar_walk6_p1: [0.258, -0.097], guitar_walk6_p3: [0.157], guitar_walk6_p5: [0.079], guitar_walk6_p7: [-0.014],
+    guitar_walk6_p9: [0.256, -0.103], guitar_walk6_p11: [0.162], guitar_walk6_p13: [0.077], guitar_walk6_p15: [-0.018],
   };
   S.walkTiming = F => {
     const W = F.walk, P = S.WALK_PLANT;
