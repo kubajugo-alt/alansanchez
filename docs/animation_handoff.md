@@ -1,20 +1,34 @@
 # Animation handoff
 
-State of the four-phase animation plan as of 2026-10-18, branch `lore-se-museum` (everything committed and pushed).
-The live site (https://alan-sanchez-drowned-bell.netlify.app) runs **`857755a`**: Netlify deploy `6ad4c78d821c722a3f548533`, made 2026-10-18 at the user's request (the rig trial is in it, off unless `?rig=1` or the review screen's Rig tab).
-It has Phase 4 lip-sync and blinking on Alan's four side frames (`alan_side`, `alan_idle2`, `alan_talk`, `alan_talk2`), the story-audit fixes and the date (Tuesday 31 October 1995).
-Before the deploy, the clean export passed the smoke tests on every scene, and a non-FAST bath-scene run checked the lip-sync. The full playthrough passed on the working tree (story-fixes agent).
+State as of 2026-10-20, branch `lore-se-museum` (everything committed and pushed). The live site
+(https://alan-sanchez-drowned-bell.netlify.app) runs the deploy recorded at the end of this section.
 
-**Side walk (rebuilt, waiting for approval on the review screen's Walk tab, `?scene=rigtest&walk=new`).** The user found every walk unnatural ("he looks like he's skipping") and spotted the cause: no painting had his FAR leg stepping forward. Every contact frame (walkA, walkB, contact2) had the near leg in front and the near arm back, so each step was taken with the same leg.
-- New cycle (`scripts/review_candidates.py` WALK2): walkA (near leg forward) → pre2L → pass2L → up2L (the near leg carrying him) → **contact_farL** (far leg forward, near arm forward) → pre1L → pass1L → up1L (the far leg carrying him).
-- contact_farL, up2L and pre1L (the three frames with the FAR leg in front) are built by `scripts/walk_far_step.py` straight from walkA's paint, with no repainting (2026-10-20). Every Gemini repaint, and the earlier `walk_swap_step.py` rough, put the near leg back in front: the rough's forward leg was a copy of the near leg, so it showed the outer seam of the jeans and read as the near leg. Now the forward leg is walkA's real far (back) leg, inner side and in shadow, swung forward about the hip behind him; the near leg swings back on top and the near arm forward. Stride 1 for the contact, 0.55 for the two short steps. The Gemini versions are kept as `art/review/alan/walk2/*_gemini.*`.
-- The pre and up frames are short steps (feet about a third of his height apart; the contacts are half), so the legs open and close gradually instead of snapping. They were painted from the passing frame alone: with a wide frame as a second reference, Gemini copies its full stride.
-- Even timing per frame (`S.walkTiming`): timing each frame by its own foot travel made contacts flash and passing frames hold, another source of the skip. Every step has a morph.
-- All or nothing: the new cycle replaces the original only when all seven walk candidates are approved.
+## Where things stand (session handoff, 2026-10-20)
 
-**Alan's restyle (done 2026-10-20).** Approved: 17 frames are now his sprites (wash1/2/4/5/6, wash_surface, swim, swim2, climb, jacket, jacket_grin, jacket_wink, undress3/4, jump, jump_rise, jump_fall). The user kept the original painting for wash3, swim_wave, trunks_down, trunks_snap, fling, trunks_step, dress1 and jump_crouch ("use original"). The 17 frames' lip-sync and blinking were rebuilt from the new paint and wait for approval (`"ok": false`): https://claude.ai/artifact/QtQZhV4rahcCnThCjy7DJs (db collection `faces`). Candidates and tools stay in `art/review/alan/restyle*`, `scripts/canva_restyle_fit.py`, `scripts/restyle_partial.sh`.
+**In the game now** (all deployed; the user approved each, and on 2026-10-20 said of the walk: "Don't expect my approval - if works for you, works for me"):
+- **Alan's walk: the 8-pose cycle of the user's reference chart.** The chart (a classic walk sheet: near limbs light, far limbs dark, poses 1-3-5-7 on the near leg, 9-11-13-15 on the far leg) is redrawn as stick figures in `art/review/walkref/pose<N>.png`. Slots: 1 `alan_walkA`, 3 `alan_walk_pre2L`, 5 `pass2L`, 7 `up2L`, 9 `contact_farL`, 11 `pre1L`, 13 `pass1L`, 15 `up1L`. 5/7/11/13/15 are Canva paintings from the stick figures (`art/review/alan/walk5/`), fitted onto walkA's canvas at one shared scale by `scripts/walk_canva_fit.py`; 9 is composited by `scripts/walk_far_step.py` from walkA's own far leg. The earlier Gemini / composite versions are kept as `art/review/alan/walk2/*_gemini.*` and `*_before_canva.*`. All seven candidates are approved in `art/review/approvals.json`, so `loadApproved` (js/story/main.js) puts the cycle in.
+  - Lesson: Gemini and plain prompts kept painting the NEAR leg forward. What worked: a stick figure with the near limbs white and the far limbs dark, given to Canva with the sprite as the character reference, and the prompt spelling out which leg is which.
+- **Alan's restyle**, **Teixeira's faces, skin and blush**, **Teixeira's door set and bed pose**, **Inês's faces**: see the sections below.
 
-**Teixeira's faces (lip-sync and blinking, approved 2026-10-20, in the game).** 15 frames (`FACE_CHAR=cop`, the frame list is `COP` in `scripts/face_kit.py`), in `js/faces.js` with `"ok": false`; his 32 lines have mouth cues (`lipsync/phone/`). Review page: https://claude.ai/artifact/Mu3CWPyS1CgokjxAZFMizA (db collection `faces`). Set `"ok": true` for the approved ones.
+**In progress: Inês's walk** (same problem as Alan's had: both paintings have the near leg forward).
+- Done: pose 9 (far leg forward), Canva media `MAHYgyU9to4`, fitted: `art/review/ines/walk/pose9.png` (Canva original beside it).
+- To do: poses 1, 3, 5, 7, 11, 13, 15. Everything needed is in `art/review/walkref/jobs.json`: the queue, the pose descriptions for the prompt, the Canva media ids of each stick figure (`pose`) and of the character reference (`ref.ines` = `ines_walk1` on green). Prompt pattern: as for Alan (see the git log of `alan_walk_*`), "Paint the woman from the first image (...) in the exact pose of the stick-figure diagram in the second image. WHITE limbs are her near side, DARK her far side. So: <pose description>. Full figure, side view, plain flat green background (#00B140)."
+- Canva paces generations (about one per 5 minutes, `quota_cooldown`). Export at full size through the scratch design `DAHYZ-SDzRE`: `update_fill` an existing page's image, then `resize_element` + `crop_media` both to 896x1541 (Canva's walk images come out about 0.58 wide), commit, `export-design` png pro, curl, crop the bottom of the 896x1776 page off (keep `round(H*1541/1776)`).
+- Then: `python3 scripts/walk_canva_fit.py ines_walk1 <export> <out> <scale>` (one median scale for the set), add them as walk candidates for `ines` (as `scripts/review_candidates.py` WALK2 does for Alan; Inês's cycle is `S.CHARS.ines.frames.walk` in js/story/ines.js / core.js), approve, test with `?scene=rigtest`-style checks, deploy. Her lantern walk (`ines_lwalk*`, `ines_lpass*`) has the same problem; it needs the same 8 poses with the lantern held out.
+- Vasco's walk was fixed earlier the same way as Alan's first attempt (a composited far-leg step); check it against the chart too.
+
+**Waiting on the user:** nothing blocking. The Walk Cycle Bench (https://claude.ai/artifact/5FjWPSkEw2pYHNmV8nqskq) predates the chart and is superseded for Alan and Inês.
+
+**Tools added this session** (all in `scripts/`): `walk_far_step.py`, `walk_canva_fit.py`, `skin_match.py` (one skin tone across a character's frames, face patches alike), `blush_tone.py` (scale a painted blush), `restyle_partial.sh` (restyle only the upper body when the whole frame is refused), `canva_restyle_fit.py` (Canva/Gemini restyles onto a sprite: `FIT_MODE=stand`, `FIT_TOP`, alpha input). Face kit: `FACE_CHAR=cop` is Teixeira (frame list `COP`); `alan_undress4` is in `SMILING`.
+
+**Session tooling that does not survive a new container:**
+- Tests: `scripts/tests/smoke.mjs` (copied into the repo 2026-10-20), `walknew.mjs` (walk frame order), `copbed2.mjs`. Serve the repo on 8098 and run `node scripts/tests/smoke.mjs http://localhost:8098/ [scenes]`. `probe.mjs` and `play.mjs` (CODEMAP) were not copied and are gone with the old scratchpad.
+- Rhubarb Lip Sync 1.13.0 (for `scripts/lipsync.py`) has to be downloaded again; point `RHUBARB` at the binary.
+- The Canva helper `up.sh` (create-upload-url, then `curl -X POST --data-binary @file -H "Content-Type: application/octet-stream" <url>`; the response's `mediaId` is the reference id).
+
+**Alan's restyle (done 2026-10-20).** Approved: 17 frames are now his sprites (wash1/2/4/5/6, wash_surface, swim, swim2, climb, jacket, jacket_grin, jacket_wink, undress3/4, jump, jump_rise, jump_fall). The user kept the original painting for wash3, swim_wave, trunks_down, trunks_snap, fling, trunks_step, dress1 and jump_crouch ("use original"). The 17 frames' lip-sync and blinking were rebuilt from the new paint and approved (undress4 redone as a smiling painting first): https://claude.ai/artifact/QtQZhV4rahcCnThCjy7DJs. Candidates and tools stay in `art/review/alan/restyle*`, `scripts/canva_restyle_fit.py`, `scripts/restyle_partial.sh`.
+
+**Teixeira's faces (lip-sync and blinking, approved 2026-10-20, in the game).** 15 frames (`FACE_CHAR=cop`, the frame list is `COP` in `scripts/face_kit.py`), approved and on (`"ok": true` in `js/faces.js`); his 32 lines have mouth cues (`lipsync/phone/`). Review page: https://claude.ai/artifact/Mu3CWPyS1CgokjxAZFMizA (db collection `faces`). Set `"ok": true` for the approved ones.
 
 **Teixeira (in the game, approved 2026-10-19).** The station set facing the door (`npc_phone_door*`: four idles, talking, and the shocked / embarrassed / blushing reactions through `S.copReact`; earpiece removed by Gemini) and the bed pose chained to the headboard (`cop_bed1-4`, shadow layer `art/layers/cop_bed_shadow.webp`) are the defaults, in `art/sprites/`. `?copdoor=old` and `?copbed=old` bring back the old sets. His skin is evened out to one tone across all 17 of his frames and his blush toned down to Alan's strength (approved 2026-10-20; `scripts/skin_match.py` at L 54, a 19, b 33, then `scripts/blush_tone.py k=0.45` on the blush, shock and embarrassed frames). Rebuilding his face patches with `face_kit.py build` brings back the old tone: run both scripts over the new patches again.
 
@@ -45,7 +59,7 @@ Before the deploy, the clean export passed the smoke tests on every scene, and a
   - His face in the pair paintings is a partner set `<frame>__vasco` (`js/engine/faces.js`): only the speaker's face moves. Before this, Alan's lips moved to a partner's lines.
   - Review page for his faces: https://claude.ai/artifact/2RPS8ao2m3tQgTr4KhSfGp
 
-**Faces for Alan's other frames (in progress, waiting for approval).** 58 more frames have lip-sync and blinking, all with `"ok": false` in `js/faces.js` (shown in the game only with `?faces=all`):
+**Faces for Alan's other frames (done: every set in `js/faces.js` is approved, `"ok": true`, as of 2026-10-20).** History:
 - 13 side-like frames take alan_side's set through `scripts/face_transfer.py`; the smoking frames blink only.
 - 42 have their own Gemini set (`scripts/face_kit.py gen`: mouths A-F and shut eyes at 1K, about $0.04 an edit), cut by `face_kit.py build`.
 - 3 borrow the set of a frame with the same painted head (`face_kit.py borrow`): trunks_step (fling), undress_belt (front_walk1), write (read).
@@ -67,7 +81,8 @@ Before the deploy, the clean export passed the smoke tests on every scene, and a
   - Match the canvas and the feet anchor.
   - Generate each set in one run.
   - Log every call in `art/review/log.md`.
-- **Approval:** nothing goes into the game until the user approves it on the review screen (`?review`). No GIFs.
+- **Approval:** nothing goes into the game until the user approves it (review screen `?review`, or a review page's db). No GIFs. Exception given 2026-10-20 for the walk work: "Don't expect my approval - if works for you, works for me" (applied to Alan's 8-pose walk; ask before reading it as a blanket rule for other art).
+- **Walks** (2026-10-20): every walk follows the user's 8-pose reference chart (`art/review/walkref/`), far leg forward on 9-15.
 - **Combined sprites:**
   - Never warp or scale them.
   - Alan stands exactly where his solo sprite stood, and neither character jumps on the way in or out.

@@ -90,4 +90,4 @@ Serve the repository root (`npx -y http-server -p 8098 -c-1 -s .`), then:
 - **Pose probe:** `node probe.mjs <scene>` prints every pose Alan takes in a scene; compare it before and after a change that should not alter animation.
 - **Full playthrough:** `node play.mjs http://localhost:8098/` plays a new game to the ending through real hotspots and dialogs, and prints `{"won":true, "errors":[], ...}` when it gets there.
 
-The three test scripts are kept outside the repository (in the session's scratchpad, `tests/`).
+`smoke.mjs` is in `scripts/tests/` (with `walknew.mjs` and `copbed2.mjs`); run it from the repo root as `node scripts/tests/smoke.mjs http://localhost:8098/`. `probe.mjs` and `play.mjs` lived in an earlier session's scratchpad and are gone.
