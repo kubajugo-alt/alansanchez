@@ -12,6 +12,10 @@ Before the deploy, the clean export passed the smoke tests on every scene, and a
 - Even timing per frame (`S.walkTiming`): timing each frame by its own foot travel made contacts flash and passing frames hold, another source of the skip. Every step has a morph.
 - All or nothing: the new cycle replaces the original only when all seven walk candidates are approved.
 
+**Alan's restyle (25 smooth-painted frames, waiting for approval).** Review page: https://claude.ai/artifact/Apo8Kimniw3TrmtSMpQXMC (db collection `restyle`: one doc per frame, `decision` approved/redo, `note`). Candidates, each lined up with its sprite: Canva's in `art/review/alan/restyle/alan_<k>.webp` (fitted with `scripts/canva_restyle_fit.py`, `FIT_MODE=stand` for standing frames); Gemini's in `art/review/alan/restyle_gemini/alan_<k>_fit.webp`; and three that only Gemini would do in part (`trunks_down`, `jump`, `jump_rise`: upper body restyled and feathered into the original by `scripts/restyle_partial.sh`, in `restyle_gemini/alan_<k>.png`). Nothing is wired into the game yet.
+
+**Teixeira's faces (lip-sync and blinking, waiting for approval).** 15 frames (`FACE_CHAR=cop`, the frame list is `COP` in `scripts/face_kit.py`), in `js/faces.js` with `"ok": false`; his 32 lines have mouth cues (`lipsync/phone/`). Review page: https://claude.ai/artifact/Mu3CWPyS1CgokjxAZFMizA (db collection `faces`). Set `"ok": true` for the approved ones.
+
 **Teixeira (in the game, approved 2026-10-19).** The station set facing the door (`npc_phone_door*`: four idles, talking, and the shocked / embarrassed / blushing reactions through `S.copReact`; earpiece removed by Gemini) and the bed pose chained to the headboard (`cop_bed1-4`, shadow layer `art/layers/cop_bed_shadow.webp`) are the defaults, in `art/sprites/`. `?copdoor=old` and `?copbed=old` bring back the old sets.
 
 **Vasco (in the game; the user approved moving forward and will flag anything odd in play).**
