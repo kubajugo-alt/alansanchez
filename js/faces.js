@@ -4648,7 +4648,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "npc_phone_door2": {
   "box": [
@@ -4668,7 +4668,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "npc_phone_door3": {
   "box": [
@@ -4688,7 +4688,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "npc_phone_door4": {
   "box": [
@@ -4708,7 +4708,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "npc_phone_door_talk": {
   "box": [
@@ -4728,7 +4728,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "npc_phone_door_blush": {
   "box": [
@@ -4748,7 +4748,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "npc_phone_door_shock": {
   "box": [
@@ -4768,7 +4768,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "npc_phone_door_embarrassed": {
   "box": [
@@ -4788,7 +4788,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "npc_phone_proud": {
   "box": [
@@ -4808,7 +4808,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "cop_visit": {
   "box": [
@@ -4828,7 +4828,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "cop_visit_talk": {
   "box": [
@@ -4848,7 +4848,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "cop_bed1": {
   "box": [
@@ -4868,7 +4868,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "cop_bed2": {
   "box": [
@@ -4888,7 +4888,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "cop_bed3": {
   "box": [
@@ -4908,7 +4908,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "cop_bed4": {
   "box": [
@@ -4928,6 +4928,6 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  }
 };
