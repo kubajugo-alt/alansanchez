@@ -115,6 +115,10 @@ session lived in the session's scratchpad and are gone; everything that matters 
    repaint" / "Keep oil"; no choice = repaint), choices in its db collection `choices` (`{pick: 'new'|'oil'}`).
    To apply: save each chosen PNG as `art/stills/<name>.jpg` (1280x720, JPEG quality 90, like 87cd848), then
    build-manifest, smoke, commit.
+   **Applied 2026-10-20:** the user picked "Use repaint" for all 26 on the review page (db `choices`, all
+   `new`); all 26 saved over `art/stills/<name>.jpg` as above. Oil originals are in git history (before this
+   commit). Checked: smoke for coldopen, intro, fado, romance, copbed, visitcop, visitguitar, tr1-tr5 all pass.
+   Not deployed.
 
 ## Where things stand (session handoff, 2026-10-20)
 
