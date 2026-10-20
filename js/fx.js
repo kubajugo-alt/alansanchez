@@ -33,9 +33,10 @@
   }
   function flicker(t, seed) { return 0.82 + 0.1 * Math.sin(t * 11 + seed) + 0.06 * Math.sin(t * 27 + seed * 3) + 0.04 * Math.sin(t * 53); }
   // Slanted light shaft through a window.
-  function shaft(g, pts, rgb, a) {
+  // soft: the beam fades in from nothing at its top (a shaft out of open sky, with no window edge to start from)
+  function shaft(g, pts, rgb, a, soft) {
     const gr = g.createLinearGradient(pts[0][0], pts[0][1], pts[2][0], pts[2][1]);
-    gr.addColorStop(0, `rgba(${rgb},${a})`); gr.addColorStop(1, `rgba(${rgb},0)`);
+    gr.addColorStop(0, `rgba(${rgb},${soft ? 0 : a})`); if (soft) gr.addColorStop(soft, `rgba(${rgb},${a})`); gr.addColorStop(1, `rgba(${rgb},0)`);
     g.save(); g.globalCompositeOperation = 'lighter'; g.fillStyle = gr; g.beginPath();
     g.moveTo(pts[0][0], pts[0][1]); for (const p of pts.slice(1)) g.lineTo(p[0], p[1]); g.closePath(); g.fill(); g.restore();
   }
@@ -178,9 +179,9 @@
     for (let i = 0; i < n; i++) {
       const q = p * (1.1 + r() * 0.3) - i * 0.05; if (q < 0 || q > 1) continue;
       const x = -30 + (W + 60) * q, y = base + i * 14 - Math.abs(Math.sin(q * 30 + i)) * 10;
-      g.translate(x, y); g.rotate(t * 6 + i); g.fillStyle = ['#6a4a22', '#8a6a2a', '#5a3a1a'][i % 3];
+      g.save(); g.translate(x, y); g.rotate(t * 6 + i); g.fillStyle = ['#6a4a22', '#8a6a2a', '#5a3a1a'][i % 3];
       g.beginPath(); g.ellipse(0, 0, 5, 2.4, 0, 0, Math.PI * 2); g.fill();
-      g.setTransform(1, 0, 0, 1, 0, 0);
+      g.restore(); // (not setTransform: that threw away the parallax zoom the caller set)
     }
     g.restore();
   }

@@ -19,6 +19,7 @@
   const WALK_EDGE = 0.13;       // the start step and the stop step of a walk are held this long (s)
   const PAIR_FADE = 0.25;       // into and out of a combined sprite (Alan with someone): a 250 ms cross-fade
   const PAIR_STEP = 0.16;       // one pair painting to the next (an unbutton, a kiss): a quick dissolve
+  const canMorph = () => !!(window.Warp && window.WARP !== false && !window.FAST && Warp.ok); // the mesh warp is running
   const XFADE_SHORT = 0.1;      // near-identical frames (talk, idle variants, a cigarette drag): a 100 ms eased cross-fade
   // Movement feel (all tunable; 0 switches a feature off). Lengths are in walker heights.
   const WALK_EASE_IN = 0.24;    // s from a standstill to full pace (the first steps are shorter and slower)
@@ -284,7 +285,7 @@
       if (this.walking) {
         const c = this.cycle(), i = Math.floor(this.phase) % c.length, a = c[i], b = c[(i + 1) % c.length], M = window.MORPHS;
         // a step with no morph shows its next painting from half way: the planted foot slips half as far, either side of the cut
-        const morphs = M && M[a + '>' + b] && M[b + '>' + a];
+        const morphs = M && M[a + '>' + b] && M[b + '>' + a] && canMorph();
         return !morphs && this.phase - Math.floor(this.phase) >= 0.5 ? b : a;
       }
       if (this.dir === 'n' && F.back) return arr(F.back)[0];
@@ -419,7 +420,9 @@
         // a mouth or gesture change while speaking is a clean frame swap, never a mesh morph
         const tf = this.talking && !this.walking && !this.pose ? arr(F.talk).concat(arr(F.idle).flat()) : null;
         const talkSwap = !!(tf && tf.includes(key) && tf.includes(this.prev));
-        const M = window.MORPHS, morph = this.prev && !talkSwap && this.prevFlip === flipped && sameFacing(key, flipped, this.prev, this.prevFlip) && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
+        const M = window.MORPHS, morphable = this.prev && !talkSwap && this.prevFlip === flipped && sameFacing(key, flipped, this.prev, this.prevFlip) && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
+        // without the mesh warp (a slow device, Effects: Light) a pose with morph data dissolves instead of cutting
+        const morph = morphable && canMorph();
         // a pair with morph data moves between poses; two near-identical paintings (a mouth, a hand,
         // a drag on the cigarette) get a quick eased cross-fade; anything else is a clean cut
         const SIM = window.SIMILAR, ibHand = this.ibSeq || this.ibWas; this.ibWas = !!this.ibSeq; // in-between frames hand over with a quick cross-fade too
@@ -427,9 +430,10 @@
         const pairs = this.prev && E.SPRITES[key] && E.SPRITES[this.prev] && E.SPRITES[key].rigid && E.SPRITES[this.prev].rigid;
         if (pairs && !(this.xfNext > 0)) this.xfNext = PAIR_STEP;
         const forced = this.xfNext > 0 && this.prev;
-        const similar = forced || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
+        const flat = !!(morphable && !morph);
+        const similar = forced || flat || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
         if (!morph && !similar) this.prev = null;
-        this.fadeDur = forced ? this.xfNext : similar ? XFADE_SHORT : MORPH_T;
+        this.fadeDur = forced ? this.xfNext : flat ? XFADE : similar ? XFADE_SHORT : MORPH_T;
         this.xfNext = 0;
         this.fadeSim = !!similar;
         this.fadeHand = !!forced;
@@ -483,13 +487,6 @@
         // upper body: scaled about the hip line and the body axis
         const hipY = Y0 + hipBy;
         g.drawImage(lit, 0, 0, bw, hipBy + 1, this.x + U.x * sx, hipY - hipBy * sy, bw * sx, (hipBy + 1) * sy);
-      }
-      // mouth-only swaps on a combined sprite: MOUTHS[key][speaker] = { x, y, frames: [shut, half, open] }
-      // (sprite px, top-left of the patch). The painting itself never changes while either of them talks.
-      const MO = !B && window.MOUTHS && MOUTHS[key], mo = MO && this.talking && MO[this.talkWho];
-      if (mo && !A.flipped) {
-        const fk = mo.frames[this.talkIdx % mo.frames.length], im = IMG['spr:' + fk];
-        if (im && im.complete) g.drawImage(im, X0 - U.x + A.x + mo.x * A.s, Y0 - U.y + A.y + mo.y * A.s, im.width * A.s, im.height * A.s);
       }
       g.restore();
     }

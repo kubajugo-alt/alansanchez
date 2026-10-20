@@ -25,9 +25,13 @@
     const im = IMG['still:' + s.name] || IMG['close:' + s.name] || IMG['bg:' + s.name];
     const p = Math.min(1, s.t / s.dur), e = p * p * (3 - 2 * p);
     const z = s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e;
-    // the pan centre is clamped so the painting always covers the screen (no black edge at low zoom)
-    const m = z >= 1 ? 0.5 / z : 0.5, clampP = v => Math.max(m, Math.min(1 - m, v));
-    const cx = clampP(s.pan[0][0] + (s.pan[1][0] - s.pan[0][0]) * e), cy = clampP(s.pan[0][1] + (s.pan[1][1] - s.pan[0][1]) * e);
+    // the pan's two ends are clamped once, each at its own zoom, so the painting always covers the screen;
+    // the margin (0.5 / zoom) is convex, so the straight path between them never needs clamping again and
+    // the camera never drifts back (clamping every frame bent the moves and lost much of the pan)
+    const clampAt = (zz, v) => { const mm = zz >= 1 ? 0.5 / zz : 0.5; return Math.max(mm, Math.min(1 - mm, v)); };
+    const P = s.panC || (s.panC = [0, 1].map(i => [clampAt(s.zoom[i], s.pan[i][0]), clampAt(s.zoom[i], s.pan[i][1])]));
+    const m = z >= 1 ? 0.5 / z : 0.5, clampP = v => Math.max(m, Math.min(1 - m, v)); // (a safety net only)
+    const cx = clampP(P[0][0] + (P[1][0] - P[0][0]) * e), cy = clampP(P[0][1] + (P[1][1] - P[0][1]) * e);
     g.save(); g.globalAlpha = Math.max(0, Math.min(1, alpha));
     if (black) { g.fillStyle = '#000'; g.fillRect(0, 0, W, H); }
     if (im) { const w = W * z, h = H * z; g.drawImage(im, W / 2 - w * cx, H / 2 - h * cy, w, h); }
@@ -45,10 +49,19 @@
   async function showStill(name, fn, opts) {
     opts = opts || {};
     E.busy++; E.cutscene++;
-    E.still = { name, t: 0, alpha: E.still ? E.still.alpha : 0, target: 1, dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
+    // cross: dissolve over the painting already up (kept with keep), instead of rising from the room or black
+    const under = opts.cross && E.still && E.still.target > 0 && E.still.alpha > 0.05 ? E.still : null;
+    if (under) under.prev = null;
+    E.still = { name, t: 0, alpha: under ? 0 : E.still ? E.still.alpha : 0, prev: under, target: 1, dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
+    if (window.FAST) { E.still.alpha = 1; E.still.prev = null; }
     E.clearSpeech();
     await wait(window.FAST ? 20 : 700);
-    try { if (fn) await fn(); else await wait(window.FAST ? 20 : (opts.hold || 3000)); }
+    try {
+      const t0 = performance.now();
+      if (fn) await fn(); else await wait(window.FAST ? 20 : (opts.hold || 3000));
+      // with a scene function, hold is the least time the painting stays up
+      if (fn && opts.hold && !window.FAST) { const left = opts.hold - (performance.now() - t0); if (left > 0) await wait(left); }
+    }
     finally {
       if (!opts.keep) { E.still.target = 0; await wait(window.FAST ? 20 : 700); }
       E.busy--; E.cutscene--;

@@ -1,8 +1,11 @@
 // Static checks for the story scripts, run before every commit:  node scripts/validate.mjs
 // Errors (exit 1): code swallowed by a // comment on the same line; a line id the code uses that isn't in
 // js/lines.js; a line with no mp3; a pose that names a sprite that doesn't exist.
-// Warnings: flags read but never set, flags set but never read, lines nothing uses (retired ids).
+// js/lipsync.js cues made from an older recording (or for a line that's gone).
+// Warnings: flags read but never set, flags set but never read, lines nothing uses (retired ids); a talk or
+// idle frame drawn at a different size from its character's standing frame.
 // It reads the files as text and makes no changes. --quiet prints errors only.
+import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -90,6 +93,31 @@ const neverSet = [...read.keys()].filter(k => !set.has(k)).sort();
 const neverRead = [...set.keys()].filter(k => !read.has(k)).sort();
 if (neverSet.length) warnings.push(`flags read but never set by the game: ${neverSet.map(k => `${k} (${read.get(k)}${preview.has(k) ? ', preview only' : ''})`).join(', ')}`);
 if (neverRead.length) warnings.push(`flags set but never read: ${neverRead.map(k => `${k} (${set.get(k)})`).join(', ')}`);
+
+// ---------------------------------------------------------------- frame heights
+// a talk or idle frame drawn at a different size from its character's standing frame makes the figure grow or
+// shrink as it talks: the drawn height is (fy - top) / h, so it should match the base frame's to within 4%
+const drawn = m => (m.fy - m.top) / m.h;
+for (const [k, m] of Object.entries(SPRITES)) {
+  const mm = k.match(/^(.+?)_(talk|idle)\d*$/); if (!mm || !SPRITES[mm[1]] || m.rigid) continue;
+  const r = drawn(m) / drawn(SPRITES[mm[1]]);
+  if (Math.abs(r - 1) > 0.04) warnings.push(`js/sprites.js: '${k}' draws at ${(r * 100).toFixed(0)}% of '${mm[1]}' (fix its "h")`);
+}
+
+// ---------------------------------------------------------------- lip-sync is for the current recording
+// lipsync/<speaker>/<id>.json keeps the sha1 of the mp3 it was made from (scripts/lipsync.py)
+const sha1 = f => crypto.createHash('sha1').update(fs.readFileSync(f)).digest('hex');
+const LIPDIR = path.join(ROOT, 'lipsync');
+if (fs.existsSync(LIPDIR)) for (const who of fs.readdirSync(LIPDIR)) {
+  const dir = path.join(LIPDIR, who); if (!fs.statSync(dir).isDirectory()) continue;
+  for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.json'))) {
+    const id = f.slice(0, -5), mp3 = path.join(ROOT, 'audio/voice', id + '.mp3');
+    if (!LINES[id]) { errors.push(`lipsync/${who}/${f}: no such line (retired? delete it)`); continue; }
+    if (!fs.existsSync(mp3)) { errors.push(`lipsync/${who}/${f}: the line has no recording (delete it)`); continue; }
+    try { if (JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')).src !== sha1(mp3)) errors.push(`lipsync/${who}/${f}: made from an older recording (run scripts/lipsync.py --speaker ${who})`); }
+    catch (e) { errors.push(`lipsync/${who}/${f}: unreadable`); }
+  }
+}
 
 // ---------------------------------------------------------------- report
 if (!quiet) for (const w of warnings) console.log('warning: ' + w);

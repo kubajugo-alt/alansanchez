@@ -57,12 +57,32 @@
   async function card(t1, t2, ms) {
     const c = $('#card');
     c.querySelector('.t1').textContent = t1; c.querySelector('.t2').textContent = t2;
-    c.classList.add('on'); await wait(window.FAST ? 50 : (ms || 2800)); c.classList.remove('on');
+    // the fade in and out lasts exactly as long as the card is held, so it never snaps back at the end
+    const dur = window.FAST ? 50 : (ms || 2800);
+    c.style.animationDuration = dur + 'ms';
+    c.classList.add('on'); await wait(dur); c.classList.remove('on');
   }
   function showModal(id, on) { $('#' + id).classList.toggle('hidden', !on); }
+  // Effects: Full (mesh warp, GPU light and depth parallax) or Light (flat frames, no parallax). Automatic until
+  // the player picks one; a slow device drops to Light by itself (render.js). Kept per browser.
+  const FX_KEY = 'drowned-bell-effects';
+  const fxPref = () => { try { return localStorage.getItem(FX_KEY); } catch (e) { return null; } };
+  function setEffects(full, keep) {
+    window.WARP = full ? (keep ? true : null) : false;
+    if (window.Parallax && Parallax.set) Parallax.set(full);
+    if (keep) try { localStorage.setItem(FX_KEY, full ? 'full' : 'light'); } catch (e) { /* private mode */ }
+  }
+  if (fxPref() && !/[?&](warp|lit3d)=/.test(location.search)) setEffects(fxPref() === 'full', true);
+  (function effectsButton() {
+    const menu = $('#menu'); if (!menu || $('#opt-fx')) return;
+    const b = document.createElement('button'); b.id = 'opt-fx'; b.textContent = 'Effects';
+    b.onclick = e => { e.stopPropagation(); setEffects(window.WARP === false, true); syncOptions(); toast('Effects: ' + (window.WARP === false ? 'Light' : 'Full')); };
+    menu.insertBefore(b, $('#opt-save'));
+  })();
   function syncOptions() {
     $('#opt-music').classList.toggle('off', !Sound.musicOn);
     $('#opt-voice').classList.toggle('off', !Sound.voiceOn);
+    const fx = $('#opt-fx'); if (fx) fx.classList.toggle('off', window.WARP === false);
   }
   $('#menu-btn').onclick = e => { e.stopPropagation(); $('#menu').classList.toggle('open'); };
   $('#opt-music').onclick = e => { e.stopPropagation(); Sound.setMusic(!Sound.musicOn); syncOptions(); };

@@ -12,7 +12,7 @@
     light: { ambient: 'rgb(218,212,224)', base: 0.9, rim: 'rgba(255,240,220,0.18)', rimSide: 1 },
     lights: [
       { x: 780, y: 120, rgb: '255,242,225', power: 0.3, reach: 1400, rim: 0.4, shadow: 0.45, floor: [780, 470], height: 900 },
-      { x: 1158, y: 470, rgb: '255,150,90', kind: 'candle', seed: 3, glow: 60, ga: 0.25, power: 0.18, reach: 360, shadow: false },
+      { x: 1158, y: 440, rgb: '255,150,90', kind: 'candle', seed: 3, glow: 60, ga: 0.25, power: 0.18, reach: 360, shadow: false },
     ],
     entries: { default: [70, 670, 'e'], map: [70, 670, 'e'] },
     layers: [{ img: 'convent_stone', x: 0, y: 0, full: true, when: () => F().stone_washed }],
@@ -22,7 +22,7 @@
         FX.birds(m, t, { y0: 40, y1: 220, n: 4, period: 17, color: 'rgba(60,55,70,0.75)', size: 8 });
       });
     },
-    anim(g, t) { FX.shaft(g, [[740, 100], [830, 100], [900, 560], [680, 560]], '255,245,230', 0.06); FX.leaves(g, t, 600, 690, 23); },
+    anim(g, t) { FX.shaft(g, [[720, 0], [815, 0], [900, 560], [680, 560]], '255,245,230', 0.06, 0.45); FX.leaves(g, t, 600, 690, 23); },
     npcs: [
       { id: 'tomas', x: 640, y: 590, dir: 'w', loop: 'sweep', name: 'Father Tomás', look: 'narr_look_tomas', talk: () => S.talkTomas(),
         items: { file55: () => say('alan_ask_tomas_1955', 'tomas_notyet'), ledger: () => say('tomas_stone'), brotherhood_charter: () => S.tomasCharter(), any: 'alan_fail_07' } },
@@ -189,7 +189,7 @@
       { img: 'bell1', x: 0, y: 0, swing: t => 0.25 * Math.sin(t * 0.5), pivot: [405, 20], cut: true },
     ].filter(() => false),
     anim(g, t) {
-      for (const [x0, y0, w] of [[290, 280, 240], [565, 280, 160], [790, 290, 110]]) FX.shaft(g, [[x0 + w * 0.3, 80], [x0 + w * 0.55, 80], [x0 + w * 0.6 + 120, 600], [x0 + w * 0.2 + 120, 600]], '230,232,236', 0.05);
+      for (const [x0, y0, w] of [[290, 280, 240], [565, 280, 160], [790, 290, 110]]) FX.shaft(g, [[x0 + w * 0.3, 80], [x0 + w * 0.55, 80], [x0 + w * 0.6 + 120, 600], [x0 + w * 0.2 + 120, 600]], '230,232,236', 0.05, 0.35);
       FX.motes(g, t, 250, 100, 900, 480, 40, '240,235,220');
       FX.birds(g, t + 7, { y0: 60, y1: 110, n: 1, period: 13, color: 'rgba(80,80,85,0.8)', size: 9, x0: 300, x1: 1100 });
     },
@@ -273,7 +273,8 @@
     scale: [555, 330, 716, 410],
     light: { ambient: 'rgb(205,172,128)', base: 0.8, rim: 'rgba(255,200,120,0.18)', rimSide: -1 },
     lights: [
-      { x: 730, y: 150, rgb: '255,210,140', glow: 120, ga: 0.12, power: 0.38, reach: 900, floor: [730, 530], height: 600 },
+      { x: 730, y: 150, rgb: '255,210,140', glow: 0, ga: 0, power: 0.38, // the shop's lamplight from above (no lamp is painted, so no glow)
+        reach: 900, floor: [730, 530], height: 600 },
       { x: 765, y: 375, rgb: '120,255,180', kind: 'pulse', seed: 1, glow: 50, ga: 0.08, power: 0.08, reach: 300, shadow: false, when: () => !F().has_tongue },
     ],
     occluders: [{ y: 640, base: [[0, 632], [437, 548]], polys: [ // the counter is painted at an angle: its foot runs from (0,632) to (437,548)

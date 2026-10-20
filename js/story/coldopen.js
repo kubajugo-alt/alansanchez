@@ -16,7 +16,7 @@
     walk: [[300, 600], [1000, 600], [1100, 716], [200, 716]],
     scale: [560, 360, 716, 420],
     light: { ambient: 'rgb(120,140,175)', base: 0.75, rim: 'rgba(255,190,120,0.2)', rimSide: 1 },
-    lights: [{ x: 948, y: 318, rgb: '255,190,120', kind: 'gas', seed: 7, glow: 110, ga: 0.35, power: 0.5, reach: 700, floor: [948, 470], height: 240 }],
+    lights: [{ x: 966, y: 318, rgb: '255,190,120', kind: 'gas', seed: 7, glow: 110, ga: 0.35, power: 0.5, reach: 700, floor: [966, 470], height: 240 }],
     entries: { default: [640, 680, 'w'] },
     npcs: [{ id: 'maria', ch: 'maria', x: 520, y: 650, h: 390, // her standing spot on the boards (the scene poses her in bed first)
        dir: 'w', fixedDir: true, name: 'Maria Coutinho', look: () => {} }],

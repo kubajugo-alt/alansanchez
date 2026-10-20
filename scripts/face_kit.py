@@ -11,13 +11,14 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # whose faces: FACE_CHAR=vasco python3 scripts/face_kit.py find ... (Alan by default). Another character's frames are his
-# own solo paintings; in the pair paintings his face is the partner's, which this doesn't cover yet
+# own solo paintings; in the pair paintings his face is the partner's set '<frame>__<speaker id>' (FACE_CHAR=cop: 'phone')
 CHAR = os.environ.get('FACE_CHAR', 'alan')
 WORK = os.path.join(ROOT, f'art/review/{CHAR}/faces/')
 DESC = {'alan': 'the head of Alan, a man with dark curly hair, clean-shaven',
         'vasco': 'the head of Vasco, a man in his thirties with dark tousled hair and light stubble',
         'ines': 'the head of Inês, a young woman with long dark curly hair, red-framed glasses pushed up on her head and gold hoop earrings',
         'cop': 'the head of Officer Teixeira, a young policeman with short dark hair and a navy police cap'}[CHAR]
+SPEAKER = {'cop': 'phone'}.get(CHAR, CHAR)   # the speaker id in js/lines.js, which names a partner's set in a pair painting
 SHE = CHAR in ('ines',)   # the prompts are written for a man: these get her / she
 
 
@@ -56,7 +57,8 @@ def own(fr):
 
 
 def frames():
-    if CHAR == 'cop': return COP
+    if CHAR == 'cop':   # his solo set, and the pair paintings he's in (pair_cop_*)
+        return COP + sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith('pair_cop_'))
     mine = ('alan_', 'pair_') if CHAR == 'alan' else (CHAR + '_', CHAR + '.', f'pair_{CHAR}_')  # his own, and the pairs he's painted into
     return sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith(mine))
 
@@ -325,7 +327,7 @@ def build(names):
     except (OSError, ValueError, IndexError): data = {}
     for fr in (names or index):
         if fr not in index or fr in SIDE: continue
-        key = fr + '__' + CHAR if CHAR != 'alan' and fr.startswith('pair_') else fr   # a partner's face in a pair painting
+        key = fr + '__' + SPEAKER if CHAR != 'alan' and fr.startswith('pair_') else fr   # a partner's face in a pair painting (the engine matches the speaker id)
         r = build_one(fr, index[fr], key)
         if not r: continue
         fit = r.pop('fit'); r['ok'] = (data.get(key) or {}).get('ok', False)   # in the game once approved on the review page

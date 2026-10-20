@@ -81,5 +81,6 @@ window.Parallax = (function () {
   }
   // screen -> scene (clicks), the zoom undone at the depth of the floor there
   const unzoom = (x, y) => [(x - W / 2) / Z + W / 2, (y - H / 2) / Z + H / 2];
-  return { get on() { return on; }, off() { on = false; }, update, draw, at, apply, unzoom, cam, depthAt, get active() { return on && !!gl && !!dIm; } };
+  const forcedOff = !on; // ?noparallax always wins
+  return { get on() { return on; }, off() { on = false; }, set(v) { on = !!v && !forcedOff; }, update, draw, at, apply, unzoom, cam, depthAt, get active() { return on && !!gl && !!dIm; } };
 })();

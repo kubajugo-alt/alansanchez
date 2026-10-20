@@ -607,7 +607,7 @@
     scale: [568, 385, 716, 450],
     light: () => F().ch >= 5 ? { ambient: 'rgb(110,105,140)', base: 0.5, flickerShade: 0.25 } : { ambient: 'rgb(200,142,98)', base: 0.72, flickerShade: 0.3 },
     lights: () => F().ch >= 5 ? [
-      { x: 922, y: 140, rgb: '255,180,90', kind: 'flame', seed: 3, glow: 120, ga: 0.3, power: 0.65, reach: 800, floor: [922, 590], height: 460 },
+      { x: 985, y: 152, rgb: '255,180,90', kind: 'flame', seed: 3, glow: 120, ga: 0.3, power: 0.65, reach: 800, floor: [985, 590], height: 460 }, // the lantern by the bar, as by day
     ] : [
       { x: 453, y: 180, rgb: '255,180,90', kind: 'flame', seed: 1, glow: 120, ga: 0.28, power: 0.6, reach: 800, floor: [453, 560], height: 420 },
       { x: 985, y: 152, rgb: '255,180,90', kind: 'flame', seed: 3, glow: 120, ga: 0.28, power: 0.6, reach: 800, floor: [985, 590], height: 460 },

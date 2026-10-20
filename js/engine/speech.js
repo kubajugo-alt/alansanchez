@@ -125,7 +125,7 @@
       narrEl.style.display = 'block';
     }
     const dur = await Sound.playVoice(id, !actor);
-    const ms = window.FAST ? 20 : dur ? dur * 1000 + 250 : Math.max(1800, text.length * 58);
+    const ms = window.FAST ? 20 : dur ? dur * 1000 + 250 : Math.max(2500, 800 + text.length * 70); // no recording: about 14 characters a second, the narrator's own pace
     await new Promise(res => {
       let finished = false, t = setTimeout(check, ms);
       // a slow-loading voice can outlast the estimate: hold the line until it has finished

@@ -80,11 +80,19 @@
     const dt = (window.STEP_DT || Math.min(0.05, (now - last) / 1000)) * (window.TIME_SCALE || 1);
     last = now;
     E.time += dt;
-    // a device that can't keep up with the mesh warp falls back to flat frames
-    if (window.WARP == null && !window.FAST) { // (WARP = true forces it on, false off)
-      slowT = (now - last0 > 45) ? slowT + 1 : Math.max(0, slowT - 2); last0 = now;
-      if (slowT > 120) { window.WARP = false; slowT = 0; if (window.Parallax) Parallax.off(); console.info('Warp and parallax off: frames too slow on this device'); }
-    }
+    // a device that can't keep up with the mesh warp falls back to flat frames: about four seconds' worth of
+    // slow frames (over 45 ms), counted in time, not frames, so a very slow device gives up quickly; a single
+    // hitch (a room loading, a tab coming back) counts for at most a tenth of a second
+    if (window.WARP == null && !window.FAST && !document.hidden) { // (WARP = true forces it on, false off)
+      const ft = Math.min(0.1, (now - last0) / 1000); last0 = now;
+      slowT = ft > 0.045 ? slowT + ft : Math.max(0, slowT - 2 * ft);
+      if (slowT > 4) {
+        window.WARP = false; slowT = 0; if (window.Parallax) Parallax.off();
+        console.info('Warp and parallax off: frames too slow on this device');
+        if (E.toast) E.toast('Effects lowered for this device (☰ to change)');
+        if (E.syncOptions) E.syncOptions();
+      }
+    } else last0 = now;
     try { drawFrame(dt); } catch (e) { if (frameErr++ < 5) console.error('frame', e); }
   }
   function drawFrame(dt) {

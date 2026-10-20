@@ -6,7 +6,7 @@
   const E = window.Engine;
   // a frame's set is used once approved on the review page ("ok"); ?faces=all shows the ones still waiting
   const ALL = /[?&]faces=all\b/.test(location.search);
-  const FACES = Object.fromEntries(Object.entries(window.FACES || {}).filter(([, D]) => D.ok !== false || ALL));
+  const FACES = Object.fromEntries(Object.entries(window.FACES || {}).filter(([, D]) => D.ok === true || ALL)); // (no "ok" at all is not an approval)
 
   // ---------------------------------------------------------------- the patches
   const PATCH = {}; // 'frame_state' -> Image
@@ -75,7 +75,9 @@
     let want = at(c, t + LEAD);
     if (want === 'X') want = 'A'; // between words: a relaxed closed mouth (his smile is for when he's quiet)
     const m = a.lip || (a.lip = { k: 'A', f: 1, at: 0 });
-    if (E.time - m.at >= STEP) { stepJaw(m, want); m.at = E.time; }
+    // the jaw steps by the clock, not once per drawn frame, so it keeps up with the voice on a slow device
+    for (let n = 0; E.time - m.at >= STEP && n < 12; n++) { stepJaw(m, want); m.at += STEP; }
+    if (E.time - m.at >= STEP) m.at = E.time; // (a long stall: catch up and carry on)
     return m.f >= 1 ? m.k : m.k + '_' + Math.round(m.f * 100);
   }
 
@@ -84,7 +86,8 @@
   const BLINK = [[0.04, 'half'], [0.11, 'closed'], [0.15, 'half']];
   function lidOf(a, slot = 'blink') {
     const b = a[slot] || (a[slot] = { next: E.time + 1 + Math.random() * 4, t0: -1 });
-    if (b.t0 < 0 && E.time >= b.next) b.t0 = E.time;
+    // no blink starts while the figure is dissolving or stepping through in-betweens (it would show on one painting only)
+    if (b.t0 < 0 && E.time >= b.next && !(a.fadeT > 0) && !a.ibSeq) b.t0 = E.time;
     if (b.t0 < 0) return null;
     const u = E.time - b.t0, s = BLINK.find(([end]) => u < end);
     if (s) return s[1];

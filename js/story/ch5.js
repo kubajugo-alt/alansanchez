@@ -19,7 +19,7 @@
         rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
         when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
       { actor: 'alan', off: [0.152, -0.44], offs: { alan_lantern: [0.152, -0.44], alan_lwalk1: [0.15, -0.391], alan_lwalk2: [0.181, -0.42] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 70, ga: 0.35, power: 0.5, reach: 500, rim: 0.7, height: 160, when: () => F().has_lantern },
-      { x: 1158, y: 470, rgb: '255,140,80', kind: 'candle', seed: 5, glow: 55, ga: 0.25, power: 0.15, reach: 300, shadow: false },
+      { x: 1158, y: 440, rgb: '255,140,80', kind: 'candle', seed: 5, glow: 55, ga: 0.25, power: 0.15, reach: 300, shadow: false },
     ],
     entries: { default: [70, 670, 'e'], map: [70, 670, 'e'], cistern: [740, 650, 'w'] }, // up from the cistern: beside the open grate, not in it
     animBack(g, t) { FX.masked(g, G.mask(), m => FX.drawClouds(m, S.nightClouds, t, 7, 0, 1)); },
@@ -54,9 +54,10 @@
     await say('alan_ask_midnight');
     G.cutscene = true;
     try {
-      await S.still('still_1955_a', 'cistern', () => say('tomas_boy'), { sepia: true, grain: true, zoom: [1.02, 1.12] });
-      await S.still('still_1955_b', 'cistern', () => say('tomas_ran'), { sepia: true, grain: true, zoom: [1.06, 1.0] });
-      await S.still('still_1955_c', 'convent_night', () => say('tomas_count', 'tomas_1955_water'), { sepia: true, grain: true, zoom: [1.0, 1.1] });
+      // the three paintings dissolve one into the next; only the last fades back to the room
+      await S.still('still_1955_a', 'cistern', () => say('tomas_boy'), { sepia: true, grain: true, zoom: [1.02, 1.12], keep: true });
+      await S.still('still_1955_b', 'cistern', () => say('tomas_ran'), { sepia: true, grain: true, zoom: [1.06, 1.0], keep: true, cross: true });
+      await S.still('still_1955_c', 'convent_night', () => say('tomas_count', 'tomas_1955_water'), { sepia: true, grain: true, zoom: [1.0, 1.1], cross: true });
     } finally { G.cutscene = false; }
     await say('alan_thanks', 'tomas_lantern', 'gag_tomas', 'gag_alan_tomas');
     F().confessed = true; F().has_lantern = true; give('lantern'); sfx('lantern');

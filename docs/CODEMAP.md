@@ -20,6 +20,10 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 | 11 | `js/engine/geometry.js` | Walk polygons, routing round cut-outs, rounded corners, hotspot and sprite-pixel hit tests. |
 | 12 | `js/engine/rooms.js` | Depth scaling (`scaleAt`), `goRoom` (door sounds, fades, music, ambience, autosave), NPCs and extras per room, room labels. |
 | 13 | `js/engine/render.js` | One frame (background, layers, depth-sorted actors and occluders, fog, grade) and the animation loop. |
+| 13a | `js/lipsync.js` | `window.LIPSYNC`: Rhubarb mouth cues per voiced line, `{speaker: {line: [duration, [[t, shape], ...]]}}`. **Generated** (`scripts/lipsync.py`). |
+| 13b | `js/faces.js` | `window.FACES`: per frame, the face box, mouth shapes and eyelid patches (`art/faces/`), with `ok: true` once approved; a partner's face in a pair painting is the set `<frame>__<speaker id>`. **Generated** (`scripts/face_transfer.py`, `scripts/face_kit.py build`). |
+| 13c | `js/engine/faces.js` | Lip-sync and blinking: lays the mouth (from the cues, on the audio clock) and the eyelids into the painting before it is lit and warped. |
+| 13d | `js/engine/rig.js` | Alan's experimental side-view rig (`?rig=1`; off by default). |
 | 14 | `js/engine/smoke.js` | Alan's idle cigarette. |
 | 15 | `js/engine/speech.js` | `say` / `says` (one voice at a time, captions), speakers facing each other, sung lyrics, the dialogue menu. |
 | 16 | `js/engine/inventory.js` | Items, the inventory bar, item-on-item use, the item cursor, reading the notebook. |
@@ -56,8 +60,8 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 | `window.LINES`, `SPRITES`, `MORPHS`, `SIMILAR` | `js/lines.js`, generated files | Data. |
 | `window.FX`, `Sound`, `Warp` | `js/fx.js`, `js/audio.js`, `js/warp.js` | Services. |
 | `window.STILLS`, `CLOSEUPS`, `EXTRA_STILLS` | `js/story/main.js`, `se.js`, `transitions.js` | Paintings the engine preloads. |
-| `window.MOUTHS` | (not set yet) | Phase 4 mouth overlays for combined sprites. |
-| `window.FAST`, `WARP`, `LIT3D`, `ANIM_T`, `HOLD`, `ADVANCE`, `STEP_DT`, `TIME_SCALE` | set by tests and the review screen | Switches: `FAST` skips waits and easing (tests); `WARP` / `LIT3D` force the mesh warp and GPU lighting on or off; the rest step or slow the clock. |
+| `window.LIPSYNC`, `FACES` | `js/lipsync.js`, `js/faces.js` | Generated data for lip-sync and blinking (see 13a-13c). |
+| `window.FAST`, `WARP`, `LIT3D`, `ANIM_T`, `HOLD`, `ADVANCE`, `STEP_DT`, `TIME_SCALE` | set by tests and the review screen | Switches: `FAST` skips waits and easing (tests); `WARP` / `LIT3D` force the mesh warp and GPU lighting on or off (`WARP` null: automatic; a device with about four seconds of slow frames drops to false, and the ☰ menu's Effects button sets Full or Light, kept in `localStorage['drowned-bell-effects']`); the rest step or slow the clock. |
 
 Engine state lives on `E` so the engine files can share it: `E.state` (what a save holds: room, inventory, flags), `E.room`, `E.player`, `E.npcs`, `E.selItem`, `E.busy`, `E.cutscene`, `E.skipFn`, `E.dialogResolve`, `E.time`, `E.SPRITES`, `E.speaking`, `E.still` and a few more, all set up in `js/engine/base.js`. A file's private state stays a `let` inside its IIFE.
 
@@ -76,6 +80,8 @@ Engine state lives on `E` so the engine files can share it: `E.state` (what a sa
 | `js/morphs.js` | `python3 scripts/morphs.py framesets.json` |
 | `js/similar.js` | `python3 scripts/similar.py [THRESHOLD]` |
 | `audio/voice/manifest.json`, `audio/sfx/manifest.json`, the `?v=` hashes in `index.html` | `node scripts/build-manifest.mjs` (also the Netlify build command) |
+| `js/lipsync.js`, `lipsync/<speaker>/<id>.json` | `RHUBARB=<binary> python3 scripts/lipsync.py --speaker <id>` (redoes only lines whose mp3 changed; Rhubarb 1.13.0) |
+| `js/faces.js`, `art/faces/` | `scripts/face_kit.py` (per character, `FACE_CHAR=<alan|vasco|ines|cop>`) |
 | `art/review/candidates.json`, `art/review/candidates/*.webp` | `python3 scripts/review_candidates.py` |
 | `art/layers/*.webp` | `scripts/layers.py` |
 | `audio/voice/*.mp3` | `node scripts/generate-voices.mjs` (ElevenLabs, paid: only when asked) |
