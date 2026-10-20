@@ -585,7 +585,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_coffees": {
   "box": [
@@ -923,7 +923,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jacket_grin": {
   "box": [
@@ -943,7 +943,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jacket_wink": {
   "box": [
@@ -961,7 +961,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_jump": {
   "box": [
@@ -981,7 +981,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jump_crouch": {
   "box": [
@@ -1021,7 +1021,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_jump_rise": {
   "box": [
@@ -1041,7 +1041,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_lantern": {
   "box": [
@@ -1301,7 +1301,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_swim2": {
   "box": [
@@ -1321,7 +1321,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_swim_wave": {
   "box": [
@@ -1557,7 +1557,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false
+  "ok": true
  },
  "alan_undress4": {
   "box": [
@@ -1675,7 +1675,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash2": {
   "box": [
@@ -1693,7 +1693,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash4": {
   "box": [
@@ -1711,7 +1711,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash5": {
   "box": [
@@ -1729,7 +1729,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash6": {
   "box": [
@@ -1747,7 +1747,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wash_surface": {
   "box": [
@@ -1765,7 +1765,7 @@ window.FACES = {
    "F"
   ],
   "eyes": [],
-  "ok": false
+  "ok": true
  },
  "alan_wink": {
   "box": [
