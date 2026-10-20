@@ -41,8 +41,14 @@
       return Object.assign({}, l, { x, y, f: Math.max(0, f) });
     }).filter(Boolean);
   }
+  // each glow moves with the depth of its own lamp in the painting (a carried light with its bearer's feet)
   function drawGlows() {
-    for (const l of E.roomLights) if (l.glow) FX.glow(g, l.x, l.y, l.glow * (0.9 + 0.1 * l.f), l.rgb, (l.ga || 0.3) * l.f);
+    const P = window.Parallax && Parallax.active && E.room && E.room.depth;
+    for (const l of E.roomLights) if (l.glow) {
+      if (P) { g.save(); const [px, py] = l.owner ? l.floor : [l.x, l.y]; Parallax.apply(g, px, py); }
+      FX.glow(g, l.x, l.y, l.glow * (0.9 + 0.1 * l.f), l.rgb, (l.ga || 0.3) * l.f);
+      if (P) g.restore();
+    }
   }
   // Light reaching a point on a character (their chest).
   function lightsOn(x, y, h, who) {

@@ -107,7 +107,7 @@
   canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' || e.key === '.' || e.key === ' ') { if (E.skipFn) { E.skipFn(); e.preventDefault(); } return; }
-    if (e.key === 'i' || e.key === 'I') invBar.classList.toggle('show');
+    if ((e.key === 'i' || e.key === 'I') && !E.still) invBar.classList.toggle('show');
     if ((e.key === 'n' || e.key === 'N') && !e.ctrlKey && !e.metaKey && !e.altKey && $('#title').classList.contains('hidden')) E.readItem('notebook'); // (not on the title screen)
     const n = parseInt(e.key, 10);
     if (E.dialogResolve && n >= 1) { const btn = dialogEl.querySelectorAll('button')[n - 1]; if (btn) btn.click(); }

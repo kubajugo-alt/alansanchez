@@ -95,11 +95,17 @@
     } else last0 = now;
     try { drawFrame(dt); } catch (e) { if (frameErr++ < 5) console.error('frame', e); }
   }
+  let cine = null;
   function drawFrame(dt) {
+    const c = !!E.still; if (c !== cine) { cine = c; E.wrap.classList.toggle('cine', c); } // the buttons step aside for a painting
     if (E.room) {
       E.player.update(dt); E.npcs.forEach(a => a.update(dt));
       E.idleSmokeTick(dt);
       E.updateLights(E.time);
+      // a room afloat (the boat, the cabin) rocks a little: painting and figures tilt together about a point low in the
+      // frame, scaled up a touch so no corner ever shows; fog, grade and vignette stay level
+      const rock = E.room.sway ? E.room.sway(E.time) : 0;
+      if (rock && !window.FAST) { g.save(); g.translate(W / 2, H * 0.85); g.rotate(rock); g.scale(1.014, 1.014); g.translate(-W / 2, -H * 0.85); }
       // parallax: the painting with what moves in it (its animated back, its layers) drawn together, then slid by depth
       const dm = window.Parallax && Parallax.on && E.room.depth && IMG['depth:' + E.room.depth];
       let pc = null;
@@ -122,7 +128,7 @@
       // what's painted over the room at no particular depth (motes, mist, glows) takes the zoom only
       const flat = fn => { if (!PX()) return fn(); g.save(); Parallax.apply(g); try { fn(); } finally { g.restore(); } };
       if (E.room.anim) flat(() => E.room.anim(g, E.time));
-      flat(() => E.drawGlows());
+      E.drawGlows(); // (each glow at its own lamp's depth)
       // depth-sorted actors + occluders cut from the painting (each moves as the floor under its feet)
       const planted = (a, fn) => { if (!PX()) return fn(); g.save(); Parallax.apply(g, a.x, a.y); try { fn(); } finally { g.restore(); } };
       const items = [];
@@ -131,6 +137,7 @@
       for (const o of (E.room.occluders || [])) if (!o.when || o.when()) items.push({ y: occluderY(o), fn: () => drawOccluder(o) });
       items.sort((a, b) => a.y - b.y).forEach(i => i.fn());
       if (E.room.animFg) flat(() => E.room.animFg(g, E.time));
+      if (rock && !window.FAST) g.restore();
       if (E.room.fog) {
         const f = typeof E.room.fog === 'function' ? E.room.fog() : E.room.fog;
         if (f) { FX.drawFog(g, E.fogA, E.time, f, 12, 0); FX.drawFog(g, E.fogB, E.time, f * 0.7, 22, 40); }

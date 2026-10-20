@@ -130,7 +130,7 @@
       await say('narr_maria_6');
       await T(1200);
     },
-      { zoom: [1.05, 1.35], pan: [[0.5, 0.5], [0.53, 0.66]] }); // a slow push in onto the wet tile, kept above the caption
+      { zoom: [1.03, 1.2], pan: [[0.5, 0.5], [0.53, 0.62]], captionTop: true }); // the tile at the bottom, the caption up top
     return true;
   };
 

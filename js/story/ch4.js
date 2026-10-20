@@ -145,7 +145,7 @@
     ],
     entries: { default: [240, 650, 'e'], cais: [240, 650, 'e'], cabin: [560, 620, 's'] },
     // the whole deck rocks gently at its mooring
-    sway: t => Math.sin(t * 0.7) * 0.004,
+    sway: t => Math.sin(t * 0.7) * 0.004 + Math.sin(t * 0.31 + 1) * 0.0015, // the deck on a slow swell
     anim(g, t) {
       FX.water(g, t, 0, 300, 300, 200, '200,210,220');
       S.drawRope(g, t);
@@ -253,6 +253,7 @@
   // ================================================================ THE CABIN
   ROOMS.cabin = {
     name: 'The cabin', bg: 'cabin',
+    sway: t => Math.sin(t * 0.7) * 0.0025 + Math.sin(t * 0.31 + 1) * 0.001, // below decks, the same swell, gentler
     layers: [{ img: 'cabin_notile', x: 0, y: 0, full: true, when: () => F().ze_saved || F().tile_held }],
     animFg(g, t) { S.drawStrike(g, t); },
     music: () => F().ze_saved ? null : { id: 'ze_boat_deck', lowpass: 900 }, ambience: 'boat', floor: 'wood', // the deck's music through the boards; Zé's scene has none

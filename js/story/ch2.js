@@ -19,6 +19,9 @@
       for (const [x, w] of [[220, 160], [420, 170], [640, 170], [860, 150]]) FX.wisps(g, t + x, x + w / 2, 395, { n: 4, rise: 110, spread: 40, a: 0.07, size: 30, speed: 0.12 }); // steam off the basins
       FX.wisps(g, t, 1040, 470, { n: 4, rise: 90, spread: 30, a: 0.06, size: 26, speed: 0.1 });
       FX.drips(g, t, [[1222, 470, 412, 2.6]], '220,235,240');
+      // light moving on the water: the long row of basins (a thin strip below their rims) and the big tank
+      g.save(); g.globalAlpha = 0.55; FX.water(g, t, 180, 381, 880, 10, '190,205,210'); g.restore();
+      g.save(); g.globalAlpha = 0.8; g.beginPath(); g.rect(880, 474, 350, 38); g.clip(); FX.water(g, t * 0.8, 880, 476, 350, 34, '200,214,220'); g.restore();
     },
     animFg(g, t) { S.drawSplash(g, t); },
     animBack(g, t) {
@@ -43,7 +46,7 @@
       { id: 'npc_laundry', name: 'Woman with the washing', x: 175, y: 560, h: 236, look: 'alan_npc_laundry', talk: () => S.laundryTalk(), idleHold: [5, 10], variantHold: [2.5, 4.5], // under the hanging sheets
         frames: ['npc_laundry', 'npc_laundry_peg', 'npc_laundry_shake', 'npc_laundry_glance', ['npc_laundry_shake', 'npc_laundry_peg', 'npc_laundry']],
         talkFrames: ['npc_laundry_talk1', 'npc_laundry_talk2', 'npc_laundry_talk3'], poses: { sniff: 'npc_laundry_sniff', mutter: 'npc_laundry_mutter', smirk: 'npc_laundry_smirk' } },
-      { id: 'npc_washer2', name: 'Graça', x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [6, 12], variantHold: [2.4, 4.5], talk: () => S.washersBath(),
+      { id: 'npc_washer2', name: 'Odete', x: 500, y: 476, h: 196, look: 'alan_npc_washers', idleHold: [6, 12], variantHold: [2.4, 4.5], talk: () => S.washersBath(),
         frames: ['npc_washer2', 'npc_washer2_scrub2', 'npc_washer2_slap', 'npc_washer2_b', 'npc_washer2_wring', 'npc_washer2_hips'],
         talkFrames: ['npc_washer2_cackle', 'npc_washer2_beckon', 'npc_washer2_giggle'], poses: { wheeze: 'npc_washer2_wheeze', wink: 'npc_washer2_wink' } },
     ],
@@ -397,6 +400,20 @@
 
   // ================================================================ RELOJOARIA FERREIRA
   const lit = () => F().ferreira_lit;
+  // the dials big enough to read a second hand on: [x, y, radius] in the painting (the tide clock on the desk is left alone)
+  const FERREIRA_CLOCKS = [[424, 86, 39], [576, 94, 43], [300, 94, 31], [752, 98, 30], [968, 76, 37], [350, 172, 20], [862, 246, 30], [400, 296, 30], [510, 204, 27], [821, 178, 20]];
+  // thin second hands, each ticking on its own beat (no two clocks in a clockmaker's shop agree)
+  S.clockSeconds = function (g, t, clocks) {
+    g.save(); g.lineCap = 'round';
+    clocks.forEach(([x, y, r], i) => {
+      const s = t + i * 0.37 + i * i * 0.11, k = Math.floor(s) + Math.min(1, (s % 1) * 9); // a quick step, then still
+      const a = (k + i * 7) / 60 * Math.PI * 2;
+      g.strokeStyle = 'rgba(28,18,10,0.8)'; g.lineWidth = Math.max(1, r * 0.035);
+      g.beginPath(); g.moveTo(x - Math.sin(a) * r * 0.16, y + Math.cos(a) * r * 0.16); g.lineTo(x + Math.sin(a) * r * 0.74, y - Math.cos(a) * r * 0.74); g.stroke();
+      g.fillStyle = 'rgba(28,18,10,0.85)'; g.beginPath(); g.arc(x, y, Math.max(1.2, r * 0.05), 0, 7); g.fill();
+    });
+    g.restore();
+  };
   ROOMS.ferreira = {
     name: 'Relojoaria Ferreira', bg: 'ferreira', bgs: ['ferreira_drawer', 'ferreira_drawer_empty'],
     // the desk drawer (painted): shut; pulled open with the tide card in it; then empty
@@ -415,6 +432,7 @@
     // lit, it is still a dim shop: one oil lamp, the rest falling away into shadow
     animBack(g, t) {
       if (!lit()) return;
+      S.clockSeconds(g, t, FERREIRA_CLOCKS);
       const f = 1 + 0.03 * Math.sin(t * 7.3) * Math.sin(t * 3.1);
       g.save();
       const gr = g.createRadialGradient(523, 400, 60 * f, 560, 420, 760);

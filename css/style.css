@@ -30,12 +30,15 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
   text-shadow: 0 0 3px #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0 3px 8px rgba(0,0,0,.9);
 }
 #narration {
-  position: absolute; left: 8%; right: 8%; bottom: 5%; padding: 0.7em 1.2em; display: none; pointer-events: none;
+  position: absolute; left: 50%; width: min(84%, 48em); transform: translateX(-50%); bottom: 5%; padding: 0.7em 1.2em; display: none; pointer-events: none;
   background: linear-gradient(rgba(14,10,6,.88), rgba(10,7,4,.92)); border: 1px solid rgba(224,184,102,.45);
   box-shadow: 0 6px 30px rgba(0,0,0,.6); text-align: center;
 }
 #narration .who { font-family: 'Cinzel', serif; color: var(--gold); font-size: 0.95em; letter-spacing: .12em; margin-bottom: .2em; }
 #narration .who:empty { display: none; }
+#narration.top { bottom: auto; top: 5%; }
+#bag, #menu-btn, #nb-btn { transition: opacity .5s; }
+#game.cine #bag, #game.cine #menu-btn, #game.cine #nb-btn, #game.cine #invbar { opacity: 0; pointer-events: none; }
 #narration .txt { font-size: 1.4em; line-height: 1.25; }
 #hover {
   position: absolute; transform: translate(-50%, -100%); white-space: nowrap; pointer-events: none; display: none;
@@ -113,7 +116,8 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 .modal h2 { margin: .1em 0 .7em; font-family: 'Cinzel', serif; color: #e8d8b0; font-size: 2.1em; font-weight: 500; letter-spacing: .3em; text-shadow: 0 3px 14px rgba(0,0,0,.9); }
 .modal p { font-size: 1.25em; color: #c8b890; margin: .4em 0; max-width: 46em; }
 .modal button { padding: .35em 1.5em; margin: .3em; font-size: 1.35em; }
-#title { background: #000 url('../art/bg/title.jpg') center / cover no-repeat; justify-content: space-between; padding: 5% 4% 3%; }
+#title { background: #000 url('../art/bg/title.jpg') center / cover no-repeat; justify-content: space-between; padding: 5% 4% 3%; animation: titleDrift 40s ease-in-out infinite alternate; }
+@keyframes titleDrift { from { background-size: 100% auto; background-position: 50% 50%; } to { background-size: 107% auto; background-position: 46% 42%; } }
 #title .title-text { margin-top: 1%; }
 #title .menu { display: flex; gap: 1em; opacity: 0; transition: opacity .6s; }
 #title.ready .menu { opacity: 1; }
@@ -123,6 +127,8 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #title .small { font-size: 1em; color: #d8c8a0; text-shadow: 0 2px 6px #000; }
 #btn-continue[disabled] { opacity: .35; cursor: default; }
 #death { background: rgba(0, 14, 22, .92); }
+#death:not(.hidden) { animation: deathIn 1.2s ease; }
+@keyframes deathIn { from { opacity: 0 } to { opacity: 1 } }
 #death h2 { color: #8ac0d8; }
 #ending .credits p { font-size: 1.05em; color: #9a8a68; margin: .2em; }
 /* ---------- cipher wheel ---------- */

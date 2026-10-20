@@ -78,7 +78,10 @@
       labelsEl.appendChild(d); E.keepInside(d, 6);
     }
   }
-  function fade(on) { $('#fade').classList.toggle('on', on); return wait(480); }
+  function fade(on) {
+    const f = $('#fade'); if (f.classList.contains('on') === !!on) return wait(0); // already black (or clear): no extra pause
+    f.classList.toggle('on', on); return wait(480);
+  }
 
   Object.assign(E, { scaleAt, goRoom, refreshNpcs, renderLabels, fade });
 })();

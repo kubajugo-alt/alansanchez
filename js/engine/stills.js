@@ -6,6 +6,7 @@
 
   // ---------------------------------------------------------------- stills
   // Full-screen painted stills for cutscenes, with a slow Ken Burns move.
+  const ZMAX = 1.2;
   function drawStill(dt) {
     const s = E.still;
     // a cross-fade (stillTo with cross): the previous painting keeps moving underneath until the new one covers it
@@ -50,6 +51,9 @@
     opts = opts || {};
     E.busy++; E.cutscene++;
     // cross: dissolve over the painting already up (kept with keep), instead of rising from the room or black
+    // a still is painted at screen size: zooming in past 1.2 shows its softness
+    if (opts.zoom) opts = Object.assign({}, opts, { zoom: opts.zoom.map(z => Math.min(ZMAX, z)) });
+    E.captionTop = !!opts.captionTop;
     const under = opts.cross && E.still && E.still.target > 0 && E.still.alpha > 0.05 ? E.still : null;
     if (under) under.prev = null;
     E.still = { name, t: 0, alpha: under ? 0 : E.still ? E.still.alpha : 0, prev: under, target: 1, dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
@@ -63,6 +67,7 @@
       if (fn && opts.hold && !window.FAST) { const left = opts.hold - (performance.now() - t0); if (left > 0) await wait(left); }
     }
     finally {
+      E.captionTop = false;
       if (!opts.keep) { E.still.target = 0; await wait(window.FAST ? 20 : 700); }
       E.busy--; E.cutscene--;
     }
@@ -73,6 +78,7 @@
   // transitions and the fado slideshow (js/story/transitions.js); endStill() fades the last one out.
   function stillTo(name, opts) {
     opts = opts || {};
+    if (opts.zoom) opts = Object.assign({}, opts, { zoom: opts.zoom.map(z => Math.min(ZMAX, z)) });
     const prev = E.still && E.still.target > 0 && E.still.alpha > 0.05 ? E.still : null;
     if (prev) prev.prev = null;
     E.still = { name, t: 0, alpha: prev && !opts.cross ? prev.alpha : 0, target: 1, rate: opts.rate, prev: opts.cross ? prev : null,

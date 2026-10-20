@@ -20,7 +20,9 @@
   const PAIR_FADE = 0.25;       // into and out of a combined sprite (Alan with someone): a 250 ms cross-fade
   const PAIR_STEP = 0.16;       // one pair painting to the next (an unbutton, a kiss): a quick dissolve
   const canMorph = () => !!(window.Warp && window.WARP !== false && !window.FAST && Warp.ok); // the mesh warp is running
-  const XFADE_SHORT = 0.1;      // near-identical frames (talk, idle variants, a cigarette drag): a 100 ms eased cross-fade
+  const XFADE_SHORT = 0.1;
+  const WALK_XF = 0.14;         // standing into a stride and a stride into standing: a short eased cross-fade
+  const TURN_XF = 0.18;         // a turn with no front view: the two facings dissolve      // near-identical frames (talk, idle variants, a cigarette drag): a 100 ms eased cross-fade
   // Movement feel (all tunable; 0 switches a feature off). Lengths are in walker heights.
   const WALK_EASE_IN = 0.24;    // s from a standstill to full pace (the first steps are shorter and slower)
   const WALK_START_PACE = 0.3;  // pace of the very first step, as a fraction of full pace
@@ -69,7 +71,8 @@
       for (const [x0, y0, x1, y1] of legs) {
         const dx = x1 - x0, dy = (y1 - y0) * GROUND_K, len = Math.hypot(dx, dy);
         if (len < SHORT) continue;
-        if (F.frontWalk && F.backWalk && Math.abs(dx) <= Math.abs(dy) * 0.75 && len > hh * 0.8) return dy > 0 ? 's' : 'n';
+        const hEnd = E.scaleAt ? hh * Math.min(1, E.scaleAt(y1) / Math.max(1e-6, E.scaleAt(y0))) : hh; // (smaller further away)
+        if (F.frontWalk && F.backWalk && Math.abs(dx) <= Math.abs(dy) * 0.75 && len > Math.min(hh, hEnd) * 0.8) return dy > 0 ? 's' : 'n';
         if (Math.abs(dx) < hh * 0.06) return ew || (dx > 0 ? 'e' : 'w'); // straight up or down a little: no turn
         return dx > 0 ? 'e' : 'w';
       }
@@ -413,6 +416,9 @@
         else { this.viaT = null; this.lastFlip = flipped; this.viaOut = true; } // out of the front view: no second turn
       }
       this.lastFlip = flipped;
+      // a turn with no painted front view: the old facing dissolves into the new one (a mirror flip, softened)
+      const turned = faceTurn && !frontOK && !this.walking && !window.FAST && this.curFlip != null && this.curFlip !== flipped;
+      if (turned && key === this.cur) { this.prev = key; this.prevFlip = this.curFlip; this.fadeDur = this.fadeT = TURN_XF; this.fadeSim = true; this.fadeHand = false; }
       if (key !== this.cur) {
         const inCycle = this.walking && this.cycle().includes(key) && this.cycle().includes(this.cur);
         this.prev = this.cur && !inCycle ? this.cur : null;
@@ -431,9 +437,12 @@
         if (pairs && !(this.xfNext > 0)) this.xfNext = PAIR_STEP;
         const forced = this.xfNext > 0 && this.prev;
         const flat = !!(morphable && !morph);
-        const similar = forced || flat || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
+        // into a walk and out of one: the standing frame and the stride ease over each other instead of cutting
+        const cyc = this.cycle(), edge = !!(this.prev && !morph && !talkSwap && this.prevFlip === flipped &&
+          ((this.walking && !cyc.includes(this.prev) && this.walkT < 0.3) || (!this.walking && cyc.includes(this.prev))));
+        const similar = forced || flat || edge || (turned && this.prev) || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
         if (!morph && !similar) this.prev = null;
-        this.fadeDur = forced ? this.xfNext : flat ? XFADE : similar ? XFADE_SHORT : MORPH_T;
+        this.fadeDur = forced ? this.xfNext : flat ? XFADE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT : MORPH_T;
         this.xfNext = 0;
         this.fadeSim = !!similar;
         this.fadeHand = !!forced;
@@ -479,7 +488,8 @@
       g.save();
       if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
       // the painting is drawn through a mesh that bends with the figure: breath, sway, head, steps
-      const warped = !rigid && !window.FAST && window.Warp && Warp.draw(g, lit, bw, bh, X0, Y0, this.motion(h, -U.x, feetBy, E.SPRITES[key], b, key), h * 0.1, LP);
+      const still = (x, y) => [x, y]; // a combined sprite goes through the light pass unbent
+      const warped = !window.FAST && window.Warp && (!rigid || LP) && Warp.draw(g, lit, bw, bh, X0, Y0, rigid ? still : this.motion(h, -U.x, feetBy, E.SPRITES[key], b, key), rigid ? 0 : h * 0.1, LP);
       if (!warped) {
         if (shaded) { const L2 = E.lightSprite(comp, bw, bh, U, h, lights); g.drawImage(L2, 0, 0, bw, bh, X0, Y0, bw, bh); g.restore(); return; }
         // lower body: untouched

@@ -41,6 +41,8 @@
     scale: [490, 400, 716, 500],
     light: { ambient: 'rgb(205,180,150)', base: 0.8, rim: 'rgba(255,210,160,0.25)', rimSide: 1 },
     lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
+    animBack(g, t) { S.windowFog(g, t, [480, 40, 224, 268], '190,196,210', 0.14); }, // the fog past the window
+    anim(g, t) { FX.motes(g, t, 690, 170, 200, 260, 14, '255,215,160'); }, // dust in the lamp light
     entries: { default: [700, 640, 'w'] },
     npcs: visitorDefs(440, 640, 'e').concat([
       COP_BED_NEW ? { id: 'npc_phone', ch: 'cop_bed', x: 950, y: 400, h: 193.2, dir: 'e', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' }

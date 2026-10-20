@@ -479,7 +479,7 @@
     })();
     await shot('still_city_morning', 'street', async () => { await say('narr_epilogue'); await say('narr_epi_city_2'); }, { zoom: [1.0, 1.12], pan: [[0.5, 0.55], [0.5, 0.45]] });
     await shot('still_drawer', 'police', async () => { await say('narr_epi_drawer'); sfx('drawer_scrape'); await say('rui_click'); }, { zoom: [1.08, 1.0] });
-    await shot('still_shop_after', 'shop', () => say('narr_epi_shop2') /* the brass weight is gone from the game */, { zoom: [1.0, 1.1] });
+    await shot('still_shop_after', 'shop', () => say('narr_epi_shop2') /* the brass weight is gone from the game */, { zoom: [1.0, 1.1], captionTop: true });
     if (F().amalia_box && F().rui_called) await shot('still_amalia_box', 'tavern', () => say('narr_vig_box'), { zoom: [1.04, 1.12] });
     if (F().amalia_night) {
       Sound.cue('tavern_day', { sticky: true });

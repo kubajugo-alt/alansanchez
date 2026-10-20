@@ -49,6 +49,7 @@
     layers: [],
     animBack(g, t) {
       if (F().ch < 5) S.windowFog(g, t, [430, 32, 410, 282], '235,238,240', 0.16);
+      else S.windowFog(g, t, [430, 32, 410, 282], '120,130,165', 0.12); // night: the fog still at the glass
       if (S.shopSideboard) S.shopSideboard(g); // the kettle on the sideboard (in Inês's hand while she makes coffee), her book while it's put down
       if (F().ch < 5) {
         g.save();

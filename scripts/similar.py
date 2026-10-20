@@ -10,7 +10,7 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TH = float(sys.argv[1]) if len(sys.argv) > 1 else 0.85
-GROUPS = {'alan'}
+GROUPS = None  # every character (None); a set of name prefixes limits it
 H = 120  # mask height in px (a frame drawn at this character height)
 txt = open(os.path.join(ROOT, 'js/sprites.js')).read(); META = json.loads(txt[txt.index('{'):txt.rindex('}') + 1])
 
@@ -36,7 +36,7 @@ def main():
         groups.setdefault(k.split('_')[0], []).append(k)
     out = {}
     for g, ks in groups.items():
-        if g not in GROUPS: continue  # Alan for now (phase 2); other characters keep their clean cuts
+        if GROUPS is not None and g not in GROUPS: continue
         ms = {k: mask(k) for k in ks}
         for a, b in itertools.combinations(sorted(ks), 2):
             if ('back' in a.split('_')) != ('back' in b.split('_')): continue  # a back view and a front view can share an outline

@@ -4,19 +4,51 @@ State as of 2026-10-20. `master` now carries everything (it was fast-forwarded t
 `master` from here). The live site (https://alan-sanchez-drowned-bell.netlify.app) runs the deploy recorded
 at the end of this section.
 
-## Story review round 2 (2026-10-20): 50 lines still to voice before the next deploy
+## Story review round 2 (2026-10-20): done
 
-The round-2 brief (Claude Doc "The Drowned Bell — Review round 2: Claude Code brief", tasks T01–T11) is in the
-code, lines and docs. The ElevenLabs plan's credits ran out during T11: 22 new lines are voiced; these 50 have
-their new text but **no audio yet** (the old recordings of the rewritten ones were removed, since they said the
-old words; they play as captions only):
+The round-2 brief (Claude Doc "The Drowned Bell — Review round 2: Claude Code brief", tasks T01–T11) is in the code,
+lines, docs and voices: all 72 new or rewritten lines are recorded (ElevenLabs, one take each), levelled to the
+rest and lip-synced. Every voice file sits within ±1.5 LU of -21.5 LUFS integrated (one linear gain per file,
+64 kbps mono; `scripts/validate.mjs` checks that lip-sync cues match their recordings). Lip-sync cues now exist for
+every voiced line of every speaker but the narrator; a character's mouth moves only once their frames have
+face kits (`js/faces.js`).
 
-alan_fragment_ze, alan_look_ledger_decoded, alan_npc_cards, alan_room_guitar_2, alan_shelf_13, alan_take_tile, alan_teixeira_sorry, alan_thu_fragment, alan_tile_pocket, alan_washers_1, amalia_gossip_1, amalia_hello_2, amalia_night_sing, amalia_sing_3, celeste_gossip_1, celeste_knot, celeste_suit, gag_alan_rui, gag_alan_tomas, gag_alan_vandal2, guitar_room_14, ines_1755, ines_pull, ines_tenth, narr_call, narr_ch1_end, narr_epi_city_2, narr_look_arches, narr_maria_4, narr_rom_1, narr_rom_choice, narr_tr2_1, narr_tr2_3, narr_tr3_1, narr_tr4_2, narr_tr4_3, phone_cuff_1, phone_room_5, phone_room_7, rui_drawer_1, rui_leave, rui_list_1b, rui_msg_2, tomas_godparents, tomas_hello, vasco_coins, vasco_fcall_4, washer1_bath_1, ze_back, ze_fragment
+## Session log: 2026-10-20, second session (story round 2, visual audit, bug sweep, polish)
 
-To finish: `ELEVENLABS_API_KEY=... node scripts/generate-voices.mjs` (no ids: it voices exactly the lines with no
-audio), then level them to the rest (-21.5 LUFS integrated, one linear gain, 64 kbps mono; every voice file is
-within ±1.5 LU of that after this session), `RHUBARB=... python3 scripts/lipsync.py --speaker <alan|ines|phone|vasco>`
-and `node scripts/build-manifest.mjs`. Don't deploy before then.
+Newest last. Each entry: what changed, where, how it was checked. Scratch scripts and audit reports from this
+session lived in the session's scratchpad and are gone; everything that matters is in the commits below.
+
+1. **Branches.** `master` was fast-forwarded to `lore-se-museum` (361 commits, no history rewritten) and is the
+   working branch from now on. `lore-se-museum` and the old `v2` (14 Oct, not in master) are left untouched.
+2. **Story round 2, T01–T10** (`a67c048`). The brief's line tables applied by script (49 edits, 27 new lines,
+   19 retired); story wiring in ch1–ch5, se.js, visits.js, coldopen.js, transitions.js; docs patched by a helper.
+   Checked: every brief "old" text matched before editing; smoke test on all scenes; a line-order probe per scene.
+   Brief acceptance items that can't hold as written (left, reported to the user): Maria's surname "Coutinho" is
+   spoken in the intro; the recorded fado sings "ring it backward" in Ch. I; Vasco's "letters cut backwards".
+3. **Voices (T11).** ElevenLabs connector, model eleven_v4, one take per line, cast voices from scripts/cast.json.
+   The first run stopped at 22/72 (plan credits ran out); the user added credits and the other 50 were recorded.
+   Each take levelled with one linear gain to -21.5 LUFS (a -1 dBTP limiter only where needed), MP3 64 kbps mono.
+   15 older files that were more than 1.5 LU off were levelled too. All 1,380 voice files: median -21.5, none
+   outside ±1.5 LU. Lip-sync (Rhubarb 1.13.0) redone for changed audio and run for every speaker but the narrator.
+4. **Visual audit** (four parallel reviews: rooms, figures, faces, cinematics). Findings and the plan were given
+   to the user in chat; phases 1 and 2 of that plan were approved and are done (below). Not done yet: phase 3
+   (art needing approval: face kits for the rest of the cast, Rui's walk, Vasco's 8-pose walk, clock pendulum
+   layers, higher-resolution stills) and phase 4 (performance, to be measured on a real device first).
+5. **Phase 1, bug sweep** (`396c011`): Alan's 4 head-cropped walk frames re-fitted from the full-size Canva exports
+   (pages 15-18 of the scratch design DAHYZ-SDzRE) with 20 px headroom, keeping the cleaned edges; morphs rebuilt
+   (pass2L<>up2L restored from its valid direction, the inverse accepted at INV_IOU 0.6 after checking by eye).
+   Zé/Abílio frame heights; chapter-card snap; Ken Burns endpoint clamping; slow-device detection by time plus an
+   Effects button; dissolve instead of cut without the warp; jaw by the clock; no blinks mid-fade; explicit face
+   approval; misplaced lights; soft-topped shafts; leaves transform; bell-tower depth map (bells capped at their
+   rope's floor depth); caption reading speed; face_kit partner naming for Teixeira; validate.mjs checks; CODEMAP.
+6. **Phase 2, polish** (this commit): NPC talk-frame dissolves (similar.py for every character: 13 -> 290 pairs);
+   walk start/stop dissolves; turns without a front view dissolve; long vertical walks judged by the smaller end
+   height; paired paintings get the GPU light through an identity mesh (never bent); glows at their own lamp's
+   depth; boat and cabin rock (room.sway); lavadouro water shimmer; bedroom window fog and lamp motes; night shop
+   window fog; Ferreira's ten largest clocks tick (centres measured off the painting, checked one by one); stills
+   capped at zoom 1.2, captions narrower and at the top for the dawn tile and the shop epilogue; the corner
+   buttons and inventory step aside during paintings; death screen fades in; title drifts; fade() doesn't wait
+   when already black; Odete's caption and hover name (missed in T05). Walk-step morphs for Celeste, Zé, Vasco.
 
 ## Where things stand (session handoff, 2026-10-20)
 
