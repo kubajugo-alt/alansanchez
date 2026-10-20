@@ -427,6 +427,10 @@
   // it, twirling the cord, a look at his watch, his weight on the other hip, talking. ?copdoor=old brings back the old
   // set, which mixed front views with frames writing in a notepad held in the air.
   const COP_DOOR = !/[?&]copdoor=old\b/.test(location.search);
+  // his skin evened out across every frame (waiting for approval, ?copskin=new): scripts/skin_match.py, art/review/cop/skin/
+  if (/[?&]copskin=new\b/.test(location.search)) for (const k of ['npc_phone_door1', 'npc_phone_door2', 'npc_phone_door3', 'npc_phone_door4',
+    'npc_phone_door_talk', 'npc_phone_door_blush', 'npc_phone_door_shock', 'npc_phone_door_embarrassed', 'npc_phone_proud', 'cop_visit',
+    'cop_visit_talk', 'cop_walk1', 'cop_walk2', 'cop_bed1', 'cop_bed2', 'cop_bed3', 'cop_bed4']) if (window.SPRITES[k]) window.SPRITES[k].src = 'art/review/cop/skin/' + k + '.webp';
   // his reactions to Alan: shocked, embarrassed, blushing (the door set); the old set only had the blush
   const REACT = { shock: 'npc_phone_door_shock', embarrassed: 'npc_phone_door_embarrassed', blush: 'npc_phone_door_blush' };
   S.copReact = k => (!COP_DOOR ? 'npc_phone_blush' : window.SPRITES[REACT[k]] ? REACT[k] : REACT.blush);
