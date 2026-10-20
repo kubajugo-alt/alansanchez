@@ -194,6 +194,19 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Review page** (same link as Alan's, now one tab per character): https://claude.ai/artifact/RoCMGALM4FXgJWdTKrg3v9
      db docs `decision/<char>` (Alan's stays `decision/alan_walk6`). On approve: mark that character's 8
      `<prefix>_walk6_p*` ids approved in art/review/approvals.json (walkAll: all 8 or none), smoke, commit.
+17. **Six new walks approved and in the game** (the user, on the review page, 2026-10-20 21:30-21:32): Vasco, Lacerda,
+   Celeste, Zé, Teixeira, Duarte; their 48 ids are approved in art/review/approvals.json. Alan and Inês: "still not
+   right", so they keep their current walks (a cycle editor on the review page comes next, see below).
+   Lacerda's note: "The walk is good but he and his legs are too slim in comparison to other sprites". His walk was
+   the slimmest of the cast against his current frames (chest-height width about half; the others 0.6-1.0; his old
+   frames are three-quarter views, the new ones strict profile). `scripts/walk_widen.py art/review/lacerda/walk6 1.2
+   0.15` widens every pose x1.2 below the chin (fading in over 24 px, head as painted), about the head's x, onto a
+   canvas 41 px wider each side (candidate meta ax +41, w); plant data recomputed (steps 0.100-0.111, even 0.90).
+   Re-running `walk_sheet_cast.py fit lacerda` would undo the widening: run walk_widen.py again after it.
+   `walk_sheet_cast.py` refactored (fit_poses / plant_of / `library`, which fits the other tries for the editor);
+   re-fitting Zé and Celeste reproduced the committed frames byte for byte.
+   Checked: in the game the six walk with their new cycles and step lengths; smoke laundry, quayfish, lacthreat,
+   semuseum, vascostore, visitcop, visitguitar, celeste, bench, walklab pass. Not deployed.
 
 ## Where things stand (session handoff, 2026-10-20)
 

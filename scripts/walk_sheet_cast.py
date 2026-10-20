@@ -115,10 +115,11 @@ def feet(a, ax, fy, h):
     return sorted(out, reverse=True)
 
 
-def fit(ch):
-    pre, ref, cur, pron, who = CAST[ch]; d = os.path.join(ROOT, f'art/review/{pre}/walk6')
-    figs, floors = split_sheet(os.path.join(d, f'sheet_raw_{SHEET[ch]}.png' if ch in SHEET else 'sheet_raw.png'))
-    for dst, src in REUSE.get(ch, {}).items():
+def fit_poses(ch, sheet, d, reuse=None):
+    """Split one sheet and fit its 8 figures into d/pose<N>.png; returns (W, H, ax, fy, reference meta)."""
+    pre, ref, cur, pron, who = CAST[ch]
+    figs, floors = split_sheet(sheet)
+    for dst, src in (reuse or {}).items():
         i, j = POSES.index(dst), POSES.index(src); figs[i], floors[i] = figs[j], floors[j]
     cur_a = [sprite(k) for k in cur]
     cur_h = float(np.median([box(a)[1] - box(a)[0] for a in cur_a])); cur_head = float(np.median([head(a)[1] for a in cur_a]))
@@ -154,6 +155,22 @@ def fit(ch):
     for n in (1, 9):
         p = os.path.join(d, f'pose{n}.png')
         subprocess.run([sys.executable, os.path.join(ROOT, 'scripts/walk_heel_down.py'), p, p, str(ax), str(fy), str(m['h'])], check=True)
+    return W, H, ax, fy, m
+
+
+def plant_of(n, a, ax, fy, h):
+    """the foot carrying the weight, by the pose (the lowest foot misleads with heels and long skirts): contact 1/9
+    front heel and back foot; down 3/11 the front foot; passing 5/13 the lowest; up 7/15 the back foot"""
+    fts = feet(a, ax, fy, h)
+    if n in (1, 9): return [fts[0][0], fts[-1][0]]
+    if n in (3, 11): return [fts[0][0]]
+    if n in (5, 13): return [min(fts, key=lambda f: f[1])[0]]
+    return [fts[-1][0]]
+
+
+def fit(ch):
+    pre, ref, cur, pron, who = CAST[ch]; d = os.path.join(ROOT, f'art/review/{pre}/walk6')
+    W, H, ax, fy, m = fit_poses(ch, os.path.join(d, f'sheet_raw_{SHEET[ch]}.png' if ch in SHEET else 'sheet_raw.png'), d, REUSE.get(ch))
     # candidates and plant data
     C = json.load(open(os.path.join(ROOT, 'art/review/candidates.json')))
     ids = [f'{pre}_walk6_p{n}' for n in POSES]
@@ -166,17 +183,43 @@ def fit(ch):
         C['candidates'].append({'id': cid, 'char': ch, 'phase': 2, 'kind': 'walk', 'what': f'walk (one-sheet set): pose {n} of the walk chart',
                                 'src': src, 'originals': [f'art/sprites/{ref}.webp'], 'meta': meta,
                                 'wire': {'walkSlot': slot, 'walkBase': ids}})
-        fts = feet(a, ax, fy, m['h'])
-        # the foot carrying the weight, by the pose (the lowest foot misleads with heels and long skirts):
-        # contact 1/9 front heel and back foot; down 3/11 the front foot; passing 5/13 the lowest; up 7/15 the back foot
-        if n in (1, 9): plant[cid] = [fts[0][0], fts[-1][0]]
-        elif n in (3, 11): plant[cid] = [fts[0][0]]
-        elif n in (5, 13): plant[cid] = [min(fts, key=lambda f: f[1])[0]]
-        else: plant[cid] = [fts[-1][0]]
-        print(f'  {cid}: feet {fts}')
+        plant[cid] = plant_of(n, a, ax, fy, m['h'])
     json.dump(C, open(os.path.join(ROOT, 'art/review/candidates.json'), 'w'), indent=1)
     print(f'  plant {ch}: ' + ', '.join(f'{k}: [{", ".join(f"{v:.3f}" for v in vs)}]' for k, vs in plant.items()))
     return plant
+
+
+def library(ch, out):
+    """Every frame the cycle editor on the review page can choose from, fitted, with its meta and plant data:
+    the chosen set (the candidates), the poses of the other Gemini tries, and the walk frames in the game now."""
+    pre, ref, cur, pron, who = CAST[ch]; d = os.path.join(ROOT, f'art/review/{pre}/walk6'); lib = []
+    C = {c['id']: c for c in json.load(open(os.path.join(ROOT, 'art/review/candidates.json')))['candidates']}
+    core = open(os.path.join(ROOT, 'js/story/core.js')).read()
+    import re
+    P = {k: [float(x) for x in v.split(',')] for k, v in re.findall(r'(\w+_walk6_p\d+): \[([^\]]+)\]', core)}
+    for n in POSES:
+        k = f'{pre}_walk6_p{n}'; mm = C[k]['meta']
+        lib.append({'id': k, 'group': 'new set', 'pose': n, 'src': C[k]['src'], 'meta': {x: mm[x] for x in ('ax', 'fy', 'h')}, 'plant': P[k]})
+    tries = sorted(f for f in os.listdir(d) if re.match(r'sheet_raw_\d+\.png$', f))
+    for f in tries:
+        t = int(re.findall(r'\d+', f)[0])
+        if t == SHEET.get(ch): continue
+        td = os.path.join(out, f'{pre}_try{t}'); os.makedirs(td, exist_ok=True)
+        try: W, H, ax, fy, m = fit_poses(ch, os.path.join(d, f), td)
+        except SystemExit as e: print(f'{ch} try {t}: skipped ({e})'); continue
+        for n in POSES:
+            k = f'{pre}_try{t}_p{n}'; a = np.asarray(Image.open(os.path.join(td, f'pose{n}.png')))
+            lib.append({'id': k, 'group': f'try {t}', 'pose': n, 'src': os.path.join(td, f'pose{n}.png'),
+                        'meta': {'ax': round(ax, 1), 'fy': fy, 'h': m['h']}, 'plant': plant_of(n, a, ax, fy, m['h'])})
+    for k in dict.fromkeys(cur):
+        mm = SPR[k]; a = sprite(k)
+        if mm.get('facesLeft'): a = a[:, ::-1]; ax = a.shape[1] - mm['ax']
+        else: ax = mm['ax']
+        fts = feet(np.ascontiguousarray(a), ax, mm['fy'], mm['h'])
+        lib.append({'id': k, 'group': 'in the game now', 'pose': None, 'src': f'art/sprites/{k}.webp',
+                    'meta': {'ax': mm['ax'], 'fy': mm['fy'], 'h': mm['h'], 'facesLeft': bool(mm.get('facesLeft'))},
+                    'plant': [min(fts, key=lambda f: f[1])[0]] if fts else [0.0]})
+    return lib
 
 
 if __name__ == '__main__':
@@ -185,3 +228,6 @@ if __name__ == '__main__':
         pre, ref, cur, pron, desc = CAST[ch]; d = os.path.join(ROOT, f'art/review/{pre}/walk6'); os.makedirs(d, exist_ok=True)
         if cmd == 'generate': generate(ref, desc, d, pron, flip=bool(SPR[ref].get('facesLeft')))
         elif cmd == 'fit': fit(ch)
+        elif cmd == 'library':
+            out = os.environ.get('LIB_OUT', '/tmp/walk_library'); os.makedirs(out, exist_ok=True)
+            json.dump(library(ch, out), open(os.path.join(out, f'{ch}.json'), 'w'))

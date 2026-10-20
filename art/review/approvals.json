@@ -472,5 +472,245 @@
   "decision": "parked",
   "at": "2026-10-20T15:00:00.000Z",
   "note": "Parked at the user's request (2026-10-20): the original cycle plays again while the walks are redone (walk lab). Was approved 2026-10-20T04:20:50Z."
+ },
+ "vasco_walk6_p1": {
+  "decision": "approved",
+  "at": "2026-10-20T21:30:52.248Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "vasco_walk6_p3": {
+  "decision": "approved",
+  "at": "2026-10-20T21:30:52.248Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "vasco_walk6_p5": {
+  "decision": "approved",
+  "at": "2026-10-20T21:30:52.248Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "vasco_walk6_p7": {
+  "decision": "approved",
+  "at": "2026-10-20T21:30:52.248Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "vasco_walk6_p9": {
+  "decision": "approved",
+  "at": "2026-10-20T21:30:52.248Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "vasco_walk6_p11": {
+  "decision": "approved",
+  "at": "2026-10-20T21:30:52.248Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "vasco_walk6_p13": {
+  "decision": "approved",
+  "at": "2026-10-20T21:30:52.248Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "vasco_walk6_p15": {
+  "decision": "approved",
+  "at": "2026-10-20T21:30:52.248Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "lacerda_walk6_p1": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:30.220Z",
+  "note": "Approved by the user on the walk review page. Their note: \"The walk is good but he and his legs are too slim in comparison to other sprites\" (widened x1.2 below the chin)."
+ },
+ "lacerda_walk6_p3": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:30.220Z",
+  "note": "Approved by the user on the walk review page. Their note: \"The walk is good but he and his legs are too slim in comparison to other sprites\" (widened x1.2 below the chin)."
+ },
+ "lacerda_walk6_p5": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:30.220Z",
+  "note": "Approved by the user on the walk review page. Their note: \"The walk is good but he and his legs are too slim in comparison to other sprites\" (widened x1.2 below the chin)."
+ },
+ "lacerda_walk6_p7": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:30.220Z",
+  "note": "Approved by the user on the walk review page. Their note: \"The walk is good but he and his legs are too slim in comparison to other sprites\" (widened x1.2 below the chin)."
+ },
+ "lacerda_walk6_p9": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:30.220Z",
+  "note": "Approved by the user on the walk review page. Their note: \"The walk is good but he and his legs are too slim in comparison to other sprites\" (widened x1.2 below the chin)."
+ },
+ "lacerda_walk6_p11": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:30.220Z",
+  "note": "Approved by the user on the walk review page. Their note: \"The walk is good but he and his legs are too slim in comparison to other sprites\" (widened x1.2 below the chin)."
+ },
+ "lacerda_walk6_p13": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:30.220Z",
+  "note": "Approved by the user on the walk review page. Their note: \"The walk is good but he and his legs are too slim in comparison to other sprites\" (widened x1.2 below the chin)."
+ },
+ "lacerda_walk6_p15": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:30.220Z",
+  "note": "Approved by the user on the walk review page. Their note: \"The walk is good but he and his legs are too slim in comparison to other sprites\" (widened x1.2 below the chin)."
+ },
+ "celeste_walk6_p1": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:42.402Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "celeste_walk6_p3": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:42.402Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "celeste_walk6_p5": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:42.402Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "celeste_walk6_p7": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:42.402Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "celeste_walk6_p9": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:42.402Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "celeste_walk6_p11": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:42.402Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "celeste_walk6_p13": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:42.402Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "celeste_walk6_p15": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:42.402Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "ze_walk6_p1": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:53.056Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "ze_walk6_p3": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:53.056Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "ze_walk6_p5": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:53.056Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "ze_walk6_p7": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:53.056Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "ze_walk6_p9": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:53.056Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "ze_walk6_p11": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:53.056Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "ze_walk6_p13": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:53.056Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "ze_walk6_p15": {
+  "decision": "approved",
+  "at": "2026-10-20T21:31:53.056Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "cop_walk6_p1": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:03.639Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "cop_walk6_p3": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:03.639Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "cop_walk6_p5": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:03.639Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "cop_walk6_p7": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:03.639Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "cop_walk6_p9": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:03.639Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "cop_walk6_p11": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:03.639Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "cop_walk6_p13": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:03.639Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "cop_walk6_p15": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:03.639Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "guitar_walk6_p1": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:13.873Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "guitar_walk6_p3": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:13.873Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "guitar_walk6_p5": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:13.873Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "guitar_walk6_p7": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:13.873Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "guitar_walk6_p9": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:13.873Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "guitar_walk6_p11": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:13.873Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "guitar_walk6_p13": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:13.873Z",
+  "note": "Approved by the user on the walk review page."
+ },
+ "guitar_walk6_p15": {
+  "decision": "approved",
+  "at": "2026-10-20T21:32:13.873Z",
+  "note": "Approved by the user on the walk review page."
  }
 }

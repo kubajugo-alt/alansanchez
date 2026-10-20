@@ -118,9 +118,9 @@
     // vasco: the one-sheet set (scripts/walk_sheet_cast.py)
     vasco_walk6_p1: [0.190, -0.148], vasco_walk6_p3: [0.112], vasco_walk6_p5: [0.028], vasco_walk6_p7: [-0.061],
     vasco_walk6_p9: [0.207, -0.153], vasco_walk6_p11: [0.112], vasco_walk6_p13: [0.030], vasco_walk6_p15: [-0.065],
-    // lacerda: the one-sheet set (scripts/walk_sheet_cast.py)
-    lacerda_walk6_p1: [0.174, -0.176], lacerda_walk6_p3: [0.091], lacerda_walk6_p5: [0.001], lacerda_walk6_p7: [-0.089],
-    lacerda_walk6_p9: [0.172, -0.175], lacerda_walk6_p11: [0.085], lacerda_walk6_p13: [0.001], lacerda_walk6_p15: [-0.091],
+    // lacerda: the one-sheet set (scripts/walk_sheet_cast.py), widened x1.2 below the chin (scripts/walk_widen.py)
+    lacerda_walk6_p1: [0.209, -0.211], lacerda_walk6_p3: [0.109], lacerda_walk6_p5: [0.002], lacerda_walk6_p7: [-0.106],
+    lacerda_walk6_p9: [0.207, -0.211], lacerda_walk6_p11: [0.103], lacerda_walk6_p13: [0.002], lacerda_walk6_p15: [-0.109],
     // celeste: the one-sheet set (scripts/walk_sheet_cast.py)
     celeste_walk6_p1: [0.191, -0.171], celeste_walk6_p3: [0.098], celeste_walk6_p5: [0.014], celeste_walk6_p7: [-0.079],
     celeste_walk6_p9: [0.190, -0.171], celeste_walk6_p11: [0.091], celeste_walk6_p13: [0.015], celeste_walk6_p15: [-0.079],
