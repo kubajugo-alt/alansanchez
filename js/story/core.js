@@ -112,6 +112,9 @@
     alan_walk_pre1L: [0.102], alan_walk_pre2L: [0.106], alan_walk_contact_farL: [0.176, -0.170], // the low-swing walk
     alan_walk6_p1: [0.190, -0.161], alan_walk6_p3: [0.115], alan_walk6_p5: [0.016], alan_walk6_p7: [-0.081], // the one-sheet set
     alan_walk6_p9: [0.196, -0.176], alan_walk6_p11: [0.112], alan_walk6_p13: [0.024], alan_walk6_p15: [-0.081],
+    // the cycles the user built in the review page's cycle editor (scripts/walk_apply_cycle.py)
+    alan_walk7_s1: [0.190, -0.161], alan_walk7_s2: [0.115], alan_walk7_s3: [0.016], alan_walk7_s4: [0.174, -0.191], alan_walk7_s5: [0.003],
+    ines_walk7_s1: [0.220, -0.167], ines_walk7_s2: [0.140], ines_walk7_s3: [0.044], ines_walk7_s4: [-0.070], ines_walk7_s5: [0.215, -0.160], ines_walk7_s6: [0.036],
     // ines: the one-sheet set (scripts/walk_sheet_cast.py)
     ines_walk6_p1: [0.220, -0.167], ines_walk6_p3: [0.140], ines_walk6_p5: [0.044], ines_walk6_p7: [-0.061],
     ines_walk6_p9: [0.219, -0.155], ines_walk6_p11: [0.131], ines_walk6_p13: [0.044], ines_walk6_p15: [-0.066],

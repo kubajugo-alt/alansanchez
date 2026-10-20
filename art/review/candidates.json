@@ -3171,438 +3171,6 @@
    }
   },
   {
-   "id": "alan_walk6_p1",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): contact: near leg forward, heel down",
-   "src": "art/review/candidates/alan_walk6_p1.webp",
-   "originals": [
-    "art/sprites/alan_walkA.webp"
-   ],
-   "meta": {
-    "w": 357,
-    "hh": 742,
-    "h": 720,
-    "ax": 172.2,
-    "fy": 738.0,
-    "top": 20.0
-   },
-   "wire": {
-    "walkSlot": 0
-   }
-  },
-  {
-   "id": "alan_walk6_p3",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): down: near leg takes the weight",
-   "src": "art/review/candidates/alan_walk6_p3.webp",
-   "originals": [
-    "art/sprites/alan_walkDown.webp"
-   ],
-   "meta": {
-    "w": 357,
-    "hh": 742,
-    "h": 720,
-    "ax": 172.2,
-    "fy": 738.0,
-    "top": 19.0
-   },
-   "wire": {
-    "walkSlot": 1
-   }
-  },
-  {
-   "id": "alan_walk6_p5",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): passing: near leg standing, far foot lifted behind",
-   "src": "art/review/candidates/alan_walk6_p5.webp",
-   "originals": [
-    "art/sprites/alan_pass.webp"
-   ],
-   "meta": {
-    "w": 357,
-    "hh": 742,
-    "h": 720,
-    "ax": 172.2,
-    "fy": 738.0,
-    "top": 21.0
-   },
-   "wire": {
-    "walkSlot": 2
-   }
-  },
-  {
-   "id": "alan_walk6_p7",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): up: near leg standing, far leg swinging forward",
-   "src": "art/review/candidates/alan_walk6_p7.webp",
-   "originals": [
-    "art/sprites/alan_walkUp.webp"
-   ],
-   "meta": {
-    "w": 357,
-    "hh": 742,
-    "h": 720,
-    "ax": 172.2,
-    "fy": 738.0,
-    "top": 20.0
-   },
-   "wire": {
-    "walkSlot": 3
-   }
-  },
-  {
-   "id": "alan_walk6_p9",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): contact: far leg forward, heel down",
-   "src": "art/review/candidates/alan_walk6_p9.webp",
-   "originals": [
-    "art/sprites/alan_walkB.webp"
-   ],
-   "meta": {
-    "w": 357,
-    "hh": 742,
-    "h": 720,
-    "ax": 172.2,
-    "fy": 738.0,
-    "top": 20.0
-   },
-   "wire": {
-    "walkSlot": 4
-   }
-  },
-  {
-   "id": "alan_walk6_p11",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): down: far leg takes the weight",
-   "src": "art/review/candidates/alan_walk6_p11.webp",
-   "originals": [
-    "art/sprites/alan_walkDown.webp"
-   ],
-   "meta": {
-    "w": 357,
-    "hh": 742,
-    "h": 720,
-    "ax": 172.2,
-    "fy": 738.0,
-    "top": 20.0
-   },
-   "wire": {
-    "walkSlot": 5
-   }
-  },
-  {
-   "id": "alan_walk6_p13",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): passing: far leg standing, near foot lifted behind",
-   "src": "art/review/candidates/alan_walk6_p13.webp",
-   "originals": [
-    "art/sprites/alan_pass.webp"
-   ],
-   "meta": {
-    "w": 357,
-    "hh": 742,
-    "h": 720,
-    "ax": 172.2,
-    "fy": 738.0,
-    "top": 20.0
-   },
-   "wire": {
-    "walkSlot": 6
-   }
-  },
-  {
-   "id": "alan_walk6_p15",
-   "char": "alan",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): up: far leg standing, near leg swinging forward",
-   "src": "art/review/candidates/alan_walk6_p15.webp",
-   "originals": [
-    "art/sprites/alan_walkUp.webp"
-   ],
-   "meta": {
-    "w": 357,
-    "hh": 742,
-    "h": 720,
-    "ax": 172.2,
-    "fy": 738.0,
-    "top": 20.0
-   },
-   "wire": {
-    "walkSlot": 7
-   }
-  },
-  {
-   "id": "ines_walk6_p1",
-   "char": "ines",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): pose 1 of the walk chart",
-   "src": "art/review/candidates/ines_walk6_p1.webp",
-   "originals": [
-    "art/sprites/ines_walk1.webp"
-   ],
-   "meta": {
-    "w": 397,
-    "hh": 740,
-    "h": 720,
-    "ax": 168.6,
-    "fy": 736.0,
-    "top": 24.0
-   },
-   "wire": {
-    "walkSlot": 0,
-    "walkBase": [
-     "ines_walk6_p1",
-     "ines_walk6_p3",
-     "ines_walk6_p5",
-     "ines_walk6_p7",
-     "ines_walk6_p9",
-     "ines_walk6_p11",
-     "ines_walk6_p13",
-     "ines_walk6_p15"
-    ]
-   }
-  },
-  {
-   "id": "ines_walk6_p3",
-   "char": "ines",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): pose 3 of the walk chart",
-   "src": "art/review/candidates/ines_walk6_p3.webp",
-   "originals": [
-    "art/sprites/ines_walk1.webp"
-   ],
-   "meta": {
-    "w": 397,
-    "hh": 740,
-    "h": 720,
-    "ax": 168.6,
-    "fy": 736.0,
-    "top": 24.0
-   },
-   "wire": {
-    "walkSlot": 1,
-    "walkBase": [
-     "ines_walk6_p1",
-     "ines_walk6_p3",
-     "ines_walk6_p5",
-     "ines_walk6_p7",
-     "ines_walk6_p9",
-     "ines_walk6_p11",
-     "ines_walk6_p13",
-     "ines_walk6_p15"
-    ]
-   }
-  },
-  {
-   "id": "ines_walk6_p5",
-   "char": "ines",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): pose 5 of the walk chart",
-   "src": "art/review/candidates/ines_walk6_p5.webp",
-   "originals": [
-    "art/sprites/ines_walk1.webp"
-   ],
-   "meta": {
-    "w": 397,
-    "hh": 740,
-    "h": 720,
-    "ax": 168.6,
-    "fy": 736.0,
-    "top": 25.0
-   },
-   "wire": {
-    "walkSlot": 2,
-    "walkBase": [
-     "ines_walk6_p1",
-     "ines_walk6_p3",
-     "ines_walk6_p5",
-     "ines_walk6_p7",
-     "ines_walk6_p9",
-     "ines_walk6_p11",
-     "ines_walk6_p13",
-     "ines_walk6_p15"
-    ]
-   }
-  },
-  {
-   "id": "ines_walk6_p7",
-   "char": "ines",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): pose 7 of the walk chart",
-   "src": "art/review/candidates/ines_walk6_p7.webp",
-   "originals": [
-    "art/sprites/ines_walk1.webp"
-   ],
-   "meta": {
-    "w": 397,
-    "hh": 740,
-    "h": 720,
-    "ax": 168.6,
-    "fy": 736.0,
-    "top": 25.0
-   },
-   "wire": {
-    "walkSlot": 3,
-    "walkBase": [
-     "ines_walk6_p1",
-     "ines_walk6_p3",
-     "ines_walk6_p5",
-     "ines_walk6_p7",
-     "ines_walk6_p9",
-     "ines_walk6_p11",
-     "ines_walk6_p13",
-     "ines_walk6_p15"
-    ]
-   }
-  },
-  {
-   "id": "ines_walk6_p9",
-   "char": "ines",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): pose 9 of the walk chart",
-   "src": "art/review/candidates/ines_walk6_p9.webp",
-   "originals": [
-    "art/sprites/ines_walk1.webp"
-   ],
-   "meta": {
-    "w": 397,
-    "hh": 740,
-    "h": 720,
-    "ax": 168.6,
-    "fy": 736.0,
-    "top": 30.0
-   },
-   "wire": {
-    "walkSlot": 4,
-    "walkBase": [
-     "ines_walk6_p1",
-     "ines_walk6_p3",
-     "ines_walk6_p5",
-     "ines_walk6_p7",
-     "ines_walk6_p9",
-     "ines_walk6_p11",
-     "ines_walk6_p13",
-     "ines_walk6_p15"
-    ]
-   }
-  },
-  {
-   "id": "ines_walk6_p11",
-   "char": "ines",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): pose 11 of the walk chart",
-   "src": "art/review/candidates/ines_walk6_p11.webp",
-   "originals": [
-    "art/sprites/ines_walk1.webp"
-   ],
-   "meta": {
-    "w": 397,
-    "hh": 740,
-    "h": 720,
-    "ax": 168.6,
-    "fy": 736.0,
-    "top": 28.0
-   },
-   "wire": {
-    "walkSlot": 5,
-    "walkBase": [
-     "ines_walk6_p1",
-     "ines_walk6_p3",
-     "ines_walk6_p5",
-     "ines_walk6_p7",
-     "ines_walk6_p9",
-     "ines_walk6_p11",
-     "ines_walk6_p13",
-     "ines_walk6_p15"
-    ]
-   }
-  },
-  {
-   "id": "ines_walk6_p13",
-   "char": "ines",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): pose 13 of the walk chart",
-   "src": "art/review/candidates/ines_walk6_p13.webp",
-   "originals": [
-    "art/sprites/ines_walk1.webp"
-   ],
-   "meta": {
-    "w": 397,
-    "hh": 740,
-    "h": 720,
-    "ax": 168.6,
-    "fy": 736.0,
-    "top": 25.0
-   },
-   "wire": {
-    "walkSlot": 6,
-    "walkBase": [
-     "ines_walk6_p1",
-     "ines_walk6_p3",
-     "ines_walk6_p5",
-     "ines_walk6_p7",
-     "ines_walk6_p9",
-     "ines_walk6_p11",
-     "ines_walk6_p13",
-     "ines_walk6_p15"
-    ]
-   }
-  },
-  {
-   "id": "ines_walk6_p15",
-   "char": "ines",
-   "phase": 2,
-   "kind": "walk",
-   "what": "walk (one-sheet set): pose 15 of the walk chart",
-   "src": "art/review/candidates/ines_walk6_p15.webp",
-   "originals": [
-    "art/sprites/ines_walk1.webp"
-   ],
-   "meta": {
-    "w": 397,
-    "hh": 740,
-    "h": 720,
-    "ax": 168.6,
-    "fy": 736.0,
-    "top": 29.0
-   },
-   "wire": {
-    "walkSlot": 7,
-    "walkBase": [
-     "ines_walk6_p1",
-     "ines_walk6_p3",
-     "ines_walk6_p5",
-     "ines_walk6_p7",
-     "ines_walk6_p9",
-     "ines_walk6_p11",
-     "ines_walk6_p13",
-     "ines_walk6_p15"
-    ]
-   }
-  },
-  {
    "id": "vasco_walk6_p1",
    "char": "vasco",
    "phase": 2,
@@ -5135,6 +4703,309 @@
      "guitar_walk6_p11",
      "guitar_walk6_p13",
      "guitar_walk6_p15"
+    ]
+   }
+  },
+  {
+   "id": "alan_walk7_s1",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 1 of 5 as built on the review page (alan_walk6_p1)",
+   "src": "art/review/candidates/alan_walk7_s1.webp",
+   "originals": [],
+   "meta": {
+    "w": 357,
+    "hh": 742,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 738.0,
+    "top": 20.0
+   },
+   "wire": {
+    "walkSlot": 0,
+    "walkBase": [
+     "alan_walk7_s1",
+     "alan_walk7_s2",
+     "alan_walk7_s3",
+     "alan_walk7_s4",
+     "alan_walk7_s5"
+    ]
+   }
+  },
+  {
+   "id": "alan_walk7_s2",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 2 of 5 as built on the review page (alan_walk6_p3)",
+   "src": "art/review/candidates/alan_walk7_s2.webp",
+   "originals": [],
+   "meta": {
+    "w": 357,
+    "hh": 742,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 738.0,
+    "top": 19.0
+   },
+   "wire": {
+    "walkSlot": 1,
+    "walkBase": [
+     "alan_walk7_s1",
+     "alan_walk7_s2",
+     "alan_walk7_s3",
+     "alan_walk7_s4",
+     "alan_walk7_s5"
+    ]
+   }
+  },
+  {
+   "id": "alan_walk7_s3",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 3 of 5 as built on the review page (alan_walk6_p5)",
+   "src": "art/review/candidates/alan_walk7_s3.webp",
+   "originals": [],
+   "meta": {
+    "w": 357,
+    "hh": 742,
+    "h": 720,
+    "ax": 172.2,
+    "fy": 738.0,
+    "top": 21.0
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "alan_walk7_s1",
+     "alan_walk7_s2",
+     "alan_walk7_s3",
+     "alan_walk7_s4",
+     "alan_walk7_s5"
+    ]
+   }
+  },
+  {
+   "id": "alan_walk7_s4",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 4 of 5 as built on the review page (alan_try3_p9)",
+   "src": "art/review/candidates/alan_walk7_s4.webp",
+   "originals": [],
+   "meta": {
+    "w": 386,
+    "hh": 735,
+    "h": 720,
+    "ax": 189.5,
+    "fy": 731.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "alan_walk7_s1",
+     "alan_walk7_s2",
+     "alan_walk7_s3",
+     "alan_walk7_s4",
+     "alan_walk7_s5"
+    ]
+   }
+  },
+  {
+   "id": "alan_walk7_s5",
+   "char": "alan",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 5 of 5 as built on the review page (alan_try3_p13)",
+   "src": "art/review/candidates/alan_walk7_s5.webp",
+   "originals": [],
+   "meta": {
+    "w": 386,
+    "hh": 735,
+    "h": 720,
+    "ax": 189.5,
+    "fy": 731.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "alan_walk7_s1",
+     "alan_walk7_s2",
+     "alan_walk7_s3",
+     "alan_walk7_s4",
+     "alan_walk7_s5"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk7_s1",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 1 of 6 as built on the review page (ines_walk6_p1)",
+   "src": "art/review/candidates/ines_walk7_s1.webp",
+   "originals": [],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 0,
+    "walkBase": [
+     "ines_walk7_s1",
+     "ines_walk7_s2",
+     "ines_walk7_s3",
+     "ines_walk7_s4",
+     "ines_walk7_s5",
+     "ines_walk7_s6"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk7_s2",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 2 of 6 as built on the review page (ines_walk6_p3)",
+   "src": "art/review/candidates/ines_walk7_s2.webp",
+   "originals": [],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 1,
+    "walkBase": [
+     "ines_walk7_s1",
+     "ines_walk7_s2",
+     "ines_walk7_s3",
+     "ines_walk7_s4",
+     "ines_walk7_s5",
+     "ines_walk7_s6"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk7_s3",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 3 of 6 as built on the review page (ines_walk6_p5)",
+   "src": "art/review/candidates/ines_walk7_s3.webp",
+   "originals": [],
+   "meta": {
+    "w": 397,
+    "hh": 740,
+    "h": 720,
+    "ax": 168.6,
+    "fy": 736.0,
+    "top": 25.0
+   },
+   "wire": {
+    "walkSlot": 2,
+    "walkBase": [
+     "ines_walk7_s1",
+     "ines_walk7_s2",
+     "ines_walk7_s3",
+     "ines_walk7_s4",
+     "ines_walk7_s5",
+     "ines_walk7_s6"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk7_s4",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 4 of 6 as built on the review page (ines_try1_p7)",
+   "src": "art/review/candidates/ines_walk7_s4.webp",
+   "originals": [],
+   "meta": {
+    "w": 411,
+    "hh": 739,
+    "h": 720,
+    "ax": 182.4,
+    "fy": 735.0,
+    "top": 24.0
+   },
+   "wire": {
+    "walkSlot": 3,
+    "walkBase": [
+     "ines_walk7_s1",
+     "ines_walk7_s2",
+     "ines_walk7_s3",
+     "ines_walk7_s4",
+     "ines_walk7_s5",
+     "ines_walk7_s6"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk7_s5",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 5 of 6 as built on the review page (ines_try3_p9)",
+   "src": "art/review/candidates/ines_walk7_s5.webp",
+   "originals": [],
+   "meta": {
+    "w": 393,
+    "hh": 737,
+    "h": 720,
+    "ax": 171.0,
+    "fy": 733.0,
+    "top": 30.0
+   },
+   "wire": {
+    "walkSlot": 4,
+    "walkBase": [
+     "ines_walk7_s1",
+     "ines_walk7_s2",
+     "ines_walk7_s3",
+     "ines_walk7_s4",
+     "ines_walk7_s5",
+     "ines_walk7_s6"
+    ]
+   }
+  },
+  {
+   "id": "ines_walk7_s6",
+   "char": "ines",
+   "phase": 2,
+   "kind": "walk",
+   "what": "walk step 6 of 6 as built on the review page (ines_try3_p13)",
+   "src": "art/review/candidates/ines_walk7_s6.webp",
+   "originals": [],
+   "meta": {
+    "w": 393,
+    "hh": 737,
+    "h": 720,
+    "ax": 171.0,
+    "fy": 733.0,
+    "top": 30.0
+   },
+   "wire": {
+    "walkSlot": 5,
+    "walkBase": [
+     "ines_walk7_s1",
+     "ines_walk7_s2",
+     "ines_walk7_s3",
+     "ines_walk7_s4",
+     "ines_walk7_s5",
+     "ines_walk7_s6"
     ]
    }
   }

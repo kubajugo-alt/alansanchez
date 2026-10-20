@@ -223,6 +223,16 @@ session lived in the session's scratchpad and are gone; everything that matters 
      a candidate `<prefix>_walk7_s<i>` with its nudge baked into meta (ax -= dx, fy -= dy) and wire walkSlot i,
      walkBase = the new ids; plant data = the frame's plant + dx/h; gaps are requests to paint (walk_sheet.py with
      the description, or gen_image.py from the neighbouring frames).
+19. **Alan's and Inês's walks: the cycles the user built in the editor, approved and in the game** (2026-10-20 21:57 and
+   22:02, db `decision/alan_walk6` and `decision/ines`). `scripts/walk_apply_cycle.py <char> <decision.json> <library
+   data.json> <library folder>` turns a saved cycle into candidates `<prefix>_walk7_s<i>` (pictures also kept in
+   art/review/<prefix>/walk7/s<i>.png, since the tries' fitted poses live only in the scratchpad library), drops the
+   character's walk6 candidates from candidates.json (walkAll) and prints the plant data.
+   - Alan, 5 steps: proposed p1, p3, p5, then try 3's p9 and p13. Steps +0.075 +0.099 +0.207 +0.171 +0.164.
+   - Inês, 6 steps: proposed p1, p3, p5, try 1's p7, try 3's p9 and p13. Steps +0.080 +0.096 +0.114 +0.090 +0.179 +0.203.
+   No nudges, no missing frames. The steps are uneven where poses were left out (the long ones hold longer); this is
+   the timing the page previewed. Approved in approvals.json; plant data in core.js. Checked: both wire in with step
+   lengths; smoke intro, bath, ineskey, duarteines, bench, walklab, coldopen, semuseum, finale, rigtest pass.
 
 ## Where things stand (session handoff, 2026-10-20)
 
