@@ -1,0 +1,71 @@
+{
+ "desc": {
+  "1": "her NEAR leg forward with the heel down and her FAR leg behind, pushing off on its toes; her far arm swings forward, her near arm back",
+  "3": "a short step: her NEAR leg in front, knee slightly bent and taking her weight with the foot flat; her FAR leg behind, knee bent, heel lifted, toes on the ground",
+  "5": "passing: her NEAR leg straight, standing under her body; her FAR leg bent at the knee with the foot lifted up behind her, about knee height; arms close to her sides",
+  "7": "her NEAR leg straight and standing, her body moving ahead of it; her FAR leg swinging forward, knee bent, the foot off the ground in front of her",
+  "9": "her FAR leg stepping FORWARD with the heel down, partly hidden behind her near leg at the thigh and slightly in shadow; her NEAR leg BEHIND, pushing off on its toes, drawn in front of the far leg; her near arm swings forward",
+  "11": "a short step: her FAR leg in front, knee slightly bent and taking her weight, partly hidden behind her near leg at the thigh; her NEAR leg behind, knee bent, heel lifted, toes on the ground, drawn in front",
+  "13": "passing: her FAR leg straight, standing under her body, behind the near leg; her NEAR leg bent at the knee with the foot lifted up behind her, drawn in front; arms close to her sides",
+  "15": "her FAR leg straight and standing; her NEAR leg swinging forward in front of it, knee bent, the foot off the ground ahead of her"
+ },
+ "queue": [
+  [
+   "alan",
+   13
+  ],
+  [
+   "alan",
+   15
+  ],
+  [
+   "ines",
+   1
+  ],
+  [
+   "ines",
+   3
+  ],
+  [
+   "ines",
+   5
+  ],
+  [
+   "ines",
+   7
+  ],
+  [
+   "ines",
+   11
+  ],
+  [
+   "ines",
+   13
+  ],
+  [
+   "ines",
+   15
+  ]
+ ],
+ "pending": {},
+ "done": {
+  "ines_9": "MAHYgyU9to4",
+  "alan_7": "MAHYg4pFy90",
+  "alan_5": "MAHYgw9nET8",
+  "alan_11": "MAHYgycIIUQ"
+ },
+ "pose": {
+  "1": "MAHYg9x-TLM",
+  "3": "MAHYgx04Iro",
+  "5": "MAHYg5a04NM",
+  "7": "MAHYg4cAwcg",
+  "9": "MAHYg3oRlOw",
+  "11": "MAHYg8MmKCU",
+  "13": "MAHYg-ZDre4",
+  "15": "MAHYg1xB4Qs"
+ },
+ "ref": {
+  "alan": "MAHYg_D9Kgk",
+  "ines": "MAHYg4xLuAM"
+ }
+}
