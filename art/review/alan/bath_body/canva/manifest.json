@@ -1,0 +1,225 @@
+{
+ "alan_undress_jeans": {
+  "ref": "MAHYnHaYl8M",
+  "gen": "MAHYnDMnvlY",
+  "status": "exported"
+ },
+ "alan_undress1b": {
+  "ref": "MAHYnAwLOOI",
+  "gen": "MAHYnMjbem4",
+  "status": "generated",
+  "page": "PB4JHFHZQHYv9fPd"
+ },
+ "alan_undress2a": {
+  "ref": "MAHYnBUBgtQ",
+  "gen": "MAHYnMVDCic",
+  "status": "generated",
+  "page": "PBjVmPlxlJM2dkZC"
+ },
+ "alan_undress2": {
+  "ref": "MAHYnC30lU0",
+  "gen": "MAHYnDeFGpI",
+  "status": "generated",
+  "page": "PBlbY3DbB534VgBD"
+ },
+ "alan_undress2b": {
+  "ref": "MAHYnFVvfmA",
+  "gen": "MAHYnNvrtDw",
+  "status": "generated",
+  "page": "PB5HFXv1VFNFt0Kr"
+ },
+ "alan_undress_belt": {
+  "ref": "MAHYnDH2JuY",
+  "gen": "MAHYnKCD3A4",
+  "status": "generated",
+  "page": "PB4M9Tv9tmXPf9lb"
+ },
+ "alan_undress_boot": {
+  "ref": "MAHYnLF4J94",
+  "gen": "MAHYnIVGoFY",
+  "status": "generated",
+  "page": "PBB6ZNdPSwySsHT0"
+ },
+ "alan_undress_unbutton": {
+  "ref": "MAHYnLe3kDM",
+  "gen": "MAHYnJoUjRY",
+  "status": "generated",
+  "page": "PB4P00jDWfkLBZxx"
+ },
+ "alan_trunks_down": {
+  "ref": "MAHYnJBM_9M",
+  "gen": "MAHYnPXXYpw",
+  "status": "generated (2nd try: swim-trunks prompt)",
+  "page": "PBbDfxwcqF6BC2vH"
+ },
+ "alan_trunks_step": {
+  "ref": "MAHYnEwsD_U",
+  "gen": "MAHYnO9p0Xc",
+  "status": "generated",
+  "page": "PB8zTNJbv5FT7x8k"
+ },
+ "alan_trunks_snap": {
+  "ref": "MAHYnLaLbKc",
+  "status": "generated",
+  "gen": "MAHYnHdrQTQ",
+  "page": "PBs3LJJYFWKzdGRp"
+ },
+ "alan_jump_crouch": {
+  "ref": "MAHYnJUndtk",
+  "status": "generated",
+  "gen": "MAHYnLku_oU",
+  "page": "PBLkGBMqCcm903BR"
+ },
+ "alan_drip": {
+  "ref": "MAHYnHCB3uw",
+  "status": "generated",
+  "gen": "MAHYnKeBgjY",
+  "page": "PBdZw84RK932ssZq"
+ },
+ "alan_trunks_on": {
+  "ref": "MAHYnEV2WGU",
+  "status": "generated (2nd try: swim-trunks prompt)",
+  "gen": "MAHYnEJ96o8",
+  "page": "PBZVY4CVr1jsRq19"
+ },
+ "alan_dress2": {
+  "ref": "MAHYnFonTrA",
+  "status": "generated",
+  "gen": "MAHYnICjWkM",
+  "page": "PB3ZkvVnDPFWttrG"
+ },
+ "alan_dress3": {
+  "ref": "MAHYnKn9JEw",
+  "status": "generated",
+  "gen": "MAHYnMOy1Gw",
+  "page": "PBfVX7hSwLvC5jx3"
+ },
+ "alan_dress_boot": {
+  "ref": "MAHYnLFWPcs",
+  "status": "generated",
+  "gen": "MAHYnFWEpII",
+  "page": "PBvfy3Z8xxZPGbDd"
+ },
+ "_refs": {
+  "build": "alan_jacket MAHYnO9Eti8",
+  "skin": "alan_undress2b MAHYnDNarTI"
+ },
+ "alan_jacket": {
+  "ref": "MAHYnKhG_Vk",
+  "status": "generated",
+  "gen": "MAHYnOce6R4",
+  "page": "PBsydpb8sgZCWctS"
+ },
+ "alan_undress1": {
+  "ref": "MAHYnCoTJFk",
+  "status": "generated",
+  "gen": "MAHYnP6u6W4",
+  "page": "PBQtF09nGwFk1VR8"
+ },
+ "alan_undress3": {
+  "ref": "MAHYnIwRyZw",
+  "status": "generated",
+  "gen": "MAHYnB4vf-0",
+  "page": "PB5Phh5pR31nhf0t"
+ },
+ "alan_undress4": {
+  "ref": "MAHYnPbgLY4",
+  "status": "generated",
+  "gen": "MAHYnCXWnzU",
+  "page": "PBYhpBwjgKxrqtQ7"
+ },
+ "alan_fling": {
+  "ref": "MAHYnN_1E8s",
+  "status": "generated (2nd try: swim-trunks prompt)",
+  "gen": "MAHYnI-r9_s",
+  "page": "PBbGHZ5gMZ9LxxcL"
+ },
+ "alan_jump_rise": {
+  "ref": "MAHYnGWen7c",
+  "status": "generated",
+  "gen": "MAHYnBU_h3g",
+  "page": "PBjVzGL0N70wqNZy"
+ },
+ "alan_jump": {
+  "ref": "MAHYnFvib7E",
+  "status": "generated",
+  "gen": "MAHYnMi5gG8",
+  "page": "PBDr4dM2f2fpLSRm"
+ },
+ "alan_jump_fall": {
+  "ref": "MAHYnE1FsKU",
+  "status": "generated (2nd try: swim-trunks prompt)",
+  "gen": "MAHYnJjaO-A",
+  "page": "PBv290hXgnqgT98t"
+ },
+ "alan_wash_surface": {
+  "ref": "MAHYnAtzX2g",
+  "status": "generated (2nd try: swim-trunks prompt)",
+  "gen": "MAHYnKN-D6w",
+  "page": "PB06KFvhT4ZTH3r5"
+ },
+ "alan_wash1": {
+  "ref": "MAHYnMTz5Fk",
+  "status": "generated",
+  "gen": "MAHYnJ_A-ss",
+  "page": "PBv0pPpV9NKjqQbw"
+ },
+ "alan_wash2": {
+  "ref": "MAHYnDVGhSI",
+  "status": "generated",
+  "gen": "MAHYnMJq3RQ",
+  "page": "PB7SllWFN7vxCrwt"
+ },
+ "alan_wash3": {
+  "ref": "MAHYnKerCjA",
+  "status": "generated",
+  "gen": "MAHYnJ04MlI",
+  "page": "PB5vFKmQC4jd2VlF"
+ },
+ "alan_wash4": {
+  "ref": "MAHYnBtt_dM",
+  "status": "generated (2nd try: swim-trunks prompt)",
+  "gen": "MAHYnFAU5As",
+  "page": "PBGftg9RGQXdXG0y"
+ },
+ "alan_wash6": {
+  "ref": "MAHYnFYdA2U",
+  "status": "refused twice (content safety)",
+  "gen": null
+ },
+ "alan_climb": {
+  "ref": "MAHYnO4EI_s",
+  "status": "generated (2nd try: swim-trunks prompt)",
+  "gen": "MAHYnDmSjKs",
+  "page": "PBsD62FxSfvkJ6FX"
+ },
+ "alan_dress1": {
+  "ref": "MAHYnLsYoiQ",
+  "status": "generated",
+  "gen": "MAHYnEPRoPE",
+  "page": "PBJ19PVHvBcbLk3r"
+ },
+ "alan_dress4": {
+  "ref": "MAHYnOavxrw",
+  "status": "generated",
+  "gen": "MAHYnE_RL1M",
+  "page": "PB4QwtGT3rpkCTjS"
+ },
+ "alan_dress_final": {
+  "ref": "MAHYnI0VqnQ",
+  "status": "generated",
+  "gen": "MAHYnG43SgI",
+  "page": "PBd13HtqvXXqL1g1"
+ },
+ "alan_jacket_wink": {
+  "ref": "MAHYnKJaj1M",
+  "status": "refused twice (content safety)",
+  "gen": null
+ },
+ "alan_jacket_grin": {
+  "ref": "MAHYnPNRKas",
+  "status": "generated (2nd try: swim-trunks prompt)",
+  "gen": "MAHYnJFx-H0",
+  "page": "PBmW3tpDD4kq31zy"
+ }
+}
