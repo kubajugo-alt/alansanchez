@@ -127,8 +127,9 @@ async function save() {
   try {
     // another screen's notes that this save would replace are kept aside first (board/bath_backup), never lost
     // another screen saved since this one last took the board: keep its changes, put only this screen's on top
-    if (remote && remote !== seen) state = merge(seen || start, state, remote);
-    const mine = new Set(notesOf(state)), lost = remote ? notesOf(remote).filter(n => !mine.has(n)) : [];
+    const other = remote && remote !== seen; // another screen saved since this one last took the board
+    if (other) state = merge(seen || start, state, remote);
+    const mine = new Set(notesOf(state)), lost = other ? notesOf(remote).filter(n => !mine.has(n)) : [];
     if (lost.length) await db.doc('board/bath_backup').set({ ...remote, replacedAt: new Date().toISOString() });
     const body = { ...state, savedAt: new Date().toISOString() };
     await db.doc('board/bath').set(body); remote = seen = JSON.parse(JSON.stringify(body));
@@ -154,8 +155,10 @@ function merge(base, mine, theirs) {
 }
 // a change stored from another screen: shown here, unless this screen has edits of its own still to save;
 // held back while a note is being typed, so the cards are not rebuilt under the cursor
+const newer = (a, b) => !b || !b.savedAt || (a.savedAt || '') > b.savedAt; // a saved after b
 function adopt(d) {
   if (saveT || saving) return;
+  if (!newer(d, seen)) { deferred = null; return; } // this screen's own save coming back, or an older one: nothing new
   if (document.activeElement && /TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName)) { deferred = d; return; }
   deferred = null; seen = d;
   const c = JSON.parse(JSON.stringify(d)); // this screen edits its own copy; `seen` stays as stored
@@ -233,7 +236,8 @@ render(); draw(0);
     const d = snap.exists ? snap.data() : null;
     if (!d || !d.steps) { if (first) st.textContent = 'First proposal shown. Your changes save automatically.'; first = false; return; }
     if (snap.metadata && snap.metadata.hasPendingWrites) return; // this screen's own save, on its way
-    remote = d; adopt(d);
+    if (newer(d, remote)) remote = d;
+    adopt(remote);
     if (first) st.textContent = 'Loaded your last save.'; first = false;
   }, e => { st.textContent = 'Lost the link to the saved board (' + (e && e.code || 'error') + '). Reload the page.'; });
 })();
