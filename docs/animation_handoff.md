@@ -3,9 +3,9 @@
 ## Start here (session handoff, 2026-10-21)
 
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
-runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
-`scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-39); the sections after it are an archive of the 20 October
+runs commit `3c1d770f` on branch `claude/zen-dijkstra-o7cgsv` (Netlify deploy `6ad948e0972297b45a1ffdcc`, 2026-10-21: the new
+bath, Duarte's rewritten scene and the sound pass, entry 42). Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
+underneath has the detail of every change (entries 1-42); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -781,6 +781,8 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - docs/STORY.md: Duarte's upstairs scene as it now plays. docs/SOUND.md: status.
    - Checked before deploying, at default URLs in Chromium: 14 rooms (beds and recorded steps), the Duarte scene to
      the afterwards, the bath scene's 60 poses. No errors.
+   - Deployed: commit `3c1d770f`, Netlify deploy `6ad948e0972297b45a1ffdcc`. Live checks: the page, the review sprites
+     and stills, the new sounds all 200; `/.env` and the review sheets 404; the live JS has the new defaults.
    - Still to tidy (no change to what plays): fold the flags and the room fixes into the rooms themselves
      (docs/SOUND.md, last section), and promote the review sprites out of `art/review`.
 
