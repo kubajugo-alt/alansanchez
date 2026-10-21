@@ -19,8 +19,8 @@ RUNS = [
     ['x_surface', 'hair<', 'x_hands_down', 'relax', 'x_scoop<', 'splash<', 'x_wipe'],
     ['rim', 'x_haul'],
     ['climb', 'x_climb_down', 'stepdown', 'x_tuck<', 'towel<', 'x_pick_up<', 'pants_on<', 'x_shorts_knees<', 'pants_up<',
-     'x_jeans_ready<', 'jeans_off', 'x_jeans_knees<', 'zip<', 'x_unbutton<', 'belt<', 'x_tee_toss<', 'tee<', 'x_tee_up<',
-     'jacket_off<', 'x_jacket_arm<', 'dressed<'],
+     'x_jeans_ready<', 'jeans_off', 'y_jeans_up<', 'zip<', 'y_button<', 'belt<', 'y_tee_ready<', 'tee<', 'y_tee_down<',
+     'jacket_off<', 'y_jacket_on<', 'dressed<'],
 ]
 
 

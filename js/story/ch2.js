@@ -492,15 +492,15 @@
       await show('alan_bn_pants_up', 900, true);                        // ...pulled up under the towel
       await show('alan_bn_x_jeans_ready', IB, true);                    // the towel dropped, the jeans held open
       p.dir = 'e'; p.pose = 'alan_bn_jeans_off'; await hop(-4, 3, 200); // back into the jeans
-      await show('alan_bn_x_jeans_knees', IB, true);                    // (played backwards: pulled up)
+      await show('alan_bn_y_jeans_up', IB, true);                       // pulled up
       await show('alan_bn_zip', 600, true);                              // the fly
-      await show('alan_bn_x_unbutton', IB, true);                       // (played backwards: buttoned)
+      await show('alan_bn_y_button', IB, true);                         // buttoned
       await show('alan_bn_belt', 600, true);                             // the belt buckled
-      await show('alan_bn_x_tee_toss', IB, true);                       // (played backwards: the tee picked up)
+      await show('alan_bn_y_tee_ready', IB, true);                      // the tee held up
       await show('alan_bn_tee', 800, true);                              // the tee back on
-      await show('alan_bn_x_tee_up', IB, true);                         // (played backwards: pulled down)
+      await show('alan_bn_y_tee_down', IB, true);                       // pulled down
       await show('alan_bn_jacket_off', 700, true);                       // the jacket picked up
-      await show('alan_bn_x_jacket_arm', IB, true);                     // (played backwards: an arm in)
+      await show('alan_bn_y_jacket_on', IB, true);                      // an arm in, swinging it on
       await show('alan_bn_dressed', 0, true);                           // collar up
       await joke('alan_bath_3');
       p.crossFadeAll(0); p.pose = null;

@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-38); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-39); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -707,6 +707,15 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Checked: onion-skin sheets of every consecutive pair before and after (the bodies now overlap, the limbs change);
      the scene in Chromium with each step screenshotted (walk, behind the tank, the dive, the water, the rim, the
      climb out); board Play and buttons; no errors. Board version 17.
+
+39. **Bath (review): the dressing half's own in-betweens** (the user: "Maybe you could do those dedicated paintings to
+   fix", of the five undressing in-betweens played backwards while dressing, which could only be aligned for one).
+   Five Canva paintings (pages 92-96, d01-d05_export.png), each from the frames either side: pulling the jeans up,
+   buttoning them, the tee held up to put on, the tee pulled down, swinging the jacket on. `alan_bn_y_*` in the fit
+   (upright: by full height; the tee-down and jacket ones left out of the skin match, too little bare skin to measure),
+   `scripts/bath_new_align.py`'s dressing run uses them; ch2.js plays them in place of the reversed ones; the board's
+   five steps swapped (db 250, board version 18). The undressing in-betweens now appear once each, aligned for their
+   own place. Checked: the scene's pose log in Chromium (the dressing run as above), no errors.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

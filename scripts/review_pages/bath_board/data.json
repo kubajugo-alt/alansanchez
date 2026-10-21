@@ -236,7 +236,7 @@
 "w": 210,
 "hh": 732,
 "h": 720.0,
-"ax": 94.0,
+"ax": 102.0,
 "fy": 725.0,
 "waist": false
 },
@@ -246,7 +246,7 @@
 "w": 232,
 "hh": 732,
 "h": 720.0,
-"ax": 124.5,
+"ax": 116.5,
 "fy": 725.0,
 "waist": false
 },
@@ -539,6 +539,56 @@
 "ax": 75.5,
 "fy": 725.0,
 "waist": false
+},
+"alan_bn_y_jeans_up": {
+"label": "In-between: pulling the jeans up",
+"src": "f/alan_bn_y_jeans_up.webp",
+"w": 220,
+"hh": 732,
+"h": 720.0,
+"ax": 111.0,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_y_button": {
+"label": "In-between: buttoning the jeans",
+"src": "f/alan_bn_y_button.webp",
+"w": 222,
+"hh": 732,
+"h": 720.0,
+"ax": 104.5,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_y_tee_ready": {
+"label": "In-between: the tee held up to put on",
+"src": "f/alan_bn_y_tee_ready.webp",
+"w": 208,
+"hh": 732,
+"h": 720.0,
+"ax": 82.5,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_y_tee_down": {
+"label": "In-between: pulling the tee down",
+"src": "f/alan_bn_y_tee_down.webp",
+"w": 227,
+"hh": 732,
+"h": 720.0,
+"ax": 114.0,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_y_jacket_on": {
+"label": "In-between: swinging the jacket on",
+"src": "f/alan_bn_y_jacket_on.webp",
+"w": 270,
+"hh": 732,
+"h": 720.0,
+"ax": 169.0,
+"fy": 725.0,
+"waist": false
 }
 },
 "default": [
@@ -549,10 +599,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_jacket_arm",
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_jacket_arm",
+"note": "\u2713 in-between",
+"place": "floor"
 },
 {
 "hold": 900,
@@ -561,10 +611,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_jacket_drop",
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_jacket_drop",
+"note": "\u2713 in-between",
+"place": "floor"
 },
 {
 "flip": true,
@@ -574,10 +624,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_tee_up",
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_tee_up",
+"note": "\u2713 in-between",
+"place": "floor"
 },
 {
 "hold": 1000,
@@ -586,10 +636,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_tee_toss",
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_tee_toss",
+"note": "\u2713 in-between",
+"place": "floor"
 },
 {
 "hold": 1000,
@@ -598,10 +648,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_unbutton",
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_unbutton",
+"note": "\u2713 in-between",
+"place": "floor"
 },
 {
 "hold": 700,
@@ -610,10 +660,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_jeans_knees",
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_jeans_knees",
+"note": "\u2713 in-between",
+"place": "floor"
 },
 {
 "flip": true,
@@ -623,10 +673,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_kick",
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_kick",
+"note": "\u2713 in-between",
+"place": "floor"
 },
 {
 "hold": 1000,
@@ -635,10 +685,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_turn",
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_turn",
+"note": "\u2713 in-between",
+"place": "floor"
 },
 {
 "hold": 900,
@@ -647,10 +697,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_walk2",
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_walk2",
+"note": "\u2713 in-between",
+"place": "floor"
 },
 {
 "hold": 1000,
@@ -659,10 +709,10 @@
 "place": "behind"
 },
 {
-"id": "alan_bn_x_raise",
 "hold": 420,
-"place": "behind",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_raise",
+"note": "\u2713 in-between",
+"place": "behind"
 },
 {
 "hold": 1700,
@@ -671,10 +721,10 @@
 "place": "behind"
 },
 {
-"id": "alan_bn_x_crouch",
 "hold": 420,
-"place": "behind",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_crouch",
+"note": "\u2713 in-between",
+"place": "behind"
 },
 {
 "hold": 700,
@@ -683,10 +733,10 @@
 "place": "air"
 },
 {
-"id": "alan_bn_x_surface",
 "hold": 420,
-"place": "tank",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_surface",
+"note": "\u2713 in-between",
+"place": "tank"
 },
 {
 "flip": true,
@@ -696,10 +746,10 @@
 "place": "tank"
 },
 {
-"id": "alan_bn_x_hands_down",
 "hold": 420,
-"place": "tank",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_hands_down",
+"note": "\u2713 in-between",
+"place": "tank"
 },
 {
 "hold": 1300,
@@ -708,11 +758,11 @@
 "place": "tank"
 },
 {
-"id": "alan_bn_x_scoop",
+"flip": true,
 "hold": 420,
-"place": "tank",
+"id": "alan_bn_x_scoop",
 "note": "\u2713 in-between",
-"flip": true
+"place": "tank"
 },
 {
 "flip": true,
@@ -722,10 +772,10 @@
 "place": "tank"
 },
 {
-"id": "alan_bn_x_wipe",
 "hold": 420,
-"place": "tank",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_wipe",
+"note": "\u2713 in-between",
+"place": "tank"
 },
 {
 "hold": 1000,
@@ -734,10 +784,10 @@
 "place": "rim"
 },
 {
-"id": "alan_bn_x_haul",
 "hold": 420,
-"place": "rim",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_haul",
+"note": "\u2713 in-between",
+"place": "rim"
 },
 {
 "hold": 900,
@@ -746,10 +796,10 @@
 "place": "edge"
 },
 {
-"id": "alan_bn_x_swing",
 "hold": 420,
-"place": "corner",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_swing",
+"note": "\u2713 in-between",
+"place": "corner"
 },
 {
 "hold": 900,
@@ -758,10 +808,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_climb_down",
 "hold": 420,
-"place": "corner",
-"note": "\u2713 in-between"
+"id": "alan_bn_x_climb_down",
+"note": "\u2713 in-between",
+"place": "corner"
 },
 {
 "hold": 800,
@@ -770,11 +820,11 @@
 "place": "corner"
 },
 {
-"id": "alan_bn_x_tuck",
+"flip": true,
 "hold": 420,
-"place": "floor",
+"id": "alan_bn_x_tuck",
 "note": "\u2713 in-between",
-"flip": true
+"place": "floor"
 },
 {
 "flip": true,
@@ -784,11 +834,11 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_pick_up",
+"flip": true,
 "hold": 420,
-"place": "floor",
+"id": "alan_bn_x_pick_up",
 "note": "\u2713 in-between",
-"flip": true
+"place": "floor"
 },
 {
 "flip": true,
@@ -798,11 +848,11 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_shorts_knees",
+"flip": true,
 "hold": 420,
-"place": "floor",
+"id": "alan_bn_x_shorts_knees",
 "note": "\u2713 in-between",
-"flip": true
+"place": "floor"
 },
 {
 "flip": true,
@@ -812,11 +862,11 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_jeans_ready",
+"flip": true,
 "hold": 420,
-"place": "floor",
+"id": "alan_bn_x_jeans_ready",
 "note": "\u2713 in-between",
-"flip": true
+"place": "floor"
 },
 {
 "hold": 600,
@@ -825,11 +875,11 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_jeans_knees",
+"flip": true,
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between (played backwards)",
-"flip": true
+"id": "alan_bn_y_jeans_up",
+"note": "\u2713 in-between (its own painting)",
+"place": "floor"
 },
 {
 "flip": true,
@@ -839,11 +889,11 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_unbutton",
+"flip": true,
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between",
-"flip": true
+"id": "alan_bn_y_button",
+"note": "\u2713 in-between (its own painting)",
+"place": "floor"
 },
 {
 "flip": true,
@@ -853,11 +903,11 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_tee_toss",
+"flip": true,
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between (played backwards)",
-"flip": true
+"id": "alan_bn_y_tee_ready",
+"note": "\u2713 in-between (its own painting)",
+"place": "floor"
 },
 {
 "flip": true,
@@ -867,11 +917,11 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_tee_up",
+"flip": true,
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between (played backwards)",
-"flip": true
+"id": "alan_bn_y_tee_down",
+"note": "\u2713 in-between (its own painting)",
+"place": "floor"
 },
 {
 "flip": true,
@@ -881,11 +931,11 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_x_jacket_arm",
+"flip": true,
 "hold": 420,
-"place": "floor",
-"note": "\u2713 in-between (played backwards)",
-"flip": true
+"id": "alan_bn_y_jacket_on",
+"note": "\u2713 in-between (its own painting)",
+"place": "floor"
 },
 {
 "flip": true,

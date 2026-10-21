@@ -38,6 +38,10 @@ FRAMES = {
     'alan_bn_x_haul': ('i16', True), 'alan_bn_x_swing': ('i17', False), 'alan_bn_x_climb_down': ('i18', False),
     'alan_bn_x_tuck': ('i19', False), 'alan_bn_x_pick_up': ('i20', False), 'alan_bn_x_shorts_knees': ('i21', False),
     'alan_bn_x_jeans_ready': ('i22', False),
+    # the dressing half's own in-betweens (the user: "do those dedicated paintings"), in place of undressing ones
+    # played backwards: jeans pulled up, buttoning, the tee held up, the tee pulled down, an arm into the jacket
+    'alan_bn_y_jeans_up': ('d01', False), 'alan_bn_y_button': ('d02', False), 'alan_bn_y_tee_ready': ('d03', False),
+    'alan_bn_y_tee_down': ('d04', False), 'alan_bn_y_jacket_on': ('d05', False),
     # earlier versions the user asked to change, kept for the board's library
     'alan_bn_tee_v1': ('b02_tee_off', False), 'alan_bn_pants_v1': ('b04u_underwear', False),
     'alan_bn_hair_v1': ('b06_hair_back', True), 'alan_bn_pants_on_v1': ('b11u_pants_in_hand', False),
@@ -49,7 +53,7 @@ FRAMES = {
 # out oranger, the step down lighter, the tee lift darker), all to the median of those frames. Not the jacket frames:
 # the leather is skin-coloured to the mask, so their measure is the jacket's, and his face and hands there are fine
 CLOTHED = {'alan_bn_jacket_shrug', 'alan_bn_jacket_off', 'alan_bn_dressed', 'alan_bn_jacket_shrug_v1',
-           'alan_bn_x_jacket_arm', 'alan_bn_x_jacket_drop'}
+           'alan_bn_x_jacket_arm', 'alan_bn_x_jacket_drop', 'alan_bn_y_jacket_on', 'alan_bn_y_tee_down'}
 SKIN_MATCH = {k for k in FRAMES if k not in CLOTHED and not k.endswith(('_v1', '_v2'))}
 # the head match fails here (hands over the head; bent double): the scale of a frame Canva drew the same way.
 # The waist-up frames by hand (the user: "match the size of his torso images with his actual torso when we see the
@@ -62,7 +66,8 @@ STAND = {'alan_bn_jacket_shrug', 'alan_bn_tee_lift', 'alan_bn_tee', 'alan_bn_bel
          'alan_bn_dressed', 'alan_bn_tee_v1', 'alan_bn_pants_v1', 'alan_bn_pants_on_v1', 'alan_bn_pants_up',
          'alan_bn_jacket_shrug_v1', 'alan_bn_pants_up_v1', 'alan_bn_x_jacket_arm', 'alan_bn_x_jacket_drop',
          'alan_bn_x_tee_up', 'alan_bn_x_tee_toss', 'alan_bn_x_unbutton', 'alan_bn_x_tuck', 'alan_bn_x_shorts_knees',
-         'alan_bn_x_jeans_ready'}
+         'alan_bn_x_jeans_ready', 'alan_bn_y_jeans_up', 'alan_bn_y_button', 'alan_bn_y_tee_ready', 'alan_bn_y_tee_down',
+         'alan_bn_y_jacket_on'}
 # waist-up paintings that go on below his waist: cut there (rows of the 896x1792 export). The reach's hands hang below
 # his hips (the tank hides them anyway); the hair toss came with shorts on, and he swims without
 CUT_AT = {'c_M_reach_down': 1185, 'c_P_hair_toss': 1332}
