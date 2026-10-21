@@ -275,12 +275,20 @@
     const C = await get('art/review/candidates.json'), A = await get('art/review/approvals.json') || {};
     let mine = {}; try { mine = JSON.parse(localStorage.getItem('review-approvals') || '{}'); } catch (e) { /* private mode */ }
     const dec = Object.assign({}, A, mine);
+    S.WALK_ORIGINAL = { alan: S.CHARS.alan.frames.walk.slice() }; // the first painted cycle, before any approved walk replaces it
     const walkNew = new URLSearchParams(location.search).get('walk') === 'new'; // the review screen's walk comparison: the new walk, approved or not
     const ok = id => !!(dec[id] && dec[id].decision === 'approved') || (walkNew && /^(alan|vasco)_walk_/.test(id));
     S.REVIEW = { candidates: (C && C.candidates) || [], decisions: dec, saved: A };
     // a character's new walk goes in whole or not at all: its frames mixed with the old ones lose the alternating legs
     const walkAll = ch => { const w = S.REVIEW.candidates.filter(c => c.char === ch && c.wire && c.wire.walkSlot != null); return w.length > 0 && w.every(c => ok(c.id)); };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c.wire && c.wire.walkSlot != null ? Object.assign({ walkAll: walkAll(c.char) }, c) : c, ok);
+    // ?walk=a: the walk plan's step A, for review (not the game's default): Alan back on his first 8-painting cycle,
+    // moving at a steady speed (no foot lock), every painting held alike, cut between them, the bob once per step
+    if (new URLSearchParams(location.search).get('walk') === 'a') { window.WALK = S.WALK_A; S.CHARS.alan.frames.walk = S.WALK_ORIGINAL.alan.slice(); }
+    // the engine fix, approved by the user for Alan and Inês on 2026-10-21 (walk review page, "Engine fix" lanes);
+    // everyone else keeps actor.js's default until theirs is seen
+    for (const ch of ['alan', 'ines']) S.CHARS[ch].walkOpt = S.WALK_FIX;
+    if (new URLSearchParams(location.search).get('walk') === 'fix') window.WALK = S.WALK_FIX; // the engine fix alone, today's frames
     for (const c of Object.values(S.CHARS)) if (c.frames && c.frames.walk) S.walkTiming(c.frames); // step lengths from S.WALK_PLANT, where a cycle has them
     // the walk lab measures the walk candidates too, approved or not: their sprites are registered (not wired in)
     if (new URLSearchParams(location.search).get('scene') === 'walklab')

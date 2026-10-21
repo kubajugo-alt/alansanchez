@@ -137,6 +137,11 @@
     guitar_walk6_p1: [0.258, -0.097], guitar_walk6_p3: [0.157], guitar_walk6_p5: [0.079], guitar_walk6_p7: [-0.014],
     guitar_walk6_p9: [0.256, -0.103], guitar_walk6_p11: [0.162], guitar_walk6_p13: [0.077], guitar_walk6_p15: [-0.018],
   };
+  // the walk plan's step A (?walk=a and the walk lab): steady movement, even timing, a hard cut, the bob once per step
+  S.WALK_A = { lock: 0, blend: 'cut', timing: 'even', bob: 'step' };
+  // the same engine fix on the cycles in the game now (?walk=fix): steady movement, each painting held as long as its own
+  // planted foot travels (those cycles' steps are uneven), cut half way through, the bob once per step
+  S.WALK_FIX = { lock: 0, blend: 'cut', timing: 'foot', bob: 'step' };
   S.walkTiming = F => {
     const W = F.walk, P = S.WALK_PLANT;
     if (!W || !W.every(f => P[f])) { delete F.walkLen; delete F.walkSteps; return; }

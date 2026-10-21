@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-22); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-23); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -15,8 +15,9 @@ handoff, kept for history: don't act on them without checking the code and the u
 - **Walks:** all eight walking characters on new side walks painted as one Gemini sheet each. Alan and Inês play
   the cycles the user built in the walk editor (`*_walk7_s*`, 5 and 6 steps, entry 19); Vasco, Lacerda (widened
   x1.2 on the user's note), Celeste, Zé, Teixeira (cop_visit) and Duarte (guitar_visit) their approved 8-pose sets
-  (`*_walk6_p*`, entries 16-17). The engine holds the planted foot and times each painting by its foot's travel
-  (`S.WALK_PLANT`, `S.walkTiming`, entry 11). Rui still glides (no walk). Walks towards / away from the camera and
+  (`*_walk6_p*`, entries 16-17). Alan and Inês move at a steady speed (the engine fix, entry 23); the other six
+  still have the planted foot held, which makes them stop and start (entry 23 has the numbers). Each painting is
+  timed by its foot's travel (`S.WALK_PLANT`, `S.walkTiming`, entry 11). Rui still glides (no walk). Walks towards / away from the camera and
   the lantern walks are the old 2-4 frame cycles.
 - **Stills:** the 26 oil paintings repainted in the cartoon style the user chose (entry 12); 39 stills at 1536x864
   for sharp zooms (entry 15). Title screen and the five puzzle close-ups unchanged, by the user's rule.
@@ -25,6 +26,8 @@ handoff, kept for history: don't act on them without checking the code and the u
 - **Speed:** slow devices drop the warp and parallax by themselves; `?fps` shows a readout (entry 20).
 
 ### Open, in the order I'd suggest
+0. **Walks, entry 23's plan:** Step B (Alan's 12-painting side walk, "more fluidity"), then the engine fix for the
+   other six walkers once the user has seen them.
 1. **Walks towards and away from the camera** (Alan first: the player walks him up and down rooms all the time),
    then the lantern walks (Alan's `alan_lwalk*`, Inês's `ines_lwalk*`). Same method: a Gemini sheet, then the walk
    editor for the user to arrange and approve. `walk_sheet.py`'s guide is side-view stick figures: front/back
@@ -383,6 +386,36 @@ session lived in the session's scratchpad and are gone; everything that matters 
      lectern's page (they bend rather than swing: they need painted frames).
    - **Checked:** before/after crops (no seams, objects where painted); smoke intro, bench, lacthreat, quayfish,
      laundry, finale, tavernafter, fado, vascostore, twinswap pass.
+23. **Walks: the engine fix for Alan and Inês** (the user: "a big problem with how Alan walks ... it seems to be
+   getting worse"; then "both Alan and Ines are jumpy ... it might be the engine, not the actual frames").
+   - **Cause:** entry 11's foot lock (`lock: 1`) holds the whole figure on one spot while a painting is up, then
+     moves it the painting's full step at once. With 5-6 paintings a stride that is a stop-start jerk. Recorded in
+     the street (Alan 231 px tall, 30 frames a second): at full pace he stood still on 77 of 90 frames and then
+     jumped 19-48 px; Inês the same, jumps up to 44 px; Vasco's 8-pose walk 69 of 90, up to 24 px.
+     A second fault: the walk's bob and head tilt ran once per painting (`sin(phase * PI)`), so with 5 uneven
+     paintings they wobbled irregularly.
+   - **Engine** (js/engine/actor.js): a new option `bob: 'step'` puts the rise and fall (lowest a quarter of the
+     way into a step, highest three quarters) and a small head tilt on the step (`Actor.stepU()`, by ground covered,
+     contacts from `walkSteps`), whatever the number of paintings. Walk options are now per character too:
+     `CHARS[ch].walkOpt` over `WALK_DEFAULT`, under `window.WALK` (the lab). `WALK_DEFAULT` is unchanged.
+   - **Presets** (js/story/core.js): `S.WALK_FIX` = `{ lock: 0, blend: 'cut', timing: 'foot', bob: 'step' }`
+     (steady movement, a painting held as long as its foot travels, cut half way through it); `S.WALK_A` = the
+     same with even timing, for the first painted cycle. `S.WALK_ORIGINAL.alan` keeps that cycle (main.js).
+   - **In the game:** `S.WALK_FIX` for Alan and Inês, with their current paintings (main.js loadApproved). The user
+     approved this in chat after the review page (below): "Alan - Engine fix, today's 5 paintings (but would use
+     more fluidity), Inez with Engine fix looks ok". The other six walkers keep the default until they're seen.
+   - **Previews:** `?walk=fix` (the fix for everyone), `?walk=a` (Step A: Alan on his first 8-painting cycle). Walk
+     lab: a Bob select, "Engine fix" and "Step A" buttons, "first painted cycle" in the cycle list, URL options
+     `&set=a|fix &cycle=first|game &who= &lroom= &go=0 &nofeet` for recordings.
+   - **Review page** (footage from the engine, stepped 1/30 s at a time with `STEP_DT`/`HOLD`/`ADVANCE`, recorder
+     script in the session scratchpad): https://claude.ai/artifact/V3SgC1xBjoyk7txRc31ASZ
+   - **Plan agreed for what's left** (in chat): Step B, a 12-painting cycle for Alan (6 per step, the same poses for
+     both steps with the legs swapped; a guide from Muybridge's walking-man photographs instead of the stick
+     figures; checked by script for even foot travel, head lowest after contact and highest after passing, size
+     within 2%); fallback, his legs on the rig (`?rig=1`). The user wants "more fluidity" for Alan: that is Step B.
+     Then the engine fix for the other six (their review), then front/back walks.
+   - **Checked:** node --check; validate (0 errors); smoke walklab, intro, bath, ineskey, bench, rigtest pass;
+     recorded again with no preview switch: Alan 4.8 px every frame, Vasco unchanged.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
