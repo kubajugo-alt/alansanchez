@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-25); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-26); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -440,6 +440,26 @@ session lived in the session's scratchpad and are gone; everything that matters 
      swim_wave, trunks_down, trunks_snap, fling, trunks_step, dress1 and jump_crouch keep the first paint, as
      the user chose then. Asked the user which bath moments look old.
    - Checked: validate 0 errors; smoke visitcop, copbed pass.
+
+26. **Bath scene: wash5 and the swim frames out; the bath frames measured** (the user: the bath frames "look
+   inconsistent - Alan is too muscular on some, they have different skin colour, size of the body is different";
+   "remove wash 5 and both swims"; heights may differ, "since he has different poses").
+   - ch2.js `bathEgg`: the washing loop plays wash1, wash4, wash2, wash3, wash6 (wash5 out); the swim/swim2 fallback
+     (used only with no wash frames) is gone. The sprites stay in art/sprites. Smoke bath passes.
+   - **Findings** (contact sheet of 41 frames at game scale, scratchpad): two builds are mixed: lean (jacket,
+     undress3/4, fling, jump_fall, dress1, jacket_wink/grin) and bodybuilder (undress1b, 2a, 2, 2b, belt, boot,
+     unbutton, jeans, trunks_down/step/snap, jump_crouch, drip, trunks_on, dress2/3, dress_boot). Skin runs from
+     deep orange (jacket, jacket_wink) to pale (undress2). Head size (the jacket frame's head template matched at
+     scale, mirror and +-25 degrees; heads in the frame's own height units): most frames 107-112% of the jacket's
+     head (the jacket's is ~10% small); too big: jump_crouch 154%, dress_boot 125%, wash2 122%, trunks_down 121%,
+     trunks_on 119%; too small: climb 93%, undress_boot 94%, jump_rise 96%. Not measurable this way: undress2,
+     jump, wash3, dress_final. (The wash frames are drawn at WASH.h, so on-screen sizes still need checking.)
+   - **User's references:** build from **alan_jacket**, skin from **alan_undress2b**.
+   - **Plan:** (1) repaint the bodybuilder frames with the jacket's build, pose/face/clothes kept (Gemini, one pilot
+     first); (2) skin_match.py to undress2b's skin on every bath frame, after (1); (3) scale outliers by head size
+     (meta only, pose heights left as they are); (4) a review page playing the scene before/after, per-frame approval.
+   - **Blocked:** no GEMINI_API_KEY in this container (`.env` is git-ignored and was not carried over); the user
+     is to add it as an environment variable for a new session.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

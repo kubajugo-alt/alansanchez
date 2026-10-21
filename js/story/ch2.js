@@ -193,16 +193,15 @@
       sfx('splash'); p.visible = false; splash = { x: x1, y: y1, t0: performance.now() };
       await T(700);
       // standing in the tank, the water at his waist: washing, not swimming
-      const washing = ['wash1', 'wash4', 'wash2', 'wash5', 'wash3', 'wash6'].filter(has);
+      const washing = ['wash1', 'wash4', 'wash2', 'wash3', 'wash6'].filter(has); // (wash5 and the swim frames: taken out by the user, 2026-10-21)
       swimmer = { y: y1 }; p.x = x1; p.y = y1; p.visible = true; p.sink = 0.0001; // no floor shadow on the water
-      if (!washing.length) p.pose = 'swim'; else { p.h = WASH.h; p.pose = has('wsurface') ? 'wsurface' : washing[0]; }
+      p.h = WASH.h; p.pose = has('wsurface') ? 'wsurface' : washing[0];
       if (has('wsurface')) await T(900);                                  // up for air, hair pushed back
       let on = true;
       (async () => {
         let i = 0;
         while (on) {
-          if (washing.length) { p.pose = washing[i % washing.length]; if (i % washing.length === 2) sfx('splash', 0.12); await T(900); }
-          else { p.pose = i % 2 ? 'swim2' : 'swim'; await T(520); }
+          p.pose = washing[i % washing.length]; if (i % washing.length === 2) sfx('splash', 0.12); await T(900);
           i++;
         }
       })();
