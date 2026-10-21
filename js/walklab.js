@@ -13,7 +13,7 @@
 (function () {
   const S = window.S, { G } = S, E = window.Engine;
   const $ = s => document.querySelector(s);
-  const wo = () => Object.assign({ lock: 1, blend: 'cut', timing: 'foot', bob: 'frame' }, window.WALK || {}); // (actor.js WALK_DEFAULT)
+  const wo = () => Object.assign({ lock: 0, blend: 'cut', timing: 'foot', bob: 'step' }, window.WALK || {}); // (actor.js WALK_DEFAULT)
   const Q = new URLSearchParams(location.search); // for recordings: &set=a|game &cycle=first|game &who=<char> &lroom=<room> &go=0
   const LIMITS = { size: 0.04, slide: 6 }; // head width within 4% of the cycle's median; a planted foot drifts under 6 px a step
 

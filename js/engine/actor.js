@@ -28,7 +28,8 @@
   //   timing  'foot': each frame lasts as far as its planted foot travels in the art (S.WALK_PLANT); 'even': all alike
   //   bob     the body's rise and fall and the head's tilt: 'frame' once per painting (as before), 'step' once per step
   //           (lowest just after the heel lands, highest just after passing, whatever the number of paintings)
-  const WALK_DEFAULT = { lock: 1, blend: 'cut', timing: 'foot', bob: 'frame' };
+  // steady movement (no lock), approved for everyone by the user on 2026-10-21; the lock made walkers stop and start
+  const WALK_DEFAULT = { lock: 0, blend: 'cut', timing: 'foot', bob: 'step' };
   const walkOpt = a => Object.assign({}, WALK_DEFAULT, (a && a.c && a.c.walkOpt) || {}, window.WALK || {}); // a character's own (CHARS[ch].walkOpt), then the lab's
   const WALK_DISSOLVE = 0.07;
   const OCC_BAND = 0.2;         // behind furniture: how far up the figure its shade reaches (of his height)
