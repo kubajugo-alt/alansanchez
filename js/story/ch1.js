@@ -350,6 +350,14 @@
       { x: 720, y: 60, rgb: '225,228,232', power: 0.2, reach: 1400, rim: 0.3, shadow: 0.3, floor: [720, 420], height: 1200 },
     ],
     entries: { default: [545, 640, 's'], shop: [370, 600, 's'], tavern: [1075, 628, 's'], map: [545, 640, 's'] },
+    // the shop sign and the bracket lantern stir on their hooks (scripts/swing_cut.py)
+    layers: [
+      ...['', '_night'].map(n => ({ when: () => S.streetNight() === !!n, n })).flatMap(({ when, n }) => [
+        { img: 'street_sign' + n + '_under', x: 1140, y: 256, when }, { img: 'street_lantern' + n + '_under', x: 1105, y: n ? 280 : 297, when },
+        { img: 'street_sign' + n, x: 1147, y: 263, when, pivot: [1190, 266], swing: t => 1.6 * Math.sin(t * 0.8) },
+        { img: 'street_lantern' + n, x: 1112, y: n ? 287 : 304, when, pivot: [1132, n ? 287 : 304], swing: t => 1.2 * Math.sin(t * 0.9 + 0.6) },
+      ]),
+    ],
     animBack(g, t) {
       const im = G.bgImage();
       [[598, 188, 34, 62, 0], [632, 192, 38, 82, 1.3], [672, 195, 52, 70, 2.1], [726, 190, 72, 66, 0.7], [806, 168, 54, 76, 2.8], [866, 152, 54, 74, 1.9], [926, 120, 46, 86, 3.4]]
@@ -631,8 +639,16 @@
       { x: 770, y: 448, rgb: '255,190,100', kind: 'candle', seed: 7, glow: 50, ga: 0.3, power: 0.16, rim: 0, reach: 320, floor: [770, 610], height: 160, shadow: false, when: () => false }, // the couple's candle (couple retired)
     ],
     entries: { default: [140, 650, 'e'], street: [140, 650, 'e'] },
+    // the two hanging lanterns sway a little on their chains, their flames with them (scripts/swing_cut.py)
+    // (cut from the day and the night paintings; at night the left lantern is out)
+    layers: [
+      ...['', '_night'].map(n => ({ when: () => (F().ch >= 5) === !!n, n })).flatMap(({ when, n }) => [
+        { img: 'tavern_lantern_l' + n + '_under', x: 417, y: 46, when }, { img: 'tavern_lantern_r' + n + '_under', x: n ? 946 : 947, y: 56, when },
+        { img: 'tavern_lantern_l' + n, x: 427, y: 56, when, pivot: [453, 58], swing: t => 1.3 * Math.sin(t * 1.05), over: n ? null : (g, t) => FX.flame(g, t, 452, 195, 16, 1) },
+        { img: 'tavern_lantern_r' + n, x: n ? 956 : 957, y: 66, when, pivot: [985, 68], swing: t => 1.1 * Math.sin(t * 0.9 + 1.7), over: (g, t) => FX.flame(g, t, 983, 176, 17, 3) },
+      ]),
+    ],
     animBack(g, t) {
-      FX.flame(g, t, 452, 195, 16, 1); FX.flame(g, t, 983, 176, 17, 3); // the hanging lanterns
       S.windowFog(g, t, [28, 135, 50, 395], '120,130,170', 0.16); FX.glow(g, 50, 268, 16, '255,200,130', 0.22 * FX.flicker(t, 4)); // the street through the open door
     },
     anim(g, t) {

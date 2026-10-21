@@ -288,6 +288,27 @@ session lived in the session's scratchpad and are gone; everything that matters 
      page, the store's pendant lamp, the armillary sphere.
    - **Checked:** screenshots of all 20 rooms with crops at each addition (flames on their wicks, hands on the
      dials); smoke: all 38 scenes pass (run in two parts: the full list outlasts my 15-minute limit).
+22. **Moving parts cut from the paintings** (the user: "let's do all of them and deploy", then: "not the
+   pendulums", "the clocks stopped at 3:12", "also the bells... they are not being rung"). No art/bg file changes.
+   - **Story fix first:** Ferreira's clocks had ticking second hands since the polish pass (e461769): wrong, every
+     clock in the shop stopped at 03:12 (only the tide clock runs). Removed; also no second hands on the four tagged
+     clocks on Lacerda's shelf (F, B, C stopped; J.C. waiting). No pendulums, no bells.
+   - **`scripts/swing_cut.py`:** the object is found inside a box by GrabCut and saved from the ORIGINAL painting
+     (art/layers/<name>.webp); what is behind it is OpenCV-inpainted a few px beyond its outline
+     (<name>_under.webp, drawn still under it). At rest the two equal the painting; the small motions only uncover
+     the inpainted margin. Options: `chain` (a strip up to the pivot: the tavern chains, dark on a dark wall),
+     `outline` (find the object in another painting: the unlit night lantern). No Gemini: free and exact.
+   - **Engine (render.js drawLayers):** layers can `bob` (px) as well as `swing` (degrees) about `pivot`, and carry
+     an `over(g, t)` drawn with them (a flame that swings with its lantern); such rooms count as live.
+   - **In the game:** tavern: both hanging lanterns sway on their chains with their flames (day and night cuts; at
+     night the left one is out, so no flame); street: the shop sign and the bracket lantern (day and night cuts);
+     cabin: the lantern swings against the roll, flame inside; lavadouro and se_store: the pendant lamps sway;
+     cais: the moored boats bob and roll (1.5 px, 0.3 degrees).
+   - **Not done:** the map's boats (too small and stylised to separate: GrabCut found nothing), the armillary sphere
+     (turning a globe shows its other side, which a flat cut can't), the shop's newspaper corner and the museum
+     lectern's page (they bend rather than swing: they need painted frames).
+   - **Checked:** before/after crops (no seams, objects where painted); smoke intro, bench, lacthreat, quayfish,
+     laundry, finale, tavernafter, fado, vascostore, twinswap pass.
 
 ## Where things stand (session handoff, 2026-10-20)
 

@@ -39,6 +39,11 @@
       FX.birds(g, t, { y0: 80, y1: 200, n: 3, period: 15, color: 'rgba(230,232,235,0.8)', size: 11 });
       g.save(); g.globalAlpha = 0.35; g.beginPath(); g.rect(330, 470, 100, 140); g.clip(); FX.water(g, t * 0.5, 330, 470, 100, 140, '255,200,130'); g.restore(); // lamp light shivering on the wet cobbles
     },
+    // the moored boats bob and roll a little (scripts/swing_cut.py)
+    layers: [
+      { img: 'cais_boats_under', x: 692, y: 370 },
+      { img: 'cais_boats', x: 697, y: 375, pivot: [970, 560], bob: t => 1.5 * Math.sin(t * 0.9), swing: t => 0.3 * Math.sin(t * 0.9 + 0.8) },
+    ],
     animBack(g, t) {
       const im = G.bgImage();
       S.clockSeconds(g, t, [[277, 119, 34]]); // the harbour clock's second hand (its painted hour stays; the story's time is the HTML clock)
@@ -265,10 +270,12 @@
   ROOMS.cabin = {
     name: 'The cabin', bg: 'cabin',
     sway: t => Math.sin(t * 0.7) * 0.0025 + Math.sin(t * 0.31 + 1) * 0.001, // below decks, the same swell, gentler
-    layers: [{ img: 'cabin_notile', x: 0, y: 0, full: true, when: () => F().ze_saved || F().tile_held }],
+    layers: [{ img: 'cabin_notile', x: 0, y: 0, full: true, when: () => F().ze_saved || F().tile_held },
+      // the lantern swings against the roll, its flame with it (scripts/swing_cut.py)
+      { img: 'cabin_lantern_under', x: 188, y: 200 },
+      { img: 'cabin_lantern', x: 199, y: 211, pivot: [220, 211], swing: t => -2 * Math.sin(t * 0.7), over: (g, t) => FX.flame(g, t, 218, 244, 12, 4) }],
     animFg(g, t) { S.drawStrike(g, t); },
     animBack(g, t) {
-      FX.flame(g, t, 218, 244, 12, 4); // the lantern
       FX.sway(g, G.bgImage(), [738, 165, 122, 225], t * 0.44, 1.4, 0); // the oilskins swinging with the swell
       g.save(); g.beginPath(); g.arc(695, 206, 28, 0, 7); g.clip(); S.windowFog(g, t, [665, 176, 60, 60], '215,220,228', 0.2); g.restore(); // fog past the porthole
     },

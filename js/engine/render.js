@@ -104,18 +104,20 @@
     return behind === -Infinity ? -1e6 : behind + 0.01;
   }
   // Painted layers cut from clean plates: static fills for things that were
-  // taken, and moving parts (pendulums, bells) that swing about a pivot.
+  // taken, and moving parts that swing about a pivot (swing: degrees) or bob (bob: pixels down).
+  // over(g, t): drawn with the layer, in the painting's coordinates, so it moves with it (a lantern's flame)
   function drawLayers(staticOnly, ctx) {
     const g = ctx || E.g;
     for (const l of (E.room.layers || [])) {
       if (l.when && !l.when()) continue;
       const im = IMG['lay:' + l.img]; if (!im) continue;
       const w = l.w || im.width * (l.k || 1), h = l.h || im.height * (l.k || 1);
-      const ang = l.swing ? l.swing(E.time) : 0;
-      if (!ang) { g.drawImage(im, l.x, l.y, w, h); continue; }
+      const ang = l.swing ? l.swing(E.time) : 0, dy = l.bob ? l.bob(E.time) : 0;
+      if (!ang && !dy) { g.drawImage(im, l.x, l.y, w, h); if (l.over && !staticOnly) l.over(g, E.time); continue; }
       if (staticOnly) continue;
-      g.save(); g.translate(l.pivot[0], l.pivot[1]); g.rotate(ang * Math.PI / 180);
-      g.drawImage(im, l.x - l.pivot[0], l.y - l.pivot[1], w, h); g.restore();
+      const [px, py] = l.pivot || [l.x + w / 2, l.y + h];
+      g.save(); g.translate(px, py + dy); g.rotate(ang * Math.PI / 180); g.translate(-px, -py);
+      g.drawImage(im, l.x, l.y, w, h); if (l.over) l.over(g, E.time); g.restore();
     }
   }
   let last = performance.now(), last0 = performance.now(), slowT = 0, bgc = null, bgKey = '';
@@ -170,7 +172,7 @@
         if (!bgc) { bgc = document.createElement('canvas'); bgc.width = W; bgc.height = H; }
         // redrawn (and sent to the GPU) only when something in it moves or changes: a still room costs nothing
         const ls = (E.room.layers || []).filter(l => !l.when || l.when());
-        const key = E.room.id + '|' + curBg() + '|' + ls.map(l => l.img).join(','), live = !!E.room.animBack || ls.some(l => l.swing) || key !== bgKey;
+        const key = E.room.id + '|' + curBg() + '|' + ls.map(l => l.img).join(','), live = !!E.room.animBack || ls.some(l => l.swing || l.bob || l.over) || key !== bgKey;
         if (live) {
           const x = bgc.getContext('2d'), im = IMG['bg:' + curBg()];
           if (im) x.drawImage(im, 0, 0, W, H); else { x.fillStyle = '#000'; x.fillRect(0, 0, W, H); }

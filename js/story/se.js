@@ -792,6 +792,7 @@
       FX.moth(g, t, 652, 142, 30, 12, 3); // round the work lamp
     },
     animBack(g, t) { S.windowFog(g, t, [748, 115, 70, 70], '225,230,236', 0.18); FX.billow(g, G.bgImage(), [800, 260, 150, 240], t, 1.2, 9); }, // fog past the bars; the dust sheet in the draught
+    layers: [{ img: 'store_lamp_under', x: 611, y: 37 }, { img: 'store_lamp', x: 619, y: 45, pivot: [654, 45], swing: t => 0.9 * Math.sin(t * 0.6) }], // the pendant lamp in the draught (scripts/swing_cut.py)
     npcs: [{ id: 'vasco', x: 260, y: 640, dir: 'e', name: 'Dr. Vasco Teles', when: inStore, look: 'narr_look_vasco', talk: () => S.vascoIdle(), items: { any: 'alan_fail_04' } }],
     hotspots: [
       { name: 'Shelves', rect: [280, 150, 700, 370], look: 'narr_look_store' },

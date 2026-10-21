@@ -26,6 +26,8 @@
       g.save(); g.globalAlpha = 0.3; g.beginPath(); g.rect(660, 520, 150, 110); g.clip(); FX.water(g, t * 0.6, 660, 520, 150, 110, '255,215,150'); g.restore(); // the lamp on the wet floor
     },
     animFg(g, t) { S.drawSplash(g, t); },
+    // the pendant lamp sways on its cord (scripts/swing_cut.py)
+    layers: [{ img: 'lav_lamp_under', x: 683, y: 58 }, { img: 'lav_lamp', x: 691, y: 66, pivot: [730, 66], swing: t => 1.2 * Math.sin(t * 0.7) }],
     animBack(g, t) {
       const im = G.bgImage();
       [[20, 10, 95, 260, 0], [125, 30, 70, 240, 1.4], [205, 50, 60, 200, 2.3], [395, 60, 50, 170, 0.8], [280, 55, 36, 195, 1.9], [320, 95, 52, 125, 0.4], [462, 128, 54, 108, 2.9]].forEach(([x, y, w, h, ph]) => FX.sway(g, im, [x, y, w, h], t, 1.2, ph));
