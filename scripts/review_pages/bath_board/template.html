@@ -85,6 +85,7 @@ const ROOM = { floor: { x: 800, y: 650, h: 360 }, tank: { x: 1070, y: 442, h: 36
 // down over the front of the tank, spinning, flat on the stones where he climbs out, there till he steps into them
 const BX = D.boxers, BX_TO = { x: 795, y: 668 }, BX_MS = 1150;
 const bxImg = new Image(); bxImg.src = BX.src;
+const ringCv = document.createElement('canvas'); ringCv.width = 1280; ringCv.height = 720;
 const TANK_POLY = [[842, 401], [1000, 401], [1250, 409], [1280, 419], [1280, 692], [876, 692], [862, 666], [843, 640]], TANK_Y = 680;
 // Celeste's towel lies on the tank's corner until he takes it: gone from his first frame out of the water
 const TAKEN = ['alan_bn_climb', 'alan_bn_towel'];
@@ -234,8 +235,15 @@ function drawStep(i, u) {
   const f = FR[s.id], im = imgs[s.id], P = ROOM[s.place] || ROOM.floor, H = P.h, k = H / f.h;
   // mirrored about his anchor, as the game does when he faces the other way
   if (im.complete) { g.save(); g.translate(P.x, 0); if (s.flip) g.scale(-1, 1); g.drawImage(im, -f.ax * k, P.y - f.fy * k, f.w * k, f.hh * k); g.restore(); }
-  if (s.place === 'tank' || s.place === 'rim') { const wy = P.water || P.y; g.fillStyle = 'rgba(70,82,78,0.35)'; g.beginPath(); g.ellipse(P.x, wy + 2, 85, 7, 0, 0, 7); g.fill();
-    g.strokeStyle = 'rgba(200,212,210,0.2)'; g.lineWidth = 1.5; g.beginPath(); g.ellipse(P.x, wy + 1, 90, 10, 0, 0, 7); g.stroke(); }
+  if (s.place === 'tank' || s.place === 'rim') {
+    // the water ring at his waist; on the rim his arms reach past it, so there it is cut away where they are (as in the game)
+    const wy = P.water || P.y, c = ringCv.getContext('2d'); c.clearRect(0, 0, 1280, 720);
+    c.fillStyle = 'rgba(70,82,78,0.35)'; c.beginPath(); c.ellipse(P.x, wy + 2, 85, 7, 0, 0, 7); c.fill();
+    c.strokeStyle = 'rgba(200,212,210,0.2)'; c.lineWidth = 1.5; c.beginPath(); c.ellipse(P.x, wy + 1, 90, 10, 0, 0, 7); c.stroke();
+    if (s.place === 'rim' && im.complete) { const X = P.x - f.ax * k, Y = P.y - f.fy * k; c.globalCompositeOperation = 'destination-out';
+      c.drawImage(im, 0, 0, f.w * 0.4, f.hh, X, Y, f.w * 0.4 * k, f.hh * k); c.drawImage(im, f.w * 0.6, 0, f.w * 0.4, f.hh, X + f.w * 0.6 * k, Y, f.w * 0.4 * k, f.hh * k);
+      c.globalCompositeOperation = 'source-over'; }
+    g.drawImage(ringCv, 0, 0); }
   if (s.place === 'behind' && P.y < TANK_Y) { g.save(); g.beginPath(); TANK_POLY.forEach(([x, y], j) => j ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip(); g.drawImage(room, 0, 0, 1280, 720); g.restore(); }
   boxers(i, u);
 }

@@ -103,8 +103,28 @@
     g.restore();
   }
   // ripples where he swims, drawn over the cut of the swimming frames
+  // where his arms reach past the water to the rim (the push out), the ripples pass behind them: drawn on their own
+  // canvas, the painting's arms (all but its middle fifth, his body) cut out of them, then laid over the room
+  let armImg = null, rippleCv = null;
+  function armsOut(g, p, draw) {
+    const m = window.SPRITES[p.pose];
+    if (!m || p.pose !== 'alan_bn_rim') return draw(g);
+    if (!armImg || armImg.key !== p.pose) { armImg = new Image(); armImg.src = m.src; armImg.key = p.pose; }
+    if (!armImg.complete || !armImg.naturalWidth) return draw(g);
+    rippleCv = rippleCv || document.createElement('canvas'); rippleCv.width = g.canvas.width; rippleCv.height = g.canvas.height;
+    const c = rippleCv.getContext('2d'), k = p.height() / m.h, X = p.x - m.ax * k, Y = p.y - m.fy * k, W = m.w, mid = [W * 0.4, W * 0.6];
+    c.setTransform(g.getTransform()); draw(c);
+    c.globalCompositeOperation = 'destination-out';
+    c.drawImage(armImg, 0, 0, mid[0], m.hh, X, Y, mid[0] * k, m.hh * k);                                 // his right arm
+    c.drawImage(armImg, mid[1], 0, W - mid[1], m.hh, X + mid[1] * k, Y, (W - mid[1]) * k, m.hh * k);     // his left
+    c.globalCompositeOperation = 'source-over';
+    g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(rippleCv, 0, 0); g.restore();
+  }
   S.drawSwimWater = function (g, t) {
     if (!swimmer) return;
+    armsOut(g, G.player, g => S.drawRipples(g, t));
+  };
+  S.drawRipples = function (g, t) {
     const p = G.player, x = p.x, y = swimmer.y;
     g.save();
     g.fillStyle = 'rgba(70,82,78,0.35)'; g.beginPath(); g.ellipse(x, y + 2, 85, 7, 0, 0, 7); g.fill();
@@ -115,22 +135,86 @@
     }
     g.restore();
   };
+  // a splash (the user: "realistic water splashes"): a crown of droplets thrown up and out from the waterline, each on
+  // its own thrown path, drawn as a short streak along its flight with a soft dark edge (painted, not dotted); for a
+  // big one (the cannonball, s 1) a column of white water that rises and falls back, and spray; droplets that come
+  // down on the water make their own little rings; foam rings spread over the surface, flat as the water lies.
+  // S.splashAt(x, y, s): s from 0.25 (a hand slapping the water) to 1 (a man landing in it). Seeded: the same each time.
+  const SPLASH_G = 1100; // px/s², a droplet's fall at this scale
+  S.splashAt = function (x, y, s) {
+    let seed = Math.round(x * 7 + y * 13 + s * 1000);
+    const rnd = () => { seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const n = Math.round(30 + 90 * s), drops = [];
+    for (let i = 0; i < n; i++) {
+      const a = -Math.PI / 2 + (rnd() - 0.5) * Math.PI * (0.55 + 0.35 * rnd()); // mostly up, fanning out
+      const v = (180 + 520 * s) * (0.35 + 0.75 * rnd()) * (1 - 0.35 * Math.abs(Math.cos(a)));
+      const x0 = x + (rnd() - 0.5) * 50 * (0.4 + s), y0 = y + (rnd() - 0.5) * 6;
+      const vx = Math.cos(a) * v, vy = Math.sin(a) * v * 1.1, yl = y + (rnd() - 0.4) * 14; // lands a little nearer or further
+      const tl = (-vy + Math.sqrt(vy * vy + 2 * SPLASH_G * Math.max(0, yl - y0))) / SPLASH_G;
+      const big = rnd() < 0.15; // mostly fine drops, a few heavy ones
+      drops.push({ x0, y0, vx, vy, tl, r: (big ? 2.2 + 1.8 * rnd() : 0.7 + 1.3 * rnd()) * (0.6 + 0.5 * s), d: rnd() * 0.06 });
+    }
+    splash = { x, y, s, t0: performance.now(), drops };
+  };
   S.drawSplash = function (g, t) {
     S.drawShorts(g); S.drawSwimWater(g, t);
     if (!splash) return;
-    const k = (performance.now() - splash.t0) / 1400;
-    if (k > 1) { splash = null; return; }
-    g.save();
-    for (let i = 0; i < 26; i++) {
-      const a = (i / 26) * Math.PI, sp = 0.6 + (i * 37 % 10) / 14, r = 160 * sp * k;
-      const x = splash.x + Math.cos(a) * r, y = splash.y - Math.sin(a) * r * 1.4 + 260 * k * k;
-      g.fillStyle = `rgba(220,235,240,${0.8 * (1 - k)})`; g.beginPath(); g.arc(x, y, 5 + 4 * (1 - k), 0, 7); g.fill();
-    }
-    g.strokeStyle = `rgba(230,240,245,${0.7 * (1 - k)})`; g.lineWidth = 3;
+    if (!splash.drops) { const o = splash; S.splashAt(o.x, o.y, 0.8); splash.t0 = o.t0; } // the old scene's splashes
+    const sp = splash, T0 = (performance.now() - sp.t0) / 1000, s = sp.s, life = 0.9 + 0.9 * s;
+    if (T0 > life + 0.6) { splash = null; return; }
+    g.save(); g.lineCap = 'round';
+    // the surface: churned white where it went in, then foam rings spreading flat
+    const k = Math.min(1, T0 / life);
+    if (T0 < 0.5 * life) { const f = 1 - T0 / (0.5 * life); g.fillStyle = `rgba(235,242,244,${0.35 * f * (0.5 + s)})`; g.beginPath(); g.ellipse(sp.x, sp.y + 2, 30 + 60 * s * k, (30 + 60 * s * k) * 0.16, 0, 0, 7); g.fill(); }
     for (let r = 0; r < 3; r++) {
-      g.beginPath();
-      g.ellipse(splash.x, splash.y + 6, 40 + 200 * k * (1 + r * 0.4), 10 + 30 * k * (1 + r * 0.4), 0, 0, 7);
-      g.stroke();
+      const kr = Math.max(0, k - r * 0.12); if (!kr) continue;
+      const rx = (24 + 170 * s) * Math.sqrt(kr) * (1 + r * 0.25);
+      g.strokeStyle = `rgba(225,236,238,${0.55 * (1 - kr) * (0.4 + 0.6 * s)})`; g.lineWidth = 2.2 - r * 0.5;
+      g.beginPath(); g.ellipse(sp.x, sp.y + 2, rx, rx * 0.13, 0, 0, 7); g.stroke();
+    }
+    // the crown (a big splash): two sheets of water thrown up either side of where he went in, curling outwards,
+    // thin and see-through, falling back; then the column, rising out of the middle and collapsing into itself
+    if (s > 0.6 && T0 < 0.6) {
+      const u = T0 / 0.6, up = Math.sin(Math.PI * Math.min(1, u * 1.1)), a = 0.75 * (1 - u);
+      for (const side of [-1, 1]) {
+        const bx = sp.x + side * 16 * s, h = 95 * s * up, out = 55 * s * (0.4 + u);
+        const gr = g.createLinearGradient(0, sp.y, 0, sp.y - h); gr.addColorStop(0, `rgba(240,246,247,${a})`); gr.addColorStop(1, `rgba(240,246,247,${a * 0.25})`);
+        g.fillStyle = gr; g.beginPath(); g.moveTo(bx, sp.y + 3);
+        g.bezierCurveTo(bx + side * 6, sp.y - h * 0.6, bx + side * out * 0.6, sp.y - h, bx + side * out, sp.y - h * 0.85); // the outer face
+        g.bezierCurveTo(bx + side * out * 0.75, sp.y - h * 0.55, bx + side * out * 0.95, sp.y - h * 0.2, bx + side * (out + 12), sp.y + 3);
+        g.closePath(); g.fill();
+        g.strokeStyle = `rgba(80,100,105,${a * 0.5})`; g.lineWidth = 1; g.stroke();
+      }
+    }
+    if (s > 0.6 && T0 > 0.12 && T0 < 0.9) {
+      const u = (T0 - 0.12) / 0.78, h = 160 * s * Math.sin(Math.PI * Math.min(1, u * 1.1)), w = 20 * s;
+      for (let i = 0; i < 12; i++) {
+        const f = i / 11, cy = sp.y - h * f, cx = sp.x + Math.sin(i * 2.3 + u * 3) * 5 * f, rr = w * (1 - 0.5 * f) * (0.8 + 0.5 * u);
+        const gr = g.createRadialGradient(cx, cy, 0, cx, cy, rr);
+        gr.addColorStop(0, `rgba(246,250,250,${0.9 * (1 - u * 0.85)})`); gr.addColorStop(0.6, `rgba(232,242,244,${0.5 * (1 - u)})`); gr.addColorStop(1, 'rgba(225,238,240,0)');
+        g.fillStyle = gr; g.beginPath(); g.arc(cx, cy, rr, 0, 7); g.fill();
+      }
+    }
+    // spray: a soft mist over it, thinning out
+    if (T0 < 0.9) { const u = T0 / 0.9, rr = (30 + 110 * u) * (0.4 + 0.6 * s), cy = sp.y - 40 * s * (1 - u * 0.5);
+      const gr = g.createRadialGradient(sp.x, cy, 0, sp.x, cy, rr); gr.addColorStop(0, `rgba(230,238,240,${0.22 * (1 - u) * (0.3 + s)})`); gr.addColorStop(1, 'rgba(230,238,240,0)');
+      g.fillStyle = gr; g.beginPath(); g.arc(sp.x, cy, rr, 0, 7); g.fill(); }
+    // the droplets: in flight, a streak along their path; down on the water, a little ring where each landed
+    for (const d of sp.drops) {
+      const tt = T0 - d.d; if (tt <= 0) continue;
+      if (tt < d.tl) {
+        const x1 = d.x0 + d.vx * tt, y1 = d.y0 + d.vy * tt + 0.5 * SPLASH_G * tt * tt, vy = d.vy + SPLASH_G * tt;
+        const v = Math.hypot(d.vx, vy), st = 1 + Math.min(1.8, v / 500), ang = Math.atan2(vy, d.vx); // a drop, drawn out a little by its speed
+        const a = Math.min(1, 1.6 * (1 - tt / (d.tl + 0.2)));
+        g.save(); g.translate(x1, y1); g.rotate(ang);
+        g.fillStyle = `rgba(236,244,246,${0.8 * a})`; g.strokeStyle = `rgba(70,90,96,${0.3 * a})`; g.lineWidth = 0.8;
+        g.beginPath(); g.ellipse(0, 0, d.r * st, d.r, 0, 0, 7); g.fill(); if (d.r > 1.6) g.stroke();
+        if (d.r > 1.6) { g.fillStyle = `rgba(255,255,255,${0.7 * a})`; g.beginPath(); g.arc(d.r * 0.3, -d.r * 0.3, d.r * 0.35, 0, 7); g.fill(); } // its glint
+        g.restore();
+      } else if (tt < d.tl + 0.45) {
+        const u = (tt - d.tl) / 0.45, lx = d.x0 + d.vx * d.tl, ly = d.y0 + d.vy * d.tl + 0.5 * SPLASH_G * d.tl * d.tl, rx = 3 + 14 * u * (0.5 + d.r / 4);
+        g.strokeStyle = `rgba(220,232,235,${0.45 * (1 - u)})`; g.lineWidth = 1; g.beginPath(); g.ellipse(lx, ly, rx, rx * 0.2, 0, 0, 7); g.stroke();
+      }
     }
     g.restore();
   };
@@ -338,7 +422,7 @@
         if (u > 0.5) onTank = true; // coming down over the water: the tank no longer hides him
         await G.wait(16);
       }
-      sfx('splash'); splash = { x: TANK.x, y: TANK.y, t0: performance.now() }; swimmer = { y: TANK.y }; onTank = false; // in: the ring round him
+      sfx('splash'); S.splashAt(TANK.x, TANK.y, 1); swimmer = { y: TANK.y }; onTank = false; // in: the ring round him
       const s0 = performance.now(), sms = window.FAST ? 20 : 260;
       for (let u = 0; u < 1;) { u = Math.min(1, (performance.now() - s0) / sms); p.sink = 0.6 * u * u; await G.wait(16); }
       p.visible = false; p.sink = 0.0001; // (no floor shadow on the water)
@@ -348,12 +432,16 @@
       (async () => {
         let i = 0;
         const SWIM = [['alan_bn_hair', 1100, true], ['alan_bn_relax', 1300], ['alan_bn_splash', 1100, true]]; // the board's order and mirrors
-        while (on) { const [k, ms, flip] = SWIM[i % SWIM.length]; p.dir = flip ? 'w' : 'e'; p.pose = k; if (k !== 'alan_bn_relax') sfx('splash', 0.12); await T(ms); i++; }
+        while (on) {
+          const [k, ms, flip] = SWIM[i % SWIM.length]; p.dir = flip ? 'w' : 'e'; p.pose = k;
+          if (k === 'alan_bn_splash') { sfx('splash', 0.12); S.splashAt(p.x + 25, TANK.y, 0.3); } // water thrown up at his face
+          await T(ms); i++;
+        }
       })();
       await say('narr_bath');
       on = false; await T(60);
       // hands on the near rim, pushing himself up to get out (his body in the water 40 px above them)
-      p.dir = 'e'; p.x = RIM.x; p.y = RIM.y; swimmer = { y: RIM.water }; p.pose = 'alan_bn_rim'; sfx('splash', 0.3);
+      p.dir = 'e'; p.x = RIM.x; p.y = RIM.y; swimmer = { y: RIM.water }; p.pose = 'alan_bn_rim'; sfx('splash', 0.3); S.splashAt(RIM.x, RIM.water, 0.35);
       await T(1000);
       await G.fade(true);
       shocked(false); if (c) c.pose = null;

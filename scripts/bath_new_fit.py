@@ -55,7 +55,7 @@ STAND = {'alan_bn_jacket_shrug', 'alan_bn_tee_lift', 'alan_bn_tee', 'alan_bn_bel
 CUT_AT = {'c_M_reach_down': 1185, 'c_P_hair_toss': 1332}
 DESPILL = {'c_N_rim_push': 1200}
 # the shorts Canva painted between his hands (box in the export: x0, y0, x1, y1): anything there that isn't skin goes
-NOT_SKIN = {'c_N2_rim_push': (200, 1300, 660, 1545)}
+NOT_SKIN = {'c_N2_rim_push': (180, 1300, 700, 1545)}
 H_GAME = 720       # sprite px for his full standing height (alan_side)
 # the boxers Canva painted in the air over the throw: cut out as their own sprite (the game throws them, ch2.js)
 LOOSE = {'alan_bn_fling': 'alan_bn_boxers'}
@@ -69,6 +69,12 @@ def cut(name):
         x0, y0, x1, y1 = NOT_SKIN[name]; hsv = cv2.cvtColor(a[..., :3], cv2.COLOR_RGB2HSV).astype(int)
         skin = ((hsv[..., 0] <= 22) | (hsv[..., 0] >= 172)) & (hsv[..., 1] > 60) & (hsv[..., 2] > 80)
         box = np.zeros(skin.shape, bool); box[y0:y1, x0:x1] = True; a[..., 3][box & ~skin] = 0
+        strip = np.zeros(skin.shape, bool); strip[y0:y1, :] = True                          # grey-black (the string), not
+        a[..., 3][strip & (hsv[..., 1] < 60) & (hsv[..., 2] < 70)] = 0                      # his brown ink outlines
+        # ...and any small scrap left there (a strand of the drawstring): only the big pieces stay
+        n, lab, st, _ = cv2.connectedComponentsWithStats((a[..., 3] > 0).astype(np.uint8), 8)
+        for i in range(1, n):
+            if st[i, cv2.CC_STAT_AREA] < 4000 and box[lab == i].all(): a[..., 3][lab == i] = 0
     if name in DESPILL:   # a body fading into the green: no green left in it
         rgb = a[..., :3].astype(int); rgb[..., 1] = np.minimum(rgb[..., 1], np.maximum(rgb[..., 0], rgb[..., 2])); a[..., :3] = rgb
         lo = np.zeros(a.shape[:2], bool); lo[DESPILL[name]:] = True     # ...and below the chest, nothing greener than skin

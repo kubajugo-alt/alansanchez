@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-34); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-35); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -634,6 +634,24 @@ session lived in the session's scratchpad and are gone; everything that matters 
      the towel; the boxers going on mirrored. Board: places `rim` moved, `edge` added; republished (version 13).
    - Checked: Chromium with the game clock slowed for the short moves: the walk, the cannonball over the water and
      going under in the splash, the push out, sitting on the edge; no errors.
+
+35. **Bath (review): ripples behind his hands; realistic splashes** (the user: "the ripple effect should be occluded by
+   his hands"; "we need realistic water splashes").
+   - **Ripples:** in the push out his arms reach past the water to the rim, and the swim ripples (drawn over
+     everything, in `animFg`) crossed them. ch2.js `armsOut`: the ripples are drawn on their own canvas, the
+     painting's arms (all but its middle fifth, his body) cut out of it with `destination-out`, then laid over the
+     room; elsewhere they still cover the cut at his waist. The board does the same for its `rim` place. The rim
+     painting also lost the last of Canva's shorts (a drawstring strand: grey-black removed across the strip, the box
+     widened to x 180-700).
+   - **Splashes:** `S.splashAt(x, y, s)` replaces the 26 white dots on a half circle. Seeded (the same each time):
+     30-120 drops (mostly fine, a few heavy) each on its own thrown path (`SPLASH_G` 1100 px/s2), drawn as small
+     rounded drops drawn out a little by their speed, soft dark edge, a glint on the big ones; each makes a small ring
+     where it comes down; a churned white patch and foam rings spreading flat (ry = 0.13 rx); for a big one (s > 0.6:
+     the cannonball) a crown of two thin water sheets curling out either side, a column rising out of the middle and
+     collapsing (0.12-0.9 s), and spray. Used by the cannonball (s 1), the face-splashing pose in the swim (0.3), the
+     push out (0.35); the old scene's splashes go through it too (s 0.8).
+   - Checked: the game in Chromium with the splash clock stepped 110 ms a frame (crown, column, drops, rings), the
+     small splashes, the ripples behind his arms (before/after crops); no errors. Board republished (version 14).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
