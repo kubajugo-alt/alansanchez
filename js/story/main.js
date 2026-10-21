@@ -313,6 +313,18 @@
       if (D) { for (const [k, m] of Object.entries(D)) window.SPRITES[k] = m; S.DUARTE_NEW = true; }
       window.STILLS = (window.STILLS || []).concat(['../review/stills/still_duarte_bed_kiss', '../review/stills/still_duarte_bed_laugh']);
     }
+    // ?sound=new: the sound pass under review (docs/SOUND.md, js/audio.js SOUND_NEW). Three rooms lost their ambience and
+    // floor to a comment that swallowed them (the cistern, the quay, the deck); the cabin gets its own bed (timbers and
+    // the hull) in place of the deck's; the boat's planks sound like a deck; Alan's room and the tavern at night get theirs
+    if (new URLSearchParams(location.search).get('sound') === 'new') {
+      const R = S.ROOMS, set = (id, o) => { if (R[id]) Object.assign(R[id], o); };
+      set('cistern', { ambience: () => F().won ? 'cistern_calm' : 'cistern', floor: 'wet' });
+      set('cais', { ambience: 'harbour', floor: 'cobble' });
+      set('boat', { ambience: 'boat', floor: 'deck' });
+      set('cabin', { ambience: 'cabin', floor: 'deck' });
+      set('bedroom', { ambience: 'bedroom' });
+      set('tavern', { ambience: () => F().ch >= 5 ? 'tavern_night' : 'tavern' });
+    }
     // the walk lab measures the walk candidates too, approved or not: their sprites are registered (not wired in)
     if (new URLSearchParams(location.search).get('scene') === 'walklab')
       for (const c of S.REVIEW.candidates) if (c.meta && c.wire && c.wire.walkSlot != null && !window.SPRITES[c.id]) window.SPRITES[c.id] = Object.assign({ src: c.src }, c.meta);

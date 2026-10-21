@@ -359,6 +359,17 @@
       s.connect(lp); lp.connect(sfxBus); s.start(t);
     },
   };
+  // ?sound=new: the sound pass under review (docs/SOUND.md): recorded footsteps, clips started where their sound
+  // starts, a broken take left out, and the rooms' new beds and details (LOOPS / EXTRAS below). Not in the game yet.
+  const SOUND_NEW = /[?&]sound=new\b/.test(location.search);
+  // where each clip's sound actually begins (s): the silence before it is skipped, so it lands on its action
+  const LEAD = SOUND_NEW ? { beep: 0.08, broom_sweep: 0.183, cat_land: 0.334, chain_creak: 0.25, coffee_machine: 0.076, coin: 0.058, crash_wave: 0.111,
+    drawer_open: 0.223, drip_hangup: 0.062, ferry_horn: 0.435, fog_lift: 0.285, hearing_aid: 0.394, knife: 0.125, knock: 0.061, lamp_click: 0.341,
+    salt_fizz: 0.133, sheet_slap: 0.23, snore: 0.051, swifts: 0.361, tideclock_tick: 0.154, v_alan_chuckle: 0.1, v_alan_groan: 0.098, v_alan_mmm: 0.135,
+    v_alan_sigh: 0.158, v_cop_gasp: 0.056, v_cop_moan: 0.08, v_duarte_groan: 0.084, v_duarte_hum: 0.104, v_duarte_laugh: 0.088, v_ze_moan: 0.104,
+    v_ze_sigh: 0.169, water_rise_3: 0.218, yawn: 0.248 } : {};
+  const BROKEN = SOUND_NEW ? new Set(['dial_click_3']) : new Set(); // a silent take: never picked
+  const NEW_ONLY = /^(step_|dog_distant|paper_shuffle|drip_echo|stone_settle|canary|voices_window|wind_arches|amb_bedroom|bell_hum_soft|water_lap)|^dial_click_[4-7]$/;
   // Recorded effects (ElevenLabs sound generation) live in audio/sfx/*.mp3 and
   // are listed in audio/sfx/manifest.json; anything missing falls back to the
   // procedural versions above.
@@ -370,6 +381,8 @@
       const j = await r.json();
       sfxVer = Array.isArray(j) ? {} : j;
       sfxFiles = new Set(Array.isArray(j) ? j : Object.keys(j));
+      // the sound pass's recordings stay out of the game until it is approved (some fill names the game already asks for)
+      if (!SOUND_NEW) for (const n of [...sfxFiles]) if (NEW_ONLY.test(n)) sfxFiles.delete(n);
     } catch (e) { sfxFiles = new Set(); }
     if (ctx) preloadSfx();
   }
@@ -412,13 +425,14 @@
       const g = ctx.createGain(); g.gain.value = vol == null ? 1 : vol;
       let out = g;
       if (pan && ctx.createStereoPanner) { const p = ctx.createStereoPanner(); p.pan.value = Math.max(-1, Math.min(1, pan)); g.connect(p); out = p; }
-      s.connect(g); out.connect(sfxBus); s.start(); h.src = s; h.gain = g;
+      s.connect(g); out.connect(sfxBus); s.start(0, Math.min(LEAD[name] || 0, buf.duration * 0.5)); h.src = s; h.gain = g;
     });
     return h;
   }
   // takes: name, name_2, name_3... picked at random, never the same twice running
   function take(name) {
     const all = [name]; for (let i = 2; sfxFiles.has(name + '_' + i); i++) all.push(name + '_' + i);
+    if (BROKEN.size) { const ok = all.filter(n => !BROKEN.has(n)); if (ok.length) all.splice(0, all.length, ...ok); }
     if (all.length === 1) return name;
     let k; do { k = all[Math.floor(Math.random() * all.length)]; } while (k === lastTake[name] && all.length > 1);
     return (lastTake[name] = k);
@@ -480,10 +494,18 @@
       burst(t, 0.03, 'bandpass', 1500, 2, 0.04 * v);
     },
   };
+  const STEP_VOL = 0.32; // the recorded steps sit under the dialogue and the room
   // footsteps sit where the walker is: panned by x, the bus swapped for a panner node
   let stepPan = null;
   function footstep(surface, vol, x) {
-    if (!ctx || !STEPS[surface]) return;
+    if (!ctx) return;
+    // recorded steps (?sound=new): step_<surface>, its takes picked at random, a touch of pitch so no two match
+    const rec = SOUND_NEW && 'step_' + surface;
+    if (rec && sfxFiles.has(rec)) {
+      const v = (vol || 1) * STEP_VOL * (0.8 + Math.random() * 0.3), p = x == null ? 0 : Math.max(-1, Math.min(1, (x - 640) / 640)) * 0.6;
+      playFile(take(rec), v, 1 + (Math.random() * 2 - 1) * 0.06, p); return;
+    }
+    if (!STEPS[surface]) return;
     if (x != null && ctx.createStereoPanner) {
       if (!stepPan) { stepPan = ctx.createStereoPanner(); stepPan.connect(sfxBus); }
       stepPan.pan.value = Math.max(-1, Math.min(1, (x - 640) / 640)) * 0.6;
@@ -646,6 +668,27 @@
     cistern_calm: [['drip_echo', [5, 12], [0.12, 0.25], [-0.9, 0.9]]],
     night: [['owl', [60, 140], [0.08, 0.14], [-0.9, 0.9]], ['candle_flutter', [30, 70], [0.08, 0.14], [0.4, 0.8]], ['foghorn', [60, 140], [0.08, 0.14], [-0.5, 0.5]]],
   };
+  // ?sound=new: the rooms that had no bed of their own get one, and each room a few more details of its own world
+  if (SOUND_NEW) {
+    Object.assign(LOOPS, {
+      bedroom: [['amb_bedroom', 0.3]],                                            // Alan's attic: the street muffled by the window
+      cistern: [['amb_cistern', 0.4], ['torch_fire', 0.12], ['water_lap', 0.22]], // water against the drowned steps
+      tower: [['amb_tower', 0.25], ['bell_hum_soft', 0.1]],                        // the bell, never quite silent
+      tavern_night: [['amb_shop_night', 0.18]],                                   // chairs up, one lantern: the night outside the door
+    });
+    Object.assign(EXTRAS, {
+      bedroom: [['floor_creak', [25, 60], [0.12, 0.2], [-0.6, 0.6]], ['building_creak', [40, 90], [0.1, 0.16], [-0.5, 0.5]], ['tram_distant', [80, 160], [0.06, 0.1], [0.3, 0.8]],
+        ['pigeons', [45, 100], [0.08, 0.14], [0.4, 0.9]], ['church_bells_distant', [180, 320], [0.05, 0.09], [-0.6, 0.6]]],
+      tavern_night: [['candle_flutter', [20, 45], [0.08, 0.14], [0.3, 0.7]], ['building_creak', [35, 80], [0.1, 0.16], [-0.6, 0.6]], ['dog_distant', [90, 180], [0.05, 0.09], [-0.9, 0.9]]],
+      office: EXTRAS.office.concat([['paper_shuffle', [25, 60], [0.15, 0.25], [-0.5, 0.5]]]),
+    });
+    EXTRAS.street = EXTRAS.street.concat([['canary', [50, 110], [0.1, 0.18], [-0.8, 0.8]], ['voices_window', [45, 100], [0.1, 0.16], [-0.8, 0.8]]]);
+    EXTRAS.street_night = EXTRAS.street_night.concat([['voices_window', [90, 180], [0.05, 0.08], [-0.8, 0.8]]]);
+    EXTRAS.convent = EXTRAS.convent.concat([['wind_arches', [18, 40], [0.15, 0.25], [-0.8, 0.8]]]);
+    EXTRAS.night = EXTRAS.night.concat([['wind_arches', [30, 70], [0.08, 0.14], [-0.8, 0.8]], ['dog_distant', [70, 150], [0.05, 0.09], [-0.9, 0.9]]]);
+    EXTRAS.cistern = EXTRAS.cistern.concat([['drip_echo', [7, 16], [0.08, 0.16], [-0.9, 0.9], [0.85, 1.1]]]);
+    EXTRAS.harbour = EXTRAS.harbour.concat([['tram_distant', [70, 150], [0.06, 0.1], [-0.8, -0.3]]]); // the station's trams behind the quay
+  }
   let extraTimers = [];
   const rnd = (r, d) => (r ? r[0] + Math.random() * (r[1] - r[0]) : d);
   function scheduleExtra(amb, e, first) {
@@ -687,6 +730,7 @@
     antiques: [0.6, 0.09, 0.4, 0.008], cais: [0.35, 0.04, 0.6, 0.03], boat: [0.3, 0.04, 0.6, 0.02],
     cabin: [0.32, 0.08, 0.35, 0.004], cistern: [3.4, 0.3, 0.38, 0.045],
   };
+  if (SOUND_NEW) Object.assign(ACOUSTICS, { bedroom: [0.4, 0.07, 0.45, 0.006], cold_open: [0.4, 0.05, 0.6, 0.02] }); // a small attic; a night street
   const irCache = {};
   let roomVerb = null, roomWet = null, sfxSend = null;
   function impulse([decay, , bright, pre]) {

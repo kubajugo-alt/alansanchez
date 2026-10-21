@@ -741,6 +741,34 @@ session lived in the session's scratchpad and are gone; everything that matters 
      no errors. Board: https://claude.ai/artifact/Lnt7GxLaAP37ukzBXXwCAb (notes in db docs `duarte/*`).
    - To do on approval: replace the old sequence, promote the sprites, update docs/STORY.md (line ~687).
 
+41. **Sound pass (review, `?sound=new`)** (the user: "review the sound effects added to the game, and do a comprehensive
+   sound design for each room and situation (sound FX, keep the music as it is)"). Full write-up: `docs/SOUND.md`.
+   - Review found:
+     - The Cistern, Cais do Sodré and the Maria Fé's deck had their `ambience` and `floor` swallowed by a `//`
+       comment on the same line (silent rooms, no steps).
+     - The cabin played the deck's bed, though it has its own.
+     - 33 clips start late, up to 0.44 s of silence in front.
+     - `dial_click_3` is silent.
+     - Drips, settling stone, a night dog and paper shuffles were scheduled but never recorded.
+     - Footsteps were synthesised.
+     - Alan's room used the shop's bed, and the tavern at night had none.
+   - New recordings: ElevenLabs sound generation (`eleven_text_to_sound_v2`, flow safhod95hJQa6sNqOwhU, 4 variations
+     each, about 2,200 credits in all), cut and levelled by `scripts/sound_new_prep.py` into `audio/sfx`:
+     - footsteps `step_{wood,stone,cobble,tile,wet,deck}` (4 takes each);
+     - details: dog, paper, drips, stone, canary, voices at a window, wind through arches, dial clicks _4-_7;
+     - loops: `amb_bedroom` (30 s), `bell_hum_soft`, `water_lap`.
+   - Code, all behind the flag:
+     - `js/audio.js` `SOUND_NEW`: `LEAD` offsets (clips start where their sound starts), `BROKEN` takes, recorded
+       footsteps (random take, ±6% pitch, `STEP_VOL` 0.32), the new beds and details, attic and cold-open acoustics.
+     - `NEW_ONLY` keeps every new file out of the game without the flag (some fill names the game already asks for).
+     - `js/story/main.js`: the room fixes (ambience and floor for cistern/cais/boat, deck floors, the cabin's,
+       bedroom's and night tavern's beds; the calm cistern after the rite).
+   - Checked: Chromium visiting 14 rooms with and without the flag. With it, every room loads its bed and the
+     recorded steps play. Without it, unchanged: cais, boat and cistern still silent. No errors.
+     Board: https://claude.ai/artifact/EEpFmqUk8Tv7pfZU49RW3j (each room before/after, footsteps, notes in db `sound/*`).
+   - Not checked by ear (no listening here): the takes were picked by measurement (single clean step, level, the
+     steadiest loop), so some may need swapping on the user's notes.
+
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
 Much of this is out of date (Alan's and Inês's walks, the phases, the deploy steps' test scripts). Kept for the

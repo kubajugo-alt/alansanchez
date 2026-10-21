@@ -81,6 +81,7 @@ Engine state lives on `E` so the engine files can share it: `E.state` (what a sa
 | `js/morphs.js` | `python3 scripts/morphs.py framesets.json` |
 | `js/similar.js` | `python3 scripts/similar.py [THRESHOLD]` |
 | `audio/voice/manifest.json`, `audio/sfx/manifest.json`, the `?v=` hashes in `index.html` | `node scripts/build-manifest.mjs` (also the Netlify build command) |
+| `audio/sfx/step_*`, the sound pass's details and loops (`docs/SOUND.md`) | `python3 scripts/sound_new_prep.py <generations dir>` |
 | `js/lipsync.js`, `lipsync/<speaker>/<id>.json` | `RHUBARB=<binary> python3 scripts/lipsync.py --speaker <id>` (redoes only lines whose mp3 changed; Rhubarb 1.13.0) |
 | `js/faces.js`, `art/faces/` | `scripts/face_kit.py` (per character, `FACE_CHAR=<alan|vasco|ines|cop>`) |
 | `art/review/candidates.json`, `art/review/candidates/*.webp` | `python3 scripts/review_candidates.py` |
