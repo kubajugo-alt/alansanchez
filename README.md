@@ -18,7 +18,7 @@ npx serve .        # or: python3 -m http.server
 - **Inventory:** move to the bottom edge, or press **I** or the ✦ button. Click an item, then click a person or thing to use or give it. Right-click an item to examine it.
 - **Click, Space or Esc** to skip a line. The ☰ button has music, voices, save and load.
 
-It takes about two to three hours to finish. There are five chapters across fourteen locations, a cipher, a tide clock, a theft against the clock and a rite in a flooding cistern, and you can die (in the Sierra tradition). Inês and Celeste give hints if you ask them "What now?".
+It takes about two to three hours to finish. There are five chapters across nineteen locations (from the bookshop and the Alfama to the Sé cathedral's museum, cloister dig and bell tower), a cipher, a tide clock, a theft against the clock and a rite in a flooding cistern, and you can die (in the Sierra tradition). Inês and Celeste give hints if you ask them "What now?".
 
 ## The cast
 
@@ -34,6 +34,11 @@ It takes about two to three hours to finish. There are five chapters across four
 | Dona Celeste | Washerwoman of the Lavadouro, who hears everything | Blue – Commander with Grit |
 | Zé Coutinho | Fisherman, the last of the Coutinho line, and drinking | Gravel Midnight |
 | Senhor Abílio | Deaf bell-ringer of the Sé | GERALD |
+| Dr. Vasco Teles | Curator of the Sé's museum, who wears the reserve key round his neck | Jarnathan – Warm, Confident |
+| Officer Teixeira | Rui's young officer, who guards the evidence bag and later calls at the shop | Erby – Nerdy Regular Dude |
+| Duarte | Amália's guitarist | (his own voice, see `scripts/cast.json`) |
+| Senhor Lino | Barman of the Taberna | Michael Moody – Grandfatherly |
+| Washerwomen | Celeste's neighbours at the Lavadouro (Graça, Odete) | Lucinda; Abuelita de Cuento |
 
 Voice IDs are in [`scripts/cast.json`](scripts/cast.json).
 
@@ -53,22 +58,27 @@ The game is plain HTML, CSS and JavaScript with no build step.
 | `js/audio.js` | Procedural soundtrack using Web Audio (fado guitar, bells, foghorns) and voice playback |
 | `js/story/*.js` | The game: `core.js` (cast, items, helpers), `docs.js` (ledger, police file, tide card and other readable documents), `ch1.js`–`ch5.js` (rooms, hotspots and puzzles per chapter), `main.js` (intro and new game) |
 | `js/lines.js` | Every spoken line, used for both the subtitles and the voice generation |
-| `audio/voice/*.mp3` | ElevenLabs voice-over, one file per line (about 590 lines) |
+| `audio/voice/*.mp3` | ElevenLabs voice-over, one file per line (about 1,360 lines), all levelled to -21.5 LUFS |
+| `lipsync/`, `js/lipsync.js` | Mouth shapes for every voiced line, made with Rhubarb Lip Sync (`scripts/lipsync.py`) |
 | `audio/sfx/*.mp3` | ElevenLabs sound effects and recorded ambience loops (harbour, washhouse, tavern, clocks, cistern, bell tower, boat) |
 | `art/stills/`, `art/closeups/` | Painted cutscene stills and close-up inserts |
 
 ### Animation, light and sound
 
 - **Characters:**
-  - About 57 painted frames: idle variants, several talk gestures, an 8-frame profile walk, front and back walk cycles, and action poses (reaching, reading, swinging the clapper, Lacerda's lunge and terror, Inês tied and breaking free, Tomás sweeping and carrying a lantern, Amália singing).
-  - Pose changes cross-dissolve.
+  - Painted frames for every pose: idle variants, several talk gestures, front and back walk cycles, and action poses (reaching, reading, swinging the clapper, Lacerda's lunge and terror, Inês tied and breaking free, Tomás sweeping and carrying a lantern, Amália singing).
+  - **Walks:** each walking character has a side walk painted as one sheet of poses by Gemini (so the person and size stay the same from step to step), fitted by `scripts/walk_sheet.py` / `walk_sheet_cast.py`, and arranged and approved on a review page. Each painting lasts exactly as long as its planted foot travels (`S.WALK_PLANT`), and the planted foot is held still while it shows, so feet don't slide. `?scene=walklab` is a test bench for walks.
+  - **Faces:** mouth and eye frames lip-sync to the voice and blink (Alan, Inês, Vasco, Teixeira so far).
+  - A WebGL mesh warp gives breathing and sway, lit per room; pose changes cross-dissolve.
   - Feet stay pinned to the floor. Breathing only lifts and widens the upper body.
-  - The walk cycle advances by the distance actually covered, so feet don't slide.
   - Talk gestures follow the loudness of the voice-over.
   - NPCs turn to face Alan.
 - **Light:**
   - Each room defines light sources (lamps, candles, torches, a stuttering fluorescent tube, the moon behind moving clouds, Tomás's lantern).
   - The same flicker value drives the painted glow, the colour and rim light on each character, and the strength of the shadows they cast across the floor, plus a contact shadow under the feet.
+- **Depth:** rooms with a depth map slide in parallax as the player moves; furniture in front of a character blends into them with a soft edge and a little shade.
+- **Cutscenes:** painted stills (1536×864 where a sharper copy exists) with a slow pan and zoom.
+- **Speed:** a device that can't keep up turns the warp and parallax off by itself (☰ → Effects to change). Add `?fps` to the address for a frame-rate readout.
 - **Scenery:**
   - Layers cut from clean plates (`scripts/layers.py`) let objects be taken without leaving holes, and let the clock pendulum and the Drowned Bell swing.
   - Also animated: fog past the windows, laundry in the wind, gulls and birds behind the convent arches (sky masks), a breathing cat, steam, candle smoke, drips and ripples, torch embers, skittering leaves.
@@ -93,6 +103,8 @@ ELEVENLABS_API_KEY=... node scripts/generate-voices.mjs --force    # everything
 
 <details>
 <summary>Click to reveal</summary>
+
+*This walkthrough predates the Sé chapter (the museum, the cloister dig and the treasury reserve with Dr. Vasco Teles) and the visits from Teixeira and Duarte; those steps are not in it yet.*
 
 **Chapter I: The Ninth Night**
 1. **Bookshop:** play the answering machine. Take the coins from the register and the key from the sugar tin, switch on the lamp and use the key on the desk to open the drawer, then take the ledger from it. Take the magnifier from the desk.

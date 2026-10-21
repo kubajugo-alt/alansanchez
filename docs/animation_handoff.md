@@ -233,6 +233,27 @@ session lived in the session's scratchpad and are gone; everything that matters 
    No nudges, no missing frames. The steps are uneven where poses were left out (the long ones hold longer); this is
    the timing the page previewed. Approved in approvals.json; plant data in core.js. Checked: both wire in with step
    lengths; smoke intro, bath, ineskey, duarteines, bench, walklab, coldopen, semuseum, finale, rigtest pass.
+20. **Item 5 of the to-do list ("do 5"): Amália's line, speed, README.**
+   - **Amália's first hello** (`amalia_hello_2`, 13.6 s, 11.1 chars/s against her median 12.4): her pace was fine;
+     seven pauses between phrases (0.3-1.1 s, 4.3 s in all) made it long. Cut to 0.35 s each and 0.55 s for the
+     [beat] before "Lino", with 20 ms crossfades inside the silences: 11.95 s, -22.1 LUFS. Lip-sync redone
+     (lipsync.py; Rhubarb at the scratchpad path). The original is in git history (before 7a96453).
+   - **Speed:** no real phone here, and the container has no GPU (WebGL and canvas run in software), so its frame
+     rates mean nothing for a phone: 5-15 fps unthrottled, ~1 fps with the CPU slowed 4x. What it does show: a CPU
+     profile of the Lavadouro (the heaviest room) puts the game's own scripts under 1% of the time; 22% is
+     `drawImage` (pixel copying a phone's GPU does) and the rest is the browser's own work. The depth parallax re-uploads the room picture
+     each frame in rooms with moving things painted into it (`Parallax.draw(..., live)`), normal GPU work. The
+     slow-device fallback (warp and parallax off after ~4 s of slow frames) is in place. Added a readout for a real
+     device: `?fps` shows frames a second, the slowest frame and whether the effects are on (render.js). Next
+     step: the user opens the live site with `?fps` on their phone and reports the numbers per room.
+   - **README:** nineteen locations, the cast table (Vasco, Teixeira, Duarte, Lino, the washerwomen), about 1,360
+     lines levelled to -21.5 LUFS, lip-sync, the one-sheet walks and the walk lab, faces (Alan, Inês, Vasco,
+     Teixeira), warp, parallax, soft occlusion, sharper stills, the speed fallback and `?fps`. The walkthrough has a
+     note that it predates the Sé chapter and the visits (not rewritten: a verified walkthrough should come from the
+     playthrough test, to-do item 4).
+   - **Not done, needs the user's call:** small moving details (pendulums, the tower bell, the boat's lanterns) and
+     props over the furniture cuts both change what the rooms look like (layers cut from or painted over the
+     backgrounds), and the user has ruled that the game backgrounds must not change.
 
 ## Where things stand (session handoff, 2026-10-20)
 

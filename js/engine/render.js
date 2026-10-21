@@ -120,8 +120,17 @@
   }
   let last = performance.now(), last0 = performance.now(), slowT = 0, bgc = null, bgKey = '';
   let frameErr = 0;
+  // ?fps: a small readout for checking speed on a real device (frames a second over the last second, the slowest
+  // frame in it, and whether the effects are on); nothing else changes
+  const fpsEl = new URLSearchParams(location.search).has('fps') ? document.createElement('div') : null, fpsT = []; let fpsShown = 0;
+  if (fpsEl) { fpsEl.style.cssText = 'position:fixed;left:6px;bottom:6px;z-index:9999;font:12px/1.3 monospace;color:#cfe8b0;background:rgba(0,0,0,.65);padding:3px 6px;pointer-events:none'; document.body.appendChild(fpsEl); }
   function frame(now) {
     requestAnimationFrame(frame); // queued first: a throwing hook skips one frame, never the loop
+    if (fpsEl) {
+      fpsT.push(now); while (fpsT[0] < now - 1000) fpsT.shift();
+      if (now - fpsShown > 500) { fpsShown = now; let w = 0; for (let i = 1; i < fpsT.length; i++) w = Math.max(w, fpsT[i] - fpsT[i - 1]);
+        fpsEl.textContent = `${fpsT.length} fps · slowest ${w.toFixed(0)} ms · effects ${window.WARP === false ? 'off' : 'on'}${window.Parallax && Parallax.active ? ' + parallax' : ''}`; }
+    }
     if (window.HOLD) { if (!(window.ADVANCE > 0)) { last = now; return; } window.ADVANCE--; } // test recordings: step frame by frame
     // STEP_DT: fixed steps for test recordings; TIME_SCALE: the review screen's slow motion
     const dt = (window.STEP_DT || Math.min(0.05, (now - last) / 1000)) * (window.TIME_SCALE || 1);
