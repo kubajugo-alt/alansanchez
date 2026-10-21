@@ -80,7 +80,9 @@ const TANK_POLY = [[842, 401], [1000, 401], [1250, 409], [1280, 419], [1280, 692
 const TAKEN = ['alan_bn_climb', 'alan_bn_towel'];
 const takenAt = () => state.steps.findIndex(s => TAKEN.includes(s.id));
 let state = { steps: D.default.map(s => ({ ...s })), frameNotes: {}, overall: '', approved: false };
-let db = null, saveT = null, playing = false, cur = -1;
+const start = JSON.parse(JSON.stringify(state)); // the proposal, as the base when nothing is stored yet
+let db = null, saveT = null, saving = false, playing = false, cur = -1;
+let remote = null, seen = null, deferred = null; // the board as last stored (any screen); as this screen last took it; a stored change that arrived while typing
 const $ = s => document.querySelector(s), st = $('#st');
 const imgs = {}; for (const k in FR) { const im = new Image(); im.src = FR[k].src; imgs[k] = im; }
 const bg = new Image(), bg2 = new Image(); bg.src = 'f/lavadouro_smalltowel.jpg'; bg2.src = 'f/lavadouro_notowel.jpg'; bg.onload = () => draw(-1);
@@ -116,11 +118,51 @@ function render() {
   $('#apst').innerHTML = state.approved ? '<span class="ok">Approved</span> (any change clears it)' : '';
 }
 function changed(keepApproval) { if (!keepApproval) state.approved = false; clearTimeout(saveT); st.textContent = 'Saving…'; saveT = setTimeout(save, 700); }
+// every note written anywhere on a board, to tell whether a save would drop one
+const notesOf = b => [b.overall, ...Object.values(b.frameNotes || {}), ...(b.steps || []).map(x => x.note || x.text)].filter(Boolean);
 async function save() {
+  saveT = null;
   if (!db) { st.textContent = 'Not saved: this view can’t reach the page’s storage.'; return; }
-  try { await db.doc('board/bath').set({ ...state, savedAt: new Date().toISOString() }); st.textContent = 'Saved.'; }
-  catch (e) { st.textContent = 'Not saved (' + (e && e.code || 'error') + '). Your edits stay on this screen.'; }
+  saving = true;
+  try {
+    // another screen's notes that this save would replace are kept aside first (board/bath_backup), never lost
+    // another screen saved since this one last took the board: keep its changes, put only this screen's on top
+    if (remote && remote !== seen) state = merge(seen || start, state, remote);
+    const mine = new Set(notesOf(state)), lost = remote ? notesOf(remote).filter(n => !mine.has(n)) : [];
+    if (lost.length) await db.doc('board/bath_backup').set({ ...remote, replacedAt: new Date().toISOString() });
+    const body = { ...state, savedAt: new Date().toISOString() };
+    await db.doc('board/bath').set(body); remote = seen = JSON.parse(JSON.stringify(body));
+    if (!(document.activeElement && /TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName))) { render(); if (!playing) draw(0); }
+    st.textContent = 'Saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '.';
+  } catch (e) { st.textContent = 'Not saved (' + (e && e.code || 'error') + '). Your edits stay on this screen.'; }
+  saving = false;
 }
+// three-way merge: base = the board this screen started from, mine = this screen's, theirs = stored since.
+// A field this screen changed wins; any other field takes the stored value. When both screens changed the order of
+// the steps, this screen's order wins (and the stored one is kept in board/bath_backup by save()).
+function merge(base, mine, theirs) {
+  const pick = (b, m, t) => JSON.stringify(m) !== JSON.stringify(b) ? m : t;
+  const shape = x => (x.steps || []).map(s => s.gap ? 'gap' : s.id).join();
+  const fn = {}; for (const k of new Set([...Object.keys(theirs.frameNotes || {}), ...Object.keys(mine.frameNotes || {})]))
+    fn[k] = pick((base.frameNotes || {})[k], (mine.frameNotes || {})[k], (theirs.frameNotes || {})[k]);
+  let steps;
+  if (shape(mine) === shape(base) && shape(theirs) === shape(base))
+    steps = theirs.steps.map((t, i) => { const m = mine.steps[i], b = base.steps[i], o = {};
+      for (const k of new Set([...Object.keys(t), ...Object.keys(m)])) o[k] = pick(b[k], m[k], t[k]); return o; });
+  else steps = shape(mine) !== shape(base) ? mine.steps : theirs.steps;
+  return { steps, frameNotes: fn, overall: pick(base.overall || '', mine.overall || '', theirs.overall || ''), approved: !!pick(!!base.approved, !!mine.approved, !!theirs.approved) };
+}
+// a change stored from another screen: shown here, unless this screen has edits of its own still to save;
+// held back while a note is being typed, so the cards are not rebuilt under the cursor
+function adopt(d) {
+  if (saveT || saving) return;
+  if (document.activeElement && /TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName)) { deferred = d; return; }
+  deferred = null; seen = d;
+  const c = JSON.parse(JSON.stringify(d)); // this screen edits its own copy; `seen` stays as stored
+  state = { steps: c.steps, frameNotes: c.frameNotes || {}, overall: c.overall || '', approved: !!c.approved };
+  render(); if (!playing) draw(0);
+}
+document.addEventListener('focusout', () => setTimeout(() => { if (deferred) adopt(deferred); }, 0));
 document.addEventListener('input', e => {
   const t = e.target, c = t.closest('[data-i]');
   if (t.id === 'overall') { state.overall = t.value; return changed(); }
@@ -171,21 +213,28 @@ function drawStep(i) {
 async function play() {
   if (playing) return; playing = true;
   for (let i = 0; i < state.steps.length && playing; i++) {
-    cur = i; draw(i); render();
+    cur = i; draw(i); mark();
     const s = state.steps[i]; $('#cap').textContent = `${i + 1}/${state.steps.length} · ${s.gap ? 'missing frame' : FR[s.id].label}`;
     await new Promise(r => setTimeout(r, (s.hold || 900) / +$('#spd').value));
   }
-  playing = false; cur = -1; render();
+  playing = false; cur = -1; mark();
 }
+// the playing step's highlight, without rebuilding the cards (a note being typed keeps its place)
+function mark() { document.querySelectorAll('#strip [data-i]').forEach(c => c.classList.toggle('now', +c.dataset.i === cur)); }
 $('#play').onclick = play; $('#stop').onclick = () => { playing = false; };
 render(); draw(0);
 
 (async () => {
   db = window.claude ? await window.claude.use('db') : null;
   if (!db) { st.textContent = 'Edits stay on this screen only (storage not available here).'; return; }
-  try { const snap = await db.doc('board/bath').get(); const d = snap && (snap.data ? snap.data() : snap);
-    if (d && d.steps) { state = { steps: d.steps, frameNotes: d.frameNotes || {}, overall: d.overall || '', approved: !!d.approved }; render(); draw(0); st.textContent = 'Loaded your last save.'; }
-    else st.textContent = 'First proposal shown. Your changes save automatically.'; }
-  catch (e) { st.textContent = 'Could not load the saved board (' + (e && e.code || 'error') + ').'; }
+  // follow the stored board live: every open screen shows the latest notes
+  let first = true;
+  db.doc('board/bath').onSnapshot(snap => {
+    const d = snap.exists ? snap.data() : null;
+    if (!d || !d.steps) { if (first) st.textContent = 'First proposal shown. Your changes save automatically.'; first = false; return; }
+    if (snap.metadata && snap.metadata.hasPendingWrites) return; // this screen's own save, on its way
+    remote = d; adopt(d);
+    if (first) st.textContent = 'Loaded your last save.'; first = false;
+  }, e => { st.textContent = 'Lost the link to the saved board (' + (e && e.code || 'error') + '). Reload the page.'; });
 })();
 </script>

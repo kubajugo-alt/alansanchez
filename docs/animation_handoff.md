@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-29); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-30); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -533,6 +533,18 @@ session lived in the session's scratchpad and are gone; everything that matters 
      (db `board/bath`, 06:00 UTC); no notes changed.
    - Checked: preview played through in Chromium, no errors (fling, hair, splash screens); board drawn at steps 9, 10,
      12.
+
+30. **Bath board: saves merge, screens stay in step** (the user: "do the site again, something is wrong", after
+   "see my comments" found no notes on the board). Likely cause: each open copy of the board saved its whole state
+   and never read later saves, so a stale screen (the Approve at 06:00 UTC) could write over notes typed on another.
+   - template.html now follows `board/bath` live (`onSnapshot`); a stored change shows at once, or when the note being
+     typed loses focus (the cards are never rebuilt under the cursor); a save is a three-way merge (`merge(seen,
+     mine, stored)`: fields this screen changed win, the rest come from the stored board; when both screens reordered
+     the steps this screen's order wins); notes a save would still drop are first kept in `board/bath_backup`. Play
+     moves the highlight only (`mark()`), no rebuild. The status line shows the last save's time.
+   - Checked in Chromium with a stand-in store and two screens: a note typed on each at once both survive, the typing
+     screen picks up the other's note after leaving the box; clicks and taps (desktop, phone width) still work.
+     Published as version 5. Notes lost before this can't be recovered (the store keeps no history).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
