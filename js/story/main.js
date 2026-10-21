@@ -307,6 +307,12 @@
         S.BATH_TALL = true;
       }
     }
+    // ?duarte=new: Duarte's rewritten upstairs scene, for review (art/review/alan/duarte_new, visits.js S.visitGuitar); not in the game
+    if (new URLSearchParams(location.search).get('duarte') === 'new') {
+      const D = await get('art/review/alan/duarte_new/sprites.json');
+      if (D) { for (const [k, m] of Object.entries(D)) window.SPRITES[k] = m; S.DUARTE_NEW = true; }
+      window.STILLS = (window.STILLS || []).concat(['../review/stills/still_duarte_bed_kiss', '../review/stills/still_duarte_bed_laugh']);
+    }
     // the walk lab measures the walk candidates too, approved or not: their sprites are registered (not wired in)
     if (new URLSearchParams(location.search).get('scene') === 'walklab')
       for (const c of S.REVIEW.candidates) if (c.meta && c.wire && c.wire.walkSlot != null && !window.SPRITES[c.id]) window.SPRITES[c.id] = Object.assign({ src: c.src }, c.meta);

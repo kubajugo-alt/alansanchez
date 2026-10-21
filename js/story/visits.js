@@ -309,7 +309,54 @@
       await say('ines_drowning'); await say('alan_schedule'); // the river keeps a timetable
       const disc = S.discreet(); // Discreet: straight from the arrival to the afterwards
       const v = disc ? await upstairsDark('guitar') : await upstairs('guitar', [660, 645, 'w']);
-      if (!disc) { await say('guitar_room_1', 'alan_room_guitar_1');
+      if (!disc && S.DUARTE_NEW) {
+      // ?duarte=new, for review: no race and no horseplay. Duarte browses, sets the terms (no second acts; Alan has a
+      // bell to stop, so neither of them is free for one), turns a chord lesson into an excuse, and they take their
+      // time: kisses, jackets, shirts, then the bed (two paintings)
+      pairV = v;
+      const d = async (k, ms, ...lines) => { await pair('pair_duarte_' + k, ms); if (lines.length) await say(...lines); };
+      const IB = 420; // an in-between painting: held a moment, then on to the next
+      const BED_LIE = { x: 905, y: 660 }; let KNEEL_AT = null; // Alan's boots on the floor by the bed's near side
+      await d('book', 400, 'guitar_r1', 'alan_r1');
+      await d('book_ib', IB);
+      await d('terms', 300, 'guitar_r2', 'alan_r2', 'guitar_r3');
+      await d('terms_ib', IB);
+      await d('lesson', 300, 'guitar_r4', 'alan_r4', 'guitar_r5');
+      await d('lesson_ib', IB);
+      sfx('v_duarte_hum', 0.4); await d('kiss', 2600);                    // the first kiss, slow, no lines
+      await d('kiss_ib', IB);
+      sfx('cloth_jacket', 0.35);
+      await d('jackets', 300, 'guitar_r6', 'guitar_room_13', 'alan_room_guitar_15'); // his leather; Duarte's buttons
+      sfx('v_alan_mmm', 0.4); await d('kiss2', 2400);                     // jackets on the floor, a longer kiss
+      sfx('cloth_shirt', 0.35); sfx('v_duarte_laugh', 0.3); await d('tee', 900);
+      await d('shirts', 300, 'guitar_room_11', 'alan_room_guitar_11');
+      sfx('v_duarte_laugh', 0.4); await d('push', 900);                  // a push in the chest, Alan laughing backwards
+      // onto the bed: Alan lying back across it, hands behind his head; Duarte over him, then down on his knees, placed
+      // so his palms land on Alan's thighs (the lap and hands points painted into the two sprites)
+      {
+        const p = G.player, gv = G.npc('npc_guitar'), SP = window.SPRITES, L = SP.alan_dn_lie, K = SP.duarte_dn_kneel;
+        await G.fade(true);
+        p.pairWho = p.pairNpc = p.pairKey = null; p.pose = 'alan_dn_lie'; p.dir = 'e'; p.x = BED_LIE.x; p.y = BED_LIE.y;
+        const s = p.height() / L.h, lap = { x: p.x + (L.lap[0] - L.ax) * s, y: p.y + (L.lap[1] - L.fy) * s };
+        if (gv) {
+          gv.visible = true; gv.alpha = 1; gv.dir = 'e'; gv.pose = 'duarte_dn_kneel';
+          // his knees on the floor just in front of Alan's boots (so he's drawn over Alan's legs), his palms on the lap
+          for (let i = 0; i < 4; i++) { const sv = gv.height() / K.h; gv.y = Math.max(p.y + 12, lap.y - (K.hands[1] - K.fy) * sv); gv.x = lap.x - (K.hands[0] - K.ax) * sv; }
+          KNEEL_AT = { x: gv.x, y: gv.y }; gv.pose = 'duarte_dn_stand'; // standing on the same spot, then down on his knees
+          window.__kneel = { lap, hands: { x: gv.x + (K.hands[0] - K.ax) * gv.height() / K.h, y: gv.y + (K.hands[1] - K.fy) * gv.height() / K.h }, alan: [p.x, p.y], duarte: [gv.x, gv.y] };
+        }
+        sfx('bed_creak', 0.4); await G.fade(false); await T(900);
+        await say('guitar_room_9');                                       // "Relax. I know exactly how to play your instrument."
+        if (gv) { gv.crossFade && gv.crossFade(0.35); gv.pose = 'duarte_dn_kneel'; gv.x = KNEEL_AT.x; gv.y = KNEEL_AT.y; }
+        sfx('v_alan_sigh', 0.45); await T(2400);
+      }
+      await G.fade(true);
+      await G.showStill('../review/stills/still_duarte_bed_kiss', async () => { await G.fade(false); sfx('bed_creak', 0.3); await T(3200); },
+        { zoom: [1.0, 1.1], pan: [[0.5, 0.45], [0.48, 0.4]], keep: true });
+      sfx('v_duarte_laugh', 0.4);
+      await G.showStill('../review/stills/still_duarte_bed_laugh', () => G.say('narr_room_guitar_r', { offscreen: true }),
+        { cross: true, zoom: [1.04, 1.12], pan: [[0.5, 0.45], [0.55, 0.5]], keep: true });
+      } else if (!disc) { await say('guitar_room_1', 'alan_room_guitar_1');
       // the same energy from both sides: shirts off together, and a race for the bed
       pairV = v; // Duarte on the left, Alan on the right: Alan steps into the painting, Duarte stays put
       const VOX = { jackets: 'v_duarte_hum', j2: 'v_alan_mmm', u1: 'v_duarte_laugh', s2: 'v_alan_chuckle', d1: 'v_duarte_hum', d2: 'v_duarte_groan',
@@ -346,7 +393,7 @@
       }
       await G.fade(true); G.endStill();
       await afterwards('guitar_floor', [
-        [1, 'guitar_room_3'], [2], [3, 'alan_room_guitar_2'], [4],
+        [1, S.DUARTE_NEW ? 'guitar_room_3r' : 'guitar_room_3'], [2], [3, S.DUARTE_NEW ? 'alan_room_guitar_2r' : 'alan_room_guitar_2'], [4],
         // at the door: the song, written out (a keepsake)
         [async () => { await say('duarte_lyrics', 'alan_lyrics', 'duarte_lyrics2'); if (!G.has('lyrics_sheet')) { give('lyrics_sheet'); sfx('page'); } }],
       ], 'guitar_after_1');

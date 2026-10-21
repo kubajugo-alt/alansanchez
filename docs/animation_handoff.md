@@ -717,6 +717,30 @@ session lived in the session's scratchpad and are gone; everything that matters 
    five steps swapped (db 250, board version 18). The undressing in-betweens now appear once each, aligned for their
    own place. Checked: the scene's pose log in Chromium (the dressing run as above), no errors.
 
+40. **Duarte's upstairs scene rewritten (review, `?duarte=new`)** (the user: the horseplay "doesn't work with Duarte's
+   playful, nonchalant personality... slightly romantic, but with mutual agreement of no strings attached"; then: more
+   kisses standing and on the bed; Alan's T-shirt has no buttons, so he unbuttons Duarte's shirt; continue with a push,
+   Alan falling back on the bed, arms behind his head, legs apart, Duarte kneeling with his hands on Alan's thighs and
+   his head down, painted on his own). The game's scene is unchanged until approved.
+   - Script (approved): Duarte browses ("best stock"), sets the terms (no second acts; Alan has a bell to stop by
+     06:25, so neither is free for one), a chord lesson that was "the excuse", a slow kiss, jackets, a longer kiss, the
+     T-shirt, shirtless, the push, the bed, then two bed paintings (kiss; laughing, new narration) and the afterwards
+     with "Tuesdays, then? Or not. No promises." / "No promises. Bring the guitar." Lines `guitar_r1..r6`, `alan_r1/r2/r4`,
+     `narr_room_guitar_r`, `guitar_room_3r`, `alan_room_guitar_2r` (js/lines.js), voiced with the ElevenLabs connector
+     (eleven_v4, cast.json voices, take 1 in audio/voice; take 2 on the board), Rhubarb cues, manifest rebuilt.
+   - Paintings: Canva, Duarte left, Alan right, on green: 12 pair frames (6 keys, 5 in-betweens, the push; the jacket
+     frame repainted for the T-shirt; Canva refused a shirtless standing kiss three times, so there are two standing
+     kisses, not three), Alan lying, Duarte standing and kneeling (solo), two bed stills (edits of one painting).
+     Exported through `DAHYZ-SDzRE` (the design is at Canva's 100-page limit: reuse pages 3, 4, 6, 7, 22 by
+     `update_fill`). `scripts/duarte_new_fit.py` keys and fits them into `art/review/alan/duarte_new/` (pairs: Alan
+     720 px tall, anchored between his legs, Duarte's feet as px/pfy, no overlap sliding; a magenta boot recoloured;
+     `--solo` for the bed sprites, with `lap` and `hands` points); stills in `art/review/stills/still_duarte_bed_*.jpg`.
+   - Code: main.js loads the sprites and stills on `?duarte=new` (`S.DUARTE_NEW`); visits.js `S.visitGuitar` plays the
+     new sequence in that case (the pairs dissolve as rigid pairs do; Duarte kneels where his palms meet Alan's lap).
+   - Checked: `?scene=visitguitar&duarte=new` in Chromium, each step screenshotted, the hands 12 px from the lap point,
+     no errors. Board: https://claude.ai/artifact/Lnt7GxLaAP37ukzBXXwCAb (notes in db docs `duarte/*`).
+   - To do on approval: replace the old sequence, promote the sprites, update docs/STORY.md (line ~687).
+
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
 Much of this is out of date (Alan's and Inês's walks, the phases, the deploy steps' test scripts). Kept for the
