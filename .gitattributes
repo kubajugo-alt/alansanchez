@@ -3,3 +3,12 @@ art/review/candidates -export-ignore
 art/review/candidates/** -export-ignore
 art/review/candidates.json -export-ignore
 art/review/approvals.json -export-ignore
+# approved review work the game loads (2026-10-21: the bath, Duarte's scene, their stills and the taller tank)
+art/review/alan/bath_new/sprites.json -export-ignore
+art/review/alan/bath_new/sprites/** -export-ignore
+art/review/alan/duarte_new/sprites.json -export-ignore
+art/review/alan/duarte_new/sprites/** -export-ignore
+art/review/bg/lavadouro_tall_smalltowel.jpg -export-ignore
+art/review/bg/lavadouro_tall_notowel.jpg -export-ignore
+art/review/stills/still_duarte_bed_kiss.jpg -export-ignore
+art/review/stills/still_duarte_bed_laugh.jpg -export-ignore

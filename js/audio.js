@@ -359,9 +359,9 @@
       s.connect(lp); lp.connect(sfxBus); s.start(t);
     },
   };
-  // ?sound=new: the sound pass under review (docs/SOUND.md): recorded footsteps, clips started where their sound
-  // starts, a broken take left out, and the rooms' new beds and details (LOOPS / EXTRAS below). Not in the game yet.
-  const SOUND_NEW = /[?&]sound=new\b/.test(location.search);
+  // the sound pass (docs/SOUND.md), approved 2026-10-21: recorded footsteps, clips started where their sound starts, a
+  // broken take left out, and the rooms' new beds and details (LOOPS / EXTRAS below). ?sound=old for the sound before it.
+  const SOUND_NEW = !/[?&]sound=old\b/.test(location.search);
   // where each clip's sound actually begins (s): the silence before it is skipped, so it lands on its action
   const LEAD = SOUND_NEW ? { beep: 0.08, broom_sweep: 0.183, cat_land: 0.334, chain_creak: 0.25, coffee_machine: 0.076, coin: 0.058, crash_wave: 0.111,
     drawer_open: 0.223, drip_hangup: 0.062, ferry_horn: 0.435, fog_lift: 0.285, hearing_aid: 0.394, knife: 0.125, knock: 0.061, lamp_click: 0.341,
@@ -499,7 +499,7 @@
   let stepPan = null;
   function footstep(surface, vol, x) {
     if (!ctx) return;
-    // recorded steps (?sound=new): step_<surface>, its takes picked at random, a touch of pitch so no two match
+    // recorded steps: step_<surface>, its takes picked at random, a touch of pitch so no two match
     const rec = SOUND_NEW && 'step_' + surface;
     if (rec && sfxFiles.has(rec)) {
       const v = (vol || 1) * STEP_VOL * (0.8 + Math.random() * 0.3), p = x == null ? 0 : Math.max(-1, Math.min(1, (x - 640) / 640)) * 0.6;
@@ -668,7 +668,7 @@
     cistern_calm: [['drip_echo', [5, 12], [0.12, 0.25], [-0.9, 0.9]]],
     night: [['owl', [60, 140], [0.08, 0.14], [-0.9, 0.9]], ['candle_flutter', [30, 70], [0.08, 0.14], [0.4, 0.8]], ['foghorn', [60, 140], [0.08, 0.14], [-0.5, 0.5]]],
   };
-  // ?sound=new: the rooms that had no bed of their own get one, and each room a few more details of its own world
+  // the sound pass: the rooms that had no bed of their own get one, and each room a few more details of its own world
   if (SOUND_NEW) {
     Object.assign(LOOPS, {
       bedroom: [['amb_bedroom', 0.3]],                                            // Alan's attic: the street muffled by the window

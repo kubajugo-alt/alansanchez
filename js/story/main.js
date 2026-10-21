@@ -287,8 +287,8 @@
     if (new URLSearchParams(location.search).get('walk') === 'a') { window.WALK = S.WALK_A; S.CHARS.alan.frames.walk = S.WALK_ORIGINAL.alan.slice(); }
     if (new URLSearchParams(location.search).get('walk') === 'fix') window.WALK = S.WALK_FIX; // the engine fix alone, today's frames
     for (const c of Object.values(S.CHARS)) if (c.frames && c.frames.walk) S.walkTiming(c.frames); // step lengths from S.WALK_PLANT, where a cycle has them
-    // ?bath=new: the repainted bath scene, for review (art/review/alan/bath_new, ch2.js S.bathNew); not in the game
-    if (new URLSearchParams(location.search).get('bath') === 'new') {
+    // the repainted bath scene (art/review/alan/bath_new, ch2.js S.bathNew), approved 2026-10-21; ?bath=old plays the first one
+    if (new URLSearchParams(location.search).get('bath') !== 'old') {
       const B = await get('art/review/alan/bath_new/sprites.json');
       if (B) { for (const [k, m] of Object.entries(B)) window.SPRITES[k] = m; S.BATH_NEW = true; }
       // ...with the tank built taller (art/review/bg/lavadouro_tall_*.jpg: Canva's taller tank pasted into the painting,
@@ -307,16 +307,16 @@
         S.BATH_TALL = true;
       }
     }
-    // ?duarte=new: Duarte's rewritten upstairs scene, for review (art/review/alan/duarte_new, visits.js S.visitGuitar); not in the game
-    if (new URLSearchParams(location.search).get('duarte') === 'new') {
+    // Duarte's rewritten upstairs scene (art/review/alan/duarte_new, visits.js S.visitGuitar), approved 2026-10-21; ?duarte=old plays the first one
+    if (new URLSearchParams(location.search).get('duarte') !== 'old') {
       const D = await get('art/review/alan/duarte_new/sprites.json');
       if (D) { for (const [k, m] of Object.entries(D)) window.SPRITES[k] = m; S.DUARTE_NEW = true; }
       window.STILLS = (window.STILLS || []).concat(['../review/stills/still_duarte_bed_kiss', '../review/stills/still_duarte_bed_laugh']);
     }
-    // ?sound=new: the sound pass under review (docs/SOUND.md, js/audio.js SOUND_NEW). Three rooms lost their ambience and
+    // the sound pass (docs/SOUND.md, js/audio.js SOUND_NEW), approved 2026-10-21; ?sound=old for the sound before it. Three rooms lost their ambience and
     // floor to a comment that swallowed them (the cistern, the quay, the deck); the cabin gets its own bed (timbers and
     // the hull) in place of the deck's; the boat's planks sound like a deck; Alan's room and the tavern at night get theirs
-    if (new URLSearchParams(location.search).get('sound') === 'new') {
+    if (new URLSearchParams(location.search).get('sound') !== 'old') {
       const R = S.ROOMS, set = (id, o) => { if (R[id]) Object.assign(R[id], o); };
       set('cistern', { ambience: () => F().won ? 'cistern_calm' : 'cistern', floor: 'wet' });
       set('cais', { ambience: 'harbour', floor: 'cobble' });

@@ -843,7 +843,7 @@ window.LINES = {
   narr_room_guitar: ['narr', "The iron bed had survived a revolution, two floods and Alan's grandfather. It very nearly did not survive Duarte. Downstairs, Inês turned the radio up and sold three dictionaries out of spite."],
   guitar_room_3: ['guitar', "[lazy, content] Tuesdays, then?"],
   alan_room_guitar_2: ['alan', "[happy] And Fridays. I want to learn the scales."],
-  // the rewritten scene (for review, ?duarte=new): a slow, amused seduction, both agreed on no strings
+  // the rewritten scene (approved 2026-10-21; ?duarte=old for the first): a slow, amused seduction, both agreed on no strings
   guitar_r1: ['guitar', "[amused, browsing] So this is where the bookseller keeps his best stock."],
   alan_r1: ['alan', "[grinning] First editions only. Handle with care."],
   guitar_r2: ['guitar', "[easy, unhurried] Before you start writing chapters, bookseller. I don't do second acts. No breakfasts, no names on doorbells."],

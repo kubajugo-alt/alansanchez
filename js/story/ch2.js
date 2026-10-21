@@ -81,7 +81,7 @@
     g.strokeStyle = 'rgba(120,110,100,0.5)'; g.lineWidth = 1; g.strokeRect(-14, -10, 28, 20);
     g.restore();
   };
-  // the new scene (?bath=new): the boxers Canva painted over his throw, cut out (alan_bn_boxers), thrown for real from
+  // the new scene: the boxers Canva painted over his throw, cut out (alan_bn_boxers), thrown for real from
   // where they were painted: up a little past his hand, then down over the front of the tank, spinning, to land flat
   // on the stones where he'll climb out (the user: "naturally fly to the front of the tank"); there till he picks them up
   let boxersImg = null;
@@ -239,7 +239,7 @@
     p.pose = 'fluster'; await say('alan_washers_2'); p.pose = null;
   };
   S.bathEgg = async function () {
-    if (S.BATH_NEW) return S.bathNew(); // the repainted scene (?bath=new, for review)
+    if (S.BATH_NEW) return S.bathNew(); // the repainted scene (approved 2026-10-21; ?bath=old for the first)
     const p = G.player, c = G.npc('celeste'), T = ms => G.wait(window.FAST ? 20 : ms);
     if (F().bathed) return say('alan_bath_3');
     await G.busy(async () => {
@@ -344,7 +344,7 @@
       await S.laundryRemark();
     });
   };
-  // The bath repainted (2026-10-21, ?bath=new, for review): eleven Canva paintings, his build and skin from the Teixeira
+  // The bath repainted (approved 2026-10-21; ?bath=old for the first): eleven Canva paintings, his build and skin from the Teixeira
   // scene (art/review/alan/bath_new, scripts/bath_new_fit.py). He strips to his underwear in front of the tank, goes
   // round behind it (drawn waist-up at the waterline, the wall hiding the rest) and flings the underwear out over the
   // wall: the washerwomen see everything, the painting doesn't. Out again by the corner where Celeste's towel hangs,
@@ -354,7 +354,7 @@
     if (F().bathed) return say('alan_bath_3');
     S.bathTowelTaken = false; // Celeste's towel still on the tank's corner
     // behind the tank: on the floor past its far rim, the wall hiding him from the waist down (the user's board, step 9)
-    // at his full size, as in the water (the user: "not scaled down"). With the taller tank (?bath=new): its far rim at
+    // at his full size, as in the water (the user: "not scaled down"). With the taller tank: its far rim at
     // y 401-417, the water's surface from there to the near rim's inner edge at 449; in the water his waterline is
     // just short of that edge, in the middle of the surface (the tank's outline is off while he swims, as before)
     // (the user: near the tank's western end, its far rim plainly hiding him; his torso is 32 px right of the anchor;

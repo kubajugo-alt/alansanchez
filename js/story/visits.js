@@ -310,7 +310,7 @@
       const disc = S.discreet(); // Discreet: straight from the arrival to the afterwards
       const v = disc ? await upstairsDark('guitar') : await upstairs('guitar', [660, 645, 'w']);
       if (!disc && S.DUARTE_NEW) {
-      // ?duarte=new, for review: no race and no horseplay. Duarte browses, sets the terms (no second acts; Alan has a
+      // approved 2026-10-21 (?duarte=old for the first): no race and no horseplay. Duarte browses, sets the terms (no second acts; Alan has a
       // bell to stop, so neither of them is free for one), turns a chord lesson into an excuse, and they take their
       // time: kisses, jackets, shirts, then the bed (two paintings)
       pairV = v;

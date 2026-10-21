@@ -3,8 +3,8 @@
 The music is described in `docs/MUSIC.md` and is not touched here. This page covers everything else the player hears:
 room beds, the details that come and go, footsteps, room acoustics and the effects of actions.
 
-The sound pass described below is **under review**. It plays only with `?sound=new` in the address. The game is
-unchanged until it is approved; see "Putting it in the game" at the end.
+The sound pass described below was approved on 2026-10-21 and is the game's sound. `?sound=old` in the address plays
+the sound before it. The cleanup still to do (folding the flag away) is under "Putting it in the game" at the end.
 
 ## How a room sounds
 

@@ -769,6 +769,21 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Not checked by ear (no listening here): the takes were picked by measurement (single clean step, level, the
      steadiest loop), so some may need swapping on the user's notes.
 
+42. **Approved and deployed: the new bath, Duarte's rewritten scene and the sound pass** (the user: "Deploy all", and
+   asked, "Make all three default, then deploy").
+   - The three switches are now defaults: `?bath=old`, `?duarte=old` and `?sound=old` bring back the earlier versions
+     (`js/story/main.js`, `js/audio.js` `SOUND_NEW`).
+   - `.gitattributes` lets into the export only what the game loads from `art/review`:
+     - the bath and Duarte sprite sheets (`sprites.json`, `sprites/`);
+     - the two taller-tank paintings;
+     - the two Duarte bed stills.
+     The review sheets stay out.
+   - docs/STORY.md: Duarte's upstairs scene as it now plays. docs/SOUND.md: status.
+   - Checked before deploying, at default URLs in Chromium: 14 rooms (beds and recorded steps), the Duarte scene to
+     the afterwards, the bath scene's 60 poses. No errors.
+   - Still to tidy (no change to what plays): fold the flags and the room fixes into the rooms themselves
+     (docs/SOUND.md, last section), and promote the review sprites out of `art/review`.
+
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
 Much of this is out of date (Alan's and Inês's walks, the phases, the deploy steps' test scripts). Kept for the
