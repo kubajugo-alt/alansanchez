@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-33); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-34); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -612,6 +612,28 @@ session lived in the session's scratchpad and are gone; everything that matters 
    to 10 off. `scripts/bath_new_fit.py`: `SKIN_MATCH` is now every frame his bare skin shows in, shifted to the median
    of those; `CLOTHED` (the jacket frames) left out, as the leather reads as skin to the mask. After: all within 2-3 of
    the median. Board republished (version 12) with the new paintings.
+
+34. **Bath (review): natural placement - the walk round, the push out, the dive under; the user's board tweaks**
+   (the user: "walking behind the tank looks off and also getting out of the tank (pushing up) doesn't seem very
+   right"; "we also need to have the canon ball sprite actually fall into water"; "check my tweaks on the board").
+   - **Walk:** was moved right at the front of the room (y 650), so the tank's front hid his body with a foot poking
+     out below its corner. Now away up the tank's left side, (820, 650) to `WALK_TO` (790, 545) in 1 s with a step bob,
+     smaller by the room's depth, then he fades and is found behind the tank.
+   - **Push out:** the old painting had his hands 40 px below where his body ended, so with the hands on the near rim
+     his body floated mid-tank. Repainted (c_N2: palms on the ledge at waist height, elbows up; the shorts Canva added
+     between his hands removed by `NOT_SKIN`; scale 1.75 measured), placed with the palms on the near rim's top
+     (fingertips at y 461, over its edge) and his waist in the water 30 px behind (the ring at 432). Old one kept
+     as `alan_bn_rim_v1`.
+   - **The dive under:** the jump ends with his feet on the water (TANK.y), the tank's outline off from half way down
+     (`onTank`, a new switch on the occluder's `when`), then the splash, the water ring and `p.sink` from 0 to 0.6 in
+     260 ms: the engine draws him lowered and cut at his foot line, so he goes under at the waterline.
+   - **The user's board** (db version 247, approved): hair mirrored, the toss dropped, splash mirrored (swim: hair,
+     relax, splash); sitting moved to before climbing out ("position correctly on the tank edge"): now seated on the
+     front rim (`SEAT` x 910, y 615, h 360: the painting's seat on the rim's top, his legs over the front; `onTank`
+     keeps the tank from hiding him), the towel snatched off the corner beside him; then out over the rim, down,
+     the towel; the boxers going on mirrored. Board: places `rim` moved, `edge` added; republished (version 13).
+   - Checked: Chromium with the game clock slowed for the short moves: the walk, the cannonball over the water and
+     going under in the splash, the push out, sitting on the edge; no errors.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

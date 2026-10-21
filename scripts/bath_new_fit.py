@@ -21,7 +21,7 @@ FRAMES = {
     'alan_bn_towel': ('b09t_drip_towel', False), 'alan_bn_pants_on': ('c_J2_towel_step', False),
     'alan_bn_pants_up': ('c_K2_boxers_up', False),
     # round 3 (the user's board): reaching down behind the tank, pushing up on the rim to get out, two more in the water
-    'alan_bn_reach': ('c_M_reach_down', True), 'alan_bn_rim': ('c_N_rim_push', True),
+    'alan_bn_reach': ('c_M_reach_down', True), 'alan_bn_rim': ('c_N2_rim_push', True),
     'alan_bn_relax': ('c_O_relax', True), 'alan_bn_toss': ('c_P_hair_toss', True),
     # the jump in: Canva paints him in shorts whatever the prompt (and refuses a skinny-dip), so the tuck was painted in
     # black shorts and then, as an edit of that painting, the shorts recoloured to his skin, seamless (c_Q0_* the first)
@@ -32,7 +32,7 @@ FRAMES = {
     'alan_bn_tee_v1': ('b02_tee_off', False), 'alan_bn_pants_v1': ('b04u_underwear', False),
     'alan_bn_hair_v1': ('b06_hair_back', True), 'alan_bn_pants_on_v1': ('b11u_pants_in_hand', False),
     'alan_bn_jacket_shrug_v1': ('c_A_jacket_shrug', False), 'alan_bn_pants_on_v2': ('c_J_towel_step', False),
-    'alan_bn_pants_up_v1': ('c_K_boxers_up', False),
+    'alan_bn_pants_up_v1': ('c_K_boxers_up', False), 'alan_bn_rim_v1': ('c_N_rim_push', True),
 }
 # skin evened out to the other frames' median (the user: "skintone slightly darker than the rest")
 # ...and now every frame his bare skin shows in (the user: "skin colour correction might be needed": the cannonball came
@@ -44,7 +44,7 @@ SKIN_MATCH = {k for k in FRAMES if k not in CLOTHED and not k.endswith(('_v1', '
 # The waist-up frames by hand (the user: "match the size of his torso images with his actual torso when we see the
 # full body"): brow to chin measured on the fitted sprites, 56 px standing (alan_bn_towel), throw 60, hair 73, splash 55
 FIXED = {'alan_bn_hair': 1.721, 'alan_bn_jeans_half': 1.0, 'alan_bn_fling': 1.211, 'alan_bn_splash': 1.758,
-         'alan_bn_reach': 1.58, 'alan_bn_rim': 1.59, 'alan_bn_relax': 1.24, 'alan_bn_toss': 1.56}
+         'alan_bn_reach': 1.58, 'alan_bn_rim': 1.75, 'alan_bn_relax': 1.24, 'alan_bn_toss': 1.56}
 # standing upright: scaled to the first frame's full height (his height is the surest measure there; the head match
 # drifts by up to 8% on a turned or tilted head). The rest (hopping, climbing, waist-up) by the head.
 STAND = {'alan_bn_jacket_shrug', 'alan_bn_tee_lift', 'alan_bn_tee', 'alan_bn_belt', 'alan_bn_pants', 'alan_bn_towel', 'alan_bn_zip',
@@ -54,6 +54,8 @@ STAND = {'alan_bn_jacket_shrug', 'alan_bn_tee_lift', 'alan_bn_tee', 'alan_bn_bel
 # his hips (the tank hides them anyway); the hair toss came with shorts on, and he swims without
 CUT_AT = {'c_M_reach_down': 1185, 'c_P_hair_toss': 1332}
 DESPILL = {'c_N_rim_push': 1200}
+# the shorts Canva painted between his hands (box in the export: x0, y0, x1, y1): anything there that isn't skin goes
+NOT_SKIN = {'c_N2_rim_push': (200, 1300, 660, 1545)}
 H_GAME = 720       # sprite px for his full standing height (alan_side)
 # the boxers Canva painted in the air over the throw: cut out as their own sprite (the game throws them, ch2.js)
 LOOSE = {'alan_bn_fling': 'alan_bn_boxers'}
@@ -63,6 +65,10 @@ PAD = 6
 def cut(name):
     a = key_out(np.asarray(Image.open(O + name + '_export.png').convert('RGB')))
     if name in CUT_AT: a[CUT_AT[name]:, :, 3] = 0
+    if name in NOT_SKIN:
+        x0, y0, x1, y1 = NOT_SKIN[name]; hsv = cv2.cvtColor(a[..., :3], cv2.COLOR_RGB2HSV).astype(int)
+        skin = ((hsv[..., 0] <= 22) | (hsv[..., 0] >= 172)) & (hsv[..., 1] > 60) & (hsv[..., 2] > 80)
+        box = np.zeros(skin.shape, bool); box[y0:y1, x0:x1] = True; a[..., 3][box & ~skin] = 0
     if name in DESPILL:   # a body fading into the green: no green left in it
         rgb = a[..., :3].astype(int); rgb[..., 1] = np.minimum(rgb[..., 1], np.maximum(rgb[..., 0], rgb[..., 2])); a[..., :3] = rgb
         lo = np.zeros(a.shape[:2], bool); lo[DESPILL[name]:] = True     # ...and below the chest, nothing greener than skin

@@ -162,11 +162,11 @@
 },
 "alan_bn_rim": {
 "src": "f/alan_bn_rim.webp",
-"w": 235,
-"hh": 359,
+"w": 232,
+"hh": 328,
 "h": 720.0,
-"ax": 118.1,
-"fy": 352.0,
+"ax": 115.8,
+"fy": 321.0,
 "waist": true,
 "label": "In the water: pushing up on the rim to get out"
 },
@@ -373,10 +373,10 @@
 "place": "floor"
 },
 {
-"id": "alan_bn_walk",
 "hold": 900,
-"place": "floor",
-"note": "stepping forward (to go behind the tank) \u2192 \u2713 new: walking round to the back of the tank"
+"id": "alan_bn_walk",
+"note": "stepping forward (to go behind the tank) \u2192 \u2713 new: walking round to the back of the tank",
+"place": "floor"
 },
 {
 "hold": 1000,
@@ -397,15 +397,10 @@
 "place": "air"
 },
 {
+"flip": true,
 "hold": 1100,
 "id": "alan_bn_hair",
 "note": "ok",
-"place": "tank"
-},
-{
-"hold": 1100,
-"id": "alan_bn_toss",
-"note": "need more different poses \u2192 \u2713 new: tossing his wet hair",
 "place": "tank"
 },
 {
@@ -415,6 +410,7 @@
 "place": "tank"
 },
 {
+"flip": true,
 "hold": 1100,
 "id": "alan_bn_splash",
 "note": "ok",
@@ -428,21 +424,21 @@
 },
 {
 "hold": 900,
+"id": "alan_bn_sit",
+"note": "position correctly on the tank edge \u2192 \u2713 seated on the front rim, legs over the front",
+"place": "edge"
+},
+{
+"hold": 900,
 "id": "alan_bn_climb",
 "note": "ok",
 "place": "floor"
 },
 {
-"id": "alan_bn_sit",
-"hold": 900,
-"place": "corner",
-"note": "\u2713 new (we need more stages of the previous image): sitting on the corner, towel over his lap"
-},
-{
-"id": "alan_bn_stepdown",
 "hold": 800,
-"place": "corner",
-"note": "\u2713 new: stepping down off the corner, towel on"
+"id": "alan_bn_stepdown",
+"note": "\u2713 new: stepping down off the corner, towel on",
+"place": "corner"
 },
 {
 "flip": true,
@@ -459,9 +455,10 @@
 "place": "floor"
 },
 {
+"flip": true,
 "hold": 1000,
 "id": "alan_bn_pants_up",
-"note": "towel off white, he should be holding boxers, not the towel \u2192 \u2713 repainted: off-white towel, hands on the boxers",
+"note": "",
 "place": "floor"
 },
 {
