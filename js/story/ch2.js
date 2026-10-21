@@ -361,10 +361,13 @@
     // the frame's cut 40 px below the far rim, so the rim hides him from the navel down: he stands behind it)
     // h: the waist-up frames are fitted to his head size standing (scripts/bath_new_fit.py), so they are drawn at his
     // standing height in this room (360 at the tank's front): the same size of torso as when we see him whole
-    const BEHIND = S.BATH_TALL ? { x: 900, y: 440, h: 360 } : { x: 1120, y: 472, h: 360 };
+    // (the user: "the walking behind the tank alignment is still not right": he is where his walk ended, feet at y 555
+    // just behind the back wall, so his size there, 271, and his waist 0.5 of that above his feet)
+    const BEHIND = S.BATH_TALL ? { x: 900, y: 420, h: 271 } : { x: 1120, y: 472, h: 360 };
     const TANK = S.BATH_TALL ? { x: 1070, y: 442, h: 360 } : WASH;
     const RIM = { x: 1000, y: 461, water: 432 };  // the push out: palms on the near rim's top, fingers over its edge, his waist in the water behind
-    const WALK_TO = { x: 790, y: 545 };             // up the tank's left side, towards the back
+    // up the tank's left side to the depth of its back wall (on the floor at y 563), then along behind it to BEHIND
+    const WALK = [[{ x: 800, y: 560 }, 900], [{ x: BEHIND.x, y: 555 }, 700]];
     const BOXERS = { x: 795, y: 668 };
     const CORNER = { x: 805, y: 684 };
     const SEAT = { x: 910, y: 615, h: 360 };      // sitting on the front rim: the painting's seat (row 400, 100 px right of its anchor) on the rim's top, y 452              // on the tank's front-left corner (its outline stops at y 680) // where they land: just in front of where he climbs out (x 770, y 650)
@@ -391,17 +394,19 @@
       await show('alan_bn_jeans_half', 700);                             // jeans halfway down
       p.dir = 'w'; p.pose = 'alan_bn_jeans_off'; await hop(5, 4, 175); // hopping out of them
       await show('alan_bn_pants', 1000);                                 // in his underwear, a grin back
-      // off round the back of the tank: away up its left side (smaller as he goes, by the room's depth), then gone
+      // off round the back of the tank, on the floor all the way (smaller as he goes, by the room's depth): up its left
+      // side to the depth of its back wall, then along behind it, the tank hiding him from the waist down as he goes
       await show('alan_bn_walk', 0);
-      { const x0 = p.x, y0 = p.y, t0 = performance.now(), ms = window.FAST ? 40 : 1000;
+      for (const [to, ms] of WALK) {
+        const x0 = p.x, y0 = p.y, t0 = performance.now(), d = window.FAST ? 20 : ms;
         for (let u = 0; u < 1;) {
-          u = Math.min(1, (performance.now() - t0) / ms);
-          p.x = x0 + (WALK_TO.x - x0) * u; p.y = y0 + (WALK_TO.y - y0) * u - Math.abs(Math.sin(u * Math.PI * 4)) * 3; // a step bob
+          u = Math.min(1, (performance.now() - t0) / d);
+          p.x = x0 + (to.x - x0) * u; p.y = y0 + (to.y - y0) * u - Math.abs(Math.sin(u * Math.PI * 3)) * 2; // a step bob
           await G.wait(16);
-        } }
-      await p.fade(0, 0.35);
+        }
+      }
+      // where the walk ended: the waist-up paintings at his size there, their cut just under the far rim
       p.dir = 'e'; p.x = BEHIND.x; p.y = BEHIND.y; p.h = BEHIND.h; p.sink = 0.0001; p.pose = 'alan_bn_reach'; // reaching down to them
-      await p.fade(1, 0.35);
       await T(1000);
       p.pose = 'alan_bn_fling';
       await T(300);
@@ -419,6 +424,7 @@
       for (let u = 0; u < 1;) {
         u = Math.min(1, (performance.now() - j0) / J.ms);
         p.x = J.x0 + (J.x1 - J.x0) * u; p.y = J.y0 + (J.y1 - J.y0) * u * u - J.up * 4 * u * (1 - u);
+        p.h = BEHIND.h + (TANK.h - BEHIND.h) * u; // nearer as he comes over: from his size behind the tank to his size in it
         if (u > 0.5) onTank = true; // coming down over the water: the tank no longer hides him
         await G.wait(16);
       }

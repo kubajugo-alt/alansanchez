@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-35); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-36); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -652,6 +652,21 @@ session lived in the session's scratchpad and are gone; everything that matters 
      push out (0.35); the old scene's splashes go through it too (s 0.8).
    - Checked: the game in Chromium with the splash clock stepped 110 ms a frame (crown, column, drops, rings), the
      small splashes, the ripples behind his arms (before/after crops); no errors. Board republished (version 14).
+
+36. **Bath (review): the walk behind the tank lined up** (the user: "the walking behind the tank scene alignment is
+   still not right"). The walk ended small on the floor (by the room's depth), then a fade, and he came back behind
+   the tank at the front-of-room size (360): two places and two sizes for one man.
+   - Measured: his height by depth (`height()` with no `h`: 371 at y 650, 276 at 560, 218 at 500); the tank's back
+     wall meets the floor at about y 563 (front wall 240 px = 0.58 of his height there; the far rim at ~405).
+   - ch2.js: `WALK` on the floor all the way: up the tank's left side to (800, 560), then along behind it to (900, 555),
+     no fade; there the waist-up paintings take over at his size there (`BEHIND` x 900, y 420, h 271: his waist half
+     his height above his feet, just under the far rim, which hides him from about the navel down). The cannonball
+     grows from that size to his size in the water (`TANK.h`) as he comes over.
+   - main.js: the tank's occluder gets a floor edge (`base` [[843, 563], [876, 692]]: the left wall's foot): beside
+     the tank he is in front of its left wall (before, his hip was cut by it); behind it, hidden.
+   - Board: `behind` place moved to match (version 15).
+   - Checked: the walk stepped 200 ms a frame in Chromium (up the side, along behind, the reach at the same size), then
+     the throw, cannonball, sit, climb, step down; no errors.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
