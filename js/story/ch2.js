@@ -215,6 +215,7 @@
       if (washing.length && await pose('climb', 0)) { sfx('splash', 0.2); await T(1100); } // a knee up on the rim
       await G.fade(true);
       shocked(false); if (c) c.pose = null;
+      S.bathTowelTaken = true; // the towel is off the tank's corner from here
       swimmer = null; shorts = null; p.sink = 0; p.h = null; p.x = 800; p.y = 650; p.dir = 'w';
       // out of the tank and back into his clothes: trunks, jeans, boots, tee, jacket
       p.pose = has('drip') ? 'drip' : 'jacket';                           // out, dripping, jacket in front
@@ -245,8 +246,11 @@
   S.bathNew = async function () {
     const p = G.player, c = G.npc('celeste'), T = ms => G.wait(window.FAST ? 20 : ms);
     if (F().bathed) return say('alan_bath_3');
+    S.bathTowelTaken = false; // Celeste's towel still on the tank's corner
     // behind the tank: on the floor past its far rim, the wall hiding him from the waist down (the user's board, step 9)
-    const BEHIND = { x: 1120, y: 472, h: 280 };
+    // (with the taller tank, ?bath=new: its far rim at y 401, the water at 432)
+    const BEHIND = S.BATH_TALL ? { x: 1120, y: 418, h: 280 } : { x: 1120, y: 472, h: 280 };
+    const TANK = S.BATH_TALL ? { x: 1075, y: 432, h: 380 } : WASH;
     await G.busy(async () => {
       await say('alan_bath_1');
       p.dir = 'e';
@@ -281,9 +285,9 @@
       if (c) c.pose = window.SPRITES.celeste_shock ? 'celeste_shock' : null;
       await say('alan_bath_2');
       // over the rim and in
-      p.visible = false; sfx('splash'); splash = { x: WASH.x, y: WASH.y, t0: performance.now() };
+      p.visible = false; sfx('splash'); splash = { x: TANK.x, y: TANK.y, t0: performance.now() };
       await T(800);
-      swimmer = { y: WASH.y }; p.x = WASH.x; p.y = WASH.y; p.h = WASH.h; p.visible = true; p.pose = 'alan_bn_hair';
+      swimmer = { y: TANK.y }; p.x = TANK.x; p.y = TANK.y; p.h = TANK.h; p.visible = true; p.pose = 'alan_bn_hair';
       let on = true;
       (async () => {
         let i = 0;
@@ -296,6 +300,7 @@
       await G.fade(true);
       shocked(false); if (c) c.pose = null;
       // out by the corner, Celeste's towel snatched off it
+      S.bathTowelTaken = true; // the towel is off the tank's corner from here
       swimmer = null; shorts = null; p.sink = 0; p.h = null; p.x = 770; p.y = 650; p.dir = 'e'; // in front of the tank, left of its towelled corner
       p.pose = 'alan_bn_climb';
       await G.fade(false);

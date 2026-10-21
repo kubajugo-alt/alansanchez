@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-27); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-28); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -481,8 +481,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
      Celeste's shriek, Alan's line; splash; washing loop over narr_bath; fade; out at x 770 (in front of the tank: at
      880 the tank hid his legs) with the towel; celeste_bath_2; underwear in hand; the jeans, tee and jacket frames
      played as dressing; collar up; joke; laundryRemark. The old scene is untouched and still the game's.
-   - **Open:** the towel stays painted on the tank's corner after he takes it (the room paintings don't change; a
-     layer cut would be the way, the user's call); the new frames have no face kits (no lip-sync on them yet).
+   - **Open:** the towel stays painted on the tank's corner after he takes it (done in entry 28); the new frames have no face kits (no lip-sync on them yet).
    - **Review board** (the user: "a tool that will let me review the frames, order them and brief in tweaks and missing
      ones"): https://claude.ai/artifact/7q45C56o77oNXSCdqt1vzc (source scripts/review_pages/bath_board/, data.json =
      the frames and the first proposed order). Scene strip (reorder, duplicate, remove, hold ms, floor/tank, a note per
@@ -491,6 +490,32 @@ session lived in the session's scratchpad and are gone; everything that matters 
      overall, approved}`. Read it with ArtifactData get board/bath.
    - Checked: smoke bath (the old scene) passes; the new scene played through in Chromium with no errors (screens of
      the fling behind the tank and the towel by the corner checked by eye).
+
+28. **Bath (review): the board's order applied; the tank built taller; Celeste's towel smaller, then gone**
+   (the user's notes on the board, then: "make the pool higher", "apply to preview", "make the towel on the tank
+   smaller, so it matches the one alan took", "create a version without the towel for after he's taken it", "apply
+   everything to the review artifact"). Still not in the game: `?scene=bath&bath=new` and the board only.
+   - **Board round** (`a04511a6`): `S.bathNew` follows the board's 22 steps (db `board/bath`; the user's first notes
+     kept as `board/bath_v1`); new Canva frames (jacket shrug, tee lift, belt, jeans half, zip, boxers on/up under the
+     towel); the fling now behind the tank on the floor past its far rim; `alan_bn_splash` skin evened
+     (`SKIN_MATCH` in `scripts/bath_new_fit.py`). Open: washing his body (Canva refused twice, a gap on the board);
+     jacket_shrug shows a vest, not his T-shirt.
+   - **Taller tank:** Canva repainted the Lavadouro with a taller tank (`art/review/bg/lavadouro_tall_raw.png`,
+     git-ignored, like all `art/review/bg/*_raw.png`); `lavadouro_tall.jpg` is the original painting with only the
+     rectangle x>=828, y>=372 taken from it (feather 24, colour matched). **`art/bg/lavadouro.jpg` is untouched.**
+   - **Towel:** two more Canva repaints of that picture (smaller towel; no towel), aligned to it; only their
+     difference inside x 800-1050, y 392-590 (feather 8) is added to `lavadouro_tall.jpg`, so the room is identical
+     and only the towel changes: `lavadouro_tall_smalltowel.jpg`, `lavadouro_tall_notowel.jpg`.
+   - **Preview** (main.js, `?bath=new`): the room's `bg` is the small-towel picture, `bgs` preloads the other,
+     `bgFn` switches on `S.bathTowelTaken` (ch2.js: false at the scene's start, true in the fade before he climbs
+     out); `depth` stays `lavadouro_depth`; the tank's occluder outline (`y 680`) is redrawn round the taller tank.
+     `S.BATH_TALL` moves `BEHIND` to y 418 and the in-water frames (`TANK`) to y 432.
+   - **Board** (scripts/review_pages/bath_board/template.html; republished, version 3): same pictures (small towel
+     until the first `climb`/`towel` step, then none), the tank and behind places at the new heights, and the tank's
+     outline drawn over figures placed in the tank or behind it, as the game's occluder does.
+   - Checked: the preview played through in Chromium with no errors (screens: undressing, washing with the small
+     towel on the corner, out in the towel and dressed with the corner bare); the board drawn in Chromium at steps
+     9, 10, 13, 14 with no errors.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

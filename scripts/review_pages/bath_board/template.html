@@ -71,12 +71,18 @@ button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const D = JSON.parse(document.getElementById('data').textContent), FR = D.frames;
-const ROOM = { floor: { x: 800, y: 650, h: 370 }, tank: { x: 1075, y: 503, h: 380 }, behind: { x: 1120, y: 472, h: 280 } };
+// the taller tank (as in the game preview, ?bath=new): where each place stands him, and the tank's outline, which
+// hides whoever stands behind it (feet above y 680), as the game's occluder does
+const ROOM = { floor: { x: 800, y: 650, h: 370 }, tank: { x: 1075, y: 432, h: 380 }, behind: { x: 1120, y: 418, h: 280 } };
+const TANK_POLY = [[842, 401], [1000, 401], [1250, 409], [1280, 419], [1280, 692], [876, 692], [862, 666], [843, 640]], TANK_Y = 680;
+// Celeste's towel lies on the tank's corner until he takes it: gone from his first frame out of the water
+const TAKEN = ['alan_bn_climb', 'alan_bn_towel'];
+const takenAt = () => state.steps.findIndex(s => TAKEN.includes(s.id));
 let state = { steps: D.default.map(s => ({ ...s })), frameNotes: {}, overall: '', approved: false };
 let db = null, saveT = null, playing = false, cur = -1;
 const $ = s => document.querySelector(s), st = $('#st');
 const imgs = {}; for (const k in FR) { const im = new Image(); im.src = FR[k].src; imgs[k] = im; }
-const bg = new Image(); bg.src = 'f/lavadouro.jpg'; bg.onload = () => draw(-1);
+const bg = new Image(), bg2 = new Image(); bg.src = 'f/lavadouro_smalltowel.jpg'; bg2.src = 'f/lavadouro_notowel.jpg'; bg.onload = () => draw(-1);
 
 function esc(t) { return String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 function render() {
@@ -145,13 +151,15 @@ $('#approve').onclick = () => { state.approved = true; render(); changed(true); 
 const g = $('#cv').getContext('2d');
 function draw(i) {
   g.clearRect(0, 0, 1280, 720);
-  if (bg.complete && bg.naturalWidth) g.drawImage(bg, 0, 0, 1280, 720);
+  const t = takenAt(), room = t >= 0 && i >= t && bg2.complete && bg2.naturalWidth ? bg2 : bg;
+  if (room.complete && room.naturalWidth) g.drawImage(room, 0, 0, 1280, 720);
   const s = state.steps[i];
   if (!s) return;
   if (s.gap) { g.fillStyle = 'rgba(0,0,0,.6)'; g.fillRect(340, 300, 600, 120); g.fillStyle = '#ffb4a2'; g.font = '600 22px system-ui'; g.textAlign = 'center';
     g.fillText('Missing frame', 640, 345); g.fillStyle = '#fff'; g.font = '16px system-ui'; g.fillText((s.text || '(no description yet)').slice(0, 70), 640, 380); return; }
   const f = FR[s.id], im = imgs[s.id], P = ROOM[s.place] || ROOM.floor, H = P.h, k = H / f.h;
   if (im.complete) g.drawImage(im, P.x - f.ax * k, P.y - f.fy * k, f.w * k, f.hh * k);
+  if (s.place !== 'floor' && P.y < TANK_Y) { g.save(); g.beginPath(); TANK_POLY.forEach(([x, y], j) => j ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip(); g.drawImage(room, 0, 0, 1280, 720); g.restore(); }
 }
 async function play() {
   if (playing) return; playing = true;

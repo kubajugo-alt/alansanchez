@@ -291,6 +291,16 @@
     if (new URLSearchParams(location.search).get('bath') === 'new') {
       const B = await get('art/review/alan/bath_new/sprites.json');
       if (B) { for (const [k, m] of Object.entries(B)) window.SPRITES[k] = m; S.BATH_NEW = true; }
+      // ...with the tank built taller (art/review/bg/lavadouro_tall_*.jpg: Canva's taller tank pasted into the painting,
+      // the rest of the room as it was; Celeste's towel on its corner, smaller, gone once Alan has taken it):
+      // the room's picture, and the tank's outline that hides whoever is behind it
+      const R = S.ROOMS.lavadouro, occ = R && (R.occluders || []).find(o => o.y === 680);
+      if (R && occ) {
+        const T0 = '../review/bg/lavadouro_tall_smalltowel', T1 = '../review/bg/lavadouro_tall_notowel';
+        R.bg = T0; R.bgs = (R.bgs || []).concat(T1); R.bgFn = () => S.bathTowelTaken ? T1 : T0; R.depth = 'lavadouro_depth';
+        occ.polys = [[[842, 401], [1000, 401], [1250, 409], [1280, 419], [1280, 692], [876, 692], [862, 666], [843, 640]]];
+        S.BATH_TALL = true;
+      }
     }
     // the walk lab measures the walk candidates too, approved or not: their sprites are registered (not wired in)
     if (new URLSearchParams(location.search).get('scene') === 'walklab')
