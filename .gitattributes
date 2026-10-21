@@ -8,6 +8,8 @@ art/review/approvals.json -export-ignore
 art/review/alan -export-ignore
 art/review/alan/bath_new -export-ignore
 art/review/alan/duarte_new -export-ignore
+art/review/alan/bath_new/sprites -export-ignore
+art/review/alan/duarte_new/sprites -export-ignore
 art/review/bg -export-ignore
 art/review/stills -export-ignore
 art/review/alan/bath_new/sprites.json -export-ignore
