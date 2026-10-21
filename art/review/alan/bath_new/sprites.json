@@ -175,7 +175,7 @@
   "fy": 753.0,
   "top": 6.0,
   "waist": false,
-  "head_match": 0.83,
+  "head_match": 0.84,
   "head_scale": 1.01
  },
  "alan_bn_pants_up": {
@@ -259,7 +259,7 @@
   "fy": 782.0,
   "top": 6.0,
   "waist": false,
-  "head_match": 0.87,
+  "head_match": 0.86,
   "head_scale": 0.95
  },
  "alan_bn_sit": {
@@ -276,15 +276,15 @@
  },
  "alan_bn_stepdown": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_stepdown.webp",
-  "w": 315,
-  "hh": 796,
+  "w": 325,
+  "hh": 822,
   "h": 720.0,
-  "ax": 161.4,
-  "fy": 789.0,
+  "ax": 166.1,
+  "fy": 815.0,
   "top": 6.0,
   "waist": false,
   "head_match": 0.82,
-  "head_scale": 0.92
+  "head_scale": 0.89
  },
  "alan_bn_zip": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_zip.webp",

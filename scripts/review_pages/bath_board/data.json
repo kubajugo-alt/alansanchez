@@ -193,11 +193,11 @@
 "alan_bn_stepdown": {
 "label": "Out: stepping down off the corner, towel on",
 "src": "f/alan_bn_stepdown.webp",
-"w": 315,
-"hh": 796,
+"w": 325,
+"hh": 822,
 "h": 720.0,
-"ax": 161.4,
-"fy": 789.0,
+"ax": 166.1,
+"fy": 815.0,
 "waist": false
 },
 "alan_bn_towel": {

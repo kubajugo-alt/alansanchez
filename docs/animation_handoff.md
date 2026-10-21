@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-32); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-33); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -605,6 +605,13 @@ session lived in the session's scratchpad and are gone; everything that matters 
      with what was done appended. 29 steps.
    - Checked: the game played through in Chromium with no errors, the new moments captured (walk, reach, the jump,
      toss, relax, rim, sit); the board drawn at steps 9-21.
+
+33. **Bath (review): skin evened out across the scene** (the user, on the cannonball: "Ok, that works. Skin colour
+   correction might be needed"). Measured the skin (scripts/skin_match.py's mask, Lab median) on every fitted frame:
+   the cannonball came out oranger (a +3, b +4), the step down lighter (L +17), the tee lift darker (L -16), others up
+   to 10 off. `scripts/bath_new_fit.py`: `SKIN_MATCH` is now every frame his bare skin shows in, shifted to the median
+   of those; `CLOTHED` (the jacket frames) left out, as the leather reads as skin to the mask. After: all within 2-3 of
+   the median. Board republished (version 12) with the new paintings.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

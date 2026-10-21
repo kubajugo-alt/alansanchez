@@ -35,7 +35,11 @@ FRAMES = {
     'alan_bn_pants_up_v1': ('c_K_boxers_up', False),
 }
 # skin evened out to the other frames' median (the user: "skintone slightly darker than the rest")
-SKIN_MATCH = {'alan_bn_splash'}
+# ...and now every frame his bare skin shows in (the user: "skin colour correction might be needed": the cannonball came
+# out oranger, the step down lighter, the tee lift darker), all to the median of those frames. Not the jacket frames:
+# the leather is skin-coloured to the mask, so their measure is the jacket's, and his face and hands there are fine
+CLOTHED = {'alan_bn_jacket_shrug', 'alan_bn_jacket_off', 'alan_bn_dressed', 'alan_bn_jacket_shrug_v1'}
+SKIN_MATCH = {k for k in FRAMES if k not in CLOTHED and not k.endswith(('_v1', '_v2'))}
 # the head match fails here (hands over the head; bent double): the scale of a frame Canva drew the same way.
 # The waist-up frames by hand (the user: "match the size of his torso images with his actual torso when we see the
 # full body"): brow to chin measured on the fitted sprites, 56 px standing (alan_bn_towel), throw 60, hair 73, splash 55
@@ -117,7 +121,7 @@ def split_loose(canvas, k, out):
 def main():
     cuts = {k: cut(src) for k, (src, _) in FRAMES.items()}
     meds = {k: lab_median(a, skin_mask(a)) for k, a in cuts.items() if not k.endswith('_v1')}
-    target = np.median(np.array([v for k, v in meds.items() if k not in SKIN_MATCH]), axis=0)
+    target = np.median(np.array([v for k, v in meds.items() if k not in CLOTHED]), axis=0)
     for k in SKIN_MATCH:
         cuts[k] = shift(cuts[k], target - meds[k]); print(k, 'skin moved by', np.round(target - meds[k], 1))
     ref = cuts['alan_bn_jacket_off']
