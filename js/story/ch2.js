@@ -403,8 +403,7 @@
 
   // ================================================================ RELOJOARIA FERREIRA
   const lit = () => F().ferreira_lit;
-  // the dials big enough to read a second hand on: [x, y, radius] in the painting (the tide clock on the desk is left alone)
-  const FERREIRA_CLOCKS = [[424, 86, 39], [576, 94, 43], [300, 94, 31], [752, 98, 30], [968, 76, 37], [350, 172, 20], [862, 246, 30], [400, 296, 30], [510, 204, 27], [821, 178, 20]];
+  // (no second hands here: every clock in the shop stopped at 03:12, the minute he died; only the tide clock runs)
   // thin second hands, each ticking on its own beat (no two clocks in a clockmaker's shop agree)
   S.clockSeconds = function (g, t, clocks) {
     g.save(); g.lineCap = 'round';
@@ -436,7 +435,6 @@
     animBack(g, t) {
       FX.trickles(g, t, [1099, 196, 91, 256], 6, '170,190,210', 0.35); // rain on the door glass
       if (!lit()) return;
-      S.clockSeconds(g, t, FERREIRA_CLOCKS);
       FX.ripple(g, G.bgImage(), [511, 318, 28, 28], t * 2, 0.6, 0.5); // heat over the lamp chimney
       const f = 1 + 0.03 * Math.sin(t * 7.3) * Math.sin(t * 3.1);
       g.save();

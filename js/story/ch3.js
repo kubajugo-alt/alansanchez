@@ -279,7 +279,9 @@
   };
 
   // ================================================================ ANTIGUIDADES LACERDA
-  const ANTIQUE_CLOCKS = [[75, 72, 38], [389, 82, 18], [207, 134, 20], [141, 177, 19], [316, 209, 22], [442, 245, 15], [211, 284, 14], [571, 136, 28]]; // dial centres and radii (the last is the grandfather clock)
+  // the wall clocks and the grandfather clock (the last), dial centres and radii; not the four tagged clocks on the shelf
+  // (F, B and C stopped at their owners' deaths, J.C. waiting), which are left as painted
+  const ANTIQUE_CLOCKS = [[75, 72, 38], [389, 82, 18], [207, 134, 20], [141, 177, 19], [316, 209, 22], [571, 136, 28]];
   ROOMS.antiques = {
     name: 'Antiguidades Lacerda', bg: 'antiques', music: 'antiques_shop', ambience: 'clocks', floor: 'wood',
     walk: [[0, 650], [460, 555], [1280, 555], [1280, 716], [0, 716]],
