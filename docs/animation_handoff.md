@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-37); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-38); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -689,6 +689,24 @@ session lived in the session's scratchpad and are gone; everything that matters 
      "✓ in-between" on the new ones; the towel now gone from the corner from when he sits on the edge.
    - Checked: the scene played through in Chromium logging every pose and facing (62 changes, the order above, all
      55 steps), screenshots of the in-betweens in the room; the board drawn; no errors.
+
+38. **Bath (review): cross-fades between all the frames; the frames aligned one to the next** (the user: "makes sure
+   that there is a smooth crossfade between the frames. And ideally align them all so that the transition is as
+   little visible as possible"; also asked whether Google could make background-free video for scenes like this).
+   - **Cross-fade:** actor.js `crossFadeAll(dur)`: while set, every frame change of that actor dissolves over `dur`
+     (through the existing forced cross-fade, `xfNext`); ch2.js `S.bathNew` sets 0.16 s at its start and 0 at its
+     end. The board's Play dissolves 160 ms between steps too.
+   - **Alignment:** the paintings were anchored at their feet (the middle of the bottom 6%), so the body jumped up to
+     ~45 px sideways when the stance changed. `scripts/bath_new_fit.py` now anchors at the body (`body_x`: the middle
+     of the widest run at the hips, or chest for waist-up; the old one kept as `foot_ax`); then the new
+     `scripts/bath_new_align.py` (run after the fit) slides each painting to where its shape overlaps the one before it
+     most (IoU of the alpha masks at game size, mirrored as played, -90..+90 px), chained through each run of the scene
+     (`RUNS`: floor undressing, behind the tank, in the water, at the rim, dressing). A painting used twice keeps the
+     place it got first (so the five reused in-betweens fit the undressing better than the dressing). The thrown
+     boxers' offset follows the fling's anchor.
+   - Checked: onion-skin sheets of every consecutive pair before and after (the bodies now overlap, the limbs change);
+     the scene in Chromium with each step screenshotted (walk, behind the tank, the dive, the water, the rim, the
+     climb out); board Play and buttons; no errors. Board version 17.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

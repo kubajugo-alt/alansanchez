@@ -374,6 +374,8 @@
     await G.busy(async () => {
       await say('alan_bath_1');
       p.dir = 'e';
+      // every painting dissolves into the next (the user: "a smooth crossfade between the frames"); off at the end
+      p.crossFadeAll(0.16);
       // flip: the painting mirrored for this step (the user's board: "flip so he faces right/left")
       const show = async (k, ms, flip) => { p.dir = flip ? 'w' : 'e'; p.pose = k; if (ms) await T(ms); };
       const hop = async (dx, n, ms) => { for (let i = 0; i < n; i++) { p.x += dx; await T(ms); } };
@@ -501,7 +503,7 @@
       await show('alan_bn_x_jacket_arm', IB, true);                     // (played backwards: an arm in)
       await show('alan_bn_dressed', 0, true);                           // collar up
       await joke('alan_bath_3');
-      p.pose = null;
+      p.crossFadeAll(0); p.pose = null;
       F().bathed = true;
       await T(1400);
       await S.laundryRemark();

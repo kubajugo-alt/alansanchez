@@ -146,6 +146,19 @@ def split_loose(canvas, k, out):
     return Image.fromarray(a[max(0, ys.min() - PAD):ys.max() + PAD + 1, max(0, xs.min() - PAD):xs.max() + PAD + 1], 'RGBA')
 
 
+def body_x(m):
+    """the middle of his body: in each row of a band at his hips (full figure) or chest (waist-up), the middle of the
+    widest unbroken run of the painting (his body, not an arm held out or a leg stepping), their median"""
+    a = np.asarray(Image.open(m['src']))[..., 3] > 128
+    ys = np.where(a.any(1))[0]; top, H = ys.min(), ys.max() - ys.min()
+    b0, b1 = (0.45, 0.75) if m['waist'] else (0.42, 0.56)
+    xs = []
+    for y in range(int(top + b0 * H), int(top + b1 * H)):
+        r = np.concatenate([[0], a[y].astype(np.int8), [0]]); d = np.diff(r); st, en = np.where(d == 1)[0], np.where(d == -1)[0]
+        if len(st): i = int(np.argmax(en - st)); xs.append((st[i] + en[i]) / 2)
+    return float(np.median(xs))
+
+
 def main():
     cuts = {k: cut(src) for k, (src, _) in FRAMES.items()}
     meds = {k: lab_median(a, skin_mask(a)) for k, a in cuts.items() if not k.endswith('_v1')}
@@ -176,6 +189,15 @@ def main():
         out[k] = {'src': O + 'sprites/' + k + '.webp', 'w': W, 'hh': Hh, 'h': float(H_GAME), 'ax': round(ax, 1),
                   'fy': float(bot), 'top': float(ys.min()), 'waist': waist, 'head_match': round(float(v), 2), 'head_scale': round(float(s), 3)}
         print(f"{k:20s} head x{s:.2f} (match {v:.2f})  {W}x{Hh}")
+    # anchored at the body, not the feet (the user: "align them all so that the transition is as little visible as
+    # possible"): the middle of his hips (a full figure) or chest (waist-up), so one painting to the next his body
+    # stays put and only his limbs move. Thrown things painted with a frame keep their place by it.
+    for k, m in out.items():
+        if 'from' in m: continue
+        bx = body_x(m)
+        for l in out.values():
+            if l.get('from') == k: l['dx'] = round(l['dx'] - (bx - m['ax']), 1)
+        m['foot_ax'] = m['ax']; m['ax'] = round(bx, 1)
     json.dump(out, open(O + 'sprites.json', 'w'), indent=1)
 
 

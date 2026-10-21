@@ -139,6 +139,8 @@
     }
     // the next frame change dissolves over dur seconds instead of cutting (into and out of a combined sprite)
     crossFade(dur) { this.xfNext = window.FAST ? 0 : (dur || PAIR_FADE); }
+    // every frame change dissolves over dur seconds until switched off (0): a scene played as a run of paintings
+    crossFadeAll(dur) { this.xfAll = dur || 0; }
     update(dt) {
       const F = this.F;
       if (this.fadeT > 0) this.fadeT = Math.max(0, this.fadeT - dt);
@@ -481,6 +483,7 @@
         // into or out of a combined sprite, or from one pair painting to the next: a plain dissolve (pairs never morph)
         const pairs = this.prev && E.SPRITES[key] && E.SPRITES[this.prev] && E.SPRITES[key].rigid && E.SPRITES[this.prev].rigid;
         if (pairs && !(this.xfNext > 0)) this.xfNext = PAIR_STEP;
+        if (this.xfAll > 0 && !(this.xfNext > 0) && !window.FAST) this.xfNext = this.xfAll; // a scene that dissolves every change (crossFadeAll)
         const forced = this.xfNext > 0 && this.prev;
         const flat = !!(morphable && !morph);
         // into a walk and out of one: the standing frame and the stride ease over each other instead of cutting

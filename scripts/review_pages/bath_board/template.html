@@ -250,7 +250,13 @@ function drawStep(i, u) {
 async function play() {
   if (playing) return; playing = true;
   for (let i = 0; i < state.steps.length && playing; i++) {
-    cur = i; draw(i); mark();
+    cur = i; mark();
+    // a smooth cross-fade from the last painting into this one (as the game does: 160 ms)
+    { const old = document.createElement('canvas'); old.width = 1280; old.height = 720; old.getContext('2d').drawImage($('#cv'), 0, 0);
+      const t0 = performance.now(), xf = 160 / +$('#spd').value;
+      await new Promise(r => { const f = () => { const u = Math.min(1, (performance.now() - t0) / xf);
+        draw(i); g.save(); g.globalAlpha = 1 - u; g.drawImage(old, 0, 0); g.restore();
+        if (u < 1 && playing) requestAnimationFrame(f); else { draw(i); r(); } }; requestAnimationFrame(f); }); }
     const s = state.steps[i]; $('#cap').textContent = `${i + 1}/${state.steps.length} · ${s.gap ? 'missing frame' : FR[s.id].label}`;
     const ms = (s.hold || 900) / +$('#spd').value;
     if (s.id === 'alan_bn_fling') { // the throw, played out over the step
