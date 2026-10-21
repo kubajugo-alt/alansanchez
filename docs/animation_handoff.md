@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-24); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-25); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -425,6 +425,21 @@ session lived in the session's scratchpad and are gone; everything that matters 
    never stands still (Vasco 4.8 px, Lacerda 4.8, Celeste 4.1, Zé 4.9, Teixeira 3.8, Duarte 3.6, Inês 4.4); before,
    Vasco stood still on 69 of 90 frames. Smoke laundry, quayfish, lacthreat, semuseum, vascostore, visitcop,
    visitguitar, celeste, intro, walklab pass.
+
+25. **"I'm a lot after lunch, too" restored** (the user: tweaked lines and the bath repaints "don't seem to be live").
+   - **The live site was current:** its files matched `master` byte for byte (lines.js, sprites, the bath frames,
+     approvals), and Netlify sends `max-age=0, must-revalidate` for them.
+   - **The line was a regression in the code:** `alan_teixeira_sorry` was changed to "after lunch, too" by the story
+     audit (56f8df50, 18 Oct) and re-recorded (cb2370db); the round-2 commit (a67c048) wrote the old "before lunch"
+     back and dropped the recording, and the polish pass (e461769) recorded "before lunch". Restored the 18 Oct
+     text, recording (-21.7 LUFS, 64 kbps mono) and its Rhubarb cues (their `src` is that mp3's sha1), all from
+     cb2370db; js/lipsync.js rebundled (only this line changed); `build-manifest.mjs` re-run (the voice version
+     tag, and index.html's `?v=` tags, which entries 23-24 had left stale). A search of every line's history for
+     wording put back to an earlier version found only this one.
+   - **Bath frames:** no frame went back to an older picture. The 17 restyles of c0a4b0a are live; wash3,
+     swim_wave, trunks_down, trunks_snap, fling, trunks_step, dress1 and jump_crouch keep the first paint, as
+     the user chose then. Asked the user which bath moments look old.
+   - Checked: validate 0 errors; smoke visitcop, copbed pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

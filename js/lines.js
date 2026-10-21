@@ -1210,7 +1210,7 @@ window.LINES = {
   rui_back_3: ['rui', "[quietly, serious now] Alan. I've known you since you were nicking comics off your grandfather's shelves. Whatever this is, don't be a hero. Lock your door tonight."],
   alan_what_now: ['alan', "What now?"],
   rui_mother_2: ['rui', "[sighing, fond] She says the river is breathing. And that you don't eat enough."],
-  alan_teixeira_sorry: ['alan', "[calling after him, sheepish] Sorry, Teixeira. I'm a lot before lunch. Mind the third step."],
+  alan_teixeira_sorry: ['alan', "[calling after him, sheepish] Sorry, Teixeira. I'm a lot after lunch, too. Mind the third step."],
   ines_hint_paper_2: ['ines', "Take it to Rui. He gave you the key; he'll want to know what you found."],
   alan_tell_ferreira: ['alan', "I've been to Ferreira's. Every clock in the place stopped at twelve past three. All but one: a tide clock, still keeping the river's time."],
   rui_paper: ['rui', "The tide tables are in the Diário every morning. Mine's on the desk. Take it; I've read the football."],
