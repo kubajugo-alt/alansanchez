@@ -8,20 +8,30 @@ import glob, json, os, sys, numpy as np, cv2
 from PIL import Image
 sys.path.insert(0, os.path.dirname(__file__))
 from canva_restyle_fit import key_out
+from skin_match import skin_mask, lab_median, shift
 
 O = 'art/review/alan/bath_new/'
 # id -> (source, waist-up?)
 FRAMES = {
-    'alan_bn_jacket_off': ('b01_jacket_off', False), 'alan_bn_tee': ('b02_tee_off', False),
-    'alan_bn_jeans_off': ('b03u_jeans_off', False), 'alan_bn_pants': ('b04u_underwear', False),
-    'alan_bn_fling': ('b05u_fling', True), 'alan_bn_hair': ('b06_hair_back', True),
+    'alan_bn_jacket_shrug': ('c_A_jacket_shrug', False), 'alan_bn_jacket_off': ('b01_jacket_off', False),
+    'alan_bn_tee_lift': ('c_B_tee_lift', False), 'alan_bn_tee': ('c_C_tee_over', False), 'alan_bn_belt': ('c_D_belt', False),
+    'alan_bn_jeans_half': ('c_E_jeans_half', False), 'alan_bn_jeans_off': ('b03u_jeans_off', False),
+    'alan_bn_pants': ('c_F_boxers', False), 'alan_bn_fling': ('b05u_fling', True), 'alan_bn_hair': ('c_G_hair_wet', True),
     'alan_bn_splash': ('b07_splash', True), 'alan_bn_climb': ('b08t_climb_towel', False),
-    'alan_bn_towel': ('b09t_drip_towel', False), 'alan_bn_pants_on': ('b11u_pants_in_hand', False),
-    'alan_bn_dressed': ('b10_dressed', False),
+    'alan_bn_towel': ('b09t_drip_towel', False), 'alan_bn_pants_on': ('c_J_towel_step', False),
+    'alan_bn_pants_up': ('c_K_boxers_up', False), 'alan_bn_zip': ('c_L_zip', False), 'alan_bn_dressed': ('b10_dressed', False),
+    # earlier versions the user asked to change, kept for the board's library
+    'alan_bn_tee_v1': ('b02_tee_off', False), 'alan_bn_pants_v1': ('b04u_underwear', False),
+    'alan_bn_hair_v1': ('b06_hair_back', True), 'alan_bn_pants_on_v1': ('b11u_pants_in_hand', False),
 }
+# skin evened out to the other frames' median (the user: "skintone slightly darker than the rest")
+SKIN_MATCH = {'alan_bn_splash'}
+# the head match fails here (hands over the head; bent double): the scale of a frame Canva drew the same way
+FIXED = {'alan_bn_hair': 1.32, 'alan_bn_jeans_half': 1.0}
 # standing upright: scaled to the first frame's full height (his height is the surest measure there; the head match
 # drifts by up to 8% on a turned or tilted head). The rest (hopping, climbing, waist-up) by the head.
-STAND = {'alan_bn_tee', 'alan_bn_pants', 'alan_bn_towel', 'alan_bn_pants_on', 'alan_bn_dressed'}
+STAND = {'alan_bn_jacket_shrug', 'alan_bn_tee_lift', 'alan_bn_tee', 'alan_bn_belt', 'alan_bn_pants', 'alan_bn_towel', 'alan_bn_zip',
+         'alan_bn_dressed', 'alan_bn_tee_v1', 'alan_bn_pants_v1', 'alan_bn_pants_on_v1'}
 H_GAME = 720       # sprite px for his full standing height (alan_side)
 PAD = 6
 
@@ -56,6 +66,10 @@ def head_scale(ref_head, a):
 
 def main():
     cuts = {k: cut(src) for k, (src, _) in FRAMES.items()}
+    meds = {k: lab_median(a, skin_mask(a)) for k, a in cuts.items() if not k.endswith('_v1')}
+    target = np.median(np.array([v for k, v in meds.items() if k not in SKIN_MATCH]), axis=0)
+    for k in SKIN_MATCH:
+        cuts[k] = shift(cuts[k], target - meds[k]); print(k, 'skin moved by', np.round(target - meds[k], 1))
     ref = cuts['alan_bn_jacket_off']
     hh = int(ref.shape[0] * 0.15); hx0 = int(ref.shape[1] * 0.25)   # his head: the top 15% of the standing frame
     ref_head = gray(ref)[0:hh, hx0:hx0 + int(ref.shape[1] * 0.6)]
@@ -65,7 +79,7 @@ def main():
     for f in glob.glob(O + 'sprites/*.webp'): os.remove(f)
     for k, (src, waist) in FRAMES.items():
         a = cuts[k]
-        v, s = (1.0, 1.0) if k == 'alan_bn_jacket_off' else (0.0, a.shape[0] / ref.shape[0]) if k in STAND else head_scale(ref_head, a)
+        v, s = (1.0, 1.0) if k == 'alan_bn_jacket_off' else (0.0, a.shape[0] / ref.shape[0]) if k in STAND else (0.0, FIXED[k]) if k in FIXED else head_scale(ref_head, a)
         f = base / s
         im = Image.fromarray(a, 'RGBA').resize((max(1, round(a.shape[1] * f)), max(1, round(a.shape[0] * f))), Image.LANCZOS)
         W, Hh = im.width + 2 * PAD, im.height + 2 * PAD

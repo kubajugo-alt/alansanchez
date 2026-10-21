@@ -1,4 +1,16 @@
 {
+ "alan_bn_jacket_shrug": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_jacket_shrug.webp",
+  "w": 228,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 90.2,
+  "fy": 725.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.0,
+  "head_scale": 1.055
+ },
  "alan_bn_jacket_off": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_jacket_off.webp",
   "w": 243,
@@ -11,17 +23,53 @@
   "head_match": 1.0,
   "head_scale": 1.0
  },
- "alan_bn_tee": {
-  "src": "art/review/alan/bath_new/sprites/alan_bn_tee.webp",
-  "w": 241,
+ "alan_bn_tee_lift": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_tee_lift.webp",
+  "w": 249,
   "hh": 732,
   "h": 720.0,
-  "ax": 143.9,
+  "ax": 134.8,
+  "fy": 725.0,
+  "top": 7.0,
+  "waist": false,
+  "head_match": 0.0,
+  "head_scale": 1.007
+ },
+ "alan_bn_tee": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_tee.webp",
+  "w": 199,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 88.4,
   "fy": 725.0,
   "top": 6.0,
   "waist": false,
   "head_match": 0.0,
-  "head_scale": 1.007
+  "head_scale": 1.027
+ },
+ "alan_bn_belt": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_belt.webp",
+  "w": 227,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 84.9,
+  "fy": 725.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.0,
+  "head_scale": 1.011
+ },
+ "alan_bn_jeans_half": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_jeans_half.webp",
+  "w": 230,
+  "hh": 723,
+  "h": 720.0,
+  "ax": 78.1,
+  "fy": 716.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.0,
+  "head_scale": 1.0
  },
  "alan_bn_jeans_off": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_jeans_off.webp",
@@ -37,15 +85,15 @@
  },
  "alan_bn_pants": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_pants.webp",
-  "w": 261,
+  "w": 203,
   "hh": 732,
   "h": 720.0,
-  "ax": 105.9,
+  "ax": 134.1,
   "fy": 725.0,
   "top": 6.0,
   "waist": false,
   "head_match": 0.0,
-  "head_scale": 0.999
+  "head_scale": 1.006
  },
  "alan_bn_fling": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_fling.webp",
@@ -61,15 +109,15 @@
  },
  "alan_bn_hair": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_hair.webp",
-  "w": 245,
-  "hh": 307,
+  "w": 309,
+  "hh": 362,
   "h": 720.0,
-  "ax": 130.3,
-  "fy": 300.0,
+  "ax": 159.0,
+  "fy": 355.0,
   "top": 6.0,
   "waist": true,
-  "head_match": 0.69,
-  "head_scale": 1.76
+  "head_match": 0.0,
+  "head_scale": 1.32
  },
  "alan_bn_splash": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_splash.webp",
@@ -109,15 +157,39 @@
  },
  "alan_bn_pants_on": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_pants_on.webp",
-  "w": 261,
+  "w": 268,
+  "hh": 757,
+  "h": 720.0,
+  "ax": 117.6,
+  "fy": 750.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.92,
+  "head_scale": 0.95
+ },
+ "alan_bn_pants_up": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_pants_up.webp",
+  "w": 185,
+  "hh": 756,
+  "h": 720.0,
+  "ax": 125.1,
+  "fy": 749.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.84,
+  "head_scale": 0.98
+ },
+ "alan_bn_zip": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_zip.webp",
+  "w": 210,
   "hh": 732,
   "h": 720.0,
-  "ax": 101.1,
+  "ax": 78.9,
   "fy": 725.0,
   "top": 6.0,
   "waist": false,
   "head_match": 0.0,
-  "head_scale": 1.012
+  "head_scale": 0.99
  },
  "alan_bn_dressed": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_dressed.webp",
@@ -130,5 +202,53 @@
   "waist": false,
   "head_match": 0.0,
   "head_scale": 1.047
+ },
+ "alan_bn_tee_v1": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_tee_v1.webp",
+  "w": 241,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 143.9,
+  "fy": 725.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.0,
+  "head_scale": 1.007
+ },
+ "alan_bn_pants_v1": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_pants_v1.webp",
+  "w": 261,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 105.9,
+  "fy": 725.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.0,
+  "head_scale": 0.999
+ },
+ "alan_bn_hair_v1": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_hair_v1.webp",
+  "w": 245,
+  "hh": 307,
+  "h": 720.0,
+  "ax": 130.3,
+  "fy": 300.0,
+  "top": 6.0,
+  "waist": true,
+  "head_match": 0.69,
+  "head_scale": 1.76
+ },
+ "alan_bn_pants_on_v1": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_pants_on_v1.webp",
+  "w": 261,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 101.1,
+  "fy": 725.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.0,
+  "head_scale": 1.012
  }
 }

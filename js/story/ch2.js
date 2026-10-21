@@ -245,6 +245,8 @@
   S.bathNew = async function () {
     const p = G.player, c = G.npc('celeste'), T = ms => G.wait(window.FAST ? 20 : ms);
     if (F().bathed) return say('alan_bath_3');
+    // behind the tank: on the floor past its far rim, the wall hiding him from the waist down (the user's board, step 9)
+    const BEHIND = { x: 1120, y: 472, h: 280 };
     await G.busy(async () => {
       await say('alan_bath_1');
       p.dir = 'e';
@@ -257,26 +259,31 @@
           if (w && w.visible && window.SPRITES[k]) { if (on && id === 'celeste') w.set = null; w.pose = on ? k : null; }
         }
       };
-      sfx('sheet_slap', 0.25); await show('alan_bn_jacket_off', 900);  // the jacket off, in his hand
+      // the order and holds of the user's board (art/review board/bath, 2026-10-21)
+      sfx('sheet_slap', 0.25); await show('alan_bn_jacket_shrug', 900);  // the jacket off the shoulders
+      await show('alan_bn_jacket_off', 900);                             // ...and in his hand
       shocked(true);
-      sfx('sheet_slap', 0.3); await show('alan_bn_tee', 1000);         // the tee over his head
-      p.pose = 'alan_bn_jeans_off'; await hop(5, 4, 170);              // hopping out of the jeans
-      await show('alan_bn_pants', 1000);                               // in his underwear, a grin back over his shoulder
-      // round the back of the tank: up behind its wall, the water at his waist
+      await show('alan_bn_tee_lift', 1000);                              // the tee lifted, his stomach showing
+      sfx('sheet_slap', 0.3); await show('alan_bn_tee', 1000);           // over his head
+      await show('alan_bn_belt', 1000);                                  // the belt
+      await show('alan_bn_jeans_half', 700);                             // jeans halfway down
+      p.pose = 'alan_bn_jeans_off'; await hop(5, 4, 175);                // hopping out of them
+      await show('alan_bn_pants', 1000);                                 // in his underwear, a grin back
+      // round the back of the tank
       await p.fade(0, 0.35);
-      p.x = WASH.x; p.y = WASH.y; p.h = WASH.h; p.sink = 0.0001; p.pose = 'alan_bn_fling';
+      p.x = BEHIND.x; p.y = BEHIND.y; p.h = BEHIND.h; p.sink = 0.0001; p.pose = 'alan_bn_fling';
       await p.fade(1, 0.35);
       await T(300);
-      shorts = { x0: p.x - 20, y0: p.y - 230, x1: p.x - 300, y1: p.y + 150, t0: performance.now() }; sfx('sheet_slap', 0.2);
+      shorts = { x0: p.x - 20, y0: p.y - 170, x1: p.x - 330, y1: 640, t0: performance.now() }; sfx('sheet_slap', 0.2);
       await T(700);
       if (c) { c.dir = c.x < p.x ? 'e' : 'w'; c.set = null; c.pose = 'shout'; }
       await say('celeste_bath_1');
       if (c) c.pose = window.SPRITES.celeste_shock ? 'celeste_shock' : null;
       await say('alan_bath_2');
-      // under, and up again washing
-      sfx('splash'); p.visible = false; splash = { x: WASH.x, y: WASH.y, t0: performance.now() };
+      // over the rim and in
+      p.visible = false; sfx('splash'); splash = { x: WASH.x, y: WASH.y, t0: performance.now() };
       await T(800);
-      swimmer = { y: WASH.y }; p.visible = true; p.pose = 'alan_bn_hair';
+      swimmer = { y: WASH.y }; p.x = WASH.x; p.y = WASH.y; p.h = WASH.h; p.visible = true; p.pose = 'alan_bn_hair';
       let on = true;
       (async () => {
         let i = 0;
@@ -285,7 +292,7 @@
       await say('narr_bath');
       on = false; await T(60);
       p.pose = 'alan_bn_splash'; sfx('splash', 0.3);
-      await T(1200);
+      await T(1100);
       await G.fade(true);
       shocked(false); if (c) c.pose = null;
       // out by the corner, Celeste's towel snatched off it
@@ -295,11 +302,14 @@
       await T(900);
       await show('alan_bn_towel', 0);
       await say('celeste_bath_2');
-      await show('alan_bn_pants_on', 1000);                           // dressing under the towel
-      p.pose = 'alan_bn_jeans_off'; await hop(-4, 3, 170);             // back into the jeans
-      await show('alan_bn_tee', 900);                                  // the tee back on
-      await show('alan_bn_jacket_off', 700);                           // the jacket from the stones
-      await show('alan_bn_dressed', 0);                                // collar up
+      await show('alan_bn_pants_on', 1000);                              // stepping into the boxers
+      await show('alan_bn_pants_up', 1000);                              // ...pulled up under the towel
+      p.pose = 'alan_bn_jeans_off'; await hop(-4, 3, 200);               // back into the jeans
+      await show('alan_bn_zip', 600);                                    // the fly
+      await show('alan_bn_belt', 600);                                   // the belt buckled
+      await show('alan_bn_tee', 900);                                    // the tee back on
+      await show('alan_bn_jacket_off', 700);                             // the jacket picked up
+      await show('alan_bn_dressed', 0);                                  // collar up
       await joke('alan_bath_3');
       p.pose = null;
       F().bathed = true;

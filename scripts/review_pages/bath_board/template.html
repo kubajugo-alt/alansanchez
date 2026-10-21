@@ -45,7 +45,7 @@ button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-
 
 <div class="wrap">
   <h1>Bath scene board</h1>
-  <p class="muted">The repainted bath at the Lavadouro. Put the paintings in the order the scene plays them, write what to change on any step or painting, and add a <b>missing frame</b> card wherever a painting is needed that doesn't exist yet. Everything saves by itself, and Claude reads it from here. Play shows the order over the room at game size: <i>floor</i> steps stand where he undresses, <i>tank</i> steps sit at the waterline behind the tank's wall.</p>
+  <p class="muted">The repainted bath at the Lavadouro. Put the paintings in the order the scene plays them, write what to change on any step or painting, and add a <b>missing frame</b> card wherever a painting is needed that doesn't exist yet. Everything saves by itself, and Claude reads it from here. Play shows the order over the room at game size: <i>floor</i> steps stand where he undresses, <i>tank</i> steps sit in the water, <i>behind</i> steps stand past the tank's far rim (in the game the tank hides him below the waist).</p>
 
   <div class="stage"><canvas id="cv" width="1280" height="720"></canvas><div class="cap" id="cap">Press Play</div></div>
   <div class="bar">
@@ -57,7 +57,7 @@ button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-
 
   <div class="bar"><h2>The scene</h2><span class="muted" id="count"></span>
     <button id="addgap">+ Missing frame at the end</button>
-    <button id="reset">Reset to the first proposal</button></div>
+    <button id="reset">Reset to the latest proposal</button></div>
   <div class="strip" id="strip"></div>
 
   <div class="bar"><h2>Overall notes</h2></div>
@@ -71,7 +71,7 @@ button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const D = JSON.parse(document.getElementById('data').textContent), FR = D.frames;
-const ROOM = { floor: { x: 800, y: 650 }, tank: { x: 1075, y: 503 }, hFloor: 370, hTank: 380 };
+const ROOM = { floor: { x: 800, y: 650, h: 370 }, tank: { x: 1075, y: 503, h: 380 }, behind: { x: 1120, y: 472, h: 280 } };
 let state = { steps: D.default.map(s => ({ ...s })), frameNotes: {}, overall: '', approved: false };
 let db = null, saveT = null, playing = false, cur = -1;
 const $ = s => document.querySelector(s), st = $('#st');
@@ -94,7 +94,7 @@ function render() {
       <div class="thumb"><img src="${FR[s.id].src}" alt="${esc(FR[s.id].label)}"></div>
       <div class="lbl">${esc(FR[s.id].label)}</div>
       <div class="row">Hold <input data-k="hold" type="number" step="100" min="100" value="${s.hold}"> ms
-        <select data-k="place"><option${s.place === 'floor' ? ' selected' : ''}>floor</option><option${s.place === 'tank' ? ' selected' : ''}>tank</option></select></div>
+        <select data-k="place">${['floor', 'tank', 'behind'].map(o => `<option${s.place === o ? ' selected' : ''}>${o}</option>`).join('')}</select></div>
       <textarea data-k="note" placeholder="Tweak for this step…">${esc(s.note)}</textarea>
       <div class="row tools"><button data-a="l" aria-label="Move left">←</button><button data-a="r" aria-label="Move right">→</button><button data-a="d" title="Duplicate">⧉</button><button data-a="g" title="Insert a missing frame after this">+gap</button><button data-a="x" aria-label="Remove">✕</button></div>
     </div>`).join('');
@@ -150,7 +150,7 @@ function draw(i) {
   if (!s) return;
   if (s.gap) { g.fillStyle = 'rgba(0,0,0,.6)'; g.fillRect(340, 300, 600, 120); g.fillStyle = '#ffb4a2'; g.font = '600 22px system-ui'; g.textAlign = 'center';
     g.fillText('Missing frame', 640, 345); g.fillStyle = '#fff'; g.font = '16px system-ui'; g.fillText((s.text || '(no description yet)').slice(0, 70), 640, 380); return; }
-  const f = FR[s.id], im = imgs[s.id], P = ROOM[s.place], H = s.place === 'tank' ? ROOM.hTank : ROOM.hFloor, k = H / f.h;
+  const f = FR[s.id], im = imgs[s.id], P = ROOM[s.place] || ROOM.floor, H = P.h, k = H / f.h;
   if (im.complete) g.drawImage(im, P.x - f.ax * k, P.y - f.fy * k, f.w * k, f.hh * k);
 }
 async function play() {
