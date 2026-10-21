@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-30); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-31); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -545,6 +545,34 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Checked in Chromium with a stand-in store and two screens: a note typed on each at once both survive, the typing
      screen picks up the other's note after leaving the box; clicks and taps (desktop, phone width) still work.
      Published as version 5. Notes lost before this can't be recovered (the store keeps no history).
+
+31. **Bath (review): the board's notes, round 3: mirrored steps, the throw behind the tank, torso sizes, the boxers
+   thrown** (the user's board notes, then: "his bottom part needs to be occluded by the tank (he is standing behind
+   it)", "closer to the western edge of it", "match the size of his torso images with his actual torso when we see the
+   full body", "using code, take the boxers he is throwing in the air, and make them naturally fly to the front of the
+   tank, where his character will be after getting out of it").
+   - **Mirror per step:** board steps carry `flip` (a tick box on each card; drawn mirrored about his anchor); set on
+     steps 3, 7, 15, 16, 19-23 as the notes ask (db `board/bath` updated, the notes kept). ch2.js `show(k, ms, flip)`
+     sets `p.dir = 'w'` for those (the engine mirrors a sprite that faces east when he faces west).
+   - **The throw:** `BEHIND` x 900 (the tank's west end; his torso is 32 px right of the frame's anchor), y 440 (the
+     cut 40 px under the far rim, which hides him from the navel down).
+   - **Torso sizes:** the waist-up frames' head match had failed (throw 1.07x, hair 1.30x too big); measured brow to
+     chin on the fitted sprites (standing 56 px) and set as `FIXED` scales in `scripts/bath_new_fit.py` (fling 1.211,
+     hair 1.721, splash 1.758); they are now drawn at his standing height in the room, 360 (`BEHIND.h`, `TANK.h`;
+     was 380). Board places use 360 too.
+   - **Boxers:** the fit script's `LOOSE` cuts anything but the figure out of a frame into its own sprite
+     (`alan_bn_boxers`, with `dx`/`dy` from the throw's anchor) and crops the figure. ch2.js `S.throwBoxers`: from
+     where they were painted, a thrown body's path (50 px up past his hand, then down) over the front of the tank in
+     1.15 s, spinning, to land flat with a shadow at (795, 668), in front of where he climbs out; drawn in `animFg`;
+     gone at `pants_on` (picked up). The board plays the same throw during the fling step and shows them on the floor
+     until the boxers step.
+   - Board fixes on the way: a late echo of an earlier save no longer replaces newer typing (notes 19-22 had been
+     cut short by it); backups only when another screen's notes would go.
+   - Open from the notes: Canva repaints (T-shirt for the tank top in step 1; off-white towel in 16-17; boxers, not
+     the towel, in his hands in 17), new frames (step 9: torso reaching down behind the tank; step 13: leaning on the
+     rim in the water before climbing out), more poses in the water.
+   - Checked: the throw captured in Chromium every 180 ms (arc over the tank's front, landing at his feet), the
+     swimming and towel frames at the new sizes, no errors; board steps 10, 11, 15, 16 drawn; published version 10.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

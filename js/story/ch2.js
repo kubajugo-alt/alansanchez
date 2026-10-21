@@ -72,6 +72,7 @@
   // his black trunks, flung over his shoulder: an arc, a spin, a heap on the stones
   S.drawShorts = function (g) {
     if (!shorts) return;
+    if (shorts.img) return drawBoxers(g);
     const k = Math.min(1, (performance.now() - shorts.t0) / 700);
     const x = shorts.x0 + (shorts.x1 - shorts.x0) * k, y = shorts.y0 + (shorts.y1 - shorts.y0) * k - Math.sin(k * Math.PI) * 140;
     g.save(); g.translate(x, y); g.rotate(k < 1 ? k * 9 : 0.3); g.scale(1, k < 1 ? 1 : 0.55);
@@ -80,6 +81,27 @@
     g.strokeStyle = 'rgba(120,110,100,0.5)'; g.lineWidth = 1; g.strokeRect(-14, -10, 28, 20);
     g.restore();
   };
+  // the new scene (?bath=new): the boxers Canva painted over his throw, cut out (alan_bn_boxers), thrown for real from
+  // where they were painted: up a little past his hand, then down over the front of the tank, spinning, to land flat
+  // on the stones where he'll climb out (the user: "naturally fly to the front of the tank"); there till he picks them up
+  let boxersImg = null;
+  S.throwBoxers = function (p, to) {
+    const m = window.SPRITES.alan_bn_boxers; if (!m) return;
+    if (!boxersImg) { boxersImg = new Image(); boxersImg.src = m.src; }
+    const k = p.height() / m.h, D = to.y - (p.y + m.dy * k), R = 50; // R: how far they rise above where they leave his hand
+    const v = -2 * R - Math.sqrt(4 * R * R + 4 * R * D);            // a thrown body: y = y0 + v u + a u^2, u from 0 to 1
+    shorts = { img: boxersImg, m, k, x0: p.x + m.dx * k, y0: p.y + m.dy * k, x1: to.x, y1: to.y, v, a: D - v, ms: 1150, t0: performance.now() };
+  };
+  function drawBoxers(g) {
+    const b = shorts, u = Math.min(1, (performance.now() - b.t0) / (window.FAST ? 1 : b.ms));
+    if (!b.img.complete || !b.img.naturalWidth) return;
+    const x = b.x0 + (b.x1 - b.x0) * u, y = b.y0 + b.v * u + b.a * u * u, w = b.m.w * b.k, h = b.m.hh * b.k;
+    g.save();
+    if (u >= 1) { g.fillStyle = 'rgba(0,0,0,0.28)'; g.beginPath(); g.ellipse(x, y + 4, w * 0.5, h * 0.16, 0, 0, 7); g.fill(); }
+    g.translate(x, y); g.rotate(u < 1 ? u * Math.PI * 3 : 0.12); if (u >= 1) g.scale(1, 0.5); // flat on the stones once down
+    g.drawImage(b.img, -w / 2, -h / 2, w, h);
+    g.restore();
+  }
   // ripples where he swims, drawn over the cut of the swimming frames
   S.drawSwimWater = function (g, t) {
     if (!swimmer) return;
@@ -251,12 +273,18 @@
     // at his full size, as in the water (the user: "not scaled down"). With the taller tank (?bath=new): its far rim at
     // y 401-417, the water's surface from there to the near rim's inner edge at 449; in the water his waterline is
     // just short of that edge, in the middle of the surface (the tank's outline is off while he swims, as before)
-    const BEHIND = S.BATH_TALL ? { x: 1120, y: 418, h: 380 } : { x: 1120, y: 472, h: 380 };
-    const TANK = S.BATH_TALL ? { x: 1070, y: 442, h: 380 } : WASH;
+    // (the user: near the tank's western end, its far rim plainly hiding him; his torso is 32 px right of the anchor;
+    // the frame's cut 40 px below the far rim, so the rim hides him from the navel down: he stands behind it)
+    // h: the waist-up frames are fitted to his head size standing (scripts/bath_new_fit.py), so they are drawn at his
+    // standing height in this room (360 at the tank's front): the same size of torso as when we see him whole
+    const BEHIND = S.BATH_TALL ? { x: 900, y: 440, h: 360 } : { x: 1120, y: 472, h: 360 };
+    const TANK = S.BATH_TALL ? { x: 1070, y: 442, h: 360 } : WASH;
+    const BOXERS = { x: 795, y: 668 }; // where they land: just in front of where he climbs out (x 770, y 650)
     await G.busy(async () => {
       await say('alan_bath_1');
       p.dir = 'e';
-      const show = async (k, ms) => { p.pose = k; if (ms) await T(ms); };
+      // flip: the painting mirrored for this step (the user's board: "flip so he faces right/left")
+      const show = async (k, ms, flip) => { p.dir = flip ? 'w' : 'e'; p.pose = k; if (ms) await T(ms); };
       const hop = async (dx, n, ms) => { for (let i = 0; i < n; i++) { p.x += dx; await T(ms); } };
       const SHOCK = [['npc_washer1', 'npc_washer1_shock'], ['npc_washer2', 'npc_washer2_shock'], ['npc_laundry', 'npc_laundry_shock'], ['celeste', 'celeste_shock']];
       const shocked = on => {
@@ -269,18 +297,18 @@
       sfx('sheet_slap', 0.25); await show('alan_bn_jacket_shrug', 900);  // the jacket off the shoulders
       await show('alan_bn_jacket_off', 900);                             // ...and in his hand
       shocked(true);
-      await show('alan_bn_tee_lift', 1000);                              // the tee lifted, his stomach showing
+      await show('alan_bn_tee_lift', 1000, true);                       // the tee lifted, his stomach showing
       sfx('sheet_slap', 0.3); await show('alan_bn_tee', 1000);           // over his head
       await show('alan_bn_belt', 1000);                                  // the belt
       await show('alan_bn_jeans_half', 700);                             // jeans halfway down
-      p.pose = 'alan_bn_jeans_off'; await hop(5, 4, 175);                // hopping out of them
+      p.dir = 'w'; p.pose = 'alan_bn_jeans_off'; await hop(5, 4, 175); // hopping out of them
       await show('alan_bn_pants', 1000);                                 // in his underwear, a grin back
       // round the back of the tank
       await p.fade(0, 0.35);
-      p.x = BEHIND.x; p.y = BEHIND.y; p.h = BEHIND.h; p.sink = 0.0001; p.pose = 'alan_bn_fling';
+      p.dir = 'e'; p.x = BEHIND.x; p.y = BEHIND.y; p.h = BEHIND.h; p.sink = 0.0001; p.pose = 'alan_bn_fling';
       await p.fade(1, 0.35);
       await T(300);
-      shorts = { x0: p.x - 20, y0: p.y - 170, x1: p.x - 330, y1: 640, t0: performance.now() }; sfx('sheet_slap', 0.2);
+      S.throwBoxers(p, BOXERS); sfx('sheet_slap', 0.2);
       await T(700);
       if (c) { c.dir = c.x < p.x ? 'e' : 'w'; c.set = null; c.pose = 'shout'; }
       await say('celeste_bath_1');
@@ -303,20 +331,21 @@
       shocked(false); if (c) c.pose = null;
       // out by the corner, Celeste's towel snatched off it
       S.bathTowelTaken = true; // the towel is off the tank's corner from here
-      swimmer = null; shorts = null; p.sink = 0; p.h = null; p.x = 770; p.y = 650; p.dir = 'e'; // in front of the tank, left of its towelled corner
+      swimmer = null; p.sink = 0; p.h = null; p.x = 770; p.y = 650; p.dir = 'e'; // in front of the tank, left of its towelled corner (his boxers at his feet)
       p.pose = 'alan_bn_climb';
       await G.fade(false);
       await T(900);
-      await show('alan_bn_towel', 0);
+      await show('alan_bn_towel', 0, true);
       await say('celeste_bath_2');
-      await show('alan_bn_pants_on', 1000);                              // stepping into the boxers
+      shorts = null; // picked up
+      await show('alan_bn_pants_on', 1000, true);                       // stepping into the boxers
       await show('alan_bn_pants_up', 1000);                              // ...pulled up under the towel
-      p.pose = 'alan_bn_jeans_off'; await hop(-4, 3, 200);               // back into the jeans
-      await show('alan_bn_zip', 600);                                    // the fly
-      await show('alan_bn_belt', 600);                                   // the belt buckled
-      await show('alan_bn_tee', 900);                                    // the tee back on
-      await show('alan_bn_jacket_off', 700);                             // the jacket picked up
-      await show('alan_bn_dressed', 0);                                  // collar up
+      p.dir = 'e'; p.pose = 'alan_bn_jeans_off'; await hop(-4, 3, 200); // back into the jeans
+      await show('alan_bn_zip', 600, true);                              // the fly
+      await show('alan_bn_belt', 600, true);                             // the belt buckled
+      await show('alan_bn_tee', 900, true);                              // the tee back on
+      await show('alan_bn_jacket_off', 700, true);                       // the jacket picked up
+      await show('alan_bn_dressed', 0, true);                           // collar up
       await joke('alan_bath_3');
       p.pose = null;
       F().bathed = true;

@@ -26,13 +26,17 @@ FRAMES = {
 }
 # skin evened out to the other frames' median (the user: "skintone slightly darker than the rest")
 SKIN_MATCH = {'alan_bn_splash'}
-# the head match fails here (hands over the head; bent double): the scale of a frame Canva drew the same way
-FIXED = {'alan_bn_hair': 1.32, 'alan_bn_jeans_half': 1.0}
+# the head match fails here (hands over the head; bent double): the scale of a frame Canva drew the same way.
+# The waist-up frames by hand (the user: "match the size of his torso images with his actual torso when we see the
+# full body"): brow to chin measured on the fitted sprites, 56 px standing (alan_bn_towel), throw 60, hair 73, splash 55
+FIXED = {'alan_bn_hair': 1.721, 'alan_bn_jeans_half': 1.0, 'alan_bn_fling': 1.211, 'alan_bn_splash': 1.758}
 # standing upright: scaled to the first frame's full height (his height is the surest measure there; the head match
 # drifts by up to 8% on a turned or tilted head). The rest (hopping, climbing, waist-up) by the head.
 STAND = {'alan_bn_jacket_shrug', 'alan_bn_tee_lift', 'alan_bn_tee', 'alan_bn_belt', 'alan_bn_pants', 'alan_bn_towel', 'alan_bn_zip',
          'alan_bn_dressed', 'alan_bn_tee_v1', 'alan_bn_pants_v1', 'alan_bn_pants_on_v1'}
 H_GAME = 720       # sprite px for his full standing height (alan_side)
+# the boxers Canva painted in the air over the throw: cut out as their own sprite (the game throws them, ch2.js)
+LOOSE = {'alan_bn_fling': 'alan_bn_boxers'}
 PAD = 6
 
 
@@ -64,6 +68,31 @@ def head_scale(ref_head, a):
     return best
 
 
+def split_loose(canvas, k, out):
+    """the figure is the largest piece; anything else of any size (the flung boxers) goes to its own sprite, saved with
+    where it sat relative to the figure's anchor (dx, dy from the bottom-centre of the cut), and the figure is cropped
+    to what's left"""
+    a = np.asarray(canvas).copy()
+    n, lab, st, _ = cv2.connectedComponentsWithStats((a[..., 3] > 40).astype(np.uint8), 8)
+    body = 1 + int(np.argmax(st[1:, cv2.CC_STAT_AREA]))
+    loose = [i for i in range(1, n) if i != body and st[i, cv2.CC_STAT_AREA] > 400]
+    if not loose: return canvas
+    m = np.isin(lab, loose)
+    m = cv2.dilate(m.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0   # the soft edge with it
+    piece = a.copy(); piece[~m, 3] = 0; a[m, 3] = 0
+    ys, xs = np.nonzero(piece[..., 3] > 0)
+    x0, x1, y0, y1 = xs.min() - PAD, xs.max() + PAD + 1, ys.min() - PAD, ys.max() + PAD + 1
+    by, bx = np.nonzero(a[..., 3] > 128)
+    fy, ax = by.max(), bx[by >= by.max() - int(0.06 * H_GAME)].mean()
+    Image.fromarray(piece[max(0, y0):y1, max(0, x0):x1], 'RGBA').save(O + 'sprites/' + LOOSE[k] + '.webp', 'WEBP', quality=92, method=6)
+    w, h = x1 - max(0, x0), y1 - max(0, y0)
+    out[LOOSE[k]] = {'src': O + 'sprites/' + LOOSE[k] + '.webp', 'w': int(w), 'hh': int(h), 'h': float(H_GAME), 'ax': w / 2, 'fy': h / 2,
+                     'from': k, 'dx': round(float((max(0, x0) + w / 2) - ax), 1), 'dy': round(float((max(0, y0) + h / 2) - fy), 1)}
+    # the figure without them, cropped to what's left
+    ys, xs = np.nonzero(a[..., 3] > 0)
+    return Image.fromarray(a[max(0, ys.min() - PAD):ys.max() + PAD + 1, max(0, xs.min() - PAD):xs.max() + PAD + 1], 'RGBA')
+
+
 def main():
     cuts = {k: cut(src) for k, (src, _) in FRAMES.items()}
     meds = {k: lab_median(a, skin_mask(a)) for k, a in cuts.items() if not k.endswith('_v1')}
@@ -84,6 +113,8 @@ def main():
         im = Image.fromarray(a, 'RGBA').resize((max(1, round(a.shape[1] * f)), max(1, round(a.shape[0] * f))), Image.LANCZOS)
         W, Hh = im.width + 2 * PAD, im.height + 2 * PAD
         canvas = Image.new('RGBA', (W, Hh)); canvas.paste(im, (PAD, PAD), im)
+        if k in LOOSE: canvas = split_loose(canvas, k, out)
+        W, Hh = canvas.size
         al = np.asarray(canvas)[..., 3] > 128
         ys, xs = np.nonzero(al); bot = ys.max()
         band = al[max(0, bot - int(0.06 * H_GAME)):bot + 1]                 # feet (or the waist cut)
