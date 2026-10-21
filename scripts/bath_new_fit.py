@@ -28,6 +28,16 @@ FRAMES = {
     'alan_bn_cannonball': ('c_Q_cannonball', False),
     # the walk round to the back of the tank, and two more stages of getting out (sitting on the rim, stepping down)
     'alan_bn_walk': ('c_R_walk_boxers', False), 'alan_bn_sit': ('c_S_sit_rim', False), 'alan_bn_stepdown': ('c_T_step_down', False), 'alan_bn_zip': ('c_L_zip', False), 'alan_bn_dressed': ('b10_dressed', False),
+    # in-betweens (the user: "double the number of frames ... at least one transition frame for each"): Canva, each
+    # painted from the frames either side of it (art/review/alan/bath_new/i*_export.png)
+    'alan_bn_x_jacket_arm': ('i01', False), 'alan_bn_x_jacket_drop': ('i02', False), 'alan_bn_x_tee_up': ('i03', False),
+    'alan_bn_x_tee_toss': ('i04', False), 'alan_bn_x_unbutton': ('i05', False), 'alan_bn_x_jeans_knees': ('i06', False),
+    'alan_bn_x_kick': ('i07', False), 'alan_bn_x_turn': ('i08', False), 'alan_bn_x_walk2': ('i09', False),
+    'alan_bn_x_raise': ('i10', True), 'alan_bn_x_crouch': ('i11', True), 'alan_bn_x_surface': ('i12', True),
+    'alan_bn_x_hands_down': ('i13', True), 'alan_bn_x_scoop': ('i14', True), 'alan_bn_x_wipe': ('i15', True),
+    'alan_bn_x_haul': ('i16', True), 'alan_bn_x_swing': ('i17', False), 'alan_bn_x_climb_down': ('i18', False),
+    'alan_bn_x_tuck': ('i19', False), 'alan_bn_x_pick_up': ('i20', False), 'alan_bn_x_shorts_knees': ('i21', False),
+    'alan_bn_x_jeans_ready': ('i22', False),
     # earlier versions the user asked to change, kept for the board's library
     'alan_bn_tee_v1': ('b02_tee_off', False), 'alan_bn_pants_v1': ('b04u_underwear', False),
     'alan_bn_hair_v1': ('b06_hair_back', True), 'alan_bn_pants_on_v1': ('b11u_pants_in_hand', False),
@@ -38,7 +48,8 @@ FRAMES = {
 # ...and now every frame his bare skin shows in (the user: "skin colour correction might be needed": the cannonball came
 # out oranger, the step down lighter, the tee lift darker), all to the median of those frames. Not the jacket frames:
 # the leather is skin-coloured to the mask, so their measure is the jacket's, and his face and hands there are fine
-CLOTHED = {'alan_bn_jacket_shrug', 'alan_bn_jacket_off', 'alan_bn_dressed', 'alan_bn_jacket_shrug_v1'}
+CLOTHED = {'alan_bn_jacket_shrug', 'alan_bn_jacket_off', 'alan_bn_dressed', 'alan_bn_jacket_shrug_v1',
+           'alan_bn_x_jacket_arm', 'alan_bn_x_jacket_drop'}
 SKIN_MATCH = {k for k in FRAMES if k not in CLOTHED and not k.endswith(('_v1', '_v2'))}
 # the head match fails here (hands over the head; bent double): the scale of a frame Canva drew the same way.
 # The waist-up frames by hand (the user: "match the size of his torso images with his actual torso when we see the
@@ -49,13 +60,18 @@ FIXED = {'alan_bn_hair': 1.721, 'alan_bn_jeans_half': 1.0, 'alan_bn_fling': 1.21
 # drifts by up to 8% on a turned or tilted head). The rest (hopping, climbing, waist-up) by the head.
 STAND = {'alan_bn_jacket_shrug', 'alan_bn_tee_lift', 'alan_bn_tee', 'alan_bn_belt', 'alan_bn_pants', 'alan_bn_towel', 'alan_bn_zip',
          'alan_bn_dressed', 'alan_bn_tee_v1', 'alan_bn_pants_v1', 'alan_bn_pants_on_v1', 'alan_bn_pants_up',
-         'alan_bn_jacket_shrug_v1', 'alan_bn_pants_up_v1'}
+         'alan_bn_jacket_shrug_v1', 'alan_bn_pants_up_v1', 'alan_bn_x_jacket_arm', 'alan_bn_x_jacket_drop',
+         'alan_bn_x_tee_up', 'alan_bn_x_tee_toss', 'alan_bn_x_unbutton', 'alan_bn_x_tuck', 'alan_bn_x_shorts_knees',
+         'alan_bn_x_jeans_ready'}
 # waist-up paintings that go on below his waist: cut there (rows of the 896x1792 export). The reach's hands hang below
 # his hips (the tank hides them anyway); the hair toss came with shorts on, and he swims without
 CUT_AT = {'c_M_reach_down': 1185, 'c_P_hair_toss': 1332}
 DESPILL = {'c_N_rim_push': 1200}
 # the shorts Canva painted between his hands (box in the export: x0, y0, x1, y1): anything there that isn't skin goes
-NOT_SKIN = {'c_N2_rim_push': (180, 1300, 700, 1545)}
+NOT_SKIN = {'c_N2_rim_push': (180, 1300, 700, 1545), 'i15': (90, 1255, 720, 1520), 'i16': (100, 1240, 800, 1490)}
+# the head match runs a few per cent big on turned and bent figures: their head (the size of the dry hair's mass)
+# measured against the standing frames' and set here (the in-betweens round, 2026-10-21)
+FIXED.update({'alan_bn_jeans_off': 1.098, 'alan_bn_climb': 1.121, 'alan_bn_walk': 1.007, 'alan_bn_sit': 1.101, 'alan_bn_stepdown': 0.952, 'alan_bn_cannonball': 1.687, 'alan_bn_x_jeans_knees': 0.954, 'alan_bn_x_kick': 0.937, 'alan_bn_x_turn': 0.952, 'alan_bn_x_swing': 1.04, 'alan_bn_x_climb_down': 0.952, 'alan_bn_x_pick_up': 0.984})
 H_GAME = 720       # sprite px for his full standing height (alan_side)
 # the boxers Canva painted in the air over the throw: cut out as their own sprite (the game throws them, ch2.js)
 LOOSE = {'alan_bn_fling': 'alan_bn_boxers'}

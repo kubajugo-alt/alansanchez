@@ -88,7 +88,7 @@ const bxImg = new Image(); bxImg.src = BX.src;
 const ringCv = document.createElement('canvas'); ringCv.width = 1280; ringCv.height = 720;
 const TANK_POLY = [[842, 401], [1000, 401], [1250, 409], [1280, 419], [1280, 692], [876, 692], [862, 666], [843, 640]], TANK_Y = 680;
 // Celeste's towel lies on the tank's corner until he takes it: gone from his first frame out of the water
-const TAKEN = ['alan_bn_climb', 'alan_bn_towel'];
+const TAKEN = ['alan_bn_sit', 'alan_bn_climb', 'alan_bn_towel'];
 const takenAt = () => state.steps.findIndex(s => TAKEN.includes(s.id));
 let state = { steps: D.default.map(s => ({ ...s })), frameNotes: {}, overall: '', approved: false };
 const start = JSON.parse(JSON.stringify(state)); // the proposal, as the base when nothing is stored yet

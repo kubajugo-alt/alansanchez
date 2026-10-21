@@ -63,11 +63,11 @@
 "alan_bn_jeans_off": {
 "label": "Hopping out of the jeans",
 "src": "f/alan_bn_jeans_off.webp",
-"w": 254,
-"hh": 724,
+"w": 228,
+"hh": 647,
 "h": 720.0,
-"ax": 157.7,
-"fy": 717.0,
+"ax": 141.8,
+"fy": 640.0,
 "waist": false
 },
 "alan_bn_pants": {
@@ -83,11 +83,11 @@
 "alan_bn_walk": {
 "label": "In his boxers, off round the back of the tank",
 "src": "f/alan_bn_walk.webp",
-"w": 295,
-"hh": 789,
+"w": 279,
+"hh": 745,
 "h": 720.0,
-"ax": 54.6,
-"fy": 782.0,
+"ax": 50.9,
+"fy": 738.0,
 "waist": false
 },
 "alan_bn_reach": {
@@ -113,11 +113,11 @@
 "alan_bn_cannonball": {
 "label": "Cannonball into the tank (bare)",
 "src": "f/alan_bn_cannonball.webp",
-"w": 238,
-"hh": 368,
+"w": 215,
+"hh": 333,
 "h": 720.0,
-"ax": 193.7,
-"fy": 361.0,
+"ax": 165.3,
+"fy": 326.0,
 "waist": false
 },
 "alan_bn_hair": {
@@ -173,31 +173,31 @@
 "alan_bn_climb": {
 "label": "Out over the rim, towel",
 "src": "f/alan_bn_climb.webp",
-"w": 342,
-"hh": 687,
+"w": 309,
+"hh": 620,
 "h": 720.0,
-"ax": 67.8,
-"fy": 680.0,
+"ax": 60.3,
+"fy": 613.0,
 "waist": false
 },
 "alan_bn_sit": {
 "label": "Out: sitting on the corner, towel over his lap",
 "src": "f/alan_bn_sit.webp",
-"w": 304,
-"hh": 733,
+"w": 280,
+"hh": 673,
 "h": 720.0,
-"ax": 130.0,
-"fy": 726.0,
+"ax": 120.5,
+"fy": 666.0,
 "waist": false
 },
 "alan_bn_stepdown": {
 "label": "Out: stepping down off the corner, towel on",
 "src": "f/alan_bn_stepdown.webp",
-"w": 325,
-"hh": 822,
+"w": 305,
+"hh": 769,
 "h": 720.0,
-"ax": 166.1,
-"fy": 815.0,
+"ax": 156.7,
+"fy": 762.0,
 "waist": false
 },
 "alan_bn_towel": {
@@ -319,6 +319,226 @@
 "fy": 725.0,
 "waist": false,
 "label": "Earlier: white towel, hands on the towel"
+},
+"alan_bn_x_jacket_arm": {
+"label": "In-between: an arm out of the jacket",
+"src": "f/alan_bn_x_jacket_arm.webp",
+"w": 269,
+"hh": 732,
+"h": 720.0,
+"ax": 123.5,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_x_jacket_drop": {
+"label": "In-between: jacket dropped, hand to his tee",
+"src": "f/alan_bn_x_jacket_drop.webp",
+"w": 262,
+"hh": 732,
+"h": 720.0,
+"ax": 169.7,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_x_tee_up": {
+"label": "In-between: tee up to his armpits",
+"src": "f/alan_bn_x_tee_up.webp",
+"w": 203,
+"hh": 732,
+"h": 720.0,
+"ax": 66.8,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_x_tee_toss": {
+"label": "In-between: tee tossed, hand to the belt",
+"src": "f/alan_bn_x_tee_toss.webp",
+"w": 367,
+"hh": 732,
+"h": 720.0,
+"ax": 146.8,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_x_unbutton": {
+"label": "In-between: unbuttoning the jeans",
+"src": "f/alan_bn_x_unbutton.webp",
+"w": 218,
+"hh": 732,
+"h": 720.0,
+"ax": 91.0,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_x_jeans_knees": {
+"label": "In-between: jeans at the knees",
+"src": "f/alan_bn_x_jeans_knees.webp",
+"w": 225,
+"hh": 684,
+"h": 720.0,
+"ax": 78.0,
+"fy": 677.0,
+"waist": false
+},
+"alan_bn_x_kick": {
+"label": "In-between: kicking the jeans away",
+"src": "f/alan_bn_x_kick.webp",
+"w": 380,
+"hh": 705,
+"h": 720.0,
+"ax": 248.1,
+"fy": 698.0,
+"waist": false
+},
+"alan_bn_x_turn": {
+"label": "In-between: turning to go",
+"src": "f/alan_bn_x_turn.webp",
+"w": 293,
+"hh": 746,
+"h": 720.0,
+"ax": 48.6,
+"fy": 739.0,
+"waist": false
+},
+"alan_bn_x_walk2": {
+"label": "In-between: the other stride",
+"src": "f/alan_bn_x_walk2.webp",
+"w": 311,
+"hh": 768,
+"h": 720.0,
+"ax": 51.6,
+"fy": 761.0,
+"waist": false
+},
+"alan_bn_x_raise": {
+"label": "In-between: boxers raised to throw",
+"src": "f/alan_bn_x_raise.webp",
+"w": 324,
+"hh": 410,
+"h": 720.0,
+"ax": 187.6,
+"fy": 403.0,
+"waist": true
+},
+"alan_bn_x_crouch": {
+"label": "In-between: gathering to jump",
+"src": "f/alan_bn_x_crouch.webp",
+"w": 269,
+"hh": 285,
+"h": 720.0,
+"ax": 117.7,
+"fy": 278.0,
+"waist": true
+},
+"alan_bn_x_surface": {
+"label": "In-between: surfacing, blowing water",
+"src": "f/alan_bn_x_surface.webp",
+"w": 230,
+"hh": 310,
+"h": 720.0,
+"ax": 116.4,
+"fy": 303.0,
+"waist": true
+},
+"alan_bn_x_hands_down": {
+"label": "In-between: hands down to his shoulders",
+"src": "f/alan_bn_x_hands_down.webp",
+"w": 259,
+"hh": 338,
+"h": 720.0,
+"ax": 124.1,
+"fy": 331.0,
+"waist": true
+},
+"alan_bn_x_scoop": {
+"label": "In-between: scooping water",
+"src": "f/alan_bn_x_scoop.webp",
+"w": 227,
+"hh": 330,
+"h": 720.0,
+"ax": 78.6,
+"fy": 322.0,
+"waist": true
+},
+"alan_bn_x_wipe": {
+"label": "In-between: wiping his face",
+"src": "f/alan_bn_x_wipe.webp",
+"w": 249,
+"hh": 361,
+"h": 720.0,
+"ax": 81.7,
+"fy": 354.0,
+"waist": true
+},
+"alan_bn_x_haul": {
+"label": "In-between: up on locked arms",
+"src": "f/alan_bn_x_haul.webp",
+"w": 249,
+"hh": 390,
+"h": 720.0,
+"ax": 128.5,
+"fy": 383.0,
+"waist": true
+},
+"alan_bn_x_swing": {
+"label": "In-between: legs round, off the edge",
+"src": "f/alan_bn_x_swing.webp",
+"w": 245,
+"hh": 701,
+"h": 720.0,
+"ax": 87.4,
+"fy": 694.0,
+"waist": false
+},
+"alan_bn_x_climb_down": {
+"label": "In-between: climbing down",
+"src": "f/alan_bn_x_climb_down.webp",
+"w": 356,
+"hh": 759,
+"h": 720.0,
+"ax": 111.0,
+"fy": 752.0,
+"waist": false
+},
+"alan_bn_x_tuck": {
+"label": "In-between: tucking the towel in",
+"src": "f/alan_bn_x_tuck.webp",
+"w": 257,
+"hh": 732,
+"h": 720.0,
+"ax": 107.6,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_x_pick_up": {
+"label": "In-between: picking the boxers up",
+"src": "f/alan_bn_x_pick_up.webp",
+"w": 304,
+"hh": 596,
+"h": 720.0,
+"ax": 155.9,
+"fy": 589.0,
+"waist": false
+},
+"alan_bn_x_shorts_knees": {
+"label": "In-between: boxers at his knees under the towel",
+"src": "f/alan_bn_x_shorts_knees.webp",
+"w": 212,
+"hh": 732,
+"h": 720.0,
+"ax": 70.4,
+"fy": 725.0,
+"waist": false
+},
+"alan_bn_x_jeans_ready": {
+"label": "In-between: towel dropped, jeans held open",
+"src": "f/alan_bn_x_jeans_ready.webp",
+"w": 225,
+"hh": 732,
+"h": 720.0,
+"ax": 116.5,
+"fy": 725.0,
+"waist": false
 }
 },
 "default": [
@@ -329,10 +549,22 @@
 "place": "floor"
 },
 {
+"id": "alan_bn_x_jacket_arm",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between"
+},
+{
 "hold": 900,
 "id": "alan_bn_jacket_off",
 "note": "ok",
 "place": "floor"
+},
+{
+"id": "alan_bn_x_jacket_drop",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between"
 },
 {
 "flip": true,
@@ -342,10 +574,22 @@
 "place": "floor"
 },
 {
+"id": "alan_bn_x_tee_up",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between"
+},
+{
 "hold": 1000,
 "id": "alan_bn_tee",
 "note": "ok",
 "place": "floor"
+},
+{
+"id": "alan_bn_x_tee_toss",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between"
 },
 {
 "hold": 1000,
@@ -354,10 +598,22 @@
 "place": "floor"
 },
 {
+"id": "alan_bn_x_unbutton",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between"
+},
+{
 "hold": 700,
 "id": "alan_bn_jeans_half",
 "note": "ok",
 "place": "floor"
+},
+{
+"id": "alan_bn_x_jeans_knees",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between"
 },
 {
 "flip": true,
@@ -367,10 +623,22 @@
 "place": "floor"
 },
 {
+"id": "alan_bn_x_kick",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between"
+},
+{
 "hold": 1000,
 "id": "alan_bn_pants",
 "note": "ok",
 "place": "floor"
+},
+{
+"id": "alan_bn_x_turn",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between"
 },
 {
 "hold": 900,
@@ -379,10 +647,22 @@
 "place": "floor"
 },
 {
+"id": "alan_bn_x_walk2",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between"
+},
+{
 "hold": 1000,
 "id": "alan_bn_reach",
 "note": "\u2713 new: torso only, reaching down to his trunks (not visible, because occluded by the tank)",
 "place": "behind"
+},
+{
+"id": "alan_bn_x_raise",
+"hold": 420,
+"place": "behind",
+"note": "\u2713 in-between"
 },
 {
 "hold": 1700,
@@ -391,10 +671,22 @@
 "place": "behind"
 },
 {
+"id": "alan_bn_x_crouch",
+"hold": 420,
+"place": "behind",
+"note": "\u2713 in-between"
+},
+{
 "hold": 700,
 "id": "alan_bn_cannonball",
 "note": "\u2713 new: the jump in (Canva painted shorts; recoloured to skin)",
 "place": "air"
+},
+{
+"id": "alan_bn_x_surface",
+"hold": 420,
+"place": "tank",
+"note": "\u2713 in-between"
 },
 {
 "flip": true,
@@ -404,10 +696,23 @@
 "place": "tank"
 },
 {
+"id": "alan_bn_x_hands_down",
+"hold": 420,
+"place": "tank",
+"note": "\u2713 in-between"
+},
+{
 "hold": 1300,
 "id": "alan_bn_relax",
 "note": "\u2713 new: arms out, relaxing",
 "place": "tank"
+},
+{
+"id": "alan_bn_x_scoop",
+"hold": 420,
+"place": "tank",
+"note": "\u2713 in-between",
+"flip": true
 },
 {
 "flip": true,
@@ -417,10 +722,22 @@
 "place": "tank"
 },
 {
+"id": "alan_bn_x_wipe",
+"hold": 420,
+"place": "tank",
+"note": "\u2713 in-between"
+},
+{
 "hold": 1000,
 "id": "alan_bn_rim",
 "note": "\u2713 new: a frame when he supports his body on the edge of the tank, whilst still being in the water, preparing to get out",
 "place": "rim"
+},
+{
+"id": "alan_bn_x_haul",
+"hold": 420,
+"place": "rim",
+"note": "\u2713 in-between"
 },
 {
 "hold": 900,
@@ -429,16 +746,35 @@
 "place": "edge"
 },
 {
+"id": "alan_bn_x_swing",
+"hold": 420,
+"place": "corner",
+"note": "\u2713 in-between"
+},
+{
 "hold": 900,
 "id": "alan_bn_climb",
 "note": "ok",
 "place": "floor"
 },
 {
+"id": "alan_bn_x_climb_down",
+"hold": 420,
+"place": "corner",
+"note": "\u2713 in-between"
+},
+{
 "hold": 800,
 "id": "alan_bn_stepdown",
 "note": "\u2713 new: stepping down off the corner, towel on",
 "place": "corner"
+},
+{
+"id": "alan_bn_x_tuck",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between",
+"flip": true
 },
 {
 "flip": true,
@@ -448,11 +784,25 @@
 "place": "floor"
 },
 {
+"id": "alan_bn_x_pick_up",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between",
+"flip": true
+},
+{
 "flip": true,
 "hold": 1000,
 "id": "alan_bn_pants_on",
 "note": "flip so he faces left, towel off white like the previous \u2192 \u2713 repainted: off-white towel",
 "place": "floor"
+},
+{
+"id": "alan_bn_x_shorts_knees",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between",
+"flip": true
 },
 {
 "flip": true,
@@ -462,10 +812,24 @@
 "place": "floor"
 },
 {
+"id": "alan_bn_x_jeans_ready",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between",
+"flip": true
+},
+{
 "hold": 600,
 "id": "alan_bn_jeans_off",
 "note": "ok",
 "place": "floor"
+},
+{
+"id": "alan_bn_x_jeans_knees",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between (played backwards)",
+"flip": true
 },
 {
 "flip": true,
@@ -475,11 +839,25 @@
 "place": "floor"
 },
 {
+"id": "alan_bn_x_unbutton",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between",
+"flip": true
+},
+{
 "flip": true,
 "hold": 600,
 "id": "alan_bn_belt",
 "note": "flip so he faces le",
 "place": "floor"
+},
+{
+"id": "alan_bn_x_tee_toss",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between (played backwards)",
+"flip": true
 },
 {
 "flip": true,
@@ -489,11 +867,25 @@
 "place": "floor"
 },
 {
+"id": "alan_bn_x_tee_up",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between (played backwards)",
+"flip": true
+},
+{
 "flip": true,
 "hold": 700,
 "id": "alan_bn_jacket_off",
 "note": "flip so he faces left",
 "place": "floor"
+},
+{
+"id": "alan_bn_x_jacket_arm",
+"hold": 420,
+"place": "floor",
+"note": "\u2713 in-between (played backwards)",
+"flip": true
 },
 {
 "flip": true,

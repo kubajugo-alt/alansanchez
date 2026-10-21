@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-36); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-37); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -667,6 +667,28 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Board: `behind` place moved to match (version 15).
    - Checked: the walk stepped 200 ms a frame in Chromium (up the side, along behind, the reach at the same size), then
      the throw, cannonball, sit, climb, step down; no errors.
+
+37. **Bath (review): the frames doubled - an in-between after every step** (the user: "double the number of frames,
+   and have at least one transition frame added for each existing, to make the movement more fluid").
+   - **22 new Canva paintings** (pages 70-91 of DAHYZ-SDzRE; i01-i22_export.png), each `generate-image` with three
+     references: the build/skin one, the painting before and the painting after, asking for the pose half way
+     between. Refused once: lowering his arms and leaning back in the water (retried as hands coming down to his
+     shoulders). Two water frames came with shorts (wiping his face, up on locked arms): removed by `NOT_SKIN`.
+   - **Reused for the dressing half** (played backwards): jeans at the knees, unbuttoning, tossing the tee, tee up
+     to the armpits, an arm out of the jacket. So 27 in-betweens from 22 paintings; the board has 55 steps (was 28).
+   - **Fit:** `alan_bn_x_*` in `scripts/bath_new_fit.py`; upright ones by full height (`STAND`), the rest by the head
+     match; the head match runs a few % big on turned and bent figures, so their scale was measured by the size of
+     the dry hair's mass against the standing frames and set in `FIXED` (also for jeans_off, climb, walk, sit,
+     step down, cannonball: all now within a few % of the standing frames). Skin matched like the rest.
+   - **Scene** (ch2.js): `IB` 420 ms per in-between, main holds trimmed ~10-20%; the walk alternates its two strides
+     every 280 ms as he moves; the swim loop is hair, hands down, relax, scoop, splash, wipe; up on locked arms
+     after the push out; legs round off the edge, climbing down, the towel tucked, the boxers picked up (the thrown
+     ones on the floor go as he picks them up), up to the knees, jeans held open; then the reused ones dressing.
+     Facing per step as the board's (in-betweens of the left-facing half mirrored).
+   - **Board** (version 16; db version 249): the in-betweens inserted after each of the user's steps, notes kept,
+     "✓ in-between" on the new ones; the towel now gone from the corner from when he sits on the edge.
+   - Checked: the scene played through in Chromium logging every pose and facing (62 changes, the order above, all
+     55 steps), screenshots of the in-betweens in the room; the board drawn; no errors.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
