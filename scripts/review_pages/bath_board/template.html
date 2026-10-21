@@ -71,9 +71,10 @@ button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const D = JSON.parse(document.getElementById('data').textContent), FR = D.frames;
-// the taller tank (as in the game preview, ?bath=new): where each place stands him, and the tank's outline, which
-// hides whoever stands behind it (feet above y 680), as the game's occluder does
-const ROOM = { floor: { x: 800, y: 650, h: 370 }, tank: { x: 1075, y: 432, h: 380 }, behind: { x: 1120, y: 418, h: 280 } };
+// the taller tank (as in the game preview, ?bath=new): where each place stands him. Behind the tank the tank's outline
+// hides him from the waist down, as the game's occluder does; in the tank it is off (as in the game) and his
+// waterline sits on the water's surface, with the game's water ring over the cut
+const ROOM = { floor: { x: 800, y: 650, h: 370 }, tank: { x: 1070, y: 442, h: 380 }, behind: { x: 1120, y: 418, h: 380 } };
 const TANK_POLY = [[842, 401], [1000, 401], [1250, 409], [1280, 419], [1280, 692], [876, 692], [862, 666], [843, 640]], TANK_Y = 680;
 // Celeste's towel lies on the tank's corner until he takes it: gone from his first frame out of the water
 const TAKEN = ['alan_bn_climb', 'alan_bn_towel'];
@@ -95,9 +96,9 @@ function render() {
       <div class="row">Hold <input data-k="hold" type="number" step="100" min="100" value="${s.hold || 900}"> ms</div>
       <div class="row tools"><button data-a="l" aria-label="Move left">←</button><button data-a="r" aria-label="Move right">→</button><button data-a="g" title="Insert a missing frame after this">+gap</button><button data-a="x" aria-label="Remove">✕</button></div>
     </div>` : `
-    <div class="card${i === cur ? ' now' : ''}" data-i="${i}" draggable="true">
+    <div class="card${i === cur ? ' now' : ''}" data-i="${i}">
       <div class="n"><span>${i + 1}</span><span>${s.place}</span></div>
-      <div class="thumb"><img src="${FR[s.id].src}" alt="${esc(FR[s.id].label)}"></div>
+      <div class="thumb" draggable="true" title="Drag to move this step"><img src="${FR[s.id].src}" alt="${esc(FR[s.id].label)}" draggable="false"></div>
       <div class="lbl">${esc(FR[s.id].label)}</div>
       <div class="row">Hold <input data-k="hold" type="number" step="100" min="100" value="${s.hold}"> ms
         <select data-k="place">${['floor', 'tank', 'behind'].map(o => `<option${s.place === o ? ' selected' : ''}>${o}</option>`).join('')}</select></div>
@@ -149,7 +150,11 @@ $('#approve').onclick = () => { state.approved = true; render(); changed(true); 
 
 // the stage: the room, the figure at game size
 const g = $('#cv').getContext('2d');
-function draw(i) {
+function draw(i) { try { drawStep(i); } catch (e) { report(e); } }
+function report(e) { st.textContent = 'Something went wrong: ' + (e && e.message || e) + ' (please tell Claude)'; }
+window.addEventListener('error', e => report(e.error || e.message));
+window.addEventListener('unhandledrejection', e => report(e.reason));
+function drawStep(i) {
   g.clearRect(0, 0, 1280, 720);
   const t = takenAt(), room = t >= 0 && i >= t && bg2.complete && bg2.naturalWidth ? bg2 : bg;
   if (room.complete && room.naturalWidth) g.drawImage(room, 0, 0, 1280, 720);
@@ -159,7 +164,9 @@ function draw(i) {
     g.fillText('Missing frame', 640, 345); g.fillStyle = '#fff'; g.font = '16px system-ui'; g.fillText((s.text || '(no description yet)').slice(0, 70), 640, 380); return; }
   const f = FR[s.id], im = imgs[s.id], P = ROOM[s.place] || ROOM.floor, H = P.h, k = H / f.h;
   if (im.complete) g.drawImage(im, P.x - f.ax * k, P.y - f.fy * k, f.w * k, f.hh * k);
-  if (s.place !== 'floor' && P.y < TANK_Y) { g.save(); g.beginPath(); TANK_POLY.forEach(([x, y], j) => j ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip(); g.drawImage(room, 0, 0, 1280, 720); g.restore(); }
+  if (s.place === 'tank') { g.fillStyle = 'rgba(70,82,78,0.35)'; g.beginPath(); g.ellipse(P.x, P.y + 2, 85, 7, 0, 0, 7); g.fill();
+    g.strokeStyle = 'rgba(200,212,210,0.2)'; g.lineWidth = 1.5; g.beginPath(); g.ellipse(P.x, P.y + 1, 90, 10, 0, 0, 7); g.stroke(); }
+  if (s.place === 'behind' && P.y < TANK_Y) { g.save(); g.beginPath(); TANK_POLY.forEach(([x, y], j) => j ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip(); g.drawImage(room, 0, 0, 1280, 720); g.restore(); }
 }
 async function play() {
   if (playing) return; playing = true;

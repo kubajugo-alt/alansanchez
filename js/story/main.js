@@ -299,6 +299,8 @@
         const T0 = '../review/bg/lavadouro_tall_smalltowel', T1 = '../review/bg/lavadouro_tall_notowel';
         R.bg = T0; R.bgs = (R.bgs || []).concat(T1); R.bgFn = () => S.bathTowelTaken ? T1 : T0; R.depth = 'lavadouro_depth';
         occ.polys = [[[842, 401], [1000, 401], [1250, 409], [1280, 419], [1280, 692], [876, 692], [862, 666], [843, 640]]];
+        // the back basins' outline stops where the taller tank begins (past x 842 it would cover Alan in the water)
+        const bas = R.occluders.find(o => o.y === 500); if (bas) bas.polys = [[[160, 383], [300, 375], [842, 375], [842, 484], [160, 484]]];
         S.BATH_TALL = true;
       }
     }

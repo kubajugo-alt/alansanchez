@@ -248,9 +248,11 @@
     if (F().bathed) return say('alan_bath_3');
     S.bathTowelTaken = false; // Celeste's towel still on the tank's corner
     // behind the tank: on the floor past its far rim, the wall hiding him from the waist down (the user's board, step 9)
-    // (with the taller tank, ?bath=new: its far rim at y 401, the water at 432)
-    const BEHIND = S.BATH_TALL ? { x: 1120, y: 418, h: 280 } : { x: 1120, y: 472, h: 280 };
-    const TANK = S.BATH_TALL ? { x: 1075, y: 432, h: 380 } : WASH;
+    // at his full size, as in the water (the user: "not scaled down"). With the taller tank (?bath=new): its far rim at
+    // y 401-417, the water's surface from there to the near rim's inner edge at 449; in the water his waterline is
+    // just short of that edge, in the middle of the surface (the tank's outline is off while he swims, as before)
+    const BEHIND = S.BATH_TALL ? { x: 1120, y: 418, h: 380 } : { x: 1120, y: 472, h: 380 };
+    const TANK = S.BATH_TALL ? { x: 1070, y: 442, h: 380 } : WASH;
     await G.busy(async () => {
       await say('alan_bath_1');
       p.dir = 'e';

@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-28); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-29); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -516,6 +516,23 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Checked: the preview played through in Chromium with no errors (screens: undressing, washing with the small
      towel on the corner, out in the towel and dressed with the corner bare); the board drawn in Chromium at steps
      9, 10, 13, 14 with no errors.
+
+29. **Bath (review): the fling full size behind the tank; the swimming frames in the water; the board's buttons**
+   (the user: "the flicking of the boxers should happen behind the tank and not scaled down. and the in-water sprites
+   should be place in the tank"; "the buttons on the review page dont work").
+   - ch2.js `S.bathNew`: `BEHIND` h 280 -> 380 (his size in the water); with the taller tank `TANK` is x 1070, y 442:
+     the waterline just short of the near rim's inner edge (y 449), in the middle of the water's surface (far rim
+     y 401-417), measured on the painting.
+   - main.js (`?bath=new`): the back basins' occluder (y 500) now stops at x 842 where the taller tank begins; it used to
+     run to x 1068 and cut a shaded band across Alan in the water.
+   - Board (version 4): same places; the tank's outline only over steps placed `behind`; in the tank the game's water
+     ring is drawn at the waterline. Buttons: could not reproduce a fault (clicks and taps, desktop and phone width,
+     local copy of the published page, all worked); made sturdier anyway: errors now show in the status line, a
+     painting that fails to load no longer stops Play, and only the thumbnail is draggable (notes and hold boxes inside
+     a draggable card can't be typed in on some browsers). The user pressed Approve on the board afterwards
+     (db `board/bath`, 06:00 UTC); no notes changed.
+   - Checked: preview played through in Chromium, no errors (fling, hair, splash screens); board drawn at steps 9, 10,
+     12.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
