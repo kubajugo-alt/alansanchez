@@ -1,0 +1,321 @@
+<title>The Cast's New Walks</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* layout: character chips; two walking lanes (in the game / your cycle); the cycle as a strip of slots you can drag,
+   nudge, swap or mark as missing; the library of frames to fill them from; the decision */
+:root {
+  --bg: #efe9df; --surface: #f8f4ed; --fg: #2a2520; --muted: #6d6358; --line: #d6cbbb;
+  --lane: #3b3631; --tile: #4a443e; --floor: #8c7c68; --accent: #2f5d8a; --ok: #2f6b45; --no: #9a3b2c; --warn: #b07a1e;
+  --display: "IM Fell English", Georgia, serif; --body: "Source Sans 3", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #17191c; --surface: #1f2226; --fg: #ece6dc; --muted: #a39a8e; --line: #33373d;
+  --lane: #2a2724; --tile: #34302c; --floor: #6d604f; --accent: #8fb6dd; --ok: #7fc39a; --no: #e08a7a; --warn: #e2b25a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #17191c; --surface: #1f2226; --fg: #ece6dc; --muted: #a39a8e; --line: #33373d;
+  --lane: #2a2724; --tile: #34302c; --floor: #6d604f; --accent: #8fb6dd; --ok: #7fc39a; --no: #e08a7a; --warn: #e2b25a; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 64px; }
+main { max-width: 960px; margin: 0 auto; display: grid; gap: 22px; }
+h1 { font-family: var(--display); font-weight: 400; font-size: 2.2rem; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 400; font-size: 1.4rem; margin: 0; }
+.intro { display: grid; gap: 8px; max-width: 68ch; color: var(--muted); }
+.intro p { margin: 0; }
+.chips, .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); flex: none; }
+.dot.approve { background: var(--ok); } .dot.reject { background: var(--no); } .dot.draft { background: var(--warn); }
+.tag { font-size: .8rem; color: var(--ok); }
+.lanes { display: grid; gap: 12px; }
+.lane { display: grid; gap: 4px; }
+.lane .label { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: .95rem; }
+.lane .label b { font-weight: 600; } .lane .label span { color: var(--muted); font-variant-numeric: tabular-nums; }
+canvas { width: 100%; max-width: 100%; aspect-ratio: 3 / 1; display: block; border-radius: 4px; background: var(--lane); }
+button { font: inherit; font-size: .95rem; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+button:disabled { opacity: .45; cursor: default; }
+button:focus-visible, textarea:focus-visible, .slot:focus-visible, .lib img:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.k { color: var(--muted); font-size: .9rem; }
+.panel { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 18px; }
+.strip { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 8px; }
+.slot { flex: none; width: 84px; display: grid; gap: 2px; justify-items: center; border: 2px solid transparent; border-radius: 6px; padding: 4px 2px; background: var(--surface); cursor: grab; touch-action: none; user-select: none; }
+.slot.sel { border-color: var(--accent); }
+.slot.drag { opacity: .5; }
+.slot .pic { width: 76px; height: 120px; background: var(--tile); border-radius: 4px; display: grid; place-items: end center; overflow: hidden; }
+.slot .pic img { max-height: 116px; max-width: 76px; pointer-events: none; }
+.slot .pic.gap { place-items: center; color: var(--muted); font-size: .8rem; text-align: center; padding: 4px; }
+.slot .n { font-size: .78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.slot .bar { height: 4px; border-radius: 2px; background: var(--ok); }
+.slot .bar.short { background: var(--warn); }
+.edit { display: grid; gap: 8px; }
+.nudge { display: grid; grid-template-columns: repeat(3, 40px); gap: 4px; }
+.nudge button { padding: 4px 0; border-radius: 6px; }
+.lib { display: grid; gap: 10px; }
+.group { display: grid; gap: 4px; }
+.group .gl { font-size: .9rem; color: var(--muted); }
+.thumbs { display: flex; flex-wrap: wrap; gap: 6px; }
+.thumbs img { width: 52px; height: 92px; object-fit: contain; object-position: bottom; background: var(--tile); border-radius: 4px; cursor: pointer; }
+.flip { transform: scaleX(-1); }
+textarea { font: inherit; width: 100%; box-sizing: border-box; min-height: 4em; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+#approve[aria-pressed="true"] { border-color: var(--ok); color: var(--ok); }
+#reject[aria-pressed="true"] { border-color: var(--no); color: var(--no); }
+.status { font-size: .9rem; color: var(--muted); min-height: 1.4em; margin: 0; }
+</style>
+
+<main>
+  <header class="intro">
+    <h1>The cast's new walks</h1>
+    <p>Both lanes play as the game plays a walk: the planted foot holds still, the paintings cut from one to the next, and each painting lasts as long as its foot travels.</p>
+    <p>Build the cycle yourself: drag the steps into order (or use the arrows), tap a step and then a frame in the library to swap it, nudge a step to settle its feet, or mark a step as a missing frame and describe what it should be. Your cycle saves as you go; Approve tells Claude to put exactly this cycle in the game.</p>
+  </header>
+  <nav class="chips" id="chips" aria-label="Characters"></nav>
+
+  <section class="lanes">
+    <div class="lane"><div class="label"><b id="top-label">In the game now</b><span id="f-old"></span></div><canvas id="c-old" width="1200" height="400"></canvas></div>
+    <div class="lane"><div class="label"><b>Your cycle</b><span id="f-new"></span></div><canvas id="c-new" width="1200" height="400"></canvas></div>
+  </section>
+  <div class="row">
+    <span class="k">Speed</span>
+    <button data-s="1" aria-pressed="true">1×</button><button data-s="0.5">½×</button><button data-s="0.25">¼×</button><button data-s="0">Pause</button>
+    <button id="step">Next frame</button>
+  </div>
+
+  <section class="panel">
+    <h2>The cycle</h2>
+    <p class="k" style="margin:0">The bar under each step is how far the planted foot travels before the next one (amber: much shorter than the others, so that step will flash by).</p>
+    <div class="strip" id="strip" aria-label="Steps of the cycle"></div>
+    <div class="edit" id="edit">
+      <div class="row">
+        <span class="k" id="sel-label">Step</span>
+        <button id="left" title="Move earlier">◀ Earlier</button><button id="right" title="Move later">Later ▶</button>
+        <button id="dup">Duplicate</button><button id="del">Remove</button><button id="gap">Mark as missing frame</button>
+      </div>
+      <div class="row">
+        <div class="nudge" aria-label="Nudge the step">
+          <span></span><button id="up" title="Nudge up">↑</button><span></span>
+          <button id="nl" title="Nudge left">←</button><button id="n0" title="Reset nudge">·</button><button id="nr" title="Nudge right">→</button>
+          <span></span><button id="dn" title="Nudge down">↓</button><span></span>
+        </div>
+        <span class="k" id="nudge-label"></span>
+      </div>
+      <textarea id="gap-text" placeholder="Describe the missing frame, for example: far leg passing, foot lifted behind, arms close" hidden></textarea>
+      <div class="row"><button id="add-gap">Add a missing frame after this step</button><button id="reset">Back to the proposed set</button></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Library</h2>
+    <div class="row"><span class="k">Tapping a frame</span><button id="mode-swap" aria-pressed="true">swaps the selected step</button><button id="mode-add">adds it after the selected step</button></div>
+    <div class="lib" id="lib"></div>
+  </section>
+
+  <section class="panel">
+    <h2 id="who">Your call</h2>
+    <div class="row"><button id="approve">Approve this cycle</button><button id="reject">Keep the current walk</button></div>
+    <textarea id="note" placeholder="Optional note for Claude"></textarea>
+    <div class="row"><button id="save-note">Save note</button></div>
+    <p class="status" id="status"></p>
+  </section>
+</main>
+
+<script>
+const DATA = __DATA__;
+const ORDER = ['alan', 'ines', 'vasco', 'lacerda', 'celeste', 'ze', 'cop_visit', 'guitar_visit'];
+const DOC = ch => ch === 'alan' ? 'alan_walk6' : ch;
+const FIG = 300, SPEED = 0.62, NUDGE = 2;     // drawn height; the engine's pace (heights a second); nudge step in painting pixels
+const IMG = {}, LIB = {};
+for (const ch of ORDER) { LIB[ch] = Object.fromEntries(DATA[ch].lib.map(e => [e.id, e])); }
+const img = k => { if (!IMG[k]) { const i = new Image(); i.src = 'f/' + k + '.webp'; IMG[k] = i; } return IMG[k]; };
+const state = {};      // per character: { cycle: [{id, dx, dy} | {gap: true, text}], pick, note }
+let cur = ORDER[0], sel = 0, mode = 'swap', speed = 1, last = null, lanes = [];
+const clone = o => JSON.parse(JSON.stringify(o));
+const proposed = ch => DATA[ch].proposed.map(id => ({ id, dx: 0, dy: 0 }));
+const S = () => state[cur] || (state[cur] = { cycle: proposed(cur) });
+
+// ---------------------------------------------------------------- timing, as the engine does it (S.walkTiming)
+function plantOf(ch, s) { const e = LIB[ch][s.id], h = e.meta.h; return e.plant.map(v => v + (s.dx || 0) / h); }
+function lensFor(ch, frames) {
+  return frames.map((s, i) => { const n = frames[(i + 1) % frames.length], P = plantOf(ch, s), Q = plantOf(ch, n);
+    return Math.max(0.01, P[0] - (Q.length > 1 ? Q[1] : Q[0])); });
+}
+function laneFor(which) {
+  const d = DATA[cur];
+  let frames, len;
+  if (which === 'old') {
+    frames = d.old.map(id => ({ id, dx: 0, dy: 0 }));
+    len = d.oldStep ? frames.map(() => d.oldStep) : lensFor(cur, frames);
+  } else {
+    frames = S().cycle.filter(s => !s.gap); if (!frames.length) frames = proposed(cur);
+    len = lensFor(cur, frames);
+  }
+  return { which, frames, len, cycle: len.reduce((a, b) => a + b, 0), d: 0, cv: document.getElementById('c-' + which), lab: document.getElementById('f-' + which) };
+}
+function frameAt(L) { let t = L.d % L.cycle, i = 0, start = L.d - t; while (t >= L.len[i]) { t -= L.len[i]; start += L.len[i]; i = (i + 1) % L.frames.length; } return { i, start }; }
+function draw(L) {
+  const c = L.cv, g = c.getContext('2d'), cs = getComputedStyle(document.documentElement);
+  g.clearRect(0, 0, c.width, c.height);
+  const floor = c.height - 40, sc = DATA[cur].scale;
+  g.strokeStyle = cs.getPropertyValue('--floor').trim() || '#8c7c68'; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(0, floor + 1); g.lineTo(c.width, floor + 1); g.stroke();
+  const { i, start } = frameAt(L), s = L.frames[i], e = LIB[cur][s.id], m = e.meta, im = img(s.id);
+  const k = FIG * sc / m.h, span = c.width + 300, x = ((start * FIG * sc) % span) - 150;
+  const ax = m.ax, fy = m.fy - (s.dy || 0);
+  if (im.complete && im.naturalWidth) {
+    g.save();
+    if (m.facesLeft) { g.translate(x + (s.dx || 0) * k, 0); g.scale(-1, 1); g.drawImage(im, -ax * k, floor - fy * k, im.naturalWidth * k, im.naturalHeight * k); }
+    else g.drawImage(im, x - (ax - (s.dx || 0)) * k, floor - fy * k, im.naturalWidth * k, im.naturalHeight * k);
+    g.restore();
+  }
+  L.lab.textContent = `step ${i + 1} of ${L.frames.length}`;
+}
+function tick(ts) {
+  const dt = last == null ? 0 : Math.min(0.05, (ts - last) / 1000); last = ts;
+  for (const L of lanes) { L.d += dt * SPEED * DATA[cur].speed * speed; draw(L); }
+  requestAnimationFrame(tick);
+}
+function relane() { const keep = lanes.map(L => L.d); lanes = [laneFor('old'), laneFor('new')]; lanes.forEach((L, i) => L.d = keep[i] || 0); }
+
+// ---------------------------------------------------------------- the strip
+const strip = document.getElementById('strip');
+function renderStrip() {
+  const cyc = S().cycle, frames = cyc.filter(s => !s.gap), len = frames.length ? lensFor(cur, frames) : [];
+  const med = len.length ? [...len].sort((a, b) => a - b)[len.length >> 1] : 0, mx = Math.max(...len, 0.01);
+  strip.innerHTML = ''; let fi = 0;
+  cyc.forEach((s, i) => {
+    const el = document.createElement('div'); el.className = 'slot' + (i === sel ? ' sel' : ''); el.tabIndex = 0; el.dataset.i = i;
+    el.setAttribute('role', 'button'); el.setAttribute('aria-label', s.gap ? `Step ${i + 1}: missing frame` : `Step ${i + 1}: ${s.id}`);
+    if (s.gap) el.innerHTML = `<div class="pic gap">missing frame</div><span class="n">${i + 1}</span>`;
+    else {
+      const e = LIB[cur][s.id], L = len[fi++];
+      el.innerHTML = `<div class="pic"><img alt="" src="f/${s.id}.webp"${e.meta.facesLeft ? ' class="flip"' : ''}></div>
+        <span class="n">${i + 1} · ${e.group === 'in the game now' ? 'now' : (e.group === 'new set' ? 'new' : e.group)}${e.pose ? ' p' + e.pose : ''}</span>
+        <div class="bar${L < med * 0.45 ? ' short' : ''}" style="width:${Math.max(6, 70 * L / mx)}px"></div>`;
+    }
+    el.addEventListener('click', () => { sel = i; renderStrip(); renderEdit(); });
+    el.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); sel = i; renderStrip(); renderEdit(); } });
+    dragable(el, i); strip.append(el);
+  });
+}
+function dragable(el, i) {
+  let start = null, moved = false;
+  el.addEventListener('pointerdown', ev => { start = ev.clientX; moved = false; el.setPointerCapture(ev.pointerId); });
+  el.addEventListener('pointermove', ev => { if (start == null) return; if (Math.abs(ev.clientX - start) > 8) { moved = true; el.classList.add('drag'); } });
+  el.addEventListener('pointerup', ev => {
+    if (start == null) return; start = null; el.classList.remove('drag'); if (!moved) return;
+    const slots = [...strip.querySelectorAll('.slot')];
+    let to = slots.findIndex(s => { const r = s.getBoundingClientRect(); return ev.clientX < r.left + r.width / 2; });
+    if (to < 0) to = slots.length; if (to > i) to--;
+    move(i, to);
+  });
+}
+function move(from, to) {
+  const c = S().cycle; if (to < 0 || to >= c.length || from === to) return;
+  const [s] = c.splice(from, 1); c.splice(to, 0, s); sel = to; changed();
+}
+function renderEdit() {
+  const c = S().cycle, s = c[sel]; if (!s) { sel = Math.max(0, c.length - 1); }
+  const t = c[sel], gapText = document.getElementById('gap-text');
+  document.getElementById('sel-label').textContent = t ? `Step ${sel + 1} of ${c.length}` : 'No steps';
+  document.getElementById('left').disabled = !t || sel === 0; document.getElementById('right').disabled = !t || sel === c.length - 1;
+  for (const id of ['up', 'dn', 'nl', 'nr', 'n0']) document.getElementById(id).disabled = !t || !!t.gap;
+  document.getElementById('nudge-label').textContent = t && !t.gap ? `nudged ${t.dx || 0} px across, ${t.dy || 0} px down (in the painting's pixels)` : '';
+  gapText.hidden = !(t && t.gap); if (t && t.gap && document.activeElement !== gapText) gapText.value = t.text || '';
+  document.getElementById('gap').textContent = t && t.gap ? 'Use a frame here instead (tap the library)' : 'Mark as missing frame';
+}
+function changed() { renderStrip(); renderEdit(); relane(); draft(); }
+document.getElementById('left').onclick = () => move(sel, sel - 1);
+document.getElementById('right').onclick = () => move(sel, sel + 1);
+document.getElementById('dup').onclick = () => { const c = S().cycle; if (!c[sel]) return; c.splice(sel + 1, 0, clone(c[sel])); sel++; changed(); };
+document.getElementById('del').onclick = () => { const c = S().cycle; if (c.length <= 2) return; c.splice(sel, 1); sel = Math.min(sel, c.length - 1); changed(); };
+document.getElementById('gap').onclick = () => { const c = S().cycle; if (!c[sel] || c[sel].gap) return; c[sel] = { gap: true, text: '', was: c[sel].id }; changed(); };
+document.getElementById('add-gap').onclick = () => { const c = S().cycle; c.splice(sel + 1, 0, { gap: true, text: '' }); sel++; changed(); };
+document.getElementById('gap-text').oninput = e => { const t = S().cycle[sel]; if (t && t.gap) { t.text = e.target.value.slice(0, 1000); draft(); } };
+const nudge = (dx, dy) => { const t = S().cycle[sel]; if (!t || t.gap) return; t.dx = (t.dx || 0) + dx; t.dy = (t.dy || 0) + dy; changed(); };
+document.getElementById('nl').onclick = () => nudge(-NUDGE, 0); document.getElementById('nr').onclick = () => nudge(NUDGE, 0);
+document.getElementById('up').onclick = () => nudge(0, -NUDGE); document.getElementById('dn').onclick = () => nudge(0, NUDGE);
+document.getElementById('n0').onclick = () => { const t = S().cycle[sel]; if (t && !t.gap) { t.dx = 0; t.dy = 0; changed(); } };
+document.getElementById('reset').onclick = () => { S().cycle = proposed(cur); sel = 0; changed(); };
+
+// ---------------------------------------------------------------- the library
+const lib = document.getElementById('lib');
+function renderLib() {
+  lib.innerHTML = '';
+  const groups = {}; for (const e of DATA[cur].lib) (groups[e.group] = groups[e.group] || []).push(e);
+  const order = ['new set', ...Object.keys(groups).filter(g => /^try/.test(g)).sort(), 'in the game now'].filter(g => groups[g]);
+  for (const g of order) {
+    const box = document.createElement('div'); box.className = 'group';
+    box.innerHTML = `<div class="gl">${g === 'new set' ? 'The proposed set' : g === 'in the game now' ? (DATA[cur].inGame ? 'Frames from the walk before' : 'Frames in the game now') : 'Another Gemini attempt (' + g + ')'}</div><div class="thumbs"></div>`;
+    for (const e of groups[g].sort((a, b) => (a.pose || 99) - (b.pose || 99))) {
+      const im = document.createElement('img'); im.src = 'f/' + e.id + '.webp'; im.loading = 'lazy'; im.tabIndex = 0;
+      im.alt = e.pose ? `pose ${e.pose}` : e.id; im.title = e.pose ? `pose ${e.pose} (${g})` : e.id; if (e.meta.facesLeft) im.classList.add('flip');
+      const use = () => { const c = S().cycle, s = { id: e.id, dx: 0, dy: 0 };
+        if (mode === 'add' || !c.length) { c.splice(sel + 1, 0, s); sel = Math.min(sel + 1, c.length - 1); } else c[sel] = s; changed(); };
+      im.onclick = use; im.onkeydown = ev => { if (ev.key === 'Enter') use(); };
+      box.querySelector('.thumbs').append(im);
+    }
+    lib.append(box);
+  }
+}
+const setMode = m => { mode = m; document.getElementById('mode-swap').setAttribute('aria-pressed', m === 'swap'); document.getElementById('mode-add').setAttribute('aria-pressed', m === 'add'); };
+document.getElementById('mode-swap').onclick = () => setMode('swap'); document.getElementById('mode-add').onclick = () => setMode('add');
+
+// ---------------------------------------------------------------- characters, speed
+const chips = document.getElementById('chips');
+for (const ch of ORDER) {
+  const b = document.createElement('button'); b.className = 'chip'; b.dataset.ch = ch; b.id = 'chip-' + ch;
+  b.innerHTML = '<span class="dot"></span>'; b.append(DATA[ch].name);
+  if (DATA[ch].inGame) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = 'in the game'; b.append(t); }
+  b.onclick = () => choose(ch); chips.append(b);
+}
+function choose(ch) {
+  cur = ch; sel = 0;
+  for (const b of chips.querySelectorAll('button')) b.setAttribute('aria-pressed', b.dataset.ch === ch);
+  document.getElementById('top-label').textContent = DATA[ch].inGame ? 'In the game now (approved)' : 'In the game now';
+  document.getElementById('who').textContent = 'Your call: ' + DATA[ch].name;
+  document.getElementById('note').value = S().note || ''; document.getElementById('status').textContent = '';
+  lanes = [laneFor('old'), laneFor('new')]; renderStrip(); renderEdit(); renderLib(); showPick();
+}
+const speedBtns = [...document.querySelectorAll('[data-s]')];
+function setSpeed(v) { speed = v; for (const b of speedBtns) b.setAttribute('aria-pressed', +b.dataset.s === v); }
+for (const b of speedBtns) b.onclick = () => setSpeed(+b.dataset.s);
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) setSpeed(0);
+document.getElementById('step').onclick = () => { setSpeed(0); for (const L of lanes) { const { i, start } = frameAt(L); L.d = start + L.len[i] + 1e-6; } };
+
+// ---------------------------------------------------------------- saving (one document per character; Claude reads them)
+let db = null; const st = document.getElementById('status');
+function showPick() {
+  const p = S().pick;
+  document.getElementById('approve').setAttribute('aria-pressed', p === 'approve'); document.getElementById('reject').setAttribute('aria-pressed', p === 'reject');
+  for (const ch of ORDER) { const s = state[ch], dot = document.querySelector('#chip-' + ch + ' .dot');
+    dot.className = 'dot ' + ((s && s.pick) || (s && s.edited ? 'draft' : '')); }
+}
+async function save(fields, quiet) {
+  const ch = cur; Object.assign(S(), fields, { at: new Date().toISOString() }); showPick();
+  if (!db) { if (!quiet) st.textContent = 'This view cannot save. Tell Claude your choice in chat instead.'; return; }
+  const doc = { pick: S().pick || null, note: S().note || '', cycle: S().cycle, edited: !!S().edited, at: S().at };
+  try { await db.doc('decision/' + DOC(ch)).set(doc); if (!quiet) st.textContent = 'Saved for ' + DATA[ch].name + '.'; else st.textContent = 'Cycle saved as a draft.'; }
+  catch (e) { st.textContent = 'Could not save (' + (e.code || e.message) + '). Tell Claude in chat instead.'; }
+}
+let draftT = null;
+function draft() { S().edited = true; if (S().pick === 'approve') S().pick = null; showPick(); clearTimeout(draftT); draftT = setTimeout(() => save({}, true), 1200); }
+document.getElementById('approve').onclick = () => save({ pick: 'approve' });
+document.getElementById('reject').onclick = () => save({ pick: 'reject' });
+document.getElementById('save-note').onclick = () => save({ note: document.getElementById('note').value.slice(0, 2000) });
+
+choose(ORDER[0]); requestAnimationFrame(tick);
+(async () => {
+  db = await window.claude?.use?.('db') ?? null;
+  if (!db) return;
+  db.collection('decision').onSnapshot(snap => {
+    for (const d of snap.docs) {
+      const ch = d.id === 'alan_walk6' ? 'alan' : d.id, v = d.data() || {}; if (!DATA[ch]) continue;
+      const s = state[ch] || (state[ch] = { cycle: proposed(ch) });
+      if (v.pick !== undefined) s.pick = v.pick; if (typeof v.note === 'string') s.note = v.note; s.edited = !!v.edited;
+      if (Array.isArray(v.cycle) && v.cycle.every(x => x.gap || LIB[ch][x.id]) && !(ch === cur && draftT)) s.cycle = v.cycle;
+    }
+    showPick(); if (document.activeElement !== document.getElementById('note')) document.getElementById('note').value = S().note || '';
+    renderStrip(); renderEdit(); relane();
+  });
+})();
+</script>

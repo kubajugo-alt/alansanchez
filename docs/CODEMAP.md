@@ -10,7 +10,7 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 | 2 | `js/sprites.js` | `window.SPRITES`: frame metadata (size, feet and head anchors, pair anchors). **Generated.** |
 | 3 | `js/morphs.js` | `window.MORPHS`: mesh correspondences for smooth pose changes. **Generated.** |
 | 4 | `js/similar.js` | `window.SIMILAR`: near-identical frame pairs (short cross-fade). **Generated.** |
-| 5 | `js/fx.js` | `window.FX`: fog, glows, light shafts, birds, water, vignette, clouds, painted inventory icons. |
+| 5 | `js/fx.js` | `window.FX`: fog, glows, light shafts, birds, water, vignette, clouds, painted inventory icons, and the small moving details rooms draw over their paintings (`wisps`, `drips`, `sway` (with `up` for plants and flames), `breathe`, `ripple`, `billow`, `flame`, `trickles`, `rain`, `moth`, `twinkle`, `dapple`, `passer`, `sweep`, `feather`, `fan`; all deterministic in `t`). |
 | 6 | `js/audio.js` | `window.Sound`: recorded music (crossfades, ducking), effects, ambience loops, footsteps, room acoustics, voice playback and level. |
 | 7 | `js/warp.js` | `window.Warp`: the WebGL mesh warp and GPU lighting for painted figures. |
 | 7b | `js/parallax.js` | `window.Parallax`: depth parallax in every room (`art/bg/<bg>_depth.png` from `scripts/depth_map.py`; a room opts out with `parallax: false`, as the map does; `?noparallax` turns it off; it switches off with the mesh warp on a slow device). render.js draws the painting with its animated back and layers into one canvas, slides it by depth, and moves figures and occluders by the depth at their feet. |
@@ -19,7 +19,7 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 | 10 | `js/engine/lights.js` | Room lights and flicker, glows, light on characters (`lightSprite`, `lightParams`), cast and contact shadows. |
 | 11 | `js/engine/geometry.js` | Walk polygons, routing round cut-outs, rounded corners, hotspot and sprite-pixel hit tests. |
 | 12 | `js/engine/rooms.js` | Depth scaling (`scaleAt`), `goRoom` (door sounds, fades, music, ambience, autosave), NPCs and extras per room, room labels. |
-| 13 | `js/engine/render.js` | One frame (background, layers, depth-sorted actors and occluders, fog, grade) and the animation loop. |
+| 13 | `js/engine/render.js` | One frame (background, layers, depth-sorted actors and occluders, fog, grade) and the animation loop. Room `layers` can `swing` (degrees about `pivot`), `bob` (px) and carry an `over(g, t)` drawn with them (a lantern's flame); `?fps` shows a frame-rate readout. Room hooks: `animBack` (into the painting, slides with parallax: anything pinned to a painted object), `anim` (over it), `animFg` (over the figures). |
 | 13a | `js/lipsync.js` | `window.LIPSYNC`: Rhubarb mouth cues per voiced line, `{speaker: {line: [duration, [[t, shape], ...]]}}`. **Generated** (`scripts/lipsync.py`). |
 | 13b | `js/faces.js` | `window.FACES`: per frame, the face box, mouth shapes and eyelid patches (`art/faces/`), with `ok: true` once approved; a partner's face in a pair painting is the set `<frame>__<speaker id>`. **Generated** (`scripts/face_transfer.py`, `scripts/face_kit.py build`). |
 | 13c | `js/engine/faces.js` | Lip-sync and blinking: lays the mouth (from the cues, on the audio clock) and the eyelids into the painting before it is lit and warped. |
@@ -47,6 +47,7 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 | 34 | `js/story/transitions.js` | Chapter transitions and the fado slideshow. |
 | 35 | `js/story/main.js` | Shared painted effects, shop chapter hooks, `?scene=` previews, the content setting, the opening and `window.Story.newGame`, approved review frames, `Game.init`. |
 | - | `js/review.js` | The `?review` animation review screen. Not in `index.html`: `main.js` loads it only when `?review` is in the address. |
+| - | `js/walklab.js` | The walk lab (`?scene=walklab`): a character walking a room with its current or candidate cycle, slow motion, feet on the floor, per-frame size and the planted foot's slip at each change of painting. Not in `index.html`: `main.js` loads it for that preview. |
 | - | `css/style.css` | All styling (frame, captions, inventory, menus, modals, close-ups). |
 
 ## Globals
@@ -83,17 +84,16 @@ Engine state lives on `E` so the engine files can share it: `E.state` (what a sa
 | `js/lipsync.js`, `lipsync/<speaker>/<id>.json` | `RHUBARB=<binary> python3 scripts/lipsync.py --speaker <id>` (redoes only lines whose mp3 changed; Rhubarb 1.13.0) |
 | `js/faces.js`, `art/faces/` | `scripts/face_kit.py` (per character, `FACE_CHAR=<alan|vasco|ines|cop>`) |
 | `art/review/candidates.json`, `art/review/candidates/*.webp` | `python3 scripts/review_candidates.py` |
-| `art/layers/*.webp` | `scripts/layers.py` |
+| `art/layers/*.webp` | `scripts/layers.py` (from clean plates); `scripts/swing_cut.py` (moving parts: `<name>.webp` from the painting, `<name>_under.webp` inpainted behind it) |
+| `art/review/candidates/*_walk6_*`, `*_walk7_*` and their entries in `art/review/candidates.json` | `scripts/walk_sheet.py` (Alan's set), `scripts/walk_sheet_cast.py fit <char>` (the cast), `scripts/walk_apply_cycle.py` (a cycle built in the walk editor). Each prints the plant data, which goes into `S.WALK_PLANT` in `js/story/core.js` by hand. |
 | `audio/voice/*.mp3` | `node scripts/generate-voices.mjs` (ElevenLabs, paid: only when asked) |
 
 ## Testing
 
 Serve the repository root (`npx -y http-server -p 8098 -c-1 -s .`), then:
 
-- `node --check` on every changed `.js` file.
-- **Scene previews:** `?scene=<name>` jumps straight to a scene (the list is `PREVIEW` in `js/story/main.js`; also `tr1` to `tr5` for the chapter transitions). `?review` opens the review screen.
-- **Smoke test** (Playwright, `executablePath: '/opt/pw-browsers/chromium'`, Playwright loaded with `createRequire('/opt/node22/lib/node_modules/')`): `node smoke.mjs http://localhost:8098/` opens every preview scene with `window.FAST` on, answers the dialogs and reports page errors. With `GEMINI=1` it approves every review candidate and uses the Gemini pair transitions: `GEMINI=1 node smoke.mjs http://localhost:8098/ celeste romance visitcop visitguitar cop copreturn guitar sepitgame vascostore vascolove`. Aborted music loads (`ERR_ABORTED` on `audio/music/...`) are known and harmless.
-- **Pose probe:** `node probe.mjs <scene>` prints every pose Alan takes in a scene; compare it before and after a change that should not alter animation.
-- **Full playthrough:** `node play.mjs http://localhost:8098/` plays a new game to the ending through real hotspots and dialogs, and prints `{"won":true, "errors":[], ...}` when it gets there.
-
-`smoke.mjs` is in `scripts/tests/` (with `walknew.mjs` and `copbed2.mjs`); run it from the repo root as `node scripts/tests/smoke.mjs http://localhost:8098/`. `probe.mjs` and `play.mjs` lived in an earlier session's scratchpad and are gone.
+- `node --check` on every changed `.js` file, and `node scripts/validate.mjs` (line ids, audio, lip-sync freshness, flags, frame sizes).
+- **Scene previews:** `?scene=<name>` jumps straight to a scene (the list is `PREVIEW` in `js/story/main.js`; also `tr1` to `tr5` for the chapter transitions). `?scene=walklab` is the walk lab; `?review` opens the review screen.
+- **Smoke test** (Playwright, `executablePath: '/opt/pw-browsers/chromium'`, Playwright loaded with `createRequire('/opt/node22/lib/node_modules/')`): `node scripts/tests/smoke.mjs http://localhost:8098/ [scene ...]` opens every preview scene with `window.FAST` on, answers the dialogs and reports page errors. All 38 scenes take over 15 minutes: run them in two parts. `GEMINI=1` approves every review candidate for the run.
+- **Other scripts in `scripts/tests/`:** `walk_cast.mjs` (walk lab readings per character), `walks_wired.mjs` (which cycle each character plays), `room_shots.mjs` (room screenshots, `OUT=<folder>`), `perf.mjs` and `profile.mjs` (speed; without a GPU the numbers are only comparative), `walknew.mjs`, `copbed2.mjs`.
+- **Lost:** `probe.mjs` (poses per scene) and `play.mjs` (a full playthrough to `{"won":true}`) lived in an earlier session's scratchpad; rebuilding the playthrough is on the to-do list (docs/animation_handoff.md, "Start here").

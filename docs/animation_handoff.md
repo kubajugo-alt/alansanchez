@@ -1,8 +1,82 @@
 # Animation handoff
 
-State as of 2026-10-20. `master` now carries everything (it was fast-forwarded to `lore-se-museum`; work on
-`master` from here). The live site (https://alan-sanchez-drowned-bell.netlify.app) runs the deploy recorded
-at the end of this section.
+## Start here (session handoff, 2026-10-21)
+
+Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
+runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
+`scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
+underneath has the detail of every change (entries 1-22); the sections after it are an archive of the 20 October
+handoff, kept for history: don't act on them without checking the code and the user.
+
+### What is in the game now
+- **Story review round 2** (T01-T11) done; every line voiced (about 1,360, ElevenLabs), all within +-1.5 LU of
+  -21.5 LUFS; lip-sync cues for every speaker but the narrator. Amália's first hello tightened (entry 20).
+- **Faces** (lip-sync and blinking): Alan, Inês, Vasco, Teixeira. Everyone else has cues but no face art yet.
+- **Walks:** all eight walking characters on new side walks painted as one Gemini sheet each. Alan and Inês play
+  the cycles the user built in the walk editor (`*_walk7_s*`, 5 and 6 steps, entry 19); Vasco, Lacerda (widened
+  x1.2 on the user's note), Celeste, Zé, Teixeira (cop_visit) and Duarte (guitar_visit) their approved 8-pose sets
+  (`*_walk6_p*`, entries 16-17). The engine holds the planted foot and times each painting by its foot's travel
+  (`S.WALK_PLANT`, `S.walkTiming`, entry 11). Rui still glides (no walk). Walks towards / away from the camera and
+  the lantern walks are the old 2-4 frame cycles.
+- **Stills:** the 26 oil paintings repainted in the cartoon style the user chose (entry 12); 39 stills at 1536x864
+  for sharp zooms (entry 15). Title screen and the five puzzle close-ups unchanged, by the user's rule.
+- **Rooms:** small moving details in all 20 rooms drawn over the paintings (entry 21), and cut-out moving parts
+  (lanterns, lamps, the street sign, the moored boats; entry 22). No room painting changed.
+- **Speed:** slow devices drop the warp and parallax by themselves; `?fps` shows a readout (entry 20).
+
+### Open, in the order I'd suggest
+1. **Walks towards and away from the camera** (Alan first: the player walks him up and down rooms all the time),
+   then the lantern walks (Alan's `alan_lwalk*`, Inês's `ines_lwalk*`). Same method: a Gemini sheet, then the walk
+   editor for the user to arrange and approve. `walk_sheet.py`'s guide is side-view stick figures: front/back
+   views need their own guide.
+2. **Face kits for the rest of the cast** (Lacerda, Rui, Celeste, Duarte, then Tomás, Amália, Zé, Abílio, Lino):
+   about 65 frames, roughly $20 of Gemini; their lip-sync cues are ready. Biggest visible step left.
+3. **Rui's walk** (one sheet + the editor).
+4. **A full playthrough test** (the old `play.mjs` is lost): plays a new game to the end through hotspots and
+   dialogs. Then rewrite the README walkthrough from it (it predates the Sé chapter and the visits, and says so).
+5. **Phone speed:** ask the user for `?fps` numbers per room on their phone; eight rooms became live this session
+   (tavern, se_tower, cais, boat, cabin, se_museum, se_cloister, se_store).
+6. Left out on purpose (entry 22): the map's boats, the armillary sphere, the shop's newspaper corner, the museum
+   lectern's page.
+7. Older threads from the 20 October archive (Phase 3 step in-betweens, the combined-sprite transition choice, the
+   rig trial, the 70 frames without face sets): still open as far as I know; ask the user before picking them up.
+
+### Rules added this session (the full list is "Standing rules" in the archive below; these come on top)
+- **The room paintings (`art/bg/*.jpg`) must not change.** Moving details are drawn over them; moving parts are cut
+  with `scripts/swing_cut.py`, which leaves the painting intact (at rest the layers equal it).
+- **Story facts beat ambience:** Ferreira's clocks all stopped at 03:12 (only the tide clock runs), so no second
+  hands or pendulums there; Lacerda's tagged clocks F, B, C stopped (J.C. waiting); nobody rings the Sé's bells, so
+  they hang still. Check the story (docs/STORY.md, js/lines.js) before animating anything that could carry meaning.
+- **Stills:** the user chose the Gemini cartoon style for every story painting; the title screen and the five
+  puzzle close-ups stay as they are.
+- **Gemini** is allowed for walks and stills (the user: "Let's do Gemini"); the key is in `.env` as
+  `GEMINI_API_KEY` (git-ignored; never print, commit or deploy it). Log every call (`art/review/log.md`).
+- **Approvals come from the user** (a review page's database, or their words in chat): the permission check
+  refuses approving art on their behalf, rightly. Walks are approved on the walk editor page.
+- **Deploy only when asked**, from a clean `git archive` export (procedure under "Key files" in the archive).
+
+### Tools from this session (details in the entries named)
+- **Walks:** `scripts/walk_sheet.py` (Alan's sheet + fit; entries 13-14), `scripts/walk_sheet_cast.py
+  generate|fit|library <char>` (the rest of the cast, SHEET / REUSE per character; entry 16),
+  `walk_heel_down.py`, `walk_head_swap.py`, `walk_widen.py`, `walk_apply_cycle.py` (a cycle from the editor into
+  the game; entry 19). The walk lab: `?scene=walklab` (entries 10, 14). The walk editor page:
+  https://claude.ai/artifact/RoCMGALM4FXgJWdTKrg3v9, source in `scripts/review_pages/walk_editor/`.
+- **Stills:** `scripts/gen_image.py --still` (the repaint recipe, entry 12), `scripts/stills_hires.py` (entry 15).
+- **Rooms:** FX helpers in `js/fx.js` (flame, trickles, rain, moth, ripple, billow, twinkle, dapple, passer, sweep,
+  feather, fan, sway from the top; entry 21); layers with `swing` / `bob` / `over` (render.js drawLayers) cut by
+  `scripts/swing_cut.py` (entry 22).
+- **Tests** (`scripts/tests/`, serve the repo on :8098 with `npx -y http-server -p 8098 -c-1 -s .`): `smoke.mjs`
+  (all 38 scenes take over 15 minutes: run them in two parts), `walk_cast.mjs`, `walks_wired.mjs`, `room_shots.mjs`,
+  `perf.mjs`, `profile.mjs`; plus `node scripts/validate.mjs`. A smoke run with `GEMINI=1` approves every candidate.
+- **Review pages:** the walk editor (above); the stills choice (done): https://claude.ai/artifact/NXdCrquugizM39ea7bF1TN.
+
+### Lost with this session's container
+- Rhubarb Lip Sync 1.13.0 (download again; `RHUBARB=<binary>` for `scripts/lipsync.py`).
+- The 2752x1536 Gemini originals of the 26 repainted stills (`art/review/stills/crisp2/*_raw.png`, git-ignored);
+  the 1536x864 versions in the game are what matters.
+- The walk sheets that weren't chosen (git-ignored); the editor library's fitted tries (rebuild with
+  `walk_sheet_cast.py library`).
+- Gemini spend this session: $3.57 over 52 calls (stills and walk sheets); the whole log: $97.04 over 2,068 calls.
 
 ## Story review round 2 (2026-10-20): done
 
@@ -310,7 +384,12 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Checked:** before/after crops (no seams, objects where painted); smoke intro, bench, lacthreat, quayfish,
      laundry, finale, tavernafter, fado, vascostore, twinswap pass.
 
-## Where things stand (session handoff, 2026-10-20)
+## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
+
+Much of this is out of date (Alan's and Inês's walks, the phases, the deploy steps' test scripts). Kept for the
+reasoning and the rules it records.
+
+### Where things stand (session handoff, 2026-10-20)
 
 **In the game now** (all deployed; the user approved each, and on 2026-10-20 said of the walk: "Don't expect my approval - if works for you, works for me"):
 - **Alan's walk: the 8-pose cycle of the user's reference chart.** The chart (a classic walk sheet: near limbs light, far limbs dark, poses 1-3-5-7 on the near leg, 9-11-13-15 on the far leg) is redrawn as stick figures in `art/review/walkref/pose<N>.png`. Slots: 1 `alan_walkA`, 3 `alan_walk_pre2L`, 5 `pass2L`, 7 `up2L`, 9 `contact_farL`, 11 `pre1L`, 13 `pass1L`, 15 `up1L`. 5/7/11/13/15 are Canva paintings from the stick figures (`art/review/alan/walk5/`), fitted onto walkA's canvas at one shared scale by `scripts/walk_canva_fit.py`; 9 is composited by `scripts/walk_far_step.py` from walkA's own far leg. The earlier Gemini / composite versions are kept as `art/review/alan/walk2/*_gemini.*` and `*_before_canva.*`. All seven candidates are approved in `art/review/approvals.json`, so `loadApproved` (js/story/main.js) puts the cycle in.
@@ -381,7 +460,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
 - Switch: `?rig=1` / `?rig=0`, or `localStorage['rig-alan'] = '1'`; the frame-based Alan is the default. Review screen: tab **Rig**, "compare side by side" (the scene `?scene=rigtest` twice: frames left, muted; rig right).
 - Not done (by the brief, steps 1-6): the state-by-state classification, part swaps (hands, coat), the rig editor, talk gestures, turn/reach/pick-up, rig<->sprite blending, front and back views. No Gemini was used (the credit is out).
 
-## Standing rules (from the user)
+### Standing rules (from the user)
 
 - **Gemini** (`gemini-nano-banana-2.1`, key in `.env` as `GEMINI_API_KEY`, git-ignored; never print it, commit it or use it on the live site):
   - Use it only for variations of existing Canva art, and always edit an existing image of the same character.
@@ -406,7 +485,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
   - No PRs.
   - Deploy only a clean `git archive` export, and only when the user asks.
 
-## Per character
+### Per character
 
 **Alan**: the only character in the four-phase plan so far. Once the user approves Alan, he becomes the template for the rest of the cast.
 
@@ -419,7 +498,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
 
 **Inês** and **Vasco**: no phase of this plan has been run for them. Earlier, separate passes (before the four-phase plan) integrated Inês's v2 sprite set and Vasco's frames, expressions and staging. Those were reviewed and deployed. Both characters will follow the four phases with Alan as the template once he is approved.
 
-## Where it stopped (Phase 3 Part B)
+### Where it stopped (Phase 3 Part B)
 
 The user asked to stop mid-task. The work is committed (`2f3b066`) and, since then, deployed (`f2b227f`).
 
@@ -472,12 +551,12 @@ What this means on the live site:
    - A lip-sync section on the review screen.
    - Deliver: a checklist, the total Gemini cost for all four phases, and `git diff --stat`.
 
-## Also changed this session (outside the phases)
+### Also changed this session (outside the phases)
 
 - **Walk regression (reported by the user after the last deploy).** Phase 1 had re-anchored the walk frames on the hips with a per-frame scale "bob", so his feet slid. The walk cycle frames are restored to their old hand-tuned `ax`/`h`, the original 8-frame cycle is back (with `walkDown`; no `walkLen`), their morphs are rebuilt, and `scripts/align_alan.py` now leaves the walk cycles alone. **Deployed** (`f2b227f`).
 - **Rui's newspaper (the user was stuck after the clockmaker).** The desk hotspot sat behind Rui. Now he hands the Diário over when he offers it, and a save past that point gets "Your Diário, Inspector?". Commit `faa267c`. **Deployed** (`f2b227f`).
 
-## Waiting for the user
+### Waiting for the user
 
 - **Transition type for combined sprites.** **No choice made yet.** The game defaults to the cross-fade (0.25 s). The user said they would pick after comparing on the review screen: Combined tab, the radio buttons and "Transition test".
 - **Approve or reject** on the review screen (New frames tab; decisions go to `art/review/approvals.json`, currently `{}`):
@@ -495,7 +574,7 @@ What this means on the live site:
   - Is the Diário reachable now?
   - Do the pair scenes enter and leave without jumps?
 
-## Things I was unsure about
+### Things I was unsure about
 
 - Restoring the old walk anchors overrides part of the Phase 1 alignment the user had approved, on the user's own report that the walk got worse. Worth a look on the review screen (Walk tab).
 - `pair_vasco_kneel` and `pair_vasco_thumb` are painted but not placed in any scene.
@@ -505,7 +584,7 @@ What this means on the live site:
 - The stills with Alan and a partner fade in and out over the scene. Whether Phase 4 should add blinking or lip-sync to them hasn't been decided (in most of them his eyes are closed or nobody speaks on screen).
 - The guitar-lesson spot can fall outside the tavern's walkable area. `S.pairIn` puts Alan on the spot after the walk anyway.
 
-## Key files
+### Key files
 
 - **Gemini:**
   - `scripts/gen_image.py`: one call; it handles refs, keying, palette, framing, the side-by-side image and the log.
