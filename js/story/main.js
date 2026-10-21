@@ -287,6 +287,11 @@
     if (new URLSearchParams(location.search).get('walk') === 'a') { window.WALK = S.WALK_A; S.CHARS.alan.frames.walk = S.WALK_ORIGINAL.alan.slice(); }
     if (new URLSearchParams(location.search).get('walk') === 'fix') window.WALK = S.WALK_FIX; // the engine fix alone, today's frames
     for (const c of Object.values(S.CHARS)) if (c.frames && c.frames.walk) S.walkTiming(c.frames); // step lengths from S.WALK_PLANT, where a cycle has them
+    // ?bath=new: the repainted bath scene, for review (art/review/alan/bath_new, ch2.js S.bathNew); not in the game
+    if (new URLSearchParams(location.search).get('bath') === 'new') {
+      const B = await get('art/review/alan/bath_new/sprites.json');
+      if (B) { for (const [k, m] of Object.entries(B)) window.SPRITES[k] = m; S.BATH_NEW = true; }
+    }
     // the walk lab measures the walk candidates too, approved or not: their sprites are registered (not wired in)
     if (new URLSearchParams(location.search).get('scene') === 'walklab')
       for (const c of S.REVIEW.candidates) if (c.meta && c.wire && c.wire.walkSlot != null && !window.SPRITES[c.id]) window.SPRITES[c.id] = Object.assign({ src: c.src }, c.meta);

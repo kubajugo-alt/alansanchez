@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-26); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-27); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -460,6 +460,37 @@ session lived in the session's scratchpad and are gone; everything that matters 
      (meta only, pose heights left as they are); (4) a review page playing the scene before/after, per-frame approval.
    - **Blocked:** no GEMINI_API_KEY in this container (`.env` is git-ignored and was not carried over); the user
      is to add it as an environment variable for a new session.
+
+27. **The bath scene painted again from scratch, for review** (the user: "fully re-paint the scene ... up to 10 [frames],
+   using Alan's bodytype and skintone from Teixeira love scene"; then: keep it a skinny-dip; "he will start undressing,
+   and go behind the waterpool, and this is where he will take off his trunks and throw them away"; Celeste's white
+   towel for getting out and dressing; underwear, not swimming trunks). Not in the game: `?scene=bath&bath=new`.
+   - **Paintings (Canva, all `generate-image` from two references):** Alan cut from `pair_cop_cuffs` (build, skin) and
+     `alan_side` (face, clothes), on green, `PORTRAIT_1_2`, exported full size through the scratch design (pages 25-44).
+     Eleven frames: jacket off, T-shirt over the head, hopping out of the jeans (black boxer shorts), standing in his
+     underwear, waist-up behind the tank flinging the underwear, waist-up washing (hair back, splashing his face),
+     out over the rim with the towel, dripping in the towel, towel on with the underwear in hand, dressed with the
+     collar up. Canva refused: anything with the underwear going on or coming off below the waist, and "boxer
+     briefs" wording (once). Earlier tries kept in art/review/alan/bath_new (trunks versions, jacket-as-towel, the
+     cannonball, jeans under the towel; manifest.json lists them). The exports are git-ignored.
+   - **Fit** (`scripts/bath_new_fit.py`): keyed, standing frames scaled to the first frame's full height (720 sprite
+     px), the others by head size (template match on the first frame's head); waist-up frames stand on their cut, drawn
+     at `WASH` (the tank's waterline, h 380) like the old washing frames. art/review/alan/bath_new/sprites + sprites.json.
+   - **Scene** (ch2.js `S.bathNew`, used when `S.BATH_NEW`, set by main.js for `?bath=new`): undress in front of the
+     tank; fade, up behind the tank's wall (waist-up at `WASH`), the underwear flung on the old `drawShorts` arc;
+     Celeste's shriek, Alan's line; splash; washing loop over narr_bath; fade; out at x 770 (in front of the tank: at
+     880 the tank hid his legs) with the towel; celeste_bath_2; underwear in hand; the jeans, tee and jacket frames
+     played as dressing; collar up; joke; laundryRemark. The old scene is untouched and still the game's.
+   - **Open:** the towel stays painted on the tank's corner after he takes it (the room paintings don't change; a
+     layer cut would be the way, the user's call); the new frames have no face kits (no lip-sync on them yet).
+   - **Review board** (the user: "a tool that will let me review the frames, order them and brief in tweaks and missing
+     ones"): https://claude.ai/artifact/7q45C56o77oNXSCdqt1vzc (source scripts/review_pages/bath_board/, data.json =
+     the frames and the first proposed order). Scene strip (reorder, duplicate, remove, hold ms, floor/tank, a note per
+     step, missing-frame cards), paintings with a note each, overall notes, Approve, Play over the room at game size.
+     Saved to its db doc `board/bath`: `{steps: [{id, hold, place, note} | {gap: true, text, hold}], frameNotes,
+     overall, approved}`. Read it with ArtifactData get board/bath.
+   - Checked: smoke bath (the old scene) passes; the new scene played through in Chromium with no errors (screens of
+     the fling behind the tank and the towel by the corner checked by eye).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

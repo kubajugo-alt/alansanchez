@@ -133,6 +133,7 @@
     p.pose = 'fluster'; await say('alan_washers_2'); p.pose = null;
   };
   S.bathEgg = async function () {
+    if (S.BATH_NEW) return S.bathNew(); // the repainted scene (?bath=new, for review)
     const p = G.player, c = G.npc('celeste'), T = ms => G.wait(window.FAST ? 20 : ms);
     if (F().bathed) return say('alan_bath_3');
     await G.busy(async () => {
@@ -232,6 +233,76 @@
       p.pose = null;
       F().bathed = true;
       // not everyone at the basins is laughing with him
+      await T(1400);
+      await S.laundryRemark();
+    });
+  };
+  // The bath repainted (2026-10-21, ?bath=new, for review): eleven Canva paintings, his build and skin from the Teixeira
+  // scene (art/review/alan/bath_new, scripts/bath_new_fit.py). He strips to his underwear in front of the tank, goes
+  // round behind it (drawn waist-up at the waterline, the wall hiding the rest) and flings the underwear out over the
+  // wall: the washerwomen see everything, the painting doesn't. Out again by the corner where Celeste's towel hangs,
+  // he takes it and dresses under it, the undressing frames played backwards.
+  S.bathNew = async function () {
+    const p = G.player, c = G.npc('celeste'), T = ms => G.wait(window.FAST ? 20 : ms);
+    if (F().bathed) return say('alan_bath_3');
+    await G.busy(async () => {
+      await say('alan_bath_1');
+      p.dir = 'e';
+      const show = async (k, ms) => { p.pose = k; if (ms) await T(ms); };
+      const hop = async (dx, n, ms) => { for (let i = 0; i < n; i++) { p.x += dx; await T(ms); } };
+      const SHOCK = [['npc_washer1', 'npc_washer1_shock'], ['npc_washer2', 'npc_washer2_shock'], ['npc_laundry', 'npc_laundry_shock'], ['celeste', 'celeste_shock']];
+      const shocked = on => {
+        for (const [id, k] of SHOCK) {
+          const w = G.npc(id);
+          if (w && w.visible && window.SPRITES[k]) { if (on && id === 'celeste') w.set = null; w.pose = on ? k : null; }
+        }
+      };
+      sfx('sheet_slap', 0.25); await show('alan_bn_jacket_off', 900);  // the jacket off, in his hand
+      shocked(true);
+      sfx('sheet_slap', 0.3); await show('alan_bn_tee', 1000);         // the tee over his head
+      p.pose = 'alan_bn_jeans_off'; await hop(5, 4, 170);              // hopping out of the jeans
+      await show('alan_bn_pants', 1000);                               // in his underwear, a grin back over his shoulder
+      // round the back of the tank: up behind its wall, the water at his waist
+      await p.fade(0, 0.35);
+      p.x = WASH.x; p.y = WASH.y; p.h = WASH.h; p.sink = 0.0001; p.pose = 'alan_bn_fling';
+      await p.fade(1, 0.35);
+      await T(300);
+      shorts = { x0: p.x - 20, y0: p.y - 230, x1: p.x - 300, y1: p.y + 150, t0: performance.now() }; sfx('sheet_slap', 0.2);
+      await T(700);
+      if (c) { c.dir = c.x < p.x ? 'e' : 'w'; c.set = null; c.pose = 'shout'; }
+      await say('celeste_bath_1');
+      if (c) c.pose = window.SPRITES.celeste_shock ? 'celeste_shock' : null;
+      await say('alan_bath_2');
+      // under, and up again washing
+      sfx('splash'); p.visible = false; splash = { x: WASH.x, y: WASH.y, t0: performance.now() };
+      await T(800);
+      swimmer = { y: WASH.y }; p.visible = true; p.pose = 'alan_bn_hair';
+      let on = true;
+      (async () => {
+        let i = 0;
+        while (on) { p.pose = i % 2 ? 'alan_bn_splash' : 'alan_bn_hair'; if (i % 2) sfx('splash', 0.12); await T(1100); i++; }
+      })();
+      await say('narr_bath');
+      on = false; await T(60);
+      p.pose = 'alan_bn_splash'; sfx('splash', 0.3);
+      await T(1200);
+      await G.fade(true);
+      shocked(false); if (c) c.pose = null;
+      // out by the corner, Celeste's towel snatched off it
+      swimmer = null; shorts = null; p.sink = 0; p.h = null; p.x = 770; p.y = 650; p.dir = 'e'; // in front of the tank, left of its towelled corner
+      p.pose = 'alan_bn_climb';
+      await G.fade(false);
+      await T(900);
+      await show('alan_bn_towel', 0);
+      await say('celeste_bath_2');
+      await show('alan_bn_pants_on', 1000);                           // dressing under the towel
+      p.pose = 'alan_bn_jeans_off'; await hop(-4, 3, 170);             // back into the jeans
+      await show('alan_bn_tee', 900);                                  // the tee back on
+      await show('alan_bn_jacket_off', 700);                           // the jacket from the stones
+      await show('alan_bn_dressed', 0);                                // collar up
+      await joke('alan_bath_3');
+      p.pose = null;
+      F().bathed = true;
       await T(1400);
       await S.laundryRemark();
     });
