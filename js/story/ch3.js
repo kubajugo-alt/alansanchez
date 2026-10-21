@@ -21,8 +21,14 @@
         FX.drawClouds(m, S.dayClouds, t, 9, -20, 0.9);
         FX.birds(m, t, { y0: 40, y1: 220, n: 4, period: 17, color: 'rgba(60,55,70,0.75)', size: 8 });
       });
+      [[1133, 433], [1144, 433], [1155, 433], [1169, 433]].forEach(([x, y], i) => FX.flame(g, t, x, y, 6, i * 1.7, '255,170,90')); // the votive candles
+      g.save(); g.beginPath(); g.ellipse(277, 448, 40, 6, 0, 0, 7); g.clip(); FX.water(g, t * 0.4, 237, 442, 80, 12, '220,230,240'); g.restore(); // the holy-water font
+      FX.trickles(g, t * 0.6, [70, 420, 150, 90], 3, '205,210,220', 0.22); // the weeping stone weeps
     },
-    anim(g, t) { FX.shaft(g, [[720, 0], [815, 0], [900, 560], [680, 560]], '255,245,230', 0.06, 0.45); FX.leaves(g, t, 600, 690, 23); },
+    anim(g, t) {
+      FX.shaft(g, [[720, 0], [815, 0], [900, 560], [680, 560]], '255,245,230', 0.06, 0.45); FX.leaves(g, t, 600, 690, 23);
+      FX.wisps(g, t, 778, 470, { n: 3, rise: 50, spread: 40, rgb: '235,232,242', a: 0.05, size: 38, speed: 0.04 }); // mist at the far west door
+    },
     npcs: [
       { id: 'tomas', x: 640, y: 590, dir: 'w', loop: 'sweep', name: 'Father Tomás', look: 'narr_look_tomas', talk: () => S.talkTomas(),
         items: { file55: () => say('alan_ask_tomas_1955', 'tomas_notyet'), ledger: () => say('tomas_stone'), brotherhood_charter: () => S.tomasCharter(), any: 'alan_fail_07' } },
@@ -192,6 +198,12 @@
       for (const [x0, y0, w] of [[290, 280, 240], [565, 280, 160], [790, 290, 110]]) FX.shaft(g, [[x0 + w * 0.3, 80], [x0 + w * 0.55, 80], [x0 + w * 0.6 + 120, 600], [x0 + w * 0.2 + 120, 600]], '230,232,236', 0.05, 0.35);
       FX.motes(g, t, 250, 100, 900, 480, 40, '240,235,220');
       FX.birds(g, t + 7, { y0: 60, y1: 110, n: 1, period: 13, color: 'rgba(80,80,85,0.8)', size: 9, x0: 300, x1: 1100 });
+      FX.feather(g, t, 1140, 215, 31, 380); // now and then a feather from the pigeons
+    },
+    animBack(g, t) {
+      const im = G.bgImage();
+      [[1124, 162, 48, 50, 2.1], [1100, 176, 24, 36, 2.7], [828, 50, 60, 50, 2.4]].forEach(([x, y, w, h, p]) => FX.breathe(g, im, [x, y, w, h], t, 0.025, p)); // the pigeons
+      FX.sway(g, im, [848, 372, 18, 222], t * 0.5, 1.0, 0.6); // the third bell's rope, hanging free
     },
     npcs: [
       { id: 'abilio', x: 1060, y: 640, dir: 'w', name: 'Senhor Abílio', look: 'narr_look_abilio', talk: () => S.talkAbilio(),
@@ -267,6 +279,7 @@
   };
 
   // ================================================================ ANTIGUIDADES LACERDA
+  const ANTIQUE_CLOCKS = [[75, 72, 38], [389, 82, 18], [207, 134, 20], [141, 177, 19], [316, 209, 22], [442, 245, 15], [211, 284, 14], [571, 136, 28]]; // dial centres and radii (the last is the grandfather clock)
   ROOMS.antiques = {
     name: 'Antiguidades Lacerda', bg: 'antiques', music: 'antiques_shop', ambience: 'clocks', floor: 'wood',
     walk: [[0, 650], [460, 555], [1280, 555], [1280, 716], [0, 716]],
@@ -291,6 +304,12 @@
     ],
     entries: { default: [640, 690, 'n'], map: [640, 690, 'n'] },
     anim(g, t) { FX.motes(g, t, 560, 80, 380, 420, 24, '255,220,170'); },
+    animBack(g, t) {
+      const im = G.bgImage();
+      S.clockSeconds(g, t, ANTIQUE_CLOCKS); // second hands on the wall clocks and the grandfather clock
+      FX.sway(g, im, [1138, 345, 64, 175], t * 0.6, 0.8, 0); // the red curtain below its tie-back
+      FX.sway(g, im, [722, 194, 24, 80], t * 0.7, 0.7, 1.2); // the bell-pull cord
+    },
     npcs: [
       { id: 'lacerda', x: 250, y: 545, h: 348, dir: 'e', at: [540, 615], name: 'Senhor Lacerda', look: 'narr_look_lacerda', talk: () => S.talkLacerda(),
         items: { ledger: () => say('lacerda_charming'), tongue: () => say('lacerda_putback'), twin: () => say('lacerda_hands'), any: 'alan_fail_lacerda_item' } },

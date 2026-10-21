@@ -254,6 +254,40 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Not done, needs the user's call:** small moving details (pendulums, the tower bell, the boat's lanterns) and
      props over the furniture cuts both change what the rooms look like (layers cut from or painted over the
      backgrounds), and the user has ruled that the game backgrounds must not change.
+21. **Small moving details in every room** (the user: "do the small moving details but review each room to add
+   some"). An agent reviewed all 20 rooms (screenshots, what already moves, proposals with coordinates checked on
+   zoomed crops of art/bg). Everything is drawn over the painting: no art/bg file changed.
+   - **New helpers in js/fx.js:** `sway(..., up)` (free edge at the top: plants, cypresses, flames), `ripple`
+     (reflections, heat), `billow` (both ends held: a dust sheet), `flame` (a small live flame on a wick),
+     `trickles` (beads running down a pane), `rain`, `moth` (or a fly, darker), `twinkle` (far windows, one going
+     dark now and then), `dapple` (leaf shadows), `passer` (someone behind frosted glass), `sweep` (headlights on
+     blinds), `feather`, `fan`.
+   - **Per room:** shop: steam off the coffee mug, condensation trickles, someone passing the door glass (day), a
+     moth round the lit lamp (night); street: chimney smoke, mist down the stairs, the window-box geraniums; map:
+     light on the Tejo, the steamer's smoke, haze; police: the desk fan, the coffee machine's pilot light, a fly
+     round the tube; tavern: lantern flames, the night street through the door, a moth; lavadouro: three more
+     sheets swaying, rain beyond the arches, the tank overflow dripping, the lamp on the wet floor; ferreira: rain
+     on the door glass, the oil lamp's flame and heat shimmer, headlights across the blinds; convent: the votive
+     candles, light on the font, the weeping stone weeping, mist at the far door; se_tower: pigeons breathing, the
+     free bell rope stirring, a feather now and then; antiques: second hands on 8 clocks (ANTIQUE_CLOCKS), the
+     curtain and the bell-pull cord; cais: the harbour clock's second hand, two gulls breathing, boats'
+     reflections, lamp light on the cobbles; boat: the lantern flame, the porthole glint, drips off the boom, water
+     under the next hull; cabin: the lantern flame, the oilskins swinging, fog past the porthole (0.2), a drip
+     through the hatch; convent_night: candles, bats, green sparks, moonlight on the font; cistern: torch flames
+     licking, their reflections, soot; cold_open: lamp flame, moonlight, condensation; se_museum: a window shaft,
+     leaf shadows and bushes through the arch; se_cloister: birds over the garth (clipped to the arches),
+     cypresses, dust while Vasco is in the pit, mist in the arcade; se_store: a window shaft, fog past the bars, a
+     moth, the dust sheet billowing; bedroom: rain on the window, the town's windows, a moth.
+   - **Fixed:** `S.windowFog` cut each puff flat at +-80 px (faint horizontal steps); the cold open's and the
+     bedroom's fog rects now stay on the glass.
+   - **Cost:** rooms that had no animBack (tavern, se_tower, cais, boat, cabin, se_museum, se_cloister, se_store)
+     now re-upload the painting to the GPU each frame under parallax, like most rooms already did.
+   - **Left for the user (need an object cut from a painting):** the Ferreira wall-clock pendulums, the tavern and
+     cabin lanterns swinging, the Sé tower bells (the `bell1` layer exists, disabled), boats bobbing at the Cais
+     and on the map, the street's shop sign and bracket lantern, the shop's newspaper corner, the museum lectern's
+     page, the store's pendant lamp, the armillary sphere.
+   - **Checked:** screenshots of all 20 rooms with crops at each addition (flames on their wicks, hands on the
+     dials); smoke: all 38 scenes pass (run in two parts: the full list outlasts my 15-minute limit).
 
 ## Where things stand (session handoff, 2026-10-20)
 

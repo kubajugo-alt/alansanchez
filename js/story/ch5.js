@@ -22,9 +22,14 @@
       { x: 1158, y: 440, rgb: '255,140,80', kind: 'candle', seed: 5, glow: 55, ga: 0.25, power: 0.15, reach: 300, shadow: false },
     ],
     entries: { default: [70, 670, 'e'], map: [70, 670, 'e'], cistern: [740, 650, 'w'] }, // up from the cistern: beside the open grate, not in it
-    animBack(g, t) { FX.masked(g, G.mask(), m => FX.drawClouds(m, S.nightClouds, t, 7, 0, 1)); },
+    animBack(g, t) {
+      FX.masked(g, G.mask(), m => { FX.drawClouds(m, S.nightClouds, t, 7, 0, 1); FX.birds(m, t + 11, { y0: 50, y1: 230, n: 2, period: 13, color: 'rgba(8,10,22,0.85)', size: 6 }); }); // and bats
+      [[1135, 434], [1145, 433], [1155, 433], [1170, 433]].forEach(([x, y], i) => FX.flame(g, t, x, y, 6, i * 1.7, '255,160,80')); // the votive candles
+      g.save(); g.beginPath(); g.ellipse(277, 448, 40, 6, 0, 0, 7); g.clip(); FX.water(g, t * 0.4, 237, 442, 80, 12, '170,190,240'); g.restore(); // moonlight on the font
+    },
     anim(g, t) {
       S.carry();
+      FX.motes(g, t, 800, 590, 400, 110, 14, '130,255,180'); // green sparks off the grate
       for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 1.3, 900 + i * 90, 640, { n: 5, rise: 120, spread: 30, rgb: '120,255,180', a: 0.06, size: 26, speed: 0.12 });
     },
     npcs: [
@@ -95,8 +100,14 @@
       { img: 'cistern_plate', x: 0, y: 0, full: true },
       { img: 'cistern_bell', x: 0, y: 0, full: true, pivot: [652, 0], swing: t => (F().ringing ? 2.4 * Math.sin(t * 2.3) : 0.4 * Math.sin(t * 0.6)) + S.bellShudder(t) },
     ],
+    animBack(g, t) {
+      const im = G.bgImage();
+      FX.sway(g, im, [84, 130, 34, 100], t * 3.2, 1.6, 0, true); FX.sway(g, im, [1199, 192, 37, 72], t * 3.4, 1.4, 1.1, true); // the torch flames licking
+      FX.ripple(g, im, [192, 410, 48, 96], t, 1.6, 0.4); FX.ripple(g, im, [1198, 395, 46, 95], t + 1, 1.6, 0.4); // their reflections
+    },
     anim(g, t) {
       S.carry();
+      FX.wisps(g, t, 100, 128, { n: 5, rise: 100, spread: 14, rgb: '25,20,14', a: 0.12, size: 12, speed: 0.15, dark: true }); FX.wisps(g, t + 2, 1215, 188, { n: 5, rise: 90, spread: 14, rgb: '25,20,14', a: 0.12, size: 12, speed: 0.15, dark: true }); // torch soot
       FX.water(g, t, 160, 400, 850, 140, '120,255,170');
       FX.drips(g, t, [[330, 470, 120, 4.3], [940, 505, 150, 5.7], [470, 440, 140, 6.9]], '170,255,210');
       FX.embers(g, t, 104, 175, 7); FX.embers(g, t + 3, 1216, 225, 6);

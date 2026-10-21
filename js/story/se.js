@@ -197,7 +197,8 @@
       { x: 840, y: 410, rgb: '255,214,150', kind: 'steady', glow: 60, ga: 0.2, power: 0.14, reach: 380, shadow: false }, // the desk lamp
     ],
     entries: { default: [90, 680, 'e'], map: [90, 680, 'e'], se_cloister: [1180, 650, 'w'] },
-    anim(g, t) { FX.motes(g, t, 300, 140, 700, 400, 26, '240,234,222'); },
+    anim(g, t) { FX.motes(g, t, 300, 140, 700, 400, 26, '240,234,222'); FX.shaft(g, [[574, 70], [630, 70], [700, 640], [520, 640]], '240,236,226', 0.04, 0.3); }, // and light from the lancet window
+    animBack(g, t) { FX.dapple(g, t, [1172, 440, 108, 150], 8, 0.1); FX.sway(g, G.bgImage(), [1185, 383, 95, 47], t, 0.6, 0, true); }, // the cloister garden through the arch: leaf shadows, the bushes stirring
     npcs: [
       { id: 'ines', x: 520, y: 640, dir: 'e', name: 'Inês', when: () => inesAtSe() && !F().se_plan_on, look: 'narr_look_ines', talk: () => S.talkInesSe(),
         items: { any: 'alan_fail_ines_item' } },
@@ -253,6 +254,8 @@
     entries: { default: [1190, 650, 'w'], se_museum: [1190, 650, 'w'], se_tower: [140, 640, 'e'] },
     anim(g, t) {
       pitStage(G.player); pitStage(G.npc('vasco')); FX.leaves(g, t, 600, 690, 11);
+      const vd = G.npc('vasco'); if (vd && vd._pit) FX.motes(g, t, 610, 515, 380, 90, 12, '235,215,180'); // dust in the pit while he digs
+      for (const r of [[375, 230, 125, 150], [580, 230, 150, 150], [800, 230, 150, 150]]) S.windowFog(g, t, r, '235,236,236', 0.07); // mist in the far arcade
       // the find tray's glass lid catches the light while Vasco looks into it (the heist)
       const gl = S.glassGlint && (performance.now() - S.glassGlint) / 1000;
       if (gl > 0 && gl < 4) FX.glow(g, 905, 400, 26, '255,248,225', 0.55 * Math.sin(Math.PI * gl / 4));
@@ -264,6 +267,11 @@
       if (inesAtSe() && F().se_plan_on && !F().key_tossed) S.inesArrive(); // (not awaited: Alan is free to move)
     },
     animFg(g) { S.drawKeyFlight(g); },
+    animBack(g, t) {
+      g.save(); g.beginPath(); g.rect(375, 80, 125, 140); g.rect(580, 70, 150, 150); g.rect(800, 70, 150, 130); g.clip();
+      FX.birds(g, t + 2, { y0: 90, y1: 170, n: 3, period: 19, color: 'rgba(70,70,75,0.55)', size: 7, x0: 360, x1: 960 }); g.restore(); // birds over the garth
+      FX.sway(g, G.bgImage(), [626, 100, 44, 120], t * 0.6, 1.2, 0, true); FX.sway(g, G.bgImage(), [688, 125, 36, 97], t * 0.6, 1.0, 0.8, true); // the cypresses
+    },
     npcs: [
       { id: 'vasco', x: 1110, y: 640, dir: 'w', name: 'Dr. Vasco Teles', when: vascoHere, look: 'narr_look_vasco', talk: () => S.talkVasco(),
         items: { any: 'alan_fail_04' },
@@ -778,7 +786,12 @@
       { x: 780, y: 150, rgb: '225,232,240', power: 0.14, reach: 700, shadow: false }, // fog-light from the high window
     ],
     entries: { default: STORE_STAIR.concat('e'), se_museum: STORE_STAIR.concat('e') },
-    anim(g, t) { FX.motes(g, t, 300, 100, 700, 420, 30, '245,230,200'); },
+    anim(g, t) {
+      FX.motes(g, t, 300, 100, 700, 420, 30, '245,230,200');
+      FX.shaft(g, [[748, 120], [818, 120], [760, 600], [560, 600]], '225,232,240', 0.035, 0.35); // light from the barred window
+      FX.moth(g, t, 652, 142, 30, 12, 3); // round the work lamp
+    },
+    animBack(g, t) { S.windowFog(g, t, [748, 115, 70, 70], '225,230,236', 0.18); FX.billow(g, G.bgImage(), [800, 260, 150, 240], t, 1.2, 9); }, // fog past the bars; the dust sheet in the draught
     npcs: [{ id: 'vasco', x: 260, y: 640, dir: 'e', name: 'Dr. Vasco Teles', when: inStore, look: 'narr_look_vasco', talk: () => S.vascoIdle(), items: { any: 'alan_fail_04' } }],
     hotspots: [
       { name: 'Shelves', rect: [280, 150, 700, 370], look: 'narr_look_store' },

@@ -23,7 +23,10 @@
     hotspots: [],
     anim(g, t) {
       // the fog presses on the glass
-      if (S.windowFog) S.windowFog(g, t, [180, 70, 140, 230], '200,210,225', 0.28);
+      if (S.windowFog) S.windowFog(g, t, [178, 92, 122, 230], '200,210,225', 0.28); // (the glass itself: the old rect spilled past it)
+      FX.trickles(g, t, [178, 92, 122, 230], 3, '190,205,230', 0.22); // condensation on the glass
+      FX.flame(g, t, 966, 336, 14, 7, '255,190,120'); // the lamp
+      FX.shaft(g, [[178, 322], [300, 322], [560, 640], [330, 690]], '150,170,215', 0.035); // moonlight across the boards
       // the tile on her pillow: blue and white, catching the lamp
       if (tileOn) {
         const [x, y] = PILLOW;

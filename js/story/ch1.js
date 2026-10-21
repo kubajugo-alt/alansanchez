@@ -58,9 +58,13 @@
         g.clip();
         FX.birds(g, t + 4, { y0: 70, y1: 200, n: 2, period: 19, color: 'rgba(90,92,98,0.5)', size: 7, x0: 400, x1: 870 });
         g.restore();
+        FX.wisps(g, t + 1, 618, 390, { n: 4, rise: 34, spread: 5, a: 0.07, size: 4, speed: 0.22 }); // the blue coffee mug on the desk
+        FX.trickles(g, t, [432, 222, 404, 88], 5, '235,240,245', 0.3); // condensation running down the lower panes
+        FX.passer(g, t, [1068, 140, 124, 176], 37); // now and then someone passing behind the door's frosted glass
       }
     },
     anim(g, t) {
+      if (F().ch >= 5 && !F().lampOff2) FX.moth(g, t, 172, 334, 34, 10, 2); // night: a moth round the green lamp, while it is lit
       if (F().ch < 5 && F().lampOff) S.lampOut(g);
       if (F().ch < 5) { FX.shaft(g, [[420, 30], [850, 30], [860, 716], [380, 716]], '210,220,230', 0.05); FX.motes(g, t, 420, 60, 430, 520, 40, '255,240,210'); }
       if (!F().heard_machine || (F().ch >= 5 && !F().heard_msg3)) if (Math.floor(t * 2) % 2 === 0) FX.glow(g, 1062, 384, 14, '255,40,20', 0.9);
@@ -354,7 +358,10 @@
       FX.birds(g, t, { y0: 30, y1: 120, n: 2, period: 21, color: 'rgba(70,72,78,0.55)', size: 9, x0: 440, x1: 980 });
       g.restore();
       FX.leaves(g, t, 600, 700, 17);
+      FX.wisps(g, t, 557, 42, { n: 6, rise: 55, spread: 14, rgb: S.streetNight() ? '35,40,55' : '125,127,132', a: 0.1, size: 7, speed: 0.12, dark: true }); // chimney smoke
+      FX.sway(g, im, [334, 164, 78, 26], t, 0.7, 0.5, true); // the geraniums in the window box
     },
+    anim(g, t) { FX.wisps(g, t, 725, 320, { n: 4, rise: -150, spread: 50, rgb: S.streetNight() ? '90,100,125' : '228,230,232', a: 0.05, size: 46, speed: 0.04 }); }, // mist sliding down the stairs
     animFg(g, t) { S.drawTram(g, t); },
     ambient: [
       { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_doze2', 'npc_bench_doze2', 'npc_bench_b'], idleHold: [9, 18], variantHold: [2.2, 4], x: 870, y: 592, h: 150, look: 'alan_npc_bench', talkFrames: ['npc_bench_talk1', 'npc_bench_talk2', 'npc_bench_talk3'], talk: () => S.benchTalk(), when: () => F().ch <= 4, // dozes (head lolling one way, then the other), now and then wakes with a start
@@ -417,6 +424,10 @@
     name: 'Lisbon', bg: 'map', parallax: false, player: false, vignette: 0.3, noSave: true,
     music: 'map_lisbon',
     anim(g, t) {
+      g.save(); g.beginPath(); [[180, 610], [300, 580], [490, 555], [740, 535], [1000, 525], [1200, 475], [1210, 560], [1100, 640], [900, 672], [600, 680], [300, 662], [150, 620]].forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y));
+      g.clip(); g.globalAlpha = 0.5; FX.water(g, t * 0.5, 150, 480, 1060, 200, '230,240,250'); g.restore(); // light on the river
+      FX.wisps(g, t, 449, 598, { n: 4, rise: 22, spread: 12, rgb: '235,235,230', a: 0.16, size: 5, speed: 0.25 }); // the steamer's funnel
+      FX.drawClouds(g, S.dayClouds, t, 4, 60, 0.15); // haze drifting over the city
       for (const m of S.PINS) {
         const open = m.open(), seen = F()['seen_' + m.id] || (m.waiting && m.waiting());
         if (!open && !seen) continue;
@@ -485,13 +496,18 @@
       [[616, 344], [680, 343], [680, 381], [697, 381], [699, 403], [580, 403], [581, 394], [597, 383], [615, 381]],
       [[723, 368], [733, 366], [733, 362], [740, 360], [767, 360], [770, 364], [770, 404], [734, 404], [733, 392], [724, 390]], [[806, 372], [811, 357], [834, 350], [871, 350], [890, 357], [894, 371], [886, 381], [891, 408], [776, 408], [776, 391], [812, 386], [818, 381]], // the desk phone, traced
     ], draw: g => S.copCordDesk(g) }], // the receiver's cord, where it lies across the desk
-    animBack(g, t) { S.windowFog(g, t, [780, 202, 276, 126], '230,232,236', 0.22); if (S.copOnDuty()) { S.copFace(); S.copCordDesk(g); } },
+    animBack(g, t) {
+      S.windowFog(g, t, [780, 202, 276, 126], '230,232,236', 0.22); if (S.copOnDuty()) { S.copFace(); S.copCordDesk(g); }
+      FX.fan(g, t, 1180, 100, 21, 27); // the desk fan on the filing cabinet, running
+      FX.glow(g, 1095, 293, 6, '255,140,60', 0.4 + 0.05 * Math.sin(t * 3)); // the coffee machine's pilot light
+    },
     // the cord to the receiver when Alan has Teixeira in a pair frame (Teixeira himself draws it otherwise)
     animFg(g) { const cop = G.npc('npc_phone'), p = G.player; if (S.copOnDuty() && cop && !cop.visible && p.visible && S.CORD_AT[p.pose]) S.copCord(g, p); },
     anim(g, t) {
       FX.wisps(g, t, 751, 362, { n: 5, rise: 55, spread: 9, a: 0.12, size: 7, speed: 0.3 });
       FX.shaft(g, [[790, 205], [1050, 205], [1000, 716], [640, 716]], '225,232,236', 0.035);
       FX.motes(g, t, 700, 220, 340, 420, 22, '235,238,240');
+      FX.moth(g, t, 720, 42, 80, 16, 4, 'rgba(20,20,18,0.8)'); // a fly round the fluorescent tube
     },
     npcs: [
       { id: 'rui', x: S.RUI_DESK[0], y: S.RUI_DESK[1], h: 365, dir: 'e', at: [500, 645], name: 'Inspector Mendonça', look: 'narr_look_rui', talk: () => S.talkRui(), when: () => !F().rui_out,
@@ -615,7 +631,12 @@
       { x: 770, y: 448, rgb: '255,190,100', kind: 'candle', seed: 7, glow: 50, ga: 0.3, power: 0.16, rim: 0, reach: 320, floor: [770, 610], height: 160, shadow: false, when: () => false }, // the couple's candle (couple retired)
     ],
     entries: { default: [140, 650, 'e'], street: [140, 650, 'e'] },
+    animBack(g, t) {
+      FX.flame(g, t, 452, 195, 16, 1); FX.flame(g, t, 983, 176, 17, 3); // the hanging lanterns
+      S.windowFog(g, t, [28, 135, 50, 395], '120,130,170', 0.16); FX.glow(g, 50, 268, 16, '255,200,130', 0.22 * FX.flicker(t, 4)); // the street through the open door
+    },
     anim(g, t) {
+      if (F().ch < 5) FX.moth(g, t, 453, 180, 40, 22, 1); // round the left lantern
       if (F().ch < 5) FX.wisps(g, t + 2, 420, 400, { n: 5, rise: 90, spread: 14, rgb: '215,205,190', a: 0.05, size: 10, speed: 0.12 }); // pipe smoke over the cards
       if (F().ch < 5) { FX.motes(g, t, 360, 120, 700, 300, 26, '255,210,150'); }
       if (S.glassFloor) S.drawGlass(g, S.GLASS_FLOOR[0], S.GLASS_FLOOR[1]); // Amália's glass, set down on the floor in front of her

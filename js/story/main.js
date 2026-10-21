@@ -12,7 +12,7 @@
       const x = rect[0] + ((t * (6 + i * 2) + i * 140) % (rect[2] + 300)) - 150, y = rect[1] + rect[3] * (0.25 + 0.13 * i);
       const gr = g.createRadialGradient(x, y, 0, x, y, 120);
       gr.addColorStop(0, `rgba(${rgb},${a})`); gr.addColorStop(1, `rgba(${rgb},0)`);
-      g.fillStyle = gr; g.fillRect(x - 160, y - 80, 320, 160);
+      g.fillStyle = gr; g.fillRect(x - 120, y - 120, 240, 240); // the whole puff (a 320x160 box cut it flat at +-80 px, in steps)
     }
     g.restore();
   };

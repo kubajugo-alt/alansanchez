@@ -187,11 +187,12 @@
   }
   // Redraws a region of the painting with each row shifted sideways (cloth in
   // the wind), more toward the free bottom edge.
-  function sway(g, im, rect, t, amp, phase) {
+  // up: the free edge is the top (a plant, a cypress, a flame), not the bottom (cloth hanging from a line)
+  function sway(g, im, rect, t, amp, phase, up) {
     if (!im) return;
     const [x, y, w, h] = rect, k = im.width / W;
     for (let r = 0; r < h; r += 2) {
-      const f = r / h, dx = Math.sin(t * 1.6 + phase + f * 1.2) * amp * f * f;
+      const f = up ? 1 - r / h : r / h, dx = Math.sin(t * 1.6 + phase + f * 1.2) * amp * f * f;
       g.drawImage(im, x * k, (y + r) * k, w * k, 2 * k, x + dx, y + r, w, 2);
     }
   }
@@ -201,6 +202,119 @@
     const [x, y, w, h] = rect, k = im.width / W;
     const s = 1 + amp * (0.5 + 0.5 * Math.sin(t * Math.PI * 2 / period));
     g.drawImage(im, x * k, y * k, w * k, h * k, x - w * (s - 1) * 0.15, y + h - h * s, w * (1 + (s - 1) * 0.3), h * s);
+  }
+
+  // ---------------------------------------------------------------- small moving details (all drawn over the painting)
+  // Rows of a region of the painting shifted by a travelling wave: a reflection on water, heat over a lamp.
+  function ripple(g, im, rect, t, amp, k) {
+    if (!im) return;
+    const [x, y, w, h] = rect, s = im.width / W;
+    for (let r = 0; r < h; r += 2) {
+      const dx = Math.sin(t * 2.1 + (y + r) * k) * amp * (0.4 + 0.6 * r / h);
+      g.drawImage(im, x * s, (y + r) * s, w * s, 2 * s, x + dx, y + r, w, 2);
+    }
+  }
+  // Rows shifted with both ends held: a dust sheet or a tied curtain breathing in a draught.
+  function billow(g, im, rect, t, amp, period) {
+    if (!im) return;
+    const [x, y, w, h] = rect, s = im.width / W;
+    for (let r = 0; r < h; r += 2) {
+      const f = r / h, dx = Math.sin(t * 2 * Math.PI / period + f * 1.5) * amp * Math.sin(Math.PI * f);
+      g.drawImage(im, x * s, (y + r) * s, w * s, 2 * s, x + dx, y + r, w, 2);
+    }
+  }
+  // A small live flame standing on its wick at (x, y), h tall: it breathes and leans.
+  function flame(g, t, x, y, h, seed, rgb) {
+    const s = seed || 0, c = rgb || '255,180,90';
+    const hh = h * (0.85 + 0.09 * Math.sin(13 * t + s) + 0.06 * Math.sin(31 * t + 2 * s));
+    const lean = (0.12 * Math.sin(2.3 * t + s) + 0.05 * Math.sin(9 * t + 3 * s)) * h, w = h * 0.28;
+    g.save(); g.globalCompositeOperation = 'lighter';
+    const gr = g.createRadialGradient(x, y - hh * 0.3, 0, x, y - hh * 0.3, hh * 0.8);
+    gr.addColorStop(0, 'rgba(255,248,222,0.85)'); gr.addColorStop(0.45, `rgba(${c},0.5)`); gr.addColorStop(1, `rgba(${c},0)`);
+    g.fillStyle = gr; g.beginPath(); g.moveTo(x, y);
+    g.bezierCurveTo(x - w, y - hh * 0.25, x - w * 0.5 + lean * 0.6, y - hh * 0.75, x + lean, y - hh);
+    g.bezierCurveTo(x + w * 0.5 + lean * 0.6, y - hh * 0.75, x + w, y - hh * 0.25, x, y);
+    g.fill(); g.restore();
+  }
+  // Beads of condensation or rain running down a pane now and then, each leaving a faint trail.
+  function trickles(g, t, rect, n, rgb, a) {
+    const [x, y, w, h] = rect;
+    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip(); g.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < n; i++) {
+      const per = 7 + (i * 3.7) % 9, cyc = Math.floor((t + i * 2.3) / per), p = ((t + i * 2.3) % per) / per, r = rng(cyc * 131 + i * 17);
+      const bx = x + r() * w, by = y + r() * h * 0.5, len = h * (0.25 + r() * 0.5);
+      const q = p < 0.55 ? 0 : Math.min(1, Math.pow((p - 0.55) / 0.35, 1.6)), fade = p > 0.9 ? 1 - (p - 0.9) / 0.1 : 1;
+      const cy = by + len * q, cx = bx + Math.sin(cy * 0.3) * 1.5;
+      if (q > 0) { g.strokeStyle = `rgba(${rgb},${(a * 0.35 * fade).toFixed(3)})`; g.lineWidth = 1; g.beginPath(); g.moveTo(bx, by); g.lineTo(cx, cy); g.stroke(); }
+      g.fillStyle = `rgba(${rgb},${(a * fade).toFixed(3)})`; g.beginPath(); g.ellipse(cx, cy, 1.4, 2, 0, 0, 7); g.fill();
+    }
+    g.restore();
+  }
+  // Rain falling past a window or an opening: short slanted streaks.
+  function rain(g, t, rect, n, rgb, a) {
+    const [x, y, w, h] = rect, r = rng(41);
+    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip(); g.strokeStyle = `rgba(${rgb},${a})`; g.lineWidth = 1;
+    g.beginPath();
+    for (let i = 0; i < n; i++) {
+      const sx = r(), sp = 0.8 + r() * 0.4, py = y + ((r() * h + t * 420 * sp) % (h + 20)) - 10, px = x + ((sx * w - (py - y) * 0.18) % w + w) % w;
+      g.moveTo(px, py); g.lineTo(px - 1.6, py + 9);
+    }
+    g.stroke(); g.restore();
+  }
+  // A moth (or, darker, a fly) on a jittery orbit round a light.
+  function moth(g, t, cx, cy, rx, ry, seed, col) {
+    const s = seed || 0, x = cx + Math.sin(2.2 * t + s) * rx + Math.sin(5.3 * t + s) * rx * 0.25, y = cy + Math.sin(3.74 * t + 1 + s) * ry + Math.sin(7.1 * t) * ry * 0.3;
+    const wing = 0.6 + 1.4 * Math.abs(Math.sin(38 * t));
+    g.save(); g.fillStyle = col || 'rgba(225,215,190,0.75)';
+    g.beginPath(); g.ellipse(x - 1.2, y, 1.6, wing, 0.3, 0, 7); g.ellipse(x + 1.2, y, 1.6, wing, -0.3, 0, 7); g.fill(); g.restore();
+  }
+  // Lit windows far off, one now and then going dark for a while.
+  function twinkle(g, t, pts, rgb) {
+    pts.forEach(([x, y, r0], i) => {
+      const cyc = Math.floor((t + i * 5.1) / 23), off = rng(cyc * 59 + i * 7)() < 0.15;
+      if (!off) glow(g, x, y, (r0 || 3) * 2.2, rgb, 0.3 * (0.9 + 0.1 * Math.sin(t * 0.7 + i)));
+    });
+  }
+  // Leaf shadows drifting on a sunlit floor.
+  function dapple(g, t, rect, n, a) {
+    const [x, y, w, h] = rect, r = rng(23);
+    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip(); g.fillStyle = `rgba(20,25,15,${a})`;
+    for (let i = 0; i < n; i++) {
+      const rad = 8 + r() * 14, px = x + r() * w + Math.sin(t * 0.6 + i * 1.7) * 6, py = y + r() * h + Math.sin(t * 0.45 + i) * 3;
+      g.beginPath(); g.ellipse(px, py, rad, rad * 0.45, 0, 0, 7); g.fill();
+    }
+    g.restore();
+  }
+  // Someone walking past behind frosted glass now and then: a soft head and body crossing.
+  function passer(g, t, rect, period, seed) {
+    const [x, y, w, h] = rect, cyc = Math.floor(t / period), p = (t % period) / period, r = rng(cyc * 71 + (seed || 0));
+    if (r() > 0.6) return;
+    const start = r() * 0.6, dur = 0.12 + r() * 0.08, q = (p - start) / dur; if (q < 0 || q > 1) return;
+    const dir = r() < 0.5, px = dir ? x - 30 + (w + 60) * q : x + w + 30 - (w + 60) * q;
+    const blob = (cx, cy, rad) => { const gr = g.createRadialGradient(cx, cy, 0, cx, cy, rad); gr.addColorStop(0, 'rgba(40,38,36,0.26)'); gr.addColorStop(1, 'rgba(40,38,36,0)'); g.fillStyle = gr; g.beginPath(); g.arc(cx, cy, rad, 0, 7); g.fill(); };
+    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip(); blob(px, y + h * 0.28, h * 0.14); blob(px, y + h * 0.62, h * 0.3); g.restore();
+  }
+  // A band of passing headlights sweeping across blinds now and then.
+  function sweep(g, t, rect, period, rgb, a) {
+    const [x, y, w, h] = rect, p = (t % period) / period; if (p > 0.08) return;
+    const bx = x - 100 + (w + 200) * (p / 0.08), gr = g.createLinearGradient(bx - 50, 0, bx + 50, 0);
+    gr.addColorStop(0, `rgba(${rgb},0)`); gr.addColorStop(0.5, `rgba(${rgb},${a})`); gr.addColorStop(1, `rgba(${rgb},0)`);
+    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip(); g.globalCompositeOperation = 'lighter'; g.fillStyle = gr; g.fillRect(bx - 50, y, 100, h); g.restore();
+  }
+  // A feather spiralling down now and then.
+  function feather(g, t, x, y, period, fall) {
+    const cyc = Math.floor(t / period), p = (t % period) / period, r = rng(cyc * 13 + 5); if (r() < 0.5) return;
+    const px = x + Math.sin(p * 9) * 18 + r() * 20 - 10, py = y + fall * p;
+    g.save(); g.translate(px, py); g.rotate(Math.sin(p * 9) * 0.9); g.fillStyle = `rgba(235,232,225,${(0.8 * Math.min(1, (1 - p) * 4)).toFixed(3)})`;
+    g.beginPath(); g.ellipse(0, 0, 4, 1.4, 0, 0, 7); g.fill(); g.restore();
+  }
+  // A small electric fan running: translucent blades turning inside its cage.
+  function fan(g, t, x, y, rx, ry) {
+    g.save(); g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, 7); g.clip();
+    g.fillStyle = 'rgba(60,65,60,0.06)'; g.fill();
+    g.translate(x, y); g.scale(rx / ry, 1); g.fillStyle = 'rgba(60,65,60,0.12)';
+    for (let i = 0; i < 3; i++) { const a = t * 8 * Math.PI * 2 + i * Math.PI * 2 / 3; g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, ry, a, a + 0.7); g.closePath(); g.fill(); }
+    g.restore();
   }
 
   function vignette(g, a) {
@@ -819,5 +933,6 @@
     return iconCache[id];
   }
 
-  window.FX = { W, H, mk, rng, makeFog, drawFog, glow, flicker, shaft, motes, water, vignette, icon, makeClouds, cloudOffset, drawClouds, masked, birds, wisps, embers, drips, leaves, sway, breathe };
+  window.FX = { W, H, mk, rng, makeFog, drawFog, glow, flicker, shaft, motes, water, vignette, icon, makeClouds, cloudOffset, drawClouds, masked, birds, wisps, embers, drips, leaves, sway, breathe,
+    ripple, billow, flame, trickles, rain, moth, twinkle, dapple, passer, sweep, feather, fan };
 })();

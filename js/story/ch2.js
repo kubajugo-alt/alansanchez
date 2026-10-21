@@ -22,11 +22,14 @@
       // light moving on the water: the long row of basins (a thin strip below their rims) and the big tank
       g.save(); g.globalAlpha = 0.55; FX.water(g, t, 180, 381, 880, 10, '190,205,210'); g.restore();
       g.save(); g.globalAlpha = 0.8; g.beginPath(); g.rect(880, 474, 350, 38); g.clip(); FX.water(g, t * 0.8, 880, 476, 350, 34, '200,214,220'); g.restore();
+      FX.drips(g, t, [[1128, 690, 532, 1.4]], '210,225,230'); // the tank's overflow into its puddle
+      g.save(); g.globalAlpha = 0.3; g.beginPath(); g.rect(660, 520, 150, 110); g.clip(); FX.water(g, t * 0.6, 660, 520, 150, 110, '255,215,150'); g.restore(); // the lamp on the wet floor
     },
     animFg(g, t) { S.drawSplash(g, t); },
     animBack(g, t) {
       const im = G.bgImage();
-      [[20, 10, 95, 260, 0], [125, 30, 70, 240, 1.4], [205, 50, 60, 200, 2.3], [395, 60, 50, 170, 0.8]].forEach(([x, y, w, h, ph]) => FX.sway(g, im, [x, y, w, h], t, 1.2, ph));
+      [[20, 10, 95, 260, 0], [125, 30, 70, 240, 1.4], [205, 50, 60, 200, 2.3], [395, 60, 50, 170, 0.8], [280, 55, 36, 195, 1.9], [320, 95, 52, 125, 0.4], [462, 128, 54, 108, 2.9]].forEach(([x, y, w, h, ph]) => FX.sway(g, im, [x, y, w, h], t, 1.2, ph));
+      for (const r of [[508, 170, 72, 190], [640, 165, 138, 195], [832, 160, 156, 200]]) FX.rain(g, t, r, 18, '215,222,228', 0.18); // rain beyond the arches
       g.save(); g.beginPath(); g.rect(460, 120, 540, 230); g.clip();
       FX.birds(g, t + 3, { y0: 150, y1: 260, n: 3, period: 16, color: 'rgba(80,82,88,0.55)', size: 8, x0: 440, x1: 1020 });
       g.restore();
@@ -431,14 +434,18 @@
     entries: { default: [1080, 650, 'w'], map: [1080, 650, 'w'] },
     // lit, it is still a dim shop: one oil lamp, the rest falling away into shadow
     animBack(g, t) {
+      FX.trickles(g, t, [1099, 196, 91, 256], 6, '170,190,210', 0.35); // rain on the door glass
       if (!lit()) return;
       S.clockSeconds(g, t, FERREIRA_CLOCKS);
+      FX.ripple(g, G.bgImage(), [511, 318, 28, 28], t * 2, 0.6, 0.5); // heat over the lamp chimney
       const f = 1 + 0.03 * Math.sin(t * 7.3) * Math.sin(t * 3.1);
       g.save();
       const gr = g.createRadialGradient(523, 400, 60 * f, 560, 420, 760);
       gr.addColorStop(0, 'rgba(8,5,2,0)'); gr.addColorStop(0.35, 'rgba(8,5,2,0.28)'); gr.addColorStop(1, 'rgba(6,4,2,0.62)');
       g.fillStyle = gr; g.fillRect(0, 0, 1280, 720);
       g.restore();
+      FX.flame(g, t, 525, 394, 15, 6, '255,190,110'); // the oil lamp
+      FX.sweep(g, t, [0, 30, 100, 390], 47, '230,225,200', 0.16); // a car's headlights across the blinds now and then
     },
     // unlit, the workshop is black but for the grey light at the door
     animFg(g, t) {

@@ -41,8 +41,12 @@
     scale: [490, 400, 716, 500],
     light: { ambient: 'rgb(205,180,150)', base: 0.8, rim: 'rgba(255,210,160,0.25)', rimSide: 1 },
     lights: [{ x: 780, y: 268, rgb: '255,200,130', kind: 'gas', seed: 5, glow: 90, ga: 0.3, power: 0.55, reach: 800, floor: [780, 480], height: 260 }],
-    animBack(g, t) { S.windowFog(g, t, [480, 40, 224, 268], '190,196,210', 0.14); }, // the fog past the window
-    anim(g, t) { FX.motes(g, t, 690, 170, 200, 260, 14, '255,215,160'); }, // dust in the lamp light
+    animBack(g, t) {
+      S.windowFog(g, t, [492, 55, 194, 257], '190,196,210', 0.14); // the fog past the window (the glass itself)
+      FX.trickles(g, t, [493, 57, 193, 255], 6, '200,205,220', 0.3); // rain on the window
+      FX.twinkle(g, t, [[514, 270], [530, 272], [557, 262], [569, 289], [616, 280], [642, 262], [641, 217], [674, 204]], '255,210,140'); // the town's windows, now and then one going out
+    },
+    anim(g, t) { FX.motes(g, t, 690, 170, 200, 260, 14, '255,215,160'); FX.moth(g, t, 782, 262, 34, 16, 5); }, // dust in the lamp light, a moth round it
     entries: { default: [700, 640, 'w'] },
     npcs: visitorDefs(440, 640, 'e').concat([
       COP_BED_NEW ? { id: 'npc_phone', ch: 'cop_bed', x: 950, y: 400, h: 193.2, dir: 'e', fixedDir: true, name: 'Officer Teixeira', when: () => visitor === 'cop_bed' }
