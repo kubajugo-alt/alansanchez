@@ -279,7 +279,9 @@
     // standing height in this room (360 at the tank's front): the same size of torso as when we see him whole
     const BEHIND = S.BATH_TALL ? { x: 900, y: 440, h: 360 } : { x: 1120, y: 472, h: 360 };
     const TANK = S.BATH_TALL ? { x: 1070, y: 442, h: 360 } : WASH;
-    const BOXERS = { x: 795, y: 668 }; // where they land: just in front of where he climbs out (x 770, y 650)
+    const RIM = { x: 1000, y: 458, water: 418 };  // the push out: hands on the near rim (the painting's bottom edge)
+    const BOXERS = { x: 795, y: 668 };
+    const CORNER = { x: 805, y: 684 };              // on the tank's front-left corner (its outline stops at y 680) // where they land: just in front of where he climbs out (x 770, y 650)
     await G.busy(async () => {
       await say('alan_bath_1');
       p.dir = 'e';
@@ -303,10 +305,12 @@
       await show('alan_bn_jeans_half', 700);                             // jeans halfway down
       p.dir = 'w'; p.pose = 'alan_bn_jeans_off'; await hop(5, 4, 175); // hopping out of them
       await show('alan_bn_pants', 1000);                                 // in his underwear, a grin back
-      // round the back of the tank
+      await show('alan_bn_walk', 0); await hop(8, 5, 120);               // off round the back of the tank
       await p.fade(0, 0.35);
-      p.dir = 'e'; p.x = BEHIND.x; p.y = BEHIND.y; p.h = BEHIND.h; p.sink = 0.0001; p.pose = 'alan_bn_fling';
+      p.dir = 'e'; p.x = BEHIND.x; p.y = BEHIND.y; p.h = BEHIND.h; p.sink = 0.0001; p.pose = 'alan_bn_reach'; // reaching down to them
       await p.fade(1, 0.35);
+      await T(1000);
+      p.pose = 'alan_bn_fling';
       await T(300);
       S.throwBoxers(p, BOXERS); sfx('sheet_slap', 0.2);
       await T(700);
@@ -314,19 +318,29 @@
       await say('celeste_bath_1');
       if (c) c.pose = window.SPRITES.celeste_shock ? 'celeste_shock' : null;
       await say('alan_bath_2');
-      // over the rim and in
+      // over the rim and in: a cannonball from behind the tank, up and over and down into the water (the tank's outline
+      // hides him as he drops below its far rim)
+      p.pose = 'alan_bn_cannonball'; p.h = BEHIND.h;
+      const J = { x0: BEHIND.x, y0: 400, x1: TANK.x, y1: 600, up: 230, ms: window.FAST ? 40 : 700 }, j0 = performance.now();
+      for (let u = 0; u < 1;) {
+        u = Math.min(1, (performance.now() - j0) / J.ms);
+        p.x = J.x0 + (J.x1 - J.x0) * u; p.y = J.y0 + (J.y1 - J.y0) * u * u - J.up * 4 * u * (1 - u);
+        await G.wait(16);
+      }
       p.visible = false; sfx('splash'); splash = { x: TANK.x, y: TANK.y, t0: performance.now() };
       await T(800);
       swimmer = { y: TANK.y }; p.x = TANK.x; p.y = TANK.y; p.h = TANK.h; p.visible = true; p.pose = 'alan_bn_hair';
       let on = true;
       (async () => {
         let i = 0;
-        while (on) { p.pose = i % 2 ? 'alan_bn_splash' : 'alan_bn_hair'; if (i % 2) sfx('splash', 0.12); await T(1100); i++; }
+        const SWIM = [['alan_bn_hair', 1100], ['alan_bn_toss', 1100], ['alan_bn_relax', 1300], ['alan_bn_splash', 1100]]; // the board's order
+        while (on) { const [k, ms] = SWIM[i % SWIM.length]; p.pose = k; if (k !== 'alan_bn_relax') sfx('splash', 0.12); await T(ms); i++; }
       })();
       await say('narr_bath');
       on = false; await T(60);
-      p.pose = 'alan_bn_splash'; sfx('splash', 0.3);
-      await T(1100);
+      // hands on the near rim, pushing himself up to get out (his body in the water 40 px above them)
+      p.x = RIM.x; p.y = RIM.y; swimmer = { y: RIM.water }; p.pose = 'alan_bn_rim'; sfx('splash', 0.3);
+      await T(1000);
       await G.fade(true);
       shocked(false); if (c) c.pose = null;
       // out by the corner, Celeste's towel snatched off it
@@ -335,6 +349,10 @@
       p.pose = 'alan_bn_climb';
       await G.fade(false);
       await T(900);
+      // sitting on the tank's corner, the towel over his lap, then down off it (drawn just in front of the tank)
+      p.x = CORNER.x; p.y = CORNER.y; await show('alan_bn_sit', 900);
+      p.x = CORNER.x - 15; await show('alan_bn_stepdown', 800);  // (both painted facing left)
+      p.x = 770; p.y = 650;
       await show('alan_bn_towel', 0, true);
       await say('celeste_bath_2');
       shorts = null; // picked up

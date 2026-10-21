@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-31); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-32); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -573,6 +573,38 @@ session lived in the session's scratchpad and are gone; everything that matters 
      rim in the water before climbing out), more poses in the water.
    - Checked: the throw captured in Chromium every 180 ms (arc over the tank's front, landing at his feet), the
      swimming and towel frames at the new sizes, no errors; board steps 10, 11, 15, 16 drawn; published version 10.
+
+32. **Bath (review): the Canva round from the board's notes; the cannonball** (the user: "yes, do the Canva ones";
+   "we also need him in a 'cannonball' position for jumping into the tank. and he has to be naked for that, to keep
+   continuity. you need to find a clever way to make canva paint it"; new board notes: "stepping forward (to go
+   behind the tank", "need more different poses", "we need more stages of the previous image").
+   - **Canva (generate-image, refs MAHYnPL0CuE + MAHYnEDJ7bs, exports through DAHYZ-SDzRE pages 58-68):**
+     jacket shrug in a short-sleeved white T-shirt (c_A2), off-white towel stepping into the boxers (c_J2; the first
+     wording refused), off-white towel with his hands on the boxers (c_K2), waist-up reaching down behind the tank
+     (c_M), waist-up pushing up on the rim (c_N), relaxing arms out (c_O), tossing his wet hair (c_P; came with
+     shorts, cut at y 1332; "shaking his head like a dog" refused), walking off in his boxers (c_R), sitting on the
+     rim with the towel over his lap (c_S), stepping down in the towel (c_T; first painted in shorts, its recolour
+     refused, painted again with the towel round his hips). Replaced versions kept in the library (`_v1`, `_v2`).
+   - **The cannonball, bare:** Canva paints him in shorts whatever the prompt, and refused the skinny-dip wording. The
+     trick: paint the tuck with shorts (c_Q0, kept), then a second generate-image *editing that painting*: "his short
+     black shorts become exactly the same warm tan colour as his skin, completely plain and seamless..." - accepted,
+     and in the tuck that reads as bare (c_Q). (A code fill of the shorts with his skin was tried first and dropped:
+     it looked like skin-coloured shorts.) The same recolour on a standing figure was refused.
+   - **Fit** (`scripts/bath_new_fit.py`): new frames added; `CUT_AT` (rows of the export) for the reach (hands below
+     his hips) and the toss (shorts); `DESPILL` for the rim push (his body fades into the green: no green left below
+     y 1200); `FIXED` scales measured as before (reach 1.58, rim 1.59, relax 1.24, toss 1.56); the cannonball, walk,
+     sit and step-down by the head match (checked against the standing frames at game scale).
+   - **Scene** (ch2.js): the walk round the back (hop 8 px x5; the tank hides his legs as he passes its corner); the
+     reach (1 s), the throw; the cannonball from behind the tank over and into the water (700 ms, a thrown body's
+     path, the tank's outline hiding him as he drops in) then the splash; the swim cycles hair, toss, relax, splash
+     (the board's order); the push up on the rim (`RIM`: hands on the near rim at y 458, the water ring at 418); out
+     over the rim, then sitting on the corner and stepping down (`CORNER` x 805, y 684: drawn just in front of the
+     tank; both painted facing left, not mirrored), then the towel.
+   - **Board** (version 11): places `rim`, `air` (the top of the arc), `corner`; the stored board updated in place
+     (versions 231-232): the gaps and the duplicate steps the user marked filled with the new paintings, notes kept
+     with what was done appended. 29 steps.
+   - Checked: the game played through in Chromium with no errors, the new moments captured (walk, reach, the jump,
+     toss, relax, rim, sit); the board drawn at steps 9-21.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

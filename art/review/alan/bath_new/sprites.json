@@ -1,15 +1,15 @@
 {
  "alan_bn_jacket_shrug": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_jacket_shrug.webp",
-  "w": 228,
+  "w": 255,
   "hh": 732,
   "h": 720.0,
-  "ax": 90.2,
+  "ax": 130.2,
   "fy": 725.0,
   "top": 6.0,
   "waist": false,
   "head_match": 0.0,
-  "head_scale": 1.055
+  "head_scale": 1.003
  },
  "alan_bn_jacket_off": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_jacket_off.webp",
@@ -168,27 +168,123 @@
  },
  "alan_bn_pants_on": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_pants_on.webp",
-  "w": 268,
-  "hh": 757,
+  "w": 274,
+  "hh": 760,
   "h": 720.0,
-  "ax": 117.6,
-  "fy": 750.0,
+  "ax": 115.9,
+  "fy": 753.0,
   "top": 6.0,
   "waist": false,
-  "head_match": 0.92,
-  "head_scale": 0.95
+  "head_match": 0.83,
+  "head_scale": 1.01
  },
  "alan_bn_pants_up": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_pants_up.webp",
-  "w": 185,
-  "hh": 756,
+  "w": 218,
+  "hh": 732,
   "h": 720.0,
-  "ax": 125.1,
-  "fy": 749.0,
+  "ax": 76.4,
+  "fy": 725.0,
   "top": 6.0,
   "waist": false,
-  "head_match": 0.84,
-  "head_scale": 0.98
+  "head_match": 0.0,
+  "head_scale": 1.05
+ },
+ "alan_bn_reach": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_reach.webp",
+  "w": 222,
+  "hh": 316,
+  "h": 720.0,
+  "ax": 116.3,
+  "fy": 309.0,
+  "top": 6.0,
+  "waist": true,
+  "head_match": 0.0,
+  "head_scale": 1.58
+ },
+ "alan_bn_rim": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_rim.webp",
+  "w": 235,
+  "hh": 359,
+  "h": 720.0,
+  "ax": 118.1,
+  "fy": 352.0,
+  "top": 6.0,
+  "waist": true,
+  "head_match": 0.0,
+  "head_scale": 1.59
+ },
+ "alan_bn_relax": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_relax.webp",
+  "w": 336,
+  "hh": 352,
+  "h": 720.0,
+  "ax": 152.2,
+  "fy": 345.0,
+  "top": 6.0,
+  "waist": true,
+  "head_match": 0.0,
+  "head_scale": 1.24
+ },
+ "alan_bn_toss": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_toss.webp",
+  "w": 261,
+  "hh": 356,
+  "h": 720.0,
+  "ax": 174.0,
+  "fy": 349.0,
+  "top": 7.0,
+  "waist": true,
+  "head_match": 0.0,
+  "head_scale": 1.56
+ },
+ "alan_bn_cannonball": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_cannonball.webp",
+  "w": 238,
+  "hh": 368,
+  "h": 720.0,
+  "ax": 193.7,
+  "fy": 361.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.85,
+  "head_scale": 1.52
+ },
+ "alan_bn_walk": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_walk.webp",
+  "w": 295,
+  "hh": 789,
+  "h": 720.0,
+  "ax": 54.6,
+  "fy": 782.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.87,
+  "head_scale": 0.95
+ },
+ "alan_bn_sit": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_sit.webp",
+  "w": 304,
+  "hh": 733,
+  "h": 720.0,
+  "ax": 130.0,
+  "fy": 726.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.83,
+  "head_scale": 1.01
+ },
+ "alan_bn_stepdown": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_stepdown.webp",
+  "w": 315,
+  "hh": 796,
+  "h": 720.0,
+  "ax": 161.4,
+  "fy": 789.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.82,
+  "head_scale": 0.92
  },
  "alan_bn_zip": {
   "src": "art/review/alan/bath_new/sprites/alan_bn_zip.webp",
@@ -261,5 +357,41 @@
   "waist": false,
   "head_match": 0.0,
   "head_scale": 1.012
+ },
+ "alan_bn_jacket_shrug_v1": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_jacket_shrug_v1.webp",
+  "w": 228,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 90.2,
+  "fy": 725.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.0,
+  "head_scale": 1.055
+ },
+ "alan_bn_pants_on_v2": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_pants_on_v2.webp",
+  "w": 268,
+  "hh": 757,
+  "h": 720.0,
+  "ax": 117.6,
+  "fy": 750.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.92,
+  "head_scale": 0.95
+ },
+ "alan_bn_pants_up_v1": {
+  "src": "art/review/alan/bath_new/sprites/alan_bn_pants_up_v1.webp",
+  "w": 179,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 119.1,
+  "fy": 725.0,
+  "top": 6.0,
+  "waist": false,
+  "head_match": 0.0,
+  "head_scale": 1.013
  }
 }

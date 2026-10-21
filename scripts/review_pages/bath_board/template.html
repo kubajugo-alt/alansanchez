@@ -76,7 +76,10 @@ const D = JSON.parse(document.getElementById('data').textContent), FR = D.frames
 // waterline sits on the water's surface, with the game's water ring over the cut
 // h: his standing height in the game here (360); the waist-up paintings are fitted to the same head size, so they
 // are drawn at it too (the same torso as when we see him whole)
-const ROOM = { floor: { x: 800, y: 650, h: 360 }, tank: { x: 1070, y: 442, h: 360 }, behind: { x: 900, y: 440, h: 360 } };
+// rim: his hands on the tank's near rim (the painting's bottom edge), his body in the water 40 px above them
+const ROOM = { floor: { x: 800, y: 650, h: 360 }, tank: { x: 1070, y: 442, h: 360 }, behind: { x: 900, y: 440, h: 360 },
+  rim: { x: 1000, y: 458, h: 360, water: 418 }, air: { x: 985, y: 330, h: 360 }, corner: { x: 805, y: 684, h: 366 } };
+// air: the top of the cannonball's arc; corner: on the tank's front-left corner, just in front of it
 // the boxers: cut from the throw's painting and thrown by code (as ch2.js S.throwBoxers): up a little past his hand,
 // down over the front of the tank, spinning, flat on the stones where he climbs out, there till he steps into them
 const BX = D.boxers, BX_TO = { x: 795, y: 668 }, BX_MS = 1150;
@@ -109,7 +112,7 @@ function render() {
       <div class="thumb" draggable="true" title="Drag to move this step"><img src="${FR[s.id].src}" alt="${esc(FR[s.id].label)}" draggable="false"${s.flip ? ' style="transform:scaleX(-1)"' : ''}></div>
       <div class="lbl">${esc(FR[s.id].label)}</div>
       <div class="row">Hold <input data-k="hold" type="number" step="100" min="100" value="${s.hold}"> ms
-        <select data-k="place">${['floor', 'tank', 'behind'].map(o => `<option${s.place === o ? ' selected' : ''}>${o}</option>`).join('')}</select>
+        <select data-k="place">${['floor', 'tank', 'rim', 'behind', 'air', 'corner'].map(o => `<option${s.place === o ? ' selected' : ''}>${o}</option>`).join('')}</select>
         <label title="Show this painting mirrored, so he faces the other way"><input data-k="flip" type="checkbox"${s.flip ? ' checked' : ''}> mirror</label></div>
       <textarea data-k="note" placeholder="Tweak for this step…">${esc(s.note)}</textarea>
       <div class="row tools"><button data-a="l" aria-label="Move left">←</button><button data-a="r" aria-label="Move right">→</button><button data-a="d" title="Duplicate">⧉</button><button data-a="g" title="Insert a missing frame after this">+gap</button><button data-a="x" aria-label="Remove">✕</button></div>
@@ -230,8 +233,8 @@ function drawStep(i, u) {
   const f = FR[s.id], im = imgs[s.id], P = ROOM[s.place] || ROOM.floor, H = P.h, k = H / f.h;
   // mirrored about his anchor, as the game does when he faces the other way
   if (im.complete) { g.save(); g.translate(P.x, 0); if (s.flip) g.scale(-1, 1); g.drawImage(im, -f.ax * k, P.y - f.fy * k, f.w * k, f.hh * k); g.restore(); }
-  if (s.place === 'tank') { g.fillStyle = 'rgba(70,82,78,0.35)'; g.beginPath(); g.ellipse(P.x, P.y + 2, 85, 7, 0, 0, 7); g.fill();
-    g.strokeStyle = 'rgba(200,212,210,0.2)'; g.lineWidth = 1.5; g.beginPath(); g.ellipse(P.x, P.y + 1, 90, 10, 0, 0, 7); g.stroke(); }
+  if (s.place === 'tank' || s.place === 'rim') { const wy = P.water || P.y; g.fillStyle = 'rgba(70,82,78,0.35)'; g.beginPath(); g.ellipse(P.x, wy + 2, 85, 7, 0, 0, 7); g.fill();
+    g.strokeStyle = 'rgba(200,212,210,0.2)'; g.lineWidth = 1.5; g.beginPath(); g.ellipse(P.x, wy + 1, 90, 10, 0, 0, 7); g.stroke(); }
   if (s.place === 'behind' && P.y < TANK_Y) { g.save(); g.beginPath(); TANK_POLY.forEach(([x, y], j) => j ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip(); g.drawImage(room, 0, 0, 1280, 720); g.restore(); }
   boxers(i, u);
 }
