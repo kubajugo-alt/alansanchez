@@ -5,9 +5,9 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `1c9a6ef6` (Netlify `6ada56d83afeec5886cd899a`, entry 60). Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `6697511b` (Netlify `6ada7bb298af05ba4af58289`, entry 61). Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-60); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-61); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1244,6 +1244,9 @@ session lived in the session's scratchpad and are gone; everything that matters 
      plays under the tapes; stills take `opts.over(g, t, im)` (js/engine/stills.js), and bastos.js turns each reel
      (painted as an ellipse: un-squashed, rotated, squashed back; the spindle redrawn still). Preview:
      `?scene=bastostapes` (the recorder, the collection already back).
+   - **Deployed** (the user: "once done, deploy it and send me a link to the scene for preview"): master `6697511b`,
+     Netlify `6ada7bb298af05ba4af58289`; live: `/.env` 404, the new art and voices 200, smoke.mjs `bastos` and
+     `bastostapes` pass on the live site.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
