@@ -69,8 +69,8 @@ def interior_fill(a, exclude=None):
 
 # ---------------------------------------------------------------- detectors
 def pale_mask(a):
-    rgb = a[..., :3].astype(np.int16)  # the halo test's own notion of pale (mean > 120, spread < 50)
-    return (rgb.mean(-1) > 120) & (rgb.max(-1) - rgb.min(-1) < 50) & (a[..., 3] > 0)
+    rgb = a[..., :3].astype(np.int16)  # the halo test's own notion of pale (mean > 80, spread < 50)
+    return (rgb.mean(-1) > 80) & (rgb.max(-1) - rgb.min(-1) < 50) & (a[..., 3] > 0)
 
 
 def pale_paint(a, reach=5, walk=6):
@@ -103,11 +103,18 @@ def halo_mask(a, fill=None, reach=3):
     # a rim is a thin band (up to ~5 px across); a wider pale shape along the outline is paint (a shirt's fold)
     cand = (pale_mask(a) & ~prot & near).astype(np.uint8)
     wide = cv2.dilate(cv2.distanceTransform(cand, cv2.DIST_L2, 3), np.ones((7, 7), np.uint8)) * 2 > WIDE
-    edge = vis & ~prot & hug & near & ~(wide & cand.astype(bool))
+    # and the transparency must reach it without crossing the painting's dark outline (a blade or a glass's rim
+    # inside its own ink line is paint)
+    allowed = cand.astype(bool) | (al < 128)
+    reached = al < 20
+    k = np.ones((3, 3), np.uint8)
+    for _ in range(int(reach) + 2):
+        reached = (cv2.dilate(reached.astype(np.uint8), k) > 0) & allowed
+    edge = vis & ~prot & hug & near & reached & ~(wide & cand.astype(bool))
     lum, flum = rgb.mean(-1), fill.mean(-1)
     sat = rgb.max(-1) - rgb.min(-1)
     strength = (lum - flum) * al / 255.0  # how much lighter it shows than the paint, on screen
-    return edge & (lum > flum + 35) & (sat < 50) & (lum > 120) & (strength > 18), strength, edge
+    return edge & (lum > flum + 35) & (sat < 50) & (lum > 80) & (strength > 18), strength, edge
 
 
 def key_mask(a):
