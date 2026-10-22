@@ -1,0 +1,36 @@
+// First-time tips (js/engine/tips.js): each shows once at its moment, never over a line, and the menu turns them off.
+//   node scripts/tests/tips.mjs [baseUrl]
+import { createRequire } from 'module';
+const require = createRequire('/opt/node22/lib/node_modules/');
+const { chromium } = require('playwright');
+const base = process.argv[2] || 'http://localhost:8098/';
+const ok = (n, c, x) => console.log((c ? 'PASS ' : 'FAIL ') + n + (x ? '  ' + x : ''));
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--autoplay-policy=no-user-gesture-required'] });
+const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+const page = await ctx.newPage(); const errs = []; page.on('pageerror', e => errs.push(e.message));
+await page.addInitScript(() => { window.FAST = true; });
+await page.goto(base, { waitUntil: 'load' }); await page.waitForSelector('#title.ready');
+await page.evaluate(() => Game.begin(true));
+await page.waitForFunction(() => Game.room && Game.room.id === 'shop' && !Game.isBusy && !Engine.cutscene && !Engine.still, null, { timeout: 300000, polling: 300 });
+await page.evaluate(() => { window.FAST = false; });
+const tipNow = () => page.evaluate(() => document.getElementById('tip').classList.contains('on') ? document.querySelector('#tip span').textContent : null);
+const waitTip = async ms => { for (let i = 0; i < ms / 200; i++) { const t = await tipNow(); if (t) return t; await page.waitForTimeout(200); } return null; };
+const close = () => page.evaluate(() => document.querySelector('#tip button').click());
+const t1 = await waitTip(5000); ok('control: how to walk and look', /walk/.test(t1 || ''), t1);
+await page.screenshot({ path: (process.env.OUT || '/tmp') + '/tip.png' }); await close();
+await page.mouse.click(1100, 690); const t2 = await waitTip(4000); ok('a long walk: hurry', /hurry/i.test(t2 || ''), t2); await close();
+await page.waitForFunction(() => !Game.player.walking, null, { timeout: 20000 });
+await page.evaluate(() => Game.giveItem('coins')); const t3 = await waitTip(6000); ok('an item: the bag', /bag/.test(t3 || ''), t3); await close();
+const during = await page.evaluate(async () => { const p = Game.say('alan_done_2'); await new Promise(r => setTimeout(r, 400)); const on = document.getElementById('tip').classList.contains('on'); await p; return on; });
+ok('never over a line', !during);
+const t4 = await waitTip(5000); ok('after the first line: skipping', /skip/.test(t4 || ''), t4); await close();
+const seen = await page.evaluate(() => JSON.parse(localStorage.getItem('drowned-bell-tips')).seen);
+await page.reload({ waitUntil: 'load' }); await page.waitForSelector('#title.ready');
+await page.evaluate(() => Game.begin(true));
+await page.waitForFunction(() => Game.room && Game.room.id === 'shop' && !Game.isBusy && !Engine.cutscene && !Engine.still, null, { timeout: 300000, polling: 300 });
+await page.evaluate(() => { window.FAST = false; Game.giveItem('ledger'); });
+const again = await waitTip(5000); ok('each tip shows once (after a reload, no repeats)', !again, JSON.stringify(seen) + ' then ' + again);
+const off = await page.evaluate(() => { const b = document.getElementById('opt-tips'); const t0 = b.textContent; b.click(); return [t0, b.textContent, JSON.parse(localStorage.getItem('drowned-bell-tips')).off]; });
+ok('the menu turns tips off', off[0] === 'Tips: On' && off[1] === 'Tips: Off' && off[2] === true, JSON.stringify(off));
+console.log('errors:', errs.join(' | ') || 'none');
+await Promise.race([browser.close(), new Promise(r => setTimeout(r, 3000))]); process.exit(0);

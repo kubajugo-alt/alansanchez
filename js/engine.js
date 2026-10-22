@@ -226,6 +226,7 @@
     set cutscene(v) { E.cutscene = Math.max(0, E.cutscene + (v ? 1 : -1)); }, card: E.card, fade: E.fade,
     checkpoint: E.checkpoint, loadSave: E.loadSave, autosave: E.autosave, clearSaves: E.clearSaves,
     showModal: E.showModal, refreshNpcs: E.refreshNpcs, renderLabels: E.renderLabels,
+    tip: id => E.tip && E.tip(id), // a first-time tip (js/engine/tips.js), shown once
     giveItem: E.giveItem, takeItem: E.takeItem, has: E.has, toast: E.toast, readItem: E.readItem,
     get state() { return E.state; }, get flags() { return E.state.flags; },
     get player() { return E.player; }, get room() { return E.room; }, get npcs() { return E.npcs; },

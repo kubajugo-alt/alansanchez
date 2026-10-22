@@ -7,7 +7,7 @@ bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `c388e53b` (Netlify `6ada46760f238df80eba64a2`, entry 59). Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-59); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-60); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1191,6 +1191,16 @@ session lived in the session's scratchpad and are gone; everything that matters 
    sort and the behind-furniture shading; Pessoa's sortY is 565 (in front of the desk, behind Alan). Checked on the
    desk and the radiator, Inês behind the desk still hidden; smoke on the export passes. **Deployed:** master
    `c388e53b`, Netlify `6ada46760f238df80eba64a2`; live: the cat on the desk (screenshot), `/.env` 404.
+
+60. **First-time tips** (the user: "do the first-time tips"). js/engine/tips.js: one line in the corner under ◎, once
+   each (`localStorage['drowned-bell-tips']`), never over a scene, a line or a choice, one at a time, gone after a few
+   seconds or on ✕; the menu's Tips: On/Off. Touch screens get tap / press-and-hold wording. The moments: control in
+   a room (walk, act, look closer), a long walk (double-click to hurry / through a door), three clicks on nothing or a
+   minute idle (H / ◎), the first thing picked up (the bag), the first line (skip), the first choice (numbers), after
+   the first chapter card (saving, ☰ settings), three minutes with no story flag changing in Ch. I-IV (ask Inês), and
+   Ch. V's empty shop (the notebook: `Game.tip('ch5')` in ch1.js). Off under `window.FAST`, so the tests don't see them.
+   Checked with scripts/tests/tips.mjs: each tip at its moment, none over a line, none repeated after a reload, the
+   menu turns them off. Not deployed yet.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

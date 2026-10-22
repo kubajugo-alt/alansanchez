@@ -145,7 +145,7 @@
       { name: 'Salt on the floor', rect: [500, 578, 520, 18], when: () => F().ch >= 5, look: 'narr_look_salt_line' },
       { name: 'Door to the street', rect: [1025, 10, 205, 390], at: [900, 590], exit: 'street', entry: 'shop', locked: () => !F().heard_machine || (F().ch >= 5 && !F().ledger_found) || (F().ch >= 5 && F().ines_plan && !F().rui_called) || S.vascoCallDue(), lockedLine: () => F().ch >= 5 ? (!F().ledger_found ? 'alan_door_ledger' : F().rui_called ? 'alan_call_vasco_first' : 'alan_call_rui_first') : 'alan_door_first' },
     ],
-    async enter() { if (F().ch >= 5 && !F().ines_gone_seen) { F().ines_gone_seen = true; await say('alan_ines_gone'); } },
+    async enter() { if (F().ch >= 5 && !F().ines_gone_seen) { F().ines_gone_seen = true; await say('alan_ines_gone'); G.tip('ch5'); } }, // (the notebook is the hint now: S.ch5Hint)
   };
 
   // Senhor Armando means well: the kind of advice that tells Alan what the street says behind his back

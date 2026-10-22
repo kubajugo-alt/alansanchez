@@ -86,6 +86,13 @@ body.calm #title { animation: none; }
 /* keyboard focus: a clear ring on whatever has it */
 #menu button:focus-visible, .modal button:focus-visible, #dialog button:focus-visible, #closeup button:focus-visible { outline: 2px solid #ffe2a0; outline-offset: 2px; }
 #hot-btn { left: 1.2%; font-size: 1.1em; }
+/* first-time tips (js/engine/tips.js): one line in the corner under the ◎ button */
+#tip { position: absolute; left: 1.2%; top: 11%; max-width: min(30em, 60%); z-index: 8; display: flex; align-items: flex-start; gap: .6em;
+  padding: .55em .8em; background: rgba(20,13,8,.88); border: 1px solid rgba(224,184,102,.55); box-shadow: 0 4px 18px rgba(0,0,0,.5);
+  color: #f4e6c4; font-size: calc(.95em * var(--cap, 1)); line-height: 1.3; opacity: 0; transform: translateY(-.4em); transition: opacity .4s, transform .4s; pointer-events: none; }
+#tip.on { opacity: 1; transform: none; pointer-events: auto; }
+#tip button { background: none; border: none; color: var(--gold); cursor: pointer; font-size: .9em; padding: 0 .1em; }
+#game.cine #tip { opacity: 0; pointer-events: none; }
 /* show what you can click (H, or the ◎ button): a ring and a name on everything for a moment */
 #marks { position: absolute; inset: 0; pointer-events: none; z-index: 6; opacity: 0; transition: opacity .35s; }
 #marks.on { opacity: 1; }
