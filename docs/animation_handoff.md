@@ -886,7 +886,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Decisions (board, 22 Oct):** approved Celeste, Lacerda (robe), the washerwoman in black, Rui, Vasco, Ze;
      rejected Abilio ("abilio_idle2 is much bigger") and the bench man ("we need to redraw his sprites so the bench
      doesn't move").
-     - Applied the six to `js/sprites.js` (64 values, file order kept). Also `vasco_coffee_talk` scaled with the
+     - Applied the six to `js/sprites.js` (59 values, file order kept). Also `vasco_coffee_talk` scaled with the
        other two coffee frames (the validator's 4% talk/idle size rule caught it).
      - Rebuilt the 77 morph pairs touching changed frames (`FORCE=1 scripts/morphs.py`), the washerwoman's with
        `INV_IOU=0.68`. Lost: `npc_washer1_b>npc_washer1_gossip` and `>npc_washer1_howl` (overhead pose too far
