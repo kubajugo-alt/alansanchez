@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-22); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-25); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -23,6 +23,8 @@ handoff, kept for history: don't act on them without checking the code and the u
 - **Rooms:** small moving details in all 20 rooms drawn over the paintings (entry 21), and cut-out moving parts
   (lanterns, lamps, the street sign, the moored boats; entry 22). No room painting changed.
 - **Speed:** slow devices drop the warp and parallax by themselves; `?fps` shows a readout (entry 20).
+- **Loading:** images stream in behind the title, and rooms and paintings wait only for their own art (entry 25).
+  Saves, input locks, GL context loss and touch examine made robust (entry 24).
 
 ### Open, in the order I'd suggest
 1. **Walks towards and away from the camera** (Alan first: the player walks him up and down rooms all the time),
@@ -38,7 +40,12 @@ handoff, kept for history: don't act on them without checking the code and the u
    (tavern, se_tower, cais, boat, cabin, se_museum, se_cloister, se_store).
 6. Left out on purpose (entry 22): the map's boats, the armillary sphere, the shop's newspaper corner, the museum
    lectern's page.
-7. Older threads from the 20 October archive (Phase 3 step in-betweens, the combined-sprite transition choice, the
+7. **From the code review (entry 23), not done yet:** phone speed (parallax re-upload in live rooms, face cache,
+   shadow blur); accessibility (keyboard play, modal focus, subtitle size, 44 px buttons, reduced motion); new lines
+   (an "already done" reply instead of `alan_fail_04`, Ch. V hints: need writing and voicing, the user's call);
+   the 70 recorded lines nothing plays (validate.mjs lists them: retire or use?); Continue in the shop doesn't run its
+   entry hook, so a chapter end due there waits until Alan goes out and back in.
+8. Older threads from the 20 October archive (Phase 3 step in-betweens, the combined-sprite transition choice, the
    rig trial, the 70 frames without face sets): still open as far as I know; ask the user before picking them up.
 
 ### Rules added this session (the full list is "Standing rules" in the archive below; these come on top)
@@ -383,6 +390,61 @@ session lived in the session's scratchpad and are gone; everything that matters 
      lectern's page (they bend rather than swing: they need painted frames).
    - **Checked:** before/after crops (no seams, objects where painted); smoke intro, bench, lacthreat, quayfish,
      laundry, finale, tavernafter, fado, vascostore, twinswap pass.
+
+23. **Code review and lift-ups** (2026-10-22, the user: "Analyse the game code and propose lift-ups", then "Do batch A,
+   then B - don't wait for my approvals"; then "Work on your branch and merge when done"). Two read-only reviews
+   (engine; story) plus measurements; the full list went to the user in chat. Done here: batch A (bugs, entry 24)
+   and batch B (loading, entry 25). Proposed and **not done** (in "Open" above): phone speed (the parallax texture
+   uploaded every frame in live rooms, the 120-canvas face cache, per-frame shadow blur), accessibility (keyboard
+   play, focus in modals, subtitle size, 44 px buttons, reduced motion), new writing (an "already done" line instead
+   of `alan_fail_04`, used 23 times; Ch. V hints), the README walkthrough, small story helpers. Work on branch
+   `claude/modest-cray-12ezwn`, merged into master by the user's instruction. Nothing deployed.
+
+24. **Batch A: things that could cost a player their game.** No art, no lines, no story beats changed.
+   - **Saves** (saves.js, engine.js): a save holding an item this build doesn't know no longer breaks the inventory
+     bar on Continue (unknown ids dropped); if loading throws anyway, Continue says so and starts a new game instead
+     of a black screen. The menu's Load still restores the menu's save, but when that is older than the autosave it
+     asks for a second press ("Your save is from 2 hours ago: press Load again to go back to it").
+   - **Input never stays locked:** try/finally round `busy` in `goRoom` (a throwing `leave` hook is logged and the
+     room still entered; a bad room id throws before anything changes), `say` and `lyrics`; `showStill` no longer
+     throws when the still was already cleared.
+   - **Lost WebGL context** (warp.js, parallax.js): the lost canvas is dropped and a fresh one built on the next draw;
+     meanwhile figures and paintings draw flat. Three losses and the effect stays off.
+   - **Touch:** a long-press to examine no longer has its line skipped by the click the browser sends on lifting the
+     finger; a finger that moves over 10 px is a drag, not a press.
+   - **Small:** the Voices setting is remembered (`drowned-bell-music-volume-voice-off`); a second toast keeps its own
+     time; a hidden tab goes quiet (the audio context sleeps, so the line being spoken waits).
+   - **Story:** Ch. II, everything done but Ferreira's drawer: Inês now says `ines_hint_clocks` (it pointed at the
+     closed convent). The shop's entry checks the chapter end afresh (`S.checkCh2()`): using the case file on
+     Celeste as the last clue never set `ch2_ready`, so the chapter didn't end. Ch. III: once Alan has chosen the
+     Chiado, Inês follows the same thread as the map marker (Lacerda's case first). Two conditions that could never
+     be true removed (`lampOff2`, `slip_said`): no change in play.
+   - **validate.mjs:** flags read as `G.flags.x` or through `const f = F()` count (7 false warnings gone);
+     `lipsync.js` / `faces.js` no longer count as using a line, which shows **70 recorded lines nothing plays**
+     (retired in story round 2; listed by the validator: left for the user to decide). The review and walk-lab tools
+     are left out of the flag check.
+   - **Checked:** a Playwright script (scratchpad, not kept) for each case: unknown item, throwing load, throwing
+     leave hook, bad room, throwing line (`busy` back to 0 every time), toasts, voices setting across a reload, the
+     two hints and the Ch. II end on entering the shop, GL context loss (two contexts lost, two fresh ones, no
+     errors), long-press on a touch screen (the line survives the lift; a second tap skips it). All pass.
+
+25. **Batch B: streaming the images.** The title used to wait for every image (803 files, about 75 MB; 42 s and 100 MB
+   with the music before the title on a 20 Mbit/s link).
+   - **js/engine.js:** every image is registered at start and loaded through one queue. The title waits for none of
+     it. `goRoom` waits, on black, for the room's art and the stand/walk/talk frames of whoever is there now
+     (`E.roomReady`; their other poses go to the front of the queue next); `showStill` for its painting; the chapter
+     transitions for all their paintings. While anything is waited on the background stream pauses (8 at a time for
+     the urgent, 4 for the stream). A frame drawn before it lands is fetched next (actor.js `place`), and shows the
+     idle frame meanwhile, as a pose not painted yet always did. A request that stalls gives up after 25 s (it used
+     to hold the loading bar forever) and a failed one is tried once more. "Loading…" shows in the corner if a wait
+     passes 0.4 s. `?preload=all` (and `?review`, the walk lab) load everything first, as before.
+   - **"Is this art in the game?"** checks in the story used `G.image(key)` (loaded); they now use `G.hasArt(key)`
+     (main.js opening and bedroom, coldopen.js, ch3, ch5 `S.still`, se.js, visits.js, transitions.js), so a slow
+     connection can't quietly get a fallback scene.
+   - **js/morphs.js** (3.5 MB) loads `async`: every use already checked it was there.
+   - **Measured** (scratchpad scripts, 20 Mbit/s and 60 ms emulated): the title after 1.4 s and 2 MB (was 41.9 s,
+     100 MB); a new game played at real speed waited 0.9 s in all, once, for the first painting, and everything had
+     streamed in by 50 s, during the cold open. Every room entered with its art in place (20 rooms), no errors.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

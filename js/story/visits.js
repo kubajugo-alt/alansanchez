@@ -262,7 +262,7 @@
       await shelf('cuffs_b', 300); // dangling them in front of his face
       await say('alan_cuff_2'); sfx('handcuff_click', 0.8);
       // later: the two of them in bed, Alan smoking, the officer dozing on his shoulder; cap and cuffs on the bedpost
-      if (G.image('still:still_cop_bed')) {
+      if (G.hasArt('still:still_cop_bed')) {
         await G.fade(true);
         await G.showStill('still_cop_bed', async () => {
           await G.fade(false);
@@ -396,7 +396,7 @@
     const p = G.player, ines = G.npc('ines');
     await G.fade(true);
     // the hour he took over his cigarettes, painted: fog, azulejos, a match cupped in his hands
-    if (G.image('still:still_cigarettes')) {
+    if (G.hasArt('still:still_cigarettes')) {
       await G.showStill('still_cigarettes', async () => { await G.fade(false); await G.say('narr_key_later', { offscreen: true }); },
         { zoom: [1.02, 1.1], pan: [[0.45, 0.5], [0.6, 0.42]], keep: true });
       await G.fade(true); G.endStill();
@@ -547,7 +547,7 @@
   const prevEnter = ROOMS.shop.enter;
   ROOMS.shop.enter = async function (entry) {
     if (prevEnter) await prevEnter.call(this, entry);
-    if (entry !== 'street' || F().ch >= 5 || !G.npc('ines') || !G.image('bg:bedroom')) return;
+    if (entry !== 'street' || F().ch >= 5 || !G.npc('ines') || !G.hasArt('bg:bedroom')) return;
     // Teixeira brings the Ferreira key round in Chapter II, once the drawer is open;
     // Duarte comes at the end of Chapter III, while Inês steams the ledger (S.ch3End)
     if (F().ch === 2 && F().drawer_open && F().flirted_cop && !F().visit_cop) return S.visitCop();

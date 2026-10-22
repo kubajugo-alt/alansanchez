@@ -2,7 +2,7 @@
 (function () {
   const { G, F, say, ROOMS, posed, joke, give, sfx } = window.S;
   // a still, or a fallback painting while a still is missing
-  S.still = (name, fallback, fn, opts) => G.showStill(G.image('still:' + name) ? name : fallback, fn, opts);
+  S.still = (name, fallback, fn, opts) => G.showStill(G.hasArt('still:' + name) ? name : fallback, fn, opts);
 
   // ================================================================ CARMO AT MIDNIGHT
   ROOMS.convent_night = {

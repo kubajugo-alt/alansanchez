@@ -55,8 +55,9 @@
   // it ends on black instead.
   S.transition = async function (n, opts) {
     opts = opts || {};
-    const shots = (S.TRANSITIONS[n] || []).filter(([k]) => G.image('still:' + k));
+    const shots = (S.TRANSITIONS[n] || []).filter(([k]) => G.hasArt('still:' + k));
     if (!shots.length) return false;
+    if (G.ensure) await G.ensure(shots.map(([k]) => 'still:' + k)); // (stillTo doesn't wait: have them all in first)
     const fadeEl = document.getElementById('fade'), wasBlack = !!(fadeEl && fadeEl.classList.contains('on'));
     let skipped = false, current = null, onSkip = null;
     const skipP = new Promise(r => { onSkip = r; });
@@ -98,7 +99,7 @@
   // Runs alongside G.lyrics(song, S.SINO_LYRICS): follows the recording's clock, cross-fades on the stanzas,
   // and gives the room back for the final refrain. Returns { stop } (stop() is safe to call twice).
   S.fadoSlides = function (song) {
-    const slides = S.FADO_SLIDES.filter(([, k]) => !k || G.image('still:' + k));
+    const slides = S.FADO_SLIDES.filter(([, k]) => !k || G.hasArt('still:' + k));
     if (!song || !song.el || slides.length < 2 || fast()) return null;
     let shown = -1, live = false, stopped = false;
     const tick = setInterval(() => {

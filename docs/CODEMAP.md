@@ -8,7 +8,7 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 |---|---|---|
 | 1 | `js/lines.js` | `window.LINES`: every voiced line, `id: [speaker, text]`. Data: line ids map to `audio/voice/<id>.mp3`, so never rename an id. |
 | 2 | `js/sprites.js` | `window.SPRITES`: frame metadata (size, feet and head anchors, pair anchors). **Generated.** |
-| 3 | `js/morphs.js` | `window.MORPHS`: mesh correspondences for smooth pose changes. **Generated.** |
+| 3 | `js/morphs.js` | `window.MORPHS`: mesh correspondences for smooth pose changes. **Generated.** Loaded `async` (3.5 MB): every use checks it's there, and until it is, pose changes cross-fade. |
 | 4 | `js/similar.js` | `window.SIMILAR`: near-identical frame pairs (short cross-fade). **Generated.** |
 | 5 | `js/fx.js` | `window.FX`: fog, glows, light shafts, birds, water, vignette, clouds, painted inventory icons, and the small moving details rooms draw over their paintings (`wisps`, `drips`, `sway` (with `up` for plants and flames), `breathe`, `ripple`, `billow`, `flame`, `trickles`, `rain`, `moth`, `twinkle`, `dapple`, `passer`, `sweep`, `feather`, `fan`; all deterministic in `t`). |
 | 6 | `js/audio.js` | `window.Sound`: recorded music (crossfades, ducking), effects, ambience loops, footsteps, room acoustics, voice playback and level. |
@@ -30,7 +30,7 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 | 17 | `js/engine/input.js` | Hover and cursor shapes, mouse / touch / keys, the smart action (`interact`: walk up, reach, run the handler, fail lines). |
 | 18 | `js/engine/stills.js` | Full-screen stills (Ken Burns, cross-fades), close-ups, the clock overlay. |
 | 19 | `js/engine/saves.js` | Autosave and the menu's save, load, chapter cards, the ☰ menu, toasts. |
-| 20 | `js/engine.js` | Asset preloading, `init` / `begin` / `sandbox`, and the public API `window.Game`. |
+| 20 | `js/engine.js` | Image streaming, `init` / `begin` / `sandbox`, and the public API `window.Game`. Every image is registered at start and loaded through one priority queue: the title waits for none of it; `goRoom` waits (on black) for the room's art and the stand/walk/talk frames of whoever is there (`E.roomReady`), `showStill` for its painting (`E.ensure`); the rest streams behind, paused while anything is waited on. A frame drawn before it lands asks for it next (`E.want`). `G.hasArt(key)` says whether art is part of the game (`G.image(key)` is null until it lands). `?preload=all` (and `?review`, the walk lab) load everything before the title, as before. `Game.loading()` reports progress and the time spent waiting. |
 | 21 | `js/story/core.js` | `window.S`: the story layer. Its `say` (line poses, reactions), combined sprites (`S.pairIn` / `S.pairOut`), the cast (`S.CHARS`), items (`S.ITEMS`), helpers, the map, Inês's hints. |
 | 22 | `js/story/ines.js` | Inês's frames, reactions to lines, and her jobs around the shop. |
 | 23 | `js/story/docs.js` | Readable documents as close-ups: ledger, 1955 file, list, tide card, repair book, notebook, lyrics, newspaper, Ferreira's drawer lock, tide clock. |
@@ -92,7 +92,7 @@ Engine state lives on `E` so the engine files can share it: `E.state` (what a sa
 
 Serve the repository root (`npx -y http-server -p 8098 -c-1 -s .`), then:
 
-- `node --check` on every changed `.js` file, and `node scripts/validate.mjs` (line ids, audio, lip-sync freshness, flags, frame sizes).
+- `node --check` on every changed `.js` file, and `node scripts/validate.mjs` (line ids, audio, lip-sync freshness, flags, frame sizes). It counts flags read as `F().x`, `G.flags.x` and through `const f = F()`; generated files (`lipsync.js`, `faces.js`) don't count as using a line.
 - **Scene previews:** `?scene=<name>` jumps straight to a scene (the list is `PREVIEW` in `js/story/main.js`; also `tr1` to `tr5` for the chapter transitions). `?scene=walklab` is the walk lab; `?review` opens the review screen.
 - **Smoke test** (Playwright, `executablePath: '/opt/pw-browsers/chromium'`, Playwright loaded with `createRequire('/opt/node22/lib/node_modules/')`): `node scripts/tests/smoke.mjs http://localhost:8098/ [scene ...]` opens every preview scene with `window.FAST` on, answers the dialogs and reports page errors. All 38 scenes take over 15 minutes: run them in two parts. `GEMINI=1` approves every review candidate for the run.
 - **Other scripts in `scripts/tests/`:** `walk_cast.mjs` (walk lab readings per character), `walks_wired.mjs` (which cycle each character plays), `room_shots.mjs` (room screenshots, `OUT=<folder>`), `perf.mjs` and `profile.mjs` (speed; without a GPU the numbers are only comparative), `walknew.mjs`, `copbed2.mjs`.

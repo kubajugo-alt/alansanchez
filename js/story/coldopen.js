@@ -57,7 +57,7 @@
   // plays before the title card; returns when the screen is black again
   S.coldOpen = function () { return G.busy(coldOpen); };
   async function coldOpen() {
-    if (!G.image('bg:cold_open')) return;
+    if (!G.hasArt('bg:cold_open')) return;
     water = 0; tileOn = true;
     await G.fade(true);
     await G.goRoom('cold_open', null, { instant: true, noEnter: true, noSave: true });
@@ -90,7 +90,7 @@
   // Each painting fades up from black, holds under its narration with a slow Ken Burns move,
   // and fades back to black. The screen is black between paintings and when these return.
   const Snd = () => window.Sound || { ambience() {}, sfx() {} };
-  const has = name => !!G.image('still:' + name);
+  const has = name => G.hasArt('still:' + name);
   S.paint = async function (name, fn, opts) {
     await G.fade(true);
     await G.showStill(name, async () => { await G.fade(false); if (fn) await fn(); }, Object.assign({ keep: true, dur: 16 }, opts));

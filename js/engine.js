@@ -16,8 +16,9 @@
   const SRC = {};                // key -> file
   const pending = new Map();     // key -> Promise (queued or loading)
   const queue = [];              // keys waiting, in order
-  let active = 0, total = 0, done = 0, onProg = null;
-  const CONC = 8, TIMEOUT = 25000;
+  let active = 0, total = 0, done = 0, onProg = null, urgent = 0, waited = 0; // waited: ms spent waiting (Game.loading)
+  // what's waited on gets the whole connection: the background stream only runs (four at a time) while nothing is
+  const CONC = 8, CONC_BG = 4, TIMEOUT = 25000;
   function fetchImage(key, src) {
     return new Promise(res => {
       const im = new Image();
@@ -29,8 +30,10 @@
     });
   }
   function pump() {
-    while (active < CONC && queue.length) {
-      const key = queue.shift(), job = pending.get(key);
+    while (queue.length && active < (urgent ? CONC : CONC_BG)) {
+      const key = queue[0], job = pending.get(key);
+      if (job && !job.started && !job.front && urgent) break; // (the urgent ones are at the front: the rest wait)
+      queue.shift();
       if (!job || job.started) continue;
       job.started = true; active++;
       fetchImage(key, SRC[key]).then(im => {
@@ -51,7 +54,7 @@
     }
     if (!job.started) {
       const i = queue.indexOf(key); if (i >= 0) queue.splice(i, 1);
-      if (front) queue.unshift(key); else queue.push(key);
+      if (front) { queue.unshift(key); job.front = true; } else queue.push(key);
       pump();
     }
     return job.promise;
@@ -68,9 +71,10 @@
   async function ensure(keys) {
     keys = keys.filter(k => SRC[k] && !IMG[k]);
     if (!keys.length) return;
+    urgent++; const t0 = performance.now();
     keys.slice().reverse().forEach(k => want(k, true));
     const note = $('#loadnote'), t = setTimeout(() => note && note.classList.add('on'), 400);
-    try { await Promise.all(keys.map(k => pending.get(k).promise)); } finally { clearTimeout(t); if (note) note.classList.remove('on'); }
+    try { await Promise.all(keys.map(k => pending.get(k).promise)); } finally { urgent--; waited += performance.now() - t0; clearTimeout(t); if (note) note.classList.remove('on'); pump(); }
   }
   // the frames a character can show (every name in its frames table that is a painted sprite)
   const framesOf = id => {
@@ -83,13 +87,31 @@
     return [r.bg].concat(r.bgs || []).filter(Boolean).map(b => 'bg:' + b)
       .concat((r.layers || []).map(l => 'lay:' + l.img), r.depth ? ['depth:' + r.depth] : [], r.skyMask ? ['mask:' + r.skyMask] : []);
   };
-  const roomFrames = id => {
-    const r = ROOMS[id], keys = new Set(framesOf('alan'));
-    for (const n of (r && r.npcs) || []) for (const k of framesOf(n.ch || n.id)) keys.add(k);
-    for (const a of (r && r.ambient) || []) for (const k of [].concat(a.frames || [], a.walk || [], a.talkFrames || [], Object.values(a.poses || {}))) if (E.SPRITES[k]) keys.add('' + k);
-    return [...keys].map(k => 'spr:' + k);
+  // the frames a figure needs to stand, walk and talk (its other poses follow at the front of the stream; until one
+  // lands the figure shows its idle frame, as for a pose not painted yet)
+  const coreOf = id => {
+    const c = CHARS[id], out = new Set(), F = (c && c.frames) || {};
+    for (const part of ['idle', 'talk', 'walk', 'front', 'back', 'walkStart', 'walkStop']) for (const k of [].concat(F[part] || [])) if (typeof k === 'string' && E.SPRITES[k]) out.add(k);
+    return [...out];
   };
-  const roomAssets = id => roomArt(id).concat(roomFrames(id));
+  // who is in the room now (the same test refreshNpcs makes), and its extras
+  const roomPeople = (id, all) => {
+    const r = ROOMS[id], ids = new Set(['alan']), extra = new Set();
+    let cur = E.room; // a when() may ask about the room it's in: answer as if already there
+    try {
+      E.room = r;
+      for (const n of (r && r.npcs) || []) { let on = true; if (!all && n.when) try { on = n.when(); } catch (e) { on = true; } if (on) ids.add(n.ch || n.id); }
+    } finally { E.room = cur; }
+    for (const a of (r && r.ambient) || []) for (const k of [].concat(a.frames || [], a.walk || [], a.talkFrames || [], Object.values(a.poses || {}))) if (E.SPRITES[k]) extra.add('' + k);
+    return { ids: [...ids], extra: [...extra] };
+  };
+  // what entering a room waits for: its art, everyone there now able to stand, walk and talk, and its extras
+  const roomAssets = id => {
+    const p = roomPeople(id);
+    return roomArt(id).concat(p.ids.flatMap(coreOf).concat(p.extra).map(k => 'spr:' + k));
+  };
+  // what follows straight after, ahead of the stream: every frame of everyone who can appear there
+  const roomMore = id => { const p = roomPeople(id, true); return p.ids.flatMap(framesOf).map(k => 'spr:' + k); };
   const stillKeys = name => ['still:' + name, 'close:' + name, 'bg:' + name].filter(k => SRC[k]);
   function register() {
     const add = (k, s) => { if (!SRC[k]) { SRC[k] = s; total++; } };
@@ -111,9 +133,9 @@
   }
   function order() {
     const seq = [];
-    seq.push(...roomAssets(firstRoom()), ...roomAssets('shop'), ...framesOf('ines').map(k => 'spr:' + k));
+    seq.push(...roomAssets(firstRoom()), ...roomMore(firstRoom()), ...roomAssets('shop'), ...roomMore('shop'));
     for (const s of (window.STILLS || [])) seq.push(...stillKeys(s));
-    for (const id in ROOMS) seq.push(...roomAssets(id));
+    for (const id in ROOMS) seq.push(...roomAssets(id), ...roomMore(id));
     seq.push(...Object.keys(SRC));
     return seq;
   }
@@ -122,8 +144,9 @@
     onProg = onProgress;
     for (const k of order()) want(k);
     const all = /[?&]preload=all\b|[?&]review\b|[?&]scene=walklab\b/.test(location.search);
-    // the title waits for the room a game opens in and the people in it; everything else follows
-    await ensure(all ? Object.keys(SRC) : roomAssets(firstRoom()));
+    // the title waits for nothing but the page itself (New game opens on paintings and asks a question first; Continue
+    // waits for its room while the screen is black); everything streams in behind it
+    if (all) await ensure(Object.keys(SRC));
   }
 
   // ---------------------------------------------------------------- boot
@@ -155,7 +178,9 @@
     if (!loaded) { E.state = freshState(); E.renderInv(); await window.Story.newGame(); }
   }
 
-  Object.assign(E, { ensure, want, roomAssets, stillKeys, srcOf: k => SRC[k] });
+  // entering a room: its own frames first, then everything its people can do
+  function roomReady(id) { roomMore(id).forEach(k => want(k, true)); return ensure(roomAssets(id)); }
+  Object.assign(E, { ensure, want, roomAssets, roomReady, stillKeys, srcOf: k => SRC[k] });
 
   window.Game = {
     init, begin, sandbox, goRoom: E.goRoom,
@@ -170,6 +195,8 @@
     get player() { return E.player; }, get room() { return E.room; }, get npcs() { return E.npcs; },
     bgImage: () => E.room && IMG['bg:' + E.curBg()],
     image: key => IMG[key],
+    // the art is part of the game (it may still be streaming in: image() is null until it lands, ensure() waits)
+    hasArt: key => !!SRC[key],
     mask: () => E.room && E.room.skyMask && IMG['mask:' + E.room.skyMask],
     idleSmoke: null, noteInput: E.noteInput, get smoking() { return E.smoking(); }, get smokeStep() { return E.smokeStep(); },
     get isBusy() { return E.busy > 0 || !!E.dialogResolve || (E.player && E.player.walking); },
@@ -177,7 +204,7 @@
     rooms: () => Object.keys(ROOMS), roomDef: id => ROOMS[id], chars: () => CHARS, Actor: (...a) => new E.Actor(...a),
     // add (or replace) a painted frame at run time (the review screen previews a frame before it's approved)
     addSprite(k, meta) { E.SPRITES[k] = meta; delete IMG['spr:' + k]; return loadImage('spr:' + k, meta.src || 'art/sprites/' + k + '.webp'); },
-    ensure: keys => ensure(keys), ensureStill: name => ensure(stillKeys(name)), loading: () => ({ done, total, queued: queue.length }),
+    ensure: keys => ensure(keys), ensureStill: name => ensure(stillKeys(name)), loading: () => ({ done, total, queued: queue.length, waited: Math.round(waited) }),
     // test hook: act on a hotspot (by name) or an actor (by id), optionally with an item
     async act(target, verb, item) {
       E.noteInput(); // a scripted action counts as input (puts the cigarette away)

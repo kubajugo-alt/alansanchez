@@ -32,7 +32,7 @@
     // (try/finally: a leave hook that throws must not leave the screen black and every click refused)
     try {
       if (E.room && !opts.instant) { const s = opts.sound !== undefined ? opts.sound : passSound(E.room.id, id); if (s) Sound.sfx(s); await fade(true); }
-      if (E.ensure) await E.ensure(E.roomAssets(id)); // the room's art and its people, if they haven't streamed in yet
+      if (E.roomReady) await E.roomReady(id); // the room's art and its people, if they haven't streamed in yet
       if (E.room && E.room.leave) { try { E.room.leave(); } catch (err) { console.error('leave hook of ' + E.room.id, err); } }
       E.room = ROOMS[id];
       E.state.room = id;

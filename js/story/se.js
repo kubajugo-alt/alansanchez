@@ -884,7 +884,7 @@
       sfx('v_vasco_laugh', 0.45);
       await S.withPair('shirtless', async () => { await T(1400); await say('vasco_love_romans', 'alan_love_romans'); });
       // the painting and the fade, like every romance in the game: the two of them against the shelves under the work lamp
-      if (G.image('still:still_store_kiss')) {
+      if (G.hasArt('still:still_store_kiss')) {
         sfx('v_alan_sigh', 0.45);
         await G.showStill('still_store_kiss', () => G.say('narr_store', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.48, 0.4]], keep: true });
       } else { await G.fade(true); await T(900); await G.say('narr_store', { offscreen: true }); }

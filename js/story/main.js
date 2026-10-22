@@ -178,7 +178,7 @@
       const painted = S.mariaPaintings && await S.mariaPaintings();
       if (!painted && S.coldOpen) await S.coldOpen(); // fallback: Madragoa, 04:01, staged in a room
       Sound.cue({ id: 'main_theme', vol: 'low' }, { sticky: true });
-      if (S.introCity && G.image('still:still_newspaper')) await S.introCity();
+      if (S.introCity && G.hasArt('still:still_newspaper')) await S.introCity();
       else await S.paint('still_intro', async () => { await say('narr_intro_2'); await say('narr_intro_tiles'); }, { zoom: [1.08, 1.16], pan: [[0.55, 0.5], [0.6, 0.5]] });
       // the hook, over the fog again: the one man who should be awake
       await S.paint('still_intro', () => say('narr_intro_3'), { zoom: [1.1, 1.2], pan: [[0.6, 0.5], [0.66, 0.46]] });
@@ -199,7 +199,7 @@
       await say('ines_wake_up');
       // a real yawn: the yawning frame and the sound together, then back to his own frames
       const yawn = async () => { pose('yawn'); S.sfx('yawn', 0.9); await T(1700); pose(null); };
-      if (G.image('bg:bedroom')) {
+      if (G.hasArt('bg:bedroom')) {
         await G.fade(true);
         await G.goRoom('bedroom', null, { instant: true, noEnter: true, noSave: true, pos: [800, 640, 'w'] }); // up beside the bed
         await G.fade(false);
