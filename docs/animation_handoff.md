@@ -827,6 +827,31 @@ session lived in the session's scratchpad and are gone; everything that matters 
        (`js/story/ch1.js` `ROOMS.shop.occluders`, front on the floor at y 560).
      - Checked in Chromium: Inês at the shelving spot is hidden by the desk's side; Alan in front of it is not; no errors.
 
+45. **Two engine audits (agents), merged; the new faces approved.**
+   - Cross-fades (the user: "make sure that all of the sprites across all of the game use the same cross-fade natural
+     transition between the frames. I think even Inês at the beginning loses it"). `js/engine/actor.js` `drawBody` and
+     `composeFrames`: any frame change that isn't a morph or a near-identical pair now dissolves (`XFADE` 0.2 s standing,
+     `WALK_XF` 0.14 s walking, `XFADE_SHORT` 0.1 s per hand-over in a turn through the front view). Before, these cut:
+     - talk gestures (Inês's alone, about 37 cuts in 5 minutes);
+     - poses with no morph data (Inês's jobs, Alan's yawn and swoon, Vasco's reactions...);
+     - front-view turns and facing changes;
+     - the review sprites;
+     - a solo frame into a pair painting;
+     - a failed warp;
+     - a change mid-dissolve, which popped (now the more visible painting is the one kept).
+     A hidden figure comes back without a ghost of its old frame. Kept on purpose: walk steps (entry 11: a dissolve
+     ghosts a double leg) and a figure appearing. Agent commit b70b50f2; one conflict with `walkOpt(this)`, resolved.
+   - Breathing and head tilt (the user: "check if the script responsible for making the characters look like they are
+     breathing, head tilting etc is applied to all"). All 731 frames go through `Actor.motion`. Two gaps fixed:
+     - the 19 waist-up bath paintings tilted about the face, not the neck, and six had no tilt at all: `waistDrop(sp)`
+       places a `waist` painting on his whole standing figure;
+     - the bench man had no tilt (his painting counted as a group): new `anim.wide`, and `npc_bench` has
+       `anim: { wide: false }`.
+     Left by design: the pair paintings (never bent), Light mode (breath only), groups, lying figures, the cat, the tram.
+     Agent commit 42f04a1d.
+   - Faces: the user approved Alan's and Duarte's new sets. All 70 are `"ok": true` in `js/faces.js`.
+   - Checked after both merges: validate 0 errors; Chromium: the bath scene (60 poses) and Duarte's scene, no errors.
+
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
 Much of this is out of date (Alan's and Inês's walks, the phases, the deploy steps' test scripts). Kept for the
