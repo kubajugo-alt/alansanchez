@@ -105,6 +105,11 @@
       "voice_id": "jAW0IMxOTz75sgLAYWp6",
       "name": "Desmond (UK) - Distinguished Persuasion",
       "role": "Senhor Armando, old man on the bench by the tavern"
+    },
+    "bastos": {
+      "voice_id": "FfDQWz2XO4Zsxl1uwh0e",
+      "name": "European Portuguese Paulo Silva",
+      "role": "Prof. Henrique Bastos (anthropologist, heard on his lecture tapes)"
     }
   }
 }
