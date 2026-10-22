@@ -341,7 +341,7 @@ def white_pockets(a, skip=()):
     return out
 
 
-def clean(a, keep=(), holes=(), hole_tol=12, wet=False, halo=True, keep_strands=False, broom=False, white=True, white_skip=()):
+def clean(a, keep=(), holes=(), hole_tol=12, wet=False, halo=True, keep_strands=False, broom=False, white=True, white_skip=(), corners=False):
     """keep: boxes left alone by the speck/haze/rim passes (drops, smoke); holes: boxes of trapped backdrop."""
     a = a.copy(); H, W = a.shape[:2]; log = {}
     keepm = in_boxes((H, W), keep) if keep else np.zeros((H, W), bool)
@@ -387,11 +387,28 @@ def clean(a, keep=(), holes=(), hole_tol=12, wet=False, halo=True, keep_strands=
             m = lab == i
             if (m & keepm).any(): continue
             mx = int(al[m].max())
-            if wet: kill = mx < 24 and dsol[m].min() <= 6.0      # drops stay; only matte dust right by the figure
+            if wet:  # drops (pale) stay; matte dust right by the figure and dark matte bits go
+                kill = (mx < 24 and dsol[m].min() <= 6.0) or a[..., :3][m].astype(np.float32).mean() < 90
             else: kill = mx < 128 or ar <= 12
             if kill:
                 al[m] = 0; killed += int(ar)
         if killed: log['speck'] = killed
+    a[..., 3] = al
+    # white corners left in cut pockets (a chair's gaps): small pure-white bits at the outline, mostly ringed by paint
+    if corners:
+        rgb = a[..., :3].astype(np.int16); sat = rgb.max(-1) - rgb.min(-1); g = rgb.mean(-1)
+        w = (rgb.min(-1) > 190) & (sat < 20) & (al > 0) & ~keepm
+        n, lab, st, _ = cv2.connectedComponentsWithStats(w.astype(np.uint8))
+        clear = (al < 20)
+        kill = np.zeros(w.shape, bool)
+        for i in range(1, n):
+            if st[i, 4] > 200: continue
+            m = lab == i
+            ring = (cv2.dilate(m.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0) & ~m
+            if (ring & clear).any() and (ring & ~clear).any() and ((g[ring & ~clear] < 170) | (sat[ring & ~clear] > 40)).mean() >= 0.5: kill |= m
+        if kill.any():
+            al[kill] = 0; log['corner'] = int(kill.sum())
+            a, n2 = unmix_rim(a, np.array([245.0, 245.0, 245.0]), keepm, rounds=2); al = a[..., 3]
     a[..., 3] = al
     a[..., :3][al == 0] = 0
     return a, log
@@ -447,7 +464,7 @@ def fix(names, cfg, sheets=True):
         a = load(os.path.join(ROOT, src[n]))
         b, log = clean(a, keep=c.get('keep', []), holes=c.get('holes', []), wet=c.get('wet', False), halo=c.get('halo', True),
                        keep_strands=c.get('strands', False), broom=c.get('broom', False),
-                       white=c.get('white', True), white_skip=c.get('white_skip', []))
+                       white=c.get('white', True), white_skip=c.get('white_skip', []), corners=c.get('corners', False))
         ch = changed(a, b)
         if not ch.any(): continue
         Image.fromarray(b, 'RGBA').save(f'{OUT}/sprites/{n}.webp', lossless=True, quality=100, method=6, exact=False)

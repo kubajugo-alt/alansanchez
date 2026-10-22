@@ -966,6 +966,13 @@ session lived in the session's scratchpad and are gone; everything that matters 
      (Gemini crop edit `counter_full_edit.png`, pasted over the old counter's footprint only:
      `art/review/shop/option_b_lowcounter.jpg`) is offered as option B on the page (choice saved as `counter` in
      `shop/verdict3`). Not yet wired into `shop_patch.py`; do that if the user picks B.
+   - The user: "draw it from scratch, this piecing up doesn't work". `gen_image.py --fresh` (new: a painting made anew,
+     the first image only a guide to layout and camera; extra refs sent as they are). With the old painting as the
+     guide (`fresh1/2`) the model copied it, old sizes and all; so `art/review/shop/layout_guide.jpg`: the old painting
+     with the lamp, till, machine, phone, newspaper and tin inpainted out, blurred (sigma 3.2), plus Alan's and Ines's
+     sprites for scale and the real sizes in the prompt. `fresh3` (camera a touch closer, desk smaller) and `fresh4`
+     (closest to the old layout), 2752x1536 raw, `art/review/bg/shop_fresh{3,4}.jpg` at 1280x720. On the page (same
+     link) as Version 1 / 2 with in-game shots; the pick goes to `shop/fresh`. The patch work above is superseded.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

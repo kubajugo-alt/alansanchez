@@ -199,9 +199,11 @@ def main():
     p.add_argument('--no-frame', action='store_true', help='skip anchor/size matching (e.g. close-ups)')
     p.add_argument('--no-palette', action='store_true', help='new pose with different clothes: skip the whole-figure colour match')
     p.add_argument('--still', action='store_true', help='a full-screen painting (stills, close-ups): sent as it is, no key colour, returned at its own size')
+    p.add_argument('--fresh', action='store_true', help='a full-screen painting painted anew (implies --still): the first image is a guide to the layout and camera only, not a picture to keep')
     p.add_argument('--match-height', action='store_true', help='solo in-betweens: scale the figure to the mean height of the --ref sprites (Gemini sometimes paints him smaller)')
     a = p.parse_args()
     global KEY_RGB, KEY_NAME; KEY_NAME, KEY_RGB = a.key, KEYS[a.key]
+    if a.fresh: a.still = True
 
     from google import genai
     client = genai.Client(api_key=api_key(), http_options={'timeout': 240_000})
@@ -217,9 +219,14 @@ def main():
         text = (f'{STYLE}\n\nThe FIRST image is a full-screen painting from the game to edit. The other images are references '
                 f'(characters, objects and the game\'s painted style). Keep the painting exactly as it is: the same composition, '
                 f'framing, camera, lighting, colour grade, brushwork and every detail the edit does not mention.\n\nEdit: {a.prompt}')
-    parts = [{'type': 'text', 'text': text}, {'type': 'image', 'data': png_b64(keyed), 'mime_type': 'image/png'}]
+    if a.fresh:
+        text = (f'{STYLE}\n\nPaint a new full-screen background painting for the game, from scratch, at full detail: crisp, well-defined '
+                f'shapes (every book spine, wood grain and panel clearly painted). The FIRST image is a guide to the room\'s layout, camera '
+                f'and the game\'s painted style only, not a picture to copy pixel for pixel. The other images are references.\n\n{a.prompt}')
+    parts = [{'type': 'text', 'text': text}, {'type': 'image', 'data': png_b64(keyed, 1536 if a.still else 1024), 'mime_type': 'image/png'}]
     for extra in a.ref[1:]:
-        parts.append({'type': 'image', 'data': png_b64(on_key(Image.open(extra))), 'mime_type': 'image/png'})
+        ex = Image.open(extra)
+        parts.append({'type': 'image', 'data': png_b64(ex.convert('RGB') if a.still else on_key(ex)), 'mime_type': 'image/png'})
     for s in style:
         parts.append({'type': 'image', 'data': png_b64(on_key(Image.open(s))), 'mime_type': 'image/png'})
 

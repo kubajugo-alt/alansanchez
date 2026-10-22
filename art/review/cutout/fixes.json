@@ -113,10 +113,12 @@
     7,
     6
    ]
-  ]
+  ],
+  "corners": true
  },
  "npc_couple_b": {
-  "wet": true
+  "wet": true,
+  "corners": true
  },
  "npc_laundry": {
   "wet": true,
@@ -604,7 +606,8 @@
     13,
     7
    ]
-  ]
+  ],
+  "corners": true
  },
  "cards_listen_b": {
   "holes": [
@@ -632,7 +635,8 @@
     4,
     6
    ]
-  ]
+  ],
+  "corners": true
  },
  "alan_asleep": {
   "holes": [
@@ -648,7 +652,8 @@
     7,
     4
    ]
-  ]
+  ],
+  "corners": true
  },
  "npc_mender1": {
   "holes": [
@@ -664,7 +669,8 @@
     2,
     8
    ]
-  ]
+  ],
+  "corners": true
  },
  "npc_mender1_b": {
   "holes": [
@@ -680,7 +686,8 @@
     3,
     6
    ]
-  ]
+  ],
+  "corners": true
  },
  "prop_tram": {
   "white": false
@@ -717,7 +724,8 @@
     400,
     130
    ]
-  ]
+  ],
+  "corners": true
  },
  "npc_fish_b": {
   "white_skip": [
@@ -727,6 +735,109 @@
     400,
     130
    ]
-  ]
+  ],
+  "corners": true
+ },
+ "duarte_play1": {
+  "corners": true
+ },
+ "duarte_play2": {
+  "corners": true
+ },
+ "duarte_play3": {
+  "corners": true
+ },
+ "guitar_floor1": {
+  "corners": true
+ },
+ "guitar_floor2": {
+  "corners": true
+ },
+ "guitar_floor3": {
+  "corners": true
+ },
+ "guitar_floor4": {
+  "corners": true
+ },
+ "npc_bench": {
+  "corners": true
+ },
+ "npc_bench_awake": {
+  "corners": true
+ },
+ "npc_bench_b": {
+  "corners": true
+ },
+ "npc_bench_confide": {
+  "corners": true
+ },
+ "npc_bench_doze2": {
+  "corners": true
+ },
+ "npc_bench_drowsy": {
+  "corners": true
+ },
+ "npc_bench_talk1": {
+  "corners": true
+ },
+ "npc_bench_talk2": {
+  "corners": true
+ },
+ "npc_bench_talk3": {
+  "corners": true
+ },
+ "npc_bench_wistful": {
+  "corners": true
+ },
+ "npc_guard": {
+  "corners": true
+ },
+ "npc_guard_b": {
+  "corners": true
+ },
+ "npc_guitar": {
+  "corners": true
+ },
+ "npc_guitar_b": {
+  "corners": true
+ },
+ "npc_guitar_flourish": {
+  "corners": true
+ },
+ "npc_guitar_lean": {
+  "corners": true
+ },
+ "npc_guitar_serenade": {
+  "corners": true
+ },
+ "npc_guitar_talk1": {
+  "corners": true
+ },
+ "npc_guitar_talk2": {
+  "corners": true
+ },
+ "npc_guitar_talk3": {
+  "corners": true
+ },
+ "npc_guitar_wink": {
+  "corners": true
+ },
+ "npc_mender1_talk": {
+  "corners": true
+ },
+ "npc_mender2": {
+  "corners": true
+ },
+ "npc_mender2_b": {
+  "corners": true
+ },
+ "npc_mender2_talk": {
+  "corners": true
+ },
+ "npc_volunteer": {
+  "corners": true
+ },
+ "npc_volunteer_b": {
+  "corners": true
  }
 }
