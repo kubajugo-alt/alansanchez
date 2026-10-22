@@ -445,6 +445,8 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Measured** (scratchpad scripts, 20 Mbit/s and 60 ms emulated): the title after 1.4 s and 2 MB (was 41.9 s,
      100 MB); a new game played at real speed waited 0.9 s in all, once, for the first painting, and everything had
      streamed in by 50 s, during the cold open. Every room entered with its art in place (20 rooms), no errors.
+   - **Checked:** the smoke test on all 38 scenes and a new game (two halves): all pass; the batch A checks again on the
+     final loader: all pass; `node scripts/validate.mjs`: 0 errors.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
