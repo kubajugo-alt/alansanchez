@@ -37,7 +37,7 @@
   window.STILLS = ['still_intro', 'still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn',
     'still_newspaper', 'still_1755', 'still_1955_a', 'still_1955_b', 'still_1955_c', 'still_city_morning', 'still_drawer', 'still_shop_after',
     'still_phone', 'still_amalia_box', 'still_tavern_full', 'still_quay_sweater', 'still_abilio_ring', 'still_shelf', 'still_ze_kiss', 'still_ze_bunk', 'still_cop_shelf', 'still_guitar_bed', 'still_cop_bed', 'still_cigarettes'].concat(window.EXTRA_STILLS || []);
-  window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks', 'close_drawerlock', 'close_recorder'];
+  window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks', 'close_drawerlock', 'close_recorder', 'close_recorder_reels'];
 
   // ---------------------------------------------------------------- new game
   // preview links: ?scene=bath | cop | guitar | celeste | visitcop | copbed | visitguitar | romance | finale jumps straight to that scene (no autosave)

@@ -36,7 +36,12 @@
     const cx = clampP(P[0][0] + (P[1][0] - P[0][0]) * e), cy = clampP(P[0][1] + (P[1][1] - P[0][1]) * e);
     g.save(); g.globalAlpha = Math.max(0, Math.min(1, alpha));
     if (black) { g.fillStyle = '#000'; g.fillRect(0, 0, W, H); }
-    if (im) { const w = W * z, h = H * z; g.drawImage(im, W / 2 - w * cx, H / 2 - h * cy, w, h); }
+    if (im) {
+      const w = W * z, h = H * z, x0 = W / 2 - w * cx, y0 = H / 2 - h * cy;
+      g.drawImage(im, x0, y0, w, h);
+      // opts.over(g, t, im): moving parts drawn over the painting in its own pixels, moving with the pan
+      if (s.over) { g.save(); g.translate(x0, y0); g.scale(w / im.width, h / im.height); s.over(g, s.t, im); g.restore(); }
+    }
     if (s.sepia) {
       g.globalCompositeOperation = 'multiply';
       g.fillStyle = 'rgba(255,225,180,0.25)';
@@ -59,7 +64,7 @@
     E.captionTop = !!opts.captionTop;
     const under = opts.cross && E.still && E.still.target > 0 && E.still.alpha > 0.05 ? E.still : null;
     if (under) under.prev = null;
-    E.still = { name, t: 0, alpha: under ? 0 : E.still ? E.still.alpha : 0, prev: under, target: 1, dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette };
+    E.still = { name, t: 0, alpha: under ? 0 : E.still ? E.still.alpha : 0, prev: under, target: 1, dur: opts.dur || 14, zoom: opts.zoom || [1.04, 1.12], pan: opts.pan || [[0.5, 0.5], [0.5, 0.5]], sepia: opts.sepia, grain: opts.grain, vignette: opts.vignette, over: opts.over };
     if (window.FAST) { E.still.alpha = 1; E.still.prev = null; }
     E.clearSpeech();
     await wait(window.FAST ? 20 : 700);

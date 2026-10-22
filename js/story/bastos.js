@@ -184,9 +184,22 @@
     if (r.play === 'last') return S.bastosLastTape();
     return S.bastosLessons();
   };
-  const onTape = (...ids) => G.showStill('close_recorder', async () => {
+  // while a tape plays: the recorder with both reels on (close_recorder_reels), the reels turning. Each reel is
+  // painted as an ellipse (seen from a little above): un-squashed to a circle, turned, squashed back; the
+  // spindle in the middle stays put. Pixel positions in the painting (1536x864): centre, radii.
+  const REELS = [[326, 302, 140, 98, 1.0], [652, 240, 132, 92, 1.25]]; // the full reel turns slower than the take-up
+  const reels = (g, t, im) => {
+    for (const [cx, cy, rx, ry, sp] of REELS) {
+      const k = ry / rx, a = -t * 2.2 * sp;
+      g.save(); g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, 0, 7); g.clip();
+      g.translate(cx, cy); g.scale(1, k); g.rotate(a); g.scale(1, 1 / k); g.translate(-cx, -cy);
+      g.drawImage(im, 0, 0); g.restore();
+      g.save(); g.beginPath(); g.ellipse(cx, cy - 6, 26, 30, 0, 0, 7); g.clip(); g.drawImage(im, 0, 0); g.restore(); // the spindle
+    }
+  };
+  const onTape = (...ids) => G.showStill('close_recorder_reels', async () => {
     for (const id of ids) await G.say(id, { offscreen: true, label: 'Prof. Bastos, on tape' });
-  }, { zoom: [1.0, 1.06], pan: [[0.32, 0.4], [0.3, 0.42]] });
+  }, { zoom: [1.0, 1.06], pan: [[0.32, 0.4], [0.3, 0.42]], over: reels });
   S.bastosLessons = async function () {
     await say('alan_tapes_play');
     sfx('relay_click', 0.7);
