@@ -906,6 +906,12 @@ session lived in the session's scratchpad and are gone; everything that matters 
      5% of its old size and spot; the front-on bench reads about 10% narrower than the old ones. On the board as
      round 2 with Abilio. On approval: copy the ten webps over `art/sprites/npc_bench*.webp`, write the meta into
      `js/sprites.js`, rebuild his morphs and `similar.py`, `build-manifest.mjs`, validate, smoke `bench`.
+   - **Round 2 (board):** the bench man approved: the ten webps copied over `art/sprites/npc_bench*.webp`, their
+     shared meta written into `js/sprites.js`, his 45 morph pairs rebuilt (90 stored), `similar.py` (307 pairs),
+     `build-manifest.mjs`. Validate 0 errors; one new warning, `npc_bench_talk3` "draws at 96%": it compares the
+     top of the figure and he leans lower in that painting; changing its `h` would move the bench again, so it
+     stays. Smoke bench, visitcop pass; Chromium street shots: the bench holds still across his frames.
+     Abilio's round 2 was rejected: "abilio_shout1 seems to have different colours".
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
