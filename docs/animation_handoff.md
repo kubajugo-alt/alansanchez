@@ -1,17 +1,19 @@
 # Animation handoff
 
-## Start here (session handoff, 2026-10-21)
+## Start here (session handoff, 2026-10-22)
 
-Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
-runs commit `9c9cde46` on branch `claude/zen-dijkstra-o7cgsv` (Netlify deploy `6ad9600e5645b03d56620317`, 2026-10-22: the new
-bath, Duarte's rewritten scene, the sound pass, the new faces, the cross-fade and breathing fixes and Inês's desk, entries 42-45). Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-47); the sections after it are an archive of the 20 October
-handoff, kept for history: don't act on them without checking the code and the user.
+Work on branch `claude/zen-dijkstra-o7cgsv` (draft PR kubajugo-alt/alansanchez#1; it carries everything). The live
+site, https://alan-sanchez-drowned-bell.netlify.app, runs commit `e9bb754c` (Netlify deploy `6ad996fe597c28c865322321`,
+2026-10-22: everything through entry 47 that the user approved). Below: what the game is now, what is open, the rules,
+and where the tools are. The numbered session log underneath has the detail of every change (entries 1-47); the
+sections after it are an archive of the 20 October handoff, kept for history: don't act on them without checking the
+code and the user.
 
 ### What is in the game now
 - **Story review round 2** (T01-T11) done; every line voiced (about 1,360, ElevenLabs), all within +-1.5 LU of
   -21.5 LUFS; lip-sync cues for every speaker but the narrator. Amália's first hello tightened (entry 20).
-- **Faces** (lip-sync and blinking): Alan, Inês, Vasco, Teixeira. Everyone else has cues but no face art yet.
+- **Faces** (lip-sync and blinking): Alan (his new bath and Duarte frames too), Inês, Vasco, Teixeira, Duarte in his
+  upstairs scene. Everyone else has cues but no face art yet (the user: "They are not meant to speak and blink yet").
 - **Walks:** all eight walking characters on new side walks painted as one Gemini sheet each. Alan and Inês play
   the cycles the user built in the walk editor (`*_walk7_s*`, 5 and 6 steps, entry 19); Vasco, Lacerda (widened
   x1.2 on the user's note), Celeste, Zé, Teixeira (cop_visit) and Duarte (guitar_visit) their approved 8-pose sets
@@ -24,8 +26,30 @@ handoff, kept for history: don't act on them without checking the code and the u
 - **Rooms:** small moving details in all 20 rooms drawn over the paintings (entry 21), and cut-out moving parts
   (lanterns, lamps, the street sign, the moored boats; entry 22). No room painting changed.
 - **Speed:** slow devices drop the warp and parallax by themselves; `?fps` shows a readout (entry 20).
+- **Added 21-22 Oct (entries 40-47):** the bath and Duarte's upstairs scene repainted; the sound pass (docs/SOUND.md);
+  talking and blinking for the 70 new frames (Alan's 58, Duarte's 12); every frame change dissolves and every frame
+  breathes and tilts (two engine audits, entry 45); the shop desk hides Inês; NPC sizes and feet fixed for Celeste,
+  Lacerda (robe), the washerwoman in black, Rui, Vasco, Zé and Abílio (Abílio's `shout1` colour-corrected too); the
+  bench man and the two card players each repainted on one fixed bench / table so the furniture no longer jumps when
+  their frames swap (entry 46). `?bath=old`, `?duarte=old`, `?sound=old` still bring back the old versions.
+- **The shop keeps its original painting** (entry 47: three redraw attempts, the user said "keep the original one").
 
 ### Open, in the order I'd suggest
+A. **The cut-out audit (agent, entry 48 to write).** The user: "review every (including the background ones) sprite in
+   the game, and make sure that they are perfect cutouts without a single pixel of a background left". A background
+   agent was running it at handoff: `scripts/cutout_audit.py`, outputs in `art/review/cutout/` (`report.json`,
+   `summary.md` when done, cleaned candidates in `sprites/`, `before_after/`, `logs/`, `fixes.json`; the detector
+   crops in `crops/` are git-ignored). Nothing is applied to the game. Next: read its summary, check the cleaned
+   frames by eye, put them on a review board, apply only what the user approves (copy over `art/sprites/`, same
+   canvas and anchors, then rebuild face patches if a frame with a face set changed: `scripts/face_kit.py build`).
+B. **The woman under the washing (Lavadouro).** The story asks for three frames she never had: `npc_laundry_sniff`
+   (her "Wasted on the girls" remark), `_mutter`, `_smirk` (ch2.js). Painted for review in `art/review/laundry/`; the
+   user rejected the card with "i think she had more sprites". She has eight in the game (idle, glance, peg, shake,
+   talk1-3, shock), all used; the old `npc_laundry_b` was dropped long ago. Asked the user what they meant; no answer.
+C. **Other story frames that were never painted** (the game skips them silently): `celeste_shock` (the bath),
+   `duarte_play4/5/6` (fado flourishes), `npc_bench_greet`, Vasco's optional extras (`vasco_idle4`, front/back walk
+   frames, `vasco_hook` and the other reaction variants in se.js). Offered to the user; no answer yet.
+D. The bench man's `npc_bench_wistful` paints him bareheaded (his cap in his hands): offered to paint the cap on.
 0. **Walks, entry 23's plan:** Step B (Alan's 12-painting side walk, "more fluidity").
 1. **Walks towards and away from the camera** (Alan first: the player walks him up and down rooms all the time),
    then the lantern walks (Alan's `alan_lwalk*`, Inês's `ines_lwalk*`). Same method: a Gemini sheet, then the walk
@@ -71,14 +95,24 @@ handoff, kept for history: don't act on them without checking the code and the u
   (all 38 scenes take over 15 minutes: run them in two parts), `walk_cast.mjs`, `walks_wired.mjs`, `room_shots.mjs`,
   `perf.mjs`, `profile.mjs`; plus `node scripts/validate.mjs`. A smoke run with `GEMINI=1` approves every candidate.
 - **Review pages:** the walk editor (above); the stills choice (done): https://claude.ai/artifact/NXdCrquugizM39ea7bF1TN.
+- **NPC checks (entry 46):** `scripts/npc_check/` (dump every room's NPC frames, measure size by head / SIFT / feet,
+  feet overlap at game size, contact sheets, mid-dissolve ghosts, `propose.py`); `scripts/bench_compose.py` and
+  `scripts/cards_compose.py` (furniture painted once, people painted without it and layered back). The NPC board:
+  https://claude.ai/artifact/CfA6A88JFRC1yGXhhnYcAg (decisions in collection `npc_fix`).
+- **Images:** `scripts/gen_image.py --key magenta` (for green subjects), `--fresh` (a painting made anew from a guide);
+  `scripts/shop_patch.py` (object patches on a painting; tried on the shop and dropped). Canva full-size export: page
+  22 of the scratch design `DAHYZ-SDzRE` (update_fill, commit, export png pro).
+- **Previews added:** `?scene=shopjobs` (the shop, nothing scripted, Inês at her jobs).
 
-### Lost with this session's container
+### Lost with the sessions' containers
 - Rhubarb Lip Sync 1.13.0 (download again; `RHUBARB=<binary>` for `scripts/lipsync.py`).
 - The 2752x1536 Gemini originals of the 26 repainted stills (`art/review/stills/crisp2/*_raw.png`, git-ignored);
   the 1536x864 versions in the game are what matters.
 - The walk sheets that weren't chosen (git-ignored); the editor library's fitted tries (rebuild with
   `walk_sheet_cast.py library`).
 - Gemini spend this session: $3.57 over 52 calls (stills and walk sheets); the whole log: $97.04 over 2,068 calls.
+- 22 Oct: the local game servers, the Rhubarb binary again, the raw 2K Gemini results (git-ignored). Gemini on 22 Oct:
+  $15.13 over 351 calls (mostly the face kits); the whole log: $123.10 over 2,687 calls. Canva: the shop attempts.
 
 ## Story review round 2 (2026-10-20): done
 
@@ -977,6 +1011,11 @@ session lived in the session's scratchpad and are gone; everything that matters 
      The `?shop=new` switch is removed from main.js; `art/bg/` was never changed. Kept, harmless: the exposed
      `S.SIDEBOARD`, `S.INES_JOBS`, `S.PESSOA_AT` (same values as before), `?scene=shopjobs`, `gen_image.py --fresh`
      and `--key magenta`. The review files under `art/review/shop/` and `art/review/bg/shop_*` stay as a record.
+   - **Deployed** (the user: "deploy all and prepare for handoff to the new session"): commit `e9bb754c` from a clean
+     `git archive` export (no `.env`), smoke on the export: intro, bench, laundry, tavernafter, fado, sepit, vascostore,
+     romance, abiliosketch, shopjobs, visitguitar, bath all pass. Netlify deploy `6ad996fe597c28c865322321`. Live: the
+     page 200, `/.env` 404, the new bench / cards / Abílio sprites byte-identical to the repo, the live sprites.js
+     carrying the size and feet fixes, no `?shop=new` left in main.js.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
