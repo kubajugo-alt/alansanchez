@@ -23,8 +23,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Narrator** (narr_intro_tiles): Each of them found in a dry bed, behind a locked door, with the Atlantic in their lungs. And on each pillow, a little blue tile. The papers called them the tile murders. The police called them nothing at all.
 - **Narrator** (narr_intro_alfama_2): It was the ninth day of the fog. The last name on the list was painted over a bookshop in the Alfama, and nobody inside had read the papers.
 - **Narrator** (narr_intro_3): In a crooked bookshop in the Alfama, the one man in the city who most needed to be awake... was asleep.
-- **Inês** (ines_wake) †: It's eleven, Alan. Even the cat has done more today.
-- **Alan** (alan_wake) †: [groggy] I'm thirty-seven, Inês. At my age you don't wake up. You resurface.
 - **Inês** (ines_intro_2): Your answering machine has been blinking at me all morning. Either it's a creditor or a woman. Either way, listen to it.
 
 *(Inês keeps score of his jokes)*
@@ -44,11 +42,9 @@ Lines marked † are not referenced by name in the story code: some are built fr
 
 - **Narrator** (narr_look_shelves): Livraria Sanches. Four thousand second-hand books, sorted by a system known only to the late Joaquim Sanches, and to no one since.
 - **Narrator** (narr_look_window): Fog presses against the glass like something that wants to come in. The tram bells sound muffled, and very far away.
-- **Narrator** (narr_look_magnifier) †: A brass magnifying glass on the window shelf, for examining watermarks, bindings, and the occasional splinter.
 - **Alan** (alan_take_magnifier): For the small print. In this family, it's all small print.
 - **Narrator** (narr_look_press) †: A bookbinding press, clamping a Camões that nobody has bought since nineteen seventy-two, weighed down with a two-kilo brass weight.
 - **Alan** (alan_take_weight) †: Every adventurer should carry a dead weight. Inês carries me.
-- **Alan** (alan_camoes) †: Camões. The greatest poet in the language. Nobody buys him either. We have an understanding.
 - **Narrator** (narr_look_kettle): A kettle, a jar of instant coffee, and two chipped mugs. One of them says 'world's okayest grandson'.
 - **Alan** (alan_look_pessoa): Pessoa. Named after a poet with seventy personalities. This one has one, and it's asleep.
 - **Alan** (alan_take_pessoa): Nine kilos of no.
@@ -71,7 +67,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_take_coins): Petty cash. Petty, but loyal.
 - **Alan** (alan_register_empty): Just the button now. I'm keeping the button for emergencies.
 - **Narrator** (narr_look_machine): An answering machine of the kind sold by men in airports. The red light blinks with quiet insistence.
-- **Rui** (rui_msg_1) †: [tired] Alan, it's Rui. Mendonça. I know you're there, you never answer. Listen... there's been another one. It's your kind of weird. Come down to the Judiciária. And Alan, bring your head, not your jokes.
 - **Narrator** (narr_msg_2): Message two. Eight seconds of dripping water. Then a click.
 - **Alan** (alan_hangup): Wrong number. Or a very sad plumber.
 - **Alan** (alan_after_msg): Rui Mendonça, worried about me. The fog really has gotten to people.
@@ -134,7 +129,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Rui** (rui_victims_1): Ferreira, a clockmaker in the Baixa. Bastos, a retired teacher up in Graça, died in his siesta. Maria Coutinho, a fishwife in Madragoa.
 - **Rui** (rui_victims_2): All in bed. Each one within the same hour as the tide report. Which means nothing.
 - **Alan** (alan_ask_list): Did you find anything else?
-- **Rui** (rui_list_1) †: A list, in Maria Coutinho's apron. Four old names. Ferreira. Bastos. Coutinho. And Sanches, old spelling. Any relation?
 - **Alan** (alan_list_hand): [quietly] That's my grandfather's writing. [pause] He's been dead ten days. He wrote this before any of them died.
 - **Rui** (rui_water): Then do me a favour. Stay away from water, Sanches.
 - **Alan** (alan_water): Inspector, I've been avoiding water for thirty-seven years. Ask my bathtub.
@@ -167,7 +161,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_ask_amalia_photo): That photograph of you and Grandfather...
 - **Amália** (amalia_photo): That's him. And me. Nineteen thirty-four, in my room above the old Taberna. Two years of songs.
 - **Alan** (alan_ask_amalia_song): Inês says you know a fado. 'O Sino Afogado.'
-- **Amália** (amalia_song_no) †: [dry] Not sober, menino. And never alone.
 - **Alan** (alan_give_ginja): Then let's not drink alone.
 - **Amália** (amalia_toast): [softly] To Joaquim. Saúde.
 - **Alan** (alan_toast): To Grandfather. Who apparently had a life.
@@ -198,7 +191,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_coffee): It died for a good cause.
 - **Narrator** (narr_drawer_open): The salt hisses and runs like sugar in rain. With a groan that has waited forty years, the drawer slides open.
 - **Alan** (alan_read_file): Case fifty-five, one-fourteen. 'J. Sanches, bookseller, forty-three. Found the second body.' [pause] He never even told me when he found his glasses.
-- **Alan** (alan_lacerda_name) †: A. Lacerda, antiquarian, found in the cistern under the Carmo. There's an antiques shop in the Chiado with that name. Lisbon is full of Lacerdas. I'm not accusing a man of murder over a surname.
 - **Rui** (rui_times): The coroner was very precise. Ferreira, twelve minutes past three in the morning. Bastos, fifteen thirty-eight, in his siesta. Maria Coutinho, one minute past four.
 - **Rui** (rui_avo): My mother found a body in fifty-five. She never told me where. She still washes at the lavadouro. [pause] Don't tell her I sent you.
 - **Rui** (rui_key): And take this. Ferreira's shop is sealed. Forensics found nothing but clocks. If you find something, you found it by accident.
@@ -249,8 +241,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Narrator** (narr_look_tideclock): A brass tide clock on the bench, beautifully made and quite dead. Its winding key is missing.
 - **Alan** (alan_clock_wound): It's turning. First thing in this city that's turned on for me in years.
 - **Narrator** (narr_tideclock_runs): The clock ticks. Its second dial swings, slow as a breath, and settles on a word engraved in the brass: turning.
-- **Alan** (alan_need_times) †: A clock that tells the tide. Useful, if I knew what time things happened.
-- **Alan** (alan_turnings) †: Three twelve. Fifteen thirty-eight. Four oh one. [pause] They don't die at night. They die when the river turns.
 - **Alan** (alan_turnings_celeste): Celeste was right. Celeste is always right, apparently.
 - **Alan** (alan_tide_card): A tide table from a clockmaker. The only man in Lisbon who knew exactly when to come in.
 - **Alan** (alan_tide_today): Today's turnings. Twenty-five past six this evening. And twenty-five to one tonight.
@@ -332,7 +322,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_w_1955): [writing] 'November, nineteen fifty-five.'
 - **Abílio** (abilio_1955): [shouting, then quieter] THAT NOVEMBER WE DIDN'T RING. JOAQUIM ASKED ME NOT TO. ONLY TIME IN MY LIFE I OBEYED ANYBODY.
 - **Alan** (alan_w_backward): [writing] 'What does a bell rung backward sound like?'
-- **Abílio** (abilio_backward) †: [suddenly quiet] A bell rung backward sounds like a breath drawn in. You'll know it when you hear it. Pray you don't.
 - **Alan** (alan_w_order): [writing] 'The order the founders cast their bells?'
 - **Abílio** (abilio_eyes): [shouting] READ THEM YOURSELF, BOY. MY EYES ARE WORSE THAN MY EARS. EVERY BELL HAS ITS FOUNDRY MARK.
 - **Abílio** (abilio_bye): [shouting] MIND THE STAIRS! THEY'VE KILLED TWO BISHOPS!
@@ -351,7 +340,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Narrator** (narr_look_antiques): Antiguidades Lacerda. A hundred clocks tick in no particular agreement, as if each one keeps the time of a different century.
 - **Narrator** (narr_look_clocks): Clocks, dozens of them. Not one agrees on the hour, which is perhaps the most honest thing in the shop.
 - **Narrator** (narr_look_lacerda): Vicente Lacerda: silver hair, cream linen, and the patient smile of a man who has never once been told no.
-- **Lacerda** (lacerda_hello) †: Senhor Sanches. The bookseller. Selling, I hope? You always look like a man who needs to sell.
 - **Alan** (alan_lac_clocks): That's quite a collection of clocks.
 - **Lacerda** (lacerda_clocks): I collect time. Other people's.
 - **Alan** (alan_collect): So do I. Mostly as library fines.
@@ -368,7 +356,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_lac_fog): Terrible weather.
 - **Lacerda** (lacerda_fog): I find it restful. Patient weather.
 - **Narrator** (narr_look_musicbox): A music box inlaid with mother-of-pearl. A tiny silver ship sails forever on painted waves.
-- **Alan** (alan_box_photo) †: I've seen this. On a shelf behind my grandfather, in nineteen thirty-four.
 - **Lacerda** (lacerda_trinket): [a little too quickly] A trinket.
 - **Alan** (alan_lac_box): That music box with the silver ship. Does it play?
 - **Lacerda** (lacerda_box): Its key is in the back. One moment. [pause] Touch nothing.
@@ -483,7 +470,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 *(Alan hesitates (he's already falling for Vasco); Zé gives him the door; Alan chooses)*
 
 - **Alan** (alan_rom_hesitate): [pause, quietly] Zé... there's someone. Sort of. A man with a trowel, who's still waiting for the truth from me.
-- **Zé** (ze_rom_hold) †: [low, stepping back] Then go home to him.
 - **Zé** (ze_rom_admire): [low, hungry, looking him up and down] Look at you. I don't get men like you down here, bookseller. The river sends me sardines.
 - **Zé** (ze_rom_hold_2): [low, a half step back, not taking his eyes off him] Then go home to him. [beat] You're still standing here.
 - **Zé** (ze_rom_take): [rough, taking hold of him] Good. Now you do as you're told, Sanches.
@@ -563,7 +549,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Narrator** (narr_look_ines_tied): Inês, tied to a pillar with wet rope. Furious, mostly. Frightened, a little. Alive.
 - **Lacerda** (lacerda_joaquim): A single drop of seawater, on the heart. He said your name. I thought that was touching.
 - **Alan** (alan_fin_angry): [angry, quiet] You killed him.
-- **Lacerda** (lacerda_spared) †: You were the only founder who never asked your grandfather a single question. I was grateful.
 - **Lacerda** (lacerda_ze): You broke my tile. Clumsy. No matter. Maria knew, so I assumed the son did. One cannot be too careful.
 - **Lacerda** (lacerda_demand): Joaquim's book first. Then cut your hand, wet the bronze, and ring, and she walks out of here. Patient, Senhor Sanches. I have been patient for forty years.
 - **Inês** (ines_warn): [shouting] Alan, the water rises every time that bell rings! Don't ring it his way!
@@ -624,7 +609,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Inês** (ines_hint_look): A drawer that won't close for forty years isn't stuck, Alan. Look closer. You own a magnifying glass.
 - **Inês** (ines_hint_mag): Whatever's carved there is small. Use the magnifying glass, for once in your life.
 - **Inês** (ines_hint_desk2): The desk's free, Alan. You have the key. I'm not doing it for you.
-- **Inês** (ines_hint_box) †: Get him out of the room. Ask about something he loves more than you. That music box, say.
 - **Celeste** (celeste_hint_phone): [shouting] Menino! That telephone box has been ringing for you. Your girl from the bookshop, twice, and she sounded frightened. Ring her back!
 
 *(finale rewrite: Lacerda lets Inês hold the lamp, and never suspects the order until the last note)*
@@ -678,13 +662,11 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Narrator** (narr_epilogue): On the tenth morning, the fog lifted from Lisbon. The sun rose over the river, the trams rang, and nobody drowned. Nobody noticed. Which, Alan decided, was exactly how it should be.
 - **Narrator** (narr_epi_drawer): At the Judiciária, Rui Mendonça filed case ninety-five, two-oh-three as unexplained, laid it on top of fifty-five, one-fourteen, and pushed the drawer.
 - **Rui** (rui_click): [surprised] Huh.
-- **Narrator** (narr_epi_shop) †: At the Livraria Sanches, a bronze tongue sat on the bookbinding press, holding down the Camões nobody bought, where the brass weight used to be. Inês was writing page forty-one.
 - **Narrator** (narr_vig_box): Rui returned a music box to Dona Amália, 'from the estate of an unknown person'. She wound it, and did not sing along.
 - **Narrator** (narr_vig_night): That evening the Taberna was full, and for the first time in her life Amália sang 'O Sino Afogado' to a full room. Alan bought the ginjinhas.
 - **Narrator** (narr_vig_ze): On the quay at Cais do Sodré, Celeste handed her godson a clean sweater and asked, very innocently, whether the bookseller would be needing his boat rocked again. Zé went the colour of a boiled prawn, and did not say no.
 - **Narrator** (narr_vig_abilio): At noon, for no reason at all, Abílio rang the bells of the Sé, and the whole Alfama heard a city that was very much awake.
 - **Narrator** (narr_call): Alan opened his notebook to the number he had been afraid to call. His mother answered on the second ring. He said, 'Mãe, it's me,' and then, for once, he didn't make a joke.
-- **Zé** (ze_back) †: [pause] Not mine to keep. [softly] Tell Alan he left it on my bunk. He can come and fetch it himself.
 - **Narrator** (narr_post): In a shuttered shop in the Chiado, beside a clock that had stopped at twenty-five past six, a clock that nobody had wound began to tick.
 
 # AMBIENT NPCS
@@ -748,7 +730,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Inês** (ines_hint_stone): Salt comes off with water. Even you know that. Holy water, if you can't find any other kind.
 - **Inês** (ines_hint_wheel): Sing it to yourself. How many times did she say?
 - **Inês** (ines_hint_order): Tomás said the Sé. Go and talk to a deaf man about bells. Write it down for him.
-- **Inês** (ines_hint_theft) †: He'll notice the velvet. You need something that weighs what it weighs.
 - **Inês** (ines_hint_case): Ferreira kept spare keys. Lacerda's shop is full of things Ferreira made.
 - **Inês** (ines_hint_ch3_done): Cais do Sodré, Alan. The Maria Fé. Twenty-five past six, and the river doesn't wait for booksellers.
 
@@ -796,8 +777,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 
 - **Lacerda** (lacerda_read_1): [muttering hungrily, turning pages] Ferreira... Bastos... Coutinho... and there you are, Joaquim. Every line.
 - **Lacerda** (lacerda_read_2): [whispering, delighted] Ah. So that is where you hid them.
-- **Lacerda** (lacerda_drag) †: [terrified, screaming] No... no! It's holding me! Sanches! Your hand! Give me your hand!
-- **Alan** (alan_no_hand) †: [quietly] You told me yourself. Be patient.
 
 *(---- easter egg: a bath at the Lavadouro)*
 
@@ -813,13 +792,11 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_flirt_cop_1): Officer. Do they issue those shoulders with the uniform, or did you bring your own?
 - **Officer Teixeira** (phone_flirt_1): [flustered] Sir, I'm on the phone. With my mother.
 - **Alan** (alan_flirt_cop_2): [admiring, patting his chest] Solid. Like a good oak bookcase. Tell her she raised a fine young man.
-- **Officer Teixeira** (phone_flirt_2) †: [into the phone, embarrassed] Mãe? I'll call you back.
 - **Rui** (rui_flirt) †: [growling] Sanches. Stop feeling up my constable and go and read your evidence.
 - **Alan** (alan_flirt_guitar_1): That's a beautiful instrument. Twelve strings, and you know exactly where every one of them is.
 - **Duarte** (guitar_flirt_1): [smooth, amused] It's all in the fingers, senhor. Thirty years of practice.
 - **Alan** (alan_flirt_guitar_2): Do you give lessons? Private ones?
 - **Duarte** (guitar_flirt_2): [laughs] Tuesdays. Bring a bottle, and a bigger tip.
-- **Amália** (amalia_flirt) †: [dry] Menino. Leave my guitarist alone. He has to play in tune tonight.
 
 # gameplay audit: state-aware responses
 
@@ -871,7 +848,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 
 - **Alan** (alan_flirt_cop_3): [impressed, squeezing his arm] Now that is a bicep. Do they make you carry the station to work every morning?
 - **Officer Teixeira** (phone_flirt_3): [into the phone, strangled] No, Mãe, nobody is... squeezing anything.
-- **Officer Teixeira** (phone_flirt_4) †: [whispering, flustered] Senhor, please. My mother can hear you breathing.
 - **Alan** (alan_flirt_cop_4): [low, close] Then tell her you're in very good hands.
 - **Duarte** (guitar_flirt_3): [low, teasing] You've been watching my hands all evening, senhor. Most men watch Amália.
 - **Alan** (alan_flirt_guitar_3): [caught out] Amália has wonderful... hands. Also.
@@ -879,7 +855,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_flirt_guitar_4): [breathless] I think it's... answering.
 - **Officer Teixeira** (phone_visit_1): [shy] Senhor Sanches. Boa tarde. I was... passing. On patrol. In the fog.
 - **Inês** (ines_visit_cop): [dry] Passing. Through a door with a bell on it. Good afternoon, officer.
-- **Officer Teixeira** (phone_visit_2) †: [too quickly] I came about a book! On bookcases. Oak ones. Very... solid ones.
 - **Alan** (alan_visit_cop): [flustered] The oak monograph! Of course. It's upstairs, in my room, with the other... reference works. Shall we, Officer? We have things to discuss.
 - **Duarte** (guitar_visit_1): [strolling in, grinning] Boa tarde. I was told the best stock in Lisbon is kept in the back.
 - **Inês** (ines_visit_guitar): [dry] Upstairs, actually. He keeps everything upstairs.
@@ -949,10 +924,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Duarte** (guitar_room_16): [purring in his ear] Oh, I am.
 - **Officer Teixeira** (phone_key_1): [nervous, rattling the cuff] Alan? The key. Tell me you found the key.
 - **Alan** (alan_key_1): [fishing it out of the police cap, delighted] In your hat. Of course it was. The one thing you kept on.
-- **Officer Teixeira** (phone_key_2) †: [relieved, holding up his wrist] Oh, thank God. Unlock me?
-- **Alan** (alan_key_2) †: [dangling the key, then pocketing it] Hmm. No. I think I'll keep you exactly where you are.
-- **Officer Teixeira** (phone_key_3) †: [panicking, voice cracking] Alan! My shift starts at six!
-- **Alan** (alan_key_3) †: [low, wicked] Then I'll be back long before six. I'm not finished with you, Officer.
 - **Lino** (lino_talk_1b): [wiping a glass, knowing] Duarte's stool has been empty since this afternoon, menino. You wouldn't know anything about that.
 - **Alan** (alan_lino_1b): [flustered] Me? I don't even like music. Ginjinha. Possibly.
 - **Lino** (lino_talk_3b): [chuckles] Two coins. And next time, bring him back. The fado sounds lonely.
@@ -970,7 +941,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_deny_amalia_1): [innocently] Musicians. They'll say anything.
 - **Amália** (amalia_gossip_2): [amused] I have sung about a great many sins, menino. Lately you seem to be researching them.
 - **Alan** (alan_deny_amalia_2): [hand on heart] Purely for the archive, senhora.
-- **Rui** (rui_gossip_1) †: [gruff, not looking up] Teixeira's been walking funny all week. And smiling. I don't like it when constables smile, Sanches.
 - **Alan** (alan_deny_rui_1): [innocently] Perhaps he simply loves his job.
 - **Rui** (rui_gossip_2): [narrowing his eyes] Somebody signed out a set of handcuffs and brought back only the hat. Know anything about that?
 - **Alan** (alan_deny_rui_2): [far too fast] Never seen a hat in my life.
@@ -987,9 +957,7 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Inês** (ines_plan): The curator won't show it to me. He might show it to you.
 - **Alan** (alan_why): Why me?
 - **Inês** (ines_why): [dry] Because he's handsome, Alan, and you've been single since the Expo was a rumour.
-- **Alan** (alan_deny_why) †: [flustered, too fast] I've been busy. Books don't date themselves. I mean they do, carbon-wise. Not socially. Which tram?
 - **Inês** (ines_se_hello): 'Lisboa e o Mar.' Two hundred and forty years since the earthquake, and they've finally found the money for velvet ropes.
-- **Inês** (ines_look_first) †: The exhibition first, Alan. If we're casing the place, we're doing it properly. Look at the sea.
 - **Inês** (ines_go): Right. The curator's out in the cloister with his hole in the ground. Go and be interested in it. Genuinely. He'll smell flattery.
 - **Alan** (alan_go): Genuine interest. In a hole. I've had worse briefs.
 - **Inês** (ines_vasco): Thirty-eight, Coimbra, single, devoted to a hole in the ground. I asked the guard. The guard is very chatty when he's awake.
@@ -1013,7 +981,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Narrator** (narr_look_reserve): An iron-bound door: TESOURO · RESERVA. Visitors are not permitted. Visitors are, by the look of the lock, actively discouraged.
 - **Alan** (alan_npc_guard): Guarding the treasury from people like me. Asleep, which is fair.
 - **Alan** (alan_npc_volunteer): She's been sieving the same bucket since the Salazar years.
-- **Alan** (alan_npc_tourists) †: They're looking for their hotel. It fell down in 1755.
 - **Narrator** (narr_look_pit): A square pit lined with old brick, scorched black at the bottom. A ladder leans into it, and a rope keeps the public at a respectful distance.
 - **Narrator** (narr_look_pitmarks): Marks cut into the brick lining: initials, a bell, and a small S tucked under it like a signature.
 - **Narrator** (narr_look_frags): Curved fragments of fired clay in labelled trays. The inside of something very large, in pieces.
@@ -1039,9 +1006,7 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_close): So's my technique.
 - **Alan** (alan_lanyard_far): He'd notice. I need to be a lot closer, and he needs to be a lot more distracted.
 - **Dr. Teles** (vasco_lanyard): [breathless] Is that... a professional concern?
-- **Alan** (alan_lanyard) †: Strictly archaeological.
 - **Dr. Teles** (vasco_fall): [looking round] Did something fall?
-- **Alan** (alan_standards) †: My standards.
 - **Alan** (alan_toss_ines): [under his breath] Inês. Catch.
 - **Dr. Teles** (vasco_busy): [happily distracted] Sorry, I've found a sherd. There is always a sherd.
 - **Dr. Teles** (vasco_layers): Roman, Moorish, medieval, eighteenth-century, all stacked. Lisbon never throws anything away.
@@ -1051,39 +1016,26 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_layers_little): Mm. Old stuff. Nice.
 - **Dr. Teles** (vasco_little_1): [deflating] You're bored. I should check the reserve, actually.
 - **Dr. Teles** (vasco_kneel): Look at this, down here.
-- **Alan** (alan_kneel) †: I've been on my knees in worse places. Mostly bookshops.
-- **Alan** (alan_kneel_much) †: Doctor, I'll kneel wherever you like.
 - **Dr. Teles** (vasco_much_2): [coughing] That's... the heat down here. It's very hot. For a pit.
-- **Alan** (alan_kneel_little) †: My knees aren't what they were, actually.
 - **Dr. Teles** (vasco_little_2): Of course. Sorry. I get carried away. Is it closing time? I should lock the reserve.
 - **Dr. Teles** (vasco_dirt): [softly, wiping it with his thumb and not moving his hand] You've got eighteenth-century clay on your face.
-- **Alan** (alan_dirt) †: Leave some. For dating purposes.
-- **Alan** (alan_dirt_much) †: Lick your thumb first. For conservation.
 - **Dr. Teles** (vasco_much_3): [strangled laugh] That is not conservation practice.
-- **Alan** (alan_dirt_little) †: Oh, sorry. Have you got a tissue?
 - **Dr. Teles** (vasco_little_3): [stepping back] Right. Yes. A tissue. There are tissues in the reserve, I'll just...
 - **Dr. Teles** (vasco_coins): A Moorish coin, right where the Romans stop. Like the city changed its mind halfway through a sentence.
-- **Alan** (alan_coins) †: Lisbon's always changing its mind. It's one of its best qualities. Yours is the eyelashes.
 - **Alan** (alan_coins_much): Change your mind about me halfway through a sentence, Doctor. Go on.
 - **Dr. Teles** (vasco_much_4): [flustered] I... the sentence was about coins.
 - **Alan** (alan_coins_little): Is it worth much?
 - **Dr. Teles** (vasco_little_4): [cooling] To a historian. Speaking of things of value, did I lock the reserve?
 - **Dr. Teles** (vasco_quiet): [softly] It's very quiet down here. Two hundred years of quiet.
-- **Alan** (alan_quiet) †: Then let's not waste it on talking.
 - **Alan** (alan_quiet_much): Let's make some noise, then. Archaeologically.
 - **Dr. Teles** (vasco_much_5): [nervous laugh] The guard's right upstairs.
 - **Alan** (alan_quiet_little): Quiet's nice. Shall we go back up?
 - **Dr. Teles** (vasco_little_5): Yes. Probably best. I'll look in on the reserve on the way.
 - **Dr. Teles** (vasco_ladder): [already on the ladder] I'll just pop up and check on things.
-- **Alan** (alan_collar) †: Wait, there's something on your collar.
 - **Dr. Teles** (vasco_collar): [climbing back down, pleased] Is there? Get it, then.
-- **Inês** (ines_stall) †: [calling from the arcade] Doctor Teles! Is this Roman?
 - **Dr. Teles** (vasco_stall): [calling up] Moorish! Everybody gets that wrong! [to Alan, sheepish] Where were we?
 - **Dr. Teles** (vasco_kiss): [breathless] I've never kissed anyone in a scheduled monument.
-- **Alan** (alan_monument) †: You're doing beautifully for a beginner.
-- **Narrator** (narr_pit) †: For the second time in two hundred and sixty years, something was being made in the Sanches pit.
 - **Narrator** (narr_reserve): In the reserve, Inês did not hurry and did not dawdle. The sealed case opened with a sigh: a charter, a register of the drowned, and a card in a careful hand she knew.
-- **Narrator** (narr_lanyard) †: On her way out she hung the lanyard back on its hook, exactly where it should have been all along.
 - **Inês** (ines_innocent): [innocently] Find anything interesting down there, Doctor?
 - **Dr. Teles** (vasco_flustered): [flustered] Stratigraphy. Very... layered.
 - **Dr. Teles** (vasco_card): [pressing a card into Alan's hand] The Roman layer's open on Thursdays. Private viewing.
@@ -1098,7 +1050,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Inês** (ines_hint_exhibits): The exhibits first. All the important ones. Then the curator.
 - **Inês** (ines_hint_dig): Ask him about his dig: the pit, the marks, the fragments. Men love being asked about their pits.
 - **Inês** (ines_hint_lanyard): The key is round his neck. Get closer than a museum visitor normally would.
-- **Inês** (ines_hint_toss) †: Toss me the key when he isn't looking. I'll be at the edge of the trench.
 - **Inês** (ines_hint_pit): Keep him busy down there. Interested, Alan. Not desperate, not bored.
 - **Inês** (ines_hint_register): I've got what we came for. Back to the shop, and the kettle.
 - **Dr. Teles** (vasco_cameo): [hopeful] Thursday?
@@ -1109,13 +1060,7 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Inês** (ines_gossip_4): [not looking up] You had clay on your knees, Alan. Both knees.
 - **Alan** (alan_deny_ines_4): [flustered] It was a dig.
 - **Inês** (ines_gossip_5): [dry] He's written your name on the back of a reliquary label.
-- **Alan** (alan_deny_ines_5) †: [flustered] Cataloguing error.
-- **Abílio** (abilio_gossip_1) †: [shouting] THE CURATOR ASKS ABOUT YOU EVERY DAY. HE THINKS I CAN'T HEAR.
 - **Alan** (alan_deny_abilio_1): [writing, muttering] Nobody thinks you can hear, Abílio.
-- **Father Tomás** (tomas_gossip_1) †: [mildly] Doctor Teles has started coming to Mass. He sits near the door, watching it.
-- **Alan** (alan_deny_tomas_1) †: [flustered] Devout man.
-- **Rui** (rui_gossip_3) †: [exhales smoke] Someone reported a theft from the Sé reserve and then withdrew the complaint. Red in the face, the desk sergeant said.
-- **Alan** (alan_deny_rui_3) †: [flustered] Archaeologists. They blush at everything.
 
 # LORE: new lines in existing scenes
 
@@ -1167,9 +1112,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Dr. Teles** (vasco_thursday_then): [hopeful] Thursday, then?
 - **Alan** (alan_look_fragment): Bronze my family poured. He dug it up and gave it away. Who does that?
 - **Alan** (alan_stair): [pause, a long breath] ...
-- **Lacerda** (lacerda_reputation) †: [pleasantly] A bookseller's reputation is such a fragile thing in a neighbourhood like yours, Senhor Sanches. And a curator's. The Patriarchate is so old-fashioned.
-- **Alan** (alan_cold) †: [pause, cold] Leave him out of this.
-- **Lacerda** (lacerda_who) †: [innocently] Who?
 
 *(the small cruelties of 1995: Alan never answers them, and it costs him)*
 
@@ -1184,7 +1126,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Fishwife** (fish_huff): [huffing] I only said...
 - **Alan** (alan_mender1_thanks): [pause, quietly] Obrigado.
 - **Old fisherman** (mender1_nothing): [weathered, not looking up] Nothing to thank. Mind the ropes.
-- **Lacerda** (lacerda_expose) †: [pleasantly] Dr. Teles. Thursdays. A curator of the Patriarchate, keeping such close company with a bachelor bookseller. People talk, Senhor Sanches, and the Cardinal listens. It would be a pity if he lost his little Romans.
 
 *(Alan comes back with the coffee and finds Duarte downstairs, charming Inês)*
 
@@ -1207,11 +1148,8 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Senhor Armando** (bench_again): [drowsy, kindly] Think about it, menino...
 - **Rui** (rui_withdrawn): That theft at the Sé. The curator withdrew the complaint himself. Said the documents were 'on loan to a scholar'. He knew, Sanches. He covered for you.
 - **Alan** (alan_knew): [pause, quietly] He knew.
-- **Alan** (alan_hangup_self) †: [after hanging up, to himself] Afraid to call. Consistent, at least.
 - **Alan** (alan_call_rui_first): Rui first. If I'm going down a hole at midnight, someone should know which hole.
 - **Narrator** (narr_descent): He thought of a man standing in a pit full of his family's bronze, and found he wanted very much to come back up.
-- **Lacerda** (lacerda_curator) †: [softly] Your curator will be so disappointed in you, Senhor Sanches.
-- **Alan** (alan_thursday_threat) †: He's got a date on Thursday, Vicente. I intend to keep it.
 - **Alan** (alan_romans): [holding out a coffee] I came for the Romans.
 - **Dr. Teles** (vasco_closed): [looking up, smiling] They're closed till ten.
 - **Alan** (alan_wait): Then I'll wait.
@@ -1221,7 +1159,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 
 - **Inês** (ines_coward): [dry, fond] You're not lazy, Alan. You're the hardest-working coward I know.
 - **Alan** (alan_coward): Thank you. I've put years into it.
-- **Alan** (alan_told_museum) †: [quietly] He told a museum. He didn't tell me.
 - **Amália** (amalia_face): [softly] He chose the sensible thing, menino. You have his face when you lie.
 - **Alan** (alan_face_pause): [pause] ...
 - **Father Tomás** (tomas_go_home): [gently] Give it to the police, Alan. Go home. Your grandfather would have wanted you safe.
@@ -1244,14 +1181,11 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_persuasive): [low, amused] Then you'd better be persuasive.
 - **Officer Teixeira** (teixeira_keep): [pause, quietly] ...Keep the key.
 - **Inês** (ines_later): There's something here about Lacerda's father. Later.
-- **Lacerda** (lacerda_msg3_ledger) †: And bring your grandfather's ledger. The young lady insists.
-- **Alan** (alan_insists) †: [pause] She's still fighting.
 - **Inês** (ines_page): Give him the ledger, Alan. The last page. He's waited forty years for it.
 
 *(Phase 8c: the Teixeira and Duarte flirts are puzzle steps)*
 
 - **Rui** (rui_watch): Teixeira. Watch him. He touches nothing.
-- **Officer Teixeira** (teixeira_no) †: [nervous] N-no touching, Senhor. Inspector's orders.
 - **Officer Teixeira** (teixeira_mae1): [into the phone, flustered] N-no, Mãe, it's nobody. It's a witness.
 - **Rui** (rui_constable): [growling] Stop feeling up my constable.
 
@@ -1344,7 +1278,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_lyrics): [pause] Nobody's ever written anything out for me.
 - **Duarte** (duarte_lyrics2): [grinning] Then you've been sleeping with the wrong musicians.
 - **Duarte** (duarte_lyrics_stool): For when you're ready to listen properly.
-- **Inês** (ines_hint_paper) †: Rui's times, Celeste's river, and a newspaper. You sell books, Alan. Read something.
 
 *(Phase 7 §4 and Phase 8b)*
 
@@ -1354,7 +1287,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Inês** (ines_twenty): Twenty minutes. Don't touch anything.
 - **Duarte** (duarte_business): Business first, though. Amália sent me.
 - **Duarte** (duarte_shrug): [shrugging, smiling] Tuesdays, then. The offer stands.
-- **Inês** (ines_hint_teixeira) †: Rui's sending someone with the key. Sit still for once.
 
 *(Inês found the handcuff key: the officer is free, and she has a word with Alan)*
 
@@ -1445,7 +1377,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_collar_2): Hold still. Your collar's turned under. [beat] There.
 - **Dr. Teles** (vasco_collar_2): [very quietly] You're very... attentive.
 - **Alan** (alan_collar_3): Bookseller. I can't stand anything crooked on a shelf.
-- **Narrator** (narr_key_clip) †: The key went back on its clip. It had been gone twenty-two minutes, and nobody would ever be able to say it had gone at all.
 - **Inês** (ines_hint_shirt): [low] His shirt's buttoned one hole off, Alan. I could see it from the arcade. A man who fixed that for him would be close enough to the key.
 - **Inês** (ines_hint_toss_2): Get his head down, then throw. Ask him about something small. Archaeologists can't resist small.
 - **Alan** (alan_vasco_sorry_2): [humble, quietly] The other day, in the pit. I wasn't only there for the Romans. When I fixed your shirt, I took your key, and Inês borrowed the Brotherhood's papers while I kept you talking. [pause] I'm sorry. You deserved better than being a distraction.
@@ -1476,7 +1407,6 @@ Lines marked † are not referenced by name in the story code: some are built fr
 *(---------------- Chapter III, the bell's tongue: the sketch, Abílio and the twin, Vasco's reserve, the swap; Thursday and the reserve again)*
 
 - **Alan** (alan_sketch_tongue): [sketching] A ring at the top, a bob like a drum, a long shank. If I can't touch it, I can draw it. Somebody at the Sé knows every bell's tongue in Lisbon.
-- **Alan** (alan_weight_no) †: Two kilos of brass where a bronze tongue used to be? He'd notice. He said so.
 - **Alan** (alan_swap_twin): [whispering] One bronze tongue for its twin. Same weight, same marks, same dent in the velvet. Only one of them has ever rung.
 - **Narrator** (narr_look_case_twin): A glass case. On red velvet lies a bronze bell clapper, in exactly the dent the other one left. The card still reads 'Not for sale.' For once, it's true.
 - **Narrator** (narr_ch3_lacerda2): At a quarter past five, in a shop in the Chiado, a man looked at a bronze tongue lying on velvet and smiled. It was the wrong tongue. He could wait. He had always been able to wait.

@@ -70,10 +70,9 @@
   for (const [pose, ids] of Object.entries(VPOSE)) if (S.CHARS.vasco.frames.poses[pose]) ids.forEach(id => { S.LINE_POSE[id] = ['vasco', pose]; });
   // his face answers Alan's lines while he's in the scene (the mood each one gets; others, now and then, a smile)
   const VREACT = { alan_vasco_hello: 'amused', alan_relation: 'laugh', alan_romantic: 'tender', alan_vasco_flirt: 'fluster', alan_bottom: 'scandalised',
-    alan_close: 'fluster', alan_lanyard: 'fluster', alan_collar: 'hopeful', alan_standards: 'stern', alan_monument: 'laugh', alan_thursday: 'delight',
+    alan_close: 'fluster', alan_thursday: 'delight',
     alan_fine: 'worried', alan_cameo: 'delight', alan_romans: 'tender', alan_wait: 'hopeful', alan_documents: 'amused', alan_pit_ladder: 'fluster',
-    alan_ask_pit: 'delight', alan_ask_marks: 'delight', alan_ask_frags: 'delight', alan_layers: 'laugh', alan_kneel: 'amused', alan_dirt: 'tender',
-    alan_coins: 'fluster', alan_quiet: 'tender', alan_toss_ines: 'worried', alan_shirt_ask: 'fluster', alan_coins_2: 'delight', alan_why_dig: 'tender', alan_quiet_2: 'laugh', alan_collar_3: 'tender',
+    alan_ask_pit: 'delight', alan_ask_marks: 'delight', alan_ask_frags: 'delight', alan_layers: 'laugh', alan_toss_ines: 'worried', alan_shirt_ask: 'fluster', alan_coins_2: 'delight', alan_why_dig: 'tender', alan_quiet_2: 'laugh', alan_collar_3: 'tender',
     alan_ask_vasco_twin: 'worried', alan_vasco_sorry: 'deflate', alan_vasco_clapper: 'worried', alan_owe_one: 'tender', gag_alan_withhold: 'stern',
     alan_thu_truth: 'worried', alan_thu_return: 'delight', alan_thu_owe: 'hopeful', alan_love_1: 'tender',
     alan_vasco_sorry_2: 'deflate', alan_withhold_2: 'tender', alan_vcall_2: 'worried', alan_vcall_4: 'tender' };
