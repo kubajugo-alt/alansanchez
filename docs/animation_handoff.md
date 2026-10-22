@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `6697511b` (Netlify `6ada7bb298af05ba4af58289`, entry 61). Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `ac5421ad` (Netlify `6ada8efb8d17c96ed9001097`, entry 64). Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
 change (entries 1-61); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
@@ -1282,6 +1282,8 @@ session lived in the session's scratchpad and are gone; everything that matters 
    out is now the left edge (it was a strip along the bottom, under the inventory box), and Lacerda's shop gained its
    two bottom corners as a way out. play.mjs: the key on the case is a step. Checked: validate 0 errors (1433 lines);
    smoke.mjs bastos, bastostapes, bastosunlock, lacthreat, twinswap pass; play.mjs `{"won":true}`, 148 steps, 987 s.
+   - **Deployed** (the user: "All ok"): master `ac5421ad`, Netlify `6ada8efb8d17c96ed9001097`, from a clean
+     `git archive` export (smoke `bastos` passed there); live: `/.env` 404, `ines_sea_7.mp3` 200.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
