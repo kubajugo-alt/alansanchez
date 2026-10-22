@@ -883,6 +883,18 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Review board: https://claude.ai/artifact/CfA6A88JFRC1yGXhhnYcAg (per character: now vs proposed, dissolving as
      the game does; decisions in its database, collection `npc_fix`). On approval: write the approved characters'
      values from the proposal into `js/sprites.js`, rebuild morphs for the changed frames if any, validate, smoke.
+   - **Decisions (board, 22 Oct):** approved Celeste, Lacerda (robe), the washerwoman in black, Rui, Vasco, Ze;
+     rejected Abilio ("abilio_idle2 is much bigger") and the bench man ("we need to redraw his sprites so the bench
+     doesn't move").
+     - Applied the six to `js/sprites.js` (64 values, file order kept). Also `vasco_coffee_talk` scaled with the
+       other two coffee frames (the validator's 4% talk/idle size rule caught it).
+     - Rebuilt the 77 morph pairs touching changed frames (`FORCE=1 scripts/morphs.py`), the washerwoman's with
+       `INV_IOU=0.68`. Lost: `npc_washer1_b>npc_washer1_gossip` and `>npc_washer1_howl` (overhead pose too far
+       apart; those two swaps plain-dissolve). `scripts/similar.py` rerun: 305 pairs, changes only in Rui and Vasco.
+     - Checked: validate 0 errors (7 old warnings); smoke romance, finale, laundry, celeste, stationafter, sepit,
+       sepitgame, thursday, vascostore, vascolove, cop, quayfish, bench, abiliosketch all pass.
+     - Abilio revised for round 2 on the same board: sizes kept, feet anchors only for read, point, shout1, shout2
+       (`art/review/npc_fix/abilio_revised.json`). The bench man waits on a repaint (bench fixed, man redrawn).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
