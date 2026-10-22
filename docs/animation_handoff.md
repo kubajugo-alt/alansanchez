@@ -1263,7 +1263,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
    again (Ferreira's pin stays open until it is taken). Previews `bastos`, `bastostapes`, `bastosunlock` now start
    in Chapter II. STORY.md II.3b (Puzzles II-F, II-G). Checked: validate 0 errors (1390 lines); smoke.mjs on the
    three previews and story_hints.mjs pass; play.mjs (Bastos now after Ferreira's workshop, the godparent question
-   at the Carmo) RESULT2_PLACEHOLDER.
+   at the Carmo) `{"won":true}`, 147 steps, 1016 s.
 63. **Inês never repeats a score** (the user: "give Ines more funny lines commenting on Alan's jokes, so that she never
    repeats herself"; the 30 lines approved as drafted). `ines_score_11`..`_40` added (Inês's voice, transcribed:
    words match; installed, lip-synced; poses: eyeroll, laugh, write). `S.joke` (core.js) now draws from all 40
