@@ -362,8 +362,12 @@
       const t = (window.ANIM_T != null ? window.ANIM_T : E.time) * this.rate + (this.seed || (this.seed = Math.random() * 100));
       const c = this.c.anim || {}, d = (this.def && this.def.anim) || {};
       const k = (n, def) => (d[n] != null ? d[n] : c[n] != null ? c[n] : def);
-      const s = h / sp.h, F = Math.max(1, (sp.fy - sp.top) * s);
-      const wide = sp.w / Math.max(1, sp.fy - sp.top) > 0.78 || k('rig', '') === 'flat'; // groups, pairs, lying figures
+      // a waist-up painting (sp.waist) is placed on the whole figure: its feet below the cut, the body still from the cut down
+      const s = h / sp.h, cut = waistDrop(sp) * s;
+      fy += cut;
+      const F = Math.max(1, (sp.fy - sp.top) * s + cut), vCut = cut / F;
+      // groups, pairs, lying figures (anim.wide: false for one figure painted with what he sits on: the bench's old man)
+      const wide = k('wide', sp.w / Math.max(1, sp.fy - sp.top + waistDrop(sp)) > 0.78) || k('rig', '') === 'flat';
       const perf = this.perf || 0;
       const TAU = Math.PI * 2;
       // phases advance in update(); ANIM_T (test clips) renders from a fixed clock instead
@@ -374,7 +378,7 @@
       // sway: a bend whose root is the feet (or the seat); amplitude as a fraction of height
       const sway = this.calm * k('sway', 1) * (0.0045 + perf * 0.013) * (Math.sin(phSway) + 0.35 * Math.sin(t * TAU * 0.071 + 1.3));
       // seated / kneeling frames sway from the seat or the knees (char-wide via SEATED, per frame via c.seatedFrames)
-      const root = k('seated', SEATED.has(this.ch) || !!(key && this.c.seatedFrames && this.c.seatedFrames.test(key))) ? 0.42 : 0.1;
+      const root = Math.max(vCut, k('seated', SEATED.has(this.ch) || !!(key && this.c.seatedFrames && this.c.seatedFrames.test(key))) ? 0.42 : 0.1);
       // head: a slow tilt, a nod with each phrase spoken, more when performing
       // listening: which way the painting faces (side views only), the incline toward the speaker
       // (stronger when the speaker is in front of them), and the nod's envelope
@@ -402,8 +406,8 @@
         const v = (fy - y) / F;
         let nx = x, ny = y;
         // breath: the chest widens and lifts above the hips
-        const wb = sm(0.4, 0.58, v);
-        nx = fx + (x - fx) * (1 + b * 0.45 * wb); ny = y - (v - 0.4) * F * b * wb;
+        const hip = Math.max(0.4, vCut), wb = sm(hip, hip + 0.18, v);
+        nx = fx + (x - fx) * (1 + b * 0.45 * wb); ny = y - (v - hip) * F * b * wb;
         // sway, step bob
         nx += swayAt(v); ny += step * sm(0.05, 0.45, v);
         // the head turns on the neck (and dips with a nod)
@@ -550,7 +554,7 @@
       // breathing: the chest rises and widens a touch above the hips; feet stay put
       const b = rigid ? 0 : this.calm * (0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045);
       const sx = 1 + b * 0.45, sy = 1 + b;
-      const feetBy = -U.y, hipBy = Math.max(1, Math.round(feetBy - h * 0.47));
+      const feetBy = -U.y, hipBy = Math.max(1, Math.round(Math.min(feetBy, feetBy + waistDrop(sp) * h / sp.h - h * 0.47))); // (a waist-up painting: from its cut)
       const X0 = this.x + U.x, Y0 = this.y + U.y + sinkPx;
       g.save();
       if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
@@ -586,6 +590,9 @@
   const TURN_VIA = 0.15;
   // painted sitting down: they sway from the seat, not the feet
   const SEATED = new Set(['npc_bench', 'npc_cards', 'npc_couple', 'npc_fish', 'npc_guard', 'npc_guitar', 'npc_mender1', 'npc_mender2', 'npc_washer1']);
+  // painted waist-up (sp.waist: the bath's frames at the waterline and behind the tank), drawn at his standing size (sp.h,
+  // from the top of his head) and cut at fy: how far the rest of him goes on below the cut, in painting px
+  const waistDrop = sp => sp.waist ? Math.max(0, sp.h - (sp.fy - sp.top)) : 0;
   function morphBlit(ctx, P, U, F, amt, alpha) {
     const ox = P.x - U.x, oy = P.y - U.y, sw = P.sp.w, sh = P.sp.hh, s = P.s, fl = P.flipped;
     ctx.save(); ctx.globalAlpha = alpha;
