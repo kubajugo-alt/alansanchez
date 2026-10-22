@@ -10,7 +10,8 @@ out = sys.argv[2] if len(sys.argv) > 2 else 'art/review/bg/shop_new.jpg'
 crops = json.load(open(f'{D}/boxes.json'))
 # edited crop, and the box (in painting px) that takes it: the old object and the new one, with room to feather
 # (the counter takes two boxes: the till's, by the wall, and the counter top's under the door glass, which keeps its own)
-PATCH = {'lamp': ('lamp_edit.png', [(100, 345, 256, 452)]),  # the new lamp only; the shelf above it is rebuilt below 'counter': ('counter_edit2.png', [(842, 205, 1018, 474), (1018, 326, 1266, 474)]),
+# (the lamp's box takes the new lamp only; the shelf above it is rebuilt below)
+PATCH = {'lamp': ('lamp_edit.png', [(100, 345, 256, 452)]), 'counter': ('counter_edit2.png', [(842, 205, 1018, 474), (1018, 326, 1266, 474)]),
          'tin': ('tin_edit.png', [(636, 346, 708, 418)])}
 base = np.asarray(Image.open(src).convert('RGB')).astype(np.float32)
 res = base.copy()

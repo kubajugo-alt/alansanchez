@@ -960,6 +960,12 @@ session lived in the session's scratchpad and are gone; everything that matters 
      The drawer / no-magnifier variants patched alike (`art/review/bg/shop_new_*.jpg`); the night painting not yet.
      `?shop=new` now keeps the original layout, desk outline, kettle, jobs and depth map; only the six hotspots, the
      lamp light / off-look, the machine's light and Pessoa's machine spot move. The page (same link) re-recorded.
+   - The user: "yeah, but now the counter is original". A slip of mine had folded the counter entry of `PATCH` into a
+     comment, so the counter objects were not patched in that version; fixed, all four day paintings rebuilt, the
+     video re-recorded. Counter height: beside Alan it already reaches his hip (about 90 cm); a lowered version
+     (Gemini crop edit `counter_full_edit.png`, pasted over the old counter's footprint only:
+     `art/review/shop/option_b_lowcounter.jpg`) is offered as option B on the page (choice saved as `counter` in
+     `shop/verdict3`). Not yet wired into `shop_patch.py`; do that if the user picks B.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
