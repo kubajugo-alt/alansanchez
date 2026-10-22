@@ -912,6 +912,11 @@ session lived in the session's scratchpad and are gone; everything that matters 
      top of the figure and he leans lower in that painting; changing its `h` would move the bench again, so it
      stays. Smoke bench, visitcop pass; Chromium street shots: the bench holds still across his frames.
      Abilio's round 2 was rejected: "abilio_shout1 seems to have different colours".
+   - **Abilio round 3 (on the board):** `abilio_shout1`'s face and hands had a green-yellow cast (face Lab a 137 vs
+     his main frame's 145). Proposed `art/review/npc_fix/abilio_shout1.webp`: the skin (hue <= 28, saturation > 85,
+     upper 60% of the figure) shifted by (+3, +8, +5) in Lab, then the whole figure matched to `abilio`
+     (`gen_image.match_palette`). Feet anchors as in round 2. On approval: copy it over `art/sprites/abilio_shout1.webp`,
+     write `abilio_revised.json` into `js/sprites.js`, rebuild his morphs, `similar.py`, manifest, validate, smoke.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
