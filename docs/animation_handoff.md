@@ -1205,6 +1205,40 @@ session lived in the session's scratchpad and are gone; everything that matters 
    without acting" clock had counted from page load, so the hotspots tip came first. Fixed (both idle clocks run only
    while the player has control; tips.mjs DELAY_MS sits on the title first) and redeployed: master `1c9a6ef6`, Netlify
    `6ada56d83afeec5886cd899a`; the tips test passes on the live site, `/.env` 404.
+61. **A new level: Prof. Bastos's flat, Graça (Chapter III)** (the user: "we need to add a level - Bastos' apartment
+   investigation, where Alan learns about the sea"; Ch. III; Inês comes along; "a lot of artifacts from different
+   cultures (including pre-hispanic gran canaria), each one matching a book, where Inez will read about the myths";
+   the baptism lore: the Brotherhood meant to call the dead, and the sea answered in waves). Script approved in
+   `docs/bastos_level.md`; story in docs/STORY.md III.4 (Puzzles III-E and III-F); code in `js/story/bastos.js`.
+   - **Art (Canva, each approved):** the room, first as a bedroom-like study ("too close to Alan's bedroom. Make it a
+     study/living room. And not as dark"), then bright with sun, then the same picture with fog outside ("there
+     should be fog outside, not sun"): `art/bg/bastos.jpg` (MAHYw-NyuDY, 1680x944 cut to 1280x720) and its depth map
+     (Depth Anything V2 small, scripts/depth_map.py). No bed in the flat (the user: "we only need the living room");
+     he died in bed in his siesta, as Rui's recorded lines say, so the last reel is hidden in Iemanjá's boat instead
+     of the bed, and his last tape ends "now I am going to lie down. Only for a minute." The recorder close-up
+     (`art/closeups/close_recorder.jpg`, 1536x864, MAHYwwEQlyI; the user: "we will need the close up of the tape
+     recorder for the recording riddle"). Eight object pictures (`art/closeups/bastos/*.jpg`, 400 px; Matsya and the
+     Iemanjá boat redone on the user's word; the first Gran Canaria idol was refused by Canva's filter and reworded).
+     Full-size exports through pages 97-100 of the scratch design DAHYZ-SDzRE (it is at Canva's 100-page limit:
+     reuse those pages with update_fill).
+   - **Voice:** Bastos is "European Portuguese Paulo Silva" (FfDQWz2XO4Zsxl1uwh0e; the user picked C of three),
+     in scripts/cast.json. 73 lines (Inês 28, Alan 27, narrator 9, Bastos 9) recorded with eleven_v4 in the flow
+     "Drowned Bell: Prof. Bastos's flat (2026-10-22)" (8,862 credits with the redone take; the three voice samples 717 more); every take transcribed locally
+     (faster-whisper base.en): words match, no direction tags spoken; bastos_last_2 repeated a phrase and was redone.
+     Bastos's takes carry a light tape sound (band 130 Hz-6.2 kHz, a little pink hiss) and are levelled to -21.5
+     LUFS with a limiter; the rest through scripts/install_voice.sh (which now falls back to -21.5 for a speaker with
+     no other lines). Lip-sync: Rhubarb 1.13.0 for Alan, Inês and Bastos.
+   - **Code:** the room (walk polygon in front of the desk and case, round the side table, short of the sofa; fog
+     drifting past both windows; the tall plant swaying); Inês in it (her hints: `S.bastosHint`); the collection
+     close-up `#bshelf` and the recorder close-up `#brec` (built in JS, styled in css/style.css); the map pin; the
+     unlock in the shop after the decode (wraps `ROOMS.shop.enter`); `S.hint` and `S.pinNext` lead there once the
+     tongue thread is done; the notebook's "The Sea" page (`F().sea`); the Chapter III end (main.js and ch1.js) waits
+     for `bastos_done` (`S.bastosOpen`). New flags: bastos_known, bastos_entered, bastos_shelves, bastos_m,
+     bastos_case_open, bastos_case_seen, bastos_rec_seen, bastos_threaded, bastos_lessons, bastos_box_seen,
+     bastos_reel_found, bastos_done, sea. Captions name him "Prof. Bastos, on tape".
+   - **Checked:** `node scripts/validate.mjs` 0 errors (1387 lines); smoke.mjs `bastos` and `bastosunlock` pass;
+     play.mjs (now 147 steps: the unlock, a wrong pair then the eight, Play with nothing threaded, the lessons, the
+     empty box, the boat, the last tape) RESULT_PLACEHOLDER. Not deployed.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

@@ -201,6 +201,7 @@ Eleven speaking roles in the v2 plan: seven returning, four new. The build adds 
 |----------------------------|----------------------------------------------------------------|------------------------------------|-----------------------------------------------------|------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
 | Dr. Vasco Teles            | Curator of the Sé treasury, digging the Sanches casting pit in the cloister | Jarnathan, warm            | Someone who cares about his work                    | Saw Inês in the glass of a find tray during the heist and said nothing; withdrew his own complaint | Robbed by charm (I); lends Alan the twin and nearly kisses him (III); a phone call before the cistern (V); Thursday, the truth and the reserve (epilogue). |
 | Officer Teixeira           | Constable at the Judiciária, on the phone to his mother        | Erby, nerdy                        | Permission                                          | Has never done anything his mother wouldn't approve of                                    | Guards the evidence bag and is flirted round to the wall (I); brings the Ferreira key to the shop (II), and Alan may take him upstairs. |
+| Prof. Henrique Bastos (posthumous) | Retired anthropologist (Univ. of Lisbon), sea myths and the occult; second founder victim | Paulo Silva, European Portuguese, on tape | (none) | Studied his own family's legend for forty years without believing it | Explains the bell on his lecture tapes; his last tape names "the Sanches boy" (III.4). |
 | Duarte                     | Amália's guitarist at the Taberna da Saudade                   | (his own lines, "guitar")          | Someone who listens                                 | Never waits for anyone                                                                    | Won't play for the song until Alan listens (I); brings Amália's message to the shop, and Alan may take him upstairs; his song "Meu Lindo Guarda-Livros" (III). |
 
 ## Locations
@@ -563,7 +564,7 @@ Inês pulls it together: Joaquim was in that cistern in 1955, and a church that 
 
 ## Chapter III: The Weeping Stone
 
-15:30–17:15. Alan learns what the bell is, decodes the ledger, chooses not to run, learns the founders' order, meets the killer, borrows the tongue's twin from Vasco, and swaps it for the real one. Rooms: convent, se_cloister and se_tower, antiques, se_store (with Vasco), tavern (optional), shop. After decoding, the Sé and the antiques shop can be played in either order. The Sé tower is reached through the cloister.
+15:30–17:15. Alan learns what the bell is, decodes the ledger, chooses not to run, learns the founders' order, meets the killer, borrows the tongue's twin from Vasco, and swaps it for the real one. Rooms: convent, se_cloister and se_tower, antiques, se_store (with Vasco), tavern (optional), shop. After decoding, the Sé and the antiques shop can be played in either order, and so can Prof. Bastos's flat in Graça (III.4, added 22 Oct, required). The Sé tower is reached through the cloister.
 
 **narr_ch3_card**: "The Carmo had lost its roof in 1755 and never asked for it back. Some buildings, like some men, prefer to see the sky they are afraid of."
 
@@ -672,13 +673,23 @@ Logic: Lacerda himself said he'd notice the velvet, so only something identical 
 
 Inês's hints follow the same order: look at Lacerda's case, show the sketch to Abílio, ask Vasco, then the swap with the music box as the distraction.
 
-### III.4 The Taberna (optional)
+### III.4 Prof. Bastos's flat, Graça (required; added 22 Oct)
+
+Full script, objects and myths: `docs/bastos_level.md` (approved). Code: `js/story/bastos.js`.
+
+Back in the shop after the decode, Inês recognises the second name on the list: Henrique Bastos, the anthropologist she quoted in her thesis (**ines_bastos_1**), and she's coming (**ines_bastos_2**). The map gains "Graça · Prof. Bastos". Inês is in the flat with Alan (talking to her gives the flat's hints) and back in the shop afterwards.
+
+The flat: a bright top-floor study and living room, fog in the windows, the collection knocked off its shelves by someone looking for "the old seal". **Puzzle III-E: the collection.** Eight objects, each with the book whose spine carries its drawn motif (a close-up: objects above, books below; pick one of each). Wrong pairs: **alan_match_wrong_1..3** in turn. Right: Inês reads the myth, Alan answers. Gran Canaria before the conquest (the Tara idol and a pintadera; the harimaguadas struck the sea until it answered; "a mark is a name the sea can read"), Ys, Rán ("the sea does not kill, it collects"), the Japanese tide jewels, Utnapishtim, Matsya, Deucalion ("every flood ends in a bargain"), Iemanjá (Inês's avó: "you don't bargain with Iemanjá"). With all eight back, the glass case clicks open: his last index card, "Every people that lived by the sea kept a debt to it."
+
+**Puzzle III-F: the recording riddle.** The recorder close-up: nothing threaded. A reel from the rack onto the left spindle, the tape through the head, onto the take-up reel, Play (out of order: **alan_thread_wrong_1..3**). The lecture tapes (Bastos's own voice): bells baptised like children and rung against the storm; the Brotherhood had theirs baptised **in the sea, to call back their drowned**; the sea answered by coming itself, in the three waves of 1 November 1755: "It did not bring their husbands home. It came to collect more." A bell baptised in the sea is a summons, not a shield; the godparent's family commands the water; whoever rings it again, hoping for the dead, gets the same answer; a baptism is undone by renouncing. The box "27 de Outubro" is empty, a rose drawn on its label: the reel is hidden in Iemanjá's boat on the shelf. His last tape (midday on Friday 27 October): a collector came with a gift, a tile, a bell under three waves; "Find the Sanches boy. Tell him the bell must say no."; "And now I am going to lie down. Only for a minute." (He died in bed in his siesta at 15:38, as Rui says.) The notebook gains a page, **The Sea**. Flag: bastos_done; the shop's chapter end waits for it.
+
+### III.4b The Taberna (optional)
 
 If Alan has seen the music box and the photograph, he can ask Amália about it: "That box was mine. I gave it to Joaquim the day he married. It played our song." **alan_proof**: "Then the man who has it was in Grandfather's flat after he died. Or before." Flag: amalia_box (used in Ch. V and the epilogue). Duarte brings the same message in III.5 in any case, so the flag is always set by Ch. IV.
 
 ### III.5 The shop
 
-The chapter closes in the shop once Alan has the tongue and the order. Inês: "You borrowed a museum piece from a man who fancies you, and left it with a murderer. Before tea." Alan, flustered: "He doesn't fancy me. He fancies bronze. I just happened to be standing near some." Inês: "And what did you promise him?" Alan: "Thursday. Coffee. The truth. \[pause\] It's archaeological." She takes the ledger: the back pages are stuck together with salt, and she puts the kettle on to steam them apart. **ines_steam**: "Archivist's trick. I'll steam them apart. Go and wash your face; you look like a man who's seen a clock." **ines_twenty**: "Twenty minutes. Don't touch anything."
+The chapter closes in the shop once Alan has the tongue and the order, and has heard Bastos's last tape. Inês: "You borrowed a museum piece from a man who fancies you, and left it with a murderer. Before tea." Alan, flustered: "He doesn't fancy me. He fancies bronze. I just happened to be standing near some." Inês: "And what did you promise him?" Alan: "Thursday. Coffee. The truth. \[pause\] It's archaeological." She takes the ledger: the back pages are stuck together with salt, and she puts the kettle on to steam them apart. **ines_steam**: "Archivist's trick. I'll steam them apart. Go and wash your face; you look like a man who's seen a clock." **ines_twenty**: "Twenty minutes. Don't touch anything."
 
 **Duarte's visit** (if Alan flirted with him in I.6). While Inês steams the pages, Duarte strolls in: "I was told the best stock in Lisbon is kept in the back." Inês: "Upstairs, actually. He keeps everything upstairs." Business first: Amália sent him; the box with the silver ship was hers, and she gave it to Joaquim the day he married (**duarte_message**; flag amalia_box, always). The choice: **"Show him the piano."** or **"Another time, Duarte."**
 
@@ -1089,6 +1100,10 @@ Story state stays as plain flags on F(). The table lists the story flags in the 
 | twin_lent          | Vasco in the reserve (III.3)                           | The swap; Thursday's debt                               |
 | amalia_box         | Amália's box topic (III.4) or Duarte's message (III.5) | rui_murder (V.1); epilogue vignette                     |
 | has_tongue, twin_swapped | Successful swap (III.3)                          | **End of Ch. III** (with founder_order)                 |
+| bastos_known       | Inês names him in the shop after the decode (III.4)    | Map pin "Graça · Prof. Bastos"; Inês's hint             |
+| bastos_m, bastos_case_open | The eight objects with their books (III.4)     | The recorder                                            |
+| bastos_lessons, bastos_box_seen, bastos_reel_found | The lecture tapes; the empty box; the boat (III.4) | The last tape                     |
+| bastos_done        | His last tape heard (III.4)                            | **End of Ch. III** (with has_tongue and founder_order)  |
 | ch3_done, steaming | Back at the shop (III.5)                               | Duarte's visit                                          |
 | visit_guitar, duarte_scene | Duarte's visit; accepting it (III.5)           | Duarte gone from the tavern; Duarte and Inês (IV.1)     |
 | genealogy_read     | Inês's steamed pages (IV.1)                            | Cais on map                                             |

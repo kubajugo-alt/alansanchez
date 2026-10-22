@@ -163,6 +163,18 @@ const STEPS = [
   talk('antiques: ask Lacerda about the music box (he goes for its key)', 'lacerda', ['music box'], { expect: 'f.lac_away' }),
   use('antiques: vitrine key on the case', 'Display case', 'vkey', { expect: 'f.case_open' }),
   use('antiques: the twin for the tongue (Lacerda comes back)', 'Display case', 'twin', { expect: "has('tongue') && f.twin_swapped && room === 'map'" }),
+  // III.4 Prof. Bastos's flat (js/story/bastos.js): Inês names him in the shop; the collection, the recorder, the last reel
+  ...MAP_TO_SHOP.slice(0, 1),
+  go('street: into the bookshop (Inês names Prof. Bastos; no chapter end yet)', 'Livraria Sanches', 'shop', { expect: "f.bastos_known && !f.ch3_done && room === 'shop'" }),
+  ...SHOP_TO_MAP,
+  mapTo('Graça · Prof. Bastos', 'bastos'),
+  { name: 'bastos: a wrong pair, then the eight objects with their books (the case opens)', kind: 'bshelf', target: 'Bookshelves', wrongFirst: true, expect: '(f.bastos_m || []).length === 8 && f.bastos_case_open' },
+  { name: 'bastos: Play with nothing threaded (refused)', kind: 'brec', target: 'Display case', seq: ['play'], expect: '!f.bastos_lessons' },
+  { name: 'bastos: thread lesson one and play it', kind: 'brec', target: 'Display case', seq: ['rack', 'left', 'head', 'right', 'play'], expect: 'f.bastos_lessons && (f.sea || []).length === 4' },
+  { name: 'bastos: the empty box (a rose on the label)', kind: 'brec', target: 'Display case', seq: ['box'], expect: 'f.bastos_box_seen' },
+  { name: "bastos: the last reel, in Iemanjá's boat", kind: 'bshelf', target: 'Bookshelves', look: 'iemanja', expect: 'f.bastos_reel_found' },
+  { name: 'bastos: thread the last reel and play it', kind: 'brec', target: 'Display case', seq: ['left', 'head', 'right', 'play'], expect: "f.bastos_done && (f.sea || []).includes('collector')" },
+  go('bastos: out', 'Leave the flat', 'map'),
   // III.5 the shop: the chapter ends; Duarte's visit (declined)
   ...MAP_TO_SHOP.slice(0, 1),
   go("street: into the bookshop (end of Chapter III, Duarte's visit)", 'Livraria Sanches', 'shop',
@@ -225,7 +237,7 @@ const snapshot = () => page.evaluate(() => {
   return {
     busy: !!(window.Game && Game.isBusy), room: Game.room ? Game.room.id : null,
     dialog: dlg ? [...dlg.querySelectorAll('button')].map(b => b.textContent.replace(/^\d+/, '').trim()) : null,
-    closeup: vis('#closeup'), cipher: vis('#cipher'), death: vis('#death'), ending: vis('#ending'),
+    closeup: vis('#closeup'), cipher: vis('#cipher'), bshelf: vis('#bshelf'), brec: vis('#brec'), death: vis('#death'), ending: vis('#ending'),
     done: window.__step ? window.__step.done : true, err: window.__step ? window.__step.err : null,
   };
 });
@@ -287,6 +299,7 @@ async function start(step) {
       if (step.kind === 'cipher') { // the wheel is a modal: the test clicks its buttons from outside (below)
         return Game.act(step.target, undefined, step.item);
       }
+      if (step.kind === 'bshelf' || step.kind === 'brec') return Game.act(step.target, 'use'); // Bastos's close-ups: clicked below
     };
     run().then(() => { s.done = true; }, e => { s.done = true; s.err = String(e && e.message || e); });
   }, step);
@@ -309,6 +322,29 @@ async function runStep(step, i) {
       quiet = 0; continue;
     }
     if (s.cipher) return report(step, i, 'the cipher wheel opened unexpectedly');
+    // Bastos's collection: each time it opens, one pair (an object, then the book with its motif), or the boat looked at
+    if (s.bshelf && step.kind === 'bshelf') {
+      const r = await page.evaluate(([look, wrong]) => {
+        const m = document.querySelector('#bshelf');
+        if (look) { const b = m.querySelector(`.onshelf[data-k="${look}"]`); if (!b) return 'not on the shelf: ' + look; b.click(); return 'ok'; }
+        const PAIR = { canaria: 'seal', ys: 'bell', ran: 'net', jewels: 'jewels', gilgamesh: 'boat', matsya: 'fish', deucalion: 'trident', iemanja: 'rose' };
+        const o = m.querySelector('.obj'); if (!o) { m.querySelector('.cancel').click(); return 'ok'; }
+        const book = wrong ? Object.values(PAIR).find(b => b !== PAIR[o.dataset.k]) : PAIR[o.dataset.k];
+        o.click(); m.querySelector(`.spine[data-b="${book}"]`).click(); return 'ok';
+      }, [step.look || null, !!step.wrongFirst && !step._wrongDone]);
+      if (r !== 'ok') return report(step, i, r);
+      step._wrongDone = true;
+      quiet = 0; continue;
+    }
+    if (s.bshelf) return report(step, i, "Bastos's collection opened unexpectedly");
+    // Bastos's recorder: the step's clicks, in order, once
+    if (s.brec && step.kind === 'brec') {
+      if (step._clicked) return report(step, i, 'the recorder opened again');
+      step._clicked = true;
+      await page.evaluate(seq => { const m = document.querySelector('#brec'); for (const k of seq) m.querySelector(`[data-s="${k}"]`).click(); }, step.seq);
+      quiet = 0; continue;
+    }
+    if (s.brec) return report(step, i, 'the recorder opened unexpectedly');
     if (s.dialog) {
       quiet = 0;
       const want = answers.shift();

@@ -1,7 +1,8 @@
-# Graça: Professor Bastos's flat (Chapter III) — DRAFT FOR APPROVAL
+# Graça: Professor Bastos's flat (Chapter III)
 
-Nothing here is in the game yet. Approve (or mark changes on) the script below; then the room is painted in Canva for
-a review page, Bastos's voice is picked from candidates, and only then is it built, recorded and tested.
+Approved and built (22 Oct): `js/story/bastos.js`, docs/animation_handoff.md entry 61. Two lines changed in the build
+from the approved script: `alan_threaded` says "Grandfather taught me on a Grundig" (Alan's father died when he was
+nine; Joaquim raised him), and `narr_look_recorder` says "one lesson to a box" (the riddle plays one lecture).
 
 ## The idea
 
