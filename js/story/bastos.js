@@ -275,7 +275,7 @@
       { x: 478, y: 160, rgb: '232,236,242', power: 0.26, reach: 1100, rim: 0.4, shadow: 0.4, floor: [480, 520], height: 700 },
       { x: 975, y: 160, rgb: '232,236,242', power: 0.2, reach: 900, rim: 0.3, floor: [975, 520], height: 700, shadow: false },
     ],
-    entries: { default: [640, 690, 'n'], map: [640, 690, 'n'] },
+    entries: { default: [120, 670, 'e'], map: [120, 670, 'e'] },
     animBack(g, t) {
       S.windowFog(g, t, [400, 45, 160, 232], '236,238,240', 0.16); // the fog moving past both windows
       S.windowFog(g, t + 40, [912, 45, 132, 232], '236,238,240', 0.16);
@@ -295,7 +295,8 @@
       { name: 'Display case', rect: [630, 262, 170, 150], at: [715, 445], face: 'n',
         look: () => F().bastos_case_open ? S.bastosRecorder() : say('narr_look_bastos_case'),
         use: () => S.bastosRecorder(), take: () => S.bastosRecorder() },
-      { name: 'Leave the flat', rect: [0, 690, 1280, 30], at: [640, 712], exit: 'map', entry: 'bastos' },
+      // the way out on the left edge (a strip along the bottom sat under the inventory bar)
+      { name: 'Leave the flat', rect: [0, 470, 70, 250], at: [60, 682], face: 'w', exit: 'map', entry: 'bastos' },
     ],
     async enter() {
       if (!F().bastos_entered) {
