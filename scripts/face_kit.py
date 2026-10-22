@@ -13,8 +13,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # whose faces: FACE_CHAR=vasco python3 scripts/face_kit.py find ... (Alan by default). Another character's frames are his
 # own solo paintings; in the pair paintings his face is the partner's set '<frame>__<speaker id>' (FACE_CHAR=cop: 'phone')
 CHAR = os.environ.get('FACE_CHAR', 'alan')
-# the rest of the speaking cast (2026-10-22, the user: every sprite with a visible mouth can talk): FACE_CHAR -> (their
-# sprites' prefixes, who the head is for Gemini, a woman). Their solo frames only: no pair paintings.
+# the rest of the speaking cast, ready for when their faces are wanted (2026-10-22: set up, then the user stopped it before
+# any were made): FACE_CHAR -> (their sprites' prefixes, who the head is for Gemini, a woman). Their solo frames only.
 CAST = {
     'rui': (('rui',), 'the head of Inspector Rui Mendonca, a police detective in his forties', False),
     'amalia': (('amalia',), 'the head of Dona Amalia, an 81-year-old fado singer', True),
@@ -77,10 +77,10 @@ def sprite_file(fr):
     return os.path.join(ROOT, REVIEW_SRC[fr]) if fr in REVIEW_SRC else f'{ROOT}/art/sprites/{fr}.webp'
 
 
-# the new scenes' frames: every one with a visible mouth gets mouths too, ready for any line written over it later
-# (the user, 2026-10-22); a face with nothing to say still blinks
+# the new scenes' frames: Alan's all get mouths, ready for any line written over them later (the user, 2026-10-22);
+# Duarte's only where he speaks; a face with nothing to say still blinks
 NEW = set(REVIEW_SRC)
-TALKS = NEW
+TALKS = NEW if CHAR == 'alan' else {'pair_duarte_book', 'pair_duarte_terms', 'pair_duarte_lesson', 'pair_duarte_jackets', 'pair_duarte_shirts', 'duarte_dn_stand'}
 
 
 # Teixeira's frames don't share a prefix (npc_phone_* at the station, cop_* on his visit): the ones the game uses now
