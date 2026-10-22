@@ -1,0 +1,642 @@
+{
+ "alan_climb": {
+  "wet": true
+ },
+ "alan_drip": {
+  "wet": true
+ },
+ "alan_smoke_exhale": {
+  "wet": true
+ },
+ "alan_smoke_hold": {
+  "wet": true
+ },
+ "alan_smoke_inhale": {
+  "wet": true
+ },
+ "alan_smoke_light": {
+  "wet": true
+ },
+ "alan_swim": {
+  "wet": true
+ },
+ "alan_swim2": {
+  "wet": true
+ },
+ "alan_swim_wave": {
+  "wet": true
+ },
+ "alan_trunks_down": {
+  "wet": true
+ },
+ "alan_trunks_on": {
+  "wet": true
+ },
+ "alan_trunks_snap": {
+  "wet": true
+ },
+ "alan_trunks_step": {
+  "wet": true
+ },
+ "alan_wash1": {
+  "wet": true
+ },
+ "alan_wash2": {
+  "wet": true
+ },
+ "alan_wash3": {
+  "wet": true
+ },
+ "alan_wash4": {
+  "wet": true
+ },
+ "alan_wash5": {
+  "wet": true
+ },
+ "alan_wash6": {
+  "wet": true
+ },
+ "alan_wash_surface": {
+  "wet": true
+ },
+ "alan_wring": {
+  "wet": true
+ },
+ "amalia": {
+  "strands": true
+ },
+ "amalia_idle2": {
+  "strands": true
+ },
+ "amalia_sing1": {
+  "strands": true
+ },
+ "amalia_sing2": {
+  "strands": true
+ },
+ "amalia_sing3": {
+  "strands": true
+ },
+ "amalia_sing4": {
+  "strands": true
+ },
+ "amalia_sing5": {
+  "strands": true
+ },
+ "amalia_talk": {
+  "strands": true
+ },
+ "amalia_toast": {
+  "strands": true
+ },
+ "celeste_wring1": {
+  "wet": true
+ },
+ "celeste_wring2": {
+  "wet": true
+ },
+ "npc_couple": {
+  "wet": true,
+  "holes": [
+   [
+    552,
+    494,
+    7,
+    6
+   ]
+  ]
+ },
+ "npc_couple_b": {
+  "wet": true
+ },
+ "npc_laundry": {
+  "wet": true
+ },
+ "npc_laundry_glance": {
+  "wet": true
+ },
+ "npc_laundry_peg": {
+  "wet": true,
+  "holes": [
+   [
+    232,
+    69,
+    39,
+    50
+   ]
+  ]
+ },
+ "npc_laundry_shake": {
+  "wet": true
+ },
+ "npc_laundry_shock": {
+  "wet": true
+ },
+ "npc_laundry_talk1": {
+  "wet": true
+ },
+ "npc_laundry_talk2": {
+  "wet": true
+ },
+ "npc_laundry_talk3": {
+  "wet": true
+ },
+ "npc_nun": {
+  "wet": true
+ },
+ "npc_nun_b": {
+  "wet": true
+ },
+ "npc_nun_talk": {
+  "wet": true
+ },
+ "npc_washer1": {
+  "wet": true
+ },
+ "npc_washer1_b": {
+  "wet": true
+ },
+ "npc_washer1_giggle": {
+  "wet": true
+ },
+ "npc_washer1_gossip": {
+  "wet": true,
+  "holes": [
+   [
+    76,
+    233,
+    5,
+    11
+   ]
+  ]
+ },
+ "npc_washer1_howl": {
+  "wet": true
+ },
+ "npc_washer1_laugh": {
+  "wet": true,
+  "holes": [
+   [
+    64,
+    311,
+    3,
+    8
+   ]
+  ]
+ },
+ "npc_washer1_lift": {
+  "wet": true
+ },
+ "npc_washer1_peek": {
+  "wet": true
+ },
+ "npc_washer1_rest": {
+  "wet": true,
+  "holes": [
+   [
+    253,
+    205,
+    31,
+    31
+   ]
+  ]
+ },
+ "npc_washer1_scrub2": {
+  "wet": true,
+  "holes": [
+   [
+    57,
+    229,
+    19,
+    53
+   ]
+  ]
+ },
+ "npc_washer1_shock": {
+  "wet": true
+ },
+ "npc_washer1_wring": {
+  "wet": true
+ },
+ "npc_washer2": {
+  "wet": true
+ },
+ "npc_washer2_b": {
+  "wet": true
+ },
+ "npc_washer2_beckon": {
+  "wet": true
+ },
+ "npc_washer2_cackle": {
+  "wet": true
+ },
+ "npc_washer2_giggle": {
+  "wet": true
+ },
+ "npc_washer2_hips": {
+  "wet": true,
+  "holes": [
+   [
+    213,
+    223,
+    38,
+    54
+   ],
+   [
+    80,
+    247,
+    5,
+    12
+   ]
+  ]
+ },
+ "npc_washer2_scrub2": {
+  "wet": true,
+  "holes": [
+   [
+    120,
+    228,
+    44,
+    65
+   ]
+  ]
+ },
+ "npc_washer2_shock": {
+  "wet": true
+ },
+ "npc_washer2_slap": {
+  "wet": true,
+  "holes": [
+   [
+    128,
+    236,
+    40,
+    65
+   ]
+  ]
+ },
+ "npc_washer2_wheeze": {
+  "wet": true
+ },
+ "npc_washer2_wink": {
+  "wet": true,
+  "holes": [
+   [
+    226,
+    248,
+    6,
+    8
+   ]
+  ]
+ },
+ "npc_washer2_wring": {
+  "wet": true
+ },
+ "pair_wring_1": {
+  "wet": true
+ },
+ "pair_wring_2": {
+  "wet": true
+ },
+ "pair_wring_3": {
+  "wet": true
+ },
+ "pessoa_sleep": {
+  "wet": true
+ },
+ "pessoa_sleep2": {
+  "wet": true
+ },
+ "rui_smoke": {
+  "wet": true
+ },
+ "tomas": {
+  "broom": true
+ },
+ "tomas_kneel": {
+  "broom": true
+ },
+ "tomas_night": {
+  "broom": true
+ },
+ "tomas_night_talk": {
+  "broom": true
+ },
+ "tomas_sweep": {
+  "broom": true
+ },
+ "tomas_sweepL": {
+  "broom": true
+ },
+ "tomas_sweepR": {
+  "broom": true
+ },
+ "tomas_talk": {
+  "broom": true
+ },
+ "ze_toss": {
+  "wet": true
+ },
+ "alan_bn_belt": {
+  "wet": true
+ },
+ "alan_bn_boxers": {
+  "wet": true
+ },
+ "alan_bn_cannonball": {
+  "wet": true
+ },
+ "alan_bn_climb": {
+  "wet": true
+ },
+ "alan_bn_dressed": {
+  "wet": true
+ },
+ "alan_bn_fling": {
+  "wet": true
+ },
+ "alan_bn_hair": {
+  "wet": true
+ },
+ "alan_bn_hair_v1": {
+  "wet": true
+ },
+ "alan_bn_jacket_off": {
+  "wet": true
+ },
+ "alan_bn_jacket_shrug": {
+  "wet": true
+ },
+ "alan_bn_jacket_shrug_v1": {
+  "wet": true
+ },
+ "alan_bn_jeans_half": {
+  "wet": true
+ },
+ "alan_bn_jeans_off": {
+  "wet": true
+ },
+ "alan_bn_pants": {
+  "wet": true
+ },
+ "alan_bn_pants_on": {
+  "wet": true
+ },
+ "alan_bn_pants_on_v1": {
+  "wet": true
+ },
+ "alan_bn_pants_on_v2": {
+  "wet": true
+ },
+ "alan_bn_pants_up": {
+  "wet": true
+ },
+ "alan_bn_pants_up_v1": {
+  "wet": true
+ },
+ "alan_bn_pants_v1": {
+  "wet": true
+ },
+ "alan_bn_reach": {
+  "wet": true
+ },
+ "alan_bn_relax": {
+  "wet": true
+ },
+ "alan_bn_rim": {
+  "wet": true
+ },
+ "alan_bn_rim_v1": {
+  "wet": true
+ },
+ "alan_bn_sit": {
+  "wet": true
+ },
+ "alan_bn_splash": {
+  "wet": true
+ },
+ "alan_bn_stepdown": {
+  "wet": true
+ },
+ "alan_bn_tee": {
+  "wet": true
+ },
+ "alan_bn_tee_lift": {
+  "wet": true
+ },
+ "alan_bn_tee_v1": {
+  "wet": true
+ },
+ "alan_bn_toss": {
+  "wet": true
+ },
+ "alan_bn_towel": {
+  "wet": true
+ },
+ "alan_bn_walk": {
+  "wet": true
+ },
+ "alan_bn_x_climb_down": {
+  "wet": true
+ },
+ "alan_bn_x_crouch": {
+  "wet": true
+ },
+ "alan_bn_x_hands_down": {
+  "wet": true
+ },
+ "alan_bn_x_haul": {
+  "wet": true
+ },
+ "alan_bn_x_jacket_arm": {
+  "wet": true
+ },
+ "alan_bn_x_jacket_drop": {
+  "wet": true
+ },
+ "alan_bn_x_jeans_knees": {
+  "wet": true
+ },
+ "alan_bn_x_jeans_ready": {
+  "wet": true
+ },
+ "alan_bn_x_kick": {
+  "wet": true
+ },
+ "alan_bn_x_pick_up": {
+  "wet": true
+ },
+ "alan_bn_x_raise": {
+  "wet": true
+ },
+ "alan_bn_x_scoop": {
+  "wet": true
+ },
+ "alan_bn_x_shorts_knees": {
+  "wet": true
+ },
+ "alan_bn_x_surface": {
+  "wet": true
+ },
+ "alan_bn_x_swing": {
+  "wet": true
+ },
+ "alan_bn_x_tee_toss": {
+  "wet": true
+ },
+ "alan_bn_x_tee_up": {
+  "wet": true
+ },
+ "alan_bn_x_tuck": {
+  "wet": true
+ },
+ "alan_bn_x_turn": {
+  "wet": true
+ },
+ "alan_bn_x_unbutton": {
+  "wet": true
+ },
+ "alan_bn_x_walk2": {
+  "wet": true
+ },
+ "alan_bn_x_wipe": {
+  "wet": true
+ },
+ "alan_bn_y_button": {
+  "wet": true
+ },
+ "alan_bn_y_jacket_on": {
+  "wet": true
+ },
+ "alan_bn_y_jeans_up": {
+  "wet": true
+ },
+ "alan_bn_y_tee_down": {
+  "wet": true
+ },
+ "alan_bn_y_tee_ready": {
+  "wet": true
+ },
+ "alan_bn_zip": {
+  "wet": true
+ },
+ "alan_ib_smoke_in": {
+  "wet": true
+ },
+ "alan_ib_smoke_out": {
+  "wet": true
+ },
+ "pair_ib_wring_1_in": {
+  "wet": true
+ },
+ "pair_ib_wring_1_out": {
+  "wet": true
+ },
+ "pair_ib_wring_1__2": {
+  "wet": true
+ },
+ "pair_ib_wring_2__3": {
+  "wet": true
+ },
+ "alan_ib_climb__drip": {
+  "wet": true
+ },
+ "cards_listen": {
+  "holes": [
+   [
+    741,
+    602,
+    2,
+    7
+   ],
+   [
+    913,
+    339,
+    6,
+    4
+   ],
+   [
+    867,
+    588,
+    13,
+    7
+   ]
+  ]
+ },
+ "cards_listen_b": {
+  "holes": [
+   [
+    916,
+    293,
+    5,
+    13
+   ],
+   [
+    873,
+    557,
+    6,
+    3
+   ],
+   [
+    864,
+    553,
+    7,
+    7
+   ],
+   [
+    915,
+    309,
+    4,
+    6
+   ]
+  ]
+ },
+ "alan_asleep": {
+  "holes": [
+   [
+    45,
+    446,
+    6,
+    5
+   ],
+   [
+    125,
+    445,
+    7,
+    4
+   ]
+  ]
+ },
+ "npc_mender1": {
+  "holes": [
+   [
+    287,
+    469,
+    5,
+    6
+   ],
+   [
+    289,
+    607,
+    2,
+    8
+   ]
+  ]
+ },
+ "npc_mender1_b": {
+  "holes": [
+   [
+    288,
+    600,
+    6,
+    12
+   ],
+   [
+    292,
+    505,
+    3,
+    6
+   ]
+  ]
+ }
+}

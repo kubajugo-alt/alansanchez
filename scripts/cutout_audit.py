@@ -20,6 +20,7 @@ import glob, json, os, sys
 import numpy as np, cv2
 from PIL import Image
 
+WIDE = 5.5     # px: pale bands along the outline wider than this are paint, not a backdrop rim
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'art/review/cutout')
 
@@ -57,22 +58,52 @@ def clusters(m, min_px=1, gap=6):
     return sorted(res, key=lambda r: -r[1])
 
 
-def interior_fill(a):
-    """The colour of the paint just inside the outline, spread outwards (for comparing and recolouring edges)."""
+def interior_fill(a, exclude=None):
+    """The colour of the paint just inside the outline, spread outwards (for comparing and recolouring edges).
+    exclude: pixels not to take colour from (a thick opaque rim of backdrop would otherwise count as paint)."""
     solid = cv2.erode((a[..., 3] >= 250).astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+    if exclude is not None: solid &= ~exclude
     if solid.sum() < 50: solid = a[..., 3] >= 200
     return cv2.inpaint(np.ascontiguousarray(a[..., :3]), (~solid).astype(np.uint8) * 255, 3, cv2.INPAINT_TELEA).astype(np.float32), solid
 
 
 # ---------------------------------------------------------------- detectors
-def halo_mask(a, fill=None):
+def pale_mask(a):
+    rgb = a[..., :3].astype(np.int16)  # the halo test's own notion of pale (mean > 120, spread < 50)
+    return (rgb.mean(-1) > 120) & (rgb.max(-1) - rgb.min(-1) < 50) & (a[..., 3] > 0)
+
+
+def pale_paint(a, reach=5, walk=6):
+    """Pale paint (a white shirt, an apron, a fringe): pale pixels deep inside the figure, and the pale pixels
+    joined to them within `walk` px. A rim of backdrop is thin and outside the outline, so it isn't reached."""
+    pale = pale_mask(a)
+    dist = cv2.distanceTransform((a[..., 3] >= 20).astype(np.uint8), cv2.DIST_L2, 3)
+    prot = pale & (dist > reach + 1)
+    k = np.ones((3, 3), np.uint8)
+    for _ in range(walk):
+        prot = (cv2.dilate(prot.astype(np.uint8), k) > 0) & pale
+    return prot
+
+
+def pale_rim_candidates(a, reach=5, prot=None):
+    """Pale, greyish pixels near the outline that aren't pale paint: maybe backdrop, so never a source of colour."""
+    if prot is None: prot = pale_paint(a, reach)
+    return pale_mask(a) & ~prot & (cv2.distanceTransform((a[..., 3] >= 20).astype(np.uint8), cv2.DIST_L2, 3) <= reach)
+
+
+def halo_mask(a, fill=None, reach=3):
     """Edge pixels lighter (on screen) and greyer than the paint just inside them: the old backdrop's rim."""
     al = a[..., 3]; vis = al > 0
-    if fill is None: fill, inner = interior_fill(a)
-    else: inner = cv2.erode((al >= 250).astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+    prot = pale_paint(a, reach)
+    if fill is None: fill, _ = interior_fill(a, pale_rim_candidates(a, reach, prot))
     rgb = a[..., :3].astype(np.float32)
-    edge = vis & ~inner & (cv2.distanceTransform((al >= 128).astype(np.uint8) ^ 1, cv2.DIST_L2, 3) <= 3) \
-        & (cv2.distanceTransform((al >= 20).astype(np.uint8), cv2.DIST_L2, 3) <= 3)
+    # a rim hugs darker paint; pale strands (a fringe, hair, a rope) reach further out than that
+    hug = cv2.distanceTransform((~((al >= 250) & ~pale_mask(a))).astype(np.uint8), cv2.DIST_L2, 3) <= 4.5
+    near = cv2.distanceTransform((al >= 20).astype(np.uint8), cv2.DIST_L2, 3) <= reach
+    # a rim is a thin band (up to ~5 px across); a wider pale shape along the outline is paint (a shirt's fold)
+    cand = (pale_mask(a) & ~prot & near).astype(np.uint8)
+    wide = cv2.dilate(cv2.distanceTransform(cand, cv2.DIST_L2, 3), np.ones((7, 7), np.uint8)) * 2 > WIDE
+    edge = vis & ~prot & hug & near & ~(wide & cand.astype(bool))
     lum, flum = rgb.mean(-1), fill.mean(-1)
     sat = rgb.max(-1) - rgb.min(-1)
     strength = (lum - flum) * al / 255.0  # how much lighter it shows than the paint, on screen
@@ -204,7 +235,215 @@ def crop_sheet(a, f, mark=None):
     return hstack(panels)
 
 
+# ---------------------------------------------------------------- cleaning (alpha and edge colour only)
+def in_boxes(shape, boxes, pad=0):
+    m = np.zeros(shape, bool)
+    for x, y, w, h in boxes: m[max(0, y - pad):y + h + pad, max(0, x - pad):x + w + pad] = True
+    return m
+
+
+def pocket(a, box, tol=12):
+    """The flat backdrop caught in a gap: flood from the flattest pixel inside box over colours within tol."""
+    x, y, w, h = box
+    rgb = np.ascontiguousarray(a[..., :3]); g = rgb.astype(np.float32).mean(-1)
+    var = cv2.blur(g * g, (3, 3)) - cv2.blur(g, (3, 3)) ** 2
+    sub = var[y:y + h, x:x + w] + (a[y:y + h, x:x + w, 3] < 250) * 1e6
+    sy, sx = np.unravel_index(np.argmin(sub), sub.shape)
+    m = np.zeros((a.shape[0] + 2, a.shape[1] + 2), np.uint8)
+    cv2.floodFill(rgb.copy(), m, (int(x + sx), int(y + sy)), (0, 0, 0), (tol,) * 3, (tol,) * 3,
+                  8 | cv2.FLOODFILL_MASK_ONLY | cv2.FLOODFILL_FIXED_RANGE | (255 << 8))
+    return m[1:-1, 1:-1] > 0
+
+
+def backdrop_colour(a, fill):
+    """The old studio backdrop, from the opaque part of the pale rim (white when there is too little of it)."""
+    halo, _, _ = halo_mask(a, fill)
+    rgb = a[..., :3].astype(np.float32); sat = rgb.max(-1) - rgb.min(-1)
+    rim = halo & (a[..., 3] >= 150) & (sat < 30)
+    return np.median(rgb[rim], 0) if rim.sum() >= 10 else np.array([245.0, 245.0, 245.0])
+
+
+def unmix_rim(a, B, keep=None, rounds=4):
+    """Edge pixels that are a mix of the paint inside them (F) and the backdrop (B): keep only the paint's share
+    as alpha and take the paint's colour. Pixels much lighter than the paint and close to the backdrop become clear."""
+    a = a.copy(); n = 0
+    for _ in range(rounds):
+        al = a[..., 3].astype(np.float32)
+        fill, _ = interior_fill(a, pale_rim_candidates(a, 5))
+        halo, strength, edge = halo_mask(a, fill, reach=5)
+        rgb = a[..., :3].astype(np.float32)
+        lum, flum, blum = rgb.mean(-1), fill.mean(-1), float(B.mean())
+        sat = rgb.max(-1) - rgb.min(-1)
+        band = edge & (al > 0) & (lum > flum + 12) & (sat < 60) & (blum - flum > 30)
+        # where the rim is clearly backdrop (the halo test), or a faint pale tail of it next to the halo
+        band &= cv2.dilate(halo.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0
+        if keep is not None: band &= ~keep
+        if not band.any(): break
+        share = np.clip((blum - lum) / np.maximum(blum - flum, 1), 0, 1)       # the paint's part of the pixel
+        na = np.where(band, al * share, al)
+        a[..., 3] = np.clip(np.round(na), 0, 255).astype(np.uint8)
+        a[..., :3] = np.where(band[..., None], np.clip(fill, 0, 255), rgb).astype(np.uint8)
+        n += int(band.sum())
+    return a, n
+
+
+def strands(a):
+    """Thin, long, pale painted strands (a shawl's fringe): pale components at least twice as tall as wide."""
+    p = (a[..., :3].min(-1) > 150) & (a[..., 3] > 160)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(p.astype(np.uint8))
+    m = np.zeros(p.shape, bool)
+    for i in range(1, n):
+        x, y, w, h, ar = st[i]
+        if ar >= 15 and h > 2 * w: m[max(0, y - 6):y + h + 40, max(0, x - 10):x + w + 10] = True  # tips hang below
+    return m
+
+
+def straw(a):
+    """A broom's bristles (straw-coloured paint in the lowest 40% of the frame), padded: their pale tips stay."""
+    rgb = a[..., :3].astype(np.int16); r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    m = (r > 140) & (g > 90) & (r - b > 60) & (a[..., 3] > 128)
+    m[:int(a.shape[0] * 0.6)] = False
+    n, lab, st, _ = cv2.connectedComponentsWithStats(m.astype(np.uint8))
+    out = np.zeros(m.shape, bool)
+    if n > 1:
+        i = 1 + int(np.argmax(st[1:, 4])); x, y, w, h = st[i, :4]
+        out[max(0, y - 12):y + h + 12, max(0, x - 12):x + w + 12] = True
+    return out
+
+
+def clean(a, keep=(), holes=(), hole_tol=12, wet=False, halo=True, keep_strands=False, broom=False):
+    """keep: boxes left alone by the speck/haze/rim passes (drops, smoke); holes: boxes of trapped backdrop."""
+    a = a.copy(); H, W = a.shape[:2]; log = {}
+    keepm = in_boxes((H, W), keep) if keep else np.zeros((H, W), bool)
+    if keep_strands: keepm |= strands(a)
+    if broom: keepm |= straw(a)
+    orig_alpha = a[..., 3].copy()
+    # 5. trapped backdrop: clear, with the pocket's own rim then unmixed like any edge
+    if holes:
+        pm = np.zeros((H, W), bool)
+        for b in holes: pm |= pocket(a, b[:4], b[4] if len(b) > 4 else hole_tol)
+        a[..., 3][pm] = 0; log['hole'] = int(pm.sum())
+    # 1. key colour: the paint's colour under the alpha the pixel has
+    km, _ = key_mask(a)
+    if km.any():
+        fill, _ = interior_fill(a)
+        a[..., :3][km] = np.clip(fill[km], 0, 255).astype(np.uint8); log['key'] = int(km.sum())
+    # 2. pale rim
+    if halo:
+        fill, _ = interior_fill(a, pale_rim_candidates(a))
+        B = backdrop_colour(a, fill)
+        a, n = unmix_rim(a, B, keepm)
+        if n: log['halo'] = n; log['backdrop'] = [int(v) for v in B]
+    al = a[..., 3]
+    # 4. haze: faint paint more than 3 px from solid paint (wet frames: only up to 6 px out, the matte's noise
+    #    ring; water running off, spray and smoke further out are painted on purpose)
+    dsol = cv2.distanceTransform((~(al >= 64)).astype(np.uint8), cv2.DIST_L2, 3)
+    near = dsol <= 3.0
+    hz = (al > 0) & ~near & ~keepm
+    if wet: hz &= dsol <= 6.0
+    if hz.any(): al[hz] = 0; log['haze'] = int(hz.sum())
+    # 3. specks: detached bits that are faint or tiny (opaque specks of 5+ px are listed for an eye check instead)
+    n, lab, st, _ = cv2.connectedComponentsWithStats((al > 0).astype(np.uint8), connectivity=8)
+    if n > 2:
+        big = st[1:, cv2.CC_STAT_AREA].max(); killed = 0
+        for i in range(1, n):
+            ar = st[i, cv2.CC_STAT_AREA]
+            if ar == big or ar >= max(400, big * 0.004): continue
+            m = lab == i
+            if (m & keepm).any(): continue
+            mx = int(al[m].max())
+            if wet: kill = mx < 24 and dsol[m].min() <= 6.0      # drops stay; only matte dust right by the figure
+            else: kill = mx < 128 or ar <= 12
+            if kill:
+                al[m] = 0; killed += int(ar)
+        if killed: log['speck'] = killed
+    a[..., 3] = al
+    a[..., :3][al == 0] = 0
+    return a, log
+
+
+# ---------------------------------------------------------------- fix: cleaned candidates and before/after sheets
+def densest(m, win=90):
+    """The win x win window holding most of mask m (x, y, w, h)."""
+    H, W = m.shape; win = min(win, H, W)
+    ii = cv2.integral(m.astype(np.uint8))
+    s = ii[win:, win:] - ii[:-win, win:] - ii[win:, :-win] + ii[:-win, :-win]
+    y, x = np.unravel_index(np.argmax(s), s.shape)
+    return [int(x), int(y), win, win]
+
+
+def before_after(a, b, name, boxes):
+    rows = []
+    vis_a = on(a, (20, 20, 24)); full = []
+    for bgc, t in (('checker', 'checker'), ((128, 128, 128), 'mid grey'), ((20, 20, 24), 'dark')):
+        pa, _ = zoom_crop(on(a, bgc), boxes[0], pad=4, maxside=330); pb, _ = zoom_crop(on(b, bgc), boxes[0], pad=4, maxside=330)
+        full += [label(pa, 'before ' + t), label(pb, 'after ' + t)]
+    rows.append(hstack(full))
+    for bb in boxes[1:3]:
+        r = []
+        for bgc, t in (('checker', 'checker'), ((20, 20, 24), 'dark')):
+            pa, _ = zoom_crop(on(a, bgc), bb, pad=4, maxside=330); pb, _ = zoom_crop(on(b, bgc), bb, pad=4, maxside=330)
+            r += [label(pa, 'before ' + t), label(pb, 'after ' + t)]
+        rows.append(hstack(r))
+    # the whole sprite, small, after, on dark, with the zoomed boxes outlined
+    wh = on(b, (20, 20, 24)).copy()
+    for i, (x, y, w, h) in enumerate(boxes[:3]): cv2.rectangle(wh, (x - 2, y - 2), (x + w + 1, y + h + 1), (255, 60, 60), 2)
+    k = min(1.0, 300 / wh.shape[0]); wh = cv2.resize(wh, (max(1, int(wh.shape[1] * k)), max(1, int(wh.shape[0] * k))), interpolation=cv2.INTER_AREA)
+    rows.append(label(wh, name + ': after, whole (boxes = zooms)'))
+    W = max(r.shape[1] for r in rows)
+    rows = [np.pad(r, ((0, 6), (0, W - r.shape[1]), (0, 0)), constant_values=255) for r in rows]
+    Image.fromarray(np.concatenate(rows, 0)).save(f'{OUT}/before_after/{name}.png')
+
+
+def changed(a, b):
+    """Visible change: alpha moved, or colour moved on a pixel that shows."""
+    da = np.abs(a[..., 3].astype(int) - b[..., 3].astype(int))
+    dc = np.abs(a[..., :3].astype(int) - b[..., :3].astype(int)).max(-1) * (np.maximum(a[..., 3], b[..., 3]) > 0)
+    return (da > 0) | (dc > 0)
+
+
+def fix(names, cfg, sheets=True):
+    os.makedirs(OUT + '/sprites', exist_ok=True); os.makedirs(OUT + '/before_after', exist_ok=True)
+    src = {n: r for n, r, k in sprite_files()}
+    res = {}
+    for n in names:
+        c = cfg.get(n, {})
+        if c.get('skip'): continue
+        a = load(os.path.join(ROOT, src[n]))
+        b, log = clean(a, keep=c.get('keep', []), holes=c.get('holes', []), wet=c.get('wet', False), halo=c.get('halo', True),
+                       keep_strands=c.get('strands', False), broom=c.get('broom', False))
+        ch = changed(a, b)
+        if not ch.any(): continue
+        Image.fromarray(b, 'RGBA').save(f'{OUT}/sprites/{n}.webp', lossless=True, quality=100, method=6, exact=False)
+        # where it changed: the whole silhouette's edge vs deep inside (alpha >= 250 and 4+ px from any edge)
+        deep = cv2.erode((a[..., 3] >= 250).astype(np.uint8), np.ones((9, 9), np.uint8)) > 0
+        hole = np.zeros_like(ch)
+        for hb in c.get('holes', []): hole |= in_boxes(ch.shape, [hb[:4]], 20)
+        res[n] = dict(src=src[n], log=log, changed_px=int(ch.sum()), changed_opaque=int((ch & (a[..., 3] >= 250)).sum()),
+                      changed_deep=int((ch & deep & ~hole).sum()), alpha_sum_before=int(a[..., 3].astype(np.int64).sum() // 255),
+                      alpha_sum_after=int(b[..., 3].astype(np.int64).sum() // 255))
+        if sheets:
+            boxes = [h[:4] for h in c.get('holes', [])][:1]
+            m = ch.copy()
+            for _ in range(3 - len(boxes)):
+                if not m.any(): break
+                bb = densest(m); boxes.append(bb); x, y, w, h = bb; m[y:y + h, x:x + w] = False
+            before_after(a, b, n, boxes)
+    return res
+
+
 # ---------------------------------------------------------------- audit
+def visible(f):
+    """Findings that show on screen (the rest are traces: alpha under ~16-64, key hue under 6 levels)."""
+    t = f['type']
+    if t in ('key', 'hole'): return True
+    if t == 'halo': return f['px'] >= 12
+    if t == 'speck': return f['max_alpha'] >= 64 and f['px'] >= 2
+    if t == 'haze': return f['max_alpha'] >= 16
+    if t == 'border': return f['max_alpha'] >= 64
+    return False
+
+
 def audit(files, crops=False, faces=True, tag=''):
     os.makedirs(OUT + '/crops', exist_ok=True)
     rep = {}
@@ -212,10 +451,11 @@ def audit(files, crops=False, faces=True, tag=''):
         a = load(os.path.join(ROOT, rel))
         F = find(a)
         rep[name] = dict(src=rel, kind=kind, size=[a.shape[1], a.shape[0]], findings=F)
-        if crops:
-            for i, f in enumerate(F):
-                if f['type'] == 'key_trace': continue
-                Image.fromarray(crop_sheet(a, f)).save(f"{OUT}/crops/{name}__{i:02d}_{f['type']}.png")
+        if crops:  # the visible findings only, biggest first, at most 8 per sprite
+            vis = [(i, f) for i, f in enumerate(F) if visible(f)]
+            vis.sort(key=lambda t: -t[1]['px'])
+            for i, f in vis[:8]:
+                Image.fromarray(crop_sheet(a, f)).save(f"{OUT}/crops/{name}__{i:03d}_{f['type']}.png")
     face = {}
     if faces:
         for p in sorted(glob.glob(f'{ROOT}/art/faces/*.webp')):
@@ -249,6 +489,21 @@ def main():
             out = os.path.join(OUT, 'report_raw.json')
         json.dump(dict(summary=summary(rep), faces_with_key=face, sprites=rep), open(out, 'w'), indent=1)
         print(json.dumps(summary(rep), indent=1), 'faces with key colour:', len(face))
+    elif args[0] == 'fix':
+        cfgp = os.path.join(OUT, 'fixes.json')
+        cfg = json.load(open(cfgp)) if os.path.exists(cfgp) else {}
+        names = [x for x in args[1:] if not x.startswith('--') and '/' not in x] or [n for n, r, k in sprite_files()]
+        if '--part' in args:  # --part i/n: every n-th sprite, for running several processes side by side
+            i, k = map(int, args[args.index('--part') + 1].split('/')); names = names[i::k]
+        os.makedirs(OUT + '/logs', exist_ok=True)
+        done = 0
+        for n in names:
+            lp = f'{OUT}/logs/{n}.json'
+            if '--resume' in args and os.path.exists(lp): continue
+            res = fix([n], cfg, sheets='--nosheets' not in args)
+            json.dump(res.get(n), open(lp, 'w'))  # null: nothing to clean
+            done += 1
+        print(done, 'processed')
 
 
 if __name__ == '__main__':
