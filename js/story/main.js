@@ -20,7 +20,8 @@
   // ---------------------------------------------------------------- chapter hooks in the shop
   const shopEnter = ROOMS.shop.enter;
   ROOMS.shop.enter = async function (entry) {
-    if (F().ch === 2 && F().ch2_ready && !F().ch2_done) return S.ch2End();
+    // (checked afresh, not read from ch2_ready: some last clues, like the case file used on Celeste, never set it)
+    if (F().ch === 2 && !F().ch2_done) { const end = S.checkCh2(); if (end) return end; }
     if (F().ch === 3 && F().has_tongue && F().founder_order && !F().ch3_done) return S.ch3End();
     if (shopEnter) return shopEnter.call(this, entry);
   };

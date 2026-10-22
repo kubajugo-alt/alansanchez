@@ -330,7 +330,9 @@
       return f.ferreira_lit ? 'ines_hint_tide' : 'ines_hint_ferreira';
     }
     if (!f.knows_1955_boy) return 'ines_hint_file';
-    if (f.ch === 2 && f.lock_tried && !f.drawer_unlocked) return 'ines_hint_clocks'; // the clockmaker's lock
+    // the clockmaker's lock: once tried, or once everything else in the chapter is done and the tide card it holds
+    // is all that's missing (Ch. II can't end without it, and the convent stays shut till then)
+    if (f.ch === 2 && !f.drawer_unlocked && !has('tidecard') && !f.tidecardTaken && (f.lock_tried || f.turnings_deduced)) return 'ines_hint_clocks';
     if (f.ch === 2 && !f.turnings_deduced) { // B9: Ferreira's -> Rui -> his Diário -> the notebook
       if (!has('newspaper') && !f.ferreira_told) return 'ines_hint_paper_2';
       if (!has('newspaper')) return 'ines_hint_paper_3';
@@ -340,7 +342,8 @@
     if (f.ch === 2 && f.heist_done && !f.knows_withdrawn && f.turnings_deduced) return 'ines_hint_rui_theft'; // B7: Rui's news about the Sé
     if (!f.decoded && f.ch2_done && S.needBells && S.needBells()) return f.charter_shown ? 'ines_hint_bells2' : 'ines_hint_bells';
     if (!f.decoded) return f.stone_washed ? (f.stone_read ? 'ines_hint_wheel' : 'ines_hint_mag') : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
-    if (!f.founder_order) return 'ines_hint_order';
+    // (once Alan has chosen the Chiado, the map marks Lacerda's first: the hint follows the same thread)
+    if (!f.founder_order && !(f.chose_chiado && !f.has_tongue)) return 'ines_hint_order';
     if (!f.has_tongue) { // Lacerda's case -> Abílio reads the sketch -> Vasco lends the twin -> the swap
       if (!f.tongue_sketched) return 'ines_hint_see_case';
       if (!f.knows_twin) return 'ines_hint_sketch_abilio';

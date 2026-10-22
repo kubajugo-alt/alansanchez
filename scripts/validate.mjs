@@ -19,7 +19,8 @@ const LINES = load('js/lines.js', 'LINES'), SPRITES = load('js/sprites.js', 'SPR
 const SFX = new Set(Object.keys(JSON.parse(fs.readFileSync(path.join(ROOT, 'audio/sfx/manifest.json'), 'utf8')).files || {}));
 const VOICE = new Set(fs.readdirSync(path.join(ROOT, 'audio/voice')).filter(f => f.endsWith('.mp3')).map(f => f.slice(0, -4)));
 // every hand-written script (generated data and the review screen aside)
-const GENERATED = new Set(['js/lines.js', 'js/sprites.js', 'js/morphs.js', 'js/similar.js']);
+// (lipsync.js and faces.js name every voiced line and frame: counting them would hide lines nothing plays)
+const GENERATED = new Set(['js/lines.js', 'js/sprites.js', 'js/morphs.js', 'js/similar.js', 'js/lipsync.js', 'js/faces.js']);
 const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(d, e.name)) : e.name.endsWith('.js') ? [path.join(d, e.name)] : []);
 const FILES = walk(path.join(ROOT, 'js')).filter(f => !GENERATED.has(rel(f)));
 const SRC = Object.fromEntries(FILES.map(f => [f, fs.readFileSync(f, 'utf8')]));
@@ -76,12 +77,15 @@ for (const [f, src] of Object.entries(SRC)) {
 
 // ---------------------------------------------------------------- flags
 // set: F().x = / += / ++, Object.assign(F(), { x }), F()[x] = ; read: every other F().x
+// (G.flags.x and f.x, in a file that names F() as f, count the same as F().x)
 const set = new Map(), read = new Map();
 const note = (map, k, where) => { if (!map.has(k)) map.set(k, where); };
 for (const [f, src] of Object.entries(SRC)) {
+  if (/js\/(review|walklab)\.js$/.test(f)) continue; // tools, not the game (their f is something else)
+  const flagRef = /\b(?:const|let)\s+f\s*=\s*F\(\)/.test(src) ? /(?:F\(\)|G\.flags|\bf)\.(\w+)(\s*(?:[+\-*|&]?=(?!=)|\+\+|--))?/g : /(?:F\(\)|G\.flags)\.(\w+)(\s*(?:[+\-*|&]?=(?!=)|\+\+|--))?/g;
   src.split('\n').forEach((line, i) => {
     const code = line.replace(/\/\/.*$/, '');
-    for (const m of code.matchAll(/F\(\)\.(\w+)(\s*(?:[+\-*|&]?=(?!=)|\+\+|--))?/g)) note(m[2] ? set : read, m[1], at(f, i));
+    for (const m of code.matchAll(flagRef)) note(m[2] ? set : read, m[1], at(f, i));
     for (const m of code.matchAll(/Object\.assign\(F\(\),\s*\{([^}]*)\}/g)) for (const k of m[1].matchAll(/(\w+)\s*:/g)) note(set, k[1], at(f, i));
     for (const m of code.matchAll(/delete F\(\)\.(\w+)/g)) note(set, m[1], at(f, i));
   });

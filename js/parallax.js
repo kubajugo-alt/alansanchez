@@ -12,10 +12,21 @@ window.Parallax = (function () {
   const cam = { x: 0, y: 0 };
   let on = !/[?&](noparallax|parallax=0)\b/.test(location.search);
 
+  // a lost GL context (a phone short of memory, or back from the background) is dropped, and the next draw builds a
+  // fresh one; meanwhile draw() returns null and the painting is drawn flat. A device that keeps losing it stays flat.
+  let losses = 0;
+  function lost(e) {
+    e.preventDefault();
+    if (e.target !== cv) return;
+    gl = null; cv = null; bgIm = null; dIm = null;
+    if (++losses >= 3) { failed = true; console.info('Parallax off: the GL context keeps being lost'); }
+  }
   function init() {
+    if (gl && gl.isContextLost()) return false;
     if (gl || failed) return !!gl;
     try {
       cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      cv.addEventListener('webglcontextlost', lost);
       gl = cv.getContext('webgl', { premultipliedAlpha: false, preserveDrawingBuffer: true });
       if (!gl) throw new Error('no webgl');
       const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };

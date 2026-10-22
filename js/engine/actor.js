@@ -329,6 +329,7 @@
     // sprite placement relative to the feet, in scene px
     place(key, flipped) {
       const sp = E.SPRITES[key], im = IMG['spr:' + key];
+      if (sp && !im && E.want) E.want('spr:' + key, true); // a frame still on its way: fetch it next
       if (!sp || !im) return null;
       const s = this.height() / sp.h;
       const ax = flipped ? sp.w - sp.ax : sp.ax;

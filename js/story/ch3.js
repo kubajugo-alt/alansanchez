@@ -366,7 +366,6 @@
       if (F().lac_actions >= 3 || F().swapped) await S.lacerdaReturns();
     },
     leave() {
-      if (F().has_tongue && !F().slipped) { F().slipped = true; }
       if (F().lac_away && !F().swapped) {
         F().lac_away = false;
         F().lac_actions = 0;
@@ -375,7 +374,6 @@
       }
     },
     async enter() {
-      if (F().has_tongue && !F().slip_said) { /* returning later */ }
       // the first sight of him: the cream suit Celeste described
       if (!F().lac_suit_seen && S.lacerdaHere()) { F().lac_suit_seen = true; await say('alan_suit_recognise', 'lacerda_weather'); }
     },

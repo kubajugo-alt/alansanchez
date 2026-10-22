@@ -36,10 +36,21 @@ window.Warp = (function () {
     if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
     return s;
   }
+  // a lost GL context is dropped and the next draw builds a fresh one (meanwhile the figures are drawn flat); a device
+  // that keeps losing it stays flat
+  let losses = 0;
+  function lost(e) {
+    e.preventDefault();
+    if (e.target !== cv) return;
+    ready = false; gl = null; cv = null; texVer = null;
+    if (++losses >= 3) { failed = true; console.warn('Warp disabled: the GL context keeps being lost'); }
+  }
   function init() {
+    if (ready && gl.isContextLost()) return false;
     if (ready || failed) return ready;
     try {
       cv = document.createElement('canvas'); cv.width = 512; cv.height = 1024;
+      cv.addEventListener('webglcontextlost', lost);
       gl = cv.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false, preserveDrawingBuffer: true, depth: false, stencil: false });
       if (!gl) throw new Error('no webgl');
       prog = gl.createProgram();

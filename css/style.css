@@ -100,6 +100,10 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 /* ---------- toast, fade, chapter card ---------- */
 #toast { position: absolute; top: 3%; left: 50%; transform: translateX(-50%); padding: .3em 1em; background: var(--panel); border: 1px solid var(--gold-dim); opacity: 0; transition: opacity .3s; pointer-events: none; font-family: 'Cinzel', serif; }
 #toast.on { opacity: 1; }
+/* a room or painting still on its way (slow connection): a quiet note over the black */
+#loadnote { position: absolute; right: 2.5%; bottom: 4%; z-index: 60; color: var(--gold-dim); font-family: 'Cinzel', serif; letter-spacing: .1em; opacity: 0; transition: opacity .4s; pointer-events: none; }
+#loadnote.on { opacity: .85; animation: loadPulse 1.6s ease-in-out infinite; }
+@keyframes loadPulse { 50% { opacity: .4; } }
 
 #fade { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity .45s; }
 #fade.on { opacity: 1; }

@@ -86,7 +86,10 @@
     const p = sceneCoords(e), t = targetAt(p.x, p.y);
     if (t) interact(t, 'look');
   });
+  let pressFired = 0; // when a long-press examined something: the click the browser sends on lifting the finger is swallowed
   canvas.addEventListener('click', e => {
+    if (pressFired && performance.now() - pressFired < 1500) { pressFired = 0; return; } // (else it would skip the line just begun)
+    pressFired = 0;
     if (E.skipFn) { E.skipFn(); return; }
     if (E.busy || !E.room) return;
     const p = sceneCoords(e);
@@ -99,12 +102,17 @@
     interact(t, E.selItem ? 'item' : defaultVerb(t.def));
   });
   // long-press = examine on touch devices
-  let pressT = null;
+  // (a finger that moves more than about 10 px is a drag, not a press)
+  let pressT = null, pressAt = null;
   canvas.addEventListener('touchstart', e => {
-    const tch = e.touches[0]; const p = sceneCoords(tch);
-    pressT = setTimeout(() => { pressT = null; const t = targetAt(p.x, p.y); if (t && !E.busy) interact(t, 'look'); }, 550);
+    const tch = e.touches[0]; const p = sceneCoords(tch); pressAt = [tch.clientX, tch.clientY];
+    pressT = setTimeout(() => { pressT = null; const t = targetAt(p.x, p.y); if (t && !E.busy) { pressFired = performance.now(); interact(t, 'look'); } }, 550);
   }, { passive: true });
-  canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); });
+  canvas.addEventListener('touchmove', e => {
+    const tch = e.touches[0]; if (!pressT || !tch || !pressAt) return;
+    if (Math.hypot(tch.clientX - pressAt[0], tch.clientY - pressAt[1]) > 10) { clearTimeout(pressT); pressT = null; }
+  }, { passive: true });
+  canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); pressT = null; });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' || e.key === '.' || e.key === ' ') { if (E.skipFn) { E.skipFn(); e.preventDefault(); } return; }
     if ((e.key === 'i' || e.key === 'I') && !E.still) invBar.classList.toggle('show');

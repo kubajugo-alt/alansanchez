@@ -102,6 +102,7 @@
   let musicVol = 1;
   try { const v = parseFloat(localStorage.getItem(VOL_KEY)); if (v >= 0 && v <= 1) musicVol = v; } catch (e) { /* storage unavailable */ }
   try { if (localStorage.getItem(VOL_KEY + '-off') === '1') musicOn = false; } catch (e) { /* storage unavailable */ }
+  try { if (localStorage.getItem(VOL_KEY + '-voice-off') === '1') voiceOn = false; } catch (e) { /* storage unavailable */ }
   let musicDuck = null, meta = {}, fmt = null;
   function format() {
     if (fmt) return fmt;
@@ -734,7 +735,12 @@
   // any tap, or coming back to the tab, wakes a context the phone has put to sleep
   const wake = () => { if (!ctx || muted) return; holdSession(); if (ctx.state !== 'running') ctx.resume().catch(() => {}); };
   ['pointerdown', 'touchend', 'keydown'].forEach(e => window.addEventListener(e, wake, { passive: true }));
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) wake(); });
+  // a hidden tab goes quiet: the context sleeps until the player comes back (voicePlaying reads its clock, so the line
+  // being spoken holds where it is instead of running on unheard)
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) return wake();
+    if (ctx && ctx.state === 'running') ctx.suspend().catch(() => {});
+  });
   function hasVoice(id) { return voiceOn && manifest && manifest.has(id); }
 
   // Plays a voice line. Resolves with the clip duration (seconds) once it has
@@ -914,7 +920,10 @@
     return 10 * Math.log10(e / meterBuf.length + 1e-12);
   }
   function meter() { return { music: rmsDb(musicAn), voice: voicePlaying() ? rmsDb(analyser) : -120, duck: musicDuck ? musicDuck.gain.value : 1, song: songAn ? rmsDb(songAn) : -120 }; }
-  function setVoice(on) { voiceOn = on; if (!on) stopVoice(); }
+  function setVoice(on) {
+    voiceOn = on; if (!on) stopVoice();
+    try { localStorage.setItem(VOL_KEY + '-voice-off', on ? '0' : '1'); } catch (e) { /* storage unavailable */ }
+  }
   function mute() { muted = true; stopVoice(); if (ctx) ctx.suspend().catch(() => {}); }
 
   window.Sound = {

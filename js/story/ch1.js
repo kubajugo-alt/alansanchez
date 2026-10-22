@@ -39,7 +39,7 @@
     scale: [535, 362, 716, 482],
     light: () => F().ch >= 5 ? { ambient: 'rgb(120,140,180)', base: 0.62 } : { ambient: 'rgb(214,192,165)', base: 0.86, rim: 'rgba(210,225,240,0.22)', rimSide: -1 },
     lights: () => F().ch >= 5 ? [
-      { x: 178, y: 305, rgb: '200,255,190', glow: 110, ga: 0.22, power: 0.5, reach: 700, floor: [178, 600], height: 420, when: () => !F().lampOff2 },
+      { x: 178, y: 305, rgb: '200,255,190', glow: 110, ga: 0.22, power: 0.5, reach: 700, floor: [178, 600], height: 420 },
       { x: 1130, y: 200, rgb: '150,175,230', power: 0.3, reach: 1000, rim: 0.35, floor: [1100, 560], height: 700 }, // open door, night
     ] : [
       { x: 630, y: 170, rgb: '215,225,235', power: 0.32, reach: 1200, rim: 0.5, shadow: 0.55, floor: [630, 470], height: 900 },
@@ -64,7 +64,7 @@
       }
     },
     anim(g, t) {
-      if (F().ch >= 5 && !F().lampOff2) FX.moth(g, t, 172, 334, 34, 10, 2); // night: a moth round the green lamp, while it is lit
+      if (F().ch >= 5) FX.moth(g, t, 172, 334, 34, 10, 2); // night: a moth round the green lamp
       if (F().ch < 5 && F().lampOff) S.lampOut(g);
       if (F().ch < 5) { FX.shaft(g, [[420, 30], [850, 30], [860, 716], [380, 716]], '210,220,230', 0.05); FX.motes(g, t, 420, 60, 430, 520, 40, '255,240,210'); }
       if (!F().heard_machine || (F().ch >= 5 && !F().heard_msg3)) if (Math.floor(t * 2) % 2 === 0) FX.glow(g, 1062, 384, 14, '255,40,20', 0.9);

@@ -27,28 +27,32 @@
   }
   async function goRoom(id, entry, opts) {
     opts = opts || {};
+    if (!ROOMS[id]) throw new Error('no room ' + id);
     E.busy++;
-    if (E.room && !opts.instant) { const s = opts.sound !== undefined ? opts.sound : passSound(E.room.id, id); if (s) Sound.sfx(s); await fade(true); }
-    if (E.room && E.room.leave) E.room.leave();
-    E.room = ROOMS[id];
-    E.state.room = id;
-    if (E.room.fog) {
-      E.fogA = FX.makeFog(id.length * 31 + 1, E.room.fogRGB || '214,218,214', 1);
-      E.fogB = FX.makeFog(id.length * 17 + 7, E.room.fogRGB || '200,206,206', 0.8);
-    }
-    const e = (entry && E.room.entries && E.room.entries[entry]) || (E.room.entries && E.room.entries.default) || [640, 640, 'e'];
-    if (opts.pos) { E.player.x = opts.pos[0]; E.player.y = opts.pos[1]; E.player.dir = opts.pos[2] || 'e'; }
-    else { E.player.x = e[0]; E.player.y = e[1]; E.player.dir = e[2] || 'e'; }
-    E.player.stop();
-    E.player.visible = E.room.player !== false;
-    refreshNpcs(true);
-    renderLabels();
-    Sound.playMusic(typeof E.room.music === 'function' ? E.room.music() : E.room.music);
-    Sound.ambience((typeof E.room.ambience === 'function' ? E.room.ambience() : E.room.ambience) || null);
-    Sound.setRoom(E.room.acoustic || E.room.id);
-    E.clearSpeech();
-    if (!opts.instant) await fade(false);
-    E.busy--;
+    // (try/finally: a leave hook that throws must not leave the screen black and every click refused)
+    try {
+      if (E.room && !opts.instant) { const s = opts.sound !== undefined ? opts.sound : passSound(E.room.id, id); if (s) Sound.sfx(s); await fade(true); }
+      if (E.ensure) await E.ensure(E.roomAssets(id)); // the room's art and its people, if they haven't streamed in yet
+      if (E.room && E.room.leave) { try { E.room.leave(); } catch (err) { console.error('leave hook of ' + E.room.id, err); } }
+      E.room = ROOMS[id];
+      E.state.room = id;
+      if (E.room.fog) {
+        E.fogA = FX.makeFog(id.length * 31 + 1, E.room.fogRGB || '214,218,214', 1);
+        E.fogB = FX.makeFog(id.length * 17 + 7, E.room.fogRGB || '200,206,206', 0.8);
+      }
+      const e = (entry && E.room.entries && E.room.entries[entry]) || (E.room.entries && E.room.entries.default) || [640, 640, 'e'];
+      if (opts.pos) { E.player.x = opts.pos[0]; E.player.y = opts.pos[1]; E.player.dir = opts.pos[2] || 'e'; }
+      else { E.player.x = e[0]; E.player.y = e[1]; E.player.dir = e[2] || 'e'; }
+      E.player.stop();
+      E.player.visible = E.room.player !== false;
+      refreshNpcs(true);
+      renderLabels();
+      Sound.playMusic(typeof E.room.music === 'function' ? E.room.music() : E.room.music);
+      Sound.ambience((typeof E.room.ambience === 'function' ? E.room.ambience() : E.room.ambience) || null);
+      Sound.setRoom(E.room.acoustic || E.room.id);
+      E.clearSpeech();
+      if (!opts.instant) await fade(false);
+    } catch (err) { $('#fade').classList.remove('on'); throw err; } finally { E.busy--; }
     if (!opts.noEnter && E.room.enter) { E.busy++; try { await E.room.enter(entry); } finally { E.busy--; } }
     if (!E.busy && !E.room.noSave && !opts.noSave) E.autosave();
     E.updateHover();

@@ -103,40 +103,44 @@
     const [who, raw] = L;
     const text = strip(raw);
     E.busy++;
-    clearSpeech();
-    const actor = (opts.offscreen || E.still) ? null : actorFor(who);
-    E.speaking = { id, actor };
-    if (actor) {
-      actor.talking = true; actor.talkPose = true; actor.talkT = 0.6; actor.talkWho = who;
-      const pd = E.player.dir;
-      if (!cutsceneHold()) faceEachOther(actor, id);
-      // Alan turning to the speaker (now, or just before): the line waits for the turn, so nobody is spoken to over his shoulder
-      // (or set but not drawn yet: the frame on screen still looks the other way)
-      const p = E.player, unshown = (p.dir === 'e' || p.dir === 'w') && !p.pairKey && p.lastLooksLeft != null && p.lastLooksLeft !== (p.dir === 'w');
-      if (!window.FAST && p.visible && (p.dir !== pd || p.viaT != null || unshown)) await wait(220);
-      speechEl.textContent = text; speechEl.style.color = COLORS[who] || '#fff';
-      speechEl.style.display = 'block'; positionSpeech();
-    } else {
-      narrEl.querySelector('.who').textContent = who === 'narr' ? '' : (opts.label || NAMES[who] || '');
-      const t = narrEl.querySelector('.txt');
-      t.textContent = text;
-      t.style.fontStyle = who === 'narr' ? 'italic' : 'normal';
-      t.style.color = COLORS[who];
-      narrEl.classList.toggle('top', !!(E.captionTop && E.still)); // a still whose subject is at the bottom keeps it clear
-      narrEl.style.display = 'block';
-    }
-    const dur = await Sound.playVoice(id, !actor);
-    const ms = window.FAST ? 20 : dur ? dur * 1000 + 250 : Math.max(2500, 800 + text.length * 70); // no recording: about 14 characters a second, the narrator's own pace
-    await new Promise(res => {
-      let finished = false, t = setTimeout(check, ms);
-      // a slow-loading voice can outlast the estimate: hold the line until it has finished
-      function check() { if (finished) return; if (!window.FAST && Sound.voicePlaying && Sound.voicePlaying()) t = setTimeout(check, 120); else done(); }
-      function done() { if (finished) return; finished = true; clearTimeout(t); if (E.skipFn === done) E.skipFn = null; res(); }
-      setTimeout(() => { if (!finished) E.skipFn = done; }, 180);
-    });
-    Sound.stopVoice();
-    clearSpeech();
-    E.busy--;
+    // (try/finally: a line that throws must not leave the game busy, refusing every click from then on)
+    let held = true;
+    try {
+      clearSpeech();
+      const actor = (opts.offscreen || E.still) ? null : actorFor(who);
+      E.speaking = { id, actor };
+      if (actor) {
+        actor.talking = true; actor.talkPose = true; actor.talkT = 0.6; actor.talkWho = who;
+        const pd = E.player.dir;
+        if (!cutsceneHold()) faceEachOther(actor, id);
+        // Alan turning to the speaker (now, or just before): the line waits for the turn, so nobody is spoken to over his shoulder
+        // (or set but not drawn yet: the frame on screen still looks the other way)
+        const p = E.player, unshown = (p.dir === 'e' || p.dir === 'w') && !p.pairKey && p.lastLooksLeft != null && p.lastLooksLeft !== (p.dir === 'w');
+        if (!window.FAST && p.visible && (p.dir !== pd || p.viaT != null || unshown)) await wait(220);
+        speechEl.textContent = text; speechEl.style.color = COLORS[who] || '#fff';
+        speechEl.style.display = 'block'; positionSpeech();
+      } else {
+        narrEl.querySelector('.who').textContent = who === 'narr' ? '' : (opts.label || NAMES[who] || '');
+        const t = narrEl.querySelector('.txt');
+        t.textContent = text;
+        t.style.fontStyle = who === 'narr' ? 'italic' : 'normal';
+        t.style.color = COLORS[who];
+        narrEl.classList.toggle('top', !!(E.captionTop && E.still)); // a still whose subject is at the bottom keeps it clear
+        narrEl.style.display = 'block';
+      }
+      const dur = await Sound.playVoice(id, !actor);
+      const ms = window.FAST ? 20 : dur ? dur * 1000 + 250 : Math.max(2500, 800 + text.length * 70); // no recording: about 14 characters a second, the narrator's own pace
+      await new Promise(res => {
+        let finished = false, t = setTimeout(check, ms);
+        // a slow-loading voice can outlast the estimate: hold the line until it has finished
+        function check() { if (finished) return; if (!window.FAST && Sound.voicePlaying && Sound.voicePlaying()) t = setTimeout(check, 120); else done(); }
+        function done() { if (finished) return; finished = true; clearTimeout(t); if (E.skipFn === done) E.skipFn = null; res(); }
+        setTimeout(() => { if (!finished) E.skipFn = done; }, 180);
+      });
+      Sound.stopVoice();
+      clearSpeech();
+      held = false; E.busy--;
+    } finally { if (held) { E.busy--; try { Sound.stopVoice(); clearSpeech(); } catch (e) { /* ignore */ } } }
     await wait(110);
   }
   // a recorded song with timed captions: cues [[seconds, text], ...]; a click ends it early
@@ -157,10 +161,12 @@
     const skip = () => { if (!over) song.stop(900); };
     E.skipFn = skip;
     if (window.FAST) song.stop(10);
-    await song.ended; over = true;
-    clearInterval(tick); if (E.skipFn === skip) E.skipFn = null;
-    narrEl.style.display = 'none'; t.style.fontStyle = 'normal';
-    E.busy--;
+    try { await song.ended; } finally {
+      over = true;
+      clearInterval(tick); if (E.skipFn === skip) E.skipFn = null;
+      narrEl.style.display = 'none'; t.style.fontStyle = 'normal';
+      E.busy--;
+    }
   }
   async function says(...ids) { if (Sound.preloadVoice) ids.forEach(id => Sound.preloadVoice(id)); for (const id of ids) await say(id); }
 

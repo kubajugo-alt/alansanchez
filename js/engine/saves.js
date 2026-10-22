@@ -22,6 +22,7 @@
     try { localStorage.setItem(SAVE_KEY_MANUAL, snapshot()); return true; } catch (e) { return false; }
   }
   // Continue picks whichever save is newer (the autosave or the menu's); Load from the menu prefers the menu's save
+  // (asking twice when it is the older one)
   function newestSave() {
     const a = readKey(SAVE_KEY), m = readKey(SAVE_KEY_MANUAL);
     const t = j => { try { return JSON.parse(j).savedAt || 0; } catch (e) { return -1; } };
@@ -38,7 +39,9 @@
     E.state = Object.assign(freshState(), parsed);
     // saves from before the sketch became an item: hand it over so Inês and Celeste can take it
     if (E.state.flags.sketched_tile && !E.state.inv.includes('sketch')) E.state.inv.push('sketch');
-    E.state.inv = E.state.inv.filter(id => id !== 'weight'); // the brass weight was taken out of the game
+    // items taken out of the game (the brass weight, or any id this build no longer has) would break the inventory bar
+    if (!Array.isArray(E.state.inv)) E.state.inv = [];
+    E.state.inv = E.state.inv.filter(id => id !== 'weight' && E.ITEMS[id]);
     E.selItem = null; E.renderInv();
     // loading over a game in progress: put the old room away cleanly first (its leave hook, Alan's pose, the cigarette, any line)
     E.noteInput(); if (E.player) { E.player.pose = null; E.player.stop(); }
@@ -95,11 +98,24 @@
     if (E.room.noSave && E.room.id !== 'map') return toast("Can't save here"); // (the map is fine: Continue opens it again)
     if (E.state.flags.dawn) return toast('The story is over');
     toast(saveManual() ? 'Game saved' : 'Saving failed (browser storage is off)'); };
+  // Load restores the menu's save; when that is older than the autosave it asks for a second press first, so an old
+  // save from chapter I can't quietly throw away the hours since
+  let loadArmed = 0;
   $('#opt-load').onclick = async e => { e.stopPropagation(); $('#menu').classList.remove('open');
     if (midScene()) return toast("Can't load during a scene");
     if (!hasSave()) return toast('No saved game');
-    toast((await loadSave(readKey(SAVE_KEY_MANUAL) || readKey(SAVE_KEY))) ? 'Game loaded' : 'That save could not be read'); };
-  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 1500); }
+    const m = readKey(SAVE_KEY_MANUAL), a = readKey(SAVE_KEY);
+    const at = j => { try { return JSON.parse(j).savedAt || 0; } catch (err) { return 0; } };
+    if (m && a && at(m) < at(a) && Date.now() - loadArmed > 4000) {
+      loadArmed = Date.now();
+      const mins = Math.round((Date.now() - at(m)) / 60000);
+      const ago = mins < 2 ? 'a minute' : mins < 120 ? mins + ' minutes' : Math.round(mins / 60) + ' hours';
+      return toast('Your save is from ' + ago + ' ago: press Load again to go back to it', 3500);
+    }
+    loadArmed = 0;
+    toast((await loadSave(m || a)) ? 'Game loaded' : 'That save could not be read'); };
+  let toastT = null;
+  function toast(msg, ms) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), ms || 1500); }
 
-  Object.assign(E, { autosave, hasSave, clearSaves, loadSave, checkpoint, card, showModal, syncOptions, toast });
+  Object.assign(E, { newestSave, autosave, hasSave, clearSaves, loadSave, checkpoint, card, showModal, syncOptions, toast });
 })();

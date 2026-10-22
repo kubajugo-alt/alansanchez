@@ -50,6 +50,7 @@
   async function showStill(name, fn, opts) {
     opts = opts || {};
     E.busy++; E.cutscene++;
+    if (E.ensure) await E.ensure(E.stillKeys(name)); // (its painting may still be on its way)
     // cross: dissolve over the painting already up (kept with keep), instead of rising from the room or black
     // a still is painted at screen size: zooming in past 1.2 shows its softness
     if (opts.zoom) opts = Object.assign({}, opts, { zoom: opts.zoom.map(z => Math.min(ZMAX, z)) });
@@ -68,7 +69,7 @@
     }
     finally {
       E.captionTop = false;
-      if (!opts.keep) { E.still.target = 0; await wait(window.FAST ? 20 : 700); }
+      if (!opts.keep) { if (E.still) E.still.target = 0; await wait(window.FAST ? 20 : 700); }
       E.busy--; E.cutscene--;
     }
   }
@@ -78,6 +79,7 @@
   // transitions and the fado slideshow (js/story/transitions.js); endStill() fades the last one out.
   function stillTo(name, opts) {
     opts = opts || {};
+    if (E.want) E.stillKeys(name).forEach(k => E.want(k, true)); // (no waiting here: it rises from black once it lands)
     if (opts.zoom) opts = Object.assign({}, opts, { zoom: opts.zoom.map(z => Math.min(ZMAX, z)) });
     const prev = E.still && E.still.target > 0 && E.still.alpha > 0.05 ? E.still : null;
     if (prev) prev.prev = null;
@@ -98,7 +100,7 @@
       const show = () => {
         const p = pages[i];
         page.className = 'page ' + (p.cls || '');
-        page.style.backgroundImage = p.img ? `url(${(IMG[p.img] || {}).src || ''})` : 'none';
+        page.style.backgroundImage = p.img ? `url(${(IMG[p.img] || {}).src || (E.srcOf && E.srcOf(p.img)) || ''})` : 'none';
         page.innerHTML = p.html || '';
         if (p.canvas) {
           const c = document.createElement('canvas');
