@@ -973,6 +973,10 @@ session lived in the session's scratchpad and are gone; everything that matters 
      sprites for scale and the real sizes in the prompt. `fresh3` (camera a touch closer, desk smaller) and `fresh4`
      (closest to the old layout), 2752x1536 raw, `art/review/bg/shop_fresh{3,4}.jpg` at 1280x720. On the page (same
      link) as Version 1 / 2 with in-game shots; the pick goes to `shop/fresh`. The patch work above is superseded.
+   - **Closed: the shop keeps its original painting** (the user: "ok, keep the original one, these tweaks don't work").
+     The `?shop=new` switch is removed from main.js; `art/bg/` was never changed. Kept, harmless: the exposed
+     `S.SIDEBOARD`, `S.INES_JOBS`, `S.PESSOA_AT` (same values as before), `?scene=shopjobs`, `gen_image.py --fresh`
+     and `--key magenta`. The review files under `art/review/shop/` and `art/review/bg/shop_*` stay as a record.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

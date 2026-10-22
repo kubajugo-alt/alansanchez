@@ -124,7 +124,7 @@
   // the chapter transitions (js/story/transitions.js): ?scene=tr1 … tr4 play the paintings and the next chapter card,
   // tr5 the end of chapter V (?scene=fado plays the song with its painting slideshow)
   [1, 2, 3, 4].forEach(n => { PREVIEW['tr' + n] = { flags: { ch: n }, room: 'shop', pos: [815, 616, 'e'], run: () => S.chapter(n + 1, 'narr_ch' + (n + 1) + '_card') }; });
-  // the shop as it stands, nothing scripted: Inês goes about her jobs (with ?shop=new, the repainted shop)
+  // the shop as it stands, nothing scripted: Inês goes about her jobs
   PREVIEW.shopjobs = { flags: { ch: 2, heard_machine: true }, room: 'shop', pos: [236, 712, 'e'], run: async () => {} };
   PREVIEW.tr5 = { flags: { ch: 5 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await S.transition(5, { toBlack: true }); await G.fade(false); } };
   async function preview(k) {
@@ -308,34 +308,6 @@
         const bas = R.occluders.find(o => o.y === 500); if (bas) bas.polys = [[[160, 383], [300, 375], [842, 375], [842, 484], [160, 484]]];
         S.BATH_TALL = true;
       }
-    }
-    // ?shop=new, for review: the shop's painting with its things at a real size beside the people, patched into the
-    // original (scripts/shop_patch.py: each object edited up close, pasted back only around itself, the rest of the
-    // painting its own pixels): the banker's lamp smaller, the till smaller and turned to the door, the answering
-    // machine, telephone and newspaper at real size, a bigger sugar tin. The layout is the original's, so the desk
-    // outline, the kettle, Inês's jobs and the depth map stay; only what sits on the changed objects moves. Day only (not the night painting).
-    if (new URLSearchParams(location.search).get('shop') === 'new') {
-      const R = S.ROOMS.shop, day = () => F().ch < 5;
-      // (and its open-drawer and no-magnifier versions, patched alike)
-      const bgFn0 = R.bgFn; R.bgFn = () => day() ? bgFn0().replace(/^shop/, '../review/bg/shop_new') : bgFn0();
-      R.bgs = (R.bgs || []).concat(['', '_drawer', '_nomag', '_drawer_nomag'].map(v => '../review/bg/shop_new' + v)); R.depth = 'shop_depth';
-      const H = { "Banker's lamp": [130, 338, 82, 112], 'Sugar tin': [650, 370, 46, 46], 'Cash register': [896, 276, 106, 102],
-        'Answering machine': [968, 362, 86, 40], Telephone: [1048, 342, 66, 56], Newspaper: [1068, 408, 152, 46] };
-      for (const h of R.hotspots) { const n = typeof h.name === 'function' ? null : h.name; if (H[n]) h.rect = H[n]; }
-      const lights0 = R.lights; R.lights = () => (typeof lights0 === 'function' ? lights0() : lights0).map(l => l.x === 178 ? Object.assign({}, l, { x: 170, y: 354 }) : l);
-      // the lamp switched off: the old shade's shadow, fitted to the smaller shade
-      const lampOut0 = S.lampOut; S.lampOut = g => { g.save(); g.translate(137, 345); g.scale(0.64, 0.66); g.translate(-126, -290); lampOut0(g); g.restore(); };
-      if (S.PESSOA_AT) Object.assign(S.PESSOA_AT, { machine: [1012, 394, 'w'] });
-      const anim0 = R.anim;
-      R.anim = function (g, t) {
-        if (!day()) return anim0.call(this, g, t);
-        // as anim0, with the machine's message light on the smaller machine
-        if (F().lampOff) S.lampOut(g);
-        FX.shaft(g, [[420, 30], [850, 30], [860, 716], [380, 716]], '210,220,230', 0.05); FX.motes(g, t, 420, 60, 430, 520, 40, '255,240,210');
-        if (!F().heard_machine && Math.floor(t * 2) % 2 === 0) FX.glow(g, 1042, 386, 10, '255,40,20', 0.9);
-        if (F().ch === 3 && F().steaming && !(S.kettleHeld && S.kettleHeld())) FX.wisps(g, t, 520, 345, { n: 6, rise: 80, spread: 10, a: 0.14, size: 10 });
-      };
-      S.SHOP_NEW = true;
     }
     // Duarte's rewritten upstairs scene (art/review/alan/duarte_new, visits.js S.visitGuitar), approved 2026-10-21; ?duarte=old plays the first one
     if (new URLSearchParams(location.search).get('duarte') !== 'old') {
