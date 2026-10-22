@@ -122,11 +122,11 @@
     6
    ]
   ],
-  "corners": true
+  "corners": 190
  },
  "npc_couple_b": {
   "wet": true,
-  "corners": true
+  "corners": 190
  },
  "npc_laundry": {
   "wet": true,
@@ -615,7 +615,7 @@
     7
    ]
   ],
-  "corners": true
+  "corners": 190
  },
  "cards_listen_b": {
   "holes": [
@@ -644,7 +644,7 @@
     6
    ]
   ],
-  "corners": true
+  "corners": 190
  },
  "alan_asleep": {
   "holes": [
@@ -661,7 +661,7 @@
     4
    ]
   ],
-  "corners": true
+  "corners": 190
  },
  "npc_mender1": {
   "holes": [
@@ -678,7 +678,7 @@
     8
    ]
   ],
-  "corners": true
+  "corners": 190
  },
  "npc_mender1_b": {
   "holes": [
@@ -695,7 +695,7 @@
     6
    ]
   ],
-  "corners": true
+  "corners": 190
  },
  "prop_tram": {
   "white": false
@@ -733,7 +733,7 @@
     130
    ]
   ],
-  "corners": true
+  "corners": 190
  },
  "npc_fish_b": {
   "white_skip": [
@@ -744,109 +744,109 @@
     130
    ]
   ],
-  "corners": true
+  "corners": 190
  },
  "duarte_play1": {
-  "corners": true
+  "corners": 190
  },
  "duarte_play2": {
-  "corners": true
+  "corners": 190
  },
  "duarte_play3": {
-  "corners": true
+  "corners": 190
  },
  "guitar_floor1": {
-  "corners": true
+  "corners": 190
  },
  "guitar_floor2": {
-  "corners": true
+  "corners": 190
  },
  "guitar_floor3": {
-  "corners": true
+  "corners": 190
  },
  "guitar_floor4": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench_awake": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench_b": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench_confide": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench_doze2": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench_drowsy": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench_talk1": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench_talk2": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench_talk3": {
-  "corners": true
+  "corners": 190
  },
  "npc_bench_wistful": {
-  "corners": true
+  "corners": 190
  },
  "npc_guard": {
-  "corners": true
+  "corners": 190
  },
  "npc_guard_b": {
-  "corners": true
+  "corners": 190
  },
  "npc_guitar": {
-  "corners": true
+  "corners": 190
  },
  "npc_guitar_b": {
-  "corners": true
+  "corners": 190
  },
  "npc_guitar_flourish": {
-  "corners": true
+  "corners": 190
  },
  "npc_guitar_lean": {
-  "corners": true
+  "corners": 190
  },
  "npc_guitar_serenade": {
-  "corners": true
+  "corners": 190
  },
  "npc_guitar_talk1": {
-  "corners": true
+  "corners": 190
  },
  "npc_guitar_talk2": {
-  "corners": true
+  "corners": 190
  },
  "npc_guitar_talk3": {
-  "corners": true
+  "corners": 190
  },
  "npc_guitar_wink": {
-  "corners": true
+  "corners": 190
  },
  "npc_mender1_talk": {
-  "corners": true
+  "corners": 190
  },
  "npc_mender2": {
-  "corners": true
+  "corners": 190
  },
  "npc_mender2_b": {
-  "corners": true
+  "corners": 190
  },
  "npc_mender2_talk": {
-  "corners": true
+  "corners": 190
  },
  "npc_volunteer": {
-  "corners": true
+  "corners": 190
  },
  "npc_volunteer_b": {
-  "corners": true
+  "corners": 190
  },
  "alan_cutpalm": {
   "keep": [

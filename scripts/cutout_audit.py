@@ -404,7 +404,7 @@ def clean(a, keep=(), holes=(), hole_tol=12, wet=False, halo=True, keep_strands=
     # white corners left in cut pockets (a chair's gaps): small pure-white bits at the outline, mostly ringed by paint
     if corners:
         rgb = a[..., :3].astype(np.int16); sat = rgb.max(-1) - rgb.min(-1); g = rgb.mean(-1)
-        w = (rgb.min(-1) > 190) & (sat < 20) & (al > 0) & ~keepm
+        w = (rgb.min(-1) > corners) & (sat < 20) & (al > 0) & ~keepm
         n, lab, st, _ = cv2.connectedComponentsWithStats(w.astype(np.uint8))
         clear = (al < 20)
         kill = np.zeros(w.shape, bool)
@@ -471,7 +471,7 @@ def fix(names, cfg, sheets=True):
         a = load(os.path.join(ROOT, src[n]))
         b, log = clean(a, keep=c.get('keep', []), holes=c.get('holes', []), wet=c.get('wet', False), halo=c.get('halo', True),
                        keep_strands=c.get('strands', False), broom=c.get('broom', False),
-                       white=c.get('white', True), white_skip=c.get('white_skip', []), corners=c.get('corners', False))
+                       white=c.get('white', True), white_skip=c.get('white_skip', []), corners=c.get('corners', 0))
         ch = changed(a, b)
         if not ch.any(): continue
         Image.fromarray(b, 'RGBA').save(f'{OUT}/sprites/{n}.webp', lossless=True, quality=100, method=6, exact=False)
