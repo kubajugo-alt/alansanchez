@@ -40,6 +40,7 @@
   };
   const icon = k => `<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${MOTIF[k]}</svg>`;
   const placed = () => F().bastos_m || (F().bastos_m = []);
+  S.ITEMS.ckey = { name: "Prof. Bastos's key (the glass case)", icon: () => 'key', look: 'narr_look_bastos_case' };
   const allPlaced = () => OBJECTS.every(o => placed().includes(o.k));
 
   // ---------------------------------------------------------------- the shelf close-up
@@ -93,7 +94,7 @@
       placed().push(o.k); sfx('stone_clack', 0.4);
       await say(...o.read);
       await (o.joke ? joke(o.reply) : say(o.reply));
-      if (allPlaced()) return S.bastosCaseOpens();
+      if (allPlaced()) return S.bastosKeyFound();
     }
   };
   // a placed object looked at again: the boat holds the last reel, once the empty box has been seen
@@ -106,11 +107,23 @@
     const o = OBJECTS.find(x => x.k === k);
     await say(o.read[0]);
   };
+  // the last book back: his key to the case drops out of it; then Inês and Alan put the eight myths together
+  S.bastosKeyFound = async function () {
+    if (F().bastos_key_found) return;
+    F().bastos_key_found = true;
+    sfx('key_pickup', 0.7);
+    await G.say('narr_bastos_case', { offscreen: true });
+    S.give('ckey');
+    await say('ines_sea_1', 'alan_sea_1', 'ines_sea_2', 'alan_sea_2', 'ines_sea_3', 'ines_sea_4', 'ines_sea_5', 'ines_sea_6', 'alan_sea_3', 'ines_sea_7');
+    await joke('alan_sea_4');
+    S.sea('rules');
+  };
+  // his key on the case: inside, the recorder and his last index card
   S.bastosCaseOpens = async function () {
-    if (F().bastos_case_open) return;
-    F().bastos_case_open = true;
-    sfx('lamp_click', 0.7);
-    await say('narr_bastos_case', 'ines_bastos_card'); await joke('alan_bastos_card');
+    if (F().bastos_case_open) return S.done();
+    G.takeItem('ckey'); F().bastos_case_open = true;
+    sfx('case_open', 0.7);
+    await say('alan_bastos_case_open', 'ines_bastos_card'); await joke('alan_bastos_card');
     S.sea('debt');
   };
 
@@ -169,6 +182,7 @@
     });
   };
   S.bastosRecorder = async function () {
+    if (!F().bastos_case_open && G.has('ckey')) return S.bastosCaseOpens();
     if (!F().bastos_case_open) return say(F().bastos_case_seen ? 'ines_bastos_case_locked' : (F().bastos_case_seen = true, 'narr_look_bastos_case'));
     if (!F().bastos_rec_seen) { F().bastos_rec_seen = true; await say('narr_look_recorder'); }
     if (F().bastos_done) return S.done();
@@ -222,6 +236,7 @@
 
   // ---------------------------------------------------------------- the notebook: "The Sea"
   const SEA = [
+    ['rules', 'Every people that lived by the sea knew it as someone, older than its gods, and knew its rules: it answers when called; it collects what is owed; it warns first; it obeys whoever holds the right thing.'],
     ['debt', 'Every people that lived by the sea kept a debt to it. Bells were how Europe paid the instalments. (Bastos)'],
     ['baptism', 'The Brotherhood baptised the bell in the sea to call back their drowned. The sea answered by coming itself: the three waves of 1 November 1755. Not the dead. It came to collect more.'],
     ['summons', 'A bell baptised in the sea is a summons, not a shield. The godparent’s family commands the water. Whoever rings it again, hoping for the dead, gets the same answer.'],
@@ -240,6 +255,7 @@
   S.bastosHint = function () {
     const f = F();
     if (!allPlaced()) return 'ines_hint_shelves';
+    if (!f.bastos_case_open) return G.has('ckey') ? 'ines_hint_case_key' : 'ines_bastos_case_locked';
     if (!f.bastos_lessons) return 'ines_hint_thread';
     if (!f.bastos_box_seen) return 'ines_tape_missing';
     if (!f.bastos_reel_found) return 'ines_hint_reel';
@@ -294,7 +310,8 @@
       { name: 'Window', rect: [905, 40, 145, 245], at: [900, 450], face: 'n', look: 'narr_look_bastos_window' },
       { name: 'Display case', rect: [630, 262, 170, 150], at: [715, 445], face: 'n',
         look: () => F().bastos_case_open ? S.bastosRecorder() : say('narr_look_bastos_case'),
-        use: () => S.bastosRecorder(), take: () => S.bastosRecorder() },
+        use: () => S.bastosRecorder(), take: () => S.bastosRecorder(),
+        items: { ckey: () => S.bastosCaseOpens(), any: 'alan_fail_05' } },
       // the way out on the left edge (a strip along the bottom sat under the inventory bar)
       { name: 'Leave the flat', rect: [0, 470, 70, 250], at: [60, 682], face: 'w', exit: 'map', entry: 'bastos' },
     ],

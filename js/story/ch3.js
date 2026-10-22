@@ -366,6 +366,9 @@
           any: 'alan_fail_lacerda_item',
         } },
       { name: 'Leave the shop', rect: [0, 690, 1280, 30], at: [640, 712], exit: 'map', entry: 'antiques' },
+      // (the middle of that strip sits under the inventory bar: the bottom corners are the way out too)
+      { name: 'Leave the shop', rect: [0, 650, 300, 70], at: [170, 700], exit: 'map', entry: 'antiques' },
+      { name: 'Leave the shop', rect: [980, 650, 300, 70], at: [1110, 705], exit: 'map', entry: 'antiques' },
     ],
     // three actions while Lacerda is in the back room
     async onAction(t, verb) {
