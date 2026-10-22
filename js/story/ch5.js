@@ -288,7 +288,7 @@
     return false;
   };
   S.giveLedger = async function () {
-    if (F().lacerda_distracted) return say('alan_fail_04');
+    if (F().lacerda_distracted) return S.done();
     // Inês knows what's on the last page: Joaquim wrote down Afonso Lacerda's last words
     await say('ines_page');
     await G.closeup([{ img: 'close:paper_aged', cls: 'doc-hand', html: `<p>&nbsp;</p><p>Afonso Lacerda's last words, as the water rose, were for his son:</p><p style="text-align:center">'Vicente, let it go.'</p><p style="text-align:right">J. S.</p>` }]);
@@ -320,7 +320,7 @@
     }
   };
   S.cutRopes = async function () {
-    if (F().ines_free) return say('alan_fail_04');
+    if (F().ines_free) return S.done();
     if (!F().lacerda_distracted) return say('alan_cut_watched');
     const ines = G.npc('ines');
     // he doesn't mind: he believes the water is his
@@ -335,7 +335,7 @@
   const LAMP_SPOT = [462, 482]; // mid-walkway (its curbs are at x 377 and 510 here)
   S.giveLantern = async function () {
     if (!F().ines_free) return say('ines_hint_free');
-    if (F().bell_lit) return say('alan_fail_04');
+    if (F().bell_lit) return S.done();
     G.takeItem('lantern'); F().has_lantern = false;
     const ines = G.npc('ines'); ines.set = 'lantern'; ines.def.fixedDir = false;
     await say('ines_lantern');
@@ -348,7 +348,7 @@
     await say('narr_bell_lit');
   };
   S.cutPalm = async function () {
-    if (F().blood) return say('alan_fail_04');
+    if (F().blood) return S.done();
     if (!G.has('tongue')) return say('alan_fail_06');
     G.player.pose = 'cut'; sfx('knife');
     await say('ines_no'); await joke('alan_papercut');

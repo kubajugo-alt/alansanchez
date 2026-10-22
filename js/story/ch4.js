@@ -124,7 +124,7 @@
   S.quayHint = () => !F().knocked ? 'celeste_hint_boat' : !F().ze_awake ? (F().knot_tried ? 'celeste_hint_knot' : 'celeste_hint_wake') : !F().ze_believes ? 'celeste_hint_ze' : !F().ze_saved ? 'celeste_hint_tile' : 'celeste_hint_phone';
   S.quayPhone = async function () {
     if (!F().ze_saved) return say('alan_phone_cais_early');
-    if (F().rang_shop) return say('alan_fail_04');
+    if (F().rang_shop) return S.done();
     F().rang_shop = true;
     await posed('phone', async () => {
       sfx('payphone_coins');
@@ -219,7 +219,7 @@
     g.restore();
   };
   S.mooring = async function () {
-    if (F().ze_awake) return say('alan_fail_04');
+    if (F().ze_awake) return S.done();
     if (!F().wake_rule && !F().knocked) return say('narr_look_line');
     const p = G.player;
     // the line is the painted one: he stands where both fists close on it, and hauls
@@ -373,7 +373,7 @@
     F().hammer_tried = true;
   };
   S.breakTile = async function () {
-    if (F().ze_saved) return say('alan_fail_04');
+    if (F().ze_saved) return S.done();
     if (!F().tile_held) return say('narr_look_bunktile');
     await joke('alan_ask_tongue'); await say('ze_justdo');
     const p = G.player;

@@ -515,6 +515,13 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Rui** (rui_murder): Then it's murder. Unexplained, but murder.
 - **Alan** (alan_obituary): If I'm not out by dawn, Rui, the obituary says 'witty'. Not 'lazy'. 'Witty'.
 - **Alan** (alan_door_ledger): Not without the ledger. Whatever Inês did with it, she did it on purpose.
+- **Alan** (alan_ch5_hint_cat): [quiet] What would Inês say? [beat] 'He's lying on something, Alan. And you've got a sardine. Do the maths.'
+- **Alan** (alan_ch5_hint_machine): The machine's still blinking. Inês would have played it by now. Twice, with a pencil.
+- **Alan** (alan_ch5_hint_rui): Inês would say ring Rui. Then she'd dial it for me, because she knows I'd stall.
+- **Alan** (alan_ch5_hint_vasco): [quiet] Vasco's card. Inês would tell me to ring him. She'd say it was for the case. [beat] It isn't.
+- **Alan** (alan_ch5_hint_carmo): Under the Carmo, twenty-five to one. Inês would already be there, telling him off.
+- **Alan** (alan_ch5_hint_tomas): Tomás looks like a man who's waited forty years to say something. Inês would say: let him.
+- **Alan** (alan_ch5_hint_grate): [quiet] The grate. Down. She hates waiting, and I've kept her long enough.
 
 ## Taberna (optional, night)
 
@@ -744,6 +751,10 @@ Lines marked † are not referenced by name in the story code: some are built fr
 - **Alan** (alan_fail_07): Grandfather would have known what to do with that. I know what not to do.
 - **Alan** (alan_fail_08): Those two things have nothing to say to each other. Like me at a wedding.
 - **Alan** (alan_fail_09): Tempting. Pointless, but tempting.
+- **Alan** (alan_done_1): Done that already. Doing it twice won't make it more done. I've tested the theory with naps.
+- **Alan** (alan_done_2): Already did that. I know. It surprised me too.
+- **Alan** (alan_done_3): Been there. I'm turning over a new leaf, not the same one twice.
+- **Alan** (alan_done_ch5): [quiet] That's done. Keep moving, Alan.
 - **Alan** (alan_fail_10) †: Even Pessoa would look at me funny for that, and he sleeps in a bookshop.
 - **Alan** (alan_fail_look): Nothing special about it. Which makes two of us.
 - **Alan** (alan_fail_take): I don't need that. I barely need half of what I've got.

@@ -205,7 +205,8 @@
 
   // ---------------------------------------------------------------- items
   S.ITEMS = {
-    notebook: { name: 'Notebook', read: () => S.readNotebook(), look: async () => { await S.readNotebook(); await S.posed('write', () => say(F().vasco_thursday ? 'alan_two_numbers' : 'alan_look_notebook')); } },
+    notebook: { name: 'Notebook', read: async () => { await S.readNotebook(); const h = S.ch5Hint(); if (h) await say(h); },
+      look: async () => { await S.readNotebook(); const h = S.ch5Hint(); await S.posed('write', () => say(h || (F().vasco_thursday ? 'alan_two_numbers' : 'alan_look_notebook'))); } },
     sketch: { name: 'Sketch of the tile', look: 'alan_look_sketch' },
     bunktile: { name: 'Blue tile', look: 'narr_look_bunktile', with: { tongue: () => S.breakTile(), sanches_fragment: () => say('alan_fragment_tile') } },
     coins: { name: () => F().coins === 1 ? 'One escudo coin' : `${F().coins || 0} escudo coins`, look: 'alan_look_coins' },
@@ -302,6 +303,24 @@
   // the workshop is finished once the tide clock is wound with the key, the repair register read, the
   // tide card in Alan's pocket and the spare key off the board: then it leaves the map for good
   S.ferreiraDone = () => { const f = F(); return !!(f.tide_wound && f.read_repair && f.tide_known && (f.tidecardTaken || G.has('tidecard')) && f.vkeyTaken); };
+
+  // something already done, tried again: three replies in turn (Chapter V, the short one)
+  let doneN = 0;
+  S.done = () => say(F().ch >= 5 ? 'alan_done_ch5' : 'alan_done_' + (doneN++ % 3 + 1));
+
+  // Chapter V, before the cistern (Inês is gone, and with her the "What now?"): reading the notebook, Alan asks
+  // himself what she'd say. Null in the cistern (she hints herself there) and before Chapter V.
+  S.ch5Hint = function () {
+    const f = F();
+    if (f.ch < 5 || f.finaleIntro || f.won) return null;
+    if (!f.ledger_found) return 'alan_ch5_hint_cat';
+    if (!f.heard_msg3) return 'alan_ch5_hint_machine';
+    if (!f.rui_called) return 'alan_ch5_hint_rui';
+    if (S.vascoCallDue && S.vascoCallDue()) return 'alan_ch5_hint_vasco';
+    if (!f.night_entered) return 'alan_ch5_hint_carmo';
+    if (!f.confessed) return 'alan_ch5_hint_tomas';
+    return 'alan_ch5_hint_grate';
+  };
 
   // ---------------------------------------------------------------- hints (Inês, "What now?")
   S.hint = function () {

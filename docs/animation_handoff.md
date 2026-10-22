@@ -5,11 +5,11 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
 `scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-25); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-27); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
-- **Story review round 2** (T01-T11) done; every line voiced (about 1,360, ElevenLabs), all within +-1.5 LU of
+- **Story review round 2** (T01-T11) done; every line voiced (about 1,300 since entry 26, ElevenLabs), all within +-1.5 LU of
   -21.5 LUFS; lip-sync cues for every speaker but the narrator. Amália's first hello tightened (entry 20).
 - **Faces** (lip-sync and blinking): Alan, Inês, Vasco, Teixeira. Everyone else has cues but no face art yet.
 - **Walks:** all eight walking characters on new side walks painted as one Gemini sheet each. Alan and Inês play
@@ -41,9 +41,9 @@ handoff, kept for history: don't act on them without checking the code and the u
 6. Left out on purpose (entry 22): the map's boats, the armillary sphere, the shop's newspaper corner, the museum
    lectern's page.
 7. **From the code review (entry 23), not done yet:** phone speed (parallax re-upload in live rooms, face cache,
-   shadow blur); accessibility (keyboard play, modal focus, subtitle size, 44 px buttons, reduced motion); new lines
-   (an "already done" reply instead of `alan_fail_04`, Ch. V hints: need writing and voicing, the user's call);
-   the 70 recorded lines nothing plays (validate.mjs lists them: retire or use?); Continue in the shop doesn't run its
+   shadow blur); accessibility (keyboard play, modal focus, subtitle size, 44 px buttons, reduced motion); the README
+   walkthrough (the user, 2026-10-22: "leave for now"). Done since: the new lines and the 70 retired ones (entries
+   26-27). Also open: Continue in the shop doesn't run its
    entry hook, so a chapter end due there waits until Alan goes out and back in.
 8. Older threads from the 20 October archive (Phase 3 step in-betweens, the combined-sprite transition choice, the
    rig trial, the 70 frames without face sets): still open as far as I know; ask the user before picking them up.
@@ -447,6 +447,33 @@ session lived in the session's scratchpad and are gone; everything that matters 
      streamed in by 50 s, during the cold open. Every room entered with its art in place (20 rooms), no errors.
    - **Checked:** the smoke test on all 38 scenes and a new game (two halves): all pass; the batch A checks again on the
      final loader: all pass; `node scripts/validate.mjs`: 0 errors.
+
+26. **The 70 recorded lines nothing plays, deleted** (the user: "DELETE"). Retired in story round 2 and earlier; the
+   validator showed them once `lipsync.js` stopped counting as a use (entry 24). Each was checked by exact word in the
+   code first (no id is built at run time; the only hits were comments and the reactions table in se.js). Removed
+   from js/lines.js with their mp3s (70), lip-sync files (65) and docs/script_full.md; the dead keys in se.js's
+   reactions table (8); voice manifest and js/lipsync.js rebuilt (1174 -> 1109 lines, the difference exactly the
+   deleted ones). The history docs (docs/reviews/, bible_full.md) are left as they were.
+
+27. **New lines: "already done", and Chapter V hints** (the user: "DO IT"). Eleven Alan lines, written to the humour
+   rules in docs/STORY.md, recorded and wired. **Story:** docs/STORY.md (failed uses; V.1 "Hints with Inês gone").
+   - **"Already done":** `alan_fail_04` ("No. And I say that as a man who has said yes to a lot of bad ideas.") was the
+     reply to 23 things already done; it reads as a refusal. 18 of those (every one guarded by a done flag) now call
+     `S.done()` (core.js): `alan_done_1`..`_3` in turn ("Been there. I'm turning over a new leaf, not the same one
+     twice."), and in Chapter V the short `alan_done_ch5` ("That's done. Keep moving, Alan.": the cistern rite is no
+     place for a joke). The other 6 uses are real refusals and keep `alan_fail_04`.
+   - **Chapter V hints:** Inês is gone until the cistern, so there was no "What now?". Reading the notebook (the
+     ✎ button, N, its Read tab; also looking at it) now ends with Alan asking himself what she'd say (`S.ch5Hint`,
+     core.js): `alan_ch5_hint_cat`, `_machine`, `_rui`, `_vasco` (only while the call is due), `_carmo`, `_tomas`,
+     `_grate`. Nothing in the cistern (she hints there herself) or before Chapter V.
+   - **Voices:** ElevenLabs connector, eleven_v4, Alan's cast voice (scripts/cast.json), one take each, in the flow
+     "Drowned Bell: Alan's done lines and Ch. V hints (2026-10-22)" (about 861 credits). The four tagged takes were
+     transcribed (Scribe): the words match, the tags not spoken. Installed with scripts/install_voice.sh (to Alan's
+     median, -21.5 to -21.7 LUFS after encoding); alan_done_1 peaked at -0.7 dBTP and was limited (now -2.0).
+     Lip-sync: Rhubarb 1.13.0 downloaded again into the scratchpad (gone with the container), 11 written.
+   - **Checked:** a browser script: the done lines take turns (1, 2, 3, 1) and Chapter V gives the short one; the shop
+     phone after ringing Rui says it; each Chapter V state gives its hint, none in the cistern; reading the notebook
+     speaks the hint in Chapter V and nothing extra in Chapter III. `node scripts/validate.mjs`: 0 errors, 1302 lines.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

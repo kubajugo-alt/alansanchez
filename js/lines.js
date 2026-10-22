@@ -489,6 +489,14 @@ window.LINES = {
   rui_murder: ['rui', "Then it's murder. Unexplained, but murder."],
   alan_obituary: ['alan', "If I'm not out by dawn, Rui, the obituary says 'witty'. Not 'lazy'. 'Witty'."],
   alan_door_ledger: ['alan', "Not without the ledger. Whatever Inês did with it, she did it on purpose."],
+  // Chapter V, Inês gone: reading the notebook, Alan asks himself what she'd say (S.ch5Hint)
+  alan_ch5_hint_cat: ['alan', "[quiet] What would Inês say? [beat] 'He's lying on something, Alan. And you've got a sardine. Do the maths.'"],
+  alan_ch5_hint_machine: ['alan', "The machine's still blinking. Inês would have played it by now. Twice, with a pencil."],
+  alan_ch5_hint_rui: ['alan', "Inês would say ring Rui. Then she'd dial it for me, because she knows I'd stall."],
+  alan_ch5_hint_vasco: ['alan', "[quiet] Vasco's card. Inês would tell me to ring him. She'd say it was for the case. [beat] It isn't."],
+  alan_ch5_hint_carmo: ['alan', "Under the Carmo, twenty-five to one. Inês would already be there, telling him off."],
+  alan_ch5_hint_tomas: ['alan', "Tomás looks like a man who's waited forty years to say something. Inês would say: let him."],
+  alan_ch5_hint_grate: ['alan', "[quiet] The grate. Down. She hates waiting, and I've kept her long enough."],
 
   // ---------- Taberna (optional, night) ----------
   narr_tavern_night: ['narr', "The chairs are up on the tables. One lantern burns. Amália is singing to an empty room, and she does not stop when he comes in."],
@@ -700,6 +708,11 @@ window.LINES = {
   alan_fail_07: ['alan', "Grandfather would have known what to do with that. I know what not to do."],
   alan_fail_08: ['alan', "Those two things have nothing to say to each other. Like me at a wedding."],
   alan_fail_09: ['alan', "Tempting. Pointless, but tempting."],
+  // something already done, tried again (S.done: the three take turns; in Chapter V the short one)
+  alan_done_1: ['alan', "Done that already. Doing it twice won't make it more done. I've tested the theory with naps."],
+  alan_done_2: ['alan', "Already did that. I know. It surprised me too."],
+  alan_done_3: ['alan', "Been there. I'm turning over a new leaf, not the same one twice."],
+  alan_done_ch5: ['alan', "[quiet] That's done. Keep moving, Alan."],
   alan_fail_10: ['alan', "Even Pessoa would look at me funny for that, and he sleeps in a bookshop."],
   alan_fail_look: ['alan', "Nothing special about it. Which makes two of us."],
   alan_fail_take: ['alan', "I don't need that. I barely need half of what I've got."],

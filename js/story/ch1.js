@@ -208,7 +208,7 @@
   };
   S.usePhone = async function () {
     if (F().ch >= 5) {
-      if (F().rui_called) return say('alan_fail_04');
+      if (F().rui_called) return S.done();
       if (!F().heard_msg3) return say('alan_phone_ch5_early');
       await posed('phone', async () => {
         sfx('phone_pickup'); sfx('phone_dial_long'); await G.wait(window.FAST ? 20 : 2600);
@@ -228,7 +228,7 @@
   S.vascoCallDue = () => F().ch >= 5 && !!F().rui_called && !!F().vasco_thursday && G.has('vasco_card') && !F().vasco_called;
   S.callVasco = async function () {
     if (F().ch < 5) return say('alan_two_numbers');
-    if (F().vasco_called) return say('alan_fail_04');
+    if (F().vasco_called) return S.done();
     if (!F().rui_called) return say('alan_call_rui_first');
     F().vasco_called = true;
     const hold = ms => G.wait(window.FAST ? 20 : ms);
@@ -545,7 +545,7 @@
         use: () => say(F().ch >= 2 ? 'alan_machine_coin' : 'alan_coffee_ch1'),
         items: { coins: async () => {
           if (F().ch < 2 || !(F().askedDrawer || F().salt_seen)) return say('alan_coffee_ch1');
-          if (G.has('coffee') || F().drawer_open) return say('alan_fail_04');
+          if (G.has('coffee') || F().drawer_open) return S.done();
           spendCoin(1); sfx('coffee_machine'); await G.wait(window.FAST ? 20 : 1800); give('coffee'); await say('alan_coin_machine');
         }, any: 'alan_fail_02' } },
       { name: 'Evidence bag', rect: [610, 340, 76, 64], at: [650, 640], face: 'n', look: 'narr_look_evidence',

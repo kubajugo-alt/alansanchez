@@ -322,7 +322,7 @@
     g.restore();
   };
   S.wringSheet = async function () {
-    if (F().met_celeste) return say('alan_fail_04');
+    if (F().met_celeste) return S.done();
     const c = G.npc('celeste'), p = G.player;
     const W = ['pair_wring_1', 'pair_wring_2', 'pair_wring_3', 'pair_wring_2'];
     if (W.every(k => window.SPRITES[k])) {
@@ -460,9 +460,9 @@
     },
     hotspots: [
       { name: 'Oil lamp', rect: [500, 330, 50, 80], at: [560, 640], face: 'n', look: () => say(lit() ? 'narr_look_workbench' : 'narr_look_oillamp'),
-        use: () => say(lit() ? 'alan_fail_04' : 'alan_dark'),
+        use: () => lit() ? S.done() : say('alan_dark'),
         items: { matches: async () => {
-          if (lit()) return say('alan_fail_04');
+          if (lit()) return S.done();
           sfx('match'); F().ferreira_lit = true; Sound.refreshMusic(); G.takeItem('matches');
           await G.wait(window.FAST ? 20 : 500);
           await say('alan_lamp_lit'); await say('alan_enter_ferreira'); await say('alan_clocks');
@@ -483,7 +483,7 @@
           await say('alan_tide_today');
         },
         items: { key: async () => {
-          if (F().tide_wound) return say('alan_fail_04');
+          if (F().tide_wound) return S.done();
           if (!F().got_ledger) return say('alan_key_desk_first');
           G.takeItem('key'); F().tide_wound = true; sfx('clock_wind'); Sound.ambience('ferreira');
           await joke('alan_clock_wound');

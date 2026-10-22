@@ -42,7 +42,7 @@
       { name: 'Side chapel', rect: [1118, 298, 80, 225], look: 'narr_look_chapel' },
       { name: 'Holy-water stoup', rect: [222, 436, 112, 110], at: [330, 600], face: 'w', look: 'narr_look_stoup', use: 'alan_stoup_hand',
         items: { glass: async () => {
-          if (F().glassHoly) return say('alan_fail_04');
+          if (F().glassHoly) return S.done();
           F().glassHoly = true; G.renderInv(); sfx('pour', 0.6);
           await joke('alan_holy_glass');
           const tm = G.npc('tomas'); if (tm && Math.abs(tm.x - G.player.x) < 600) await say('tomas_once');
@@ -54,7 +54,7 @@
           glass: async () => {
             if (!F().glassHoly) return say('alan_stone_crusted');
             if (S.needBells()) return say('alan_stone_wait');
-            if (F().stone_washed) return say('alan_fail_04');
+            if (F().stone_washed) return S.done();
             G.takeItem('glass'); F().glassUsed = true; F().glassHoly = false;
             sfx('salt_fizz'); await G.wait(window.FAST ? 20 : 1200);
             F().stone_washed = true; await say('narr_stone_washed');
@@ -83,7 +83,7 @@
   // (saves from before the Sé chapter never had the charter, so they keep the old rule)
   S.needBells = () => F().ines_plan && !F().heard_bells;
   S.tomasCharter = async function () {
-    if (F().charter_shown) return say('alan_fail_04');
+    if (F().charter_shown) return S.done();
     F().charter_shown = true;
     await say('tomas_charter'); await joke('alan_charter');
   };
@@ -340,7 +340,7 @@
         items: {
           vkey: async () => {
             if (S.lacerdaHere()) return say('lacerda_hands');
-            if (F().case_open) return say('alan_fail_04');
+            if (F().case_open) return S.done();
             F().case_open = true;
             sfx('case_open');
             await say('alan_case_open');
