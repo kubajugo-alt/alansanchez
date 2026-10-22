@@ -1,1 +1,1 @@
-{"src": "art/sprites/alan_idle2.webp", "log": {"white_pocket": 21, "key": 3, "halo": 782, "backdrop": [141, 135, 125], "haze": 10, "speck": 34}, "changed_px": 839, "changed_opaque": 213, "changed_deep": 9, "alpha_sum_before": 65151, "alpha_sum_after": 64836}
+{"src": "art/sprites/alan_idle2.webp", "log": {"white_pocket": 21, "key": 3, "halo": 723, "backdrop": [120, 113, 103], "haze": 26, "speck": 40}, "changed_px": 799, "changed_opaque": 97, "changed_deep": 3, "alpha_sum_before": 65151, "alpha_sum_after": 64829}

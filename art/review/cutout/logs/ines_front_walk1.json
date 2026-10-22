@@ -1,1 +1,1 @@
-{"src": "art/sprites/ines_front_walk1.webp", "log": {"haze": 285, "speck": 236}, "changed_px": 521, "changed_opaque": 0, "changed_deep": 0, "alpha_sum_before": 85617, "alpha_sum_after": 85613}
+{"src": "art/sprites/ines_front_walk1.webp", "log": {"halo": 107, "backdrop": [105, 91, 84], "haze": 291, "speck": 238}, "changed_px": 634, "changed_opaque": 4, "changed_deep": 0, "alpha_sum_before": 85617, "alpha_sum_after": 85572}

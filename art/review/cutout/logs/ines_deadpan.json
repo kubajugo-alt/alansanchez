@@ -1,1 +1,1 @@
-{"src": "art/sprites/ines_deadpan.webp", "log": {"haze": 98, "speck": 451}, "changed_px": 549, "changed_opaque": 0, "changed_deep": 0, "alpha_sum_before": 84249, "alpha_sum_after": 84246}
+{"src": "art/sprites/ines_deadpan.webp", "log": {"halo": 32, "backdrop": [245, 245, 245], "haze": 98, "speck": 451}, "changed_px": 577, "changed_opaque": 0, "changed_deep": 0, "alpha_sum_before": 84249, "alpha_sum_after": 84244}

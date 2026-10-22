@@ -1,1 +1,1 @@
-{"src": "art/sprites/alan_front_walk2.webp", "log": {"white_pocket": 548, "key": 8, "halo": 436, "backdrop": [159, 153, 151], "haze": 82, "speck": 5}, "changed_px": 1077, "changed_opaque": 806, "changed_deep": 764, "alpha_sum_before": 97480, "alpha_sum_after": 96718}
+{"src": "art/sprites/alan_front_walk2.webp", "log": {"white_pocket": 548, "key": 8, "halo": 400, "backdrop": [129, 124, 122], "haze": 82, "speck": 5}, "changed_px": 1041, "changed_opaque": 732, "changed_deep": 712, "alpha_sum_before": 97480, "alpha_sum_after": 96704}

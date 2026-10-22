@@ -1,1 +1,1 @@
-{"src": "art/sprites/cop_side3.webp", "log": {"halo": 116, "backdrop": [148, 136, 126], "haze": 1, "speck": 12}, "changed_px": 127, "changed_opaque": 46, "changed_deep": 0, "alpha_sum_before": 75494, "alpha_sum_after": 75450}
+{"src": "art/sprites/cop_side3.webp", "log": {"halo": 132, "backdrop": [245, 245, 245], "speck": 11}, "changed_px": 143, "changed_opaque": 29, "changed_deep": 0, "alpha_sum_before": 75494, "alpha_sum_after": 75480}
