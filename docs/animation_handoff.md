@@ -917,6 +917,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
      upper 60% of the figure) shifted by (+3, +8, +5) in Lab, then the whole figure matched to `abilio`
      (`gen_image.match_palette`). Feet anchors as in round 2. On approval: copy it over `art/sprites/abilio_shout1.webp`,
      write `abilio_revised.json` into `js/sprites.js`, rebuild his morphs, `similar.py`, manifest, validate, smoke.
+     Approved (board, round 3) and applied as described; validate 0 errors (8 warnings, as before); smoke abiliosketch passes.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
