@@ -929,6 +929,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
      painted for a taller one). Output `art/review/cards/sprites/` + `meta.json` (one shared w/hh/h/ax/fy). On the
      board as round 4. On approval: copy over `art/sprites/npc_cards*.webp`, meta into `js/sprites.js`, morphs for
      npc_cards<->npc_cards_b, `similar.py`, manifest, validate, smoke `tavernafter` / `fado`.
+     Approved (the user: "card game approved") and applied as described: morphs 2/2 (iou 0.98); validate 0 errors (8 warnings, as before); smoke tavernafter, fado, guitar pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
