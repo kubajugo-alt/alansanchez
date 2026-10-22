@@ -1,0 +1,22 @@
+{
+ "amalia": "shawl fringe protected (keep_strands); remaining 'halo' flags are the white fringe itself",
+ "amalia_idle2": "shawl fringe protected; remaining flags are the fringe",
+ "amalia_sing1": "shawl fringe protected; remaining flags are the fringe",
+ "amalia_sing2": "shawl fringe protected; remaining flags are the fringe",
+ "amalia_sing3": "shawl fringe protected; remaining flags are the fringe",
+ "amalia_sing4": "shawl fringe protected; remaining flags are the fringe",
+ "amalia_sing5": "shawl fringe protected; remaining flags are the fringe",
+ "amalia_talk": "shawl fringe protected; remaining flags are the fringe",
+ "amalia_toast": "shawl fringe and the glass protected",
+ "tomas": "broom bristle tips protected; remaining flags are straw",
+ "tomas_talk": "broom bristle tips protected",
+ "tomas_sweep": "broom bristle tips protected",
+ "tomas_sweepL": "broom bristle tips protected",
+ "tomas_sweepR": "broom bristle tips protected",
+ "npc_washer1_rest": "a trapped-backdrop box was wrong (it flooded her dark blouse); removed, only edge cleaning now",
+ "npc_washer1_b": "flying drops kept (wet frame); remaining 'speck' flags are drops",
+ "pair_wring_3": "water dripping from the wrung sheet kept; remaining 'haze' flags are the drips",
+ "alan_swim2": "water surface kept; remaining 'haze' flags are the water",
+ "npc_tourists": "a faint pale rim is left along the bare legs (pale skin is protected as paint)",
+ "npc_tourists_b": "a faint pale rim is left along the bare legs (pale skin is protected as paint)"
+}

@@ -229,15 +229,7 @@
   "wet": true
  },
  "npc_washer1_rest": {
-  "wet": true,
-  "holes": [
-   [
-    253,
-    205,
-    31,
-    31
-   ]
-  ]
+  "wet": true
  },
  "npc_washer1_scrub2": {
   "wet": true,
