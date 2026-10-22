@@ -96,7 +96,15 @@
  },
  "amalia_toast": {
   "strands": true,
-  "white": false
+  "white": false,
+  "keep": [
+   [
+    252,
+    25,
+    50,
+    72
+   ]
+  ]
  },
  "celeste_wring1": {
   "wet": true
@@ -839,5 +847,45 @@
  },
  "npc_volunteer_b": {
   "corners": true
+ },
+ "alan_cutpalm": {
+  "keep": [
+   [
+    160,
+    195,
+    80,
+    55
+   ]
+  ]
+ },
+ "alan_ib_cut": {
+  "keep": [
+   [
+    160,
+    190,
+    55,
+    80
+   ]
+  ]
+ },
+ "alan_drink": {
+  "keep": [
+   [
+    225,
+    65,
+    50,
+    80
+   ]
+  ]
+ },
+ "alan_ib_drink": {
+  "keep": [
+   [
+    128,
+    172,
+    60,
+    90
+   ]
+  ]
  }
 }
