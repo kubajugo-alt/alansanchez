@@ -311,7 +311,37 @@ def straw(a):
     return out
 
 
-def clean(a, keep=(), holes=(), hole_tol=12, wet=False, halo=True, keep_strands=False, broom=False):
+def white_pockets(a, skip=()):
+    """Flat pure white (min > 228, spread < 14) patches of 8-3000 px, at least 60% ringed by non-pale paint,
+    grown over the white-ish anti-aliasing next to them (2 px)."""
+    rgb = a[..., :3].astype(np.int16); g = rgb.mean(-1); sat = rgb.max(-1) - rgb.min(-1)
+    w = (rgb.min(-1) > 228) & (sat < 14) & (a[..., 3] > 200)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(w.astype(np.uint8))
+    out = np.zeros(w.shape, bool)
+    skipm = in_boxes(w.shape, skip) if skip else None
+    for i in range(1, n):
+        if not 8 <= st[i, 4] <= 3000: continue
+        m = lab == i
+        if skipm is not None and (m & skipm).any(): continue
+        ring = (cv2.dilate(m.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0) & ~m
+        if ((g[ring] < 170) | (sat[ring] > 40)).mean() >= 0.6: out |= m
+    # near the pockets found (a net's mesh), the slightly greyer white ones too
+    if out.any():
+        zone = cv2.dilate(out.astype(np.uint8), np.ones((31, 31), np.uint8)) > 0
+        w2 = (rgb.min(-1) > 205) & (sat < 20) & (a[..., 3] > 200) & zone & ~out
+        n, lab, st, _ = cv2.connectedComponentsWithStats(w2.astype(np.uint8))
+        for i in range(1, n):
+            if not 4 <= st[i, 4] <= 3000: continue
+            m = lab == i
+            if skipm is not None and (m & skipm).any(): continue
+            ring = (cv2.dilate(m.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0) & ~m & ~out
+            if ring.any() and ((g[ring] < 170) | (sat[ring] > 40)).mean() >= 0.6: out |= m
+    whiteish = (rgb.min(-1) > 190) & (sat < 30)
+    for _ in range(2): out |= (cv2.dilate(out.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0) & whiteish
+    return out
+
+
+def clean(a, keep=(), holes=(), hole_tol=12, wet=False, halo=True, keep_strands=False, broom=False, white=True, white_skip=()):
     """keep: boxes left alone by the speck/haze/rim passes (drops, smoke); holes: boxes of trapped backdrop."""
     a = a.copy(); H, W = a.shape[:2]; log = {}
     keepm = in_boxes((H, W), keep) if keep else np.zeros((H, W), bool)
@@ -323,6 +353,11 @@ def clean(a, keep=(), holes=(), hole_tol=12, wet=False, halo=True, keep_strands=
         pm = np.zeros((H, W), bool)
         for b in holes: pm |= pocket(a, b[:4], b[4] if len(b) > 4 else hole_tol)
         a[..., 3][pm] = 0; log['hole'] = int(pm.sum())
+    # 5b. pure white pockets: flat white (the studio paper) closed in by paint (between fingers, inside curls,
+    #     through a net, between chair rails); checked by eye, with the exceptions in fixes.json
+    if white:
+        wm = white_pockets(a, white_skip)
+        if wm.any(): a[..., 3][wm] = 0; log['white_pocket'] = int(wm.sum())
     # 1. key colour: the paint's colour under the alpha the pixel has
     km, _ = key_mask(a)
     if km.any():
@@ -411,7 +446,8 @@ def fix(names, cfg, sheets=True):
         if c.get('skip'): continue
         a = load(os.path.join(ROOT, src[n]))
         b, log = clean(a, keep=c.get('keep', []), holes=c.get('holes', []), wet=c.get('wet', False), halo=c.get('halo', True),
-                       keep_strands=c.get('strands', False), broom=c.get('broom', False))
+                       keep_strands=c.get('strands', False), broom=c.get('broom', False),
+                       white=c.get('white', True), white_skip=c.get('white_skip', []))
         ch = changed(a, b)
         if not ch.any(): continue
         Image.fromarray(b, 'RGBA').save(f'{OUT}/sprites/{n}.webp', lossless=True, quality=100, method=6, exact=False)
@@ -489,6 +525,30 @@ def main():
             out = os.path.join(OUT, 'report_raw.json')
         json.dump(dict(summary=summary(rep), faces_with_key=face, sprites=rep), open(out, 'w'), indent=1)
         print(json.dumps(summary(rep), indent=1), 'faces with key colour:', len(face))
+    elif args[0] == 'report':  # report_raw.json + report_cleaned.json + logs/ + notes.json -> report.json
+        raw = json.load(open(f'{OUT}/report_raw.json')); cl = json.load(open(f'{OUT}/report_cleaned.json'))['sprites']
+        notes = json.load(open(f'{OUT}/notes.json')) if os.path.exists(f'{OUT}/notes.json') else {}
+        out, tally = {}, {}
+        def short(F):
+            keep = [f for f in F if visible(f)]
+            tr = {}
+            for f in F:
+                if not visible(f) and f['type'] not in ('island', 'straight_edge'):
+                    t = tr.setdefault(f['type'], dict(findings=0, px=0)); t['findings'] += 1; t['px'] += f['px']
+            return dict(visible=keep, traces=tr, kept_as_painted=[f for f in F if f['type'] in ('island', 'straight_edge')])
+        for n, r in raw['sprites'].items():
+            lp = f'{OUT}/logs/{n}.json'; fx = json.load(open(lp)) if os.path.exists(lp) else None
+            after = cl.get(n)
+            types = sorted(set(f['type'] for f in r['findings'] if visible(f)))
+            for t in types: tally[t] = tally.get(t, 0) + 1
+            out[n] = dict(src=r['src'], kind=r['kind'], size=r['size'], before=short(r['findings']), fix=fx,
+                          cleaned=(f'art/review/cutout/sprites/{n}.webp' if fx else None),
+                          after=short(after['findings']) if after else None, note=notes.get(n))
+        S = dict(sprites_checked=len(out), sprites_with_visible_findings=sum(1 for v in out.values() if v['before']['visible']),
+                 sprites_by_visible_type=tally, cleaned_files=sum(1 for v in out.values() if v['fix']),
+                 faces_with_key_colour=raw.get('faces_with_key', {}))
+        json.dump(dict(summary=S, sprites=out), open(f'{OUT}/report.json', 'w'), indent=1)
+        print(json.dumps(S, indent=1))
     elif args[0] == 'fix':
         cfgp = os.path.join(OUT, 'fixes.json')
         cfg = json.load(open(cfgp)) if os.path.exists(cfgp) else {}

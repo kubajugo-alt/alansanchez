@@ -63,31 +63,40 @@
   "wet": true
  },
  "amalia": {
-  "strands": true
+  "strands": true,
+  "white": false
  },
  "amalia_idle2": {
-  "strands": true
+  "strands": true,
+  "white": false
  },
  "amalia_sing1": {
-  "strands": true
+  "strands": true,
+  "white": false
  },
  "amalia_sing2": {
-  "strands": true
+  "strands": true,
+  "white": false
  },
  "amalia_sing3": {
-  "strands": true
+  "strands": true,
+  "white": false
  },
  "amalia_sing4": {
-  "strands": true
+  "strands": true,
+  "white": false
  },
  "amalia_sing5": {
-  "strands": true
+  "strands": true,
+  "white": false
  },
  "amalia_talk": {
-  "strands": true
+  "strands": true,
+  "white": false
  },
  "amalia_toast": {
-  "strands": true
+  "strands": true,
+  "white": false
  },
  "celeste_wring1": {
   "wet": true
@@ -110,7 +119,15 @@
   "wet": true
  },
  "npc_laundry": {
-  "wet": true
+  "wet": true,
+  "white_skip": [
+   [
+    50,
+    95,
+    20,
+    22
+   ]
+  ]
  },
  "npc_laundry_glance": {
   "wet": true
@@ -142,19 +159,30 @@
   "wet": true
  },
  "npc_nun": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "npc_nun_b": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "npc_nun_talk": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "npc_washer1": {
   "wet": true
  },
  "npc_washer1_b": {
-  "wet": true
+  "wet": true,
+  "white_skip": [
+   [
+    110,
+    128,
+    18,
+    18
+   ]
+  ]
  },
  "npc_washer1_giggle": {
   "wet": true
@@ -219,7 +247,15 @@
   "wet": true
  },
  "npc_washer2": {
-  "wet": true
+  "wet": true,
+  "white_skip": [
+   [
+    215,
+    95,
+    20,
+    15
+   ]
+  ]
  },
  "npc_washer2_b": {
   "wet": true
@@ -293,13 +329,16 @@
   "wet": true
  },
  "pair_wring_1": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "pair_wring_2": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "pair_wring_3": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "pessoa_sleep": {
   "wet": true
@@ -527,16 +566,20 @@
   "wet": true
  },
  "pair_ib_wring_1_in": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "pair_ib_wring_1_out": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "pair_ib_wring_1__2": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "pair_ib_wring_2__3": {
-  "wet": true
+  "wet": true,
+  "white": false
  },
  "alan_ib_climb__drip": {
   "wet": true
@@ -636,6 +679,53 @@
     505,
     3,
     6
+   ]
+  ]
+ },
+ "prop_tram": {
+  "white": false
+ },
+ "vasco_act_bag_a": {
+  "white": false
+ },
+ "vasco_act_bag_b": {
+  "white": false
+ },
+ "vasco_act_sieve_a": {
+  "white": false
+ },
+ "vasco_act_sieve_b": {
+  "white": false
+ },
+ "pessoa_eat": {
+  "white": false
+ },
+ "pair_ib_unbutton__kiss": {
+  "white": false
+ },
+ "rui_idle3": {
+  "white": false
+ },
+ "robe_terror": {
+  "white": false
+ },
+ "npc_fish": {
+  "white_skip": [
+   [
+    0,
+    0,
+    400,
+    130
+   ]
+  ]
+ },
+ "npc_fish_b": {
+  "white_skip": [
+   [
+    0,
+    0,
+    400,
+    130
    ]
   ]
  }

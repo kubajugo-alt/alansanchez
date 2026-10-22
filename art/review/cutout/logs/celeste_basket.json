@@ -1,1 +1,1 @@
-{"src": "art/sprites/celeste_basket.webp", "log": {"key": 1, "halo": 3549, "backdrop": [168, 166, 162], "haze": 21, "speck": 504}, "changed_px": 3868, "changed_opaque": 200, "changed_deep": 0, "alpha_sum_before": 145972, "alpha_sum_after": 145474}
+{"src": "art/sprites/celeste_basket.webp", "log": {"white_pocket": 18, "key": 1, "halo": 3528, "backdrop": [158, 153, 153], "haze": 21, "speck": 573}, "changed_px": 3948, "changed_opaque": 200, "changed_deep": 0, "alpha_sum_before": 145972, "alpha_sum_after": 145443}

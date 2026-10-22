@@ -1,1 +1,1 @@
-{"src": "art/sprites/alan_wring.webp", "log": {"key": 4, "halo": 349, "backdrop": [168, 162, 155], "haze": 81, "speck": 68}, "changed_px": 494, "changed_opaque": 94, "changed_deep": 0, "alpha_sum_before": 93756, "alpha_sum_after": 93639}
+{"src": "art/sprites/alan_wring.webp", "log": {"white_pocket": 198, "key": 4, "halo": 432, "backdrop": [166, 161, 156], "haze": 81, "speck": 68}, "changed_px": 775, "changed_opaque": 355, "changed_deep": 209, "alpha_sum_before": 93756, "alpha_sum_after": 93397}

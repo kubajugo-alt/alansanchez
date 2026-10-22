@@ -1,1 +1,1 @@
-{"src": "art/sprites/abilio.webp", "log": {"key": 4, "halo": 4230, "backdrop": [131, 128, 127], "haze": 26, "speck": 814}, "changed_px": 4786, "changed_opaque": 233, "changed_deep": 0, "alpha_sum_before": 126633, "alpha_sum_after": 125855}
+{"src": "art/sprites/abilio.webp", "log": {"white_pocket": 156, "key": 4, "halo": 4368, "backdrop": [136, 132, 131], "haze": 21, "speck": 799}, "changed_px": 5061, "changed_opaque": 492, "changed_deep": 254, "alpha_sum_before": 126633, "alpha_sum_after": 125635}

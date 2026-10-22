@@ -1,1 +1,1 @@
-{"src": "art/sprites/alan_front.webp", "log": {"key": 10, "halo": 578, "backdrop": [151, 138, 131], "haze": 91, "speck": 6}, "changed_px": 684, "changed_opaque": 100, "changed_deep": 0, "alpha_sum_before": 109909, "alpha_sum_after": 109696}
+{"src": "art/sprites/alan_front.webp", "log": {"white_pocket": 40, "key": 10, "halo": 611, "backdrop": [152, 141, 133], "haze": 91, "speck": 6}, "changed_px": 757, "changed_opaque": 171, "changed_deep": 71, "alpha_sum_before": 109909, "alpha_sum_after": 109634}

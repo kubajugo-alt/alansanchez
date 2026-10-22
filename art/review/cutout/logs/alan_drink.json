@@ -1,1 +1,1 @@
-{"src": "art/sprites/alan_drink.webp", "log": {"key": 4, "halo": 446, "backdrop": [169, 162, 155], "haze": 12, "speck": 32}, "changed_px": 491, "changed_opaque": 121, "changed_deep": 13, "alpha_sum_before": 94436, "alpha_sum_after": 94296}
+{"src": "art/sprites/alan_drink.webp", "log": {"white_pocket": 22, "key": 4, "halo": 498, "backdrop": [172, 163, 155], "haze": 12, "speck": 32}, "changed_px": 565, "changed_opaque": 173, "changed_deep": 13, "alpha_sum_before": 94436, "alpha_sum_after": 94256}

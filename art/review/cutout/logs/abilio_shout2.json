@@ -1,1 +1,1 @@
-{"src": "art/sprites/abilio_shout2.webp", "log": {"key": 4, "halo": 3362, "backdrop": [163, 163, 161], "haze": 11, "speck": 644}, "changed_px": 3776, "changed_opaque": 134, "changed_deep": 0, "alpha_sum_before": 111958, "alpha_sum_after": 111465}
+{"src": "art/sprites/abilio_shout2.webp", "log": {"white_pocket": 257, "key": 4, "halo": 3426, "backdrop": [157, 155, 153], "haze": 10, "speck": 717}, "changed_px": 4161, "changed_opaque": 450, "changed_deep": 289, "alpha_sum_before": 111958, "alpha_sum_after": 111152}
