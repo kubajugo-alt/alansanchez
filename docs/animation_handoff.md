@@ -786,6 +786,31 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Still to tidy (no change to what plays): fold the flags and the room fixes into the rooms themselves
      (docs/SOUND.md, last section), and promote the review sprites out of `art/review`.
 
+43. **Faces for the new paintings (review)** (the user: "since many new sprites were added, I think we need to add
+   talking and blinking to them").
+   - 69 face sets, off in the game until approved (`"ok": false`; `?faces=all` shows them):
+     - Alan: 57 sets (the bath scene's frames, `alan_dn_lie`, the Duarte pairs).
+     - Duarte: 12 sets (`FACE_CHAR=guitar`): `duarte_dn_*`, and in the pairs as `<frame>__guitar`.
+   - Mouths (A-F) only where someone speaks over the frame: `alan_bn_fling`, `duarte_dn_stand`, and both faces in
+     `pair_duarte_{book,terms,lesson,jackets,shirts}`. Every other frame blinks only.
+   - Left out:
+     - `pair_duarte_tee` for Alan (his face is under the shirt);
+     - the three kisses (eyes shut already);
+     - `x_wipe`, `splash`, `x_surface` (hands over the face, eyes shut);
+     - the unused `_v` variants.
+   - About $5.70 of Gemini (`art/review/log.md`). Four edits were truncated when the first run was killed;
+     regenerated.
+   - `scripts/face_kit.py`:
+     - reads frames from the review sheets (`REVIEW_SRC`);
+     - `NEW`/`TALKS` pick mouths or blinks;
+     - `find <frames>` merges into the index;
+     - each set records the painting it was cut from (`src`).
+   - `js/engine/faces.js`: a review-sourced sprite now keeps the face sets cut from that same painting. Before, it
+     dropped every face.
+   - Checked: the Duarte scene in Chromium with `?faces=all`: every patch loads, Duarte's mouth moves on his line
+     and Alan's stays still, no errors. Review page: https://claude.ai/artifact/BpsVxYMnqoVjAssVKxBMmx (db
+     collection `faces_new`). Set `"ok": true` in `js/faces.js` for the approved ones.
+
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
 Much of this is out of date (Alan's and Inês's walks, the phases, the deploy steps' test scripts). Kept for the
