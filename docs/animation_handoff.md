@@ -3,9 +3,9 @@
 ## Start here (session handoff, 2026-10-21)
 
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
-runs commit `3c1d770f` on branch `claude/zen-dijkstra-o7cgsv` (Netlify deploy `6ad948e0972297b45a1ffdcc`, 2026-10-21: the new
-bath, Duarte's rewritten scene and the sound pass, entry 42). Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-42); the sections after it are an archive of the 20 October
+runs commit `9c9cde46` on branch `claude/zen-dijkstra-o7cgsv` (Netlify deploy `6ad9600e5645b03d56620317`, 2026-10-22: the new
+bath, Duarte's rewritten scene, the sound pass, the new faces, the cross-fade and breathing fixes and Inês's desk, entries 42-45). Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
+underneath has the detail of every change (entries 1-45); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -851,6 +851,10 @@ session lived in the session's scratchpad and are gone; everything that matters 
      Agent commit 42f04a1d.
    - Faces: the user approved Alan's and Duarte's new sets. All 70 are `"ok": true` in `js/faces.js`.
    - Checked after both merges: validate 0 errors; Chromium: the bath scene (60 poses) and Duarte's scene, no errors.
+   - Deployed (the user: "Deploy all"): commit `9c9cde46`, Netlify deploy `6ad9600e5645b03d56620317`. Export smoke test:
+     Duarte's scene, the bath and the shop desk, no errors. Live checks: the page 200, `/.env` 404, new face patches and
+     review sprites 200, the live `js/faces.js` has all 70 new sets on, the live `actor.js` has `waistDrop`, and the live
+     `ch1.js` has the shop's desk occluder.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
