@@ -120,6 +120,9 @@
     // Thursday morning: the coffees, the Romans
     // Prof. Bastos's flat (js/story/bastos.js): straight in from the map, Inês along; bastosunlock: Inês names him in the shop
     bastos: { flags: { ch: 3, heard_machine: true, decoded: true, chose_chiado: true, bastos_known: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('bastos', 'map') },
+    // the lecture tapes straight away (the collection back on its shelves, the case open)
+    bastostapes: { flags: { ch: 3, heard_machine: true, decoded: true, chose_chiado: true, bastos_known: true, bastos_entered: true, bastos_shelves: true, bastos_case_open: true, bastos_rec_seen: true,
+      bastos_m: ['canaria', 'ys', 'ran', 'jewels', 'gilgamesh', 'matsya', 'deucalion', 'iemanja'] }, room: 'bastos', pos: [715, 450, 'n'], run: () => { S.bastosRecorder(); } }, // (not awaited: the close-up waits for the player)
     bastosunlock: { flags: { ch: 3, heard_machine: true, decoded: true, chose_chiado: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
     thursday: { flags: { ch: 5, vasco_thursday: true, dawn: true }, room: 'se_cloister', pos: [260, 650, 'e'], run: () => S.thursday() },
     // Chapter III, the twin: Abílio reads the sketch of Lacerda's tongue; Vasco takes Alan down to the reserve (the near-kiss);

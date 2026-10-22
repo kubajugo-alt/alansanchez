@@ -1238,7 +1238,12 @@ session lived in the session's scratchpad and are gone; everything that matters 
      bastos_reel_found, bastos_done, sea. Captions name him "Prof. Bastos, on tape".
    - **Checked:** `node scripts/validate.mjs` 0 errors (1387 lines); smoke.mjs `bastos` and `bastosunlock` pass;
      play.mjs (now 147 steps: the unlock, a wrong pair then the eight, Play with nothing threaded, the lessons, the
-     empty box, the boat, the last tape) RESULT_PLACEHOLDER. Not deployed.
+     empty box, the boat, the last tape) `{"won":true}`, 147 steps, 1006 s; smoke.mjs `bastostapes` passes too.
+   - **The reels turn** (the user: "have another close up with tapes on, which you can make look spinning with
+     code"): `art/closeups/close_recorder_reels.jpg` (Canva MAHYxax_rKE, the approved close-up with both reels on)
+     plays under the tapes; stills take `opts.over(g, t, im)` (js/engine/stills.js), and bastos.js turns each reel
+     (painted as an ellipse: un-squashed, rotated, squashed back; the spindle redrawn still). Preview:
+     `?scene=bastostapes` (the recorder, the collection already back).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
