@@ -11,7 +11,8 @@ studying his own family's legend without believing it. On the morning of Friday 
 a tile, on the morning of the day he died (a tile drowns a sleeper at the next turning: rule 4). He fought sleep, and drowned in his bed at 15:38, at the top of the highest hill in Lisbon.
 
 His flat is where the magic is explained properly: the sea as the oldest force, the debt every seafaring people kept to
-it, and what a bell baptised in the sea really is. Inês comes along and reads his books; his own voice explains the
+it, and what a bell baptised in the sea really is: the Brotherhood rang it to call back their drowned, and the
+sea answered by coming itself, in waves, not with the dead. Inês comes along and reads his books; his own voice explains the
 rest on his lecture tapes.
 
 ## Where it sits
@@ -39,7 +40,9 @@ square in the dust; a window over the rooftops down to the river in the fog. Lat
    Inês takes the book down and reads the myth (a close-up page in Bastos's hand, HTML text like the ledger), then Alan
    reacts. Eight pairs. The notebook gains a page, "The Sea".
 2. **The case opens** when all eight are back: inside, the tape recorder and his labelled reels.
-3. **The lecture tapes** (Bastos's own voice): what a bell baptism is, what a bell baptised in the sea is.
+3. **The lecture tapes** (Bastos's own voice): what a bell baptism is; that the Brotherhood had theirs baptised in the sea to call
+   back their drowned; that the sea answered by coming itself, in the three waves of 1 November 1755, not with the dead;
+   and that renouncing undoes a baptism.
 4. **The missing last reel**: the label "27 de Outubro" with no tape on it. It's in the bed, in the salt-stiff sheets:
    he was recording when it came. Salted solid: rinse it in the carafe (Celeste's rule, Ch. II: fresh water reminds the
    salt to leave), then play it: his last minutes, to 15:38.
@@ -171,10 +174,12 @@ marks the beats where he means it (STORY.md, Alan's humour, rule 4). **About 70 
 | Id | Speaker | Line |
 |---|---|---|
 | alan_tapes_play | Alan | "Lição um: o sino e o mar." Lesson one, the bell and the sea. Let's hear it from the man himself. |
-| bastos_tape_1 | Bastos | [lecturing, warm, precise] Bells were baptised, ladies and gentlemen, like children. Holy water, a name, godparents. And then they were rung against the storm. The bell says no to the sea, on our behalf. |
-| bastos_tape_2 | Bastos | But a bell baptised in the sea itself has made its promise to the other side. It is not a shield. It is a contract. And a contract has two signatures. |
-| bastos_tape_3 | Bastos | The godparent speaks for the child. So the water obeys the godparent's family, generation after generation, like a dog that has outlived its master. |
-| bastos_tape_4 | Bastos | And how do you undo a baptism? You renounce. Whatever was promised in the bell's name, the bell itself must take back. [beat] That is all for today. Read chapter four. |
+| bastos_tape_1 | Bastos | [lecturing, warm, precise] Bells were baptised, ladies and gentlemen, like children. Holy water, a name, godparents. And then they were rung against the storm. A bell says no to the sea, on our behalf. |
+| bastos_tape_2 | Bastos | But in 1754 a brotherhood of widows and shipowners had a bell baptised in the sea itself. Not to keep the sea out. To call to it. They wanted their drowned back. |
+| bastos_tape_3 | Bastos | [beat] And the sea answered. It always answers. It came on the first of November, in three waves, up the river and into the Baixa. It did not bring their husbands home. It came to collect more. |
+| bastos_tape_4 | Bastos | So a bell baptised in the sea is not a shield. It is a summons. The godparent speaks for it, and the water obeys the godparent's family. And whoever rings it again, hoping for the dead, will get the same answer. |
+| bastos_tape_5 | Bastos | And how do you undo a baptism? You renounce. Whatever was promised in the bell's name, the bell itself must take back. [beat] That is all for today. Read chapter four. |
+| ines_tape_wave | Inês | [quietly] They rang it to get their husbands back. And the sea came for the whole city instead. |
 | alan_tapes_after | Alan | He makes it sound like a lecture. Which is worse, somehow. It means it's on the exam. |
 | ines_tape_missing | Inês | The last reel's empty. Look at the label: "vinte e sete de Outubro". The day he died. |
 
@@ -231,7 +236,10 @@ marks the beats where he means it (STORY.md, Alan's humour, rule 4). **About 70 
 ## The notebook: "The Sea" page
 
 - Every people that lived by the sea kept a debt to it (Bastos).
-- A bell baptised in the sea is a contract, not a shield. The godparent's family commands the water.
+- The Brotherhood baptised the bell in the sea to call back their drowned. The sea answered by coming itself: the three
+  waves of 1 November 1755. Not the dead. It came to collect more.
+- A bell baptised in the sea is a summons, not a shield. The godparent's family commands the water; whoever rings it
+  again, hoping for the dead, gets the same answer.
 - A baptism is undone by renouncing.
 - A "collector" gave him a tile the morning he died. It's gone from his bedside.
 
