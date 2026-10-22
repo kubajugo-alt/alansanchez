@@ -27,10 +27,11 @@ rest on his lecture tapes.
 
 ## The room (one painting, Canva first)
 
-A top-floor study-bedroom in Graça: books floor to ceiling in many languages, and in front of them the objects of the
-cultures they describe, knocked out of order; a world map with coloured pins; a glass display case by the desk (locked)
-holding a reel-to-reel tape recorder; an unmade bed in an alcove; a carafe of water on the bedside table beside a clean
-square in the dust; a window over the rooftops down to the river in the fog. Late-afternoon light through fog.
+A top-floor study and living room in Graça (approved: Canva MAHYw-NyuDY): bookshelves on the left with the objects of
+the cultures they describe, knocked out of order, books on the floor; a world map with coloured pins between two tall
+windows over the rooftops, the river lost in the fog; a desk and a glass display case holding a reel-to-reel tape
+recorder; a leather sofa, an armchair and a side table on the right. Light and airy, soft daylight through fog. No bed:
+the flat is only the living room (his death is already told elsewhere).
 
 ## The puzzle
 
@@ -43,10 +44,11 @@ square in the dust; a window over the rooftops down to the river in the fog. Lat
 3. **The lecture tapes** (Bastos's own voice): what a bell baptism is; that the Brotherhood had theirs baptised in the sea to call
    back their drowned; that the sea answered by coming itself, in the three waves of 1 November 1755, not with the dead;
    and that renouncing undoes a baptism.
-4. **The missing last reel**: the label "27 de Outubro" with no tape on it. It's in the bed, in the salt-stiff sheets:
-   he was recording when it came. Salted solid: rinse it in the carafe (Celeste's rule, Ch. II: fresh water reminds the
-   salt to leave), then play it: his last minutes, to 15:38.
-5. **The nightstand**: a clean square in the dust where the tile stood. Lacerda took his present back.
+   **The recording riddle** (a close-up of the recorder): nothing is threaded. Put a lesson reel on the left spindle,
+   lead the tape through the head to the empty take-up reel on the right, press Play. Out of order: an Alan line.
+4. **The missing last reel**: the box "27 de Outubro" is empty, with a small rose drawn on its label, the same motif as
+   the Iemanjá book. Bastos hid the reel from the collector in Iemanjá's toy boat on the shelf. Take it from the boat,
+   thread it, play it: the morning he died, up to "I am going to lie down. Only for a minute."
 
 Done when the last tape has been heard (`bastos_done`).
 
@@ -183,28 +185,30 @@ marks the beats where he means it (STORY.md, Alan's humour, rule 4). **About 70 
 | alan_tapes_after | Alan | He makes it sound like a lecture. Which is worse, somehow. It means it's on the exam. |
 | ines_tape_missing | Inês | The last reel's empty. Look at the label: "vinte e sete de Outubro". The day he died. |
 
+### The recorder (the recording riddle)
+
+| Id | Speaker | Line |
+|---|---|---|
+| narr_look_recorder | Narrator | A reel-to-reel recorder, lid up, nothing threaded. Beside it a rack of reels in his handwriting: five lessons, and one box with no tape in it. |
+| alan_thread_wrong_1 | Alan | It wants a reel on the left before it'll do anything. Machines of that age have principles. |
+| alan_thread_wrong_2 | Alan | Through the head, not round it. Even I know that much about recording. |
+| alan_thread_wrong_3 | Alan | Play, with nothing threaded. Forty minutes of a motor humming. Very avant-garde. |
+| alan_threaded ★ | Alan | Left to right, under the head, round the roller. My father taught me on a Grundig. He'd be appalled at how long that took. |
+
 ### The last reel
 
 | Id | Speaker | Line |
 |---|---|---|
-| narr_look_bastos_bed | Narrator | The police had made the bed. Something else had unmade it. The sheets are stiff with salt. |
-| alan_tape_found (no joke) | Alan | [pause] It's here, in the sheets. He was recording when it came. He kept recording. |
-| alan_tape_salted | Alan | Salted solid. If I play this, I'll get forty minutes of seaside. |
-| alan_tape_rinse | Alan | Fresh water reminds the salt it isn't wanted. Celeste, I'm using your recipe. |
-| bastos_last_1 | Bastos | [tired, calm] Twenty-seventh of October. Half past three. This morning a collector came with a gift. A tile. A bell under three waves. Very old. Very fine. |
-| bastos_last_2 | Bastos | [a drip under the voice] I know what it is now, and I must not sleep. Forty years I have written about the sea, and it has come to correct my footnotes. |
-| bastos_last_3 | Bastos | [water rising, steady] If anyone hears this: four families cast that bell. Ferreira, Bastos, Coutinho, Sanches. Ferreira went on Tuesday. Find the Sanches boy. Tell him the bell must say no. |
-| bastos_last_4 | Bastos | [very quiet, drowsy] It is thirty-eight minutes past. The water is warm. Nobody tells you that. |
-| narr_tape_end | Narrator | The tape ran on for a minute more, recording a room with nobody in it. |
+| narr_look_empty_box | Narrator | The box is empty. Under the date, in pencil, a small drawing of a rose. |
+| ines_hint_reel | Inês | There's a rose drawn on the empty box. He labelled his books the same way, Alan. |
+| alan_tape_found (no joke) | Alan | [pause] In the little boat. He gave it to Iemanjá to keep. The collector was looking for a seal, not for manners. |
+| bastos_last_1 | Bastos | [tired, calm] Twenty-seventh of October. Midday. This morning a collector came with a gift. A tile. A bell under three waves. Very old. Very fine. |
+| bastos_last_2 | Bastos | I know what it is now, and I must not sleep. Forty years I have written about the sea, and it has come to correct my footnotes. |
+| bastos_last_3 | Bastos | If anyone hears this: four families cast that bell. Ferreira, Bastos, Coutinho, Sanches. Ferreira went on Tuesday. Find the Sanches boy. Tell him the bell must say no. |
+| bastos_last_4 | Bastos | [very tired, quiet] I have hidden this where he will not look. And now I am going to lie down. Only for a minute. |
+| narr_tape_end | Narrator | The tape ran on for a minute more, recording an empty room. |
 | alan_after_tape (no joke) | Alan | [long pause] He knew my name. A stranger at the top of a hill, and his last words were for me. |
 | ines_after_tape | Inês | [softly] Then let's not waste them. |
-
-### The nightstand
-
-| Id | Speaker | Line |
-|---|---|---|
-| narr_look_nightstand | Narrator | A square of clean wood in the dust, the size of a tile. Whatever stood there has been collected. |
-| alan_nightstand ★ | Alan | He took his present back. A collector never leaves a piece behind. |
 
 ### Other looks
 
@@ -213,7 +217,6 @@ marks the beats where he means it (STORY.md, Alan's humour, rule 4). **About 70 
 | narr_look_bastos_map | Narrator | A map of the world with pins in every coast. Blue for floods, red for drowned cities, and one black pin in Lisbon, pushed in so hard it has split the paper. |
 | alan_look_bastos_map ★ | Alan | Every coast on Earth, and they all owe the sea money. Lisbon's the one he underlined. |
 | narr_look_bastos_window | Narrator | Below, the whole city under the fog, and at the bottom of it the river, breathing. |
-| alan_look_bastos_carafe | Alan | Water. Fresh, for once. The only thing in this flat that isn't salted. |
 | narr_look_bastos_case | Narrator | A glass case with a lock that is all show: it opens when the room is in order. A professor's joke. |
 | ines_bastos_case_locked | Inês | It's not locked, it's waiting. He said that about the sea once, in a lecture. |
 
@@ -222,8 +225,7 @@ marks the beats where he means it (STORY.md, Alan's humour, rule 4). **About 70 
 | Id | Speaker | Line |
 |---|---|---|
 | ines_hint_shelves | Inês | Every object with its book, Alan. Match the drawings on the spines. |
-| ines_hint_reel | Inês | The last reel's missing. Half past three in the afternoon. Where would an old man be at half past three? |
-| ines_hint_rinse | Inês | Salt. Fresh water. You know this one. There's a carafe by the bed. |
+| ines_hint_thread | Inês | Reel on the left, tape through the head, then Play. My tio had one of these for his sambas. |
 | ines_hint_play | Inês | Play it, Alan. He's waited long enough to be heard. |
 
 ### Leaving
@@ -241,12 +243,12 @@ marks the beats where he means it (STORY.md, Alan's humour, rule 4). **About 70 
 - A bell baptised in the sea is a summons, not a shield. The godparent's family commands the water; whoever rings it
   again, hoping for the dead, gets the same answer.
 - A baptism is undone by renouncing.
-- A "collector" gave him a tile the morning he died. It's gone from his bedside.
+- A "collector" gave him a tile the morning he died. He hid his last tape from him in Iemanjá's boat.
 
 ## What it takes
 
 - **Art (your approval):** the room (Canva, then a depth map and the walkable floor); eight small object images for
-  the matching; the book pages are HTML (no art). Review page first.
+  the matching; the recorder close-up (Canva); the book pages are HTML (no art). Review page first.
 - **Voice (your pick):** Bastos, for the tapes: two or three ElevenLabs candidates, an old Portuguese academic, warm and
   precise.
 - **Lines:** about 70 (Alan, Inês, the narrator, Bastos), one take each, levelled and lip-synced like the rest.
