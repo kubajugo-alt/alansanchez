@@ -87,7 +87,7 @@
   let boxersImg = null;
   S.throwBoxers = function (p, to) {
     const m = window.SPRITES.alan_bn_boxers; if (!m) return;
-    if (!boxersImg) { boxersImg = new Image(); boxersImg.src = m.src; }
+    if (!boxersImg) { boxersImg = new Image(); boxersImg.src = m.src || 'art/sprites/alan_bn_boxers.webp'; } // (a sprite since 22 Oct: no src of its own)
     const k = p.height() / m.h, D = to.y - (p.y + m.dy * k), R = 50; // R: how far they rise above where they leave his hand
     const v = -2 * R - Math.sqrt(4 * R * R + 4 * R * D);            // a thrown body: y = y0 + v u + a u^2, u from 0 to 1
     shorts = { img: boxersImg, m, k, x0: p.x + m.dx * k, y0: p.y + m.dy * k, x1: to.x, y1: to.y, v, a: D - v, ms: 1150, t0: performance.now() };
@@ -109,7 +109,7 @@
   function armsOut(g, p, draw) {
     const m = window.SPRITES[p.pose];
     if (!m || p.pose !== 'alan_bn_rim') return draw(g);
-    if (!armImg || armImg.key !== p.pose) { armImg = new Image(); armImg.src = m.src; armImg.key = p.pose; }
+    if (!armImg || armImg.key !== p.pose) { armImg = new Image(); armImg.src = m.src || 'art/sprites/' + p.pose + '.webp'; armImg.key = p.pose; }
     if (!armImg.complete || !armImg.naturalWidth) return draw(g);
     rippleCv = rippleCv || document.createElement('canvas'); rippleCv.width = g.canvas.width; rippleCv.height = g.canvas.height;
     const c = rippleCv.getContext('2d'), k = p.height() / m.h, X = p.x - m.ax * k, Y = p.y - m.fy * k, W = m.w, mid = [W * 0.4, W * 0.6];
@@ -345,7 +345,7 @@
     });
   };
   // The bath repainted (approved 2026-10-21; ?bath=old for the first): eleven Canva paintings, his build and skin from the Teixeira
-  // scene (art/review/alan/bath_new, scripts/bath_new_fit.py). He strips to his underwear in front of the tank, goes
+  // scene (painted in art/review/alan/bath_new, scripts/bath_new_fit.py; its frames moved to art/sprites on 22 Oct). He strips to his underwear in front of the tank, goes
   // round behind it (drawn waist-up at the waterline, the wall hiding the rest) and flings the underwear out over the
   // wall: the washerwomen see everything, the painting doesn't. Out again by the corner where Celeste's towel hangs,
   // he takes it and dresses under it, the undressing frames played backwards.

@@ -383,7 +383,7 @@
   };
   // the sound pass (docs/SOUND.md), approved 2026-10-21: recorded footsteps, clips started where their sound starts, a
   // broken take left out, and the rooms' new beds and details (LOOPS / EXTRAS below). ?sound=old for the sound before it.
-  const SOUND_NEW = !/[?&]sound=old\b/.test(location.search);
+  const SOUND_NEW = true; // (the sound pass, approved 2026-10-21; its ?sound=old switch is gone)
   // where each clip's sound actually begins (s): the silence before it is skipped, so it lands on its action
   const LEAD = SOUND_NEW ? { beep: 0.08, broom_sweep: 0.183, cat_land: 0.334, chain_creak: 0.25, coffee_machine: 0.076, coin: 0.058, crash_wave: 0.111,
     drawer_open: 0.223, drip_hangup: 0.062, ferry_horn: 0.435, fog_lift: 0.285, hearing_aid: 0.394, knife: 0.125, knock: 0.061, lamp_click: 0.341,
