@@ -5,9 +5,9 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app: see the newest deploy entry in the log. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `114b77d9` (Netlify `6ada200f9bea9a1e50d5061a`, entry 54). Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-53); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-54); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1111,6 +1111,18 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Checked:** a browser script: the done lines take turns (1, 2, 3, 1) and Chapter V gives the short one; the shop
      phone after ringing Rui says it; each Chapter V state gives its hint, none in the cistern; reading the notebook
      speaks the hint in Chapter V and nothing extra in Chapter III. `node scripts/validate.mjs`: 0 errors, 1302 lines.
+
+54. **Deploy of both sessions' work** (the user: "just deploy", after warning that the other session had deployed the
+   cleaned cut-outs, `69cffcd6`, Netlify `6ada17253b1f63adf4b4bd09`). That commit was only on
+   `claude/zen-dijkstra-o7cgsv`, not master: deploying master as it was would have put the old sprites back. Merged
+   that branch first (`114b77d9`): conflicts only in generated files (rebuilt) and this handoff (headers combined,
+   this branch's entries renumbered 49-53); none of the 70 deleted lines is used by the merged code; validate 0
+   errors. Checked the live site still ran `69cffcd6` and the branch had nothing newer. Smoke test on the merged
+   code: all 38 scenes and a new game pass; on the `git archive` export (own port, no `.env`): intro, bath,
+   visitguitar, laundry, bench, finale, tr5, new game pass. **Deployed:** master `114b77d9`, Netlify
+   `6ada200f9bea9a1e50d5061a`. Live: page 200; `/.env` and review sheets 404; the live JS has the streaming loader;
+   `alan_ch5_hint_cat.mp3` 200, a deleted line's mp3 404; cut-out sprites (cards_listen, alan_side) and a bath sprite
+   byte-identical to the repository.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
