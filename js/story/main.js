@@ -124,6 +124,8 @@
   // the chapter transitions (js/story/transitions.js): ?scene=tr1 … tr4 play the paintings and the next chapter card,
   // tr5 the end of chapter V (?scene=fado plays the song with its painting slideshow)
   [1, 2, 3, 4].forEach(n => { PREVIEW['tr' + n] = { flags: { ch: n }, room: 'shop', pos: [815, 616, 'e'], run: () => S.chapter(n + 1, 'narr_ch' + (n + 1) + '_card') }; });
+  // the shop as it stands, nothing scripted: Inês goes about her jobs (with ?shop=new, the repainted shop)
+  PREVIEW.shopjobs = { flags: { ch: 2, heard_machine: true }, room: 'shop', pos: [236, 712, 'e'], run: async () => {} };
   PREVIEW.tr5 = { flags: { ch: 5 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await S.transition(5, { toBlack: true }); await G.fade(false); } };
   async function preview(k) {
     const P = PREVIEW[k];
@@ -306,6 +308,44 @@
         const bas = R.occluders.find(o => o.y === 500); if (bas) bas.polys = [[[160, 383], [300, 375], [842, 375], [842, 484], [160, 484]]];
         S.BATH_TALL = true;
       }
+    }
+    // ?shop=new, for review: the shop repainted (Canva) with its things at a real size beside the people (the counter,
+    // the till turned to the door, the telephone and answering machine, the newspaper, the lamp, the sugar tin), the
+    // layout kept; art/review/bg/shop_new.jpg, day only for now. Everything placed on the painting moves with it.
+    if (new URLSearchParams(location.search).get('shop') === 'new') {
+      const R = S.ROOMS.shop, day = () => F().ch < 5;
+      const bgFn0 = R.bgFn; R.bgFn = () => day() ? '../review/bg/shop_new' : bgFn0(); R.bgs = (R.bgs || []).concat('../review/bg/shop_new');
+      R.parallax = false; // no depth map for it yet
+      // the grandfather desk (and its lamp) hides whoever stands behind it; its front pedestal stands on y 600
+      R.occluders = [{ y: 598, polys: [[[0, 326], [232, 326], [236, 384], [270, 410], [305, 430], [323, 442], [323, 600], [206, 602], [206, 672], [0, 692]]] }];
+      const H = { "Grandfather's desk": [45, 330, 280, 345], Ledger: [208, 470, 80, 32], "Banker's lamp": [118, 326, 110, 60], Window: [418, 18, 440, 300],
+        Kettle: [444, 376, 40, 40], 'Sugar tin': [650, 348, 50, 66], Radiator: [740, 355, 150, 150], 'Cash register': [885, 316, 100, 92],
+        'Answering machine': [966, 396, 92, 38], Telephone: [1054, 376, 74, 58], Newspaper: [1035, 430, 185, 52], 'Door to the street': [1035, 10, 225, 445] };
+      for (const h of R.hotspots) { const n = typeof h.name === 'function' ? null : h.name; if (H[n]) h.rect = H[n]; }
+      if (S.SIDEBOARD) Object.assign(S.SIDEBOARD, { kettle: [448, 413], book: [706, 413], scale: 0.85 }); // the kettle left of the mugs, her book right of the tin
+      if (S.INES_JOBS) { const d = S.INES_JOBS.find(j => j.k === 'dust'); if (d) d.at = [395, 640]; } // the desk is narrower
+      if (S.PESSOA_AT) Object.assign(S.PESSOA_AT, { desk: [258, 448, 'w'], radiator: [810, 360, 'w'], machine: [1010, 402, 'w'] });
+      const lights0 = R.lights; R.lights = () => (typeof lights0 === 'function' ? lights0() : lights0).map(l => l.x === 178 ? Object.assign({}, l, { x: 172, y: 343, floor: [172, 600] }) : l);
+      const lampOut0 = S.lampOut; S.lampOut = g => { g.save(); g.translate(128, 330); g.scale(0.88, 0.95); g.translate(-126, -290); lampOut0(g); g.restore(); };
+      const back0 = R.animBack, anim0 = R.anim;
+      R.animBack = function (g, t) {
+        if (!day()) return back0.call(this, g, t);
+        S.windowFog(g, t, [422, 24, 428, 292], '235,238,240', 0.16);
+        if (S.shopSideboard) S.shopSideboard(g);
+        g.save(); g.beginPath(); g.rect(422, 24, 428, 292); g.clip();
+        FX.birds(g, t + 4, { y0: 70, y1: 200, n: 2, period: 19, color: 'rgba(90,92,98,0.5)', size: 7, x0: 400, x1: 870 }); g.restore();
+        FX.wisps(g, t + 1, 619, 390, { n: 4, rise: 30, spread: 4, a: 0.07, size: 3, speed: 0.22 }); // the blue mug
+        FX.trickles(g, t, [424, 228, 424, 84], 5, '235,240,245', 0.3);
+        FX.passer(g, t, [1078, 110, 130, 205], 37); // behind the door's frosted glass
+      };
+      R.anim = function (g, t) {
+        if (!day()) return anim0.call(this, g, t);
+        if (F().lampOff) S.lampOut(g);
+        FX.shaft(g, [[420, 30], [850, 30], [860, 716], [380, 716]], '210,220,230', 0.05); FX.motes(g, t, 420, 60, 430, 520, 40, '255,240,210');
+        if (!F().heard_machine && Math.floor(t * 2) % 2 === 0) FX.glow(g, 1042, 404, 10, '255,40,20', 0.9); // the machine's message light
+        if (F().ch === 3 && F().steaming && !(S.kettleHeld && S.kettleHeld())) FX.wisps(g, t, 476, 352, { n: 6, rise: 70, spread: 9, a: 0.14, size: 9 });
+      };
+      S.SHOP_NEW = true;
     }
     // Duarte's rewritten upstairs scene (art/review/alan/duarte_new, visits.js S.visitGuitar), approved 2026-10-21; ?duarte=old plays the first one
     if (new URLSearchParams(location.search).get('duarte') !== 'old') {

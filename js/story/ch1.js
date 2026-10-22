@@ -16,7 +16,7 @@
   });
 
   // ================================================================ BOOKSHOP
-  const PESSOA_AT = { desk: [250, 452, 'w'], radiator: [765, 362, 'w'], machine: [1015, 372, 'w'], floor: [700, 600, 'e'] };
+  const PESSOA_AT = S.PESSOA_AT = { desk: [250, 452, 'w'], radiator: [765, 362, 'w'], machine: [1015, 372, 'w'], floor: [700, 600, 'e'] };
   const MAG_RECT = [278, 414, 62, 32]; // the brass magnifying glass on the desk, right of where Pessoa sleeps
   // the ledger comes out of grandfather's open drawer only when Alan takes it; then the drawer shuts
   async function takeLedger() {

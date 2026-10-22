@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `9c9cde46` on branch `claude/zen-dijkstra-o7cgsv` (Netlify deploy `6ad9600e5645b03d56620317`, 2026-10-22: the new
 bath, Duarte's rewritten scene, the sound pass, the new faces, the cross-fade and breathing fixes and Inês's desk, entries 42-45). Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-46); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-47); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -930,6 +930,25 @@ session lived in the session's scratchpad and are gone; everything that matters 
      board as round 4. On approval: copy over `art/sprites/npc_cards*.webp`, meta into `js/sprites.js`, morphs for
      npc_cards<->npc_cards_b, `similar.py`, manifest, validate, smoke `tavernafter` / `fado`.
      Approved (the user: "card game approved") and applied as described: morphs 2/2 (iou 0.98); validate 0 errors (8 warnings, as before); smoke tavernafter, fado, guitar pass.
+
+47. **The shop repainted at a real scale, for review** (the user: "the objects inside (lamp, counter, cashtill, paper,
+   answering machine) are out of proportion and way too big in relation to the characters. Let's redraw it with Canva
+   so it is more realistic"; then "we lost the phone which is essential for the gameplay"; "The till should be facing
+   the door, we should see the back of it"; "make the sugartin larger"; "now do an artifact with Inez doing her actions
+   in this space. rememeber about the kettle, desk occlussion etc").
+   - Canva `generate-image` from `art/bg/shop.jpg` + a screenshot with Alan and Ines for scale, then two edits (the
+     telephone and the answering machine readable at real size; the till turned to the door and a bigger sugar tin).
+     Full-size export through page 22 of the scratch design. `art/review/shop/redraw{1,2,3}.png`; the one in review:
+     `art/review/bg/shop_new.jpg` (1280x720). **`art/bg/` is untouched.**
+   - `?shop=new` (js/story/main.js, day only): the painting, no parallax (no depth map yet), the desk occluder redrawn
+     (y 598), every hotspot rect, the kettle/book on the sideboard (`S.SIDEBOARD`, ines.js; kettle at 0.85), her dusting
+     spot (`S.INES_JOBS`), Pessoa's spots (`S.PESSOA_AT`, ch1.js), the lamp light / `lampOut` / moth, the machine's light,
+     the kettle steam, window fog, trickles, birds, the door passer. New preview `?scene=shopjobs` (nothing scripted,
+     Alan at the front left). The default game is unchanged: validate 0 errors; smoke intro, ineskey pass.
+   - Review page: https://claude.ai/artifact/KFM5gf9jcadm5ZFW1srL9v (a recording of Ines doing all five jobs in it, a
+     before/after slider, the verdict in its database at `shop/verdict`).
+   - Still to do on approval: night, drawer-open and no-magnifier versions in the same style, a depth map, then make it
+     the room's painting (that changes `art/bg/`, so only with the user's go-ahead).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
