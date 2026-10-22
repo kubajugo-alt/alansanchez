@@ -778,7 +778,11 @@
           await say('alan_tide_today');
         } },
       { name: 'Key board', rect: [917, 160, 118, 256], at: [970, 640], face: 'n', when: lit, look: 'narr_look_keyboard',
-        take: async () => { if (F().vkeyTaken) return say('alan_fail_take'); F().vkeyTaken = true; give('vkey'); await say('alan_spare'); } },
+        take: async () => {
+          if (F().vkeyTaken && (F().bkeyTaken || !S.bastosKeyHere())) return say('alan_fail_take');
+          if (!F().vkeyTaken) { F().vkeyTaken = true; give('vkey'); await say('alan_spare'); }
+          if (S.bastosKeyHere() && !F().bkeyTaken) { F().bkeyTaken = true; give('bkey'); await say('alan_spare_bastos'); } // Prof. Bastos's door (js/story/bastos.js)
+        } },
       { name: 'Shutters', rect: [0, 60, 100, 370], when: lit, look: 'narr_look_shutters' },
       { name: 'Door', rect: [1067, 160, 150, 420], at: [1100, 650], exit: 'map', entry: 'ferreira', look: 'narr_look_tape' },
     ],
@@ -802,7 +806,7 @@
   };
   S.checkCh2 = function () {
     const f = F();
-    if (f.met_celeste && f.tide_known && f.knows_1955_boy && f.turnings_deduced && (G.has('tidecard') || f.tidecardTaken)) f.ch2_ready = true;
+    if (f.met_celeste && f.tide_known && f.knows_1955_boy && f.turnings_deduced && (G.has('tidecard') || f.tidecardTaken) && S.bastosOpen()) f.ch2_ready = true;
     // the last piece found in the shop itself: the chapter ends here, not on the next way in
     if (f.ch2_ready && f.ch === 2 && !f.ch2_done && G.room && G.room.id === 'shop') return S.ch2End();
   };

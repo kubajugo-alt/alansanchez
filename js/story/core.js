@@ -228,6 +228,7 @@
     fkey: { name: "Key to Ferreira's shop", look: 'alan_look_fkey' },
     tidecard: { name: "Ferreira's tide card", look: () => S.readTideCard() },
     vkey: { name: 'Vitrine key', look: 'alan_look_vkey' },
+    bkey: { name: "Spare key: Prof. H. Bastos, Graça", icon: () => 'key', look: 'alan_spare_bastos' },
     tongue: { name: () => F().blood ? 'Bell tongue (blooded)' : 'Bell tongue', icon: () => F().blood ? 'tongue_wet' : 'tongue',
       look: () => say(F().blood ? 'alan_look_tongue_wet' : 'alan_look_tongue') },
     knife: { name: "Zé's knife", look: 'alan_look_knife', with: { tongue: () => G.room && G.room.id === 'cistern' ? S.cutPalm() : say('alan_blood_later') } },
@@ -293,24 +294,25 @@
     { id: 'se_tower', x: 870, y: 300, text: 'Sé de Lisboa · bell tower', open: () => F().decoded && F().ch <= 4,
       go: () => F().ch === 3 && F().vasco_thursday && !F().vasco_cameo ? 'se_cloister' : 'se_tower' }, // Vasco is in the cloister on the way up
     { id: 'antiques', x: 410, y: 440, text: 'Antiguidades Lacerda · Chiado', open: () => F().decoded && !F().has_tongue && (F().chose_chiado || !F().decoded_v6) },
-    { id: 'bastos', x: 1010, y: 190, text: 'Graça · Prof. Bastos', open: () => !!F().bastos_known && F().ch === 3 },
+    { id: 'bastos', x: 1010, y: 190, text: 'Graça · Prof. Bastos', open: () => !!F().bastos_known && (F().ch || 1) <= 3 },
     { id: 'cais', x: 250, y: 585, text: 'Cais do Sodré', open: () => (F().genealogy_read || F().ch3_done) && F().ch === 4 },
   ];
 
   // the map's "new" marker in Chapter III follows Inês's hints: Lacerda's case first, then Abílio at the Sé
   S.pinNext = () => {
     const f = F();
+    if ((f.ch === 2 || f.ch === 3) && f.bastos_known && !f.bastos_done && !(f.ch === 3 && f.chose_chiado && !f.has_tongue)) return 'bastos'; // Prof. Bastos's flat
     if (f.ch !== 3) return null;
     if (f.chose_chiado && !f.has_tongue) {
       if (!f.tongue_sketched) return 'antiques';
       if (!f.knows_twin) return 'se_tower';
     }
-    return f.bastos_known && !f.bastos_done ? 'bastos' : null; // then Prof. Bastos's flat
+    return null;
   };
 
   // the workshop is finished once the tide clock is wound with the key, the repair register read, the
   // tide card in Alan's pocket and the spare key off the board: then it leaves the map for good
-  S.ferreiraDone = () => { const f = F(); return !!(f.tide_wound && f.read_repair && f.tide_known && (f.tidecardTaken || G.has('tidecard')) && f.vkeyTaken); };
+  S.ferreiraDone = () => { const f = F(); return !!(f.tide_wound && f.read_repair && f.tide_known && (f.tidecardTaken || G.has('tidecard')) && f.vkeyTaken && (f.bkeyTaken || !S.bastosKeyHere || !S.bastosKeyHere())); };
 
   // something already done, tried again: three replies in turn (Chapter V, the short one)
   let doneN = 0;
@@ -367,6 +369,7 @@
       return 'ines_hint_paper_4';
     }
     if (f.ch === 2 && f.heist_done && !f.knows_withdrawn && f.turnings_deduced) return 'ines_hint_rui_theft'; // B7: Rui's news about the Sé
+    if (f.ch === 2 && S.bastosKeyHere && S.bastosKeyHere() && !f.bastos_done) return f.bastos_known || has('bkey') ? 'ines_hint_bastos' : 'ines_hint_spares'; // Prof. Bastos's flat
     if (!f.decoded && f.ch2_done && S.needBells && S.needBells()) return f.charter_shown ? 'ines_hint_bells2' : 'ines_hint_bells';
     if (!f.decoded) return f.stone_washed ? (f.stone_read ? 'ines_hint_wheel' : 'ines_hint_mag') : (f.ch2_done ? (f.saw_stone ? 'ines_hint_stone' : 'ines_hint_convent') : 'ines_hint_convent');
     // (once Alan has chosen the Chiado, the map marks Lacerda's first: the hint follows the same thread)

@@ -6,7 +6,7 @@
 
   // ---------------------------------------------------------------- inventory
   function has(id) { return E.state.inv.includes(id); }
-  const ITEM_SFX = { key: 'key_pickup', fkey: 'key_pickup', vkey: 'keys_ring', reserve_key: 'key_jingle', ledger: 'book_take', coins: 'cash_register',
+  const ITEM_SFX = { key: 'key_pickup', fkey: 'key_pickup', bkey: 'key_pickup', vkey: 'keys_ring', reserve_key: 'key_jingle', ledger: 'book_take', coins: 'cash_register',
     newspaper: 'paper_take', file55: 'paper_take', tidecard: 'paper_take', lyrics_sheet: 'paper_take', sketch: 'paper_take', brotherhood_charter: 'paper_take', vasco_card: 'paper_take',
     tongue: 'brass_heavy', twin: 'brass_heavy', matches: 'matchbox', glass: 'glass_set', lantern: 'lantern', knife: 'knife_take', sardine: 'sardine_catch', sanches_fragment: 'stone_clack', magnifier: 'pickup' };
   function giveItem(id, silent) {

@@ -1,4 +1,12 @@
-# Graça: Professor Bastos's flat (Chapter III)
+# Graça: Professor Bastos's flat (Chapter II; moved from Chapter III)
+
+**Moved to Chapter II (22 Oct, the user: "I'd move bastos to chapter 2 and make a smooth reason for them to go
+there").** The way in is now Ferreira's key board: a spare tagged "Prof. H. Bastos · Graça" (`alan_spare_bastos`);
+Inês names him when Alan brings it to the shop; Chapter II ends only after his last tape. Re-recorded:
+`alan_bastos_door` ("Police tape, and Ferreira's spare still fits. He cut keys for half the old families in Lisbon.")
+and `alan_myth_jewels` (no cream suit yet: "...Somebody in this city would like that."). New: `ines_hint_spares`, and
+`alan_ask_tomas_godparent` (Ch. III: after the tapes, Alan asks Tomás only who stood godparent). The sections below
+still say Chapter III where they were written for it.
 
 Approved and built (22 Oct): `js/story/bastos.js`, docs/animation_handoff.md entry 61. Two lines changed in the build
 from the approved script: `alan_threaded` says "Grandfather taught me on a Grundig" (Alan's father died when he was

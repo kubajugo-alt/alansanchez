@@ -23,7 +23,7 @@
   // Celeste, never set it); null when there is none
   const shopChapterEnd = () => {
     if (F().ch === 2 && !F().ch2_done) { const end = S.checkCh2(); if (end) return end; }
-    if (F().ch === 3 && F().has_tongue && F().founder_order && S.bastosOpen() && !F().ch3_done) return S.ch3End();
+    if (F().ch === 3 && F().has_tongue && F().founder_order && !F().ch3_done) return S.ch3End();
     return null;
   };
   ROOMS.shop.enter = async function (entry) {
@@ -118,12 +118,13 @@
     sech3: { flags: { ch: 3, heard_machine: true, knows_brotherhood: true, ines_plan: true, heist_done: true, reserve_raided: true, vasco_thursday: true, decoded: true, chose_chiado: true },
       room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('se_cloister', 'map') },
     // Thursday morning: the coffees, the Romans
-    // Prof. Bastos's flat (js/story/bastos.js): straight in from the map, Inês along; bastosunlock: Inês names him in the shop
-    bastos: { flags: { ch: 3, heard_machine: true, decoded: true, chose_chiado: true, bastos_known: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('bastos', 'map') },
+    // Prof. Bastos's flat, Chapter II (js/story/bastos.js): straight in from the map, Inês along; bastosunlock: Alan brings
+    // Ferreira's spare to the shop and Inês names him
+    bastos: { flags: { ch: 2, heard_machine: true, drawer_open: true, bastos_known: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('bastos', 'map') },
     // the lecture tapes straight away (the collection back on its shelves, the case open)
-    bastostapes: { flags: { ch: 3, heard_machine: true, decoded: true, chose_chiado: true, bastos_known: true, bastos_entered: true, bastos_shelves: true, bastos_case_open: true, bastos_rec_seen: true,
+    bastostapes: { flags: { ch: 2, heard_machine: true, drawer_open: true, bastos_known: true, bastos_entered: true, bastos_shelves: true, bastos_case_open: true, bastos_rec_seen: true,
       bastos_m: ['canaria', 'ys', 'ran', 'jewels', 'gilgamesh', 'matsya', 'deucalion', 'iemanja'] }, room: 'bastos', pos: [715, 450, 'n'], run: () => { S.bastosRecorder(); } }, // (not awaited: the close-up waits for the player)
-    bastosunlock: { flags: { ch: 3, heard_machine: true, decoded: true, chose_chiado: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
+    bastosunlock: { flags: { ch: 2, heard_machine: true, drawer_open: true, vkeyTaken: true, bkeyTaken: true }, room: 'street', pos: [640, 660, 'e'], run: () => { G.giveItem('bkey', true); return G.goRoom('shop', 'street'); } },
     thursday: { flags: { ch: 5, vasco_thursday: true, dawn: true }, room: 'se_cloister', pos: [260, 650, 'e'], run: () => S.thursday() },
     // Chapter III, the twin: Abílio reads the sketch of Lacerda's tongue; Vasco takes Alan down to the reserve (the near-kiss);
     // the swap at Lacerda's (ask about the music box, then the vitrine key and the twin on the case)

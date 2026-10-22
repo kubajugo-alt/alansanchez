@@ -1,7 +1,8 @@
-// Chapter III — Graça: Professor Bastos's flat (docs/bastos_level.md). Inês comes along. The objects of his
+// Chapter II — Graça: Professor Bastos's flat (docs/bastos_level.md). Ferreira's key board holds a spare for his door;
+// Inês sees it in the shop, names him, and comes along. The objects of his
 // collection go back with their books (the shelf close-up); the case opens; his lecture tapes play on the recorder
 // (the threading riddle); the last reel, hidden in Iemanjá's boat, is his last morning. Done: bastos_done, which the
-// shop's Chapter III end waits for.
+// shop's Chapter II end waits for.
 (function () {
   const { G, F, say, ROOMS, joke, sfx } = window.S;
   const $ = s => document.querySelector(s);
@@ -245,13 +246,15 @@
     if (!f.bastos_done) return 'ines_hint_play';
     return 'ines_after_tape';
   };
-  // the second name on the list: Inês knows it, after the decode (the art must be in the game)
-  S.bastosUnlockDue = () => F().ch === 3 && F().decoded && !F().bastos_known && G.hasArt('bg:bastos');
+  // the spare on Ferreira's key board (the art must be in the game); Inês names him when Alan brings it to the shop
+  // (a save already in Chapter III before the flat moved to Chapter II: she names him after the decode, as she used to)
+  S.bastosKeyHere = () => G.hasArt('bg:bastos');
+  S.bastosUnlockDue = () => !F().bastos_known && S.bastosKeyHere() && (F().ch || 1) <= 3 && (G.has('bkey') || (F().ch === 3 && F().decoded));
   S.bastosUnlock = async function () {
     F().bastos_known = true;
     await say('ines_bastos_1', 'alan_bastos_1', 'ines_bastos_2'); await joke('alan_bastos_2');
   };
-  // the chapter can't close in the shop until his tape is heard (saves from before the flat: no art, no wait)
+  // Chapter II can't close in the shop until his tape is heard (no art in the game: no wait)
   S.bastosOpen = () => !G.hasArt('bg:bastos') || !!F().bastos_done;
   const shopEnter = ROOMS.shop.enter;
   ROOMS.shop.enter = async function (entry) {
@@ -260,7 +263,7 @@
     return r;
   };
 
-  // ================================================================ GRAÇA · PROF. BASTOS
+  // ================================================================ GRAÇA · PROF. BASTOS (Chapter II)
   ROOMS.bastos = {
     name: 'Graça · Prof. Bastos', bg: 'bastos', music: 'se_exhibition', ambience: 'shop', floor: 'wood',
     fog: 0.08, fogRGB: '226,228,230',
@@ -297,6 +300,7 @@
     async enter() {
       if (!F().bastos_entered) {
         F().bastos_entered = true;
+        G.takeItem('bkey'); // Ferreira's spare opens the door
         await G.say('narr_bastos_arrive', { offscreen: true });
         await joke('alan_bastos_door');
         await say('ines_bastos_smell');

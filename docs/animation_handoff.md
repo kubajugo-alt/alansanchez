@@ -1247,6 +1247,23 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Deployed** (the user: "once done, deploy it and send me a link to the scene for preview"): master `6697511b`,
      Netlify `6ada7bb298af05ba4af58289`; live: `/.env` 404, the new art and voices 200, smoke.mjs `bastos` and
      `bastostapes` pass on the live site.
+62. **Bastos's flat moved to Chapter II** (the user: "I'd move bastos to chapter 2 and make a smooth reason for them to
+   go there"; then "go ahead, and deploy when the tests pass"). The reason: Ferreira's key board (ch2.js) now gives,
+   with Lacerda's vitrine spare, a spare tagged "Prof. H. Bastos · Graça" (item `bkey`, the key icon;
+   **alan_spare_bastos**); in the shop Inês sees it and names him (the recorded unlock lines, unchanged); the door
+   takes the key. Chapter II ends only after his last tape (`S.checkCh2` with `S.bastosOpen`); the Chapter III end no
+   longer waits. Inês's Chapter II hint: **ines_hint_spares** (the board), then **ines_hint_bastos**; the map's
+   next-place glow follows. Chapter III, Tomás: once the tapes are heard Alan asks only **alan_ask_tomas_godparent**
+   ("Professor Bastos said your Brotherhood baptised the bell in the sea. On tape. Who stood godparent?") and Tomás
+   answers with tomas_godparents (`S.tomasGodparent`; the 'reverse' and 'godparents' notebook lines as before).
+   Re-recorded for the move: **alan_bastos_door** (no grandfather's key: the tide clock has usually taken it) and
+   **alan_myth_jewels** (in Ch. II Alan may not have heard of the cream suit yet). Five takes, Alan and Inês voices,
+   transcribed (words match), installed and lip-synced. Old saves: one in Chapter III with the decode and no flat
+   still gets Inês's old unlock and the pin; a Chapter II save past the key board gets the spare from the board
+   again (Ferreira's pin stays open until it is taken). Previews `bastos`, `bastostapes`, `bastosunlock` now start
+   in Chapter II. STORY.md II.3b (Puzzles II-F, II-G). Checked: validate 0 errors (1390 lines); smoke.mjs on the
+   three previews and story_hints.mjs pass; play.mjs (Bastos now after Ferreira's workshop, the godparent question
+   at the Carmo) RESULT2_PLACEHOLDER.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

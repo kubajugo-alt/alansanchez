@@ -93,13 +93,21 @@
     // tomas_novena is an optional follow-up now; tomas_renounce plays when the rite is decoded
     F().heard_bells = true; S.loreOrder && S.loreOrder();
   };
+  S.tomasGodparent = async function () {
+    S.lore && S.lore('reverse'); // (from Bastos's tapes)
+    await say('tomas_godparents'); S.lore && S.lore('godparents');
+    F().heard_bells = true; S.loreOrder && S.loreOrder();
+  };
   S.talkTomas = async function () {
     await say('tomas_hello');
     if (S.gossip) await S.gossip('tomas');
     await G.dialog([
       // with the charter in his pocket Alan can just ask; the charter comes out first
-      { line: 'alan_ask_tomas_bells', once: true, when: () => (F().charter_shown || G.has('brotherhood_charter')) && !F().heard_bells,
+      { line: 'alan_ask_tomas_bells', once: true, when: () => (F().charter_shown || G.has('brotherhood_charter')) && !F().heard_bells && !F().bastos_lessons,
         run: async () => { if (!F().charter_shown) await S.tomasCharter(); await S.tomasBells(); } },
+      // Bastos's tapes have told him about the baptism in the sea (js/story/bastos.js): he asks the rest
+      { line: 'alan_ask_tomas_godparent', once: true, when: () => (F().charter_shown || G.has('brotherhood_charter')) && !F().heard_bells && F().bastos_lessons,
+        run: async () => { if (!F().charter_shown) await S.tomasCharter(); await S.tomasGodparent(); } },
       { label: 'And the nine days?', once: true, when: () => F().heard_bells, run: async () => { await say('tomas_novena'); await joke('alan_novena'); } },
       { line: 'alan_ask_carmo', once: true, run: () => say('tomas_carmo') },
       { line: 'alan_ask_founders', once: true, run: async () => { await say('tomas_founders'); await joke('alan_twice'); } },
