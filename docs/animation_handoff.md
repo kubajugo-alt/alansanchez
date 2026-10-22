@@ -3,8 +3,8 @@
 ## Start here (session handoff, 2026-10-22)
 
 Work on branch `claude/zen-dijkstra-o7cgsv` (draft PR kubajugo-alt/alansanchez#1; it carries everything). The live
-site, https://alan-sanchez-drowned-bell.netlify.app, runs commit `e9bb754c` (Netlify deploy `6ad996fe597c28c865322321`,
-2026-10-22: everything through entry 47 that the user approved). Below: what the game is now, what is open, the rules,
+site, https://alan-sanchez-drowned-bell.netlify.app, runs commit `69cffcd6` (Netlify deploy `6ada17253b1f63adf4b4bd09`,
+2026-10-22: everything through entry 48 that the user approved, the cleaned cut-outs included). Below: what the game is now, what is open, the rules,
 and where the tools are. The numbered session log underneath has the detail of every change (entries 1-47); the
 sections after it are an archive of the 20 October handoff, kept for history: don't act on them without checking the
 code and the user.
@@ -40,7 +40,8 @@ A. **The cut-out audit: applied** (entry 48; the user: "I approve it all"). The 
    duarte_new 16), re-encoded WebP q90 with lossless alpha (checked identical to the cleaned alpha) and exact RGB under
    transparency: 73.2 MB -> 33.4 MB. Canvas and placement unchanged, so js/sprites.js, morphs and faces stand. Manifest
    rebuilt, validate 0 errors, smoke intro, bench, laundry, tavernafter, fado, sepit, vascostore, romance, visitguitar,
-   bath, copbed, coldopen pass. Board: https://claude.ai/artifact/2aTv6kXEf253d63Ppg9AH5. **Not deployed yet.**
+   bath, copbed, coldopen pass. Board: https://claude.ai/artifact/2aTv6kXEf253d63Ppg9AH5. **Deployed** (the user: "deploy"):
+   commit `69cffcd6`, Netlify `6ada17253b1f63adf4b4bd09`; smoke on the export passed; live sprites byte-identical, `/.env` 404.
    Left: the 11 frames cut off at the canvas edge need a re-cut from source (alan_undress4, alan_untie, alan_wash1,
    alan_wring, celeste_wring1/2, cop_bed3/4, pair_guitar_undress2, alan_walk7_s1/s2); npc_tourists(_b) keep a faint
    pale rim on the bare legs.
