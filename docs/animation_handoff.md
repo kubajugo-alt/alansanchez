@@ -7,7 +7,7 @@ bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `114b77d9` (Netlify `6ada200f9bea9a1e50d5061a`, entry 54). Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-54); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-55); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -57,7 +57,9 @@ C. **Other story frames that were never painted** (the game skips them silently)
    frames, `vasco_hook` and the other reaction variants in se.js). Offered to the user; no answer yet.
 D. The bench man's `npc_bench_wistful` paints him bareheaded (his cap in his hands): offered to paint the cap on.
 0. **Walks, entry 23's plan:** Step B (Alan's 12-painting side walk, "more fluidity").
-1. **Walks towards and away from the camera** (Alan first: the player walks him up and down rooms all the time),
+1. **Walks towards and away from the camera: Alan and Inês only** (the user, 2026-10-22: "I don't think Vasco needs
+   them. Only Alan and Inês"; nobody else gets them). Their 4-frame cycles play again since entry 55; a new painted
+   set would replace them (Alan first: the player walks him up and down rooms all the time),
    then the lantern walks (Alan's `alan_lwalk*`, Inês's `ines_lwalk*`). Same method: a Gemini sheet, then the walk
    editor for the user to arrange and approve. `walk_sheet.py`'s guide is side-view stick figures: front/back
    views need their own guide.
@@ -1123,6 +1125,16 @@ session lived in the session's scratchpad and are gone; everything that matters 
    `6ada200f9bea9a1e50d5061a`. Live: page 200; `/.env` and review sheets 404; the live JS has the streaming loader;
    `alan_ch5_hint_cat.mp3` 200, a deleted line's mp3 404; cut-out sprites (cards_listen, alan_side) and a bath sprite
    byte-identical to the repository.
+
+55. **Front and back walks play again (Alan, Inês)** (the user: "we had it for Alan, please check, must've been
+   removed at some point"). The cycles were still wired (`alan_front_walk*`, `alan_back_walk*`, Inês's front/back
+   walk and pass frames), but by 19 October `walkDir` (actor.js) wanted a vertical leg to cover 0.8 of the figure's
+   height on the floor (two painted steps); the `v2` branch (14 Oct) had no such limit. The rooms are shallow (the
+   whole floor depth is under 0.8 of his height in the police station, tavern, boat and Ferreira's), so the walks
+   all but never played: none in 662 recorded frame changes. Now 0.4 (one step). Checked by walking straight down
+   and up: front and back cycles in the shop, street, tavern, antiques, lavadouro; Inês's front walk in the shop; the
+   police floor (0.39) stays side-on. Smoke intro, bench, copreturn pass. Vasco never had front/back walk paintings
+   and doesn't need them (the user).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
