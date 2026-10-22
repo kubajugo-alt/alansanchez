@@ -79,12 +79,15 @@
   }
   // whoever stands behind a piece of furniture whose top edge crosses their body gets that edge (Actor.draw shades them
   // a little towards it: the counter, desk or basin throws its shade on them, so they read as standing behind it)
+  // an actor's depth: its feet, or its def.sortY when it sits on top of something (Pessoa on the desk: the desk is
+  // painted in front of whoever is behind it, never in front of the cat lying on it)
+  const depthOf = a => (a.def && a.def.sortY != null) ? Math.max(a.y, a.def.sortY) : a.y;
   function markOccluded(actors) {
     for (const a of actors) a.occEdge = null;
     for (const o of (E.room.occluders || [])) {
       if (o.when && !o.when()) continue;
       for (const a of actors) {
-        const behind = o.base ? a.y < o.base[0][1] + (o.base[1][1] - o.base[0][1]) * Math.max(0, Math.min(1, (a.x - o.base[0][0]) / (o.base[1][0] - o.base[0][0]))) : a.y < o.y;
+        const ay = depthOf(a), behind = o.base ? ay < o.base[0][1] + (o.base[1][1] - o.base[0][1]) * Math.max(0, Math.min(1, (a.x - o.base[0][0]) / (o.base[1][0] - o.base[0][0]))) : ay < o.y;
         if (!behind) continue;
         const e = occTopAt(o, a.x), h = a.height();
         if (e == null || e <= a.y - h * 0.95 || e >= a.y - 2) continue;
@@ -191,7 +194,7 @@
       const planted = (a, fn) => { if (!PX()) return fn(); g.save(); Parallax.apply(g, a.x, a.y); try { fn(); } finally { g.restore(); } };
       const items = [];
       markOccluded(E.npcs.filter(a => a.visible).concat(E.player.visible ? [E.player] : []));
-      for (const a of E.npcs) if (a.visible) items.push({ y: a.y, fn: () => planted(a, () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); }) });
+      for (const a of E.npcs) if (a.visible) items.push({ y: depthOf(a), fn: () => planted(a, () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); }) });
       if (E.player.visible) items.push({ y: E.player.y, fn: () => planted(E.player, () => { E.player.draw(); if (E.player.overlay) E.player.overlay(g, E.player, E.time); }) });
       for (const o of (E.room.occluders || [])) if (!o.when || o.when()) items.push({ y: occluderY(o), fn: () => drawOccluder(o) });
       items.sort((a, b) => a.y - b.y).forEach(i => i.fn());

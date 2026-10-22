@@ -76,7 +76,9 @@
     npcs: [
       { id: 'ines', x: 610, y: 590, dir: 'w', name: 'Inês', when: () => F().ch < 5 && !(F().ch === 4 && F().ze_saved) && !(S.inesAtSe && S.inesAtSe() && F().se_visited), look: 'narr_look_ines', talk: () => S.talkInes(),
         items: { sketch: () => S.inesSketch(), notebook: () => S.inesSketch(), ledger: () => S.inesLedger(), tongue: () => say(F().twin_swapped ? 'ines_vandal2' : 'ines_vandal'), twin: () => say('ines_hint_swap'), any: 'alan_fail_ines_item' } },
-      { id: 'pessoa', h: 46, x: 0, y: 0, dir: 'w', fixedDir: true, name: 'Pessoa', when: () => !(F().ch >= 5 && F().pessoa_fed), init: a => {
+      // sortY: on the desk (or the radiator, the machine) he lies on top of the furniture, so the desk cut out in front of
+      // whoever stands behind it (Inês) is never drawn over him (it hid him from 21 Oct)
+      { id: 'pessoa', h: 46, x: 0, y: 0, dir: 'w', fixedDir: true, sortY: 565, name: 'Pessoa', when: () => !(F().ch >= 5 && F().pessoa_fed), init: a => {
         const p = PESSOA_AT[pessoaSpot()];
         a.x = p[0];
         a.y = p[1];
