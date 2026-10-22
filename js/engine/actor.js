@@ -100,8 +100,9 @@
       return new Promise(res => {
         if (this.resolve) this.resolve();
         if (Math.hypot(x - this.x, y - this.y) < 2) { res(); return; }
-        // Alan goes round the furniture cut out of the floor, not through it
-        const [first, ...rest] = this === E.player && E.room && E.room.walk ? E.roundCorners([this.x, this.y], E.route([this.x, this.y], [x, y], E.room.walk), E.room.walk, this.height()) : [[x, y]];
+        // everyone goes round the furniture cut out of the floor, not through it (route() keeps a straight line when either
+        // end is off Alan's floor, as for someone behind a counter, or when the straight line stays on it)
+        const [first, ...rest] = !(this.def && this.def.ambient) && E.room && E.room.walk ? E.roundCorners([this.x, this.y], E.route([this.x, this.y], [x, y], E.room.walk), E.room.walk, this.height()) : [[x, y]];
         if (!this.walking) this.walkT = 0; // a fresh start eases in; a change of mind mid-stride keeps the pace
         this.target = { x: first[0], y: first[1] }; this.path = rest; this.resolve = res; this.walking = true;
       });
@@ -177,7 +178,8 @@
         const pIn = easy && WALK_EASE_IN > 0 ? WALK_START_PACE + (1 - WALK_START_PACE) * sm(this.walkT / WALK_EASE_IN) : 1;
         const pOut = easy && WALK_EASE_OUT > 0 ? WALK_END_PACE + (1 - WALK_END_PACE) * sm(rem / (hh * WALK_EASE_OUT)) : 1;
         this.pace = Math.min(pIn, pOut);
-        let budget = hh * 0.62 * dt * (this.c.speed || 1) * this.pace, moved = 0, arrived = false;
+        // hurry (a double-click): twice the pace for the rest of this walk; the cycle follows the ground covered, so the legs keep up
+        let budget = hh * 0.62 * dt * (this.c.speed || 1) * this.pace * (this.hurry ? 2 : 1), moved = 0, arrived = false;
         // the step carries on round a path point instead of stalling on it (arcs are many short legs)
         for (let guard = 0; guard < 24 && budget > 1e-6; guard++) {
           const dx = this.target.x - this.x, dy = this.target.y - this.y;
@@ -285,6 +287,7 @@
       this.phase = 0;
       this.stepIdx = -1;
       this.walkT = 0;
+      this.hurry = false;
       const r = this.resolve;
       this.resolve = null;
       if (r) r();

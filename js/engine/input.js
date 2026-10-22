@@ -101,6 +101,38 @@
     }
     interact(t, E.selItem ? 'item' : defaultVerb(t.def));
   });
+  // ---------------------------------------------------------------- show what can be clicked (H, the ◎ button)
+  const marksEl = $('#marks'); let marksT = null;
+  function showHotspots() {
+    if (!E.room || E.cutscene || E.still || !marksEl) return;
+    const P = window.Parallax && Parallax.active && E.room.depth ? Parallax : null;
+    const put = (x, y, fx, fy) => P ? P.at(x, y, fx, fy) : [x, y];
+    const marks = [];
+    for (const h of (E.room.hotspots || [])) {
+      if (h.when && !h.when()) continue;
+      let x, y;
+      if (h.rect) { x = h.rect[0] + h.rect[2] / 2; y = h.rect[1] + h.rect[3] / 2; }
+      else if (h.poly) { x = h.poly.reduce((s, p) => s + p[0], 0) / h.poly.length; y = h.poly.reduce((s, p) => s + p[1], 0) / h.poly.length; }
+      else continue;
+      marks.push({ x, y, fx: h.at ? h.at[0] : x, fy: h.at ? h.at[1] : y, name: typeof h.name === 'function' ? h.name() : h.name, exit: !!h.exit });
+    }
+    for (const a of E.npcs) if (a.visible && a.def && a.def.name) marks.push({ x: a.x, y: a.y - a.height() * 0.55, fx: a.x, fy: a.y, name: typeof a.def.name === 'function' ? a.def.name() : a.def.name });
+    marksEl.innerHTML = '';
+    for (const m of marks) {
+      const [sx, sy] = put(m.x, m.y, m.fx, m.fy), d = document.createElement('div');
+      d.className = 'mk' + (m.exit ? ' exit' : ''); d.style.left = (sx / W * 100) + '%'; d.style.top = (sy / H * 100) + '%';
+      d.innerHTML = '<i></i><span></span>'; d.querySelector('span').textContent = m.name || '';
+      marksEl.appendChild(d);
+    }
+    marksEl.classList.add('on'); clearTimeout(marksT);
+    marksT = setTimeout(() => marksEl.classList.remove('on'), 2600);
+  }
+  $('#hot-btn').addEventListener('click', e => { e.stopPropagation(); showHotspots(); });
+  // double-click: on the way to an exit, go straight through; any other walk, hurry (twice the pace to the end of it)
+  canvas.addEventListener('dblclick', () => {
+    const p = E.player; if (!p || !p.walking || E.cutscene) return;
+    if (E.exitWalk) p.stop(); else p.hurry = true;
+  });
   // long-press = examine on touch devices
   // (a finger that moves more than about 10 px is a drag, not a press)
   let pressT = null, pressAt = null;
@@ -116,6 +148,7 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' || e.key === '.' || e.key === ' ') { if (E.skipFn) { E.skipFn(); e.preventDefault(); } return; }
     if ((e.key === 'i' || e.key === 'I') && !E.still) invBar.classList.toggle('show');
+    if ((e.key === 'h' || e.key === 'H') && !e.ctrlKey && !e.metaKey && !e.altKey && $('#title').classList.contains('hidden')) showHotspots();
     if ((e.key === 'n' || e.key === 'N') && !e.ctrlKey && !e.metaKey && !e.altKey && $('#title').classList.contains('hidden')) E.readItem('notebook'); // (not on the title screen)
     const n = parseInt(e.key, 10);
     if (E.dialogResolve && n >= 1) { const btn = dialogEl.querySelectorAll('button')[n - 1]; if (btn) btn.click(); }
@@ -204,7 +237,8 @@
           await E.say((typeof def.lockedLine === 'function' ? def.lockedLine() : def.lockedLine) || 'alan_fail_04');
           return;
         }
-        await approach(def, t.actor);
+        E.exitWalk = true; // (a double-click now goes straight through)
+        try { await approach(def, t.actor); } finally { E.exitWalk = false; }
         await E.goRoom(typeof def.exit === 'function' ? def.exit() : def.exit, def.entry || E.room.id); return;
       }
       if (t.actor) t.actor.engaged++;

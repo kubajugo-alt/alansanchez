@@ -19,12 +19,19 @@
 
   // ---------------------------------------------------------------- chapter hooks in the shop
   const shopEnter = ROOMS.shop.enter;
-  ROOMS.shop.enter = async function (entry) {
-    // (checked afresh, not read from ch2_ready: some last clues, like the case file used on Celeste, never set it)
+  // a chapter end due in the shop (checked afresh, not read from ch2_ready: some last clues, like the case file used on
+  // Celeste, never set it); null when there is none
+  const shopChapterEnd = () => {
     if (F().ch === 2 && !F().ch2_done) { const end = S.checkCh2(); if (end) return end; }
     if (F().ch === 3 && F().has_tongue && F().founder_order && !F().ch3_done) return S.ch3End();
+    return null;
+  };
+  ROOMS.shop.enter = async function (entry) {
+    const end = shopChapterEnd(); if (end) return end;
     if (shopEnter) return shopEnter.call(this, entry);
   };
+  // Continue into the shop skips its way-in (the scene is already set), but a chapter end due there still plays
+  ROOMS.shop.resume = () => shopChapterEnd();
 
   // ---------------------------------------------------------------- art the engine preloads
   window.STILLS = ['still_intro', 'still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn',

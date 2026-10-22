@@ -37,8 +37,8 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #narration .who { font-family: 'Cinzel', serif; color: var(--gold); font-size: 0.95em; letter-spacing: .12em; margin-bottom: .2em; }
 #narration .who:empty { display: none; }
 #narration.top { bottom: auto; top: 5%; }
-#bag, #menu-btn, #nb-btn { transition: opacity .5s; }
-#game.cine #bag, #game.cine #menu-btn, #game.cine #nb-btn, #game.cine #invbar { opacity: 0; pointer-events: none; }
+#bag, #menu-btn, #nb-btn, #hot-btn { transition: opacity .5s; }
+#game.cine #bag, #game.cine #menu-btn, #game.cine #nb-btn, #game.cine #hot-btn, #game.cine #invbar { opacity: 0; pointer-events: none; }
 #narration .txt { font-size: 1.4em; line-height: 1.25; }
 #hover {
   position: absolute; transform: translate(-50%, -100%); white-space: nowrap; pointer-events: none; display: none;
@@ -69,7 +69,7 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #inventory .slot:hover { border-color: var(--gold); background: radial-gradient(rgba(120,86,40,.7), rgba(40,26,14,.5)); }
 #inventory .slot.selected { border-color: #ffe9b0; box-shadow: 0 0 12px rgba(255,220,140,.7) inset; }
 #inventory .slot canvas { width: 100%; height: 100%; pointer-events: none; }
-#bag, #menu-btn, #nb-btn {
+#bag, #menu-btn, #nb-btn, #hot-btn {
   position: absolute; top: 1.5%; width: 2.6em; height: 2.6em; border-radius: 50%; border: 1px solid rgba(224,184,102,.6);
   background: rgba(20,13,8,.65); color: var(--gold); font-size: 1em; cursor: pointer;
 }
@@ -77,6 +77,16 @@ html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-
 #bag { right: 5.2%; }
 #nb-btn { right: 9.2%; font-size: 1.15em; }
 #nb-btn.hidden { display: none; }
+#hot-btn { left: 1.2%; font-size: 1.1em; }
+/* show what you can click (H, or the ◎ button): a ring and a name on everything for a moment */
+#marks { position: absolute; inset: 0; pointer-events: none; z-index: 6; opacity: 0; transition: opacity .35s; }
+#marks.on { opacity: 1; }
+#marks .mk { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+#marks .mk i { width: 1.1em; height: 1.1em; border-radius: 50%; border: 2px solid #ffe2a0; box-shadow: 0 0 8px rgba(255,220,150,.9), inset 0 0 6px rgba(255,220,150,.6); animation: mkPulse 1s ease-in-out infinite; }
+#marks .mk.exit i { border-radius: 2px; transform: rotate(45deg); }
+#marks .mk span { margin-top: .25em; font-family: 'Cinzel', serif; font-size: .72em; color: #f6e2b0; text-shadow: 0 1px 3px #000, 0 0 6px #000; white-space: nowrap; }
+@keyframes mkPulse { 50% { transform: scale(1.25); } }
+#marks .mk.exit i { animation: none; }
 #inventory .slot { position: relative; }
 #inventory .slot .read { position: absolute; left: 50%; bottom: -.2em; transform: translateX(-50%); font: 700 .62em 'Cinzel', serif; color: var(--gold); background: rgba(20,13,8,.92); border: 1px solid rgba(224,184,102,.6); border-radius: .3em; padding: .05em .45em; cursor: pointer; }
 #inventory .slot .read:hover { color: #ffe9b0; border-color: #ffe9b0; }

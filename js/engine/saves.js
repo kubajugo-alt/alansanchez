@@ -9,9 +9,17 @@
   // flags.clock), plus where Alan stands, the clock overlay and the scene's music cue (Sound.musicState)
   const SAVE_KEY = 'drowned-bell-save-v3';             // the autosave: every room change, chapter card, finished scene
   const SAVE_KEY_MANUAL = 'drowned-bell-save-v3-manual'; // the menu's Save: kept until the player saves again
+  // the shape of a save (v): a save without one is from before 22 Oct 2026. When the shape changes, bump it and add a
+  // step to MIGRATE, so older saves are brought up to date instead of being thrown away
+  const SAVE_VERSION = 1;
+  const MIGRATE = {
+    0: st => { // before versions: the sketch became an item (Inês and Celeste take it)
+      if (st.flags.sketched_tile && !st.inv.includes('sketch')) st.inv.push('sketch');
+    },
+  };
   function snapshot() {
     let music = null; try { music = Sound.musicState ? Sound.musicState() : null; } catch (e) { music = null; }
-    return JSON.stringify(Object.assign({}, E.state, { px: E.player.x, py: E.player.y, dir: E.player.dir, music, savedAt: Date.now() }));
+    return JSON.stringify(Object.assign({}, E.state, { v: SAVE_VERSION, px: E.player.x, py: E.player.y, dir: E.player.dir, music, savedAt: Date.now() }));
   }
   function autosave() { if (/[?&]scene=/.test(location.search) || (E.state && E.state.flags.dawn)) return false; // past dawn the save is wiped, not rewritten
     try { localStorage.setItem(SAVE_KEY, snapshot()); return true; } catch (e) { return false; /* storage unavailable */ } }
@@ -37,8 +45,9 @@
     try { parsed = JSON.parse(data); } catch (e) { parsed = null; }
     if (!parsed || !parsed.flags || !ROOMS[parsed.room]) return false; // corrupt or from a retired build: start fresh
     E.state = Object.assign(freshState(), parsed);
-    // saves from before the sketch became an item: hand it over so Inês and Celeste can take it
-    if (E.state.flags.sketched_tile && !E.state.inv.includes('sketch')) E.state.inv.push('sketch');
+    if (!Array.isArray(E.state.inv)) E.state.inv = [];
+    for (let v = parsed.v || 0; v < SAVE_VERSION; v++) if (MIGRATE[v]) MIGRATE[v](E.state);
+    E.state.v = SAVE_VERSION;
     // items taken out of the game (the brass weight, or any id this build no longer has) would break the inventory bar
     if (!Array.isArray(E.state.inv)) E.state.inv = [];
     E.state.inv = E.state.inv.filter(id => id !== 'weight' && E.ITEMS[id]);
@@ -52,6 +61,9 @@
     await E.goRoom(E.state.room, null, { pos: [E.state.px, E.state.py, E.state.dir], noEnter: true, noSave: true });
     E.setClock(E.state.clockText || null);
     try { if (Sound.restoreMusic && E.state.music) Sound.restoreMusic(E.state.music); } catch (e) { /* ignore */ }
+    // the room's way-in is skipped (the scene is already set), but anything due there still happens (a chapter end in
+    // the shop): the room's resume hook. (Not awaited: Continue returns and the game runs it like any scene.)
+    if (E.room && E.room.resume) setTimeout(() => { const r = E.room.resume(); if (r && r.then) { E.busy++; r.finally(() => { E.busy--; }); } }, 0);
     return true;
   }
   function checkpoint() { E.state.flags._checkpoint = null; E.state.flags._checkpoint = snapshot(); }
@@ -114,6 +126,30 @@
     }
     loadArmed = 0;
     toast((await loadSave(m || a)) ? 'Game loaded' : 'That save could not be read'); };
+  // the game as a file (the browser's storage can be cleared, or the player moves to another device): Save to file
+  // downloads what the menu's Save would keep; Load from file reads one back
+  (function fileButtons() {
+    const menu = $('#menu'); if (!menu || $('#opt-export')) return;
+    const add = (id, label, fn) => { const b = document.createElement('button'); b.id = id; b.textContent = label; b.onclick = e => { e.stopPropagation(); menu.classList.remove('open'); fn(); }; menu.appendChild(b); };
+    add('opt-export', 'Save to file', () => {
+      if (!E.state || !E.room) return toast('Nothing to save yet');
+      if (midScene()) return toast("Can't save during a scene");
+      if (E.state.flags.dawn) return toast('The story is over');
+      const blob = new Blob([snapshot()], { type: 'application/json' }), a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = 'drowned-bell-' + new Date().toISOString().slice(0, 16).replace(/[T:]/g, '-') + '.json';
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      toast('Saved to a file');
+    });
+    const input = document.createElement('input'); input.type = 'file'; input.accept = '.json,application/json'; input.style.display = 'none';
+    document.body.appendChild(input);
+    input.onchange = async () => {
+      const f = input.files && input.files[0]; input.value = ''; if (!f) return;
+      let ok = false; try { ok = await loadSave(await f.text()); } catch (err) { ok = false; }
+      if (ok) { try { Sound.init(); } catch (err) { /* no audio */ } E.showModal('title', false); E.autosave(); } // (from the title screen too)
+      toast(ok ? 'Game loaded' : 'That file could not be read');
+    };
+    add('opt-import', 'Load from file', () => { if (midScene()) return toast("Can't load during a scene"); input.click(); });
+  })();
   let toastT = null;
   function toast(msg, ms) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), ms || 1500); }
 
