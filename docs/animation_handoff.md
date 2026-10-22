@@ -1270,6 +1270,18 @@ session lived in the session's scratchpad and are gone; everything that matters 
    without repeats, kept in the save as `F().scores_used`; 13, 24, 34, 40 (the cat, the kettle, Pessoa, the counter)
    only in the shop; with none left she rolls her eyes silently. Checked in a browser: 80 jokes in Bastos's flat gave
    35 scores, 35 different, no shop-only line. Deployed with entry 62.
+64. **Bastos's flat: the case's key, the sea's rules, the exits** (the user: the case opening by itself "makes no sense
+   ... he found a key to the cabinet in the last book"; "a conversation between him and Ines ... the sea seems to be
+   an old entity recognised by all the cultures and it has some rules that all of them knew ... after the riddle with
+   the books and objects and before the tape recorder"; "leave the flat hotspot often gets occluded by the
+   inventory"; the lines approved as drafted). The last book placed drops Bastos's key (item `ckey`, the key icon;
+   narr_bastos_case re-recorded); then the conversation (`ines_sea_1`..`_7`, `alan_sea_1`..`_4`, the last a ★ joke);
+   the notebook's "The Sea" page gains the rules first; the key on the case opens it (`alan_bastos_case_open`, then
+   the index card as before). Re-recorded: narr_look_bastos_case, ines_bastos_case_locked (both said the case opened
+   by itself); new hint ines_hint_case_key. 16 takes, transcribed (words match), installed, lip-synced. The flat's way
+   out is now the left edge (it was a strip along the bottom, under the inventory box), and Lacerda's shop gained its
+   two bottom corners as a way out. play.mjs: the key on the case is a step. Checked: validate 0 errors (1433 lines);
+   smoke.mjs bastos, bastostapes, bastosunlock, lacthreat, twinswap pass; play.mjs RESULT3_PLACEHOLDER.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
