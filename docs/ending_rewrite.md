@@ -1,57 +1,51 @@
-# Ending rewrite: proposal (2026-10-22, not approved yet)
+# Ending rewrite: proposal, version 2 (2026-10-22, not approved yet)
 
-## The user's note
+## The user's notes
+- On the current ending: "Lacerda spent his entire life obsessing about something, and then suddenly one line in a diary
+  of someone who he considered an enemy - made him completely passive... I don't think the ledger would be that
+  important for him - he wouldn't need the founders any more since he killed most and has the one he needs in the
+  cistern."
+- On version 1 (Lacerda doesn't know the order): "makes little sense - Lacerda had 40 years to go to the se and read the
+  bells", "and he was the order - the founders weren't".
 
-> "Lacerda spent his entire life obsessing about something, and then suddenly one line in a diary of someone who he
-> considered an enemy - made him completely passive. This makes absolutely no sense. We might need to re-write the ending
-> completely. I don't think the ledger would be that important for him - he wouldn't need the founders any more since he
-> killed most and has the one he needs in the cistern."
+## The premise
+Lacerda **is** the Brotherhood. He knows everything:
+- the rite;
+- the founding order;
+- that ringing backward renounces the sea.
 
-## What happens now (STORY.md V.4)
+The founders were only craftsmen. There is one thing he cannot do himself. The bell answers only its makers' blood, so a
+founder's hand has to ring it. That is the only reason he needs Alan. It is also why 1755 needed "a Sanches hand"
+(Chapter III), and why he killed the other founders and kept Alan for last.
 
-1. Alan hands Lacerda the ledger.
-2. Lacerda kneels on the step and reads it, with his back to the bell.
-3. He reaches "Vicente, let it go" and stops paying attention.
-4. Alan frees Inês, lights the bell and rings it backward.
-5. Lacerda "doesn't fight it. He goes back to the ledger" and drowns while he reads.
+He has no use for the ledger.
 
-## The new premise
-
-**Lacerda never knew the order.** The Brotherhood made sure no Lacerda would. The order is kept in two places only:
-- on the four bells of the Sé, which Alan read with the glass;
-- in the founders' own hands, which means Joaquim's ledger.
-
-**This explains three things the story already shows:**
-- why Lacerda turned over Bastos's flat;
-- why he searched the Sanches shop and left salt on the floor;
-- why he took Inês alive: she bluffed that she knew the dates ("Your assistant has been reciting dates to me").
-
-**He doesn't want the ledger. He wants Alan,** the last founder and the one man who read the bells. Your point ("he has
-the one he needs in the cistern") becomes his own line.
-
-**Alan's weapon is a lie.** Lacerda has to take Alan's word for the order. Alan rings it last to first and tells him it's
-the founders' order. Lacerda stays dangerous and active the whole time, and dies fighting.
+Alan cannot trick him. What Alan has is the rule Bastos taught (Chapter II, the sea talk): "It obeys whoever holds the
+right thing... Obeys the hand on the bell." The water answers to the Lacerda name everywhere except at the bell. With a
+founder's blooded hand on the bronze, the water answers to that hand. Lacerda knows the rite. He never took the sea's
+rules seriously.
 
 ## Chapter V: the shop
 
 ### Message 3
-**[rec]** `lacerda_msg3`: "[cold, measured] Senhor Sanches. Your assistant has been reciting dates to me. Wrong ones, I
-think. She tells me you read the bells at the Sé. Then you know their order, and I never did. Bring the tongue, and your
-blood. Come alone, under the Carmo. The river turns at twenty-five to one."
+**[rec]** `lacerda_msg3`: "[cold, measured] Senhor Sanches. Your assistant has been reciting dates to me. She is very
+tiresome. The bell wants a founder's hand, and yours is the last one I have. Bring the tongue, and your blood. Come
+alone, under the Carmo. The river turns at twenty-five to one."
 
 ### Cut
-The appended "And bring your grandfather's ledger. The young lady insists." and `alan_insists` both go.
+- The ledger demand and `alan_insists`.
+- `alan_door_ledger`. The door still needs the call to Rui.
 
-The door no longer needs the ledger, so `alan_door_ledger` goes too. The door still needs the call to Rui.
-
-### Kept
-Pessoa is still lying on the ledger. Inês hid it from Lacerda when he searched the shop, and this is now the reason he
-searched. Alan pockets it.
+### The cat
+Pessoa is lying on the ledger, **open at the last page**. Inês read it while she waited in Chapter IV, and she left it for
+Alan.
+- **[rec]** `alan_pessoa`: "[pause] He was lying on the ledger. Open at the last page. She left it for me."
+- **[new]** `alan_read_last`: "'Afonso Lacerda's last words, as the water rose, were for his son: Vicente, let it go.'
+  [pause] She wanted me to know he had a father."
 
 ## The cistern
 
-### 1. The confrontation
-These stay as they are:
+### 1. Kept as they are
 - `lacerda_joaquim`
 - `alan_fin_angry`
 - `lacerda_spared_2`
@@ -59,67 +53,62 @@ These stay as they are:
 - `lacerda_font`
 - `lacerda_interrupted`
 - `lacerda_father`
-- `alan_father` (the Bastos version you approved)
+- `alan_father` (the Bastos version)
 
-**[rec]** `lacerda_demand`: "Four families, four bells, and the order hidden where only a founder would look. Two hundred
-years, and no Lacerda was ever allowed to read it. [beat] You read it. Cut your hand, wet the bronze, ring it in the
-founders' order, and she walks out of here."
+### 2. The demand
+**[rec]** `lacerda_demand`: "Cut your hand, wet the bronze, and ring it as your families cast it. Ferreira first. Then she
+walks out of here. I have been patient for forty years."
 
-### 2. The ledger, if Alan offers it (optional; this answers your note on screen)
-**[new]** `lacerda_toss`: "[turning it over] Joaquim's diary. Forty years of guilt, in cipher." *(He drops it into the
-water.)* "I don't need the founders' book, Senhor Sanches. I have the founder."
+### 3. The ledger, if Alan offers it (optional)
+**[new]** `lacerda_toss`: "Joaquim's diary. I wrote the rite he was hiding from, Senhor Sanches. I don't need his book. I
+need his hand." He drops it into the water.
 
-### 3. Light and hands
-These steps stay as they are:
-1. Alan asks for Inês to hold the lantern.
-2. `lacerda_lamp_ok`: "By all means. Cut her loose. The water answers to me. Where would she go?" He wants the bell lit,
-   because he wants to watch.
-3. Alan cuts her loose with the knife.
-4. She takes the lantern, the marks show (`narr_bell_lit`), and Alan cuts his hand for the blood.
+### 4. Light and hands
+These steps are kept. Lacerda wants them done, because he wants the bell rung.
+- Inês holds the lantern (`lacerda_lamp_ok`: "Where would she go?").
+- Alan cuts her ropes.
+- The marks show in the light.
+- Alan cuts his hand.
 
-**[new]** `ines_order_whisper`, as she is freed: "[low, fast] He doesn't know the order, Alan. He has to take your word
-for it." This is the player's hint that a lie is possible.
+As she is freed:
+**[new]** `ines_whisper`: "[low, fast] Bastos, Alan. It obeys the hand on the bell. Not him. Yours."
 
-### 4. The strikes, with Lacerda watching every one
-These are last to first, as now.
+### 5. The strikes: Lacerda sees it at once and comes for him
 
 **Strike 1, Sanches.**
-- **[new]** `lacerda_sanches_first`: "[sharp] Sanches first?"
-- **[new]** `alan_humility` ★: "Youngest family first. Humility. Very Catholic."
-- **[rec]** `lacerda_good_1`: "[slowly, watching the water] ...It's rising. Go on."
+- **[new]** `lacerda_ferreira`: "[very still] Ferreira first, I said."
+- He raises his hand to the water. It stirs, then sinks back. The water does not obey him.
+- **[new]** `lacerda_listening`: "[slowly] ...It's listening to you. [beat] Then I'll take the hand."
+- He starts along the walkway toward the bell. He has walk frames.
 
 **Strike 2, Coutinho.**
-- **[rec]** `lacerda_good_2`: "[eager] Yes... the river is listening."
+- Inês plants herself on the walkway with the lantern.
+- **[new]** `ines_block`: "You'll have to go through me."
+- **[new]** `lacerda_gladly`: "Gladly."
+- He shoves past her, and that costs him a beat.
 
-**Strike 3, Bastos.** The sound is a breath drawn in, not a toll.
-- **[new]** `lacerda_lied`: "[cold] That isn't a summons. That's a breath held in. [beat] You lied to me."
-- He turns his hand to the water under Inês on the walkway. The tide meter now climbs on its own (one mark every few
-  seconds) until Alan strikes again.
-- Inês: "Alan—!"
+**Strike 3, Bastos.**
+- **[new]** `lacerda_take`: "[to the water] Take him!" The water climbs to Alan's ankles and stops.
+- The tide meter still counts:
+  - each strike: +1;
+  - a wrong strike (forward): +2, and Lacerda gains a step;
+  - waiting too long: Lacerda reaches him.
+- If Lacerda reaches him, the water takes Alan, and the scene restarts from the strikes.
 
-**Strike 4, Ferreira.** It has to come now. At six marks the water takes them, as it does now, and the scene restarts
-from the strikes.
-
-### 5. The silence: he fights to the end
-1. `narr_ring`: the bell un-rings (kept).
-2. **[new]** `lacerda_command`: "[to the water] Come. [beat] COME!" Nothing answers.
-3. `narr_renounce` (kept): "The bell renounced the sea. And the sea, like any creditor, went looking for the man who had
-   signed for the debt."
-4. **[new]** `lacerda_ring_it`: "[wading out toward the bell] Then I'll ring it myself."
-5. **[rec]** `narr_end_1`: "He was an arm's length from the bronze when the water closed over him. It had answered to his
-   name for two hundred years. It answered once more."
-6. **[rec]** `alan_ledger` becomes **[new]** `alan_let_go`, said quietly after a silence, with no joke and no score:
-   "[quietly] His father told him to let it go. He never did."
-
-`alan_let_go` only works if the player has read the ledger's last page. So Alan reads it aloud once in the shop, after
-Pessoa moves (the existing `ines_page`/`lacerda_read_father` text, as Alan's line). Without that page, the alternative
-is "[quietly] Forty years of patience. The sea had more."
+**Strike 4, Ferreira.**
+- `narr_ring` (kept): the bell un-rings.
+- Lacerda has reached the platform and has Alan's arm.
+- **[new]** `lacerda_come`: "[to the water] Come. [beat] COME!" Nothing answers.
+- `narr_renounce` (kept): "...the sea, like any creditor, went looking for the man who had signed for the debt."
+- The water rises around Lacerda alone and pulls at him. He doesn't let go of Alan.
+- **[new]** `alan_let_go`: "[quietly] Let it go, Vicente."
+- **[rec]** `narr_end_1`: "He didn't. He never had. The water took him with his hand still closed, on a torn sleeve and
+  nothing else."
 
 ### 6. Unchanged
-`narr_silence`, the fog lifting, `ines_end`, and everything after.
+`narr_silence`, the fog lifting, and everything after.
 
 ## Lines this removes
-These play only in the ledger-reading version:
 - `ines_page`
 - `alan_offer`
 - `lacerda_cant`
@@ -127,20 +116,26 @@ These play only in the ledger-reading version:
 - `lacerda_ledger`
 - `lacerda_read_1`
 - `lacerda_read_2`
+- `lacerda_read_father`
 - `lacerda_read_after`
 - `ines_page_this`
 - `lacerda_ledger_first`
 - `narr_reading`
+- `alan_ledger`
+- `lacerda_good_1`
+- `lacerda_good_2`
 - `lacerda_good_3`
+- `lacerda_realise`
 
-## Totals
-- **Code:** in ch5.js:
-  - the distraction step goes;
-  - the "watched" rule now holds for the whole scene;
-  - the third strike starts the timed rise;
-  - the ledger becomes an optional item to give.
-
-  Also: the hints (`S.ch5Hint` and the cistern hints), STORY.md V.1 and V.4, and play.mjs.
-- **Recording:** 6 re-recorded, 7 new.
-- **Art:** no new paintings. One open question: is there a sprite pose for Lacerda wading toward the bell, or does the
-  water simply rise over him where he stands, as it does now?
+## Cost
+- **Recording:** 4 lines re-recorded and 11 new.
+- **Code (ch5.js):**
+  - no more reading step;
+  - the strikes become a race, with Lacerda walking out along the walkway;
+  - the ledger becomes an optional item to give;
+  - the hints.
+- **Docs and tests:** STORY.md V.1 and V.4, and play.mjs.
+- **Art:** no new paintings.
+  - Lacerda's existing walk frames carry the advance.
+  - Grabbing Alan's arm on the platform would need a pose. Without one, he reaches the platform's edge and the water
+    takes him there.
