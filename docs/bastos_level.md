@@ -69,7 +69,7 @@ Done when the last tape has been heard (`bastos_done`).
 
 Room: MAHYw-NyuDY (approved). Recorder close-up: MAHYwwEQlyI (approved). Objects (on grey, to be cut out):
 Tara idol + pintadera MAHYw0JcnW4 · Ys bell MAHYw-ekcgo · Rán float + ring MAHYw5z_HKQ · tide jewels MAHYw1jY5N8 ·
-Gilgamesh tablet MAHYw3voGKw · Matsya MAHYwxed5ns · trident MAHYw2Zn8Rs · Iemanjá boat MAHYw7Hlydc.
+Gilgamesh tablet MAHYw3voGKw · Matsya MAHYw8pjxBU · trident MAHYw2Zn8Rs · Iemanjá boat MAHYwxpqiLU.
 
 ## The script
 
