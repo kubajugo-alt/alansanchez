@@ -1281,7 +1281,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
    by itself); new hint ines_hint_case_key. 16 takes, transcribed (words match), installed, lip-synced. The flat's way
    out is now the left edge (it was a strip along the bottom, under the inventory box), and Lacerda's shop gained its
    two bottom corners as a way out. play.mjs: the key on the case is a step. Checked: validate 0 errors (1433 lines);
-   smoke.mjs bastos, bastostapes, bastosunlock, lacthreat, twinswap pass; play.mjs RESULT3_PLACEHOLDER.
+   smoke.mjs bastos, bastostapes, bastosunlock, lacthreat, twinswap pass; play.mjs `{"won":true}`, 148 steps, 987 s.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
