@@ -949,6 +949,17 @@ session lived in the session's scratchpad and are gone; everything that matters 
      before/after slider, the verdict in its database at `shop/verdict`).
    - Still to do on approval: night, drawer-open and no-magnifier versions in the same style, a depth map, then make it
      the room's painting (that changes `art/bg/`, so only with the user's go-ahead).
+   - **Rejected, redone as patches** (the user: "The texture of the image became lower quality, especially visible
+     on the furniture. The books lost their shape too. Also, I did nt ask to scale down the desk, it was right scale,
+     only the lamp on it was bit too big"; then "the book shapes are distorted"). A whole-painting Gemini edit
+     (`still_edit1`) changed too little and blackened the counter; so each object is edited in a crop at 2-3x
+     (`art/review/shop/crops/`: lamp, counter (two passes: turned, then half size), tin) and `scripts/shop_patch.py`
+     pastes each back only inside boxes around it (feathered; the counter's box split so the door glass keeps its own
+     pixels). The shelf behind the old shade is rebuilt from the painting's own books (standing books' bottoms carried
+     down, plank and lying books continued from their left, mirrored, light evened along each row), never repainted.
+     The drawer / no-magnifier variants patched alike (`art/review/bg/shop_new_*.jpg`); the night painting not yet.
+     `?shop=new` now keeps the original layout, desk outline, kettle, jobs and depth map; only the six hotspots, the
+     lamp light / off-look, the machine's light and Pessoa's machine spot move. The page (same link) re-recorded.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

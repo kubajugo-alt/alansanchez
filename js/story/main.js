@@ -309,41 +309,31 @@
         S.BATH_TALL = true;
       }
     }
-    // ?shop=new, for review: the shop repainted (Canva) with its things at a real size beside the people (the counter,
-    // the till turned to the door, the telephone and answering machine, the newspaper, the lamp, the sugar tin), the
-    // layout kept; art/review/bg/shop_new.jpg, day only for now. Everything placed on the painting moves with it.
+    // ?shop=new, for review: the shop's painting with its things at a real size beside the people, patched into the
+    // original (scripts/shop_patch.py: each object edited up close, pasted back only around itself, the rest of the
+    // painting its own pixels): the banker's lamp smaller, the till smaller and turned to the door, the answering
+    // machine, telephone and newspaper at real size, a bigger sugar tin. The layout is the original's, so the desk
+    // outline, the kettle, Inês's jobs and the depth map stay; only what sits on the changed objects moves. Day only (not the night painting).
     if (new URLSearchParams(location.search).get('shop') === 'new') {
       const R = S.ROOMS.shop, day = () => F().ch < 5;
-      const bgFn0 = R.bgFn; R.bgFn = () => day() ? '../review/bg/shop_new' : bgFn0(); R.bgs = (R.bgs || []).concat('../review/bg/shop_new');
-      R.parallax = false; // no depth map for it yet
-      // the grandfather desk (and its lamp) hides whoever stands behind it; its front pedestal stands on y 600
-      R.occluders = [{ y: 598, polys: [[[0, 326], [232, 326], [236, 384], [270, 410], [305, 430], [323, 442], [323, 600], [206, 602], [206, 672], [0, 692]]] }];
-      const H = { "Grandfather's desk": [45, 330, 280, 345], Ledger: [208, 470, 80, 32], "Banker's lamp": [118, 326, 110, 60], Window: [418, 18, 440, 300],
-        Kettle: [444, 376, 40, 40], 'Sugar tin': [650, 348, 50, 66], Radiator: [740, 355, 150, 150], 'Cash register': [885, 316, 100, 92],
-        'Answering machine': [966, 396, 92, 38], Telephone: [1054, 376, 74, 58], Newspaper: [1035, 430, 185, 52], 'Door to the street': [1035, 10, 225, 445] };
+      // (and its open-drawer and no-magnifier versions, patched alike)
+      const bgFn0 = R.bgFn; R.bgFn = () => day() ? bgFn0().replace(/^shop/, '../review/bg/shop_new') : bgFn0();
+      R.bgs = (R.bgs || []).concat(['', '_drawer', '_nomag', '_drawer_nomag'].map(v => '../review/bg/shop_new' + v)); R.depth = 'shop_depth';
+      const H = { "Banker's lamp": [130, 338, 82, 112], 'Sugar tin': [650, 370, 46, 46], 'Cash register': [896, 276, 106, 102],
+        'Answering machine': [968, 362, 86, 40], Telephone: [1048, 342, 66, 56], Newspaper: [1068, 408, 152, 46] };
       for (const h of R.hotspots) { const n = typeof h.name === 'function' ? null : h.name; if (H[n]) h.rect = H[n]; }
-      if (S.SIDEBOARD) Object.assign(S.SIDEBOARD, { kettle: [448, 413], book: [706, 413], scale: 0.85 }); // the kettle left of the mugs, her book right of the tin
-      if (S.INES_JOBS) { const d = S.INES_JOBS.find(j => j.k === 'dust'); if (d) d.at = [395, 640]; } // the desk is narrower
-      if (S.PESSOA_AT) Object.assign(S.PESSOA_AT, { desk: [258, 448, 'w'], radiator: [810, 360, 'w'], machine: [1010, 402, 'w'] });
-      const lights0 = R.lights; R.lights = () => (typeof lights0 === 'function' ? lights0() : lights0).map(l => l.x === 178 ? Object.assign({}, l, { x: 172, y: 343, floor: [172, 600] }) : l);
-      const lampOut0 = S.lampOut; S.lampOut = g => { g.save(); g.translate(128, 330); g.scale(0.88, 0.95); g.translate(-126, -290); lampOut0(g); g.restore(); };
-      const back0 = R.animBack, anim0 = R.anim;
-      R.animBack = function (g, t) {
-        if (!day()) return back0.call(this, g, t);
-        S.windowFog(g, t, [422, 24, 428, 292], '235,238,240', 0.16);
-        if (S.shopSideboard) S.shopSideboard(g);
-        g.save(); g.beginPath(); g.rect(422, 24, 428, 292); g.clip();
-        FX.birds(g, t + 4, { y0: 70, y1: 200, n: 2, period: 19, color: 'rgba(90,92,98,0.5)', size: 7, x0: 400, x1: 870 }); g.restore();
-        FX.wisps(g, t + 1, 619, 390, { n: 4, rise: 30, spread: 4, a: 0.07, size: 3, speed: 0.22 }); // the blue mug
-        FX.trickles(g, t, [424, 228, 424, 84], 5, '235,240,245', 0.3);
-        FX.passer(g, t, [1078, 110, 130, 205], 37); // behind the door's frosted glass
-      };
+      const lights0 = R.lights; R.lights = () => (typeof lights0 === 'function' ? lights0() : lights0).map(l => l.x === 178 ? Object.assign({}, l, { x: 170, y: 354 }) : l);
+      // the lamp switched off: the old shade's shadow, fitted to the smaller shade
+      const lampOut0 = S.lampOut; S.lampOut = g => { g.save(); g.translate(137, 345); g.scale(0.64, 0.66); g.translate(-126, -290); lampOut0(g); g.restore(); };
+      if (S.PESSOA_AT) Object.assign(S.PESSOA_AT, { machine: [1012, 394, 'w'] });
+      const anim0 = R.anim;
       R.anim = function (g, t) {
         if (!day()) return anim0.call(this, g, t);
+        // as anim0, with the machine's message light on the smaller machine
         if (F().lampOff) S.lampOut(g);
         FX.shaft(g, [[420, 30], [850, 30], [860, 716], [380, 716]], '210,220,230', 0.05); FX.motes(g, t, 420, 60, 430, 520, 40, '255,240,210');
-        if (!F().heard_machine && Math.floor(t * 2) % 2 === 0) FX.glow(g, 1042, 404, 10, '255,40,20', 0.9); // the machine's message light
-        if (F().ch === 3 && F().steaming && !(S.kettleHeld && S.kettleHeld())) FX.wisps(g, t, 476, 352, { n: 6, rise: 70, spread: 9, a: 0.14, size: 9 });
+        if (!F().heard_machine && Math.floor(t * 2) % 2 === 0) FX.glow(g, 1042, 386, 10, '255,40,20', 0.9);
+        if (F().ch === 3 && F().steaming && !(S.kettleHeld && S.kettleHeld())) FX.wisps(g, t, 520, 345, { n: 6, rise: 80, spread: 10, a: 0.14, size: 10 });
       };
       S.SHOP_NEW = true;
     }
