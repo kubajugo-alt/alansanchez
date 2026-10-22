@@ -37,6 +37,9 @@
     ambience: () => F().ch >= 5 ? 'shop_night' : 'shop', floor: 'wood',
     walk: [[345, 535], [792, 535], [1004, 716], [215, 716]],
     scale: [535, 362, 716, 482],
+    // the grandfather desk: whoever stands behind it (Inês shelving books at 345, 550) is hidden by its right pedestal
+    // and the hutch's side; its front sits on the floor at y 560 (Alan at the desk, 380, 600, stands in front)
+    occluders: [{ y: 560, polys: [[[0, 300], [240, 300], [245, 350], [275, 385], [300, 410], [336, 418], [336, 556], [320, 562], [0, 580]]] }],
     light: () => F().ch >= 5 ? { ambient: 'rgb(120,140,180)', base: 0.62 } : { ambient: 'rgb(214,192,165)', base: 0.86, rim: 'rgba(210,225,240,0.22)', rimSide: -1 },
     lights: () => F().ch >= 5 ? [
       { x: 178, y: 305, rgb: '200,255,190', glow: 110, ga: 0.22, power: 0.5, reach: 700, floor: [178, 600], height: 420, when: () => !F().lampOff2 },

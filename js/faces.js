@@ -4932,12 +4932,19 @@ window.FACES = {
  },
  "alan_bn_belt": {
   "box": [
-   131,
+   125,
    63,
-   34,
-   15
+   40,
+   58
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -4946,12 +4953,19 @@ window.FACES = {
  },
  "alan_bn_cannonball": {
   "box": [
-   117,
+   110,
    48,
-   25,
-   14
+   32,
+   65
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -4960,12 +4974,19 @@ window.FACES = {
  },
  "alan_bn_climb": {
   "box": [
-   207,
+   202,
    49,
-   17,
-   14
+   33,
+   64
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -4974,12 +4995,19 @@ window.FACES = {
  },
  "alan_bn_dressed": {
   "box": [
-   136,
+   131,
    51,
-   28,
-   14
+   37,
+   59
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5009,12 +5037,19 @@ window.FACES = {
  },
  "alan_bn_hair": {
   "box": [
-   120,
+   114,
    55,
-   30,
-   12
+   38,
+   61
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5023,12 +5058,19 @@ window.FACES = {
  },
  "alan_bn_jacket_off": {
   "box": [
-   160,
+   154,
    49,
-   22,
-   14
+   35,
+   69
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5037,12 +5079,19 @@ window.FACES = {
  },
  "alan_bn_jacket_shrug": {
   "box": [
-   164,
+   156,
    44,
-   22,
-   14
+   33,
+   66
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5051,12 +5100,19 @@ window.FACES = {
  },
  "alan_bn_jeans_half": {
   "box": [
-   189,
+   182,
    53,
-   28,
-   16
+   35,
+   61
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5065,12 +5121,19 @@ window.FACES = {
  },
  "alan_bn_jeans_off": {
   "box": [
-   151,
+   147,
    44,
-   27,
-   15
+   35,
+   69
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5079,12 +5142,19 @@ window.FACES = {
  },
  "alan_bn_pants": {
   "box": [
-   113,
+   108,
    53,
-   33,
-   16
+   38,
+   64
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5093,12 +5163,19 @@ window.FACES = {
  },
  "alan_bn_pants_on": {
   "box": [
-   131,
+   124,
    54,
-   43,
-   20
+   50,
+   75
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5107,12 +5184,19 @@ window.FACES = {
  },
  "alan_bn_pants_up": {
   "box": [
-   142,
+   131,
    53,
-   25,
-   16
+   36,
+   64
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5123,10 +5207,17 @@ window.FACES = {
   "box": [
    40,
    58,
-   52,
-   24
+   60,
+   69
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5135,12 +5226,19 @@ window.FACES = {
  },
  "alan_bn_relax": {
   "box": [
-   156,
+   136,
    40,
-   20,
-   14
+   40,
+   69
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5151,10 +5249,17 @@ window.FACES = {
   "box": [
    52,
    54,
-   42,
-   19
+   47,
+   60
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5165,10 +5270,17 @@ window.FACES = {
   "box": [
    99,
    57,
-   34,
-   16
+   38,
+   60
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5179,10 +5291,17 @@ window.FACES = {
   "box": [
    88,
    58,
-   28,
-   20
+   43,
+   59
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5191,12 +5310,19 @@ window.FACES = {
  },
  "alan_bn_tee_lift": {
   "box": [
-   137,
+   131,
    49,
-   31,
-   15
+   41,
+   63
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5207,10 +5333,17 @@ window.FACES = {
   "box": [
    139,
    75,
-   37,
-   19
+   48,
+   86
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5219,12 +5352,19 @@ window.FACES = {
  },
  "alan_bn_towel": {
   "box": [
-   128,
+   119,
    50,
-   29,
-   16
+   38,
+   65
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5233,12 +5373,19 @@ window.FACES = {
  },
  "alan_bn_walk": {
   "box": [
-   156,
+   150,
    53,
-   35,
-   15
+   41,
+   63
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5249,10 +5396,17 @@ window.FACES = {
   "box": [
    69,
    55,
-   26,
-   18
+   39,
+   66
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5261,12 +5415,19 @@ window.FACES = {
  },
  "alan_bn_x_crouch": {
   "box": [
-   198,
+   195,
    49,
-   40,
-   17
+   44,
+   74
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5277,10 +5438,17 @@ window.FACES = {
   "box": [
    119,
    54,
-   42,
-   15
+   44,
+   74
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5291,10 +5459,17 @@ window.FACES = {
   "box": [
    78,
    63,
-   49,
-   24
+   61,
+   66
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5303,12 +5478,19 @@ window.FACES = {
  },
  "alan_bn_x_jacket_arm": {
   "box": [
-   176,
+   169,
    46,
-   21,
-   13
+   33,
+   63
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5317,12 +5499,19 @@ window.FACES = {
  },
  "alan_bn_x_jacket_drop": {
   "box": [
-   158,
+   154,
    46,
-   23,
-   14
+   31,
+   63
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5331,12 +5520,19 @@ window.FACES = {
  },
  "alan_bn_x_jeans_knees": {
   "box": [
-   183,
+   178,
    53,
-   29,
-   15
+   35,
+   62
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5345,12 +5541,19 @@ window.FACES = {
  },
  "alan_bn_x_jeans_ready": {
   "box": [
-   138,
+   131,
    50,
-   30,
-   15
+   37,
+   62
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5359,12 +5562,19 @@ window.FACES = {
  },
  "alan_bn_x_kick": {
   "box": [
-   270,
+   261,
    48,
-   24,
-   14
+   35,
+   67
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5373,12 +5583,19 @@ window.FACES = {
  },
  "alan_bn_x_pick_up": {
   "box": [
-   231,
+   225,
    58,
-   34,
-   16
+   40,
+   66
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5389,10 +5606,17 @@ window.FACES = {
   "box": [
    144,
    59,
-   58,
-   23
+   65,
+   80
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5401,12 +5625,19 @@ window.FACES = {
  },
  "alan_bn_x_scoop": {
   "box": [
-   138,
+   125,
    64,
-   41,
-   24
+   54,
+   62
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5415,12 +5646,19 @@ window.FACES = {
  },
  "alan_bn_x_shorts_knees": {
   "box": [
-   129,
+   122,
    53,
-   30,
-   15
+   37,
+   63
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5429,12 +5667,19 @@ window.FACES = {
  },
  "alan_bn_x_swing": {
   "box": [
-   124,
+   120,
    50,
-   29,
-   13
+   34,
+   62
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5443,12 +5688,19 @@ window.FACES = {
  },
  "alan_bn_x_tee_toss": {
   "box": [
-   125,
+   119,
    65,
-   29,
-   12
+   35,
+   56
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5457,12 +5709,19 @@ window.FACES = {
  },
  "alan_bn_x_tee_up": {
   "box": [
-   100,
+   99,
    45,
-   32,
-   15
+   35,
+   64
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5471,12 +5730,19 @@ window.FACES = {
  },
  "alan_bn_x_tuck": {
   "box": [
-   133,
+   122,
    50,
-   25,
-   16
+   36,
+   63
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5485,12 +5751,19 @@ window.FACES = {
  },
  "alan_bn_x_turn": {
   "box": [
-   151,
+   144,
    52,
-   36,
-   16
+   43,
+   61
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5499,12 +5772,19 @@ window.FACES = {
  },
  "alan_bn_x_unbutton": {
   "box": [
-   147,
+   138,
    55,
-   28,
-   15
+   37,
+   57
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5513,12 +5793,19 @@ window.FACES = {
  },
  "alan_bn_x_walk2": {
   "box": [
-   169,
+   160,
    53,
-   37,
-   18
+   46,
+   67
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5527,12 +5814,19 @@ window.FACES = {
  },
  "alan_bn_y_jacket_on": {
   "box": [
-   192,
+   185,
    46,
-   21,
-   14
+   32,
+   60
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5541,12 +5835,19 @@ window.FACES = {
  },
  "alan_bn_y_jeans_up": {
   "box": [
-   143,
+   140,
    41,
-   26,
-   15
+   32,
+   67
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5555,12 +5856,19 @@ window.FACES = {
  },
  "alan_bn_y_tee_down": {
   "box": [
-   131,
+   129,
    46,
-   34,
-   16
+   38,
+   70
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5569,12 +5877,19 @@ window.FACES = {
  },
  "alan_bn_y_tee_ready": {
   "box": [
-   107,
+   100,
    54,
-   25,
-   12
+   32,
+   55
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5583,12 +5898,19 @@ window.FACES = {
  },
  "alan_bn_zip": {
   "box": [
-   129,
+   116,
    66,
-   40,
-   20
+   53,
+   57
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5597,12 +5919,19 @@ window.FACES = {
  },
  "alan_dn_lie": {
   "box": [
-   475,
+   462,
    32,
-   39,
-   19
+   52,
+   64
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5634,10 +5963,17 @@ window.FACES = {
   "box": [
    318,
    47,
-   36,
-   17
+   38,
+   68
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5688,12 +6024,19 @@ window.FACES = {
  },
  "pair_duarte_lesson_ib": {
   "box": [
-   164,
+   160,
    53,
-   25,
-   14
+   32,
+   63
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5702,12 +6045,19 @@ window.FACES = {
  },
  "pair_duarte_push": {
   "box": [
-   420,
+   414,
    39,
-   35,
-   17
+   41,
+   70
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5760,10 +6110,17 @@ window.FACES = {
   "box": [
    263,
    54,
-   36,
-   18
+   42,
+   61
   ],
-  "mouths": [],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
   "eyes": [
    "closed"
   ],
@@ -5978,6 +6335,27 @@ window.FACES = {
    "closed"
   ],
   "src": "art/review/alan/duarte_new/sprites/pair_duarte_terms_ib.webp",
+  "ok": false
+ },
+ "alan_bn_y_button": {
+  "box": [
+   122,
+   84,
+   36,
+   33
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_y_button.webp",
   "ok": false
  }
 };

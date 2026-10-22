@@ -811,6 +811,22 @@ session lived in the session's scratchpad and are gone; everything that matters 
      and Alan's stays still, no errors. Review page: https://claude.ai/artifact/BpsVxYMnqoVjAssVKxBMmx (db
      collection `faces_new`). Set `"ok": true` in `js/faces.js` for the approved ones.
 
+44. **Every new Alan frame talks; Inês behind the desk.**
+   - Faces (the user: "make all the sprite with visible mouth be able to talk, in case the script changes"; then "stop,
+     don't do the speaking on all cast; do just the new ones for Alan"):
+     - All 58 of Alan's new sets now have mouths A-F as well as blinks. Duarte's 12 are as in entry 43 (mouths only
+       where he speaks).
+     - A run for the rest of the cast was set up (`CAST` in `scripts/face_kit.py`: Rui, Amalia, Tomas, Lacerda,
+       Celeste, Ze, Abilio, Lino, the speaking extras, Duarte's and Teixeira's other solo frames) and stopped before
+       any edits: only Rui's faces had been found, and that index was removed.
+     - About $12.70 of Gemini for Alan's 310 mouths.
+     - Review page republished (each set's patches packed into one strip, `t/<set>.webp`):
+       https://claude.ai/artifact/BpsVxYMnqoVjAssVKxBMmx. All 70 sets are still `"ok": false`.
+   - Inês behind the desk (the user's screenshot: her legs over the grandfather desk while she shelves books at 345, 550):
+     - The shop had no occluders. It now has one: the desk's right pedestal and the hutch's side
+       (`js/story/ch1.js` `ROOMS.shop.occluders`, front on the floor at y 560).
+     - Checked in Chromium: Inês at the shelving spot is hidden by the desk's side; Alan in front of it is not; no errors.
+
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
 Much of this is out of date (Alan's and Inês's walks, the phases, the deploy steps' test scripts). Kept for the
