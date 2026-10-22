@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `c388e53b` (Netlify `6ada46760f238df80eba64a2`, entry 59). Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `1c9a6ef6` (Netlify `6ada56d83afeec5886cd899a`, entry 60). Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
 change (entries 1-60); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
@@ -1200,7 +1200,11 @@ session lived in the session's scratchpad and are gone; everything that matters 
    the first chapter card (saving, ☰ settings), three minutes with no story flag changing in Ch. I-IV (ask Inês), and
    Ch. V's empty shop (the notebook: `Game.tip('ch5')` in ch1.js). Off under `window.FAST`, so the tests don't see them.
    Checked with scripts/tests/tips.mjs: each tip at its moment, none over a line, none repeated after a reload, the
-   menu turns them off. Not deployed yet.
+   menu turns them off. **Deployed** (the user: "yes, deploy"): master `0a33dd60`, Netlify `6ada54644db56a081518c03c`.
+   The tips test on the live site then failed: over the network the opening took over a minute, and the "a minute
+   without acting" clock had counted from page load, so the hotspots tip came first. Fixed (both idle clocks run only
+   while the player has control; tips.mjs DELAY_MS sits on the title first) and redeployed: master `1c9a6ef6`, Netlify
+   `6ada56d83afeec5886cd899a`; the tips test passes on the live site, `/.env` 404.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
