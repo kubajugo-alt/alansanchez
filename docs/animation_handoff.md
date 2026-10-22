@@ -7,7 +7,7 @@ bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `114b77d9` (Netlify `6ada200f9bea9a1e50d5061a`, entry 54). Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-55); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-57); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -72,11 +72,9 @@ D. The bench man's `npc_bench_wistful` paints him bareheaded (his cap in his han
    (tavern, se_tower, cais, boat, cabin, se_museum, se_cloister, se_store).
 6. Left out on purpose (entry 22): the map's boats, the armillary sphere, the shop's newspaper corner, the museum
    lectern's page.
-7. **From the code review (entry 49), not done yet:** phone speed (parallax re-upload in live rooms, face cache,
-   shadow blur); accessibility (keyboard play, modal focus, subtitle size, 44 px buttons, reduced motion); the README
-   walkthrough (the user, 2026-10-22: "leave for now"). Done since: the new lines and the 70 retired ones (entries
-   52-53). Also open: Continue in the shop doesn't run its
-   entry hook, so a chapter end due there waits until Alan goes out and back in.
+7. **From the code reviews (entries 49, 57):** done except face kits for the rest of the cast (item 2 above) and the
+   README walkthrough (the user: "leave for now"). Worth measuring on a real phone: `?fps` per room before and after
+   entry 57's speed changes; the memory budget (300 MB) is a guess for iPhones, tune it with `Game.loading().held`.
 8. Older threads from the 20 October archive (Phase 3 step in-betweens, the combined-sprite transition choice, the
    rig trial, the 70 frames without face sets): still open as far as I know; ask the user before picking them up.
 
@@ -1135,6 +1133,47 @@ session lived in the session's scratchpad and are gone; everything that matters 
    and up: front and back cycles in the shop, street, tavern, antiques, lavadouro; Inês's front walk in the shop; the
    police floor (0.39) stays side-on. Smoke intro, bench, copreturn pass. Vasco never had front/back walk paintings
    and doesn't need them (the user).
+
+56. **Morphs for the cast** (the user: "do the morphs, starting with Lacerda"). Before: of 388 pose changes recorded in
+   8 scenes at real speed, 51 dissolved for want of morph data (scripts/tests/morph_coverage.mjs + morph_report.cjs).
+   - **Lacerda's mirrored paintings:** his idle/talk set mixes paintings facing each way (idle3, talk3, talk4 face
+     left), so one of a pair is drawn mirrored and morphs.py (facing rule) never paired them: 21 of his 33 changes
+     dissolved. morphs.py now measures such a pair against b's mirror image and stores it as `a>b~`; actor.js uses it
+     only when the two are drawn with opposite flips (same facing on screen: the facing rule holds). 30 pairs.
+   - **The cast:** every pose against its character's standing and talking frames (and those among themselves):
+     1,036 new pairs, 3,086 in all (Alan 217, Vasco 532, Inês 164, Lacerda's robe 29, Abílio 20, Zé 18, Rui 12,
+     Teixeira in bed 12, Pessoa, Celeste, Amália, Tomás, Maria a few each; the pose-to-pose changes seen in play:
+     Vasco's delight/laugh/scandalised, Inês amused/eyeroll, the washerwoman, the guitarist). 382 pairs too far apart
+     stay dissolves (the quality gate; e.g. `alan_fluster` just under it). Checked frame by frame at a slowed clock
+     (scripts/tests/morph_shot.mjs: Lacerda, Vasco, Inês): no doubling, the pocket square stays on its side.
+   - **The file:** js/morphs.js is stored as differences along the mesh rows and decodes itself on load (34 ms):
+     brotli 1.44 -> 1.18 MB. Lossless (all fields identical after decoding); morphs.py reads and writes it.
+
+57. **Engine round 2** (the user: "Do all except 9", from the list in chat; 9, face kits, left for later).
+   - **Memory on phones** (js/engine.js): a budget of 300 MB on a phone or small-memory device (1.2 GB elsewhere;
+     `?mem=<MB>`): on room changes and every 15 s, images unused for 8 s are let go, oldest first, never the current
+     room's art, the stand/walk/talk frames of who is there, or the painting on screen; let-go images come back when
+     wanted; the background stream pauses past 60%. Checked at `?mem=150`: 110-148 MB through six rooms, every room
+     complete on entry (scripts/tests/memory.mjs).
+   - **Saves** (saves.js): a version (`v`) and a MIGRATE table; Save to file / Load from file in the menu (also from
+     the title screen); Continue runs the room's `resume` hook, so a chapter end due in the shop plays (main.js).
+   - **Double-click** (input.js): straight through an exit; any other walk at twice the pace.
+   - **Show hotspots:** H, or the new ◎ button top left, marks everything clickable for a moment.
+   - **Accessibility:** Text size (S/M/L), Motion (Full/Calm: no camera drift, rocking boat or panning paintings;
+     follows the device's reduced-motion setting), Voice and Effects volume beside Music's; keyboard play (Tab /
+     Shift+Tab through the room, Enter acts, L looks, 1-9 with the inventory open, arrows in dialogue and close-ups,
+     Escape closes a close-up); modals take focus; 44 px corner buttons on touch.
+   - **NPCs** walk round the floor's furniture like Alan (route() keeps a straight line when an end is off his floor).
+   - **The bath and Duarte frames** (77) are ordinary sprites (art/sprites, js/sprites.js); `?bath=old`,
+     `?duarte=old`, `?sound=old` are gone (the old scenes' code is unreachable now; scripts/bath_new_fit.py and
+     duarte_new_fit.py still write to art/review if run again).
+   - **Phone speed:** soft shadows from a quarter-size silhouette instead of a blur filter per light per frame (side
+     by side the same); a 24-face LRU instead of up to 120 canvases; a live painting uploaded every other frame;
+     no preserveDrawingBuffer.
+   - **Tests** kept in scripts/tests (CODEMAP, Testing): robustness, loading, touch_press, story_hints, qol, a11y,
+     memory, front_back_walk, morph_coverage/morph_report, morph_shot. A full playthrough test (play.mjs) was being
+     written by a separate agent at the time of this entry.
+   - Each step checked in Chromium (the scripts above) and with smoke runs of the scenes it touches.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
