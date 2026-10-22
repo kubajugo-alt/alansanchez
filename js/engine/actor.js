@@ -85,7 +85,9 @@
         const dx = x1 - x0, dy = (y1 - y0) * GROUND_K, len = Math.hypot(dx, dy);
         if (len < SHORT) continue;
         const hEnd = E.scaleAt ? hh * Math.min(1, E.scaleAt(y1) / Math.max(1e-6, E.scaleAt(y0))) : hh; // (smaller further away)
-        if (F.frontWalk && F.backWalk && Math.abs(dx) <= Math.abs(dy) * 0.75 && len > Math.min(hh, hEnd) * 0.8) return dy > 0 ? 's' : 'n';
+        // towards or away from the camera: a leg more up and down than across, long enough for one step (a painted step is
+        // about 0.34 of his height; at 0.8, two steps, the rooms are too shallow and the front/back walks never played)
+        if (F.frontWalk && F.backWalk && Math.abs(dx) <= Math.abs(dy) * 0.75 && len > Math.min(hh, hEnd) * 0.4) return dy > 0 ? 's' : 'n';
         if (Math.abs(dx) < hh * 0.06) return ew || (dx > 0 ? 'e' : 'w'); // straight up or down a little: no turn
         return dx > 0 ? 'e' : 'w';
       }
