@@ -293,16 +293,19 @@
     { id: 'se_tower', x: 870, y: 300, text: 'Sé de Lisboa · bell tower', open: () => F().decoded && F().ch <= 4,
       go: () => F().ch === 3 && F().vasco_thursday && !F().vasco_cameo ? 'se_cloister' : 'se_tower' }, // Vasco is in the cloister on the way up
     { id: 'antiques', x: 410, y: 440, text: 'Antiguidades Lacerda · Chiado', open: () => F().decoded && !F().has_tongue && (F().chose_chiado || !F().decoded_v6) },
+    { id: 'bastos', x: 1010, y: 190, text: 'Graça · Prof. Bastos', open: () => !!F().bastos_known && F().ch === 3 },
     { id: 'cais', x: 250, y: 585, text: 'Cais do Sodré', open: () => (F().genealogy_read || F().ch3_done) && F().ch === 4 },
   ];
 
   // the map's "new" marker in Chapter III follows Inês's hints: Lacerda's case first, then Abílio at the Sé
   S.pinNext = () => {
     const f = F();
-    if (f.ch !== 3 || !f.chose_chiado || f.has_tongue) return null;
-    if (!f.tongue_sketched) return 'antiques';
-    if (!f.knows_twin) return 'se_tower';
-    return null;
+    if (f.ch !== 3) return null;
+    if (f.chose_chiado && !f.has_tongue) {
+      if (!f.tongue_sketched) return 'antiques';
+      if (!f.knows_twin) return 'se_tower';
+    }
+    return f.bastos_known && !f.bastos_done ? 'bastos' : null; // then Prof. Bastos's flat
   };
 
   // the workshop is finished once the tide clock is wound with the key, the repair register read, the
@@ -374,6 +377,7 @@
       if (!has('twin')) return 'ines_hint_ask_vasco';
       return has('vkey') ? 'ines_hint_swap' : 'ines_hint_case';
     }
+    if (f.ch === 3 && f.bastos_known && !f.bastos_done) return 'ines_hint_bastos'; // Prof. Bastos's flat (js/story/bastos.js)
     return 'ines_hint_ch3_done';
   };
   // The banker's lamp switched off: the painting has it lit, so dim the green

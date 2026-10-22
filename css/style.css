@@ -204,3 +204,30 @@ body.calm #title { animation: none; }
 .doc-engrave { position: absolute; left: 0; right: 0; top: 44%; text-align: center; font: 700 2.4em 'Cinzel', serif; letter-spacing: 0.25em; color: rgba(40,30,15,0.85); text-shadow: 1px 1px 0 rgba(255,230,170,0.45), -1px -1px 0 rgba(0,0,0,0.5); }
 .doc-tags { position: absolute; inset: 0; }
 .doc-tags span { position: absolute; font: 700 1.05em 'Special Elite', monospace; color: #3a2a10; background: #d9c07a; border-radius: 3px; padding: 0.05em 0.35em; transform: rotate(-4deg); box-shadow: 1px 2px 3px rgba(0,0,0,0.5); }
+/* Prof. Bastos's flat (js/story/bastos.js): the collection and its books; the recorder */
+#bshelf { background: rgba(14, 11, 8, .95); padding: 2% 3%; }
+#bshelf h2 { font-size: 1.6em; margin: 0 0 .1em; }
+#bshelf .hint { font-size: 1em; margin: 0 0 .6em; }
+#bshelf .objs { display: grid; grid-template-columns: repeat(8, 1fr); gap: .6em; width: 92%; min-height: 9.5vw; margin-bottom: 1em; }
+#bshelf .obj, #bshelf .onshelf { padding: 0; margin: 0; border: 2px solid transparent; border-radius: 4px; background: none; overflow: hidden; line-height: 0; }
+#bshelf .obj img { width: 100%; aspect-ratio: 1; display: block; }
+#bshelf .obj.sel, #bshelf .spine.sel { border-color: var(--gold); box-shadow: 0 0 14px rgba(224,184,102,.6); }
+#bshelf .books { display: grid; grid-template-columns: repeat(8, 1fr); gap: .6em; width: 92%; padding: .5em .5em 0; background: linear-gradient(#2a1a10, #3b2616); border-bottom: 1.2em solid #5a3a22; box-shadow: 0 10px 24px rgba(0,0,0,.6); }
+#bshelf .slot { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+#bshelf .gap { display: block; height: 4.6vw; }
+#bshelf .onshelf { width: 4.6vw; margin-bottom: .2em; }
+#bshelf .onshelf img { width: 100%; aspect-ratio: 1; display: block; }
+#bshelf .spine { width: 70%; height: 15vw; margin: 0; padding: .6em .2em; display: flex; flex-direction: column; align-items: center; gap: .5em; border: 2px solid rgba(0,0,0,.4); border-radius: 3px 3px 0 0; color: #f0dfb8; background-image: linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,255,255,.08) 30%, rgba(0,0,0,.25)); }
+#bshelf .spine svg { width: 72%; background: #e9dcc0; color: #3a2a1a; border-radius: 2px; padding: 8%; box-sizing: border-box; }
+#bshelf .spine span { writing-mode: vertical-rl; font-family: 'IM Fell English', serif; font-size: .95em; letter-spacing: .05em; }
+#brec { background: rgba(8, 7, 6, .95); padding: 1.5% 2%; }
+#brec .deck { position: relative; width: min(88%, 145vh); line-height: 0; box-shadow: 0 18px 50px rgba(0,0,0,.75); }
+#brec .deck img { width: 100%; display: block; }
+#brec .tape { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#brec .tape circle { fill: rgba(40,32,26,.92); stroke: #b8a888; stroke-width: .35; }
+#brec .tape .r2 { fill: rgba(60,52,44,.5); stroke-dasharray: 1 .8; }
+#brec .tape .t { fill: none; stroke: #4a3020; stroke-width: .5; }
+#brec .tape .t.half { stroke-dasharray: 9 40; }
+#brec .spot { position: absolute; margin: 0; padding: 0; background: transparent; border: 2px solid transparent; border-radius: 6px; }
+#brec .spot:hover, #brec .spot:focus-visible { border-color: rgba(255,226,160,.7); background: rgba(255,226,160,.08); }
+#brec .state { font-size: 1.15em; margin: .7em 0 .2em; min-height: 1.4em; color: #e8d8b0; }

@@ -23,7 +23,7 @@
   // Celeste, never set it); null when there is none
   const shopChapterEnd = () => {
     if (F().ch === 2 && !F().ch2_done) { const end = S.checkCh2(); if (end) return end; }
-    if (F().ch === 3 && F().has_tongue && F().founder_order && !F().ch3_done) return S.ch3End();
+    if (F().ch === 3 && F().has_tongue && F().founder_order && S.bastosOpen() && !F().ch3_done) return S.ch3End();
     return null;
   };
   ROOMS.shop.enter = async function (entry) {
@@ -37,7 +37,7 @@
   window.STILLS = ['still_intro', 'still_madragoa', 'still_maria_sleep', 'still_maria_tile', 'still_maria_list', 'still_maria_water', 'still_maria_dawn',
     'still_newspaper', 'still_1755', 'still_1955_a', 'still_1955_b', 'still_1955_c', 'still_city_morning', 'still_drawer', 'still_shop_after',
     'still_phone', 'still_amalia_box', 'still_tavern_full', 'still_quay_sweater', 'still_abilio_ring', 'still_shelf', 'still_ze_kiss', 'still_ze_bunk', 'still_cop_shelf', 'still_guitar_bed', 'still_cop_bed', 'still_cigarettes'].concat(window.EXTRA_STILLS || []);
-  window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks', 'close_drawerlock'];
+  window.CLOSEUPS = ['paper_aged', 'close_photo1934', 'close_porthole', 'close_tideclock', 'close_bronze', 'close_clocks', 'close_drawerlock', 'close_recorder'];
 
   // ---------------------------------------------------------------- new game
   // preview links: ?scene=bath | cop | guitar | celeste | visitcop | copbed | visitguitar | romance | finale jumps straight to that scene (no autosave)
@@ -118,6 +118,9 @@
     sech3: { flags: { ch: 3, heard_machine: true, knows_brotherhood: true, ines_plan: true, heist_done: true, reserve_raided: true, vasco_thursday: true, decoded: true, chose_chiado: true },
       room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('se_cloister', 'map') },
     // Thursday morning: the coffees, the Romans
+    // Prof. Bastos's flat (js/story/bastos.js): straight in from the map, Inês along; bastosunlock: Inês names him in the shop
+    bastos: { flags: { ch: 3, heard_machine: true, decoded: true, chose_chiado: true, bastos_known: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('bastos', 'map') },
+    bastosunlock: { flags: { ch: 3, heard_machine: true, decoded: true, chose_chiado: true }, room: 'street', pos: [640, 660, 'e'], run: () => G.goRoom('shop', 'street') },
     thursday: { flags: { ch: 5, vasco_thursday: true, dawn: true }, room: 'se_cloister', pos: [260, 650, 'e'], run: () => S.thursday() },
     // Chapter III, the twin: Abílio reads the sketch of Lacerda's tongue; Vasco takes Alan down to the reserve (the near-kiss);
     // the swap at Lacerda's (ask about the music box, then the vitrine key and the twin on the case)

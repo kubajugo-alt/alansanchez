@@ -328,7 +328,7 @@
     G.refreshNpcs();
   };
   S.inesLedger = async function () {
-    if (F().ch === 3 && F().has_tongue && F().founder_order) return S.ch3End();
+    if (F().ch === 3 && F().has_tongue && F().founder_order && S.bastosOpen()) return S.ch3End();
     return say(F().decoded ? 'alan_look_ledger_decoded' : 'alan_fail_ines_item');
   };
 

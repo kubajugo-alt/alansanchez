@@ -80,6 +80,7 @@
     ...(F().founder_order ? [{ img: PAPER, cls: 'doc-hand', html: `<p>Ferreira 1611</p><p>Bastos 1648</p><p>Coutinho 1702</p><p>Sanches 1739</p><p>— ring last to first —</p>` }] : []),
     ...((F().lore || []).length ? [{ img: PAPER, cls: 'doc-hand', html: `<p style="font-family:'IM Fell English',serif;text-align:center">The Bell</p>` +
       LORE.filter(([k]) => F().lore.includes(k)).map(([, t]) => `<p style="font-size:0.85em">· ${t}</p>`).join('') }] : []),
+    ...(S.seaPages ? S.seaPages() : []), // Bastos's tapes (js/story/bastos.js)
   ]);
   // "The Bell": what Alan has pieced together, in the order the city told him
   const LORE = [
