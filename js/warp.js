@@ -51,7 +51,7 @@ window.Warp = (function () {
     try {
       cv = document.createElement('canvas'); cv.width = 512; cv.height = 1024;
       cv.addEventListener('webglcontextlost', lost);
-      gl = cv.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false, preserveDrawingBuffer: true, depth: false, stencil: false });
+      gl = cv.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false, preserveDrawingBuffer: false, depth: false, stencil: false });
       if (!gl) throw new Error('no webgl');
       prog = gl.createProgram();
       gl.attachShader(prog, sh(gl.VERTEX_SHADER, 'attribute vec2 p;attribute vec2 t;uniform vec2 r;varying vec2 v;void main(){v=t;gl_Position=vec4(p.x/r.x*2.0-1.0,1.0-p.y/r.y*2.0,0.0,1.0);}'));

@@ -145,8 +145,10 @@
     if (!layers.length) return im;
     const ck = key + '|' + layers.map(l => l[3]).join('|');
     let cv = cache.get(ck);
+    if (cv) { cache.delete(ck); cache.set(ck, cv); } // (most recent last: the oldest goes first)
     if (!cv) {
-      if (cache.size > 120) cache.clear();
+      // each entry is a full-size canvas (a megabyte or more): keep the 24 most recent, not 120 (a phone's canvas memory)
+      while (cache.size >= 24) cache.delete(cache.keys().next().value);
       cv = document.createElement('canvas'); cv.width = im.naturalWidth; cv.height = im.naturalHeight;
       const c = cv.getContext('2d');
       c.drawImage(im, 0, 0);

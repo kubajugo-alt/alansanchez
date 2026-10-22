@@ -65,6 +65,9 @@
   }
   const litBuf = document.createElement('canvas'), lg = litBuf.getContext('2d');
   const silBuf = document.createElement('canvas'), sg = silBuf.getContext('2d');
+  // the silhouette at a quarter size: drawn back up smoothed it is the soft shadow (a canvas blur filter per light per
+  // frame was one of the slowest things on a phone)
+  const softBuf = document.createElement('canvas'), soft = softBuf.getContext('2d');
   function groundShadows(a, comp, U, bw, bh, h, lights) {
     const L = roomLight();
     const ao = L.ao != null ? L.ao : 1;
@@ -94,6 +97,9 @@
     fade.addColorStop(1, 'rgba(0,0,0,0.28)');
     sg.fillStyle = fade; sg.fillRect(0, 0, bw, bh);
     sg.globalCompositeOperation = 'source-over';
+    const sw = Math.max(1, Math.round(bw / 4)), sh = Math.max(1, Math.round(bh / 4));
+    if (softBuf.width !== sw || softBuf.height !== sh) { softBuf.width = sw; softBuf.height = sh; } else soft.clearRect(0, 0, sw, sh);
+    soft.imageSmoothingEnabled = true; soft.imageSmoothingQuality = 'medium'; soft.drawImage(silBuf, 0, 0, bw, bh, 0, 0, sw, sh);
     for (const o of casters) {
       const fp = o.l.floor || [o.l.x, a.y - 40];
       let vx = a.x - fp[0], vy = (a.y - fp[1]);
@@ -107,9 +113,9 @@
       const alpha = Math.min(0.62, 0.1 + o.I * 2.4) * (typeof o.l.shadow === 'number' ? o.l.shadow : 1) * Math.min(1, o.l.f) * a.alpha;
       g.save();
       g.globalAlpha = alpha;
-      g.filter = `blur(${Math.max(1.5, h * 0.008 + len * 0.006).toFixed(1)}px)`;
+      g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'medium';
       g.transform(1, 0, -ex / h, -ey / h, a.x, a.y - h * 0.012); // tucked under the soles so it meets the shoes
-      g.drawImage(silBuf, 0, 0, bw, bh, U.x, U.y, bw, bh);
+      g.drawImage(softBuf, 0, 0, sw, sh, U.x, U.y, bw, bh);
       g.restore();
     }
   }

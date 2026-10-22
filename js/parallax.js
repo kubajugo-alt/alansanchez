@@ -8,7 +8,7 @@ window.Parallax = (function () {
   const Z = 1.022;          // a slight zoom, so the edges never come into view
   const D0 = 0.45;          // the depth that holds still: nearer slides one way, farther the other
   let cv = null, gl = null, prog = null, tBg = null, tD = null, bgIm = null, dIm = null, failed = false, U = {};
-  let dData = null, dFor = null;
+  let dData = null, dFor = null, liveN = 0;
   const cam = { x: 0, y: 0 };
   let on = !/[?&](noparallax|parallax=0)\b/.test(location.search);
 
@@ -27,7 +27,7 @@ window.Parallax = (function () {
     try {
       cv = document.createElement('canvas'); cv.width = W; cv.height = H;
       cv.addEventListener('webglcontextlost', lost);
-      gl = cv.getContext('webgl', { premultipliedAlpha: false, preserveDrawingBuffer: true });
+      gl = cv.getContext('webgl', { premultipliedAlpha: false, preserveDrawingBuffer: false }); // (read back in the same task it's drawn)
       if (!gl) throw new Error('no webgl');
       const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };
       prog = gl.createProgram();
@@ -73,7 +73,10 @@ window.Parallax = (function () {
   // source is a canvas redrawn every frame (the painting with what moves in it), so it's uploaded every frame
   function draw(bg, depth, live) {
     if (!on || !bg || !depth || !init()) return null;
-    if (bg !== bgIm || live) { upload(tBg, 0, bg); bgIm = bg; }
+    // a live painting (what moves in it is drawn into it every frame) goes up every other frame: a full-screen upload a
+    // frame was the heaviest thing in those rooms on a phone, and its small motions read the same at 30 a second
+    liveN++;
+    if (bg !== bgIm || (live && liveN % 2 === 0)) { upload(tBg, 0, bg); bgIm = bg; }
     if (depth !== dIm) { upload(tD, 1, depth); dIm = depth; depthData(depth); }
     gl.viewport(0, 0, W, H);
     gl.uniform2f(U.uC, cam.x / W, cam.y / H); gl.uniform1f(U.uZ, Z); gl.uniform1f(U.uD0, D0);
