@@ -52,6 +52,7 @@
     opts = opts || {};
     E.busy++; E.cutscene++;
     if (E.ensure) await E.ensure(E.stillKeys(name)); // (its painting may still be on its way)
+    if (E.touchImg) E.stillKeys(name).forEach(E.touchImg);
     // cross: dissolve over the painting already up (kept with keep), instead of rising from the room or black
     // a still is painted at screen size: zooming in past 1.2 shows its softness
     if (opts.zoom) opts = Object.assign({}, opts, { zoom: opts.zoom.map(z => Math.min(ZMAX, z)) });

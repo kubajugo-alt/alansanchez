@@ -356,6 +356,7 @@
     place(key, flipped) {
       const sp = E.SPRITES[key], im = IMG['spr:' + key];
       if (sp && !im && E.want) E.want('spr:' + key, true); // a frame still on its way: fetch it next
+      else if (im && E.touchImg) E.touchImg('spr:' + key); // (in use: kept in memory)
       if (!sp || !im) return null;
       const s = this.height() / sp.h;
       const ax = flipped ? sp.w - sp.ax : sp.ax;

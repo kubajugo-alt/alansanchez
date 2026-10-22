@@ -19,12 +19,25 @@
   let active = 0, total = 0, done = 0, onProg = null, urgent = 0, waited = 0; // waited: ms spent waiting (Game.loading)
   // what's waited on gets the whole connection: the background stream only runs (four at a time) while nothing is
   const CONC = 8, CONC_BG = 4, TIMEOUT = 25000;
+  // Memory: every image decoded is held at width x height x 4 bytes, about 930 MB for the whole game, which a phone's
+  // browser won't keep (iOS closes the tab). On a phone or a small-memory device the loader keeps to a budget: images not
+  // used for a while, far from the room Alan is in, are let go (and fetched again if they're wanted), and the background
+  // stream waits while memory is past 60% of it. ?mem=<MB> sets the budget (tests).
+  const MEM = (() => {
+    const q = location.search.match(/[?&]mem=(\d+)/); if (q) return +q[1] * 1e6;
+    let small = false;
+    try { small = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) || matchMedia('(pointer: coarse)').matches || (navigator.deviceMemory && navigator.deviceMemory <= 4); } catch (e) { /* old browser */ }
+    return small ? 300e6 : 1200e6;
+  })();
+  let bytes = 0; const usedAt = new Map(); // decoded bytes held; key -> when it was last drawn or needed
+  const sizeOf = im => (im.naturalWidth || im.width || 0) * (im.naturalHeight || im.height || 0) * 4;
+  const touch = k => usedAt.set(k, performance.now());
   function fetchImage(key, src) {
     return new Promise(res => {
       const im = new Image();
       // a stalled request must not hold the queue forever: give up waiting (the image still lands in IMG if it comes)
       const t = setTimeout(() => { console.warn('slow', src); res(null); }, TIMEOUT);
-      im.onload = () => { clearTimeout(t); IMG[key] = im; res(im); };
+      im.onload = () => { clearTimeout(t); if (!IMG[key]) bytes += sizeOf(im); IMG[key] = im; touch(key); res(im); };
       im.onerror = () => { clearTimeout(t); console.warn('missing', src); res(null); };
       im.src = src;
     });
@@ -32,7 +45,7 @@
   function pump() {
     while (queue.length && active < (urgent ? CONC : CONC_BG)) {
       const key = queue[0], job = pending.get(key);
-      if (job && !job.started && !job.front && urgent) break; // (the urgent ones are at the front: the rest wait)
+      if (job && !job.started && !job.front && (urgent || bytes > MEM * 0.6)) break; // (the urgent ones are at the front: the rest wait)
       queue.shift();
       if (!job || job.started) continue;
       job.started = true; active++;
@@ -178,9 +191,32 @@
     if (!loaded) { E.state = freshState(); E.renderInv(); await window.Story.newGame(); }
   }
 
-  // entering a room: its own frames first, then everything its people can do
-  function roomReady(id) { roomMore(id).forEach(k => want(k, true)); return ensure(roomAssets(id)); }
-  Object.assign(E, { ensure, want, roomAssets, roomReady, stillKeys, srcOf: k => SRC[k] });
+  // let go of what hasn't been used for a while, oldest first, until memory is back under three quarters of the budget;
+  // never what the room Alan is in needs now (its art; whoever is there able to stand, walk and talk) or the painting on
+  // screen; a pose let go comes back when it's wanted (the idle frame meanwhile, as for a pose on its way)
+  function evict(keepIds) {
+    if (bytes <= MEM) return 0;
+    const keep = new Set([].concat(...keepIds.map(id => roomAssets(id))));
+    if (E.still) for (const k of stillKeys(E.still.name)) keep.add(k);
+    const now = performance.now(), old = Object.keys(IMG).filter(k => SRC[k] && !keep.has(k) && now - (usedAt.get(k) || 0) > 8000)
+      .sort((a, b) => (usedAt.get(a) || 0) - (usedAt.get(b) || 0));
+    let n = 0;
+    for (const k of old) {
+      if (bytes <= MEM * 0.75) break;
+      bytes -= sizeOf(IMG[k]); delete IMG[k]; pending.delete(k); n++; // (want() fetches it again)
+    }
+    return n;
+  }
+  // entering a room: its own frames first, then everything its people can do; then, past the budget, let go of the rest
+  async function roomReady(id) {
+    if (bytes < MEM * 0.6) roomMore(id).forEach(k => want(k, true)); // (on a tight budget a pose is fetched when it's wanted)
+    await ensure(roomAssets(id));
+    for (const k of roomAssets(id)) touch(k);
+    evict([id]);
+  }
+  // and every so often while Alan stays in a room (a long scene draws on many poses)
+  setInterval(() => { if (E.room && E.room.id) evict([E.room.id]); }, 15000);
+  Object.assign(E, { ensure, want, roomAssets, roomReady, stillKeys, srcOf: k => SRC[k], touchImg: touch, evict });
 
   window.Game = {
     init, begin, sandbox, goRoom: E.goRoom,
@@ -204,7 +240,7 @@
     rooms: () => Object.keys(ROOMS), roomDef: id => ROOMS[id], chars: () => CHARS, Actor: (...a) => new E.Actor(...a),
     // add (or replace) a painted frame at run time (the review screen previews a frame before it's approved)
     addSprite(k, meta) { E.SPRITES[k] = meta; delete IMG['spr:' + k]; return loadImage('spr:' + k, meta.src || 'art/sprites/' + k + '.webp'); },
-    ensure: keys => ensure(keys), ensureStill: name => ensure(stillKeys(name)), loading: () => ({ done, total, queued: queue.length, waited: Math.round(waited) }),
+    ensure: keys => ensure(keys), ensureStill: name => ensure(stillKeys(name)), loading: () => ({ done, total, queued: queue.length, waited: Math.round(waited), held: Math.round(bytes / 1e6), budget: Math.round(MEM / 1e6), images: Object.keys(IMG).length }),
     // test hook: act on a hotspot (by name) or an actor (by id), optionally with an item
     async act(target, verb, item) {
       E.noteInput(); // a scripted action counts as input (puts the cigarette away)
