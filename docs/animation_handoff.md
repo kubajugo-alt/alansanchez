@@ -895,6 +895,17 @@ session lived in the session's scratchpad and are gone; everything that matters 
        sepitgame, thursday, vascostore, vascolove, cop, quayfish, bench, abiliosketch all pass.
      - Abilio revised for round 2 on the same board: sizes kept, feet anchors only for read, point, shout1, shout2
        (`art/review/npc_fix/abilio_revised.json`). The bench man waits on a repaint (bench fixed, man redrawn).
+   - **The bench man repainted for review (not in the game).** Aligning on the bench can't fix it: even the best
+     affine fit overlaps his painted benches only 45-78% (each painting draws the bench differently, some front-on,
+     some three-quarter). So: one empty bench (`art/review/bench/bench_empty_front.png`, Gemini from
+     `npc_bench_talk1`, new `gen_image.py --key magenta` since the bench is green; a first try from `npc_bench`
+     came back restyled and was dropped), and his ten poses painted without the bench (`man_<frame>.png`, Gemini,
+     $0.62). `scripts/bench_compose.py` sits each man on that bench where his own painting had him (bench width and
+     bottom mapped) at one size; `art/review/bench/sprites/` holds the ten frames at game resolution with one shared
+     meta (`meta.json`: same w, hh, h, ax, fy for all, so the bench lands on the same pixels). His face stays within
+     5% of its old size and spot; the front-on bench reads about 10% narrower than the old ones. On the board as
+     round 2 with Abilio. On approval: copy the ten webps over `art/sprites/npc_bench*.webp`, write the meta into
+     `js/sprites.js`, rebuild his morphs and `similar.py`, `build-manifest.mjs`, validate, smoke `bench`.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
