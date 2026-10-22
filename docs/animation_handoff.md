@@ -5,9 +5,9 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `04abe388` (Netlify `6ada4183ea37bfbb3c0d0eb5`, entry 58). Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `c388e53b` (Netlify `6ada46760f238df80eba64a2`, entry 59). Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-58); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-59); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1183,6 +1183,14 @@ session lived in the session's scratchpad and are gone; everything that matters 
    `114b77d9`. **Deployed:** master `04abe388`, Netlify `6ada4183ea37bfbb3c0d0eb5`. Live: page 200 with the ◎ button;
    `/.env` and the old review sprites.json 404; the memory budget and the morph file's new form are live; the
    promoted bath frame, a cut-out card player and alan_side byte-identical to the repository; the tall-tank painting 200.
+
+59. **Pessoa back on the desk, deployed** (the user: "the cat disappeared!", "just re-instate the cat mechanics we had
+   in the past", "yes, deploy"). His code was as on 20 Oct (desk, radiator with the lamp off, the machine in Ch. V, the
+   sardine). The shop's desk occluder (cf7e17f9, 21 Oct: Inês hidden behind the desk) was drawn over anyone whose feet
+   are above y 560, and he lies on the desk at y 452. render.js: an actor's depth is max(feet, `def.sortY`) for the
+   sort and the behind-furniture shading; Pessoa's sortY is 565 (in front of the desk, behind Alan). Checked on the
+   desk and the radiator, Inês behind the desk still hidden; smoke on the export passes. **Deployed:** master
+   `c388e53b`, Netlify `6ada46760f238df80eba64a2`; live: the cat on the desk (screenshot), `/.env` 404.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
