@@ -396,7 +396,7 @@ Amália then tells him what the bell was ("a bell christened by the wrong priest
 
 ### I.7 Alan's lines for this chapter
 
-Add these to lines.js alongside the lines above. Inês's score lines (ines_score_1 to ines_score_10, "Four out of ten. The cat laughed.") can follow any joke marked ★, chosen at random, when she's in the room.
+Add these to lines.js alongside the lines above. Inês's score lines (ines_score_1 to ines_score_40, "Four out of ten. The cat laughed.") can follow any joke marked ★ (half the time), when she's in the room: each at most once per game (`F().scores_used`); 13, 24, 34 and 40 (the cat, the kettle, Pessoa, the counter) only in the shop. When they run out she rolls her eyes without a word.
 
 | Line id             | Trigger                       | Line                                                                                                                                                    |
 |---------------------|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|

@@ -1264,6 +1264,12 @@ session lived in the session's scratchpad and are gone; everything that matters 
    in Chapter II. STORY.md II.3b (Puzzles II-F, II-G). Checked: validate 0 errors (1390 lines); smoke.mjs on the
    three previews and story_hints.mjs pass; play.mjs (Bastos now after Ferreira's workshop, the godparent question
    at the Carmo) RESULT2_PLACEHOLDER.
+63. **Inês never repeats a score** (the user: "give Ines more funny lines commenting on Alan's jokes, so that she never
+   repeats herself"; the 30 lines approved as drafted). `ines_score_11`..`_40` added (Inês's voice, transcribed:
+   words match; installed, lip-synced; poses: eyeroll, laugh, write). `S.joke` (core.js) now draws from all 40
+   without repeats, kept in the save as `F().scores_used`; 13, 24, 34, 40 (the cat, the kettle, Pessoa, the counter)
+   only in the shop; with none left she rolls her eyes silently. Checked in a browser: 80 jokes in Bastos's flat gave
+   35 scores, 35 different, no shop-only line. Deployed with entry 62.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

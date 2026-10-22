@@ -28,7 +28,9 @@
   const LP = (ids, pose) => { if (P[pose]) for (const id of ids) S.LINE_POSE[id] = ['ines', pose]; };
   LP(['ines_score_1', 'ines_score_2', 'ines_score_3', 'ines_score_4', 'ines_score_5', 'ines_score_6', 'ines_score_7', 'ines_score_9', 'ines_score_10',
     'ines_shop', 'ines_back_guitar', 'ines_visit_after', 'ines_why', 'ines_gossip_3'], 'eyeroll');
-  LP(['ines_score_8', 'ines_coward'], 'laugh');
+  LP(['ines_score_8', 'ines_coward', 'ines_score_18', 'ines_score_37'], 'laugh');
+  LP(['ines_score_11', 'ines_score_12', 'ines_score_15', 'ines_score_16', 'ines_score_19', 'ines_score_22', 'ines_score_25', 'ines_score_26', 'ines_score_28', 'ines_score_32', 'ines_score_33', 'ines_score_35', 'ines_score_36', 'ines_score_38'], 'eyeroll');
+  LP(['ines_score_21'], 'write');
   LP(['ines_worried', 'ines_drowning', 'ines_warn'], 'worried');
   LP(['ines_vandal', 'ines_genealogy', 'ines_end', 'ines_sketch_founders'], 'surprised');
   LP(['ines_tenth', 'ines_reserve', 'ines_liked', 'ines_liked_2', 'ines_pull', 'ines_fate', 'ines_hint_wheel', 'ines_hint_lastfirst'], 'think');

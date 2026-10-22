@@ -249,14 +249,26 @@
     if (p && p.set !== want && (!p.set || p.set === 'lantern')) p.set = want;
   };
   S.once = (flag, fn) => async (...a) => { if (F()[flag]) return; F()[flag] = true; await fn(...a); };
-  // ★ jokes: Inês scores them when she's in the room
-  let lastScore = 0;
+  // ★ jokes: Inês scores them when she's in the room, never with the same line twice in a game (the ones used are
+  // kept in the save); the cat, the kettle and the counter only in the shop. Out of lines: an eye-roll, no words.
+  const SCORES = [
+    'ines_score_1', 'ines_score_2', 'ines_score_3', 'ines_score_4', 'ines_score_5', 'ines_score_6', 'ines_score_7', 'ines_score_8',
+    'ines_score_9', 'ines_score_10', 'ines_score_11', 'ines_score_12', 'ines_score_13', 'ines_score_14', 'ines_score_15', 'ines_score_16',
+    'ines_score_17', 'ines_score_18', 'ines_score_19', 'ines_score_20', 'ines_score_21', 'ines_score_22', 'ines_score_23', 'ines_score_24',
+    'ines_score_25', 'ines_score_26', 'ines_score_27', 'ines_score_28', 'ines_score_29', 'ines_score_30', 'ines_score_31', 'ines_score_32',
+    'ines_score_33', 'ines_score_34', 'ines_score_35', 'ines_score_36', 'ines_score_37', 'ines_score_38', 'ines_score_39', 'ines_score_40',
+  ].filter(k => window.LINES[k]);
+  const SHOP_SCORES = new Set(['ines_score_13', 'ines_score_24', 'ines_score_34', 'ines_score_40']);
   S.joke = async function (id) {
     await say(id);
     const ines = G.npc('ines');
     if (ines && ines.visible && !ines.set && Math.random() < 0.5) {
-      let n; do { n = 1 + Math.floor(Math.random() * 10); } while (n === lastScore);
-      lastScore = n; await say('ines_score_' + n);
+      const used = F().scores_used || (F().scores_used = []);
+      const inShop = G.room && G.room.id === 'shop';
+      const left = SCORES.filter(k => !used.includes(k) && (inShop || !SHOP_SCORES.has(k)));
+      if (!left.length) { if (!ines.pose && ines.c.frames.poses && ines.c.frames.poses.eyeroll) { ines.pose = 'eyeroll'; await G.wait(window.FAST ? 20 : 1400); ines.pose = null; } return; }
+      const k = left[Math.floor(Math.random() * left.length)];
+      used.push(k); await say(k);
     }
   };
   S.give = (id, n) => { if (n != null) F()[id] = n; G.giveItem(id); };
