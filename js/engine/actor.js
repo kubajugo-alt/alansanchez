@@ -124,6 +124,7 @@
     update(dt) {
       const F = this.F;
       if (this.fadeT > 0) this.fadeT = Math.max(0, this.fadeT - dt);
+      if (!this.visible || this.alpha <= 0.005) this.cur = null; // off screen: it comes back in its new frame, no dissolve from the old one
       if (this.alphaTo) {
         const A = this.alphaTo, u = Math.min(1, (A.t += dt) / A.dur);
         this.alpha = A.from + (A.to - A.from) * u * u * (3 - 2 * u);
@@ -446,10 +447,13 @@
       const turned = faceTurn && !frontOK && !this.walking && !window.FAST && this.curFlip != null && this.curFlip !== flipped;
       if (turned && key === this.cur) { this.prev = key; this.prevFlip = this.curFlip; this.fadeDur = this.fadeT = TURN_XF; this.fadeSim = true; this.fadeHand = false; }
       if (key !== this.cur) {
-        const inCycle = this.walking && this.cycle().includes(key) && this.cycle().includes(this.cur);
+        // a walk frame to the next (in any of its cycles: side, front, back) is a step, blended as WALK says
+        const inCycle = this.walking && this.cycle().includes(key) && [F.walk, F.frontWalk, F.backWalk].some(c => arr(c).includes(this.cur));
         const stepX = inCycle && walkOpt().blend === 'dissolve' && !window.FAST; // a walk frame to the next: a very short cross-fade
-        this.prev = this.cur && (!inCycle || stepX) ? this.cur : null;
-        this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
+        // a change in the middle of a dissolve leaves behind whichever painting is still more on screen (no pop)
+        const mid = this.prev && this.fadeT > 0 && this.fadeT / (this.fadeDur || XFADE) > 0.5;
+        if (!mid) this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
+        this.prev = this.cur && (!inCycle || stepX) ? (mid ? this.prev : this.cur) : null;
         // a mouth or gesture change while speaking is a clean frame swap, never a mesh morph
         const tf = this.talking && !this.walking && !this.pose ? arr(F.talk).concat(arr(F.idle).flat()) : null;
         const talkSwap = !!(tf && tf.includes(key) && tf.includes(this.prev));
@@ -457,7 +461,7 @@
         // without the mesh warp (a slow device, Effects: Light) a pose with morph data dissolves instead of cutting
         const morph = morphable && canMorph();
         // a pair with morph data moves between poses; two near-identical paintings (a mouth, a hand,
-        // a drag on the cigarette) get a quick eased cross-fade; anything else is a clean cut
+        // a drag on the cigarette) get a quick eased cross-fade; anything else dissolves (plain, below)
         const SIM = window.SIMILAR, ibHand = this.ibSeq || this.ibWas; this.ibWas = !!this.ibSeq; // in-between frames hand over with a quick cross-fade too
         // into or out of a combined sprite, or from one pair painting to the next: a plain dissolve (pairs never morph)
         const pairs = this.prev && E.SPRITES[key] && E.SPRITES[this.prev] && E.SPRITES[key].rigid && E.SPRITES[this.prev].rigid;
@@ -468,11 +472,15 @@
         const cyc = this.cycle(), edge = !!(this.prev && !morph && !talkSwap && this.prevFlip === flipped &&
           ((this.walking && !cyc.includes(this.prev) && this.walkT < 0.3) || (!this.walking && cyc.includes(this.prev))));
         const similar = forced || flat || edge || stepX || (turned && this.prev) || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
-        if (!morph && !similar) this.prev = null;
-        this.fadeDur = forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT : MORPH_T;
+        // anything else (a talk gesture, a pose or a reaction with no morph data, a turn through the front view, another
+        // facing, a review frame): the standard dissolve, the new painting up, then the old one gone. Only walk steps cut.
+        const plain = !!(this.prev && !morph && !similar);
+        const via = this.viaT != null || this.viaOut; // side, front, side: each hand-over quick enough for the swing
+        this.fadeDur = forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT
+          : plain ? (via ? XFADE_SHORT : this.walking ? WALK_XF : XFADE) : MORPH_T;
         this.xfNext = 0;
         this.fadeSim = !!similar;
-        this.fadeHand = !!forced;
+        this.fadeHand = !!(forced || plain);
         this.viaOut = false;
         this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
@@ -601,7 +609,8 @@
       const e = kB * kB * (3 - 2 * kB);
       blit(cg, B, U, 1); blit(cg, A, U, 1 - e); return compBuf;
     }
-    // no morph for this pair: a clean cut, never two paintings overlaid
+    // a morph the warp couldn't draw: the same dissolve as any other change (the new painting up, then the old one gone)
+    if (B && kB > 0) { const e = kB * kB * (3 - 2 * kB); blit(cg, B, U, Math.min(1, 2 * e)); blit(cg, A, U, Math.min(1, 2 * (1 - e))); return compBuf; }
     blit(cg, A, U, 1);
     return compBuf;
   }
