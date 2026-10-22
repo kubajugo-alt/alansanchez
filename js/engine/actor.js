@@ -483,7 +483,9 @@
         // a mouth or gesture change while speaking is a clean frame swap, never a mesh morph
         const tf = this.talking && !this.walking && !this.pose ? arr(F.talk).concat(arr(F.idle).flat()) : null;
         const talkSwap = !!(tf && tf.includes(key) && tf.includes(this.prev));
-        const M = window.MORPHS, morphable = this.prev && !talkSwap && this.prevFlip === flipped && sameFacing(key, flipped, this.prev, this.prevFlip) && M && M[key + '>' + this.prev] && M[this.prev + '>' + key];
+        // (a set that mixes paintings facing each way shows one of them mirrored: that pair has its own data, 'a>b~')
+        const mir = this.prevFlip !== flipped ? '~' : '';
+        const M = window.MORPHS, morphable = this.prev && !talkSwap && sameFacing(key, flipped, this.prev, this.prevFlip) && M && M[key + '>' + this.prev + mir] && M[this.prev + '>' + key + mir];
         // without the mesh warp (a slow device, Effects: Light) a pose with morph data dissolves instead of cutting
         const morph = morphable && canMorph();
         // a pair with morph data moves between poses; two near-identical paintings (a mouth, a hand,
@@ -619,7 +621,10 @@
   // the shapes slide over the whole change, the pictures swap only in its middle
   function composeFrames(A, B, kB, U, w, h, linear, similar, rigid, hand) {
     fit(compBuf, cg, w, h);
-    const M = window.MORPHS, fAB = B && M && M[A.key + '>' + B.key], fBA = B && M && M[B.key + '>' + A.key];
+    // two paintings drawn with opposite flips (one painted facing left, shown mirrored) use the data measured against
+    // the mirror image ('a>b~', scripts/morphs.py); same flips, the plain pair
+    const mir = B && !!A.flipped !== !!B.flipped ? '~' : '';
+    const M = window.MORPHS, fAB = B && M && M[A.key + '>' + B.key + mir], fBA = B && M && M[B.key + '>' + A.key + mir];
     if (B && kB > 0 && hand) { // into / out of a combined sprite: the new painting comes up, then the old one goes
       const e = kB * kB * (3 - 2 * kB);
       blit(cg, B, U, Math.min(1, 2 * e)); blit(cg, A, U, Math.min(1, 2 * (1 - e))); return compBuf;
