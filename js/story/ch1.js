@@ -16,7 +16,7 @@
   });
 
   // ================================================================ BOOKSHOP
-  const PESSOA_AT = { desk: [250, 452, 'w'], radiator: [765, 362, 'w'], machine: [1015, 372, 'w'], floor: [700, 600, 'e'] };
+  const PESSOA_AT = S.PESSOA_AT = { desk: [250, 452, 'w'], radiator: [765, 362, 'w'], machine: [1015, 372, 'w'], floor: [700, 600, 'e'] };
   const MAG_RECT = [278, 414, 62, 32]; // the brass magnifying glass on the desk, right of where Pessoa sleeps
   // the ledger comes out of grandfather's open drawer only when Alan takes it; then the drawer shuts
   async function takeLedger() {
@@ -37,6 +37,9 @@
     ambience: () => F().ch >= 5 ? 'shop_night' : 'shop', floor: 'wood',
     walk: [[345, 535], [792, 535], [1004, 716], [215, 716]],
     scale: [535, 362, 716, 482],
+    // the grandfather desk: whoever stands behind it (Inês shelving books at 345, 550) is hidden by its right pedestal
+    // and the hutch's side; its front sits on the floor at y 560 (Alan at the desk, 380, 600, stands in front)
+    occluders: [{ y: 560, polys: [[[0, 300], [240, 300], [245, 350], [275, 385], [300, 410], [336, 418], [336, 556], [320, 562], [0, 580]]] }],
     light: () => F().ch >= 5 ? { ambient: 'rgb(120,140,180)', base: 0.62 } : { ambient: 'rgb(214,192,165)', base: 0.86, rim: 'rgba(210,225,240,0.22)', rimSide: -1 },
     lights: () => F().ch >= 5 ? [
       { x: 178, y: 305, rgb: '200,255,190', glow: 110, ga: 0.22, power: 0.5, reach: 700, floor: [178, 600], height: 420 },
@@ -372,7 +375,7 @@
     anim(g, t) { FX.wisps(g, t, 725, 320, { n: 4, rise: -150, spread: 50, rgb: S.streetNight() ? '90,100,125' : '228,230,232', a: 0.05, size: 46, speed: 0.04 }); }, // mist sliding down the stairs
     animFg(g, t) { S.drawTram(g, t); },
     ambient: [
-      { id: 'npc_bench', name: 'Old man on the bench', frames: ['npc_bench', 'npc_bench_doze2', 'npc_bench_doze2', 'npc_bench_b'], idleHold: [9, 18], variantHold: [2.2, 4], x: 870, y: 592, h: 150, look: 'alan_npc_bench', talkFrames: ['npc_bench_talk1', 'npc_bench_talk2', 'npc_bench_talk3'], talk: () => S.benchTalk(), when: () => F().ch <= 4, // dozes (head lolling one way, then the other), now and then wakes with a start
+      { id: 'npc_bench', name: 'Old man on the bench', anim: { wide: false }, frames: ['npc_bench', 'npc_bench_doze2', 'npc_bench_doze2', 'npc_bench_b'], idleHold: [9, 18], variantHold: [2.2, 4], x: 870, y: 592, h: 150, look: 'alan_npc_bench', talkFrames: ['npc_bench_talk1', 'npc_bench_talk2', 'npc_bench_talk3'], talk: () => S.benchTalk(), when: () => F().ch <= 4, // dozes (head lolling one way, then the other), now and then wakes with a start
         sets: { awake: { idle: ['npc_bench_awake', 'npc_bench_greet'], talk: ['npc_bench_talk1', 'npc_bench_talk2', 'npc_bench_talk3'], poses: { wake: 'npc_bench_b', confide: 'npc_bench_confide', wistful: 'npc_bench_wistful', drowsy: 'npc_bench_drowsy' } } } },
     ],
     occluders: [{ y: 206, poly: [[60, 150], [215, 150], [215, 215], [60, 215]] }], // balcony railing in front of the laundry woman

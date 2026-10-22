@@ -1,0 +1,96 @@
+{
+ "refs": {
+  "body_skin": "pair_cop_cuffs (Alan, right half) MAHYnPL0CuE",
+  "identity": "alan_side MAHYnEDJ7bs"
+ },
+ "shots": [
+  {
+   "id": "b01_jacket_off",
+   "gen": "MAHYnOanflw"
+  },
+  {
+   "id": "b02_tee_off",
+   "gen": "MAHYnPoKJ0s"
+  },
+  {
+   "id": "b03_jeans_off",
+   "gen": "MAHYnJmFjNs"
+  },
+  {
+   "id": "b04_jacket_towel",
+   "gen": "MAHYnCwEcJs"
+  },
+  {
+   "id": "b05_leap",
+   "gen": "MAHYnITpoNo"
+  },
+  {
+   "id": "b06_hair_back",
+   "gen": "MAHYnJpN20Y"
+  },
+  {
+   "id": "b07_splash",
+   "gen": "MAHYnPngHB0"
+  },
+  {
+   "id": "b08_climb",
+   "gen": "MAHYnJlbeiM"
+  },
+  {
+   "id": "b09_drip",
+   "gen": "MAHYnNhmOF4"
+  },
+  {
+   "id": "b10_dressed",
+   "gen": "MAHYnGj8S9w"
+  }
+ ],
+ "scene": [
+  {
+   "shot": "1 jacket off",
+   "file": "b01_jacket_off.png"
+  },
+  {
+   "shot": "2 T-shirt off",
+   "file": "b02_tee_off.png"
+  },
+  {
+   "shot": "3 jeans off",
+   "file": "b03_jeans_off.png"
+  },
+  {
+   "shot": "4 to the tank",
+   "file": "b04_jacket_towel.png"
+  },
+  {
+   "shot": "5 behind the tank: trunks fly",
+   "file": "b05t_fling_behind_tank.png"
+  },
+  {
+   "shot": "6 hair back",
+   "file": "b06_hair_back.png"
+  },
+  {
+   "shot": "7 splash",
+   "file": "b07_splash.png"
+  },
+  {
+   "shot": "8 out, towel",
+   "file": "b08t_climb_towel.png"
+  },
+  {
+   "shot": "9 dripping, towel",
+   "file": "b09t_drip_towel.png"
+  },
+  {
+   "shot": "10 dressed",
+   "file": "b10_dressed.png"
+  }
+ ],
+ "staging": "Undresses to trunks in front of the tank; behind the tank (drawn waist-up at the rim, like the washing frames) he flings the trunks away; drops in with the existing splash; climbs out and takes Celeste's white towel; dresses during the fade.",
+ "unused": [
+  "b05_leap (trunks)",
+  "b08_climb (trunks)",
+  "b09_drip (trunks)"
+ ]
+}

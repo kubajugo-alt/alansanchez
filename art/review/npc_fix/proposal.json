@@ -1,0 +1,430 @@
+{
+ "abilio": {
+  "abilio_idle2": {
+   "h": [
+    720.0,
+    626.4
+   ],
+   "ax": [
+    200.3,
+    187.8
+   ],
+   "overlap": 0.92
+  },
+  "abilio_point": {
+   "ax": [
+    57.4,
+    177.3
+   ],
+   "overlap": 0.65
+  },
+  "abilio_read": {
+   "ax": [
+    47.5,
+    191.2
+   ],
+   "fy": [
+    681.2,
+    702.5
+   ],
+   "overlap": 0.93
+  },
+  "abilio_shout1": {
+   "ax": [
+    147.6,
+    279.9
+   ],
+   "fy": [
+    672.6,
+    691.0
+   ],
+   "overlap": 0.72
+  }
+ },
+ "celeste": {
+  "celeste_wring2": {
+   "h": [
+    720,
+    678.24
+   ]
+  }
+ },
+ "lacerda_robe": {
+  "robe_read": {
+   "ax": [
+    224.1,
+    181.8
+   ],
+   "fy": [
+    717.7,
+    710.5
+   ],
+   "overlap": 0.86
+  }
+ },
+ "npc_bench": {
+  "npc_bench_doze2": {
+   "fy": [
+    711.2,
+    727.0
+   ],
+   "overlap": 0.89
+  }
+ },
+ "npc_washer1": {
+  "npc_washer1_b": {
+   "h": [
+    720.0,
+    648.0
+   ]
+  }
+ },
+ "rui": {
+  "rui": {
+   "ax": [
+    140.0,
+    160.7
+   ],
+   "overlap": 1.0
+  },
+  "rui_coffees": {
+   "ax": [
+    167.0,
+    149.9
+   ],
+   "overlap": 0.92
+  },
+  "rui_front": {
+   "fy": [
+    723.1,
+    715.0
+   ],
+   "overlap": 0.6
+  },
+  "rui_idle2": {
+   "ax": [
+    156.7,
+    173.8
+   ],
+   "overlap": 0.85
+  },
+  "rui_idle4": {
+   "ax": [
+    123.0,
+    141.9
+   ],
+   "overlap": 0.98
+  },
+  "rui_smoke": {
+   "ax": [
+    153.9,
+    135.3
+   ],
+   "overlap": 0.83
+  },
+  "rui_talk": {
+   "ax": [
+    176.1,
+    159.1
+   ],
+   "overlap": 0.99
+  },
+  "rui_talk2": {
+   "ax": [
+    179.1,
+    161.8
+   ],
+   "overlap": 0.94
+  },
+  "rui_talk3": {
+   "ax": [
+    167.6,
+    186.5
+   ],
+   "fy": [
+    723.1,
+    715.0
+   ],
+   "overlap": 0.97
+  },
+  "rui_talk4": {
+   "ax": [
+    155.1,
+    174.0
+   ],
+   "fy": [
+    723.1,
+    715.0
+   ],
+   "overlap": 0.97
+  }
+ },
+ "vasco": {
+  "vasco_act_bag_a": {
+   "ax": [
+    127.1,
+    195.5
+   ],
+   "overlap": 0.82
+  },
+  "vasco_act_bag_b": {
+   "ax": [
+    153.6,
+    218.4
+   ],
+   "overlap": 0.82
+  },
+  "vasco_act_notes_a": {
+   "ax": [
+    127.1,
+    197.3
+   ],
+   "overlap": 0.7
+  },
+  "vasco_act_notes_b": {
+   "ax": [
+    128.6,
+    222.2
+   ],
+   "overlap": 0.68
+  },
+  "vasco_act_sherd_a": {
+   "ax": [
+    135.4,
+    194.8
+   ],
+   "overlap": 0.77
+  },
+  "vasco_act_sherd_b": {
+   "ax": [
+    158.9,
+    211.1
+   ],
+   "overlap": 0.76
+  },
+  "vasco_amused": {
+   "h": [
+    720.0,
+    681.84
+   ],
+   "ax": [
+    127.3,
+    183.6
+   ],
+   "overlap": 0.92
+  },
+  "vasco_back_read": {
+   "ax": [
+    123.1,
+    189.7
+   ],
+   "overlap": 0.63
+  },
+  "vasco_back_unlock": {
+   "ax": [
+    123.1,
+    182.5
+   ],
+   "overlap": 0.63
+  },
+  "vasco_clapper_hold": {
+   "ax": [
+    129.5,
+    208.7
+   ],
+   "overlap": 0.94
+  },
+  "vasco_clapper_talk": {
+   "ax": [
+    139.0,
+    223.6
+   ],
+   "overlap": 0.93
+  },
+  "vasco_coffee": {
+   "h": [
+    720,
+    674.64
+   ],
+   "ax": [
+    137.7,
+    117.5
+   ],
+   "fy": [
+    713.0,
+    706.3
+   ],
+   "overlap": 0.78
+  },
+  "vasco_coffee_sip": {
+   "h": [
+    720.0,
+    675.36
+   ],
+   "ax": [
+    141.1,
+    183.3
+   ],
+   "fy": [
+    715.5,
+    708.7
+   ],
+   "overlap": 0.78
+  },
+  "vasco_coffee_talk": {
+   "ax": [
+    139.9,
+    179.5
+   ],
+   "fy": [
+    715.5,
+    704.7
+   ],
+   "overlap": 0.63,
+   "h": [
+    720.0,
+    675.36
+   ]
+  },
+  "vasco_fluster": {
+   "h": [
+    720,
+    771.12
+   ],
+   "ax": [
+    148.6,
+    125.5
+   ],
+   "overlap": 0.77
+  },
+  "vasco_give": {
+   "ax": [
+    128.1,
+    110.1
+   ],
+   "overlap": 0.77
+  },
+  "vasco_hopeful": {
+   "ax": [
+    125.9,
+    172.7
+   ],
+   "overlap": 0.91
+  },
+  "vasco_keys": {
+   "ax": [
+    127.1,
+    197.3
+   ],
+   "overlap": 0.95
+  },
+  "vasco_scandalised": {
+   "ax": [
+    125.7,
+    172.5
+   ],
+   "overlap": 0.91
+  },
+  "vasco_stand_up": {
+   "h": [
+    720.0,
+    650.88
+   ]
+  },
+  "vasco_stern": {
+   "ax": [
+    124.8,
+    171.6
+   ],
+   "overlap": 0.92
+  },
+  "vasco_talk3": {
+   "ax": [
+    138.1,
+    118.3
+   ],
+   "overlap": 0.74
+  },
+  "vasco_talk4": {
+   "ax": [
+    127.3,
+    174.1
+   ],
+   "overlap": 0.74
+  },
+  "vasco_talk_count": {
+   "ax": [
+    127.3,
+    177.7
+   ],
+   "overlap": 0.93
+  },
+  "vasco_talk_point": {
+   "ax": [
+    127.3,
+    168.7
+   ],
+   "fy": [
+    720.5,
+    709.7
+   ],
+   "overlap": 0.65
+  },
+  "vasco_worried": {
+   "ax": [
+    125.7,
+    186.9
+   ],
+   "overlap": 0.93
+  }
+ },
+ "ze": {
+  "ze_burst": {
+   "h": [
+    823.97,
+    769.59
+   ]
+  },
+  "ze_dress": {
+   "h": [
+    720,
+    660.24
+   ]
+  },
+  "ze_hammer": {
+   "h": [
+    868.97,
+    654.33
+   ]
+  },
+  "ze_shirtless": {
+   "h": [
+    720,
+    676.8
+   ]
+  },
+  "ze_strip3": {
+   "h": [
+    720,
+    674.64
+   ],
+   "ax": [
+    164.4,
+    243.7
+   ],
+   "overlap": 0.89
+  },
+  "ze_toss": {
+   "h": [
+    781.03,
+    685.74
+   ]
+  },
+  "ze_strip1": {
+   "h": [
+    720,
+    685.44
+   ]
+  }
+ }
+}

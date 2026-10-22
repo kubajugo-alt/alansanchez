@@ -1,32 +1,62 @@
 # Animation handoff
 
-## Start here (session handoff, 2026-10-21)
+## Start here (session handoff, 2026-10-22)
 
-Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
-runs commit `ec5cd10` (Netlify deploy `6ad828ca60f1b5df2eba0553`); the commits after it only touch these docs and
-`scripts/`. Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-27); the sections after it are an archive of the 20 October
-handoff, kept for history: don't act on them without checking the code and the user.
+Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
+bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
+line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
+live site, https://alan-sanchez-drowned-bell.netlify.app: see the newest deploy entry in the log. Below: what the game
+is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
+change (entries 1-53); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+them without checking the code and the user.
 
 ### What is in the game now
-- **Story review round 2** (T01-T11) done; every line voiced (about 1,300 since entry 26, ElevenLabs), all within +-1.5 LU of
+- **Story review round 2** (T01-T11) done; every line voiced (70 unused ones deleted in entry 52, ElevenLabs), all within +-1.5 LU of
   -21.5 LUFS; lip-sync cues for every speaker but the narrator. Amália's first hello tightened (entry 20).
-- **Faces** (lip-sync and blinking): Alan, Inês, Vasco, Teixeira. Everyone else has cues but no face art yet.
+- **Faces** (lip-sync and blinking): Alan (his new bath and Duarte frames too), Inês, Vasco, Teixeira, Duarte in his
+  upstairs scene. Everyone else has cues but no face art yet (the user: "They are not meant to speak and blink yet").
 - **Walks:** all eight walking characters on new side walks painted as one Gemini sheet each. Alan and Inês play
   the cycles the user built in the walk editor (`*_walk7_s*`, 5 and 6 steps, entry 19); Vasco, Lacerda (widened
   x1.2 on the user's note), Celeste, Zé, Teixeira (cop_visit) and Duarte (guitar_visit) their approved 8-pose sets
-  (`*_walk6_p*`, entries 16-17). The engine holds the planted foot and times each painting by its foot's travel
-  (`S.WALK_PLANT`, `S.walkTiming`, entry 11). Rui still glides (no walk). Walks towards / away from the camera and
+  (`*_walk6_p*`, entries 16-17). Everyone walks at a steady speed (the engine fix, entries 23-24: no foot lock,
+  bob once per step); each painting is timed by its foot's travel (`S.WALK_PLANT`, `S.walkTiming`, entry 11).
+  Rui still glides (no walk). Walks towards / away from the camera and
   the lantern walks are the old 2-4 frame cycles.
 - **Stills:** the 26 oil paintings repainted in the cartoon style the user chose (entry 12); 39 stills at 1536x864
   for sharp zooms (entry 15). Title screen and the five puzzle close-ups unchanged, by the user's rule.
 - **Rooms:** small moving details in all 20 rooms drawn over the paintings (entry 21), and cut-out moving parts
   (lanterns, lamps, the street sign, the moored boats; entry 22). No room painting changed.
 - **Speed:** slow devices drop the warp and parallax by themselves; `?fps` shows a readout (entry 20).
-- **Loading:** images stream in behind the title, and rooms and paintings wait only for their own art (entry 25).
-  Saves, input locks, GL context loss and touch examine made robust (entry 24).
+- **Added 21-22 Oct (entries 40-47):** the bath and Duarte's upstairs scene repainted; the sound pass (docs/SOUND.md);
+  talking and blinking for the 70 new frames (Alan's 58, Duarte's 12); every frame change dissolves and every frame
+  breathes and tilts (two engine audits, entry 45); the shop desk hides Inês; NPC sizes and feet fixed for Celeste,
+  Lacerda (robe), the washerwoman in black, Rui, Vasco, Zé and Abílio (Abílio's `shout1` colour-corrected too); the
+  bench man and the two card players each repainted on one fixed bench / table so the furniture no longer jumps when
+  their frames swap (entry 46). `?bath=old`, `?duarte=old`, `?sound=old` still bring back the old versions.
+- **The shop keeps its original painting** (entry 47: three redraw attempts, the user said "keep the original one").
+- **Loading:** images stream in behind the title, and rooms and paintings wait only for their own art (entry 51).
+  Saves, input locks, GL context loss and touch examine made robust (entry 50).
 
 ### Open, in the order I'd suggest
+A. **The cut-out audit: applied** (entry 48; the user: "I approve it all"). The 716 cleaned frames from
+   `art/review/cutout/sprites/` written over their sources (art/sprites 496, the 155 candidates, bath_new 49,
+   duarte_new 16), re-encoded WebP q90 with lossless alpha (checked identical to the cleaned alpha) and exact RGB under
+   transparency: 73.2 MB -> 33.4 MB. Canvas and placement unchanged, so js/sprites.js, morphs and faces stand. Manifest
+   rebuilt, validate 0 errors, smoke intro, bench, laundry, tavernafter, fado, sepit, vascostore, romance, visitguitar,
+   bath, copbed, coldopen pass. Board: https://claude.ai/artifact/2aTv6kXEf253d63Ppg9AH5. **Deployed** (the user: "deploy"):
+   commit `69cffcd6`, Netlify `6ada17253b1f63adf4b4bd09`; smoke on the export passed; live sprites byte-identical, `/.env` 404.
+   Left: the 11 frames cut off at the canvas edge need a re-cut from source (alan_undress4, alan_untie, alan_wash1,
+   alan_wring, celeste_wring1/2, cop_bed3/4, pair_guitar_undress2, alan_walk7_s1/s2); npc_tourists(_b) keep a faint
+   pale rim on the bare legs.
+B. **The woman under the washing (Lavadouro).** The story asks for three frames she never had: `npc_laundry_sniff`
+   (her "Wasted on the girls" remark), `_mutter`, `_smirk` (ch2.js). Painted for review in `art/review/laundry/`; the
+   user rejected the card with "i think she had more sprites". She has eight in the game (idle, glance, peg, shake,
+   talk1-3, shock), all used; the old `npc_laundry_b` was dropped long ago. Asked the user what they meant; no answer.
+C. **Other story frames that were never painted** (the game skips them silently): `celeste_shock` (the bath),
+   `duarte_play4/5/6` (fado flourishes), `npc_bench_greet`, Vasco's optional extras (`vasco_idle4`, front/back walk
+   frames, `vasco_hook` and the other reaction variants in se.js). Offered to the user; no answer yet.
+D. The bench man's `npc_bench_wistful` paints him bareheaded (his cap in his hands): offered to paint the cap on.
+0. **Walks, entry 23's plan:** Step B (Alan's 12-painting side walk, "more fluidity").
 1. **Walks towards and away from the camera** (Alan first: the player walks him up and down rooms all the time),
    then the lantern walks (Alan's `alan_lwalk*`, Inês's `ines_lwalk*`). Same method: a Gemini sheet, then the walk
    editor for the user to arrange and approve. `walk_sheet.py`'s guide is side-view stick figures: front/back
@@ -40,10 +70,10 @@ handoff, kept for history: don't act on them without checking the code and the u
    (tavern, se_tower, cais, boat, cabin, se_museum, se_cloister, se_store).
 6. Left out on purpose (entry 22): the map's boats, the armillary sphere, the shop's newspaper corner, the museum
    lectern's page.
-7. **From the code review (entry 23), not done yet:** phone speed (parallax re-upload in live rooms, face cache,
+7. **From the code review (entry 49), not done yet:** phone speed (parallax re-upload in live rooms, face cache,
    shadow blur); accessibility (keyboard play, modal focus, subtitle size, 44 px buttons, reduced motion); the README
    walkthrough (the user, 2026-10-22: "leave for now"). Done since: the new lines and the 70 retired ones (entries
-   26-27). Also open: Continue in the shop doesn't run its
+   52-53). Also open: Continue in the shop doesn't run its
    entry hook, so a chapter end due there waits until Alan goes out and back in.
 8. Older threads from the 20 October archive (Phase 3 step in-betweens, the combined-sprite transition choice, the
    rig trial, the 70 frames without face sets): still open as far as I know; ask the user before picking them up.
@@ -76,14 +106,24 @@ handoff, kept for history: don't act on them without checking the code and the u
   (all 38 scenes take over 15 minutes: run them in two parts), `walk_cast.mjs`, `walks_wired.mjs`, `room_shots.mjs`,
   `perf.mjs`, `profile.mjs`; plus `node scripts/validate.mjs`. A smoke run with `GEMINI=1` approves every candidate.
 - **Review pages:** the walk editor (above); the stills choice (done): https://claude.ai/artifact/NXdCrquugizM39ea7bF1TN.
+- **NPC checks (entry 46):** `scripts/npc_check/` (dump every room's NPC frames, measure size by head / SIFT / feet,
+  feet overlap at game size, contact sheets, mid-dissolve ghosts, `propose.py`); `scripts/bench_compose.py` and
+  `scripts/cards_compose.py` (furniture painted once, people painted without it and layered back). The NPC board:
+  https://claude.ai/artifact/CfA6A88JFRC1yGXhhnYcAg (decisions in collection `npc_fix`).
+- **Images:** `scripts/gen_image.py --key magenta` (for green subjects), `--fresh` (a painting made anew from a guide);
+  `scripts/shop_patch.py` (object patches on a painting; tried on the shop and dropped). Canva full-size export: page
+  22 of the scratch design `DAHYZ-SDzRE` (update_fill, commit, export png pro).
+- **Previews added:** `?scene=shopjobs` (the shop, nothing scripted, Inês at her jobs).
 
-### Lost with this session's container
+### Lost with the sessions' containers
 - Rhubarb Lip Sync 1.13.0 (download again; `RHUBARB=<binary>` for `scripts/lipsync.py`).
 - The 2752x1536 Gemini originals of the 26 repainted stills (`art/review/stills/crisp2/*_raw.png`, git-ignored);
   the 1536x864 versions in the game are what matters.
 - The walk sheets that weren't chosen (git-ignored); the editor library's fitted tries (rebuild with
   `walk_sheet_cast.py library`).
 - Gemini spend this session: $3.57 over 52 calls (stills and walk sheets); the whole log: $97.04 over 2,068 calls.
+- 22 Oct: the local game servers, the Rhubarb binary again, the raw 2K Gemini results (git-ignored). Gemini on 22 Oct:
+  $15.13 over 351 calls (mostly the face kits); the whole log: $123.10 over 2,687 calls. Canva: the shop attempts.
 
 ## Story review round 2 (2026-10-20): done
 
@@ -390,17 +430,614 @@ session lived in the session's scratchpad and are gone; everything that matters 
      lectern's page (they bend rather than swing: they need painted frames).
    - **Checked:** before/after crops (no seams, objects where painted); smoke intro, bench, lacthreat, quayfish,
      laundry, finale, tavernafter, fado, vascostore, twinswap pass.
+23. **Walks: the engine fix for Alan and Inês** (the user: "a big problem with how Alan walks ... it seems to be
+   getting worse"; then "both Alan and Ines are jumpy ... it might be the engine, not the actual frames").
+   - **Cause:** entry 11's foot lock (`lock: 1`) holds the whole figure on one spot while a painting is up, then
+     moves it the painting's full step at once. With 5-6 paintings a stride that is a stop-start jerk. Recorded in
+     the street (Alan 231 px tall, 30 frames a second): at full pace he stood still on 77 of 90 frames and then
+     jumped 19-48 px; Inês the same, jumps up to 44 px; Vasco's 8-pose walk 69 of 90, up to 24 px.
+     A second fault: the walk's bob and head tilt ran once per painting (`sin(phase * PI)`), so with 5 uneven
+     paintings they wobbled irregularly.
+   - **Engine** (js/engine/actor.js): a new option `bob: 'step'` puts the rise and fall (lowest a quarter of the
+     way into a step, highest three quarters) and a small head tilt on the step (`Actor.stepU()`, by ground covered,
+     contacts from `walkSteps`), whatever the number of paintings. Walk options are now per character too:
+     `CHARS[ch].walkOpt` over `WALK_DEFAULT`, under `window.WALK` (the lab). `WALK_DEFAULT` is unchanged.
+   - **Presets** (js/story/core.js): `S.WALK_FIX` = `{ lock: 0, blend: 'cut', timing: 'foot', bob: 'step' }`
+     (steady movement, a painting held as long as its foot travels, cut half way through it); `S.WALK_A` = the
+     same with even timing, for the first painted cycle. `S.WALK_ORIGINAL.alan` keeps that cycle (main.js).
+   - **In the game:** `S.WALK_FIX` for Alan and Inês, with their current paintings (main.js loadApproved). The user
+     approved this in chat after the review page (below): "Alan - Engine fix, today's 5 paintings (but would use
+     more fluidity), Inez with Engine fix looks ok". The other six walkers keep the default until they're seen.
+   - **Previews:** `?walk=fix` (the fix for everyone), `?walk=a` (Step A: Alan on his first 8-painting cycle). Walk
+     lab: a Bob select, "Engine fix" and "Step A" buttons, "first painted cycle" in the cycle list, URL options
+     `&set=a|fix &cycle=first|game &who= &lroom= &go=0 &nofeet` for recordings.
+   - **Review page** (footage from the engine, stepped 1/30 s at a time with `STEP_DT`/`HOLD`/`ADVANCE`, recorder
+     script in the session scratchpad): https://claude.ai/artifact/V3SgC1xBjoyk7txRc31ASZ
+   - **Plan agreed for what's left** (in chat): Step B, a 12-painting cycle for Alan (6 per step, the same poses for
+     both steps with the legs swapped; a guide from Muybridge's walking-man photographs instead of the stick
+     figures; checked by script for even foot travel, head lowest after contact and highest after passing, size
+     within 2%); fallback, his legs on the rig (`?rig=1`). The user wants "more fluidity" for Alan: that is Step B.
+     Then the engine fix for the other six (their review), then front/back walks.
+   - **Checked:** node --check; validate (0 errors); smoke walklab, intro, bath, ineskey, bench, rigtest pass;
+     recorded again with no preview switch: Alan 4.8 px every frame, Vasco unchanged.
 
-23. **Code review and lift-ups** (2026-10-22, the user: "Analyse the game code and propose lift-ups", then "Do batch A,
+24. **Walks: the engine fix for everyone** (the user: "just fix it", after hearing the other six still stopped and
+   started). `WALK_DEFAULT` in actor.js is now `{ lock: 0, blend: 'cut', timing: 'foot', bob: 'step' }` (the same
+   as `S.WALK_FIX`), so every walker moves at a steady speed, including the walks towards and away from the camera,
+   the lantern walks and the extras; the per-character setting for Alan and Inês in main.js is gone (the
+   `CHARS[ch].walkOpt` mechanism stays). The old behaviour is still in the walk lab ("locked" in its select).
+   Checked: recorded in the street with no preview switch, at full pace each moves the same amount every frame and
+   never stands still (Vasco 4.8 px, Lacerda 4.8, Celeste 4.1, Zé 4.9, Teixeira 3.8, Duarte 3.6, Inês 4.4); before,
+   Vasco stood still on 69 of 90 frames. Smoke laundry, quayfish, lacthreat, semuseum, vascostore, visitcop,
+   visitguitar, celeste, intro, walklab pass.
+
+25. **"I'm a lot after lunch, too" restored** (the user: tweaked lines and the bath repaints "don't seem to be live").
+   - **The live site was current:** its files matched `master` byte for byte (lines.js, sprites, the bath frames,
+     approvals), and Netlify sends `max-age=0, must-revalidate` for them.
+   - **The line was a regression in the code:** `alan_teixeira_sorry` was changed to "after lunch, too" by the story
+     audit (56f8df50, 18 Oct) and re-recorded (cb2370db); the round-2 commit (a67c048) wrote the old "before lunch"
+     back and dropped the recording, and the polish pass (e461769) recorded "before lunch". Restored the 18 Oct
+     text, recording (-21.7 LUFS, 64 kbps mono) and its Rhubarb cues (their `src` is that mp3's sha1), all from
+     cb2370db; js/lipsync.js rebundled (only this line changed); `build-manifest.mjs` re-run (the voice version
+     tag, and index.html's `?v=` tags, which entries 23-24 had left stale). A search of every line's history for
+     wording put back to an earlier version found only this one.
+   - **Bath frames:** no frame went back to an older picture. The 17 restyles of c0a4b0a are live; wash3,
+     swim_wave, trunks_down, trunks_snap, fling, trunks_step, dress1 and jump_crouch keep the first paint, as
+     the user chose then. Asked the user which bath moments look old.
+   - Checked: validate 0 errors; smoke visitcop, copbed pass.
+
+26. **Bath scene: wash5 and the swim frames out; the bath frames measured** (the user: the bath frames "look
+   inconsistent - Alan is too muscular on some, they have different skin colour, size of the body is different";
+   "remove wash 5 and both swims"; heights may differ, "since he has different poses").
+   - ch2.js `bathEgg`: the washing loop plays wash1, wash4, wash2, wash3, wash6 (wash5 out); the swim/swim2 fallback
+     (used only with no wash frames) is gone. The sprites stay in art/sprites. Smoke bath passes.
+   - **Findings** (contact sheet of 41 frames at game scale, scratchpad): two builds are mixed: lean (jacket,
+     undress3/4, fling, jump_fall, dress1, jacket_wink/grin) and bodybuilder (undress1b, 2a, 2, 2b, belt, boot,
+     unbutton, jeans, trunks_down/step/snap, jump_crouch, drip, trunks_on, dress2/3, dress_boot). Skin runs from
+     deep orange (jacket, jacket_wink) to pale (undress2). Head size (the jacket frame's head template matched at
+     scale, mirror and +-25 degrees; heads in the frame's own height units): most frames 107-112% of the jacket's
+     head (the jacket's is ~10% small); too big: jump_crouch 154%, dress_boot 125%, wash2 122%, trunks_down 121%,
+     trunks_on 119%; too small: climb 93%, undress_boot 94%, jump_rise 96%. Not measurable this way: undress2,
+     jump, wash3, dress_final. (The wash frames are drawn at WASH.h, so on-screen sizes still need checking.)
+   - **User's references:** build from **alan_jacket**, skin from **alan_undress2b**.
+   - **Plan:** (1) repaint the bodybuilder frames with the jacket's build, pose/face/clothes kept (Gemini, one pilot
+     first); (2) skin_match.py to undress2b's skin on every bath frame, after (1); (3) scale outliers by head size
+     (meta only, pose heights left as they are); (4) a review page playing the scene before/after, per-frame approval.
+   - **Blocked:** no GEMINI_API_KEY in this container (`.env` is git-ignored and was not carried over); the user
+     is to add it as an environment variable for a new session.
+
+27. **The bath scene painted again from scratch, for review** (the user: "fully re-paint the scene ... up to 10 [frames],
+   using Alan's bodytype and skintone from Teixeira love scene"; then: keep it a skinny-dip; "he will start undressing,
+   and go behind the waterpool, and this is where he will take off his trunks and throw them away"; Celeste's white
+   towel for getting out and dressing; underwear, not swimming trunks). Not in the game: `?scene=bath&bath=new`.
+   - **Paintings (Canva, all `generate-image` from two references):** Alan cut from `pair_cop_cuffs` (build, skin) and
+     `alan_side` (face, clothes), on green, `PORTRAIT_1_2`, exported full size through the scratch design (pages 25-44).
+     Eleven frames: jacket off, T-shirt over the head, hopping out of the jeans (black boxer shorts), standing in his
+     underwear, waist-up behind the tank flinging the underwear, waist-up washing (hair back, splashing his face),
+     out over the rim with the towel, dripping in the towel, towel on with the underwear in hand, dressed with the
+     collar up. Canva refused: anything with the underwear going on or coming off below the waist, and "boxer
+     briefs" wording (once). Earlier tries kept in art/review/alan/bath_new (trunks versions, jacket-as-towel, the
+     cannonball, jeans under the towel; manifest.json lists them). The exports are git-ignored.
+   - **Fit** (`scripts/bath_new_fit.py`): keyed, standing frames scaled to the first frame's full height (720 sprite
+     px), the others by head size (template match on the first frame's head); waist-up frames stand on their cut, drawn
+     at `WASH` (the tank's waterline, h 380) like the old washing frames. art/review/alan/bath_new/sprites + sprites.json.
+   - **Scene** (ch2.js `S.bathNew`, used when `S.BATH_NEW`, set by main.js for `?bath=new`): undress in front of the
+     tank; fade, up behind the tank's wall (waist-up at `WASH`), the underwear flung on the old `drawShorts` arc;
+     Celeste's shriek, Alan's line; splash; washing loop over narr_bath; fade; out at x 770 (in front of the tank: at
+     880 the tank hid his legs) with the towel; celeste_bath_2; underwear in hand; the jeans, tee and jacket frames
+     played as dressing; collar up; joke; laundryRemark. The old scene is untouched and still the game's.
+   - **Open:** the towel stays painted on the tank's corner after he takes it (done in entry 28); the new frames have no face kits (no lip-sync on them yet).
+   - **Review board** (the user: "a tool that will let me review the frames, order them and brief in tweaks and missing
+     ones"): https://claude.ai/artifact/7q45C56o77oNXSCdqt1vzc (source scripts/review_pages/bath_board/, data.json =
+     the frames and the first proposed order). Scene strip (reorder, duplicate, remove, hold ms, floor/tank, a note per
+     step, missing-frame cards), paintings with a note each, overall notes, Approve, Play over the room at game size.
+     Saved to its db doc `board/bath`: `{steps: [{id, hold, place, note} | {gap: true, text, hold}], frameNotes,
+     overall, approved}`. Read it with ArtifactData get board/bath.
+   - Checked: smoke bath (the old scene) passes; the new scene played through in Chromium with no errors (screens of
+     the fling behind the tank and the towel by the corner checked by eye).
+
+28. **Bath (review): the board's order applied; the tank built taller; Celeste's towel smaller, then gone**
+   (the user's notes on the board, then: "make the pool higher", "apply to preview", "make the towel on the tank
+   smaller, so it matches the one alan took", "create a version without the towel for after he's taken it", "apply
+   everything to the review artifact"). Still not in the game: `?scene=bath&bath=new` and the board only.
+   - **Board round** (`a04511a6`): `S.bathNew` follows the board's 22 steps (db `board/bath`; the user's first notes
+     kept as `board/bath_v1`); new Canva frames (jacket shrug, tee lift, belt, jeans half, zip, boxers on/up under the
+     towel); the fling now behind the tank on the floor past its far rim; `alan_bn_splash` skin evened
+     (`SKIN_MATCH` in `scripts/bath_new_fit.py`). Open: washing his body (Canva refused twice, a gap on the board);
+     jacket_shrug shows a vest, not his T-shirt.
+   - **Taller tank:** Canva repainted the Lavadouro with a taller tank (`art/review/bg/lavadouro_tall_raw.png`,
+     git-ignored, like all `art/review/bg/*_raw.png`); `lavadouro_tall.jpg` is the original painting with only the
+     rectangle x>=828, y>=372 taken from it (feather 24, colour matched). **`art/bg/lavadouro.jpg` is untouched.**
+   - **Towel:** two more Canva repaints of that picture (smaller towel; no towel), aligned to it; only their
+     difference inside x 800-1050, y 392-590 (feather 8) is added to `lavadouro_tall.jpg`, so the room is identical
+     and only the towel changes: `lavadouro_tall_smalltowel.jpg`, `lavadouro_tall_notowel.jpg`.
+   - **Preview** (main.js, `?bath=new`): the room's `bg` is the small-towel picture, `bgs` preloads the other,
+     `bgFn` switches on `S.bathTowelTaken` (ch2.js: false at the scene's start, true in the fade before he climbs
+     out); `depth` stays `lavadouro_depth`; the tank's occluder outline (`y 680`) is redrawn round the taller tank.
+     `S.BATH_TALL` moves `BEHIND` to y 418 and the in-water frames (`TANK`) to y 432.
+   - **Board** (scripts/review_pages/bath_board/template.html; republished, version 3): same pictures (small towel
+     until the first `climb`/`towel` step, then none), the tank and behind places at the new heights, and the tank's
+     outline drawn over figures placed in the tank or behind it, as the game's occluder does.
+   - Checked: the preview played through in Chromium with no errors (screens: undressing, washing with the small
+     towel on the corner, out in the towel and dressed with the corner bare); the board drawn in Chromium at steps
+     9, 10, 13, 14 with no errors.
+
+29. **Bath (review): the fling full size behind the tank; the swimming frames in the water; the board's buttons**
+   (the user: "the flicking of the boxers should happen behind the tank and not scaled down. and the in-water sprites
+   should be place in the tank"; "the buttons on the review page dont work").
+   - ch2.js `S.bathNew`: `BEHIND` h 280 -> 380 (his size in the water); with the taller tank `TANK` is x 1070, y 442:
+     the waterline just short of the near rim's inner edge (y 449), in the middle of the water's surface (far rim
+     y 401-417), measured on the painting.
+   - main.js (`?bath=new`): the back basins' occluder (y 500) now stops at x 842 where the taller tank begins; it used to
+     run to x 1068 and cut a shaded band across Alan in the water.
+   - Board (version 4): same places; the tank's outline only over steps placed `behind`; in the tank the game's water
+     ring is drawn at the waterline. Buttons: could not reproduce a fault (clicks and taps, desktop and phone width,
+     local copy of the published page, all worked); made sturdier anyway: errors now show in the status line, a
+     painting that fails to load no longer stops Play, and only the thumbnail is draggable (notes and hold boxes inside
+     a draggable card can't be typed in on some browsers). The user pressed Approve on the board afterwards
+     (db `board/bath`, 06:00 UTC); no notes changed.
+   - Checked: preview played through in Chromium, no errors (fling, hair, splash screens); board drawn at steps 9, 10,
+     12.
+
+30. **Bath board: saves merge, screens stay in step** (the user: "do the site again, something is wrong", after
+   "see my comments" found no notes on the board). Likely cause: each open copy of the board saved its whole state
+   and never read later saves, so a stale screen (the Approve at 06:00 UTC) could write over notes typed on another.
+   - template.html now follows `board/bath` live (`onSnapshot`); a stored change shows at once, or when the note being
+     typed loses focus (the cards are never rebuilt under the cursor); a save is a three-way merge (`merge(seen,
+     mine, stored)`: fields this screen changed win, the rest come from the stored board; when both screens reordered
+     the steps this screen's order wins); notes a save would still drop are first kept in `board/bath_backup`. Play
+     moves the highlight only (`mark()`), no rebuild. The status line shows the last save's time.
+   - Checked in Chromium with a stand-in store and two screens: a note typed on each at once both survive, the typing
+     screen picks up the other's note after leaving the box; clicks and taps (desktop, phone width) still work.
+     Published as version 5. Notes lost before this can't be recovered (the store keeps no history).
+
+31. **Bath (review): the board's notes, round 3: mirrored steps, the throw behind the tank, torso sizes, the boxers
+   thrown** (the user's board notes, then: "his bottom part needs to be occluded by the tank (he is standing behind
+   it)", "closer to the western edge of it", "match the size of his torso images with his actual torso when we see the
+   full body", "using code, take the boxers he is throwing in the air, and make them naturally fly to the front of the
+   tank, where his character will be after getting out of it").
+   - **Mirror per step:** board steps carry `flip` (a tick box on each card; drawn mirrored about his anchor); set on
+     steps 3, 7, 15, 16, 19-23 as the notes ask (db `board/bath` updated, the notes kept). ch2.js `show(k, ms, flip)`
+     sets `p.dir = 'w'` for those (the engine mirrors a sprite that faces east when he faces west).
+   - **The throw:** `BEHIND` x 900 (the tank's west end; his torso is 32 px right of the frame's anchor), y 440 (the
+     cut 40 px under the far rim, which hides him from the navel down).
+   - **Torso sizes:** the waist-up frames' head match had failed (throw 1.07x, hair 1.30x too big); measured brow to
+     chin on the fitted sprites (standing 56 px) and set as `FIXED` scales in `scripts/bath_new_fit.py` (fling 1.211,
+     hair 1.721, splash 1.758); they are now drawn at his standing height in the room, 360 (`BEHIND.h`, `TANK.h`;
+     was 380). Board places use 360 too.
+   - **Boxers:** the fit script's `LOOSE` cuts anything but the figure out of a frame into its own sprite
+     (`alan_bn_boxers`, with `dx`/`dy` from the throw's anchor) and crops the figure. ch2.js `S.throwBoxers`: from
+     where they were painted, a thrown body's path (50 px up past his hand, then down) over the front of the tank in
+     1.15 s, spinning, to land flat with a shadow at (795, 668), in front of where he climbs out; drawn in `animFg`;
+     gone at `pants_on` (picked up). The board plays the same throw during the fling step and shows them on the floor
+     until the boxers step.
+   - Board fixes on the way: a late echo of an earlier save no longer replaces newer typing (notes 19-22 had been
+     cut short by it); backups only when another screen's notes would go.
+   - Open from the notes: Canva repaints (T-shirt for the tank top in step 1; off-white towel in 16-17; boxers, not
+     the towel, in his hands in 17), new frames (step 9: torso reaching down behind the tank; step 13: leaning on the
+     rim in the water before climbing out), more poses in the water.
+   - Checked: the throw captured in Chromium every 180 ms (arc over the tank's front, landing at his feet), the
+     swimming and towel frames at the new sizes, no errors; board steps 10, 11, 15, 16 drawn; published version 10.
+
+32. **Bath (review): the Canva round from the board's notes; the cannonball** (the user: "yes, do the Canva ones";
+   "we also need him in a 'cannonball' position for jumping into the tank. and he has to be naked for that, to keep
+   continuity. you need to find a clever way to make canva paint it"; new board notes: "stepping forward (to go
+   behind the tank", "need more different poses", "we need more stages of the previous image").
+   - **Canva (generate-image, refs MAHYnPL0CuE + MAHYnEDJ7bs, exports through DAHYZ-SDzRE pages 58-68):**
+     jacket shrug in a short-sleeved white T-shirt (c_A2), off-white towel stepping into the boxers (c_J2; the first
+     wording refused), off-white towel with his hands on the boxers (c_K2), waist-up reaching down behind the tank
+     (c_M), waist-up pushing up on the rim (c_N), relaxing arms out (c_O), tossing his wet hair (c_P; came with
+     shorts, cut at y 1332; "shaking his head like a dog" refused), walking off in his boxers (c_R), sitting on the
+     rim with the towel over his lap (c_S), stepping down in the towel (c_T; first painted in shorts, its recolour
+     refused, painted again with the towel round his hips). Replaced versions kept in the library (`_v1`, `_v2`).
+   - **The cannonball, bare:** Canva paints him in shorts whatever the prompt, and refused the skinny-dip wording. The
+     trick: paint the tuck with shorts (c_Q0, kept), then a second generate-image *editing that painting*: "his short
+     black shorts become exactly the same warm tan colour as his skin, completely plain and seamless..." - accepted,
+     and in the tuck that reads as bare (c_Q). (A code fill of the shorts with his skin was tried first and dropped:
+     it looked like skin-coloured shorts.) The same recolour on a standing figure was refused.
+   - **Fit** (`scripts/bath_new_fit.py`): new frames added; `CUT_AT` (rows of the export) for the reach (hands below
+     his hips) and the toss (shorts); `DESPILL` for the rim push (his body fades into the green: no green left below
+     y 1200); `FIXED` scales measured as before (reach 1.58, rim 1.59, relax 1.24, toss 1.56); the cannonball, walk,
+     sit and step-down by the head match (checked against the standing frames at game scale).
+   - **Scene** (ch2.js): the walk round the back (hop 8 px x5; the tank hides his legs as he passes its corner); the
+     reach (1 s), the throw; the cannonball from behind the tank over and into the water (700 ms, a thrown body's
+     path, the tank's outline hiding him as he drops in) then the splash; the swim cycles hair, toss, relax, splash
+     (the board's order); the push up on the rim (`RIM`: hands on the near rim at y 458, the water ring at 418); out
+     over the rim, then sitting on the corner and stepping down (`CORNER` x 805, y 684: drawn just in front of the
+     tank; both painted facing left, not mirrored), then the towel.
+   - **Board** (version 11): places `rim`, `air` (the top of the arc), `corner`; the stored board updated in place
+     (versions 231-232): the gaps and the duplicate steps the user marked filled with the new paintings, notes kept
+     with what was done appended. 29 steps.
+   - Checked: the game played through in Chromium with no errors, the new moments captured (walk, reach, the jump,
+     toss, relax, rim, sit); the board drawn at steps 9-21.
+
+33. **Bath (review): skin evened out across the scene** (the user, on the cannonball: "Ok, that works. Skin colour
+   correction might be needed"). Measured the skin (scripts/skin_match.py's mask, Lab median) on every fitted frame:
+   the cannonball came out oranger (a +3, b +4), the step down lighter (L +17), the tee lift darker (L -16), others up
+   to 10 off. `scripts/bath_new_fit.py`: `SKIN_MATCH` is now every frame his bare skin shows in, shifted to the median
+   of those; `CLOTHED` (the jacket frames) left out, as the leather reads as skin to the mask. After: all within 2-3 of
+   the median. Board republished (version 12) with the new paintings.
+
+34. **Bath (review): natural placement - the walk round, the push out, the dive under; the user's board tweaks**
+   (the user: "walking behind the tank looks off and also getting out of the tank (pushing up) doesn't seem very
+   right"; "we also need to have the canon ball sprite actually fall into water"; "check my tweaks on the board").
+   - **Walk:** was moved right at the front of the room (y 650), so the tank's front hid his body with a foot poking
+     out below its corner. Now away up the tank's left side, (820, 650) to `WALK_TO` (790, 545) in 1 s with a step bob,
+     smaller by the room's depth, then he fades and is found behind the tank.
+   - **Push out:** the old painting had his hands 40 px below where his body ended, so with the hands on the near rim
+     his body floated mid-tank. Repainted (c_N2: palms on the ledge at waist height, elbows up; the shorts Canva added
+     between his hands removed by `NOT_SKIN`; scale 1.75 measured), placed with the palms on the near rim's top
+     (fingertips at y 461, over its edge) and his waist in the water 30 px behind (the ring at 432). Old one kept
+     as `alan_bn_rim_v1`.
+   - **The dive under:** the jump ends with his feet on the water (TANK.y), the tank's outline off from half way down
+     (`onTank`, a new switch on the occluder's `when`), then the splash, the water ring and `p.sink` from 0 to 0.6 in
+     260 ms: the engine draws him lowered and cut at his foot line, so he goes under at the waterline.
+   - **The user's board** (db version 247, approved): hair mirrored, the toss dropped, splash mirrored (swim: hair,
+     relax, splash); sitting moved to before climbing out ("position correctly on the tank edge"): now seated on the
+     front rim (`SEAT` x 910, y 615, h 360: the painting's seat on the rim's top, his legs over the front; `onTank`
+     keeps the tank from hiding him), the towel snatched off the corner beside him; then out over the rim, down,
+     the towel; the boxers going on mirrored. Board: places `rim` moved, `edge` added; republished (version 13).
+   - Checked: Chromium with the game clock slowed for the short moves: the walk, the cannonball over the water and
+     going under in the splash, the push out, sitting on the edge; no errors.
+
+35. **Bath (review): ripples behind his hands; realistic splashes** (the user: "the ripple effect should be occluded by
+   his hands"; "we need realistic water splashes").
+   - **Ripples:** in the push out his arms reach past the water to the rim, and the swim ripples (drawn over
+     everything, in `animFg`) crossed them. ch2.js `armsOut`: the ripples are drawn on their own canvas, the
+     painting's arms (all but its middle fifth, his body) cut out of it with `destination-out`, then laid over the
+     room; elsewhere they still cover the cut at his waist. The board does the same for its `rim` place. The rim
+     painting also lost the last of Canva's shorts (a drawstring strand: grey-black removed across the strip, the box
+     widened to x 180-700).
+   - **Splashes:** `S.splashAt(x, y, s)` replaces the 26 white dots on a half circle. Seeded (the same each time):
+     30-120 drops (mostly fine, a few heavy) each on its own thrown path (`SPLASH_G` 1100 px/s2), drawn as small
+     rounded drops drawn out a little by their speed, soft dark edge, a glint on the big ones; each makes a small ring
+     where it comes down; a churned white patch and foam rings spreading flat (ry = 0.13 rx); for a big one (s > 0.6:
+     the cannonball) a crown of two thin water sheets curling out either side, a column rising out of the middle and
+     collapsing (0.12-0.9 s), and spray. Used by the cannonball (s 1), the face-splashing pose in the swim (0.3), the
+     push out (0.35); the old scene's splashes go through it too (s 0.8).
+   - Checked: the game in Chromium with the splash clock stepped 110 ms a frame (crown, column, drops, rings), the
+     small splashes, the ripples behind his arms (before/after crops); no errors. Board republished (version 14).
+
+36. **Bath (review): the walk behind the tank lined up** (the user: "the walking behind the tank scene alignment is
+   still not right"). The walk ended small on the floor (by the room's depth), then a fade, and he came back behind
+   the tank at the front-of-room size (360): two places and two sizes for one man.
+   - Measured: his height by depth (`height()` with no `h`: 371 at y 650, 276 at 560, 218 at 500); the tank's back
+     wall meets the floor at about y 563 (front wall 240 px = 0.58 of his height there; the far rim at ~405).
+   - ch2.js: `WALK` on the floor all the way: up the tank's left side to (800, 560), then along behind it to (900, 555),
+     no fade; there the waist-up paintings take over at his size there (`BEHIND` x 900, y 420, h 271: his waist half
+     his height above his feet, just under the far rim, which hides him from about the navel down). The cannonball
+     grows from that size to his size in the water (`TANK.h`) as he comes over.
+   - main.js: the tank's occluder gets a floor edge (`base` [[843, 563], [876, 692]]: the left wall's foot): beside
+     the tank he is in front of its left wall (before, his hip was cut by it); behind it, hidden.
+   - Board: `behind` place moved to match (version 15).
+   - Checked: the walk stepped 200 ms a frame in Chromium (up the side, along behind, the reach at the same size), then
+     the throw, cannonball, sit, climb, step down; no errors.
+
+37. **Bath (review): the frames doubled - an in-between after every step** (the user: "double the number of frames,
+   and have at least one transition frame added for each existing, to make the movement more fluid").
+   - **22 new Canva paintings** (pages 70-91 of DAHYZ-SDzRE; i01-i22_export.png), each `generate-image` with three
+     references: the build/skin one, the painting before and the painting after, asking for the pose half way
+     between. Refused once: lowering his arms and leaning back in the water (retried as hands coming down to his
+     shoulders). Two water frames came with shorts (wiping his face, up on locked arms): removed by `NOT_SKIN`.
+   - **Reused for the dressing half** (played backwards): jeans at the knees, unbuttoning, tossing the tee, tee up
+     to the armpits, an arm out of the jacket. So 27 in-betweens from 22 paintings; the board has 55 steps (was 28).
+   - **Fit:** `alan_bn_x_*` in `scripts/bath_new_fit.py`; upright ones by full height (`STAND`), the rest by the head
+     match; the head match runs a few % big on turned and bent figures, so their scale was measured by the size of
+     the dry hair's mass against the standing frames and set in `FIXED` (also for jeans_off, climb, walk, sit,
+     step down, cannonball: all now within a few % of the standing frames). Skin matched like the rest.
+   - **Scene** (ch2.js): `IB` 420 ms per in-between, main holds trimmed ~10-20%; the walk alternates its two strides
+     every 280 ms as he moves; the swim loop is hair, hands down, relax, scoop, splash, wipe; up on locked arms
+     after the push out; legs round off the edge, climbing down, the towel tucked, the boxers picked up (the thrown
+     ones on the floor go as he picks them up), up to the knees, jeans held open; then the reused ones dressing.
+     Facing per step as the board's (in-betweens of the left-facing half mirrored).
+   - **Board** (version 16; db version 249): the in-betweens inserted after each of the user's steps, notes kept,
+     "✓ in-between" on the new ones; the towel now gone from the corner from when he sits on the edge.
+   - Checked: the scene played through in Chromium logging every pose and facing (62 changes, the order above, all
+     55 steps), screenshots of the in-betweens in the room; the board drawn; no errors.
+
+38. **Bath (review): cross-fades between all the frames; the frames aligned one to the next** (the user: "makes sure
+   that there is a smooth crossfade between the frames. And ideally align them all so that the transition is as
+   little visible as possible"; also asked whether Google could make background-free video for scenes like this).
+   - **Cross-fade:** actor.js `crossFadeAll(dur)`: while set, every frame change of that actor dissolves over `dur`
+     (through the existing forced cross-fade, `xfNext`); ch2.js `S.bathNew` sets 0.16 s at its start and 0 at its
+     end. The board's Play dissolves 160 ms between steps too.
+   - **Alignment:** the paintings were anchored at their feet (the middle of the bottom 6%), so the body jumped up to
+     ~45 px sideways when the stance changed. `scripts/bath_new_fit.py` now anchors at the body (`body_x`: the middle
+     of the widest run at the hips, or chest for waist-up; the old one kept as `foot_ax`); then the new
+     `scripts/bath_new_align.py` (run after the fit) slides each painting to where its shape overlaps the one before it
+     most (IoU of the alpha masks at game size, mirrored as played, -90..+90 px), chained through each run of the scene
+     (`RUNS`: floor undressing, behind the tank, in the water, at the rim, dressing). A painting used twice keeps the
+     place it got first (so the five reused in-betweens fit the undressing better than the dressing). The thrown
+     boxers' offset follows the fling's anchor.
+   - Checked: onion-skin sheets of every consecutive pair before and after (the bodies now overlap, the limbs change);
+     the scene in Chromium with each step screenshotted (walk, behind the tank, the dive, the water, the rim, the
+     climb out); board Play and buttons; no errors. Board version 17.
+
+39. **Bath (review): the dressing half's own in-betweens** (the user: "Maybe you could do those dedicated paintings to
+   fix", of the five undressing in-betweens played backwards while dressing, which could only be aligned for one).
+   Five Canva paintings (pages 92-96, d01-d05_export.png), each from the frames either side: pulling the jeans up,
+   buttoning them, the tee held up to put on, the tee pulled down, swinging the jacket on. `alan_bn_y_*` in the fit
+   (upright: by full height; the tee-down and jacket ones left out of the skin match, too little bare skin to measure),
+   `scripts/bath_new_align.py`'s dressing run uses them; ch2.js plays them in place of the reversed ones; the board's
+   five steps swapped (db 250, board version 18). The undressing in-betweens now appear once each, aligned for their
+   own place. Checked: the scene's pose log in Chromium (the dressing run as above), no errors.
+
+40. **Duarte's upstairs scene rewritten (review, `?duarte=new`)** (the user: the horseplay "doesn't work with Duarte's
+   playful, nonchalant personality... slightly romantic, but with mutual agreement of no strings attached"; then: more
+   kisses standing and on the bed; Alan's T-shirt has no buttons, so he unbuttons Duarte's shirt; continue with a push,
+   Alan falling back on the bed, arms behind his head, legs apart, Duarte kneeling with his hands on Alan's thighs and
+   his head down, painted on his own). The game's scene is unchanged until approved.
+   - Script (approved): Duarte browses ("best stock"), sets the terms (no second acts; Alan has a bell to stop by
+     06:25, so neither is free for one), a chord lesson that was "the excuse", a slow kiss, jackets, a longer kiss, the
+     T-shirt, shirtless, the push, the bed, then two bed paintings (kiss; laughing, new narration) and the afterwards
+     with "Tuesdays, then? Or not. No promises." / "No promises. Bring the guitar." Lines `guitar_r1..r6`, `alan_r1/r2/r4`,
+     `narr_room_guitar_r`, `guitar_room_3r`, `alan_room_guitar_2r` (js/lines.js), voiced with the ElevenLabs connector
+     (eleven_v4, cast.json voices, take 1 in audio/voice; take 2 on the board), Rhubarb cues, manifest rebuilt.
+   - Paintings: Canva, Duarte left, Alan right, on green: 12 pair frames (6 keys, 5 in-betweens, the push; the jacket
+     frame repainted for the T-shirt; Canva refused a shirtless standing kiss three times, so there are two standing
+     kisses, not three), Alan lying, Duarte standing and kneeling (solo), two bed stills (edits of one painting).
+     Exported through `DAHYZ-SDzRE` (the design is at Canva's 100-page limit: reuse pages 3, 4, 6, 7, 22 by
+     `update_fill`). `scripts/duarte_new_fit.py` keys and fits them into `art/review/alan/duarte_new/` (pairs: Alan
+     720 px tall, anchored between his legs, Duarte's feet as px/pfy, no overlap sliding; a magenta boot recoloured;
+     `--solo` for the bed sprites, with `lap` and `hands` points); stills in `art/review/stills/still_duarte_bed_*.jpg`.
+   - Code: main.js loads the sprites and stills on `?duarte=new` (`S.DUARTE_NEW`); visits.js `S.visitGuitar` plays the
+     new sequence in that case (the pairs dissolve as rigid pairs do; Duarte kneels where his palms meet Alan's lap).
+   - Checked: `?scene=visitguitar&duarte=new` in Chromium, each step screenshotted, the hands 12 px from the lap point,
+     no errors. Board: https://claude.ai/artifact/Lnt7GxLaAP37ukzBXXwCAb (notes in db docs `duarte/*`).
+   - To do on approval: replace the old sequence, promote the sprites, update docs/STORY.md (line ~687).
+
+41. **Sound pass (review, `?sound=new`)** (the user: "review the sound effects added to the game, and do a comprehensive
+   sound design for each room and situation (sound FX, keep the music as it is)"). Full write-up: `docs/SOUND.md`.
+   - Review found:
+     - The Cistern, Cais do Sodré and the Maria Fé's deck had their `ambience` and `floor` swallowed by a `//`
+       comment on the same line (silent rooms, no steps).
+     - The cabin played the deck's bed, though it has its own.
+     - 33 clips start late, up to 0.44 s of silence in front.
+     - `dial_click_3` is silent.
+     - Drips, settling stone, a night dog and paper shuffles were scheduled but never recorded.
+     - Footsteps were synthesised.
+     - Alan's room used the shop's bed, and the tavern at night had none.
+   - New recordings: ElevenLabs sound generation (`eleven_text_to_sound_v2`, flow safhod95hJQa6sNqOwhU, 4 variations
+     each, about 2,200 credits in all), cut and levelled by `scripts/sound_new_prep.py` into `audio/sfx`:
+     - footsteps `step_{wood,stone,cobble,tile,wet,deck}` (4 takes each);
+     - details: dog, paper, drips, stone, canary, voices at a window, wind through arches, dial clicks _4-_7;
+     - loops: `amb_bedroom` (30 s), `bell_hum_soft`, `water_lap`.
+   - Code, all behind the flag:
+     - `js/audio.js` `SOUND_NEW`: `LEAD` offsets (clips start where their sound starts), `BROKEN` takes, recorded
+       footsteps (random take, ±6% pitch, `STEP_VOL` 0.32), the new beds and details, attic and cold-open acoustics.
+     - `NEW_ONLY` keeps every new file out of the game without the flag (some fill names the game already asks for).
+     - `js/story/main.js`: the room fixes (ambience and floor for cistern/cais/boat, deck floors, the cabin's,
+       bedroom's and night tavern's beds; the calm cistern after the rite).
+   - Checked: Chromium visiting 14 rooms with and without the flag. With it, every room loads its bed and the
+     recorded steps play. Without it, unchanged: cais, boat and cistern still silent. No errors.
+     Board: https://claude.ai/artifact/EEpFmqUk8Tv7pfZU49RW3j (each room before/after, footsteps, notes in db `sound/*`).
+   - Not checked by ear (no listening here): the takes were picked by measurement (single clean step, level, the
+     steadiest loop), so some may need swapping on the user's notes.
+
+42. **Approved and deployed: the new bath, Duarte's rewritten scene and the sound pass** (the user: "Deploy all", and
+   asked, "Make all three default, then deploy").
+   - The three switches are now defaults: `?bath=old`, `?duarte=old` and `?sound=old` bring back the earlier versions
+     (`js/story/main.js`, `js/audio.js` `SOUND_NEW`).
+   - `.gitattributes` lets into the export only what the game loads from `art/review`:
+     - the bath and Duarte sprite sheets (`sprites.json`, `sprites/`);
+     - the two taller-tank paintings;
+     - the two Duarte bed stills.
+     The review sheets stay out.
+   - docs/STORY.md: Duarte's upstairs scene as it now plays. docs/SOUND.md: status.
+   - Checked before deploying, at default URLs in Chromium: 14 rooms (beds and recorded steps), the Duarte scene to
+     the afterwards, the bath scene's 60 poses. No errors.
+   - Deployed: commit `3c1d770f`, Netlify deploy `6ad948e0972297b45a1ffdcc`. Live checks: the page, the review sprites
+     and stills, the new sounds all 200; `/.env` and the review sheets 404; the live JS has the new defaults.
+   - Still to tidy (no change to what plays): fold the flags and the room fixes into the rooms themselves
+     (docs/SOUND.md, last section), and promote the review sprites out of `art/review`.
+
+43. **Faces for the new paintings (review)** (the user: "since many new sprites were added, I think we need to add
+   talking and blinking to them").
+   - 69 face sets, off in the game until approved (`"ok": false`; `?faces=all` shows them):
+     - Alan: 57 sets (the bath scene's frames, `alan_dn_lie`, the Duarte pairs).
+     - Duarte: 12 sets (`FACE_CHAR=guitar`): `duarte_dn_*`, and in the pairs as `<frame>__guitar`.
+   - Mouths (A-F) only where someone speaks over the frame: `alan_bn_fling`, `duarte_dn_stand`, and both faces in
+     `pair_duarte_{book,terms,lesson,jackets,shirts}`. Every other frame blinks only.
+   - Left out:
+     - `pair_duarte_tee` for Alan (his face is under the shirt);
+     - the three kisses (eyes shut already);
+     - `x_wipe`, `splash`, `x_surface` (hands over the face, eyes shut);
+     - the unused `_v` variants.
+   - About $5.70 of Gemini (`art/review/log.md`). Four edits were truncated when the first run was killed;
+     regenerated.
+   - `scripts/face_kit.py`:
+     - reads frames from the review sheets (`REVIEW_SRC`);
+     - `NEW`/`TALKS` pick mouths or blinks;
+     - `find <frames>` merges into the index;
+     - each set records the painting it was cut from (`src`).
+   - `js/engine/faces.js`: a review-sourced sprite now keeps the face sets cut from that same painting. Before, it
+     dropped every face.
+   - Checked: the Duarte scene in Chromium with `?faces=all`: every patch loads, Duarte's mouth moves on his line
+     and Alan's stays still, no errors. Review page: https://claude.ai/artifact/BpsVxYMnqoVjAssVKxBMmx (db
+     collection `faces_new`). Set `"ok": true` in `js/faces.js` for the approved ones.
+
+44. **Every new Alan frame talks; Inês behind the desk.**
+   - Faces (the user: "make all the sprite with visible mouth be able to talk, in case the script changes"; then "stop,
+     don't do the speaking on all cast; do just the new ones for Alan"):
+     - All 58 of Alan's new sets now have mouths A-F as well as blinks. Duarte's 12 are as in entry 43 (mouths only
+       where he speaks).
+     - A run for the rest of the cast was set up (`CAST` in `scripts/face_kit.py`: Rui, Amalia, Tomas, Lacerda,
+       Celeste, Ze, Abilio, Lino, the speaking extras, Duarte's and Teixeira's other solo frames) and stopped before
+       any edits: only Rui's faces had been found, and that index was removed.
+     - About $12.70 of Gemini for Alan's 310 mouths.
+     - Review page republished (each set's patches packed into one strip, `t/<set>.webp`):
+       https://claude.ai/artifact/BpsVxYMnqoVjAssVKxBMmx. All 70 sets are still `"ok": false`.
+   - Inês behind the desk (the user's screenshot: her legs over the grandfather desk while she shelves books at 345, 550):
+     - The shop had no occluders. It now has one: the desk's right pedestal and the hutch's side
+       (`js/story/ch1.js` `ROOMS.shop.occluders`, front on the floor at y 560).
+     - Checked in Chromium: Inês at the shelving spot is hidden by the desk's side; Alan in front of it is not; no errors.
+
+45. **Two engine audits (agents), merged; the new faces approved.**
+   - Cross-fades (the user: "make sure that all of the sprites across all of the game use the same cross-fade natural
+     transition between the frames. I think even Inês at the beginning loses it"). `js/engine/actor.js` `drawBody` and
+     `composeFrames`: any frame change that isn't a morph or a near-identical pair now dissolves (`XFADE` 0.2 s standing,
+     `WALK_XF` 0.14 s walking, `XFADE_SHORT` 0.1 s per hand-over in a turn through the front view). Before, these cut:
+     - talk gestures (Inês's alone, about 37 cuts in 5 minutes);
+     - poses with no morph data (Inês's jobs, Alan's yawn and swoon, Vasco's reactions...);
+     - front-view turns and facing changes;
+     - the review sprites;
+     - a solo frame into a pair painting;
+     - a failed warp;
+     - a change mid-dissolve, which popped (now the more visible painting is the one kept).
+     A hidden figure comes back without a ghost of its old frame. Kept on purpose: walk steps (entry 11: a dissolve
+     ghosts a double leg) and a figure appearing. Agent commit b70b50f2; one conflict with `walkOpt(this)`, resolved.
+   - Breathing and head tilt (the user: "check if the script responsible for making the characters look like they are
+     breathing, head tilting etc is applied to all"). All 731 frames go through `Actor.motion`. Two gaps fixed:
+     - the 19 waist-up bath paintings tilted about the face, not the neck, and six had no tilt at all: `waistDrop(sp)`
+       places a `waist` painting on his whole standing figure;
+     - the bench man had no tilt (his painting counted as a group): new `anim.wide`, and `npc_bench` has
+       `anim: { wide: false }`.
+     Left by design: the pair paintings (never bent), Light mode (breath only), groups, lying figures, the cat, the tram.
+     Agent commit 42f04a1d.
+   - Faces: the user approved Alan's and Duarte's new sets. All 70 are `"ok": true` in `js/faces.js`.
+   - Checked after both merges: validate 0 errors; Chromium: the bath scene (60 poses) and Duarte's scene, no errors.
+   - Deployed (the user: "Deploy all"): commit `9c9cde46`, Netlify deploy `6ad9600e5645b03d56620317`. Export smoke test:
+     Duarte's scene, the bath and the shop desk, no errors. Live checks: the page 200, `/.env` 404, new face patches and
+     review sprites 200, the live `js/faces.js` has all 70 new sets on, the live `actor.js` has `waistDrop`, and the live
+     `ch1.js` has the shop's desk occluder.
+
+46. **NPC size and feet check; fixes proposed, not in the game** (the user: "some, especially background character, have
+   uneven sprites when they animate - different sizes. Please check this and everything else we checked about Alan";
+   faces left out on purpose: "They are not meant to speak and blink yet").
+   - Measured every frame of the 32 NPC figures in every room (`scripts/npc_check/`, run from a scratch folder against
+     a server on :8098: `dump.mjs` lists each room's NPCs and frames; `reg.py` SIFT similarity against the base frame;
+     `head.py` / `two.py` the base head and feet matched across scales; `feetjump.py` the feet overlaid at game size;
+     `sheet.py` contact sheets at game size; `ghost.py` mid-dissolve overlays; `propose.py` the fixes).
+   - Size is fixed only where two measures agree, against the character's idle/talk frames. Feet anchors are fixed
+     where the feet overlap well (IoU >= 0.6): moved to where the base frame's feet stand.
+   - **Found (8 characters, 51 frames; `art/review/npc_fix/proposal.json`, old -> new `h` / `ax` / `fy`):**
+     - Abilio: his two idle paintings alternate and `abilio_idle2` is 13% small; `read`, `point`, `shout1` jump a fifth
+       of his height sideways (anchors at one edge).
+     - Vasco: about half his frames anchored on one foot, the rest between the feet (5-12% jumps); coffee, coffee_sip,
+       amused, stand_up small, fluster large.
+     - Ze: `ze_hammer` 25% small (the hammer was counted in his height); toss, burst and the undressing set 5-12% small;
+       `ze_strip3` jumps sideways.
+     - The washerwoman in black: `npc_washer1_b` 10-15% small. Celeste: `celeste_wring2` 6% small.
+     - Rui: feet shuffle 2-5% between frames. Lacerda (robe): `robe_read` jumps. The bench man: `doze2` sinks.
+   - **Checked and fine:** the rest of the cast and extras (Ines, Lacerda, Amalia, Tomas, the nun, Lino, the menders,
+     cards, couple, fish seller, guard, volunteer, Teixeira, Duarte, the laundry woman, the second washerwoman).
+     Breathing, tilt and cross-fades already cover every NPC frame (entry 45). Skin tone read by face-patch Lab is
+     too noisy to act on; by eye the sheets are even. Left alone: `tomas_kneel` (ch5.js places him for it), the
+     lying/reclining figures, Pessoa (each cat pose has its own `h` in ch1.js).
+   - Noticed, not a size issue: `npc_bench_wistful` paints the bench man bareheaded (his cap is gone).
+   - Review board: https://claude.ai/artifact/CfA6A88JFRC1yGXhhnYcAg (per character: now vs proposed, dissolving as
+     the game does; decisions in its database, collection `npc_fix`). On approval: write the approved characters'
+     values from the proposal into `js/sprites.js`, rebuild morphs for the changed frames if any, validate, smoke.
+   - **Decisions (board, 22 Oct):** approved Celeste, Lacerda (robe), the washerwoman in black, Rui, Vasco, Ze;
+     rejected Abilio ("abilio_idle2 is much bigger") and the bench man ("we need to redraw his sprites so the bench
+     doesn't move").
+     - Applied the six to `js/sprites.js` (59 values, file order kept). Also `vasco_coffee_talk` scaled with the
+       other two coffee frames (the validator's 4% talk/idle size rule caught it).
+     - Rebuilt the 77 morph pairs touching changed frames (`FORCE=1 scripts/morphs.py`), the washerwoman's with
+       `INV_IOU=0.68`. Lost: `npc_washer1_b>npc_washer1_gossip` and `>npc_washer1_howl` (overhead pose too far
+       apart; those two swaps plain-dissolve). `scripts/similar.py` rerun: 305 pairs, changes only in Rui and Vasco.
+     - Checked: validate 0 errors (7 old warnings); smoke romance, finale, laundry, celeste, stationafter, sepit,
+       sepitgame, thursday, vascostore, vascolove, cop, quayfish, bench, abiliosketch all pass.
+     - Abilio revised for round 2 on the same board: sizes kept, feet anchors only for read, point, shout1, shout2
+       (`art/review/npc_fix/abilio_revised.json`). The bench man waits on a repaint (bench fixed, man redrawn).
+   - **The bench man repainted for review (not in the game).** Aligning on the bench can't fix it: even the best
+     affine fit overlaps his painted benches only 45-78% (each painting draws the bench differently, some front-on,
+     some three-quarter). So: one empty bench (`art/review/bench/bench_empty_front.png`, Gemini from
+     `npc_bench_talk1`, new `gen_image.py --key magenta` since the bench is green; a first try from `npc_bench`
+     came back restyled and was dropped), and his ten poses painted without the bench (`man_<frame>.png`, Gemini,
+     $0.62). `scripts/bench_compose.py` sits each man on that bench where his own painting had him (bench width and
+     bottom mapped) at one size; `art/review/bench/sprites/` holds the ten frames at game resolution with one shared
+     meta (`meta.json`: same w, hh, h, ax, fy for all, so the bench lands on the same pixels). His face stays within
+     5% of its old size and spot; the front-on bench reads about 10% narrower than the old ones. On the board as
+     round 2 with Abilio. On approval: copy the ten webps over `art/sprites/npc_bench*.webp`, write the meta into
+     `js/sprites.js`, rebuild his morphs and `similar.py`, `build-manifest.mjs`, validate, smoke `bench`.
+   - **Round 2 (board):** the bench man approved: the ten webps copied over `art/sprites/npc_bench*.webp`, their
+     shared meta written into `js/sprites.js`, his 45 morph pairs rebuilt (90 stored), `similar.py` (307 pairs),
+     `build-manifest.mjs`. Validate 0 errors; one new warning, `npc_bench_talk3` "draws at 96%": it compares the
+     top of the figure and he leans lower in that painting; changing its `h` would move the bench again, so it
+     stays. Smoke bench, visitcop pass; Chromium street shots: the bench holds still across his frames.
+     Abilio's round 2 was rejected: "abilio_shout1 seems to have different colours".
+   - **Abilio round 3 (on the board):** `abilio_shout1`'s face and hands had a green-yellow cast (face Lab a 137 vs
+     his main frame's 145). Proposed `art/review/npc_fix/abilio_shout1.webp`: the skin (hue <= 28, saturation > 85,
+     upper 60% of the figure) shifted by (+3, +8, +5) in Lab, then the whole figure matched to `abilio`
+     (`gen_image.match_palette`). Feet anchors as in round 2. On approval: copy it over `art/sprites/abilio_shout1.webp`,
+     write `abilio_revised.json` into `js/sprites.js`, rebuild his morphs, `similar.py`, manifest, validate, smoke.
+     Approved (board, round 3) and applied as described; validate 0 errors (8 warnings, as before); smoke abiliosketch passes.
+   - **The card players (Taberna), on one table, for review** (the user: "The same problem as with the man on the
+     bench we had with 2 men playing cards in the tavern"). Their two paintings draw the table and chairs differently
+     (and Gemini, asked to repaint frame A with B's gestures, recomposed the whole scene again). So:
+     `art/review/cards/furniture.png` (empty table, deck and two chairs, from `npc_cards`) and `men_<frame>.png`
+     (both men without furniture, per frame), $0.29 with the first try. `scripts/cards_compose.py`: each man placed
+     by SIFT on his own original frame, that frame mapped to the furniture by the chairs' outer edges and the floor;
+     layers chairs < left man (below the tabletop's front edge) < table < left man (above it) < right man; in frame B
+     the slapping forearm is bent up 110 canvas px (about 45 at game size) so the hand lands on this tabletop (it was
+     painted for a taller one). Output `art/review/cards/sprites/` + `meta.json` (one shared w/hh/h/ax/fy). On the
+     board as round 4. On approval: copy over `art/sprites/npc_cards*.webp`, meta into `js/sprites.js`, morphs for
+     npc_cards<->npc_cards_b, `similar.py`, manifest, validate, smoke `tavernafter` / `fado`.
+     Approved (the user: "card game approved") and applied as described: morphs 2/2 (iou 0.98); validate 0 errors (8 warnings, as before); smoke tavernafter, fado, guitar pass.
+
+47. **The shop repainted at a real scale, for review** (the user: "the objects inside (lamp, counter, cashtill, paper,
+   answering machine) are out of proportion and way too big in relation to the characters. Let's redraw it with Canva
+   so it is more realistic"; then "we lost the phone which is essential for the gameplay"; "The till should be facing
+   the door, we should see the back of it"; "make the sugartin larger"; "now do an artifact with Inez doing her actions
+   in this space. rememeber about the kettle, desk occlussion etc").
+   - Canva `generate-image` from `art/bg/shop.jpg` + a screenshot with Alan and Ines for scale, then two edits (the
+     telephone and the answering machine readable at real size; the till turned to the door and a bigger sugar tin).
+     Full-size export through page 22 of the scratch design. `art/review/shop/redraw{1,2,3}.png`; the one in review:
+     `art/review/bg/shop_new.jpg` (1280x720). **`art/bg/` is untouched.**
+   - `?shop=new` (js/story/main.js, day only): the painting, no parallax (no depth map yet), the desk occluder redrawn
+     (y 598), every hotspot rect, the kettle/book on the sideboard (`S.SIDEBOARD`, ines.js; kettle at 0.85), her dusting
+     spot (`S.INES_JOBS`), Pessoa's spots (`S.PESSOA_AT`, ch1.js), the lamp light / `lampOut` / moth, the machine's light,
+     the kettle steam, window fog, trickles, birds, the door passer. New preview `?scene=shopjobs` (nothing scripted,
+     Alan at the front left). The default game is unchanged: validate 0 errors; smoke intro, ineskey pass.
+   - Review page: https://claude.ai/artifact/KFM5gf9jcadm5ZFW1srL9v (a recording of Ines doing all five jobs in it, a
+     before/after slider, the verdict in its database at `shop/verdict`).
+   - Still to do on approval: night, drawer-open and no-magnifier versions in the same style, a depth map, then make it
+     the room's painting (that changes `art/bg/`, so only with the user's go-ahead).
+   - **Rejected, redone as patches** (the user: "The texture of the image became lower quality, especially visible
+     on the furniture. The books lost their shape too. Also, I did nt ask to scale down the desk, it was right scale,
+     only the lamp on it was bit too big"; then "the book shapes are distorted"). A whole-painting Gemini edit
+     (`still_edit1`) changed too little and blackened the counter; so each object is edited in a crop at 2-3x
+     (`art/review/shop/crops/`: lamp, counter (two passes: turned, then half size), tin) and `scripts/shop_patch.py`
+     pastes each back only inside boxes around it (feathered; the counter's box split so the door glass keeps its own
+     pixels). The shelf behind the old shade is rebuilt from the painting's own books (standing books' bottoms carried
+     down, plank and lying books continued from their left, mirrored, light evened along each row), never repainted.
+     The drawer / no-magnifier variants patched alike (`art/review/bg/shop_new_*.jpg`); the night painting not yet.
+     `?shop=new` now keeps the original layout, desk outline, kettle, jobs and depth map; only the six hotspots, the
+     lamp light / off-look, the machine's light and Pessoa's machine spot move. The page (same link) re-recorded.
+   - The user: "yeah, but now the counter is original". A slip of mine had folded the counter entry of `PATCH` into a
+     comment, so the counter objects were not patched in that version; fixed, all four day paintings rebuilt, the
+     video re-recorded. Counter height: beside Alan it already reaches his hip (about 90 cm); a lowered version
+     (Gemini crop edit `counter_full_edit.png`, pasted over the old counter's footprint only:
+     `art/review/shop/option_b_lowcounter.jpg`) is offered as option B on the page (choice saved as `counter` in
+     `shop/verdict3`). Not yet wired into `shop_patch.py`; do that if the user picks B.
+   - The user: "draw it from scratch, this piecing up doesn't work". `gen_image.py --fresh` (new: a painting made anew,
+     the first image only a guide to layout and camera; extra refs sent as they are). With the old painting as the
+     guide (`fresh1/2`) the model copied it, old sizes and all; so `art/review/shop/layout_guide.jpg`: the old painting
+     with the lamp, till, machine, phone, newspaper and tin inpainted out, blurred (sigma 3.2), plus Alan's and Ines's
+     sprites for scale and the real sizes in the prompt. `fresh3` (camera a touch closer, desk smaller) and `fresh4`
+     (closest to the old layout), 2752x1536 raw, `art/review/bg/shop_fresh{3,4}.jpg` at 1280x720. On the page (same
+     link) as Version 1 / 2 with in-game shots; the pick goes to `shop/fresh`. The patch work above is superseded.
+   - **Closed: the shop keeps its original painting** (the user: "ok, keep the original one, these tweaks don't work").
+     The `?shop=new` switch is removed from main.js; `art/bg/` was never changed. Kept, harmless: the exposed
+     `S.SIDEBOARD`, `S.INES_JOBS`, `S.PESSOA_AT` (same values as before), `?scene=shopjobs`, `gen_image.py --fresh`
+     and `--key magenta`. The review files under `art/review/shop/` and `art/review/bg/shop_*` stay as a record.
+   - **Deployed** (the user: "deploy all and prepare for handoff to the new session"): commit `e9bb754c` from a clean
+     `git archive` export (no `.env`), smoke on the export: intro, bench, laundry, tavernafter, fado, sepit, vascostore,
+     romance, abiliosketch, shopjobs, visitguitar, bath all pass. Netlify deploy `6ad996fe597c28c865322321`. Live: the
+     page 200, `/.env` 404, the new bench / cards / Abílio sprites byte-identical to the repo, the live sprites.js
+     carrying the size and feet fixes, no `?shop=new` left in main.js.
+
+49. **Code review and lift-ups** (2026-10-22, the user: "Analyse the game code and propose lift-ups", then "Do batch A,
    then B - don't wait for my approvals"; then "Work on your branch and merge when done"). Two read-only reviews
-   (engine; story) plus measurements; the full list went to the user in chat. Done here: batch A (bugs, entry 24)
-   and batch B (loading, entry 25). Proposed and **not done** (in "Open" above): phone speed (the parallax texture
+   (engine; story) plus measurements; the full list went to the user in chat. Done here: batch A (bugs, entry 50)
+   and batch B (loading, entry 51). Proposed and **not done** (in "Open" above): phone speed (the parallax texture
    uploaded every frame in live rooms, the 120-canvas face cache, per-frame shadow blur), accessibility (keyboard
    play, focus in modals, subtitle size, 44 px buttons, reduced motion), new writing (an "already done" line instead
    of `alan_fail_04`, used 23 times; Ch. V hints), the README walkthrough, small story helpers. Work on branch
    `claude/modest-cray-12ezwn`, merged into master by the user's instruction. Nothing deployed.
 
-24. **Batch A: things that could cost a player their game.** No art, no lines, no story beats changed.
+50. **Batch A: things that could cost a player their game.** No art, no lines, no story beats changed.
    - **Saves** (saves.js, engine.js): a save holding an item this build doesn't know no longer breaks the inventory
      bar on Continue (unknown ids dropped); if loading throws anyway, Continue says so and starts a new game instead
      of a black screen. The menu's Load still restores the menu's save, but when that is older than the autosave it
@@ -428,7 +1065,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
      two hints and the Ch. II end on entering the shop, GL context loss (two contexts lost, two fresh ones, no
      errors), long-press on a touch screen (the line survives the lift; a second tap skips it). All pass.
 
-25. **Batch B: streaming the images.** The title used to wait for every image (803 files, about 75 MB; 42 s and 100 MB
+51. **Batch B: streaming the images.** The title used to wait for every image (803 files, about 75 MB; 42 s and 100 MB
    with the music before the title on a 20 Mbit/s link).
    - **js/engine.js:** every image is registered at start and loaded through one queue. The title waits for none of
      it. `goRoom` waits, on black, for the room's art and the stand/walk/talk frames of whoever is there now
@@ -448,14 +1085,14 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Checked:** the smoke test on all 38 scenes and a new game (two halves): all pass; the batch A checks again on the
      final loader: all pass; `node scripts/validate.mjs`: 0 errors.
 
-26. **The 70 recorded lines nothing plays, deleted** (the user: "DELETE"). Retired in story round 2 and earlier; the
-   validator showed them once `lipsync.js` stopped counting as a use (entry 24). Each was checked by exact word in the
+52. **The 70 recorded lines nothing plays, deleted** (the user: "DELETE"). Retired in story round 2 and earlier; the
+   validator showed them once `lipsync.js` stopped counting as a use (entry 50). Each was checked by exact word in the
    code first (no id is built at run time; the only hits were comments and the reactions table in se.js). Removed
    from js/lines.js with their mp3s (70), lip-sync files (65) and docs/script_full.md; the dead keys in se.js's
    reactions table (8); voice manifest and js/lipsync.js rebuilt (1174 -> 1109 lines, the difference exactly the
    deleted ones). The history docs (docs/reviews/, bible_full.md) are left as they were.
 
-27. **New lines: "already done", and Chapter V hints** (the user: "DO IT"). Eleven Alan lines, written to the humour
+53. **New lines: "already done", and Chapter V hints** (the user: "DO IT"). Eleven Alan lines, written to the humour
    rules in docs/STORY.md, recorded and wired. **Story:** docs/STORY.md (failed uses; V.1 "Hints with Inês gone").
    - **"Already done":** `alan_fail_04` ("No. And I say that as a man who has said yes to a lot of bad ideas.") was the
      reply to 23 things already done; it reads as a refusal. 18 of those (every one guarded by a done flag) now call

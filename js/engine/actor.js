@@ -26,8 +26,11 @@
   //           stood when that frame began (1: the foot stays put, then the next frame steps on; 0: it glides)
   //   blend   between walk frames: 'cut', 'dissolve' (a very short cross-fade) or 'morph' (the mesh bends one into the next)
   //   timing  'foot': each frame lasts as far as its planted foot travels in the art (S.WALK_PLANT); 'even': all alike
-  const WALK_DEFAULT = { lock: 1, blend: 'cut', timing: 'foot' };
-  const walkOpt = () => Object.assign({}, WALK_DEFAULT, window.WALK || {});
+  //   bob     the body's rise and fall and the head's tilt: 'frame' once per painting (as before), 'step' once per step
+  //           (lowest just after the heel lands, highest just after passing, whatever the number of paintings)
+  // steady movement (no lock), approved for everyone by the user on 2026-10-21; the lock made walkers stop and start
+  const WALK_DEFAULT = { lock: 0, blend: 'cut', timing: 'foot', bob: 'step' };
+  const walkOpt = a => Object.assign({}, WALK_DEFAULT, (a && a.c && a.c.walkOpt) || {}, window.WALK || {}); // a character's own (CHARS[ch].walkOpt), then the lab's
   const WALK_DISSOLVE = 0.07;
   const OCC_BAND = 0.2;         // behind furniture: how far up the figure its shade reaches (of his height)
   const OCC_DARK = 0.6;         // ...and how dark it is right at the edge
@@ -113,6 +116,21 @@
       const F = this.F, L = this.dir === 'n' && F.backWalk ? F.backWalkLen : this.dir === 's' && F.frontWalk ? F.frontWalkLen : F.walkLen;
       return L && L.length === cyc.length ? L : null;
     }
+    // how far through the current step the walker is (0 as a heel lands, 1 as the other one does), by ground covered
+    stepU() {
+      const cyc = this.cycle(), n = cyc.length; if (!n) return 0;
+      const lens = this.cycleLens(cyc) || cyc.map(() => 1), side = !this.dir || this.dir === 'e' || this.dir === 'w';
+      let at = side && this.F.walkSteps && this.F.walkSteps.length && this.cycleLens(cyc) ? this.F.walkSteps : null;
+      if (!at) at = n >= 8 ? [0, n / 2] : n >= 2 ? [0, Math.floor(n / 2)] : [0]; // contact, then the same on the other foot
+      const cum = [0]; for (let i = 0; i < n; i++) cum.push(cum[i] + lens[i]);
+      const p = ((this.phase % n) + n) % n, i = Math.floor(p), d = cum[i] + (p - i) * lens[i], T = cum[n];
+      const cs = at.map(k => cum[k]);
+      for (let j = 0; j < cs.length; j++) {
+        const a = cs[j], b = j + 1 < cs.length ? cs[j + 1] : cs[0] + T, dd = d < a ? d + T : d;
+        if (dd >= a && dd < b) return (dd - a) / (b - a);
+      }
+      return 0;
+    }
     // the whole figure fades in or out (a partner melting into a combined sprite and back out of it)
     fade(to, dur) {
       if (window.FAST || !(dur > 0)) { this.alpha = to; this.alphaTo = null; return Promise.resolve(); }
@@ -121,9 +139,12 @@
     }
     // the next frame change dissolves over dur seconds instead of cutting (into and out of a combined sprite)
     crossFade(dur) { this.xfNext = window.FAST ? 0 : (dur || PAIR_FADE); }
+    // every frame change dissolves over dur seconds until switched off (0): a scene played as a run of paintings
+    crossFadeAll(dur) { this.xfAll = dur || 0; }
     update(dt) {
       const F = this.F;
       if (this.fadeT > 0) this.fadeT = Math.max(0, this.fadeT - dt);
+      if (!this.visible || this.alpha <= 0.005) this.cur = null; // off screen: it comes back in its new frame, no dissolve from the old one
       if (this.alphaTo) {
         const A = this.alphaTo, u = Math.min(1, (A.t += dt) / A.dur);
         this.alpha = A.from + (A.to - A.from) * u * u * (3 - 2 * u);
@@ -302,8 +323,8 @@
         const c = this.cycle(), i = Math.floor(this.phase) % c.length, a = c[i], b = c[(i + 1) % c.length], M = window.MORPHS;
         // a step with no morph shows its next painting from half way (the planted foot slips half as far, either side of
         // the cut) unless the foot is locked: then each painting holds for its whole step and the foot doesn't slip at all
-        const morphs = walkOpt().blend === 'morph' && M && M[a + '>' + b] && M[b + '>' + a] && canMorph();
-        return !morphs && !(walkOpt().lock > 0 && !window.FAST) && this.phase - Math.floor(this.phase) >= 0.5 ? b : a;
+        const morphs = walkOpt(this).blend === 'morph' && M && M[a + '>' + b] && M[b + '>' + a] && canMorph();
+        return !morphs && !(walkOpt(this).lock > 0 && !window.FAST) && this.phase - Math.floor(this.phase) >= 0.5 ? b : a;
       }
       if (this.dir === 'n' && F.back) return arr(F.back)[0];
       if (this.dir === 's' && F.front) return arr(F.front)[0];
@@ -342,8 +363,12 @@
       const t = (window.ANIM_T != null ? window.ANIM_T : E.time) * this.rate + (this.seed || (this.seed = Math.random() * 100));
       const c = this.c.anim || {}, d = (this.def && this.def.anim) || {};
       const k = (n, def) => (d[n] != null ? d[n] : c[n] != null ? c[n] : def);
-      const s = h / sp.h, F = Math.max(1, (sp.fy - sp.top) * s);
-      const wide = sp.w / Math.max(1, sp.fy - sp.top) > 0.78 || k('rig', '') === 'flat'; // groups, pairs, lying figures
+      // a waist-up painting (sp.waist) is placed on the whole figure: its feet below the cut, the body still from the cut down
+      const s = h / sp.h, cut = waistDrop(sp) * s;
+      fy += cut;
+      const F = Math.max(1, (sp.fy - sp.top) * s + cut), vCut = cut / F;
+      // groups, pairs, lying figures (anim.wide: false for one figure painted with what he sits on: the bench's old man)
+      const wide = k('wide', sp.w / Math.max(1, sp.fy - sp.top + waistDrop(sp)) > 0.78) || k('rig', '') === 'flat';
       const perf = this.perf || 0;
       const TAU = Math.PI * 2;
       // phases advance in update(); ANIM_T (test clips) renders from a fixed clock instead
@@ -354,7 +379,7 @@
       // sway: a bend whose root is the feet (or the seat); amplitude as a fraction of height
       const sway = this.calm * k('sway', 1) * (0.0045 + perf * 0.013) * (Math.sin(phSway) + 0.35 * Math.sin(t * TAU * 0.071 + 1.3));
       // seated / kneeling frames sway from the seat or the knees (char-wide via SEATED, per frame via c.seatedFrames)
-      const root = k('seated', SEATED.has(this.ch) || !!(key && this.c.seatedFrames && this.c.seatedFrames.test(key))) ? 0.42 : 0.1;
+      const root = Math.max(vCut, k('seated', SEATED.has(this.ch) || !!(key && this.c.seatedFrames && this.c.seatedFrames.test(key))) ? 0.42 : 0.1);
       // head: a slow tilt, a nod with each phrase spoken, more when performing
       // listening: which way the painting faces (side views only), the incline toward the speaker
       // (stronger when the speaker is in front of them), and the nod's envelope
@@ -363,10 +388,11 @@
       const nu = (E.time - this.nodAt) / 0.5, nod = nu > 0 && nu < 1 ? Math.pow(Math.sin(nu * Math.PI), 2) : 0;
       const hear = wide ? 0 : (side ? this.listen * ahead * LISTEN_TILT + fs * nod * LISTEN_NOD : 0);
       const rigged = key && key.startsWith('rig:');
-      const tilt = wide ? 0 : k('nod', 1) * (0.02 + perf * 0.055) * Math.sin(phTilt + 2.1) + (this.walking && !rigged ? 0.012 * Math.sin(this.phase * Math.PI) : 0) + hear;
+      const byStep = this.walking && walkOpt(this).bob === 'step', stepU = byStep ? this.stepU() : 0;
+      const tilt = wide ? 0 : k('nod', 1) * (0.02 + perf * 0.055) * Math.sin(phTilt + 2.1) + (this.walking && !rigged ? (byStep ? 0.006 * Math.sin(2 * Math.PI * stepU) : 0.012 * Math.sin(this.phase * Math.PI)) : 0) + hear;
       const bob = wide ? 0 : (perf * 0.006 * (0.5 + 0.5 * Math.sin(phBeat)) + nod * 0.008) * F;
       // walking: the body rises over the passing foot and settles on the stride
-      const step = this.walking && !rigged ? -0.007 * F * Math.pow(Math.sin(this.phase * Math.PI), 2) : 0;
+      const step = this.walking && !rigged ? -0.007 * F * (byStep ? 0.5 - 0.5 * Math.cos(2 * Math.PI * (stepU - 0.25)) : Math.pow(Math.sin(this.phase * Math.PI), 2)) : 0;
       const neck = 0.855, ca = Math.cos(tilt), sa = Math.sin(tilt);
       const sm = (a, z, v) => { const q = Math.max(0, Math.min(1, (v - a) / (z - a))); return q * q * (3 - 2 * q); };
       const px0 = fx, py0 = fy - neck * F;
@@ -381,8 +407,8 @@
         const v = (fy - y) / F;
         let nx = x, ny = y;
         // breath: the chest widens and lifts above the hips
-        const wb = sm(0.4, 0.58, v);
-        nx = fx + (x - fx) * (1 + b * 0.45 * wb); ny = y - (v - 0.4) * F * b * wb;
+        const hip = Math.max(0.4, vCut), wb = sm(hip, hip + 0.18, v);
+        nx = fx + (x - fx) * (1 + b * 0.45 * wb); ny = y - (v - hip) * F * b * wb;
         // sway, step bob
         nx += swayAt(v); ny += step * sm(0.05, 0.45, v);
         // the head turns on the neck (and dips with a nod)
@@ -398,7 +424,7 @@
     }
     // where the figure is drawn: its own position, less what the planted foot would have slid since the walk frame began
     drawAt(dt) {
-      const L = window.FAST ? 0 : walkOpt().lock;
+      const L = window.FAST ? 0 : walkOpt(this).lock;
       if (this.walking && L > 0 && this.lockX != null && !(this.cur && this.cur.startsWith('rig:'))) {
         this.lockDX = L * (this.x - this.lockX); this.lockDY = L * (this.y - this.lockY);
       } else { const k = Math.exp(-(dt || 0.016) * 18); this.lockDX = (this.lockDX || 0) * k; this.lockDY = (this.lockDY || 0) * k; if (!this.walking) this.lockX = null; }
@@ -447,10 +473,13 @@
       const turned = faceTurn && !frontOK && !this.walking && !window.FAST && this.curFlip != null && this.curFlip !== flipped;
       if (turned && key === this.cur) { this.prev = key; this.prevFlip = this.curFlip; this.fadeDur = this.fadeT = TURN_XF; this.fadeSim = true; this.fadeHand = false; }
       if (key !== this.cur) {
-        const inCycle = this.walking && this.cycle().includes(key) && this.cycle().includes(this.cur);
-        const stepX = inCycle && walkOpt().blend === 'dissolve' && !window.FAST; // a walk frame to the next: a very short cross-fade
-        this.prev = this.cur && (!inCycle || stepX) ? this.cur : null;
-        this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
+        // a walk frame to the next (in any of its cycles: side, front, back) is a step, blended as WALK says
+        const inCycle = this.walking && this.cycle().includes(key) && [F.walk, F.frontWalk, F.backWalk].some(c => arr(c).includes(this.cur));
+        const stepX = inCycle && walkOpt(this).blend === 'dissolve' && !window.FAST; // a walk frame to the next: a very short cross-fade
+        // a change in the middle of a dissolve leaves behind whichever painting is still more on screen (no pop)
+        const mid = this.prev && this.fadeT > 0 && this.fadeT / (this.fadeDur || XFADE) > 0.5;
+        if (!mid) this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
+        this.prev = this.cur && (!inCycle || stepX) ? (mid ? this.prev : this.cur) : null;
         // a mouth or gesture change while speaking is a clean frame swap, never a mesh morph
         const tf = this.talking && !this.walking && !this.pose ? arr(F.talk).concat(arr(F.idle).flat()) : null;
         const talkSwap = !!(tf && tf.includes(key) && tf.includes(this.prev));
@@ -458,22 +487,27 @@
         // without the mesh warp (a slow device, Effects: Light) a pose with morph data dissolves instead of cutting
         const morph = morphable && canMorph();
         // a pair with morph data moves between poses; two near-identical paintings (a mouth, a hand,
-        // a drag on the cigarette) get a quick eased cross-fade; anything else is a clean cut
+        // a drag on the cigarette) get a quick eased cross-fade; anything else dissolves (plain, below)
         const SIM = window.SIMILAR, ibHand = this.ibSeq || this.ibWas; this.ibWas = !!this.ibSeq; // in-between frames hand over with a quick cross-fade too
         // into or out of a combined sprite, or from one pair painting to the next: a plain dissolve (pairs never morph)
         const pairs = this.prev && E.SPRITES[key] && E.SPRITES[this.prev] && E.SPRITES[key].rigid && E.SPRITES[this.prev].rigid;
         if (pairs && !(this.xfNext > 0)) this.xfNext = PAIR_STEP;
+        if (this.xfAll > 0 && !(this.xfNext > 0) && !window.FAST) this.xfNext = this.xfAll; // a scene that dissolves every change (crossFadeAll)
         const forced = this.xfNext > 0 && this.prev;
         const flat = !!(morphable && !morph);
         // into a walk and out of one: the standing frame and the stride ease over each other instead of cutting
         const cyc = this.cycle(), edge = !!(this.prev && !morph && !talkSwap && this.prevFlip === flipped &&
           ((this.walking && !cyc.includes(this.prev) && this.walkT < 0.3) || (!this.walking && cyc.includes(this.prev))));
         const similar = forced || flat || edge || stepX || (turned && this.prev) || (!morph && this.prev && this.prevFlip === flipped && (ibHand || (SIM && (SIM[key + '|' + this.prev] || SIM[this.prev + '|' + key]))));
-        if (!morph && !similar) this.prev = null;
-        this.fadeDur = forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT : MORPH_T;
+        // anything else (a talk gesture, a pose or a reaction with no morph data, a turn through the front view, another
+        // facing, a review frame): the standard dissolve, the new painting up, then the old one gone. Only walk steps cut.
+        const plain = !!(this.prev && !morph && !similar);
+        const via = this.viaT != null || this.viaOut; // side, front, side: each hand-over quick enough for the swing
+        this.fadeDur = forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT
+          : plain ? (via ? XFADE_SHORT : this.walking ? WALK_XF : XFADE) : MORPH_T;
         this.xfNext = 0;
         this.fadeSim = !!similar;
-        this.fadeHand = !!forced;
+        this.fadeHand = !!(forced || plain);
         this.viaOut = false;
         this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
@@ -484,7 +518,7 @@
       let B = this.prev && this.fadeT > 0 ? this.place(this.prev, this.prevFlip) : null;
       // walking: each step frame flows into the next with the ground covered (when the pair has a morph)
       let walkF = 0;
-      if (!B && this.walking && walkOpt().blend === 'morph' && window.MORPHS && window.WARP !== false && !window.FAST) {
+      if (!B && this.walking && walkOpt(this).blend === 'morph' && window.MORPHS && window.WARP !== false && !window.FAST) {
         const c = this.cycle(), i = Math.floor(this.phase) % c.length, nk = c[(i + 1) % c.length];
         if (nk !== key && MORPHS[key + '>' + nk] && MORPHS[nk + '>' + key] && sameFacing(key, flipped, nk, flipped)) {
           const N = this.place(nk, flipped);
@@ -521,7 +555,7 @@
       // breathing: the chest rises and widens a touch above the hips; feet stay put
       const b = rigid ? 0 : this.calm * (0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045);
       const sx = 1 + b * 0.45, sy = 1 + b;
-      const feetBy = -U.y, hipBy = Math.max(1, Math.round(feetBy - h * 0.47));
+      const feetBy = -U.y, hipBy = Math.max(1, Math.round(Math.min(feetBy, feetBy + waistDrop(sp) * h / sp.h - h * 0.47))); // (a waist-up painting: from its cut)
       const X0 = this.x + U.x, Y0 = this.y + U.y + sinkPx;
       g.save();
       if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
@@ -557,6 +591,9 @@
   const TURN_VIA = 0.15;
   // painted sitting down: they sway from the seat, not the feet
   const SEATED = new Set(['npc_bench', 'npc_cards', 'npc_couple', 'npc_fish', 'npc_guard', 'npc_guitar', 'npc_mender1', 'npc_mender2', 'npc_washer1']);
+  // painted waist-up (sp.waist: the bath's frames at the waterline and behind the tank), drawn at his standing size (sp.h,
+  // from the top of his head) and cut at fy: how far the rest of him goes on below the cut, in painting px
+  const waistDrop = sp => sp.waist ? Math.max(0, sp.h - (sp.fy - sp.top)) : 0;
   function morphBlit(ctx, P, U, F, amt, alpha) {
     const ox = P.x - U.x, oy = P.y - U.y, sw = P.sp.w, sh = P.sp.hh, s = P.s, fl = P.flipped;
     ctx.save(); ctx.globalAlpha = alpha;
@@ -602,7 +639,8 @@
       const e = kB * kB * (3 - 2 * kB);
       blit(cg, B, U, 1); blit(cg, A, U, 1 - e); return compBuf;
     }
-    // no morph for this pair: a clean cut, never two paintings overlaid
+    // a morph the warp couldn't draw: the same dissolve as any other change (the new painting up, then the old one gone)
+    if (B && kB > 0) { const e = kB * kB * (3 - 2 * kB); blit(cg, B, U, Math.min(1, 2 * e)); blit(cg, A, U, Math.min(1, 2 * (1 - e))); return compBuf; }
     blit(cg, A, U, 1);
     return compBuf;
   }

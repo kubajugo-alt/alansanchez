@@ -13,7 +13,8 @@
 (function () {
   const S = window.S, { G } = S, E = window.Engine;
   const $ = s => document.querySelector(s);
-  const wo = () => Object.assign({ lock: 1, blend: 'cut', timing: 'foot' }, window.WALK || {}); // (actor.js WALK_DEFAULT)
+  const wo = () => Object.assign({ lock: 0, blend: 'cut', timing: 'foot', bob: 'step' }, window.WALK || {}); // (actor.js WALK_DEFAULT)
+  const Q = new URLSearchParams(location.search); // for recordings: &set=a|game &cycle=first|game &who=<char> &lroom=<room> &go=0
   const LIMITS = { size: 0.04, slide: 6 }; // head width within 4% of the cycle's median; a planted foot drifts under 6 px a step
 
   // ---------------------------------------------------------------- cycles to compare
@@ -25,6 +26,8 @@
     if (!ORIGINAL[ch]) ORIGINAL[ch] = (F.walk || []).slice();
     const out = {};
     if (ORIGINAL[ch].length) out['in the game now'] = ORIGINAL[ch];
+    const first = S.WALK_ORIGINAL && S.WALK_ORIGINAL[ch];
+    if (first && first.join() !== ORIGINAL[ch].join()) out['first painted cycle'] = first;
     const cands = ((S.REVIEW && S.REVIEW.candidates) || []).filter(c => c.char === ch && c.wire && c.wire.walkSlot != null);
     if (cands.length) {
       const base = (cands[0].wire.walkBase || ORIGINAL[ch]).slice();
@@ -86,7 +89,9 @@
   }
 
   // ---------------------------------------------------------------- the panel
-  let st = { ch: 'alan', cycle: null, room: 'street', loop: true, speed: 1, feet: true };
+  let st = { ch: Q.get('who') || 'alan', cycle: { first: 'first painted cycle', game: 'in the game now' }[Q.get('cycle')] || null, room: Q.get('lroom') || 'street', loop: true, speed: 1, feet: !Q.has('nofeet') };
+  if (Q.get('set') === 'a') window.WALK = Object.assign({}, S.WALK_A);
+  if (Q.get('set') === 'fix') window.WALK = Object.assign({}, S.WALK_FIX);
   const box = document.createElement('div');
   box.id = 'walklab';
   box.style.cssText = 'position:absolute;left:1%;top:1.5%;z-index:70;background:rgba(14,10,6,.9);border:1px solid rgba(224,184,102,.5);color:#eadcc0;font:12px/1.35 system-ui,sans-serif;padding:8px 10px;max-width:46%;pointer-events:auto';
@@ -124,6 +129,8 @@
       Planted foot <select id="wl-lock">${[['1', 'locked'], ['0.5', 'half'], ['0', 'gliding (old)']].map(([v, n]) => `<option value="${v}"${+v === wo().lock ? ' selected' : ''}>${n}</option>`).join('')}</select>
       Between frames <select id="wl-blend">${['cut', 'dissolve', 'morph'].map(v => `<option${v === wo().blend ? ' selected' : ''}>${v}</option>`).join('')}</select>
       Timing <select id="wl-time">${[['foot', 'by the foot'], ['even', 'even (old)']].map(([v, n]) => `<option value="${v}"${v === wo().timing ? ' selected' : ''}>${n}</option>`).join('')}</select>
+      Bob <select id="wl-bob">${[['frame', 'per painting (old)'], ['step', 'per step']].map(([v, n]) => `<option value="${v}"${v === wo().bob ? ' selected' : ''}>${n}</option>`).join('')}</select>
+      <button id="wl-fix">Engine fix</button> <button id="wl-a">Step A</button>
       <div id="wl-slip" style="margin-top:4px;color:#cfe8b0">${slipLine}</div>
       <div id="wl-live" style="margin-top:2px;opacity:.75"></div>
       <table style="margin-top:4px;border-collapse:collapse;font-size:11px" cellpadding="1"><tr style="color:#e0b866"><td>frame</td><td>size</td><td>rise</td><td>feet</td><td>slip px</td></tr>${rows}</table>
@@ -138,6 +145,9 @@
     $('#wl-lock').onchange = e => setW('lock', +e.target.value);
     $('#wl-blend').onchange = e => setW('blend', e.target.value);
     $('#wl-time').onchange = e => setW('timing', e.target.value);
+    $('#wl-bob').onchange = e => setW('bob', e.target.value);
+    $('#wl-fix').onclick = () => { window.WALK = Object.assign({}, S.WALK_FIX); apply(); render(); };
+    $('#wl-a').onclick = () => { window.WALK = Object.assign({}, S.WALK_A); const c = cyclesFor(st.ch); if (c['first painted cycle']) st.cycle = 'first painted cycle'; apply(); render(); };
     box.querySelectorAll('[data-w]').forEach(b => b.onclick = () => walk(b.dataset.w));
     box.querySelectorAll('[data-s]').forEach(b => b.onclick = () => { const v = +b.dataset.s; window.HOLD = v === 0; window.ADVANCE = 0; window.TIME_SCALE = v || 1; });
     $('#wl-step').onclick = () => { window.HOLD = true; window.ADVANCE = (window.ADVANCE || 0) + 1; };
@@ -207,10 +217,11 @@
     } else if (live) live.textContent = p.cur ? 'frame ' + p.cur.replace(st.ch + '_', '') : '';
   }
   S.walkLab = async function () {
+    S.walkLabWalk = walk; S.walkLabBox = box; S.walkLabOverlay = overlay;
     await go();
     requestAnimationFrame(tick);
     render();
-    if (window.FAST) return; // (the smoke test only opens it)
+    if (window.FAST || Q.get('go') === '0') return; // (the smoke test only opens it; a recording drives it itself)
     walk('right');
   };
 })();

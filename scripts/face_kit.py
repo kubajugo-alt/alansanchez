@@ -13,13 +13,35 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # whose faces: FACE_CHAR=vasco python3 scripts/face_kit.py find ... (Alan by default). Another character's frames are his
 # own solo paintings; in the pair paintings his face is the partner's set '<frame>__<speaker id>' (FACE_CHAR=cop: 'phone')
 CHAR = os.environ.get('FACE_CHAR', 'alan')
+# the rest of the speaking cast, ready for when their faces are wanted (2026-10-22: set up, then the user stopped it before
+# any were made): FACE_CHAR -> (their sprites' prefixes, who the head is for Gemini, a woman). Their solo frames only.
+CAST = {
+    'rui': (('rui',), 'the head of Inspector Rui Mendonca, a police detective in his forties', False),
+    'amalia': (('amalia',), 'the head of Dona Amalia, an 81-year-old fado singer', True),
+    'tomas': (('tomas',), 'the head of Father Tomas, a priest in his fifties', False),
+    'lacerda': (('lacerda', 'robe_'), 'the head of Vicente Lacerda, a 52-year-old antiquarian', False),
+    'celeste': (('celeste',), 'the head of Dona Celeste, a 70-year-old washerwoman', True),
+    'ze': (('ze', 'ze_'), 'the head of Ze, a fisherman in his thirties', False),
+    'abilio': (('abilio',), 'the head of Senhor Abilio, an 81-year-old bell-ringer', False),
+    'lino': (('lino', 'npc_lino'), 'the head of Lino, a double-bass player', False),
+    'cards': (('npc_cards', 'cards_'), 'the head of an old man playing cards in a tavern', False),
+    'fish': (('npc_fish',), 'the head of a fish seller at the harbour', False),
+    'mender1': (('npc_mender1',), 'the head of a fisherman mending nets', False),
+    'mender2': (('npc_mender2',), 'the head of a fisherman mending nets', False),
+    'nun': (('npc_nun',), 'the head of a nun', True),
+    'washer1': (('npc_washer1',), 'the head of a washerwoman', True),
+    'washer2': (('npc_washer2',), 'the head of a washerwoman', True),
+    'laundry': (('npc_laundry',), 'the head of a woman hanging out laundry', True),
+    'bench': (('npc_bench',), 'the head of an old man on a bench', False),
+}
 WORK = os.path.join(ROOT, f'art/review/{CHAR}/faces/')
 DESC = {'alan': 'the head of Alan, a man with dark curly hair, clean-shaven',
         'vasco': 'the head of Vasco, a man in his thirties with dark tousled hair and light stubble',
         'ines': 'the head of Inês, a young woman with long dark curly hair, red-framed glasses pushed up on her head and gold hoop earrings',
-        'cop': 'the head of Officer Teixeira, a young policeman with short dark hair and a navy police cap'}[CHAR]
+        'cop': 'the head of Officer Teixeira, a young policeman with short dark hair and a navy police cap',
+        'guitar': 'the head of Duarte, a guitarist in his thirties with short dark curly hair and a thin moustache'}.get(CHAR) or CAST[CHAR][1]
 SPEAKER = {'cop': 'phone'}.get(CHAR, CHAR)   # the speaker id in js/lines.js, which names a partner's set in a pair painting
-SHE = CHAR in ('ines',)   # the prompts are written for a man: these get her / she
+SHE = CHAR in ('ines',) or CAST.get(CHAR, (0, 0, False))[2]   # the prompts are written for a man: these get her / she
 
 
 def pron(t):
@@ -46,6 +68,21 @@ def net(name):
     return p
 
 
+# frames painted for the new scenes live in review folders (their sprites.json gives each frame's file)
+REVIEW_SHEETS = ['art/review/alan/bath_new/sprites.json', 'art/review/alan/duarte_new/sprites.json']
+REVIEW_SRC = {k: m['src'] for f in REVIEW_SHEETS if os.path.exists(os.path.join(ROOT, f)) for k, m in json.load(open(os.path.join(ROOT, f))).items()}
+
+
+def sprite_file(fr):
+    return os.path.join(ROOT, REVIEW_SRC[fr]) if fr in REVIEW_SRC else f'{ROOT}/art/sprites/{fr}.webp'
+
+
+# the new scenes' frames: Alan's all get mouths, ready for any line written over them later (the user, 2026-10-22);
+# Duarte's only where he speaks; a face with nothing to say still blinks
+NEW = set(REVIEW_SRC)
+TALKS = NEW if CHAR == 'alan' else {'pair_duarte_book', 'pair_duarte_terms', 'pair_duarte_lesson', 'pair_duarte_jackets', 'pair_duarte_shirts', 'duarte_dn_stand'}
+
+
 # Teixeira's frames don't share a prefix (npc_phone_* at the station, cop_* on his visit): the ones the game uses now
 COP = ['npc_phone_door1', 'npc_phone_door2', 'npc_phone_door3', 'npc_phone_door4', 'npc_phone_door_talk', 'npc_phone_door_blush',
        'npc_phone_door_shock', 'npc_phone_door_embarrassed', 'npc_phone_proud', 'cop_visit', 'cop_visit_talk',
@@ -53,27 +90,35 @@ COP = ['npc_phone_door1', 'npc_phone_door2', 'npc_phone_door3', 'npc_phone_door4
 
 
 def own(fr):
+    if CHAR == 'guitar': return fr.startswith(('duarte_dn_', 'npc_guitar', 'guitar_', 'duarte_play'))
+    if CHAR in CAST: return fr.startswith(CAST[CHAR][0])
     return fr in COP if CHAR == 'cop' else fr.startswith(CHAR)
 
 
 def frames():
-    if CHAR == 'cop':   # his solo set, and the pair paintings he's in (pair_cop_*)
-        return COP + sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith('pair_cop_'))
+    solo = lambda pre: sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith(pre))
+    if CHAR == 'cop':   # his solo set (and the station's and bedside frames), and the pair paintings he's in (pair_cop_*)
+        return COP + [f for f in solo(('npc_phone', 'cop_side', 'cop_walk')) if f not in COP] + sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith('pair_cop_'))
+    if CHAR == 'guitar':  # Duarte: his solo frames (the tavern, the visit, the floor, by the bed) and the new pair paintings
+        return sorted(k for k in NEW if k.startswith(('duarte_dn_', 'pair_duarte_'))) + solo(('npc_guitar', 'guitar_', 'duarte_play'))
+    if CHAR in CAST: return solo(CAST[CHAR][0])
     mine = ('alan_', 'pair_') if CHAR == 'alan' else (CHAR + '_', CHAR + '.', f'pair_{CHAR}_')  # his own, and the pairs he's painted into
-    return sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith(mine))
+    return sorted(set(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith(mine)) | {k for k in NEW if k.startswith(mine)})
 
 
 def on_bg(fr):
-    im = Image.open(f'{ROOT}/art/sprites/{fr}.webp').convert('RGBA')
+    im = Image.open(sprite_file(fr)).convert('RGBA')
     bg = Image.new('RGBA', im.size, (60, 64, 80, 255)); bg.alpha_composite(im)
     return im, cv2.cvtColor(np.asarray(bg.convert('RGB')), cv2.COLOR_RGB2BGR)
 
 
-def find():
-    """Alan's face in every frame: box, eyes, nose and mouth corners (sprite px), and a head crop at 6x."""
+def find(names=None):
+    """Alan's face in every frame: box, eyes, nose and mouth corners (sprite px), and a head crop at 6x. With names, only
+    those frames (and his own frames, for his likeness) are looked at, and the index keeps every other frame's entry."""
     rec = cv2.FaceRecognizerSF_create(net('sface.onnx'), '')
     faces = {}
     for fr in frames():
+        if names and fr not in names and not own(fr): continue
         _, a = on_bg(fr); a2 = cv2.resize(a, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC); H, W = a2.shape[:2]
         det = cv2.FaceDetectorYN_create(net('yunet.onnx'), '', (W, H), 0.85, 0.3, 50)
         out = []
@@ -94,8 +139,9 @@ def find():
                     if d['score'] > o['score']: out[out.index(o)] = d
         faces[fr] = out
     me = np.mean([f['emb'] for fr, fs in faces.items() if own(fr) for f in fs], 0); me /= np.linalg.norm(me)
-    index = {}
+    index = json.load(open(WORK + 'index.json')) if names and os.path.exists(WORK + 'index.json') else {}
     for fr, fs in faces.items():
+        if names and fr not in names: continue
         if not fs or fr.startswith(HIDDEN): continue
         fs.sort(key=lambda f: f['box'][0])
         mine_left = fr.startswith(LEFT) == (CHAR == 'alan')   # in LEFT pairs Alan is the left face, his partner the right
@@ -133,7 +179,8 @@ NO_MOUTH = {'ines_act_dust_a', 'ines_act_dust_b', 'ines_act_kettle_a', 'ines_act
             'vasco_laugh', 'vasco_kneel_down', 'vasco_coffee_sip', 'vasco_act_notes_b', 'vasco_callup', 'vasco_crouch', 'vasco_kneel_look',
             'vasco_act_bag_a', 'vasco_act_bag_b', 'vasco_act_brush_a', 'vasco_act_notes_a', 'vasco_act_sherd_a', 'vasco_act_sherd_b',
             'vasco_act_sieve_a', 'vasco_act_sieve_b', 'vasco_act_trowel_a', 'vasco_act_trowel_b', 'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_yawn', 'alan_asleep',
-            'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss'}
+            'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss',
+            'amalia_sing1', 'amalia_sing2', 'amalia_sing3', 'amalia_sing4', 'amalia_sing5', 'rui_smoke'}  # her painted singing mouth; his cigarette
 NO_EYES = {'ines_act_read_a', 'ines_act_read_b', 'ines_act_kettle_a', 'ines_act_kettle_b', 'ines_act_ledger_a', 'ines_act_shelve_b',
            'ines_write', 'ines_eyeroll', 'ines_laugh', 'ines_steam',
            'vasco_kneel_down', 'vasco_crouch', 'vasco_kneel_look', 'vasco_act_brush_a', 'alan_asleep', 'alan_wash1', 'alan_wash2', 'alan_wash4', 'alan_wash5', 'alan_wash6', 'alan_wash_surface', 'alan_swoon',
@@ -165,7 +212,8 @@ FULL_ZONE = {'pair_cop_belt2'}
 
 def jobs(fr):
     out = []
-    if smiling(fr):
+    if fr in NEW and fr not in TALKS: pass   # blinks only
+    elif smiling(fr):
         out += [('mouth_' + k, 'Repaint his mouth, lips, the corners of his mouth, his cheeks and the lines beside his mouth, and where the shape '
                  'needs it a slight drop of the jaw and chin, so that he is TALKING, not smiling: his smile is gone from the whole lower face, '
                  'the corners of the lips relaxed (not pulled up), the cheeks relaxed and lowered, no smile creases or dimples' + (' (paint the cheek beside the mouth smooth: no dark line, mark or dimple there)' if fr in FULL_ZONE else '') + ', as a man in the '
@@ -285,7 +333,7 @@ def build_one(fr, info, name=None):
     bx0, by0 = int(np.floor(xs.min() / UP)) - 1, int(np.floor(ys.min() / UP)) - 1
     bx1, by1 = int(np.ceil((xs.max() + 1) / UP)) + 1, int(np.ceil((ys.max() + 1) / UP)) + 1
     bw, bh = bx1 - bx0, by1 - by0
-    spr = Image.open(f'{ROOT}/art/sprites/{fr}.webp').convert('RGBA')
+    spr = Image.open(sprite_file(fr)).convert('RGBA')
     sx, sy = hb[0] + bx0, hb[1] + by0
     base = Image.new('RGBA', (bw, bh)); base.alpha_composite(spr.crop((sx, sy, sx + bw, sy + bh)))
     base = np.asarray(base).astype(np.float32)
@@ -301,6 +349,7 @@ def build_one(fr, info, name=None):
     os.makedirs(ROOT + '/art/faces', exist_ok=True)
     name = name or fr                                                     # the set's key: the frame, or <frame>__<char> for a partner
     out = {'box': [int(sx), int(sy), bw, bh], 'mouths': [], 'eyes': [], 'fit': {}}
+    if fr in REVIEW_SRC: out['src'] = REVIEW_SRC[fr]   # cut from this painting (the engine uses the set only while it is the frame's painting)
     for st in states:
         g, cc = A[st]; out['fit'][st] = round(cc, 3)
         R = RM if st.startswith('mouth_') else RE
@@ -362,7 +411,7 @@ def borrow(target, source):
 
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else ''
-    if cmd == 'find': find()
+    if cmd == 'find': find(sys.argv[2:])
     elif cmd == 'gen': gen(sys.argv[2:])
     elif cmd == 'build': build(sys.argv[2:])
     elif cmd == 'borrow': borrow(*sys.argv[2:4])

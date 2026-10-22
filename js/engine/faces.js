@@ -119,9 +119,12 @@
   }
   // the frame `key` as painted, or with the actor's mouth and eyelids laid in (a canvas the size of the painting)
   function faceImage(a, key, im, any) {
-    const D = FACES[key] || (any && (window.FACES || {})[key]); // any: the rig's head uses its base frame's set, approved or not
-    if (window.FAST || !im || !im.naturalWidth || (E.SPRITES[key] && E.SPRITES[key].src)) return im;
-    const P = partnerSets(key, any), self = a === E.player ? a.ch : null; // Alan's own face moves only to his own lines; anyone else's to whatever they say
+    // a frame repainted on the review page (its sprite's src) keeps only the sets cut from that same painting
+    const src = E.SPRITES[key] && E.SPRITES[key].src, fits = S => !src || S.src === src;
+    let D = FACES[key] || (any && (window.FACES || {})[key]); // any: the rig's head uses its base frame's set, approved or not
+    if (D && !fits(D)) D = null;
+    if (window.FAST || !im || !im.naturalWidth) return im;
+    const P = partnerSets(key, any).filter(p => fits(p[1])), self = a === E.player ? a.ch : null; // Alan's own face moves only to his own lines; anyone else's to whatever they say
     const sets = (D ? [[key, D, self]] : []).concat(P);
     if (!sets.length) return im;
     if (a.faceAt !== E.time) { // once a frame, whichever paintings are up

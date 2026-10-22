@@ -38,7 +38,7 @@
     },
     // the back basins stand in front of the washerwomen
     occluders: [{ y: 500, polys: [[[160, 383], [300, 375], [1068, 375], [1068, 484], [160, 484]]] }, // from the far edge of the water: they stand behind the basins, hands in
-      { y: 680, when: () => !swimmer, polys: [[[839, 453], [1011, 446], [1160, 452], [1280, 470], [1280, 680], [874, 680], [860, 650], [842, 600]]] }], // the big tank and its towel (the basket is gone: Alan washes in that corner)
+      { y: 680, when: () => !swimmer && !onTank, polys: [[[839, 453], [1011, 446], [1160, 452], [1280, 470], [1280, 680], [874, 680], [860, 650], [842, 600]]] }], // the big tank and its towel (the basket is gone: Alan washes in that corner)
     npcs: [
       { id: 'celeste', x: 600, y: 610, dir: 'e', set: 'wring', when: () => F().ch < 4, name: 'Dona Celeste', look: 'narr_look_celeste', talk: () => S.talkCeleste(),
         items: { sketch: () => S.celesteTile(), notebook: () => S.celesteTile(), file55: () => S.celeste1955(), any: 'alan_fail_06' } },
@@ -67,11 +67,12 @@
     async enter() { if (!F().lav_entered) { F().lav_entered = true; await say('alan_enter_lavadouro'); } },
   };
   // ---------------------------------------------------------------- easter egg: Alan takes a bath
-  let splash = null, shorts = null, swimmer = null;
+  let splash = null, shorts = null, swimmer = null, onTank = false; // onTank: sitting on its rim, drawn over it
   const WASH = { x: 1075, y: 503, h: 380 }; // in the tank, right of the towel: the waterline and his full standing height
   // his black trunks, flung over his shoulder: an arc, a spin, a heap on the stones
   S.drawShorts = function (g) {
     if (!shorts) return;
+    if (shorts.img) return drawBoxers(g);
     const k = Math.min(1, (performance.now() - shorts.t0) / 700);
     const x = shorts.x0 + (shorts.x1 - shorts.x0) * k, y = shorts.y0 + (shorts.y1 - shorts.y0) * k - Math.sin(k * Math.PI) * 140;
     g.save(); g.translate(x, y); g.rotate(k < 1 ? k * 9 : 0.3); g.scale(1, k < 1 ? 1 : 0.55);
@@ -80,9 +81,50 @@
     g.strokeStyle = 'rgba(120,110,100,0.5)'; g.lineWidth = 1; g.strokeRect(-14, -10, 28, 20);
     g.restore();
   };
+  // the new scene: the boxers Canva painted over his throw, cut out (alan_bn_boxers), thrown for real from
+  // where they were painted: up a little past his hand, then down over the front of the tank, spinning, to land flat
+  // on the stones where he'll climb out (the user: "naturally fly to the front of the tank"); there till he picks them up
+  let boxersImg = null;
+  S.throwBoxers = function (p, to) {
+    const m = window.SPRITES.alan_bn_boxers; if (!m) return;
+    if (!boxersImg) { boxersImg = new Image(); boxersImg.src = m.src; }
+    const k = p.height() / m.h, D = to.y - (p.y + m.dy * k), R = 50; // R: how far they rise above where they leave his hand
+    const v = -2 * R - Math.sqrt(4 * R * R + 4 * R * D);            // a thrown body: y = y0 + v u + a u^2, u from 0 to 1
+    shorts = { img: boxersImg, m, k, x0: p.x + m.dx * k, y0: p.y + m.dy * k, x1: to.x, y1: to.y, v, a: D - v, ms: 1150, t0: performance.now() };
+  };
+  function drawBoxers(g) {
+    const b = shorts, u = Math.min(1, (performance.now() - b.t0) / (window.FAST ? 1 : b.ms));
+    if (!b.img.complete || !b.img.naturalWidth) return;
+    const x = b.x0 + (b.x1 - b.x0) * u, y = b.y0 + b.v * u + b.a * u * u, w = b.m.w * b.k, h = b.m.hh * b.k;
+    g.save();
+    if (u >= 1) { g.fillStyle = 'rgba(0,0,0,0.28)'; g.beginPath(); g.ellipse(x, y + 4, w * 0.5, h * 0.16, 0, 0, 7); g.fill(); }
+    g.translate(x, y); g.rotate(u < 1 ? u * Math.PI * 3 : 0.12); if (u >= 1) g.scale(1, 0.5); // flat on the stones once down
+    g.drawImage(b.img, -w / 2, -h / 2, w, h);
+    g.restore();
+  }
   // ripples where he swims, drawn over the cut of the swimming frames
+  // where his arms reach past the water to the rim (the push out), the ripples pass behind them: drawn on their own
+  // canvas, the painting's arms (all but its middle fifth, his body) cut out of them, then laid over the room
+  let armImg = null, rippleCv = null;
+  function armsOut(g, p, draw) {
+    const m = window.SPRITES[p.pose];
+    if (!m || p.pose !== 'alan_bn_rim') return draw(g);
+    if (!armImg || armImg.key !== p.pose) { armImg = new Image(); armImg.src = m.src; armImg.key = p.pose; }
+    if (!armImg.complete || !armImg.naturalWidth) return draw(g);
+    rippleCv = rippleCv || document.createElement('canvas'); rippleCv.width = g.canvas.width; rippleCv.height = g.canvas.height;
+    const c = rippleCv.getContext('2d'), k = p.height() / m.h, X = p.x - m.ax * k, Y = p.y - m.fy * k, W = m.w, mid = [W * 0.4, W * 0.6];
+    c.setTransform(g.getTransform()); draw(c);
+    c.globalCompositeOperation = 'destination-out';
+    c.drawImage(armImg, 0, 0, mid[0], m.hh, X, Y, mid[0] * k, m.hh * k);                                 // his right arm
+    c.drawImage(armImg, mid[1], 0, W - mid[1], m.hh, X + mid[1] * k, Y, (W - mid[1]) * k, m.hh * k);     // his left
+    c.globalCompositeOperation = 'source-over';
+    g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(rippleCv, 0, 0); g.restore();
+  }
   S.drawSwimWater = function (g, t) {
     if (!swimmer) return;
+    armsOut(g, G.player, g => S.drawRipples(g, t));
+  };
+  S.drawRipples = function (g, t) {
     const p = G.player, x = p.x, y = swimmer.y;
     g.save();
     g.fillStyle = 'rgba(70,82,78,0.35)'; g.beginPath(); g.ellipse(x, y + 2, 85, 7, 0, 0, 7); g.fill();
@@ -93,22 +135,86 @@
     }
     g.restore();
   };
+  // a splash (the user: "realistic water splashes"): a crown of droplets thrown up and out from the waterline, each on
+  // its own thrown path, drawn as a short streak along its flight with a soft dark edge (painted, not dotted); for a
+  // big one (the cannonball, s 1) a column of white water that rises and falls back, and spray; droplets that come
+  // down on the water make their own little rings; foam rings spread over the surface, flat as the water lies.
+  // S.splashAt(x, y, s): s from 0.25 (a hand slapping the water) to 1 (a man landing in it). Seeded: the same each time.
+  const SPLASH_G = 1100; // px/s², a droplet's fall at this scale
+  S.splashAt = function (x, y, s) {
+    let seed = Math.round(x * 7 + y * 13 + s * 1000);
+    const rnd = () => { seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const n = Math.round(30 + 90 * s), drops = [];
+    for (let i = 0; i < n; i++) {
+      const a = -Math.PI / 2 + (rnd() - 0.5) * Math.PI * (0.55 + 0.35 * rnd()); // mostly up, fanning out
+      const v = (180 + 520 * s) * (0.35 + 0.75 * rnd()) * (1 - 0.35 * Math.abs(Math.cos(a)));
+      const x0 = x + (rnd() - 0.5) * 50 * (0.4 + s), y0 = y + (rnd() - 0.5) * 6;
+      const vx = Math.cos(a) * v, vy = Math.sin(a) * v * 1.1, yl = y + (rnd() - 0.4) * 14; // lands a little nearer or further
+      const tl = (-vy + Math.sqrt(vy * vy + 2 * SPLASH_G * Math.max(0, yl - y0))) / SPLASH_G;
+      const big = rnd() < 0.15; // mostly fine drops, a few heavy ones
+      drops.push({ x0, y0, vx, vy, tl, r: (big ? 2.2 + 1.8 * rnd() : 0.7 + 1.3 * rnd()) * (0.6 + 0.5 * s), d: rnd() * 0.06 });
+    }
+    splash = { x, y, s, t0: performance.now(), drops };
+  };
   S.drawSplash = function (g, t) {
     S.drawShorts(g); S.drawSwimWater(g, t);
     if (!splash) return;
-    const k = (performance.now() - splash.t0) / 1400;
-    if (k > 1) { splash = null; return; }
-    g.save();
-    for (let i = 0; i < 26; i++) {
-      const a = (i / 26) * Math.PI, sp = 0.6 + (i * 37 % 10) / 14, r = 160 * sp * k;
-      const x = splash.x + Math.cos(a) * r, y = splash.y - Math.sin(a) * r * 1.4 + 260 * k * k;
-      g.fillStyle = `rgba(220,235,240,${0.8 * (1 - k)})`; g.beginPath(); g.arc(x, y, 5 + 4 * (1 - k), 0, 7); g.fill();
-    }
-    g.strokeStyle = `rgba(230,240,245,${0.7 * (1 - k)})`; g.lineWidth = 3;
+    if (!splash.drops) { const o = splash; S.splashAt(o.x, o.y, 0.8); splash.t0 = o.t0; } // the old scene's splashes
+    const sp = splash, T0 = (performance.now() - sp.t0) / 1000, s = sp.s, life = 0.9 + 0.9 * s;
+    if (T0 > life + 0.6) { splash = null; return; }
+    g.save(); g.lineCap = 'round';
+    // the surface: churned white where it went in, then foam rings spreading flat
+    const k = Math.min(1, T0 / life);
+    if (T0 < 0.5 * life) { const f = 1 - T0 / (0.5 * life); g.fillStyle = `rgba(235,242,244,${0.35 * f * (0.5 + s)})`; g.beginPath(); g.ellipse(sp.x, sp.y + 2, 30 + 60 * s * k, (30 + 60 * s * k) * 0.16, 0, 0, 7); g.fill(); }
     for (let r = 0; r < 3; r++) {
-      g.beginPath();
-      g.ellipse(splash.x, splash.y + 6, 40 + 200 * k * (1 + r * 0.4), 10 + 30 * k * (1 + r * 0.4), 0, 0, 7);
-      g.stroke();
+      const kr = Math.max(0, k - r * 0.12); if (!kr) continue;
+      const rx = (24 + 170 * s) * Math.sqrt(kr) * (1 + r * 0.25);
+      g.strokeStyle = `rgba(225,236,238,${0.55 * (1 - kr) * (0.4 + 0.6 * s)})`; g.lineWidth = 2.2 - r * 0.5;
+      g.beginPath(); g.ellipse(sp.x, sp.y + 2, rx, rx * 0.13, 0, 0, 7); g.stroke();
+    }
+    // the crown (a big splash): two sheets of water thrown up either side of where he went in, curling outwards,
+    // thin and see-through, falling back; then the column, rising out of the middle and collapsing into itself
+    if (s > 0.6 && T0 < 0.6) {
+      const u = T0 / 0.6, up = Math.sin(Math.PI * Math.min(1, u * 1.1)), a = 0.75 * (1 - u);
+      for (const side of [-1, 1]) {
+        const bx = sp.x + side * 16 * s, h = 95 * s * up, out = 55 * s * (0.4 + u);
+        const gr = g.createLinearGradient(0, sp.y, 0, sp.y - h); gr.addColorStop(0, `rgba(240,246,247,${a})`); gr.addColorStop(1, `rgba(240,246,247,${a * 0.25})`);
+        g.fillStyle = gr; g.beginPath(); g.moveTo(bx, sp.y + 3);
+        g.bezierCurveTo(bx + side * 6, sp.y - h * 0.6, bx + side * out * 0.6, sp.y - h, bx + side * out, sp.y - h * 0.85); // the outer face
+        g.bezierCurveTo(bx + side * out * 0.75, sp.y - h * 0.55, bx + side * out * 0.95, sp.y - h * 0.2, bx + side * (out + 12), sp.y + 3);
+        g.closePath(); g.fill();
+        g.strokeStyle = `rgba(80,100,105,${a * 0.5})`; g.lineWidth = 1; g.stroke();
+      }
+    }
+    if (s > 0.6 && T0 > 0.12 && T0 < 0.9) {
+      const u = (T0 - 0.12) / 0.78, h = 160 * s * Math.sin(Math.PI * Math.min(1, u * 1.1)), w = 20 * s;
+      for (let i = 0; i < 12; i++) {
+        const f = i / 11, cy = sp.y - h * f, cx = sp.x + Math.sin(i * 2.3 + u * 3) * 5 * f, rr = w * (1 - 0.5 * f) * (0.8 + 0.5 * u);
+        const gr = g.createRadialGradient(cx, cy, 0, cx, cy, rr);
+        gr.addColorStop(0, `rgba(246,250,250,${0.9 * (1 - u * 0.85)})`); gr.addColorStop(0.6, `rgba(232,242,244,${0.5 * (1 - u)})`); gr.addColorStop(1, 'rgba(225,238,240,0)');
+        g.fillStyle = gr; g.beginPath(); g.arc(cx, cy, rr, 0, 7); g.fill();
+      }
+    }
+    // spray: a soft mist over it, thinning out
+    if (T0 < 0.9) { const u = T0 / 0.9, rr = (30 + 110 * u) * (0.4 + 0.6 * s), cy = sp.y - 40 * s * (1 - u * 0.5);
+      const gr = g.createRadialGradient(sp.x, cy, 0, sp.x, cy, rr); gr.addColorStop(0, `rgba(230,238,240,${0.22 * (1 - u) * (0.3 + s)})`); gr.addColorStop(1, 'rgba(230,238,240,0)');
+      g.fillStyle = gr; g.beginPath(); g.arc(sp.x, cy, rr, 0, 7); g.fill(); }
+    // the droplets: in flight, a streak along their path; down on the water, a little ring where each landed
+    for (const d of sp.drops) {
+      const tt = T0 - d.d; if (tt <= 0) continue;
+      if (tt < d.tl) {
+        const x1 = d.x0 + d.vx * tt, y1 = d.y0 + d.vy * tt + 0.5 * SPLASH_G * tt * tt, vy = d.vy + SPLASH_G * tt;
+        const v = Math.hypot(d.vx, vy), st = 1 + Math.min(1.8, v / 500), ang = Math.atan2(vy, d.vx); // a drop, drawn out a little by its speed
+        const a = Math.min(1, 1.6 * (1 - tt / (d.tl + 0.2)));
+        g.save(); g.translate(x1, y1); g.rotate(ang);
+        g.fillStyle = `rgba(236,244,246,${0.8 * a})`; g.strokeStyle = `rgba(70,90,96,${0.3 * a})`; g.lineWidth = 0.8;
+        g.beginPath(); g.ellipse(0, 0, d.r * st, d.r, 0, 0, 7); g.fill(); if (d.r > 1.6) g.stroke();
+        if (d.r > 1.6) { g.fillStyle = `rgba(255,255,255,${0.7 * a})`; g.beginPath(); g.arc(d.r * 0.3, -d.r * 0.3, d.r * 0.35, 0, 7); g.fill(); } // its glint
+        g.restore();
+      } else if (tt < d.tl + 0.45) {
+        const u = (tt - d.tl) / 0.45, lx = d.x0 + d.vx * d.tl, ly = d.y0 + d.vy * d.tl + 0.5 * SPLASH_G * d.tl * d.tl, rx = 3 + 14 * u * (0.5 + d.r / 4);
+        g.strokeStyle = `rgba(220,232,235,${0.45 * (1 - u)})`; g.lineWidth = 1; g.beginPath(); g.ellipse(lx, ly, rx, rx * 0.2, 0, 0, 7); g.stroke();
+      }
     }
     g.restore();
   };
@@ -133,6 +239,7 @@
     p.pose = 'fluster'; await say('alan_washers_2'); p.pose = null;
   };
   S.bathEgg = async function () {
+    if (S.BATH_NEW) return S.bathNew(); // the repainted scene (approved 2026-10-21; ?bath=old for the first)
     const p = G.player, c = G.npc('celeste'), T = ms => G.wait(window.FAST ? 20 : ms);
     if (F().bathed) return say('alan_bath_3');
     await G.busy(async () => {
@@ -193,16 +300,15 @@
       sfx('splash'); p.visible = false; splash = { x: x1, y: y1, t0: performance.now() };
       await T(700);
       // standing in the tank, the water at his waist: washing, not swimming
-      const washing = ['wash1', 'wash4', 'wash2', 'wash5', 'wash3', 'wash6'].filter(has);
+      const washing = ['wash1', 'wash4', 'wash2', 'wash3', 'wash6'].filter(has); // (wash5 and the swim frames: taken out by the user, 2026-10-21)
       swimmer = { y: y1 }; p.x = x1; p.y = y1; p.visible = true; p.sink = 0.0001; // no floor shadow on the water
-      if (!washing.length) p.pose = 'swim'; else { p.h = WASH.h; p.pose = has('wsurface') ? 'wsurface' : washing[0]; }
+      p.h = WASH.h; p.pose = has('wsurface') ? 'wsurface' : washing[0];
       if (has('wsurface')) await T(900);                                  // up for air, hair pushed back
       let on = true;
       (async () => {
         let i = 0;
         while (on) {
-          if (washing.length) { p.pose = washing[i % washing.length]; if (i % washing.length === 2) sfx('splash', 0.12); await T(900); }
-          else { p.pose = i % 2 ? 'swim2' : 'swim'; await T(520); }
+          p.pose = washing[i % washing.length]; if (i % washing.length === 2) sfx('splash', 0.12); await T(900);
           i++;
         }
       })();
@@ -215,6 +321,7 @@
       if (washing.length && await pose('climb', 0)) { sfx('splash', 0.2); await T(1100); } // a knee up on the rim
       await G.fade(true);
       shocked(false); if (c) c.pose = null;
+      S.bathTowelTaken = true; // the towel is off the tank's corner from here
       swimmer = null; shorts = null; p.sink = 0; p.h = null; p.x = 800; p.y = 650; p.dir = 'w';
       // out of the tank and back into his clothes: trunks, jeans, boots, tee, jacket
       p.pose = has('drip') ? 'drip' : 'jacket';                           // out, dripping, jacket in front
@@ -233,6 +340,171 @@
       p.pose = null;
       F().bathed = true;
       // not everyone at the basins is laughing with him
+      await T(1400);
+      await S.laundryRemark();
+    });
+  };
+  // The bath repainted (approved 2026-10-21; ?bath=old for the first): eleven Canva paintings, his build and skin from the Teixeira
+  // scene (art/review/alan/bath_new, scripts/bath_new_fit.py). He strips to his underwear in front of the tank, goes
+  // round behind it (drawn waist-up at the waterline, the wall hiding the rest) and flings the underwear out over the
+  // wall: the washerwomen see everything, the painting doesn't. Out again by the corner where Celeste's towel hangs,
+  // he takes it and dresses under it, the undressing frames played backwards.
+  S.bathNew = async function () {
+    const p = G.player, c = G.npc('celeste'), T = ms => G.wait(window.FAST ? 20 : ms);
+    if (F().bathed) return say('alan_bath_3');
+    S.bathTowelTaken = false; // Celeste's towel still on the tank's corner
+    // behind the tank: on the floor past its far rim, the wall hiding him from the waist down (the user's board, step 9)
+    // at his full size, as in the water (the user: "not scaled down"). With the taller tank: its far rim at
+    // y 401-417, the water's surface from there to the near rim's inner edge at 449; in the water his waterline is
+    // just short of that edge, in the middle of the surface (the tank's outline is off while he swims, as before)
+    // (the user: near the tank's western end, its far rim plainly hiding him; his torso is 32 px right of the anchor;
+    // the frame's cut 40 px below the far rim, so the rim hides him from the navel down: he stands behind it)
+    // h: the waist-up frames are fitted to his head size standing (scripts/bath_new_fit.py), so they are drawn at his
+    // standing height in this room (360 at the tank's front): the same size of torso as when we see him whole
+    // (the user: "the walking behind the tank alignment is still not right": he is where his walk ended, feet at y 555
+    // just behind the back wall, so his size there, 271, and his waist 0.5 of that above his feet)
+    const BEHIND = S.BATH_TALL ? { x: 900, y: 420, h: 271 } : { x: 1120, y: 472, h: 360 };
+    const TANK = S.BATH_TALL ? { x: 1070, y: 442, h: 360 } : WASH;
+    const RIM = { x: 1000, y: 461, water: 432 };  // the push out: palms on the near rim's top, fingers over its edge, his waist in the water behind
+    // up the tank's left side to the depth of its back wall (on the floor at y 563), then along behind it to BEHIND
+    const WALK = [[{ x: 800, y: 560 }, 900], [{ x: BEHIND.x, y: 555 }, 700]];
+    const BOXERS = { x: 795, y: 668 };
+    const CORNER = { x: 805, y: 684 };
+    const SEAT = { x: 910, y: 615, h: 360 };      // sitting on the front rim: the painting's seat (row 400, 100 px right of its anchor) on the rim's top, y 452              // on the tank's front-left corner (its outline stops at y 680) // where they land: just in front of where he climbs out (x 770, y 650)
+    await G.busy(async () => {
+      await say('alan_bath_1');
+      p.dir = 'e';
+      // every painting dissolves into the next (the user: "a smooth crossfade between the frames"); off at the end
+      p.crossFadeAll(0.16);
+      // flip: the painting mirrored for this step (the user's board: "flip so he faces right/left")
+      const show = async (k, ms, flip) => { p.dir = flip ? 'w' : 'e'; p.pose = k; if (ms) await T(ms); };
+      const hop = async (dx, n, ms) => { for (let i = 0; i < n; i++) { p.x += dx; await T(ms); } };
+      const SHOCK = [['npc_washer1', 'npc_washer1_shock'], ['npc_washer2', 'npc_washer2_shock'], ['npc_laundry', 'npc_laundry_shock'], ['celeste', 'celeste_shock']];
+      const shocked = on => {
+        for (const [id, k] of SHOCK) {
+          const w = G.npc(id);
+          if (w && w.visible && window.SPRITES[k]) { if (on && id === 'celeste') w.set = null; w.pose = on ? k : null; }
+        }
+      };
+      // the order and holds of the user's board (art/review board/bath, 2026-10-21), with an in-between painting
+      // (alan_bn_x_*, IB ms) after each of its steps (the user: "double the number of frames ... more fluid")
+      const IB = 420;
+      sfx('sheet_slap', 0.25); await show('alan_bn_jacket_shrug', 800);  // the jacket off the shoulders
+      await show('alan_bn_x_jacket_arm', IB);                            // one arm out
+      await show('alan_bn_jacket_off', 800);                             // ...and in his hand
+      await show('alan_bn_x_jacket_drop', IB);                           // dropped, a hand to his tee
+      shocked(true);
+      await show('alan_bn_tee_lift', 800, true);                        // the tee lifted, his stomach showing
+      await show('alan_bn_x_tee_up', IB);                                // up to his armpits
+      sfx('sheet_slap', 0.3); await show('alan_bn_tee', 800);            // over his head
+      await show('alan_bn_x_tee_toss', IB);                              // tossed aside, a hand to the belt
+      await show('alan_bn_belt', 800);                                   // the belt
+      await show('alan_bn_x_unbutton', IB);                              // the jeans unbuttoned
+      await show('alan_bn_jeans_half', 600);                             // jeans halfway down
+      await show('alan_bn_x_jeans_knees', IB);                           // at his knees, a foot coming out
+      p.dir = 'w'; p.pose = 'alan_bn_jeans_off'; await hop(5, 4, 175); // hopping out of them
+      await show('alan_bn_x_kick', IB);                                  // kicked away
+      await show('alan_bn_pants', 900);                                  // in his underwear, a grin back
+      await show('alan_bn_x_turn', IB);                                  // turning to go
+      // off round the back of the tank, on the floor all the way (smaller as he goes, by the room's depth): up its left
+      // side to the depth of its back wall, then along behind it, the tank hiding him from the waist down as he goes
+      await show('alan_bn_walk', 0);
+      const wk0 = performance.now(); // his two strides, a painting each, every 280 ms as he goes
+      for (const [to, ms] of WALK) {
+        const x0 = p.x, y0 = p.y, t0 = performance.now(), d = window.FAST ? 20 : ms;
+        for (let u = 0; u < 1;) {
+          u = Math.min(1, (performance.now() - t0) / d);
+          p.x = x0 + (to.x - x0) * u; p.y = y0 + (to.y - y0) * u - Math.abs(Math.sin(u * Math.PI * 3)) * 2; // a step bob
+          p.pose = Math.floor((performance.now() - wk0) / 280) % 2 ? 'alan_bn_x_walk2' : 'alan_bn_walk';
+          await G.wait(16);
+        }
+      }
+      // where the walk ended: the waist-up paintings at his size there, their cut just under the far rim
+      p.dir = 'e'; p.x = BEHIND.x; p.y = BEHIND.y; p.h = BEHIND.h; p.sink = 0.0001; p.pose = 'alan_bn_reach'; // reaching down to them
+      await T(900);
+      p.pose = 'alan_bn_x_raise'; await T(IB);                           // straightening up, the boxers at his shoulder
+      p.pose = 'alan_bn_fling';
+      await T(300);
+      S.throwBoxers(p, BOXERS); sfx('sheet_slap', 0.2);
+      await T(700);
+      if (c) { c.dir = c.x < p.x ? 'e' : 'w'; c.set = null; c.pose = 'shout'; }
+      await say('celeste_bath_1');
+      if (c) c.pose = window.SPRITES.celeste_shock ? 'celeste_shock' : null;
+      await say('alan_bath_2');
+      p.pose = 'alan_bn_x_crouch'; await T(IB);                          // gathering himself to jump
+      // over the rim and in: a cannonball from behind the tank (its far wall hides his feet as he leaves), up and over,
+      // down onto the water; there he goes under: his feet held at the waterline and the painting sunk below it (the
+      // user: "actually fall into water"), the splash as he hits
+      p.pose = 'alan_bn_cannonball'; p.h = BEHIND.h;
+      const J = { x0: BEHIND.x, y0: 400, x1: TANK.x, y1: TANK.y, up: 230, ms: window.FAST ? 40 : 650 }, j0 = performance.now();
+      for (let u = 0; u < 1;) {
+        u = Math.min(1, (performance.now() - j0) / J.ms);
+        p.x = J.x0 + (J.x1 - J.x0) * u; p.y = J.y0 + (J.y1 - J.y0) * u * u - J.up * 4 * u * (1 - u);
+        p.h = BEHIND.h + (TANK.h - BEHIND.h) * u; // nearer as he comes over: from his size behind the tank to his size in it
+        if (u > 0.5) onTank = true; // coming down over the water: the tank no longer hides him
+        await G.wait(16);
+      }
+      sfx('splash'); S.splashAt(TANK.x, TANK.y, 1); swimmer = { y: TANK.y }; onTank = false; // in: the ring round him
+      const s0 = performance.now(), sms = window.FAST ? 20 : 260;
+      for (let u = 0; u < 1;) { u = Math.min(1, (performance.now() - s0) / sms); p.sink = 0.6 * u * u; await G.wait(16); }
+      p.visible = false; p.sink = 0.0001; // (no floor shadow on the water)
+      await T(650);
+      swimmer = { y: TANK.y }; p.x = TANK.x; p.y = TANK.y; p.h = TANK.h; p.visible = true; p.dir = 'e'; p.pose = 'alan_bn_x_surface'; // up, blowing water
+      await T(700);
+      let on = true;
+      (async () => {
+        let i = 0;
+        const SWIM = [['alan_bn_hair', 1000, true], ['alan_bn_x_hands_down', IB], ['alan_bn_relax', 1100], ['alan_bn_x_scoop', IB, true],
+          ['alan_bn_splash', 1000, true], ['alan_bn_x_wipe', IB]]; // the board's order and mirrors, an in-between after each
+        while (on) {
+          const [k, ms, flip] = SWIM[i % SWIM.length]; p.dir = flip ? 'w' : 'e'; p.pose = k;
+          if (k === 'alan_bn_splash') { sfx('splash', 0.12); S.splashAt(p.x + 25, TANK.y, 0.3); } // water thrown up at his face
+          await T(ms); i++;
+        }
+      })();
+      await say('narr_bath');
+      on = false; await T(60);
+      // hands on the near rim, pushing himself up to get out (his body in the water 40 px above them)
+      p.dir = 'e'; p.x = RIM.x; p.y = RIM.y; swimmer = { y: RIM.water }; p.pose = 'alan_bn_rim'; sfx('splash', 0.3); S.splashAt(RIM.x, RIM.water, 0.35);
+      await T(800);
+      p.pose = 'alan_bn_x_haul'; await T(IB + 200);                      // up on locked arms
+      await G.fade(true);
+      shocked(false); if (c) c.pose = null;
+      // up onto the tank's front edge, Celeste's towel snatched off the corner beside him and over his lap (the user's
+      // board: sitting on the edge, then out over the rim, then down): his seat on the rim's top, legs over the front
+      S.bathTowelTaken = true; // the towel is off the tank's corner from here
+      swimmer = null; p.sink = 0; onTank = true; p.h = SEAT.h; p.x = SEAT.x; p.y = SEAT.y; p.dir = 'e'; p.pose = 'alan_bn_sit'; // (painted facing left)
+      await G.fade(false);
+      await T(900);
+      // out over the rim by the corner, then down off it (drawn just in front of the tank)
+      onTank = false; p.h = null; p.x = 790; p.y = 660; await show('alan_bn_x_swing', IB); // legs round, off the edge
+      p.x = 770; p.y = 650; await show('alan_bn_climb', 800); // (his boxers at his feet)
+      p.x = CORNER.x - 10; p.y = CORNER.y - 8; await show('alan_bn_x_climb_down', IB); // (painted facing left)
+      p.x = CORNER.x - 15; p.y = CORNER.y; await show('alan_bn_stepdown', 700);  // (painted facing left)
+      p.x = 770; p.y = 650;
+      await show('alan_bn_x_tuck', IB, true);                           // down, the towel tucked in
+      await show('alan_bn_towel', 0, true);
+      await say('celeste_bath_2');
+      shorts = null; // the painted ones in his hand now
+      await show('alan_bn_x_pick_up', IB, true);                        // his boxers picked up off the floor
+      await show('alan_bn_pants_on', 900, true);                        // stepping into the boxers
+      await show('alan_bn_x_shorts_knees', IB, true);                   // up to his knees under the towel
+      await show('alan_bn_pants_up', 900, true);                        // ...pulled up under the towel
+      await show('alan_bn_x_jeans_ready', IB, true);                    // the towel dropped, the jeans held open
+      p.dir = 'e'; p.pose = 'alan_bn_jeans_off'; await hop(-4, 3, 200); // back into the jeans
+      await show('alan_bn_y_jeans_up', IB, true);                       // pulled up
+      await show('alan_bn_zip', 600, true);                              // the fly
+      await show('alan_bn_y_button', IB, true);                         // buttoned
+      await show('alan_bn_belt', 600, true);                             // the belt buckled
+      await show('alan_bn_y_tee_ready', IB, true);                      // the tee held up
+      await show('alan_bn_tee', 800, true);                              // the tee back on
+      await show('alan_bn_y_tee_down', IB, true);                       // pulled down
+      await show('alan_bn_jacket_off', 700, true);                       // the jacket picked up
+      await show('alan_bn_y_jacket_on', IB, true);                      // an arm in, swinging it on
+      await show('alan_bn_dressed', 0, true);                           // collar up
+      await joke('alan_bath_3');
+      p.crossFadeAll(0); p.pose = null;
+      F().bathed = true;
       await T(1400);
       await S.laundryRemark();
     });

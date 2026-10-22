@@ -42,7 +42,7 @@
 (function () {
   const S = window.S, { G, F } = S, has = k => !!window.SPRITES[k];
   const C = S.CHARS.ines, P = C.frames.poses;
-  const JOBS = [
+  const JOBS = S.INES_JOBS = [
     { k: 'shelve', at: [345, 550], dir: 'w' },
     { k: 'dust', at: [445, 632], dir: 'w' },  // the grandfather desk, and only the desk
     { k: 'kettle', at: [545, 552], dir: 'e' },
@@ -71,11 +71,14 @@
   const img = n => { const i = new Image(); i.src = 'art/layers/' + n + '.webp'; return i; };
   const KETTLE = img('shop_kettle'), BOOK = img('shop_book');
   S.kettleHeld = () => { const a = G.npc('ines'); return !!(a && a.visible && G.room === S.ROOMS.shop && /^(act_kettle_[ab]|steam)$/.test(a.pose || '')); };
+  // where the kettle and her book stand on the sideboard (left edge, bottom), and their size
+  const SB = S.SIDEBOARD = { kettle: [486, 410], book: [668, 410], scale: 1 };
   S.shopSideboard = function (g) {
     if (F().ch >= 5) return;
     const held = S.kettleHeld();
-    if (!held && KETTLE.complete && KETTLE.naturalWidth) g.drawImage(KETTLE, 486, 410 - KETTLE.naturalHeight / 2, KETTLE.naturalWidth / 2, KETTLE.naturalHeight / 2);
-    if (bookDown && performance.now() >= putUntil && BOOK.complete && BOOK.naturalWidth) g.drawImage(BOOK, 668, 410 - BOOK.naturalHeight / 2, BOOK.naturalWidth / 2, BOOK.naturalHeight / 2);
+    const [kx, ky] = SB.kettle, [bx, by] = SB.book, k = SB.scale / 2;
+    if (!held && KETTLE.complete && KETTLE.naturalWidth) g.drawImage(KETTLE, kx, ky - KETTLE.naturalHeight * k, KETTLE.naturalWidth * k, KETTLE.naturalHeight * k);
+    if (bookDown && performance.now() >= putUntil && BOOK.complete && BOOK.naturalWidth) g.drawImage(BOOK, bx, by - BOOK.naturalHeight * k, BOOK.naturalWidth * k, BOOK.naturalHeight * k);
   };
   setInterval(() => {
     if (window.FAST || !JOBS.length) return;

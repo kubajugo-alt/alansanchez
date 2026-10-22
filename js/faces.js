@@ -4929,5 +4929,1433 @@ window.FACES = {
    "closed"
   ],
   "ok": true
+ },
+ "alan_bn_belt": {
+  "box": [
+   125,
+   63,
+   40,
+   58
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_belt.webp",
+  "ok": true
+ },
+ "alan_bn_cannonball": {
+  "box": [
+   110,
+   48,
+   32,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_cannonball.webp",
+  "ok": true
+ },
+ "alan_bn_climb": {
+  "box": [
+   202,
+   49,
+   33,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_climb.webp",
+  "ok": true
+ },
+ "alan_bn_dressed": {
+  "box": [
+   131,
+   51,
+   37,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_dressed.webp",
+  "ok": true
+ },
+ "alan_bn_fling": {
+  "box": [
+   103,
+   162,
+   47,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_fling.webp",
+  "ok": true
+ },
+ "alan_bn_hair": {
+  "box": [
+   114,
+   55,
+   38,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_hair.webp",
+  "ok": true
+ },
+ "alan_bn_jacket_off": {
+  "box": [
+   154,
+   49,
+   35,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_jacket_off.webp",
+  "ok": true
+ },
+ "alan_bn_jacket_shrug": {
+  "box": [
+   156,
+   44,
+   33,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_jacket_shrug.webp",
+  "ok": true
+ },
+ "alan_bn_jeans_half": {
+  "box": [
+   182,
+   53,
+   35,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_jeans_half.webp",
+  "ok": true
+ },
+ "alan_bn_jeans_off": {
+  "box": [
+   147,
+   44,
+   35,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_jeans_off.webp",
+  "ok": true
+ },
+ "alan_bn_pants": {
+  "box": [
+   108,
+   53,
+   38,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_pants.webp",
+  "ok": true
+ },
+ "alan_bn_pants_on": {
+  "box": [
+   124,
+   54,
+   50,
+   75
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_pants_on.webp",
+  "ok": true
+ },
+ "alan_bn_pants_up": {
+  "box": [
+   131,
+   53,
+   36,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_pants_up.webp",
+  "ok": true
+ },
+ "alan_bn_reach": {
+  "box": [
+   40,
+   58,
+   60,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_reach.webp",
+  "ok": true
+ },
+ "alan_bn_relax": {
+  "box": [
+   136,
+   40,
+   40,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_relax.webp",
+  "ok": true
+ },
+ "alan_bn_rim": {
+  "box": [
+   52,
+   54,
+   47,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_rim.webp",
+  "ok": true
+ },
+ "alan_bn_sit": {
+  "box": [
+   99,
+   57,
+   38,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_sit.webp",
+  "ok": true
+ },
+ "alan_bn_stepdown": {
+  "box": [
+   88,
+   58,
+   43,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_stepdown.webp",
+  "ok": true
+ },
+ "alan_bn_tee_lift": {
+  "box": [
+   131,
+   49,
+   41,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_tee_lift.webp",
+  "ok": true
+ },
+ "alan_bn_toss": {
+  "box": [
+   139,
+   75,
+   48,
+   86
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_toss.webp",
+  "ok": true
+ },
+ "alan_bn_towel": {
+  "box": [
+   119,
+   50,
+   38,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_towel.webp",
+  "ok": true
+ },
+ "alan_bn_walk": {
+  "box": [
+   150,
+   53,
+   41,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_walk.webp",
+  "ok": true
+ },
+ "alan_bn_x_climb_down": {
+  "box": [
+   69,
+   55,
+   39,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_climb_down.webp",
+  "ok": true
+ },
+ "alan_bn_x_crouch": {
+  "box": [
+   195,
+   49,
+   44,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_crouch.webp",
+  "ok": true
+ },
+ "alan_bn_x_hands_down": {
+  "box": [
+   119,
+   54,
+   44,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_hands_down.webp",
+  "ok": true
+ },
+ "alan_bn_x_haul": {
+  "box": [
+   78,
+   63,
+   61,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_haul.webp",
+  "ok": true
+ },
+ "alan_bn_x_jacket_arm": {
+  "box": [
+   169,
+   46,
+   33,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_jacket_arm.webp",
+  "ok": true
+ },
+ "alan_bn_x_jacket_drop": {
+  "box": [
+   154,
+   46,
+   31,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_jacket_drop.webp",
+  "ok": true
+ },
+ "alan_bn_x_jeans_knees": {
+  "box": [
+   178,
+   53,
+   35,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_jeans_knees.webp",
+  "ok": true
+ },
+ "alan_bn_x_jeans_ready": {
+  "box": [
+   131,
+   50,
+   37,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_jeans_ready.webp",
+  "ok": true
+ },
+ "alan_bn_x_kick": {
+  "box": [
+   261,
+   48,
+   35,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_kick.webp",
+  "ok": true
+ },
+ "alan_bn_x_pick_up": {
+  "box": [
+   225,
+   58,
+   40,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_pick_up.webp",
+  "ok": true
+ },
+ "alan_bn_x_raise": {
+  "box": [
+   144,
+   59,
+   65,
+   80
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_raise.webp",
+  "ok": true
+ },
+ "alan_bn_x_scoop": {
+  "box": [
+   125,
+   64,
+   54,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_scoop.webp",
+  "ok": true
+ },
+ "alan_bn_x_shorts_knees": {
+  "box": [
+   122,
+   53,
+   37,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_shorts_knees.webp",
+  "ok": true
+ },
+ "alan_bn_x_swing": {
+  "box": [
+   120,
+   50,
+   34,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_swing.webp",
+  "ok": true
+ },
+ "alan_bn_x_tee_toss": {
+  "box": [
+   119,
+   65,
+   35,
+   56
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_tee_toss.webp",
+  "ok": true
+ },
+ "alan_bn_x_tee_up": {
+  "box": [
+   99,
+   45,
+   35,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_tee_up.webp",
+  "ok": true
+ },
+ "alan_bn_x_tuck": {
+  "box": [
+   122,
+   50,
+   36,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_tuck.webp",
+  "ok": true
+ },
+ "alan_bn_x_turn": {
+  "box": [
+   144,
+   52,
+   43,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_turn.webp",
+  "ok": true
+ },
+ "alan_bn_x_unbutton": {
+  "box": [
+   138,
+   55,
+   37,
+   57
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_unbutton.webp",
+  "ok": true
+ },
+ "alan_bn_x_walk2": {
+  "box": [
+   160,
+   53,
+   46,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_x_walk2.webp",
+  "ok": true
+ },
+ "alan_bn_y_jacket_on": {
+  "box": [
+   185,
+   46,
+   32,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_y_jacket_on.webp",
+  "ok": true
+ },
+ "alan_bn_y_jeans_up": {
+  "box": [
+   140,
+   41,
+   32,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_y_jeans_up.webp",
+  "ok": true
+ },
+ "alan_bn_y_tee_down": {
+  "box": [
+   129,
+   46,
+   38,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_y_tee_down.webp",
+  "ok": true
+ },
+ "alan_bn_y_tee_ready": {
+  "box": [
+   100,
+   54,
+   32,
+   55
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_y_tee_ready.webp",
+  "ok": true
+ },
+ "alan_bn_zip": {
+  "box": [
+   116,
+   66,
+   53,
+   57
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_zip.webp",
+  "ok": true
+ },
+ "alan_dn_lie": {
+  "box": [
+   462,
+   32,
+   52,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/alan_dn_lie.webp",
+  "ok": true
+ },
+ "pair_duarte_book": {
+  "box": [
+   330,
+   45,
+   40,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_book.webp",
+  "ok": true
+ },
+ "pair_duarte_book_ib": {
+  "box": [
+   318,
+   47,
+   38,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_book_ib.webp",
+  "ok": true
+ },
+ "pair_duarte_jackets": {
+  "box": [
+   185,
+   53,
+   36,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_jackets.webp",
+  "ok": true
+ },
+ "pair_duarte_lesson": {
+  "box": [
+   241,
+   55,
+   41,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_lesson.webp",
+  "ok": true
+ },
+ "pair_duarte_lesson_ib": {
+  "box": [
+   160,
+   53,
+   32,
+   63
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_lesson_ib.webp",
+  "ok": true
+ },
+ "pair_duarte_push": {
+  "box": [
+   414,
+   39,
+   41,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_push.webp",
+  "ok": true
+ },
+ "pair_duarte_shirts": {
+  "box": [
+   170,
+   49,
+   34,
+   65
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_shirts.webp",
+  "ok": true
+ },
+ "pair_duarte_terms": {
+  "box": [
+   281,
+   49,
+   39,
+   66
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_terms.webp",
+  "ok": true
+ },
+ "pair_duarte_terms_ib": {
+  "box": [
+   263,
+   54,
+   42,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_terms_ib.webp",
+  "ok": true
+ },
+ "duarte_dn_kneel": {
+  "box": [
+   160,
+   58,
+   35,
+   19
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/duarte_dn_kneel.webp",
+  "ok": true
+ },
+ "duarte_dn_stand": {
+  "box": [
+   115,
+   60,
+   42,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/duarte_dn_stand.webp",
+  "ok": true
+ },
+ "pair_duarte_book__guitar": {
+  "box": [
+   129,
+   56,
+   39,
+   64
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_book.webp",
+  "ok": true
+ },
+ "pair_duarte_book_ib__guitar": {
+  "box": [
+   145,
+   52,
+   27,
+   14
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_book_ib.webp",
+  "ok": true
+ },
+ "pair_duarte_jackets__guitar": {
+  "box": [
+   111,
+   46,
+   34,
+   68
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_jackets.webp",
+  "ok": true
+ },
+ "pair_duarte_lesson__guitar": {
+  "box": [
+   104,
+   55,
+   39,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_lesson.webp",
+  "ok": true
+ },
+ "pair_duarte_lesson_ib__guitar": {
+  "box": [
+   134,
+   54,
+   17,
+   14
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_lesson_ib.webp",
+  "ok": true
+ },
+ "pair_duarte_push__guitar": {
+  "box": [
+   181,
+   49,
+   28,
+   15
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_push.webp",
+  "ok": true
+ },
+ "pair_duarte_shirts__guitar": {
+  "box": [
+   90,
+   51,
+   36,
+   67
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_shirts.webp",
+  "ok": true
+ },
+ "pair_duarte_tee__guitar": {
+  "box": [
+   174,
+   61,
+   30,
+   22
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_tee.webp",
+  "ok": true
+ },
+ "pair_duarte_terms__guitar": {
+  "box": [
+   144,
+   53,
+   35,
+   69
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_terms.webp",
+  "ok": true
+ },
+ "pair_duarte_terms_ib__guitar": {
+  "box": [
+   152,
+   54,
+   32,
+   13
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/duarte_new/sprites/pair_duarte_terms_ib.webp",
+  "ok": true
+ },
+ "alan_bn_y_button": {
+  "box": [
+   122,
+   84,
+   36,
+   33
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "src": "art/review/alan/bath_new/sprites/alan_bn_y_button.webp",
+  "ok": true
  }
 };

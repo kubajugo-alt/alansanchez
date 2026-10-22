@@ -1,0 +1,289 @@
+<title>Bath Scene Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono&display=swap">
+<style>
+/* layout: a stage on top, the scene as a scrolling strip of step cards, the painting library below */
+:root {
+  --bg: #efe9df; --panel: #fbf8f2; --fg: #2a2219; --muted: #6f6253; --line: #d8cdbd; --accent: #8a4f1c; --gap: #b5462f; --ok: #3d6b3a;
+  --display: "Fraunces", Georgia, serif; --body: "Source Sans 3", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #17130f; --panel: #221c16; --fg: #eee4d4; --muted: #b0a08a; --line: #3a3027; --accent: #e0a464; --gap: #ef8f78; --ok: #9cc98f; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #17130f; --panel: #221c16; --fg: #eee4d4; --muted: #b0a08a; --line: #3a3027; --accent: #e0a464; --gap: #ef8f78; --ok: #9cc98f; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 15px/1.45 var(--body); }
+.wrap { max-width: 1200px; margin: 0 auto; padding-block: 22px 60px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 18px; }
+h1 { font: 600 clamp(24px, 3.5vw, 32px)/1.15 var(--display); margin: 0; }
+h2 { font: 600 19px/1.2 var(--display); margin: 0; }
+p { margin: 0; max-width: 72ch; } .muted { color: var(--muted); }
+button, select, input, textarea { font: inherit; color: var(--fg); }
+button { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+button.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.status { font: 12px var(--mono); color: var(--muted); }
+.stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; }
+.stage canvas { width: 100%; height: 100%; display: block; }
+.stage .cap { position: absolute; left: 10px; bottom: 8px; font: 12px var(--mono); color: #fff; background: rgba(0,0,0,.55); padding: 2px 8px; border-radius: 4px; }
+.strip { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; }
+.card { flex: 0 0 168px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px; display: grid; gap: 6px; align-content: start; }
+.card.now { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.card.gapc { border-style: dashed; border-color: var(--gap); }
+.card .n { font: 600 12px var(--mono); color: var(--muted); display: flex; justify-content: space-between; }
+.card .thumb { height: 150px; display: flex; align-items: flex-end; justify-content: center; background: color-mix(in srgb, var(--line) 35%, transparent); border-radius: 4px; }
+.card .thumb img { max-height: 146px; max-width: 100%; }
+.card .lbl { font-weight: 600; font-size: 13px; line-height: 1.25; }
+.card textarea { width: 100%; min-height: 54px; resize: vertical; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); padding: 4px; font-size: 13px; box-sizing: border-box; }
+.card .row { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; font-size: 12px; }
+.card .row input { width: 58px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); padding: 1px 4px; }
+.card .row select { border: 1px solid var(--line); border-radius: 4px; background: var(--bg); }
+.card .tools button { padding: 1px 7px; font-size: 13px; }
+.gapnote { color: var(--gap); font-weight: 600; font-size: 13px; }
+.lib { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.lib .card { flex: none; }
+.ok { color: var(--ok); font-weight: 600; }
+</style>
+
+<div class="wrap">
+  <h1>Bath scene board</h1>
+  <p class="muted">The repainted bath at the Lavadouro. Put the paintings in the order the scene plays them, write what to change on any step or painting, and add a <b>missing frame</b> card wherever a painting is needed that doesn't exist yet. Everything saves by itself, and Claude reads it from here. Play shows the order over the room at game size: <i>floor</i> steps stand where he undresses, <i>tank</i> steps sit in the water, <i>behind</i> steps stand past the tank's far rim (in the game the tank hides him below the waist).</p>
+
+  <div class="stage"><canvas id="cv" width="1280" height="720"></canvas><div class="cap" id="cap">Press Play</div></div>
+  <div class="bar">
+    <button class="primary" id="play">▶ Play</button>
+    <button id="stop">■ Stop</button>
+    <label class="muted">Speed <select id="spd"><option value="1">1×</option><option value="0.5">½×</option></select></label>
+    <span class="status" id="st">Loading…</span>
+  </div>
+
+  <div class="bar"><h2>The scene</h2><span class="muted" id="count"></span>
+    <button id="addgap">+ Missing frame at the end</button>
+    <button id="reset">Reset to the latest proposal</button></div>
+  <div class="strip" id="strip"></div>
+
+  <div class="bar"><h2>Overall notes</h2></div>
+  <textarea id="overall" style="width:100%;min-height:70px;border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:8px;box-sizing:border-box" placeholder="Anything about the scene as a whole: pacing, staging, what the washerwomen should do…"></textarea>
+  <div class="bar"><button class="primary" id="approve">Approve this scene</button><span id="apst" class="status"></span></div>
+
+  <div class="bar"><h2>Paintings</h2><span class="muted">Add one to the end of the scene, or write a tweak for the painting itself (it applies wherever it's used).</span></div>
+  <div class="lib" id="lib"></div>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent), FR = D.frames;
+// the taller tank (as in the game preview, ?bath=new): where each place stands him. Behind the tank the tank's outline
+// hides him from the waist down, as the game's occluder does; in the tank it is off (as in the game) and his
+// waterline sits on the water's surface, with the game's water ring over the cut
+// h: his standing height in the game here (360); the waist-up paintings are fitted to the same head size, so they
+// are drawn at it too (the same torso as when we see him whole)
+// rim: his hands on the tank's near rim (the painting's bottom edge), his body in the water 40 px above them
+const ROOM = { floor: { x: 800, y: 650, h: 360 }, tank: { x: 1070, y: 442, h: 360 }, behind: { x: 900, y: 420, h: 271 },
+  rim: { x: 1000, y: 461, h: 360, water: 432 }, air: { x: 985, y: 330, h: 360 }, corner: { x: 805, y: 684, h: 366 },
+  edge: { x: 910, y: 615, h: 360 } }; // edge: sitting on the tank's front rim, legs over the front
+// air: the top of the cannonball's arc; corner: on the tank's front-left corner, just in front of it
+// the boxers: cut from the throw's painting and thrown by code (as ch2.js S.throwBoxers): up a little past his hand,
+// down over the front of the tank, spinning, flat on the stones where he climbs out, there till he steps into them
+const BX = D.boxers, BX_TO = { x: 795, y: 668 }, BX_MS = 1150;
+const bxImg = new Image(); bxImg.src = BX.src;
+const ringCv = document.createElement('canvas'); ringCv.width = 1280; ringCv.height = 720;
+const TANK_POLY = [[842, 401], [1000, 401], [1250, 409], [1280, 419], [1280, 692], [876, 692], [862, 666], [843, 640]], TANK_Y = 680;
+// Celeste's towel lies on the tank's corner until he takes it: gone from his first frame out of the water
+const TAKEN = ['alan_bn_sit', 'alan_bn_climb', 'alan_bn_towel'];
+const takenAt = () => state.steps.findIndex(s => TAKEN.includes(s.id));
+let state = { steps: D.default.map(s => ({ ...s })), frameNotes: {}, overall: '', approved: false };
+const start = JSON.parse(JSON.stringify(state)); // the proposal, as the base when nothing is stored yet
+let db = null, saveT = null, saving = false, playing = false, cur = -1;
+let remote = null, seen = null, deferred = null; // the board as last stored (any screen); as this screen last took it; a stored change that arrived while typing
+const $ = s => document.querySelector(s), st = $('#st');
+const imgs = {}; for (const k in FR) { const im = new Image(); im.src = FR[k].src; imgs[k] = im; }
+const bg = new Image(), bg2 = new Image(); bg.src = 'f/lavadouro_smalltowel.jpg'; bg2.src = 'f/lavadouro_notowel.jpg'; bg.onload = () => draw(-1);
+
+function esc(t) { return String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function render() {
+  const S = state.steps;
+  $('#count').textContent = `${S.filter(s => !s.gap).length} paintings shown, ${S.filter(s => s.gap).length} missing`;
+  $('#strip').innerHTML = S.map((s, i) => s.gap ? `
+    <div class="card gapc${i === cur ? ' now' : ''}" data-i="${i}">
+      <div class="n"><span>${i + 1}</span><span class="gapnote">missing frame</span></div>
+      <textarea data-k="text" placeholder="Describe the painting needed here">${esc(s.text)}</textarea>
+      <div class="row">Hold <input data-k="hold" type="number" step="100" min="100" value="${s.hold || 900}"> ms</div>
+      <div class="row tools"><button data-a="l" aria-label="Move left">←</button><button data-a="r" aria-label="Move right">→</button><button data-a="g" title="Insert a missing frame after this">+gap</button><button data-a="x" aria-label="Remove">✕</button></div>
+    </div>` : `
+    <div class="card${i === cur ? ' now' : ''}" data-i="${i}">
+      <div class="n"><span>${i + 1}</span><span>${s.place}</span></div>
+      <div class="thumb" draggable="true" title="Drag to move this step"><img src="${FR[s.id].src}" alt="${esc(FR[s.id].label)}" draggable="false"${s.flip ? ' style="transform:scaleX(-1)"' : ''}></div>
+      <div class="lbl">${esc(FR[s.id].label)}</div>
+      <div class="row">Hold <input data-k="hold" type="number" step="100" min="100" value="${s.hold}"> ms
+        <select data-k="place">${['floor', 'tank', 'rim', 'behind', 'air', 'corner', 'edge'].map(o => `<option${s.place === o ? ' selected' : ''}>${o}</option>`).join('')}</select>
+        <label title="Show this painting mirrored, so he faces the other way"><input data-k="flip" type="checkbox"${s.flip ? ' checked' : ''}> mirror</label></div>
+      <textarea data-k="note" placeholder="Tweak for this step…">${esc(s.note)}</textarea>
+      <div class="row tools"><button data-a="l" aria-label="Move left">←</button><button data-a="r" aria-label="Move right">→</button><button data-a="d" title="Duplicate">⧉</button><button data-a="g" title="Insert a missing frame after this">+gap</button><button data-a="x" aria-label="Remove">✕</button></div>
+    </div>`).join('');
+  $('#lib').innerHTML = Object.keys(FR).map(k => `
+    <div class="card" data-f="${k}">
+      <div class="thumb"><img src="${FR[k].src}" alt="${esc(FR[k].label)}"></div>
+      <div class="lbl">${esc(FR[k].label)}</div>
+      <textarea data-fn="${k}" placeholder="Tweak this painting…">${esc(state.frameNotes[k])}</textarea>
+      <div class="row tools"><button data-add="${k}">+ to the scene</button></div>
+    </div>`).join('');
+  $('#overall').value = state.overall || '';
+  $('#apst').innerHTML = state.approved ? '<span class="ok">Approved</span> (any change clears it)' : '';
+}
+function changed(keepApproval) { if (!keepApproval) state.approved = false; clearTimeout(saveT); st.textContent = 'Saving…'; saveT = setTimeout(save, 700); }
+// every note written anywhere on a board, to tell whether a save would drop one
+const notesOf = b => [b.overall, ...Object.values(b.frameNotes || {}), ...(b.steps || []).map(x => x.note || x.text)].filter(Boolean);
+async function save() {
+  saveT = null;
+  if (!db) { st.textContent = 'Not saved: this view can’t reach the page’s storage.'; return; }
+  saving = true;
+  try {
+    // another screen's notes that this save would replace are kept aside first (board/bath_backup), never lost
+    // another screen saved since this one last took the board: keep its changes, put only this screen's on top
+    const other = remote && remote !== seen; // another screen saved since this one last took the board
+    if (other) state = merge(seen || start, state, remote);
+    const mine = new Set(notesOf(state)), lost = other ? notesOf(remote).filter(n => !mine.has(n)) : [];
+    if (lost.length) await db.doc('board/bath_backup').set({ ...remote, replacedAt: new Date().toISOString() });
+    const body = { ...state, savedAt: new Date().toISOString() };
+    await db.doc('board/bath').set(body); remote = seen = JSON.parse(JSON.stringify(body));
+    if (!(document.activeElement && /TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName))) { render(); if (!playing) draw(0); }
+    st.textContent = 'Saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '.';
+  } catch (e) { st.textContent = 'Not saved (' + (e && e.code || 'error') + '). Your edits stay on this screen.'; }
+  saving = false;
+}
+// three-way merge: base = the board this screen started from, mine = this screen's, theirs = stored since.
+// A field this screen changed wins; any other field takes the stored value. When both screens changed the order of
+// the steps, this screen's order wins (and the stored one is kept in board/bath_backup by save()).
+function merge(base, mine, theirs) {
+  const pick = (b, m, t) => JSON.stringify(m) !== JSON.stringify(b) ? m : t;
+  const shape = x => (x.steps || []).map(s => s.gap ? 'gap' : s.id).join();
+  const fn = {}; for (const k of new Set([...Object.keys(theirs.frameNotes || {}), ...Object.keys(mine.frameNotes || {})]))
+    fn[k] = pick((base.frameNotes || {})[k], (mine.frameNotes || {})[k], (theirs.frameNotes || {})[k]);
+  let steps;
+  if (shape(mine) === shape(base) && shape(theirs) === shape(base))
+    steps = theirs.steps.map((t, i) => { const m = mine.steps[i], b = base.steps[i], o = {};
+      for (const k of new Set([...Object.keys(t), ...Object.keys(m)])) o[k] = pick(b[k], m[k], t[k]); return o; });
+  else steps = shape(mine) !== shape(base) ? mine.steps : theirs.steps;
+  return { steps, frameNotes: fn, overall: pick(base.overall || '', mine.overall || '', theirs.overall || ''), approved: !!pick(!!base.approved, !!mine.approved, !!theirs.approved) };
+}
+// a change stored from another screen: shown here, unless this screen has edits of its own still to save;
+// held back while a note is being typed, so the cards are not rebuilt under the cursor
+const newer = (a, b) => !b || !b.savedAt || (a.savedAt || '') > b.savedAt; // a saved after b
+function adopt(d) {
+  if (saveT || saving) return;
+  if (!newer(d, seen)) { deferred = null; return; } // this screen's own save coming back, or an older one: nothing new
+  if (document.activeElement && /TEXTAREA|INPUT|SELECT/.test(document.activeElement.tagName)) { deferred = d; return; }
+  deferred = null; seen = d;
+  const c = JSON.parse(JSON.stringify(d)); // this screen edits its own copy; `seen` stays as stored
+  state = { steps: c.steps, frameNotes: c.frameNotes || {}, overall: c.overall || '', approved: !!c.approved };
+  render(); if (!playing) draw(0);
+}
+document.addEventListener('focusout', () => setTimeout(() => { if (deferred) adopt(deferred); }, 0));
+document.addEventListener('input', e => {
+  const t = e.target, c = t.closest('[data-i]');
+  if (t.id === 'overall') { state.overall = t.value; return changed(); }
+  if (t.dataset.fn) { state.frameNotes[t.dataset.fn] = t.value; return changed(); }
+  if (c && t.dataset.k) { const s = state.steps[+c.dataset.i]; s[t.dataset.k] = t.type === 'checkbox' ? t.checked : t.dataset.k === 'hold' ? Math.max(100, +t.value || 900) : t.value;
+    changed(); if (t.tagName === 'SELECT' || t.type === 'checkbox') { render(); draw(+c.dataset.i); } }
+});
+document.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.add) { state.steps.push({ id: b.dataset.add, hold: 900, place: FR[b.dataset.add].waist ? 'tank' : 'floor', note: '' }); render(); changed(); return; }
+  const c = b.closest('[data-i]'); if (!c || !b.dataset.a) return;
+  const i = +c.dataset.i, S = state.steps;
+  if (b.dataset.a === 'l' && i > 0) [S[i - 1], S[i]] = [S[i], S[i - 1]];
+  if (b.dataset.a === 'r' && i < S.length - 1) [S[i + 1], S[i]] = [S[i], S[i + 1]];
+  if (b.dataset.a === 'd') S.splice(i + 1, 0, { ...S[i], note: '' });
+  if (b.dataset.a === 'g') S.splice(i + 1, 0, { gap: true, text: '', hold: 900 });
+  if (b.dataset.a === 'x') S.splice(i, 1);
+  render(); changed();
+});
+let dragI = null;
+document.addEventListener('dragstart', e => { const c = e.target.closest('[data-i]'); if (c) dragI = +c.dataset.i; });
+document.addEventListener('dragover', e => { if (dragI != null && e.target.closest('[data-i]')) e.preventDefault(); });
+document.addEventListener('drop', e => { const c = e.target.closest('[data-i]'); if (dragI == null || !c) return; e.preventDefault();
+  const j = +c.dataset.i, [m] = state.steps.splice(dragI, 1); state.steps.splice(j, 0, m); dragI = null; render(); changed(); });
+$('#addgap').onclick = () => { state.steps.push({ gap: true, text: '', hold: 900 }); render(); changed(); };
+$('#reset').onclick = () => { state.steps = D.default.map(s => ({ ...s })); render(); changed(); };
+$('#approve').onclick = () => { state.approved = true; render(); changed(true); };
+
+// the stage: the room, the figure at game size
+const g = $('#cv').getContext('2d');
+function draw(i) { try { drawStep(i); } catch (e) { report(e); } }
+function report(e) { st.textContent = 'Something went wrong: ' + (e && e.message || e) + ' (please tell Claude)'; }
+window.addEventListener('error', e => report(e.error || e.message));
+window.addEventListener('unhandledrejection', e => report(e.reason));
+function boxers(i, u) {
+  const S = state.steps, fi = S.findIndex(s => s.id === 'alan_bn_fling'); if (fi < 0 || i < fi || !bxImg.complete || !bxImg.naturalWidth) return;
+  const pi = S.findIndex((s, j) => j > fi && /alan_bn_pants_(on|up)/.test(s.id)); if (pi >= 0 && i >= pi) return; // picked up
+  const P = ROOM[S[fi].place] || ROOM.behind, k = P.h / BX.h, x0 = P.x + BX.dx * k * (S[fi].flip ? -1 : 1), y0 = P.y + BX.dy * k;
+  if (i === fi && u == null) u = 0; if (i > fi) u = 1;
+  const D_ = BX_TO.y - y0, R = 50, v = -2 * R - Math.sqrt(4 * R * R + 4 * R * D_), a = D_ - v;
+  const x = x0 + (BX_TO.x - x0) * u, y = y0 + v * u + a * u * u, w = BX.w * k, h = BX.hh * k;
+  g.save();
+  if (u >= 1) { g.fillStyle = 'rgba(0,0,0,0.28)'; g.beginPath(); g.ellipse(x, y + 4, w * 0.5, h * 0.16, 0, 0, 7); g.fill(); }
+  g.translate(x, y); g.rotate(u < 1 ? u * Math.PI * 3 : 0.12); if (u >= 1) g.scale(1, 0.5);
+  g.drawImage(bxImg, -w / 2, -h / 2, w, h); g.restore();
+}
+function drawStep(i, u) {
+  g.clearRect(0, 0, 1280, 720);
+  const t = takenAt(), room = t >= 0 && i >= t && bg2.complete && bg2.naturalWidth ? bg2 : bg;
+  if (room.complete && room.naturalWidth) g.drawImage(room, 0, 0, 1280, 720);
+  const s = state.steps[i];
+  if (!s) return;
+  if (s.gap) { g.fillStyle = 'rgba(0,0,0,.6)'; g.fillRect(340, 300, 600, 120); g.fillStyle = '#ffb4a2'; g.font = '600 22px system-ui'; g.textAlign = 'center';
+    g.fillText('Missing frame', 640, 345); g.fillStyle = '#fff'; g.font = '16px system-ui'; g.fillText((s.text || '(no description yet)').slice(0, 70), 640, 380); return; }
+  const f = FR[s.id], im = imgs[s.id], P = ROOM[s.place] || ROOM.floor, H = P.h, k = H / f.h;
+  // mirrored about his anchor, as the game does when he faces the other way
+  if (im.complete) { g.save(); g.translate(P.x, 0); if (s.flip) g.scale(-1, 1); g.drawImage(im, -f.ax * k, P.y - f.fy * k, f.w * k, f.hh * k); g.restore(); }
+  if (s.place === 'tank' || s.place === 'rim') {
+    // the water ring at his waist; on the rim his arms reach past it, so there it is cut away where they are (as in the game)
+    const wy = P.water || P.y, c = ringCv.getContext('2d'); c.clearRect(0, 0, 1280, 720);
+    c.fillStyle = 'rgba(70,82,78,0.35)'; c.beginPath(); c.ellipse(P.x, wy + 2, 85, 7, 0, 0, 7); c.fill();
+    c.strokeStyle = 'rgba(200,212,210,0.2)'; c.lineWidth = 1.5; c.beginPath(); c.ellipse(P.x, wy + 1, 90, 10, 0, 0, 7); c.stroke();
+    if (s.place === 'rim' && im.complete) { const X = P.x - f.ax * k, Y = P.y - f.fy * k; c.globalCompositeOperation = 'destination-out';
+      c.drawImage(im, 0, 0, f.w * 0.4, f.hh, X, Y, f.w * 0.4 * k, f.hh * k); c.drawImage(im, f.w * 0.6, 0, f.w * 0.4, f.hh, X + f.w * 0.6 * k, Y, f.w * 0.4 * k, f.hh * k);
+      c.globalCompositeOperation = 'source-over'; }
+    g.drawImage(ringCv, 0, 0); }
+  if (s.place === 'behind' && P.y < TANK_Y) { g.save(); g.beginPath(); TANK_POLY.forEach(([x, y], j) => j ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip(); g.drawImage(room, 0, 0, 1280, 720); g.restore(); }
+  boxers(i, u);
+}
+async function play() {
+  if (playing) return; playing = true;
+  for (let i = 0; i < state.steps.length && playing; i++) {
+    cur = i; mark();
+    // a smooth cross-fade from the last painting into this one (as the game does: 160 ms)
+    { const old = document.createElement('canvas'); old.width = 1280; old.height = 720; old.getContext('2d').drawImage($('#cv'), 0, 0);
+      const t0 = performance.now(), xf = 160 / +$('#spd').value;
+      await new Promise(r => { const f = () => { const u = Math.min(1, (performance.now() - t0) / xf);
+        draw(i); g.save(); g.globalAlpha = 1 - u; g.drawImage(old, 0, 0); g.restore();
+        if (u < 1 && playing) requestAnimationFrame(f); else { draw(i); r(); } }; requestAnimationFrame(f); }); }
+    const s = state.steps[i]; $('#cap').textContent = `${i + 1}/${state.steps.length} · ${s.gap ? 'missing frame' : FR[s.id].label}`;
+    const ms = (s.hold || 900) / +$('#spd').value;
+    if (s.id === 'alan_bn_fling') { // the throw, played out over the step
+      const t0 = performance.now(), lag = 300 / +$('#spd').value, fly = BX_MS / +$('#spd').value;
+      await new Promise(r => { const f = () => { const t = performance.now() - t0; try { drawStep(i, Math.max(0, Math.min(1, (t - lag) / fly))); } catch (e) { report(e); }
+        if (t < ms && playing) requestAnimationFrame(f); else r(); }; requestAnimationFrame(f); });
+    } else await new Promise(r => setTimeout(r, ms));
+  }
+  playing = false; cur = -1; mark();
+}
+// the playing step's highlight, without rebuilding the cards (a note being typed keeps its place)
+function mark() { document.querySelectorAll('#strip [data-i]').forEach(c => c.classList.toggle('now', +c.dataset.i === cur)); }
+$('#play').onclick = play; $('#stop').onclick = () => { playing = false; };
+render(); draw(0);
+
+(async () => {
+  db = window.claude ? await window.claude.use('db') : null;
+  if (!db) { st.textContent = 'Edits stay on this screen only (storage not available here).'; return; }
+  // follow the stored board live: every open screen shows the latest notes
+  let first = true;
+  db.doc('board/bath').onSnapshot(snap => {
+    const d = snap.exists ? snap.data() : null;
+    if (!d || !d.steps) { if (first) st.textContent = 'First proposal shown. Your changes save automatically.'; first = false; return; }
+    if (snap.metadata && snap.metadata.hasPendingWrites) return; // this screen's own save, on its way
+    if (newer(d, remote)) remote = d;
+    adopt(remote);
+    if (first) st.textContent = 'Loaded your last save.'; first = false;
+  }, e => { st.textContent = 'Lost the link to the saved board (' + (e && e.code || 'error') + '). Reload the page.'; });
+})();
+</script>

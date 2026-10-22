@@ -125,6 +125,8 @@
   // the chapter transitions (js/story/transitions.js): ?scene=tr1 … tr4 play the paintings and the next chapter card,
   // tr5 the end of chapter V (?scene=fado plays the song with its painting slideshow)
   [1, 2, 3, 4].forEach(n => { PREVIEW['tr' + n] = { flags: { ch: n }, room: 'shop', pos: [815, 616, 'e'], run: () => S.chapter(n + 1, 'narr_ch' + (n + 1) + '_card') }; });
+  // the shop as it stands, nothing scripted: Inês goes about her jobs
+  PREVIEW.shopjobs = { flags: { ch: 2, heard_machine: true }, room: 'shop', pos: [236, 712, 'e'], run: async () => {} };
   PREVIEW.tr5 = { flags: { ch: 5 }, room: 'shop', pos: [815, 616, 'e'], run: async () => { await S.transition(5, { toBlack: true }); await G.fade(false); } };
   async function preview(k) {
     const P = PREVIEW[k];
@@ -276,13 +278,56 @@
     const C = await get('art/review/candidates.json'), A = await get('art/review/approvals.json') || {};
     let mine = {}; try { mine = JSON.parse(localStorage.getItem('review-approvals') || '{}'); } catch (e) { /* private mode */ }
     const dec = Object.assign({}, A, mine);
+    S.WALK_ORIGINAL = { alan: S.CHARS.alan.frames.walk.slice() }; // the first painted cycle, before any approved walk replaces it
     const walkNew = new URLSearchParams(location.search).get('walk') === 'new'; // the review screen's walk comparison: the new walk, approved or not
     const ok = id => !!(dec[id] && dec[id].decision === 'approved') || (walkNew && /^(alan|vasco)_walk_/.test(id));
     S.REVIEW = { candidates: (C && C.candidates) || [], decisions: dec, saved: A };
     // a character's new walk goes in whole or not at all: its frames mixed with the old ones lose the alternating legs
     const walkAll = ch => { const w = S.REVIEW.candidates.filter(c => c.char === ch && c.wire && c.wire.walkSlot != null); return w.length > 0 && w.every(c => ok(c.id)); };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c.wire && c.wire.walkSlot != null ? Object.assign({ walkAll: walkAll(c.char) }, c) : c, ok);
+    // ?walk=a: the walk plan's step A, for review (not the game's default): Alan back on his first 8-painting cycle,
+    // moving at a steady speed (no foot lock), every painting held alike, cut between them, the bob once per step
+    if (new URLSearchParams(location.search).get('walk') === 'a') { window.WALK = S.WALK_A; S.CHARS.alan.frames.walk = S.WALK_ORIGINAL.alan.slice(); }
+    if (new URLSearchParams(location.search).get('walk') === 'fix') window.WALK = S.WALK_FIX; // the engine fix alone, today's frames
     for (const c of Object.values(S.CHARS)) if (c.frames && c.frames.walk) S.walkTiming(c.frames); // step lengths from S.WALK_PLANT, where a cycle has them
+    // the repainted bath scene (art/review/alan/bath_new, ch2.js S.bathNew), approved 2026-10-21; ?bath=old plays the first one
+    if (new URLSearchParams(location.search).get('bath') !== 'old') {
+      const B = await get('art/review/alan/bath_new/sprites.json');
+      if (B) { for (const [k, m] of Object.entries(B)) window.SPRITES[k] = m; S.BATH_NEW = true; }
+      // ...with the tank built taller (art/review/bg/lavadouro_tall_*.jpg: Canva's taller tank pasted into the painting,
+      // the rest of the room as it was; Celeste's towel on its corner, smaller, gone once Alan has taken it):
+      // the room's picture, and the tank's outline that hides whoever is behind it
+      const R = S.ROOMS.lavadouro, occ = R && (R.occluders || []).find(o => o.y === 680);
+      if (R && occ) {
+        const T0 = '../review/bg/lavadouro_tall_smalltowel', T1 = '../review/bg/lavadouro_tall_notowel';
+        R.bg = T0; R.bgs = (R.bgs || []).concat(T1); R.bgFn = () => S.bathTowelTaken ? T1 : T0; R.depth = 'lavadouro_depth';
+        occ.polys = [[[842, 401], [1000, 401], [1250, 409], [1280, 419], [1280, 692], [876, 692], [862, 666], [843, 640]]];
+        // its edge on the floor, for who is in front of it: the left wall's foot, from the back corner (843, 563) to the
+        // front one (876, 692), then the front wall along y 692; whoever stands left of the wall is in front of it
+        occ.base = [[843, 563], [876, 692]];
+        // the back basins' outline stops where the taller tank begins (past x 842 it would cover Alan in the water)
+        const bas = R.occluders.find(o => o.y === 500); if (bas) bas.polys = [[[160, 383], [300, 375], [842, 375], [842, 484], [160, 484]]];
+        S.BATH_TALL = true;
+      }
+    }
+    // Duarte's rewritten upstairs scene (art/review/alan/duarte_new, visits.js S.visitGuitar), approved 2026-10-21; ?duarte=old plays the first one
+    if (new URLSearchParams(location.search).get('duarte') !== 'old') {
+      const D = await get('art/review/alan/duarte_new/sprites.json');
+      if (D) { for (const [k, m] of Object.entries(D)) window.SPRITES[k] = m; S.DUARTE_NEW = true; }
+      window.STILLS = (window.STILLS || []).concat(['../review/stills/still_duarte_bed_kiss', '../review/stills/still_duarte_bed_laugh']);
+    }
+    // the sound pass (docs/SOUND.md, js/audio.js SOUND_NEW), approved 2026-10-21; ?sound=old for the sound before it. Three rooms lost their ambience and
+    // floor to a comment that swallowed them (the cistern, the quay, the deck); the cabin gets its own bed (timbers and
+    // the hull) in place of the deck's; the boat's planks sound like a deck; Alan's room and the tavern at night get theirs
+    if (new URLSearchParams(location.search).get('sound') !== 'old') {
+      const R = S.ROOMS, set = (id, o) => { if (R[id]) Object.assign(R[id], o); };
+      set('cistern', { ambience: () => F().won ? 'cistern_calm' : 'cistern', floor: 'wet' });
+      set('cais', { ambience: 'harbour', floor: 'cobble' });
+      set('boat', { ambience: 'boat', floor: 'deck' });
+      set('cabin', { ambience: 'cabin', floor: 'deck' });
+      set('bedroom', { ambience: 'bedroom' });
+      set('tavern', { ambience: () => F().ch >= 5 ? 'tavern_night' : 'tavern' });
+    }
     // the walk lab measures the walk candidates too, approved or not: their sprites are registered (not wired in)
     if (new URLSearchParams(location.search).get('scene') === 'walklab')
       for (const c of S.REVIEW.candidates) if (c.meta && c.wire && c.wire.walkSlot != null && !window.SPRITES[c.id]) window.SPRITES[c.id] = Object.assign({ src: c.src }, c.meta);
