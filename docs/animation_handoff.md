@@ -5,7 +5,7 @@
 Work on `master` (it carries everything; no PRs). The live site, https://alan-sanchez-drowned-bell.netlify.app,
 runs commit `9c9cde46` on branch `claude/zen-dijkstra-o7cgsv` (Netlify deploy `6ad9600e5645b03d56620317`, 2026-10-22: the new
 bath, Duarte's rewritten scene, the sound pass, the new faces, the cross-fade and breathing fixes and Inês's desk, entries 42-45). Below: what the game is now, what is open, the rules, and where the tools are. The numbered session log
-underneath has the detail of every change (entries 1-45); the sections after it are an archive of the 20 October
+underneath has the detail of every change (entries 1-46); the sections after it are an archive of the 20 October
 handoff, kept for history: don't act on them without checking the code and the user.
 
 ### What is in the game now
@@ -855,6 +855,34 @@ session lived in the session's scratchpad and are gone; everything that matters 
      Duarte's scene, the bath and the shop desk, no errors. Live checks: the page 200, `/.env` 404, new face patches and
      review sprites 200, the live `js/faces.js` has all 70 new sets on, the live `actor.js` has `waistDrop`, and the live
      `ch1.js` has the shop's desk occluder.
+
+46. **NPC size and feet check; fixes proposed, not in the game** (the user: "some, especially background character, have
+   uneven sprites when they animate - different sizes. Please check this and everything else we checked about Alan";
+   faces left out on purpose: "They are not meant to speak and blink yet").
+   - Measured every frame of the 32 NPC figures in every room (`scripts/npc_check/`, run from a scratch folder against
+     a server on :8098: `dump.mjs` lists each room's NPCs and frames; `reg.py` SIFT similarity against the base frame;
+     `head.py` / `two.py` the base head and feet matched across scales; `feetjump.py` the feet overlaid at game size;
+     `sheet.py` contact sheets at game size; `ghost.py` mid-dissolve overlays; `propose.py` the fixes).
+   - Size is fixed only where two measures agree, against the character's idle/talk frames. Feet anchors are fixed
+     where the feet overlap well (IoU >= 0.6): moved to where the base frame's feet stand.
+   - **Found (8 characters, 51 frames; `art/review/npc_fix/proposal.json`, old -> new `h` / `ax` / `fy`):**
+     - Abilio: his two idle paintings alternate and `abilio_idle2` is 13% small; `read`, `point`, `shout1` jump a fifth
+       of his height sideways (anchors at one edge).
+     - Vasco: about half his frames anchored on one foot, the rest between the feet (5-12% jumps); coffee, coffee_sip,
+       amused, stand_up small, fluster large.
+     - Ze: `ze_hammer` 25% small (the hammer was counted in his height); toss, burst and the undressing set 5-12% small;
+       `ze_strip3` jumps sideways.
+     - The washerwoman in black: `npc_washer1_b` 10-15% small. Celeste: `celeste_wring2` 6% small.
+     - Rui: feet shuffle 2-5% between frames. Lacerda (robe): `robe_read` jumps. The bench man: `doze2` sinks.
+   - **Checked and fine:** the rest of the cast and extras (Ines, Lacerda, Amalia, Tomas, the nun, Lino, the menders,
+     cards, couple, fish seller, guard, volunteer, Teixeira, Duarte, the laundry woman, the second washerwoman).
+     Breathing, tilt and cross-fades already cover every NPC frame (entry 45). Skin tone read by face-patch Lab is
+     too noisy to act on; by eye the sheets are even. Left alone: `tomas_kneel` (ch5.js places him for it), the
+     lying/reclining figures, Pessoa (each cat pose has its own `h` in ch1.js).
+   - Noticed, not a size issue: `npc_bench_wistful` paints the bench man bareheaded (his cap is gone).
+   - Review board: https://claude.ai/artifact/CfA6A88JFRC1yGXhhnYcAg (per character: now vs proposed, dissolving as
+     the game does; decisions in its database, collection `npc_fix`). On approval: write the approved characters'
+     values from the proposal into `js/sprites.js`, rebuild morphs for the changed frames if any, validate, smoke.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
