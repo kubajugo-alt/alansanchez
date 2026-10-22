@@ -918,6 +918,17 @@ session lived in the session's scratchpad and are gone; everything that matters 
      (`gen_image.match_palette`). Feet anchors as in round 2. On approval: copy it over `art/sprites/abilio_shout1.webp`,
      write `abilio_revised.json` into `js/sprites.js`, rebuild his morphs, `similar.py`, manifest, validate, smoke.
      Approved (board, round 3) and applied as described; validate 0 errors (8 warnings, as before); smoke abiliosketch passes.
+   - **The card players (Taberna), on one table, for review** (the user: "The same problem as with the man on the
+     bench we had with 2 men playing cards in the tavern"). Their two paintings draw the table and chairs differently
+     (and Gemini, asked to repaint frame A with B's gestures, recomposed the whole scene again). So:
+     `art/review/cards/furniture.png` (empty table, deck and two chairs, from `npc_cards`) and `men_<frame>.png`
+     (both men without furniture, per frame), $0.29 with the first try. `scripts/cards_compose.py`: each man placed
+     by SIFT on his own original frame, that frame mapped to the furniture by the chairs' outer edges and the floor;
+     layers chairs < left man (below the tabletop's front edge) < table < left man (above it) < right man; in frame B
+     the slapping forearm is bent up 110 canvas px (about 45 at game size) so the hand lands on this tabletop (it was
+     painted for a taller one). Output `art/review/cards/sprites/` + `meta.json` (one shared w/hh/h/ax/fy). On the
+     board as round 4. On approval: copy over `art/sprites/npc_cards*.webp`, meta into `js/sprites.js`, morphs for
+     npc_cards<->npc_cards_b, `similar.py`, manifest, validate, smoke `tavernafter` / `fado`.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
