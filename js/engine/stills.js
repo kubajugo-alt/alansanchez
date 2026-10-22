@@ -24,7 +24,8 @@
     s.alpha += (s.target - s.alpha) * Math.min(1, dt * (s.rate || 3.2));
     if (s !== E.still) alpha = 1; // the outgoing painting stays opaque under the incoming one
     const im = IMG['still:' + s.name] || IMG['close:' + s.name] || IMG['bg:' + s.name];
-    const p = Math.min(1, s.t / s.dur), e = p * p * (3 - 2 * p);
+    // (calm motion: the painting held at the middle of its move, no zoom or pan)
+    const p = Math.min(1, s.t / s.dur), e = window.CALM ? 0.5 : p * p * (3 - 2 * p);
     const z = s.zoom[0] + (s.zoom[1] - s.zoom[0]) * e;
     // the pan's two ends are clamped once, each at its own zoom, so the painting always covers the screen;
     // the margin (0.5 / zoom) is convex, so the straight path between them never needs clamping again and

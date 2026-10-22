@@ -34,7 +34,7 @@
     musicBus = ctx.createGain(); musicBus.gain.value = MUSIC_LEVEL * userGain();
     musicDuck = ctx.createGain(); musicDuck.gain.value = 1; musicDuck.connect(musicBus);
     musicAn = ctx.createAnalyser(); musicAn.fftSize = 2048; musicBus.connect(musicAn);
-    sfxBus = ctx.createGain(); sfxBus.gain.value = 0.6; sfxBus.connect(master);
+    sfxBus = ctx.createGain(); sfxBus.gain.value = 0.6 * sfxVol; sfxBus.connect(master); // (effects and ambience)
     if (sfxFiles.size) setTimeout(preloadSfx, 500);
     ambBus = ctx.createGain(); ambBus.gain.value = 1; ambBus.connect(sfxBus); // ambience loops, ducked under speech
     // synthetic hall reverb
@@ -103,6 +103,9 @@
   try { const v = parseFloat(localStorage.getItem(VOL_KEY)); if (v >= 0 && v <= 1) musicVol = v; } catch (e) { /* storage unavailable */ }
   try { if (localStorage.getItem(VOL_KEY + '-off') === '1') musicOn = false; } catch (e) { /* storage unavailable */ }
   try { if (localStorage.getItem(VOL_KEY + '-voice-off') === '1') voiceOn = false; } catch (e) { /* storage unavailable */ }
+  // the voices' and the effects' own levels (the menu's sliders), kept per browser like the music's
+  const level = k => { try { const v = parseFloat(localStorage.getItem(VOL_KEY + k)); return v >= 0 && v <= 1 ? v : 1; } catch (e) { return 1; } };
+  let voiceVol = level('-voice-level'), sfxVol = level('-sfx-level'), voiceOut = null;
   let musicDuck = null, meta = {}, fmt = null;
   function format() {
     if (fmt) return fmt;
@@ -291,6 +294,17 @@
     const mine = transCue; transCue = null;
     setTimeout(() => { if (cue && cue.spec === mine) setCue(null); }, 1000); // (only if nothing followed it)
   }
+  function setVoiceVolume(v) {
+    voiceVol = Math.max(0, Math.min(1, +v || 0));
+    try { localStorage.setItem(VOL_KEY + '-voice-level', String(voiceVol)); } catch (e) { /* storage unavailable */ }
+    if (voiceOut) voiceOut.gain.setTargetAtTime(voiceVol, ctx.currentTime, 0.05);
+    if (voiceEl) voiceEl.volume = voiceVol;
+  }
+  function setSfxVolume(v) {
+    sfxVol = Math.max(0, Math.min(1, +v || 0));
+    try { localStorage.setItem(VOL_KEY + '-sfx-level', String(sfxVol)); } catch (e) { /* storage unavailable */ }
+    if (sfxBus) sfxBus.gain.setTargetAtTime(0.6 * sfxVol, ctx.currentTime, 0.05);
+  }
   function setMusicVolume(v) {
     musicVol = Math.max(0, Math.min(1, +v || 0));
     try { localStorage.setItem(VOL_KEY, String(musicVol)); } catch (e) { /* storage unavailable */ }
@@ -304,18 +318,25 @@
     init();
     if (!roomSpec && !cue) playMusic('main_theme');
   }
-  // Settings: a music-volume slider under the Music on/off button (kept per browser)
+  // Settings: a volume slider under the Music and the Voices on/off buttons, and one for the effects (kept per browser)
   function volumeSlider() {
-    const btn = document.getElementById('opt-music');
-    if (!btn || document.getElementById('opt-music-vol')) return;
-    const box = document.createElement('label'); box.id = 'opt-music-vol'; box.title = 'Music volume';
-    box.style.cssText = "display:flex;align-items:center;gap:.5em;padding:.3em 1em;font:700 .8em 'Cinzel',serif;color:var(--gold);background:rgba(28,18,10,.92);border:1px solid rgba(224,184,102,.6)";
-    box.innerHTML = '<span>Music volume</span><input type="range" min="0" max="100" step="1" style="width:7em;accent-color:#c8a060">';
-    const r = box.querySelector('input'); r.value = Math.round(musicVol * 100);
-    const stop = e => e.stopPropagation();
-    ['click', 'pointerdown', 'mousedown', 'touchstart'].forEach(ev => box.addEventListener(ev, stop));
-    r.addEventListener('input', () => setMusicVolume(r.value / 100));
-    btn.insertAdjacentElement('afterend', box);
+    const add = (afterId, id, label, value, set) => {
+      const btn = document.getElementById(afterId);
+      if (!btn || document.getElementById(id)) return null;
+      const box = document.createElement('label'); box.id = id; box.title = label;
+      box.style.cssText = "display:flex;align-items:center;gap:.5em;padding:.3em 1em;font:700 .8em 'Cinzel',serif;color:var(--gold);background:rgba(28,18,10,.92);border:1px solid rgba(224,184,102,.6)";
+      box.innerHTML = '<span></span><input type="range" min="0" max="100" step="1" style="width:7em;accent-color:#c8a060">';
+      box.querySelector('span').textContent = label;
+      const r = box.querySelector('input'); r.value = Math.round(value * 100); r.setAttribute('aria-label', label);
+      const stop = e => e.stopPropagation();
+      ['click', 'pointerdown', 'mousedown', 'touchstart'].forEach(ev => box.addEventListener(ev, stop));
+      r.addEventListener('input', () => set(r.value / 100));
+      btn.insertAdjacentElement('afterend', box);
+      return box;
+    };
+    add('opt-music', 'opt-music-vol', 'Music volume', musicVol, setMusicVolume);
+    add('opt-voice', 'opt-voice-vol', 'Voice volume', voiceVol, setVoiceVolume);
+    add('opt-voice-vol', 'opt-sfx-vol', 'Effects volume', sfxVol, setSfxVolume);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', volumeSlider); else volumeSlider();
   window.addEventListener('pointerdown', titleTap, { passive: true });
@@ -812,7 +833,9 @@
       analyser = ctx.createAnalyser();
       analyser.fftSize = 1024;
       levelBuf = new Float32Array(analyser.fftSize);
-      analyser.connect(ctx.destination);
+      // the voice level after the analyser, so the lip-sync reads the recording, not the slider
+      voiceOut = ctx.createGain(); voiceOut.gain.value = voiceVol;
+      analyser.connect(voiceOut); voiceOut.connect(ctx.destination);
     }
   }
   async function playVoice(id, dry) {
@@ -836,7 +859,7 @@
       } catch (e) { /* decode failed or too slow: play it the old way */ }
     }
     return new Promise(resolve => {
-      const el = new Audio(voiceUrl(id));
+      const el = new Audio(voiceUrl(id)); el.volume = voiceVol;
       voiceEl = el; voiceCur = id;
       let done = false;
       const fin = v => { if (!done) { done = true; resolve(v); } };
@@ -972,7 +995,7 @@
 
   window.Sound = {
     init, playMusic, playSong, songLevel, sfx, sfxAt, loadSfx, step: footstep, ambience, setRoom, voiceLevel, voiceTime, voiceId, playVoice, preloadVoice, stopVoice, voicePlaying, loadManifest, hasVoice, setMusic, setVoice, mute,
-    cue: setCue, refreshMusic, transitionMusic, musicState, restoreMusic, setMusicVolume, trackUrl, meter, musicLog,
+    cue: setCue, refreshMusic, transitionMusic, musicState, restoreMusic, setMusicVolume, setVoiceVolume, setSfxVolume, trackUrl, meter, musicLog,
     get musicOn() { return musicOn; }, get voiceOn() { return voiceOn; }, get musicVolume() { return musicVol; },
     _wave: () => {
       if (!musicAn) return null;

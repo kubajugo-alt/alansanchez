@@ -64,8 +64,9 @@ window.Parallax = (function () {
   // the camera: a few pixels across the room with Alan, and a slow sway of its own
   const AMP = 14;
   function update(dt, t, px) {
-    const tx = -AMP * Math.max(-1, Math.min(1, ((px == null ? W / 2 : px) - W / 2) / (W / 2))) + 1.6 * Math.sin(t * 0.21);
-    const ty = 1.1 * Math.sin(t * 0.17 + 1.3);
+    // (calm motion, window.CALM: the camera holds still)
+    const tx = window.CALM ? 0 : -AMP * Math.max(-1, Math.min(1, ((px == null ? W / 2 : px) - W / 2) / (W / 2))) + 1.6 * Math.sin(t * 0.21);
+    const ty = window.CALM ? 0 : 1.1 * Math.sin(t * 0.17 + 1.3);
     const k = Math.min(1, dt * 1.4); cam.x += (tx - cam.x) * k; cam.y += (ty - cam.y) * k;
   }
   // the painting, slid by depth (null when there's no depth map or no WebGL: the caller draws it flat). `live`: the

@@ -162,7 +162,7 @@
       E.updateLights(E.time);
       // a room afloat (the boat, the cabin) rocks a little: painting and figures tilt together about a point low in the
       // frame, scaled up a touch so no corner ever shows; fog, grade and vignette stay level
-      const rock = E.room.sway ? E.room.sway(E.time) : 0;
+      const rock = E.room.sway && !window.CALM ? E.room.sway(E.time) : 0; // (calm motion: the boat holds still)
       if (rock && !window.FAST) { g.save(); g.translate(W / 2, H * 0.85); g.rotate(rock); g.scale(1.014, 1.014); g.translate(-W / 2, -H * 0.85); }
       // parallax: the painting with what moves in it (its animated back, its layers) drawn together, then slid by depth
       const dm = window.Parallax && Parallax.on && E.room.depth && IMG['depth:' + E.room.depth];

@@ -73,6 +73,7 @@
     return { x, y };
   }
   canvas.addEventListener('mousemove', e => {
+    kbAt = -1; // (the mouse takes over from the keyboard)
     mouse = sceneCoords(e); updateHover();
     if (mouse.y > H - 60 && !E.busy) invBar.classList.add('show');
     else if (!E.invHover && !E.selItem && mouse.y < H - 140) invBar.classList.remove('show');
@@ -128,6 +129,28 @@
     marksT = setTimeout(() => marksEl.classList.remove('on'), 2600);
   }
   $('#hot-btn').addEventListener('click', e => { e.stopPropagation(); showHotspots(); });
+
+  // ---------------------------------------------------------------- playing by keyboard
+  // Tab / Shift+Tab step through what can be clicked in the room, left to right (its name shows as on hover); Enter
+  // does what a click would (with the selected item, if any), L looks at it
+  let kbAt = -1, kbList = [];
+  function clickables() {
+    const out = [];
+    for (const h of (E.room.hotspots || [])) {
+      if (h.when && !h.when()) continue;
+      const c = h.rect ? [h.rect[0] + h.rect[2] / 2, h.rect[1] + h.rect[3] / 2] : h.poly ? [h.poly.reduce((s, p) => s + p[0], 0) / h.poly.length, h.poly.reduce((s, p) => s + p[1], 0) / h.poly.length] : null;
+      if (c) out.push({ t: { kind: 'hot', def: h }, x: c[0], y: c[1] });
+    }
+    for (const a of E.npcs) if (a.visible && a.def && a.def.name) out.push({ t: { kind: 'npc', actor: a, def: a.def }, x: a.x, y: a.y - a.height() * 0.55 });
+    return out.sort((p, q) => p.x - q.x);
+  }
+  function kbStep(dir) {
+    kbList = clickables(); if (!kbList.length) return;
+    kbAt = kbAt < 0 ? (dir > 0 ? 0 : kbList.length - 1) : (kbAt + dir + kbList.length) % kbList.length;
+    const k = kbList[kbAt]; mouse = { x: k.x, y: k.y }; hoverTarget = k.t;
+    const name = nameOf(k.t);
+    showHoverText(E.selItem ? `Use ${E.itemName(E.selItem)} on ${name}` : name);
+  }
   // double-click: on the way to an exit, go straight through; any other walk, hurry (twice the pace to the end of it)
   canvas.addEventListener('dblclick', () => {
     const p = E.player; if (!p || !p.walking || E.cutscene) return;
@@ -146,12 +169,31 @@
   }, { passive: true });
   canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); pressT = null; });
   document.addEventListener('keydown', e => {
+    // a close-up: Escape closes it, the arrows turn its pages
+    const cu = $('#closeup');
+    if (cu && !cu.classList.contains('hidden')) {
+      const b = e.key === 'Escape' ? '.x' : e.key === 'ArrowLeft' ? '.prev' : e.key === 'ArrowRight' ? '.next' : null;
+      if (b) { const el = cu.querySelector(b); if (el && el.offsetParent !== null) el.click(); e.preventDefault(); return; }
+    }
+    // dialogue choices: up and down move between them (Enter picks; 1-9 as before)
+    if (E.dialogResolve && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+      const bs = [...dialogEl.querySelectorAll('button')], i = bs.indexOf(document.activeElement);
+      const n = bs[(i < 0 ? (e.key === 'ArrowDown' ? 0 : bs.length - 1) : i + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length];
+      if (n) { n.focus(); e.preventDefault(); } return;
+    }
+    const inGame = E.room && !E.busy && !E.dialogResolve && !E.cutscene && $('#title').classList.contains('hidden') && !document.querySelector('.modal:not(.hidden)') && !$('#menu').classList.contains('open');
+    if (e.key === 'Tab' && inGame) { kbStep(e.shiftKey ? -1 : 1); e.preventDefault(); return; }
+    if ((e.key === 'Enter' || e.key === 'l' || e.key === 'L') && inGame && kbAt >= 0 && kbList[kbAt]) {
+      const t = kbList[kbAt].t; kbAt = -1; hideHover(); e.preventDefault();
+      interact(t, e.key === 'Enter' ? (E.selItem ? 'item' : defaultVerb(t.def)) : 'look'); return;
+    }
     if (e.key === 'Escape' || e.key === '.' || e.key === ' ') { if (E.skipFn) { E.skipFn(); e.preventDefault(); } return; }
     if ((e.key === 'i' || e.key === 'I') && !E.still) invBar.classList.toggle('show');
     if ((e.key === 'h' || e.key === 'H') && !e.ctrlKey && !e.metaKey && !e.altKey && $('#title').classList.contains('hidden')) showHotspots();
     if ((e.key === 'n' || e.key === 'N') && !e.ctrlKey && !e.metaKey && !e.altKey && $('#title').classList.contains('hidden')) E.readItem('notebook'); // (not on the title screen)
     const n = parseInt(e.key, 10);
     if (E.dialogResolve && n >= 1) { const btn = dialogEl.querySelectorAll('button')[n - 1]; if (btn) btn.click(); }
+    else if (n >= 1 && invBar.classList.contains('show')) { const slot = E.invEl.querySelectorAll('.slot')[n - 1]; if (slot) slot.click(); } // (the inventory open: 1-9 pick an item)
   });
 
   async function runHandler(h, ctx) {

@@ -77,7 +77,11 @@
     c.style.animationDuration = dur + 'ms';
     c.classList.add('on'); await wait(dur); c.classList.remove('on');
   }
-  function showModal(id, on) { $('#' + id).classList.toggle('hidden', !on); }
+  function showModal(id, on) {
+    const m = $('#' + id); m.classList.toggle('hidden', !on);
+    // a modal that opens takes the keyboard: its first button has the focus (Enter answers it)
+    if (on) setTimeout(() => { const b = m.querySelector('button:not([disabled]), input, [tabindex]'); if (b && !m.classList.contains('hidden')) b.focus({ preventScroll: true }); }, 50);
+  }
   // Effects: Full (mesh warp, GPU light and depth parallax) or Light (flat frames, no parallax). Automatic until
   // the player picks one; a slow device drops to Light by itself (render.js). Kept per browser.
   const FX_KEY = 'drowned-bell-effects';
@@ -94,7 +98,26 @@
     b.onclick = e => { e.stopPropagation(); setEffects(window.WARP === false, true); syncOptions(); toast('Effects: ' + (window.WARP === false ? 'Light' : 'Full')); };
     menu.insertBefore(b, $('#opt-save'));
   })();
+  // Text size (captions, choices, hover names) and Motion (calm: no camera drift, rocking boat or panning paintings),
+  // kept per browser; Motion starts from the device's reduced-motion setting
+  const TEXT_KEY = 'drowned-bell-text', MOTION_KEY = 'drowned-bell-motion';
+  const SIZES = [['Small', 0.85], ['Medium', 1], ['Large', 1.25]];
+  const pref = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const keep = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } };
+  let textI = Math.max(0, SIZES.findIndex(s => s[0] === pref(TEXT_KEY))); if (pref(TEXT_KEY) == null) textI = 1;
+  const applyText = () => document.documentElement.style.setProperty('--cap', SIZES[textI][1]);
+  const sysCalm = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
+  const applyMotion = () => { window.CALM = pref(MOTION_KEY) ? pref(MOTION_KEY) === 'calm' : sysCalm(); document.body.classList.toggle('calm', !!window.CALM); };
+  applyText(); applyMotion();
+  (function settingButtons() {
+    const menu = $('#menu'); if (!menu || $('#opt-text')) return;
+    const add = (id, fn) => { const b = document.createElement('button'); b.id = id; b.onclick = e => { e.stopPropagation(); fn(); syncOptions(); }; menu.insertBefore(b, $('#opt-save')); };
+    add('opt-text', () => { textI = (textI + 1) % SIZES.length; keep(TEXT_KEY, SIZES[textI][0]); applyText(); });
+    add('opt-motion', () => { keep(MOTION_KEY, window.CALM ? 'full' : 'calm'); applyMotion(); });
+  })();
   function syncOptions() {
+    if ($('#opt-text')) $('#opt-text').textContent = 'Text: ' + SIZES[textI][0];
+    if ($('#opt-motion')) $('#opt-motion').textContent = 'Motion: ' + (window.CALM ? 'Calm' : 'Full');
     $('#opt-music').classList.toggle('off', !Sound.musicOn);
     $('#opt-voice').classList.toggle('off', !Sound.voiceOn);
     const fx = $('#opt-fx'); if (fx) fx.classList.toggle('off', window.WARP === false);
