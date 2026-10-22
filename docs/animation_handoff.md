@@ -35,25 +35,15 @@ code and the user.
 - **The shop keeps its original painting** (entry 47: three redraw attempts, the user said "keep the original one").
 
 ### Open, in the order I'd suggest
-A. **The cut-out audit: done, waiting for the user's approval** (entry 48). The user: "review every (including the
-   background ones) sprite in the game, and make sure that they are perfect cutouts without a single pixel of a
-   background left". An agent checked all 731 frames the game can draw (art/sprites 499, bath_new 61, duarte_new 16,
-   the 155 approved candidates; the 2,198 face patches had no key colour) with `scripts/cutout_audit.py`. 424 had
-   visible leftovers (pale/grey halo 330, haze 122, specks 85, key colour 14, trapped studio white between arms,
-   chair rails, the menders' nets, ~53; 11 cut off at the canvas edge). 716 cleaned candidates in
-   `art/review/cutout/sprites/` (alpha and edge colour only, same canvas and placement; `summary.md` has the
-   per-frame list, `fixes.json` the settings, `before_after/` the sheets). I checked the riskiest sheets by eye
-   (card players, the laundry woman, Pessoa, the washerwoman's hand-set box): they look right.
-   - Review board: https://claude.ai/artifact/2aTv6kXEf253d63Ppg9AH5 (groups: background extras, cast, Alan, the
-     new bath, pair paintings; "approve the group" plus per-frame reject with a note; decisions in collection
-     `cutout`: docs `g_<group>` with `decision`, `f_<frame>` with `rejected` and `note`). "Only frames worth a
-     closer look" shows the 96 with hand-set boxes, deep clears, edge crops or notes.
-   - To apply what's approved: copy each approved frame from `art/review/cutout/sprites/` over its source (for
-     art/sprites, `art/sprites/<k>.webp`; for bath_new / duarte_new / candidates, their own folder: see each file's
-     `src` in `report.json`), then `node scripts/build-manifest.mjs`, validate, smoke. Face patches don't need a
-     rebuild (the paint is unchanged). The 11 edge-cut frames need a re-cut from source; not done.
-   - Open doubts from the agent: npc_tourists(_b) keep a faint pale rim on the bare legs; a white pixel or two left
-     in npc_washer2_wink's cleared pocket.
+A. **The cut-out audit: applied** (entry 48; the user: "I approve it all"). The 716 cleaned frames from
+   `art/review/cutout/sprites/` written over their sources (art/sprites 496, the 155 candidates, bath_new 49,
+   duarte_new 16), re-encoded WebP q90 with lossless alpha (checked identical to the cleaned alpha) and exact RGB under
+   transparency: 73.2 MB -> 33.4 MB. Canvas and placement unchanged, so js/sprites.js, morphs and faces stand. Manifest
+   rebuilt, validate 0 errors, smoke intro, bench, laundry, tavernafter, fado, sepit, vascostore, romance, visitguitar,
+   bath, copbed, coldopen pass. Board: https://claude.ai/artifact/2aTv6kXEf253d63Ppg9AH5. **Not deployed yet.**
+   Left: the 11 frames cut off at the canvas edge need a re-cut from source (alan_undress4, alan_untie, alan_wash1,
+   alan_wring, celeste_wring1/2, cop_bed3/4, pair_guitar_undress2, alan_walk7_s1/s2); npc_tourists(_b) keep a faint
+   pale rim on the bare legs.
 B. **The woman under the washing (Lavadouro).** The story asks for three frames she never had: `npc_laundry_sniff`
    (her "Wasted on the girls" remark), `_mutter`, `_smirk` (ch2.js). Painted for review in `art/review/laundry/`; the
    user rejected the card with "i think she had more sprites". She has eight in the game (idle, glance, peg, shake,
