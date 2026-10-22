@@ -68,11 +68,14 @@
       const hov = $('#hover'); if (p.walking && (!hov || hov.style.display === 'none')) { misses = misses.filter(m => t0 - m < 25000).concat(t0); if (misses.length >= 3) tip('hotspots'); }
     }, 60);
   }, true);
+  ['keydown', 'touchstart'].forEach(ev => window.addEventListener(ev, () => { lastAct = performance.now(); }, { passive: true }));
   // stuck: a minute without acting shows the hotspots tip; three minutes with no story flag changing (Ch. I-IV) suggests Inês
   let flagsSig = '', flagsAt = performance.now();
+  // (both clocks run only while the player has control: the title, a scene or a line don't count as being stuck)
   setInterval(() => {
-    if (!E.state || !E.room || !free()) return;
-    const now = performance.now(), f = E.state.flags, sig = Object.keys(f).length + ':' + JSON.stringify(f).length;
+    const now = performance.now();
+    if (!E.state || !E.room || !free()) { lastAct = now; flagsAt = now; return; }
+    const f = E.state.flags, sig = Object.keys(f).length + ':' + JSON.stringify(f).length;
     if (sig !== flagsSig) { flagsSig = sig; flagsAt = now; }
     if (now - lastAct > 60000) tip('hotspots');
     if ((f.ch || 1) < 5 && now - flagsAt > 180000 && store.seen.includes('hotspots')) tip('ines');

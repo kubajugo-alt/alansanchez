@@ -1,5 +1,5 @@
 // First-time tips (js/engine/tips.js): each shows once at its moment, never over a line, and the menu turns them off.
-//   node scripts/tests/tips.mjs [baseUrl]
+//   [DELAY_MS=65000] node scripts/tests/tips.mjs [baseUrl]
 import { createRequire } from 'module';
 const require = createRequire('/opt/node22/lib/node_modules/');
 const { chromium } = require('playwright');
@@ -10,6 +10,8 @@ const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } })
 const page = await ctx.newPage(); const errs = []; page.on('pageerror', e => errs.push(e.message));
 await page.addInitScript(() => { window.FAST = true; });
 await page.goto(base, { waitUntil: 'load' }); await page.waitForSelector('#title.ready');
+// DELAY_MS: sit on the title first (a slow connection, a player who waits): the idle clocks must not count it
+if (process.env.DELAY_MS) await page.waitForTimeout(+process.env.DELAY_MS);
 await page.evaluate(() => Game.begin(true));
 await page.waitForFunction(() => Game.room && Game.room.id === 'shop' && !Game.isBusy && !Engine.cutscene && !Engine.still, null, { timeout: 300000, polling: 300 });
 await page.evaluate(() => { window.FAST = false; });
