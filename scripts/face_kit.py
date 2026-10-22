@@ -13,14 +13,35 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # whose faces: FACE_CHAR=vasco python3 scripts/face_kit.py find ... (Alan by default). Another character's frames are his
 # own solo paintings; in the pair paintings his face is the partner's set '<frame>__<speaker id>' (FACE_CHAR=cop: 'phone')
 CHAR = os.environ.get('FACE_CHAR', 'alan')
+# the rest of the speaking cast (2026-10-22, the user: every sprite with a visible mouth can talk): FACE_CHAR -> (their
+# sprites' prefixes, who the head is for Gemini, a woman). Their solo frames only: no pair paintings.
+CAST = {
+    'rui': (('rui',), 'the head of Inspector Rui Mendonca, a police detective in his forties', False),
+    'amalia': (('amalia',), 'the head of Dona Amalia, an 81-year-old fado singer', True),
+    'tomas': (('tomas',), 'the head of Father Tomas, a priest in his fifties', False),
+    'lacerda': (('lacerda', 'robe_'), 'the head of Vicente Lacerda, a 52-year-old antiquarian', False),
+    'celeste': (('celeste',), 'the head of Dona Celeste, a 70-year-old washerwoman', True),
+    'ze': (('ze', 'ze_'), 'the head of Ze, a fisherman in his thirties', False),
+    'abilio': (('abilio',), 'the head of Senhor Abilio, an 81-year-old bell-ringer', False),
+    'lino': (('lino', 'npc_lino'), 'the head of Lino, a double-bass player', False),
+    'cards': (('npc_cards', 'cards_'), 'the head of an old man playing cards in a tavern', False),
+    'fish': (('npc_fish',), 'the head of a fish seller at the harbour', False),
+    'mender1': (('npc_mender1',), 'the head of a fisherman mending nets', False),
+    'mender2': (('npc_mender2',), 'the head of a fisherman mending nets', False),
+    'nun': (('npc_nun',), 'the head of a nun', True),
+    'washer1': (('npc_washer1',), 'the head of a washerwoman', True),
+    'washer2': (('npc_washer2',), 'the head of a washerwoman', True),
+    'laundry': (('npc_laundry',), 'the head of a woman hanging out laundry', True),
+    'bench': (('npc_bench',), 'the head of an old man on a bench', False),
+}
 WORK = os.path.join(ROOT, f'art/review/{CHAR}/faces/')
 DESC = {'alan': 'the head of Alan, a man with dark curly hair, clean-shaven',
         'vasco': 'the head of Vasco, a man in his thirties with dark tousled hair and light stubble',
         'ines': 'the head of Inês, a young woman with long dark curly hair, red-framed glasses pushed up on her head and gold hoop earrings',
         'cop': 'the head of Officer Teixeira, a young policeman with short dark hair and a navy police cap',
-        'guitar': 'the head of Duarte, a guitarist in his thirties with short dark curly hair and a thin moustache'}[CHAR]
+        'guitar': 'the head of Duarte, a guitarist in his thirties with short dark curly hair and a thin moustache'}.get(CHAR) or CAST[CHAR][1]
 SPEAKER = {'cop': 'phone'}.get(CHAR, CHAR)   # the speaker id in js/lines.js, which names a partner's set in a pair painting
-SHE = CHAR in ('ines',)   # the prompts are written for a man: these get her / she
+SHE = CHAR in ('ines',) or CAST.get(CHAR, (0, 0, False))[2]   # the prompts are written for a man: these get her / she
 
 
 def pron(t):
@@ -56,9 +77,10 @@ def sprite_file(fr):
     return os.path.join(ROOT, REVIEW_SRC[fr]) if fr in REVIEW_SRC else f'{ROOT}/art/sprites/{fr}.webp'
 
 
-# the new scenes' frames on screen while someone speaks get mouths; the rest of them blink only
+# the new scenes' frames: every one with a visible mouth gets mouths too, ready for any line written over it later
+# (the user, 2026-10-22); a face with nothing to say still blinks
 NEW = set(REVIEW_SRC)
-TALKS = {'alan_bn_fling', 'pair_duarte_book', 'pair_duarte_terms', 'pair_duarte_lesson', 'pair_duarte_jackets', 'pair_duarte_shirts', 'duarte_dn_stand'}
+TALKS = NEW
 
 
 # Teixeira's frames don't share a prefix (npc_phone_* at the station, cop_* on his visit): the ones the game uses now
@@ -68,15 +90,18 @@ COP = ['npc_phone_door1', 'npc_phone_door2', 'npc_phone_door3', 'npc_phone_door4
 
 
 def own(fr):
-    if CHAR == 'guitar': return fr.startswith(('duarte_dn_', 'npc_guitar'))
+    if CHAR == 'guitar': return fr.startswith(('duarte_dn_', 'npc_guitar', 'guitar_', 'duarte_play'))
+    if CHAR in CAST: return fr.startswith(CAST[CHAR][0])
     return fr in COP if CHAR == 'cop' else fr.startswith(CHAR)
 
 
 def frames():
-    if CHAR == 'cop':   # his solo set, and the pair paintings he's in (pair_cop_*)
-        return COP + sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith('pair_cop_'))
-    if CHAR == 'guitar':  # Duarte: his solo frames by the bed and the new pair paintings (his reference face: his guitar set)
-        return sorted(k for k in NEW if k.startswith(('duarte_dn_', 'pair_duarte_'))) + ['npc_guitar']
+    solo = lambda pre: sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith(pre))
+    if CHAR == 'cop':   # his solo set (and the station's and bedside frames), and the pair paintings he's in (pair_cop_*)
+        return COP + [f for f in solo(('npc_phone', 'cop_side', 'cop_walk')) if f not in COP] + sorted(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith('pair_cop_'))
+    if CHAR == 'guitar':  # Duarte: his solo frames (the tavern, the visit, the floor, by the bed) and the new pair paintings
+        return sorted(k for k in NEW if k.startswith(('duarte_dn_', 'pair_duarte_'))) + solo(('npc_guitar', 'guitar_', 'duarte_play'))
+    if CHAR in CAST: return solo(CAST[CHAR][0])
     mine = ('alan_', 'pair_') if CHAR == 'alan' else (CHAR + '_', CHAR + '.', f'pair_{CHAR}_')  # his own, and the pairs he's painted into
     return sorted(set(f[:-5] for f in os.listdir(ROOT + '/art/sprites') if f.endswith('.webp') and f.startswith(mine)) | {k for k in NEW if k.startswith(mine)})
 
@@ -154,7 +179,8 @@ NO_MOUTH = {'ines_act_dust_a', 'ines_act_dust_b', 'ines_act_kettle_a', 'ines_act
             'vasco_laugh', 'vasco_kneel_down', 'vasco_coffee_sip', 'vasco_act_notes_b', 'vasco_callup', 'vasco_crouch', 'vasco_kneel_look',
             'vasco_act_bag_a', 'vasco_act_bag_b', 'vasco_act_brush_a', 'vasco_act_notes_a', 'vasco_act_sherd_a', 'vasco_act_sherd_b',
             'vasco_act_sieve_a', 'vasco_act_sieve_b', 'vasco_act_trowel_a', 'vasco_act_trowel_b', 'alan_smoke_exhale', 'alan_smoke_hold', 'alan_smoke_inhale', 'alan_smoke_light', 'alan_yawn', 'alan_asleep',
-            'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss'}
+            'pair_brow', 'pair_cop_neck', 'pair_vasco_kiss',
+            'amalia_sing1', 'amalia_sing2', 'amalia_sing3', 'amalia_sing4', 'amalia_sing5', 'rui_smoke'}  # her painted singing mouth; his cigarette
 NO_EYES = {'ines_act_read_a', 'ines_act_read_b', 'ines_act_kettle_a', 'ines_act_kettle_b', 'ines_act_ledger_a', 'ines_act_shelve_b',
            'ines_write', 'ines_eyeroll', 'ines_laugh', 'ines_steam',
            'vasco_kneel_down', 'vasco_crouch', 'vasco_kneel_look', 'vasco_act_brush_a', 'alan_asleep', 'alan_wash1', 'alan_wash2', 'alan_wash4', 'alan_wash5', 'alan_wash6', 'alan_wash_surface', 'alan_swoon',
