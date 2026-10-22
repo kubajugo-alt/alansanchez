@@ -16,6 +16,8 @@ STYLE = ('Match the reference images exactly: same painted 1990s point-and-click
          'same line weight, same colour palette, same lighting and proportions. '
          'Change only what the prompt asks for.')
 KEY_RGB = (0, 177, 64)  # flat chroma green behind every reference; keyed out of the result
+KEY_NAME = 'green'  # --key magenta for subjects painted green (the bench man's park bench)
+KEYS = {'green': (0, 177, 64), 'magenta': (255, 0, 255)}
 # USD per 1M tokens (ai.google.dev pricing, standard tier)
 PRICE = {'gemini-nano-banana-2.1': (1.50, 7.50, 30.00), 'gemini-3-pro-image': (2.00, 12.00, 120.00),
          'gemini-3.1-flash-lite-image': (0.25, 1.50, 30.00)}
@@ -62,10 +64,11 @@ def key_out(im):
     """Flat green background -> alpha, with despill on the edge pixels."""
     a = np.asarray(im.convert('RGB')).astype(np.float32)
     r, g, b = a[..., 0], a[..., 1], a[..., 2]
-    green = g - np.maximum(r, b)                      # how much greener than the other channels
+    green = g - np.maximum(r, b) if KEY_NAME == 'green' else np.minimum(r, b) - g  # how far toward the key colour
     alpha = np.clip(1 - (green - 25) / 60, 0, 1)      # solid >= 85 over, opaque <= 25 over
     spill = np.clip(green, 0, None) * (alpha < 1)     # pull the leftover green out of the fringe
-    a[..., 1] -= spill * 0.85
+    if KEY_NAME == 'green': a[..., 1] -= spill * 0.85
+    else: a[..., 0] -= spill * 0.85; a[..., 2] -= spill * 0.85
     out = np.dstack([np.clip(a, 0, 255), alpha * 255]).astype(np.uint8)
     out = Image.fromarray(out, 'RGBA')
     # keep only the largest connected figure (drops stray specks)
@@ -191,12 +194,14 @@ def main():
     p.add_argument('--prompt', required=True)
     p.add_argument('--out', required=True, help='output PNG path (under art/review/)')
     p.add_argument('--model', default=MODEL)
+    p.add_argument('--key', default='green', choices=list(KEYS), help='background key colour (magenta when the subject is green)')
     p.add_argument('--size', default='2K', choices=['1K', '2K'])
     p.add_argument('--no-frame', action='store_true', help='skip anchor/size matching (e.g. close-ups)')
     p.add_argument('--no-palette', action='store_true', help='new pose with different clothes: skip the whole-figure colour match')
     p.add_argument('--still', action='store_true', help='a full-screen painting (stills, close-ups): sent as it is, no key colour, returned at its own size')
     p.add_argument('--match-height', action='store_true', help='solo in-betweens: scale the figure to the mean height of the --ref sprites (Gemini sometimes paints him smaller)')
     a = p.parse_args()
+    global KEY_RGB, KEY_NAME; KEY_NAME, KEY_RGB = a.key, KEYS[a.key]
 
     from google import genai
     client = genai.Client(api_key=api_key(), http_options={'timeout': 240_000})
@@ -206,7 +211,7 @@ def main():
     style = [s for s in style if os.path.basename(s).split('.')[0] != os.path.basename(a.ref[0]).split('.')[0]]
     text = (f'{STYLE}\n\nThe FIRST image is the character to edit. The other images are style references only. '
             f'Keep exactly the same person, clothes, face and proportions as the first image. '
-            f'Full figure, head to feet, nothing cropped, on a perfectly flat plain green background '
+            f'Full figure, head to feet, nothing cropped, on a perfectly flat plain {KEY_NAME} background '
             f'(RGB {KEY_RGB}) with no shadow, floor or scenery.\n\nEdit: {a.prompt}')
     if a.still:
         text = (f'{STYLE}\n\nThe FIRST image is a full-screen painting from the game to edit. The other images are references '
