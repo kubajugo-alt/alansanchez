@@ -65,6 +65,12 @@ Done when the last tape has been heard (`bastos_done`).
 | Bronze trident (Greece) | a trident | Deucalion and Pyrrha; every flood ends in a bargain | Bargaining with the sea |
 | White roses and a toy boat (Bahia, Brazil) | a rose | Iemanjá; Inês's avó | The sea is thanked, not owned |
 
+### Art (Canva media ids, for the review)
+
+Room: MAHYw-NyuDY (approved). Recorder close-up: MAHYwwEQlyI (approved). Objects (on grey, to be cut out):
+Tara idol + pintadera MAHYw0JcnW4 · Ys bell MAHYw-ekcgo · Rán float + ring MAHYw5z_HKQ · tide jewels MAHYw1jY5N8 ·
+Gilgamesh tablet MAHYw3voGKw · Matsya MAHYwxed5ns · trident MAHYw2Zn8Rs · Iemanjá boat MAHYw7Hlydc.
+
 ## The script
 
 Tags in [brackets] are performance directions (not shown on screen). ★ marks Alan's double-meaning jokes; (no joke)
