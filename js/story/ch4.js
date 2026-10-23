@@ -15,7 +15,7 @@
     await say('ines_kettle', 'alan_ledger_with_ines');
     await say('alan_thanks_ines', 'ines_worried');
     await say('ines_later'); // she's found something about Lacerda's father: it comes back in the cistern
-    G.setClock('17:15');
+    G.setClock('17:20'); // Inês: "It's twenty past five"
     G.autosave(); // a reload after this point must still find the quay open
   };
 
@@ -93,7 +93,7 @@
       return say('fish_talk_1', 'alan_fish_1', 'fish_talk_2');
     }
     if (F().fish_remark) return say('fish_after', 'alan_after_fish');
-    await say('fish_after', 'alan_after_fish');
+    await say(F().chat_fish ? 'fish_after' : 'fish_after_first', 'alan_after_fish'); // "browsing again" only if he told her he was browsing
     F().fish_remark = true;
     const p = G.player;
     await say('fish_remark');
@@ -302,8 +302,8 @@
       }
     },
     npcs: [
-      { id: 'ze', x: 740, y: 640, dir: 'w', name: 'Zé Coutinho', look: 'narr_look_ze', talk: () => F().ze_saved ? say('ze_river', 'ze_river_2') : say('ze_justdo'),
-        items: { sanches_fragment: () => S.fragmentToZe(), any: 'alan_fail_ze_item' } },
+      { id: 'ze', x: 740, y: 640, dir: 'w', name: 'Zé Coutinho', look: 'narr_look_ze', talk: () => F().ze_saved ? say('ze_river', 'ze_river_2') : say('ze_talk_bunk'), // ze_justdo answers alan_ask_tongue
+        items: { sanches_fragment: () => S.fragmentToZe(), any: () => say(F().ze_saved ? 'alan_fail_09' : 'alan_fail_ze_item') } }, // after the romance he doesn't want Alan off his boat
     ],
     hotspots: [
       { name: 'Photograph', rect: [1067, 160, 64, 117], look: 'narr_look_maria' },

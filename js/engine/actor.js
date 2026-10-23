@@ -575,6 +575,7 @@
       const X0 = this.x + U.x, Y0 = this.y + U.y + sinkPx;
       g.save();
       if (sinkPx) { g.beginPath(); g.rect(0, 0, W, this.y); g.clip(); }
+      if (this.rot) { const cy = this.y - h * 0.5; g.translate(this.x, cy); g.rotate(this.rot); g.translate(-this.x, -cy); } // a figure in the air (Inês thrown)
       // the painting is drawn through a mesh that bends with the figure: breath, sway, head, steps
       const still = (x, y) => [x, y]; // a combined sprite goes through the light pass unbent
       const warped = !window.FAST && window.Warp && (!rigid || LP) && Warp.draw(g, lit, bw, bh, X0, Y0, rigid ? still : this.motion(h, -U.x, feetBy, E.SPRITES[key], b, key), rigid ? 0 : h * 0.1, LP);

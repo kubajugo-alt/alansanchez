@@ -153,8 +153,9 @@
   S.exhibit = async function (id) {
     const ex = EXHIBITS[id], seen = F().se_seen || (F().se_seen = {});
     const ines = G.npc('ines');
-    // without Inês to explain, Alan only has his half of it
-    const lines = ines && ines.visible ? ex.lines : ex.lines.filter(l => l.startsWith('alan_'));
+    // without Inês to explain, Alan only has his half of it (and where his half answers hers, a version that quotes her)
+    const SOLO = { alan_gold: 'alan_gold_solo', alan_saudade: 'alan_saudade_solo' };
+    const lines = ines && ines.visible ? ex.lines : ex.lines.filter(l => l.startsWith('alan_')).map(l => SOLO[l] || l);
     // Alan goes up to the exhibit, and she comes over to it too rather than lecturing him from across the room
     const spot = (G.room.hotspots || []).find(h => h.at && /S\.exhibit\('(\w+)'\)/.exec(String(h.look)) && RegExp.$1 === id), p = G.player;
     if (spot && p.visible && !window.FAST && Math.hypot(spot.at[0] - p.x, spot.at[1] - p.y) > 90) { await p.walkTo(spot.at[0], spot.at[1]); p.dir = spot.face || p.dir; }
@@ -326,9 +327,12 @@
   // ---------------------------------------------------------------- Vasco
   // his idle remarks (B10): a shuffled deck of twenty, dealt without repeats until it runs out
   S.vascoIdle = function () {
-    const f = F(); let deck = f.vasco_idle_deck;
-    if (!deck || !deck.length) {
-      deck = Array.from({ length: 20 }, (_, i) => i + 1);
+    const f = F();
+    // out of the pit (Chapter III on): none of the digging remarks
+    const pool = f.ch >= 3 ? [5, 7, 9, 11, 13, 15, 17, 18, 20] : Array.from({ length: 20 }, (_, i) => i + 1);
+    let deck = (f.vasco_idle_deck || []).filter(n => pool.includes(n));
+    if (!deck.length) {
+      deck = pool.slice();
       for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
       if (deck[0] === f.vasco_idle_last && deck.length > 1) deck.push(deck.shift()); // no repeat across a reshuffle
     }

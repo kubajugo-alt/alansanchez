@@ -6,9 +6,10 @@ Work on `master` (it carries everything; no PRs). Two sessions ran side by side 
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs branch `claude/gifted-allen-1kh10k` at `fe65d2c` (Netlify
-`6adb7b788dfcb77661464edb`, entry 66; merge PR kubajugo-alt/alansanchez#2 so master matches). Below: what the game
+`6adb7b788dfcb77661464edb`, entry 68); that branch is merged into master (PR kubajugo-alt/alansanchez#2), but the
+live site does not yet have master's entries 65-66 (the 24-painting walk, the cistern ending): redeploy when the user asks. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-61); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-68); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -39,7 +40,7 @@ them without checking the code and the user.
   Saves, input locks, GL context loss and touch examine made robust (entry 50).
 
 ### Open, in the order I'd suggest
-**Z. The Ludo board (entry 65):** 75 runs of Alan's movement (and Teixeira's pairs) waiting for the user's decisions on
+**Z. The Ludo board (entry 67):** 75 runs of Alan's movement (and Teixeira's pairs) waiting for the user's decisions on
    https://claude.ai/artifact/N278871yDs6XcuU5RqW5ip; apply them with `scripts/ludo_apply.py` (read the board's
    `decisions` collection first). The user's rules for Ludo: hydra only, the improve pass always, the free 1.5x upscale
    always, Alan's consistency checked on every run, forge only when hydra refuses; only frames the game uses.
@@ -96,6 +97,10 @@ D. The bench man's `npc_bench_wistful` paints him bareheaded (his cap in his han
 - **Approvals come from the user** (a review page's database, or their words in chat): the permission check
   refuses approving art on their behalf, rightly. Walks are approved on the walk editor page.
 - **Deploy only when asked**, from a clean `git archive` export (procedure under "Key files" in the archive).
+- **Sprites from 23 Oct:** Canva designs the sprites; **Ludo.ai** makes the animation sprite sheets the game uses
+  (the user: "from now on we will be using canva to design the sprites, but Ludo to create actual animation sprite
+  sheets and use these, for smoother animation"). The key is in `.env` as `LUDO_API_KEY` (git-ignored; never print,
+  commit or deploy it).
 
 ### Tools from this session (details in the entries named)
 - **Walks:** `scripts/walk_sheet.py` (Alan's sheet + fit; entries 13-14), `scripts/walk_sheet_cast.py
@@ -1289,8 +1294,42 @@ session lived in the session's scratchpad and are gone; everything that matters 
    smoke.mjs bastos, bastostapes, bastosunlock, lacthreat, twinswap pass; play.mjs `{"won":true}`, 148 steps, 987 s.
    - **Deployed** (the user: "All ok"): master `ac5421ad`, Netlify `6ada8efb8d17c96ed9001097`, from a clean
      `git archive` export (smoke `bastos` passed there); live: `/.env` 404, `ines_sea_7.mp3` 200.
+65. **Alan's 24-painting walk** (the user sent a 6x6 sheet: "replace alan's main walking sprites with these and show
+   it to me on a test board"; approved: "apply the new walking"). Frames 0-23 of the sheet are one cycle (24 = 0),
+   cut to `art/sprites/alan_w24_00..23.webp` and scaled x2.15 from 330 px cells to his 695 px height (an upscale, so
+   softer than his other paintings), one head anchor for all, feet line per frame (js/sprites.js). core.js
+   `S.WALK24` with even plant data: 0.66 of his height a cycle, measured from the sheet's planted heels; heels land on
+   paintings 5 and 17. main.js puts it in as his side walk; `?walk=old` shows the 8-painting cycle. The front, back
+   and lantern walks are unchanged. Walk lab (`?scene=walklab`): size even across the frames, the planted foot 4.4 px
+   off on average, 13.5 px at worst (the sheet's frames 3, 14, 15 jump), against 1.5/3.9 px for the old cycle.
+66. **The cistern ending, staged more naturally** (the user: "apply all the code-only fixes from the review"; the
+   review was a recorded, frame-probed run of `?scene=finalerace`). ch5.js unless named:
+   - Frames: the finale's frames (now with robe_lunge and alan_pull) are loaded before the first strike, so his
+     commanding pose shows; `robe_realise` (the old design, holding the ledger) is no longer used.
+   - Lacerda: a `race` set (core.js) keeps him commanding between moves from "...Then I'll take the hand" on.
+     Stages 2 and 3 moved to [372,520] (Inês between him and the bell) and [500,462]. Each surge gathers (a drift
+     back), launches fast and settles past its mark, with a smaller crest each time (0.42, 0.32, 0.22) and its own
+     rising-water sound; the last step onto the platform is a lunge straight into the grab, held (Alan braced in
+     `alan_pull`) through the un-ringing, "Come", the renunciation and "Let it go".
+   - The water: the stir is three small arms by Lacerda, leaning to his hand, then turning to the bell as they
+     hesitate. The throw rises at Inês's side as "Gladly" starts; she goes at its peak, in a short arc that turns her
+     over (actor.js: an actor's `rot`), into the lit water in front of the walkway ([540,500]). The ankle arms cup at
+     Alan's feet, and he glances down. The drag rises on Lacerda's own side ([585,470]), peaks as "Let it go" ends,
+     and pulls him back and down off the stone. The sink takes 3.5 s and speeds up; the whirl ring reaches his
+     chest, and it closes on the beat he goes under (last splash, `splash_4`).
+   - The bell: no swinging; after the fourth note its rings and ripples close in, the shudder grows over the 9.2 s
+     sound and stops dead, then a low rumble. `narr_ring` starts 1.5 s into the sound, and a second of silence
+     follows the sound before "Come".
+   - The room: the shake is now a shift (render.js: a room's `shake`) that knocks and dies away: surge launch and
+     landing, both splashes, a rumble when the bell goes quiet.
+   - The mark names are drawn over the figures. Sounds: crash_wave (the throw), water_seep (the ankles),
+     water_drain (the stir slumping back, the final drain), water_lap under Inês afloat. At the end she swims to
+     the floor's edge and climbs out, instead of appearing there.
+   - Not done (new art or recordings, need approval): an angry Lacerda talking, him dragged with a fist still closed,
+     Alan's strike follow-through, Inês tumbling or gasping, voice efforts. Open question for the user:
+     `alan_ringback` ("Let's start with you") plays after the fourth note.
 
-65. **Ludo.ai movement for Alan (and Teixeira's pairs): 75 runs, 776 frames, on the Ludo board** (the user, 23 Oct:
+67. **Ludo.ai movement for Alan (and Teixeira's pairs): 75 runs, 776 frames, on the Ludo board** (the user, 23 Oct:
    "create new sprites for Alan, including transitions ... fully smooth animations in all cases ... exported
    upscaled"; then "Always do the free 1.5x upscale, always use hydra ..., always use 'improve details' and always
    review if Alan looks consistent ... all Alan movements within the Ludo budget. Don't do the sprites that are not
@@ -1327,7 +1366,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
      side walk wants a try in the game before it replaces the user's; faces: run frames have no mouth or eyelids
      (short, so the mouth rests during them). Other characters' pairs (Duarte, Zé, Vasco) not started: no credits.
 
-66. **Faces on the Ludo frames; the climb out of the Sé pit** (the user: "Check if the existing mouth movement and blinking
+68. **Faces on the Ludo frames; the climb out of the Sé pit** (the user: "Check if the existing mouth movement and blinking
    works with the current sprites. Maybe we can re-use assets created for Alan"; "fix the Climb ... Canva ... Ludo ...
    when Alan climbs out of the pit"; "don't use the ladder"; the side-on paintings "will not work with the pit"; chose
    "over the near rim, facing us"; "the sequence ... seems to be cutting alan's head"; "once you're finished, deploy").

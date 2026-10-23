@@ -78,15 +78,21 @@
     // the whole opening, from the fog over Lisbon to Inês waking Alan
     intro: { flags: { ch: 1, clock: '11:00' }, room: 'shop', pos: [815, 616, 'e'], run: () => opening() },
     romance: { flags: { ch: 4, ze_awake: true, ze_believes: true, ze_in_cabin: true, ze_saved: true }, room: 'cabin', pos: [560, 640, 'e'], run: () => S.romance() },
-    // the ending: hand Lacerda the ledger, then the last strike (the puzzle in between is skipped)
+    // the ending: free Inês, light the bell, then the last strike with Lacerda already up the walkway (the race is skipped)
     finale: { flags: { ch: 5, tomas_confessed: true }, room: 'cistern', pos: [520, 640, 'e'], run: async () => {
-      G.giveItem('ledger', true); G.giveItem('tongue', true);
-      await S.giveLedger(); await G.wait(window.FAST ? 20 : 1500);
-      G.giveItem('lantern', true); G.giveItem('knife', true);
+      G.giveItem('tongue', true); G.giveItem('lantern', true); G.giveItem('knife', true);
       await S.cutRopes(); await S.giveLantern();
-      Object.assign(F(), { blood: true, struck: ['sanches', 'coutinho', 'bastos'], strikes: 3, water: 2 });
+      Object.assign(F(), { blood: true, struck: ['sanches', 'coutinho', 'bastos'], strikes: 3, water: 3, lac_stage: 3 });
+      const lac = G.npc('lacerda'); if (lac) { lac.x = 500; lac.y = 462; lac.def.fixedDir = false; lac.dir = 'e'; lac.set = 'race'; } // (ch5.js STAGES[3])
       await G.wait(window.FAST ? 20 : 700);
       await S.strike('ferreira');
+    } },
+    // the whole rite from the first note: the race along the walkway, the living water, the end
+    finalerace: { flags: { ch: 5, tomas_confessed: true }, room: 'cistern', pos: [520, 640, 'e'], run: async () => {
+      G.giveItem('tongue', true); G.giveItem('lantern', true); G.giveItem('knife', true); G.giveItem('ledger', true);
+      await S.giveLedger();
+      await S.cutRopes(); await S.giveLantern(); await S.cutPalm();
+      for (const id of ['sanches', 'coutinho', 'bastos', 'ferreira']) { await G.wait(window.FAST ? 20 : 1200); await S.strike(id); }
     } },
     // the quay gossip (Rosa and the old mender) and Lacerda's threat about Vasco
     bench: { flags: { ch: 2, heard_machine: true }, room: 'street', pos: [860, 640, 'e'], run: () => S.benchTalk() },
@@ -316,6 +322,8 @@
     // a character's new walk goes in whole or not at all: its frames mixed with the old ones lose the alternating legs
     const walkAll = ch => { const w = S.REVIEW.candidates.filter(c => c.char === ch && c.wire && c.wire.walkSlot != null); return w.length > 0 && w.every(c => ok(c.id)); };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c.wire && c.wire.walkSlot != null ? Object.assign({ walkAll: walkAll(c.char) }, c) : c, ok);
+    // Alan's 24-painting walk from the user's sheet (core.js S.WALK24), on review; ?walk=old shows the cycle before it
+    if (new URLSearchParams(location.search).get('walk') !== 'old' && S.WALK24.every(k => window.SPRITES[k])) S.CHARS.alan.frames.walk = S.WALK24.slice();
     // ?walk=a: the walk plan's step A, for review (not the game's default): Alan back on his first 8-painting cycle,
     // moving at a steady speed (no foot lock), every painting held alike, cut between them, the bob once per step
     if (new URLSearchParams(location.search).get('walk') === 'a') { window.WALK = S.WALK_A; S.CHARS.alan.frames.walk = S.WALK_ORIGINAL.alan.slice(); }

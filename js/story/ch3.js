@@ -160,13 +160,17 @@
     await posed('read', async () => {
       await say('alan_rite_1');
       await G.say('narr_rite_2', { offscreen: true });
+    });
+    // Tomás answers the rite where it's read (building on Bastos's tape), then Joaquim's page and Alan's "He ran" sit together
+    const tm = G.npc('tomas');
+    if (tm) tm.engaged++;
+    await say('tomas_renounce', 'tomas_order');
+    if (tm) tm.engaged--;
+    await posed('read', async () => {
       await say('alan_page3_read');
       await G.say('narr_page3', { offscreen: true });
     });
-    await say('tomas_renounce'); // moved here from the Bells topic: "At a baptism you renounce"
     await say('alan_page3', 'alan_surname');
-    const tm = G.npc('tomas'); if (tm) { tm.engaged++; await say('tomas_order'); tm.engaged--; }
-    else await say('tomas_order');
     // the midpoint: Tomás offers him the way out his grandfather took
     if (tm) tm.engaged++;
     await say('tomas_go_home', 'alan_choice');
@@ -266,11 +270,11 @@
       } },
       { label: 'Write: "And the tongue?"', once: true, when: () => F().heard_blood, run: async () => { await read(700); await say('abilio_tongue'); } },
       // the sketch from Lacerda's case: the drowned bell's tongue, and its twin in the Sé reserve
-      { line: 'alan_w_sketch', once: true, when: () => F().tongue_sketched && !F().knows_twin, run: () => S.abilioSketch(read) },
+      { line: 'alan_w_sketch', once: true, when: () => F().tongue_sketched && !F().knows_twin && !!F().abilio_joaquim, run: () => S.abilioSketch(read) }, // he names Joaquim: not to a stranger
       { line: 'alan_w_joaquim', once: true, run: async () => { await read(700); await say('abilio_joaquim', 'gag_abilio_1', 'gag_alan_abilio', 'gag_abilio_2'); F().abilio_joaquim = true; } },
-      { line: 'alan_w_1955', once: true, run: async () => { await read(700); await say('abilio_1955'); } },
+      { line: 'alan_w_1955', once: true, when: () => !!F().abilio_joaquim, run: async () => { await read(700); await say('abilio_1955'); } },
       { line: 'alan_w_backward', once: true, run: async () => { await read(700); await say('abilio_backward_2'); } },
-      { line: 'alan_w_order', run: async () => { await read(600); ab.pose = 'point'; await say('abilio_eyes'); ab.pose = null; } },
+      { line: 'alan_w_order', when: () => !BELLS.every(x => F()['bell_' + x.id]), run: async () => { await read(600); ab.pose = 'point'; await say('abilio_eyes'); ab.pose = null; } },
       { label: 'Goodbye.', bye: true, run: async () => { p.pose = null; await say('abilio_bye'); } },
     ]); } finally { p.pose = null; }
   };
@@ -410,9 +414,11 @@
         await say('lacerda_clocks');
         await joke('alan_collect');
         await say('lacerda_charming');
-        await S.showClocks();
-        F().saw_jc_clock = true;
-        await say('alan_jc');
+        if (!F().saw_jc_clock) { // already read the tags? then the reveal isn't repeated
+          await S.showClocks();
+          F().saw_jc_clock = true;
+          await say('alan_jc');
+        }
       } },
       { line: 'alan_lac_case', once: true, run: async () => { await say('lacerda_case', 'lacerda_velvet'); F().case_known = true; } },
       { line: 'alan_lac_joaquim', once: true, run: () => say('lacerda_joaquim_day') },

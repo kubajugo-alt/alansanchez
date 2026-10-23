@@ -139,11 +139,11 @@
           sfx('coin');
           await say('alan_take_coins');
         } },
-      { name: 'Answering machine', rect: [955, 366, 120, 40], at: [830, 570], face: 'e', look: () => say(F().heard_machine ? 'narr_look_machine_heard' : 'narr_look_machine'), use: () => S.playMachine() },
+      { name: 'Answering machine', rect: [955, 366, 120, 40], at: [830, 570], face: 'e', look: () => say(F().ch >= 5 && !F().heard_msg3 ? 'narr_look_machine' : F().heard_machine ? 'narr_look_machine_heard' : 'narr_look_machine'), use: () => S.playMachine() }, // blinking again in Chapter V, until message 3
       { name: 'Telephone', rect: [1062, 340, 66, 58], at: [830, 570], face: 'e', look: 'narr_look_phone', use: () => S.usePhone(), items: { vasco_card: () => S.callVasco() } },
       { name: 'Newspaper', rect: [1035, 400, 222, 62], at: [880, 610], face: 'e', look: () => say('narr_look_news', 'alan_news') },
       { name: 'Salt on the floor', rect: [500, 578, 520, 18], when: () => F().ch >= 5, look: 'narr_look_salt_line' },
-      { name: 'Door to the street', rect: [1025, 10, 205, 390], at: [900, 590], exit: 'street', entry: 'shop', locked: () => !F().heard_machine || (F().ch >= 5 && !F().ledger_found) || (F().ch >= 5 && F().ines_plan && !F().rui_called) || S.vascoCallDue(), lockedLine: () => F().ch >= 5 ? (!F().ledger_found ? 'alan_door_ledger' : F().rui_called ? 'alan_call_vasco_first' : 'alan_call_rui_first') : 'alan_door_first' },
+      { name: 'Door to the street', rect: [1025, 10, 205, 390], at: [900, 590], exit: 'street', entry: 'shop', locked: () => !F().heard_machine || (F().ch >= 5 && !F().heard_msg3) || (F().ch >= 5 && F().ines_plan && !F().rui_called) || S.vascoCallDue(), lockedLine: () => F().ch >= 5 ? (!F().heard_msg3 ? 'alan_ch5_hint_machine' : F().rui_called ? 'alan_call_vasco_first' : 'alan_call_rui_first') : 'alan_door_first' }, // Chapter V: the machine (it names the Carmo), then Rui
     ],
     async enter() { if (F().ch >= 5 && !F().ines_gone_seen) { F().ines_gone_seen = true; await say('alan_ines_gone'); G.tip('ch5'); } }, // (the notebook is the hint now: S.ch5Hint)
   };
@@ -185,11 +185,13 @@
     p.x = 900; p.y = 640; p.h = 58; p.pose = 'eat'; sfx('cat_eat'); // on the floor in front of the counter
     F().ledger_found = true; give('ledger');
     await say('alan_pessoa');
+    // Inês left it open at the last page: Afonso Lacerda's last words (it pays off in the cistern)
+    await posed('read', () => say('alan_read_last')); // he reads it aloud
     F().pessoa_fed = true;
   };
   S.playMachine = async function () {
     if (F().ch >= 5) {
-      if (!F().ledger_found) return say('alan_lamp_machine');
+      if (!F().ledger_found) return say('alan_take_pessoa_machine'); // the cat is still on it
       if (F().heard_msg3) return say('alan_machine_again');
       Sound.cue('lacerda_theme'); // Lacerda, on the tape
       sfx('beep');
@@ -224,7 +226,7 @@
       });
       F().rui_called = true; return;
     }
-    return say(F().ch >= 2 ? 'alan_phone_later' : 'alan_phone_ch1');
+    return say(F().ch >= 2 ? 'alan_phone_later' : F().heard_machine ? 'alan_phone_ch1' : 'alan_phone_ch1_early'); // he can't ring Rui back before he knows Rui rang
   };
 
   // Chapter V, after the call to Rui: Dr. Teles's card on the shop phone. Alan may not come back
@@ -386,7 +388,7 @@
       { name: 'Sea-monster tile', rect: [300, 230, 120, 90], at: [360, 600], face: 'n', look: () => say('narr_look_azulejo', 'alan_look_monster'),
         items: { magnifier: async () => { F().mag_monster = true; await joke('alan_mag_monster'); } } },
       { name: 'Bookshop window', rect: [30, 320, 250, 230], look: 'narr_look_shelves' },
-      { name: 'Street lamp', rect: [455, 140, 95, 410], look: 'narr_look_lamp' },
+      { name: 'Street lamp', rect: [455, 140, 95, 410], look: () => say(S.streetNight() ? 'narr_look_lamp_night' : 'narr_look_lamp') },
       { name: 'The Alfama', rect: [600, 90, 300, 440], look: 'narr_look_street' },
       { name: 'Tram', rect: [0, 560, 1280, 160], when: () => S.tramVisible(), look: 'alan_npc_tram' },
       { name: 'Livraria Sanches', rect: [322, 335, 95, 205], at: [368, 595], exit: 'shop', entry: 'street' },
@@ -531,7 +533,7 @@
     ],
     hotspots: [
       { name: 'Corkboard', rect: [275, 95, 355, 230], look: 'narr_look_board' },
-      { name: 'Filing cabinet', rect: [1105, 180, 95, 285], look: 'narr_look_cabinet' },
+      { name: 'Filing cabinet', rect: [1105, 180, 95, 285], look: () => say(F().drawer_open ? 'narr_look_cabinet_open' : 'narr_look_cabinet') },
       { name: () => F().drawer_open ? 'Open drawer' : 'Bottom drawer', rect: [1108, 465, 90, 115], at: [1150, 650], face: 'n',
         look: () => F().ch >= 2 ? joke('alan_look_drawer') : say('narr_look_cabinet'),
         use: () => F().drawer_open ? S.takeFile() : say(F().ch < 2 ? 'alan_drawer_ch1' : F().salt_seen ? 'alan_drawer_pull' : 'alan_drawer_stuck'),
@@ -554,14 +556,14 @@
           spendCoin(1); sfx('coffee_machine'); await G.wait(window.FAST ? 20 : 1800); give('coffee'); await say('alan_coin_machine');
         }, any: 'alan_fail_02' } },
       { name: 'Evidence bag', rect: [610, 340, 76, 64], at: [650, 640], face: 'n', look: 'narr_look_evidence',
-        take: () => say(!F().ruiMurders ? 'rui_hands_off' : F().sketched_tile ? 'alan_have_sketch' : 'alan_bag_draw'),
+        take: () => say(!F().ruiMurders ? 'rui_hands_off' : F().sketched_tile ? 'alan_have_sketch' : F().ch === 1 && !F().rui_out && !F().teixeira_flirt ? 'rui_hands_off_after' : F().nodraw_heard && !F().teixeira_wall ? 'teixeira_nodraw_2' : 'alan_bag_draw'), // the loophole joke only while nobody has said no
         items: { notebook: async () => {
           if (!F().ruiMurders) return say('rui_hands_off');
           if (F().sketched_tile) return say('alan_have_sketch');
           // Teixeira guards the bag while the Inspector is out, until he's looking at the wall
           if (F().ch === 1 && !F().teixeira_flirt) {
-            if (!F().rui_out) return say('rui_hands_off');
-            if (!F().teixeira_wall) return say((F().teixeira_step || 0) >= 1 ? 'teixeira_nodraw_2' : 'teixeira_nodraw'); // polite, firm: not even a picture
+            if (!F().rui_out) return say('rui_hands_off_after'); // they've talked: now it's 'not while I'm here'
+            if (!F().teixeira_wall) { const again = F().nodraw_heard || (F().teixeira_step || 0) >= 1; F().nodraw_heard = true; return say(again ? 'teixeira_nodraw_2' : 'teixeira_nodraw'); } // polite, firm: not even a picture
           }
           await posed('write', async () => { await G.wait(window.FAST ? 20 : 900); await joke('alan_sketch'); });
           F().sketched_tile = true; give('sketch');
@@ -616,7 +618,7 @@
       { line: 'alan_ask_fog', once: true, run: async () => { await say('rui_fog'); F().rui_fog_heard = true; } },
       { line: 'alan_what_now', once: true, when: () => !!F().rui_fog_heard, run: () => say('rui_mother_2') }, // his mother's message, again
       { line: 'alan_ask_theft', when: () => S.theftDue(), run: () => S.theftTalk(true) },
-      { line: 'alan_tell_ferreira', when: () => F().ch === 2 && !!F().ferreira_lit && !F().ferreira_told, run: async () => {
+      { line: 'alan_tell_ferreira', when: () => F().ch === 2 && !!F().ferreira_lit && !!F().tide_wound && !F().ferreira_told, run: async () => { // the tide clock runs only once he's wound it
         await say('rui_paper');
         F().ferreira_told = true;
         await S.takePaper();
@@ -770,9 +772,10 @@
       Sound.playMusic(G.room.music);
     } finally { am.set = null; G.cutscene = false; }
     await say('amalia_menino');
-    await say('alan_song_back'); // 'ring it back': he hears a returned call, not a rite
-    await say('amalia_baptised', 'amalia_after_song', 'amalia_face', 'alan_face_pause');
-    await joke('alan_ringer'); await say('amalia_called');
+    await say('alan_song_back'); // 'ring it backward': the song's own word, and the final puzzle's
+    await say('amalia_baptised', 'amalia_after_song');
+    await joke('alan_ringer'); await say('amalia_called'); // 'a ringer' answers 'the last of the bell-hands'
+    await say('amalia_face');
     await say('amalia_1955');
     F().heard_song = true;
     if (!G.has('glass') && !F().glassUsed) {

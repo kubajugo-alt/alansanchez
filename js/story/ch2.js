@@ -634,7 +634,7 @@
   S.talkCeleste = async function (first) {
     if (G.room.id === 'cais') return S.talkCelesteQuay();
     if (!F().met_celeste) return say('celeste_twist');
-    if (!first) { await say('celeste_hello'); await S.gossip('celeste'); }
+    if (!first) await S.gossip('celeste'); // she knows him now: the greeting was the first time only
     await G.dialog([
       // "Rui says..." only if Rui told him about the fog; otherwise an unvoiced question
       { get line() { return F().rui_fog_heard ? 'alan_ask_river' : null; }, get label() { return F().rui_fog_heard ? null : 'Tell me about the river.'; }, once: true, run: async () => {
@@ -737,7 +737,7 @@
           if (lit()) return S.done();
           sfx('match'); F().ferreira_lit = true; Sound.refreshMusic(); G.takeItem('matches');
           await G.wait(window.FAST ? 20 : 500);
-          await say('alan_lamp_lit'); await say('alan_enter_ferreira'); await say('alan_clocks');
+          await say('alan_lamp_lit'); await say('alan_clocks'); await say('alan_enter_ferreira'); // the fact, then the joke
         }, any: 'alan_dark' } },
       { name: 'Wall of clocks', rect: [100, 0, 900, 330], when: lit, look: 'narr_look_clockwall' },
       { name: 'Workbench', rect: [330, 420, 620, 190], when: lit, look: 'narr_look_workbench' },
@@ -773,11 +773,10 @@
           F().tidecardTaken = true;
           give('tidecard');
           sfx('page');
-          await say('alan_tide_card');
-          await S.readTideCard();
+          await S.readTideCard(); // the close-up introduces it (alan_look_tidecard)
           await say('alan_tide_today');
         } },
-      { name: 'Key board', rect: [917, 160, 118, 256], at: [970, 640], face: 'n', when: lit, look: 'narr_look_keyboard',
+      { name: 'Key board', rect: [917, 160, 118, 256], at: [970, 640], face: 'n', when: lit, look: () => say(...(S.bastosKeyHere() && !F().bkeyTaken ? ['narr_look_keyboard', 'narr_look_keyboard_bastos'] : ['narr_look_keyboard'])),
         take: async () => {
           if (F().vkeyTaken && (F().bkeyTaken || !S.bastosKeyHere())) return say('alan_fail_take');
           if (!F().vkeyTaken) { F().vkeyTaken = true; give('vkey'); await say('alan_spare'); }
@@ -822,7 +821,7 @@
       await G.wait(window.FAST ? 20 : 700);
       G.player.pose = 'reach'; await G.wait(window.FAST ? 20 : 450);
       F().tidecardTaken = true; give('tidecard'); sfx('page'); G.player.pose = null;
-      await say('alan_tide_card'); await S.readTideCard(); await say('alan_tide_today');
+      await S.readTideCard(); await say('alan_tide_today');
     }
   };
   // Puzzle II-D: the newspaper's tide table against Rui's times of death
