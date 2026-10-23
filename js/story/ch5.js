@@ -141,6 +141,8 @@
     ],
     self: { items: { knife: () => S.cutPalm(), any: 'alan_fail_06' } },
     async enter() {
+      // the finale's own frames, loaded now rather than when first needed (the surge, the throw, afloat, the grab)
+      G.ensure(['robe_walk1', 'robe_pass1', 'robe_command', 'robe_grab', 'robe_surge', 'robe_terror', 'ines_block', 'ines_float'].map(k => 'spr:' + k));
       if (F().finaleIntro) return;
       F().finaleIntro = true; F().water = 0; F().strikes = 0;
       Sound.cue('lacerda_theme'); // Lacerda, with Inês tied up behind him
@@ -294,20 +296,20 @@
     return true;
   };
   // fill the silhouettes on the offscreen canvas with water, then lay it (and its glow) on the room
-  let off = null, oc = null;
+  let off = null, oc = null, edge = null, ec = null;
   const pourWater = (g, t, box) => {
     const [x0, y0, x1, y1] = box.map(Math.round), w = x1 - x0, h = y1 - y0; if (w < 4 || h < 4) return;
     oc.save(); oc.beginPath(); oc.rect(x0, y0, w, h); oc.clip();
     oc.globalCompositeOperation = 'source-in';
     const gr = oc.createLinearGradient(0, y1, 0, y0);
-    gr.addColorStop(0, 'rgba(6,34,28,0.95)'); gr.addColorStop(0.5, 'rgba(18,84,64,0.82)'); gr.addColorStop(1, 'rgba(70,170,135,0.7)');
+    gr.addColorStop(0, 'rgba(4,30,24,0.94)'); gr.addColorStop(0.5, 'rgba(14,78,58,0.8)'); gr.addColorStop(1, 'rgba(60,165,128,0.7)');
     oc.fillStyle = gr; oc.fillRect(x0, y0, w, h);
     oc.globalCompositeOperation = 'source-atop';
     // the cistern behind, seen through moving water: the painting, bent sideways in bands
     const bg = G.bgImage();
-    if (bg) { oc.globalAlpha = 0.42; for (let y = y0; y < y1; y += 6) { const dx = Math.sin(y * 0.045 + t * 3.1) * 7 + Math.sin(y * 0.11 - t * 1.7) * 3; oc.drawImage(bg, x0 - 10, y, w + 20, 6, x0 - 10 + dx, y, w + 20, 6); } oc.globalAlpha = 1; }
-    // light running up it: wavy streaks climbing, and ripple bands across
-    oc.globalCompositeOperation = 'lighter';
+    if (bg) { oc.globalAlpha = 0.4; for (let y = y0; y < y1; y += 6) { const dx = Math.sin(y * 0.045 + t * 3.1) * 7 + Math.sin(y * 0.11 - t * 1.7) * 3; oc.drawImage(bg, x0 - 10, y, w + 20, 6, x0 - 10 + dx, y, w + 20, 6); } oc.globalAlpha = 1; }
+    // light running up it: wavy streaks climbing, and ripple bands across (only on the water itself)
+    oc.globalCompositeOperation = 'source-atop';
     const r = FX.rng(31);
     for (let i = 0; i < 90; i++) {
       const sx = x0 + r() * w, len = 18 + r() * 50, ph = r() * 10, sp = 60 + r() * 90;
@@ -321,16 +323,21 @@
       oc.beginPath(); oc.moveTo(bx + Math.sin(t + i) * 8, by); oc.lineTo(bx + len + Math.sin(t + i) * 8, by + Math.sin(t * 2 + i) * 2); oc.stroke();
     }
     oc.restore();
-    // onto the room: the water, a soft glow round it, and a bright thin rim
-    g.save(); g.globalAlpha = 0.92; g.drawImage(off, x0, y0, w, h, x0, y0, w, h);
-    g.globalCompositeOperation = 'lighter';
-    if (!window.FAST) { g.filter = 'blur(10px)'; g.globalAlpha = 0.3; g.drawImage(off, x0, y0, w, h, x0, y0, w, h); g.filter = 'none'; }
-    g.globalAlpha = 0.25; g.drawImage(off, x0, y0, w, h, x0, y0 - 2, w, h);
-    g.restore();
+    // its edges: a dark side (the body of it) and a lit side (the torchlight catching its skin)
+    const rim = (dx, dy, col, op) => {
+      ec.save(); ec.clearRect(x0, y0, w, h); ec.globalCompositeOperation = 'source-over'; ec.drawImage(off, x0, y0, w, h, x0, y0, w, h);
+      ec.globalCompositeOperation = 'destination-out'; ec.drawImage(off, x0, y0, w, h, x0 + dx, y0 + dy, w, h);
+      ec.globalCompositeOperation = 'source-in'; ec.fillStyle = col; ec.fillRect(x0, y0, w, h); ec.restore();
+      g.save(); g.globalCompositeOperation = op; g.drawImage(edge, x0, y0, w, h, x0, y0, w, h); g.restore();
+    };
+    g.save(); g.globalAlpha = 0.95; g.drawImage(off, x0, y0, w, h, x0, y0, w, h); g.restore();
+    rim(-4, -5, 'rgba(0,18,12,0.7)', 'source-over');
+    rim(3, 4, 'rgba(200,255,230,0.85)', 'lighter');
+    if (!window.FAST) { g.save(); g.globalCompositeOperation = 'lighter'; g.filter = 'blur(8px)'; g.globalAlpha = 0.16; g.drawImage(off, x0, y0, w, h, x0, y0, w, h); g.restore(); }
   };
   S.drawLiving = function (g, t) {
     if (!living.length) return;
-    if (!off) { off = document.createElement('canvas'); off.width = 1280; off.height = 720; oc = off.getContext('2d'); }
+    if (!off) { off = document.createElement('canvas'); off.width = 1280; off.height = 720; oc = off.getContext('2d'); edge = document.createElement('canvas'); edge.width = 1280; edge.height = 720; ec = edge.getContext('2d'); }
     const now = performance.now() / 1000;
     for (let li = living.length - 1; li >= 0; li--) {
       const L = living[li], u = (now - L.t0) / L.dur;
@@ -523,6 +530,7 @@
   const FLOAT_AT = [300, 452]; // the water behind the walkway, upper left
   S.throwInes = async function () {
     const ines = G.npc('ines'); if (!ines) return;
+    await G.ensure(['spr:ines_block', 'spr:ines_float']);
     ines.def.fixedDir = false; ines.pose = 'block';
     const x0 = ines.x, y0 = ines.y, [x1, y1] = FLOAT_AT, dur = window.FAST ? 40 : 1100, t0 = performance.now();
     sfx('water_rise', 0.9);
