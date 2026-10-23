@@ -277,6 +277,23 @@
     }
     if (W.walkStop) F.walkStop = c.id;
     if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
+    if (W.ibFps) F.ibFps = Object.assign(F.ibFps || {}, W.ibFps); // a run's own frame rate (the Ludo runs)
+    // Ludo runs for the pair paintings: from one to the next (pairRun 'a>b'), and from the two standing figures into one
+    if (W.pairRun) { F.pairRun = F.pairRun || {}; for (const [k, seq] of Object.entries(W.pairRun)) F.pairRun[k] = seq.filter(live); }
+    if (W.pairRunIn) { F.pairRunIn = F.pairRunIn || {}; for (const [k, seq] of Object.entries(W.pairRunIn)) F.pairRunIn[k] = seq.filter(live); }
+    if (W.pairRunFps) F.pairRunFps = Object.assign(F.pairRunFps || {}, W.pairRunFps);
+    // a scripted sequence of frames (the climb out of the pit): in once every frame of it is approved
+    if (W.seq) { // (a frame of the game's own, alan_front, needs no approval)
+      const cand = id => S.REVIEW && S.REVIEW.candidates.some(x => x.id === id);
+      for (const [name, ids] of Object.entries(W.seq)) if (ids.every(k => cand(k) ? ok(k) : !!window.SPRITES[k])) F[name] = ids.slice();
+    }
+    // a whole walk cycle (the Ludo walks): it takes its slot only once every frame of it is approved
+    if (W.walkCycle && W.walkCycle.ids.every(ok)) {
+      const Wc = W.walkCycle, ids = Wc.ids.slice();
+      if (Wc.plant) Object.assign(S.WALK_PLANT, Wc.plant);
+      if (Wc.slot === 'lantern') { F.sets = F.sets || {}; F.sets.lantern = Object.assign({}, F.sets.lantern, { walk: ids }); }
+      else { F[Wc.slot] = ids; if (Wc.lens) F[Wc.slot + 'Len'] = Wc.lens.slice(); }
+    }
     if (W.poses) Object.assign(F.poses, W.poses);
     if (W.pairIb) {
       F.pairIb = F.pairIb || {};

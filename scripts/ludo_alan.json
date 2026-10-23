@@ -1,0 +1,557 @@
+{
+ "runs": [
+  {
+   "name": "talk_a",
+   "a": "alan_side",
+   "b": "alan_idle2",
+   "mid": "alan_talk",
+   "what": "Standing \u2192 talking gesture \u2192 second stance (every conversation)"
+  },
+  {
+   "name": "talk_b",
+   "a": "alan_idle2",
+   "b": "alan_side",
+   "mid": "alan_talk2",
+   "what": "Second stance \u2192 second talking gesture \u2192 standing (every conversation)"
+  },
+  {
+   "name": "talk_c",
+   "a": "alan_side",
+   "b": "alan_idle2",
+   "what": "Standing \u2194 his second stance (idle shifts)",
+   "note": "Redone after your note: each frame is now placed by its measured height and feet, so he no longer grows or slides (Ludo had zoomed in over the first frames)."
+  },
+  {
+   "name": "talk_d",
+   "a": "alan_talk",
+   "b": "alan_talk2",
+   "what": "Between his two talking gestures"
+  },
+  {
+   "name": "pilot_reach",
+   "a": "alan_side",
+   "b": "alan_reach",
+   "what": "Reaching out (doors, drawers, objects: his most common action)"
+  },
+  {
+   "name": "turn_front",
+   "a": "alan_side",
+   "b": "alan_front",
+   "what": "Turning to face us (walking down a room; the swing when he turns round)"
+  },
+  {
+   "name": "turn_back",
+   "a": "alan_side",
+   "b": "alan_back",
+   "what": "Turning away from us (walking up a room)"
+  },
+  {
+   "name": "write",
+   "a": "alan_side",
+   "b": "alan_write",
+   "what": "Taking out the notebook to write"
+  },
+  {
+   "name": "read",
+   "a": "alan_side",
+   "b": "alan_read",
+   "what": "Reading (books, the ledger, papers)"
+  },
+  {
+   "name": "ring",
+   "a": "alan_side",
+   "b": "alan_ring",
+   "what": "Striking the bell (Ch. IV and the finale)",
+   "note": "His standing painting has no clapper in hand, so Ludo grows it in from a small stick as he lifts it."
+  },
+  {
+   "name": "pickup",
+   "a": "alan_side",
+   "b": "alan_pickup",
+   "what": "Crouching to pick something up"
+  },
+  {
+   "name": "drink",
+   "a": "alan_side",
+   "b": "alan_drink",
+   "what": "Raising a glass (the tavern)"
+  },
+  {
+   "name": "wobble",
+   "a": "alan_side",
+   "b": "alan_wobble",
+   "what": "Losing his balance (the boat, the S\u00e9 scaffold)"
+  },
+  {
+   "name": "pull",
+   "a": "alan_side",
+   "b": "alan_pull",
+   "what": "Hauling on a rope (the mooring line, the bell rope)"
+  },
+  {
+   "name": "phone",
+   "a": "alan_side",
+   "b": "alan_phone",
+   "what": "Lifting the phone to his ear"
+  },
+  {
+   "name": "cutpalm",
+   "a": "alan_side",
+   "b": "alan_cutpalm",
+   "what": "Cutting his palm (the cistern rite)"
+  },
+  {
+   "name": "climb",
+   "a": "alan_side",
+   "b": "alan_climb",
+   "what": "Climbing (the tower, the pit)",
+   "note": "Doesn't work: his climb painting is the old bath one (shirtless, crouching), so a run from the dressed stance can't join them; Ludo made three tiny frames. I'd reject it; the game keeps its dissolve."
+  },
+  {
+   "name": "coffees",
+   "a": "alan_side",
+   "b": "alan_coffees",
+   "what": "Holding the two coffees (Thursday morning)"
+  },
+  {
+   "name": "wring",
+   "a": "alan_side",
+   "b": "alan_wring",
+   "what": "Wringing out the sheet (the Lavadouro)",
+   "note": "The sheet isn't in his standing painting, so Ludo grows it in as he takes hold."
+  },
+  {
+   "name": "flirt",
+   "a": "alan_side",
+   "b": "alan_flirt",
+   "what": "Flirting (Teixeira, the guitarist)"
+  },
+  {
+   "name": "fluster",
+   "a": "alan_side",
+   "b": "alan_fluster",
+   "what": "Flustered (a \u2605 joke landing, the visits)"
+  },
+  {
+   "name": "lantern",
+   "a": "alan_side",
+   "b": "alan_lantern",
+   "what": "Taking up Tom\u00e1s's lantern",
+   "note": "The lantern isn't in his standing painting, so it appears in his hand as he lifts it."
+  },
+  {
+   "name": "reach_write",
+   "a": "alan_reach",
+   "b": "alan_write",
+   "what": "From reaching to writing (the S\u00e9, sketching with Ab\u00edlio)"
+  },
+  {
+   "name": "throw",
+   "a": "alan_side",
+   "b": "alan_throw2",
+   "mid": "alan_throw1",
+   "what": "The underarm toss: wind-up and release (the heist)"
+  },
+  {
+   "name": "wink_flirt",
+   "a": "alan_side",
+   "b": "alan_flirt",
+   "mid": "alan_wink",
+   "what": "A wink, then the flirt"
+  },
+  {
+   "name": "swoon",
+   "a": "alan_side",
+   "b": "alan_fluster",
+   "mid": "alan_swoon",
+   "what": "Swooning, then flustered (the guitarist's visit)"
+  },
+  {
+   "name": "yawn",
+   "a": "alan_idle2",
+   "b": "alan_stretch",
+   "mid": "alan_yawn",
+   "what": "Waking up: yawn, then the stretch (the opening)"
+  },
+  {
+   "name": "stretch_down",
+   "a": "alan_stretch",
+   "b": "alan_side",
+   "what": "Arms coming down after the stretch"
+  },
+  {
+   "name": "lantern_reach",
+   "a": "alan_lantern",
+   "b": "alan_reach",
+   "what": "Reaching out with the lantern in hand (the finale)"
+  },
+  {
+   "name": "rapt",
+   "a": "alan_side",
+   "b": "alan_rapt2",
+   "mid": "alan_rapt1",
+   "what": "The fado: rapt, then hand to his heart"
+  },
+  {
+   "name": "rapt3",
+   "a": "alan_rapt2",
+   "b": "alan_rapt3",
+   "what": "The fado: the tear at the end"
+  },
+  {
+   "name": "smoke1",
+   "a": "alan_side",
+   "b": "alan_smoke_inhale",
+   "mid": "alan_smoke_light",
+   "what": "The idle cigarette: lighting up, first drag"
+  },
+  {
+   "name": "smoke2",
+   "a": "alan_smoke_inhale",
+   "b": "alan_smoke_hold",
+   "mid": "alan_smoke_exhale",
+   "what": "The idle cigarette: breathing out, holding it"
+  },
+  {
+   "name": "smoke3",
+   "a": "alan_smoke_hold",
+   "b": "alan_smoke_inhale",
+   "what": "The idle cigarette: holding \u2192 another drag"
+  },
+  {
+   "name": "smoke4",
+   "a": "alan_smoke_hold",
+   "b": "alan_side",
+   "what": "The idle cigarette: putting it away"
+  },
+  {
+   "name": "dress_start",
+   "a": "alan_side",
+   "b": "alan_dress1",
+   "what": "Starting to dress (the visits upstairs, the cop's bed)"
+  },
+  {
+   "name": "dress_a",
+   "a": "alan_undress4",
+   "b": "alan_dress2",
+   "mid": "alan_dress1",
+   "what": "Dressing: trunks \u2192 jeans in hand \u2192 hopping in",
+   "note": "Made on forge (hydra's moderation refused it, so no improve pass): his jeans turn grey for several frames. Check before approving."
+  },
+  {
+   "name": "dress_b",
+   "a": "alan_dress2",
+   "b": "alan_dress4",
+   "mid": "alan_dress3",
+   "what": "Dressing: tee coming down \u2192 jacket on"
+  },
+  {
+   "name": "dress_button",
+   "a": "alan_dress4",
+   "b": "alan_button",
+   "what": "Dressing: buttoning up"
+  },
+  {
+   "name": "jacket",
+   "a": "alan_side",
+   "b": "alan_undress4",
+   "mid": "alan_jacket",
+   "what": "Jacket off, down to the trunks (Z\u00e9's room)"
+  },
+  {
+   "name": "walk_side",
+   "a": "alan_side",
+   "prompt": "walking to the right at an easy, natural pace",
+   "loop": true,
+   "frames": 36,
+   "slot": "walk",
+   "base": "alan_side",
+   "what": "His walk, side on (a full new cycle: replaces the walk only if you approve it)",
+   "note": "A whole new side walk (10 frames, two strides). It replaces the walk you built only if you approve all of it; worth trying in the game first."
+  },
+  {
+   "name": "walk_front",
+   "a": "alan_front",
+   "prompt": "walking towards the camera at an easy pace",
+   "loop": true,
+   "frames": 36,
+   "slot": "frontWalk",
+   "base": "alan_front",
+   "what": "Walking towards us (new cycle)"
+  },
+  {
+   "name": "walk_back",
+   "a": "alan_back",
+   "prompt": "walking away from the camera at an easy pace",
+   "loop": true,
+   "frames": 36,
+   "slot": "backWalk",
+   "base": "alan_back",
+   "what": "Walking away from us (new cycle)"
+  },
+  {
+   "name": "walk_lantern",
+   "a": "alan_lantern",
+   "prompt": "walking to the right at an easy pace, holding the lantern",
+   "loop": true,
+   "frames": 36,
+   "slot": "lantern",
+   "base": "alan_lantern",
+   "what": "Walking with the lantern (new cycle)"
+  },
+  {
+   "name": "bn_jacket",
+   "a": "alan_bn_jacket_shrug",
+   "b": "alan_bn_jacket_off",
+   "mid": "alan_bn_x_jacket_arm",
+   "bath": true,
+   "what": "The bath: jacket shrug \u2192 jacket arm \u2192 jacket off"
+  },
+  {
+   "name": "bn_jacket_drop",
+   "a": "alan_bn_jacket_off",
+   "b": "alan_bn_x_jacket_drop",
+   "bath": true,
+   "what": "The bath: jacket off \u2192 jacket drop"
+  },
+  {
+   "name": "bn_tee",
+   "a": "alan_bn_x_tee_up",
+   "b": "alan_bn_x_tee_toss",
+   "mid": "alan_bn_tee",
+   "bath": true,
+   "what": "The bath: tee up \u2192 tee \u2192 tee toss"
+  },
+  {
+   "name": "bn_belt",
+   "a": "alan_bn_x_tee_toss",
+   "b": "alan_bn_x_unbutton",
+   "mid": "alan_bn_belt",
+   "bath": true,
+   "what": "The bath: tee toss \u2192 belt \u2192 unbutton"
+  },
+  {
+   "name": "bn_jeans",
+   "a": "alan_bn_x_unbutton",
+   "b": "alan_bn_x_jeans_knees",
+   "mid": "alan_bn_jeans_half",
+   "bath": true,
+   "what": "The bath: unbutton \u2192 jeans half \u2192 jeans knees"
+  },
+  {
+   "name": "bn_pants",
+   "a": "alan_bn_x_kick",
+   "b": "alan_bn_x_turn",
+   "mid": "alan_bn_pants",
+   "bath": true,
+   "what": "The bath: kick \u2192 pants \u2192 turn"
+  },
+  {
+   "name": "bn_turn_walk",
+   "a": "alan_bn_x_turn",
+   "b": "alan_bn_walk",
+   "bath": true,
+   "what": "The bath: turn \u2192 walk"
+  },
+  {
+   "name": "bn_fling",
+   "a": "alan_bn_reach",
+   "b": "alan_bn_fling",
+   "mid": "alan_bn_x_raise",
+   "bath": true,
+   "what": "The bath: reach \u2192 raise \u2192 fling"
+  },
+  {
+   "name": "bn_crouch",
+   "a": "alan_bn_fling",
+   "b": "alan_bn_x_crouch",
+   "bath": true,
+   "what": "The bath: fling \u2192 crouch"
+  },
+  {
+   "name": "bn_relax",
+   "a": "alan_bn_x_hands_down",
+   "b": "alan_bn_relax",
+   "bath": true,
+   "what": "The bath: hands down \u2192 relax"
+  },
+  {
+   "name": "bn_splash",
+   "a": "alan_bn_x_scoop",
+   "b": "alan_bn_splash",
+   "bath": true,
+   "what": "The bath: scoop \u2192 splash"
+  },
+  {
+   "name": "bn_haul",
+   "a": "alan_bn_rim",
+   "b": "alan_bn_x_haul",
+   "bath": true,
+   "what": "The bath: rim \u2192 haul"
+  },
+  {
+   "name": "bn_swing",
+   "a": "alan_bn_sit",
+   "b": "alan_bn_climb",
+   "mid": "alan_bn_x_swing",
+   "bath": true,
+   "what": "The bath: sit \u2192 swing \u2192 climb"
+  },
+  {
+   "name": "bn_climb",
+   "a": "alan_bn_climb",
+   "b": "alan_bn_stepdown",
+   "mid": "alan_bn_x_climb_down",
+   "bath": true,
+   "what": "The bath: climb \u2192 climb down \u2192 stepdown"
+  },
+  {
+   "name": "bn_towel",
+   "a": "alan_bn_x_tuck",
+   "b": "alan_bn_x_pick_up",
+   "mid": "alan_bn_towel",
+   "bath": true,
+   "what": "The bath: tuck \u2192 towel \u2192 pick up"
+  },
+  {
+   "name": "bn_pants_on",
+   "a": "alan_bn_x_pick_up",
+   "b": "alan_bn_x_shorts_knees",
+   "mid": "alan_bn_pants_on",
+   "bath": true,
+   "what": "The bath: pick up \u2192 pants on \u2192 shorts knees"
+  },
+  {
+   "name": "bn_pants_up",
+   "a": "alan_bn_x_shorts_knees",
+   "b": "alan_bn_x_jeans_ready",
+   "mid": "alan_bn_pants_up",
+   "bath": true,
+   "what": "The bath: shorts knees \u2192 pants up \u2192 jeans ready"
+  },
+  {
+   "name": "bn_zip",
+   "a": "alan_bn_y_jeans_up",
+   "b": "alan_bn_y_button",
+   "mid": "alan_bn_zip",
+   "bath": true,
+   "what": "The bath: y jeans up \u2192 zip \u2192 button"
+  },
+  {
+   "name": "bn_belt2",
+   "a": "alan_bn_y_button",
+   "b": "alan_bn_y_tee_ready",
+   "mid": "alan_bn_belt",
+   "bath": true,
+   "what": "The bath: y button \u2192 belt \u2192 tee ready"
+  },
+  {
+   "name": "bn_tee2",
+   "a": "alan_bn_y_tee_ready",
+   "b": "alan_bn_y_tee_down",
+   "mid": "alan_bn_tee",
+   "bath": true,
+   "what": "The bath: y tee ready \u2192 tee \u2192 tee down"
+  },
+  {
+   "name": "bn_jacket2",
+   "a": "alan_bn_y_tee_down",
+   "b": "alan_bn_y_jacket_on",
+   "mid": "alan_bn_jacket_off",
+   "bath": true,
+   "what": "The bath: y tee down \u2192 jacket off \u2192 jacket on"
+  },
+  {
+   "name": "bn_dressed",
+   "a": "alan_bn_y_jacket_on",
+   "b": "alan_bn_dressed",
+   "bath": true,
+   "what": "The bath: y jacket on \u2192 dressed"
+  },
+  {
+   "name": "walk_start",
+   "a": "alan_side",
+   "b": "alan_walk7_s1",
+   "what": "Setting off: standing into his first stride (the side walk you built)"
+  },
+  {
+   "name": "walk_stop",
+   "a": "alan_walk7_s4",
+   "b": "alan_side",
+   "what": "Stopping: the last stride back to standing"
+  },
+  {
+   "name": "cop_in_neck",
+   "a": "file:cop_neck_apart",
+   "b": "pair_cop_neck",
+   "pair": "in",
+   "what": "Teixeira upstairs: the two of them, then Alan into his neck against the shelf",
+   "note": "Off duty he holds his cap, but the pair painting has it on his head, so the run shows him putting it on."
+  },
+  {
+   "name": "cop_a",
+   "a": "pair_cop_neck",
+   "mid": "pair_cop_shelf",
+   "b": "pair_cop_jacket",
+   "pair": "step",
+   "what": "Teixeira upstairs: neck \u2192 wrists pinned \u2192 the jacket shrugged off"
+  },
+  {
+   "name": "cop_b",
+   "a": "pair_cop_jacket",
+   "mid": "pair_cop_tshirt",
+   "b": "pair_cop_buttons",
+   "pair": "step",
+   "what": "Teixeira upstairs: the jacket \u2192 the t-shirt \u2192 his buttons"
+  },
+  {
+   "name": "cop_c",
+   "a": "pair_cop_shelf2",
+   "mid": "pair_cop_belt",
+   "b": "pair_cop_belt2",
+   "pair": "step",
+   "what": "Teixeira upstairs: back at the shelf \u2192 the belt \u2192 his trousers half way"
+  },
+  {
+   "name": "cop_d",
+   "a": "pair_cop_belt2",
+   "mid": "pair_cop_trousers",
+   "b": "pair_cop_cuffs",
+   "pair": "step",
+   "what": "Teixeira upstairs: trousers half way \u2192 down \u2192 his own handcuffs"
+  },
+  {
+   "name": "cop_in_chest",
+   "a": "file:cop_chest_apart",
+   "b": "pair_cop_chest",
+   "pair": "in",
+   "what": "The police station: Alan steps in, a hand to his chest (and back out)"
+  },
+  {
+   "name": "cop_in_arm",
+   "a": "file:cop_arm_apart",
+   "b": "pair_cop_arm",
+   "pair": "in",
+   "what": "The police station: Alan steps in, a hand on his arm (and back out)"
+  },
+  {
+   "name": "climb_out",
+   "a": "alan_climb_k1",
+   "mid": "alan_climb_k2",
+   "b": "alan_climb_k3",
+   "climb": true,
+   "what": "Climbing out of the S\u00e9 pit over the near rim, facing us: hands on the edge \u2192 a knee over \u2192 kneeling on the rim",
+   "note": "The climb out of the S\u00e9 pit over the near rim, facing us (no ladder). Three new Canva paintings (hands on the edge, a knee over, kneeling) and the Ludo frames between them; approving this also approves the three paintings. Plays whole with 'Getting up' below: the game uses the climb only once both are approved."
+  },
+  {
+   "name": "climb_up",
+   "a": "alan_climb_k3",
+   "b": "alan_front",
+   "climb": true,
+   "what": "Climbing out: getting up off the rim to stand",
+   "take": 2,
+   "margin_v": 0.3,
+   "note": "Take 2: the first take cut his head off at the top of Ludo's canvas as he stood up (the user saw it); made again with room above him."
+  }
+ ]
+}

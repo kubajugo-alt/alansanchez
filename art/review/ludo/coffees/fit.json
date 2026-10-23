@@ -1,0 +1,218 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_coffees"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9788538011695906,
+   "s": 2.1414701803051317,
+   "ox": 208.0,
+   "oy": 16.0
+  },
+  {
+   "iou": 0.9753930280246069,
+   "s": 2.1690140845070425,
+   "ox": 112.0,
+   "oy": 20.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 130.24,
+   "wire": "alan_side>alan_coffees",
+   "from": 0,
+   "to": 35,
+   "used": [
+    1,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_coffees_a01",
+     "frame": 6,
+     "t": 0.115,
+     "drift": 1.2,
+     "head": 0.749,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 481.0,
+      "hh": 1541.0,
+      "h": 1526.9,
+      "ax": 220.9,
+      "fy": 1533.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_coffees_a02",
+     "frame": 9,
+     "t": 0.193,
+     "drift": 1.0,
+     "head": 0.702,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 549.0,
+      "hh": 1531.0,
+      "h": 1516.9,
+      "ax": 264.0,
+      "fy": 1523.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_coffees_a03",
+     "frame": 13,
+     "t": 0.277,
+     "drift": 0.9,
+     "head": 0.781,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 529.0,
+      "hh": 1556.0,
+      "h": 1541.8,
+      "ax": 251.2,
+      "fy": 1548.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_coffees_a04",
+     "frame": 17,
+     "t": 0.387,
+     "drift": 2.9,
+     "head": 0.924,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 483.0,
+      "hh": 1575.0,
+      "h": 1561.8,
+      "ax": 243.9,
+      "fy": 1568.6,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_coffees_a05",
+     "frame": 19,
+     "t": 0.461,
+     "drift": 3.4,
+     "head": 0.921,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 476.0,
+      "hh": 1566.0,
+      "h": 1551.8,
+      "ax": 250.4,
+      "fy": 1558.8,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_coffees_a06",
+     "frame": 22,
+     "t": 0.554,
+     "drift": 3.1,
+     "head": 0.915,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 503.0,
+      "hh": 1575.0,
+      "h": 1560.8,
+      "ax": 276.0,
+      "fy": 1567.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_coffees_a07",
+     "frame": 25,
+     "t": 0.642,
+     "drift": 1.8,
+     "head": 0.873,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 498.0,
+      "hh": 1569.0,
+      "h": 1553.8,
+      "ax": 302.6,
+      "fy": 1562.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_coffees_a08",
+     "frame": 29,
+     "t": 0.747,
+     "drift": 1.2,
+     "head": 0.862,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 516.0,
+      "hh": 1547.0,
+      "h": 1532.8,
+      "ax": 298.0,
+      "fy": 1540.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_coffees_a09",
+     "frame": 31,
+     "t": 0.826,
+     "drift": 0.8,
+     "head": 0.86,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 519.0,
+      "hh": 1539.0,
+      "h": 1525.9,
+      "ax": 265.0,
+      "fy": 1533.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_coffees_a10",
+     "frame": 34,
+     "t": 0.951,
+     "drift": 0.8,
+     "head": 0.847,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 516.0,
+      "hh": 1545.0,
+      "h": 1530.8,
+      "ax": 256.6,
+      "fy": 1538.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

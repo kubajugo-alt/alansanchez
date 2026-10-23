@@ -1,0 +1,166 @@
+{
+ "keys": [
+  "alan_smoke_inhale",
+  "alan_smoke_exhale",
+  "alan_smoke_hold"
+ ],
+ "at": [
+  0,
+  32,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9838148853381903,
+   "s": 2.2184873949579833,
+   "ox": 124.0,
+   "oy": 52.0
+  },
+  {
+   "iou": 0.936676952496849,
+   "s": 2.231297071129707,
+   "ox": 104.0,
+   "oy": 40.0
+  },
+  {
+   "iou": 0.9737089622430242,
+   "s": 2.2215988779803646,
+   "ox": 112.0,
+   "oy": 52.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 53.53,
+   "wire": "alan_smoke_inhale>alan_smoke_exhale",
+   "from": 0,
+   "to": 32,
+   "used": [
+    0,
+    31
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_smoke2_a01",
+     "frame": 11,
+     "t": 0.195,
+     "drift": 1.7,
+     "head": 0.883,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 394.0,
+      "hh": 1593.0,
+      "h": 1579.8,
+      "ax": 163.2,
+      "fy": 1585.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_smoke2_a02",
+     "frame": 14,
+     "t": 0.357,
+     "drift": 1.3,
+     "head": 0.906,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 539.0,
+      "hh": 1594.0,
+      "h": 1579.8,
+      "ax": 168.0,
+      "fy": 1586.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_smoke2_a03",
+     "frame": 17,
+     "t": 0.558,
+     "drift": 1.0,
+     "head": 0.879,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 574.0,
+      "hh": 1596.0,
+      "h": 1581.8,
+      "ax": 171.2,
+      "fy": 1588.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_smoke2_a04",
+     "frame": 19,
+     "t": 0.683,
+     "drift": 0.7,
+     "head": 0.842,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 521.0,
+      "hh": 1597.0,
+      "h": 1582.8,
+      "ax": 172.1,
+      "fy": 1589.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_smoke2_a05",
+     "frame": 22,
+     "t": 0.841,
+     "drift": 1.5,
+     "head": 0.778,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 420.0,
+      "hh": 1597.0,
+      "h": 1583.8,
+      "ax": 177.2,
+      "fy": 1588.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  },
+  {
+   "motion": 3.26,
+   "wire": "alan_smoke_exhale>alan_smoke_hold",
+   "from": 32,
+   "to": 35,
+   "used": [
+    32,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_smoke2_b01",
+     "frame": 34,
+     "t": 0.554,
+     "drift": 0.5,
+     "head": 0.91,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 373.0,
+      "hh": 1596.0,
+      "h": 1583.0,
+      "ax": 181.2,
+      "fy": 1588.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

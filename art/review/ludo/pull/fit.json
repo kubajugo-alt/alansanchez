@@ -1,0 +1,228 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_pull"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9791017513699366,
+   "s": 2.000388349514563,
+   "ox": 280.0,
+   "oy": 40.0
+  },
+  {
+   "iou": 0.9780478955007257,
+   "s": 2.3004846526655895,
+   "ox": 16.0,
+   "oy": 52.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 173.52,
+   "wire": "alan_side>alan_pull",
+   "from": 0,
+   "to": 35,
+   "used": [
+    0,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_pull_a01",
+     "frame": 5,
+     "t": 0.102,
+     "drift": 3.0,
+     "head": 0.93,
+     "height": 0.018,
+     "flags": [],
+     "meta": {
+      "w": 415.0,
+      "hh": 1425.0,
+      "h": 1462.2,
+      "ax": 166.0,
+      "fy": 1422.3,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_pull_a02",
+     "frame": 9,
+     "t": 0.201,
+     "drift": 3.3,
+     "head": 0.909,
+     "height": 0.041,
+     "flags": [],
+     "meta": {
+      "w": 455.0,
+      "hh": 1390.0,
+      "h": 1483.8,
+      "ax": 171.5,
+      "fy": 1387.1,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_pull_a03",
+     "frame": 12,
+     "t": 0.287,
+     "drift": 3.1,
+     "head": 0.93,
+     "height": 0.079,
+     "flags": [
+      "height"
+     ],
+     "meta": {
+      "w": 481.0,
+      "hh": 1332.0,
+      "h": 1502.3,
+      "ax": 165.1,
+      "fy": 1329.0,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_pull_a04",
+     "frame": 15,
+     "t": 0.369,
+     "drift": 2.8,
+     "head": 0.95,
+     "height": 0.118,
+     "flags": [
+      "height"
+     ],
+     "meta": {
+      "w": 545.0,
+      "hh": 1271.0,
+      "h": 1520.0,
+      "ax": 166.4,
+      "fy": 1267.8,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_pull_a05",
+     "frame": 19,
+     "t": 0.464,
+     "drift": 2.7,
+     "head": 0.958,
+     "height": 0.136,
+     "flags": [
+      "height"
+     ],
+     "meta": {
+      "w": 593.0,
+      "hh": 1239.0,
+      "h": 1540.6,
+      "ax": 201.6,
+      "fy": 1248.7,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_pull_a06",
+     "frame": 22,
+     "t": 0.583,
+     "drift": 2.4,
+     "head": 0.942,
+     "height": 0.115,
+     "flags": [
+      "height"
+     ],
+     "meta": {
+      "w": 738.0,
+      "hh": 1266.0,
+      "h": 1566.2,
+      "ax": 354.3,
+      "fy": 1279.5,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_pull_a07",
+     "frame": 24,
+     "t": 0.671,
+     "drift": 2.0,
+     "head": 0.932,
+     "height": 0.087,
+     "flags": [
+      "height"
+     ],
+     "meta": {
+      "w": 819.0,
+      "hh": 1306.0,
+      "h": 1585.2,
+      "ax": 441.0,
+      "fy": 1309.3,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_pull_a08",
+     "frame": 26,
+     "t": 0.759,
+     "drift": 1.5,
+     "head": 0.919,
+     "height": 0.058,
+     "flags": [],
+     "meta": {
+      "w": 849.0,
+      "hh": 1349.0,
+      "h": 1604.2,
+      "ax": 476.7,
+      "fy": 1335.2,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_pull_a09",
+     "frame": 28,
+     "t": 0.837,
+     "drift": 0.9,
+     "head": 0.939,
+     "height": 0.039,
+     "flags": [],
+     "meta": {
+      "w": 852.0,
+      "hh": 1376.0,
+      "h": 1621.1,
+      "ax": 484.8,
+      "fy": 1362.0,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_pull_a10",
+     "frame": 31,
+     "t": 0.918,
+     "drift": 0.2,
+     "head": 0.936,
+     "height": 0.017,
+     "flags": [],
+     "meta": {
+      "w": 824.0,
+      "hh": 1408.0,
+      "h": 1638.6,
+      "ax": 485.1,
+      "fy": 1399.9,
+      "top": 4.0
+     },
+     "placed": "spread"
+    }
+   ]
+  }
+ ]
+}

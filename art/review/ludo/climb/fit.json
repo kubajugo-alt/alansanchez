@@ -1,0 +1,80 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_climb"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.974479454578957,
+   "s": 1.5312066574202496,
+   "ox": 432.0,
+   "oy": 144.0
+  },
+  {
+   "iou": 0.9694573101459407,
+   "s": 3.392442996742671,
+   "ox": 72.0,
+   "oy": 192.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 78.56,
+   "wire": "alan_side>alan_climb",
+   "from": 0,
+   "to": 35,
+   "used": [
+    23,
+    27
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_climb_a01",
+     "frame": 25,
+     "t": 0.588,
+     "drift": 28.2,
+     "head": 0.349,
+     "height": 0.111,
+     "flags": [
+      "drift",
+      "head",
+      "height"
+     ],
+     "meta": {
+      "w": 739.0,
+      "hh": 1051.0,
+      "h": 1890.3,
+      "ax": 416.9,
+      "fy": 1128.8,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_climb_a02",
+     "frame": 26,
+     "t": 0.868,
+     "drift": 5.4,
+     "head": 0.13,
+     "height": 0.031,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 767.0,
+      "hh": 1077.0,
+      "h": 2265.2,
+      "ax": 428.3,
+      "fy": 1064.7,
+      "top": 4.0
+     },
+     "placed": "spread"
+    }
+   ]
+  }
+ ]
+}

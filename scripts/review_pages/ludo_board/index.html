@@ -1,0 +1,211 @@
+<title>Alan's Ludo Runs</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* An animator's light desk: each run is a pinned card, its frames playing on a lit cel; brass for decisions, as the bell */
+:root {
+  --bg: #e9e6df; --panel: #f7f5f0; --cel: #cfd3d6; --ink: #22252b; --muted: #5d6169; --rule: #c9c4b8;
+  --brass: #8a6a22; --brass-soft: #efe2c2; --ok: #2f6b45; --ok-soft: #d8eadc; --warn: #8a4b12; --warn-soft: #f3e0cc; --bad: #8f2f2f; --bad-soft: #f2d6d6;
+  --display: "Spectral", Georgia, "Times New Roman", serif; --body: "IBM Plex Sans", "Segoe UI", Roboto, Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #17191d; --panel: #20232a; --cel: #2d3239; --ink: #e8e4da; --muted: #a2a3a6; --rule: #3a3d44;
+  --brass: #d6b26a; --brass-soft: #3b3220; --ok: #8fd0a2; --ok-soft: #1f3527; --warn: #f0b27a; --warn-soft: #3d2a19; --bad: #ef9a9a; --bad-soft: #3e2222; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #17191d; --panel: #20232a; --cel: #2d3239; --ink: #e8e4da; --muted: #a2a3a6; --rule: #3a3d44;
+  --brass: #d6b26a; --brass-soft: #3b3220; --ok: #8fd0a2; --ok-soft: #1f3527; --warn: #f0b27a; --warn-soft: #3d2a19; --bad: #ef9a9a; --bad-soft: #3e2222; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; }
+h1 { font-family: var(--display); font-weight: 700; font-size: 2.1rem; line-height: 1.1; margin: 0; text-wrap: balance; }
+.lede { margin: 6px 0 0; color: var(--muted); max-width: 68ch; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--mono); font-size: 12.5px; padding: 4px 10px; border-radius: 999px; background: var(--panel); border: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+.chip b { font-weight: 500; }
+.bar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding-block: 10px; }
+.seg { display: flex; flex-wrap: wrap; gap: 4px; }
+.seg button { font: 500 13px var(--body); padding: 5px 11px; border-radius: 6px; border: 1px solid var(--rule); background: transparent; color: var(--ink); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.label { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.note-db { font-size: 13px; color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 18px; }
+.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; display: grid; grid-template-rows: auto auto 1fr auto; overflow: hidden; min-width: 0; }
+.card[data-dec="approved"] { box-shadow: inset 4px 0 0 var(--ok); }
+.card[data-dec="redo"] { box-shadow: inset 4px 0 0 var(--warn); }
+.card[data-dec="rejected"] { box-shadow: inset 4px 0 0 var(--bad); }
+.stage { background: var(--cel); position: relative; }
+.stage canvas { display: block; width: 100%; height: auto; aspect-ratio: 360 / 300; max-width: 100%; }
+.stage .tag { position: absolute; left: 10px; top: 8px; font: 500 11px var(--mono); color: var(--muted); }
+.film { overflow-x: auto; border-top: 1px solid var(--rule); background: var(--cel); }
+.film img { display: block; height: 92px; max-width: none; }
+.body { padding: 12px 14px 4px; display: grid; gap: 8px; min-width: 0; }
+.body h2 { font-family: var(--display); font-weight: 500; font-size: 1.12rem; line-height: 1.25; margin: 0; text-wrap: balance; }
+.meta { font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 12px; font-variant-numeric: tabular-nums; }
+.wires { font-family: var(--mono); font-size: 11.5px; color: var(--muted); overflow-wrap: anywhere; }
+.mine { margin: 0; font-size: 13px; color: var(--muted); font-style: italic; }
+.reads { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { font: 500 11.5px var(--mono); padding: 2px 8px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); }
+.pill.check { background: var(--warn-soft); color: var(--warn); }
+.act { padding: 10px 14px 14px; display: grid; gap: 8px; }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btns button { font: 600 13px var(--body); padding: 7px 12px; border-radius: 6px; border: 1px solid var(--rule); background: transparent; color: var(--ink); cursor: pointer; }
+.btns button[data-v="approved"][aria-pressed="true"] { background: var(--ok); border-color: var(--ok); color: var(--panel); }
+.btns button[data-v="redo"][aria-pressed="true"] { background: var(--warn); border-color: var(--warn); color: var(--panel); }
+.btns button[data-v="rejected"][aria-pressed="true"] { background: var(--bad); border-color: var(--bad); color: var(--panel); }
+.btns button:disabled { opacity: .45; cursor: not-allowed; }
+textarea { width: 100%; box-sizing: border-box; font: 13px var(--body); color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 7px 9px; resize: vertical; min-height: 36px; }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.saved { font-size: 12px; color: var(--muted); min-height: 1em; }
+.empty { padding: 30px; text-align: center; color: var(--muted); border: 1px dashed var(--rule); border-radius: 10px; }
+@media (prefers-reduced-motion: reduce) { .stage canvas { animation: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Alan's Ludo Runs</h1>
+    <p class="lede">Each card plays one movement as the game will: his painting, the Ludo frames between, the next painting, then back again (the game plays a run backwards for the return). Walk cards loop their cycle. Every frame is the 1.5× upscale with the improve pass; the readings flag colour drift, a head that stops looking like his, or a change in his height. Approve what looks like Alan; Redo asks me for a new take. Approving a run also turns on his lip-sync and blinking on its frames (alan_side's mouths and eyelids, carried over to each frame that faces the same way).</p>
+  </header>
+  <div class="summary" id="summary"></div>
+  <div class="bar">
+    <div><div class="label">Show</div><div class="seg" id="f-show"></div></div>
+    <div><div class="label">Group</div><div class="seg" id="f-group"></div></div>
+    <div><div class="label">Speed</div><div class="seg" id="f-speed"></div></div>
+    <div class="note-db" id="dbnote">Connecting to the decisions store…</div>
+  </div>
+  <div class="grid" id="grid"><div class="empty">Loading the runs…</div></div>
+</div>
+
+<script>
+(function () {
+  const $ = s => document.querySelector(s);
+  const state = { runs: [], dec: {}, show: 'all', group: 'all', speed: 1, db: null, canWrite: false };
+  const strips = {};
+  const SHOW = [['all', 'All'], ['waiting', 'Waiting'], ['flagged', 'Flagged'], ['approved', 'Approved'], ['redo', 'Redo'], ['rejected', 'Rejected']];
+  const GROUP = [['all', 'Everything'], ['moves', 'Movements'], ['walks', 'Walks'], ['bath', 'The bath']];
+  const SPEED = [[1, '1×'], [0.25, '¼×'], [0.1, '⅒×']];
+  function seg(el, opts, key) {
+    el.innerHTML = '';
+    for (const [v, t] of opts) {
+      const b = document.createElement('button'); b.textContent = t; b.setAttribute('aria-pressed', String(state[key] === v));
+      b.onclick = () => { state[key] = v; seg(el, opts, key); render(); }; el.appendChild(b);
+    }
+  }
+  const group = r => r.walk ? 'walks' : r.bath ? 'bath' : 'moves';
+  const decOf = r => (state.dec[r.name] && state.dec[r.name].decision) || 'waiting';
+  function visible() {
+    return state.runs.filter(r => (state.group === 'all' || group(r) === state.group) &&
+      (state.show === 'all' || (state.show === 'flagged' ? r.flags.length > 0 : decOf(r) === state.show)));
+  }
+  function summary() {
+    const n = state.runs.length, c = k => state.runs.filter(r => decOf(r) === k).length;
+    const credits = state.runs.reduce((a, r) => a + (r.credits || 0), 0), frames = state.runs.reduce((a, r) => a + r.frames, 0);
+    $('#summary').innerHTML = [`<b>${n}</b> runs`, `<b>${frames}</b> frames`, `<b>${c('approved')}</b> approved`, `<b>${c('waiting')}</b> waiting`,
+      `<b>${c('redo')}</b> redo`, `<b>${c('rejected')}</b> rejected`, `<b>${state.runs.filter(r => r.flags.length).length}</b> flagged`, `<b>${credits}</b> Ludo credits`]
+      .map(t => `<span class="chip">${t}</span>`).join('');
+  }
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  function card(r) {
+    const d = state.dec[r.name] || {}, dec = decOf(r);
+    const el = document.createElement('article'); el.className = 'card'; el.dataset.dec = dec; el.dataset.name = r.name;
+    const ms = r.fps ? Math.round(1000 * (r.frames / r.fps)) : null;
+    const reads = [['colour', r.worst.drift <= 14, `colour Δ ${r.worst.drift}`], ['head', r.worst.head >= 0.55, `head ${r.worst.head.toFixed(2)}`], ['height', r.worst.height <= (r.walk ? 0.08 : 0.06), `height ±${(r.worst.height * 100).toFixed(1)}%`]];
+    el.innerHTML = `
+      <div class="stage"><canvas width="360" height="300" aria-label="${esc(r.what)}: playback"></canvas><span class="tag">${esc(r.name)}</span></div>
+      <div class="film"><img alt="Every frame of ${esc(r.name)}, painting to painting" loading="lazy" src="${encodeURIComponent(r.name)}.webp"></div>
+      <div class="body">
+        <h2>${esc(r.what)}</h2>
+        <div class="meta"><span>${r.frames} frames</span>${r.fps ? `<span>${r.fps} fps · ${ms} ms</span>` : '<span>looping cycle</span>'}<span>${r.credits} credits</span>${r.model === 'forge' ? '<span>forge (hydra refused it; no improve pass)</span>' : ''}</div>
+        <div class="wires">${r.walk ? 'replaces ' + esc(r.walk) + ' (all frames or none)' : r.wires.map(w => esc(w.replace(/>/, ' ↔ '))).join('<br>')}</div>
+        ${r.note ? `<p class="mine">${esc(r.note)}</p>` : ''}
+        <div class="reads">${reads.map(([k, ok, t]) => `<span class="pill${ok ? '' : ' check'}" title="${k}">${ok ? '' : 'check '}${t}</span>`).join('')}</div>
+      </div>
+      <div class="act">
+        <div class="btns">${[['approved', 'Approve'], ['redo', 'Redo'], ['rejected', 'Reject']].map(([v, t]) => `<button data-v="${v}" aria-pressed="${dec === v}" ${state.canWrite ? '' : 'disabled'}>${t}</button>`).join('')}</div>
+        <textarea id="note-${esc(r.name)}" placeholder="A note (what to change on a redo)" ${state.canWrite ? '' : 'disabled'}>${esc(d.note || '')}</textarea>
+        <div class="saved"></div>
+      </div>`;
+    el.querySelectorAll('.btns button').forEach(b => b.onclick = () => decide(r, b.dataset.v === dec ? null : b.dataset.v, el));
+    const ta = el.querySelector('textarea'); let t;
+    ta.oninput = () => { clearTimeout(t); t = setTimeout(() => decide(r, (state.dec[r.name] || {}).decision || null, el, true), 900); };
+    return el;
+  }
+  let writing = Promise.resolve();
+  function decide(r, decision, el, noteOnly) {
+    if (!state.db || !state.canWrite) return;
+    const note = el.querySelector('textarea').value.trim();
+    const body = { decision: decision || 'waiting', note, at: new Date().toISOString() };
+    state.dec[r.name] = body;
+    if (!noteOnly) { el.dataset.dec = body.decision; el.querySelectorAll('.btns button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === decision))); summary(); }
+    const msg = el.querySelector('.saved'); msg.textContent = 'Saving…';
+    writing = writing.then(() => state.db.collection('decisions').doc(r.name).set(body))
+      .then(() => { msg.textContent = noteOnly ? 'Note saved' : decision ? 'Saved: ' + decision : 'Cleared'; })
+      .catch(e => { msg.textContent = e && e.code === 'invalid_argument' ? 'You can view this board but not record decisions.' : 'Not saved. Try again in a moment.'; if (e && e.code === 'invalid_argument') { state.canWrite = false; render(); } });
+  }
+  // ---- playback: one clock for every card on screen
+  const live = new Map(); // canvas -> run
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { const r = e.target.__run; if (e.isIntersecting) live.set(e.target, r); else live.delete(e.target); }), { rootMargin: '100px' }) : null;
+  function timeline(r) {
+    // [cellIndex, ms] steps: hold A, the run, hold the key, the run backwards, back to A
+    const n = r.cells.length, step = r.fps ? 1000 / r.fps : 0, T = [];
+    if (r.walk) { const per = r.walk === 'walk' ? 85 : 125; for (let i = 0; i < n; i++) T.push([i, per]); return T; }
+    const keyAt = r.cells.map((c, i) => c.startsWith('alan_lu_') ? -1 : i).filter(i => i >= 0);
+    for (let i = 0; i < n; i++) T.push([i, keyAt.includes(i) ? (i === 0 || i === n - 1 ? 700 : 450) : step]);
+    for (let i = n - 2; i > 0; i--) T.push([i, keyAt.includes(i) ? 450 : step]);
+    return T;
+  }
+  function frame(now) {
+    for (const [cv, r] of live) {
+      const img = strips[r.name]; if (!img || !img.complete || !img.naturalWidth) continue;
+      const T = r.__T || (r.__T = timeline(r)), total = r.__total || (r.__total = T.reduce((a, s) => a + s[1], 0));
+      let t = (now * state.speed) % total, i = 0; while (i < T.length - 1 && t >= T[i][1]) { t -= T[i][1]; i++; }
+      const c = T[i][0], g = cv.getContext('2d');
+      g.clearRect(0, 0, cv.width, cv.height);
+      const s = cv.height / r.h, w = r.w * s;
+      g.drawImage(img, c * r.w, 0, r.w, r.h, (cv.width - w) / 2, 0, w, cv.height);
+      g.fillStyle = getComputedStyle(cv).getPropertyValue('--muted'); g.font = '11px ' + getComputedStyle(document.body).getPropertyValue('--mono');
+      g.fillText(r.cells[c].startsWith('alan_lu_') ? 'ludo ' + r.cells[c].slice(-3) : r.cells[c].replace('alan_', ''), 10, cv.height - 10);
+    }
+    requestAnimationFrame(frame);
+  }
+  function render() {
+    summary();
+    const g = $('#grid'); g.innerHTML = ''; live.clear();
+    const vs = visible();
+    if (!state.runs.length) { g.innerHTML = '<div class="empty">No runs yet. They appear here as each one finishes.</div>'; return; }
+    if (!vs.length) { g.innerHTML = '<div class="empty">Nothing here with these filters.</div>'; return; }
+    for (const r of vs) {
+      const el = card(r); g.appendChild(el);
+      const cv = el.querySelector('canvas'); cv.__run = r;
+      if (!strips[r.name]) { strips[r.name] = new Image(); strips[r.name].src = encodeURIComponent(r.name) + '.webp'; }
+      if (io) io.observe(cv); else live.set(cv, r);
+    }
+  }
+  seg($('#f-show'), SHOW, 'show'); seg($('#f-group'), GROUP, 'group'); seg($('#f-speed'), SPEED, 'speed');
+  fetch('runs.json').then(r => r.json()).then(d => { state.runs = d.runs; render(); }).catch(() => { $('#grid').innerHTML = '<div class="empty">The run list did not load. Reload the page.</div>'; });
+  requestAnimationFrame(frame);
+  // ---- decisions: the shared store (collection "decisions", one document per run)
+  (async () => {
+    const db = window.claude && await window.claude.use('db').catch(() => null);
+    if (!db) { $('#dbnote').textContent = 'Decisions can be recorded only inside claude.ai while signed in.'; return; }
+    state.db = db;
+    const user = await window.claude.use('user').catch(() => null);
+    const w = user && user.can ? await user.can('data.write') : null;
+    state.canWrite = w !== false;
+    $('#dbnote').textContent = state.canWrite ? 'Decisions save as you click.' : 'You can view this board; decisions are recorded by the owner.';
+    if (state.runs.length) render(); // the buttons come alive
+    db.collection('decisions').onSnapshot(snap => {
+      const dec = {}; for (const d of snap.docs) if (d.exists) dec[d.id] = d.data();
+      state.dec = dec;
+      // in place: a note being typed keeps its focus; a filter that hides or shows cards redraws the grid
+      const shown = [...document.querySelectorAll('#grid .card')].map(e => e.dataset.name).join();
+      if (shown !== visible().map(r => r.name).join()) return render();
+      summary();
+      for (const el of document.querySelectorAll('#grid .card')) {
+        const r = state.runs.find(x => x.name === el.dataset.name), v = decOf(r), ta = el.querySelector('textarea');
+        el.dataset.dec = v; el.querySelectorAll('.btns button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+        if (document.activeElement !== ta) ta.value = (state.dec[r.name] || {}).note || '';
+      }
+    }, () => { $('#dbnote').textContent = 'The decisions store stopped answering. Reload the page.'; });
+  })();
+})();
+</script>

@@ -1,0 +1,218 @@
+{
+ "keys": [
+  "alan_walk7_s4",
+  "alan_side"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9801529582883686,
+   "s": 2.0514285714285716,
+   "ox": 36.0,
+   "oy": 28.0
+  },
+  {
+   "iou": 0.9843664426188699,
+   "s": 2.074895977808599,
+   "ox": 256.0,
+   "oy": 12.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 176.57,
+   "wire": "alan_walk7_s4>alan_side",
+   "from": 0,
+   "to": 35,
+   "used": [
+    0,
+    32
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_walk_stop_a01",
+     "frame": 3,
+     "t": 0.111,
+     "drift": 1.1,
+     "head": 0.79,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 732.0,
+      "hh": 1450.0,
+      "h": 1475.2,
+      "ax": 468.9,
+      "fy": 1456.6,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_walk_stop_a02",
+     "frame": 4,
+     "t": 0.183,
+     "drift": 1.8,
+     "head": 0.844,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 613.0,
+      "hh": 1458.0,
+      "h": 1481.2,
+      "ax": 415.5,
+      "fy": 1464.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_walk_stop_a03",
+     "frame": 7,
+     "t": 0.318,
+     "drift": 3.5,
+     "head": 0.625,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 398.0,
+      "hh": 1471.0,
+      "h": 1488.5,
+      "ax": 213.9,
+      "fy": 1475.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_walk_stop_a04",
+     "frame": 8,
+     "t": 0.365,
+     "drift": 3.4,
+     "head": 0.619,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 397.0,
+      "hh": 1474.0,
+      "h": 1488.5,
+      "ax": 166.0,
+      "fy": 1476.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_walk_stop_a05",
+     "frame": 11,
+     "t": 0.477,
+     "drift": 1.4,
+     "head": 0.765,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 536.0,
+      "hh": 1475.0,
+      "h": 1483.6,
+      "ax": 244.7,
+      "fy": 1475.7,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_walk_stop_a06",
+     "frame": 13,
+     "t": 0.562,
+     "drift": 1.0,
+     "head": 0.791,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 607.0,
+      "hh": 1470.0,
+      "h": 1475.8,
+      "ax": 307.9,
+      "fy": 1469.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_walk_stop_a07",
+     "frame": 17,
+     "t": 0.668,
+     "drift": 1.0,
+     "head": 0.794,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 630.0,
+      "hh": 1487.0,
+      "h": 1488.3,
+      "ax": 408.9,
+      "fy": 1485.6,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_walk_stop_a08",
+     "frame": 19,
+     "t": 0.748,
+     "drift": 1.1,
+     "head": 0.795,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 554.0,
+      "hh": 1504.0,
+      "h": 1502.0,
+      "ax": 403.7,
+      "fy": 1500.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_walk_stop_a09",
+     "frame": 21,
+     "t": 0.823,
+     "drift": 1.0,
+     "head": 0.825,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 458.0,
+      "hh": 1512.0,
+      "h": 1506.7,
+      "ax": 331.5,
+      "fy": 1508.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_walk_stop_a10",
+     "frame": 25,
+     "t": 0.925,
+     "drift": 1.4,
+     "head": 0.801,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 337.0,
+      "hh": 1517.0,
+      "h": 1507.2,
+      "ax": 206.6,
+      "fy": 1510.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

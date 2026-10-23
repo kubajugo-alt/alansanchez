@@ -5,9 +5,11 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `ac5421ad` (Netlify `6ada8efb8d17c96ed9001097`, entry 64). Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs branch `claude/gifted-allen-1kh10k` at `fe65d2c` (Netlify
+`6adb7b788dfcb77661464edb`, entry 68); that branch is merged into master (PR kubajugo-alt/alansanchez#2), but the
+live site does not yet have master's entries 65-66 (the 24-painting walk, the cistern ending): redeploy when the user asks. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-61); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-68); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -38,6 +40,10 @@ them without checking the code and the user.
   Saves, input locks, GL context loss and touch examine made robust (entry 50).
 
 ### Open, in the order I'd suggest
+**Z. The Ludo board (entry 67):** 75 runs of Alan's movement (and Teixeira's pairs) waiting for the user's decisions on
+   https://claude.ai/artifact/N278871yDs6XcuU5RqW5ip; apply them with `scripts/ludo_apply.py` (read the board's
+   `decisions` collection first). The user's rules for Ludo: hydra only, the improve pass always, the free 1.5x upscale
+   always, Alan's consistency checked on every run, forge only when hydra refuses; only frames the game uses.
 A. **The cut-out audit: applied** (entry 48; the user: "I approve it all"). The 716 cleaned frames from
    `art/review/cutout/sprites/` written over their sources (art/sprites 496, the 155 candidates, bath_new 49,
    duarte_new 16), re-encoded WebP q90 with lossless alpha (checked identical to the cleaned alpha) and exact RGB under
@@ -1322,6 +1328,73 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Not done (new art or recordings, need approval): an angry Lacerda talking, him dragged with a fist still closed,
      Alan's strike follow-through, Inês tumbling or gasping, voice efforts. Open question for the user:
      `alan_ringback` ("Let's start with you") plays after the fourth note.
+
+67. **Ludo.ai movement for Alan (and Teixeira's pairs): 75 runs, 776 frames, on the Ludo board** (the user, 23 Oct:
+   "create new sprites for Alan, including transitions ... fully smooth animations in all cases ... exported
+   upscaled"; then "Always do the free 1.5x upscale, always use hydra ..., always use 'improve details' and always
+   review if Alan looks consistent ... all Alan movements within the Ludo budget. Don't do the sprites that are not
+   used in the game"; "if something gets refused, try forge"; "starting with Teixeira").
+   - **Pipeline:** `scripts/ludo.py` (key `LUDO_API_KEY` in `.env`, never printed or committed): hydra keyframe runs
+     between his own paintings (2 or 3 keyframes), the improve pass (`edit_mode: improve`), the free 1.5x export
+     (`frame_size -1`), download; hydra moderation refusals retried on forge (no improve pass exists for forge).
+     Every paid call in `art/review/ludo/log.md`: 143 calls, 847.5 credits (134 left of 981.5). Raw downloads are
+     git-ignored (`art/review/ludo/*/up/`).
+   - **What was made** (`scripts/ludo_alan.json`, from recording every scene's frame changes plus the code's poses;
+     the old bath's frames are dead code and were left out): talking and his two stances, turning to/away from us,
+     every pose taken from standing, the cigarette, the fado, dressing, the side/front/back/lantern walk cycles, walk
+     start and stop, the new bath's steps, Teixeira's visit (into the pair, the four steps) and the police station's
+     two pairs. Seven runs refused by hydra were made on forge (dress_a, bn_fling, bn_swing, bn_climb, bn_pants_up,
+     cop_c, cop_d).
+   - **Fitting:** `scripts/ludo_fit.py` (in-betweens: his paintings fitted into Ludo's canvas, still ends trimmed,
+     frames sampled by motion, colours moved toward his paintings; standing runs placed by each frame's measured
+     height and feet, after the user's note on talk_c that he grew and slid), `scripts/ludo_walk_fit.py` (cycles;
+     the side walk's foot data from its two contact frames), `scripts/ludo_pair_key.py` (the two standing figures
+     composed where a pair painting has their feet, as the run's first keyframe). Consistency read on every frame
+     (colour drift, head, height) and every strip checked by eye. Candidates `alan_lu_*`, `pair_lu_*`.
+   - **Engine:** a run plays at its own frame rate, frame to frame (actor.js `ibFps`; frames still loading are
+     fetched and the change is plain that once); whole walk cycles wire in only when every frame is approved
+     (main.js `walkCycle`, so the walk the user built stays meanwhile); pair runs (core.js `pairRun`, `pairRunIn`;
+     waits for the frames, follows the pair he is in, slides his place between the two paintings' spots).
+   - **Review:** the Ludo board https://claude.ai/artifact/N278871yDs6XcuU5RqW5ip (collection `decisions`), built by
+     `scripts/ludo_review.py`; `scripts/ludo_apply.py` writes the user's board decisions into approvals.json.
+     Approved so far: the reach and talk_b (17 frames). talk_c re-placed after the user's note, waiting.
+   - **Checked:** validate 0 errors; smoke (all candidates approved) visitcop, copguard, bath, fado, copbed, intro
+     pass; the approved runs play from approvals.json alone (`scripts/tests/ludo_shot.mjs`, fixed clock: 50 ms a
+     frame); Teixeira's visit at real speed plays through every pair run end to end.
+   - **Open:** climb (his climb painting is the old bath's, shirtless: reject); props that grow in (ring's clapper,
+     wring's sheet, the lantern); Teixeira puts his cap on in the neck run; dress_a's jeans turn grey (forge); the
+     side walk wants a try in the game before it replaces the user's; faces: run frames have no mouth or eyelids
+     (short, so the mouth rests during them). Other characters' pairs (Duarte, Zé, Vasco) not started: no credits.
+
+68. **Faces on the Ludo frames; the climb out of the Sé pit** (the user: "Check if the existing mouth movement and blinking
+   works with the current sprites. Maybe we can re-use assets created for Alan"; "fix the Climb ... Canva ... Ludo ...
+   when Alan climbs out of the pit"; "don't use the ladder"; the side-on paintings "will not work with the pit"; chose
+   "over the near rim, facing us"; "the sequence ... seems to be cutting alan's head"; "once you're finished, deploy").
+   - **Faces:** lip-sync and blinks worked on his paintings (scripts/tests/face_check.mjs: 24 of 29 speaking frames) and
+     not on the Ludo frames (0 of 17). `scripts/face_transfer.py --ludo` carries alan_side's 18 mouths and 2 eyelid states
+     onto every Ludo frame whose face lines up with his (each frame at its own size; head from its anchors and a
+     template match; ECC fit >= 0.80, scale and turn checked; 469 turned or bath frames left without). Kits carry the
+     candidate's src (js/engine/faces.js wants it) and go in with their frames: `scripts/ludo_apply.py` turns a kit on
+     when its frame is approved (17 so far). With every kit previewed: his mouth moves on 12 of 18 speaking Ludo frames.
+   - **Climb:** in the game he never climbed (alan_climb is the old bath's; the pit exit jumped him to the rim). Three Canva
+     paintings, front view (generate-image, refs alan_front on green MAHY1V7pcIo + MAHYnEDJ7bs; exports through a new
+     scratch design DAHY1e3W5ko, the old one is at Canva's 100-page limit): hands on the near rim, a knee over, kneeling;
+     `scripts/climb_fit.py` (keyed, scaled by his head to alan_front, meta.rim = his hands' height); Ludo runs climb_out
+     (k1 > k2 > k3) and climb_up (k3 > alan_front; take 2 with margin_ratio_vertical 0.3: take 1 cut his head off at the
+     top of Ludo's canvas); `scripts/climb_wire.py` (the 26-frame order, each Ludo frame's rim). se.js `S.climbOut`: in
+     the pit each frame stands on the rim line sunk to his hands; kneeling on the lip he comes forward onto the floor at
+     his own size; pitStage leaves him alone meanwhile. Used at the pit exit once climb_out and climb_up are approved;
+     main.js `wire.seq` (game frames like alan_front need no approval). Checked in the room at a fixed clock: ends at
+     (770, 642), sink 0, size restored. Ludo credits: 36 (98 left). Side-on Canva tries kept unused in art/review/alan/climb.
+   - Checked: validate 0 errors; smoke sepit, sepitgame, visitcop, bath, fado, intro, bench pass; play.mjs `{"won":true}`,
+     148 steps, 1068 s.
+   - **Deployed** (the user: "once you're finished, deploy it all"): branch `claude/gifted-allen-1kh10k` at `fe65d2c`
+     (PR kubajugo-alt/alansanchez#2; master does not have it until that PR is merged), Netlify `6adb7b788dfcb77661464edb`,
+     from a clean `git archive` export; the export leaves out the face patches of kits not switched on (1940 files,
+     ~66 MB: the game never loads them). Export smoke sepit, visitcop, bench pass; live: `/.env` 404, se.js has
+     S.climbOut, 17 Ludo frames approved, smoke bench and sepit pass on the live site. What players see from this work
+     today: the engine changes and the two runs the user approved (the reach, talk_b) with their lip-sync; every other
+     run, the walks, the Teixeira pairs and the climb wait on the Ludo board.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

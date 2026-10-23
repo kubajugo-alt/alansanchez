@@ -1,0 +1,159 @@
+{
+ "keys": [
+  "alan_bn_y_jeans_up",
+  "alan_bn_zip",
+  "alan_bn_y_button"
+ ],
+ "at": [
+  0,
+  24,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.7994686986612605,
+   "s": 2.1322222222222225,
+   "ox": 172.0,
+   "oy": 40.0
+  },
+  {
+   "iou": 0.7052484254723583,
+   "s": 2.134388888888889,
+   "ox": 192.0,
+   "oy": 48.0
+  },
+  {
+   "iou": 0.7779448271039474,
+   "s": 2.0929444444444445,
+   "ox": 180.0,
+   "oy": 72.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 38.74,
+   "wire": "alan_bn_y_jeans_up>alan_bn_zip",
+   "from": 0,
+   "to": 24,
+   "used": [
+    0,
+    10
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_zip_a01",
+     "frame": 1,
+     "t": 0.225,
+     "drift": 21.1,
+     "head": 0.617,
+     "height": 0.003,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 485.0,
+      "hh": 1534.0,
+      "h": 1521.0,
+      "ax": 268.4,
+      "fy": 1525.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_zip_a02",
+     "frame": 2,
+     "t": 0.509,
+     "drift": 15.8,
+     "head": 0.876,
+     "height": 0.003,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 486.0,
+      "hh": 1532.0,
+      "h": 1520.0,
+      "ax": 288.1,
+      "fy": 1524.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_zip_a03",
+     "frame": 5,
+     "t": 0.645,
+     "drift": 15.4,
+     "head": 0.697,
+     "height": 0.002,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 501.0,
+      "hh": 1530.0,
+      "h": 1519.0,
+      "ax": 298.5,
+      "fy": 1522.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_zip_a04",
+     "frame": 7,
+     "t": 0.805,
+     "drift": 15.4,
+     "head": 0.635,
+     "height": 0.002,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 517.0,
+      "hh": 1526.0,
+      "h": 1515.0,
+      "ax": 311.2,
+      "fy": 1518.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  },
+  {
+   "motion": 13.46,
+   "wire": "alan_bn_zip>alan_bn_y_button",
+   "from": 24,
+   "to": 35,
+   "used": [
+    34,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_zip_b01",
+     "frame": 34,
+     "t": 0.0,
+     "drift": 16.7,
+     "head": 0.319,
+     "height": 0.002,
+     "flags": [
+      "drift",
+      "head"
+     ],
+     "meta": {
+      "w": 574.0,
+      "hh": 1504.0,
+      "h": 1493.0,
+      "ax": 338.8,
+      "fy": 1495.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

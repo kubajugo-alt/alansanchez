@@ -60,8 +60,30 @@
   async function pairSteps(seq) { const p = G.player; for (const f of seq) { p.crossFade(0.1); p.pose = f; await G.wait(window.FAST ? 0 : IB_HOLD); } }
   // from the pair painting Alan is in now to pair k (at x, if the painting needs him elsewhere): in 'gemini' mode the
   // approved in-between for that change plays first (either way round: it's the moment half way), else one dissolves into the next
+  // a Ludo run between two pair paintings, or from the two standing figures into one (approved on the Ludo board): its
+  // frames at its own rate, each handing over to the next, Alan's place sliding from where he stood to x
+  // (its frames must be in: an unloaded frame would show his standing painting; it waits a moment for them, else false)
+  const runReady = async seq => {
+    const E = window.Engine, keys = seq.map(f => 'spr:' + f), have = () => keys.every(k => E.IMG && E.IMG[k]);
+    if (!have() && E.ensure) await Promise.race([E.ensure(keys), G.wait(window.FAST ? 0 : 900)]);
+    return have();
+  };
+  async function pairRun(seq, fps, x) {
+    const p = G.player, x0 = p.x, dt = 1000 / (fps || 20);
+    for (let i = 0; i < seq.length; i++) {
+      p.crossFade(0.5 / (fps || 20)); p.pose = seq[i];
+      if (x != null) p.x = x0 + (x - x0) * (i + 1) / (seq.length + 1);
+      await G.wait(window.FAST ? 0 : dt);
+    }
+  }
+  const runOf = (from, k) => { const R = S.CHARS.alan.frames.pairRun || {}, f = R[from + '>' + k], r = R[k + '>' + from]; return f ? f : r ? r.slice().reverse() : null; };
+  const runFps = key => (S.CHARS.alan.frames.pairRunFps || {})[key];
   S.pairStep = async function (k, x) {
-    const p = G.player, from = p.pose, IB = S.pairMode() === 'gemini' && (S.CHARS.alan.frames.pairIb || {});
+    // (from the pair painting he is in: a line spoken in between can clear the pose, the pair stays p.pairKey)
+    const p = G.player, cur = p.pose && window.SPRITES[p.pose] && window.SPRITES[p.pose].rigid ? p.pose : p.pairKey, from = cur || p.pose, run = runOf(from, k);
+    if (p.pairKey) p.pairKey = k;
+    if (run && run.length && await runReady(run)) { await pairRun(run, runFps(from + '>' + k) || runFps(k + '>' + from), x); p.crossFade(0.05); p.pose = k; if (x != null) p.x = x; return; }
+    const IB = S.pairMode() === 'gemini' && (S.CHARS.alan.frames.pairIb || {});
     const ib = IB && (IB[from + '>' + k] || IB[k + '>' + from]), seq = (ib && ib.step) || [];
     if (seq.length) { if (x != null) p.x = (p.x + x) / 2; await pairSteps(seq); p.crossFade(0.1); }
     p.pose = k; if (x != null) p.x = x;
@@ -74,6 +96,13 @@
     const at = S.pairSpot(k, npc.x, npc.y);
     if (opts.walk !== false && Math.hypot(p.x - at.x, p.y - at.y) > 3) await p.walkTo(at.x, at.y);
     p.x = at.x; p.y = at.y; p.pairWho = npc.id; p.pairNpc = npc; p.pairKey = k;
+    const into = (S.CHARS.alan.frames.pairRunIn || {})[k];
+    if (into && into.length && await runReady(into)) { // the two of them stepping together, drawn as one: the partner goes as the first frame comes up
+      p.dir = 'e'; p.crossFade(0.05); npc.fade(0, 0.05);
+      await pairRun(into, runFps('in:' + k)); p.crossFade(0.05); p.pose = k;
+      npc.visible = false; npc.alpha = 1;
+      return true;
+    }
     const ib = S.pairMode() === 'gemini' && (S.CHARS.alan.frames.pairIb || {})[k];
     const seq = (ib && ib.in) || [];
     p.dir = 'e'; p.crossFade(seq.length ? 0.12 : 0.25);
@@ -88,6 +117,14 @@
     const p = G.player, k = (p.cur && window.SPRITES[p.cur] && window.SPRITES[p.cur].rigid) ? p.cur : p.pairKey || p.pose, m = window.SPRITES[k];
     npc = npc || p.pairNpc; p.pairWho = null; p.pairNpc = null; p.pairKey = null;
     if (!m || !m.rigid) { if (npc) npc.visible = true; p.pose = opts.pose || null; if (opts.dir) p.dir = opts.dir; return; }
+    const outOf = (S.CHARS.alan.frames.pairRunIn || {})[k]; // the way in, played backwards
+    if (outOf && outOf.length && await runReady(outOf)) {
+      await pairRun(outOf.slice().reverse(), runFps('in:' + k));
+      if (npc) { const at = S.pairPartnerAt(outOf[0]); npc.x = at.x; npc.y = at.y; npc.alpha = 1; npc.visible = true; }
+      p.crossFade(0.05); p.pose = opts.pose || null;
+      if (opts.dir) p.dir = opts.dir; else if (npc && Math.abs(npc.x - p.x) > 20) p.dir = npc.x > p.x ? 'e' : 'w';
+      return;
+    }
     const ib = S.pairMode() === 'gemini' && (S.CHARS.alan.frames.pairIb || {})[k];
     const seq = (ib && ib.out) || [];
     if (seq.length) await pairSteps(seq);

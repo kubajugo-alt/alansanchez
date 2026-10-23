@@ -234,12 +234,36 @@
   const FLOOR_WALK = [[0, 600], [220, 568], [540, 560], [556, 624], [1064, 618], [1150, 604], [1280, 612], [1280, 716], [0, 716]];
   const inPit = a => a.x >= PIT_X[0] && a.x <= PIT_X[1] && a.y > 560 && a.y < 609;
   const pitStage = a => {
-    if (!a) return;
+    if (!a || a._climb) return; // (S.climbOut stages him itself as he comes over the rim)
     // kneeling or sitting, they'd vanish behind the rim: the camera cheats them up a little so heads and shoulders show
     if (inPit(a)) { a._pit = true; a.sink = /kneel|ladder|crouch|act_(trowel|brush)/.test(String(a.pose || '') + ' ' + String(a.set || '')) ? PIT_SINK - 0.12 : PIT_SINK; a.h = PIT_H; }
     else if (a._pit) { a._pit = false; a.sink = 0; a.h = null; }
   };
   S.PIT_RIM = PIT_RIM;
+  // Alan climbs out over the near rim, facing us (no ladder: the user, 23 Oct): three Canva paintings and the Ludo runs
+  // between them (frames.climbOut, in once all of it is approved on the Ludo board). While he's in the pit each frame
+  // stands on the rim line, sunk to his hands (its meta.rim), so his hands rest on the stone; kneeling on the lip, he comes
+  // forward onto the floor at his own size. False (and nothing shown) when it isn't in the game or its frames aren't in.
+  S.climbOut = async function (p) {
+    const seq = (S.CHARS.alan.frames.climbOut || []).filter(k => window.SPRITES[k]), E = window.Engine;
+    if (!seq.length || window.FAST) return false;
+    if (E.ensure) await Promise.race([E.ensure(seq.map(k => 'spr:' + k)), G.wait(1500)]);
+    if (!seq.every(k => E.IMG['spr:' + k])) return false;
+    const X = PIT[0] - 30, LIP = PIT_RIM + 12, FLOOR = PIT[1] + 10, HF = E.scaleAt(FLOOR);
+    const k3 = seq.findIndex(k => !(window.SPRITES[k].rim > 0)), n = seq.length;
+    p._climb = true; p.x = X; p.dir = 's';
+    try {
+      for (let i = 0; i < n; i++) {
+        const k = seq[i], m = window.SPRITES[k], key = /^alan_climb_k|^alan_front$/.test(k);
+        if (m.rim > 0) { p.y = PIT_RIM; p.h = PIT_H; p.sink = m.rim; } // in the pit: the rim cuts him at his hands
+        else { const u = (i - k3) / Math.max(1, n - 1 - k3); p.sink = 0; p.y = LIP + (FLOOR - LIP) * u; p.h = PIT_H + (HF - PIT_H) * u; } // on the lip, then forward
+        p.crossFade(key ? 0.08 : 0.025); p.pose = k;
+        if (i === 0 && window.Sound) Sound.sfx('step_stone', 0.3);
+        await G.wait(key ? 220 : 50);
+      }
+    } finally { p._climb = false; p._pit = false; p.sink = 0; p.h = null; p.pose = null; p.x = X; p.y = FLOOR; }
+    return true;
+  };
   // the heist: Alan's theme from the moment he meets Vasco, Vasco's from the shirt buttons on; Thursday is Vasco's
   S.cloisterMusic = () => F().thursday ? 'vasco_theme' : F().ines_plan && F().met_vasco && !F().heist_done ? (F().lanyard_taken ? 'vasco_theme' : 'alan_theme') : 'se_cloister';
   ROOMS.se_cloister = {
@@ -541,8 +565,9 @@
     await say('alan_collar_3');
     await G.say('narr_key_clip_2', { offscreen: true });
     F().in_pit = false; F().heist_done = true; F().key_returned = true;
-    // back up the ladder
-    p.x = PIT[0] - 30; p.y = PIT[1] + 10; p.dir = 'e';
+    // out of the pit: over the near rim (S.climbOut), else straight up as before
+    if (!await S.climbOut(p)) { p.x = PIT[0] - 30; p.y = PIT[1] + 10; }
+    p.dir = 'e';
     if (v) { v.x = PIT[0] + 80; v.y = PIT[1] + 12; v.dir = 'w'; }
     await say('ines_innocent', 'vasco_flustered');
     await S.withPair('card', () => say('vasco_card'));

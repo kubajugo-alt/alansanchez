@@ -1,0 +1,200 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_wobble"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9802829620710415,
+   "s": 1.6920943134535367,
+   "ox": 360.0,
+   "oy": 112.0
+  },
+  {
+   "iou": 0.9679584325611604,
+   "s": 1.7062937062937062,
+   "ox": 36.0,
+   "oy": 112.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 89.31,
+   "wire": "alan_side>alan_wobble",
+   "from": 0,
+   "to": 35,
+   "used": [
+    3,
+    21
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_wobble_a01",
+     "frame": 7,
+     "t": 0.135,
+     "drift": 1.2,
+     "head": 0.915,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 492.0,
+      "hh": 1219.0,
+      "h": 1206.3,
+      "ax": 195.4,
+      "fy": 1212.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_wobble_a02",
+     "frame": 8,
+     "t": 0.2,
+     "drift": 2.5,
+     "head": 0.917,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 565.0,
+      "hh": 1214.0,
+      "h": 1201.3,
+      "ax": 221.2,
+      "fy": 1207.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_wobble_a03",
+     "frame": 10,
+     "t": 0.377,
+     "drift": 4.1,
+     "head": 0.868,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 663.0,
+      "hh": 1207.0,
+      "h": 1195.3,
+      "ax": 257.5,
+      "fy": 1200.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_wobble_a04",
+     "frame": 11,
+     "t": 0.47,
+     "drift": 2.8,
+     "head": 0.836,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 660.0,
+      "hh": 1215.0,
+      "h": 1203.3,
+      "ax": 276.5,
+      "fy": 1208.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_wobble_a05",
+     "frame": 12,
+     "t": 0.57,
+     "drift": 2.2,
+     "head": 0.818,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 718.0,
+      "hh": 1227.0,
+      "h": 1214.3,
+      "ax": 361.5,
+      "fy": 1220.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_wobble_a06",
+     "frame": 13,
+     "t": 0.658,
+     "drift": 2.2,
+     "head": 0.782,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 721.0,
+      "hh": 1240.0,
+      "h": 1226.3,
+      "ax": 390.8,
+      "fy": 1232.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_wobble_a07",
+     "frame": 14,
+     "t": 0.727,
+     "drift": 2.1,
+     "head": 0.801,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 751.0,
+      "hh": 1246.0,
+      "h": 1232.3,
+      "ax": 425.8,
+      "fy": 1238.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_wobble_a08",
+     "frame": 16,
+     "t": 0.841,
+     "drift": 2.0,
+     "head": 0.822,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 803.0,
+      "hh": 1243.0,
+      "h": 1230.3,
+      "ax": 459.8,
+      "fy": 1236.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_wobble_a09",
+     "frame": 18,
+     "t": 0.925,
+     "drift": 1.8,
+     "head": 0.815,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 831.0,
+      "hh": 1237.0,
+      "h": 1224.3,
+      "ax": 461.7,
+      "fy": 1230.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

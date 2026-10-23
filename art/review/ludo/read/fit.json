@@ -1,0 +1,146 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_read"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9818514285714286,
+   "s": 2.174757281553398,
+   "ox": 128.0,
+   "oy": 28.0
+  },
+  {
+   "iou": 0.9713982150446239,
+   "s": 2.189821182943604,
+   "ox": 116.0,
+   "oy": 12.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 55.03,
+   "wire": "alan_side>alan_read",
+   "from": 0,
+   "to": 35,
+   "used": [
+    2,
+    27
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_read_a01",
+     "frame": 7,
+     "t": 0.192,
+     "drift": 0.7,
+     "head": 0.867,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 477.0,
+      "hh": 1584.0,
+      "h": 1570.2,
+      "ax": 170.6,
+      "fy": 1576.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_read_a02",
+     "frame": 8,
+     "t": 0.287,
+     "drift": 0.8,
+     "head": 0.888,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 525.0,
+      "hh": 1586.0,
+      "h": 1571.4,
+      "ax": 171.7,
+      "fy": 1577.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_read_a03",
+     "frame": 11,
+     "t": 0.454,
+     "drift": 1.4,
+     "head": 0.894,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 568.0,
+      "hh": 1588.0,
+      "h": 1573.8,
+      "ax": 172.3,
+      "fy": 1579.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_read_a04",
+     "frame": 14,
+     "t": 0.595,
+     "drift": 1.4,
+     "head": 0.89,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 569.0,
+      "hh": 1588.0,
+      "h": 1574.1,
+      "ax": 174.0,
+      "fy": 1580.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_read_a05",
+     "frame": 17,
+     "t": 0.721,
+     "drift": 0.9,
+     "head": 0.908,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 560.0,
+      "hh": 1589.0,
+      "h": 1576.4,
+      "ax": 176.7,
+      "fy": 1581.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_read_a06",
+     "frame": 22,
+     "t": 0.867,
+     "drift": 0.7,
+     "head": 0.908,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 566.0,
+      "hh": 1593.0,
+      "h": 1580.7,
+      "ax": 177.6,
+      "fy": 1585.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

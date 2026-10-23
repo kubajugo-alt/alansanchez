@@ -89,6 +89,7 @@ Engine state lives on `E` so the engine files can share it: `E.state` (what a sa
 | `art/review/candidates.json`, `art/review/candidates/*.webp` | `python3 scripts/review_candidates.py` |
 | `art/layers/*.webp` | `scripts/layers.py` (from clean plates); `scripts/swing_cut.py` (moving parts: `<name>.webp` from the painting, `<name>_under.webp` inpainted behind it) |
 | `art/review/candidates/*_walk6_*`, `*_walk7_*` and their entries in `art/review/candidates.json` | `scripts/walk_sheet.py` (Alan's set), `scripts/walk_sheet_cast.py fit <char>` (the cast), `scripts/walk_apply_cycle.py` (a cycle built in the walk editor). Each prints the plant data, which goes into `S.WALK_PLANT` in `js/story/core.js` by hand. |
+| `art/review/candidates/alan_lu_*`, `pair_lu_*` and their entries in `art/review/candidates.json`, `art/review/ludo/board/` | `python3 scripts/ludo.py batch scripts/ludo_alan.json` (Ludo.ai, paid), then `python3 scripts/ludo_review.py` (fits new runs with `ludo_fit.py` / `ludo_walk_fit.py`, builds the board's strips); `scripts/ludo_apply.py <decisions.json>` writes the board's decisions into `approvals.json` (handoff entry 65) |
 | `audio/voice/*.mp3` | `node scripts/generate-voices.mjs` (ElevenLabs, paid: only when asked) |
 
 ## Testing

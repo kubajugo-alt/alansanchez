@@ -1,0 +1,110 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_write"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9753134796238244,
+   "s": 2.2133148404993066,
+   "ox": 140.0,
+   "oy": 8.0
+  },
+  {
+   "iou": 0.976400566053442,
+   "s": 2.2276111111111114,
+   "ox": 140.0,
+   "oy": 12.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 43.65,
+   "wire": "alan_side>alan_write",
+   "from": 0,
+   "to": 35,
+   "used": [
+    2,
+    19
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_write_a01",
+     "frame": 5,
+     "t": 0.253,
+     "drift": 1.1,
+     "head": 0.772,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 510.0,
+      "hh": 1595.0,
+      "h": 1579.8,
+      "ax": 181.5,
+      "fy": 1587.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_write_a02",
+     "frame": 6,
+     "t": 0.448,
+     "drift": 1.4,
+     "head": 0.8,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 559.0,
+      "hh": 1596.0,
+      "h": 1580.8,
+      "ax": 186.3,
+      "fy": 1587.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_write_a03",
+     "frame": 8,
+     "t": 0.652,
+     "drift": 2.1,
+     "head": 0.914,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 555.0,
+      "hh": 1594.0,
+      "h": 1578.8,
+      "ax": 187.2,
+      "fy": 1585.7,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_write_a04",
+     "frame": 13,
+     "t": 0.816,
+     "drift": 1.6,
+     "head": 0.854,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 536.0,
+      "hh": 1596.0,
+      "h": 1581.8,
+      "ax": 189.4,
+      "fy": 1588.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,218 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_wring"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9684487951807229,
+   "s": 1.6865464632454923,
+   "ox": 272.0,
+   "oy": 12.0
+  },
+  {
+   "iou": 0.9519851823708206,
+   "s": 1.884914463452566,
+   "ox": 84.0,
+   "oy": 16.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 169.87,
+   "wire": "alan_side>alan_wring",
+   "from": 0,
+   "to": 35,
+   "used": [
+    1,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_wring_a01",
+     "frame": 5,
+     "t": 0.1,
+     "drift": 3.9,
+     "head": 0.893,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 684.0,
+      "hh": 1228.0,
+      "h": 1228.6,
+      "ax": 112.0,
+      "fy": 1221.7,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_wring_a02",
+     "frame": 7,
+     "t": 0.192,
+     "drift": 4.0,
+     "head": 0.898,
+     "height": 0.006,
+     "flags": [],
+     "meta": {
+      "w": 674.0,
+      "hh": 1233.0,
+      "h": 1241.7,
+      "ax": 82.5,
+      "fy": 1227.9,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_wring_a03",
+     "frame": 9,
+     "t": 0.28,
+     "drift": 4.1,
+     "head": 0.896,
+     "height": 0.005,
+     "flags": [],
+     "meta": {
+      "w": 665.0,
+      "hh": 1232.0,
+      "h": 1254.2,
+      "ax": 57.7,
+      "fy": 1227.0,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_wring_a04",
+     "frame": 12,
+     "t": 0.386,
+     "drift": 5.0,
+     "head": 0.905,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 660.0,
+      "hh": 1224.0,
+      "h": 1269.5,
+      "ax": 32.5,
+      "fy": 1218.2,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_wring_a05",
+     "frame": 15,
+     "t": 0.47,
+     "drift": 4.5,
+     "head": 0.915,
+     "height": 0.005,
+     "flags": [],
+     "meta": {
+      "w": 658.0,
+      "hh": 1219.0,
+      "h": 1281.4,
+      "ax": 14.5,
+      "fy": 1213.4,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_wring_a06",
+     "frame": 18,
+     "t": 0.558,
+     "drift": 3.8,
+     "head": 0.887,
+     "height": 0.009,
+     "flags": [],
+     "meta": {
+      "w": 699.0,
+      "hh": 1214.0,
+      "h": 1294.0,
+      "ax": 38.7,
+      "fy": 1212.5,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_wring_a07",
+     "frame": 20,
+     "t": 0.645,
+     "drift": 3.9,
+     "head": 0.897,
+     "height": 0.0,
+     "flags": [],
+     "meta": {
+      "w": 735.0,
+      "hh": 1225.0,
+      "h": 1306.5,
+      "ax": 57.1,
+      "fy": 1218.7,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_wring_a08",
+     "frame": 23,
+     "t": 0.761,
+     "drift": 2.9,
+     "head": 0.929,
+     "height": 0.004,
+     "flags": [],
+     "meta": {
+      "w": 732.0,
+      "hh": 1229.0,
+      "h": 1323.0,
+      "ax": 33.0,
+      "fy": 1222.9,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_wring_a09",
+     "frame": 25,
+     "t": 0.837,
+     "drift": 2.0,
+     "head": 0.949,
+     "height": 0.005,
+     "flags": [],
+     "meta": {
+      "w": 775.0,
+      "hh": 1230.0,
+      "h": 1333.8,
+      "ax": 60.6,
+      "fy": 1224.0,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_wring_a10",
+     "frame": 29,
+     "t": 0.914,
+     "drift": 1.5,
+     "head": 0.95,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 829.0,
+      "hh": 1225.0,
+      "h": 1344.9,
+      "ax": 99.9,
+      "fy": 1219.1,
+      "top": 4.0
+     },
+     "placed": "spread"
+    }
+   ]
+  }
+ ]
+}

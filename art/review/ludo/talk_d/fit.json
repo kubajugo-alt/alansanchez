@@ -1,0 +1,128 @@
+{
+ "keys": [
+  "alan_talk",
+  "alan_talk2"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9857379767827529,
+   "s": 2.14404432132964,
+   "ox": 144.0,
+   "oy": 12.0
+  },
+  {
+   "iou": 0.982371567654426,
+   "s": 2.116022099447514,
+   "ox": 120.0,
+   "oy": 12.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 51.93,
+   "wire": "alan_talk>alan_talk2",
+   "from": 0,
+   "to": 35,
+   "used": [
+    4,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_talk_d_a01",
+     "frame": 7,
+     "t": 0.192,
+     "drift": 1.7,
+     "head": 0.885,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 567.0,
+      "hh": 1563.0,
+      "h": 1548.9,
+      "ax": 193.2,
+      "fy": 1555.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_talk_d_a02",
+     "frame": 14,
+     "t": 0.348,
+     "drift": 2.7,
+     "head": 0.87,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 546.0,
+      "hh": 1562.0,
+      "h": 1548.9,
+      "ax": 187.1,
+      "fy": 1554.8,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_talk_d_a03",
+     "frame": 18,
+     "t": 0.517,
+     "drift": 1.8,
+     "head": 0.894,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 502.0,
+      "hh": 1558.0,
+      "h": 1543.9,
+      "ax": 186.8,
+      "fy": 1550.6,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_talk_d_a04",
+     "frame": 24,
+     "t": 0.696,
+     "drift": 0.9,
+     "head": 0.844,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 533.0,
+      "hh": 1552.0,
+      "h": 1536.9,
+      "ax": 192.3,
+      "fy": 1543.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_talk_d_a05",
+     "frame": 29,
+     "t": 0.854,
+     "drift": 0.3,
+     "head": 0.85,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 569.0,
+      "hh": 1550.0,
+      "h": 1534.9,
+      "ax": 198.9,
+      "fy": 1541.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}
