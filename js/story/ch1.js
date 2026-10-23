@@ -185,6 +185,8 @@
     p.x = 900; p.y = 640; p.h = 58; p.pose = 'eat'; sfx('cat_eat'); // on the floor in front of the counter
     F().ledger_found = true; give('ledger');
     await say('alan_pessoa');
+    // Inês left it open at the last page: Afonso Lacerda's last words (it pays off in the cistern)
+    await posed('read', () => say('alan_read_last')); // he reads it aloud
     F().pessoa_fed = true;
   };
   S.playMachine = async function () {

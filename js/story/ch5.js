@@ -15,9 +15,6 @@
       { x: 800, y: 168, rgb: '200,215,255', level: t => S.moonLevel(t), glow: 90, ga: 0.2, power: 0.35, reach: 1500, rim: 0.6, shadow: 0.5, floor: [800, 470], height: 900 },
       { x: 990, y: 640, rgb: '90,255,160', kind: 'pulse', seed: 0, glow: 175, ga: 0.22, power: 0.4, reach: 650, rim: 0.7, floor: [990, 640], height: 200 },
       { actor: 'tomas', off: [0.25, -0.73], offs: { tomas_night_talk: [-0.21, -0.36] }, rgb: '255,190,110', kind: 'flame', seed: 9, glow: 75, ga: 0.38, power: 0.55, reach: 520, rim: 0.7, height: 160, when: () => !F().confessed }, // out once he has given it to Alan
-      { actor: 'lacerda', off: null, offs: { robe_kneel: [-0.16, -0.86] }, // the torch, only while he kneels with it
-        rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
-        when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
       { actor: 'alan', off: [0.152, -0.44], offs: { alan_lantern: [0.152, -0.44], alan_lwalk1: [0.15, -0.391], alan_lwalk2: [0.181, -0.42] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 70, ga: 0.35, power: 0.5, reach: 500, rim: 0.7, height: 160, when: () => F().has_lantern },
       { x: 1158, y: 440, rgb: '255,140,80', kind: 'candle', seed: 5, glow: 55, ga: 0.25, power: 0.15, reach: 300, shadow: false },
     ],
@@ -71,13 +68,16 @@
   };
 
   // ================================================================ THE CISTERN
-  // Steps of the rite: 1 ledger to Lacerda (he kneels, reading), 2 knife on
-  // Inês's ropes, 3 lantern to Inês (the marks appear), 4 knife on Alan's
-  // palm, 5 the tongue on the marks, last to first. Six marks of water.
+  // Lacerda is the Brotherhood: he knows the rite and the order, and needs only a founder's hand on
+  // the bronze. He watches everything, and lets Alan free Inês and light the bell (he wants it rung).
+  // Steps: 1 knife on Inês's ropes, 2 lantern to Inês (the marks appear), 3 knife on Alan's palm,
+  // 4 the tongue on the marks, last to first. The first strike shows him what Alan is doing, and the
+  // water won't obey him against the hand on the bell (Bastos's rule), so he comes along the walkway
+  // for the hand: each correct strike lets him gain a stage, dawdling or a wrong strike too, and if he
+  // reaches the platform before the fourth note, the water has Alan. Six marks of water, as before.
   const ORDER = ['sanches', 'coutinho', 'bastos', 'ferreira'];
   const MARKS = { ferreira: [585, 232], coutinho: [692, 226], sanches: [604, 316], bastos: [706, 322] };
   const PLATFORM = [690, 420], CAUSEWAY_END = [600, 428]; // on the platform's front band; the walkway's top, where it meets it
-  const watched = () => !F().lacerda_distracted || F().strikes > 0;
   ROOMS.cistern = {
     name: 'The Cistern', bg: 'cistern', noSave: true, music: () => F().won ? null : F().bell_lit ? 'bell_motif' : 'cistern_deep', // the rite: the bell's motif ambience: 'cistern', floor: 'wet',
     fog: () => F().won ? 0 : 0.16, fogRGB: '90,140,120',
@@ -90,9 +90,6 @@
       { x: 1215, y: 250, rgb: '255,150,60', kind: 'torch', seed: 4, glow: 120, ga: 0.3, power: 0.6, reach: 950, rim: 0.7, floor: [1215, 560], height: 380 },
       { x: 650, y: 470, rgb: '110,255,170', kind: 'pulse', seed: 2, power: 0.22, reach: 700, rim: 0.5, shadow: false },
       { actor: 'ines', off: [0, -0.85], offs: { ines_lantern: [-0.01, -0.88], ines_lantern_talk: [-0.01, -0.84], ines_lwalk1: [0.15, -0.75], ines_lwalk2: [0.15, -0.75] }, rgb: '255,195,120', kind: 'flame', seed: 8, glow: 90, ga: 0.4, power: 0.6, reach: 700, rim: 0.8, height: 120, when: () => F().bell_lit && !F().won },
-      { actor: 'lacerda', off: null, offs: { robe_kneel: [-0.16, -0.86] }, // the torch, only while he kneels with it
-        rgb: '255,160,80', kind: 'torch', seed: 5, glow: 70, ga: 0.35, power: 0.45, reach: 520, rim: 0.6, height: 150,
-        when: () => F().lacerda_distracted && !F().won, dim: () => { const l = G.npc('lacerda'); return l ? Math.max(0, 1 - l.sink * 1.6) : 0; } },
       { actor: 'alan', off: [0.152, -0.44], offs: { alan_lantern: [0.152, -0.44], alan_lwalk1: [0.15, -0.391], alan_lwalk2: [0.181, -0.42] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 60, ga: 0.3, power: 0.4, reach: 450, rim: 0.6, height: 160, when: () => F().has_lantern && !F().bell_lit },
     ],
     entries: { default: [140, 640, 'e'], convent: [140, 640, 'e'] },
@@ -119,12 +116,12 @@
         g.strokeStyle = `rgba(150,255,210,${0.5 * (1 - r / 480)})`; g.lineWidth = 3;
         g.beginPath(); g.ellipse(652, 260, r, r * 0.45, 0, 0, Math.PI * 2); g.stroke();
       }
-      S.idleHint(t); S.readingTick(t);
+      S.idleHint(t); S.raceTick(t);
     },
     animFg(g, t) { S.drawFlood(g, t); S.drawVortex(g, t); if (F().won) { g.fillStyle = 'rgba(255,200,140,0.08)'; g.fillRect(0, 0, 1280, 720); } },
     npcs: [
-      { id: 'lacerda', ch: 'lacerda_robe', x: 845, y: 572, dir: 'w', fixedDir: true, set: () => F().lacerda_distracted || F().read1 ? 'read' : null, name: 'Lacerda', when: () => !F().won,
-        look: 'narr_look_lacerda_robe', talk: async () => { await say('alan_fin_angry'); await say(watched() ? 'lacerda_patient' : 'lacerda_ledger'); },
+      { id: 'lacerda', ch: 'lacerda_robe', x: 845, y: 572, dir: 'w', fixedDir: true, name: 'Lacerda', when: () => !F().won,
+        look: 'narr_look_lacerda_robe', talk: () => say('lacerda_patient'), // ("You killed him." was said once, on the way in)
         take: () => S.cisternDeath(),
         items: { ledger: () => S.giveLedger(), tongue: () => S.cisternDeath(), knife: () => S.cisternDeath(), any: 'alan_fail_lacerda_item' } },
       { id: 'ines', x: 1078, y: 640, dir: 'w', fixedDir: true, set: () => F().bell_lit ? 'lantern' : F().ines_free ? null : 'tied', name: 'Inês',
@@ -135,7 +132,7 @@
       { name: 'Waterline marks', rect: [990, 280, 160, 300], look: 'narr_look_marks' },
       { name: 'Walkway', rect: [210, 410, 560, 150], look: 'narr_look_walkway' },
       { name: 'The Drowned Bell', rect: [533, 60, 236, 330], reach: false, look: () => say(F().bell_lit ? 'narr_bell_lit' : 'narr_look_bell'),
-        use: () => say(F().bell_lit ? 'alan_need_blood' : 'alan_too_dark'),
+        use: () => say(!F().bell_lit ? 'alan_too_dark' : !F().blood ? 'alan_need_blood' : 'ines_hint_lastfirst'),
         items: { tongue: () => S.strike(null), any: 'alan_fail_09' } },
       ...Object.keys(MARKS).map(id => ({ name: () => `${id[0].toUpperCase() + id.slice(1)} mark`, rect: [MARKS[id][0] - 26, MARKS[id][1] - 22, 52, 44], reach: false,
         when: () => F().bell_lit, look: 'narr_bell_lit', items: { tongue: () => S.strike(id), any: 'alan_fail_09' } })),
@@ -281,47 +278,20 @@
     const wait = (F().cistern_floods || 0) >= 2 ? 10 : 20;
     if (t - lastAct > wait && t - hinted > wait) { hinted = t; lastAct = t; G.busy(() => say(S.cisternHint())); }
   };
-  S.cisternHint = () => !F().lacerda_distracted ? 'ines_hint_ledger' : !F().ines_free ? 'ines_hint_free' : !F().bell_lit ? 'ines_hint_light' : !F().blood ? 'ines_hint_blood' : 'ines_hint_lastfirst';
+  S.cisternHint = () => !F().ines_free ? 'ines_hint_free' : !F().bell_lit ? 'ines_hint_light' : !F().blood ? 'ines_hint_blood' : 'ines_hint_lastfirst';
   const raise = async (n) => {
     F().water = Math.min(6, (F().water || 0) + n); sfx('water_rise', 0.55 + F().water * 0.06, 1.05 - F().water * 0.04);
     if (F().water >= 6) { await G.wait(window.FAST ? 20 : 600); await S.cisternDeath(true); return true; }
     return false;
   };
+  // the ledger: Lacerda has no use for it (he wrote the rite Joaquim was hiding from)
   S.giveLedger = async function () {
-    if (F().lacerda_distracted) return S.done();
-    // Inês knows what's on the last page: Joaquim wrote down Afonso Lacerda's last words
-    await say('ines_page');
-    await G.closeup([{ img: 'close:paper_aged', cls: 'doc-hand', html: `<p>&nbsp;</p><p>Afonso Lacerda's last words, as the water rose, were for his son:</p><p style="text-align:center">'Vicente, let it go.'</p><p style="text-align:right">J. S.</p>` }]);
     G.takeItem('ledger');
-    await say('alan_offer', 'lacerda_cant', 'alan_seven');
-    const lac = G.npc('lacerda'); lac.set = 'read';
-    sfx('page');
-    await say('lacerda_ledger');
-    sfx('page', 0.7);
-    await say('lacerda_read_1');
-    F().read1 = true;
-    sfx('page', 0.5);
-    await say('lacerda_read_2');
-    F().read2 = true;
-    // the last page: his father's last words, which were never for him (no joke here, and no score)
-    sfx('page', 0.4);
-    await say('lacerda_read_father', 'lacerda_read_after', 'ines_page_this');
-    F().lacerda_distracted = true; // only now is he lost in it, and the bell can be struck
-  };
-  // while he reads, the pages keep turning
-  let nextPage = 0, readFrom = 0;
-  S.readingTick = function (t) {
-    if (!F().read1 || F().strikes > 0 || F().won || G.isBusy || S.dead) return;
-    if (!readFrom) readFrom = t;
-    if (t > nextPage) {
-      nextPage = t + 5 + Math.random() * 5;
-      Sound.sfx('page', 0.5);
-      if (!F().read2 && t - readFrom > 10) { F().read2 = true; G.busy(() => say('lacerda_read_2')); }
-    }
+    await say('lacerda_toss');
+    sfx('splash', 0.5);
   };
   S.cutRopes = async function () {
     if (F().ines_free) return S.done();
-    if (!F().lacerda_distracted) return say('alan_cut_watched');
     const ines = G.npc('ines');
     // he doesn't mind: he believes the water is his
     if (!F().lamp_ok) { F().lamp_ok = true; await say('alan_ask_lamp', 'lacerda_lamp_ok'); }
@@ -329,6 +299,7 @@
     await G.wait(window.FAST ? 20 : 700); G.player.pose = null;
     F().ines_free = true; ines.set = null; ines.pose = 'wrists'; ines.def.fixedDir = false;
     await say('ines_free', 'alan_cat');
+    await say('ines_whisper'); // Bastos's rule: the sea obeys the hand on the bell
     ines.pose = null;
   };
   // Inês takes the lamp out along the walkway, close to the bell
@@ -351,7 +322,7 @@
     if (F().blood) return S.done();
     if (!G.has('tongue')) return say('alan_fail_06');
     G.player.pose = 'cut'; sfx('knife');
-    await say('ines_no'); await joke('alan_papercut');
+    await say('ines_no', 'alan_papercut'); // (no score: she's terrified)
     G.player.pose = null; F().blood = true; G.renderInv();
   };
   S.toPlatform = async function () {
@@ -360,8 +331,24 @@
     await p.walkTo(272, 556); await p.walkTo(CAUSEWAY_END[0], CAUSEWAY_END[1]); await p.walkTo(PLATFORM[0], PLATFORM[1]);
     p.dir = 'w';
   };
+  // the race: where Lacerda stands on his way to the hand on the bell (0 his step by the water;
+  // 1 the foot of the walkway; 2 at Inês and her lantern; 3 up the walkway; 4 at the platform: too late)
+  const STAGES = [null, [272, 556], [420, 500], [548, 446], CAUSEWAY_END];
+  const RACE_GAP = 25; // seconds he gives Alan between notes before he gains a stage on his own
+  let raceAt = 0;
+  S.lacAdvance = async function (to) {
+    const lac = G.npc('lacerda'); if (!lac || S.dead) return;
+    F().lac_stage = Math.max(F().lac_stage || 0, to);
+    lac.def.fixedDir = false;
+    const [x, y] = STAGES[F().lac_stage];
+    if (F().lac_stage >= 4 && F().strikes < 4) { await lac.walkTo(x, y); return S.cisternDeath(true); } // he has the hand
+    await lac.walkTo(x, y);
+  };
+  S.raceTick = function (t) {
+    if (!F().race || F().won || S.dead || G.isBusy) { raceAt = t; return; }
+    if (t - raceAt > (window.FAST ? 6 : RACE_GAP)) { raceAt = t; G.busy(() => S.lacAdvance((F().lac_stage || 0) + 1)); }
+  };
   S.strike = async function (id) {
-    if (!F().lacerda_distracted) return say('lacerda_ledger_first');
     if (!F().bell_lit) return say('alan_too_dark');
     if (!F().blood) return say('alan_need_blood');
     if (!id) return say('narr_bell_lit');
@@ -370,20 +357,40 @@
     await G.wait(window.FAST ? 20 : 450);
     const struck = F().struck || (F().struck = []);
     const want = ORDER[struck.length];
+    const PITCH = { sanches: 1.18, coutinho: 1.06, bastos: 0.94, ferreira: 0.84 };
+    // every strike is a plain bell note; only after the fourth is the sound drawn back in (S.silence)
+    sfx('bell_forward', 1, PITCH[id] || 1);
     if (id !== want) {
-      sfx('bell_forward'); S.bellHit('wrong'); p.pose = null; F().struck_wrong = true;
-      await say('narr_wrong_strike', 'alan_wrong_strike', 'lacerda_lovely');
+      S.bellHit('wrong'); p.pose = null; F().struck_wrong = true;
+      await say('narr_wrong_strike', 'alan_wrong_strike', 'lacerda_lovely'); // the founders' order: what he wants
       return raise(2);
     }
     struck.push(id); F().strikes = (F().strikes || 0) + 1;
-    sfx('bell_backward', 1, ({ sanches: 1.18, coutinho: 1.06, bastos: 0.94, ferreira: 0.84 })[id] || 1); S.bellHit('back'); p.pose = null;
+    S.bellHit('back'); p.pose = null;
+    if (struck.length === 4) { F().race = false; await say('alan_ringback'); return S.silence(); }
+    if (await raise(1)) return;
     const lac = G.npc('lacerda');
-    // he assumes the founding order and hears what he wants to hear, until the last note
-    if (struck.length === 1) await say('alan_strike_1', 'lacerda_good_1');
-    else if (struck.length === 2) await say('lacerda_good_2');
-    else if (struck.length === 3) { if (lac) { lac.set = null; lac.pose = 'read'; } await say('lacerda_good_3'); }
-    if (struck.length === 4) { await say('alan_ringback'); return S.silence(); }
-    await raise(1);
+    if (struck.length === 1) {
+      // Sanches first: he knows the order, and he knows what this is
+      await say('alan_strike_1', 'lacerda_ferreira');
+      if (lac) { lac.pose = 'realise'; } sfx('water_seep', 0.8); // he calls the water; it stirs and sinks back
+      await G.wait(window.FAST ? 20 : 900);
+      await say('lacerda_listening');
+      if (lac) lac.pose = null;
+      F().race = true; // (raceTick restarts its clock while anything is playing)
+      await S.lacAdvance(1);
+    } else if (struck.length === 2) {
+      await S.lacAdvance(2);
+      const ines = G.npc('ines');
+      if (ines) { ines.dir = 'w'; }
+      await say('ines_block', 'lacerda_gladly'); // he shoves past her: it costs him a beat
+      await G.wait(window.FAST ? 20 : 600);
+    } else if (struck.length === 3) {
+      await S.lacAdvance(3);
+      if (lac) lac.pose = 'lunge';
+      await say('lacerda_take'); // the water climbs to Alan's ankles, and stops
+      if (lac) lac.pose = null;
+    }
   };
   S.cisternDeath = async function (step5) {
     S.dead = true;
@@ -405,7 +412,7 @@
     S.dead = false;
     Sound.stopVoice();
     G.showModal('death', false);
-    const keep = F()._deathStep5 ? { lacerda_distracted: true, ines_free: true, bell_lit: true, blood: true } : null;
+    const keep = F()._deathStep5 ? { ines_free: true, bell_lit: true, blood: true } : null;
     const floods = (F().cistern_floods || 0) + (F()._flooded ? 1 : 0); // restarts from water level 6 (survives the reload)
     const cp = G.flags._checkpoint;
     await G.loadSave(cp);
@@ -421,7 +428,7 @@
       const ines = G.npc('ines');
       if (ines) { ines.x = LAMP_SPOT[0]; ines.y = LAMP_SPOT[1]; ines.dir = 'e'; ines.def.fixedDir = false; }
     }
-    F().water = 0; F().strikes = 0; F().struck = [];
+    F().water = 0; F().strikes = 0; F().struck = []; F().race = false; F().lac_stage = 0;
     await G.fade(false);
   };
   document.getElementById('btn-retry').onclick = () => S.retryCistern();
@@ -429,25 +436,25 @@
   S.silence = async function () {
     G.cutscene = true;
     const lac = G.npc('lacerda'), ines = G.npc('ines'), p = G.player;
-    F().ringing = true; sfx('bell_great_backward', 1, 0.75); S.bellHit('back'); sfx('fog_lift');
+    // he has reached the platform; the fourth note's ring is drawn back into the bronze
+    lac.def.fixedDir = false; await lac.walkTo(CAUSEWAY_END[0], CAUSEWAY_END[1]); lac.dir = 'e';
+    F().ringing = true; await G.wait(window.FAST ? 20 : 700);
+    sfx('bell_drawn_in'); S.bellHit('back'); setTimeout(() => sfx('fog_lift'), window.FAST ? 10 : 8600);
     await say('narr_ring');
-    lac.set = null; lac.pose = 'realise';
-    await say('lacerda_realise');
-    // (the lunge, lacerda_drag and alan_no_hand no longer play: he doesn't fight it.
-    // He goes back to the ledger, reading, as the water comes up.)
-    lac.pose = null; lac.set = 'read';
+    lac.pose = 'lunge';
+    await say('lacerda_come'); // the water doesn't answer him any more
+    lac.pose = 'realise';
     await G.say('narr_renounce', { offscreen: true });
     sfx('water_rise'); vortex = { x: lac.x, y: lac.y + 2, t0: performance.now() };
     const x1 = lac.x, y1 = lac.y;
     sfx('splash', 0.4);
+    await say('alan_let_go'); // he doesn't
     const sinking = (async () => {
       for (let k = 0; k <= 1.0001; k += window.FAST ? 0.4 : 0.004) { lac.sink = k; await G.wait(16); }
       lac.visible = false; sfx('splash', 0.5); vortex.end = performance.now();
     })();
     await say('narr_end_1');
     await sinking;
-    await G.say('narr_reading', { offscreen: true });
-    await say('alan_ledger'); // no joke, no score
     F().sinkAt = [x1, y1];
     await G.wait(window.FAST ? 20 : 900);
     // the water lets go of everything else
