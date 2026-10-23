@@ -38,6 +38,10 @@ them without checking the code and the user.
   Saves, input locks, GL context loss and touch examine made robust (entry 50).
 
 ### Open, in the order I'd suggest
+**Z. The Ludo board (entry 65):** 75 runs of Alan's movement (and Teixeira's pairs) waiting for the user's decisions on
+   https://claude.ai/artifact/N278871yDs6XcuU5RqW5ip; apply them with `scripts/ludo_apply.py` (read the board's
+   `decisions` collection first). The user's rules for Ludo: hydra only, the improve pass always, the free 1.5x upscale
+   always, Alan's consistency checked on every run, forge only when hydra refuses; only frames the game uses.
 A. **The cut-out audit: applied** (entry 48; the user: "I approve it all"). The 716 cleaned frames from
    `art/review/cutout/sprites/` written over their sources (art/sprites 496, the 155 candidates, bath_new 49,
    duarte_new 16), re-encoded WebP q90 with lossless alpha (checked identical to the cleaned alpha) and exact RGB under
@@ -1284,6 +1288,43 @@ session lived in the session's scratchpad and are gone; everything that matters 
    smoke.mjs bastos, bastostapes, bastosunlock, lacthreat, twinswap pass; play.mjs `{"won":true}`, 148 steps, 987 s.
    - **Deployed** (the user: "All ok"): master `ac5421ad`, Netlify `6ada8efb8d17c96ed9001097`, from a clean
      `git archive` export (smoke `bastos` passed there); live: `/.env` 404, `ines_sea_7.mp3` 200.
+
+65. **Ludo.ai movement for Alan (and Teixeira's pairs): 75 runs, 776 frames, on the Ludo board** (the user, 23 Oct:
+   "create new sprites for Alan, including transitions ... fully smooth animations in all cases ... exported
+   upscaled"; then "Always do the free 1.5x upscale, always use hydra ..., always use 'improve details' and always
+   review if Alan looks consistent ... all Alan movements within the Ludo budget. Don't do the sprites that are not
+   used in the game"; "if something gets refused, try forge"; "starting with Teixeira").
+   - **Pipeline:** `scripts/ludo.py` (key `LUDO_API_KEY` in `.env`, never printed or committed): hydra keyframe runs
+     between his own paintings (2 or 3 keyframes), the improve pass (`edit_mode: improve`), the free 1.5x export
+     (`frame_size -1`), download; hydra moderation refusals retried on forge (no improve pass exists for forge).
+     Every paid call in `art/review/ludo/log.md`: 143 calls, 847.5 credits (134 left of 981.5). Raw downloads are
+     git-ignored (`art/review/ludo/*/up/`).
+   - **What was made** (`scripts/ludo_alan.json`, from recording every scene's frame changes plus the code's poses;
+     the old bath's frames are dead code and were left out): talking and his two stances, turning to/away from us,
+     every pose taken from standing, the cigarette, the fado, dressing, the side/front/back/lantern walk cycles, walk
+     start and stop, the new bath's steps, Teixeira's visit (into the pair, the four steps) and the police station's
+     two pairs. Seven runs refused by hydra were made on forge (dress_a, bn_fling, bn_swing, bn_climb, bn_pants_up,
+     cop_c, cop_d).
+   - **Fitting:** `scripts/ludo_fit.py` (in-betweens: his paintings fitted into Ludo's canvas, still ends trimmed,
+     frames sampled by motion, colours moved toward his paintings; standing runs placed by each frame's measured
+     height and feet, after the user's note on talk_c that he grew and slid), `scripts/ludo_walk_fit.py` (cycles;
+     the side walk's foot data from its two contact frames), `scripts/ludo_pair_key.py` (the two standing figures
+     composed where a pair painting has their feet, as the run's first keyframe). Consistency read on every frame
+     (colour drift, head, height) and every strip checked by eye. Candidates `alan_lu_*`, `pair_lu_*`.
+   - **Engine:** a run plays at its own frame rate, frame to frame (actor.js `ibFps`; frames still loading are
+     fetched and the change is plain that once); whole walk cycles wire in only when every frame is approved
+     (main.js `walkCycle`, so the walk the user built stays meanwhile); pair runs (core.js `pairRun`, `pairRunIn`;
+     waits for the frames, follows the pair he is in, slides his place between the two paintings' spots).
+   - **Review:** the Ludo board https://claude.ai/artifact/N278871yDs6XcuU5RqW5ip (collection `decisions`), built by
+     `scripts/ludo_review.py`; `scripts/ludo_apply.py` writes the user's board decisions into approvals.json.
+     Approved so far: the reach and talk_b (17 frames). talk_c re-placed after the user's note, waiting.
+   - **Checked:** validate 0 errors; smoke (all candidates approved) visitcop, copguard, bath, fado, copbed, intro
+     pass; the approved runs play from approvals.json alone (`scripts/tests/ludo_shot.mjs`, fixed clock: 50 ms a
+     frame); Teixeira's visit at real speed plays through every pair run end to end.
+   - **Open:** climb (his climb painting is the old bath's, shirtless: reject); props that grow in (ring's clapper,
+     wring's sheet, the lantern); Teixeira puts his cap on in the neck run; dress_a's jeans turn grey (forge); the
+     side walk wants a try in the game before it replaces the user's; faces: run frames have no mouth or eyelids
+     (short, so the mouth rests during them). Other characters' pairs (Duarte, Zé, Vasco) not started: no credits.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
