@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_bn_x_shorts_knees",
+  "b": "alan_bn_x_jeans_ready",
+  "mid": "alan_bn_pants_up",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

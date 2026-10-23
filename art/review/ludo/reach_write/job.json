@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alan_reach",
+  "b": "alan_write",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "ff0f9091-8170-4544-8b34-d7cd22c95e69",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/177d83c130e9a59687e7a4fe37e46dc9.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/788756dcf2524c20e18d61a6899c4046.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/9f46af54b286920f3f3bc84d7f139fe5.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.625
+  },
+  "credits": 9
+ }
+}

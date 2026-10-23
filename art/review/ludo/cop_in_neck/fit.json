@@ -1,0 +1,229 @@
+{
+ "keys": [
+  "file:cop_neck_apart",
+  "pair_cop_neck"
+ ],
+ "at": [
+  0,
+  25
+ ],
+ "fits": [
+  {
+   "iou": 0.9625860935174609,
+   "s": 1.6838227146814404,
+   "ox": -192.0,
+   "oy": 188.0
+  },
+  {
+   "iou": 0.7168680036624627,
+   "s": 1.7309292649098473,
+   "ox": 128.0,
+   "oy": 164.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 89.23,
+   "wire": "file:cop_neck_apart>pair_cop_neck",
+   "from": 0,
+   "to": 25,
+   "used": [
+    2,
+    25
+   ],
+   "frames": [
+    {
+     "id": "pair_lu_cop_in_neck_a01",
+     "frame": 5,
+     "t": 0.109,
+     "drift": 2.0,
+     "head": 0.972,
+     "height": 0.009,
+     "flags": [],
+     "meta": {
+      "w": 543.0,
+      "hh": 1238.0,
+      "h": 1209.3,
+      "ax": 418.5,
+      "fy": 1224.3,
+      "top": 4.0,
+      "px": 148.6,
+      "pfy": 1214.2,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_neck_a02",
+     "frame": 7,
+     "t": 0.219,
+     "drift": 2.6,
+     "head": 0.915,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 600.0,
+      "hh": 1228.0,
+      "h": 1213.0,
+      "ax": 417.9,
+      "fy": 1225.5,
+      "top": 4.0,
+      "px": 147.2,
+      "pfy": 1215.3,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_neck_a03",
+     "frame": 10,
+     "t": 0.324,
+     "drift": 2.0,
+     "head": 0.912,
+     "height": 0.0,
+     "flags": [],
+     "meta": {
+      "w": 635.0,
+      "hh": 1234.0,
+      "h": 1216.5,
+      "ax": 421.4,
+      "fy": 1226.5,
+      "top": 4.0,
+      "px": 149.9,
+      "pfy": 1216.3,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_neck_a04",
+     "frame": 12,
+     "t": 0.443,
+     "drift": 1.9,
+     "head": 0.899,
+     "height": 0.011,
+     "flags": [],
+     "meta": {
+      "w": 639.0,
+      "hh": 1251.0,
+      "h": 1220.6,
+      "ax": 426.7,
+      "fy": 1230.7,
+      "top": 4.0,
+      "px": 154.3,
+      "pfy": 1220.5,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_neck_a05",
+     "frame": 13,
+     "t": 0.53,
+     "drift": 1.5,
+     "head": 0.806,
+     "height": 0.037,
+     "flags": [],
+     "meta": {
+      "w": 641.0,
+      "hh": 1287.0,
+      "h": 1223.5,
+      "ax": 432.3,
+      "fy": 1266.6,
+      "top": 4.0,
+      "px": 159.2,
+      "pfy": 1256.3,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_neck_a06",
+     "frame": 15,
+     "t": 0.616,
+     "drift": 1.7,
+     "head": 0.613,
+     "height": 0.068,
+     "flags": [
+      "height"
+     ],
+     "meta": {
+      "w": 644.0,
+      "hh": 1328.0,
+      "h": 1226.4,
+      "ax": 439.8,
+      "fy": 1308.5,
+      "top": 4.0,
+      "px": 166.1,
+      "pfy": 1298.2,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_neck_a07",
+     "frame": 17,
+     "t": 0.703,
+     "drift": 2.0,
+     "head": 0.935,
+     "height": 0.024,
+     "flags": [],
+     "meta": {
+      "w": 642.0,
+      "hh": 1276.0,
+      "h": 1229.3,
+      "ax": 445.4,
+      "fy": 1257.3,
+      "top": 4.0,
+      "px": 171.0,
+      "pfy": 1247.0,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_neck_a08",
+     "frame": 20,
+     "t": 0.812,
+     "drift": 2.6,
+     "head": 0.921,
+     "height": 0.012,
+     "flags": [],
+     "meta": {
+      "w": 585.0,
+      "hh": 1265.0,
+      "h": 1233.0,
+      "ax": 421.8,
+      "fy": 1247.4,
+      "top": 4.0,
+      "px": 146.6,
+      "pfy": 1237.1,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_neck_a09",
+     "frame": 23,
+     "t": 0.919,
+     "drift": 2.2,
+     "head": 0.886,
+     "height": 0.008,
+     "flags": [],
+     "meta": {
+      "w": 536.0,
+      "hh": 1263.0,
+      "h": 1236.6,
+      "ax": 428.2,
+      "fy": 1246.5,
+      "top": 4.0,
+      "px": 152.2,
+      "pfy": 1236.1,
+      "rigid": true
+     },
+     "placed": "spread"
+    }
+   ]
+  }
+ ]
+}

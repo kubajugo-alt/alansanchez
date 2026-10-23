@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_bn_sit",
+  "b": "alan_bn_climb",
+  "mid": "alan_bn_x_swing",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

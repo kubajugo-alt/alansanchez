@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alan_bn_y_button",
+  "b": "alan_bn_y_tee_ready",
+  "mid": "alan_bn_belt",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "9252845d-732c-488b-888f-03fc2958d17d",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/cf2cdf1359cb536cfb58051a1baefaaf.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/1c5f2cbe30e0b0df73720705a8d9747f.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/52761dd27caf1f3cf65c6d8d2eb7e492.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.5416666666666665
+  },
+  "credits": 9
+ }
+}

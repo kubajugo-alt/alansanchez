@@ -1,0 +1,92 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_drink"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9765043789434034,
+   "s": 2.1414701803051317,
+   "ox": 132.0,
+   "oy": 16.0
+  },
+  {
+   "iou": 0.9733975171015962,
+   "s": 2.005540166204986,
+   "ox": 136.0,
+   "oy": 24.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 39.04,
+   "wire": "alan_side>alan_drink",
+   "from": 0,
+   "to": 35,
+   "used": [
+    11,
+    26
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_drink_a01",
+     "frame": 15,
+     "t": 0.246,
+     "drift": 1.2,
+     "head": 0.804,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 564.0,
+      "hh": 1558.0,
+      "h": 1542.9,
+      "ax": 184.4,
+      "fy": 1549.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_drink_a02",
+     "frame": 19,
+     "t": 0.407,
+     "drift": 1.7,
+     "head": 0.774,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 573.0,
+      "hh": 1558.0,
+      "h": 1542.9,
+      "ax": 192.3,
+      "fy": 1549.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_drink_a03",
+     "frame": 25,
+     "t": 0.505,
+     "drift": 1.9,
+     "head": 0.784,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 584.0,
+      "hh": 1557.0,
+      "h": 1541.9,
+      "ax": 193.7,
+      "fy": 1549.6,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

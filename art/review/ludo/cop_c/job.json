@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "pair_cop_shelf2",
+  "b": "pair_cop_belt2",
+  "mid": "pair_cop_belt",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

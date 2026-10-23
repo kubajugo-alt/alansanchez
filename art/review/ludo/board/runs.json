@@ -24,6 +24,7 @@
    "w": 220,
    "h": 300,
    "what": "Standing \u2192 talking gesture \u2192 second stance (every conversation)",
+   "note": "",
    "frames": 8,
    "fps": 20,
    "wires": [
@@ -65,6 +66,7 @@
    "w": 220,
    "h": 300,
    "what": "Second stance \u2192 second talking gesture \u2192 standing (every conversation)",
+   "note": "",
    "frames": 8,
    "fps": 20,
    "wires": [
@@ -101,6 +103,7 @@
    "w": 220,
    "h": 300,
    "what": "Standing \u2194 his second stance (idle shifts)",
+   "note": "",
    "frames": 7,
    "fps": 20,
    "wires": [
@@ -134,6 +137,7 @@
    "w": 220,
    "h": 300,
    "what": "Between his two talking gestures",
+   "note": "",
    "frames": 5,
    "fps": 20,
    "wires": [
@@ -171,6 +175,7 @@
    "w": 220,
    "h": 300,
    "what": "Reaching out (doors, drawers, objects: his most common action)",
+   "note": "",
    "frames": 9,
    "fps": 20,
    "wires": [
@@ -209,6 +214,7 @@
    "w": 220,
    "h": 300,
    "what": "Turning to face us (walking down a room; the swing when he turns round)",
+   "note": "",
    "frames": 10,
    "fps": 20,
    "wires": [
@@ -247,6 +253,7 @@
    "w": 220,
    "h": 300,
    "what": "Turning away from us (walking up a room)",
+   "note": "",
    "frames": 10,
    "fps": 20,
    "wires": [
@@ -281,6 +288,7 @@
    "w": 220,
    "h": 300,
    "what": "Taking out the notebook to write",
+   "note": "",
    "frames": 4,
    "fps": 20,
    "wires": [
@@ -315,6 +323,7 @@
    "w": 220,
    "h": 300,
    "what": "Reading (books, the ledger, papers)",
+   "note": "",
    "frames": 6,
    "fps": 20,
    "wires": [
@@ -353,6 +362,7 @@
    "w": 220,
    "h": 300,
    "what": "Striking the bell (Ch. IV and the finale)",
+   "note": "His standing painting has no clapper in hand, so Ludo grows it in from a small stick as he lifts it.",
    "frames": 10,
    "fps": 20,
    "wires": [
@@ -393,6 +403,7 @@
    "w": 220,
    "h": 300,
    "what": "Crouching to pick something up",
+   "note": "",
    "frames": 10,
    "fps": 20,
    "wires": [
@@ -408,6 +419,621 @@
     "drift": 3.5,
     "head": 0.49,
     "height": 0.15
+   }
+  },
+  {
+   "name": "drink",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_drink"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_drink_a01",
+    "alan_lu_drink_a02",
+    "alan_lu_drink_a03",
+    "alan_drink"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Raising a glass (the tavern)",
+   "note": "",
+   "frames": 3,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_drink"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 1.9,
+    "head": 0.774,
+    "height": 0.036
+   }
+  },
+  {
+   "name": "wobble",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_wobble"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_wobble_a01",
+    "alan_lu_wobble_a02",
+    "alan_lu_wobble_a03",
+    "alan_lu_wobble_a04",
+    "alan_lu_wobble_a05",
+    "alan_lu_wobble_a06",
+    "alan_lu_wobble_a07",
+    "alan_lu_wobble_a08",
+    "alan_lu_wobble_a09",
+    "alan_wobble"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Losing his balance (the boat, the S\u00e9 scaffold)",
+   "note": "",
+   "frames": 9,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_wobble"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 4.1,
+    "head": 0.782,
+    "height": 0.017
+   }
+  },
+  {
+   "name": "pull",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_pull"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_pull_a01",
+    "alan_lu_pull_a02",
+    "alan_lu_pull_a03",
+    "alan_lu_pull_a04",
+    "alan_lu_pull_a05",
+    "alan_lu_pull_a06",
+    "alan_lu_pull_a07",
+    "alan_lu_pull_a08",
+    "alan_lu_pull_a09",
+    "alan_lu_pull_a10",
+    "alan_pull"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Hauling on a rope (the mooring line, the bell rope)",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_pull"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [
+    "height"
+   ],
+   "worst": {
+    "drift": 3.3,
+    "head": 0.909,
+    "height": 0.136
+   }
+  },
+  {
+   "name": "phone",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_phone"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_phone_a01",
+    "alan_lu_phone_a02",
+    "alan_lu_phone_a03",
+    "alan_lu_phone_a04",
+    "alan_lu_phone_a05",
+    "alan_lu_phone_a06",
+    "alan_lu_phone_a07",
+    "alan_lu_phone_a08",
+    "alan_lu_phone_a09",
+    "alan_lu_phone_a10",
+    "alan_phone"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Lifting the phone to his ear",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_phone"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 1.5,
+    "head": 0.827,
+    "height": 0.019
+   }
+  },
+  {
+   "name": "cutpalm",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_cutpalm"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_cutpalm_a01",
+    "alan_lu_cutpalm_a02",
+    "alan_lu_cutpalm_a03",
+    "alan_lu_cutpalm_a04",
+    "alan_lu_cutpalm_a05",
+    "alan_lu_cutpalm_a06",
+    "alan_lu_cutpalm_a07",
+    "alan_lu_cutpalm_a08",
+    "alan_lu_cutpalm_a09",
+    "alan_lu_cutpalm_a10",
+    "alan_cutpalm"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Cutting his palm (the cistern rite)",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_cutpalm"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 1.4,
+    "head": 0.83,
+    "height": 0.008
+   }
+  },
+  {
+   "name": "climb",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_climb"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_climb_a01",
+    "alan_lu_climb_a02",
+    "alan_climb"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Climbing (the tower, the pit)",
+   "note": "",
+   "frames": 2,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_climb"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [
+    "drift",
+    "head",
+    "height"
+   ],
+   "worst": {
+    "drift": 28.2,
+    "head": 0.13,
+    "height": 0.111
+   }
+  },
+  {
+   "name": "bn_jacket",
+   "walk": null,
+   "keys": [
+    "alan_bn_jacket_shrug",
+    "alan_bn_x_jacket_arm",
+    "alan_bn_jacket_off"
+   ],
+   "cells": [
+    "alan_bn_jacket_shrug",
+    "alan_lu_bn_jacket_a01",
+    "alan_lu_bn_jacket_a02",
+    "alan_lu_bn_jacket_a03",
+    "alan_lu_bn_jacket_a04",
+    "alan_bn_x_jacket_arm",
+    "alan_lu_bn_jacket_b01",
+    "alan_lu_bn_jacket_b02",
+    "alan_lu_bn_jacket_b03",
+    "alan_lu_bn_jacket_b04",
+    "alan_lu_bn_jacket_b05",
+    "alan_lu_bn_jacket_b06",
+    "alan_lu_bn_jacket_b07",
+    "alan_lu_bn_jacket_b08",
+    "alan_bn_jacket_off"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: jacket shrug \u2192 jacket arm \u2192 jacket off",
+   "note": "",
+   "frames": 12,
+   "fps": 20,
+   "wires": [
+    "alan_bn_jacket_shrug>alan_bn_x_jacket_arm",
+    "alan_bn_x_jacket_arm>alan_bn_jacket_off"
+   ],
+   "bath": true,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 7.0,
+    "head": 0.652,
+    "height": 0.009
+   }
+  },
+  {
+   "name": "bn_jacket_drop",
+   "walk": null,
+   "keys": [
+    "alan_bn_jacket_off",
+    "alan_bn_x_jacket_drop"
+   ],
+   "cells": [
+    "alan_bn_jacket_off",
+    "alan_lu_bn_jacket_drop_a01",
+    "alan_lu_bn_jacket_drop_a02",
+    "alan_lu_bn_jacket_drop_a03",
+    "alan_lu_bn_jacket_drop_a04",
+    "alan_lu_bn_jacket_drop_a05",
+    "alan_lu_bn_jacket_drop_a06",
+    "alan_lu_bn_jacket_drop_a07",
+    "alan_lu_bn_jacket_drop_a08",
+    "alan_lu_bn_jacket_drop_a09",
+    "alan_lu_bn_jacket_drop_a10",
+    "alan_bn_x_jacket_drop"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: jacket off \u2192 jacket drop",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_bn_jacket_off>alan_bn_x_jacket_drop"
+   ],
+   "bath": true,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 6.1,
+    "head": 0.68,
+    "height": 0.015
+   }
+  },
+  {
+   "name": "bn_tee",
+   "walk": null,
+   "keys": [
+    "alan_bn_x_tee_up",
+    "alan_bn_tee",
+    "alan_bn_x_tee_toss"
+   ],
+   "cells": [
+    "alan_bn_x_tee_up",
+    "alan_lu_bn_tee_a01",
+    "alan_lu_bn_tee_a02",
+    "alan_lu_bn_tee_a03",
+    "alan_lu_bn_tee_a04",
+    "alan_bn_tee",
+    "alan_lu_bn_tee_b01",
+    "alan_lu_bn_tee_b02",
+    "alan_lu_bn_tee_b03",
+    "alan_lu_bn_tee_b04",
+    "alan_lu_bn_tee_b05",
+    "alan_lu_bn_tee_b06",
+    "alan_lu_bn_tee_b07",
+    "alan_lu_bn_tee_b08",
+    "alan_bn_x_tee_toss"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: tee up \u2192 tee \u2192 tee toss",
+   "note": "",
+   "frames": 12,
+   "fps": 20,
+   "wires": [
+    "alan_bn_tee>alan_bn_x_tee_toss",
+    "alan_bn_x_tee_up>alan_bn_tee"
+   ],
+   "bath": true,
+   "credits": 12,
+   "flags": [
+    "head"
+   ],
+   "worst": {
+    "drift": 6.4,
+    "head": 0.318,
+    "height": 0.038
+   }
+  },
+  {
+   "name": "bn_belt",
+   "walk": null,
+   "keys": [
+    "alan_bn_x_tee_toss",
+    "alan_bn_belt",
+    "alan_bn_x_unbutton"
+   ],
+   "cells": [
+    "alan_bn_x_tee_toss",
+    "alan_lu_bn_belt_a01",
+    "alan_lu_bn_belt_a02",
+    "alan_lu_bn_belt_a03",
+    "alan_lu_bn_belt_a04",
+    "alan_lu_bn_belt_a05",
+    "alan_lu_bn_belt_a06",
+    "alan_lu_bn_belt_a07",
+    "alan_lu_bn_belt_a08",
+    "alan_bn_belt",
+    "alan_lu_bn_belt_b01",
+    "alan_lu_bn_belt_b02",
+    "alan_lu_bn_belt_b03",
+    "alan_lu_bn_belt_b04",
+    "alan_bn_x_unbutton"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: tee toss \u2192 belt \u2192 unbutton",
+   "note": "",
+   "frames": 12,
+   "fps": 20,
+   "wires": [
+    "alan_bn_belt>alan_bn_x_unbutton",
+    "alan_bn_x_tee_toss>alan_bn_belt"
+   ],
+   "bath": true,
+   "credits": 12,
+   "flags": [
+    "head"
+   ],
+   "worst": {
+    "drift": 9.9,
+    "head": 0.47,
+    "height": 0.023
+   }
+  },
+  {
+   "name": "bn_jeans",
+   "walk": null,
+   "keys": [
+    "alan_bn_x_unbutton",
+    "alan_bn_jeans_half",
+    "alan_bn_x_jeans_knees"
+   ],
+   "cells": [
+    "alan_bn_x_unbutton",
+    "alan_lu_bn_jeans_a01",
+    "alan_lu_bn_jeans_a02",
+    "alan_lu_bn_jeans_a03",
+    "alan_lu_bn_jeans_a04",
+    "alan_lu_bn_jeans_a05",
+    "alan_lu_bn_jeans_a06",
+    "alan_lu_bn_jeans_a07",
+    "alan_lu_bn_jeans_a08",
+    "alan_lu_bn_jeans_a09",
+    "alan_lu_bn_jeans_a10",
+    "alan_bn_jeans_half",
+    "alan_lu_bn_jeans_b01",
+    "alan_bn_x_jeans_knees"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: unbutton \u2192 jeans half \u2192 jeans knees",
+   "note": "",
+   "frames": 11,
+   "fps": 20,
+   "wires": [
+    "alan_bn_jeans_half>alan_bn_x_jeans_knees",
+    "alan_bn_x_unbutton>alan_bn_jeans_half"
+   ],
+   "bath": true,
+   "credits": 12,
+   "flags": [
+    "height"
+   ],
+   "worst": {
+    "drift": 13.9,
+    "head": 0.604,
+    "height": 0.076
+   }
+  },
+  {
+   "name": "bn_pants",
+   "walk": null,
+   "keys": [
+    "alan_bn_x_kick",
+    "alan_bn_pants",
+    "alan_bn_x_turn"
+   ],
+   "cells": [
+    "alan_bn_x_kick",
+    "alan_lu_bn_pants_a01",
+    "alan_lu_bn_pants_a02",
+    "alan_lu_bn_pants_a03",
+    "alan_lu_bn_pants_a04",
+    "alan_lu_bn_pants_a05",
+    "alan_lu_bn_pants_a06",
+    "alan_lu_bn_pants_a07",
+    "alan_lu_bn_pants_a08",
+    "alan_lu_bn_pants_a09",
+    "alan_bn_pants",
+    "alan_lu_bn_pants_b01",
+    "alan_lu_bn_pants_b02",
+    "alan_lu_bn_pants_b03",
+    "alan_lu_bn_pants_b04",
+    "alan_lu_bn_pants_b05",
+    "alan_lu_bn_pants_b06",
+    "alan_lu_bn_pants_b07",
+    "alan_lu_bn_pants_b08",
+    "alan_bn_x_turn"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: kick \u2192 pants \u2192 turn",
+   "note": "",
+   "frames": 17,
+   "fps": 20,
+   "wires": [
+    "alan_bn_pants>alan_bn_x_turn",
+    "alan_bn_x_kick>alan_bn_pants"
+   ],
+   "bath": true,
+   "credits": 12,
+   "flags": [
+    "drift"
+   ],
+   "worst": {
+    "drift": 20.8,
+    "head": 0.559,
+    "height": 0.036
+   }
+  },
+  {
+   "name": "bn_turn_walk",
+   "walk": null,
+   "keys": [
+    "alan_bn_x_turn",
+    "alan_bn_walk"
+   ],
+   "cells": [
+    "alan_bn_x_turn",
+    "alan_lu_bn_turn_walk_a01",
+    "alan_lu_bn_turn_walk_a02",
+    "alan_lu_bn_turn_walk_a03",
+    "alan_lu_bn_turn_walk_a04",
+    "alan_lu_bn_turn_walk_a05",
+    "alan_lu_bn_turn_walk_a06",
+    "alan_lu_bn_turn_walk_a07",
+    "alan_lu_bn_turn_walk_a08",
+    "alan_lu_bn_turn_walk_a09",
+    "alan_lu_bn_turn_walk_a10",
+    "alan_bn_walk"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: turn \u2192 walk",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_bn_x_turn>alan_bn_walk"
+   ],
+   "bath": true,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 5.2,
+    "head": 0.816,
+    "height": 0.015
+   }
+  },
+  {
+   "name": "bn_crouch",
+   "walk": null,
+   "keys": [
+    "alan_bn_fling",
+    "alan_bn_x_crouch"
+   ],
+   "cells": [
+    "alan_bn_fling",
+    "alan_lu_bn_crouch_a01",
+    "alan_lu_bn_crouch_a02",
+    "alan_lu_bn_crouch_a03",
+    "alan_lu_bn_crouch_a04",
+    "alan_lu_bn_crouch_a05",
+    "alan_lu_bn_crouch_a06",
+    "alan_lu_bn_crouch_a07",
+    "alan_lu_bn_crouch_a08",
+    "alan_lu_bn_crouch_a09",
+    "alan_lu_bn_crouch_a10",
+    "alan_bn_x_crouch"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: fling \u2192 crouch",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_bn_fling>alan_bn_x_crouch"
+   ],
+   "bath": true,
+   "credits": 12,
+   "flags": [
+    "height"
+   ],
+   "worst": {
+    "drift": 1.7,
+    "head": 0.556,
+    "height": 0.161
+   }
+  },
+  {
+   "name": "cop_in_neck",
+   "walk": null,
+   "keys": [
+    "file:cop_neck_apart",
+    "pair_cop_neck"
+   ],
+   "cells": [
+    "file:cop_neck_apart",
+    "pair_lu_cop_in_neck_a01",
+    "pair_lu_cop_in_neck_a02",
+    "pair_lu_cop_in_neck_a03",
+    "pair_lu_cop_in_neck_a04",
+    "pair_lu_cop_in_neck_a05",
+    "pair_lu_cop_in_neck_a06",
+    "pair_lu_cop_in_neck_a07",
+    "pair_lu_cop_in_neck_a08",
+    "pair_lu_cop_in_neck_a09",
+    "pair_cop_neck"
+   ],
+   "w": 420,
+   "h": 300,
+   "what": "Teixeira upstairs: the two of them, then Alan into his neck against the shelf",
+   "note": "Off duty he holds his cap, but the pair painting has it on his head, so the run shows him putting it on.",
+   "frames": 9,
+   "fps": 20,
+   "wires": [
+    "(standing) > pair_cop_neck"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [
+    "height"
+   ],
+   "worst": {
+    "drift": 2.6,
+    "head": 0.613,
+    "height": 0.068
    }
   }
  ]

@@ -92,7 +92,7 @@ def log(step, refs, prompt, out, credits):
         with open(path, 'w') as f:
             f.write('# Ludo.ai generation log\n\n| date | step | model | keyframes | prompt | output | credits |\n|---|---|---|---|---|---|---|\n')
     with open(path, 'a') as f:
-        f.write(f'| {datetime.now():%Y-%m-%d %H:%M} | {step} | hydra | {refs} | {prompt or ""} | {out} | {credits} |\n')
+        f.write(f'| {datetime.now():%Y-%m-%d %H:%M} | {step} | {"forge" if step == "forge" else "hydra"} | {refs} | {prompt or ""} | {out} | {credits} |\n')
 
 
 def account():
@@ -139,17 +139,18 @@ def gen(a):
     state['spec'] = {'a': a.a, 'b': a.b, 'mid': a.mid, 'prompt': a.prompt, 'loop': a.loop, 'duration': a.duration, 'frames': a.frames}
     json.dump(state, open(jp, 'w'), indent=1)
     refs = ' -> '.join(x for x in (a.a, a.mid, a.b) if x)
-    body = {'model': 'hydra', 'initial_image': sprite_b64(a.a), 'loop': a.loop, 'crop': False, 'frames': a.frames,
+    model = getattr(a, 'model', None) or 'hydra'
+    body = {'model': model, 'initial_image': sprite_b64(a.a), 'loop': a.loop, 'crop': False, 'frames': a.frames,
             'duration': a.duration, 'frame_size': TRUE_SIZE, 'image_type': 'sprite'}
     if a.b: body['final_image'] = sprite_b64(a.b)
     if a.mid: body['middle_image'] = sprite_b64(a.mid)
     if a.prompt: body['motion_prompt'] = a.prompt
-    if a.mid or not a.prompt:
-        raw = step(state, a.name, 'hydra', 'POST', '/assets/sprite/animate-keyframes', body, True, refs, a.prompt)
-    else:
-        raw = step(state, a.name, 'hydra', 'POST', '/assets/sprite/animate', body, True, refs, a.prompt)
+    path = '/assets/sprite/animate-keyframes' if a.mid or not a.prompt else '/assets/sprite/animate'
+    raw = step(state, a.name, model, 'POST', path, body, True, refs, a.prompt)
+    # the improve pass exists for hydra sheets only; a forge run (the fallback when hydra's moderation refuses) goes without
     imp = step(state, a.name, 'improve', 'POST', '/assets/sprite/edit',
-               {'spritesheet_url': raw['spritesheet_url'], 'edit_mode': 'improve', 'loop': a.loop}, True, refs, 'improve')
+               {'spritesheet_url': raw['spritesheet_url'], 'edit_mode': 'improve', 'loop': a.loop}, True, refs, 'improve') if model == 'hydra' else raw
+    state['model'] = model; json.dump(state, open(jp, 'w'), indent=1)
     common = {'spritesheet_url': imp['spritesheet_url'], 'individual_frames': True, 'loop': a.loop, 'crop': False}
     step(state, a.name, 'up', 'POST', '/assets/sprite/adjust', dict(common, frame_size=UPSCALE), False)
     fetch(a.name, state)
@@ -176,7 +177,13 @@ def batch(a):
             ns = types.SimpleNamespace(name=r['name'], a=r['a'], b=r.get('b'), mid=r.get('mid'), prompt=r.get('prompt'), loop=r.get('loop', False),
                                        duration=r.get('duration', 3), frames=r.get('frames', 36), take=r.get('take', 1))
             try: gen(ns)
-            except SystemExit as e: print(f'  {r["name"]}: FAILED {e}', flush=True)
+            except SystemExit as e:
+                if 'moderation' not in str(e): print(f'  {r["name"]}: FAILED {e}', flush=True); continue
+                # hydra's moderation refused it (refunded): the user's rule is to try forge then (no improve pass there)
+                print(f'  {r["name"]}: hydra refused, trying forge', flush=True)
+                ns.model = 'forge'
+                try: gen(ns)
+                except SystemExit as e2: print(f'  {r["name"]}: FAILED on forge too {e2}', flush=True)
             except Exception as e: print(f'  {r["name"]}: FAILED {type(e).__name__} {e}', flush=True)
     ts = [threading.Thread(target=work) for _ in range(a.workers)]
     for t in ts: t.start()

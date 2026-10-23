@@ -79,6 +79,17 @@ def fit(src, frame):
     return {'iou': float(best[0]), 's': float(best[1]), 'ox': float(best[2]), 'oy': float(best[3])}
 
 
+def stance(im, m=None):
+    """His outline's height, its lowest row and the feet's centre (the bottom 6% of the outline), in the image's px;
+    with sprite data m, also those as offsets from its anchor in his heights (for the keyframes)."""
+    a = np.asarray(im.getchannel('A')) > 128
+    ys, xs = np.nonzero(a); top, bot = ys.min(), ys.max() + 1
+    band = a[int(bot - 0.06 * (bot - top)):bot]; bx = np.nonzero(band)[1]
+    st = {'bh': float(bot - top), 'bot': float(bot), 'fx': float(bx.mean())}
+    if m: st.update(r=st['bh'] / m['h'], dfy=(m['fy'] - st['bot']) / m['h'], dax=(m['ax'] - st['fx']) / m['h'])
+    return st
+
+
 def lab(im):
     rgb = np.asarray(im.convert('RGB'), dtype=np.float32) / 255
     rgb = np.where(rgb > 0.04045, ((rgb + 0.055) / 1.055) ** 2.4, rgb / 12.92)
@@ -189,6 +200,8 @@ def main():
             t = q / (n + 1); idx = i0 + int(np.searchsorted(cum, t)); idx = min(max(idx, i0 + 1), i1 - 1)
             if idx not in picks: picks.append(idx)
         sa, sb = stats(ima), stats(imb)
+        ka_, kb_ = stance(ima, ma), stance(imb, mb)
+        standing = not a.pair and abs(ka_['r'] / kb_['r'] - 1) < 0.06
         ha = head_hist(ima)
         ids, segrep = [], []
         hk = lambda m, f: (m['fy'] - m['top']) * f['s']   # painted height in Ludo pixels
@@ -212,6 +225,18 @@ def main():
             ha_, hb_ = ma['h'] * fits[j]['s'], mb['h'] * fits[j + 1]['s']
             meta = {'w': float(crop.width), 'hh': float(crop.height), 'h': round(ha_ * (1 - t) + hb_ * t, 1),
                     'ax': round(axa * (1 - t) + axb * t - x0, 1), 'fy': round(fya * (1 - t) + fyb * t - y0, 1), 'top': float(max(0, bx[1] - y0))}
+            # standing to standing (his outline the same height in both paintings): placed by what is measured in this
+            # frame, his height and where his feet are, rather than by the fit spread over the run; Ludo frames each
+            # keyframe to fill its canvas, so a run can zoom unevenly, and he grew or slid between them (the user saw it
+            # on talk_c). A raised arm makes the outline taller: then the spread fit stays.
+            if standing:
+                st = stance(out); L_ = lambda k: ka_[k] * (1 - t) + kb_[k] * t
+                h_m = st['bh'] / L_('r')
+                if abs(h_m / meta['h'] - 1) < 0.08:
+                    meta.update(h=round(h_m, 1), fy=round(st['bot'] + L_('dfy') * h_m - y0, 1), ax=round(st['fx'] + L_('dax') * h_m - x0, 1))
+                    placed = 'measured'
+                else: placed = 'spread'
+            else: placed = 'spread'
             if m.get('facesLeft'): meta['facesLeft'] = True
             if 'px' in ma and 'px' in mb:  # a pair: the partner's feet too, carried the same way; drawn as a pair painting
                 pxa, pxb = ma['px'] * fits[j]['s'] + fits[j]['ox'], mb['px'] * fits[j + 1]['s'] + fits[j + 1]['ox']
@@ -225,7 +250,7 @@ def main():
             cid = f'{prefix}{seg}{q + 1:02d}'
             crop.save(os.path.join(CAND, cid + '.webp'), 'WEBP', quality=90, method=6, exact=True)
             flags = [x for x, bad in (('drift', drift > LIMITS['drift']), ('head', head < LIMITS['head']), ('height', hdev > LIMITS['height'])) if bad]
-            segrep.append({'id': cid, 'frame': idx, 't': round(t, 3), 'drift': round(drift, 1), 'head': round(head, 3), 'height': round(hdev, 3), 'flags': flags, 'meta': meta})
+            segrep.append({'id': cid, 'frame': idx, 't': round(t, 3), 'drift': round(drift, 1), 'head': round(head, 3), 'height': round(hdev, 3), 'flags': flags, 'meta': meta, 'placed': placed})
             ids.append(cid); sheet.append(crop)
         w = wires[j]
         report['segments'].append({'motion': round(motion, 2), 'wire': w, 'from': at[j], 'to': at[j + 1], 'used': [i0, i1], 'frames': segrep})

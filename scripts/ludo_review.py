@@ -4,7 +4,7 @@
 #   <name>.webp   one strip per run: painting A, the run's frames, painting B (a walk: its cycle), each cell placed
 #                 on his feet at one scale, so the strip plays back as it would on screen
 #   runs.json     per run: what it is, its frames and frame rate, the consistency readings, the credits it cost
-#   python3 scripts/ludo_review.py [--refit]
+#   python3 scripts/ludo_review.py [--refit [--keep run,run]]
 import json, os, subprocess, sys
 from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +26,7 @@ def cell(im, m, flip, w):
 def main():
     spec = json.load(open(os.path.join(ROOT, 'scripts/ludo_alan.json')))['runs']
     refit = '--refit' in sys.argv
+    keep = set(sys.argv[sys.argv.index('--keep') + 1].split(',')) if '--keep' in sys.argv else set()  # (approved: left as approved)
     os.makedirs(BOARD, exist_ok=True)
     C = {c['id']: c for c in json.load(open(os.path.join(ROOT, 'art/review/candidates.json')))['candidates']}
     S = LF.sprites()
@@ -33,7 +34,7 @@ def main():
     for r in spec:
         d = os.path.join(LUDO, r['name']); jp = os.path.join(d, 'job.json')
         if not os.path.exists(jp) or 'up' not in json.load(open(jp)) or not os.path.exists(os.path.join(d, 'up')): continue
-        if refit or not os.path.exists(os.path.join(d, 'fit.json')):
+        if (refit and r['name'] not in keep) or not os.path.exists(os.path.join(d, 'fit.json')):
             cmd = ['python3', 'scripts/ludo_walk_fit.py', r['name'], r['slot'], r['base']] if r.get('slot') else ['python3', 'scripts/ludo_fit.py', r['name']] + (['--pair', r['pair']] if r.get('pair') else [])
             print(subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True).stdout.strip())
             C = {c['id']: c for c in json.load(open(os.path.join(ROOT, 'art/review/candidates.json')))['candidates']}
@@ -66,7 +67,7 @@ def main():
         fps = None if walk else next(iter((C[ids[0]]['wire'].get('ibFps') or C[ids[0]]['wire'].get('pairRunFps') or {}).values()), None)
         out.append({'name': r['name'], 'walk': r.get('slot'), 'keys': keys, 'cells': [k for _, k in seq], 'w': W, 'h': CELL_H,
                     'what': r.get('what', r['name']), 'note': r.get('note', ''), 'frames': len(ids), 'fps': fps, 'wires': segs if not walk else [r['slot']], 'bath': bool(r.get('bath')),
-                    'credits': sum(job[x].get('credits', 0) for x in ('hydra', 'improve') if x in job),
+                    'credits': sum(job[x].get('credits', 0) for x in ('hydra', 'forge', 'improve') if x in job), 'model': job.get('model', 'hydra'),
                     'flags': sorted({f for c in cons for f in c.get('flags', [])}),
                     'worst': {'drift': max((c.get('drift', 0) for c in cons), default=0), 'head': min((c.get('head', 1) for c in cons), default=1),
                               'height': max((c.get('height', 0) for c in cons), default=0)}})

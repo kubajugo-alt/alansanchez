@@ -1,0 +1,286 @@
+{
+ "keys": [
+  "alan_bn_x_tee_up",
+  "alan_bn_tee",
+  "alan_bn_x_tee_toss"
+ ],
+ "at": [
+  0,
+  16,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.8901530011769321,
+   "s": 1.9582777777777778,
+   "ox": 164.0,
+   "oy": 72.0
+  },
+  {
+   "iou": 0.6685942086126079,
+   "s": 1.9663333333333335,
+   "ox": 168.0,
+   "oy": 72.0
+  },
+  {
+   "iou": 0.7117661024997456,
+   "s": 2.0695410292072323,
+   "ox": 104.0,
+   "oy": -8.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 31.6,
+   "wire": "alan_bn_x_tee_up>alan_bn_tee",
+   "from": 0,
+   "to": 16,
+   "used": [
+    0,
+    16
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_tee_a01",
+     "frame": 2,
+     "t": 0.261,
+     "drift": 1.6,
+     "head": 0.712,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 430.0,
+      "hh": 1406.0,
+      "h": 1395.0,
+      "ax": 190.6,
+      "fy": 1398.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_a02",
+     "frame": 5,
+     "t": 0.411,
+     "drift": 4.0,
+     "head": 0.696,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 430.0,
+      "hh": 1405.0,
+      "h": 1395.0,
+      "ax": 201.3,
+      "fy": 1398.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_a03",
+     "frame": 9,
+     "t": 0.603,
+     "drift": 4.9,
+     "head": 0.654,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 430.0,
+      "hh": 1403.0,
+      "h": 1392.0,
+      "ax": 197.3,
+      "fy": 1396.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_a04",
+     "frame": 13,
+     "t": 0.843,
+     "drift": 3.7,
+     "head": 0.901,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 430.0,
+      "hh": 1402.0,
+      "h": 1392.0,
+      "ax": 192.2,
+      "fy": 1395.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  },
+  {
+   "motion": 112.4,
+   "wire": "alan_bn_tee>alan_bn_x_tee_toss",
+   "from": 16,
+   "to": 35,
+   "used": [
+    19,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_tee_b01",
+     "frame": 23,
+     "t": 0.1,
+     "drift": 4.5,
+     "head": 0.974,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 501.0,
+      "hh": 1445.0,
+      "h": 1434.2,
+      "ax": 217.7,
+      "fy": 1438.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_b02",
+     "frame": 27,
+     "t": 0.184,
+     "drift": 6.0,
+     "head": 0.857,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 536.0,
+      "hh": 1490.0,
+      "h": 1480.4,
+      "ax": 233.6,
+      "fy": 1482.9,
+      "top": 3.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_b03",
+     "frame": 28,
+     "t": 0.3,
+     "drift": 6.4,
+     "head": 0.519,
+     "height": 0.001,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 603.0,
+      "hh": 1490.0,
+      "h": 1485.6,
+      "ax": 263.4,
+      "fy": 1482.9,
+      "top": 0.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_b04",
+     "frame": 29,
+     "t": 0.436,
+     "drift": 4.7,
+     "head": 0.458,
+     "height": 0.001,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 685.0,
+      "hh": 1490.0,
+      "h": 1485.9,
+      "ax": 285.9,
+      "fy": 1482.9,
+      "top": 0.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_b05",
+     "frame": 30,
+     "t": 0.546,
+     "drift": 4.0,
+     "head": 0.324,
+     "height": 0.001,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 719.0,
+      "hh": 1490.0,
+      "h": 1486.1,
+      "ax": 273.0,
+      "fy": 1482.9,
+      "top": 0.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_b06",
+     "frame": 32,
+     "t": 0.662,
+     "drift": 3.1,
+     "head": 0.319,
+     "height": 0.001,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 728.0,
+      "hh": 1490.0,
+      "h": 1486.4,
+      "ax": 242.7,
+      "fy": 1482.9,
+      "top": 0.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_b07",
+     "frame": 33,
+     "t": 0.756,
+     "drift": 3.4,
+     "head": 0.318,
+     "height": 0.001,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 718.0,
+      "hh": 1490.0,
+      "h": 1486.6,
+      "ax": 209.8,
+      "fy": 1482.9,
+      "top": 0.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_tee_b08",
+     "frame": 34,
+     "t": 0.826,
+     "drift": 3.8,
+     "head": 0.327,
+     "height": 0.001,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 712.0,
+      "hh": 1490.0,
+      "h": 1486.7,
+      "ax": 187.5,
+      "fy": 1482.9,
+      "top": 0.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

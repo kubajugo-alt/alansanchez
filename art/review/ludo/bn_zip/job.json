@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alan_bn_y_jeans_up",
+  "b": "alan_bn_y_button",
+  "mid": "alan_bn_zip",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "5780c136-3514-4d90-a9f6-a78a240c2938",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/477af70fdb5fa580108b84f190ad7802.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/13ddefe1a29166eb810adc5cc866156d.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/50fd1f3c206340ac126ed7672332ff80.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.875
+  },
+  "credits": 9
+ }
+}

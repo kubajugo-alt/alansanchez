@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "file:cop_chest_apart",
+  "b": "pair_cop_chest",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

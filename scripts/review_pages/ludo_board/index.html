@@ -114,7 +114,7 @@ button:focus-visible, textarea:focus-visible { outline: 2px solid var(--brass); 
       <div class="film"><img alt="Every frame of ${esc(r.name)}, painting to painting" loading="lazy" src="${encodeURIComponent(r.name)}.webp"></div>
       <div class="body">
         <h2>${esc(r.what)}</h2>
-        <div class="meta"><span>${r.frames} frames</span>${r.fps ? `<span>${r.fps} fps · ${ms} ms</span>` : '<span>looping cycle</span>'}<span>${r.credits} credits</span></div>
+        <div class="meta"><span>${r.frames} frames</span>${r.fps ? `<span>${r.fps} fps · ${ms} ms</span>` : '<span>looping cycle</span>'}<span>${r.credits} credits</span>${r.model === 'forge' ? '<span>forge (hydra refused it; no improve pass)</span>' : ''}</div>
         <div class="wires">${r.walk ? 'replaces ' + esc(r.walk) + ' (all frames or none)' : r.wires.map(w => esc(w.replace(/>/, ' ↔ '))).join('<br>')}</div>
         ${r.note ? `<p class="mine">${esc(r.note)}</p>` : ''}
         <div class="reads">${reads.map(([k, ok, t]) => `<span class="pill${ok ? '' : ' check'}" title="${k}">${ok ? '' : 'check '}${t}</span>`).join('')}</div>

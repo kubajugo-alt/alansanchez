@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "pair_cop_belt2",
+  "b": "pair_cop_cuffs",
+  "mid": "pair_cop_trousers",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}
