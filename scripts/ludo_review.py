@@ -34,11 +34,12 @@ def main():
         d = os.path.join(LUDO, r['name']); jp = os.path.join(d, 'job.json')
         if not os.path.exists(jp) or 'up' not in json.load(open(jp)) or not os.path.exists(os.path.join(d, 'up')): continue
         if refit or not os.path.exists(os.path.join(d, 'fit.json')):
-            cmd = ['python3', 'scripts/ludo_walk_fit.py', r['name'], r['slot'], r['base']] if r.get('slot') else ['python3', 'scripts/ludo_fit.py', r['name']]
+            cmd = ['python3', 'scripts/ludo_walk_fit.py', r['name'], r['slot'], r['base']] if r.get('slot') else ['python3', 'scripts/ludo_fit.py', r['name']] + (['--pair', r['pair']] if r.get('pair') else [])
             print(subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True).stdout.strip())
             C = {c['id']: c for c in json.load(open(os.path.join(ROOT, 'art/review/candidates.json')))['candidates']}
         job = json.load(open(jp))
-        ids = sorted(k for k in C if k.startswith(f'alan_lu_{r["name"]}_'))
+        pre = f'pair_lu_{r["name"]}_' if r.get('pair') else f'alan_lu_{r["name"]}_'
+        ids = sorted(k for k in C if k.startswith(pre))
         if not ids: continue
         walk = bool(r.get('slot'))
         keys = [] if walk else [k for k in (r['a'], r.get('mid'), r['b']) if k]
@@ -46,11 +47,12 @@ def main():
         if not walk:   # the run's segments in order: A, its frames, (mid, its frames,) B
             seq = [('key', keys[0])]
             for j, seg in enumerate('abc'[:len(keys) - 1]):
-                seq += [('lu', k) for k in ids if k[len(f'alan_lu_{r["name"]}_')] == seg] + [('key', keys[j + 1])]
-            segs = sorted({C[k]['wire']['inbetween'] and next(iter(C[k]['wire']['inbetween'])) for k in ids})
+                seq += [('lu', k) for k in ids if k[len(pre)] == seg] + [('key', keys[j + 1])]
+            W_ = lambda c: c['wire'].get('inbetween') or c['wire'].get('pairRun') or {('(standing) > ' + k): 0 for k in c['wire'].get('pairRunIn', {})}
+            segs = sorted({next(iter(W_(C[k]))) for k in ids})
         else: seq = [('lu', k) for k in ids]
         cells = []
-        W = 220 if not walk else 180
+        W = 420 if r.get('pair') else 220 if not walk else 180
         for kind, k in seq:
             if kind == 'key':
                 im, m = LF.load_key(k, S)
@@ -61,7 +63,7 @@ def main():
         for i, c in enumerate(cells): strip.alpha_composite(c, (i * W, 0))
         strip.save(os.path.join(BOARD, r['name'] + '.webp'), 'WEBP', quality=86, method=6)
         cons = [C[k].get('consistency', {}) for k in ids]
-        fps = None if walk else next(iter(C[ids[0]]['wire'].get('ibFps', {}).values()), None)
+        fps = None if walk else next(iter((C[ids[0]]['wire'].get('ibFps') or C[ids[0]]['wire'].get('pairRunFps') or {}).values()), None)
         out.append({'name': r['name'], 'walk': r.get('slot'), 'keys': keys, 'cells': [k for _, k in seq], 'w': W, 'h': CELL_H,
                     'what': r.get('what', r['name']), 'note': r.get('note', ''), 'frames': len(ids), 'fps': fps, 'wires': segs if not walk else [r['slot']], 'bath': bool(r.get('bath')),
                     'credits': sum(job[x].get('credits', 0) for x in ('hydra', 'improve') if x in job),

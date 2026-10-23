@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "file:cop_neck_apart",
+  "b": "pair_cop_neck",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

@@ -17,7 +17,7 @@ for run, d in dec.items():
     v = d.get('decision')
     if v not in n: continue
     for c in C:
-        if c['id'].startswith(f'alan_lu_{run}_'):
+        if c['id'].startswith((f'alan_lu_{run}_', f'pair_lu_{run}_')):
             A[c['id']] = {'decision': v, 'at': d.get('at'), 'note': ('Ludo board' + (': ' + d['note'] if d.get('note') else ''))}
             n[v] += 1
 json.dump(A, open(ap_p, 'w'), indent=1)

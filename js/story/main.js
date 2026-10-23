@@ -272,6 +272,10 @@
     if (W.walkStop) F.walkStop = c.id;
     if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
     if (W.ibFps) F.ibFps = Object.assign(F.ibFps || {}, W.ibFps); // a run's own frame rate (the Ludo runs)
+    // Ludo runs for the pair paintings: from one to the next (pairRun 'a>b'), and from the two standing figures into one
+    if (W.pairRun) { F.pairRun = F.pairRun || {}; for (const [k, seq] of Object.entries(W.pairRun)) F.pairRun[k] = seq.filter(live); }
+    if (W.pairRunIn) { F.pairRunIn = F.pairRunIn || {}; for (const [k, seq] of Object.entries(W.pairRunIn)) F.pairRunIn[k] = seq.filter(live); }
+    if (W.pairRunFps) F.pairRunFps = Object.assign(F.pairRunFps || {}, W.pairRunFps);
     // a whole walk cycle (the Ludo walks): it takes its slot only once every frame of it is approved
     if (W.walkCycle && W.walkCycle.ids.every(ok)) {
       const Wc = W.walkCycle, ids = Wc.ids.slice();

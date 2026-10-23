@@ -21,5 +21,19 @@
    "duration": 3
   },
   "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "e51eafa0-2ff6-43bb-8ac3-6924648216dd",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/2bb738ef001c15cfb5cf9b76481a9a7d.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/24800f3c0c783494c4aca693c4157617.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/96cf24ff104557de88308d9a0ab1b818.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.9166666666666665
+  },
+  "credits": 3
  }
 }

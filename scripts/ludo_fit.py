@@ -31,13 +31,18 @@ def sprites():
 
 
 def load_key(k, S):
+    if k.startswith('file:'):  # a composed keyframe (scripts/ludo_pair_key.py): its picture and the pair's data
+        b = os.path.join(ROOT, 'art/review/ludo/keys', k[5:])
+        return Image.open(b + '.png').convert('RGBA'), json.load(open(b + '.json'))
     p = os.path.join(SPR, k + '.webp')
     if not os.path.exists(p): p = os.path.join(ROOT, S[k]['src'])
     return Image.open(p).convert('RGBA'), S[k]
 
 
 def mirror_meta(m, im):
-    m = dict(m); m['ax'] = im.width - m['ax']; m['facesLeft'] = not m.get('facesLeft'); return m
+    m = dict(m); m['ax'] = im.width - m['ax']; m['facesLeft'] = not m.get('facesLeft')
+    if 'px' in m: m['px'] = im.width - m['px']
+    return m
 
 
 def alpha(im, k=4):
@@ -122,6 +127,7 @@ def main():
     ap.add_argument('--keys', help='override the keyframes, comma separated (a frame name, ~ for mirrored)')
     ap.add_argument('--wire', help='how the segments are wired: a>b,b>c (default: from the keyframes)')
     ap.add_argument('--noalias', action='store_true')
+    ap.add_argument('--pair', choices=['step', 'in'], help="a pair painting's run: between two pairs, or into one from the two standing")
     a = ap.parse_args()
     d = os.path.join(ROOT, 'art/review/ludo', a.name)
     job = json.load(open(os.path.join(d, 'job.json'))); spec = job['spec']
@@ -166,7 +172,7 @@ def main():
     report = {'keys': [s[0] for s in srcs], 'at': at, 'fits': fits, 'segments': []}
     wires = a.wire.split(',') if a.wire else [f'{srcs[j][0]}>{srcs[j + 1][0]}' for j in range(len(srcs) - 1)]
     C = json.load(open(os.path.join(ROOT, 'art/review/candidates.json')))
-    prefix = f'alan_lu_{a.name}_'
+    prefix = f'pair_lu_{a.name}_' if a.pair else f'alan_lu_{a.name}_'
     C['candidates'] = [c for c in C['candidates'] if not c['id'].startswith(prefix)]
     sheet = []
     for j in range(len(srcs) - 1):
@@ -207,6 +213,10 @@ def main():
             meta = {'w': float(crop.width), 'hh': float(crop.height), 'h': round(ha_ * (1 - t) + hb_ * t, 1),
                     'ax': round(axa * (1 - t) + axb * t - x0, 1), 'fy': round(fya * (1 - t) + fyb * t - y0, 1), 'top': float(max(0, bx[1] - y0))}
             if m.get('facesLeft'): meta['facesLeft'] = True
+            if 'px' in ma and 'px' in mb:  # a pair: the partner's feet too, carried the same way; drawn as a pair painting
+                pxa, pxb = ma['px'] * fits[j]['s'] + fits[j]['ox'], mb['px'] * fits[j + 1]['s'] + fits[j + 1]['ox']
+                pfa, pfb = ma['pfy'] * fits[j]['s'] + fits[j]['oy'], mb['pfy'] * fits[j + 1]['s'] + fits[j + 1]['oy']
+                meta.update(px=round(pxa * (1 - t) + pxb * t - x0, 1), pfy=round(pfa * (1 - t) + pfb * t - y0, 1), rigid=True)
             # height: his figure's height in game units, against the two keyframes' (a pop in size shows here)
             gh = (bx[3] - bx[1]) / meta['h']
             gha = (alpha(ima, 1).any(1).sum()) / ma['h']; ghb = (alpha(imb, 1).any(1).sum()) / mb['h']
@@ -221,13 +231,15 @@ def main():
         report['segments'].append({'motion': round(motion, 2), 'wire': w, 'from': at[j], 'to': at[j + 1], 'used': [i0, i1], 'frames': segrep})
         # wiring: the whole run for this change (played backwards for the way back), at its own frame rate
         wire = {'inbetween': {w: ids}, 'ibFps': {w: a.fps}}
-        if not a.noalias and w.startswith('alan_side>'):
+        if a.pair == 'step': wire = {'pairRun': {w: ids}, 'pairRunFps': {w: a.fps}}
+        elif a.pair == 'in': k = w.split('>')[1]; wire = {'pairRunIn': {k: ids}, 'pairRunFps': {'in:' + k: a.fps}}
+        elif not a.noalias and w.startswith('alan_side>'):
             # his second standing painting is the same stance: the same run serves it
             wire['inbetween']['alan_idle2>' + w.split('>')[1]] = ids; wire['ibFps']['alan_idle2>' + w.split('>')[1]] = a.fps
         for k, (cid, r) in enumerate(zip(ids, segrep)):
             C['candidates'].append({'id': cid, 'char': 'alan', 'phase': 4, 'kind': 'ludo', 'what': f'Ludo in-between {w} ({k + 1} of {len(ids)})',
                                     'src': f'art/review/candidates/{cid}.webp',
-                                    'originals': [f'art/sprites/{ka.rstrip("~")}.webp', f'art/sprites/{kb.rstrip("~")}.webp'],
+                                    'originals': [(f'art/review/ludo/keys/{x[5:]}.png' if x.startswith('file:') else f'art/sprites/{x.rstrip("~")}.webp') for x in (ka, kb)],
                                     'meta': r['meta'], 'wire': wire,
                                     'consistency': {x: r[x] for x in ('drift', 'head', 'height', 'flags')}})
     json.dump(report, open(os.path.join(d, 'fit.json'), 'w'), indent=1)

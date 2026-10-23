@@ -473,6 +473,60 @@
    "a": "alan_walk7_s4",
    "b": "alan_side",
    "what": "Stopping: the last stride back to standing"
+  },
+  {
+   "name": "cop_in_neck",
+   "a": "file:cop_neck_apart",
+   "b": "pair_cop_neck",
+   "pair": "in",
+   "what": "Teixeira upstairs: the two of them, then Alan into his neck against the shelf",
+   "note": "Off duty he holds his cap, but the pair painting has it on his head, so the run shows him putting it on."
+  },
+  {
+   "name": "cop_a",
+   "a": "pair_cop_neck",
+   "mid": "pair_cop_shelf",
+   "b": "pair_cop_jacket",
+   "pair": "step",
+   "what": "Teixeira upstairs: neck \u2192 wrists pinned \u2192 the jacket shrugged off"
+  },
+  {
+   "name": "cop_b",
+   "a": "pair_cop_jacket",
+   "mid": "pair_cop_tshirt",
+   "b": "pair_cop_buttons",
+   "pair": "step",
+   "what": "Teixeira upstairs: the jacket \u2192 the t-shirt \u2192 his buttons"
+  },
+  {
+   "name": "cop_c",
+   "a": "pair_cop_shelf2",
+   "mid": "pair_cop_belt",
+   "b": "pair_cop_belt2",
+   "pair": "step",
+   "what": "Teixeira upstairs: back at the shelf \u2192 the belt \u2192 his trousers half way"
+  },
+  {
+   "name": "cop_d",
+   "a": "pair_cop_belt2",
+   "mid": "pair_cop_trousers",
+   "b": "pair_cop_cuffs",
+   "pair": "step",
+   "what": "Teixeira upstairs: trousers half way \u2192 down \u2192 his own handcuffs"
+  },
+  {
+   "name": "cop_in_chest",
+   "a": "file:cop_chest_apart",
+   "b": "pair_cop_chest",
+   "pair": "in",
+   "what": "The police station: Alan steps in, a hand to his chest (and back out)"
+  },
+  {
+   "name": "cop_in_arm",
+   "a": "file:cop_arm_apart",
+   "b": "pair_cop_arm",
+   "pair": "in",
+   "what": "The police station: Alan steps in, a hand on his arm (and back out)"
   }
  ]
 }

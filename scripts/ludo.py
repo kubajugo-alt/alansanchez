@@ -73,9 +73,13 @@ def sprite_b64(name):
     """A game frame as a PNG data URL, alpha kept, always facing right (a painting facing left is mirrored, as the
     engine does on screen; '~' mirrors it once more)."""
     mir = name.endswith('~'); name = name.rstrip('~')
-    m = frame_meta().get(name, {})
-    p = os.path.join(ROOT, 'art/sprites', name + '.webp')
-    if not os.path.exists(p): p = os.path.join(ROOT, m['src'])
+    if name.startswith('file:'):  # a composed keyframe (scripts/ludo_pair_key.py)
+        k = os.path.join(ROOT, 'art/review/ludo/keys', name[5:])
+        m = json.load(open(k + '.json')); p = k + '.png'
+    else:
+        m = frame_meta().get(name, {})
+        p = os.path.join(ROOT, 'art/sprites', name + '.webp')
+        if not os.path.exists(p): p = os.path.join(ROOT, m['src'])
     im = Image.open(p).convert('RGBA')
     if mir != bool(m.get('facesLeft')): im = im.transpose(Image.FLIP_LEFT_RIGHT)
     buf = io.BytesIO(); im.save(buf, 'PNG')

@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "pair_cop_neck",
+  "b": "pair_cop_jacket",
+  "mid": "pair_cop_shelf",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}
