@@ -97,3 +97,4 @@
 | 2026-10-23 05:25 | hydra | hydra | alan_side -> alan_rapt1 -> alan_rapt2 |  | art/review/ludo/rapt/ | 9 |
 | 2026-10-23 05:26 | hydra | hydra | alan_rapt2 -> alan_rapt3 |  | art/review/ludo/rapt3/ | 9 |
 | 2026-10-23 05:26 | hydra | hydra | alan_side -> alan_smoke_light -> alan_smoke_inhale |  | art/review/ludo/smoke1/ | 9 |
+| 2026-10-23 05:27 | hydra | hydra | alan_smoke_inhale -> alan_smoke_exhale -> alan_smoke_hold |  | art/review/ludo/smoke2/ | 9 |

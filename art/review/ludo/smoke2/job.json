@@ -7,5 +7,19 @@
   "loop": false,
   "duration": 3,
   "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "83494a5c-b3a7-438a-8df3-2989ffb5abe8",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/f5f89b6477b972ffd3a7d30c5e9a98c9.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/963e00552531de2411fb9a9239cdb72c.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/6b33c5c6ae065a052bac08f6f13621a8.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.7083333333333335
+  },
+  "credits": 9
  }
 }
