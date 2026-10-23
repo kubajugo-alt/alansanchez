@@ -5,9 +5,8 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs branch `claude/gifted-allen-1kh10k` at `fe65d2c` (Netlify
-`6adb7b788dfcb77661464edb`, entry 68); that branch is merged into master (PR kubajugo-alt/alansanchez#2), but the
-live site does not yet have master's entries 65-66 (the 24-painting walk, the cistern ending): redeploy when the user asks. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `c4dba398` (Netlify `6adba8b9413bc8e9f11726cf`,
+entry 69): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
 change (entries 1-68); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
@@ -1395,6 +1394,13 @@ session lived in the session's scratchpad and are gone; everything that matters 
      S.climbOut, 17 Ludo frames approved, smoke bench and sepit pass on the live site. What players see from this work
      today: the engine changes and the two runs the user approved (the reach, talk_b) with their lip-sync; every other
      run, the walks, the Teixeira pairs and the climb wait on the Ludo board.
+69. **Deploy of master after merging PR kubajugo-alt/alansanchez#2** (the user: "Can you merge", then "yes, deploy
+   master"). Master had master's own entries 65-66 (the 24-painting walk, the cistern ending) beside this branch's
+   67-68; merged with no conflicts. Checked: validate 0 errors; smoke on the working copy (sepit, visitcop, bench,
+   finalerace, walklab) and on the `git archive` export, own port, no `.env` (intro, bench, sepit, visitcop, walklab,
+   finalerace, bath, visitguitar) all pass. **Deployed:** master `c4dba398`, Netlify `6adba8b9413bc8e9f11726cf`. Live:
+   page 200, `/.env` 404, js/sprites.js byte-identical, the new walk's paintings served; live smoke intro, finalerace,
+   sepit pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
