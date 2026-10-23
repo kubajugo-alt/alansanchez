@@ -1,0 +1,115 @@
+{
+ "runs": [
+  {
+   "name": "talk_b",
+   "walk": null,
+   "keys": [
+    "alan_idle2",
+    "alan_talk2",
+    "alan_side"
+   ],
+   "cells": [
+    "alan_idle2",
+    "alan_lu_talk_b_a01",
+    "alan_lu_talk_b_a02",
+    "alan_lu_talk_b_a03",
+    "alan_lu_talk_b_a04",
+    "alan_talk2",
+    "alan_lu_talk_b_b01",
+    "alan_lu_talk_b_b02",
+    "alan_lu_talk_b_b03",
+    "alan_lu_talk_b_b04",
+    "alan_side"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Second stance \u2192 second talking gesture \u2192 standing (every conversation)",
+   "frames": 8,
+   "fps": 20,
+   "wires": [
+    "alan_idle2>alan_talk2",
+    "alan_talk2>alan_side"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 2.7,
+    "head": 0.715,
+    "height": 0.006
+   }
+  },
+  {
+   "name": "talk_c",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_idle2"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_talk_c_a01",
+    "alan_lu_talk_c_a02",
+    "alan_lu_talk_c_a03",
+    "alan_lu_talk_c_a04",
+    "alan_lu_talk_c_a05",
+    "alan_lu_talk_c_a06",
+    "alan_lu_talk_c_a07",
+    "alan_idle2"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Standing \u2194 his second stance (idle shifts)",
+   "frames": 7,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_idle2"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 1.8,
+    "head": 0.872,
+    "height": 0.059
+   }
+  },
+  {
+   "name": "pilot_reach",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_reach"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_pilot_reach_a01",
+    "alan_lu_pilot_reach_a02",
+    "alan_lu_pilot_reach_a03",
+    "alan_lu_pilot_reach_a04",
+    "alan_lu_pilot_reach_a05",
+    "alan_lu_pilot_reach_a06",
+    "alan_lu_pilot_reach_a07",
+    "alan_lu_pilot_reach_a08",
+    "alan_lu_pilot_reach_a09",
+    "alan_reach"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Reaching out (doors, drawers, objects: his most common action)",
+   "frames": 9,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_reach"
+   ],
+   "bath": false,
+   "credits": 12.0,
+   "flags": [],
+   "worst": {
+    "drift": 1.4,
+    "head": 0.797,
+    "height": 0.01
+   }
+  }
+ ]
+}

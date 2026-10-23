@@ -153,7 +153,7 @@
         this.alpha = A.from + (A.to - A.from) * u * u * (3 - 2 * u);
         if (u >= 1) { this.alphaTo = null; A.done(); }
       }
-      if (this.ibSeq && (this.ibT += dt) >= IB_STEP) { this.ibT = 0; this.ibI++; }
+      if (this.ibSeq && (this.ibT += dt) >= (this.ibStep || IB_STEP)) { const st = this.ibStep || IB_STEP; this.ibI += Math.floor(this.ibT / st); this.ibT %= st; } // a slow frame skips ahead
       if (this.resumeT > 0) this.resumeT -= dt;
       this.breath += dt * this.rate;
       // performers move with the music. The song's loudness is smoothed per figure and only changes
@@ -314,7 +314,9 @@
       if (!this.ibSeq && this.settled && key !== this.settled) {
         const fwd = IB[this.settled + '>' + key], rev = IB[key + '>' + this.settled];
         const seq = (fwd || (rev ? rev.slice().reverse() : [])).filter(ok);
-        if (seq.length) { this.ibSeq = seq; this.ibI = 0; this.ibT = 0; this.ibTarget = key; }
+        // a run drawn as one motion (frames.ibFps, the Ludo runs) plays at its own frame rate
+        const fps = F.ibFps && (F.ibFps[this.settled + '>' + key] || F.ibFps[key + '>' + this.settled]);
+        if (seq.length) { this.ibSeq = seq; this.ibI = 0; this.ibT = 0; this.ibTarget = key; this.ibStep = fps ? 1 / fps : IB_STEP; }
       }
       if (this.ibSeq && this.ibI < this.ibSeq.length) return this.ibSeq[this.ibI];
       this.ibSeq = null; this.settled = key;
@@ -483,7 +485,9 @@
         const inCycle = this.walking && this.cycle().includes(key) && [F.walk, F.frontWalk, F.backWalk].some(c => arr(c).includes(this.cur));
         const stepX = inCycle && walkOpt(this).blend === 'dissolve' && !window.FAST; // a walk frame to the next: a very short cross-fade
         // a change in the middle of a dissolve leaves behind whichever painting is still more on screen (no pop)
-        const mid = this.prev && this.fadeT > 0 && this.fadeT / (this.fadeDur || XFADE) > 0.5;
+        // a run drawn as one motion (its own frame rate, faster than IB_STEP): each frame hands over to the next one
+        const run = this.ibStep < IB_STEP && !!(this.ibSeq || this.ibWas);
+        const mid = !run && this.prev && this.fadeT > 0 && this.fadeT / (this.fadeDur || XFADE) > 0.5;
         if (!mid) this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
         this.prev = this.cur && (!inCycle || stepX) ? (mid ? this.prev : this.cur) : null;
         // a mouth or gesture change while speaking is a clean frame swap, never a mesh morph
@@ -511,7 +515,9 @@
         // facing, a review frame): the standard dissolve, the new painting up, then the old one gone. Only walk steps cut.
         const plain = !!(this.prev && !morph && !similar);
         const via = this.viaT != null || this.viaOut; // side, front, side: each hand-over quick enough for the swing
-        this.fadeDur = forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT
+        // inside such a run, frame to frame: a fade of half a frame; into it and out of it, one frame
+        const inRun = run && this.ibSeq && this.ibSeq.includes(key) && this.ibSeq.includes(this.prev);
+        this.fadeDur = run && similar && !forced ? this.ibStep * (inRun ? 0.5 : 1) : forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT
           : plain ? (via ? XFADE_SHORT : this.walking ? WALK_XF : XFADE) : MORPH_T;
         this.xfNext = 0;
         this.fadeSim = !!similar;

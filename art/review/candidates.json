@@ -5008,6 +5008,1186 @@
      "ines_walk7_s6"
     ]
    }
+  },
+  {
+   "id": "alan_lu_talk_b_a01",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_idle2>alan_talk2 (1 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_b_a01.webp",
+   "originals": [
+    "art/sprites/alan_idle2.webp",
+    "art/sprites/alan_talk2.webp"
+   ],
+   "meta": {
+    "w": 357.0,
+    "hh": 1449.0,
+    "h": 1438.7,
+    "ax": 190.5,
+    "fy": 1448.7,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_idle2>alan_talk2": [
+      "alan_lu_talk_b_a01",
+      "alan_lu_talk_b_a02",
+      "alan_lu_talk_b_a03",
+      "alan_lu_talk_b_a04"
+     ]
+    },
+    "ibFps": {
+     "alan_idle2>alan_talk2": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.9,
+    "head": 0.809,
+    "height": 0.001,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_b_a02",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_idle2>alan_talk2 (2 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_b_a02.webp",
+   "originals": [
+    "art/sprites/alan_idle2.webp",
+    "art/sprites/alan_talk2.webp"
+   ],
+   "meta": {
+    "w": 412.0,
+    "hh": 1448.0,
+    "h": 1437.5,
+    "ax": 237.8,
+    "fy": 1448.0,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_idle2>alan_talk2": [
+      "alan_lu_talk_b_a01",
+      "alan_lu_talk_b_a02",
+      "alan_lu_talk_b_a03",
+      "alan_lu_talk_b_a04"
+     ]
+    },
+    "ibFps": {
+     "alan_idle2>alan_talk2": 20
+    }
+   },
+   "consistency": {
+    "drift": 2.1,
+    "head": 0.866,
+    "height": 0.001,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_b_a03",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_idle2>alan_talk2 (3 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_b_a03.webp",
+   "originals": [
+    "art/sprites/alan_idle2.webp",
+    "art/sprites/alan_talk2.webp"
+   ],
+   "meta": {
+    "w": 443.0,
+    "hh": 1448.0,
+    "h": 1436.4,
+    "ax": 264.9,
+    "fy": 1447.4,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_idle2>alan_talk2": [
+      "alan_lu_talk_b_a01",
+      "alan_lu_talk_b_a02",
+      "alan_lu_talk_b_a03",
+      "alan_lu_talk_b_a04"
+     ]
+    },
+    "ibFps": {
+     "alan_idle2>alan_talk2": 20
+    }
+   },
+   "consistency": {
+    "drift": 2.2,
+    "head": 0.829,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_b_a04",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_idle2>alan_talk2 (4 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_b_a04.webp",
+   "originals": [
+    "art/sprites/alan_idle2.webp",
+    "art/sprites/alan_talk2.webp"
+   ],
+   "meta": {
+    "w": 495.0,
+    "hh": 1448.0,
+    "h": 1435.0,
+    "ax": 225.2,
+    "fy": 1446.7,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_idle2>alan_talk2": [
+      "alan_lu_talk_b_a01",
+      "alan_lu_talk_b_a02",
+      "alan_lu_talk_b_a03",
+      "alan_lu_talk_b_a04"
+     ]
+    },
+    "ibFps": {
+     "alan_idle2>alan_talk2": 20
+    }
+   },
+   "consistency": {
+    "drift": 2.0,
+    "head": 0.814,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_b_b01",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk2>alan_side (1 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_b_b01.webp",
+   "originals": [
+    "art/sprites/alan_talk2.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 518.0,
+    "hh": 1449.0,
+    "h": 1434.0,
+    "ax": 161.5,
+    "fy": 1446.2,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk2>alan_side": [
+      "alan_lu_talk_b_b01",
+      "alan_lu_talk_b_b02",
+      "alan_lu_talk_b_b03",
+      "alan_lu_talk_b_b04"
+     ]
+    },
+    "ibFps": {
+     "alan_talk2>alan_side": 20
+    }
+   },
+   "consistency": {
+    "drift": 2.7,
+    "head": 0.786,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_b_b02",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk2>alan_side (2 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_b_b02.webp",
+   "originals": [
+    "art/sprites/alan_talk2.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 482.0,
+    "hh": 1449.0,
+    "h": 1434.0,
+    "ax": 158.3,
+    "fy": 1445.5,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk2>alan_side": [
+      "alan_lu_talk_b_b01",
+      "alan_lu_talk_b_b02",
+      "alan_lu_talk_b_b03",
+      "alan_lu_talk_b_b04"
+     ]
+    },
+    "ibFps": {
+     "alan_talk2>alan_side": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.4,
+    "head": 0.718,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_b_b03",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk2>alan_side (3 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_b_b03.webp",
+   "originals": [
+    "art/sprites/alan_talk2.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 359.0,
+    "hh": 1450.0,
+    "h": 1434.0,
+    "ax": 150.7,
+    "fy": 1445.6,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk2>alan_side": [
+      "alan_lu_talk_b_b01",
+      "alan_lu_talk_b_b02",
+      "alan_lu_talk_b_b03",
+      "alan_lu_talk_b_b04"
+     ]
+    },
+    "ibFps": {
+     "alan_talk2>alan_side": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.4,
+    "head": 0.715,
+    "height": 0.004,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_b_b04",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk2>alan_side (4 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_b_b04.webp",
+   "originals": [
+    "art/sprites/alan_talk2.webp",
+    "art/sprites/alan_side.webp"
+   ],
+   "meta": {
+    "w": 330.0,
+    "hh": 1452.0,
+    "h": 1434.0,
+    "ax": 158.8,
+    "fy": 1446.9,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk2>alan_side": [
+      "alan_lu_talk_b_b01",
+      "alan_lu_talk_b_b02",
+      "alan_lu_talk_b_b03",
+      "alan_lu_talk_b_b04"
+     ]
+    },
+    "ibFps": {
+     "alan_talk2>alan_side": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.5,
+    "head": 0.782,
+    "height": 0.006,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a01",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (1 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a01.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 387.0,
+    "hh": 1620.0,
+    "h": 1557.9,
+    "ax": 199.3,
+    "fy": 1567.7,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.7,
+    "head": 0.914,
+    "height": 0.034,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a02",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (2 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a02.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 409.0,
+    "hh": 1672.0,
+    "h": 1578.1,
+    "ax": 225.7,
+    "fy": 1589.7,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.8,
+    "head": 0.891,
+    "height": 0.053,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a03",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (3 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a03.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 429.0,
+    "hh": 1698.0,
+    "h": 1593.9,
+    "ax": 248.5,
+    "fy": 1606.5,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.4,
+    "head": 0.906,
+    "height": 0.059,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a04",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (4 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a04.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 460.0,
+    "hh": 1699.0,
+    "h": 1614.0,
+    "ax": 281.9,
+    "fy": 1624.3,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.8,
+    "head": 0.872,
+    "height": 0.047,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a05",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (5 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a05.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 471.0,
+    "hh": 1698.0,
+    "h": 1630.1,
+    "ax": 297.6,
+    "fy": 1639.4,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.4,
+    "head": 0.912,
+    "height": 0.036,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a06",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (6 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a06.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 476.0,
+    "hh": 1699.0,
+    "h": 1651.0,
+    "ax": 296.0,
+    "fy": 1658.9,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.9,
+    "head": 0.921,
+    "height": 0.024,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a07",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (7 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a07.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 410.0,
+    "hh": 1699.0,
+    "h": 1669.0,
+    "ax": 235.5,
+    "fy": 1675.8,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.6,
+    "head": 0.872,
+    "height": 0.013,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_pilot_reach_a01",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_reach (1 of 9)",
+   "src": "art/review/candidates/alan_lu_pilot_reach_a01.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 423.0,
+    "hh": 1455.0,
+    "h": 1434.4,
+    "ax": 140.6,
+    "fy": 1444.8,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ],
+     "alan_idle2>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_reach": 20,
+     "alan_idle2>alan_reach": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.9,
+    "head": 0.826,
+    "height": 0.007,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_pilot_reach_a02",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_reach (2 of 9)",
+   "src": "art/review/candidates/alan_lu_pilot_reach_a02.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 482.0,
+    "hh": 1457.0,
+    "h": 1434.8,
+    "ax": 149.2,
+    "fy": 1446.3,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ],
+     "alan_idle2>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_reach": 20,
+     "alan_idle2>alan_reach": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.4,
+    "head": 0.797,
+    "height": 0.008,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_pilot_reach_a03",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_reach (3 of 9)",
+   "src": "art/review/candidates/alan_lu_pilot_reach_a03.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 480.0,
+    "hh": 1457.0,
+    "h": 1435.2,
+    "ax": 141.4,
+    "fy": 1445.9,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ],
+     "alan_idle2>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_reach": 20,
+     "alan_idle2>alan_reach": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.2,
+    "head": 0.862,
+    "height": 0.008,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_pilot_reach_a04",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_reach (4 of 9)",
+   "src": "art/review/candidates/alan_lu_pilot_reach_a04.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 450.0,
+    "hh": 1456.0,
+    "h": 1435.7,
+    "ax": 129.3,
+    "fy": 1445.5,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ],
+     "alan_idle2>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_reach": 20,
+     "alan_idle2>alan_reach": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.4,
+    "head": 0.912,
+    "height": 0.007,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_pilot_reach_a05",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_reach (5 of 9)",
+   "src": "art/review/candidates/alan_lu_pilot_reach_a05.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 538.0,
+    "hh": 1438.0,
+    "h": 1436.2,
+    "ax": 124.9,
+    "fy": 1437.2,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ],
+     "alan_idle2>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_reach": 20,
+     "alan_idle2>alan_reach": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.8,
+    "head": 0.849,
+    "height": 0.006,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_pilot_reach_a06",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_reach (6 of 9)",
+   "src": "art/review/candidates/alan_lu_pilot_reach_a06.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 573.0,
+    "hh": 1432.0,
+    "h": 1436.5,
+    "ax": 122.6,
+    "fy": 1434.7,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ],
+     "alan_idle2>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_reach": 20,
+     "alan_idle2>alan_reach": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.9,
+    "head": 0.87,
+    "height": 0.01,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_pilot_reach_a07",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_reach (7 of 9)",
+   "src": "art/review/candidates/alan_lu_pilot_reach_a07.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 663.0,
+    "hh": 1433.0,
+    "h": 1436.9,
+    "ax": 172.1,
+    "fy": 1435.2,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ],
+     "alan_idle2>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_reach": 20,
+     "alan_idle2>alan_reach": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.0,
+    "head": 0.916,
+    "height": 0.01,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_pilot_reach_a08",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_reach (8 of 9)",
+   "src": "art/review/candidates/alan_lu_pilot_reach_a08.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 711.0,
+    "hh": 1438.0,
+    "h": 1437.2,
+    "ax": 199.3,
+    "fy": 1435.6,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ],
+     "alan_idle2>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_reach": 20,
+     "alan_idle2>alan_reach": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.0,
+    "head": 0.923,
+    "height": 0.006,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_pilot_reach_a09",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_reach (9 of 9)",
+   "src": "art/review/candidates/alan_lu_pilot_reach_a09.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_reach.webp"
+   ],
+   "meta": {
+    "w": 723.0,
+    "hh": 1441.0,
+    "h": 1437.6,
+    "ax": 201.7,
+    "fy": 1435.2,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ],
+     "alan_idle2>alan_reach": [
+      "alan_lu_pilot_reach_a01",
+      "alan_lu_pilot_reach_a02",
+      "alan_lu_pilot_reach_a03",
+      "alan_lu_pilot_reach_a04",
+      "alan_lu_pilot_reach_a05",
+      "alan_lu_pilot_reach_a06",
+      "alan_lu_pilot_reach_a07",
+      "alan_lu_pilot_reach_a08",
+      "alan_lu_pilot_reach_a09"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_reach": 20,
+     "alan_idle2>alan_reach": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.9,
+    "head": 0.941,
+    "height": 0.005,
+    "flags": []
+   }
   }
  ]
 }

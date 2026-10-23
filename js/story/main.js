@@ -271,6 +271,14 @@
     }
     if (W.walkStop) F.walkStop = c.id;
     if (W.inbetween) { F.inbetween = F.inbetween || {}; for (const [k, seq] of Object.entries(W.inbetween)) F.inbetween[k] = seq.filter(live); }
+    if (W.ibFps) F.ibFps = Object.assign(F.ibFps || {}, W.ibFps); // a run's own frame rate (the Ludo runs)
+    // a whole walk cycle (the Ludo walks): it takes its slot only once every frame of it is approved
+    if (W.walkCycle && W.walkCycle.ids.every(ok)) {
+      const Wc = W.walkCycle, ids = Wc.ids.slice();
+      if (Wc.plant) Object.assign(S.WALK_PLANT, Wc.plant);
+      if (Wc.slot === 'lantern') { F.sets = F.sets || {}; F.sets.lantern = Object.assign({}, F.sets.lantern, { walk: ids }); }
+      else { F[Wc.slot] = ids; if (Wc.lens) F[Wc.slot + 'Len'] = Wc.lens.slice(); }
+    }
     if (W.poses) Object.assign(F.poses, W.poses);
     if (W.pairIb) {
       F.pairIb = F.pairIb || {};

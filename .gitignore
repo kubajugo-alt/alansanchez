@@ -41,3 +41,6 @@ art/review/shop/fresh*_raw.png
 art/review/shop/fresh*_sbs.png
 art/review/shop/still_edit*
 art/review/cutout/crops/
+# Ludo.ai downloads (scripts/ludo.py): the raw sheets, frames and videos; the fitted candidates are what is kept
+art/review/ludo/*/up/
+art/review/ludo/*/true/
