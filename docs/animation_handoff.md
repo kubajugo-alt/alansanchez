@@ -5,7 +5,8 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `ac5421ad` (Netlify `6ada8efb8d17c96ed9001097`, entry 64). Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs branch `claude/gifted-allen-1kh10k` at `fe65d2c` (Netlify
+`6adb7b788dfcb77661464edb`, entry 66; merge PR kubajugo-alt/alansanchez#2 so master matches). Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
 change (entries 1-61); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
@@ -1346,7 +1347,15 @@ session lived in the session's scratchpad and are gone; everything that matters 
      his own size; pitStage leaves him alone meanwhile. Used at the pit exit once climb_out and climb_up are approved;
      main.js `wire.seq` (game frames like alan_front need no approval). Checked in the room at a fixed clock: ends at
      (770, 642), sink 0, size restored. Ludo credits: 36 (98 left). Side-on Canva tries kept unused in art/review/alan/climb.
-   - Checked: validate 0 errors; smoke sepit, sepitgame, visitcop, bath, fado, intro, bench pass.
+   - Checked: validate 0 errors; smoke sepit, sepitgame, visitcop, bath, fado, intro, bench pass; play.mjs `{"won":true}`,
+     148 steps, 1068 s.
+   - **Deployed** (the user: "once you're finished, deploy it all"): branch `claude/gifted-allen-1kh10k` at `fe65d2c`
+     (PR kubajugo-alt/alansanchez#2; master does not have it until that PR is merged), Netlify `6adb7b788dfcb77661464edb`,
+     from a clean `git archive` export; the export leaves out the face patches of kits not switched on (1940 files,
+     ~66 MB: the game never loads them). Export smoke sepit, visitcop, bench pass; live: `/.env` 404, se.js has
+     S.climbOut, 17 Ludo frames approved, smoke bench and sepit pass on the live site. What players see from this work
+     today: the engine changes and the two runs the user approved (the reach, talk_b) with their lip-sync; every other
+     run, the walks, the Teixeira pairs and the climb wait on the Ludo board.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
