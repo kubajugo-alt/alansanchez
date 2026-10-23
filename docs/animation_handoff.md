@@ -5,10 +5,10 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `c4dba398` (Netlify `6adba8b9413bc8e9f11726cf`,
-entry 69): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `ac52b9a9` (Netlify `6adbe8a0c9335180fa13e110`,
+entry 71): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-70); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-71); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1411,6 +1411,10 @@ session lived in the session's scratchpad and are gone; everything that matters 
    never ask). Checked: the flirt in `?scene=copguard`, recorded in Chromium: both paintings drawn, Teixeira in them;
    validate 0 errors; smoke on the pair scenes (cop, copguard, copreturn, romance, guitar, visitcop, visitguitar,
    vascolove) and sepit, bench.
+71. **Deploy of entry 70** (the user: "merge and deploy"). PR kubajugo-alt/alansanchez#3 merged into master
+   (`ac52b9a9`). Smoke on the `git archive` export (own port, no `.env`): copguard, copreturn, visitcop, intro,
+   finalerace, sepit pass. **Deployed:** Netlify `6adbe8a0c9335180fa13e110`. Live: page 200, `/.env` 404, core.js
+   byte-identical; the station flirt replayed on the live site draws `pair_cop_chest` and `pair_cop_arm`.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
