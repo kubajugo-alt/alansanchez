@@ -68,6 +68,9 @@
     if (!have() && E.ensure) await Promise.race([E.ensure(keys), G.wait(window.FAST ? 0 : 900)]);
     return have();
   };
+  // a pair painting itself: fetched now if it isn't in (it's no frame of Alan's, so nothing streams it ahead), else the
+  // partner would fade out with nothing drawn in their place
+  const pairReady = async k => { const E = window.Engine; if (E.ensure && !(E.IMG && E.IMG['spr:' + k])) await E.ensure(['spr:' + k]); };
   async function pairRun(seq, fps, x) {
     const p = G.player, x0 = p.x, dt = 1000 / (fps || 20);
     for (let i = 0; i < seq.length; i++) {
@@ -81,6 +84,7 @@
   S.pairStep = async function (k, x) {
     // (from the pair painting he is in: a line spoken in between can clear the pose, the pair stays p.pairKey)
     const p = G.player, cur = p.pose && window.SPRITES[p.pose] && window.SPRITES[p.pose].rigid ? p.pose : p.pairKey, from = cur || p.pose, run = runOf(from, k);
+    await pairReady(k);
     if (p.pairKey) p.pairKey = k;
     if (run && run.length && await runReady(run)) { await pairRun(run, runFps(from + '>' + k) || runFps(k + '>' + from), x); p.crossFade(0.05); p.pose = k; if (x != null) p.x = x; return; }
     const IB = S.pairMode() === 'gemini' && (S.CHARS.alan.frames.pairIb || {});
@@ -93,8 +97,10 @@
     opts = opts || {};
     const p = G.player, m = window.SPRITES[k];
     if (!npc || !m) return false;
+    const ready = pairReady(k); // (fetched while he walks over)
     const at = S.pairSpot(k, npc.x, npc.y);
     if (opts.walk !== false && Math.hypot(p.x - at.x, p.y - at.y) > 3) await p.walkTo(at.x, at.y);
+    await ready;
     p.x = at.x; p.y = at.y; p.pairWho = npc.id; p.pairNpc = npc; p.pairKey = k;
     const into = (S.CHARS.alan.frames.pairRunIn || {})[k];
     if (into && into.length && await runReady(into)) { // the two of them stepping together, drawn as one: the partner goes as the first frame comes up

@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `c4dba398` (Netlify `6adba8b9413bc8e9f11726cf`,
 entry 69): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-69); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-70); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1401,6 +1401,16 @@ session lived in the session's scratchpad and are gone; everything that matters 
    finalerace, bath, visitguitar) all pass. **Deployed:** master `c4dba398`, Netlify `6adba8b9413bc8e9f11726cf`. Live:
    page 200, `/.env` 404, js/sprites.js byte-identical, the new walk's paintings served; live smoke intro, finalerace,
    sepit pass.
+70. **Pair paintings that never loaded** (the user: "teixeira flirt in the station has a problem - joint sprite doesn't
+   show, teixeira disappears"). A pair painting (`pair_cop_chest`, `pair_cop_arm`, and every other `pair_*`) is used
+   as a pose name, not listed in Alan's frames table, so only the background stream fetched it, and that stream stops
+   past 60% of the memory budget; with the new walk and the Ludo frames in, it stopped before the pairs. Teixeira
+   faded out and Alan's standing frame was drawn in the painting's place (`cur` stayed `alan_side`). Fixed: core.js
+   `pairReady` fetches the pair painting before `S.pairIn` hides the partner (while Alan walks over) and before
+   `S.pairStep` changes to it; actor.js `frameKey` asks for any pose not in yet (it used to show the idle frame and
+   never ask). Checked: the flirt in `?scene=copguard`, recorded in Chromium: both paintings drawn, Teixeira in them;
+   validate 0 errors; smoke on the pair scenes (cop, copguard, copreturn, romance, guitar, visitcop, visitguitar,
+   vascolove) and sepit, bench.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
