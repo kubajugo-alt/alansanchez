@@ -63,7 +63,7 @@ def main():
         cons = [C[k].get('consistency', {}) for k in ids]
         fps = None if walk else next(iter(C[ids[0]]['wire'].get('ibFps', {}).values()), None)
         out.append({'name': r['name'], 'walk': r.get('slot'), 'keys': keys, 'cells': [k for _, k in seq], 'w': W, 'h': CELL_H,
-                    'what': r.get('what', r['name']), 'frames': len(ids), 'fps': fps, 'wires': segs if not walk else [r['slot']], 'bath': bool(r.get('bath')),
+                    'what': r.get('what', r['name']), 'note': r.get('note', ''), 'frames': len(ids), 'fps': fps, 'wires': segs if not walk else [r['slot']], 'bath': bool(r.get('bath')),
                     'credits': sum(job[x].get('credits', 0) for x in ('hydra', 'improve') if x in job),
                     'flags': sorted({f for c in cons for f in c.get('flags', [])}),
                     'worst': {'drift': max((c.get('drift', 0) for c in cons), default=0), 'head': min((c.get('head', 1) for c in cons), default=1),

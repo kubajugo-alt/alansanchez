@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alan_side",
+  "b": "alan_wobble",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "a92621d0-5d69-49e4-98fb-f36e55817822",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/c84dd87b09dc16d30078911bb5113bd3.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/4934796f0b78a7b1a90cf37724e362a9.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/0f0fb537cadfdf7cc1e6b13cf402f80c.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.7916666666666665
+  },
+  "credits": 9
+ }
+}

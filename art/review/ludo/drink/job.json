@@ -1,0 +1,39 @@
+{
+ "spec": {
+  "a": "alan_side",
+  "b": "alan_drink",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "84b96c0a-686a-4cc3-9a11-0af03c3bb7d3",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/8d77de3fef3f90a327f406bbb9d31a5c.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/985029729a6df1cea47292077ab849c9.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/396c279320ba7967bcef5d4d2a4e5ccf.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.9166666666666665
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "6d6d85e1-5a57-48ed-98aa-1a4bbbc935ef",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/395994a0579060994ca3c73ec378338b.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/350d78db4ac3d535ed2ad0b723764506.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/c24148c5e28562f18fed2af06b8aace2.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.875
+  },
+  "credits": 3
+ }
+}

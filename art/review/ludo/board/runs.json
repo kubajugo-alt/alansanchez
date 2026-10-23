@@ -1,6 +1,47 @@
 {
  "runs": [
   {
+   "name": "talk_a",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_talk",
+    "alan_idle2"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_talk_a_a01",
+    "alan_lu_talk_a_a02",
+    "alan_lu_talk_a_a03",
+    "alan_lu_talk_a_a04",
+    "alan_talk",
+    "alan_lu_talk_a_b01",
+    "alan_lu_talk_a_b02",
+    "alan_lu_talk_a_b03",
+    "alan_lu_talk_a_b04",
+    "alan_idle2"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Standing \u2192 talking gesture \u2192 second stance (every conversation)",
+   "frames": 8,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_talk",
+    "alan_talk>alan_idle2"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [
+    "head"
+   ],
+   "worst": {
+    "drift": 6.6,
+    "head": 0.485,
+    "height": 0.016
+   }
+  },
+  {
    "name": "talk_b",
    "walk": null,
    "keys": [
@@ -75,6 +116,39 @@
    }
   },
   {
+   "name": "talk_d",
+   "walk": null,
+   "keys": [
+    "alan_talk",
+    "alan_talk2"
+   ],
+   "cells": [
+    "alan_talk",
+    "alan_lu_talk_d_a01",
+    "alan_lu_talk_d_a02",
+    "alan_lu_talk_d_a03",
+    "alan_lu_talk_d_a04",
+    "alan_lu_talk_d_a05",
+    "alan_talk2"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Between his two talking gestures",
+   "frames": 5,
+   "fps": 20,
+   "wires": [
+    "alan_talk>alan_talk2"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 2.7,
+    "head": 0.844,
+    "height": 0.007
+   }
+  },
+  {
    "name": "pilot_reach",
    "walk": null,
    "keys": [
@@ -109,6 +183,231 @@
     "drift": 1.4,
     "head": 0.797,
     "height": 0.01
+   }
+  },
+  {
+   "name": "turn_front",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_front"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_turn_front_a01",
+    "alan_lu_turn_front_a02",
+    "alan_lu_turn_front_a03",
+    "alan_lu_turn_front_a04",
+    "alan_lu_turn_front_a05",
+    "alan_lu_turn_front_a06",
+    "alan_lu_turn_front_a07",
+    "alan_lu_turn_front_a08",
+    "alan_lu_turn_front_a09",
+    "alan_lu_turn_front_a10",
+    "alan_front"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Turning to face us (walking down a room; the swing when he turns round)",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_front"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 2.1,
+    "head": 0.832,
+    "height": 0.021
+   }
+  },
+  {
+   "name": "turn_back",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_back"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_turn_back_a01",
+    "alan_lu_turn_back_a02",
+    "alan_lu_turn_back_a03",
+    "alan_lu_turn_back_a04",
+    "alan_lu_turn_back_a05",
+    "alan_lu_turn_back_a06",
+    "alan_lu_turn_back_a07",
+    "alan_lu_turn_back_a08",
+    "alan_lu_turn_back_a09",
+    "alan_lu_turn_back_a10",
+    "alan_back"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Turning away from us (walking up a room)",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_back"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [
+    "head"
+   ],
+   "worst": {
+    "drift": 6.7,
+    "head": 0.548,
+    "height": 0.009
+   }
+  },
+  {
+   "name": "write",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_write"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_write_a01",
+    "alan_lu_write_a02",
+    "alan_lu_write_a03",
+    "alan_lu_write_a04",
+    "alan_write"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Taking out the notebook to write",
+   "frames": 4,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_write"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 2.1,
+    "head": 0.772,
+    "height": 0.009
+   }
+  },
+  {
+   "name": "read",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_read"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_read_a01",
+    "alan_lu_read_a02",
+    "alan_lu_read_a03",
+    "alan_lu_read_a04",
+    "alan_lu_read_a05",
+    "alan_lu_read_a06",
+    "alan_read"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Reading (books, the ledger, papers)",
+   "frames": 6,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_read"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [],
+   "worst": {
+    "drift": 1.4,
+    "head": 0.867,
+    "height": 0.003
+   }
+  },
+  {
+   "name": "ring",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_ring"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_ring_a01",
+    "alan_lu_ring_a02",
+    "alan_lu_ring_a03",
+    "alan_lu_ring_a04",
+    "alan_lu_ring_a05",
+    "alan_lu_ring_a06",
+    "alan_lu_ring_a07",
+    "alan_lu_ring_a08",
+    "alan_lu_ring_a09",
+    "alan_lu_ring_a10",
+    "alan_ring"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Striking the bell (Ch. IV and the finale)",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_ring"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [
+    "height"
+   ],
+   "worst": {
+    "drift": 5.3,
+    "head": 0.65,
+    "height": 0.1
+   }
+  },
+  {
+   "name": "pickup",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_pickup"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_pickup_a01",
+    "alan_lu_pickup_a02",
+    "alan_lu_pickup_a03",
+    "alan_lu_pickup_a04",
+    "alan_lu_pickup_a05",
+    "alan_lu_pickup_a06",
+    "alan_lu_pickup_a07",
+    "alan_lu_pickup_a08",
+    "alan_lu_pickup_a09",
+    "alan_lu_pickup_a10",
+    "alan_pickup"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Crouching to pick something up",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_pickup"
+   ],
+   "bath": false,
+   "credits": 12,
+   "flags": [
+    "head",
+    "height"
+   ],
+   "worst": {
+    "drift": 3.5,
+    "head": 0.49,
+    "height": 0.15
    }
   }
  ]
