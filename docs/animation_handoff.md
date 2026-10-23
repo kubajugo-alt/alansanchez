@@ -1289,13 +1289,39 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Deployed** (the user: "All ok"): master `ac5421ad`, Netlify `6ada8efb8d17c96ed9001097`, from a clean
      `git archive` export (smoke `bastos` passed there); live: `/.env` 404, `ines_sea_7.mp3` 200.
 65. **Alan's 24-painting walk** (the user sent a 6x6 sheet: "replace alan's main walking sprites with these and show
-   it to me on a test board"; on the branch, waiting for approval). Frames 0-23 of the sheet are one cycle (24 = 0),
+   it to me on a test board"; approved: "apply the new walking"). Frames 0-23 of the sheet are one cycle (24 = 0),
    cut to `art/sprites/alan_w24_00..23.webp` and scaled x2.15 from 330 px cells to his 695 px height (an upscale, so
    softer than his other paintings), one head anchor for all, feet line per frame (js/sprites.js). core.js
    `S.WALK24` with even plant data: 0.66 of his height a cycle, measured from the sheet's planted heels; heels land on
    paintings 5 and 17. main.js puts it in as his side walk; `?walk=old` shows the 8-painting cycle. The front, back
    and lantern walks are unchanged. Walk lab (`?scene=walklab`): size even across the frames, the planted foot 4.4 px
    off on average, 13.5 px at worst (the sheet's frames 3, 14, 15 jump), against 1.5/3.9 px for the old cycle.
+66. **The cistern ending, staged more naturally** (the user: "apply all the code-only fixes from the review"; the
+   review was a recorded, frame-probed run of `?scene=finalerace`). ch5.js unless named:
+   - Frames: the finale's frames (now with robe_lunge and alan_pull) are loaded before the first strike, so his
+     commanding pose shows; `robe_realise` (the old design, holding the ledger) is no longer used.
+   - Lacerda: a `race` set (core.js) keeps him commanding between moves from "...Then I'll take the hand" on.
+     Stages 2 and 3 moved to [372,520] (Inês between him and the bell) and [500,462]. Each surge gathers (a drift
+     back), launches fast and settles past its mark, with a smaller crest each time (0.42, 0.32, 0.22) and its own
+     rising-water sound; the last step onto the platform is a lunge straight into the grab, held (Alan braced in
+     `alan_pull`) through the un-ringing, "Come", the renunciation and "Let it go".
+   - The water: the stir is three small arms by Lacerda, leaning to his hand, then turning to the bell as they
+     hesitate. The throw rises at Inês's side as "Gladly" starts; she goes at its peak, in a short arc that turns her
+     over (actor.js: an actor's `rot`), into the lit water in front of the walkway ([540,500]). The ankle arms cup at
+     Alan's feet, and he glances down. The drag rises on Lacerda's own side ([585,470]), peaks as "Let it go" ends,
+     and pulls him back and down off the stone. The sink takes 3.5 s and speeds up; the whirl ring reaches his
+     chest, and it closes on the beat he goes under (last splash, `splash_4`).
+   - The bell: no swinging; after the fourth note its rings and ripples close in, the shudder grows over the 9.2 s
+     sound and stops dead, then a low rumble. `narr_ring` starts 1.5 s into the sound, and a second of silence
+     follows the sound before "Come".
+   - The room: the shake is now a shift (render.js: a room's `shake`) that knocks and dies away: surge launch and
+     landing, both splashes, a rumble when the bell goes quiet.
+   - The mark names are drawn over the figures. Sounds: crash_wave (the throw), water_seep (the ankles),
+     water_drain (the stir slumping back, the final drain), water_lap under Inês afloat. At the end she swims to
+     the floor's edge and climbs out, instead of appearing there.
+   - Not done (new art or recordings, need approval): an angry Lacerda talking, him dragged with a fist still closed,
+     Alan's strike follow-through, Inês tumbling or gasping, voice efforts. Open question for the user:
+     `alan_ringback` ("Let's start with you") plays after the fourth note.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

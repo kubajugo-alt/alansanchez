@@ -195,7 +195,7 @@
     lacerda_robe: { scale: 1.02, frames: {
       idle: ['robe_idle', 'robe_idle2'], talk: ['robe_talk', 'robe_talk2', 'lacerda_robe', 'robe_talk3'], walk: ['robe_walk1', 'robe_pass1'],
       poses: { lunge: 'robe_lunge', terror: 'robe_terror', read: 'robe_read', kneel: 'robe_kneel', realise: 'robe_realise', command: 'robe_command', grab: 'robe_grab', surge: 'robe_surge' },
-      sets: { read: { idle: 'robe_kneel', talk: ['robe_kneel'] } } } },
+      sets: { read: { idle: 'robe_kneel', talk: ['robe_kneel'] }, race: { idle: 'robe_command', talk: ['robe_command'] } } } }, // race: the cistern, after the first note
     celeste: { scale: 0.86, frames: {
       idle: ['celeste', 'celeste_idle2'], talk: ['celeste_talk', 'celeste_talk2'], walk: ['celeste_walkA', 'celeste', 'celeste_walkB', 'celeste'],
       poses: { shout: 'celeste_shout' },

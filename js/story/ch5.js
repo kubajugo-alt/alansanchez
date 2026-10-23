@@ -81,7 +81,7 @@
   ROOMS.cistern = {
     name: 'The Cistern', bg: 'cistern', noSave: true, music: () => F().won ? null : F().bell_lit ? 'bell_motif' : 'cistern_deep', // the rite: the bell's motif ambience: 'cistern', floor: 'wet',
     fog: () => F().won ? 0 : 0.16, fogRGB: '90,140,120',
-    sway: t => S.quakeAt(t), // the room shakes when Lacerda surges
+    shake: t => S.shakeAt(t), // the room jolts when Lacerda surges, when someone hits the water, and rumbles as the bell goes quiet
     // the walkway between its two curbs, out to the front of the bell's platform (the rim hangs too low to stand under), and off the pillar's plinth
     walk: [[0, 560], [196, 560], [200, 540], [568, 428], [600, 421], [712, 419], [714, 423], [640, 425], [612, 432], [370, 540], [372, 560], [960, 560], [960, 604], [1228, 604], [1280, 640], [1280, 716], [0, 716]],
     scale: [420, 192, 716, 378],
@@ -96,7 +96,7 @@
     entries: { default: [140, 640, 'e'], convent: [140, 640, 'e'] },
     layers: [
       { img: 'cistern_plate', x: 0, y: 0, full: true },
-      { img: 'cistern_bell', x: 0, y: 0, full: true, pivot: [652, 0], swing: t => (F().ringing ? 2.4 * Math.sin(t * 2.3) : 0.4 * Math.sin(t * 0.6)) + S.bellShudder(t) },
+      { img: 'cistern_bell', x: 0, y: 0, full: true, pivot: [652, 0], swing: t => 0.4 * Math.sin(t * 0.6) + S.bellShudder(t) },
     ],
     animBack(g, t) {
       const im = G.bgImage();
@@ -112,14 +112,14 @@
       if (F().sinkAt) FX.drips(g, t, [[F().sinkAt[0], F().sinkAt[1], F().sinkAt[1] - 1, 1.2]], '170,255,210');
       S.drawMarks(g, t);
       S.drawBellHit(g, t);
-      if (F().ringing) for (let i = 0; i < 3; i++) {
-        const r = ((t * 220) + i * 160) % 480;
+      if (F().ringing) for (let i = 0; i < 3; i++) { // the fourth note drawn back in: rings close on the bell, brighter as they reach it
+        const r = 480 - ((t * 220) + i * 160) % 480;
         g.strokeStyle = `rgba(150,255,210,${0.5 * (1 - r / 480)})`; g.lineWidth = 3;
         g.beginPath(); g.ellipse(652, 260, r, r * 0.45, 0, 0, Math.PI * 2); g.stroke();
       }
       S.idleHint(t); S.raceTick(t); S.floatTick(t);
     },
-    animFg(g, t) { S.drawFlood(g, t); S.drawVortex(g, t); S.drawLiving(g, t); S.drawSplashes(g, t); if (F().won) { g.fillStyle = 'rgba(255,200,140,0.08)'; g.fillRect(0, 0, 1280, 720); } },
+    animFg(g, t) { S.drawMarkLabels(g); S.drawFlood(g, t); S.drawVortex(g, t); S.drawLiving(g, t); S.drawSplashes(g, t); if (F().won) { g.fillStyle = 'rgba(255,200,140,0.08)'; g.fillRect(0, 0, 1280, 720); } },
     npcs: [
       { id: 'lacerda', ch: 'lacerda_robe', x: 845, y: 572, dir: 'w', fixedDir: true, name: 'Lacerda', when: () => !F().won,
         look: 'narr_look_lacerda_robe', talk: () => say('lacerda_patient'), // ("You killed him." was said once, on the way in)
@@ -142,7 +142,7 @@
     self: { items: { knife: () => S.cutPalm(), any: 'alan_fail_06' } },
     async enter() {
       // the finale's own frames, loaded now rather than when first needed (the surge, the throw, afloat, the grab)
-      G.ensure(['robe_walk1', 'robe_pass1', 'robe_command', 'robe_grab', 'robe_surge', 'robe_terror', 'ines_block', 'ines_float'].map(k => 'spr:' + k));
+      G.ensure(FINALE_FRAMES);
       if (F().finaleIntro) return;
       F().finaleIntro = true; F().water = 0; F().strikes = 0;
       Sound.cue('lacerda_theme'); // Lacerda, with Inês tied up behind him
@@ -161,17 +161,23 @@
   let hit = null;
   S.bellHit = kind => { hit = { kind, t0: null }; };
   const hitAge = t => { if (!hit) return Infinity; if (hit.t0 === null) hit.t0 = t; return t - hit.t0; };
-  S.bellShudder = t => { const a = hitAge(t); return a < 4 ? 1.8 * Math.exp(-a * 1.3) * Math.sin(a * 9) : 0; };
+  const DRAWN = 9.2; // bell_drawn_in's length: the shudder grows through it and stops dead at its last suck-in
+  S.bellShudder = t => { const a = hitAge(t); if (hit && hit.kind === 'drawn') return a < DRAWN ? 1.8 * (a / DRAWN) ** 2 * Math.sin(a * 9) : 0; return a < 4 ? 1.8 * Math.exp(-a * 1.3) * Math.sin(a * 9) : 0; };
   S.drawBellHit = function (g, t) {
-    const a = hitAge(t); if (a > 5) return;
+    const a = hitAge(t), drawn = hit && hit.kind === 'drawn'; if (a > (drawn ? DRAWN : 5)) return;
     const rgb = hit.kind === 'wrong' ? '255,150,80' : '150,255,210';
-    FX.glow(g, 652, 250, 240, rgb, 0.3 * Math.exp(-a * 1.6));
+    FX.glow(g, 652, 250, 240, rgb, drawn ? 0.3 * (a / DRAWN) : 0.3 * Math.exp(-a * 1.6));
     g.save();
     // ripples stay on the water: the band of pool minus the stone walkway
     g.beginPath(); g.rect(0, 372, 1280, 176);
     g.moveTo(150, 548); g.lineTo(598, 404); g.lineTo(762, 408); g.lineTo(472, 548); g.closePath();
     g.clip('evenodd');
-    for (let i = 0; i < 4; i++) {
+    if (drawn) for (let i = 0; i < 4; i++) { // ripples running in across the water to the platform
+      const k = (a * 0.45 + i / 4) % 1, r = 95 + (1 - k) * 600, fade = k * Math.min(1, (DRAWN - a) * 2);
+      g.strokeStyle = `rgba(${rgb},${0.55 * fade})`; g.lineWidth = 2.5 * fade + 0.5;
+      g.beginPath(); g.ellipse(652, 414, r, r * 0.16, 0, 0, Math.PI * 2); g.stroke();
+    }
+    else for (let i = 0; i < 4; i++) {
       const k = a - i * 0.45; if (k < 0) continue;
       const r = 95 + k * 170, fade = Math.max(0, 1 - r / 760);
       g.strokeStyle = `rgba(${rgb},${0.55 * fade})`; g.lineWidth = 2.5 * fade + 0.5;
@@ -206,7 +212,14 @@
     for (const id of Object.keys(MARKS)) {
       const [x, y] = MARKS[id], done = (F().struck || []).includes(id);
       FX.glow(g, x, y, 34, done ? '140,255,200' : '255,210,130', 0.32 + 0.1 * Math.sin(t * 3 + x));
-      g.font = "700 12px 'Cinzel', serif"; g.textAlign = 'center';
+    }
+  };
+  // their names, drawn over the figures (animFg) so Alan and Lacerda never hide them
+  S.drawMarkLabels = function (g) {
+    if (!F().bell_lit || F().won) return;
+    g.font = "700 12px 'Cinzel', serif"; g.textAlign = 'center';
+    for (const id of Object.keys(MARKS)) {
+      const [x, y] = MARKS[id], done = (F().struck || []).includes(id);
       g.fillStyle = done ? 'rgba(200,255,225,0.95)' : 'rgba(255,235,190,0.92)'; g.fillText(id.toUpperCase(), x, y + 4);
     }
     g.textAlign = 'left';
@@ -254,24 +267,24 @@
   S.living = function (kind, o = {}) {
     const now = performance.now() / 1000, slow = window.FAST ? 0.05 : 1;
     const L = { kind, t0: now, dur: (o.dur || ({ stir: 4.2, surge: 1, throw: 2.2, ankles: 4.6, drag: 2.4, whirl: 6 })[kind]) * slow, x: o.x || 650, y: o.y || 430, actor: o.actor, follow: kind === 'surge', drops: [] };
+    // stir: small arms out of the pool by Lacerda, leaning to his hand (rot), then turning to the bell (rot2) as they hesitate
     if (kind === 'stir') L.parts = [
-      { img: 'water_arm', bx: 560, by: 472, s: 0.62, flip: false, rot: 0.18, lag: 0.05 },
-      { img: 'water_arm', bx: 760, by: 468, s: 0.7, flip: true, rot: -0.2, lag: 0 },
-      { img: 'water_arm', bx: 660, by: 486, s: 0.5, flip: false, rot: 0.05, lag: 0.12 }];
-    else if (kind === 'surge') L.parts = [{ img: 'water_crest', bx: 0, by: 0, s: 0.42, flip: false, lag: 0, crest: true, ride: true }];
-    else if (kind === 'throw') L.parts = [
-      { img: 'water_crest', bx: L.x - 30, by: L.y + 40, s: 0.62, flip: false, lag: 0, crest: true },
-      { img: 'water_arm', bx: L.x + 70, by: L.y + 44, s: 0.45, flip: true, rot: -0.35, lag: 0.1 }];
-    else if (kind === 'ankles') L.parts = [
-      { img: 'water_arm', bx: L.x - 70, by: L.y + 52, s: 0.3, flip: false, rot: 0.55, lag: 0 },
-      { img: 'water_arm', bx: L.x + 60, by: L.y + 48, s: 0.32, flip: true, rot: -0.5, lag: 0.08 },
-      { img: 'water_arm', bx: L.x - 150, by: L.y + 92, s: 0.28, flip: false, rot: 0.7, lag: 0.16 }];
+      { img: 'water_arm', bx: 770, by: 478, s: 0.4, flip: false, rot: 0.3, rot2: -0.32, lag: 0.05 },
+      { img: 'water_arm', bx: 815, by: 472, s: 0.45, flip: true, rot: 0.38, rot2: -0.26, lag: 0 },
+      { img: 'water_arm', bx: 790, by: 488, s: 0.35, flip: false, rot: 0.22, rot2: -0.38, lag: 0.12 }];
+    else if (kind === 'surge') L.parts = [{ img: 'water_crest', bx: 0, by: 0, s: o.s || 0.42, flip: false, lag: 0, crest: true, ride: true }]; // smaller each time: the sea slipping away from him
+    else if (kind === 'throw') L.parts = [ // out of the water beside the walkway, at her side
+      { img: 'water_crest', bx: L.x, by: L.y + 30, s: 0.55, flip: true, lag: 0, crest: true },
+      { img: 'water_arm', bx: L.x + 50, by: L.y + 36, s: 0.4, flip: true, rot: -0.35, lag: 0.1 }];
+    else if (kind === 'ankles') L.parts = [ // from the platform's waterline right beside him, cupping at his ankles
+      { img: 'water_arm', bx: L.x - 45, by: 440, s: 0.22, flip: false, rot: 0.2, lag: 0 },
+      { img: 'water_arm', bx: L.x + 45, by: 438, s: 0.22, flip: true, rot: -0.2, lag: 0.08 }];
     else if (kind === 'drag') L.parts = [
       { img: 'water_arm', bx: L.x - 40, by: L.y + 40, s: 0.6, flip: true, rot: -0.75, lag: 0 },
       { img: 'water_arm', bx: L.x + 50, by: L.y + 36, s: 0.55, flip: true, rot: -0.55, lag: 0.08 },
       { img: 'water_arm', bx: L.x + 10, by: L.y + 46, s: 0.5, flip: false, rot: -0.3, lag: 0.15 }];
     else L.parts = [
-      { img: 'water_vortex', bx: L.x, by: L.y + 26, s: 0.7, lag: 0, ring: true },
+      { img: 'water_vortex', bx: L.x, by: L.y + 26, s: 0.42, lag: 0, ring: true }, // to his chest, not over his head: he is seen to go under
       { img: 'water_arm', bx: L.x - 60, by: L.y + 20, s: 0.42, flip: false, rot: 0.5, lag: 0.15 },
       { img: 'water_arm', bx: L.x + 60, by: L.y + 20, s: 0.42, flip: true, rot: -0.5, lag: 0.22 }];
     living.push(L);
@@ -284,7 +297,7 @@
     const w = im.naturalWidth * P.s, h = im.naturalHeight * P.s, rise = h * k;
     c.save();
     c.beginPath(); c.rect(0, 0, 1280, P.by + 2); c.clip(); // nothing below the surface it climbs out of
-    c.translate(P.bx, P.by); c.rotate((P.rot || 0) * k + Math.sin(t * 1.3 + P.bx) * 0.04 * sway);
+    c.translate(P.bx, P.by); c.rotate((P.rotAbs != null ? P.rotAbs : (P.rot || 0) * k) + Math.sin(t * 1.3 + P.bx) * 0.04 * sway);
     if (P.flip) c.scale(-1, 1);
     const strips = 18, sh = im.naturalHeight / strips;
     for (let i = 0; i < strips; i++) {
@@ -348,7 +361,7 @@
         const v = Math.max(0, Math.min(1, (u - P.lag) / (1 - P.lag)));
         let k, sway = 1;
         if (P.ride) { const A = L.actor; P.bx = A.x - (A.dir === 'w' ? -30 : 30); P.by = A.y + 6; P.flip = A.dir === 'w'; k = Math.min(1, (now - L.t0) / 0.4) * (L.stop ? Math.max(0, 1 - (now - L.stop) / 0.6) : 1); sway = 1.6; }
-        else if (L.kind === 'stir') k = ease(v / 0.4) * (1 - ease((v - 0.62) / 0.38)) * (v > 0.4 && v < 0.62 ? 0.95 + 0.05 * Math.sin(v * 60) : 1); // up, a hesitation, and down
+        else if (L.kind === 'stir') { k = ease(v / 0.4) * (1 - ease((v - 0.62) / 0.38)) * (v > 0.4 && v < 0.62 ? 0.95 + 0.05 * Math.sin(v * 60) : 1); P.rotAbs = (P.rot + (P.rot2 - P.rot) * ease((v - 0.4) / 0.22)) * ease(v / 0.25); } // up toward his hand, a hesitation turning to the bell, and down
         else if (L.kind === 'ankles') { k = ease(v / 0.45) * (1 - ease((v - 0.8) / 0.2)); sway = v > 0.45 && v < 0.8 ? 1.8 : 1; } // it shivers at his feet
         else if (L.kind === 'throw') { k = ease(v / 0.3) * (1 - ease((v - 0.5) / 0.5)); sway = 1.4; }
         else if (L.kind === 'drag') { k = ease(v / 0.3) * (1 - ease((v - 0.6) / 0.4)); sway = 1.5; if (L.actor && v > 0.3) { P.rot = Math.atan2(L.actor.x - P.bx, -(P.by - L.actor.y)) * 0.6; } }
@@ -401,10 +414,23 @@
       for (let d = 0; d < 26 * S2.big; d++) { const vx = (r2() - 0.5) * 260 * S2.big, vy = -(160 + r2() * 260) * S2.big; const x = S2.x + vx * a, y = S2.y + vy * a + 520 * a * a; if (y > S2.y + 4) continue; g.fillStyle = 'rgba(200,255,230,0.75)'; g.beginPath(); g.arc(x, y, 2.2, 0, 7); g.fill(); }
     }
   };
-  // the room shakes a little when he surges (the cistern room's sway, which the renderer applies)
-  let quake = 0;
-  S.quake = (sec) => { quake = performance.now() / 1000 + sec; };
-  S.quakeAt = t => { const left = quake - performance.now() / 1000; return left > 0 && !window.CALM ? Math.sin(t * 47) * 0.0035 * Math.min(1, left) : 0; };
+  // the room jolts (the cistern room's shake, which the renderer applies as a shift): S.quake(strength) is a knock
+  // that dies away fast, S.rumble(sec) a low slow roll that swells and fades
+  const jolts = [];
+  S.quake = (amp = 1) => { jolts.push({ t0: performance.now() / 1000, amp: 5 * amp }); };
+  S.rumble = (sec = 1.5) => { jolts.push({ t0: performance.now() / 1000, amp: 3, roll: sec }); };
+  S.shakeAt = t => {
+    const now = performance.now() / 1000; let x = 0, y = 0;
+    for (let i = jolts.length - 1; i >= 0; i--) {
+      const J = jolts[i], a = now - J.t0;
+      if (a > (J.roll || 1)) { jolts.splice(i, 1); continue; }
+      const env = J.roll ? Math.sin(Math.PI * a / J.roll) : Math.exp(-a * 6);
+      const f = J.roll ? 9 : 31; // a roll is slow; a knock rattles
+      x += J.amp * env * (Math.sin(t * f + 1.3) * 0.6 + Math.sin(t * f * 1.7) * 0.4);
+      y += J.amp * env * 0.7 * (Math.sin(t * f * 1.3 + 0.4) * 0.6 + Math.sin(t * f * 2.1) * 0.4);
+    }
+    return x || y ? [x, y] : null;
+  };
   S.drawFlood = function (g, t) {
     const w = F().water || 0; if (!w || F().won) return;
     const top = 540, front = 548 + (w / 6) * 175;
@@ -504,43 +530,72 @@
     p.dir = 'w';
   };
   // the race: where Lacerda stands on his way to the hand on the bell (0 his step by the water;
-  // 1 the foot of the walkway; 2 at Inês and her lantern; 3 up the walkway; 4 at the platform: too late)
-  const STAGES = [null, [272, 556], [420, 500], [548, 446], CAUSEWAY_END];
+  // 1 the foot of the walkway; 2 below Inês and her lantern, so she stands between him and the bell; 3 up the walkway,
+  // past where she stood; 4 at the platform: too late)
+  const STAGES = [null, [272, 556], [372, 520], [500, 462], CAUSEWAY_END];
   const RACE_GAP = 25; // seconds he gives Alan between notes before he gains a stage on his own
   let raceAt = 0;
-  // he doesn't walk: he rides a swell of the water along the walkway, robe flying, and the room shakes
-  const FINALE_FRAMES = ['robe_walk1', 'robe_pass1', 'robe_command', 'robe_grab', 'robe_surge', 'robe_terror', 'ines_block', 'ines_float'].map(k => 'spr:' + k);
+  // he doesn't walk: he rides a swell of the water along the walkway, robe flying, and the room shakes. The swell is
+  // smaller each time (the sea slipping away from him); the last step, onto the platform, is a lunge with no water at all
+  const FINALE_FRAMES = ['robe_walk1', 'robe_pass1', 'robe_command', 'robe_grab', 'robe_surge', 'robe_terror', 'robe_lunge', 'ines_block', 'ines_float', 'alan_pull'].map(k => 'spr:' + k);
+  const CREST = [0.42, 0.42, 0.32, 0.22];
+  const RISE = ['water_rise_2', 'water_rise_2', 'water_rise_3', 'water_rise_4'];
+  const tween = (ms, f) => new Promise(res => { const t0 = performance.now(), step = () => { const k = Math.min(1, (performance.now() - t0) / ms); f(k); if (k < 1) requestAnimationFrame(step); else res(); }; step(); });
   S.surgeTo = async function (lac, x, y) {
     await G.ensure(FINALE_FRAMES);
     lac.def.fixedDir = false; lac.dir = x < lac.x ? 'w' : 'e';
-    lac.pose = window.SPRITES.robe_surge ? 'surge' : 'command';
-    const L = S.living('surge', { actor: lac }); S.quake(1.4); sfx('water_rise', 0.9, 0.8);
-    const x0 = lac.x, y0 = lac.y, dur = window.FAST ? 40 : Math.max(1300, Math.hypot(x - x0, y - y0) * 4.2);
-    const t0 = performance.now();
-    await new Promise(res => { const step = () => { const k = Math.min(1, (performance.now() - t0) / dur), e = k < 0.5 ? 2 * k * k : 1 - (-2 * k + 2) ** 2 / 2; lac.x = x0 + (x - x0) * e; lac.y = y0 + (y - y0) * e; if (k < 1) requestAnimationFrame(step); else res(); }; step(); });
+    const st = Math.min(3, F().lac_stage || 1), fast = window.FAST;
+    lac.pose = 'surge';
+    // gathering: a quarter second drifting back as the swell rises under him
+    const ax = lac.x, ay = lac.y, bx = x > ax ? -8 : 8;
+    const L = S.living('surge', { actor: lac, s: CREST[st] });
+    sfx(RISE[st], 0.9, 0.85 + st * 0.08); // pitched up as the swells get smaller
+    await tween(fast ? 10 : 250, k => { lac.x = ax + bx * k; });
+    S.quake(1); // the launch
+    const x0 = lac.x, y0 = lac.y, d = Math.hypot(x - x0, y - y0), dur = fast ? 40 : Math.max(500, d * 2.6);
+    const ox = (x - x0) / (d || 1) * 6, oy = (y - y0) / (d || 1) * 6; // carried 6 px past, then settling back
+    await tween(dur, k => { const e = 1 - (1 - k) ** 3; lac.x = x0 + (x + ox - x0) * e; lac.y = y0 + (y + oy - y0) * e; });
+    S.quake(0.4); // the landing
     L.stop = performance.now() / 1000; lac.pose = 'command';
-    await G.wait(window.FAST ? 20 : 500); lac.pose = null;
+    await tween(fast ? 10 : 200, k => { lac.x = x + ox * (1 - k); lac.y = y + oy * (1 - k); });
+    await G.wait(fast ? 20 : 300); lac.pose = null; // (his race set keeps him commanding)
+  };
+  // the last step, onto the platform: no swell, a lunge, and he has Alan's arm
+  S.lungeTo = async function (lac, x, y) {
+    await G.ensure(FINALE_FRAMES);
+    lac.def.fixedDir = false; lac.dir = x < lac.x ? 'w' : 'e'; lac.pose = 'lunge';
+    const x0 = lac.x, y0 = lac.y;
+    await tween(window.FAST ? 10 : 350, k => { const e = 1 - (1 - k) ** 2; lac.x = x0 + (x - x0) * e; lac.y = y0 + (y - y0) * e; });
+    lac.pose = 'grab'; lac.dir = 'e';
+    const p = G.player; p.dir = lac.x < p.x ? 'w' : 'e'; p.pose = 'pull'; // braced, pulling back against him
   };
   S.lacAdvance = async function (to) {
     const lac = G.npc('lacerda'); if (!lac || S.dead) return;
     F().lac_stage = Math.max(F().lac_stage || 0, to);
     const [x, y] = STAGES[F().lac_stage];
-    await S.surgeTo(lac, x, y);
+    if (F().lac_stage >= 4) await S.lungeTo(lac, x, y); else await S.surgeTo(lac, x, y);
     if (F().lac_stage >= 4 && F().strikes < 4) return S.cisternDeath(true); // he has the hand
   };
-  // "Gladly.": the water flings Inês off the walkway into the pool, where she stays afloat with the lantern up
-  const FLOAT_AT = [300, 452]; // the water behind the walkway, upper left
+  // "Gladly.": the water flings Inês off the walkway, away from him, into the pool in front, where she stays afloat
+  // with the lantern up, lit and close to the bell
+  const FLOAT_AT = [540, 500];
   S.throwInes = async function () {
     const ines = G.npc('ines'); if (!ines) return;
     await G.ensure(['spr:ines_block', 'spr:ines_float']);
     ines.def.fixedDir = false; ines.pose = 'block';
-    const x0 = ines.x, y0 = ines.y, [x1, y1] = FLOAT_AT, dur = window.FAST ? 40 : 1100, t0 = performance.now();
-    sfx('water_rise', 0.9);
-    await new Promise(res => { const step = () => { const k = Math.min(1, (performance.now() - t0) / dur); ines.x = x0 + (x1 - x0) * k; ines.y = y0 + (y1 - y0) * k - Math.sin(k * Math.PI) * 150; if (k < 1) requestAnimationFrame(step); else res(); }; step(); });
-    S.splashAt(x1, y1, true);
+    const x0 = ines.x, y0 = ines.y, [x1, y1] = FLOAT_AT;
+    // a short arc, falling faster than it rose, turning over as she goes
+    await tween(window.FAST ? 40 : 700, k => { ines.x = x0 + (x1 - x0) * k; ines.y = y0 + (y1 - y0) * k * k - Math.sin(k * Math.PI) * 65; ines.rot = 0.44 * k; });
+    ines.rot = 0;
+    S.splashAt(x1, y1, true); S.quake(0.6);
     F().ines_afloat = true; ines.pose = window.SPRITES.ines_float ? 'float' : null; ines.dir = 'e';
   };
-  S.floatTick = function (t) { const ines = G.npc('ines'); if (ines && F().ines_afloat && !F().won) { ines.x = FLOAT_AT[0]; ines.y = FLOAT_AT[1] + Math.sin(t * 1.6) * 2.5; } };
+  let lapAt = 0;
+  S.floatTick = function (t) {
+    const ines = G.npc('ines'); if (!ines || !F().ines_afloat || F().won) return;
+    ines.x = FLOAT_AT[0]; ines.y = FLOAT_AT[1] + Math.sin(t * 1.6) * 2.5;
+    if (t - lapAt > 3.4) { lapAt = t; sfx('water_lap', 0.25); } // the water lapping round her
+  };
   S.raceTick = function (t) {
     if (!F().race || F().won || S.dead || G.isBusy) { raceAt = t; return; }
     if (t - raceAt > (window.FAST ? 6 : RACE_GAP)) { raceAt = t; G.busy(() => S.lacAdvance((F().lac_stage || 0) + 1)); }
@@ -549,6 +604,7 @@
     if (!F().bell_lit) return say('alan_too_dark');
     if (!F().blood) return say('alan_need_blood');
     if (!id) return say('narr_bell_lit');
+    await G.ensure(FINALE_FRAMES); // his commanding poses, before anything needs them
     await S.toPlatform();
     const p = G.player; p.pose = 'ring';
     await G.wait(window.FAST ? 20 : 450);
@@ -567,31 +623,40 @@
     if (struck.length === 4) { F().race = false; await say('alan_ringback'); return S.silence(); }
     if (await raise(1)) return;
     const lac = G.npc('lacerda');
+    const wait = ms => G.wait(window.FAST ? 10 : ms);
     if (struck.length === 1) {
       // Sanches first: he knows the order, and he knows what this is
       await say('alan_strike_1', 'lacerda_ferreira');
-      if (lac) { lac.pose = 'command'; } sfx('water_rise', 0.8); // he calls the water; it rises, hesitates, and sinks back
-      await S.living('stir');
-      await say('lacerda_listening');
-      if (lac) lac.pose = null;
+      if (lac) { lac.pose = 'command'; } sfx('water_rise', 0.8); // he calls the water; it rises to his hand, turns to the bell, and sinks back
+      const stir = S.living('stir');
+      setTimeout(() => sfx('water_drain', 0.6), window.FAST ? 10 : 2600); // slumping back
+      await stir;
+      if (lac) lac.set = 'race'; // from here on he stays commanding between moves
       F().race = true; // (raceTick restarts its clock while anything is playing)
-      await S.lacAdvance(1);
+      const line = say('lacerda_listening');
+      await wait(3000); // he goes on "Then I'll take the hand"
+      if (lac) lac.pose = null;
+      await Promise.all([line, S.lacAdvance(1)]);
     } else if (struck.length === 2) {
       await S.lacAdvance(2);
       const ines = G.npc('ines');
       if (ines) { ines.dir = 'w'; ines.pose = 'block'; } // the lantern high, her arm across the walkway
       await say('ines_block');
       if (lac) lac.pose = 'command';
-      const thrown = S.living('throw', { x: ines ? ines.x : 420, y: ines ? ines.y : 500 }); // a wave rises under her
-      await say('lacerda_gladly');
+      const thrown = S.living('throw', { x: ines ? ines.x + 70 : 530, y: ines ? ines.y : 482 }); // a wave out of the water at her side
+      sfx('crash_wave', 0.8);
+      const line = say('lacerda_gladly');
+      await wait(550); // she goes as the wave peaks
       await S.throwInes(); // into the pool: she keeps the lantern up, and the marks stay lit
-      await thrown;
+      await line; await thrown;
       if (lac) lac.pose = null;
     } else if (struck.length === 3) {
       await S.lacAdvance(3);
       if (lac) lac.pose = 'command';
-      sfx('water_rise', 0.9);
-      await Promise.all([say('lacerda_take'), S.living('ankles', { x: PLATFORM[0], y: PLATFORM[1] })]); // to Alan's ankles, and it stops
+      sfx('water_seep', 0.9);
+      const ankles = S.living('ankles', { x: PLATFORM[0], y: PLATFORM[1] });
+      const glance = (async () => { await wait(1500); p.dir = 'e'; await wait(300); p.dir = 'w'; })(); // he looks down at his feet
+      await Promise.all([say('lacerda_take'), ankles, glance]); // to Alan's ankles, and it stops
       if (lac) lac.pose = null;
     }
   };
@@ -632,6 +697,7 @@
       if (ines) { ines.x = LAMP_SPOT[0]; ines.y = LAMP_SPOT[1]; ines.dir = 'e'; ines.def.fixedDir = false; }
     }
     F().water = 0; F().strikes = 0; F().struck = []; F().race = false; F().lac_stage = 0; F().ines_afloat = false;
+    { const lac = G.npc('lacerda'); if (lac) { lac.set = null; lac.pose = null; } const i = G.npc('ines'); if (i) i.rot = 0; G.player.pose = null; }
     await G.fade(false);
   };
   document.getElementById('btn-retry').onclick = () => S.retryCistern();
@@ -639,34 +705,43 @@
   S.silence = async function () {
     G.cutscene = true;
     await G.ensure(FINALE_FRAMES);
-    const lac = G.npc('lacerda'), ines = G.npc('ines'), p = G.player;
-    // he has reached the platform; the fourth note's ring is drawn back into the bronze
-    if (Math.hypot(lac.x - CAUSEWAY_END[0], lac.y - CAUSEWAY_END[1]) > 8) await S.surgeTo(lac, CAUSEWAY_END[0], CAUSEWAY_END[1]);
-    lac.dir = 'e';
-    F().ringing = true; await G.wait(window.FAST ? 20 : 700);
-    sfx('bell_drawn_in'); S.bellHit('back'); setTimeout(() => sfx('fog_lift'), window.FAST ? 10 : 8600);
+    const lac = G.npc('lacerda'), ines = G.npc('ines'), p = G.player, fast = window.FAST;
+    const wait = ms => G.wait(fast ? 10 : ms);
+    // he reaches the platform and has Alan's arm; he holds it until the water tears him off
+    if (Math.hypot(lac.x - CAUSEWAY_END[0], lac.y - CAUSEWAY_END[1]) > 8) await S.lungeTo(lac, CAUSEWAY_END[0], CAUSEWAY_END[1]);
+    else { lac.pose = 'grab'; p.pose = 'pull'; }
+    // the fourth note's ring is drawn back into the bronze: the rings and the ripples close in, the bell shudders more
+    // and more, and stops dead at the last suck-in; the narrator waits for the sound to start, and after it, a silence
+    F().ringing = true; await wait(700);
+    sfx('bell_drawn_in'); S.bellHit('drawn'); const t0 = performance.now();
+    setTimeout(() => sfx('fog_lift'), fast ? 10 : 8600);
+    setTimeout(() => { F().ringing = false; S.rumble(1.5); }, fast ? 10 : DRAWN * 1000);
+    await wait(1500);
     await say('narr_ring');
-    lac.pose = 'grab'; // he has Alan's arm
+    await wait(Math.max(800, DRAWN * 1000 + 1000 - (performance.now() - t0)));
     await say('lacerda_come'); // the water doesn't answer him any more
-    lac.pose = 'realise';
     await G.say('narr_renounce', { offscreen: true });
-    // the water comes out of the pool for him, pulls him off the walkway, and the pool closes and turns over him
-    const POOL = [820, 482];
-    const drag = S.living('drag', { x: POOL[0], y: POOL[1], actor: lac });
-    sfx('water_rise');
-    await say('alan_let_go'); // he doesn't
-    lac.pose = 'terror'; lac.def.fixedDir = false;
-    { const x0 = lac.x, y0 = lac.y, dur = window.FAST ? 40 : 1300, t0 = performance.now();
-      await new Promise(res => { const step = () => { const k = Math.min(1, (performance.now() - t0) / dur), e = k * k; lac.x = x0 + (POOL[0] - x0) * e; lac.y = y0 + (POOL[1] - y0) * e - Math.sin(k * Math.PI) * 60; if (k < 1) requestAnimationFrame(step); else res(); }; step(); }); }
-    S.splashAt(POOL[0], POOL[1], true); S.quake(0.8);
+    // the water comes up out of the pool on his own side, in front of the walkway's end, and pulls him in backwards
+    const POOL = [585, 470];
+    const letGo = say('alan_let_go'); // he doesn't
+    await wait(500);
+    const drag = S.living('drag', { x: POOL[0], y: POOL[1], actor: lac, dur: 3.2 }); const dragAt = performance.now();
+    sfx('water_rise', 0.9);
+    await letGo;
+    await wait(Math.max(0, 1100 - (performance.now() - dragAt))); // the arms at their height
+    lac.pose = 'terror'; p.pose = null; lac.def.fixedDir = false;
+    { const x0 = lac.x, y0 = lac.y, x1 = x0 - 20, y1 = y0 + 46; // backwards and down, off the stone
+      await tween(fast ? 40 : 650, k => { const e = k * k * k; lac.x = x0 + (x1 - x0) * e; lac.y = y0 + (y1 - y0) * e; }); }
+    S.splashAt(lac.x, lac.y, true); S.quake(1);
+    p.dir = lac.x < p.x ? 'w' : 'e';
     lac.sink = 0.4; // in to the chest
-    const x1 = lac.x, y1 = lac.y;
+    const x1 = lac.x, y1 = lac.y, SINK = fast ? 0.04 : 3.5;
     vortex = { x: x1, y: y1 + 2, t0: performance.now() };
-    const take = S.living('whirl', { x: x1, y: y1 });
+    // the ring and the whirlpool turn round him; the ring closes (u 0.85) on the beat he goes under
+    const take = S.living('whirl', { x: x1, y: y1, dur: SINK / 0.85 });
     const sinking = (async () => {
-      await G.wait(window.FAST ? 20 : 1200);
-      for (let k = 0.4; k <= 1.0001; k += window.FAST ? 0.3 : 0.0035) { lac.sink = k; lac.x = x1 + Math.sin(k * 14) * 6 * (1 - k); await G.wait(16); } // turned round once, twice, and under
-      lac.visible = false; sfx('splash', 0.5); vortex.end = performance.now();
+      await tween(SINK * 1000, k => { const e = k * k; lac.sink = 0.4 + 0.6 * e; lac.x = x1 + Math.sin(e * 14) * 6 * (1 - e); }); // turned round once, twice, and under
+      lac.visible = false; sfx('splash_4', 0.8); S.splashAt(x1, y1); vortex.end = performance.now();
     })();
     await say('narr_end_1');
     await sinking; await take; await drag;
@@ -674,6 +749,7 @@
     await G.wait(window.FAST ? 20 : 900);
     // the water lets go of everything else
     F().ringing = false; F().sinkAt = null;
+    if (F().water) sfx('water_drain', 0.9);
     for (let w = F().water || 0; w > 0; w -= window.FAST ? 6 : 0.05) { F().water = Math.max(0, w); await G.wait(16); }
     F().water = 0;
     Sound.ambience(null); Sound.cue('silence', { sticky: true, xf: 1.2 });
@@ -682,10 +758,13 @@
     F().won = true;
     await say('narr_still');
     ines.set = null; ines.def.fixedDir = false;
-    if (F().ines_afloat) { F().ines_afloat = false; S.splashAt(ines.x, ines.y); ines.pose = null; ines.x = 250; ines.y = 560; } // she hauls herself out at the foot of the steps
+    if (F().ines_afloat) { // she swims to the floor's edge, lantern up, and hauls herself out
+      F().ines_afloat = false; const x0 = ines.x, y0 = ines.y, [x1, y1] = [500, 552];
+      await tween(window.FAST ? 20 : 2000, k => { const e = k * k * (3 - 2 * k); ines.x = x0 + (x1 - x0) * e; ines.y = y0 + (y1 - y0) * e + Math.sin(k * 9) * 2; });
+      S.splashAt(ines.x, ines.y); ines.pose = null; ines.y = 572;
+    }
     if (p.y < 470) await p.walkTo(CAUSEWAY_END[0], CAUSEWAY_END[1]);
     await p.walkTo(272, 556); await p.walkTo(420, 640);
-    if (ines.y < 560) await ines.walkTo(300, 566);
     await ines.walkTo(p.x + 140, p.y + 4); ines.dir = 'w'; p.dir = 'e';
     await say('ines_end', 'alan_end', 'gag_ines_2', 'gag_alan_ines_2');
     G.cutscene = false;

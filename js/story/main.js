@@ -83,7 +83,7 @@
       G.giveItem('tongue', true); G.giveItem('lantern', true); G.giveItem('knife', true);
       await S.cutRopes(); await S.giveLantern();
       Object.assign(F(), { blood: true, struck: ['sanches', 'coutinho', 'bastos'], strikes: 3, water: 3, lac_stage: 3 });
-      const lac = G.npc('lacerda'); if (lac) { lac.x = 548; lac.y = 446; lac.def.fixedDir = false; lac.dir = 'e'; }
+      const lac = G.npc('lacerda'); if (lac) { lac.x = 500; lac.y = 462; lac.def.fixedDir = false; lac.dir = 'e'; lac.set = 'race'; } // (ch5.js STAGES[3])
       await G.wait(window.FAST ? 20 : 700);
       await S.strike('ferreira');
     } },
