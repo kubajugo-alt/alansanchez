@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_bn_x_tee_up",
+  "b": "alan_bn_x_tee_toss",
+  "mid": "alan_bn_tee",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

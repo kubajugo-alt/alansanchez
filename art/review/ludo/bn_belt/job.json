@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_bn_x_tee_toss",
+  "b": "alan_bn_x_unbutton",
+  "mid": "alan_bn_belt",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

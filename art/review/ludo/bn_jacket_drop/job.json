@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_bn_jacket_off",
+  "b": "alan_bn_x_jacket_drop",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

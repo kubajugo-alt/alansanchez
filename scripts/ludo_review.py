@@ -32,7 +32,7 @@ def main():
     out = []
     for r in spec:
         d = os.path.join(LUDO, r['name']); jp = os.path.join(d, 'job.json')
-        if not os.path.exists(jp) or 'true' not in json.load(open(jp)): continue
+        if not os.path.exists(jp) or 'up' not in json.load(open(jp)) or not os.path.exists(os.path.join(d, 'up')): continue
         if refit or not os.path.exists(os.path.join(d, 'fit.json')):
             cmd = ['python3', 'scripts/ludo_walk_fit.py', r['name'], r['slot'], r['base']] if r.get('slot') else ['python3', 'scripts/ludo_fit.py', r['name']]
             print(subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True).stdout.strip())

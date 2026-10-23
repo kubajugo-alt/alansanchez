@@ -20,7 +20,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'art/review/ludo')
 API = 'https://api.ludo.ai/api'
 UPSCALE = -1      # Ludo's frame_size -1: AI 1.5x upscaling (free on re-export)
-TRUE_SIZE = -9    # frames keep the input's size and position: how the upscaled frames are placed on his canvas
+TRUE_SIZE = -9    # the first sheet's export (only the upscaled re-export is used)
 
 
 def key():
@@ -148,7 +148,6 @@ def gen(a):
                {'spritesheet_url': raw['spritesheet_url'], 'edit_mode': 'improve', 'loop': a.loop}, True, refs, 'improve')
     common = {'spritesheet_url': imp['spritesheet_url'], 'individual_frames': True, 'loop': a.loop, 'crop': False}
     step(state, a.name, 'up', 'POST', '/assets/sprite/adjust', dict(common, frame_size=UPSCALE), False)
-    step(state, a.name, 'true', 'POST', '/assets/sprite/adjust', dict(common, frame_size=TRUE_SIZE), False)
     fetch(a.name, state)
     print(f'  {a.name}: credits left {account()}', flush=True)
 
@@ -162,7 +161,7 @@ def batch(a):
         if a.only and r['name'] not in a.only: continue
         jp = os.path.join(OUT, r['name'], 'job.json')
         st = json.load(open(jp)) if os.path.exists(jp) else {}
-        if 'true' in st and st.get('take', 1) >= r.get('take', 1): continue
+        if 'up' in st and st.get('take', 1) >= r.get('take', 1): continue
         q.put(r)
     print(f'{q.qsize()} runs to do', flush=True)
     def work():
