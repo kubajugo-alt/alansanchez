@@ -20,5 +20,17 @@ for run, d in dec.items():
         if c['id'].startswith((f'alan_lu_{run}_', f'pair_lu_{run}_')):
             A[c['id']] = {'decision': v, 'at': d.get('at'), 'note': ('Ludo board' + (': ' + d['note'] if d.get('note') else ''))}
             n[v] += 1
+    if run == 'climb_out' and v in n:  # the climb's own paintings (scripts/climb_fit.py) go with its first run
+        for c in C:
+            if c['id'].startswith('alan_climb_k'): A[c['id']] = {'decision': v, 'at': d.get('at'), 'note': 'Ludo board: with climb_out'}
 json.dump(A, open(ap_p, 'w'), indent=1)
 print(n, 'frames written to art/review/approvals.json')
+# a frame's face kit (scripts/face_transfer.py --ludo: alan_side's mouths and eyelids) goes in with the frame
+fp = os.path.join(ROOT, 'js/faces.js'); t = open(fp).read(); head, body = t.split('window.FACES = ', 1)
+FA = json.loads(body.rstrip().rstrip(';')); k = 0
+for fid, D in FA.items():
+    if '_lu_' in fid and (A.get(fid) or {}).get('decision') in ('approved', 'rejected'):
+        ok = A[fid]['decision'] == 'approved'
+        if D.get('ok') != ok: D['ok'] = ok; k += 1
+open(fp, 'w').write(head + 'window.FACES = ' + json.dumps(FA, indent=1) + ';\n')
+print(k, 'face kits switched with their frames')

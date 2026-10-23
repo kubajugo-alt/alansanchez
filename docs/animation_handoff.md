@@ -1326,6 +1326,28 @@ session lived in the session's scratchpad and are gone; everything that matters 
      side walk wants a try in the game before it replaces the user's; faces: run frames have no mouth or eyelids
      (short, so the mouth rests during them). Other characters' pairs (Duarte, Zé, Vasco) not started: no credits.
 
+66. **Faces on the Ludo frames; the climb out of the Sé pit** (the user: "Check if the existing mouth movement and blinking
+   works with the current sprites. Maybe we can re-use assets created for Alan"; "fix the Climb ... Canva ... Ludo ...
+   when Alan climbs out of the pit"; "don't use the ladder"; the side-on paintings "will not work with the pit"; chose
+   "over the near rim, facing us"; "the sequence ... seems to be cutting alan's head"; "once you're finished, deploy").
+   - **Faces:** lip-sync and blinks worked on his paintings (scripts/tests/face_check.mjs: 24 of 29 speaking frames) and
+     not on the Ludo frames (0 of 17). `scripts/face_transfer.py --ludo` carries alan_side's 18 mouths and 2 eyelid states
+     onto every Ludo frame whose face lines up with his (each frame at its own size; head from its anchors and a
+     template match; ECC fit >= 0.80, scale and turn checked; 469 turned or bath frames left without). Kits carry the
+     candidate's src (js/engine/faces.js wants it) and go in with their frames: `scripts/ludo_apply.py` turns a kit on
+     when its frame is approved (17 so far). With every kit previewed: his mouth moves on 12 of 18 speaking Ludo frames.
+   - **Climb:** in the game he never climbed (alan_climb is the old bath's; the pit exit jumped him to the rim). Three Canva
+     paintings, front view (generate-image, refs alan_front on green MAHY1V7pcIo + MAHYnEDJ7bs; exports through a new
+     scratch design DAHY1e3W5ko, the old one is at Canva's 100-page limit): hands on the near rim, a knee over, kneeling;
+     `scripts/climb_fit.py` (keyed, scaled by his head to alan_front, meta.rim = his hands' height); Ludo runs climb_out
+     (k1 > k2 > k3) and climb_up (k3 > alan_front; take 2 with margin_ratio_vertical 0.3: take 1 cut his head off at the
+     top of Ludo's canvas); `scripts/climb_wire.py` (the 26-frame order, each Ludo frame's rim). se.js `S.climbOut`: in
+     the pit each frame stands on the rim line sunk to his hands; kneeling on the lip he comes forward onto the floor at
+     his own size; pitStage leaves him alone meanwhile. Used at the pit exit once climb_out and climb_up are approved;
+     main.js `wire.seq` (game frames like alan_front need no approval). Checked in the room at a fixed clock: ends at
+     (770, 642), sink 0, size restored. Ludo credits: 36 (98 left). Side-on Canva tries kept unused in art/review/alan/climb.
+   - Checked: validate 0 errors; smoke sepit, sepitgame, visitcop, bath, fado, intro, bench pass.
+
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
 Much of this is out of date (Alan's and Inês's walks, the phases, the deploy steps' test scripts). Kept for the

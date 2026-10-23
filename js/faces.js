@@ -6389,7 +6389,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_b_a01.webp"
  },
  "alan_lu_talk_b_a02": {
@@ -6423,7 +6423,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_b_a02.webp"
  },
  "alan_lu_talk_b_a03": {
@@ -6457,7 +6457,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_b_a03.webp"
  },
  "alan_lu_talk_b_a04": {
@@ -6491,7 +6491,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_b_a04.webp"
  },
  "alan_lu_talk_b_b01": {
@@ -6525,7 +6525,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_b_b01.webp"
  },
  "alan_lu_talk_b_b02": {
@@ -6559,7 +6559,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_b_b02.webp"
  },
  "alan_lu_talk_b_b03": {
@@ -6593,7 +6593,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_b_b03.webp"
  },
  "alan_lu_talk_b_b04": {
@@ -6627,7 +6627,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_b_b04.webp"
  },
  "alan_lu_bn_dressed_a01": {
@@ -6833,5 +6833,6703 @@ window.FACES = {
   ],
   "ok": false,
   "src": "art/review/candidates/alan_lu_bn_dressed_a09.webp"
+ },
+ "alan_lu_bn_jacket_a01": {
+  "box": [
+   276,
+   46,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_a01.webp"
+ },
+ "alan_lu_bn_jacket_a02": {
+  "box": [
+   285,
+   46,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_a02.webp"
+ },
+ "alan_lu_bn_jacket_a03": {
+  "box": [
+   289,
+   46,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_a03.webp"
+ },
+ "alan_lu_bn_jacket_a04": {
+  "box": [
+   282,
+   46,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_a04.webp"
+ },
+ "alan_lu_bn_jacket_b01": {
+  "box": [
+   385,
+   47,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_b01.webp"
+ },
+ "alan_lu_bn_jacket_b02": {
+  "box": [
+   344,
+   45,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_b02.webp"
+ },
+ "alan_lu_bn_jacket_b03": {
+  "box": [
+   245,
+   44,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_b03.webp"
+ },
+ "alan_lu_bn_jacket_b04": {
+  "box": [
+   234,
+   44,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_b04.webp"
+ },
+ "alan_lu_bn_jacket_b05": {
+  "box": [
+   263,
+   46,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_b05.webp"
+ },
+ "alan_lu_bn_jacket_b06": {
+  "box": [
+   338,
+   46,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_b06.webp"
+ },
+ "alan_lu_bn_jacket_b07": {
+  "box": [
+   360,
+   47,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_b07.webp"
+ },
+ "alan_lu_bn_jacket_b08": {
+  "box": [
+   323,
+   48,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_b08.webp"
+ },
+ "alan_lu_bn_jacket_drop_a01": {
+  "box": [
+   225,
+   56,
+   163,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_drop_a01.webp"
+ },
+ "alan_lu_bn_jacket_drop_a08": {
+  "box": [
+   246,
+   54,
+   167,
+   188
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_drop_a08.webp"
+ },
+ "alan_lu_bn_jacket_drop_a10": {
+  "box": [
+   176,
+   51,
+   164,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_jacket_drop_a10.webp"
+ },
+ "alan_lu_bn_swing_b06": {
+  "box": [
+   303,
+   49,
+   164,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_swing_b06.webp"
+ },
+ "alan_lu_bn_swing_b07": {
+  "box": [
+   313,
+   49,
+   166,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_swing_b07.webp"
+ },
+ "alan_lu_bn_tee2_b05": {
+  "box": [
+   197,
+   53,
+   162,
+   183
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_tee2_b05.webp"
+ },
+ "alan_lu_coffees_a01": {
+  "box": [
+   192,
+   63,
+   170,
+   191
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_coffees_a01.webp"
+ },
+ "alan_lu_coffees_a02": {
+  "box": [
+   210,
+   61,
+   169,
+   190
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_coffees_a02.webp"
+ },
+ "alan_lu_coffees_a03": {
+  "box": [
+   194,
+   60,
+   171,
+   193
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_coffees_a03.webp"
+ },
+ "alan_lu_coffees_a04": {
+  "box": [
+   157,
+   61,
+   174,
+   195
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_coffees_a04.webp"
+ },
+ "alan_lu_coffees_a05": {
+  "box": [
+   155,
+   63,
+   172,
+   194
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_coffees_a05.webp"
+ },
+ "alan_lu_coffees_a06": {
+  "box": [
+   167,
+   62,
+   173,
+   195
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_coffees_a06.webp"
+ },
+ "alan_lu_cutpalm_a01": {
+  "box": [
+   212,
+   65,
+   170,
+   191
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_cutpalm_a01.webp"
+ },
+ "alan_lu_cutpalm_a02": {
+  "box": [
+   239,
+   65,
+   171,
+   192
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_cutpalm_a02.webp"
+ },
+ "alan_lu_cutpalm_a03": {
+  "box": [
+   254,
+   64,
+   172,
+   193
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_cutpalm_a03.webp"
+ },
+ "alan_lu_cutpalm_a04": {
+  "box": [
+   255,
+   63,
+   172,
+   194
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_cutpalm_a04.webp"
+ },
+ "alan_lu_cutpalm_a05": {
+  "box": [
+   237,
+   67,
+   172,
+   194
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_cutpalm_a05.webp"
+ },
+ "alan_lu_cutpalm_a06": {
+  "box": [
+   225,
+   66,
+   172,
+   194
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_cutpalm_a06.webp"
+ },
+ "alan_lu_cutpalm_a07": {
+  "box": [
+   201,
+   67,
+   173,
+   194
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_cutpalm_a07.webp"
+ },
+ "alan_lu_cutpalm_a08": {
+  "box": [
+   174,
+   75,
+   172,
+   194
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_cutpalm_a08.webp"
+ },
+ "alan_lu_dress_start_a01": {
+  "box": [
+   275,
+   74,
+   167,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_dress_start_a01.webp"
+ },
+ "alan_lu_dress_start_a02": {
+  "box": [
+   392,
+   77,
+   167,
+   188
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_dress_start_a02.webp"
+ },
+ "alan_lu_drink_a01": {
+  "box": [
+   150,
+   74,
+   171,
+   193
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_drink_a01.webp"
+ },
+ "alan_lu_drink_a02": {
+  "box": [
+   156,
+   77,
+   171,
+   193
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_drink_a02.webp"
+ },
+ "alan_lu_drink_a03": {
+  "box": [
+   156,
+   78,
+   171,
+   193
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_drink_a03.webp"
+ },
+ "alan_lu_flirt_a01": {
+  "box": [
+   174,
+   64,
+   161,
+   181
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_flirt_a01.webp"
+ },
+ "alan_lu_jacket_a01": {
+  "box": [
+   218,
+   57,
+   163,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_jacket_a01.webp"
+ },
+ "alan_lu_jacket_a02": {
+  "box": [
+   264,
+   57,
+   163,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_jacket_a02.webp"
+ },
+ "alan_lu_jacket_a05": {
+  "box": [
+   242,
+   60,
+   163,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_jacket_a05.webp"
+ },
+ "alan_lu_jacket_a08": {
+  "box": [
+   133,
+   55,
+   163,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_jacket_a08.webp"
+ },
+ "alan_lu_jacket_a10": {
+  "box": [
+   158,
+   59,
+   165,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_jacket_a10.webp"
+ },
+ "alan_lu_lantern_a01": {
+  "box": [
+   160,
+   64,
+   171,
+   193
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_lantern_a01.webp"
+ },
+ "alan_lu_lantern_a02": {
+  "box": [
+   178,
+   65,
+   171,
+   193
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_lantern_a02.webp"
+ },
+ "alan_lu_lantern_a03": {
+  "box": [
+   212,
+   66,
+   171,
+   193
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_lantern_a03.webp"
+ },
+ "alan_lu_lantern_a04": {
+  "box": [
+   246,
+   66,
+   171,
+   193
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_lantern_a04.webp"
+ },
+ "alan_lu_lantern_reach_a09": {
+  "box": [
+   323,
+   74,
+   165,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_lantern_reach_a09.webp"
+ },
+ "alan_lu_lantern_reach_a10": {
+  "box": [
+   331,
+   73,
+   166,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_lantern_reach_a10.webp"
+ },
+ "alan_lu_phone_a01": {
+  "box": [
+   229,
+   63,
+   166,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_phone_a01.webp"
+ },
+ "alan_lu_phone_a02": {
+  "box": [
+   268,
+   70,
+   165,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_phone_a02.webp"
+ },
+ "alan_lu_phone_a03": {
+  "box": [
+   269,
+   71,
+   164,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_phone_a03.webp"
+ },
+ "alan_lu_phone_a04": {
+  "box": [
+   259,
+   71,
+   165,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_phone_a04.webp"
+ },
+ "alan_lu_phone_a05": {
+  "box": [
+   247,
+   68,
+   166,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_phone_a05.webp"
+ },
+ "alan_lu_pickup_a01": {
+  "box": [
+   189,
+   60,
+   141,
+   159
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_pickup_a01.webp"
+ },
+ "alan_lu_pilot_reach_a01": {
+  "box": [
+   148,
+   66,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "src": "art/review/candidates/alan_lu_pilot_reach_a01.webp"
+ },
+ "alan_lu_pilot_reach_a02": {
+  "box": [
+   175,
+   71,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "src": "art/review/candidates/alan_lu_pilot_reach_a02.webp"
+ },
+ "alan_lu_pilot_reach_a03": {
+  "box": [
+   188,
+   71,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "src": "art/review/candidates/alan_lu_pilot_reach_a03.webp"
+ },
+ "alan_lu_pilot_reach_a04": {
+  "box": [
+   204,
+   68,
+   160,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "src": "art/review/candidates/alan_lu_pilot_reach_a04.webp"
+ },
+ "alan_lu_pilot_reach_a05": {
+  "box": [
+   236,
+   69,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "src": "art/review/candidates/alan_lu_pilot_reach_a05.webp"
+ },
+ "alan_lu_pilot_reach_a06": {
+  "box": [
+   247,
+   69,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "src": "art/review/candidates/alan_lu_pilot_reach_a06.webp"
+ },
+ "alan_lu_pilot_reach_a07": {
+  "box": [
+   305,
+   68,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "src": "art/review/candidates/alan_lu_pilot_reach_a07.webp"
+ },
+ "alan_lu_pilot_reach_a08": {
+  "box": [
+   335,
+   67,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "src": "art/review/candidates/alan_lu_pilot_reach_a08.webp"
+ },
+ "alan_lu_pilot_reach_a09": {
+  "box": [
+   338,
+   69,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "src": "art/review/candidates/alan_lu_pilot_reach_a09.webp"
+ },
+ "alan_lu_pull_a01": {
+  "box": [
+   172,
+   60,
+   162,
+   183
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_pull_a01.webp"
+ },
+ "alan_lu_pull_a02": {
+  "box": [
+   215,
+   60,
+   165,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_pull_a02.webp"
+ },
+ "alan_lu_pull_a03": {
+  "box": [
+   247,
+   57,
+   167,
+   188
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_pull_a03.webp"
+ },
+ "alan_lu_reach_write_a01": {
+  "box": [
+   344,
+   70,
+   166,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a01.webp"
+ },
+ "alan_lu_reach_write_a02": {
+  "box": [
+   340,
+   66,
+   166,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a02.webp"
+ },
+ "alan_lu_reach_write_a03": {
+  "box": [
+   313,
+   65,
+   165,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a03.webp"
+ },
+ "alan_lu_reach_write_a04": {
+  "box": [
+   268,
+   63,
+   165,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a04.webp"
+ },
+ "alan_lu_reach_write_a05": {
+  "box": [
+   206,
+   63,
+   166,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a05.webp"
+ },
+ "alan_lu_reach_write_a06": {
+  "box": [
+   162,
+   60,
+   167,
+   188
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a06.webp"
+ },
+ "alan_lu_reach_write_a07": {
+  "box": [
+   156,
+   61,
+   167,
+   188
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a07.webp"
+ },
+ "alan_lu_reach_write_a08": {
+  "box": [
+   152,
+   62,
+   168,
+   189
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a08.webp"
+ },
+ "alan_lu_reach_write_a09": {
+  "box": [
+   150,
+   62,
+   168,
+   189
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a09.webp"
+ },
+ "alan_lu_reach_write_a10": {
+  "box": [
+   146,
+   68,
+   168,
+   189
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_reach_write_a10.webp"
+ },
+ "alan_lu_read_a01": {
+  "box": [
+   140,
+   65,
+   174,
+   196
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_read_a01.webp"
+ },
+ "alan_lu_read_a02": {
+  "box": [
+   137,
+   65,
+   175,
+   196
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_read_a02.webp"
+ },
+ "alan_lu_read_a03": {
+  "box": [
+   135,
+   68,
+   175,
+   197
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_read_a03.webp"
+ },
+ "alan_lu_read_a04": {
+  "box": [
+   136,
+   84,
+   175,
+   197
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_read_a04.webp"
+ },
+ "alan_lu_ring_a01": {
+  "box": [
+   154,
+   64,
+   163,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a01.webp"
+ },
+ "alan_lu_ring_a02": {
+  "box": [
+   212,
+   67,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a02.webp"
+ },
+ "alan_lu_ring_a03": {
+  "box": [
+   290,
+   72,
+   156,
+   175
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a03.webp"
+ },
+ "alan_lu_ring_a04": {
+  "box": [
+   419,
+   67,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a04.webp"
+ },
+ "alan_lu_ring_a05": {
+  "box": [
+   427,
+   64,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a05.webp"
+ },
+ "alan_lu_ring_a06": {
+  "box": [
+   409,
+   61,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a06.webp"
+ },
+ "alan_lu_ring_a07": {
+  "box": [
+   413,
+   58,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a07.webp"
+ },
+ "alan_lu_ring_a08": {
+  "box": [
+   441,
+   57,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a08.webp"
+ },
+ "alan_lu_ring_a09": {
+  "box": [
+   444,
+   193,
+   168,
+   189
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a09.webp"
+ },
+ "alan_lu_ring_a10": {
+  "box": [
+   437,
+   172,
+   164,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_ring_a10.webp"
+ },
+ "alan_lu_smoke1_a01": {
+  "box": [
+   144,
+   68,
+   177,
+   199
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke1_a01.webp"
+ },
+ "alan_lu_smoke1_a02": {
+  "box": [
+   143,
+   72,
+   177,
+   199
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke1_a02.webp"
+ },
+ "alan_lu_smoke1_a03": {
+  "box": [
+   146,
+   81,
+   176,
+   198
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke1_a03.webp"
+ },
+ "alan_lu_smoke1_b02": {
+  "box": [
+   161,
+   81,
+   176,
+   198
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke1_b02.webp"
+ },
+ "alan_lu_smoke1_b03": {
+  "box": [
+   161,
+   79,
+   176,
+   198
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke1_b03.webp"
+ },
+ "alan_lu_smoke1_b04": {
+  "box": [
+   174,
+   75,
+   176,
+   198
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke1_b04.webp"
+ },
+ "alan_lu_smoke2_a01": {
+  "box": [
+   142,
+   68,
+   176,
+   197
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke2_a01.webp"
+ },
+ "alan_lu_smoke2_a02": {
+  "box": [
+   142,
+   66,
+   176,
+   197
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke2_a02.webp"
+ },
+ "alan_lu_smoke2_a03": {
+  "box": [
+   142,
+   65,
+   176,
+   198
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke2_a03.webp"
+ },
+ "alan_lu_smoke2_a04": {
+  "box": [
+   143,
+   65,
+   176,
+   198
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke2_a04.webp"
+ },
+ "alan_lu_smoke2_a05": {
+  "box": [
+   150,
+   63,
+   176,
+   198
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke2_a05.webp"
+ },
+ "alan_lu_smoke2_b01": {
+  "box": [
+   162,
+   66,
+   176,
+   198
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke2_b01.webp"
+ },
+ "alan_lu_smoke3_a01": {
+  "box": [
+   168,
+   64,
+   177,
+   199
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke3_a01.webp"
+ },
+ "alan_lu_smoke3_a02": {
+  "box": [
+   161,
+   64,
+   177,
+   199
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke3_a02.webp"
+ },
+ "alan_lu_smoke3_a03": {
+  "box": [
+   154,
+   63,
+   177,
+   199
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke3_a03.webp"
+ },
+ "alan_lu_smoke3_a04": {
+  "box": [
+   159,
+   65,
+   176,
+   198
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke3_a04.webp"
+ },
+ "alan_lu_smoke4_a01": {
+  "box": [
+   192,
+   74,
+   203,
+   228
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke4_a01.webp"
+ },
+ "alan_lu_smoke4_a02": {
+  "box": [
+   190,
+   74,
+   203,
+   228
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke4_a02.webp"
+ },
+ "alan_lu_smoke4_a03": {
+  "box": [
+   183,
+   74,
+   203,
+   228
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke4_a03.webp"
+ },
+ "alan_lu_smoke4_a04": {
+  "box": [
+   177,
+   73,
+   203,
+   228
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_smoke4_a04.webp"
+ },
+ "alan_lu_stretch_down_a08": {
+  "box": [
+   177,
+   55,
+   164,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_stretch_down_a08.webp"
+ },
+ "alan_lu_stretch_down_a10": {
+  "box": [
+   150,
+   58,
+   166,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_stretch_down_a10.webp"
+ },
+ "alan_lu_swoon_a01": {
+  "box": [
+   150,
+   56,
+   156,
+   175
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_swoon_a01.webp"
+ },
+ "alan_lu_swoon_a02": {
+  "box": [
+   175,
+   57,
+   155,
+   174
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_swoon_a02.webp"
+ },
+ "alan_lu_swoon_a03": {
+  "box": [
+   178,
+   56,
+   155,
+   174
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_swoon_a03.webp"
+ },
+ "alan_lu_talk_a_a01": {
+  "box": [
+   127,
+   59,
+   163,
+   183
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_a_a01.webp"
+ },
+ "alan_lu_talk_a_a02": {
+  "box": [
+   158,
+   59,
+   161,
+   182
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_a_a02.webp"
+ },
+ "alan_lu_talk_a_a03": {
+  "box": [
+   165,
+   55,
+   161,
+   182
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_a_a03.webp"
+ },
+ "alan_lu_talk_a_a04": {
+  "box": [
+   139,
+   53,
+   163,
+   183
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_a_a04.webp"
+ },
+ "alan_lu_talk_a_b01": {
+  "box": [
+   136,
+   64,
+   164,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_a_b01.webp"
+ },
+ "alan_lu_talk_a_b02": {
+  "box": [
+   138,
+   67,
+   164,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_a_b02.webp"
+ },
+ "alan_lu_talk_a_b03": {
+  "box": [
+   185,
+   60,
+   164,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_a_b03.webp"
+ },
+ "alan_lu_talk_a_b04": {
+  "box": [
+   232,
+   57,
+   164,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_a_b04.webp"
+ },
+ "alan_lu_talk_c_a01": {
+  "box": [
+   169,
+   65,
+   178,
+   201
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_c_a01.webp"
+ },
+ "alan_lu_talk_c_a02": {
+  "box": [
+   192,
+   66,
+   184,
+   207
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_c_a02.webp"
+ },
+ "alan_lu_talk_c_a03": {
+  "box": [
+   217,
+   67,
+   187,
+   211
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_c_a03.webp"
+ },
+ "alan_lu_talk_c_a04": {
+  "box": [
+   263,
+   68,
+   187,
+   211
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_c_a04.webp"
+ },
+ "alan_lu_talk_c_a05": {
+  "box": [
+   284,
+   67,
+   187,
+   211
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_c_a05.webp"
+ },
+ "alan_lu_talk_c_a06": {
+  "box": [
+   289,
+   68,
+   187,
+   211
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_c_a06.webp"
+ },
+ "alan_lu_talk_c_a07": {
+  "box": [
+   222,
+   66,
+   188,
+   211
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_c_a07.webp"
+ },
+ "alan_lu_talk_d_a01": {
+  "box": [
+   154,
+   68,
+   172,
+   194
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_d_a01.webp"
+ },
+ "alan_lu_talk_d_a02": {
+  "box": [
+   149,
+   64,
+   172,
+   194
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_d_a02.webp"
+ },
+ "alan_lu_talk_d_a05": {
+  "box": [
+   172,
+   60,
+   171,
+   192
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_d_a05.webp"
+ },
+ "alan_lu_throw_a01": {
+  "box": [
+   187,
+   57,
+   153,
+   172
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_a01.webp"
+ },
+ "alan_lu_throw_a02": {
+  "box": [
+   226,
+   57,
+   152,
+   171
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_a02.webp"
+ },
+ "alan_lu_throw_a03": {
+  "box": [
+   221,
+   57,
+   152,
+   171
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_a03.webp"
+ },
+ "alan_lu_throw_a04": {
+  "box": [
+   206,
+   57,
+   153,
+   172
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_a04.webp"
+ },
+ "alan_lu_throw_a05": {
+  "box": [
+   194,
+   58,
+   153,
+   172
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_a05.webp"
+ },
+ "alan_lu_throw_a07": {
+  "box": [
+   214,
+   60,
+   153,
+   172
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_a07.webp"
+ },
+ "alan_lu_throw_b01": {
+  "box": [
+   317,
+   60,
+   153,
+   172
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_b01.webp"
+ },
+ "alan_lu_throw_b02": {
+  "box": [
+   298,
+   59,
+   153,
+   172
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_b02.webp"
+ },
+ "alan_lu_throw_b03": {
+  "box": [
+   226,
+   58,
+   153,
+   172
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_b03.webp"
+ },
+ "alan_lu_throw_b04": {
+  "box": [
+   187,
+   58,
+   153,
+   172
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_b04.webp"
+ },
+ "alan_lu_throw_b05": {
+  "box": [
+   198,
+   57,
+   153,
+   173
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_b05.webp"
+ },
+ "alan_lu_throw_b06": {
+  "box": [
+   202,
+   56,
+   153,
+   173
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_throw_b06.webp"
+ },
+ "alan_lu_turn_front_a01": {
+  "box": [
+   192,
+   60,
+   169,
+   191
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_turn_front_a01.webp"
+ },
+ "alan_lu_walk_side_01": {
+  "box": [
+   169,
+   61,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_01.webp"
+ },
+ "alan_lu_walk_side_02": {
+  "box": [
+   192,
+   61,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_02.webp"
+ },
+ "alan_lu_walk_side_03": {
+  "box": [
+   210,
+   60,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_03.webp"
+ },
+ "alan_lu_walk_side_04": {
+  "box": [
+   280,
+   60,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_04.webp"
+ },
+ "alan_lu_walk_side_05": {
+  "box": [
+   276,
+   62,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_05.webp"
+ },
+ "alan_lu_walk_side_06": {
+  "box": [
+   152,
+   63,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_06.webp"
+ },
+ "alan_lu_walk_side_07": {
+  "box": [
+   155,
+   62,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_07.webp"
+ },
+ "alan_lu_walk_side_08": {
+  "box": [
+   234,
+   62,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_08.webp"
+ },
+ "alan_lu_walk_side_09": {
+  "box": [
+   302,
+   61,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_09.webp"
+ },
+ "alan_lu_walk_side_10": {
+  "box": [
+   332,
+   62,
+   166,
+   187
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_side_10.webp"
+ },
+ "alan_lu_walk_start_a01": {
+  "box": [
+   176,
+   60,
+   162,
+   182
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a01.webp"
+ },
+ "alan_lu_walk_start_a02": {
+  "box": [
+   193,
+   63,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a02.webp"
+ },
+ "alan_lu_walk_start_a03": {
+  "box": [
+   198,
+   64,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a03.webp"
+ },
+ "alan_lu_walk_start_a04": {
+  "box": [
+   276,
+   63,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a04.webp"
+ },
+ "alan_lu_walk_start_a05": {
+  "box": [
+   339,
+   59,
+   163,
+   183
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a05.webp"
+ },
+ "alan_lu_walk_start_a06": {
+  "box": [
+   333,
+   58,
+   164,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a06.webp"
+ },
+ "alan_lu_walk_start_a07": {
+  "box": [
+   212,
+   61,
+   165,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a07.webp"
+ },
+ "alan_lu_walk_start_a08": {
+  "box": [
+   171,
+   61,
+   165,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a08.webp"
+ },
+ "alan_lu_walk_start_a09": {
+  "box": [
+   218,
+   60,
+   164,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a09.webp"
+ },
+ "alan_lu_walk_start_a10": {
+  "box": [
+   252,
+   60,
+   163,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_start_a10.webp"
+ },
+ "alan_lu_walk_stop_a01": {
+  "box": [
+   384,
+   62,
+   164,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a01.webp"
+ },
+ "alan_lu_walk_stop_a02": {
+  "box": [
+   339,
+   62,
+   165,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a02.webp"
+ },
+ "alan_lu_walk_stop_a03": {
+  "box": [
+   212,
+   62,
+   165,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a03.webp"
+ },
+ "alan_lu_walk_stop_a04": {
+  "box": [
+   164,
+   62,
+   165,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a04.webp"
+ },
+ "alan_lu_walk_stop_a05": {
+  "box": [
+   211,
+   62,
+   165,
+   185
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a05.webp"
+ },
+ "alan_lu_walk_stop_a06": {
+  "box": [
+   238,
+   62,
+   164,
+   184
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a06.webp"
+ },
+ "alan_lu_walk_stop_a07": {
+  "box": [
+   292,
+   62,
+   165,
+   186
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a07.webp"
+ },
+ "alan_lu_walk_stop_a08": {
+  "box": [
+   272,
+   60,
+   167,
+   188
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a08.webp"
+ },
+ "alan_lu_walk_stop_a09": {
+  "box": [
+   215,
+   61,
+   167,
+   188
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a09.webp"
+ },
+ "alan_lu_walk_stop_a10": {
+  "box": [
+   134,
+   60,
+   167,
+   188
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_walk_stop_a10.webp"
+ },
+ "alan_lu_wink_flirt_a01": {
+  "box": [
+   127,
+   60,
+   161,
+   181
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wink_flirt_a01.webp"
+ },
+ "alan_lu_wink_flirt_a02": {
+  "box": [
+   135,
+   60,
+   161,
+   181
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wink_flirt_a02.webp"
+ },
+ "alan_lu_wink_flirt_a03": {
+  "box": [
+   151,
+   64,
+   161,
+   181
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wink_flirt_a03.webp"
+ },
+ "alan_lu_wobble_a02": {
+  "box": [
+   184,
+   54,
+   133,
+   150
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wobble_a02.webp"
+ },
+ "alan_lu_wobble_a04": {
+  "box": [
+   219,
+   52,
+   134,
+   150
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wobble_a04.webp"
+ },
+ "alan_lu_wobble_a05": {
+  "box": [
+   288,
+   51,
+   135,
+   152
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wobble_a05.webp"
+ },
+ "alan_lu_wobble_a06": {
+  "box": [
+   299,
+   50,
+   136,
+   153
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wobble_a06.webp"
+ },
+ "alan_lu_wobble_a07": {
+  "box": [
+   320,
+   49,
+   137,
+   154
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wobble_a07.webp"
+ },
+ "alan_lu_wobble_a08": {
+  "box": [
+   339,
+   49,
+   137,
+   154
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wobble_a08.webp"
+ },
+ "alan_lu_wobble_a09": {
+  "box": [
+   336,
+   50,
+   136,
+   153
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wobble_a09.webp"
+ },
+ "alan_lu_wring_a01": {
+  "box": [
+   109,
+   55,
+   137,
+   154
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wring_a01.webp"
+ },
+ "alan_lu_wring_a02": {
+  "box": [
+   105,
+   56,
+   138,
+   155
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wring_a02.webp"
+ },
+ "alan_lu_wring_a03": {
+  "box": [
+   114,
+   54,
+   139,
+   157
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wring_a03.webp"
+ },
+ "alan_lu_wring_a04": {
+  "box": [
+   156,
+   49,
+   141,
+   159
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wring_a04.webp"
+ },
+ "alan_lu_wring_a09": {
+  "box": [
+   132,
+   59,
+   148,
+   167
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wring_a09.webp"
+ },
+ "alan_lu_wring_a10": {
+  "box": [
+   120,
+   55,
+   149,
+   168
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_wring_a10.webp"
+ },
+ "alan_lu_write_a01": {
+  "box": [
+   153,
+   71,
+   176,
+   197
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_write_a01.webp"
+ },
+ "alan_lu_yawn_a01": {
+  "box": [
+   233,
+   57,
+   161,
+   181
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_yawn_a01.webp"
+ },
+ "alan_lu_yawn_a02": {
+  "box": [
+   273,
+   57,
+   161,
+   181
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_yawn_a02.webp"
+ },
+ "alan_lu_yawn_a03": {
+  "box": [
+   247,
+   55,
+   161,
+   181
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_yawn_a03.webp"
  }
 };

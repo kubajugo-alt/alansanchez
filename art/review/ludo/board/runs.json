@@ -643,10 +643,11 @@
    "h": 300,
    "what": "Climbing (the tower, the pit)",
    "note": "Doesn't work: his climb painting is the old bath one (shirtless, crouching), so a run from the dressed stance can't join them; Ludo made three tiny frames. I'd reject it; the game keeps its dissolve.",
-   "frames": 2,
+   "frames": 24,
    "fps": 20,
    "wires": [
-    "alan_side>alan_climb"
+    "alan_side>alan_climb",
+    "alan_side>alan_climb (the climb out of the pit, played whole)"
    ],
    "bath": false,
    "credits": 12,
@@ -659,7 +660,7 @@
    "worst": {
     "drift": 28.2,
     "head": 0.13,
-    "height": 0.111
+    "height": 0.158
    }
   },
   {
@@ -3165,6 +3166,92 @@
     "drift": 2.1,
     "head": 0.955,
     "height": 0.029
+   }
+  },
+  {
+   "name": "climb_out",
+   "walk": null,
+   "keys": [
+    "alan_climb_k1",
+    "alan_climb_k2",
+    "alan_climb_k3"
+   ],
+   "cells": [
+    "alan_climb_k1",
+    "alan_lu_climb_out_a01",
+    "alan_lu_climb_out_a02",
+    "alan_lu_climb_out_a03",
+    "alan_lu_climb_out_a04",
+    "alan_climb_k2",
+    "alan_lu_climb_out_b01",
+    "alan_lu_climb_out_b02",
+    "alan_lu_climb_out_b03",
+    "alan_lu_climb_out_b04",
+    "alan_lu_climb_out_b05",
+    "alan_lu_climb_out_b06",
+    "alan_lu_climb_out_b07",
+    "alan_lu_climb_out_b08",
+    "alan_climb_k3"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Climbing out of the S\u00e9 pit over the near rim, facing us: hands on the edge \u2192 a knee over \u2192 kneeling on the rim",
+   "note": "The climb out of the S\u00e9 pit over the near rim, facing us (no ladder). Three new Canva paintings (hands on the edge, a knee over, kneeling) and the Ludo frames between them; approving this also approves the three paintings. Plays whole with 'Getting up' below: the game uses the climb only once both are approved.",
+   "frames": 12,
+   "fps": 20,
+   "wires": [
+    "alan_climb_k1>alan_climb_k3 (the climb out of the pit, played whole)"
+   ],
+   "bath": false,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [],
+   "worst": {
+    "drift": 2.1,
+    "head": 0.735,
+    "height": 0.034
+   }
+  },
+  {
+   "name": "climb_up",
+   "walk": null,
+   "keys": [
+    "alan_climb_k3",
+    "alan_front"
+   ],
+   "cells": [
+    "alan_climb_k3",
+    "alan_lu_climb_up_a01",
+    "alan_lu_climb_up_a02",
+    "alan_lu_climb_up_a03",
+    "alan_lu_climb_up_a04",
+    "alan_lu_climb_up_a05",
+    "alan_lu_climb_up_a06",
+    "alan_lu_climb_up_a07",
+    "alan_lu_climb_up_a08",
+    "alan_lu_climb_up_a09",
+    "alan_lu_climb_up_a10",
+    "alan_front"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Climbing out: getting up off the rim to stand",
+   "note": "Take 2: the first take cut his head off at the top of Ludo's canvas as he stood up (the user saw it); made again with room above him.",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_climb_k3>alan_front (the climb out of the pit, played whole)"
+   ],
+   "bath": false,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [
+    "height"
+   ],
+   "worst": {
+    "drift": 2.4,
+    "head": 0.682,
+    "height": 0.158
    }
   }
  ]

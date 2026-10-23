@@ -540,14 +540,18 @@
    "mid": "alan_climb_k2",
    "b": "alan_climb_k3",
    "climb": true,
-   "what": "Climbing out of the S\u00e9 pit over the near rim, facing us: hands on the edge \u2192 a knee over \u2192 kneeling on the rim"
+   "what": "Climbing out of the S\u00e9 pit over the near rim, facing us: hands on the edge \u2192 a knee over \u2192 kneeling on the rim",
+   "note": "The climb out of the S\u00e9 pit over the near rim, facing us (no ladder). Three new Canva paintings (hands on the edge, a knee over, kneeling) and the Ludo frames between them; approving this also approves the three paintings. Plays whole with 'Getting up' below: the game uses the climb only once both are approved."
   },
   {
    "name": "climb_up",
    "a": "alan_climb_k3",
    "b": "alan_front",
    "climb": true,
-   "what": "Climbing out: getting up off the rim to stand"
+   "what": "Climbing out: getting up off the rim to stand",
+   "take": 2,
+   "margin_v": 0.3,
+   "note": "Take 2: the first take cut his head off at the top of Ludo's canvas as he stood up (the user saw it); made again with room above him."
   }
  ]
 }

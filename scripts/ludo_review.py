@@ -49,7 +49,8 @@ def main():
             seq = [('key', keys[0])]
             for j, seg in enumerate('abc'[:len(keys) - 1]):
                 seq += [('lu', k) for k in ids if k[len(pre)] == seg] + [('key', keys[j + 1])]
-            W_ = lambda c: c['wire'].get('inbetween') or c['wire'].get('pairRun') or {('(standing) > ' + k): 0 for k in c['wire'].get('pairRunIn', {})}
+            W_ = lambda c: c['wire'].get('inbetween') or c['wire'].get('pairRun') or {('(standing) > ' + k): 0 for k in c['wire'].get('pairRunIn', {})} \
+                or {f'{keys[0]}>{keys[-1]} (the climb out of the pit, played whole)': 0}
             segs = sorted({next(iter(W_(C[k]))) for k in ids})
         else: seq = [('lu', k) for k in ids]
         cells = []
@@ -64,7 +65,7 @@ def main():
         for i, c in enumerate(cells): strip.alpha_composite(c, (i * W, 0))
         strip.save(os.path.join(BOARD, r['name'] + '.webp'), 'WEBP', quality=86, method=6)
         cons = [C[k].get('consistency', {}) for k in ids]
-        fps = None if walk else next(iter((C[ids[0]]['wire'].get('ibFps') or C[ids[0]]['wire'].get('pairRunFps') or {}).values()), None)
+        fps = None if walk else next(iter((C[ids[0]]['wire'].get('ibFps') or C[ids[0]]['wire'].get('pairRunFps') or {'climb': 20}).values()), None)
         out.append({'name': r['name'], 'walk': r.get('slot'), 'keys': keys, 'cells': [k for _, k in seq], 'w': W, 'h': CELL_H,
                     'what': r.get('what', r['name']), 'note': r.get('note', ''), 'frames': len(ids), 'fps': fps, 'wires': segs if not walk else [r['slot']], 'bath': bool(r.get('bath')),
                     'credits': sum(job[x].get('credits', 0) for x in ('hydra', 'forge', 'improve') if x in job), 'model': job.get('model', 'hydra'),

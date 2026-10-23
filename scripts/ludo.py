@@ -142,6 +142,7 @@ def gen(a):
     model = getattr(a, 'model', None) or 'hydra'
     body = {'model': model, 'initial_image': sprite_b64(a.a), 'loop': a.loop, 'crop': False, 'frames': a.frames,
             'duration': a.duration, 'frame_size': TRUE_SIZE, 'image_type': 'sprite'}
+    if getattr(a, 'margin_v', None): body.update(margin_ratio_vertical=a.margin_v, margin_ratio_horizontal=getattr(a, 'margin_h', None) or 0.15)  # room for him to rise
     if a.b: body['final_image'] = sprite_b64(a.b)
     if a.mid: body['middle_image'] = sprite_b64(a.mid)
     if a.prompt: body['motion_prompt'] = a.prompt
@@ -175,7 +176,8 @@ def batch(a):
             except queue.Empty: return
             if a.budget and account() < a.budget: print(f'  {r["name"]}: skipped, under budget', flush=True); continue
             ns = types.SimpleNamespace(name=r['name'], a=r['a'], b=r.get('b'), mid=r.get('mid'), prompt=r.get('prompt'), loop=r.get('loop', False),
-                                       duration=r.get('duration', 3), frames=r.get('frames', 36), take=r.get('take', 1))
+                                       duration=r.get('duration', 3), frames=r.get('frames', 36), take=r.get('take', 1),
+                                       margin_v=r.get('margin_v'), margin_h=r.get('margin_h'))
             try: gen(ns)
             except SystemExit as e:
                 if 'moderation' not in str(e): print(f'  {r["name"]}: FAILED {e}', flush=True); continue
