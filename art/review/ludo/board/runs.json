@@ -33,13 +33,14 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "head"
    ],
    "worst": {
     "drift": 6.6,
     "head": 0.485,
-    "height": 0.016
+    "height": 0.003
    }
   },
   {
@@ -75,6 +76,7 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 2.7,
@@ -103,7 +105,7 @@
    "w": 220,
    "h": 300,
    "what": "Standing \u2194 his second stance (idle shifts)",
-   "note": "",
+   "note": "Redone after your note: each frame is now placed by its measured height and feet, so he no longer grows or slides (Ludo had zoomed in over the first frames).",
    "frames": 7,
    "fps": 20,
    "wires": [
@@ -111,11 +113,12 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 1.8,
     "head": 0.872,
-    "height": 0.059
+    "height": 0.002
    }
   },
   {
@@ -145,11 +148,12 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 2.7,
     "head": 0.844,
-    "height": 0.007
+    "height": 0.003
    }
   },
   {
@@ -183,6 +187,7 @@
    ],
    "bath": false,
    "credits": 12.0,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 1.4,
@@ -222,11 +227,12 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 2.1,
     "head": 0.832,
-    "height": 0.021
+    "height": 0.003
    }
   },
   {
@@ -261,13 +267,14 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "head"
    ],
    "worst": {
     "drift": 6.7,
     "head": 0.548,
-    "height": 0.009
+    "height": 0.003
    }
   },
   {
@@ -296,11 +303,12 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 2.1,
     "head": 0.772,
-    "height": 0.009
+    "height": 0.003
    }
   },
   {
@@ -331,6 +339,7 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 1.4,
@@ -370,6 +379,7 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "height"
    ],
@@ -411,6 +421,7 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "head",
     "height"
@@ -446,11 +457,12 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 1.9,
     "head": 0.774,
-    "height": 0.036
+    "height": 0.003
    }
   },
   {
@@ -484,11 +496,12 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 4.1,
     "head": 0.782,
-    "height": 0.017
+    "height": 0.003
    }
   },
   {
@@ -523,6 +536,7 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "height"
    ],
@@ -564,11 +578,12 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 1.5,
     "head": 0.827,
-    "height": 0.019
+    "height": 0.003
    }
   },
   {
@@ -603,11 +618,12 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 1.4,
     "head": 0.83,
-    "height": 0.008
+    "height": 0.003
    }
   },
   {
@@ -626,7 +642,7 @@
    "w": 220,
    "h": 300,
    "what": "Climbing (the tower, the pit)",
-   "note": "",
+   "note": "Doesn't work: his climb painting is the old bath one (shirtless, crouching), so a run from the dressed stance can't join them; Ludo made three tiny frames. I'd reject it; the game keeps its dissolve.",
    "frames": 2,
    "fps": 20,
    "wires": [
@@ -634,6 +650,7 @@
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "drift",
     "head",
@@ -643,6 +660,244 @@
     "drift": 28.2,
     "head": 0.13,
     "height": 0.111
+   }
+  },
+  {
+   "name": "coffees",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_coffees"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_coffees_a01",
+    "alan_lu_coffees_a02",
+    "alan_lu_coffees_a03",
+    "alan_lu_coffees_a04",
+    "alan_lu_coffees_a05",
+    "alan_lu_coffees_a06",
+    "alan_lu_coffees_a07",
+    "alan_lu_coffees_a08",
+    "alan_lu_coffees_a09",
+    "alan_lu_coffees_a10",
+    "alan_coffees"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Holding the two coffees (Thursday morning)",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_coffees"
+   ],
+   "bath": false,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [],
+   "worst": {
+    "drift": 3.4,
+    "head": 0.702,
+    "height": 0.003
+   }
+  },
+  {
+   "name": "wring",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_wring"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_wring_a01",
+    "alan_lu_wring_a02",
+    "alan_lu_wring_a03",
+    "alan_lu_wring_a04",
+    "alan_lu_wring_a05",
+    "alan_lu_wring_a06",
+    "alan_lu_wring_a07",
+    "alan_lu_wring_a08",
+    "alan_lu_wring_a09",
+    "alan_lu_wring_a10",
+    "alan_wring"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Wringing out the sheet (the Lavadouro)",
+   "note": "The sheet isn't in his standing painting, so Ludo grows it in as he takes hold.",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_wring"
+   ],
+   "bath": false,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [],
+   "worst": {
+    "drift": 5.0,
+    "head": 0.887,
+    "height": 0.009
+   }
+  },
+  {
+   "name": "flirt",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_flirt"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_flirt_a01",
+    "alan_lu_flirt_a02",
+    "alan_lu_flirt_a03",
+    "alan_lu_flirt_a04",
+    "alan_lu_flirt_a05",
+    "alan_lu_flirt_a06",
+    "alan_lu_flirt_a07",
+    "alan_lu_flirt_a08",
+    "alan_lu_flirt_a09",
+    "alan_lu_flirt_a10",
+    "alan_flirt"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Flirting (Teixeira, the guitarist)",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_flirt"
+   ],
+   "bath": false,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [],
+   "worst": {
+    "drift": 2.2,
+    "head": 0.728,
+    "height": 0.002
+   }
+  },
+  {
+   "name": "fluster",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_fluster"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_fluster_a01",
+    "alan_lu_fluster_a02",
+    "alan_lu_fluster_a03",
+    "alan_lu_fluster_a04",
+    "alan_lu_fluster_a05",
+    "alan_lu_fluster_a06",
+    "alan_lu_fluster_a07",
+    "alan_lu_fluster_a08",
+    "alan_lu_fluster_a09",
+    "alan_lu_fluster_a10",
+    "alan_fluster"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Flustered (a \u2605 joke landing, the visits)",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_fluster"
+   ],
+   "bath": false,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [],
+   "worst": {
+    "drift": 2.7,
+    "head": 0.755,
+    "height": 0.002
+   }
+  },
+  {
+   "name": "lantern",
+   "walk": null,
+   "keys": [
+    "alan_side",
+    "alan_lantern"
+   ],
+   "cells": [
+    "alan_side",
+    "alan_lu_lantern_a01",
+    "alan_lu_lantern_a02",
+    "alan_lu_lantern_a03",
+    "alan_lu_lantern_a04",
+    "alan_lu_lantern_a05",
+    "alan_lu_lantern_a06",
+    "alan_lu_lantern_a07",
+    "alan_lu_lantern_a08",
+    "alan_lantern"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "Taking up Tom\u00e1s's lantern",
+   "note": "The lantern isn't in his standing painting, so it appears in his hand as he lifts it.",
+   "frames": 8,
+   "fps": 20,
+   "wires": [
+    "alan_side>alan_lantern"
+   ],
+   "bath": false,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [],
+   "worst": {
+    "drift": 3.1,
+    "head": 0.564,
+    "height": 0.003
+   }
+  },
+  {
+   "name": "reach_write",
+   "walk": null,
+   "keys": [
+    "alan_reach",
+    "alan_write"
+   ],
+   "cells": [
+    "alan_reach",
+    "alan_lu_reach_write_a01",
+    "alan_lu_reach_write_a02",
+    "alan_lu_reach_write_a03",
+    "alan_lu_reach_write_a04",
+    "alan_lu_reach_write_a05",
+    "alan_lu_reach_write_a06",
+    "alan_lu_reach_write_a07",
+    "alan_lu_reach_write_a08",
+    "alan_lu_reach_write_a09",
+    "alan_lu_reach_write_a10",
+    "alan_write"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "From reaching to writing (the S\u00e9, sketching with Ab\u00edlio)",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_reach>alan_write"
+   ],
+   "bath": false,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [],
+   "worst": {
+    "drift": 2.4,
+    "head": 0.791,
+    "height": 0.002
    }
   },
   {
@@ -682,11 +937,12 @@
    ],
    "bath": true,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 7.0,
     "head": 0.652,
-    "height": 0.009
+    "height": 0.003
    }
   },
   {
@@ -721,11 +977,12 @@
    ],
    "bath": true,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 6.1,
     "head": 0.68,
-    "height": 0.015
+    "height": 0.003
    }
   },
   {
@@ -765,13 +1022,14 @@
    ],
    "bath": true,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "head"
    ],
    "worst": {
     "drift": 6.4,
     "head": 0.318,
-    "height": 0.038
+    "height": 0.002
    }
   },
   {
@@ -811,13 +1069,14 @@
    ],
    "bath": true,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "head"
    ],
    "worst": {
     "drift": 9.9,
     "head": 0.47,
-    "height": 0.023
+    "height": 0.003
    }
   },
   {
@@ -856,6 +1115,7 @@
    ],
    "bath": true,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "height"
    ],
@@ -907,13 +1167,14 @@
    ],
    "bath": true,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "drift"
    ],
    "worst": {
     "drift": 20.8,
     "head": 0.559,
-    "height": 0.036
+    "height": 0.004
    }
   },
   {
@@ -948,6 +1209,7 @@
    ],
    "bath": true,
    "credits": 12,
+   "model": "hydra",
    "flags": [],
    "worst": {
     "drift": 5.2,
@@ -987,6 +1249,7 @@
    ],
    "bath": true,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "height"
    ],
@@ -994,6 +1257,127 @@
     "drift": 1.7,
     "head": 0.556,
     "height": 0.161
+   }
+  },
+  {
+   "name": "bn_relax",
+   "walk": null,
+   "keys": [
+    "alan_bn_x_hands_down",
+    "alan_bn_relax"
+   ],
+   "cells": [
+    "alan_bn_x_hands_down",
+    "alan_lu_bn_relax_a01",
+    "alan_lu_bn_relax_a02",
+    "alan_lu_bn_relax_a03",
+    "alan_lu_bn_relax_a04",
+    "alan_lu_bn_relax_a05",
+    "alan_lu_bn_relax_a06",
+    "alan_lu_bn_relax_a07",
+    "alan_lu_bn_relax_a08",
+    "alan_lu_bn_relax_a09",
+    "alan_lu_bn_relax_a10",
+    "alan_bn_relax"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: hands down \u2192 relax",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_bn_x_hands_down>alan_bn_relax"
+   ],
+   "bath": true,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [
+    "head"
+   ],
+   "worst": {
+    "drift": 1.4,
+    "head": 0.279,
+    "height": 0.005
+   }
+  },
+  {
+   "name": "bn_splash",
+   "walk": null,
+   "keys": [
+    "alan_bn_x_scoop",
+    "alan_bn_splash"
+   ],
+   "cells": [
+    "alan_bn_x_scoop",
+    "alan_lu_bn_splash_a01",
+    "alan_lu_bn_splash_a02",
+    "alan_lu_bn_splash_a03",
+    "alan_lu_bn_splash_a04",
+    "alan_lu_bn_splash_a05",
+    "alan_lu_bn_splash_a06",
+    "alan_lu_bn_splash_a07",
+    "alan_lu_bn_splash_a08",
+    "alan_lu_bn_splash_a09",
+    "alan_lu_bn_splash_a10",
+    "alan_bn_splash"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: scoop \u2192 splash",
+   "note": "",
+   "frames": 10,
+   "fps": 20,
+   "wires": [
+    "alan_bn_x_scoop>alan_bn_splash"
+   ],
+   "bath": true,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [
+    "head"
+   ],
+   "worst": {
+    "drift": 3.4,
+    "head": 0.179,
+    "height": 0.005
+   }
+  },
+  {
+   "name": "bn_haul",
+   "walk": null,
+   "keys": [
+    "alan_bn_rim",
+    "alan_bn_x_haul"
+   ],
+   "cells": [
+    "alan_bn_rim",
+    "alan_lu_bn_haul_a01",
+    "alan_lu_bn_haul_a02",
+    "alan_lu_bn_haul_a03",
+    "alan_lu_bn_haul_a04",
+    "alan_lu_bn_haul_a05",
+    "alan_bn_x_haul"
+   ],
+   "w": 220,
+   "h": 300,
+   "what": "The bath: rim \u2192 haul",
+   "note": "",
+   "frames": 5,
+   "fps": 20,
+   "wires": [
+    "alan_bn_rim>alan_bn_x_haul"
+   ],
+   "bath": true,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [
+    "head"
+   ],
+   "worst": {
+    "drift": 1.9,
+    "head": 0.35,
+    "height": 0.014
    }
   },
   {
@@ -1014,26 +1398,74 @@
     "pair_lu_cop_in_neck_a07",
     "pair_lu_cop_in_neck_a08",
     "pair_lu_cop_in_neck_a09",
+    "pair_lu_cop_in_neck_a10",
     "pair_cop_neck"
    ],
    "w": 420,
    "h": 300,
    "what": "Teixeira upstairs: the two of them, then Alan into his neck against the shelf",
    "note": "Off duty he holds his cap, but the pair painting has it on his head, so the run shows him putting it on.",
-   "frames": 9,
+   "frames": 10,
    "fps": 20,
    "wires": [
     "(standing) > pair_cop_neck"
    ],
    "bath": false,
    "credits": 12,
+   "model": "hydra",
    "flags": [
     "height"
    ],
    "worst": {
-    "drift": 2.6,
-    "head": 0.613,
-    "height": 0.068
+    "drift": 2.9,
+    "head": 0.776,
+    "height": 0.065
+   }
+  },
+  {
+   "name": "cop_a",
+   "walk": null,
+   "keys": [
+    "pair_cop_neck",
+    "pair_cop_shelf",
+    "pair_cop_jacket"
+   ],
+   "cells": [
+    "pair_cop_neck",
+    "pair_lu_cop_a_a01",
+    "pair_lu_cop_a_a02",
+    "pair_lu_cop_a_a03",
+    "pair_lu_cop_a_a04",
+    "pair_cop_shelf",
+    "pair_lu_cop_a_b01",
+    "pair_lu_cop_a_b02",
+    "pair_lu_cop_a_b03",
+    "pair_lu_cop_a_b04",
+    "pair_lu_cop_a_b05",
+    "pair_lu_cop_a_b06",
+    "pair_lu_cop_a_b07",
+    "pair_lu_cop_a_b08",
+    "pair_lu_cop_a_b09",
+    "pair_cop_jacket"
+   ],
+   "w": 420,
+   "h": 300,
+   "what": "Teixeira upstairs: neck \u2192 wrists pinned \u2192 the jacket shrugged off",
+   "note": "",
+   "frames": 13,
+   "fps": 20,
+   "wires": [
+    "pair_cop_neck>pair_cop_shelf",
+    "pair_cop_shelf>pair_cop_jacket"
+   ],
+   "bath": false,
+   "credits": 12,
+   "model": "hydra",
+   "flags": [],
+   "worst": {
+    "drift": 5.2,
+    "head": 0.747,
+    "height": 0.055
    }
   }
  ]

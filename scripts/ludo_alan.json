@@ -18,7 +18,8 @@
    "name": "talk_c",
    "a": "alan_side",
    "b": "alan_idle2",
-   "what": "Standing \u2194 his second stance (idle shifts)"
+   "what": "Standing \u2194 his second stance (idle shifts)",
+   "note": "Redone after your note: each frame is now placed by its measured height and feet, so he no longer grows or slides (Ludo had zoomed in over the first frames)."
   },
   {
    "name": "talk_d",
@@ -103,7 +104,8 @@
    "name": "climb",
    "a": "alan_side",
    "b": "alan_climb",
-   "what": "Climbing (the tower, the pit)"
+   "what": "Climbing (the tower, the pit)",
+   "note": "Doesn't work: his climb painting is the old bath one (shirtless, crouching), so a run from the dressed stance can't join them; Ludo made three tiny frames. I'd reject it; the game keeps its dissolve."
   },
   {
    "name": "coffees",
@@ -115,7 +117,8 @@
    "name": "wring",
    "a": "alan_side",
    "b": "alan_wring",
-   "what": "Wringing out the sheet (the Lavadouro)"
+   "what": "Wringing out the sheet (the Lavadouro)",
+   "note": "The sheet isn't in his standing painting, so Ludo grows it in as he takes hold."
   },
   {
    "name": "flirt",
@@ -133,7 +136,8 @@
    "name": "lantern",
    "a": "alan_side",
    "b": "alan_lantern",
-   "what": "Taking up Tom\u00e1s's lantern"
+   "what": "Taking up Tom\u00e1s's lantern",
+   "note": "The lantern isn't in his standing painting, so it appears in his hand as he lifts it."
   },
   {
    "name": "reach_write",

@@ -1,0 +1,182 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_lantern"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.978895798002638,
+   "s": 2.1359223300970873,
+   "ox": 228.0,
+   "oy": 16.0
+  },
+  {
+   "iou": 0.9577911515940143,
+   "s": 2.079402985074627,
+   "ox": 172.0,
+   "oy": 24.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 83.18,
+   "wire": "alan_side>alan_lantern",
+   "from": 0,
+   "to": 35,
+   "used": [
+    6,
+    33
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_lantern_a01",
+     "frame": 10,
+     "t": 0.129,
+     "drift": 0.7,
+     "head": 0.874,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 441.0,
+      "hh": 1557.0,
+      "h": 1542.9,
+      "ax": 203.9,
+      "fy": 1549.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_a02",
+     "frame": 13,
+     "t": 0.243,
+     "drift": 1.9,
+     "head": 0.882,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 450.0,
+      "hh": 1557.0,
+      "h": 1542.9,
+      "ax": 240.1,
+      "fy": 1549.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_a03",
+     "frame": 16,
+     "t": 0.378,
+     "drift": 2.6,
+     "head": 0.796,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 454.0,
+      "hh": 1557.0,
+      "h": 1542.9,
+      "ax": 292.2,
+      "fy": 1548.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_a04",
+     "frame": 19,
+     "t": 0.471,
+     "drift": 3.1,
+     "head": 0.564,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 492.0,
+      "hh": 1557.0,
+      "h": 1542.9,
+      "ax": 332.2,
+      "fy": 1548.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_a05",
+     "frame": 21,
+     "t": 0.662,
+     "drift": 2.4,
+     "head": 0.689,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 476.0,
+      "hh": 1560.0,
+      "h": 1545.9,
+      "ax": 254.1,
+      "fy": 1551.8,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_a06",
+     "frame": 22,
+     "t": 0.677,
+     "drift": 2.2,
+     "head": 0.666,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 473.0,
+      "hh": 1559.0,
+      "h": 1545.9,
+      "ax": 252.0,
+      "fy": 1551.8,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_a07",
+     "frame": 26,
+     "t": 0.811,
+     "drift": 2.0,
+     "head": 0.569,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 457.0,
+      "hh": 1559.0,
+      "h": 1544.9,
+      "ax": 217.5,
+      "fy": 1550.8,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_a08",
+     "frame": 29,
+     "t": 0.906,
+     "drift": 1.4,
+     "head": 0.699,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 497.0,
+      "hh": 1558.0,
+      "h": 1543.9,
+      "ax": 220.8,
+      "fy": 1549.7,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

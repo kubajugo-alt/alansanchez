@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alan_side",
+  "b": "alan_rapt2",
+  "mid": "alan_rapt1",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "a8b87a6e-2c61-4924-9449-2dab070b0f30",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/3e96aca47a203b609edb387802810e85.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/b5731d0da214a8fcf2112f4ea572ed93.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/bfb286dcff02b42e5e4645aa3b2fbd71.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.7083333333333335
+  },
+  "credits": 9
+ }
+}

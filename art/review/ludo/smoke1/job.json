@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alan_side",
+  "b": "alan_smoke_inhale",
+  "mid": "alan_smoke_light",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "40059df7-f2a2-477c-bfcf-e8e0c8af9d4f",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/3c9cffb2af0c5bd9e04b991f7800658a.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/142e9c3efe048db5247a124632fa69df.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/693444caf9efdf093c7ce32f644409d9.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.9583333333333335
+  },
+  "credits": 9
+ }
+}

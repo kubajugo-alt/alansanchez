@@ -1,0 +1,138 @@
+{
+ "keys": [
+  "alan_bn_rim",
+  "alan_bn_x_haul"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9502785990448033,
+   "s": 3.7587341772151897,
+   "ox": 20.0,
+   "oy": 120.0
+  },
+  {
+   "iou": 0.9607186535437656,
+   "s": 3.2044444444444444,
+   "ox": 28.0,
+   "oy": 100.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 54.58,
+   "wire": "alan_bn_rim>alan_bn_x_haul",
+   "from": 0,
+   "to": 35,
+   "used": [
+    0,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_haul_a01",
+     "frame": 9,
+     "t": 0.173,
+     "drift": 0.9,
+     "head": 0.383,
+     "height": 0.0,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 829.0,
+      "hh": 1205.0,
+      "h": 2637.0,
+      "ax": 422.6,
+      "fy": 1195.7,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_haul_a02",
+     "frame": 13,
+     "t": 0.36,
+     "drift": 1.6,
+     "head": 0.377,
+     "height": 0.002,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 802.0,
+      "hh": 1215.0,
+      "h": 2562.8,
+      "ax": 418.8,
+      "fy": 1202.8,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_haul_a03",
+     "frame": 18,
+     "t": 0.527,
+     "drift": 1.9,
+     "head": 0.359,
+     "height": 0.006,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 785.0,
+      "hh": 1224.0,
+      "h": 2495.9,
+      "ax": 415.5,
+      "fy": 1208.9,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_haul_a04",
+     "frame": 23,
+     "t": 0.69,
+     "drift": 1.9,
+     "head": 0.35,
+     "height": 0.01,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 771.0,
+      "hh": 1232.0,
+      "h": 2431.1,
+      "ax": 411.2,
+      "fy": 1217.1,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_haul_a05",
+     "frame": 27,
+     "t": 0.836,
+     "drift": 1.6,
+     "head": 0.415,
+     "height": 0.014,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 761.0,
+      "hh": 1238.0,
+      "h": 2372.5,
+      "ax": 408.3,
+      "fy": 1225.2,
+      "top": 4.0
+     },
+     "placed": "spread"
+    }
+   ]
+  }
+ ]
+}

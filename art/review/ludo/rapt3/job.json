@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alan_rapt2",
+  "b": "alan_rapt3",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "ab700c12-d777-488c-afff-cf0fccc6960b",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/7b2ca9cb589b7bd2800587a077203c37.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/7afe16d6d000891f084323dc666c9da6.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/222ca9a9d7fd80aa1710bfb867817bb7.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3
+  },
+  "credits": 9
+ }
+}
