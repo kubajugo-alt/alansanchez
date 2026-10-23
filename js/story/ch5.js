@@ -90,7 +90,7 @@
       { x: 102, y: 205, rgb: '255,150,60', kind: 'torch', seed: 2, glow: 150, ga: 0.35, power: 0.75, reach: 1150, rim: 0.7, floor: [100, 560], height: 420 },
       { x: 1215, y: 250, rgb: '255,150,60', kind: 'torch', seed: 4, glow: 120, ga: 0.3, power: 0.6, reach: 950, rim: 0.7, floor: [1215, 560], height: 380 },
       { x: 650, y: 470, rgb: '110,255,170', kind: 'pulse', seed: 2, power: 0.22, reach: 700, rim: 0.5, shadow: false },
-      { actor: 'ines', off: [0, -0.85], offs: { ines_lantern: [-0.01, -0.88], ines_lantern_talk: [-0.01, -0.84], ines_lwalk1: [0.15, -0.75], ines_lwalk2: [0.15, -0.75] }, rgb: '255,195,120', kind: 'flame', seed: 8, glow: 90, ga: 0.4, power: 0.6, reach: 700, rim: 0.8, height: 120, when: () => F().bell_lit && !F().won },
+      { actor: 'ines', off: [0, -0.85], offs: { ines_lantern: [-0.01, -0.88], ines_lantern_talk: [-0.01, -0.84], ines_lwalk1: [0.15, -0.75], ines_lwalk2: [0.15, -0.75], ines_block: [0.14, -1.04], ines_float: [0.12, -0.53] }, rgb: '255,195,120', kind: 'flame', seed: 8, glow: 90, ga: 0.4, power: 0.6, reach: 700, rim: 0.8, height: 120, when: () => F().bell_lit && !F().won },
       { actor: 'alan', off: [0.152, -0.44], offs: { alan_lantern: [0.152, -0.44], alan_lwalk1: [0.15, -0.391], alan_lwalk2: [0.181, -0.42] }, rgb: '255,190,110', kind: 'flame', seed: 11, glow: 60, ga: 0.3, power: 0.4, reach: 450, rim: 0.6, height: 160, when: () => F().has_lantern && !F().bell_lit },
     ],
     entries: { default: [140, 640, 'e'], convent: [140, 640, 'e'] },
@@ -382,6 +382,11 @@
   S.splashAt = (x, y, big) => { splashes.push({ x, y, t0: performance.now() / 1000, big: big ? 1.6 : 1 }); sfx(big ? 'splash_3' : 'splash', big ? 0.9 : 0.6); };
   S.drawSplashes = function (g, t) {
     const now = performance.now() / 1000;
+    // Inês afloat: the water round her waist, rings spreading from her
+    if (F().ines_afloat && !F().won) { const i = G.npc('ines'); if (i) {
+      g.fillStyle = 'rgba(10,46,36,0.55)'; g.beginPath(); g.ellipse(i.x, i.y, 42, 8, 0, 0, 7); g.fill();
+      for (let r = 0; r < 3; r++) { const k = ((t * 0.6 + r / 3) % 1); g.strokeStyle = `rgba(180,255,220,${0.45 * (1 - k)})`; g.lineWidth = 1.6; g.beginPath(); g.ellipse(i.x, i.y, 30 + k * 90, (30 + k * 90) * 0.2, 0, 0, 7); g.stroke(); }
+    } }
     for (let i = splashes.length - 1; i >= 0; i--) {
       const S2 = splashes[i], a = now - S2.t0; if (a > 2.2) { splashes.splice(i, 1); continue; }
       for (let r = 0; r < 3; r++) { const k = a - r * 0.25; if (k < 0) continue; const R = (20 + k * 160) * S2.big; g.strokeStyle = `rgba(190,255,225,${0.6 * Math.max(0, 1 - k / 1.6)})`; g.lineWidth = 2; g.beginPath(); g.ellipse(S2.x, S2.y, R, R * 0.22, 0, 0, 7); g.stroke(); }
