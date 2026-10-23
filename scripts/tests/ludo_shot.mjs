@@ -30,7 +30,8 @@ const set = k => page.evaluate(k => { const p = Engine.player; p.talking = false
 // fixed 1/60 s steps (render.js HOLD / ADVANCE / STEP_DT): a photograph every STEP frames, and every frame shown, by game time
 const STEP = +(process.env.STEP || 2);
 for (const [a, b] of pairs) {
-  await page.evaluate(() => { window.HOLD = false; window.STEP_DT = 0; }); await set(a); await page.waitForTimeout(1500);
+  await page.evaluate(() => { window.HOLD = false; window.STEP_DT = 0; }); await set(a); await page.waitForTimeout(1200);
+  await set(b); await page.waitForTimeout(2500); await set(a); await page.waitForTimeout(2500); // once through first: the run's frames fetched
   const box = await page.evaluate(() => { const p = Engine.player, r = document.querySelector('canvas').getBoundingClientRect(), h = p.height();
     return { x: r.left + (p.x - h * 0.45) / 1280 * r.width, y: r.top + (p.y - h * 1.05) / 720 * r.height, width: h * 0.9 / 1280 * r.width, height: h * 1.1 / 720 * r.height }; });
   await page.evaluate(() => { window.STEP_DT = 1 / 60; window.HOLD = true; window.ADVANCE = 0; window.__seq = []; window.__t0 = Engine.time; });

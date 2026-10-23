@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_side",
+  "b": "alan_flirt",
+  "mid": "alan_wink",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

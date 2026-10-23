@@ -7915,1492 +7915,6 @@
    }
   },
   {
-   "id": "alan_lu_talk_a_a01",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_talk (1 of 4)",
-   "src": "art/review/candidates/alan_lu_talk_a_a01.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_talk.webp"
-   ],
-   "meta": {
-    "w": 318.0,
-    "hh": 1477.0,
-    "h": 1463.0,
-    "ax": 149.4,
-    "fy": 1469.4,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_talk": [
-      "alan_lu_talk_a_a01",
-      "alan_lu_talk_a_a02",
-      "alan_lu_talk_a_a03",
-      "alan_lu_talk_a_a04"
-     ],
-     "alan_idle2>alan_talk": [
-      "alan_lu_talk_a_a01",
-      "alan_lu_talk_a_a02",
-      "alan_lu_talk_a_a03",
-      "alan_lu_talk_a_a04"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_talk": 20,
-     "alan_idle2>alan_talk": 20
-    }
-   },
-   "consistency": {
-    "drift": 2.2,
-    "head": 0.786,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_a_a02",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_talk (2 of 4)",
-   "src": "art/review/candidates/alan_lu_talk_a_a02.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_talk.webp"
-   ],
-   "meta": {
-    "w": 396.0,
-    "hh": 1466.0,
-    "h": 1453.0,
-    "ax": 159.6,
-    "fy": 1459.6,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_talk": [
-      "alan_lu_talk_a_a01",
-      "alan_lu_talk_a_a02",
-      "alan_lu_talk_a_a03",
-      "alan_lu_talk_a_a04"
-     ],
-     "alan_idle2>alan_talk": [
-      "alan_lu_talk_a_a01",
-      "alan_lu_talk_a_a02",
-      "alan_lu_talk_a_a03",
-      "alan_lu_talk_a_a04"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_talk": 20,
-     "alan_idle2>alan_talk": 20
-    }
-   },
-   "consistency": {
-    "drift": 3.0,
-    "head": 0.675,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_a_a03",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_talk (3 of 4)",
-   "src": "art/review/candidates/alan_lu_talk_a_a03.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_talk.webp"
-   ],
-   "meta": {
-    "w": 450.0,
-    "hh": 1466.0,
-    "h": 1452.0,
-    "ax": 162.8,
-    "fy": 1458.8,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_talk": [
-      "alan_lu_talk_a_a01",
-      "alan_lu_talk_a_a02",
-      "alan_lu_talk_a_a03",
-      "alan_lu_talk_a_a04"
-     ],
-     "alan_idle2>alan_talk": [
-      "alan_lu_talk_a_a01",
-      "alan_lu_talk_a_a02",
-      "alan_lu_talk_a_a03",
-      "alan_lu_talk_a_a04"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_talk": 20,
-     "alan_idle2>alan_talk": 20
-    }
-   },
-   "consistency": {
-    "drift": 3.6,
-    "head": 0.618,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_a_a04",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_talk (4 of 4)",
-   "src": "art/review/candidates/alan_lu_talk_a_a04.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_talk.webp"
-   ],
-   "meta": {
-    "w": 461.0,
-    "hh": 1479.0,
-    "h": 1466.0,
-    "ax": 157.9,
-    "fy": 1473.0,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_talk": [
-      "alan_lu_talk_a_a01",
-      "alan_lu_talk_a_a02",
-      "alan_lu_talk_a_a03",
-      "alan_lu_talk_a_a04"
-     ],
-     "alan_idle2>alan_talk": [
-      "alan_lu_talk_a_a01",
-      "alan_lu_talk_a_a02",
-      "alan_lu_talk_a_a03",
-      "alan_lu_talk_a_a04"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_talk": 20,
-     "alan_idle2>alan_talk": 20
-    }
-   },
-   "consistency": {
-    "drift": 4.7,
-    "head": 0.595,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_a_b01",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_talk>alan_idle2 (1 of 4)",
-   "src": "art/review/candidates/alan_lu_talk_a_b01.webp",
-   "originals": [
-    "art/sprites/alan_talk.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 502.0,
-    "hh": 1488.0,
-    "h": 1474.4,
-    "ax": 164.3,
-    "fy": 1481.7,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_talk>alan_idle2": [
-      "alan_lu_talk_a_b01",
-      "alan_lu_talk_a_b02",
-      "alan_lu_talk_a_b03",
-      "alan_lu_talk_a_b04"
-     ]
-    },
-    "ibFps": {
-     "alan_talk>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 6.6,
-    "head": 0.57,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_a_b02",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_talk>alan_idle2 (2 of 4)",
-   "src": "art/review/candidates/alan_lu_talk_a_b02.webp",
-   "originals": [
-    "art/sprites/alan_talk.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 466.0,
-    "hh": 1490.0,
-    "h": 1477.8,
-    "ax": 176.4,
-    "fy": 1484.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_talk>alan_idle2": [
-      "alan_lu_talk_a_b01",
-      "alan_lu_talk_a_b02",
-      "alan_lu_talk_a_b03",
-      "alan_lu_talk_a_b04"
-     ]
-    },
-    "ibFps": {
-     "alan_talk>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 6.1,
-    "head": 0.557,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_a_b03",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_talk>alan_idle2 (3 of 4)",
-   "src": "art/review/candidates/alan_lu_talk_a_b03.webp",
-   "originals": [
-    "art/sprites/alan_talk.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 402.0,
-    "hh": 1490.0,
-    "h": 1477.2,
-    "ax": 217.0,
-    "fy": 1484.6,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_talk>alan_idle2": [
-      "alan_lu_talk_a_b01",
-      "alan_lu_talk_a_b02",
-      "alan_lu_talk_a_b03",
-      "alan_lu_talk_a_b04"
-     ]
-    },
-    "ibFps": {
-     "alan_talk>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 4.8,
-    "head": 0.564,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_a_b04",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_talk>alan_idle2 (4 of 4)",
-   "src": "art/review/candidates/alan_lu_talk_a_b04.webp",
-   "originals": [
-    "art/sprites/alan_talk.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 431.0,
-    "hh": 1486.0,
-    "h": 1473.5,
-    "ax": 251.5,
-    "fy": 1480.9,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_talk>alan_idle2": [
-      "alan_lu_talk_a_b01",
-      "alan_lu_talk_a_b02",
-      "alan_lu_talk_a_b03",
-      "alan_lu_talk_a_b04"
-     ]
-    },
-    "ibFps": {
-     "alan_talk>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 3.9,
-    "head": 0.485,
-    "height": 0.003,
-    "flags": [
-     "head"
-    ]
-   }
-  },
-  {
-   "id": "alan_lu_talk_c_a01",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_idle2 (1 of 7)",
-   "src": "art/review/candidates/alan_lu_talk_c_a01.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 387.0,
-    "hh": 1620.0,
-    "h": 1606.2,
-    "ax": 188.0,
-    "fy": 1612.6,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ],
-     "alan_idle2>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_idle2": 20,
-     "alan_idle2>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 0.7,
-    "head": 0.914,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_c_a02",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_idle2 (2 of 7)",
-   "src": "art/review/candidates/alan_lu_talk_c_a02.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 409.0,
-    "hh": 1672.0,
-    "h": 1659.4,
-    "ax": 209.7,
-    "fy": 1665.0,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ],
-     "alan_idle2>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_idle2": 20,
-     "alan_idle2>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 0.8,
-    "head": 0.891,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_c_a03",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_idle2 (3 of 7)",
-   "src": "art/review/candidates/alan_lu_talk_c_a03.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 429.0,
-    "hh": 1698.0,
-    "h": 1684.6,
-    "ax": 232.5,
-    "fy": 1691.4,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ],
-     "alan_idle2>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_idle2": 20,
-     "alan_idle2>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.4,
-    "head": 0.906,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_c_a04",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_idle2 (4 of 7)",
-   "src": "art/review/candidates/alan_lu_talk_c_a04.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 460.0,
-    "hh": 1699.0,
-    "h": 1685.9,
-    "ax": 271.1,
-    "fy": 1692.9,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ],
-     "alan_idle2>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_idle2": 20,
-     "alan_idle2>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.8,
-    "head": 0.872,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_c_a05",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_idle2 (5 of 7)",
-   "src": "art/review/candidates/alan_lu_talk_c_a05.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 471.0,
-    "hh": 1698.0,
-    "h": 1686.1,
-    "ax": 291.7,
-    "fy": 1693.3,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ],
-     "alan_idle2>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_idle2": 20,
-     "alan_idle2>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.4,
-    "head": 0.912,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_c_a06",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_idle2 (6 of 7)",
-   "src": "art/review/candidates/alan_lu_talk_c_a06.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 476.0,
-    "hh": 1699.0,
-    "h": 1686.5,
-    "ax": 295.6,
-    "fy": 1693.8,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ],
-     "alan_idle2>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_idle2": 20,
-     "alan_idle2>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 0.9,
-    "head": 0.921,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_c_a07",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_idle2 (7 of 7)",
-   "src": "art/review/candidates/alan_lu_talk_c_a07.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_idle2.webp"
-   ],
-   "meta": {
-    "w": 410.0,
-    "hh": 1699.0,
-    "h": 1687.7,
-    "ax": 236.1,
-    "fy": 1694.2,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ],
-     "alan_idle2>alan_idle2": [
-      "alan_lu_talk_c_a01",
-      "alan_lu_talk_c_a02",
-      "alan_lu_talk_c_a03",
-      "alan_lu_talk_c_a04",
-      "alan_lu_talk_c_a05",
-      "alan_lu_talk_c_a06",
-      "alan_lu_talk_c_a07"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_idle2": 20,
-     "alan_idle2>alan_idle2": 20
-    }
-   },
-   "consistency": {
-    "drift": 0.6,
-    "head": 0.872,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_d_a01",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_talk>alan_talk2 (1 of 5)",
-   "src": "art/review/candidates/alan_lu_talk_d_a01.webp",
-   "originals": [
-    "art/sprites/alan_talk.webp",
-    "art/sprites/alan_talk2.webp"
-   ],
-   "meta": {
-    "w": 567.0,
-    "hh": 1563.0,
-    "h": 1548.9,
-    "ax": 193.2,
-    "fy": 1555.9,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_talk>alan_talk2": [
-      "alan_lu_talk_d_a01",
-      "alan_lu_talk_d_a02",
-      "alan_lu_talk_d_a03",
-      "alan_lu_talk_d_a04",
-      "alan_lu_talk_d_a05"
-     ]
-    },
-    "ibFps": {
-     "alan_talk>alan_talk2": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.7,
-    "head": 0.885,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_d_a02",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_talk>alan_talk2 (2 of 5)",
-   "src": "art/review/candidates/alan_lu_talk_d_a02.webp",
-   "originals": [
-    "art/sprites/alan_talk.webp",
-    "art/sprites/alan_talk2.webp"
-   ],
-   "meta": {
-    "w": 546.0,
-    "hh": 1562.0,
-    "h": 1548.9,
-    "ax": 187.1,
-    "fy": 1554.8,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_talk>alan_talk2": [
-      "alan_lu_talk_d_a01",
-      "alan_lu_talk_d_a02",
-      "alan_lu_talk_d_a03",
-      "alan_lu_talk_d_a04",
-      "alan_lu_talk_d_a05"
-     ]
-    },
-    "ibFps": {
-     "alan_talk>alan_talk2": 20
-    }
-   },
-   "consistency": {
-    "drift": 2.7,
-    "head": 0.87,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_d_a03",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_talk>alan_talk2 (3 of 5)",
-   "src": "art/review/candidates/alan_lu_talk_d_a03.webp",
-   "originals": [
-    "art/sprites/alan_talk.webp",
-    "art/sprites/alan_talk2.webp"
-   ],
-   "meta": {
-    "w": 502.0,
-    "hh": 1558.0,
-    "h": 1543.9,
-    "ax": 186.8,
-    "fy": 1550.6,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_talk>alan_talk2": [
-      "alan_lu_talk_d_a01",
-      "alan_lu_talk_d_a02",
-      "alan_lu_talk_d_a03",
-      "alan_lu_talk_d_a04",
-      "alan_lu_talk_d_a05"
-     ]
-    },
-    "ibFps": {
-     "alan_talk>alan_talk2": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.8,
-    "head": 0.894,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_d_a04",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_talk>alan_talk2 (4 of 5)",
-   "src": "art/review/candidates/alan_lu_talk_d_a04.webp",
-   "originals": [
-    "art/sprites/alan_talk.webp",
-    "art/sprites/alan_talk2.webp"
-   ],
-   "meta": {
-    "w": 533.0,
-    "hh": 1552.0,
-    "h": 1536.9,
-    "ax": 192.3,
-    "fy": 1543.4,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_talk>alan_talk2": [
-      "alan_lu_talk_d_a01",
-      "alan_lu_talk_d_a02",
-      "alan_lu_talk_d_a03",
-      "alan_lu_talk_d_a04",
-      "alan_lu_talk_d_a05"
-     ]
-    },
-    "ibFps": {
-     "alan_talk>alan_talk2": 20
-    }
-   },
-   "consistency": {
-    "drift": 0.9,
-    "head": 0.844,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_talk_d_a05",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_talk>alan_talk2 (5 of 5)",
-   "src": "art/review/candidates/alan_lu_talk_d_a05.webp",
-   "originals": [
-    "art/sprites/alan_talk.webp",
-    "art/sprites/alan_talk2.webp"
-   ],
-   "meta": {
-    "w": 569.0,
-    "hh": 1550.0,
-    "h": 1534.9,
-    "ax": 198.9,
-    "fy": 1541.2,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_talk>alan_talk2": [
-      "alan_lu_talk_d_a01",
-      "alan_lu_talk_d_a02",
-      "alan_lu_talk_d_a03",
-      "alan_lu_talk_d_a04",
-      "alan_lu_talk_d_a05"
-     ]
-    },
-    "ibFps": {
-     "alan_talk>alan_talk2": 20
-    }
-   },
-   "consistency": {
-    "drift": 0.3,
-    "head": 0.85,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a01",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (1 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a01.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 379.0,
-    "hh": 1538.0,
-    "h": 1524.1,
-    "ax": 198.6,
-    "fy": 1529.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.5,
-    "head": 0.898,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a02",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (2 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a02.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 433.0,
-    "hh": 1521.0,
-    "h": 1508.3,
-    "ax": 202.3,
-    "fy": 1514.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.7,
-    "head": 0.899,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a03",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (3 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a03.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 462.0,
-    "hh": 1513.0,
-    "h": 1499.5,
-    "ax": 192.0,
-    "fy": 1505.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.9,
-    "head": 0.878,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a04",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (4 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a04.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 488.0,
-    "hh": 1523.0,
-    "h": 1509.7,
-    "ax": 198.7,
-    "fy": 1515.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 2.1,
-    "head": 0.88,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a05",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (5 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a05.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 508.0,
-    "hh": 1529.0,
-    "h": 1517.9,
-    "ax": 223.8,
-    "fy": 1522.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.9,
-    "head": 0.884,
-    "height": 0.001,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a06",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (6 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a06.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 513.0,
-    "hh": 1527.0,
-    "h": 1516.2,
-    "ax": 238.0,
-    "fy": 1520.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.5,
-    "head": 0.861,
-    "height": 0.001,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a07",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (7 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a07.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 513.0,
-    "hh": 1526.0,
-    "h": 1515.3,
-    "ax": 246.6,
-    "fy": 1519.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.3,
-    "head": 0.848,
-    "height": 0.001,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a08",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (8 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a08.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 572.0,
-    "hh": 1533.0,
-    "h": 1520.4,
-    "ax": 306.5,
-    "fy": 1525.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 1.3,
-    "head": 0.85,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a09",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (9 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a09.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 557.0,
-    "hh": 1553.0,
-    "h": 1540.7,
-    "ax": 315.2,
-    "fy": 1544.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 0.7,
-    "head": 0.832,
-    "height": 0.003,
-    "flags": []
-   }
-  },
-  {
-   "id": "alan_lu_turn_front_a10",
-   "char": "alan",
-   "phase": 4,
-   "kind": "ludo",
-   "what": "Ludo in-between alan_side>alan_front (10 of 10)",
-   "src": "art/review/candidates/alan_lu_turn_front_a10.webp",
-   "originals": [
-    "art/sprites/alan_side.webp",
-    "art/sprites/alan_front.webp"
-   ],
-   "meta": {
-    "w": 533.0,
-    "hh": 1555.0,
-    "h": 1543.8,
-    "ax": 292.5,
-    "fy": 1548.1,
-    "top": 4.0
-   },
-   "wire": {
-    "inbetween": {
-     "alan_side>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ],
-     "alan_idle2>alan_front": [
-      "alan_lu_turn_front_a01",
-      "alan_lu_turn_front_a02",
-      "alan_lu_turn_front_a03",
-      "alan_lu_turn_front_a04",
-      "alan_lu_turn_front_a05",
-      "alan_lu_turn_front_a06",
-      "alan_lu_turn_front_a07",
-      "alan_lu_turn_front_a08",
-      "alan_lu_turn_front_a09",
-      "alan_lu_turn_front_a10"
-     ]
-    },
-    "ibFps": {
-     "alan_side>alan_front": 20,
-     "alan_idle2>alan_front": 20
-    }
-   },
-   "consistency": {
-    "drift": 0.6,
-    "head": 0.836,
-    "height": 0.002,
-    "flags": []
-   }
-  },
-  {
    "id": "alan_lu_turn_back_a01",
    "char": "alan",
    "phase": 4,
@@ -17739,6 +16253,1492 @@
    "consistency": {
     "drift": 11.7,
     "head": 0.684,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_a_a01",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_talk (1 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_a_a01.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_talk.webp"
+   ],
+   "meta": {
+    "w": 318.0,
+    "hh": 1477.0,
+    "h": 1463.0,
+    "ax": 149.4,
+    "fy": 1469.4,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_talk": [
+      "alan_lu_talk_a_a01",
+      "alan_lu_talk_a_a02",
+      "alan_lu_talk_a_a03",
+      "alan_lu_talk_a_a04"
+     ],
+     "alan_idle2>alan_talk": [
+      "alan_lu_talk_a_a01",
+      "alan_lu_talk_a_a02",
+      "alan_lu_talk_a_a03",
+      "alan_lu_talk_a_a04"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_talk": 20,
+     "alan_idle2>alan_talk": 20
+    }
+   },
+   "consistency": {
+    "drift": 2.2,
+    "head": 0.786,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_a_a02",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_talk (2 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_a_a02.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_talk.webp"
+   ],
+   "meta": {
+    "w": 396.0,
+    "hh": 1466.0,
+    "h": 1453.0,
+    "ax": 159.6,
+    "fy": 1459.6,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_talk": [
+      "alan_lu_talk_a_a01",
+      "alan_lu_talk_a_a02",
+      "alan_lu_talk_a_a03",
+      "alan_lu_talk_a_a04"
+     ],
+     "alan_idle2>alan_talk": [
+      "alan_lu_talk_a_a01",
+      "alan_lu_talk_a_a02",
+      "alan_lu_talk_a_a03",
+      "alan_lu_talk_a_a04"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_talk": 20,
+     "alan_idle2>alan_talk": 20
+    }
+   },
+   "consistency": {
+    "drift": 3.0,
+    "head": 0.675,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_a_a03",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_talk (3 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_a_a03.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_talk.webp"
+   ],
+   "meta": {
+    "w": 450.0,
+    "hh": 1466.0,
+    "h": 1452.0,
+    "ax": 162.8,
+    "fy": 1458.8,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_talk": [
+      "alan_lu_talk_a_a01",
+      "alan_lu_talk_a_a02",
+      "alan_lu_talk_a_a03",
+      "alan_lu_talk_a_a04"
+     ],
+     "alan_idle2>alan_talk": [
+      "alan_lu_talk_a_a01",
+      "alan_lu_talk_a_a02",
+      "alan_lu_talk_a_a03",
+      "alan_lu_talk_a_a04"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_talk": 20,
+     "alan_idle2>alan_talk": 20
+    }
+   },
+   "consistency": {
+    "drift": 3.6,
+    "head": 0.618,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_a_a04",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_talk (4 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_a_a04.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_talk.webp"
+   ],
+   "meta": {
+    "w": 461.0,
+    "hh": 1479.0,
+    "h": 1466.0,
+    "ax": 157.9,
+    "fy": 1473.0,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_talk": [
+      "alan_lu_talk_a_a01",
+      "alan_lu_talk_a_a02",
+      "alan_lu_talk_a_a03",
+      "alan_lu_talk_a_a04"
+     ],
+     "alan_idle2>alan_talk": [
+      "alan_lu_talk_a_a01",
+      "alan_lu_talk_a_a02",
+      "alan_lu_talk_a_a03",
+      "alan_lu_talk_a_a04"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_talk": 20,
+     "alan_idle2>alan_talk": 20
+    }
+   },
+   "consistency": {
+    "drift": 4.7,
+    "head": 0.595,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_a_b01",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk>alan_idle2 (1 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_a_b01.webp",
+   "originals": [
+    "art/sprites/alan_talk.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 502.0,
+    "hh": 1488.0,
+    "h": 1474.4,
+    "ax": 164.3,
+    "fy": 1481.7,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk>alan_idle2": [
+      "alan_lu_talk_a_b01",
+      "alan_lu_talk_a_b02",
+      "alan_lu_talk_a_b03",
+      "alan_lu_talk_a_b04"
+     ]
+    },
+    "ibFps": {
+     "alan_talk>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 6.6,
+    "head": 0.57,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_a_b02",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk>alan_idle2 (2 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_a_b02.webp",
+   "originals": [
+    "art/sprites/alan_talk.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 466.0,
+    "hh": 1490.0,
+    "h": 1477.8,
+    "ax": 176.4,
+    "fy": 1484.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk>alan_idle2": [
+      "alan_lu_talk_a_b01",
+      "alan_lu_talk_a_b02",
+      "alan_lu_talk_a_b03",
+      "alan_lu_talk_a_b04"
+     ]
+    },
+    "ibFps": {
+     "alan_talk>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 6.1,
+    "head": 0.557,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_a_b03",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk>alan_idle2 (3 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_a_b03.webp",
+   "originals": [
+    "art/sprites/alan_talk.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 402.0,
+    "hh": 1490.0,
+    "h": 1477.2,
+    "ax": 217.0,
+    "fy": 1484.6,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk>alan_idle2": [
+      "alan_lu_talk_a_b01",
+      "alan_lu_talk_a_b02",
+      "alan_lu_talk_a_b03",
+      "alan_lu_talk_a_b04"
+     ]
+    },
+    "ibFps": {
+     "alan_talk>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 4.8,
+    "head": 0.564,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_a_b04",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk>alan_idle2 (4 of 4)",
+   "src": "art/review/candidates/alan_lu_talk_a_b04.webp",
+   "originals": [
+    "art/sprites/alan_talk.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 431.0,
+    "hh": 1486.0,
+    "h": 1473.5,
+    "ax": 251.5,
+    "fy": 1480.9,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk>alan_idle2": [
+      "alan_lu_talk_a_b01",
+      "alan_lu_talk_a_b02",
+      "alan_lu_talk_a_b03",
+      "alan_lu_talk_a_b04"
+     ]
+    },
+    "ibFps": {
+     "alan_talk>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 3.9,
+    "head": 0.485,
+    "height": 0.003,
+    "flags": [
+     "head"
+    ]
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a01",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (1 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a01.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 387.0,
+    "hh": 1620.0,
+    "h": 1606.2,
+    "ax": 188.0,
+    "fy": 1612.6,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.7,
+    "head": 0.914,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a02",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (2 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a02.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 409.0,
+    "hh": 1672.0,
+    "h": 1659.4,
+    "ax": 209.7,
+    "fy": 1665.0,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.8,
+    "head": 0.891,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a03",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (3 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a03.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 429.0,
+    "hh": 1698.0,
+    "h": 1684.6,
+    "ax": 232.5,
+    "fy": 1691.4,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.4,
+    "head": 0.906,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a04",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (4 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a04.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 460.0,
+    "hh": 1699.0,
+    "h": 1685.9,
+    "ax": 271.1,
+    "fy": 1692.9,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.8,
+    "head": 0.872,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a05",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (5 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a05.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 471.0,
+    "hh": 1698.0,
+    "h": 1686.1,
+    "ax": 291.7,
+    "fy": 1693.3,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.4,
+    "head": 0.912,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a06",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (6 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a06.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 476.0,
+    "hh": 1699.0,
+    "h": 1686.5,
+    "ax": 295.6,
+    "fy": 1693.8,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.9,
+    "head": 0.921,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_c_a07",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_idle2 (7 of 7)",
+   "src": "art/review/candidates/alan_lu_talk_c_a07.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_idle2.webp"
+   ],
+   "meta": {
+    "w": 410.0,
+    "hh": 1699.0,
+    "h": 1687.7,
+    "ax": 236.1,
+    "fy": 1694.2,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ],
+     "alan_idle2>alan_idle2": [
+      "alan_lu_talk_c_a01",
+      "alan_lu_talk_c_a02",
+      "alan_lu_talk_c_a03",
+      "alan_lu_talk_c_a04",
+      "alan_lu_talk_c_a05",
+      "alan_lu_talk_c_a06",
+      "alan_lu_talk_c_a07"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_idle2": 20,
+     "alan_idle2>alan_idle2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.6,
+    "head": 0.872,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_d_a01",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk>alan_talk2 (1 of 5)",
+   "src": "art/review/candidates/alan_lu_talk_d_a01.webp",
+   "originals": [
+    "art/sprites/alan_talk.webp",
+    "art/sprites/alan_talk2.webp"
+   ],
+   "meta": {
+    "w": 567.0,
+    "hh": 1563.0,
+    "h": 1548.9,
+    "ax": 193.2,
+    "fy": 1555.9,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk>alan_talk2": [
+      "alan_lu_talk_d_a01",
+      "alan_lu_talk_d_a02",
+      "alan_lu_talk_d_a03",
+      "alan_lu_talk_d_a04",
+      "alan_lu_talk_d_a05"
+     ]
+    },
+    "ibFps": {
+     "alan_talk>alan_talk2": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.7,
+    "head": 0.885,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_d_a02",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk>alan_talk2 (2 of 5)",
+   "src": "art/review/candidates/alan_lu_talk_d_a02.webp",
+   "originals": [
+    "art/sprites/alan_talk.webp",
+    "art/sprites/alan_talk2.webp"
+   ],
+   "meta": {
+    "w": 546.0,
+    "hh": 1562.0,
+    "h": 1548.9,
+    "ax": 187.1,
+    "fy": 1554.8,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk>alan_talk2": [
+      "alan_lu_talk_d_a01",
+      "alan_lu_talk_d_a02",
+      "alan_lu_talk_d_a03",
+      "alan_lu_talk_d_a04",
+      "alan_lu_talk_d_a05"
+     ]
+    },
+    "ibFps": {
+     "alan_talk>alan_talk2": 20
+    }
+   },
+   "consistency": {
+    "drift": 2.7,
+    "head": 0.87,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_d_a03",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk>alan_talk2 (3 of 5)",
+   "src": "art/review/candidates/alan_lu_talk_d_a03.webp",
+   "originals": [
+    "art/sprites/alan_talk.webp",
+    "art/sprites/alan_talk2.webp"
+   ],
+   "meta": {
+    "w": 502.0,
+    "hh": 1558.0,
+    "h": 1543.9,
+    "ax": 186.8,
+    "fy": 1550.6,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk>alan_talk2": [
+      "alan_lu_talk_d_a01",
+      "alan_lu_talk_d_a02",
+      "alan_lu_talk_d_a03",
+      "alan_lu_talk_d_a04",
+      "alan_lu_talk_d_a05"
+     ]
+    },
+    "ibFps": {
+     "alan_talk>alan_talk2": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.8,
+    "head": 0.894,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_d_a04",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk>alan_talk2 (4 of 5)",
+   "src": "art/review/candidates/alan_lu_talk_d_a04.webp",
+   "originals": [
+    "art/sprites/alan_talk.webp",
+    "art/sprites/alan_talk2.webp"
+   ],
+   "meta": {
+    "w": 533.0,
+    "hh": 1552.0,
+    "h": 1536.9,
+    "ax": 192.3,
+    "fy": 1543.4,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk>alan_talk2": [
+      "alan_lu_talk_d_a01",
+      "alan_lu_talk_d_a02",
+      "alan_lu_talk_d_a03",
+      "alan_lu_talk_d_a04",
+      "alan_lu_talk_d_a05"
+     ]
+    },
+    "ibFps": {
+     "alan_talk>alan_talk2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.9,
+    "head": 0.844,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_talk_d_a05",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_talk>alan_talk2 (5 of 5)",
+   "src": "art/review/candidates/alan_lu_talk_d_a05.webp",
+   "originals": [
+    "art/sprites/alan_talk.webp",
+    "art/sprites/alan_talk2.webp"
+   ],
+   "meta": {
+    "w": 569.0,
+    "hh": 1550.0,
+    "h": 1534.9,
+    "ax": 198.9,
+    "fy": 1541.2,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_talk>alan_talk2": [
+      "alan_lu_talk_d_a01",
+      "alan_lu_talk_d_a02",
+      "alan_lu_talk_d_a03",
+      "alan_lu_talk_d_a04",
+      "alan_lu_talk_d_a05"
+     ]
+    },
+    "ibFps": {
+     "alan_talk>alan_talk2": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.3,
+    "head": 0.85,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a01",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (1 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a01.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 379.0,
+    "hh": 1538.0,
+    "h": 1524.1,
+    "ax": 198.6,
+    "fy": 1529.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.5,
+    "head": 0.898,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a02",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (2 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a02.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 433.0,
+    "hh": 1521.0,
+    "h": 1508.3,
+    "ax": 202.3,
+    "fy": 1514.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.7,
+    "head": 0.899,
+    "height": 0.002,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a03",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (3 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a03.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 462.0,
+    "hh": 1513.0,
+    "h": 1499.5,
+    "ax": 192.0,
+    "fy": 1505.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.9,
+    "head": 0.878,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a04",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (4 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a04.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 488.0,
+    "hh": 1523.0,
+    "h": 1509.7,
+    "ax": 198.7,
+    "fy": 1515.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 2.1,
+    "head": 0.88,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a05",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (5 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a05.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 508.0,
+    "hh": 1529.0,
+    "h": 1517.9,
+    "ax": 223.8,
+    "fy": 1522.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.9,
+    "head": 0.884,
+    "height": 0.001,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a06",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (6 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a06.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 513.0,
+    "hh": 1527.0,
+    "h": 1516.2,
+    "ax": 238.0,
+    "fy": 1520.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.5,
+    "head": 0.861,
+    "height": 0.001,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a07",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (7 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a07.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 513.0,
+    "hh": 1526.0,
+    "h": 1515.3,
+    "ax": 246.6,
+    "fy": 1519.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.3,
+    "head": 0.848,
+    "height": 0.001,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a08",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (8 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a08.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 572.0,
+    "hh": 1533.0,
+    "h": 1520.4,
+    "ax": 306.5,
+    "fy": 1525.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 1.3,
+    "head": 0.85,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a09",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (9 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a09.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 557.0,
+    "hh": 1553.0,
+    "h": 1540.7,
+    "ax": 315.2,
+    "fy": 1544.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.7,
+    "head": 0.832,
+    "height": 0.003,
+    "flags": []
+   }
+  },
+  {
+   "id": "alan_lu_turn_front_a10",
+   "char": "alan",
+   "phase": 4,
+   "kind": "ludo",
+   "what": "Ludo in-between alan_side>alan_front (10 of 10)",
+   "src": "art/review/candidates/alan_lu_turn_front_a10.webp",
+   "originals": [
+    "art/sprites/alan_side.webp",
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 533.0,
+    "hh": 1555.0,
+    "h": 1543.8,
+    "ax": 292.5,
+    "fy": 1548.1,
+    "top": 4.0
+   },
+   "wire": {
+    "inbetween": {
+     "alan_side>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ],
+     "alan_idle2>alan_front": [
+      "alan_lu_turn_front_a01",
+      "alan_lu_turn_front_a02",
+      "alan_lu_turn_front_a03",
+      "alan_lu_turn_front_a04",
+      "alan_lu_turn_front_a05",
+      "alan_lu_turn_front_a06",
+      "alan_lu_turn_front_a07",
+      "alan_lu_turn_front_a08",
+      "alan_lu_turn_front_a09",
+      "alan_lu_turn_front_a10"
+     ]
+    },
+    "ibFps": {
+     "alan_side>alan_front": 20,
+     "alan_idle2>alan_front": 20
+    }
+   },
+   "consistency": {
+    "drift": 0.6,
+    "head": 0.836,
     "height": 0.002,
     "flags": []
    }

@@ -313,7 +313,9 @@
       if (this.ibSeq && this.ibTarget !== key) this.ibSeq = null; // changed its mind: go straight there
       if (!this.ibSeq && this.settled && key !== this.settled) {
         const fwd = IB[this.settled + '>' + key], rev = IB[key + '>' + this.settled];
-        const seq = (fwd || (rev ? rev.slice().reverse() : [])).filter(ok);
+        const all = fwd || (rev ? rev.slice().reverse() : []), seq = all.filter(ok);
+        // a run with frames still on their way: fetch them now and change plainly this once (half a run would jump)
+        if (seq.length < all.length) { if (E.want) all.forEach(f => { if (!ok(f) && E.SPRITES[f]) E.want('spr:' + f, true); }); seq.length = 0; }
         // a run drawn as one motion (frames.ibFps, the Ludo runs) plays at its own frame rate
         const fps = F.ibFps && (F.ibFps[this.settled + '>' + key] || F.ibFps[key + '>' + this.settled]);
         if (seq.length) { this.ibSeq = seq; this.ibI = 0; this.ibT = 0; this.ibTarget = key; this.ibStep = fps ? 1 / fps : IB_STEP; }

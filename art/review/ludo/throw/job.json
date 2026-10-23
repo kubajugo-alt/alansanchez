@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_side",
+  "b": "alan_throw2",
+  "mid": "alan_throw1",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

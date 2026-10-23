@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_idle2",
+  "b": "alan_stretch",
+  "mid": "alan_yawn",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}
