@@ -305,6 +305,8 @@
     // a character's new walk goes in whole or not at all: its frames mixed with the old ones lose the alternating legs
     const walkAll = ch => { const w = S.REVIEW.candidates.filter(c => c.char === ch && c.wire && c.wire.walkSlot != null); return w.length > 0 && w.every(c => ok(c.id)); };
     for (const c of S.REVIEW.candidates) if (ok(c.id)) S.applyCandidate(c.wire && c.wire.walkSlot != null ? Object.assign({ walkAll: walkAll(c.char) }, c) : c, ok);
+    // Alan's 24-painting walk from the user's sheet (core.js S.WALK24), on review; ?walk=old shows the cycle before it
+    if (new URLSearchParams(location.search).get('walk') !== 'old' && S.WALK24.every(k => window.SPRITES[k])) S.CHARS.alan.frames.walk = S.WALK24.slice();
     // ?walk=a: the walk plan's step A, for review (not the game's default): Alan back on his first 8-painting cycle,
     // moving at a steady speed (no foot lock), every painting held alike, cut between them, the bob once per step
     if (new URLSearchParams(location.search).get('walk') === 'a') { window.WALK = S.WALK_A; S.CHARS.alan.frames.walk = S.WALK_ORIGINAL.alan.slice(); }

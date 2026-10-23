@@ -137,6 +137,10 @@
     guitar_walk6_p1: [0.258, -0.097], guitar_walk6_p3: [0.157], guitar_walk6_p5: [0.079], guitar_walk6_p7: [-0.014],
     guitar_walk6_p9: [0.256, -0.103], guitar_walk6_p11: [0.162], guitar_walk6_p13: [0.077], guitar_walk6_p15: [-0.018],
   };
+  // Alan's 24-painting walk (the user's sheet, 23 Oct): drawn on the spot, the planted foot travels evenly, 0.66 of his
+  // height a cycle (measured from the sheet), so every painting moves him the same distance; heels land on paintings 5 and 17
+  S.WALK24 = Array.from({ length: 24 }, (_, i) => 'alan_w24_' + String(i).padStart(2, '0'));
+  S.WALK24.forEach((f, i) => { const k = (i + 7) % 12; S.WALK_PLANT[f] = k ? [0.166 - k * 0.0276] : [0.166, -0.166]; });
   // the walk plan's step A (?walk=a and the walk lab): steady movement, even timing, a hard cut, the bob once per step
   S.WALK_A = { lock: 0, blend: 'cut', timing: 'even', bob: 'step' };
   // the same engine fix on the cycles in the game now (?walk=fix): steady movement, each painting held as long as its own

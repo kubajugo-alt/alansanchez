@@ -91,6 +91,10 @@ D. The bench man's `npc_bench_wistful` paints him bareheaded (his cap in his han
 - **Approvals come from the user** (a review page's database, or their words in chat): the permission check
   refuses approving art on their behalf, rightly. Walks are approved on the walk editor page.
 - **Deploy only when asked**, from a clean `git archive` export (procedure under "Key files" in the archive).
+- **Sprites from 23 Oct:** Canva designs the sprites; **Ludo.ai** makes the animation sprite sheets the game uses
+  (the user: "from now on we will be using canva to design the sprites, but Ludo to create actual animation sprite
+  sheets and use these, for smoother animation"). The key is in `.env` as `LUDO_API_KEY` (git-ignored; never print,
+  commit or deploy it).
 
 ### Tools from this session (details in the entries named)
 - **Walks:** `scripts/walk_sheet.py` (Alan's sheet + fit; entries 13-14), `scripts/walk_sheet_cast.py
@@ -1284,6 +1288,14 @@ session lived in the session's scratchpad and are gone; everything that matters 
    smoke.mjs bastos, bastostapes, bastosunlock, lacthreat, twinswap pass; play.mjs `{"won":true}`, 148 steps, 987 s.
    - **Deployed** (the user: "All ok"): master `ac5421ad`, Netlify `6ada8efb8d17c96ed9001097`, from a clean
      `git archive` export (smoke `bastos` passed there); live: `/.env` 404, `ines_sea_7.mp3` 200.
+65. **Alan's 24-painting walk** (the user sent a 6x6 sheet: "replace alan's main walking sprites with these and show
+   it to me on a test board"; on the branch, waiting for approval). Frames 0-23 of the sheet are one cycle (24 = 0),
+   cut to `art/sprites/alan_w24_00..23.webp` and scaled x2.15 from 330 px cells to his 695 px height (an upscale, so
+   softer than his other paintings), one head anchor for all, feet line per frame (js/sprites.js). core.js
+   `S.WALK24` with even plant data: 0.66 of his height a cycle, measured from the sheet's planted heels; heels land on
+   paintings 5 and 17. main.js puts it in as his side walk; `?walk=old` shows the 8-painting cycle. The front, back
+   and lantern walks are unchanged. Walk lab (`?scene=walklab`): size even across the frames, the planted foot 4.4 px
+   off on average, 13.5 px at worst (the sheet's frames 3, 14, 15 jump), against 1.5/3.9 px for the old cycle.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
