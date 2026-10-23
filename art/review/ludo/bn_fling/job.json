@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_bn_reach",
+  "b": "alan_bn_fling",
+  "mid": "alan_bn_x_raise",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

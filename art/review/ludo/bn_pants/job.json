@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alan_bn_x_kick",
+  "b": "alan_bn_x_turn",
+  "mid": "alan_bn_pants",
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "7a698368-b1f0-4c70-a7d8-6babc1d18d58",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/b5a66c10727a95f77c25fd4bdac93ce9.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/86e4a8f38eac03881164bfa1b63e0d3f.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/c785059d296f3475daeb3734b26c71d7.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3
+  },
+  "credits": 9
+ }
+}

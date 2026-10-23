@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alan_bn_fling",
+  "b": "alan_bn_x_crouch",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ }
+}

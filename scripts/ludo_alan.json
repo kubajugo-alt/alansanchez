@@ -461,6 +461,18 @@
    "b": "alan_bn_dressed",
    "bath": true,
    "what": "The bath: y jacket on \u2192 dressed"
+  },
+  {
+   "name": "walk_start",
+   "a": "alan_side",
+   "b": "alan_walk7_s1",
+   "what": "Setting off: standing into his first stride (the side walk you built)"
+  },
+  {
+   "name": "walk_stop",
+   "a": "alan_walk7_s4",
+   "b": "alan_side",
+   "what": "Stopping: the last stride back to standing"
   }
  ]
 }

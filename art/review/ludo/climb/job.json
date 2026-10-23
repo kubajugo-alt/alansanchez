@@ -1,0 +1,39 @@
+{
+ "spec": {
+  "a": "alan_side",
+  "b": "alan_climb",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "150fa25f-daff-4eeb-8450-f1b5a5d67c57",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/8d85f69fefcee75547f780fc9d6d54c0.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/37e3aa9d841462c52c6cbaf0da3b14e7.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/2f3b45d6eaeba24a52c5e5c4b3945791.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.5833333333333335
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "20633459-ac01-4e8b-ac53-c25b6253a861",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/80d6dc40bd6dcd9c9c7ec2b4e6094919.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/49a6739019a5aae55412189675a13df0.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/01425c35d46b5ea45bd49aa59e1ca2c7.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.625
+  },
+  "credits": 3
+ }
+}
