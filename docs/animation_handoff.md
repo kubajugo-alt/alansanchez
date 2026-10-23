@@ -1322,6 +1322,10 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Not done (new art or recordings, need approval): an angry Lacerda talking, him dragged with a fist still closed,
      Alan's strike follow-through, Inês tumbling or gasping, voice efforts. Open question for the user:
      `alan_ringback` ("Let's start with you") plays after the fourth note.
+   - **Deployed with entry 65** (the user: "just deploy as it is", without a recorded check of the ending): master
+     `48b9d8b4`, Netlify `6adac20967ac3a7f8686f459`, from a clean `git archive` export (smoke intro, walklab passed
+     there); live: `/.env` 404, `alan_w24_00.webp` 200, ch5.js has the new code. Not yet played through after this
+     change (play.mjs, finalerace).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
