@@ -21,5 +21,20 @@
    "duration": 2.625
   },
   "credits": 9
- }
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "28294b34-d96b-4e8b-9bf0-51b404ab4587",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/90c89fdc8ad0f73ca861c51766641e57.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/9e2012fdf4241af58892d4a948e49fc9.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/da2418722d76ee33098bf0b74715b950.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.75
+  },
+  "credits": 3
+ },
+ "model": "hydra"
 }

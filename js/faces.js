@@ -6629,5 +6629,209 @@ window.FACES = {
   ],
   "ok": false,
   "src": "art/review/candidates/alan_lu_talk_b_b04.webp"
+ },
+ "alan_lu_bn_dressed_a01": {
+  "box": [
+   447,
+   52,
+   157,
+   177
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_dressed_a01.webp"
+ },
+ "alan_lu_bn_dressed_a02": {
+  "box": [
+   434,
+   53,
+   157,
+   177
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_dressed_a02.webp"
+ },
+ "alan_lu_bn_dressed_a03": {
+  "box": [
+   418,
+   53,
+   157,
+   177
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_dressed_a03.webp"
+ },
+ "alan_lu_bn_dressed_a04": {
+  "box": [
+   291,
+   52,
+   157,
+   177
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_dressed_a04.webp"
+ },
+ "alan_lu_bn_dressed_a05": {
+  "box": [
+   235,
+   50,
+   158,
+   178
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_dressed_a05.webp"
+ },
+ "alan_lu_bn_dressed_a09": {
+  "box": [
+   194,
+   49,
+   158,
+   178
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_bn_dressed_a09.webp"
  }
 };
