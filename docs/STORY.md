@@ -20,6 +20,11 @@ The main changes:
 
 **v2.1:** Alan is now 37 (timeline re-dated), jokes constantly with double meanings (see Alan's humour and the line tables at the end of each chapter), the rooms have ambient NPCs, and a full production spec covers art, UI, audio, cutscenes, systems and hints.
 
+## What changed since Oct 22
+
+- **The ending (V.1, V.4), rewritten with the user** (docs/ending_rewrite.md, version 2): Lacerda is the Brotherhood and needs only a founder's hand; he has no use for the ledger (he drops it in the water if offered). The reading scene is gone. Inês leaves the ledger open at its last page for Alan, and whispers Bastos's rule once she is free. The strikes are a race: Lacerda surges along the walkway on the water, throws Inês into the pool, sends the water at Alan's ankles; after the fourth note the water won't come to him, and it takes him from the platform's edge with Alan's sleeve still in his hand. Message 3 no longer asks for the ledger, and the shop door no longer waits for it.
+- **The story review of 22 Oct** (docs/story_review.md, 78 findings, all approved with the user's edits): line texts, order and gates across all chapters; see the handoff's log for the list.
+
 ## What changed since Oct 18
 
 - **The reserve's afterwards (epilogue).** It now plays in the room as a painted pair, the two of them sitting against the reserve's shelves (the crate is gone everywhere), with two new lines (vasco_after_3, alan_after_know), and the narrator closes it over the scene. The clapper in every picture is the finale's: long and heavy.
@@ -850,15 +855,15 @@ The door is open. The room is cold, and a line of salt runs across the floor lik
 
 1.  Pessoa won't move ("He's dug in. Nine kilos of no, now with added loyalty."). The lamp trick fails: the machine is warm by itself. **alan_lamp_machine**: "He's learned. The machine is warm by itself. One of us has learned something today." A second try at him gives the hint: "Bribes. He responds to bribes. Like a Lisbon official."
 
-2.  Use the sardine on Pessoa. He jumps down to eat it, and he was lying on the ledger. Inês hid it under the cat before Lacerda came in. **alan_pessoa**: "He was lying on the ledger. She hid it under the cat before he came. Nine kilos of loyalty. Who knew."
+2.  Use the sardine on Pessoa. He jumps down to eat it, and he was lying on the ledger, open at the last page: Inês read it while she waited in Chapter IV and left it for Alan. **alan_pessoa**: "He was lying on the ledger. Open at the last page. She left it for me." He reads it aloud (**alan_read_last**): "'Afonso Lacerda's last words, as the water rose, were for his son: Vicente, let it go.' She wanted me to know he had a father."
 
 3.  Play the machine.
 
 Logic: the player has the sardine from Zé and has already seen that the cat must be bribed off things; the lamp failing first is a joke that also points to the new answer.
 
-**Message 3, Lacerda:** "Senhor Sanches. Your assistant has been reciting dates to me. She mentions a book. Bring it. Bring the tongue, and your blood. Come alone, under the Carmo. The river turns at twenty-five to one." Then, appended: "And bring your grandfather's ledger. The young lady insists." **alan_insists**: "She's still fighting." The machine then replays message 2, the dripping hang-up. **alan_hangup_reveal**: "He rang this morning to see if I was home. He's been patient all day."
+**Message 3, Lacerda:** "Senhor Sanches. Your assistant has been reciting dates to me. She is very tiresome. The bell wants a founder's hand, and yours is the last one I have. Bring the tongue, and your blood. Come alone, under the Carmo. The river turns at twenty-five to one." (He doesn't ask for the ledger: he is the Brotherhood, and has no use for it.) The machine then replays message 2, the dripping hang-up. **alan_hangup_reveal**: "He rang this morning to see if I was home. He's been patient all day."
 
-**The telephone (required).** The shop door stays shut until Alan has the ledger (**alan_door_ledger**) and has rung Rui (**alan_call_rui_first**: "If I'm going down a hole at midnight, someone should know which hole."). **alan_call_rui**: "Rui. It's Alan. Lacerda has Inês. The Carmo, twenty-five to one." **rui_gate**: "Midnight at the Carmo. I'll be outside the gate. If I go in, it's a police matter, and then it's in a drawer forever." With amalia_box: **alan_box_tell**, **rui_murder**: "Then it's murder. Unexplained, but murder." **alan_obituary**: "If I'm not out by dawn, Rui, the obituary says 'witty'. Not 'lazy'. 'Witty'." Flag: rui_called.
+**The telephone (required).** The shop door stays shut until Alan has heard message 3 (**alan_ch5_hint_machine**) and has rung Rui (**alan_call_rui_first**: "If I'm going down a hole at midnight, someone should know which hole."). **alan_call_rui**: "Rui. It's Alan. Lacerda has Inês. The Carmo, twenty-five to one." **rui_gate**: "Midnight at the Carmo. I'll be outside the gate. If I go in, it's a police matter, and then it's in a drawer forever." With amalia_box: **alan_box_tell**, **rui_murder**: "Then it's murder. Unexplained, but murder." **alan_obituary**: "If I'm not out by dawn, Rui, the obituary says 'witty'. Not 'lazy'. 'Witty'." Flag: rui_called.
 
 **The other call** (with Vasco's card and the Thursday date). Before he goes, Alan rings Dr. Teles (**alan_call_vasco_first**: "Not yet. There's one more call I owe."). He may not come back, and he wants to hear Vasco's voice; he doesn't say so. "I'm going out tonight. There's something I have to finish." / "You sound like a man saying goodbye." / "Just talk to me for a minute. About anything. The Romans." / "The floor's still down there. Two thousand years, and it hasn't moved. It will be there on Thursday." / "Thursday." / "Then come back for it." He calls him Alan for the first time (**vasco_vcall_5**: "Be careful, Alan."), and hangs up first; Alan stays on the line a moment. Flag: vasco_called.
 
@@ -888,7 +893,9 @@ At the grate, with the Thursday date: **narr_descent**: "He thought of a man sta
 
 ### V.4 The cistern
 
-Stone steps end on a ledge above black-green water. The Drowned Bell hangs on a rusted chain over the water, reachable along a narrow stone walkway out to its platform; it is carved with four waves. Inês is tied to a pillar on the ledge. Lacerda, in an old brotherhood robe, stands where the steps go down into the water. Six chiselled tide marks on the pillar, numbered I to VI, are the on-screen meter.
+Stone steps end on a ledge above black-green water. The Drowned Bell hangs on a rusted chain over the water, reachable along a narrow stone walkway out to its platform; it is carved with four waves. Inês is tied to a pillar on the ledge. Lacerda, in an old brotherhood robe, stands where the steps go down into the water.
+
+**The premise (the ending rewrite, docs/ending_rewrite.md).** Lacerda *is* the Brotherhood: he knows the rite, the founding order, and that ringing backward renounces the sea. The founders were only craftsmen. The one thing he can't do himself is ring it: the bell answers only its makers' blood, so he needs a founder's hand, and Alan's is the last. What Alan has is Bastos's rule (Chapter II): the water "obeys the hand on the bell". Everywhere else it answers to the Lacerda name; with a founder's blooded hand on the bronze, it answers to that hand. Six chiselled tide marks on the pillar, numbered I to VI, are the on-screen meter.
 
 **The confrontation** (cutscene, then player control):
 
@@ -898,49 +905,55 @@ Stone steps end on a ledge above black-green water. The Drowned Bell hangs on a 
 
 - **lacerda_ze**: "You broke my tile. Clumsy. No matter. Maria knew, so I assumed the son did. One cannot be too careful."
 
-- **lacerda_demand**: "Joaquim's book first. Then cut your hand, wet the bronze, and ring, and she walks out of here. Patient, Senhor Sanches. I have been patient for forty years."
+- **lacerda_demand**: "Cut your hand, wet the bronze, and ring it as your families cast it. Ferreira first. Then she walks out of here. I have been patient for forty years."
 
 - **lacerda_font**, **lacerda_interrupted**: the water has answered to his name since his ancestor held the bell over the font; the founders cut its tongue in the middle of a sentence, and the sea is still waiting to finish it.
 
-- **lacerda_father**: "The sea has my father, Senhor Sanches. I watched it take him. The bell can ask for him back." **alan_father**: "\[pause\] Mine's gone too, Vicente. That's exactly why I'm not ringing it your way."
+- **lacerda_father**: "The sea has my father, Senhor Sanches. I watched it take him. The bell can ask for him back." With saw_afonso, **alan_father_photo** first. **alan_father**: "\[pause\] Mine's gone too, Vicente. Bastos said it: ring it for the dead and the sea comes to collect more. I'm not ringing it your way."
 
 - **ines_warn**: "Alan, the water rises every time that bell rings! Don't ring it his way!" **lacerda_quiet**: "Quiet, my dear."
 
-**The rule in this room:** while Lacerda is watching, he commands the water.
+**The rule in this room:** Lacerda wants the bell rung, so he lets Alan get everything ready; but he commands the water, and he won't be touched.
 
 - Laying a hand on him (taking him, the tongue or the knife on him): **lacerda_death** ("I said I am patient. I never said I was slow."), the water takes Alan, and **narr_death**. Game over; the scene restarts at the top of the steps with inventory intact.
 
-- Cutting Inês's ropes while watched: Alan won't (**alan_cut_watched**: "Not while he's watching. The water listens to him.").
+- Talking to him: **lacerda_patient** ("Patient.").
 
-- Striking the bell before he has the ledger: **lacerda_ledger_first** ("The ledger first, Senhor Sanches. I should like to read along.").
+- Offering him the ledger (optional): **lacerda_toss**: "Joaquim's diary. I wrote the rite he was hiding from, Senhor Sanches. I don't need his book. I need his hand." He drops it into the water.
 
-- Talking to him while watched: **lacerda_patient** ("Patient.").
+**Puzzle V-B: the rite.** Four steps of preparation, then the strikes, each drawing on a different chapter.
 
-**Puzzle V-B: the rite.** Five steps, each drawing on a different chapter.
+1.  **Free Inês (knife, Ch. IV).** **alan_ask_lamp**: "I can't strike what I can't see, and I need both hands. Let her hold the lantern." **lacerda_lamp_ok**, not looking up: "By all means. Cut her loose. The water answers to me, Senhor Sanches. Where would she go?" Use the knife on the ropes. **ines_free**: "You took your time." **alan_cat**: "I had a cat to bribe." Then, low and fast (**ines_whisper**): "Bastos, Alan. It obeys the hand on the bell. Not him. Yours."
 
-1.  **Distract him (ledger, Ch. I).** Inês: "Give him the ledger, Alan. The last page. He's waited forty years for it." (**ines_page**) On it, in Joaquim's hand: "Afonso Lacerda's last words, as the water rose, were for his son: 'Vicente, let it go.' J. S." Give the ledger to Lacerda: **alan_offer**: "You want the founders? Here. Every line you missed. Two hundred years. In my grandfather's hand." **lacerda_cant**: "Cipher. Of course. Joaquim, you careful old man." **alan_seven**: "The rite's in cipher. The founders' names aren't. Start at the back." Lacerda kneels on the drowned step with his torch, reading, his back to the bell (**lacerda_ledger**, **lacerda_read_1**, **lacerda_read_2**). He reaches the last page (**lacerda_read_father**): "'Afonso Lacerda's last words, as the water rose, were for his son.' '...Vicente, let it go.'" Then, barely audible (**lacerda_read_after**): "...He never said that to me. He said it to Joaquim." Inês, low (**ines_page_this**): "That's the page, Alan. The one about his father." Only then is Lacerda distracted (lacerda_distracted) and the bell can be struck. He is a collector before he is a killer.
+2.  **Light the bell (lantern, Ch. V).** Give the lantern to Inês. She takes it out along the walkway and holds it up (**ines_lantern**); the four foundry marks appear in the carved waves (**narr_bell_lit**). Without the light, using the bell gives "Too dark, and I need both hands."
 
-2.  **Free Inês (knife, Ch. IV).** **alan_ask_lamp**: "I can't strike what I can't see, and I need both hands. Let her hold the lantern." **lacerda_lamp_ok**, not looking up: "By all means. Cut her loose. The water answers to me, Senhor Sanches. Where would she go?" Use the knife on the ropes. **ines_free**: "You took your time." **alan_cat**: "I had a cat to bribe."
+3.  **Blood on the bronze (rite, Ch. III).** Use the knife on Alan (or on the tongue). **ines_no**: "Alan..." **alan_papercut**: "Paper cut. I've had worse from Camões." The tongue is now wet; its icon and name change ("Bell tongue (blooded)").
 
-3.  **Light the bell (lantern, Ch. V).** Give the lantern to Inês. She takes it out along the walkway and holds it up (**ines_lantern**: "I've got it. Go on, Alan. Ring."); the four foundry marks appear in the carved waves (**narr_bell_lit**). Without the light, using the bell gives "Too dark, and I need both hands."
+4.  **Ring it backward (order, Ch. III).** Use the tongue on the four marks: Sanches, Coutinho, Bastos, Ferreira. Alan walks out to the bell's platform to strike. Every strike is a plain bell note (pitched lower for each founder).
 
-4.  **Blood on the bronze (rite, Ch. III).** Use the knife on Alan (or on the tongue). **ines_no**: "Alan..." **alan_papercut**: "Paper cut. I've had worse from Camões." The tongue is now wet; its icon and name change ("Bell tongue (blooded)").
+**The race (Lacerda sees it at once and comes for him).** He rides a swell of the water along the walkway, one stage at a time; each swell is smaller than the last.
 
-5.  **Ring it backward (order, Ch. III).** Use the tongue on the four marks: Sanches, Coutinho, Bastos, Ferreira. Alan walks out to the bell's platform to strike.
+- **Strike 1, Sanches.** **alan_strike_1**: "Last to first, Grandfather. Say no." **lacerda_ferreira**: "Ferreira first, I said." He raises his hand to the water: small arms of water rise to it, turn toward the bell, and sink back. **lacerda_listening**: "...It's listening to you. Then I'll take the hand." He surges to the foot of the walkway; from here on he keeps his commanding stance.
 
-**The water meter during step 5.** The first correct strike makes a sound like a breath drawn in (**alan_strike_1**: "Last to first, Grandfather."). Lacerda assumes the founding order and hears what he wants to hear: "Good. I can feel it in the stone." / "Yes... yes. The river is listening." / "One more, Senhor Sanches. One more, and it is mine."
+- **Strike 2, Coutinho.** He surges up to Inês. She plants herself on the walkway with the lantern (**ines_block**: "You'll have to go through me."). **lacerda_gladly**: "Gladly." A wave rises at her side and throws her into the pool, where she stays afloat with the lantern up, so the marks stay lit.
+
+- **Strike 3, Bastos.** He surges past where she stood. **lacerda_take**: "Take him!" The water climbs to Alan's ankles on the platform, shivers, and stops.
+
+- **Waiting too long:** every 25 seconds without a note he gains a stage on his own. If he reaches the platform before the fourth note, he has the hand and the water takes Alan; the scene restarts from the strikes, with steps 1–3 kept.
+
+**The water meter during the strikes.**
 
 | Event                                                                    | Waterline                                                       |
 |--------------------------------------------------------------------------|-----------------------------------------------------------------|
 | Each of the first three correct strikes                                  | +1                                                              |
-| A wrong strike (the bell rings forward; the city's bells answer faintly) | +2 (**alan_wrong_strike**: "Wrong number." **lacerda_lovely**: "Lovely. Again.") |
-| Six marks reached                                                        | The water takes Alan; restart from step 5 with steps 1–4 kept   |
+| A wrong strike (the bell rings forward)                                  | +2 (**narr_wrong_strike**, **alan_wrong_strike**: "Wrong number." **lacerda_lovely**: "Lovely. Again.") |
+| Six marks reached                                                        | The water takes Alan; restart from the strikes with steps 1–3 kept |
 
-A clean rite costs three marks, so the player can make exactly one mistake. Inês calls out the next step if the player hesitates for 20 seconds (hint, not an answer: "Last to first, Alan. Who came last?").
+A clean rite costs three marks, so the player can make exactly one mistake. Inês calls out the next step if the player hesitates (hint, not an answer: **ines_hint_lastfirst**, "Last to first, Alan. Who came last?").
 
-**The silence.** **alan_ringback**: "I never rang anyone back in my life, Grandfather. Let's start with you." On the fourth strike the bell un-rings (**narr_ring**): the sound is pulled backward out of the air. **lacerda_realise**: "That was... backward. You rang it backward. All of it!" He doesn't fight it. He goes back to the ledger. **narr_renounce**: "The bell renounced the sea. And the sea, like any creditor, went looking for the man who had signed for the debt." The water rises around Lacerda alone, to his knees, his chest, his mouth, and he goes under with the ledger in his hands (**narr_end_1**). **narr_reading**: "He didn't fight the water. He was still reading." **alan_ledger**, quietly, after a silence (no joke, no score): "Some books should go with their readers." The fog is drawn down the steps like a breath, and the water stops obeying (**narr_silence**); five seconds of nothing, then the theme.
+**The silence.** **alan_ringback**: "I never rang anyone back in my life, Grandfather. Let's start with you." (Open question for the user: it now follows the fourth strike.) Lacerda lunges onto the platform and has Alan's arm; Alan braces against him. The fourth note is drawn back into the bronze: the rings close in on the bell, it shudders harder and harder and stops dead (**narr_ring**: the bell un-rings). A second of real silence. **lacerda_come**, to the water: "Come. Come. COME!" Nothing answers. **narr_renounce**: "The bell renounced the sea. And the sea, like any creditor, went looking for the man who had signed for the debt." The water rises on his side of the walkway and pulls at him; he doesn't let go. **alan_let_go**, quietly: "Let it go, Vicente." It tears him off the stone into the pool, a ring of water closes round him and a whirlpool takes him under (**narr_end_1**: "He didn't. He never had. The water took him with his hand still closed, on a torn sleeve and nothing else."). The water drains away; the fog is drawn down the steps like a breath (**narr_silence**); five seconds of nothing, then the theme.
 
-**narr_still**: "The water goes still, and clear. The bell hangs silent, tongueless again. The tongue lies on the ledge, cold at last. Alan pockets it anyway. Old habit." **ines_end**: "Alan... the fog. Can you feel it? It's lifting." **alan_end**: "Come on. Let's go and see what the city looks like." On the way up she asks why he smells of tar and a fisherman's sweater (**gag_ines_2**).
+**narr_still**: "The water goes still, and clear. The bell hangs silent, tongueless again. The tongue lies on the ledge, cold at last. Alan pockets it anyway. Old habit." Inês swims to the edge and climbs out. **ines_end**: "Alan... the fog. Can you feel it? It's lifting." **alan_end**: "Come on. Let's go and see what the city looks like." On the way up she asks why he smells of tar and a fisherman's sweater (**gag_ines_2**).
 
 ### V.5 Up into the tenth morning
 
@@ -959,7 +972,9 @@ Chapter V is darker, so the jokes get shorter and braver: he jokes because he is
 | alan_fcall_4      | Calling Vasco             | "Just talk to me for a minute. About anything. The Romans." (no joke)                                         |
 | alan_thanks       | After Tomás's confession  | "\[pause\] Thank you, Father." (no joke)                                                                      |
 | alan_descend ★    | Going down the steps      | "'Stay away from water,' he said. Midnight, a flooded church basement, a dead man's bell. Rui will be livid." |
-| alan_father       | Lacerda's father          | "\[pause\] Mine's gone too, Vicente. That's exactly why I'm not ringing it your way." (no joke; replaces alan_glacier) |
+| alan_father       | Lacerda's father          | "\[pause\] Mine's gone too, Vicente. Bastos said it: ring it for the dead and the sea comes to collect more. I'm not ringing it your way." (no joke) |
+| alan_read_last    | The ledger's last page (V.1) | "'...Vicente, let it go.' \[pause\] She wanted me to know he had a father." (no joke)                    |
+| alan_let_go       | The water pulls at Lacerda | "\[quietly\] Let it go, Vicente." (no joke)                                                                |
 | alan_ringback     | Fourth strike             | "I never rang anyone back in my life, Grandfather. Let's start with you."                                     |
 | alan_wrong_strike | Wrong strike              | "Wrong number." (callback to alan_hangup)                                                                     |
 | alan_dawn ★       | Climbing out              | "The tenth morning. The first one I've seen before eleven in years."                                          |
@@ -1115,14 +1130,15 @@ Story state stays as plain flags on F(). The table lists the story flags in the 
 | fragment_given     | Fragment of Sanches bronze given to Zé after ze_saved (IV.6) | Nothing gated; adds alan_thu_fragment on Thursday (epilogue) |
 | ze_romance         | The cabin (IV.6)                                       | Rosa's dig on the quay                                  |
 | ch4_done           | The quay telephone (IV.6)                              | **End of Ch. IV**                                       |
-| ledger_found       | Sardine on Pessoa (V.1)                                | Message 3                                               |
+| ledger_found       | Sardine on Pessoa (V.1)                                | The machine can be played (message 3)                   |
 | heard_msg3         | Message 3 (V.1)                                        | The telephone                                           |
 | kettle_rang_seen   | The dry-kettle line played (V.1, shop)                 | Nothing gated; selects an optional line only            |
 | rui_called         | Phone call to Rui (V.1)                                | Shop door; convent_night on map; Rui at the gate (V.3); box vignette |
 | vasco_called       | Phone call to Vasco (V.1, with the card)               | Shop door                                               |
 | amalia_night       | Night visit (V.2, optional)                            | Epilogue vignette                                       |
 | confessed, has_lantern | Tomás's confession (V.3)                           | The grate                                               |
-| lacerda_distracted | Ledger given (V.4 step 1)                              | Safe to free Inês and strike the bell                   |
+| race               | The first note (V.4)                                   | Lacerda advances along the walkway (every 25 s, and on each note) |
+| lac_stage, ines_afloat | Lacerda's stage on the walkway; Inês thrown into the pool (V.4) | The silence; Inês swims out at the end            |
 | ines_free          | Knife on ropes (step 2)                                | Lantern can be given                                    |
 | bell_lit           | Lantern to Inês (step 3)                               | Marks visible                                           |
 | blood              | Knife on Alan (step 4)                                 | Strikes count                                           |

@@ -1,22 +1,25 @@
 # Animation handoff
 
-## Start here (session handoff, 2026-10-22)
+## Start here (session handoff, 2026-10-23)
 
-Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
-bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
-line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `ac5421ad` (Netlify `6ada8efb8d17c96ed9001097`, entry 64). Below: what the game
-is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-61); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
-them without checking the code and the user.
+Work happens on branch `claude/modest-cray-12ezwn`; `master` is fast-forwarded to it only when deploying (no PRs).
+The live site, https://alan-sanchez-drowned-bell.netlify.app, runs master `48b9d8b4` (Netlify
+`6adac20967ac3a7f8686f459`, entries 65-69, deployed 23 Oct). Below: what the game is now, what is open, the rules,
+and where the tools are. The numbered session log underneath has the detail of every change (entries 1-69); the
+sections after it are an archive of the 20 October handoff, kept for history: don't act on them without checking the
+code and the user.
 
 ### What is in the game now
 - **Story review round 2** (T01-T11) done; every line voiced (70 unused ones deleted in entry 52, ElevenLabs), all within +-1.5 LU of
   -21.5 LUFS; lip-sync cues for every speaker but the narrator. Amália's first hello tightened (entry 20).
 - **Faces** (lip-sync and blinking): Alan (his new bath and Duarte frames too), Inês, Vasco, Teixeira, Duarte in his
   upstairs scene. Everyone else has cues but no face art yet (the user: "They are not meant to speak and blink yet").
-- **Walks:** all eight walking characters on new side walks painted as one Gemini sheet each. Alan and Inês play
-  the cycles the user built in the walk editor (`*_walk7_s*`, 5 and 6 steps, entry 19); Vasco, Lacerda (widened
+- **Since 22 Oct (entries 61-69):** Bastos's flat (Chapter II); the story review's 78 fixes; the ending rewritten
+  (Lacerda is the order, the race along the walkway) with new robe and Inês sprites and the living water drawn in
+  code, staged by the review of a recorded run (entry 69); Alan's 24-painting side walk from the user's sheet.
+- **Walks:** all eight walking characters on new side walks painted as one Gemini sheet each. Alan now walks the
+  user's 24-painting sheet (`alan_w24_*`, entry 68; `?walk=old` shows the cycle before it). Inês plays
+  the cycle the user built in the walk editor (`ines_walk7_s*`, entry 19); Vasco, Lacerda (widened
   x1.2 on the user's note), Celeste, Zé, Teixeira (cop_visit) and Duarte (guitar_visit) their approved 8-pose sets
   (`*_walk6_p*`, entries 16-17). Everyone walks at a steady speed (the engine fix, entries 23-24: no foot lock,
   bob once per step); each painting is timed by its foot's travel (`S.WALK_PLANT`, `S.walkTiming`, entry 11).
@@ -38,6 +41,19 @@ them without checking the code and the user.
   Saves, input locks, GL context loss and touch examine made robust (entry 50).
 
 ### Open, in the order I'd suggest
+**Newest first (23 Oct):**
+- **The ending, untested since entry 69:** deployed without a recorded run (the user's choice). Play `?scene=finalerace`
+  and `scripts/tests/play.mjs` (about 17 min) and fix what breaks.
+- **For the user to decide:** `alan_ringback` ("Let's start with you") now plays after the fourth note: move it
+  before the first, or cut it. The review's art and voice ideas (entry 69, "Not done"): an angry Lacerda talking,
+  him dragged with a fist still closed, Alan's strike follow-through, Inês tumbling or gasping, voice efforts.
+- **The new sprite pipeline (the user's rule, 23 Oct):** Canva designs, Ludo.ai animates the sprite sheets. Nothing
+  has been made with Ludo yet; read its API docs first (`LUDO_API_KEY` in `.env`).
+- **Alan's new walk** is upscaled from 330 px cells (softer than his other paintings); a sheet at twice the size
+  would fix it, and three of its frames make the planted foot jump 12-13 px.
+- Canva leftovers: 10 stray uploads and folder `FAHYybO6wcQ` (offered to clean up; not asked).
+
+**Older:**
 A. **The cut-out audit: applied** (entry 48; the user: "I approve it all"). The 716 cleaned frames from
    `art/review/cutout/sprites/` written over their sources (art/sprites 496, the 155 candidates, bath_new 49,
    duarte_new 16), re-encoded WebP q90 with lossless alpha (checked identical to the cleaned alpha) and exact RGB under
@@ -56,7 +72,7 @@ C. **Other story frames that were never painted** (the game skips them silently)
    `duarte_play4/5/6` (fado flourishes), `npc_bench_greet`, Vasco's optional extras (`vasco_idle4`, front/back walk
    frames, `vasco_hook` and the other reaction variants in se.js). Offered to the user; no answer yet.
 D. The bench man's `npc_bench_wistful` paints him bareheaded (his cap in his hands): offered to paint the cap on.
-0. **Walks, entry 23's plan:** Step B (Alan's 12-painting side walk, "more fluidity").
+0. **Walks, entry 23's plan:** Step B (Alan's 12-painting side walk, "more fluidity"): overtaken by the user's 24-painting sheet (entry 68).
 1. **Walks towards and away from the camera: Alan and Inês only** (the user, 2026-10-22: "I don't think Vasco needs
    them. Only Alan and Inês"; nobody else gets them). Their 4-frame cycles play again since entry 55; a new painted
    set would replace them (Alan first: the player walks him up and down rooms all the time),
@@ -66,8 +82,8 @@ D. The bench man's `npc_bench_wistful` paints him bareheaded (his cap in his han
 2. **Face kits for the rest of the cast** (Lacerda, Rui, Celeste, Duarte, then Tomás, Amália, Zé, Abílio, Lino):
    about 65 frames, roughly $20 of Gemini; their lip-sync cues are ready. Biggest visible step left.
 3. **Rui's walk** (one sheet + the editor).
-4. **A full playthrough test** (the old `play.mjs` is lost): plays a new game to the end through hotspots and
-   dialogs. Then rewrite the README walkthrough from it (it predates the Sé chapter and the visits, and says so).
+4. **A full playthrough test:** `scripts/tests/play.mjs` exists again (plays a new game to the end, about 17 min).
+   Still to do: rewrite the README walkthrough from it (it predates the Sé chapter and the visits, and says so).
 5. **Phone speed:** ask the user for `?fps` numbers per room on their phone; eight rooms became live this session
    (tavern, se_tower, cais, boat, cabin, se_museum, se_cloister, se_store).
 6. Left out on purpose (entry 22): the map's boats, the armillary sphere, the shop's newspaper corner, the museum
@@ -117,7 +133,18 @@ D. The bench man's `npc_bench_wistful` paints him bareheaded (his cap in his han
 - **Images:** `scripts/gen_image.py --key magenta` (for green subjects), `--fresh` (a painting made anew from a guide);
   `scripts/shop_patch.py` (object patches on a painting; tried on the shop and dropped). Canva full-size export: page
   22 of the scratch design `DAHYZ-SDzRE` (update_fill, commit, export png pro).
-- **Previews added:** `?scene=shopjobs` (the shop, nothing scripted, Inês at her jobs).
+- **Previews added:** `?scene=shopjobs` (the shop, nothing scripted, Inês at her jobs); `?scene=finale` (the
+  fourth note on) and `?scene=finalerace` (the whole rite).
+- **Voices (entries 65-66):** ElevenLabs flow `8du7kIJmWKU6XjsoYnX8` (eleven_v4); check every take with faster-whisper
+  before installing (`scripts/install_voice.sh <id> <take>`), then `RHUBARB=<binary> python3 scripts/lipsync.py
+  --speaker <who> <ids>`, `node scripts/validate.mjs`, `node scripts/build-manifest.mjs`.
+- **Canva sprites (entry 67):** generate-image with a character reference asset, export full size through the
+  scratch design `DAHYZ-SDzRE` (pages 99-100: update_fill, resize, crop, commit, export png pro), key the green
+  (magenta for water) background out with numpy, scale, and write the meta into js/sprites.js.
+- **Engine additions (entry 69):** a room's `shake: t => [dx, dy]` (render.js), an actor's `rot` (actor.js, radians,
+  about its middle).
+- **Walk sheets in a grid (entry 68):** cut the cells, find the loop, one head anchor, feet line per frame, even plant
+  data in `S.WALK_PLANT` (see `S.WALK24` in core.js); check in the walk lab.
 
 ### Lost with the sessions' containers
 - Rhubarb Lip Sync 1.13.0 (download again; `RHUBARB=<binary>` for `scripts/lipsync.py`).
@@ -1288,7 +1315,51 @@ session lived in the session's scratchpad and are gone; everything that matters 
    smoke.mjs bastos, bastostapes, bastosunlock, lacthreat, twinswap pass; play.mjs `{"won":true}`, 148 steps, 987 s.
    - **Deployed** (the user: "All ok"): master `ac5421ad`, Netlify `6ada8efb8d17c96ed9001097`, from a clean
      `git archive` export (smoke `bastos` passed there); live: `/.env` 404, `ines_sea_7.mp3` 200.
-65. **Alan's 24-painting walk** (the user sent a 6x6 sheet: "replace alan's main walking sprites with these and show
+65. **Story review of 22 Oct: applied** (`docs/story_review.md`: 78 findings with the rationale for each; the user
+   approved all of them on the approval board, with their own edits, and chose the drafted Bastos introduction).
+   - lines.js: 78 texts changed, 10 new lines (alan_phone_ch1_early, rui_hands_off_after, narr_look_lamp_night,
+     narr_look_cabinet_open, narr_look_keyboard_bastos, alan_gold_solo, alan_saudade_solo, ines_hint_lacerda_shop,
+     fish_after_first, ze_talk_bunk), and 21 lines that no longer play deleted, with their audio and lip-sync.
+   - Code, by chapter:
+     - ch1.js: the machine blinks in Chapter V until message 3 is heard; the phone's early line; the lamp and cabinet
+       variants; the bag; Ferreira's news gated on tide_wound; Amália's lines reordered.
+     - ch2.js: Celeste's hello on the first visit only; the clocks before Ferreira's door; the tide card line before
+       the close-up.
+     - ch3.js: the decode order (Tomás's renunciation and order after the rite); Abílio's questions gated on
+       abilio_joaquim; Lacerda's clocks only if not seen.
+     - se.js: solo variants for the museum lines; Vasco's idle pool.
+     - ch4.js: the clock at 17:20; Zé's bunk talk.
+     - core.js: Inês's scores 1 and 9 added to the shop pool.
+   - Recording: 76 takes (ElevenLabs flow `8du7kIJmWKU6XjsoYnX8`, two takes where a word went missing), checked with
+     faster-whisper, installed (`scripts/install_voice.sh`), lip-synced (`scripts/lipsync.py`, Rhubarb), validate
+     0 errors. Deployed with entry 68.
+66. **The ending, rewritten** (`docs/ending_rewrite.md`, version 2; the user: Lacerda "spent his entire life
+   obsessing about something, and then suddenly one line in a diary ... made him completely passive. This makes
+   absolutely no sense"; "he was the order - the founders weren't"; "go ahead"). Lacerda is the Brotherhood and
+   needs only a founder's hand; the sea obeys the hand on the bell (Bastos's rule).
+   - Lines: re-recorded lacerda_msg3, alan_pessoa, lacerda_demand, narr_end_1; new alan_read_last, lacerda_toss,
+     ines_whisper, lacerda_ferreira, lacerda_listening, ines_block, lacerda_gladly, lacerda_take, lacerda_come,
+     alan_let_go. The 17 reading-scene lines are deleted.
+   - ch1.js: Pessoa on the ledger, open at the last page, read aloud; the shop door waits for message 3 and the call
+     to Rui (no ledger gate).
+   - ch5.js: the race (`STAGES`, `RACE_GAP` 25 s, `S.raceTick`, `S.lacAdvance`), the optional ledger
+     (`S.giveLedger`), the whisper on cutting the ropes, a plain bell note per strike (pitched per founder) and
+     `audio/sfx/bell_drawn_in.mp3` after the fourth (the user asked for both).
+   - Tests: play.mjs offers the ledger (it is dropped) and expects the race after Coutinho; main.js previews `finale`
+     (from the fourth note) and `finalerace` (from the first). STORY.md V.1 and V.4 rewritten (23 Oct).
+67. **The ending's art and living water** (the user: "more sprites for the ending and also some impressive living
+   water"; then "these waves/hands are very tacky ... made like the water made by code and animate"; Inês thrown
+   into the water and floating; Lacerda "simply walking, there is no dramatism"; "the water should take him into the
+   pool, and then should swirl to consume him").
+   - New sprites (Canva, with character references; js/sprites.js): robe_walk1, robe_pass1, robe_command,
+     robe_grab, robe_surge, ines_block, ines_float.
+   - Water shapes: `art/layers/water_arm|crest|vortex.webp`, used only as masks.
+   - The water itself is drawn in ch5.js (`S.living`): the masks are warped in strips and filled offscreen with a
+     gradient, the room seen through it, light streaks, dark and lit rims, a glow, spray and drops. The kinds are
+     stir, surge, throw, ankles, drag and whirl, plus `S.splashAt`.
+   - Sent as a video; the user: "good, but could be better", and asked for a review agent (its fixes: entry 69).
+     The new art is in the game; the user hasn't approved it as final.
+68. **Alan's 24-painting walk** (the user sent a 6x6 sheet: "replace alan's main walking sprites with these and show
    it to me on a test board"; approved: "apply the new walking"). Frames 0-23 of the sheet are one cycle (24 = 0),
    cut to `art/sprites/alan_w24_00..23.webp` and scaled x2.15 from 330 px cells to his 695 px height (an upscale, so
    softer than his other paintings), one head anchor for all, feet line per frame (js/sprites.js). core.js
@@ -1296,7 +1367,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
    paintings 5 and 17. main.js puts it in as his side walk; `?walk=old` shows the 8-painting cycle. The front, back
    and lantern walks are unchanged. Walk lab (`?scene=walklab`): size even across the frames, the planted foot 4.4 px
    off on average, 13.5 px at worst (the sheet's frames 3, 14, 15 jump), against 1.5/3.9 px for the old cycle.
-66. **The cistern ending, staged more naturally** (the user: "apply all the code-only fixes from the review"; the
+69. **The cistern ending, staged more naturally** (the user: "apply all the code-only fixes from the review"; the
    review was a recorded, frame-probed run of `?scene=finalerace`). ch5.js unless named:
    - Frames: the finale's frames (now with robe_lunge and alan_pull) are loaded before the first strike, so his
      commanding pose shows; `robe_realise` (the old design, holding the ledger) is no longer used.
@@ -1322,7 +1393,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Not done (new art or recordings, need approval): an angry Lacerda talking, him dragged with a fist still closed,
      Alan's strike follow-through, Inês tumbling or gasping, voice efforts. Open question for the user:
      `alan_ringback` ("Let's start with you") plays after the fourth note.
-   - **Deployed with entry 65** (the user: "just deploy as it is", without a recorded check of the ending): master
+   - **Deployed with entry 68** (the user: "just deploy as it is", without a recorded check of the ending): master
      `48b9d8b4`, Netlify `6adac20967ac3a7f8686f459`, from a clean `git archive` export (smoke intro, walklab passed
      there); live: `/.env` 404, `alan_w24_00.webp` 200, ch5.js has the new code. Not yet played through after this
      change (play.mjs, finalerace).
