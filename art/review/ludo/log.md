@@ -145,3 +145,5 @@
 | 2026-10-23 06:42 | improve | hydra | file:cop_chest_apart -> pair_cop_chest | improve | art/review/ludo/cop_in_chest/ | 3 |
 | 2026-10-23 06:43 | hydra | hydra | file:cop_arm_apart -> pair_cop_arm |  | art/review/ludo/cop_in_arm/ | 9 |
 | 2026-10-23 06:45 | improve | hydra | file:cop_arm_apart -> pair_cop_arm | improve | art/review/ludo/cop_in_arm/ | 3 |
+| 2026-10-23 13:55 | hydra | hydra | alan_climb_k3 -> alan_front |  | art/review/ludo/climb_up/ | 9 |
+| 2026-10-23 13:55 | hydra | hydra | alan_climb_k1 -> alan_climb_k2 -> alan_climb_k3 |  | art/review/ludo/climb_out/ | 9 |

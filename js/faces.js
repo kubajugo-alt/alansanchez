@@ -6357,5 +6357,277 @@ window.FACES = {
   ],
   "src": "art/review/alan/bath_new/sprites/alan_bn_y_button.webp",
   "ok": true
+ },
+ "alan_lu_talk_b_a01": {
+  "box": [
+   167,
+   56,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_b_a01.webp"
+ },
+ "alan_lu_talk_b_a02": {
+  "box": [
+   216,
+   55,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_b_a02.webp"
+ },
+ "alan_lu_talk_b_a03": {
+  "box": [
+   242,
+   55,
+   160,
+   180
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_b_a03.webp"
+ },
+ "alan_lu_talk_b_a04": {
+  "box": [
+   194,
+   57,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_b_a04.webp"
+ },
+ "alan_lu_talk_b_b01": {
+  "box": [
+   124,
+   60,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_b_b01.webp"
+ },
+ "alan_lu_talk_b_b02": {
+  "box": [
+   123,
+   58,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_b_b02.webp"
+ },
+ "alan_lu_talk_b_b03": {
+  "box": [
+   119,
+   56,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_b_b03.webp"
+ },
+ "alan_lu_talk_b_b04": {
+  "box": [
+   133,
+   55,
+   159,
+   179
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": false,
+  "src": "art/review/candidates/alan_lu_talk_b_b04.webp"
  }
 };

@@ -533,6 +533,21 @@
    "b": "pair_cop_arm",
    "pair": "in",
    "what": "The police station: Alan steps in, a hand on his arm (and back out)"
+  },
+  {
+   "name": "climb_out",
+   "a": "alan_climb_k1",
+   "mid": "alan_climb_k2",
+   "b": "alan_climb_k3",
+   "climb": true,
+   "what": "Climbing out of the S\u00e9 pit over the near rim, facing us: hands on the edge \u2192 a knee over \u2192 kneeling on the rim"
+  },
+  {
+   "name": "climb_up",
+   "a": "alan_climb_k3",
+   "b": "alan_front",
+   "climb": true,
+   "what": "Climbing out: getting up off the rim to stand"
   }
  ]
 }

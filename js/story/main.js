@@ -276,6 +276,8 @@
     if (W.pairRun) { F.pairRun = F.pairRun || {}; for (const [k, seq] of Object.entries(W.pairRun)) F.pairRun[k] = seq.filter(live); }
     if (W.pairRunIn) { F.pairRunIn = F.pairRunIn || {}; for (const [k, seq] of Object.entries(W.pairRunIn)) F.pairRunIn[k] = seq.filter(live); }
     if (W.pairRunFps) F.pairRunFps = Object.assign(F.pairRunFps || {}, W.pairRunFps);
+    // a scripted sequence of frames (the climb out of the pit): in once every frame of it is approved
+    if (W.seq) for (const [name, ids] of Object.entries(W.seq)) if (ids.every(ok)) F[name] = ids.slice();
     // a whole walk cycle (the Ludo walks): it takes its slot only once every frame of it is approved
     if (W.walkCycle && W.walkCycle.ids.every(ok)) {
       const Wc = W.walkCycle, ids = Wc.ids.slice();

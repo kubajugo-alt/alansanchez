@@ -42477,6 +42477,69 @@
     "height": 0.029,
     "flags": []
    }
+  },
+  {
+   "id": "alan_climb_k1",
+   "char": "alan",
+   "phase": 4,
+   "kind": "climb",
+   "what": "Climbing out of the pit: hands flat on the near rim",
+   "src": "art/review/candidates/alan_climb_k1.webp",
+   "originals": [
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 516.0,
+    "hh": 1379.0,
+    "h": 1440.0,
+    "ax": 263.5,
+    "fy": 1378.0,
+    "top": 0.0,
+    "rim": 0.619
+   },
+   "wire": {}
+  },
+  {
+   "id": "alan_climb_k2",
+   "char": "alan",
+   "phase": 4,
+   "kind": "climb",
+   "what": "Climbing out: arms locked, a knee coming over the rim",
+   "src": "art/review/candidates/alan_climb_k2.webp",
+   "originals": [
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 712.0,
+    "hh": 1409.0,
+    "h": 1440.0,
+    "ax": 360.5,
+    "fy": 1408.0,
+    "top": 0.0,
+    "rim": 0.544
+   },
+   "wire": {}
+  },
+  {
+   "id": "alan_climb_k3",
+   "char": "alan",
+   "phase": 4,
+   "kind": "climb",
+   "what": "Climbing out: kneeling on the rim, getting up",
+   "src": "art/review/candidates/alan_climb_k3.webp",
+   "originals": [
+    "art/sprites/alan_front.webp"
+   ],
+   "meta": {
+    "w": 443.0,
+    "hh": 1104.0,
+    "h": 1440.0,
+    "ax": 202.5,
+    "fy": 1103.0,
+    "top": 0.0,
+    "rim": 0.0
+   },
+   "wire": {}
   }
  ]
 }

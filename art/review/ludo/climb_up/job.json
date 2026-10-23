@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alan_climb_k3",
+  "b": "alan_front",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "ffc4e122-5e6e-4f37-9572-28fd00860f69",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/586ba17f0b855130b2886277ddf295a8.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/6bd2991675efee3ad68d6ba6523fbe4a.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/0793586460ac74bc108537bd15c7ffe8.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.625
+  },
+  "credits": 9
+ }
+}
