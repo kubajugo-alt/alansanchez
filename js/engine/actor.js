@@ -296,6 +296,7 @@
     // frames not painted yet fall back to the character's idle (then talk) frame
     frameKey() {
       const k = this.rawKey(), ok = f => f && E.SPRITES[f] && IMG['spr:' + f];
+      if (k && !ok(k) && E.SPRITES[k] && E.want) E.want('spr:' + k, true); // a pose still on its way: fetch it next
       const F = this.F, key = ok(k) ? k : arr(F.idle).concat(arr(F.talk)).find(ok) || k;
       return window.FAST ? key : this.between(key, ok);
     }
