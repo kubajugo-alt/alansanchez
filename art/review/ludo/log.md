@@ -98,3 +98,50 @@
 | 2026-10-23 05:26 | hydra | hydra | alan_rapt2 -> alan_rapt3 |  | art/review/ludo/rapt3/ | 9 |
 | 2026-10-23 05:26 | hydra | hydra | alan_side -> alan_smoke_light -> alan_smoke_inhale |  | art/review/ludo/smoke1/ | 9 |
 | 2026-10-23 05:27 | hydra | hydra | alan_smoke_inhale -> alan_smoke_exhale -> alan_smoke_hold |  | art/review/ludo/smoke2/ | 9 |
+| 2026-10-23 05:32 | improve | hydra | alan_side -> alan_rapt1 -> alan_rapt2 | improve | art/review/ludo/rapt/ | 3 |
+| 2026-10-23 05:33 | improve | hydra | alan_rapt2 -> alan_rapt3 | improve | art/review/ludo/rapt3/ | 3 |
+| 2026-10-23 05:34 | improve | hydra | alan_side -> alan_smoke_light -> alan_smoke_inhale | improve | art/review/ludo/smoke1/ | 3 |
+| 2026-10-23 05:34 | improve | hydra | alan_smoke_inhale -> alan_smoke_exhale -> alan_smoke_hold | improve | art/review/ludo/smoke2/ | 3 |
+| 2026-10-23 05:35 | hydra | hydra | alan_smoke_hold -> alan_smoke_inhale |  | art/review/ludo/smoke3/ | 9 |
+| 2026-10-23 05:35 | hydra | hydra | alan_smoke_hold -> alan_side |  | art/review/ludo/smoke4/ | 9 |
+| 2026-10-23 05:44 | improve | hydra | alan_smoke_hold -> alan_smoke_inhale | improve | art/review/ludo/smoke3/ | 3 |
+| 2026-10-23 05:44 | improve | hydra | alan_smoke_hold -> alan_side | improve | art/review/ludo/smoke4/ | 3 |
+| 2026-10-23 05:45 | hydra | hydra | alan_side -> alan_dress1 |  | art/review/ludo/dress_start/ | 9 |
+| 2026-10-23 05:46 | hydra | hydra | alan_dress2 -> alan_dress3 -> alan_dress4 |  | art/review/ludo/dress_b/ | 9 |
+| 2026-10-23 05:46 | hydra | hydra | alan_dress4 -> alan_button |  | art/review/ludo/dress_button/ | 9 |
+| 2026-10-23 05:51 | forge | forge | alan_undress4 -> alan_dress1 -> alan_dress2 |  | art/review/ludo/dress_a/ | 4.5 |
+| 2026-10-23 05:51 | improve | hydra | alan_side -> alan_dress1 | improve | art/review/ludo/dress_start/ | 3 |
+| 2026-10-23 05:52 | improve | hydra | alan_dress2 -> alan_dress3 -> alan_dress4 | improve | art/review/ludo/dress_b/ | 3 |
+| 2026-10-23 05:53 | improve | hydra | alan_dress4 -> alan_button | improve | art/review/ludo/dress_button/ | 3 |
+| 2026-10-23 05:53 | hydra | hydra | alan_side -> alan_jacket -> alan_undress4 |  | art/review/ludo/jacket/ | 9 |
+| 2026-10-23 05:54 | hydra | hydra | alan_side | walking to the right at an easy, natural pace | art/review/ludo/walk_side/ | 9 |
+| 2026-10-23 06:01 | improve | hydra | alan_side -> alan_jacket -> alan_undress4 | improve | art/review/ludo/jacket/ | 3 |
+| 2026-10-23 06:02 | improve | hydra | alan_side | improve | art/review/ludo/walk_side/ | 3 |
+| 2026-10-23 06:02 | hydra | hydra | alan_front | walking towards the camera at an easy pace | art/review/ludo/walk_front/ | 9 |
+| 2026-10-23 06:03 | hydra | hydra | alan_back | walking away from the camera at an easy pace | art/review/ludo/walk_back/ | 9 |
+| 2026-10-23 06:03 | hydra | hydra | alan_lantern | walking to the right at an easy pace, holding the lantern | art/review/ludo/walk_lantern/ | 9 |
+| 2026-10-23 06:04 | forge | forge | alan_bn_reach -> alan_bn_x_raise -> alan_bn_fling |  | art/review/ludo/bn_fling/ | 4.5 |
+| 2026-10-23 06:08 | improve | hydra | alan_front | improve | art/review/ludo/walk_front/ | 3 |
+| 2026-10-23 06:08 | improve | hydra | alan_back | improve | art/review/ludo/walk_back/ | 3 |
+| 2026-10-23 06:09 | improve | hydra | alan_lantern | improve | art/review/ludo/walk_lantern/ | 3 |
+| 2026-10-23 06:11 | forge | forge | alan_bn_sit -> alan_bn_x_swing -> alan_bn_climb |  | art/review/ludo/bn_swing/ | 4.5 |
+| 2026-10-23 06:12 | forge | forge | alan_bn_climb -> alan_bn_x_climb_down -> alan_bn_stepdown |  | art/review/ludo/bn_climb/ | 4.5 |
+| 2026-10-23 06:15 | improve | hydra | alan_bn_y_jeans_up -> alan_bn_zip -> alan_bn_y_button | improve | art/review/ludo/bn_zip/ | 3 |
+| 2026-10-23 06:16 | improve | hydra | alan_bn_y_button -> alan_bn_belt -> alan_bn_y_tee_ready | improve | art/review/ludo/bn_belt2/ | 3 |
+| 2026-10-23 06:19 | forge | forge | alan_bn_x_shorts_knees -> alan_bn_pants_up -> alan_bn_x_jeans_ready |  | art/review/ludo/bn_pants_up/ | 4.5 |
+| 2026-10-23 06:24 | hydra | hydra | alan_bn_y_tee_ready -> alan_bn_tee -> alan_bn_y_tee_down |  | art/review/ludo/bn_tee2/ | 9 |
+| 2026-10-23 06:24 | hydra | hydra | alan_bn_y_tee_down -> alan_bn_jacket_off -> alan_bn_y_jacket_on |  | art/review/ludo/bn_jacket2/ | 9 |
+| 2026-10-23 06:26 | hydra | hydra | alan_bn_y_jacket_on -> alan_bn_dressed |  | art/review/ludo/bn_dressed/ | 9 |
+| 2026-10-23 06:27 | hydra | hydra | alan_side -> alan_walk7_s1 |  | art/review/ludo/walk_start/ | 9 |
+| 2026-10-23 06:27 | improve | hydra | alan_bn_y_tee_ready -> alan_bn_tee -> alan_bn_y_tee_down | improve | art/review/ludo/bn_tee2/ | 3 |
+| 2026-10-23 06:28 | hydra | hydra | alan_walk7_s4 -> alan_side |  | art/review/ludo/walk_stop/ | 9 |
+| 2026-10-23 06:29 | improve | hydra | alan_bn_y_tee_down -> alan_bn_jacket_off -> alan_bn_y_jacket_on | improve | art/review/ludo/bn_jacket2/ | 3 |
+| 2026-10-23 06:30 | improve | hydra | alan_bn_y_jacket_on -> alan_bn_dressed | improve | art/review/ludo/bn_dressed/ | 3 |
+| 2026-10-23 06:30 | improve | hydra | alan_side -> alan_walk7_s1 | improve | art/review/ludo/walk_start/ | 3 |
+| 2026-10-23 06:31 | forge | forge | pair_cop_shelf2 -> pair_cop_belt -> pair_cop_belt2 |  | art/review/ludo/cop_c/ | 4.5 |
+| 2026-10-23 06:33 | improve | hydra | alan_walk7_s4 -> alan_side | improve | art/review/ludo/walk_stop/ | 3 |
+| 2026-10-23 06:37 | hydra | hydra | file:cop_chest_apart -> pair_cop_chest |  | art/review/ludo/cop_in_chest/ | 9 |
+| 2026-10-23 06:40 | forge | forge | pair_cop_belt2 -> pair_cop_trousers -> pair_cop_cuffs |  | art/review/ludo/cop_d/ | 4.5 |
+| 2026-10-23 06:42 | improve | hydra | file:cop_chest_apart -> pair_cop_chest | improve | art/review/ludo/cop_in_chest/ | 3 |
+| 2026-10-23 06:43 | hydra | hydra | file:cop_arm_apart -> pair_cop_arm |  | art/review/ludo/cop_in_arm/ | 9 |
+| 2026-10-23 06:45 | improve | hydra | file:cop_arm_apart -> pair_cop_arm | improve | art/review/ludo/cop_in_arm/ | 3 |
