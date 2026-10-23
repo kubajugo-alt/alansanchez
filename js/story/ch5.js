@@ -509,11 +509,13 @@
   const RACE_GAP = 25; // seconds he gives Alan between notes before he gains a stage on his own
   let raceAt = 0;
   // he doesn't walk: he rides a swell of the water along the walkway, robe flying, and the room shakes
+  const FINALE_FRAMES = ['robe_walk1', 'robe_pass1', 'robe_command', 'robe_grab', 'robe_surge', 'robe_terror', 'ines_block', 'ines_float'].map(k => 'spr:' + k);
   S.surgeTo = async function (lac, x, y) {
+    await G.ensure(FINALE_FRAMES);
     lac.def.fixedDir = false; lac.dir = x < lac.x ? 'w' : 'e';
     lac.pose = window.SPRITES.robe_surge ? 'surge' : 'command';
     const L = S.living('surge', { actor: lac }); S.quake(1.4); sfx('water_rise', 0.9, 0.8);
-    const x0 = lac.x, y0 = lac.y, dur = window.FAST ? 40 : Math.max(900, Math.hypot(x - x0, y - y0) * 3);
+    const x0 = lac.x, y0 = lac.y, dur = window.FAST ? 40 : Math.max(1300, Math.hypot(x - x0, y - y0) * 4.2);
     const t0 = performance.now();
     await new Promise(res => { const step = () => { const k = Math.min(1, (performance.now() - t0) / dur), e = k < 0.5 ? 2 * k * k : 1 - (-2 * k + 2) ** 2 / 2; lac.x = x0 + (x - x0) * e; lac.y = y0 + (y - y0) * e; if (k < 1) requestAnimationFrame(step); else res(); }; step(); });
     L.stop = performance.now() / 1000; lac.pose = 'command';
@@ -636,6 +638,7 @@
 
   S.silence = async function () {
     G.cutscene = true;
+    await G.ensure(FINALE_FRAMES);
     const lac = G.npc('lacerda'), ines = G.npc('ines'), p = G.player;
     // he has reached the platform; the fourth note's ring is drawn back into the bronze
     if (Math.hypot(lac.x - CAUSEWAY_END[0], lac.y - CAUSEWAY_END[1]) > 8) await S.surgeTo(lac, CAUSEWAY_END[0], CAUSEWAY_END[1]);
