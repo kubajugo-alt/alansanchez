@@ -1,0 +1,104 @@
+{
+ "period": 25,
+ "picks": [
+  0,
+  2,
+  5,
+  8,
+  10,
+  12,
+  15,
+  18,
+  20,
+  22
+ ],
+ "fit": {
+  "iou": 0.8166682344088044,
+  "s": 2.073231622746186,
+  "ox": 256.0,
+  "oy": 16.0
+ },
+ "fit_at": 0,
+ "frames": [
+  {
+   "id": "alan_lu_walk_side_01",
+   "frame": 0,
+   "drift": 0.8,
+   "head": 0.871,
+   "height": 0.005,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_side_02",
+   "frame": 2,
+   "drift": 3.3,
+   "head": 0.89,
+   "height": 0.016,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_side_03",
+   "frame": 5,
+   "drift": 3.1,
+   "head": 0.891,
+   "height": 0.021,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_side_04",
+   "frame": 8,
+   "drift": 2.8,
+   "head": 0.89,
+   "height": 0.023,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_side_05",
+   "frame": 10,
+   "drift": 1.7,
+   "head": 0.871,
+   "height": 0.015,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_side_06",
+   "frame": 12,
+   "drift": 1.2,
+   "head": 0.929,
+   "height": 0.011,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_side_07",
+   "frame": 15,
+   "drift": 2.7,
+   "head": 0.832,
+   "height": 0.013,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_side_08",
+   "frame": 18,
+   "drift": 2.9,
+   "head": 0.774,
+   "height": 0.025,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_side_09",
+   "frame": 20,
+   "drift": 2.9,
+   "head": 0.805,
+   "height": 0.032,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_side_10",
+   "frame": 22,
+   "drift": 2.2,
+   "head": 0.812,
+   "height": 0.029,
+   "flags": []
+  }
+ ]
+}

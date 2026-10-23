@@ -1,0 +1,214 @@
+{
+ "keys": [
+  "alan_bn_y_button",
+  "alan_bn_belt",
+  "alan_bn_y_tee_ready"
+ ],
+ "at": [
+  0,
+  3,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9639817929942608,
+   "s": 1.9555555555555555,
+   "ox": 204.0,
+   "oy": 68.0
+  },
+  {
+   "iou": 0.6913120854230707,
+   "s": 1.9833333333333334,
+   "ox": 184.0,
+   "oy": 56.0
+  },
+  {
+   "iou": 0.7351479289940829,
+   "s": 1.9975555555555558,
+   "ox": 212.0,
+   "oy": 44.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 14.35,
+   "wire": "alan_bn_y_button>alan_bn_belt",
+   "from": 0,
+   "to": 3,
+   "used": [
+    0,
+    3
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_belt2_a01",
+     "frame": 1,
+     "t": 0.428,
+     "drift": 13.1,
+     "head": 0.76,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 456.0,
+      "hh": 1418.0,
+      "h": 1407.0,
+      "ax": 277.5,
+      "fy": 1410.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_belt2_a02",
+     "frame": 2,
+     "t": 0.778,
+     "drift": 13.6,
+     "head": 0.761,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 462.0,
+      "hh": 1418.0,
+      "h": 1406.0,
+      "ax": 275.3,
+      "fy": 1409.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  },
+  {
+   "motion": 73.51,
+   "wire": "alan_bn_belt>alan_bn_y_tee_ready",
+   "from": 3,
+   "to": 35,
+   "used": [
+    3,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_belt2_b01",
+     "frame": 12,
+     "t": 0.13,
+     "drift": 9.1,
+     "head": 0.5,
+     "height": 0.003,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 454.0,
+      "hh": 1412.0,
+      "h": 1400.0,
+      "ax": 276.4,
+      "fy": 1404.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_belt2_b02",
+     "frame": 22,
+     "t": 0.251,
+     "drift": 7.6,
+     "head": 0.389,
+     "height": 0.002,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 518.0,
+      "hh": 1413.0,
+      "h": 1402.0,
+      "ax": 317.2,
+      "fy": 1405.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_belt2_b03",
+     "frame": 29,
+     "t": 0.384,
+     "drift": 9.1,
+     "head": 0.553,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 524.0,
+      "hh": 1418.0,
+      "h": 1407.0,
+      "ax": 316.1,
+      "fy": 1410.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_belt2_b04",
+     "frame": 32,
+     "t": 0.599,
+     "drift": 14.8,
+     "head": 0.448,
+     "height": 0.003,
+     "flags": [
+      "drift",
+      "head"
+     ],
+     "meta": {
+      "w": 603.0,
+      "hh": 1424.0,
+      "h": 1412.0,
+      "ax": 350.7,
+      "fy": 1416.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_belt2_b05",
+     "frame": 33,
+     "t": 0.654,
+     "drift": 15.7,
+     "head": 0.438,
+     "height": 0.002,
+     "flags": [
+      "drift",
+      "head"
+     ],
+     "meta": {
+      "w": 618.0,
+      "hh": 1424.0,
+      "h": 1413.0,
+      "ax": 358.7,
+      "fy": 1416.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_belt2_b06",
+     "frame": 34,
+     "t": 0.787,
+     "drift": 12.1,
+     "head": 0.541,
+     "height": 0.002,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 668.0,
+      "hh": 1427.0,
+      "h": 1416.0,
+      "ax": 389.5,
+      "fy": 1419.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

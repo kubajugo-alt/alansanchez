@@ -1,0 +1,218 @@
+{
+ "keys": [
+  "alan_lantern",
+  "alan_reach"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9698121173738653,
+   "s": 2.0501492537313433,
+   "ox": 104.0,
+   "oy": 8.0
+  },
+  {
+   "iou": 0.9733383717512701,
+   "s": 2.1159830268741158,
+   "ox": 64.0,
+   "oy": 16.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 155.25,
+   "wire": "alan_lantern>alan_reach",
+   "from": 0,
+   "to": 35,
+   "used": [
+    1,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_lantern_reach_a01",
+     "frame": 7,
+     "t": 0.092,
+     "drift": 1.5,
+     "head": 0.904,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 609.0,
+      "hh": 1510.0,
+      "h": 1498.0,
+      "ax": 289.1,
+      "fy": 1502.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_reach_a02",
+     "frame": 11,
+     "t": 0.194,
+     "drift": 0.7,
+     "head": 0.854,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 668.0,
+      "hh": 1510.0,
+      "h": 1497.9,
+      "ax": 298.8,
+      "fy": 1503.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_reach_a03",
+     "frame": 14,
+     "t": 0.283,
+     "drift": 1.3,
+     "head": 0.795,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 675.0,
+      "hh": 1509.0,
+      "h": 1495.9,
+      "ax": 260.3,
+      "fy": 1501.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_reach_a04",
+     "frame": 17,
+     "t": 0.383,
+     "drift": 1.2,
+     "head": 0.782,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 646.0,
+      "hh": 1511.0,
+      "h": 1497.9,
+      "ax": 183.2,
+      "fy": 1503.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_reach_a05",
+     "frame": 20,
+     "t": 0.491,
+     "drift": 0.9,
+     "head": 0.756,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 657.0,
+      "hh": 1512.0,
+      "h": 1499.9,
+      "ax": 173.9,
+      "fy": 1505.7,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_reach_a06",
+     "frame": 22,
+     "t": 0.581,
+     "drift": 1.3,
+     "head": 0.753,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 686.0,
+      "hh": 1514.0,
+      "h": 1498.9,
+      "ax": 168.3,
+      "fy": 1507.8,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_reach_a07",
+     "frame": 24,
+     "t": 0.65,
+     "drift": 1.0,
+     "head": 0.76,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 713.0,
+      "hh": 1511.0,
+      "h": 1495.9,
+      "ax": 166.6,
+      "fy": 1503.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_reach_a08",
+     "frame": 26,
+     "t": 0.736,
+     "drift": 0.9,
+     "head": 0.776,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 761.0,
+      "hh": 1491.0,
+      "h": 1478.9,
+      "ax": 209.8,
+      "fy": 1485.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_reach_a09",
+     "frame": 28,
+     "t": 0.829,
+     "drift": 0.6,
+     "head": 0.787,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 788.0,
+      "hh": 1497.0,
+      "h": 1484.9,
+      "ax": 210.6,
+      "fy": 1491.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_lantern_reach_a10",
+     "frame": 31,
+     "t": 0.929,
+     "drift": 0.4,
+     "head": 0.83,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 794.0,
+      "hh": 1505.0,
+      "h": 1491.9,
+      "ax": 209.0,
+      "fy": 1498.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

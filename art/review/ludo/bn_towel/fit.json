@@ -1,0 +1,281 @@
+{
+ "keys": [
+  "alan_bn_x_tuck",
+  "alan_bn_towel",
+  "alan_bn_x_pick_up"
+ ],
+ "at": [
+  0,
+  5,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.8966307224394675,
+   "s": 2.1378333333333335,
+   "ox": 168.0,
+   "oy": 48.0
+  },
+  {
+   "iou": 0.778506679389313,
+   "s": 2.121,
+   "ox": 192.0,
+   "oy": 60.0
+  },
+  {
+   "iou": 0.6795313318859025,
+   "s": 1.8782876712328767,
+   "ox": 104.0,
+   "oy": 476.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 17.04,
+   "wire": "alan_bn_x_tuck>alan_bn_towel",
+   "from": 0,
+   "to": 5,
+   "used": [
+    0,
+    5
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_towel_a01",
+     "frame": 1,
+     "t": 0.563,
+     "drift": 16.6,
+     "head": 0.751,
+     "height": 0.005,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 521.0,
+      "hh": 1533.0,
+      "h": 1517.0,
+      "ax": 328.1,
+      "fy": 1520.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_towel_a02",
+     "frame": 2,
+     "t": 0.756,
+     "drift": 15.8,
+     "head": 0.859,
+     "height": 0.003,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 522.0,
+      "hh": 1529.0,
+      "h": 1517.0,
+      "ax": 333.7,
+      "fy": 1520.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_towel_a03",
+     "frame": 3,
+     "t": 0.85,
+     "drift": 15.5,
+     "head": 0.874,
+     "height": 0.002,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 522.0,
+      "hh": 1529.0,
+      "h": 1518.0,
+      "ax": 336.8,
+      "fy": 1520.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  },
+  {
+   "motion": 94.81,
+   "wire": "alan_bn_towel>alan_bn_x_pick_up",
+   "from": 5,
+   "to": 35,
+   "used": [
+    20,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_towel_b01",
+     "frame": 23,
+     "t": 0.121,
+     "drift": 16.1,
+     "head": 0.669,
+     "height": 0.027,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 529.0,
+      "hh": 1521.0,
+      "h": 1506.0,
+      "ax": 367.2,
+      "fy": 1526.9,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_towel_b02",
+     "frame": 25,
+     "t": 0.206,
+     "drift": 15.8,
+     "head": 0.532,
+     "height": 0.044,
+     "flags": [
+      "drift",
+      "head"
+     ],
+     "meta": {
+      "w": 496.0,
+      "hh": 1507.0,
+      "h": 1491.2,
+      "ax": 354.3,
+      "fy": 1511.6,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_towel_b03",
+     "frame": 27,
+     "t": 0.324,
+     "drift": 14.3,
+     "head": 0.581,
+     "height": 0.054,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 486.0,
+      "hh": 1467.0,
+      "h": 1470.4,
+      "ax": 334.3,
+      "fy": 1470.7,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_towel_b04",
+     "frame": 29,
+     "t": 0.457,
+     "drift": 13.6,
+     "head": 0.409,
+     "height": 0.048,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 481.0,
+      "hh": 1400.0,
+      "h": 1447.2,
+      "ax": 303.1,
+      "fy": 1401.7,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_towel_b05",
+     "frame": 30,
+     "t": 0.525,
+     "drift": 13.5,
+     "head": 0.32,
+     "height": 0.04,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 477.0,
+      "hh": 1359.0,
+      "h": 1435.4,
+      "ax": 284.8,
+      "fy": 1359.6,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_towel_b06",
+     "frame": 32,
+     "t": 0.635,
+     "drift": 13.9,
+     "head": 0.39,
+     "height": 0.023,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 463.0,
+      "hh": 1287.0,
+      "h": 1416.1,
+      "ax": 256.0,
+      "fy": 1285.9,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_towel_b07",
+     "frame": 33,
+     "t": 0.702,
+     "drift": 14.2,
+     "head": 0.466,
+     "height": 0.009,
+     "flags": [
+      "drift",
+      "head"
+     ],
+     "meta": {
+      "w": 457.0,
+      "hh": 1239.0,
+      "h": 1404.5,
+      "ax": 239.9,
+      "fy": 1236.9,
+      "top": 4.0
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "alan_lu_bn_towel_b08",
+     "frame": 34,
+     "t": 0.76,
+     "drift": 14.4,
+     "head": 0.31,
+     "height": 0.004,
+     "flags": [
+      "drift",
+      "head"
+     ],
+     "meta": {
+      "w": 453.0,
+      "hh": 1196.0,
+      "h": 1394.2,
+      "ax": 227.0,
+      "fy": 1193.0,
+      "top": 4.0
+     },
+     "placed": "spread"
+    }
+   ]
+  }
+ ]
+}

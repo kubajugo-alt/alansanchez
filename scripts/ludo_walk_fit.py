@@ -80,17 +80,20 @@ def main():
         ids.append(cid); metas.append(meta); ims.append(crop)
     wire = {'walkCycle': {'slot': a.slot, 'ids': ids}}
     if a.slot == 'walk':
-        # the planted boot: the lower one; where it changes from one frame to the next, that frame is a contact
+        # the contacts: the two frames, one in each half of the cycle, where his boots are furthest apart (heel down in
+        # front, toe behind). From each, the front boot carries him back to the next contact, evenly per frame: reading
+        # the lower boot frame by frame mistakes one boot for the other where his legs pass
         ft = [boots(im, m) for im, m in zip(ims, metas)]
-        low = [min(f, key=lambda b: b[1]) if f else None for f in ft]
+        sep = [(f[0][0] - f[-1][0]) if len(f) >= 2 else 0 for f in ft]
+        h2 = n // 2
+        c1 = max(range(h2), key=lambda k: sep[k]); c2 = max(range(h2, n), key=lambda k: sep[k])
         plant = {}
-        for k, cid in enumerate(ids):
-            cur, prev = low[k], low[k - 1]
-            if cur is None: continue
-            if prev is not None and cur[0] - prev[0] > 0.08:  # the planted boot jumped forward: the other foot just landed
-                trail = min(ft[k], key=lambda b: abs(b[0] - prev[0] + 0.03))
-                plant[cid] = [round(cur[0], 3), round(trail[0], 3)]
-            else: plant[cid] = [round(cur[0], 3)]
+        for c, nxt in ((c1, c2), (c2, c1 + n)):
+            front, back = ft[c][0][0], ft[c][-1][0]
+            span = nxt - c; travel = front - back       # one step: the front boot ends where the back one started
+            for q in range(span):
+                cid = ids[(c + q) % n]
+                plant[cid] = [round(front, 3), round(back, 3)] if q == 0 else [round(front - travel * q / span, 3)]
         if len(plant) == len(ids): wire['walkCycle']['plant'] = plant
         print('plant', plant)
     else:

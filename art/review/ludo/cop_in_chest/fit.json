@@ -1,0 +1,227 @@
+{
+ "keys": [
+  "file:cop_chest_apart",
+  "pair_cop_chest"
+ ],
+ "at": [
+  0,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9647568860485106,
+   "s": 1.6387605633802818,
+   "ox": -224.0,
+   "oy": 200.0
+  },
+  {
+   "iou": 0.9540205689541108,
+   "s": 1.7899444444444443,
+   "ox": 108.0,
+   "oy": 92.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 86.98,
+   "wire": "file:cop_chest_apart>pair_cop_chest",
+   "from": 0,
+   "to": 35,
+   "used": [
+    4,
+    33
+   ],
+   "frames": [
+    {
+     "id": "pair_lu_cop_in_chest_a01",
+     "frame": 9,
+     "t": 0.125,
+     "drift": 0.8,
+     "head": 0.936,
+     "height": 0.006,
+     "flags": [],
+     "meta": {
+      "w": 623.0,
+      "hh": 1180.0,
+      "h": 1155.4,
+      "ax": 482.4,
+      "fy": 1180.2,
+      "top": 4.0,
+      "px": 179.9,
+      "pfy": 1158.6,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_chest_a02",
+     "frame": 11,
+     "t": 0.219,
+     "drift": 1.3,
+     "head": 0.947,
+     "height": 0.01,
+     "flags": [],
+     "meta": {
+      "w": 639.0,
+      "hh": 1187.0,
+      "h": 1165.3,
+      "ax": 497.1,
+      "fy": 1186.3,
+      "top": 4.0,
+      "px": 192.0,
+      "pfy": 1164.5,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_chest_a03",
+     "frame": 13,
+     "t": 0.311,
+     "drift": 1.7,
+     "head": 0.955,
+     "height": 0.012,
+     "flags": [],
+     "meta": {
+      "w": 653.0,
+      "hh": 1196.0,
+      "h": 1175.0,
+      "ax": 510.7,
+      "fy": 1195.4,
+      "top": 4.0,
+      "px": 203.0,
+      "pfy": 1173.5,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_chest_a04",
+     "frame": 15,
+     "t": 0.405,
+     "drift": 1.3,
+     "head": 0.954,
+     "height": 0.01,
+     "flags": [],
+     "meta": {
+      "w": 667.0,
+      "hh": 1210.0,
+      "h": 1184.9,
+      "ax": 519.4,
+      "fy": 1208.5,
+      "top": 4.0,
+      "px": 209.1,
+      "pfy": 1186.4,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_chest_a05",
+     "frame": 17,
+     "t": 0.518,
+     "drift": 1.1,
+     "head": 0.944,
+     "height": 0.009,
+     "flags": [],
+     "meta": {
+      "w": 677.0,
+      "hh": 1225.0,
+      "h": 1196.8,
+      "ax": 521.0,
+      "fy": 1223.6,
+      "top": 4.0,
+      "px": 207.6,
+      "pfy": 1201.3,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_chest_a06",
+     "frame": 19,
+     "t": 0.616,
+     "drift": 1.2,
+     "head": 0.953,
+     "height": 0.01,
+     "flags": [],
+     "meta": {
+      "w": 676.0,
+      "hh": 1236.0,
+      "h": 1207.1,
+      "ax": 512.8,
+      "fy": 1234.8,
+      "top": 4.0,
+      "px": 196.8,
+      "pfy": 1212.2,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_chest_a07",
+     "frame": 21,
+     "t": 0.712,
+     "drift": 1.0,
+     "head": 0.954,
+     "height": 0.012,
+     "flags": [],
+     "meta": {
+      "w": 680.0,
+      "hh": 1245.0,
+      "h": 1217.2,
+      "ax": 506.6,
+      "fy": 1243.9,
+      "top": 4.0,
+      "px": 187.9,
+      "pfy": 1221.2,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_chest_a08",
+     "frame": 24,
+     "t": 0.805,
+     "drift": 0.7,
+     "head": 0.953,
+     "height": 0.008,
+     "flags": [],
+     "meta": {
+      "w": 687.0,
+      "hh": 1262.0,
+      "h": 1227.0,
+      "ax": 513.2,
+      "fy": 1260.0,
+      "top": 4.0,
+      "px": 192.0,
+      "pfy": 1237.1,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_in_chest_a09",
+     "frame": 28,
+     "t": 0.927,
+     "drift": 0.3,
+     "head": 0.936,
+     "height": 0.008,
+     "flags": [],
+     "meta": {
+      "w": 698.0,
+      "hh": 1277.0,
+      "h": 1239.9,
+      "ax": 537.3,
+      "fy": 1277.1,
+      "top": 4.0,
+      "px": 212.7,
+      "pfy": 1254.0,
+      "rigid": true
+     },
+     "placed": "spread"
+    }
+   ]
+  }
+ ]
+}

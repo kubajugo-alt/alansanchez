@@ -1,0 +1,86 @@
+{
+ "period": 20,
+ "picks": [
+  0,
+  2,
+  5,
+  8,
+  10,
+  12,
+  15,
+  18
+ ],
+ "fit": {
+  "iou": 0.9702052825594373,
+  "s": 2.0754716981132075,
+  "ox": 152.0,
+  "oy": 16.0
+ },
+ "fit_at": 0,
+ "frames": [
+  {
+   "id": "alan_lu_walk_front_01",
+   "frame": 0,
+   "drift": 0.6,
+   "head": 0.981,
+   "height": 0.003,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_front_02",
+   "frame": 2,
+   "drift": 0.6,
+   "head": 0.971,
+   "height": 0.008,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_front_03",
+   "frame": 5,
+   "drift": 0.7,
+   "head": 0.865,
+   "height": 0.019,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_front_04",
+   "frame": 8,
+   "drift": 1.8,
+   "head": 0.821,
+   "height": 0.021,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_front_05",
+   "frame": 10,
+   "drift": 1.5,
+   "head": 0.822,
+   "height": 0.011,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_front_06",
+   "frame": 12,
+   "drift": 0.8,
+   "head": 0.854,
+   "height": 0.001,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_front_07",
+   "frame": 15,
+   "drift": 0.6,
+   "head": 0.913,
+   "height": 0.009,
+   "flags": []
+  },
+  {
+   "id": "alan_lu_walk_front_08",
+   "frame": 18,
+   "drift": 0.5,
+   "head": 0.917,
+   "height": 0.021,
+   "flags": []
+  }
+ ]
+}

@@ -1,0 +1,263 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_jacket",
+  "alan_undress4"
+ ],
+ "at": [
+  0,
+  32,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9670522619293535,
+   "s": 2.041608876560333,
+   "ox": 224.0,
+   "oy": 64.0
+  },
+  {
+   "iou": 0.6296668154097873,
+   "s": 2.1137552742616035,
+   "ox": 128.0,
+   "oy": 44.0
+  },
+  {
+   "iou": 0.6913304317139161,
+   "s": 2.1466096866096867,
+   "ox": 52.0,
+   "oy": 36.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 131.71,
+   "wire": "alan_side>alan_jacket",
+   "from": 0,
+   "to": 32,
+   "used": [
+    0,
+    32
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_jacket_a01",
+     "frame": 5,
+     "t": 0.094,
+     "drift": 5.3,
+     "head": 0.834,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 423.0,
+      "hh": 1482.0,
+      "h": 1469.0,
+      "ax": 224.9,
+      "fy": 1474.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_jacket_a02",
+     "frame": 9,
+     "t": 0.182,
+     "drift": 9.2,
+     "head": 0.722,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 492.0,
+      "hh": 1484.0,
+      "h": 1471.0,
+      "ax": 246.9,
+      "fy": 1477.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_jacket_a03",
+     "frame": 12,
+     "t": 0.295,
+     "drift": 7.2,
+     "head": 0.681,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 524.0,
+      "hh": 1488.0,
+      "h": 1473.9,
+      "ax": 328.9,
+      "fy": 1480.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_jacket_a04",
+     "frame": 15,
+     "t": 0.366,
+     "drift": 8.7,
+     "head": 0.656,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 506.0,
+      "hh": 1488.0,
+      "h": 1473.9,
+      "ax": 303.0,
+      "fy": 1480.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_jacket_a05",
+     "frame": 18,
+     "t": 0.466,
+     "drift": 9.2,
+     "head": 0.659,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 467.0,
+      "hh": 1484.0,
+      "h": 1468.9,
+      "ax": 200.3,
+      "fy": 1476.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_jacket_a06",
+     "frame": 20,
+     "t": 0.56,
+     "drift": 9.0,
+     "head": 0.656,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 481.0,
+      "hh": 1481.0,
+      "h": 1466.9,
+      "ax": 203.9,
+      "fy": 1473.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_jacket_a07",
+     "frame": 22,
+     "t": 0.647,
+     "drift": 10.6,
+     "head": 0.703,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 391.0,
+      "hh": 1482.0,
+      "h": 1466.9,
+      "ax": 156.0,
+      "fy": 1474.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_jacket_a08",
+     "frame": 25,
+     "t": 0.743,
+     "drift": 13.1,
+     "head": 0.641,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 442.0,
+      "hh": 1484.0,
+      "h": 1468.9,
+      "ax": 126.1,
+      "fy": 1475.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_jacket_a09",
+     "frame": 28,
+     "t": 0.844,
+     "drift": 15.2,
+     "head": 0.561,
+     "height": 0.002,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 536.0,
+      "hh": 1498.0,
+      "h": 1484.9,
+      "ax": 164.6,
+      "fy": 1491.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_jacket_a10",
+     "frame": 30,
+     "t": 0.929,
+     "drift": 16.9,
+     "head": 0.537,
+     "height": 0.002,
+     "flags": [
+      "drift",
+      "head"
+     ],
+     "meta": {
+      "w": 437.0,
+      "hh": 1501.0,
+      "h": 1487.9,
+      "ax": 164.6,
+      "fy": 1494.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  },
+  {
+   "motion": 45.09,
+   "wire": "alan_jacket>alan_undress4",
+   "from": 32,
+   "to": 35,
+   "used": [
+    32,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_jacket_b01",
+     "frame": 34,
+     "t": 0.27,
+     "drift": 16.0,
+     "head": 0.85,
+     "height": 0.003,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 502.0,
+      "hh": 1504.0,
+      "h": 1489.9,
+      "ax": 292.3,
+      "fy": 1499.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

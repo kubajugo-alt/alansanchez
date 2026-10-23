@@ -1,0 +1,478 @@
+{
+ "keys": [
+  "pair_cop_belt2",
+  "pair_cop_trousers",
+  "pair_cop_cuffs"
+ ],
+ "at": [
+  0,
+  12,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9926406295540658,
+   "s": 1.5333333333333334,
+   "ox": 24.0,
+   "oy": 20.0
+  },
+  {
+   "iou": 0.900845808680459,
+   "s": 1.5353120665742026,
+   "ox": 76.0,
+   "oy": 24.0
+  },
+  {
+   "iou": 0.9095861829141069,
+   "s": 1.5465187239944522,
+   "ox": 16.0,
+   "oy": 12.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 157.61,
+   "wire": "pair_cop_belt2>pair_cop_trousers",
+   "from": 0,
+   "to": 12,
+   "used": [
+    0,
+    12
+   ],
+   "frames": [
+    {
+     "id": "pair_lu_cop_d_a01",
+     "frame": 1,
+     "t": 0.101,
+     "drift": 0.6,
+     "head": 0.927,
+     "height": 0.008,
+     "flags": [],
+     "meta": {
+      "w": 751.0,
+      "hh": 1104.0,
+      "h": 1082.1,
+      "ax": 597.6,
+      "fy": 1100.7,
+      "top": 4.0,
+      "px": 223.4,
+      "pfy": 1095.0,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_a02",
+     "frame": 2,
+     "t": 0.229,
+     "drift": 2.9,
+     "head": 0.871,
+     "height": 0.016,
+     "flags": [],
+     "meta": {
+      "w": 816.0,
+      "hh": 1131.0,
+      "h": 1085.4,
+      "ax": 604.6,
+      "fy": 1126.8,
+      "top": 4.0,
+      "px": 236.6,
+      "pfy": 1123.7,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_a03",
+     "frame": 3,
+     "t": 0.278,
+     "drift": 2.8,
+     "head": 0.854,
+     "height": 0.018,
+     "flags": [],
+     "meta": {
+      "w": 816.0,
+      "hh": 1133.0,
+      "h": 1086.7,
+      "ax": 600.8,
+      "fy": 1127.5,
+      "top": 4.0,
+      "px": 235.2,
+      "pfy": 1125.3,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_a04",
+     "frame": 4,
+     "t": 0.374,
+     "drift": 3.1,
+     "head": 0.891,
+     "height": 0.011,
+     "flags": [],
+     "meta": {
+      "w": 816.0,
+      "hh": 1126.0,
+      "h": 1089.2,
+      "ax": 593.3,
+      "fy": 1118.8,
+      "top": 4.0,
+      "px": 232.3,
+      "pfy": 1118.6,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_a05",
+     "frame": 5,
+     "t": 0.492,
+     "drift": 0.3,
+     "head": 0.893,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 816.0,
+      "hh": 1111.0,
+      "h": 1092.2,
+      "ax": 584.0,
+      "fy": 1105.0,
+      "top": 4.0,
+      "px": 228.8,
+      "pfy": 1107.1,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_a06",
+     "frame": 6,
+     "t": 0.608,
+     "drift": 2.0,
+     "head": 0.914,
+     "height": 0.011,
+     "flags": [],
+     "meta": {
+      "w": 795.0,
+      "hh": 1102.0,
+      "h": 1095.3,
+      "ax": 566.9,
+      "fy": 1101.2,
+      "top": 4.0,
+      "px": 217.4,
+      "pfy": 1105.7,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_a07",
+     "frame": 7,
+     "t": 0.662,
+     "drift": 2.3,
+     "head": 0.9,
+     "height": 0.005,
+     "flags": [],
+     "meta": {
+      "w": 748.0,
+      "hh": 1108.0,
+      "h": 1096.7,
+      "ax": 518.6,
+      "fy": 1104.8,
+      "top": 4.0,
+      "px": 171.8,
+      "pfy": 1110.4,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_a08",
+     "frame": 8,
+     "t": 0.741,
+     "drift": 2.6,
+     "head": 0.904,
+     "height": 0.004,
+     "flags": [],
+     "meta": {
+      "w": 728.0,
+      "hh": 1119.0,
+      "h": 1098.7,
+      "ax": 499.5,
+      "fy": 1110.3,
+      "top": 4.0,
+      "px": 156.4,
+      "pfy": 1117.4,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_a09",
+     "frame": 10,
+     "t": 0.885,
+     "drift": 1.7,
+     "head": 0.878,
+     "height": 0.013,
+     "flags": [],
+     "meta": {
+      "w": 700.0,
+      "hh": 1100.0,
+      "h": 1102.4,
+      "ax": 478.2,
+      "fy": 1096.3,
+      "top": 4.0,
+      "px": 142.1,
+      "pfy": 1106.3,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_a10",
+     "frame": 11,
+     "t": 0.937,
+     "drift": 1.6,
+     "head": 0.861,
+     "height": 0.021,
+     "flags": [],
+     "meta": {
+      "w": 704.0,
+      "hh": 1091.0,
+      "h": 1103.8,
+      "ax": 477.1,
+      "fy": 1084.9,
+      "top": 4.0,
+      "px": 143.6,
+      "pfy": 1096.0,
+      "rigid": true
+     },
+     "placed": "spread"
+    }
+   ]
+  },
+  {
+   "motion": 204.02,
+   "wire": "pair_cop_trousers>pair_cop_cuffs",
+   "from": 12,
+   "to": 35,
+   "used": [
+    12,
+    35
+   ],
+   "frames": [
+    {
+     "id": "pair_lu_cop_d_b01",
+     "frame": 15,
+     "t": 0.117,
+     "drift": 3.2,
+     "head": 0.856,
+     "height": 0.007,
+     "flags": [],
+     "meta": {
+      "w": 711.0,
+      "hh": 1108.0,
+      "h": 1106.4,
+      "ax": 476.6,
+      "fy": 1101.5,
+      "top": 4.0,
+      "px": 146.6,
+      "pfy": 1111.3,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_b02",
+     "frame": 17,
+     "t": 0.194,
+     "drift": 3.3,
+     "head": 0.787,
+     "height": 0.01,
+     "flags": [],
+     "meta": {
+      "w": 698.0,
+      "hh": 1106.0,
+      "h": 1107.0,
+      "ax": 475.6,
+      "fy": 1103.1,
+      "top": 4.0,
+      "px": 145.9,
+      "pfy": 1111.2,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_b03",
+     "frame": 19,
+     "t": 0.325,
+     "drift": 2.5,
+     "head": 0.871,
+     "height": 0.02,
+     "flags": [],
+     "meta": {
+      "w": 704.0,
+      "hh": 1095.0,
+      "h": 1108.1,
+      "ax": 475.6,
+      "fy": 1095.2,
+      "top": 4.0,
+      "px": 146.4,
+      "pfy": 1100.5,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_b04",
+     "frame": 20,
+     "t": 0.383,
+     "drift": 2.4,
+     "head": 0.885,
+     "height": 0.037,
+     "flags": [],
+     "meta": {
+      "w": 714.0,
+      "hh": 1077.0,
+      "h": 1108.5,
+      "ax": 481.8,
+      "fy": 1085.7,
+      "top": 4.0,
+      "px": 152.8,
+      "pfy": 1089.8,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_b05",
+     "frame": 22,
+     "t": 0.53,
+     "drift": 1.9,
+     "head": 0.879,
+     "height": 0.024,
+     "flags": [],
+     "meta": {
+      "w": 723.0,
+      "hh": 1093.0,
+      "h": 1109.7,
+      "ax": 476.4,
+      "fy": 1107.0,
+      "top": 4.0,
+      "px": 148.0,
+      "pfy": 1107.8,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_b06",
+     "frame": 23,
+     "t": 0.576,
+     "drift": 2.8,
+     "head": 0.878,
+     "height": 0.014,
+     "flags": [],
+     "meta": {
+      "w": 716.0,
+      "hh": 1104.0,
+      "h": 1110.1,
+      "ax": 472.2,
+      "fy": 1110.3,
+      "top": 4.0,
+      "px": 143.9,
+      "pfy": 1110.2,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_b07",
+     "frame": 25,
+     "t": 0.666,
+     "drift": 2.3,
+     "head": 0.901,
+     "height": 0.007,
+     "flags": [],
+     "meta": {
+      "w": 708.0,
+      "hh": 1128.0,
+      "h": 1110.8,
+      "ax": 471.7,
+      "fy": 1118.1,
+      "top": 4.0,
+      "px": 143.7,
+      "pfy": 1116.0,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_b08",
+     "frame": 26,
+     "t": 0.731,
+     "drift": 1.8,
+     "head": 0.876,
+     "height": 0.006,
+     "flags": [],
+     "meta": {
+      "w": 745.0,
+      "hh": 1128.0,
+      "h": 1111.3,
+      "ax": 505.2,
+      "fy": 1120.6,
+      "top": 4.0,
+      "px": 177.4,
+      "pfy": 1117.2,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_b09",
+     "frame": 28,
+     "t": 0.82,
+     "drift": 1.2,
+     "head": 0.879,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 762.0,
+      "hh": 1119.0,
+      "h": 1112.0,
+      "ax": 530.6,
+      "fy": 1117.4,
+      "top": 4.0,
+      "px": 203.1,
+      "pfy": 1112.0,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_d_b10",
+     "frame": 31,
+     "t": 0.923,
+     "drift": 0.7,
+     "head": 0.876,
+     "height": 0.008,
+     "flags": [],
+     "meta": {
+      "w": 762.0,
+      "hh": 1113.0,
+      "h": 1112.9,
+      "ax": 549.5,
+      "fy": 1112.3,
+      "top": 4.0,
+      "px": 222.5,
+      "pfy": 1104.6,
+      "rigid": true
+     },
+     "placed": "spread"
+    }
+   ]
+  }
+ ]
+}

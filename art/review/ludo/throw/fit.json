@@ -1,0 +1,364 @@
+{
+ "keys": [
+  "alan_side",
+  "alan_throw1",
+  "alan_throw2"
+ ],
+ "at": [
+  0,
+  19,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.9763538843070535,
+   "s": 1.9195561719833565,
+   "ox": 272.0,
+   "oy": 76.0
+  },
+  {
+   "iou": 0.7263326935881869,
+   "s": 1.848133704735376,
+   "ox": 32.0,
+   "oy": 128.0
+  },
+  {
+   "iou": 0.9567117879300621,
+   "s": 1.9460281690140846,
+   "ox": 168.0,
+   "oy": 76.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 105.82,
+   "wire": "alan_side>alan_throw1",
+   "from": 0,
+   "to": 19,
+   "used": [
+    2,
+    19
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_throw_a01",
+     "frame": 6,
+     "t": 0.109,
+     "drift": 1.1,
+     "head": 0.929,
+     "height": 0.004,
+     "flags": [],
+     "meta": {
+      "w": 352.0,
+      "hh": 1392.0,
+      "h": 1377.7,
+      "ax": 168.8,
+      "fy": 1383.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_a02",
+     "frame": 8,
+     "t": 0.23,
+     "drift": 0.9,
+     "head": 0.905,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 450.0,
+      "hh": 1383.0,
+      "h": 1371.4,
+      "ax": 210.3,
+      "fy": 1376.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_a03",
+     "frame": 9,
+     "t": 0.294,
+     "drift": 1.1,
+     "head": 0.869,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 473.0,
+      "hh": 1383.0,
+      "h": 1371.8,
+      "ax": 229.3,
+      "fy": 1376.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_a04",
+     "frame": 10,
+     "t": 0.364,
+     "drift": 1.5,
+     "head": 0.876,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 480.0,
+      "hh": 1385.0,
+      "h": 1374.2,
+      "ax": 243.3,
+      "fy": 1378.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_a05",
+     "frame": 11,
+     "t": 0.456,
+     "drift": 2.0,
+     "head": 0.856,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 481.0,
+      "hh": 1383.0,
+      "h": 1373.7,
+      "ax": 261.1,
+      "fy": 1377.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_a06",
+     "frame": 12,
+     "t": 0.554,
+     "drift": 2.4,
+     "head": 0.825,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 496.0,
+      "hh": 1379.0,
+      "h": 1370.3,
+      "ax": 289.5,
+      "fy": 1373.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_a07",
+     "frame": 13,
+     "t": 0.638,
+     "drift": 2.5,
+     "head": 0.765,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 594.0,
+      "hh": 1382.0,
+      "h": 1373.7,
+      "ax": 355.6,
+      "fy": 1375.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_a08",
+     "frame": 15,
+     "t": 0.751,
+     "drift": 2.3,
+     "head": 0.746,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 650.0,
+      "hh": 1382.0,
+      "h": 1374.4,
+      "ax": 473.2,
+      "fy": 1375.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_a09",
+     "frame": 17,
+     "t": 0.894,
+     "drift": 2.8,
+     "head": 0.692,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 691.0,
+      "hh": 1377.0,
+      "h": 1369.2,
+      "ax": 530.1,
+      "fy": 1370.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_a10",
+     "frame": 18,
+     "t": 0.956,
+     "drift": 2.9,
+     "head": 0.659,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 689.0,
+      "hh": 1377.0,
+      "h": 1369.6,
+      "ax": 535.8,
+      "fy": 1370.1,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  },
+  {
+   "motion": 65.41,
+   "wire": "alan_throw1>alan_throw2",
+   "from": 19,
+   "to": 35,
+   "used": [
+    19,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_throw_b01",
+     "frame": 23,
+     "t": 0.182,
+     "drift": 2.4,
+     "head": 0.723,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 676.0,
+      "hh": 1378.0,
+      "h": 1373.6,
+      "ax": 488.3,
+      "fy": 1371.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_b02",
+     "frame": 24,
+     "t": 0.252,
+     "drift": 2.4,
+     "head": 0.647,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 656.0,
+      "hh": 1376.0,
+      "h": 1374.7,
+      "ax": 469.9,
+      "fy": 1370.2,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_b03",
+     "frame": 26,
+     "t": 0.389,
+     "drift": 3.2,
+     "head": 0.629,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 582.0,
+      "hh": 1377.0,
+      "h": 1377.8,
+      "ax": 385.3,
+      "fy": 1371.3,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_b04",
+     "frame": 28,
+     "t": 0.518,
+     "drift": 3.0,
+     "head": 0.584,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 535.0,
+      "hh": 1377.0,
+      "h": 1378.8,
+      "ax": 330.0,
+      "fy": 1371.4,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_b05",
+     "frame": 30,
+     "t": 0.696,
+     "drift": 1.8,
+     "head": 0.666,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 534.0,
+      "hh": 1376.0,
+      "h": 1380.5,
+      "ax": 314.6,
+      "fy": 1370.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_b06",
+     "frame": 31,
+     "t": 0.75,
+     "drift": 1.9,
+     "head": 0.695,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 533.0,
+      "hh": 1376.0,
+      "h": 1381.3,
+      "ax": 309.8,
+      "fy": 1370.5,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_throw_b07",
+     "frame": 34,
+     "t": 0.933,
+     "drift": 1.6,
+     "head": 0.766,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 639.0,
+      "hh": 1379.0,
+      "h": 1385.2,
+      "ax": 308.5,
+      "fy": 1371.6,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

@@ -235,7 +235,8 @@
    "a": "alan_undress4",
    "b": "alan_dress2",
    "mid": "alan_dress1",
-   "what": "Dressing: trunks \u2192 jeans in hand \u2192 hopping in"
+   "what": "Dressing: trunks \u2192 jeans in hand \u2192 hopping in",
+   "note": "Made on forge (hydra's moderation refused it, so no improve pass): his jeans turn grey for several frames. Check before approving."
   },
   {
    "name": "dress_b",
@@ -265,7 +266,8 @@
    "frames": 36,
    "slot": "walk",
    "base": "alan_side",
-   "what": "His walk, side on (a full new cycle: replaces the walk only if you approve it)"
+   "what": "His walk, side on (a full new cycle: replaces the walk only if you approve it)",
+   "note": "A whole new side walk (10 frames, two strides). It replaces the walk you built only if you approve all of it; worth trying in the game first."
   },
   {
    "name": "walk_front",

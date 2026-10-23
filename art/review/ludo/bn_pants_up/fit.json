@@ -1,0 +1,260 @@
+{
+ "keys": [
+  "alan_bn_x_shorts_knees",
+  "alan_bn_pants_up",
+  "alan_bn_x_jeans_ready"
+ ],
+ "at": [
+  0,
+  3,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.8643618177864754,
+   "s": 2.0424444444444445,
+   "ox": 76.0,
+   "oy": 12.0
+  },
+  {
+   "iou": 0.7996040938381839,
+   "s": 2.0424444444444445,
+   "ox": 68.0,
+   "oy": 12.0
+  },
+  {
+   "iou": 0.8439101300748916,
+   "s": 2.022222222222222,
+   "ox": 76.0,
+   "oy": 16.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 14.58,
+   "wire": "alan_bn_x_shorts_knees>alan_bn_pants_up",
+   "from": 0,
+   "to": 3,
+   "used": [
+    0,
+    3
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_pants_up_a01",
+     "frame": 2,
+     "t": 0.375,
+     "drift": 15.9,
+     "head": 0.622,
+     "height": 0.003,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 433.0,
+      "hh": 1471.0,
+      "h": 1459.0,
+      "ax": 154.4,
+      "fy": 1463.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  },
+  {
+   "motion": 328.04,
+   "wire": "alan_bn_pants_up>alan_bn_x_jeans_ready",
+   "from": 3,
+   "to": 35,
+   "used": [
+    4,
+    35
+   ],
+   "frames": [
+    {
+     "id": "alan_lu_bn_pants_up_b01",
+     "frame": 7,
+     "t": 0.098,
+     "drift": 15.5,
+     "head": 0.917,
+     "height": 0.002,
+     "flags": [
+      "drift"
+     ],
+     "meta": {
+      "w": 502.0,
+      "hh": 1467.0,
+      "h": 1456.0,
+      "ax": 156.8,
+      "fy": 1459.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_pants_up_b02",
+     "frame": 8,
+     "t": 0.202,
+     "drift": 3.1,
+     "head": 0.627,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 497.0,
+      "hh": 1472.0,
+      "h": 1460.0,
+      "ax": 143.7,
+      "fy": 1464.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_pants_up_b03",
+     "frame": 9,
+     "t": 0.322,
+     "drift": 4.7,
+     "head": 0.732,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 462.0,
+      "hh": 1476.0,
+      "h": 1465.0,
+      "ax": 112.1,
+      "fy": 1468.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_pants_up_b04",
+     "frame": 10,
+     "t": 0.384,
+     "drift": 8.5,
+     "head": 0.906,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 400.0,
+      "hh": 1492.0,
+      "h": 1482.0,
+      "ax": 162.5,
+      "fy": 1485.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_pants_up_b05",
+     "frame": 13,
+     "t": 0.461,
+     "drift": 10.4,
+     "head": 0.886,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 372.0,
+      "hh": 1488.0,
+      "h": 1483.0,
+      "ax": 160.4,
+      "fy": 1485.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_pants_up_b06",
+     "frame": 16,
+     "t": 0.553,
+     "drift": 10.0,
+     "head": 0.91,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 424.0,
+      "hh": 1485.0,
+      "h": 1479.0,
+      "ax": 215.8,
+      "fy": 1481.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_pants_up_b07",
+     "frame": 20,
+     "t": 0.671,
+     "drift": 8.5,
+     "head": 0.592,
+     "height": 0.002,
+     "flags": [],
+     "meta": {
+      "w": 497.0,
+      "hh": 1500.0,
+      "h": 1489.0,
+      "ax": 271.0,
+      "fy": 1491.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_pants_up_b08",
+     "frame": 23,
+     "t": 0.75,
+     "drift": 6.8,
+     "head": 0.654,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 497.0,
+      "hh": 1496.0,
+      "h": 1484.0,
+      "ax": 268.0,
+      "fy": 1487.9,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_pants_up_b09",
+     "frame": 26,
+     "t": 0.824,
+     "drift": 4.0,
+     "head": 0.627,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 472.0,
+      "hh": 1483.0,
+      "h": 1471.0,
+      "ax": 221.6,
+      "fy": 1475.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    },
+    {
+     "id": "alan_lu_bn_pants_up_b10",
+     "frame": 30,
+     "t": 0.909,
+     "drift": 2.1,
+     "head": 0.643,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 460.0,
+      "hh": 1474.0,
+      "h": 1462.0,
+      "ax": 204.5,
+      "fy": 1466.0,
+      "top": 4.0
+     },
+     "placed": "measured"
+    }
+   ]
+  }
+ ]
+}

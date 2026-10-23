@@ -1,0 +1,454 @@
+{
+ "keys": [
+  "pair_cop_jacket",
+  "pair_cop_tshirt",
+  "pair_cop_buttons"
+ ],
+ "at": [
+  0,
+  21,
+  35
+ ],
+ "fits": [
+  {
+   "iou": 0.8248688501346945,
+   "s": 1.7202219140083217,
+   "ox": 124.0,
+   "oy": 88.0
+  },
+  {
+   "iou": 0.5498272052574925,
+   "s": 1.5020804438280166,
+   "ox": 40.0,
+   "oy": 224.0
+  },
+  {
+   "iou": 0.7310364145658264,
+   "s": 1.6193619972260749,
+   "ox": 140.0,
+   "oy": 172.0
+  }
+ ],
+ "segments": [
+  {
+   "motion": 112.38,
+   "wire": "pair_cop_jacket>pair_cop_tshirt",
+   "from": 0,
+   "to": 21,
+   "used": [
+    0,
+    21
+   ],
+   "frames": [
+    {
+     "id": "pair_lu_cop_b_a01",
+     "frame": 2,
+     "t": 0.176,
+     "drift": 4.9,
+     "head": 0.789,
+     "height": 0.008,
+     "flags": [],
+     "meta": {
+      "w": 634.0,
+      "hh": 1230.0,
+      "h": 1181.6,
+      "ax": 467.5,
+      "fy": 1227.7,
+      "top": 4.0,
+      "px": 157.6,
+      "pfy": 1203.9,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_a02",
+     "frame": 3,
+     "t": 0.206,
+     "drift": 5.4,
+     "head": 0.737,
+     "height": 0.001,
+     "flags": [],
+     "meta": {
+      "w": 628.0,
+      "hh": 1214.0,
+      "h": 1177.4,
+      "ax": 474.1,
+      "fy": 1211.1,
+      "top": 4.0,
+      "px": 158.0,
+      "pfy": 1185.8,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_a03",
+     "frame": 6,
+     "t": 0.295,
+     "drift": 6.0,
+     "head": 0.736,
+     "height": 0.04,
+     "flags": [],
+     "meta": {
+      "w": 640.0,
+      "hh": 1153.0,
+      "h": 1165.2,
+      "ax": 496.4,
+      "fy": 1147.1,
+      "top": 4.0,
+      "px": 162.5,
+      "pfy": 1117.6,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_a04",
+     "frame": 8,
+     "t": 0.379,
+     "drift": 4.9,
+     "head": 0.666,
+     "height": 0.03,
+     "flags": [],
+     "meta": {
+      "w": 650.0,
+      "hh": 1153.0,
+      "h": 1153.6,
+      "ax": 515.1,
+      "fy": 1145.3,
+      "top": 4.0,
+      "px": 164.2,
+      "pfy": 1111.8,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_a05",
+     "frame": 11,
+     "t": 0.475,
+     "drift": 5.3,
+     "head": 0.646,
+     "height": 0.015,
+     "flags": [],
+     "meta": {
+      "w": 703.0,
+      "hh": 1155.0,
+      "h": 1140.3,
+      "ax": 556.6,
+      "fy": 1145.2,
+      "top": 4.0,
+      "px": 186.3,
+      "pfy": 1107.1,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_a06",
+     "frame": 14,
+     "t": 0.569,
+     "drift": 7.4,
+     "head": 0.577,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 710.0,
+      "hh": 1155.0,
+      "h": 1127.4,
+      "ax": 580.7,
+      "fy": 1143.2,
+      "top": 4.0,
+      "px": 191.6,
+      "pfy": 1100.6,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_a07",
+     "frame": 16,
+     "t": 0.654,
+     "drift": 8.2,
+     "head": 0.543,
+     "height": 0.003,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 728.0,
+      "hh": 1142.0,
+      "h": 1115.7,
+      "ax": 590.5,
+      "fy": 1128.3,
+      "top": 4.0,
+      "px": 184.3,
+      "pfy": 1081.7,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_a08",
+     "frame": 17,
+     "t": 0.743,
+     "drift": 7.7,
+     "head": 0.693,
+     "height": 0.003,
+     "flags": [],
+     "meta": {
+      "w": 767.0,
+      "hh": 1134.0,
+      "h": 1103.4,
+      "ax": 626.9,
+      "fy": 1118.4,
+      "top": 4.0,
+      "px": 202.8,
+      "pfy": 1067.5,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_a09",
+     "frame": 18,
+     "t": 0.825,
+     "drift": 7.4,
+     "head": 0.734,
+     "height": 0.017,
+     "flags": [],
+     "meta": {
+      "w": 801.0,
+      "hh": 1137.0,
+      "h": 1092.1,
+      "ax": 660.2,
+      "fy": 1119.6,
+      "top": 4.0,
+      "px": 219.6,
+      "pfy": 1064.8,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_a10",
+     "frame": 20,
+     "t": 0.965,
+     "drift": 7.5,
+     "head": 0.678,
+     "height": 0.042,
+     "flags": [],
+     "meta": {
+      "w": 873.0,
+      "hh": 1143.0,
+      "h": 1072.8,
+      "ax": 702.3,
+      "fy": 1122.5,
+      "top": 4.0,
+      "px": 233.5,
+      "pfy": 1061.1,
+      "rigid": true
+     },
+     "placed": "spread"
+    }
+   ]
+  },
+  {
+   "motion": 101.18,
+   "wire": "pair_cop_tshirt>pair_cop_buttons",
+   "from": 21,
+   "to": 35,
+   "used": [
+    21,
+    35
+   ],
+   "frames": [
+    {
+     "id": "pair_lu_cop_b_b01",
+     "frame": 23,
+     "t": 0.118,
+     "drift": 8.4,
+     "head": 0.447,
+     "height": 0.054,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 876.0,
+      "hh": 1160.0,
+      "h": 1079.2,
+      "ax": 694.0,
+      "fy": 1142.6,
+      "top": 4.0,
+      "px": 249.8,
+      "pfy": 1086.0,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_b02",
+     "frame": 25,
+     "t": 0.221,
+     "drift": 9.7,
+     "head": 0.395,
+     "height": 0.053,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 872.0,
+      "hh": 1169.0,
+      "h": 1089.0,
+      "ax": 675.6,
+      "fy": 1145.0,
+      "top": 4.0,
+      "px": 259.0,
+      "pfy": 1094.1,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_b03",
+     "frame": 27,
+     "t": 0.304,
+     "drift": 8.4,
+     "head": 0.344,
+     "height": 0.043,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 869.0,
+      "hh": 1165.0,
+      "h": 1096.8,
+      "ax": 661.0,
+      "fy": 1141.7,
+      "top": 4.0,
+      "px": 266.5,
+      "pfy": 1095.4,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_b04",
+     "frame": 29,
+     "t": 0.415,
+     "drift": 6.9,
+     "head": 0.238,
+     "height": 0.033,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 863.0,
+      "hh": 1163.0,
+      "h": 1107.3,
+      "ax": 639.4,
+      "fy": 1143.4,
+      "top": 4.0,
+      "px": 274.8,
+      "pfy": 1103.2,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_b05",
+     "frame": 30,
+     "t": 0.467,
+     "drift": 6.5,
+     "head": 0.217,
+     "height": 0.031,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 863.0,
+      "hh": 1166.0,
+      "h": 1112.2,
+      "ax": 632.2,
+      "fy": 1148.1,
+      "top": 4.0,
+      "px": 281.3,
+      "pfy": 1110.7,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_b06",
+     "frame": 32,
+     "t": 0.585,
+     "drift": 5.5,
+     "head": 0.202,
+     "height": 0.022,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 879.0,
+      "hh": 1166.0,
+      "h": 1123.4,
+      "ax": 631.6,
+      "fy": 1152.0,
+      "top": 4.0,
+      "px": 312.5,
+      "pfy": 1121.1,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_b07",
+     "frame": 33,
+     "t": 0.644,
+     "drift": 9.1,
+     "head": 0.429,
+     "height": 0.017,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 885.0,
+      "hh": 1165.0,
+      "h": 1129.0,
+      "ax": 629.3,
+      "fy": 1152.9,
+      "top": 4.0,
+      "px": 326.0,
+      "pfy": 1125.3,
+      "rigid": true
+     },
+     "placed": "spread"
+    },
+    {
+     "id": "pair_lu_cop_b_b08",
+     "frame": 34,
+     "t": 0.709,
+     "drift": 8.9,
+     "head": 0.415,
+     "height": 0.013,
+     "flags": [
+      "head"
+     ],
+     "meta": {
+      "w": 893.0,
+      "hh": 1166.0,
+      "h": 1135.1,
+      "ax": 628.3,
+      "fy": 1156.1,
+      "top": 4.0,
+      "px": 342.3,
+      "pfy": 1132.0,
+      "rigid": true
+     },
+     "placed": "spread"
+    }
+   ]
+  }
+ ]
+}
