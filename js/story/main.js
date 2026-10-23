@@ -87,6 +87,13 @@
       await G.wait(window.FAST ? 20 : 700);
       await S.strike('ferreira');
     } },
+    // the whole rite from the first note: the race along the walkway, the living water, the end
+    finalerace: { flags: { ch: 5, tomas_confessed: true }, room: 'cistern', pos: [520, 640, 'e'], run: async () => {
+      G.giveItem('tongue', true); G.giveItem('lantern', true); G.giveItem('knife', true); G.giveItem('ledger', true);
+      await S.giveLedger();
+      await S.cutRopes(); await S.giveLantern(); await S.cutPalm();
+      for (const id of ['sanches', 'coutinho', 'bastos', 'ferreira']) { await G.wait(window.FAST ? 20 : 1200); await S.strike(id); }
+    } },
     // the quay gossip (Rosa and the old mender) and Lacerda's threat about Vasco
     bench: { flags: { ch: 2, heard_machine: true }, room: 'street', pos: [860, 640, 'e'], run: () => S.benchTalk() },
     ineskey: { flags: { ch: 3, teixeira_scene: true, visit_cop: true }, room: 'shop', pos: [760, 612, 'w'], run: async () => { await S.inesKey(); await S.teixeiraKey(); } },

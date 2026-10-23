@@ -168,7 +168,7 @@
       sets: { lantern: { idle: 'alan_lantern', talk: ['alan_lantern'], walk: ['alan_lwalk1', 'alan_lantern', 'alan_lwalk2', 'alan_lantern'] } } } },
     ines: { scale: 0.93, frames: {
       idle: ['ines', 'ines_idle2'], talk: ['ines_talk', 'ines_talk2'], walk: ['ines_walk1', 'ines_walk2'],
-      poses: { free: 'ines_free', steam: 'ines_steam', wrists: 'ines_wrists' },
+      poses: { free: 'ines_free', steam: 'ines_steam', wrists: 'ines_wrists', block: 'ines_block' },
       sets: {
         tied: { idle: ['ines_tied', 'ines_tied_struggle'], talk: ['ines_tied_shout', 'ines_tied_struggle'] },
         lantern: { idle: 'ines_lantern', talk: ['ines_lantern_talk', 'ines_lantern'], walk: ['ines_lwalk1', 'ines_lwalk2'] },
@@ -189,8 +189,8 @@
       poses: { wind: 'lacerda_wind', warn: 'lacerda_talk2' }, // talks in the stance he stands in; the squarer finger-wag is a pose of its own
       walk: ['lacerda_walk1', 'lacerda_pass1', 'lacerda_walk2', 'lacerda_pass2'] }, frameStep: 0.17 }, // stride, passing, stride, passing: half a step per frame
     lacerda_robe: { scale: 1.02, frames: {
-      idle: ['robe_idle', 'robe_idle2'], talk: ['robe_talk', 'robe_talk2', 'lacerda_robe', 'robe_talk3'],
-      poses: { lunge: 'robe_lunge', terror: 'robe_terror', read: 'robe_read', kneel: 'robe_kneel', realise: 'robe_realise' },
+      idle: ['robe_idle', 'robe_idle2'], talk: ['robe_talk', 'robe_talk2', 'lacerda_robe', 'robe_talk3'], walk: ['robe_walk1', 'robe_pass1'],
+      poses: { lunge: 'robe_lunge', terror: 'robe_terror', read: 'robe_read', kneel: 'robe_kneel', realise: 'robe_realise', command: 'robe_command', grab: 'robe_grab' },
       sets: { read: { idle: 'robe_kneel', talk: ['robe_kneel'] } } } },
     celeste: { scale: 0.86, frames: {
       idle: ['celeste', 'celeste_idle2'], talk: ['celeste_talk', 'celeste_talk2'], walk: ['celeste_walkA', 'celeste', 'celeste_walkB', 'celeste'],
