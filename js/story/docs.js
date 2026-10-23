@@ -31,7 +31,7 @@
 
   S.genealogyPages = () => [
     { img: PAPER, cls: 'doc-hand', html: `<p style="font-family:'IM Fell English',serif;text-align:center">The Founders · 1755</p>
-      <p>Ferreira — … — <s>Ferreira, clockmaker, Baixa</s></p><p>Bastos — … — <s>Bastos, teacher, Graça</s></p>
+      <p>Ferreira — … — Ferreira, clockmaker, Baixa</p><p>Bastos — … — Bastos, teacher, Graça</p>
       <p>Coutinho — … — Maria Coutinho, fishwife, Madragoa. Her son José, no father registered, fisherman, the <u>Maria Fé</u>, Cais do Sodré. I have told Maria. I have not told the boy. <i>J.S., 1994</i></p>
       <p>Sanches — … — Joaquim — son, d. 1967 — Alan.</p>` },
   ];
@@ -89,7 +89,7 @@
     ['file1955', "It's happened before. 1955. Grandfather was there."],
     ['suit', "A man in a cream linen suit. Patient. Asking about Maria's son."],
     ['turnings', "They don't die at night. They die when the river turns. (Rui's times against the tide table.)"],
-    ['celeste', 'They die when the river turns. The tiles are bits of the sea. Bronze breaks them.'],
+    ['celeste', 'Celeste: the river breathes. The tiles are bits of the sea. Bronze breaks them.'],
     ['reverse', "The bell was baptised in the sea. It doesn't send storms away. It invites them in."],
     ['godparents', "The Lacerdas were its godparents. That's why the water listens to them."],
     ['blood', 'Founders bled into the bronze. Only our blood makes it talk. Lucky us.'],

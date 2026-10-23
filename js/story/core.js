@@ -258,7 +258,7 @@
     'ines_score_25', 'ines_score_26', 'ines_score_27', 'ines_score_28', 'ines_score_29', 'ines_score_30', 'ines_score_31', 'ines_score_32',
     'ines_score_33', 'ines_score_34', 'ines_score_35', 'ines_score_36', 'ines_score_37', 'ines_score_38', 'ines_score_39', 'ines_score_40',
   ].filter(k => window.LINES[k]);
-  const SHOP_SCORES = new Set(['ines_score_13', 'ines_score_24', 'ines_score_34', 'ines_score_40']);
+  const SHOP_SCORES = new Set(['ines_score_1', 'ines_score_9', 'ines_score_13', 'ines_score_24', 'ines_score_34', 'ines_score_40']); // the cat is only in the shop
   S.joke = async function (id) {
     await say(id);
     const ines = G.npc('ines');
@@ -387,7 +387,7 @@
     // (once Alan has chosen the Chiado, the map marks Lacerda's first: the hint follows the same thread)
     if (!f.founder_order && !(f.chose_chiado && !f.has_tongue)) return 'ines_hint_order';
     if (!f.has_tongue) { // Lacerda's case -> Abílio reads the sketch -> Vasco lends the twin -> the swap
-      if (!f.tongue_sketched) return 'ines_hint_see_case';
+      if (!f.tongue_sketched) return f.case_known ? 'ines_hint_see_case' : 'ines_hint_lacerda_shop'; // she can't know there's a case before anyone has seen the shop
       if (!f.knows_twin) return 'ines_hint_sketch_abilio';
       if (!has('twin')) return 'ines_hint_ask_vasco';
       return has('vkey') ? 'ines_hint_swap' : 'ines_hint_case';
