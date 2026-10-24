@@ -5,10 +5,10 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `520014b2` (Netlify `6adc25cfdd6c1ef6dc13e0b6`,
-entry 75): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `b32075c1` (Netlify `6adcabcf4c2e47f091f4b028`,
+entry 78): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-77); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-78); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1474,6 +1474,11 @@ session lived in the session's scratchpad and are gone; everything that matters 
    against new: 181 s to 158 s; silent stretches over 0.7 s 15 (39.8 s) to 7 (16.3 s, the still's fades, the bed
    painting, walking out); moves inside a line 0 of 14 to 12. Checked: validate 0 errors; smoke visitcop, copbed,
    visitguitar pass.
+78. **Deploy of entries 76-77** (the user: "merge and deploy"). PR kubajugo-alt/alansanchez#6 merged (master
+   `b32075c1`). Smoke on the `git archive` export (own port, no `.env`): intro, bench, visitcop, copbed, visitguitar,
+   vascolove, sepit, shopjobs pass. **Deployed:** Netlify `6adcabcf4c2e47f091f4b028` (the first upload got a 503 from
+   Netlify; a fresh one went through). Live: page 200, `/.env` 404, core.js, visits.js and actor.js byte-identical; live
+   smoke copbed, visitcop, bench pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
