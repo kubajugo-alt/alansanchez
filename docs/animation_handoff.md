@@ -1425,9 +1425,9 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - Fix (actor.js `between`): his idle swapping his two standing paintings in the middle of a run restarted it (seen:
      flirt back to standing went a10..a07, then a10 again); a run whose way to the new target is the same frames now
      carries on.
-   - **Open (the user's call):** the side walk. Master's 24-painting walk (entry 65, the user's own sheet: "apply the new
-     walking") is put in after the approvals (main.js loadApproved, S.WALK24), so the approved Ludo side walk
-     (`walk_side`) does not show; `?walk=old` shows the 8-painting cycle, not the Ludo one.
+   - **The side walk: the user's 24-painting walk stays** (shown both side by side in the street on a fixed clock; the
+     user: "keep my 24 walk"). S.WALK24 is put in after the approvals (main.js loadApproved), so the approved Ludo side
+     walk (`walk_side`) is not used; `?walk=ludo` shows it, `?walk=old` the 8-painting cycle.
    - Checked: smoke on every preview scene; play.mjs `{"won":true}` (148 steps); S.climbOut in `?scene=sepit` plays all
      26 frames (k1, the run, k2, the run, k3, the run up, alan_front), ending on the floor at (770, 642). The user on the
      new Vasco takes: "much better".
