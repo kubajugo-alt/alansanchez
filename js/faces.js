@@ -6661,7 +6661,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_dressed_a01.webp"
  },
  "alan_lu_bn_dressed_a02": {
@@ -6695,7 +6695,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_dressed_a02.webp"
  },
  "alan_lu_bn_dressed_a03": {
@@ -6729,7 +6729,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_dressed_a03.webp"
  },
  "alan_lu_bn_dressed_a04": {
@@ -6763,7 +6763,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_dressed_a04.webp"
  },
  "alan_lu_bn_dressed_a05": {
@@ -6797,7 +6797,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_dressed_a05.webp"
  },
  "alan_lu_bn_dressed_a09": {
@@ -6831,7 +6831,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_dressed_a09.webp"
  },
  "alan_lu_bn_jacket_a01": {
@@ -6865,7 +6865,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_a01.webp"
  },
  "alan_lu_bn_jacket_a02": {
@@ -6899,7 +6899,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_a02.webp"
  },
  "alan_lu_bn_jacket_a03": {
@@ -6933,7 +6933,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_a03.webp"
  },
  "alan_lu_bn_jacket_a04": {
@@ -6967,7 +6967,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_a04.webp"
  },
  "alan_lu_bn_jacket_b01": {
@@ -7001,7 +7001,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_b01.webp"
  },
  "alan_lu_bn_jacket_b02": {
@@ -7035,7 +7035,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_b02.webp"
  },
  "alan_lu_bn_jacket_b03": {
@@ -7069,7 +7069,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_b03.webp"
  },
  "alan_lu_bn_jacket_b04": {
@@ -7103,7 +7103,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_b04.webp"
  },
  "alan_lu_bn_jacket_b05": {
@@ -7137,7 +7137,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_b05.webp"
  },
  "alan_lu_bn_jacket_b06": {
@@ -7171,7 +7171,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_b06.webp"
  },
  "alan_lu_bn_jacket_b07": {
@@ -7205,7 +7205,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_b07.webp"
  },
  "alan_lu_bn_jacket_b08": {
@@ -7239,7 +7239,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_b08.webp"
  },
  "alan_lu_bn_jacket_drop_a01": {
@@ -7273,7 +7273,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_drop_a01.webp"
  },
  "alan_lu_bn_jacket_drop_a08": {
@@ -7307,7 +7307,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_drop_a08.webp"
  },
  "alan_lu_bn_jacket_drop_a10": {
@@ -7341,7 +7341,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_jacket_drop_a10.webp"
  },
  "alan_lu_bn_swing_b06": {
@@ -7375,7 +7375,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_swing_b06.webp"
  },
  "alan_lu_bn_swing_b07": {
@@ -7409,7 +7409,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_swing_b07.webp"
  },
  "alan_lu_bn_tee2_b05": {
@@ -7443,7 +7443,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_bn_tee2_b05.webp"
  },
  "alan_lu_coffees_a01": {
@@ -7477,7 +7477,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_coffees_a01.webp"
  },
  "alan_lu_coffees_a02": {
@@ -7511,7 +7511,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_coffees_a02.webp"
  },
  "alan_lu_coffees_a03": {
@@ -7545,7 +7545,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_coffees_a03.webp"
  },
  "alan_lu_coffees_a04": {
@@ -7579,7 +7579,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_coffees_a04.webp"
  },
  "alan_lu_coffees_a05": {
@@ -7613,7 +7613,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_coffees_a05.webp"
  },
  "alan_lu_coffees_a06": {
@@ -7647,7 +7647,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_coffees_a06.webp"
  },
  "alan_lu_cutpalm_a01": {
@@ -7681,7 +7681,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_cutpalm_a01.webp"
  },
  "alan_lu_cutpalm_a02": {
@@ -7715,7 +7715,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_cutpalm_a02.webp"
  },
  "alan_lu_cutpalm_a03": {
@@ -7749,7 +7749,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_cutpalm_a03.webp"
  },
  "alan_lu_cutpalm_a04": {
@@ -7783,7 +7783,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_cutpalm_a04.webp"
  },
  "alan_lu_cutpalm_a05": {
@@ -7817,7 +7817,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_cutpalm_a05.webp"
  },
  "alan_lu_cutpalm_a06": {
@@ -7851,7 +7851,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_cutpalm_a06.webp"
  },
  "alan_lu_cutpalm_a07": {
@@ -7885,7 +7885,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_cutpalm_a07.webp"
  },
  "alan_lu_cutpalm_a08": {
@@ -7919,7 +7919,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_cutpalm_a08.webp"
  },
  "alan_lu_dress_start_a01": {
@@ -7953,7 +7953,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_dress_start_a01.webp"
  },
  "alan_lu_dress_start_a02": {
@@ -7987,7 +7987,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_dress_start_a02.webp"
  },
  "alan_lu_drink_a01": {
@@ -8021,7 +8021,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_drink_a01.webp"
  },
  "alan_lu_drink_a02": {
@@ -8055,7 +8055,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_drink_a02.webp"
  },
  "alan_lu_drink_a03": {
@@ -8089,7 +8089,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_drink_a03.webp"
  },
  "alan_lu_flirt_a01": {
@@ -8123,7 +8123,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_flirt_a01.webp"
  },
  "alan_lu_jacket_a01": {
@@ -8157,7 +8157,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_jacket_a01.webp"
  },
  "alan_lu_jacket_a02": {
@@ -8191,7 +8191,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_jacket_a02.webp"
  },
  "alan_lu_jacket_a05": {
@@ -8225,7 +8225,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_jacket_a05.webp"
  },
  "alan_lu_jacket_a08": {
@@ -8259,7 +8259,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_jacket_a08.webp"
  },
  "alan_lu_jacket_a10": {
@@ -8293,7 +8293,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_jacket_a10.webp"
  },
  "alan_lu_lantern_a01": {
@@ -8327,7 +8327,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_lantern_a01.webp"
  },
  "alan_lu_lantern_a02": {
@@ -8361,7 +8361,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_lantern_a02.webp"
  },
  "alan_lu_lantern_a03": {
@@ -8395,7 +8395,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_lantern_a03.webp"
  },
  "alan_lu_lantern_a04": {
@@ -8429,7 +8429,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_lantern_a04.webp"
  },
  "alan_lu_lantern_reach_a09": {
@@ -8463,7 +8463,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_lantern_reach_a09.webp"
  },
  "alan_lu_lantern_reach_a10": {
@@ -8497,7 +8497,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_lantern_reach_a10.webp"
  },
  "alan_lu_phone_a01": {
@@ -8531,7 +8531,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_phone_a01.webp"
  },
  "alan_lu_phone_a02": {
@@ -8565,7 +8565,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_phone_a02.webp"
  },
  "alan_lu_phone_a03": {
@@ -8599,7 +8599,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_phone_a03.webp"
  },
  "alan_lu_phone_a04": {
@@ -8633,7 +8633,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_phone_a04.webp"
  },
  "alan_lu_phone_a05": {
@@ -8667,7 +8667,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_phone_a05.webp"
  },
  "alan_lu_pickup_a01": {
@@ -8701,7 +8701,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_pickup_a01.webp"
  },
  "alan_lu_pilot_reach_a01": {
@@ -9041,7 +9041,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_pull_a01.webp"
  },
  "alan_lu_pull_a02": {
@@ -9075,7 +9075,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_pull_a02.webp"
  },
  "alan_lu_pull_a03": {
@@ -9109,7 +9109,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_pull_a03.webp"
  },
  "alan_lu_reach_write_a01": {
@@ -9143,7 +9143,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a01.webp"
  },
  "alan_lu_reach_write_a02": {
@@ -9177,7 +9177,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a02.webp"
  },
  "alan_lu_reach_write_a03": {
@@ -9211,7 +9211,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a03.webp"
  },
  "alan_lu_reach_write_a04": {
@@ -9245,7 +9245,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a04.webp"
  },
  "alan_lu_reach_write_a05": {
@@ -9279,7 +9279,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a05.webp"
  },
  "alan_lu_reach_write_a06": {
@@ -9313,7 +9313,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a06.webp"
  },
  "alan_lu_reach_write_a07": {
@@ -9347,7 +9347,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a07.webp"
  },
  "alan_lu_reach_write_a08": {
@@ -9381,7 +9381,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a08.webp"
  },
  "alan_lu_reach_write_a09": {
@@ -9415,7 +9415,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a09.webp"
  },
  "alan_lu_reach_write_a10": {
@@ -9449,7 +9449,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_reach_write_a10.webp"
  },
  "alan_lu_read_a01": {
@@ -9483,7 +9483,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_read_a01.webp"
  },
  "alan_lu_read_a02": {
@@ -9517,7 +9517,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_read_a02.webp"
  },
  "alan_lu_read_a03": {
@@ -9551,7 +9551,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_read_a03.webp"
  },
  "alan_lu_read_a04": {
@@ -9585,7 +9585,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_read_a04.webp"
  },
  "alan_lu_ring_a01": {
@@ -9619,7 +9619,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a01.webp"
  },
  "alan_lu_ring_a02": {
@@ -9653,7 +9653,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a02.webp"
  },
  "alan_lu_ring_a03": {
@@ -9687,7 +9687,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a03.webp"
  },
  "alan_lu_ring_a04": {
@@ -9721,7 +9721,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a04.webp"
  },
  "alan_lu_ring_a05": {
@@ -9755,7 +9755,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a05.webp"
  },
  "alan_lu_ring_a06": {
@@ -9789,7 +9789,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a06.webp"
  },
  "alan_lu_ring_a07": {
@@ -9823,7 +9823,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a07.webp"
  },
  "alan_lu_ring_a08": {
@@ -9857,7 +9857,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a08.webp"
  },
  "alan_lu_ring_a09": {
@@ -9891,7 +9891,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a09.webp"
  },
  "alan_lu_ring_a10": {
@@ -9925,7 +9925,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_ring_a10.webp"
  },
  "alan_lu_smoke1_a01": {
@@ -9959,7 +9959,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke1_a01.webp"
  },
  "alan_lu_smoke1_a02": {
@@ -9993,7 +9993,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke1_a02.webp"
  },
  "alan_lu_smoke1_a03": {
@@ -10027,7 +10027,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke1_a03.webp"
  },
  "alan_lu_smoke1_b02": {
@@ -10061,7 +10061,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke1_b02.webp"
  },
  "alan_lu_smoke1_b03": {
@@ -10095,7 +10095,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke1_b03.webp"
  },
  "alan_lu_smoke1_b04": {
@@ -10129,7 +10129,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke1_b04.webp"
  },
  "alan_lu_smoke2_a01": {
@@ -10163,7 +10163,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke2_a01.webp"
  },
  "alan_lu_smoke2_a02": {
@@ -10197,7 +10197,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke2_a02.webp"
  },
  "alan_lu_smoke2_a03": {
@@ -10231,7 +10231,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke2_a03.webp"
  },
  "alan_lu_smoke2_a04": {
@@ -10265,7 +10265,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke2_a04.webp"
  },
  "alan_lu_smoke2_a05": {
@@ -10299,7 +10299,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke2_a05.webp"
  },
  "alan_lu_smoke2_b01": {
@@ -10333,7 +10333,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke2_b01.webp"
  },
  "alan_lu_smoke3_a01": {
@@ -10367,7 +10367,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke3_a01.webp"
  },
  "alan_lu_smoke3_a02": {
@@ -10401,7 +10401,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke3_a02.webp"
  },
  "alan_lu_smoke3_a03": {
@@ -10435,7 +10435,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke3_a03.webp"
  },
  "alan_lu_smoke3_a04": {
@@ -10469,7 +10469,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke3_a04.webp"
  },
  "alan_lu_smoke4_a01": {
@@ -10503,7 +10503,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke4_a01.webp"
  },
  "alan_lu_smoke4_a02": {
@@ -10537,7 +10537,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke4_a02.webp"
  },
  "alan_lu_smoke4_a03": {
@@ -10571,7 +10571,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke4_a03.webp"
  },
  "alan_lu_smoke4_a04": {
@@ -10605,7 +10605,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_smoke4_a04.webp"
  },
  "alan_lu_stretch_down_a08": {
@@ -10639,7 +10639,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_stretch_down_a08.webp"
  },
  "alan_lu_stretch_down_a10": {
@@ -10673,7 +10673,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_stretch_down_a10.webp"
  },
  "alan_lu_swoon_a01": {
@@ -10707,7 +10707,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_swoon_a01.webp"
  },
  "alan_lu_swoon_a02": {
@@ -10741,7 +10741,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_swoon_a02.webp"
  },
  "alan_lu_swoon_a03": {
@@ -10775,7 +10775,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_swoon_a03.webp"
  },
  "alan_lu_talk_a_a01": {
@@ -10809,7 +10809,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_a_a01.webp"
  },
  "alan_lu_talk_a_a02": {
@@ -10843,7 +10843,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_a_a02.webp"
  },
  "alan_lu_talk_a_a03": {
@@ -10877,7 +10877,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_a_a03.webp"
  },
  "alan_lu_talk_a_a04": {
@@ -10911,7 +10911,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_a_a04.webp"
  },
  "alan_lu_talk_a_b01": {
@@ -10945,7 +10945,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_a_b01.webp"
  },
  "alan_lu_talk_a_b02": {
@@ -10979,7 +10979,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_a_b02.webp"
  },
  "alan_lu_talk_a_b03": {
@@ -11013,7 +11013,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_a_b03.webp"
  },
  "alan_lu_talk_a_b04": {
@@ -11047,7 +11047,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_a_b04.webp"
  },
  "alan_lu_talk_c_a01": {
@@ -11081,7 +11081,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_c_a01.webp"
  },
  "alan_lu_talk_c_a02": {
@@ -11115,7 +11115,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_c_a02.webp"
  },
  "alan_lu_talk_c_a03": {
@@ -11149,7 +11149,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_c_a03.webp"
  },
  "alan_lu_talk_c_a04": {
@@ -11183,7 +11183,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_c_a04.webp"
  },
  "alan_lu_talk_c_a05": {
@@ -11217,7 +11217,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_c_a05.webp"
  },
  "alan_lu_talk_c_a06": {
@@ -11251,7 +11251,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_c_a06.webp"
  },
  "alan_lu_talk_c_a07": {
@@ -11285,7 +11285,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_c_a07.webp"
  },
  "alan_lu_talk_d_a01": {
@@ -11319,7 +11319,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_d_a01.webp"
  },
  "alan_lu_talk_d_a02": {
@@ -11353,7 +11353,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_d_a02.webp"
  },
  "alan_lu_talk_d_a05": {
@@ -11387,7 +11387,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_talk_d_a05.webp"
  },
  "alan_lu_throw_a01": {
@@ -11421,7 +11421,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_a01.webp"
  },
  "alan_lu_throw_a02": {
@@ -11455,7 +11455,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_a02.webp"
  },
  "alan_lu_throw_a03": {
@@ -11489,7 +11489,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_a03.webp"
  },
  "alan_lu_throw_a04": {
@@ -11523,7 +11523,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_a04.webp"
  },
  "alan_lu_throw_a05": {
@@ -11557,7 +11557,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_a05.webp"
  },
  "alan_lu_throw_a07": {
@@ -11591,7 +11591,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_a07.webp"
  },
  "alan_lu_throw_b01": {
@@ -11625,7 +11625,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_b01.webp"
  },
  "alan_lu_throw_b02": {
@@ -11659,7 +11659,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_b02.webp"
  },
  "alan_lu_throw_b03": {
@@ -11693,7 +11693,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_b03.webp"
  },
  "alan_lu_throw_b04": {
@@ -11727,7 +11727,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_b04.webp"
  },
  "alan_lu_throw_b05": {
@@ -11761,7 +11761,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_b05.webp"
  },
  "alan_lu_throw_b06": {
@@ -11795,7 +11795,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_throw_b06.webp"
  },
  "alan_lu_turn_front_a01": {
@@ -11829,7 +11829,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_turn_front_a01.webp"
  },
  "alan_lu_walk_side_01": {
@@ -11863,7 +11863,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_01.webp"
  },
  "alan_lu_walk_side_02": {
@@ -11897,7 +11897,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_02.webp"
  },
  "alan_lu_walk_side_03": {
@@ -11931,7 +11931,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_03.webp"
  },
  "alan_lu_walk_side_04": {
@@ -11965,7 +11965,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_04.webp"
  },
  "alan_lu_walk_side_05": {
@@ -11999,7 +11999,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_05.webp"
  },
  "alan_lu_walk_side_06": {
@@ -12033,7 +12033,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_06.webp"
  },
  "alan_lu_walk_side_07": {
@@ -12067,7 +12067,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_07.webp"
  },
  "alan_lu_walk_side_08": {
@@ -12101,7 +12101,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_08.webp"
  },
  "alan_lu_walk_side_09": {
@@ -12135,7 +12135,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_09.webp"
  },
  "alan_lu_walk_side_10": {
@@ -12169,7 +12169,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_side_10.webp"
  },
  "alan_lu_walk_start_a01": {
@@ -12203,7 +12203,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a01.webp"
  },
  "alan_lu_walk_start_a02": {
@@ -12237,7 +12237,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a02.webp"
  },
  "alan_lu_walk_start_a03": {
@@ -12271,7 +12271,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a03.webp"
  },
  "alan_lu_walk_start_a04": {
@@ -12305,7 +12305,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a04.webp"
  },
  "alan_lu_walk_start_a05": {
@@ -12339,7 +12339,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a05.webp"
  },
  "alan_lu_walk_start_a06": {
@@ -12373,7 +12373,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a06.webp"
  },
  "alan_lu_walk_start_a07": {
@@ -12407,7 +12407,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a07.webp"
  },
  "alan_lu_walk_start_a08": {
@@ -12441,7 +12441,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a08.webp"
  },
  "alan_lu_walk_start_a09": {
@@ -12475,7 +12475,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a09.webp"
  },
  "alan_lu_walk_start_a10": {
@@ -12509,7 +12509,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_start_a10.webp"
  },
  "alan_lu_walk_stop_a01": {
@@ -12543,7 +12543,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a01.webp"
  },
  "alan_lu_walk_stop_a02": {
@@ -12577,7 +12577,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a02.webp"
  },
  "alan_lu_walk_stop_a03": {
@@ -12611,7 +12611,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a03.webp"
  },
  "alan_lu_walk_stop_a04": {
@@ -12645,7 +12645,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a04.webp"
  },
  "alan_lu_walk_stop_a05": {
@@ -12679,7 +12679,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a05.webp"
  },
  "alan_lu_walk_stop_a06": {
@@ -12713,7 +12713,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a06.webp"
  },
  "alan_lu_walk_stop_a07": {
@@ -12747,7 +12747,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a07.webp"
  },
  "alan_lu_walk_stop_a08": {
@@ -12781,7 +12781,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a08.webp"
  },
  "alan_lu_walk_stop_a09": {
@@ -12815,7 +12815,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a09.webp"
  },
  "alan_lu_walk_stop_a10": {
@@ -12849,7 +12849,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_walk_stop_a10.webp"
  },
  "alan_lu_wink_flirt_a01": {
@@ -12883,7 +12883,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wink_flirt_a01.webp"
  },
  "alan_lu_wink_flirt_a02": {
@@ -12917,7 +12917,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wink_flirt_a02.webp"
  },
  "alan_lu_wink_flirt_a03": {
@@ -12951,7 +12951,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wink_flirt_a03.webp"
  },
  "alan_lu_wobble_a02": {
@@ -12985,7 +12985,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wobble_a02.webp"
  },
  "alan_lu_wobble_a04": {
@@ -13019,7 +13019,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wobble_a04.webp"
  },
  "alan_lu_wobble_a05": {
@@ -13053,7 +13053,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wobble_a05.webp"
  },
  "alan_lu_wobble_a06": {
@@ -13087,7 +13087,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wobble_a06.webp"
  },
  "alan_lu_wobble_a07": {
@@ -13121,7 +13121,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wobble_a07.webp"
  },
  "alan_lu_wobble_a08": {
@@ -13155,7 +13155,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wobble_a08.webp"
  },
  "alan_lu_wobble_a09": {
@@ -13189,7 +13189,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wobble_a09.webp"
  },
  "alan_lu_wring_a01": {
@@ -13223,7 +13223,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wring_a01.webp"
  },
  "alan_lu_wring_a02": {
@@ -13257,7 +13257,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wring_a02.webp"
  },
  "alan_lu_wring_a03": {
@@ -13291,7 +13291,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wring_a03.webp"
  },
  "alan_lu_wring_a04": {
@@ -13325,7 +13325,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wring_a04.webp"
  },
  "alan_lu_wring_a09": {
@@ -13359,7 +13359,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wring_a09.webp"
  },
  "alan_lu_wring_a10": {
@@ -13393,7 +13393,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_wring_a10.webp"
  },
  "alan_lu_write_a01": {
@@ -13427,7 +13427,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_write_a01.webp"
  },
  "alan_lu_yawn_a01": {
@@ -13461,7 +13461,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_yawn_a01.webp"
  },
  "alan_lu_yawn_a02": {
@@ -13495,7 +13495,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_yawn_a02.webp"
  },
  "alan_lu_yawn_a03": {
@@ -13529,7 +13529,7 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "src": "art/review/candidates/alan_lu_yawn_a03.webp"
  }
 };

@@ -311,7 +311,11 @@
       if (side && !this.pose && !this.walking && this.stopAt != null && E.time - this.stopAt < WALK_EDGE && ok(F.walkStop)) return F.walkStop;
       const IB = F.inbetween;
       if (!IB) { this.settled = key; return key; }
-      if (this.ibSeq && this.ibTarget !== key) this.ibSeq = null; // changed its mind: go straight there
+      if (this.ibSeq && this.ibTarget !== key) { // changed its mind: go straight there, unless the way there is this
+        // same run (his two standing paintings share one: the idle swapping them mid-run would restart it)
+        const fwd = IB[this.settled + '>' + key], rev = IB[key + '>' + this.settled], same = (fwd || (rev ? rev.slice().reverse() : [])).filter(ok);
+        if (same.length === this.ibSeq.length && same.every((f, i) => f === this.ibSeq[i])) this.ibTarget = key; else this.ibSeq = null;
+      }
       if (!this.ibSeq && this.settled && key !== this.settled) {
         const fwd = IB[this.settled + '>' + key], rev = IB[key + '>' + this.settled];
         const all = fwd || (rev ? rev.slice().reverse() : []), seq = all.filter(ok);

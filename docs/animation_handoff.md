@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `ac52b9a9` (Netlify `6adbe8a0c9335180fa13e110`,
 entry 71): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-71); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-74); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1415,6 +1415,37 @@ session lived in the session's scratchpad and are gone; everything that matters 
    (`ac52b9a9`). Smoke on the `git archive` export (own port, no `.env`): copguard, copreturn, visitcop, intro,
    finalerace, sepit pass. **Deployed:** Netlify `6adbe8a0c9335180fa13e110`. Live: page 200, `/.env` 404, core.js
    byte-identical; the station flirt replayed on the live site draws `pair_cop_chest` and `pair_cop_arm`.
+72. **Every Ludo run approved** (the user: "check if definitely all alan sprites that were meant to be replaced with the
+   Ludo ones were replaced and are working in the game", then, told only pilot_reach and talk_b were in: "approve all").
+   All 77 board runs written to approvals.json by `scripts/ludo_apply.py` (863 frames, talk_c's refit and the climb's
+   three paintings included; 194 face kits switched on with them); note on each: the user in chat. In the game (a probe
+   of S.CHARS.alan.frames): 122 Ludo in-betweens, the front and back walks, the lantern walk, the Teixeira pair runs
+   (8 between paintings, 3 into one), the 26-frame climbOut; all 791 frames referenced are sprites. Played live in
+   Chromium: flirt, phone, smoking each way through their runs at 40-60 ms a frame.
+   - Fix (actor.js `between`): his idle swapping his two standing paintings in the middle of a run restarted it (seen:
+     flirt back to standing went a10..a07, then a10 again); a run whose way to the new target is the same frames now
+     carries on.
+   - **Open (the user's call):** the side walk. Master's 24-painting walk (entry 65, the user's own sheet: "apply the new
+     walking") is put in after the approvals (main.js loadApproved, S.WALK24), so the approved Ludo side walk
+     (`walk_side`) does not show; `?walk=old` shows the 8-painting cycle, not the Ludo one.
+   - Checked: smoke on every preview scene; play.mjs `{"won":true}` (148 steps).
+73. **Inês in front of Pessoa** (the user: "ines should be occluding pessoa"). Pessoa's sortY (565, so the desk cut-out
+   never covers him on it) ordered him among the figures too: Inês at her ledger spot (760, 565) in front of the radiator
+   and at the shelves (345, 550) by the desk was drawn behind him. render.js: figures are sorted by their own feet; a
+   figure with sortY lying on a piece of furniture (`lyingOn`) is drawn again by that furniture, inside its outline
+   only (`drawOccluder(o, onTop)`). Checked in the shop (screenshots): she covers him on the radiator; on the desk he
+   still shows over the desk.
+74. **Vasco re-voiced** (the user: "re-voice Vasco entirely. The voice is ok, but in some parts he is overly
+   exaggerated, sometimes whispers without a reason ... more natural"). Same voice (Jarnathan, scripts/cast.json),
+   eleven_v4, one take each, flow "Drowned Bell: Vasco re-voiced, natural (2026-10-24)". The cause: tags the model acts
+   out (stage business: "very still, barely breathing", "not letting go of it, very close"; and breathless, softly,
+   very quietly). Every tag rewritten in js/lines.js (scripts/vasco_revoice.json): how the line is said, at most one
+   mild tag, no whisper or breath tags; words and subtitles unchanged. 105 takes (about 7,100 credits with 7 redone:
+   still 4-7 dB soft with shy or sad tags, now untagged or warm). Checked: every take transcribed (faster-whisper
+   base.en), the words match (the mismatches are numbers and "Senhor Sanches"); voicing (the share of loud 40 ms frames
+   with a pitch): the old files had ten lines almost wholly whispered (0.00-0.15: after_2, shirt_2, dust, kneel, quiet,
+   idle_17, love_romans, close, after_1, collar_2), the new ones none (lowest 0.25, median 0.59). Levelled to -21.5
+   LUFS (all -22.3 to -21.6), -1 dBTP limiter, 64 kbps mono. Lip-sync: Rhubarb 1.13.0, 105 written.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
