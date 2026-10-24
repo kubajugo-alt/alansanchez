@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `520014b2` (Netlify `6adc25cfdd6c1ef6dc13e0b6`,
 entry 75): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-75); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-77); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1453,6 +1453,27 @@ session lived in the session's scratchpad and are gone; everything that matters 
    copguard, shopjobs, vascolove, vascostore, finalerace, bath pass. **Deployed:** Netlify `6adc25cfdd6c1ef6dc13e0b6`.
    Live: page 200, `/.env` 404, render.js, lines.js, approvals.json and a new Vasco take byte-identical, a Ludo frame
    served; live smoke sepit, shopjobs, vascolove pass.
+76. **Alan talks mostly in his standing pose** (the user: "Alan talking has too much animation. I think he should talk in
+   his idle pose a bit more, and switch to talking sprites every so often"). actor.js talk rhythm: a character's
+   `talkRest` (Alan: [2.5, 5.5] s) makes the rest, his standing painting with the lip-sync on it, the default: a line
+   starts at rest, each gesture (`talkGesture`, Alan [1.2, 2.2] s) always goes back to it, and the gestures take turns
+   (talk, talk2). Everyone else keeps the old rhythm (gestures held 0.8-1.8 s, a rest only 30% of the time).
+   Measured over the same eight long lines (90-100 s of speech): in a talking pose 94% of the time and 63 changes a
+   minute before, 38% and 26.5 a minute now. Checked: validate 0 errors; smoke intro, bench, visitcop, vascolove,
+   shopjobs pass.
+77. **Teixeira's bedroom scene flows** (the user: "there is a lot of unnatural breaks in their movement, to allow for the
+   spoken bits ... Alan should be speaking while he is undressing etc, not between the stages of it"). visits.js
+   `along(lines, at, move)`: a move starts `at` (a share of the first line's length, from js/lipsync.js) into its
+   lines, and both finish before the scene goes on. Each bookshelf painting now comes inside the line that goes with it
+   (into his neck as Alan crosses on "let me do the talking", the wrists on "Hands where I can see them", the jacket as
+   he squeaks "that's my line", the t-shirt on "Is that allowed?", the buttons on "Too many buttons", the belt on
+   "what's all this for", the trousers on "illegally good arse" and "Is there a form?", the cuffs on their three
+   lines); the same order and lines, the "Yes" still before the buttons. The gasps and moans play under the other
+   one's line, never the breather's own, and no longer force a 1.3 s hold. The dressing afterwards (`afterwards`,
+   Duarte's too): each stage a quarter of the way into its lines. Measured at real speed, the whole upstairs, old code
+   against new: 181 s to 158 s; silent stretches over 0.7 s 15 (39.8 s) to 7 (16.3 s, the still's fades, the bed
+   painting, walking out); moves inside a line 0 of 14 to 12. Checked: validate 0 errors; smoke visitcop, copbed,
+   visitguitar pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
