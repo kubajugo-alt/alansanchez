@@ -1428,7 +1428,9 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Open (the user's call):** the side walk. Master's 24-painting walk (entry 65, the user's own sheet: "apply the new
      walking") is put in after the approvals (main.js loadApproved, S.WALK24), so the approved Ludo side walk
      (`walk_side`) does not show; `?walk=old` shows the 8-painting cycle, not the Ludo one.
-   - Checked: smoke on every preview scene; play.mjs `{"won":true}` (148 steps).
+   - Checked: smoke on every preview scene; play.mjs `{"won":true}` (148 steps); S.climbOut in `?scene=sepit` plays all
+     26 frames (k1, the run, k2, the run, k3, the run up, alan_front), ending on the floor at (770, 642). The user on the
+     new Vasco takes: "much better".
 73. **Inês in front of Pessoa** (the user: "ines should be occluding pessoa"). Pessoa's sortY (565, so the desk cut-out
    never covers him on it) ordered him among the figures too: Inês at her ledger spot (760, 565) in front of the radiator
    and at the shelves (345, 550) by the desk was drawn behind him. render.js: figures are sorted by their own feet; a
