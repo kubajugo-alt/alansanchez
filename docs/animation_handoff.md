@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `520014b2` (Netlify `6adc25cfdd6c1ef6dc13e0b6`,
 entry 75): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-75); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-76); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1453,6 +1453,14 @@ session lived in the session's scratchpad and are gone; everything that matters 
    copguard, shopjobs, vascolove, vascostore, finalerace, bath pass. **Deployed:** Netlify `6adc25cfdd6c1ef6dc13e0b6`.
    Live: page 200, `/.env` 404, render.js, lines.js, approvals.json and a new Vasco take byte-identical, a Ludo frame
    served; live smoke sepit, shopjobs, vascolove pass.
+76. **Alan talks mostly in his standing pose** (the user: "Alan talking has too much animation. I think he should talk in
+   his idle pose a bit more, and switch to talking sprites every so often"). actor.js talk rhythm: a character's
+   `talkRest` (Alan: [2.5, 5.5] s) makes the rest, his standing painting with the lip-sync on it, the default: a line
+   starts at rest, each gesture (`talkGesture`, Alan [1.2, 2.2] s) always goes back to it, and the gestures take turns
+   (talk, talk2). Everyone else keeps the old rhythm (gestures held 0.8-1.8 s, a rest only 30% of the time).
+   Measured over the same eight long lines (90-100 s of speech): in a talking pose 94% of the time and 63 changes a
+   minute before, 38% and 26.5 a minute now. Checked: validate 0 errors; smoke intro, bench, visitcop, vascolove,
+   shopjobs pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

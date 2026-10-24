@@ -204,7 +204,7 @@
   // Painted frames (js/sprites.js). Sprites face right unless flagged
   // facesLeft; the engine mirrors them. `scale` is relative body height.
   S.CHARS = {
-    alan: { scale: 1, frames: {
+    alan: { scale: 1, talkRest: [2.5, 5.5], talkGesture: [1.2, 2.2], frames: { // (talkRest: he talks mostly standing, a gesture now and then)
       idle: ['alan_side', 'alan_idle2'], talk: ['alan_talk', 'alan_talk2'],
       // contact, down, passing, up on each foot: the original cycle, on its hand-tuned anchors (even steps)
       walk: ['alan_walkA', 'alan_walkDown', 'alan_pass', 'alan_walkUp', 'alan_walkB', 'alan_walkDown', 'alan_pass', 'alan_walkUp'],

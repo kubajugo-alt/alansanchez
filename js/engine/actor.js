@@ -241,13 +241,20 @@
         if (E.speaking && E.speaking.actor === this) {
           if (lvl >= 0.06) this.voiced = true; else if (this.voiced && this.quietT > 0.28) { this.voiced = false; E.phraseEndT = E.time; }
         }
-        const n = arr(F.talk).length;
-        if (this.quietT > 0.45 && this.talkIdx >= 0 && this.talkT < 0.5) { this.talkIdx = -1; this.talkT = 0.3; }
+        const n = arr(F.talk).length, rest = this.c.talkRest, gest = this.c.talkGesture || [0.8, 1.8];
+        const any = (r) => r[0] + Math.random() * (r[1] - r[0]);
+        // (c.talkRest: he talks mostly in his standing pose, the mouth moving, and only now and then gestures: each
+        // rest lasts that long, and a gesture always goes back to it)
+        if (this.talkIdx === -2) { this.talkIdx = -1; this.talkT = any([rest[0] * 0.3, rest[0] * 0.9]); } // a line starts at rest
+        if (this.quietT > 0.45 && this.talkIdx >= 0 && this.talkT < 0.5) { this.talkIdx = -1; this.talkT = rest ? any(rest) * 0.5 : 0.3; }
         else if (this.talkT <= 0) {
-          if (this.talkIdx >= 0 && Math.random() < 0.3) { this.talkIdx = -1; this.talkT = 0.35 + Math.random() * 0.4; }
-          else { this.talkIdx = n > 1 ? (Math.max(0, this.talkIdx) + 1 + Math.floor(Math.random() * (n - 1))) % n : 0; this.talkT = 0.8 + Math.random() * 1.0; }
+          if (this.talkIdx >= 0 && (rest || Math.random() < 0.3)) { this.talkIdx = -1; this.talkT = rest ? any(rest) : 0.35 + Math.random() * 0.4; }
+          else { // another gesture than the last one (from a rest too: the one before it)
+            const prev = this.talkIdx >= 0 ? this.talkIdx : this.lastTalk != null ? this.lastTalk : Math.floor(Math.random() * n);
+            this.talkIdx = this.lastTalk = n > 1 ? (prev + 1 + Math.floor(Math.random() * (n - 1))) % n : 0; this.talkT = any(gest);
+          }
         }
-      } else { this.talkIdx = 0; this.talkT = 0; this.quietT = 0; this.lvl = 0; }
+      } else { this.talkIdx = this.c.talkRest ? -2 : 0; this.talkT = 0; this.quietT = 0; this.lvl = 0; }
       const nIdle = arr(F.idle).length;
       if (!(E.cutscene && this.def && this.def.ambient)) this.idleT -= dt; // ambient extras freeze during cutscenes
       if (this.idleT <= 0) {
