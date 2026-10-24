@@ -117,6 +117,13 @@
     } else await S.pairStep(pose, x);
     await T(ms);
   }
+  // a move made while the lines are spoken (not in a pause between them): the lines start, and `at` (a share of the
+  // first line's length) into them the move begins; both have to finish before the scene goes on
+  const lineSecs = id => { const L = window.LIPSYNC || {}; for (const s in L) if (L[s][id]) return L[s][id][0]; return 2.5; };
+  async function along(lines, at, move) {
+    const go = T(lineSecs(lines[0]) * 1000 * at).then(move);
+    await Promise.all([say(...lines), go]);
+  }
   async function upstairs(who, at, vx) {
     await G.fade(true);
     await G.goRoom('bedroom', null, { instant: true, noEnter: true, noSave: true, pos: at });
@@ -161,8 +168,9 @@
     if (state === 'guitar_floor' && S.duarteSong) await S.duarteSong(); // he plays Alan his song, all of it
     for (const [stage, ...lines] of beats) {
       if (typeof stage === 'function') { await stage(); continue; }
-      dress(stage); if (stage === 2) for (let i = 0; i < 4; i++) { p.x -= 5; await T(140); } else await T(500);
-      if (lines.length) await say(...lines);
+      // he dresses while they talk: the stage comes a quarter of the way into its first line
+      const move = async () => { dress(stage); if (stage === 2) for (let i = 0; i < 4; i++) { p.x -= 5; await T(140); } };
+      if (lines.length) await along(lines, 0.25, move); else { await move(); await T(500); }
     }
     await T(300); p.pose = null;
     p.dir = 'w'; await p.walkTo(-90, 700); // out past the bookshelf and out of the room...
@@ -223,44 +231,41 @@
       await beats([null, 'alan_visit_cop'], ['fluster', 'ines_visit_after']);
       const disc = S.discreet(); // Discreet: straight from the arrival to the afterwards
       const v = disc ? await upstairsDark('cop') : await upstairs('cop', [660, 645, 'w'], 236); // he backs up to the bookshelf: where the paintings have him
-      if (!disc) { await say('phone_room_1', 'alan_room_cop_1');
+      if (!disc) { await say('phone_room_1');
       // Alan takes the lead: against the bookshelf, the shirt, the neck
       // the officer backed against the room's own bookshelf, Alan very much in charge
       pairV = v; // Alan crosses to him; nobody jumps (pair, above)
-      // a breath, a gasp, a groan as each frame lands (sound only, no caption)
+      // a breath, a gasp, a groan as each frame lands (sound only, no caption), never over the breather's own line
       const VOX = { neck: 'v_cop_moan', shelf: 'v_cop_gasp', jacket: 'v_alan_mmm', tshirt: 'v_cop_whimper', buttons: 'v_alan_groan',
         shelf2: 'v_cop_moan', belt: 'v_cop_gasp', belt2: 'v_alan_mmm', trousers: 'v_cop_whimper', cuffs_a: 'v_alan_chuckle', cuffs_b: 'v_cop_gasp' };
-      const shelf = (k, ms) => {
-        if (VOX[k] && window.SPRITES['pair_cop_' + k]) { sfx(VOX[k], 0.55); ms = Math.max(ms, 1300); }
+      const voice = id => (window.LINES[id] || [])[0]; // who says a line: 'alan' or 'phone' (Teixeira)
+      const shelf = (k, ms, over) => {
+        const vx = VOX[k], mine = vx && over && voice(over) === (vx.startsWith('v_alan') ? 'alan' : 'phone');
+        if (vx && !mine && window.SPRITES['pair_cop_' + k]) { sfx(vx, over ? 0.4 : 0.55); if (!over) ms = Math.max(ms, 1300); }
         return pair('pair_cop_' + k, ms, SHELF, TORSO[k]);
       };
-      p.dir = 'e'; sfx('sheet_slap', 0.2); await shelf('neck', 900); // straight into his neck, backed against the shelf
-      await say('phone_room_2', 'alan_room_cop_2');
-      await shelf('shelf', 600); // then his wrists, pinned above his head
-      await say('alan_room_cop_5', 'phone_room_5');
-      await shelf('jacket', 2200); // wrists still pinned, the jacket shrugged off
-      sfx('sheet_slap', 0.2); await shelf('tshirt', 900);
-      await say('phone_room_6', 'alan_room_cop_6', 'teixeira_yes'); // and he says yes, clearly
-      await shelf('buttons', 1200);
-      await say('alan_room_cop_4', 'phone_room_4');
+      // each move made inside the line that goes with it (along, above): nobody stops to let the other speak
+      p.dir = 'e';
+      await along(['alan_room_cop_1'], 0.35, async () => { sfx('sheet_slap', 0.2); await shelf('neck', 0, 'alan_room_cop_1'); }); // he crosses as he says it, straight into his neck
+      await say('phone_room_2', 'alan_room_cop_2'); // "Alan. It's Alan.", into his neck
+      await along(['alan_room_cop_5'], 0.15, () => shelf('shelf', 0, 'alan_room_cop_5')); // his wrists pinned above his head on "Hands where I can see them"
+      await along(['phone_room_5'], 0.3, () => shelf('jacket', 0, 'phone_room_5')); // wrists still pinned, the jacket shrugged off as he squeaks
+      sfx('sheet_slap', 0.2);
+      await along(['phone_room_6', 'alan_room_cop_6', 'teixeira_yes'], 0, () => shelf('tshirt', 0, 'phone_room_6')); // the t-shirt as he asks: and he says yes, clearly
+      await along(['alan_room_cop_4', 'phone_room_4'], 0.2, () => shelf('buttons', 0, 'alan_room_cop_4')); // "Too many buttons", undoing them
       // the bookshelf, close up: his shirt open, the books going over
       sfx('sheet_slap', 0.25); sfx('v_cop_moan', 0.5);
       await G.showStill('still_cop_shelf', () => G.say('narr_room_cop', { offscreen: true }), { zoom: [1.02, 1.14], pan: [[0.5, 0.45], [0.45, 0.4]], keep: true });
       await G.fade(true); G.endStill(); await shelf('shelf2', 0); await T(300); await G.fade(false);
-      await T(2200); // back in the room: the shirt open, his hand on the officer's chest
-      await shelf('belt', 1000);
-      await say('alan_room_cop_7', 'phone_room_7');
-      await shelf('belt2', 900); // his trousers, halfway
-      await say('alan_room_cop_8', 'phone_room_8');
-      sfx('sheet_slap', 0.25); await shelf('trousers', 900);
-      await say('phone_room_9', 'alan_room_cop_9');
+      await T(450); // back in the room: the shirt open, his hand on the officer's chest
+      await along(['alan_room_cop_7', 'phone_room_7'], 0.15, () => shelf('belt', 0, 'alan_room_cop_7')); // tugging at the duty belt as he asks what it's for
+      await along(['alan_room_cop_8'], 0.05, () => shelf('belt2', 0, 'alan_room_cop_8')); // his trousers halfway, peering round him
+      await along(['phone_room_8', 'phone_room_9', 'alan_room_cop_9'], 0.4, () => { sfx('sheet_slap', 0.25); return shelf('trousers', 0, 'phone_room_8'); }); // Alan's own come down as he asks for the form
       // his own handcuffs
-      sfx('sheet_slap', 0.25); await shelf('cuffs', 600);
-      await say('alan_cuff_1');
-      await shelf('cuffs_a', 300); // twirling them on a finger; the officer backs off
-      await say('phone_cuff_1');
-      await shelf('cuffs_b', 300); // dangling them in front of his face
-      await say('alan_cuff_2'); sfx('handcuff_click', 0.8);
+      await along(['alan_cuff_1'], 0, () => { sfx('sheet_slap', 0.25); return shelf('cuffs', 0, 'alan_cuff_1'); });
+      await along(['phone_cuff_1'], 0, () => shelf('cuffs_a', 0, 'phone_cuff_1')); // twirling them on a finger; the officer backs off
+      await along(['alan_cuff_2'], 0, () => shelf('cuffs_b', 0, 'alan_cuff_2')); // dangling them in front of his face
+      sfx('handcuff_click', 0.8);
       // later: the two of them in bed, Alan smoking, the officer dozing on his shoulder; cap and cuffs on the bedpost
       if (G.hasArt('still:still_cop_bed')) {
         await G.fade(true);
