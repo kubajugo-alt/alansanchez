@@ -47,7 +47,7 @@
     return (o._fm = { bx, by, bw, bh, c });
   }
   let occBuf = null;
-  function drawOccluder(o) {
+  function drawOccluder(o, onTop) {
     const im = IMG['bg:' + curBg()]; if (!im) return;
     const P = o.polys || [o.poly], m = occMask(o);
     if (!occBuf) occBuf = document.createElement('canvas');
@@ -64,7 +64,9 @@
     if (PX()) { const xs = P.flat().map(p => p[0]); Parallax.apply(g, o.base ? (o.base[0][0] + o.base[1][0]) / 2 : (Math.min(...xs) + Math.max(...xs)) / 2, o.base ? (o.base[0][1] + o.base[1][1]) / 2 : o.y); }
     g.drawImage(occBuf, 0, 0, m.bw, m.bh, m.bx, m.by, m.bw, m.bh);
     // keep lamp halos continuous across the repainted patch (each glow at its own lamp's depth, so outside this transform)
-    occPath(g, P, 0, 0); g.clip(); g.setTransform(T0); E.drawGlows();
+    occPath(g, P, 0, 0); g.clip(); g.setTransform(T0);
+    if (onTop) onTop(); // whoever lies on top of this furniture, again over it (inside its outline only: see depthOf)
+    E.drawGlows();
     g.restore();
   }
   // where an occluder's top edge crosses the line x (the highest of its outlines there), or null
@@ -79,8 +81,11 @@
   }
   // whoever stands behind a piece of furniture whose top edge crosses their body gets that edge (Actor.draw shades them
   // a little towards it: the counter, desk or basin throws its shade on them, so they read as standing behind it)
-  // an actor's depth: its feet, or its def.sortY when it sits on top of something (Pessoa on the desk: the desk is
-  // painted in front of whoever is behind it, never in front of the cat lying on it)
+  // an actor's depth for the furniture's shade: its feet, or its def.sortY when it sits on top of something (Pessoa on
+  // the desk: the desk is painted in front of whoever is behind it, never in front of the cat lying on it). Among the
+  // figures he is drawn at his own feet (Inês in front of the desk or the radiator covers him), and the furniture he
+  // lies on draws him again inside its own outline (lyingOn)
+  const lyingOn = (a, o) => a.def && a.def.sortY != null && a.y < o.y && depthOf(a) >= o.y && (o.polys || [o.poly]).flat().some(p => Math.abs(p[0] - a.x) < 200);
   const depthOf = a => (a.def && a.def.sortY != null) ? Math.max(a.y, a.def.sortY) : a.y;
   function markOccluded(actors) {
     for (const a of actors) a.occEdge = null;
@@ -197,9 +202,13 @@
       const planted = (a, fn) => { if (!PX()) return fn(); g.save(); Parallax.apply(g, a.x, a.y); try { fn(); } finally { g.restore(); } };
       const items = [];
       markOccluded(E.npcs.filter(a => a.visible).concat(E.player.visible ? [E.player] : []));
-      for (const a of E.npcs) if (a.visible) items.push({ y: depthOf(a), fn: () => planted(a, () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); }) });
+      const drawNpc = a => planted(a, () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); });
+      for (const a of E.npcs) if (a.visible) items.push({ y: a.y, fn: () => drawNpc(a) });
       if (E.player.visible) items.push({ y: E.player.y, fn: () => planted(E.player, () => { E.player.draw(); if (E.player.overlay) E.player.overlay(g, E.player, E.time); }) });
-      for (const o of (E.room.occluders || [])) if (!o.when || o.when()) items.push({ y: occluderY(o), fn: () => drawOccluder(o) });
+      for (const o of (E.room.occluders || [])) if (!o.when || o.when()) {
+        const on = E.npcs.filter(a => a.visible && lyingOn(a, o));
+        items.push({ y: occluderY(o), fn: () => drawOccluder(o, on.length ? () => on.forEach(drawNpc) : null) });
+      }
       items.sort((a, b) => a.y - b.y).forEach(i => i.fn());
       if (E.room.animFg) flat(() => E.room.animFg(g, E.time));
       if (moved) g.restore();
