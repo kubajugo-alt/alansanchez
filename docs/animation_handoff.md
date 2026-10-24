@@ -5,10 +5,10 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `ac52b9a9` (Netlify `6adbe8a0c9335180fa13e110`,
-entry 71): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `520014b2` (Netlify `6adc25cfdd6c1ef6dc13e0b6`,
+entry 75): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-74); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-75); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1448,6 +1448,11 @@ session lived in the session's scratchpad and are gone; everything that matters 
    with a pitch): the old files had ten lines almost wholly whispered (0.00-0.15: after_2, shirt_2, dust, kneel, quiet,
    idle_17, love_romans, close, after_1, collar_2), the new ones none (lowest 0.25, median 0.59). Levelled to -21.5
    LUFS (all -22.3 to -21.6), -1 dBTP limiter, 64 kbps mono. Lip-sync: Rhubarb 1.13.0, 105 written.
+75. **Deploy of entries 72-74** (the user: "keep my 24 walk, merge and deploy"). PR kubajugo-alt/alansanchez#4 merged
+   (master `520014b2`). Smoke on the `git archive` export (own port, no `.env`): intro, bench, sepit, visitcop,
+   copguard, shopjobs, vascolove, vascostore, finalerace, bath pass. **Deployed:** Netlify `6adc25cfdd6c1ef6dc13e0b6`.
+   Live: page 200, `/.env` 404, render.js, lines.js, approvals.json and a new Vasco take byte-identical, a Ludo frame
+   served; live smoke sepit, shopjobs, vascolove pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
