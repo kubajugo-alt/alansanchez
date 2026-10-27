@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `394bcdd0` (Netlify `6ae0f495e700c5fb8cdf3879`,
 entry 80): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-81); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-82); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1517,6 +1517,15 @@ session lived in the session's scratchpad and are gone; everything that matters 
    `window.BG2X`) loads them in place of the paintings, for review only (art/review is not deployed). Seen in the game
    at pixel ratio 2: the picture frame, the register's engraving, the cloister's capitals and far arches hold their
    lines; in the cloister the far arches show a little more through the fog. Waiting on the user: all 34 rooms or not.
+82. **All 33 room paintings upscaled, on a board** (the user: "Go ahead and" (the message cut off there), after the
+   trial). Real-ESRGAN x2plus on every painting in art/bg but the title screen (the user's standing rule), about 30 s
+   each: `art/review/bg2x/<room>.jpg`, 2560x1440, JPEG 92 (about 21 MB in all; not deployed). The variants that swap in
+   place agree with their base outside what changed: shop / nomag / drawer / drawer_nomag differ by 0.01 grey levels
+   there, ferreira's drawers 0.6, the tavern without the guitar 0.26 (the paintings themselves 0 to 0.4). Board:
+   https://claude.ai/artifact/TmtrrJCTe6SPkiNSfkLJhZ (source scripts/review_pages/bg2x_board/index.html; collection
+   `decisions`, one document per room: approved / redo / keep, and a note). Each card: the painting as the game
+   stretches it today left of a draggable line, the upscale right; 100% shows real pixels and pans. Nothing goes in
+   until the user decides; then the approved ones go into the game for screens drawn above 1280 (render scale > 1).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
