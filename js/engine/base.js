@@ -22,10 +22,28 @@
     ctx.clearRect(0, 0, c.width, c.height);
   }
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  // The game is laid out in 1280 x 720 scene px, but drawn at the screen's own pixel count (render scale RS: the
+  // canvas's size on screen times the device's pixel ratio, over 1280; at most 2, at least 1): the paintings are
+  // drawn once at the size they are seen instead of at 1280 and then stretched by the browser. Light effects (and a
+  // device too slow for the warp) draw at 1280. ?rs=1.5 fixes it, for tests.
+  const RS_MAX = 2, rsFixed = +(new URLSearchParams(location.search).get('rs') || 0);
+  function renderScale() {
+    if (rsFixed) return Math.max(1, Math.min(3, rsFixed));
+    if (window.WARP === false || window.FAST) return 1;
+    // (a touch screen at most 1.5; RS_CAP: render.js found the frames too slow at more)
+    const cap = Math.min(window.RS_CAP || RS_MAX, matchMedia('(pointer: coarse)').matches ? 1.5 : RS_MAX);
+    const w = canvas.getBoundingClientRect().width || W;
+    return Math.max(1, Math.min(cap, Math.round(w * (window.devicePixelRatio || 1) / W * 8) / 8)); // (in eighths: a window drag doesn't resize every frame)
+  }
+  function syncRenderScale() {
+    const rs = renderScale();
+    if (rs !== E.RS || canvas.width !== Math.round(W * rs)) { E.RS = rs; canvas.width = Math.round(W * rs); canvas.height = Math.round(H * rs); }
+    return E.RS;
+  }
 
   const E = window.Engine = {
     W, H, canvas, g, $, wrap, speechEl, narrEl, hoverEl, invEl, invBar, dialogEl, labelsEl,
-    ROOMS, ITEMS, CHARS, IMG, GROUND_K, freshState, fit, wait,
+    ROOMS, ITEMS, CHARS, IMG, GROUND_K, freshState, fit, wait, RS: 1, syncRenderScale,
   };
 
   // ---------------------------------------------------------------- shared state

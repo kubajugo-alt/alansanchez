@@ -36,24 +36,25 @@
   const OCC_SOFT = 2.2; // px of feathered edge
   const occPath = (x, P, ox, oy) => { x.beginPath(); for (const p of P) { p.forEach(([px, py], i) => (i ? x.lineTo(px - ox, py - oy) : x.moveTo(px - ox, py - oy))); x.closePath(); } };
   function occMask(o) {
-    if (o._fm) return o._fm;
+    const RS = E.RS || 1; // (made at the render scale: remade if it changes)
+    if (o._fm && o._fm.rs === RS) return o._fm;
     const P = o.polys || [o.poly], xs = P.flat().map(p => p[0]), ys = P.flat().map(p => p[1]), pad = 4;
     const bx = Math.max(0, Math.floor(Math.min(...xs)) - pad), by = Math.max(0, Math.floor(Math.min(...ys)) - pad);
     const bw = Math.max(1, Math.min(W, Math.ceil(Math.max(...xs)) + pad) - bx), bh = Math.max(1, Math.min(H, Math.ceil(Math.max(...ys)) + pad) - by);
-    const c = document.createElement('canvas'); c.width = bw; c.height = bh; const x = c.getContext('2d');
+    const c = document.createElement('canvas'); c.width = Math.ceil(bw * RS); c.height = Math.ceil(bh * RS); const x = c.getContext('2d'); x.scale(RS, RS);
     occPath(x, P, bx, by); x.fillStyle = '#fff'; x.fill();
     x.globalCompositeOperation = 'destination-out'; x.lineJoin = 'round'; x.strokeStyle = '#000';
     for (const [w, a] of [[OCC_SOFT * 2, 0.28], [OCC_SOFT, 0.32]]) { x.globalAlpha = a; x.lineWidth = w; occPath(x, P, bx, by); x.stroke(); }
-    return (o._fm = { bx, by, bw, bh, c });
+    return (o._fm = { bx, by, bw, bh, c, rs: RS });
   }
   let occBuf = null;
   function drawOccluder(o, onTop) {
     const im = IMG['bg:' + curBg()]; if (!im) return;
-    const P = o.polys || [o.poly], m = occMask(o);
+    const P = o.polys || [o.poly], m = occMask(o), mw = m.c.width, mh = m.c.height;
     if (!occBuf) occBuf = document.createElement('canvas');
-    if (occBuf.width < m.bw || occBuf.height < m.bh) { occBuf.width = Math.max(occBuf.width, m.bw); occBuf.height = Math.max(occBuf.height, m.bh); }
+    if (occBuf.width < mw || occBuf.height < mh) { occBuf.width = Math.max(occBuf.width, mw); occBuf.height = Math.max(occBuf.height, mh); }
     const t = occBuf.getContext('2d');
-    t.save(); t.clearRect(0, 0, m.bw, m.bh); t.translate(-m.bx, -m.by);
+    t.save(); t.setTransform(1, 0, 0, 1, 0, 0); t.clearRect(0, 0, mw, mh); t.setTransform(m.rs, 0, 0, m.rs, -m.bx * m.rs, -m.by * m.rs); t.imageSmoothingQuality = 'high';
     t.drawImage(im, 0, 0, W, H); drawLayers(true, t);
     if (o.draw) o.draw(t, E.time); // props that sit on the occluding furniture
     t.restore();
@@ -62,7 +63,7 @@
     g.save();
     // (the furniture moves as the floor at its front edge moves)
     if (PX()) { const xs = P.flat().map(p => p[0]); Parallax.apply(g, o.base ? (o.base[0][0] + o.base[1][0]) / 2 : (Math.min(...xs) + Math.max(...xs)) / 2, o.base ? (o.base[0][1] + o.base[1][1]) / 2 : o.y); }
-    g.drawImage(occBuf, 0, 0, m.bw, m.bh, m.bx, m.by, m.bw, m.bh);
+    g.drawImage(occBuf, 0, 0, mw, mh, m.bx, m.by, mw / m.rs, mh / m.rs);
     // keep lamp halos continuous across the repainted patch (each glow at its own lamp's depth, so outside this transform)
     occPath(g, P, 0, 0); g.clip(); g.setTransform(T0);
     if (onTop) onTop(); // whoever lies on top of this furniture, again over it (inside its outline only: see depthOf)
@@ -152,7 +153,9 @@
     if (window.WARP == null && !window.FAST && !document.hidden) { // (WARP = true forces it on, false off)
       const ft = Math.min(0.1, (now - last0) / 1000); last0 = now;
       slowT = ft > 0.045 ? slowT + ft : Math.max(0, slowT - 2 * ft);
-      if (slowT > 4) {
+      if (slowT > 4 && E.RS > 1 && !window.RS_CAP) { // first: back to 1280 px (engine/base.js render scale), effects kept
+        window.RS_CAP = 1; slowT = 0; console.info('Drawn at 1280 px: frames too slow at the screen\'s resolution');
+      } else if (slowT > 4) {
         window.WARP = false; slowT = 0; if (window.Parallax) Parallax.off();
         console.info('Warp and parallax off: frames too slow on this device');
         if (E.toast) E.toast('Effects lowered for this device (☰ to change)');
@@ -163,6 +166,8 @@
   }
   let cine = null;
   function drawFrame(dt) {
+    // drawn at the screen's pixel count, laid out in scene px (base.js: the render scale)
+    const RS = E.syncRenderScale(); g.setTransform(RS, 0, 0, RS, 0, 0); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
     const c = !!E.still; if (c !== cine) { cine = c; E.wrap.classList.toggle('cine', c); } // the buttons step aside for a painting
     if (E.room) {
       E.player.update(dt); E.npcs.forEach(a => a.update(dt));
@@ -180,12 +185,13 @@
       let pc = null;
       if (dm) {
         Parallax.update(dt, E.time, E.player.visible ? E.player.x : null);
-        if (!bgc) { bgc = document.createElement('canvas'); bgc.width = W; bgc.height = H; }
+        if (!bgc || bgc.width !== Math.round(W * RS)) { bgc = bgc || document.createElement('canvas'); bgc.width = Math.round(W * RS); bgc.height = Math.round(H * RS); bgKey = null; }
         // redrawn (and sent to the GPU) only when something in it moves or changes: a still room costs nothing
         const ls = (E.room.layers || []).filter(l => !l.when || l.when());
         const key = E.room.id + '|' + curBg() + '|' + ls.map(l => l.img).join(','), live = !!E.room.animBack || ls.some(l => l.swing || l.bob || l.over) || key !== bgKey;
         if (live) {
           const x = bgc.getContext('2d'), im = IMG['bg:' + curBg()];
+          x.setTransform(RS, 0, 0, RS, 0, 0); x.imageSmoothingQuality = 'high';
           if (im) x.drawImage(im, 0, 0, W, H); else { x.fillStyle = '#000'; x.fillRect(0, 0, W, H); }
           if (E.room.animBack) E.room.animBack(x, E.time);
           drawLayers(false, x); bgKey = key;
