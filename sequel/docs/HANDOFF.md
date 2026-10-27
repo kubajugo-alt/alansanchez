@@ -102,3 +102,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
 4. **Voice rule settled** (2026-10-27, the user: "Let's keep the same narrator. The rest of the suggestions is good").
    The narrator keeps Game I's Eleanor; Carmen's answering-machine line gets Inês's telephone treatment. Both written
    into "Voice casting".
+5. **Voice auditions** (2026-10-27, the user: "When you're waiting for canva cooldowns, focus on voice overs"). No
+   `ELEVENLABS_API_KEY` in this container, so the voices go through the ElevenLabs connector (`eleven_v4`, as Game I).
+   A shortlist of native Spanish voices (Canarian or Peninsular where the library has one; Gail and Derek Cockney),
+   one line per character, two takes each: 42 files in `audio/auditions/` (git-ignored, root `.gitignore`; review
+   material, not game audio), published for the user to pick from at https://claude.ai/artifact/EKTEsDzh5aJYSrWhfm83Ht.
+   About 4,200 credits. `scripts/phone_fx.sh` (ffmpeg: 300–3400 Hz band, 8 kHz resample, compression, soft clip, faint
+   line hiss) makes Inês's telephone copy; the auditions page plays both. Next: the user's picks, then the cast file
+   (`scripts/cast.json`, the sequel's own) and the full run. Also in this round: Canva cut-outs for Pino+Lolo,
+   Nieves+check-in clerk, Chano+guard, Fermín+Mercedes (each checked: validate 0 errors, play.mjs won, 98 steps).
