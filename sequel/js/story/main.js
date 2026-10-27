@@ -53,6 +53,7 @@
     vault: { flags: { ch: 5, isleta_flood: true, v_understood: true, v_fuse_seen: true, v_refused: true }, room: 'vault', pos: [620, 660, 'e'], run: async () => { S.becomeVasco(); ['ltrowel', 'torch'].forEach(k => S.give(k, true)); S.torch = 1; } },
     sun: { flags: { ch: 6, v_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => S.theChoice() },
     carmen: { flags: { ch: 6, chose_carmen: true, cave_explained: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('carmen_flat', 'map') },
+    landrover: { flags: { ch: 6, chose_carmen: true, knows_vault: true }, room: 'landrover', pos: [640, 660, 'e'], run: async () => {} },
     rescue: { flags: { ch: 6, chose_carmen: true, knows_vault: true, driving: true, radiator_filled: true }, room: 'camp', pos: [300, 660, 'e'], run: async () => {} },
     finale: { flags: { ch: 6, vasco_free: true, v_marked: true }, room: 'vault', pos: [400, 660, 'e'], run: () => S.takeDiscs() },
     confession: { flags: { ch: 7, lock_closed: true, placed: [3, 0, 4, 1, 5, 2], disc_turned: true, disc6_given: true }, room: 'cave6', pos: [560, 660, 'e'], run: async () => {} },

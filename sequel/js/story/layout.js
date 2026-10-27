@@ -50,6 +50,9 @@
       npcs: { vasco: [620, 620], yeray: [930, 650] },
       at: { 'Crates': [250, 650], 'Left anchor': [400, 600], 'Right anchor': [810, 600], 'The wall by the grille': [900, 620], 'Steps up': [1080, 640] },
     },
+    landrover: {
+      spots: { 'Carmen': [20, 90, 480, 560], 'Temperature gauge': [545, 440, 265, 100], 'The bonnet': [280, 300, 700, 110], 'The footwell': [850, 575, 390, 145] },
+    },
     archive: {
       walk: [[90, 700], [380, 622], [860, 618], [960, 572], [1150, 572], [1160, 716], [90, 716]], scale: [580, 410, 716, 480],
       entries: { default: [1040, 600, 'w'], museum_hall: [1040, 600, 'w'] },
