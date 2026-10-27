@@ -41,11 +41,13 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
 - No music (Game I's tracks are Lisbon's); `audio/music/tracks.json` is empty.
 
 ### Voice casting (the user's rule, 2026-10-27)
-- **Alan, Vasco and Inês keep their Game I voices** (Game I's `scripts/cast.json`): Alan `CwhRBWXzGAHq8TQ4Fs17`,
-  Vasco `c6SfcYrb2t09NHXiT80T`, Inês `EXAVITQu4vr4xnSDxMaL`.
+- **Alan, Vasco, Inês and the narrator keep their Game I voices** (Game I's `scripts/cast.json`): Alan
+  `CwhRBWXzGAHq8TQ4Fs17`, Vasco `c6SfcYrb2t09NHXiT80T`, Inês `EXAVITQu4vr4xnSDxMaL`, the narrator (Eleanor)
+  `2qQJWjw5XdG80GreshqG`.
 - **Inês always sounds like she's on a phone**: every one of her lines is heard down the line from Lisbon, so her
   recordings get a telephone treatment after generation (narrow band about 300–3400 Hz, mono, light compression and a
   little line noise), applied in post so her original voice stays the source.
+- **Carmen's answering machine** (the prologue's "Trujillo. Speak, or don't.") gets the same telephone treatment.
 - **Everyone else gets a native Spanish ElevenLabs voice speaking English**: a Spanish voice (Canarian where the
   library has one) reading the English lines, so the accent comes from the speaker, not from the text.
 - **Gail and Derek are the exception**: working-class British English voices.
@@ -97,3 +99,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    them speak English. Gail and Derek should speak working class British English. Only Alan, Vasco and Ines will retain
    their original voices, although we need to make sure that Ines' voice sounds like through a phone"). Written into
    "Start here" (Voice casting) with the three kept voice ids from Game I's `scripts/cast.json`. No voices made yet.
+4. **Voice rule settled** (2026-10-27, the user: "Let's keep the same narrator. The rest of the suggestions is good").
+   The narrator keeps Game I's Eleanor; Carmen's answering-machine line gets Inês's telephone treatment. Both written
+   into "Voice casting".
