@@ -32,6 +32,23 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 253
 },
+"lolo_c": {
+"ax": 157.9,
+"facesLeft": true,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 323
+},
+"pino_c": {
+"ax": 149.1,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 300
+},
 "rafa_c": {
 "ax": 113.5,
 "fy": 740.0,
