@@ -42,6 +42,14 @@
         'Door to the steps': [1050, 230, 205, 300], 'Montesdeoca\'s van': [1050, 230, 205, 300], 'Out to Vegueta': [0, 120, 130, 440], 'Dinner table': [640, 290, 185, 230] },
       npcs: { baute: [560, 600], vasco: [780, 590], carmen: [1150, 545], montesdeoca: [320, 640], guard: [515, 545], gail: [940, 620], derek: [1030, 630] },
     },
+    vault: {
+      walk: [[0, 640], [210, 600], [360, 548], [850, 548], [1000, 600], [1040, 610], [1280, 640], [1280, 716], [0, 716]], scale: [548, 360, 716, 450],
+      entries: { default: [620, 640, 'e'], camp: [1060, 650, 'w'] },
+      spots: { 'Crates': [60, 340, 150, 270], 'Walls': [0, 40, 350, 220], 'The grille': [360, 60, 490, 470], 'Left anchor': [350, 500, 60, 50],
+        'Right anchor': [795, 495, 60, 55], 'The wall by the grille': [850, 150, 140, 380], 'Steps up': [1000, 80, 240, 520] },
+      npcs: { vasco: [620, 620], yeray: [930, 650] },
+      at: { 'Crates': [250, 650], 'Left anchor': [400, 600], 'Right anchor': [810, 600], 'The wall by the grille': [900, 620], 'Steps up': [1080, 640] },
+    },
     archive: {
       walk: [[90, 700], [380, 622], [860, 618], [960, 572], [1150, 572], [1160, 716], [90, 716]], scale: [580, 410, 716, 480],
       entries: { default: [1040, 600, 'w'], museum_hall: [1040, 600, 'w'] },
