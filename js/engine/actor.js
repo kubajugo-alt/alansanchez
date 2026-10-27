@@ -560,24 +560,31 @@
       const U = { x: Math.min(A.x, B ? B.x : A.x), y: Math.min(A.y, B ? B.y : A.y) };
       U.r = Math.max(A.x + A.w, B ? B.x + B.w : -1e9); U.b = Math.max(A.y + A.h, B ? B.y + B.h : -1e9);
       const bw = Math.ceil(U.r - U.x) + 1, bh = Math.ceil(U.b - U.y) + 1;
-      const comp = walkF ? composeFrames(A, B, 1 - walkF, U, bw, bh, true) : composeFrames(A, B, B ? this.fadeT / (this.fadeDur || XFADE) : 0, U, bw, bh, false, this.fadeSim, !!(E.SPRITES[key].rigid || (B && B.sp.rigid)), this.fadeHand);
+      // the figure is put together at the screen's pixel density (engine/base.js render scale, and the parallax zoom),
+      // never above the painting's own, so it is scaled down once, well, and goes on screen 1:1 (buffer px = q scene px)
+      const zoom = window.Parallax && Parallax.active && E.room && E.room.depth ? 1.022 : 1;
+      const q = Math.max(1, Math.min((E.RS || 1) * zoom, 1 / A.s));
+      const Q = P => P && Object.assign({}, P, { x: P.x * q, y: P.y * q, w: P.w * q, h: P.h * q, s: P.s * q });
+      const Aq = Q(A), Bq = Q(B), Uq = { x: U.x * q, y: U.y * q, r: U.r * q, b: U.b * q };
+      const bwq = Math.round(bw * q), bhq = Math.round(bh * q);
+      const comp = walkF ? composeFrames(Aq, Bq, 1 - walkF, Uq, bwq, bhq, true) : composeFrames(Aq, Bq, B ? this.fadeT / (this.fadeDur || XFADE) : 0, Uq, bwq, bhq, false, this.fadeSim, !!(E.SPRITES[key].rigid || (B && B.sp.rigid)), this.fadeHand);
       // standing behind furniture (render.js markOccluded): the figure darkens softly towards the furniture's top edge
       if (this.occEdge != null && !window.FAST && comp.getContext) {
-        const yE = this.occEdge - (this.y + U.y), band = h * OCC_BAND;
-        if (yE > 0 && yE - band < bh) {
+        const yE = (this.occEdge - (this.y + U.y)) * q, band = h * OCC_BAND * q;
+        if (yE > 0 && yE - band < bhq) {
           const c2 = comp.getContext('2d'); c2.save(); c2.globalCompositeOperation = 'source-atop';
           const gr = c2.createLinearGradient(0, yE - band, 0, yE + 1);
           gr.addColorStop(0, 'rgba(12,8,5,0)'); gr.addColorStop(0.65, `rgba(12,8,5,${OCC_DARK * 0.45})`); gr.addColorStop(1, `rgba(12,8,5,${OCC_DARK})`);
-          c2.fillStyle = gr; c2.fillRect(0, yE - band, bw, band + 2); c2.restore();
+          c2.fillStyle = gr; c2.fillRect(0, yE - band, bwq, band + 2); c2.restore();
         }
       }
       const sinkPx = this.sink * h;
       const unlit = !!(E.room && E.room.unlit && E.room.unlit.test(key));
       const lights = unlit ? [] : E.lightsOn(this.x, this.y - h * 0.55, h, this);
-      if (!sinkPx && !unlit) E.groundShadows(this, comp, U, bw, bh, h, lights);
+      if (!sinkPx && !unlit) E.groundShadows(this, comp, U, bw, bh, h, lights, q);
       const shaded = !unlit && !window.FAST && window.Warp && window.WARP !== false && window.LIT3D !== false && Warp.ok;
-      const lit = shaded || unlit ? comp : E.lightSprite(comp, bw, bh, U, h, lights);
-      const LP = shaded ? E.lightParams(U, h, lights) : null;
+      const lit = shaded || unlit ? comp : E.lightSprite(comp, bwq, bhq, Uq, h * q, lights);
+      const LP = shaded ? E.lightParams(Uq, h * q, lights, q) : null;
       // a combined sprite (two people in one painting) is never bent or stretched: no breath, sway or tilt
       const rigid = !!(E.SPRITES[key].rigid || (B && B.sp.rigid));
       // breathing: the chest rises and widens a touch above the hips; feet stay put
@@ -590,14 +597,22 @@
       if (this.rot) { const cy = this.y - h * 0.5; g.translate(this.x, cy); g.rotate(this.rot); g.translate(-this.x, -cy); } // a figure in the air (Inês thrown)
       // the painting is drawn through a mesh that bends with the figure: breath, sway, head, steps
       const still = (x, y) => [x, y]; // a combined sprite goes through the light pass unbent
-      const warped = !window.FAST && window.Warp && (!rigid || LP) && Warp.draw(g, lit, bw, bh, X0, Y0, rigid ? still : this.motion(h, -U.x, feetBy, E.SPRITES[key], b, key), rigid ? 0 : h * 0.1, LP);
+      // (the mesh works in the buffer's px: its bends, worked out in scene px, scaled by q; drawn back at 1/q)
+      const bend = rigid ? still : this.motion(h, -U.x, feetBy, E.SPRITES[key], b, key);
+      const bendQ = q === 1 ? bend : (x, y) => { const r = bend(x / q, y / q); return [r[0] * q, r[1] * q]; };
+      let warped = false;
+      if (!window.FAST && window.Warp && (!rigid || LP)) {
+        g.save(); g.translate(X0, Y0); g.scale(1 / q, 1 / q);
+        warped = Warp.draw(g, lit, bwq, bhq, 0, 0, bendQ, rigid ? 0 : h * 0.1 * q, LP);
+        g.restore();
+      }
       if (!warped) {
-        if (shaded) { const L2 = E.lightSprite(comp, bw, bh, U, h, lights); g.drawImage(L2, 0, 0, bw, bh, X0, Y0, bw, bh); g.restore(); return; }
+        if (shaded) { const L2 = E.lightSprite(comp, bwq, bhq, Uq, h * q, lights); g.drawImage(L2, 0, 0, bwq, bhq, X0, Y0, bw, bh); g.restore(); return; }
         // lower body: untouched
-        g.drawImage(lit, 0, hipBy, bw, bh - hipBy, X0, Y0 + hipBy, bw, bh - hipBy);
+        g.drawImage(lit, 0, hipBy * q, bwq, (bh - hipBy) * q, X0, Y0 + hipBy, bw, bh - hipBy);
         // upper body: scaled about the hip line and the body axis
         const hipY = Y0 + hipBy;
-        g.drawImage(lit, 0, 0, bw, hipBy + 1, this.x + U.x * sx, hipY - hipBy * sy, bw * sx, (hipBy + 1) * sy);
+        g.drawImage(lit, 0, 0, bwq, (hipBy + 1) * q, this.x + U.x * sx, hipY - hipBy * sy, bw * sx, (hipBy + 1) * sy);
       }
       g.restore();
     }

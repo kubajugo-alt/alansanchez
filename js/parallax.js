@@ -78,7 +78,10 @@ window.Parallax = (function () {
     liveN++;
     if (bg !== bgIm || (live && liveN % 2 === 0)) { upload(tBg, 0, bg); bgIm = bg; }
     if (depth !== dIm) { upload(tD, 1, depth); dIm = depth; depthData(depth); }
-    gl.viewport(0, 0, W, H);
+    // drawn at the painting buffer's own size (render.js: the screen's pixel count, engine/base.js render scale)
+    const cw = bg.width || W, ch = bg.height || H;
+    if (cv.width !== cw || cv.height !== ch) { cv.width = cw; cv.height = ch; }
+    gl.viewport(0, 0, cw, ch);
     gl.uniform2f(U.uC, cam.x / W, cam.y / H); gl.uniform1f(U.uZ, Z); gl.uniform1f(U.uD0, D0);
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tBg); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, tD);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);

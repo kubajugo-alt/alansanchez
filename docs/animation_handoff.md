@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `b32075c1` (Netlify `6adcabcf4c2e47f091f4b028`,
 entry 78): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-78); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-79); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1479,6 +1479,28 @@ session lived in the session's scratchpad and are gone; everything that matters 
    vascolove, sepit, shopjobs pass. **Deployed:** Netlify `6adcabcf4c2e47f091f4b028` (the first upload got a 503 from
    Netlify; a fresh one went through). Live: page 200, `/.env` 404, core.js, visits.js and actor.js byte-identical; live
    smoke copbed, visitcop, bench pass.
+79. **Drawn at the screen's resolution** (the user: "Why do both characters and backgrounds look lower quality than they
+   are drawn and how to fix it", then "Please do"). Measured in the shop at 1920x1080 against the paintings scaled
+   straight to that size (edge energy, also normalised by the patch's own contrast so the room's lighting drops out):
+   the room kept 57% of the painting's detail (64% normalised), Alan's face 21% (37%). Causes: a fixed 1280x720 canvas
+   stretched by the browser (x1.5 at 1080p, x2.25 on a Retina laptop); each figure composed into a 1280-scale buffer
+   (his 720 px painting drawn at 480, then stretched back to 720), then resampled by the mesh and the parallax zoom;
+   the parallax redrawing the room at 1280 with its 2.2% zoom (57% with it, 71% without).
+   - engine/base.js render scale `E.RS`: the canvas is the size it is on screen times the device pixel ratio, over
+     1280 (in eighths; 1 to 2, touch screens at most 1.5); render.js sets `g.setTransform(RS, ...)` each frame, so every
+     drawing stays in 1280x720 scene px. `?rs=` fixes it (tests). RS 1 under Light effects or FAST.
+   - The parallax buffer and its GL canvas (parallax.js), the furniture cut-outs (occMask, drawOccluder) at RS.
+   - Figures (actor.js draw): composed at q = RS x the parallax zoom (never above the painting's own density), lit
+     (lightSprite, lightParams with q, groundShadows with q) and bent by the mesh in buffer px, drawn back at 1/q.
+   - Slow frames: the fallback first drops to RS 1 (`window.RS_CAP`), and only if still slow turns the effects off.
+   - Measured after (RS 1.5, effects on): room 68% (76% normalised), Alan's face 42% (72%); what is left is mostly the
+     rooms' own grade and fog. Software rendering here: median frame 133 ms at RS 1, 233 at 1.5, 350 at 2 (no GPU in
+     the container; a real device's GPU does this work).
+   - Checked: validate 0 errors; screenshots at RS 1, 1.5 and 2 of bath, sepit, visitcop, bench, finalerace, intro,
+     coldopen, fado, laundry, celeste, semuseum, copbed, visitguitar, romance, thursday, bastos, twinswap: no errors,
+     figures in place; smoke intro, bench, sepit, visitcop, bath, copbed pass.
+   - Not done: the room paintings themselves are 1280x720 JPEGs, so on larger screens they are still upscaled; a 2x
+     AI upscale (new files, the user's call: the paintings never change without approval) is being tried on two rooms.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

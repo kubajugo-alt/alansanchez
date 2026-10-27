@@ -68,7 +68,8 @@
   // the silhouette at a quarter size: drawn back up smoothed it is the soft shadow (a canvas blur filter per light per
   // frame was one of the slowest things on a phone)
   const softBuf = document.createElement('canvas'), soft = softBuf.getContext('2d');
-  function groundShadows(a, comp, U, bw, bh, h, lights) {
+  function groundShadows(a, comp, U, bw, bh, h, lights, q) { // (q: comp is drawn at q buffer px per scene px)
+    q = q || 1;
     const L = roomLight();
     const ao = L.ao != null ? L.ao : 1;
     // contact shadow / ambient occlusion right under the feet
@@ -86,7 +87,7 @@
     const casters = lights.filter(o => o.l.shadow !== false && o.I > 0.03 && o.l.owner !== a);
     if (!casters.length) return;
     fit(silBuf, sg, bw, bh);
-    sg.drawImage(comp, 0, 0, bw, bh, 0, 0, bw, bh);
+    sg.drawImage(comp, 0, 0, Math.round(bw * q), Math.round(bh * q), 0, 0, bw, bh);
     sg.globalCompositeOperation = 'source-in'; sg.fillStyle = '#000'; sg.fillRect(0, 0, bw, bh);
     // a cast shadow is darkest where it meets the feet and thins out toward the
     // head's end, so a figure lit from behind stays planted instead of floating
@@ -128,7 +129,8 @@
     const m = str.match(/[\d.]+/g).map(Number);
     return (rgbaCache[str] = [m[0] / 255, m[1] / 255, m[2] / 255, m.length > 3 ? m[3] : defA]);
   }
-  function lightParams(U, figH, lights) {
+  function lightParams(U, figH, lights, q) { // (U, figH in the buffer's px: q of them per scene px)
+    q = q || 1;
     const L = roomLight();
     const base = Math.max(0.3, Math.min(1, L.base != null ? L.base : 1));
     const amb = (rgba(L.ambient, 1) || [1, 1, 1, 1]).slice(0, 3).map(v => v * base);
@@ -140,7 +142,7 @@
       const an = amb.map(v => v / Math.max(0.05, base)), luma = c => 0.3 * c[0] + 0.59 * c[1] + 0.11 * c[2];
       let tint = [0, 1, 2].map(i => (lc[i] * 0.6 + an[i] * 0.4));
       const k = luma(an) / Math.max(0.05, luma(tint)); tint = tint.map(v => v * k); // keep the old brightness, take the light's hue
-      out.push({ x: cx + o.dx, y: cy + o.dy, rgb: tint, I: o.I * (o.l.fill != null ? o.l.fill : 0.35) / 0.65, rim: Math.min(0.55, o.I * (o.l.rim != null ? o.l.rim : 0.8)) });
+      out.push({ x: cx + o.dx * q, y: cy + o.dy * q, rgb: tint, I: o.I * (o.l.fill != null ? o.l.fill : 0.35) / 0.65, rim: Math.min(0.55, o.I * (o.l.rim != null ? o.l.rim : 0.8)) });
     }
     out.sort((a, b) => b.I - a.I);
     // same average brightness as the flat lighting had; only the modelling changes
