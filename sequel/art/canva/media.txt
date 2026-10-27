@@ -14,3 +14,5 @@ bg carmen_flat MAHZPJ7CFQI exported
 bg baute_office MAHZPKWDfiU exported
 bg camp MAHZPE3AiTY exported
 bg cave6 MAHZPYJ-2RQ exported
+figure carmen MAHZPfrpYuA exported
+figure baute MAHZPbiIGEM exported

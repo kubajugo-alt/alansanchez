@@ -14,3 +14,5 @@
 - 2026-10-27 bg `baute_office` Canva media MAHZPKWDfiU -> art/bg/baute_office.jpg 
 - 2026-10-27 bg `camp` Canva media MAHZPE3AiTY -> art/bg/camp.jpg 
 - 2026-10-27 bg `cave6` Canva media MAHZPYJ-2RQ -> art/bg/cave6.jpg 
+- 2026-10-27 figure `carmen` Canva media MAHZPfrpYuA -> art/designs/carmen.png 
+- 2026-10-27 figure `baute` Canva media MAHZPbiIGEM -> art/designs/baute.png 
