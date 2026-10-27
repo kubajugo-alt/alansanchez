@@ -60,7 +60,7 @@ try {
   await expect('coins', () => Game.has('coins'));
   await act('Phone box', 'use');
   await expect('the first call', () => Game.flags.called_tue);
-  await act('Hotel Reina Isabel', 'exit'); await act('Lifts', 'exit');
+  await act('Hotel Cristina', 'exit'); await act('Lifts', 'exit');
   await expect('Wednesday', () => Game.flags.ch === 2);
   // ---- Wednesday
   await go('isleta'); await act('pino', 'talk');

@@ -59,7 +59,7 @@ def hexrgb(s):
 ROOMS = {
     'elena_car':     ('Elena\'s Renault 4 · 21 Dec 1995', '#141a26', '#2a3346', '#15110e', ['windscreen', 'cloudsea_night']),
     'gando':         ('Gando airport · arrivals', '#e9e2cf', '#cfc6ae', '#8a8270', ['windows_wide', 'belt']),
-    'hotel_lobby':   ('Hotel Reina Isabel · lobby, Las Canteras', '#e6d8bb', '#c9b38a', '#6e4e34', ['desk', 'palms', 'window']),
+    'hotel_lobby':   ('Hotel Cristina · lobby, Las Canteras', '#e6d8bb', '#c9b38a', '#6e4e34', ['desk', 'palms', 'window']),
     'hotel_room':    ('Hotel room · fourth floor, sea view', '#d7c7a7', '#bba684', '#7d6046', ['window_sea', 'bed']),
     'canteras':      ('Las Canteras · the promenade', '#a9b0b3', '#c8c3b4', '#d9c9a2', ['sea', 'promenade', 'kiosk', 'phonebox']),
     'map':           ('Las Palmas de Gran Canaria · 1996', '#c9b88f', '#b3a17a', '#b3a17a', ['island']),
