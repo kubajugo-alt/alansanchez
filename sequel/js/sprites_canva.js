@@ -16,6 +16,15 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 219
 },
+"clerk_c": {
+"ax": 200.0,
+"facesLeft": true,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 417
+},
 "derek_c": {
 "ax": 122.0,
 "fy": 740.0,
@@ -40,6 +49,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 323
+},
+"nieves_c": {
+"ax": 117.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 216
 },
 "pino_c": {
 "ax": 149.1,

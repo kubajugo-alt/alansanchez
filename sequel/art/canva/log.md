@@ -21,3 +21,4 @@
 - 2026-10-27 figure `gail_derek` Canva media MAHZPXeE2ig -> art/designs/gail_derek.png 
 - 2026-10-27 figure `rafa` Canva media MAHZPqKAeW4 -> art/designs/rafa.png repaint: a face unlike Alan
 - 2026-10-27 figure `pino_lolo` Canva media MAHZPvF1eis -> art/designs/pino_lolo.png 
+- 2026-10-27 figure `nieves_clerk` Canva media MAHZPlnmfDQ -> art/designs/nieves_clerk.png 
