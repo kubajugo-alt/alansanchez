@@ -128,7 +128,10 @@
   const stillKeys = name => ['still:' + name, 'close:' + name, 'bg:' + name].filter(k => SRC[k]);
   function register() {
     const add = (k, s) => { if (!SRC[k]) { SRC[k] = s; total++; } };
-    for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) add('bg:' + b, 'art/bg/' + b + '.jpg');
+    // ?bg2x (review only, not the game's default): a room painting upscaled 2x (art/review/bg2x/, Real-ESRGAN x2plus) in
+    // place of the painting, for the rooms that have one
+    const bg2x = /[?&]bg2x\b/.test(location.search) ? (window.BG2X || []) : [];
+    for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) add('bg:' + b, bg2x.includes(b) ? 'art/review/bg2x/' + b + '.jpg' : 'art/bg/' + b + '.jpg');
     for (const s of (window.STILLS || [])) add('still:' + s, 'art/stills/' + s + '.jpg');
     for (const c of (window.CLOSEUPS || [])) add('close:' + c, 'art/closeups/' + c + '.jpg');
     for (const k in E.SPRITES) add('spr:' + k, E.SPRITES[k].src || 'art/sprites/' + k + '.webp'); // src: an approved review frame

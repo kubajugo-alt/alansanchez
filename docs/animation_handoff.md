@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `394bcdd0` (Netlify `6ae0f495e700c5fb8cdf3879`,
 entry 80): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-80); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-81); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1508,6 +1508,15 @@ session lived in the session's scratchpad and are gone; everything that matters 
    game picks RS 1.5 itself (shopjobs, sepit, no errors); live smoke bench, visitcop pass. Still open: the 2x room
    upscale trial (Real-ESRGAN, run locally, was stopped by the session's safety check as code from outside: the
    user's call).
+81. **Room paintings upscaled 2x: a trial on two rooms** (the user, after the safety check had stopped it: "I want to
+   allow the upscaler"). Real-ESRGAN run locally on the CPU (torch 2.14 CPU, spandrel 0.4.2; the official weights
+   RealESRGAN_x4plus_anime_6B and RealESRGAN_x2plus, sha256 f872d837... and 49fafd45..., kept out of the repo), 192 px
+   tiles with a 16 px overlap, 30-50 s a room. The illustration model sharpens but smooths the brushwork flat; the
+   general x2plus keeps the painted texture and grain: x2plus chosen. `art/review/bg2x/shop.jpg`, `se_cloister.jpg`
+   (2560x1440, JPEG 92, about 650 KB against 150-190 KB); art/bg unchanged. `?bg2x` (engine.js register, main.js
+   `window.BG2X`) loads them in place of the paintings, for review only (art/review is not deployed). Seen in the game
+   at pixel ratio 2: the picture frame, the register's engraving, the cloister's capitals and far arches hold their
+   lines; in the cloister the far arches show a little more through the fog. Waiting on the user: all 34 rooms or not.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
