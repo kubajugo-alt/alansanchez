@@ -1,0 +1,4 @@
+# what Game II's export (`git archive HEAD:sequel`) leaves out: tools, notes and placeholder markers
+scripts/** export-ignore
+docs/** export-ignore
+*.ph export-ignore

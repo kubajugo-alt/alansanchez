@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `b32075c1` (Netlify `6adcabcf4c2e47f091f4b028`,
 entry 78): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-79); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-80; entry 80: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1501,6 +1501,15 @@ session lived in the session's scratchpad and are gone; everything that matters 
      figures in place; smoke intro, bench, sepit, visitcop, bath, copbed pass.
    - Not done: the room paintings themselves are 1280x720 JPEGs, so on larger screens they are still upscaled; a 2x
      AI upscale (new files, the user's call: the paintings never change without approval) is being tried on two rooms.
+
+80. **Game II started in `sequel/`** (2026-10-27, the user: "Use the same repo to build the sequel - but make sure the
+   first game stays intact and I can still edit it, prepare a new netlify project for it"). The Shortest Night lives in
+   `sequel/`, its own web root with a forked engine (copied at `394bcdd0`); it has its own handoff,
+   `sequel/docs/HANDOFF.md`, which logs its work from now on. For Game I only two things changed: `.gitattributes`
+   adds `sequel/ export-ignore`, so Game I's `git archive HEAD` export is what it was; `CLAUDE.md` points at the sequel.
+   Game I's code, art, tests and Netlify project are untouched; `node scripts/validate.mjs` reads as before (0 errors).
+   The sequel's Netlify project: `alan-sanchez-shortest-night` (`a5e71264-d9a4-439a-b1e5-60ec3f98812d`), not deployed.
+
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

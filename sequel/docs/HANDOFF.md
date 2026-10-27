@@ -1,0 +1,73 @@
+# The Shortest Night: handoff
+
+## Start here (2026-10-27)
+
+Game II, *Alan Sanches II: The Shortest Night* (Gran Canaria, 18–24 June 1996), built on the bible
+(`docs/BIBLE.md`, copied from the Claude Doc https://claude.ai/artifact/9FEy2s3FNfz3bZy93rqhit; the doc is the
+source). It lives in `sequel/`, its own web root, in the same repository as Game I. Code: `docs/CODEMAP.md`.
+
+### Game I stays as it was
+- Nothing outside `sequel/` changed except two lines: `.gitattributes` keeps `sequel/` out of Game I's `git archive
+  HEAD` export, and `CLAUDE.md` points here. Game I's code, art, tests and deploy procedure are untouched.
+- The engine is a **fork** (copied at `394bcdd0`): editing Game I never changes Game II and the reverse. A fix wanted in
+  both is made in both, on purpose (`docs/CODEMAP.md` lists what the fork changed).
+- Game II borrows Game I's Alan and Vasco frames and face kits by **copying** them (`scripts/import_game1.py`), and its
+  sound effects (`audio/sfx/`, copied). Nothing is loaded from outside `sequel/`.
+- Saves, settings and tips use their own `shortest-night-*` keys, so the two games never share a save on one browser.
+
+### What is in the game
+- **The whole story is playable**, prologue to credits, as the bible lays it out: the prologue (Elena's last drive,
+  played), seven days as chapters (Tuesday arrival and the blazer, Wednesday's bell and letter, Thursday's Colón and the
+  break-in, Friday's fight and Rafa's bar, Saturday's morning after and the flood, Vasco's playable chapter, Sunday's
+  choice with the airport's bad ending, the Land Rover and the vault, Monday's finale, confession and ending).
+- **1,018 lines**, written to the bible (the scenes it scripts word for word, the cold open and Vasco's chapter, are
+  used as written). **No voices yet**: captions run at reading pace; recordings go in `audio/voice/<id>.mp3` and
+  `node scripts/build-manifest.mjs` lists them.
+- **The phone box** is the hint system: Inês, a coin a call, Chano at the kiosk for change; her story calls (Tue, Wed,
+  Thu, Fri, Sat) come first, then "What now?". Alan's notebook (N) lists what he knows and what Inês would say.
+- **Puzzles**: the lost-and-found blazer (Gail's hint, Nieves's question); the clock key and winding, the bell rubbing,
+  the fax; Derek's camcorder and the guard, the dinner knife and the desk; the three tries to leave Rafa's bar; Vasco's
+  light channel (marks at three times, the charts, turning a disc, San Juan's sunrise, the clinometer), the anchors and
+  the mark; the deduction at Carmen's; the radiator; the grille; the finale's called order, the cloud and the mirror,
+  the sixth disc, the seventh's angle (three wrong placements drown Alan: retry from the finale's checkpoint); the
+  confession's three ways (they change the last scenes' tone).
+- **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
+
+### Placeholders (the user: "don't bother with Ludo sprites yet")
+- **Rooms**: 20 stand-in paintings; the game draws their hotspots as labelled boxes. **Stills**: 20 text cards that say
+  what each painting must show (the art list). **New cast**: flat figures in the bible's palettes, names on their chests.
+- **Alan and Vasco** wear Game I's frames (Alan's 24-painting walk, Vasco's approved walk, their approved face kits, so
+  they blink). Their Gran Canaria looks (Alan without his luggage, Vasco in field clothes) come with the Ludo sets.
+- No music (Game I's tracks are Lisbon's); `audio/music/tracks.json` is empty.
+
+### Open, in the order I'd suggest
+1. **The user's read of the story and lines** before anything is painted or voiced (nothing goes in without approval).
+2. **Room paintings** (20) and **stills** (20): the placeholders' cards are the brief. Then depth maps and `parallax: true`.
+3. **Cast**: Canva designs (the bible's art prompts), then Ludo animation sets, as Game I's rule from 23 Oct.
+4. **Voices** (ElevenLabs, paid: only when asked), then lip-sync (Game I's `scripts/lipsync.py`, adapted).
+5. **Music**: a Gran Canaria score (timple, the Sea's stillness, Vasco's theme carried over).
+6. **First deploy** to the new Netlify project (below), when the user asks.
+
+### Netlify
+- Project **alan-sanchez-shortest-night**, id `a5e71264-d9a4-439a-b1e5-60ec3f98812d`, team kuba-jugo, created
+  27 Oct 2026, https://alan-sanchez-shortest-night.netlify.app. **Not deployed yet** (deploy only when asked).
+- **Deploy** (only when the user asks): `node sequel/scripts/build-manifest.mjs` and commit; `git archive HEAD:sequel |
+  tar -x -C <empty dir>` (sequel/.gitattributes leaves out `scripts/`, `docs/` and the `.ph` markers); smoke-test that
+  folder on its own port (`play.mjs`); Netlify MCP `deploy-site` with the id above; run the command it returns from the
+  export folder; check the live page and that `/.env` is 404.
+- Game I's procedure is unchanged (`git archive HEAD`, which now leaves `sequel/` out).
+
+### Rules (Game I's, which hold here too)
+The room paintings never change once approved; nothing goes into the game without the user's approval; deploy only
+when asked, from a clean `git archive` export; the keys in `.env` are never printed or committed; check the story
+(`docs/BIBLE.md`, `js/lines.js`) before animating anything that could carry meaning. The bible's own rules: never show
+the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
+
+## Session log
+
+1. **Game II set up and written** (2026-10-27, the user: "Use the same repo to build the sequel - but make sure the first
+   game stays intact and I can still edit it, prepare a new netlify project for it. Here is the bible... Don't bother
+   with Ludo sprites yet"). `sequel/` with the forked engine; the story in nine files; 1,018 lines; placeholder art
+   (`scripts/placeholders.py`); Alan and Vasco from Game I (`scripts/import_game1.py`); the Netlify project created.
+   Checked: `node --check` on every file; `scripts/validate.mjs` 0 errors, 0 warnings; `scripts/tests/play.mjs` plays
+   prologue to credits; Game I's `git archive HEAD` checked to leave `sequel/` out and Game I's validate run unchanged.

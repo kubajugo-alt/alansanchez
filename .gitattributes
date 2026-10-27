@@ -12,3 +12,6 @@ art/review/bg/lavadouro_tall_smalltowel.jpg -export-ignore
 art/review/bg/lavadouro_tall_notowel.jpg -export-ignore
 art/review/stills/still_duarte_bed_kiss.jpg -export-ignore
 art/review/stills/still_duarte_bed_laugh.jpg -export-ignore
+# The Shortest Night (Game II) lives in sequel/ and deploys to its own Netlify project from `git archive HEAD:sequel`;
+# Game I's export (`git archive HEAD`) leaves it out
+sequel/ export-ignore
