@@ -40,11 +40,22 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
   they blink). Their Gran Canaria looks (Alan without his luggage, Vasco in field clothes) come with the Ludo sets.
 - No music (Game I's tracks are Lisbon's); `audio/music/tracks.json` is empty.
 
+### Voice casting (the user's rule, 2026-10-27)
+- **Alan, Vasco and Inês keep their Game I voices** (Game I's `scripts/cast.json`): Alan `CwhRBWXzGAHq8TQ4Fs17`,
+  Vasco `c6SfcYrb2t09NHXiT80T`, Inês `EXAVITQu4vr4xnSDxMaL`.
+- **Inês always sounds like she's on a phone**: every one of her lines is heard down the line from Lisbon, so her
+  recordings get a telephone treatment after generation (narrow band about 300–3400 Hz, mono, light compression and a
+  little line noise), applied in post so her original voice stays the source.
+- **Everyone else gets a native Spanish ElevenLabs voice speaking English**: a Spanish voice (Canarian where the
+  library has one) reading the English lines, so the accent comes from the speaker, not from the text.
+- **Gail and Derek are the exception**: working-class British English voices.
+- The voice ids for the sequel go in their own cast file under `sequel/scripts/`, never in Game I's.
+
 ### Open, in the order I'd suggest
 1. **The user's read of the story and lines** before anything is painted or voiced (nothing goes in without approval).
 2. **Room paintings** (20) and **stills** (20): the placeholders' cards are the brief. Then depth maps and `parallax: true`.
 3. **Cast**: Canva designs (the bible's art prompts), then Ludo animation sets, as Game I's rule from 23 Oct.
-4. **Voices** (ElevenLabs, paid: only when asked), then lip-sync (Game I's `scripts/lipsync.py`, adapted).
+4. **Voices** (ElevenLabs, paid: only when asked, to the casting rule below), then lip-sync (Game I's `scripts/lipsync.py`, adapted).
 5. **Music**: a Gran Canaria score (timple, the Sea's stillness, Vasco's theme carried over).
 6. **First deploy** to the new Netlify project (below), when the user asks.
 
@@ -82,3 +93,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    tight black ringlets, a round clean-shaven boyish face, a gold hoop and a gap-toothed grin; the prompt now says to copy
    the style only. Lesson for the remaining cast: describe each face against Alan's. Checked: validate 0 errors;
    `play.mjs` won, 98 steps, no page errors (its hotel exit renamed to Hotel Cristina).
+3. **Voice casting rule recorded** (2026-10-27, the user: "use natively Spanish voices from eleven labs, but just make
+   them speak English. Gail and Derek should speak working class British English. Only Alan, Vasco and Ines will retain
+   their original voices, although we need to make sure that Ines' voice sounds like through a phone"). Written into
+   "Start here" (Voice casting) with the three kept voice ids from Game I's `scripts/cast.json`. No voices made yet.
