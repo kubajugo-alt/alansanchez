@@ -1,0 +1,13 @@
+- 2026-10-27 bg `canteras` Canva media MAHZPP-ulz4 -> art/bg/canteras.jpg 
+- 2026-10-27 bg `gando` Canva media MAHZPNRVnCI -> art/bg/gando.jpg 
+- 2026-10-27 bg `hotel_lobby` Canva media MAHZPKI-9BQ -> art/bg/hotel_lobby.jpg 
+- 2026-10-27 bg `hotel_room` Canva media MAHZPAo19zM -> art/bg/hotel_room.jpg 
+- 2026-10-27 bg `museum_hall` Canva media MAHZPNIfGI0 -> art/bg/museum_hall.jpg 
+- 2026-10-27 bg `archive` Canva media MAHZPOB7Qik -> art/bg/archive.jpg 
+- 2026-10-27 bg `santa_ana` Canva media MAHZPFO2Dds -> art/bg/santa_ana.jpg 
+- 2026-10-27 bg `belfry` Canva media MAHZPDS3yC8 -> art/bg/belfry.jpg 
+- 2026-10-27 bg `colon` Canva media MAHZPCTTeO8 -> art/bg/colon.jpg 
+- 2026-10-27 bg `isleta` Canva media MAHZPMufVaA -> art/bg/isleta.jpg 
+- 2026-10-27 bg `rafa_bar` Canva media MAHZPLX40hA -> art/bg/rafa_bar.jpg 
+- 2026-10-27 bg `rafa_studio` Canva media MAHZPHU_4q0 -> art/bg/rafa_studio.jpg 
+- 2026-10-27 bg `carmen_flat` Canva media MAHZPJ7CFQI -> art/bg/carmen_flat.jpg 

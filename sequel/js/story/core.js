@@ -131,7 +131,7 @@
   const PIN = (id, x, y, text, open, go) => ({ id, x, y, text, open, go });
   S.PINS = [
     PIN('canteras', 300, 250, 'Las Canteras · the beach, the kiosk, the phone box', () => F().ch >= 1 && F().ch <= 6),
-    PIN('hotel_lobby', 360, 300, 'Hotel Reina Isabel', () => F().ch >= 1 && F().ch <= 6),
+    PIN('hotel_lobby', 360, 300, 'Hotel Cristina', () => F().ch >= 1 && F().ch <= 6),
     PIN('isleta', 470, 150, 'La Isleta · the fishermen\'s quay', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().fax_read && !F().isleta_flood)),
     PIN('museum_hall', 760, 470, () => F().ch === 1 ? 'El Museo Canario · the reception, 8 pm' : F().ch === 3 && S.dinnerDue() ? 'El Museo Canario · the fundraising dinner' : 'El Museo Canario · Vegueta',
       () => (F().ch === 1 && G.has('blazer') && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained)),

@@ -280,7 +280,7 @@
       S.water.vault = 0;
       F().v_done = true;
       S.becomeAlan();
-      await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [420, 650, 'e'] });
+      await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [720, 640, 'e'] });
       await G.fade(false);
       await say('narr_cut_alan', 'alan_s_night');
       await S.startSun();

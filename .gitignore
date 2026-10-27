@@ -44,3 +44,6 @@ art/review/cutout/crops/
 # Ludo.ai downloads (scripts/ludo.py): the raw sheets, frames and videos; the fitted candidates are what is kept
 art/review/ludo/*/up/
 art/review/ludo/*/true/
+
+# the sequel: Canva exports as downloaded (sequel/scripts/canva_in.py keeps the sized copies in the game)
+sequel/art/canva/*.png

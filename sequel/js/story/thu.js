@@ -110,7 +110,7 @@
         await say('baute_caught_1', 'alan_caught_1', 'baute_caught_2', 'montesdeoca_caught', 'baute_caught_3', 'narr_caught_vasco');
       }, { zoom: [1.0, 1.08] });
       G.endStill();
-      await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [420, 650, 'e'] });
+      await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [720, 640, 'e'] });
       await G.fade(false);
       await say('narr_thu_night', 'alan_thu_night');
       await S.startFri();

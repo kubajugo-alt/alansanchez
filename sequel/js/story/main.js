@@ -13,6 +13,7 @@
 
   // ---------------------------------------------------------------- every room
   const PH = new Set(((window.PLACEHOLDER_ART || {}).bg) || []);
+  S.applyLayout(ROOMS); // where things are in the painted rooms (layout.js)
   for (const [id, r] of Object.entries(ROOMS)) {
     // a hotspot without a spot to stand at is met on the floor below it
     for (const h of r.hotspots || []) if (!h.at && h.rect && r.player !== false) h.at = [Math.max(60, Math.min(1220, h.rect[0] + h.rect[2] / 2)), 650];
@@ -39,18 +40,18 @@
     lobby: { flags: { ch: 1, met_vasco: true, jacket_needed: true }, room: 'hotel_lobby', pos: [300, 660, 'e'], run: async () => { S.give('note5000', true); } },
     reception: { flags: { ch: 1, met_vasco: true, blazer_got: true, blazer_on: true }, room: 'museum_hall', pos: [200, 660, 'e'], run: async () => { S.give('blazer', true); S.give('note5000', true); } },
     mist: { flags: { ch: 1, met_vasco: true, blazer_got: true, reception_done: true, met_baute: true, met_carmen: true }, room: 'canteras', pos: [640, 660, 'e'], run: async () => { S.give('note5000', true); await G.busy(() => S.mistScene()); } },
-    wed: { flags: { ch: 2, tue_done: true }, room: 'hotel_room', pos: [420, 650, 'e'], run: async () => { F().coins = 3; S.give('coins', true); } },
+    wed: { flags: { ch: 2, tue_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: async () => { F().coins = 3; S.give('coins', true); } },
     belfry: { flags: { ch: 2, clock_key: true, fermin_met: true }, room: 'belfry', pos: [400, 660, 'e'], run: async () => {} },
-    thu: { flags: { ch: 3, wed_done: true }, room: 'hotel_room', pos: [420, 650, 'e'], run: async () => { F().coins = 3; S.give('coins', true); S.give('letter', true); S.give('galindo', true); } },
+    thu: { flags: { ch: 3, wed_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: async () => { F().coins = 3; S.give('coins', true); S.give('letter', true); S.give('galindo', true); } },
     dinner: { flags: { ch: 3, lore_carmen: true, inquiry_read: true, called_thu: true, sent_to_colon: true }, room: 'museum_hall', pos: [200, 660, 'e'], run: async () => {} },
-    fri: { flags: { ch: 4, caught: true }, room: 'hotel_room', pos: [420, 650, 'e'], run: () => S.fight() },
+    fri: { flags: { ch: 4, caught: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => S.fight() },
     bar: { flags: { ch: 4, fight_done: true, cave_explained: true }, room: 'rafa_bar', pos: [1100, 660, 'w'], run: async () => {} },
     sat: { flags: { ch: 5, rafa_night: true }, room: 'rafa_studio', pos: [300, 660, 'e'], run: async () => {} },
     flood: { flags: { ch: 5, rafa_truth: true, called_sat: true, fax_read: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('isleta', 'map') },
-    vasco: { flags: { ch: 5, isleta_flood: true }, room: 'hotel_room', pos: [420, 650, 'e'], run: () => G.busy(() => S.startVasco()) },
+    vasco: { flags: { ch: 5, isleta_flood: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => G.busy(() => S.startVasco()) },
     cave: { flags: { ch: 5, isleta_flood: true }, room: 'cave6', pos: [240, 660, 'e'], run: async () => { S.becomeVasco(); ['elena_charts', 'chalk', 'clinometer', 'vnotebook', 'ltrowel', 'torch'].forEach(k => S.give(k, true)); } },
     vault: { flags: { ch: 5, isleta_flood: true, v_understood: true, v_fuse_seen: true, v_refused: true }, room: 'vault', pos: [620, 660, 'e'], run: async () => { S.becomeVasco(); ['ltrowel', 'torch'].forEach(k => S.give(k, true)); S.torch = 1; } },
-    sun: { flags: { ch: 6, v_done: true }, room: 'hotel_room', pos: [420, 650, 'e'], run: () => S.theChoice() },
+    sun: { flags: { ch: 6, v_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => S.theChoice() },
     carmen: { flags: { ch: 6, chose_carmen: true, cave_explained: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('carmen_flat', 'map') },
     rescue: { flags: { ch: 6, chose_carmen: true, knows_vault: true, driving: true, radiator_filled: true }, room: 'camp', pos: [300, 660, 'e'], run: async () => {} },
     finale: { flags: { ch: 6, vasco_free: true, v_marked: true }, room: 'vault', pos: [400, 660, 'e'], run: () => S.takeDiscs() },

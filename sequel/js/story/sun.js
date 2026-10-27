@@ -44,7 +44,7 @@
       await S.paint('still_bad_ending', async () => { await say('narr_bad_1', 'narr_bad_2', 'narr_bad_3'); await T(1200); }, { zoom: [1.0, 1.1] });
       G.endStill();
       await G.card('That isn\'t how it ends.', 'Back to Sunday morning', 3000);
-      await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [420, 650, 'e'] });
+      await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [720, 640, 'e'] });
       await G.fade(false);
     });
     await S.theChoice();

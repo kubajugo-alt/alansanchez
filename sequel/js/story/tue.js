@@ -40,7 +40,7 @@
 
   // ================================================================ HOTEL: the lobby
   ROOMS.hotel_lobby = S.room({
-    name: 'Hotel Reina Isabel', bg: 'hotel_lobby', floor: 'tile', ambience: 'museum', door: 'door',
+    name: 'Hotel Cristina', bg: 'hotel_lobby', floor: 'tile', ambience: 'museum', door: 'door',
     entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], canteras: [140, 660, 'e'], hotel_room: [1120, 660, 'w'], gando: [140, 660, 'e'] },
     npcs: [
       { id: 'nieves', ch: 'nieves', x: 640, y: 610, h: 360, dir: 'e', name: 'Nieves', at: [700, 660], look: () => say(F().ch === 5 && F().lobby_return_seen ? 'alan_look_nieves_sat' : 'alan_look_nieves'),
@@ -124,7 +124,7 @@
 
   // ================================================================ HOTEL: the room
   ROOMS.hotel_room = S.room({
-    name: 'Room 412', bg: 'hotel_room', floor: 'wood', ambience: 'night', door: 'door',
+    name: 'Room 404', bg: 'hotel_room', floor: 'wood', ambience: 'night', door: 'door',
     entries: { default: [900, 660, 'w'], hotel_lobby: [1100, 660, 'w'] },
     npcs: [
       { id: 'vasco', x: 520, y: 650, dir: 'e', name: 'Vasco', when: () => (ch() === 1 && F().called_tue) || (ch() === 4 && !F().fight_done),
@@ -164,7 +164,7 @@
       { name: 'Phone box', rect: [300, 300, 80, 260], at: [340, 640], look: 'alan_look_phonebox', use: () => S.phoneBox(),
         items: { coins: () => S.phoneBox(), any: 'alan_fail_phone_item' } },
       { name: 'Kiosk', rect: [60, 260, 200, 200], at: [260, 660], look: 'alan_look_kiosk', use: () => S.talkChano(), noBox: false },
-      { name: 'Hotel Reina Isabel', rect: [1160, 240, 110, 330], at: [1200, 650], exit: 'hotel_lobby', entry: 'canteras' },
+      { name: 'Hotel Cristina', rect: [1160, 240, 110, 330], at: [1200, 650], exit: 'hotel_lobby', entry: 'canteras' },
       S.toMap([1000, 560, 160, 40], [1080, 690]),
     ],
     async enter() {

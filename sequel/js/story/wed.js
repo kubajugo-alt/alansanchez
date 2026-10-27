@@ -11,7 +11,7 @@
   // every morning starts in the hotel room
   S.morning = async function (n, line) {
     await G.fade(true);
-    await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [420, 650, 'e'] });
+    await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [720, 640, 'e'] });
     await S.day(n);
     await G.fade(false);
     if (line) await say(line);

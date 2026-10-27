@@ -104,7 +104,7 @@ window.LINES = {
   alan_lift_tue: ['alan', "No point going up. Everything I own is in Madrid. I need a jacket first."],
   alan_look_nieves: ['alan', "The receptionist. Bun, uniform, and an eyebrow that could run the hotel on its own."],
   alan_look_nieves_sat: ['alan', "She saw me come in. In last night's shirt. The eyebrow saw too."],
-  nieves_t_hello: ['nieves', "Bienvenido al Reina Isabel, señor Sanches. Your companion has already checked in. Twice, to see if you had arrived."],
+  nieves_t_hello: ['nieves', "Bienvenido al Cristina, señor Sanches. Your companion has already checked in. Twice, to see if you had arrived."],
   alan_t_nieves_1: ['alan', "My luggage is in Madrid. If anybody brings it, I'll be the one in the same shirt."],
   nieves_t_1: ['nieves', "We'll keep an eye out, señor."],
   alan_ask_lostfound: ['alan', "I don't suppose the hotel has a lost and found? Somewhere I might find a jacket that's lost its way?"],
