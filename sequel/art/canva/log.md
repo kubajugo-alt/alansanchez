@@ -19,3 +19,4 @@
 - 2026-10-27 figure `rafa` Canva media MAHZPSa4_dA -> art/designs/rafa.png 
 - 2026-10-27 figure `yeray` Canva media MAHZPURUUXg -> art/designs/yeray.png 
 - 2026-10-27 figure `gail_derek` Canva media MAHZPXeE2ig -> art/designs/gail_derek.png 
+- 2026-10-27 figure `rafa` Canva media MAHZPqKAeW4 -> art/designs/rafa.png repaint: a face unlike Alan

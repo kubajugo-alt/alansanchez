@@ -71,3 +71,14 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    (`scripts/placeholders.py`); Alan and Vasco from Game I (`scripts/import_game1.py`); the Netlify project created.
    Checked: `node --check` on every file; `scripts/validate.mjs` 0 errors, 0 warnings; `scripts/tests/play.mjs` plays
    prologue to credits (98 steps, no page errors; the airport ending and a wrong disc on the way); Game I's `git archive HEAD` checked to leave `sequel/` out and Game I's validate run unchanged.
+2. **Canva art replaces the placeholders** (2026-10-27, the user: "Don't do placeholders, do actual canva designs"). Rooms
+   painted in Canva (`scripts/canva_in.py`, record in `art/canva/log.md` and `media.txt`) and laid out in
+   `js/story/layout.js`; cast painted on green and cut with `scripts/figure_cut.py` (`--half` splits a pair painted side
+   by side) into `art/sprites/*_c.webp` and `js/sprites_canva.js`. Done so far: Carmen, Rayco, Rafa, Yeray, Gail and Derek;
+   still to paint: Pino+Lolo, Nieves+clerk, Chano+guard, Fermín+Mercedes, Montesdeoca+surfer, the vault, the Land Rover,
+   Elena's car, the map, the title, and the 20 stills. The hotel is now Hotel Cristina (as painted), the room 404.
+   **Rafa repainted** (the user: "Rafa looks almost like Alan, you need to change his face"): the style reference was
+   Alan's own sprite, so the first Rafa took his face. The new one (media `MAHZPqKAeW4`) keeps the bible's clothes but has
+   tight black ringlets, a round clean-shaven boyish face, a gold hoop and a gap-toothed grin; the prompt now says to copy
+   the style only. Lesson for the remaining cast: describe each face against Alan's. Checked: validate 0 errors;
+   `play.mjs` won, 98 steps, no page errors (its hotel exit renamed to Hotel Cristina).
