@@ -16,3 +16,5 @@
 - 2026-10-27 bg `cave6` Canva media MAHZPYJ-2RQ -> art/bg/cave6.jpg 
 - 2026-10-27 figure `carmen` Canva media MAHZPfrpYuA -> art/designs/carmen.png 
 - 2026-10-27 figure `baute` Canva media MAHZPbiIGEM -> art/designs/baute.png 
+- 2026-10-27 figure `rafa` Canva media MAHZPSa4_dA -> art/designs/rafa.png 
+- 2026-10-27 figure `yeray` Canva media MAHZPURUUXg -> art/designs/yeray.png 

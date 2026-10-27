@@ -15,5 +15,21 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 219
+},
+"rafa_c": {
+"ax": 91.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 234
+},
+"yeray_c": {
+"ax": 114.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 226
 }
 });

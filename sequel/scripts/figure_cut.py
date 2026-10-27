@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cut a Canva character design (one figure on a flat green background) into a game sprite.
 
-  python3 sequel/scripts/figure_cut.py <design name> <sprite id> [--left]
+  python3 sequel/scripts/figure_cut.py <design name> <sprite id> [--left] [--half left|right]
 
 Reads art/designs/<design name>.png (sequel/scripts/canva_in.py figure ...), keys out the background colour (sampled
 from the corners), keeps the largest figure, despills the green fringe, scales the figure to 720 px tall, and writes
@@ -15,7 +15,11 @@ from PIL import Image, ImageFilter
 SEQ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 name, sid = sys.argv[1], sys.argv[2]
 left = '--left' in sys.argv
-im = np.asarray(Image.open(os.path.join(SEQ, 'art/designs', name + '.png')).convert('RGB')).astype(np.float32)
+half = sys.argv[sys.argv.index('--half') + 1] if '--half' in sys.argv else None  # two figures painted side by side
+src = Image.open(os.path.join(SEQ, 'art/designs', name + '.png')).convert('RGB')
+if half:
+    src = src.crop((0, 0, src.width // 2, src.height) if half == 'left' else (src.width // 2, 0, src.width, src.height))
+im = np.asarray(src).astype(np.float32)
 H, W, _ = im.shape
 corners = np.concatenate([im[:12, :12].reshape(-1, 3), im[:12, -12:].reshape(-1, 3), im[-12:, :12].reshape(-1, 3), im[-12:, -12:].reshape(-1, 3)])
 bg = np.median(corners, axis=0)

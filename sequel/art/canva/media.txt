@@ -16,3 +16,5 @@ bg camp MAHZPE3AiTY exported
 bg cave6 MAHZPYJ-2RQ exported
 figure carmen MAHZPfrpYuA exported
 figure baute MAHZPbiIGEM exported
+figure rafa MAHZPSa4_dA exported
+figure yeray MAHZPURUUXg exported
