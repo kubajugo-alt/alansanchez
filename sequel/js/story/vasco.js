@@ -42,6 +42,12 @@
         locked: () => asV() && !G.has('elena_charts'), lockedLine: 'vasco_need_charts' },
       { name: 'Steps down to the granary', rect: [640, 520, 140, 50], at: [700, 650], exit: 'vault', entry: 'camp', when: () => ch() === 6 },
     ],
+    // the painting is a morning: Sunday night darkens it, Monday's sunrise warms it
+    animBack(g) {
+      if (ch() !== 6 && ch() !== 7) return;
+      g.save(); g.globalCompositeOperation = 'multiply';
+      g.fillStyle = ch() === 6 ? 'rgb(52,62,110)' : 'rgb(255,214,170)'; g.fillRect(0, 0, 1280, 720); g.restore();
+    },
   });
   S.yerayCoffee = async function () {
     const f = F();
@@ -74,11 +80,14 @@
 
   // ================================================================ CAVE 6
   // The beam: where it falls on the wall at each half hour (Vasco's chapter), or steered by a disc onto a triangle
-  const BEAM_AT = [[300, 330], [420, 300], [540, 290], [660, 300], [780, 320]];
+  const BEAM_AT = [[330, 360], [420, 330], [520, 300], [880, 360], [1010, 380]];
+  // the seven sockets on the skylight's lip, as painted (I-VI, then the seventh); the beam's landing points
+  S.SOCKETS = [[509, 85], [578, 95], [648, 102], [720, 102], [792, 97], [864, 87], [931, 68]];
+  S.GREAT = [685, 330]; S.DOOR = [680, 562];
   S.beamPoint = () => {
     const f = F();
-    if (ch() === 7) return f.lock_closed ? [640, 420] : f.disc_turned ? [640, 420] : [700, 500];
-    if (f.v_steer) return [560, 230];
+    if (ch() === 7) return f.lock_closed || f.disc_turned ? S.GREAT : S.DOOR;
+    if (f.v_steer) return [492, 300];
     return BEAM_AT[Math.min(BEAM_AT.length - 1, f.v_time || 0)];
   };
   ROOMS.cave6 = S.room({
@@ -106,23 +115,41 @@
       { name: 'Sit and wait half an hour', rect: [60, 470, 180, 80], at: [160, 650], when: () => asV() && !F().v_steer, look: 'vasco_look_rock', use: () => S.waitHalfHour() },
       { name: 'Path to the camp', rect: [20, 250, 110, 320], at: [70, 650], exit: 'camp', entry: 'cave6', when: () => asV() || (ch() === 7 && F().lock_closed) },
       // Monday: the seven sockets, the seventh disc, the door in the floor (mon.js)
-      ...[0, 1, 2, 3, 4, 5].map(i => ({ name: () => 'Socket ' + ['I', 'II', 'III', 'IV', 'V', 'VI'][i] + ((F().placed || []).includes(i) ? ' (set)' : ''), rect: [470 + i * 44, 14, 40, 46], at: [640, 680],
+      ...[0, 1, 2, 3, 4, 5].map(i => ({ name: () => 'Socket ' + ['I', 'II', 'III', 'IV', 'V', 'VI'][i] + ((F().placed || []).includes(i) ? ' (set)' : ''), rect: [S.SOCKETS[i][0] - 26, S.SOCKETS[i][1] - 26, 52, 52], at: [680, 600],
         when: () => ch() === 7 && F().in_water, look: () => S.lookSocket(i), items: { discs: () => S.placeDisc(i), disc6: () => S.placeDisc(i) } })),
-      { name: 'The seventh disc', rect: [734, 14, 40, 46], at: [640, 680], when: () => ch() === 7, look: () => say(F().disc_turned ? 'alan_look_seventh_set' : 'alan_look_seventh'), use: () => S.turnSeventh() },
+      { name: 'The seventh disc', rect: [905, 42, 52, 52], at: [680, 600], when: () => ch() === 7, look: () => say(F().disc_turned ? 'alan_look_seventh_set' : 'alan_look_seventh'), use: () => S.turnSeventh() },
       { name: 'The door in the floor', rect: [520, 600, 240, 70], at: [640, 690], when: () => ch() === 7, look: () => say(F().in_water ? 'alan_look_door_in' : 'alan_look_door'), use: () => S.stepIn() },
     ],
     animBack(g, t) {
       const f = F();
       // the blade of sunlight from the channel to where it falls; a cloud over the sun takes it (Monday)
       if (ch() === 7 && f.cloud_over && !f.mirror_on) return;
-      const [x, y] = S.beamPoint();
-      g.save(); g.globalAlpha = 0.55; g.fillStyle = 'rgba(255,226,150,1)';
-      g.beginPath(); g.moveTo(630, 40); g.lineTo(650, 40); g.lineTo(x + 18, y); g.lineTo(x - 18, y); g.closePath(); g.fill(); g.restore();
+      S.drawSockets(g);
+      const [x, y] = S.beamPoint(), [sx, sy] = S.SOCKETS[6];
+      g.save(); g.globalAlpha = 0.5; g.fillStyle = 'rgba(255,226,150,1)';
+      g.beginPath(); g.moveTo(sx - 8, sy + 10); g.lineTo(sx + 8, sy + 10); g.lineTo(x + 18, y); g.lineTo(x - 18, y); g.closePath(); g.fill(); g.restore();
       FX.glow(g, x, y, 60, '255,220,140', 0.6);
       for (const [mx, my] of (asV() ? f.v_marks || [] : [])) { g.save(); g.strokeStyle = 'rgba(250,250,250,0.85)'; g.lineWidth = 3; g.beginPath(); g.arc(mx, my, 12, 0, 7); g.stroke(); g.restore(); }
     },
     animFg(g, t) { S.drawWater(g, t, S.water.cave6, '24,48,56'); },
   });
+  // which sockets hold a disc: Saturday, the sixth and the seventh still do; Monday, the ones Alan has set, and the seventh
+  S.socketFull = i => i === 6 || (ch() === 7 ? (F().placed || []).includes(i) : ch() <= 5 && i === 5);
+  S.drawSockets = function (g) {
+    S.SOCKETS.forEach(([x, y], i) => {
+      g.save();
+      if (S.socketFull(i)) {
+        const gr = g.createRadialGradient(x - 6, y - 6, 2, x, y, 19);
+        gr.addColorStop(0, 'rgba(140,150,160,0.95)'); gr.addColorStop(0.35, 'rgba(20,20,26,1)'); gr.addColorStop(1, 'rgba(6,6,8,1)');
+        g.fillStyle = gr; g.beginPath(); g.arc(x, y, 18, 0, 7); g.fill();
+      } else {
+        const gr = g.createRadialGradient(x, y + 4, 2, x, y, 20);
+        gr.addColorStop(0, 'rgba(40,26,14,1)'); gr.addColorStop(0.75, 'rgba(70,46,24,1)'); gr.addColorStop(1, 'rgba(120,84,44,0.9)');
+        g.fillStyle = gr; g.beginPath(); g.arc(x, y, 19, 0, 7); g.fill();
+      }
+      g.restore();
+    });
+  };
   S.waitHalfHour = async function () {
     const f = F();
     f.v_time = Math.min(BEAM_AT.length - 1, (f.v_time || 0) + 1);

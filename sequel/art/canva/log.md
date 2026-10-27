@@ -11,3 +11,6 @@
 - 2026-10-27 bg `rafa_bar` Canva media MAHZPLX40hA -> art/bg/rafa_bar.jpg 
 - 2026-10-27 bg `rafa_studio` Canva media MAHZPHU_4q0 -> art/bg/rafa_studio.jpg 
 - 2026-10-27 bg `carmen_flat` Canva media MAHZPJ7CFQI -> art/bg/carmen_flat.jpg 
+- 2026-10-27 bg `baute_office` Canva media MAHZPKWDfiU -> art/bg/baute_office.jpg 
+- 2026-10-27 bg `camp` Canva media MAHZPE3AiTY -> art/bg/camp.jpg 
+- 2026-10-27 bg `cave6` Canva media MAHZPYJ-2RQ -> art/bg/cave6.jpg 

@@ -14,7 +14,13 @@
   S.chat = (flag, first, again) => () => F()[flag] ? say(...[].concat(again)) : (F()[flag] = true, say(...[].concat(first)));
   S.posed = async function (pose, fn) { const p = G.player; p.pose = p.visible ? pose : null; try { await fn(); } finally { p.pose = null; } };
   S.give = (id, silent) => G.giveItem(id, silent);
-  S.ph = (id, scale, more) => ({ scale: scale || 1, frames: Object.assign({ idle: [id + '_ph_idle'], talk: [id + '_ph_talk', id + '_ph_idle'], walk: [id + '_ph_walk1', id + '_ph_idle'] }, more || {}) });
+  // a character's frames: their Canva design (art/sprites/<id>_c.webp, scripts/figure_cut.py) once it's made, else the
+  // stand-in figure (scripts/placeholders.py). One painting for now: the Ludo animation sets come later.
+  S.ph = (id, scale, more) => {
+    const c = id + '_c', f = (window.SPRITES || {})[c] ? { idle: [c], talk: [c], walk: [c] }
+      : { idle: [id + '_ph_idle'], talk: [id + '_ph_talk', id + '_ph_idle'], walk: [id + '_ph_walk1', id + '_ph_idle'] };
+    return { scale: scale || 1, frames: Object.assign(f, more || {}) };
+  };
   // content setting (as Game I): 'full' or 'discreet' skips the love scenes' paintings
   const CONTENT_KEY = 'shortest-night-content';
   S.content = () => { try { return localStorage.getItem(CONTENT_KEY); } catch (e) { return S._content || null; } };

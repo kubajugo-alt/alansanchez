@@ -99,6 +99,30 @@
       npcs: { carmen: [700, 610] },
       at: { 'Elena\'s box': [240, 640], 'Answering machine': [420, 620] },
     },
+    baute_office: {
+      walk: [[0, 585], [540, 585], [540, 668], [1100, 645], [1280, 600], [1280, 716], [0, 716]], scale: [560, 380, 716, 450],
+      entries: { default: [200, 640, 'e'], museum_hall: [200, 640, 'e'] },
+      spots: { 'Desk drawer': [700, 450, 85, 60], 'Sponsor contracts': [755, 383, 145, 47], 'Window': [1060, 50, 190, 340], 'Shelves': [255, 80, 280, 490],
+        'Back to the dinner': [60, 110, 120, 450] },
+      at: { 'Desk drawer': [740, 690], 'Sponsor contracts': [860, 680] },
+    },
+    camp: {
+      walk: [[0, 545], [330, 525], [880, 585], [1280, 565], [1280, 716], [0, 716]], scale: [580, 290, 716, 360],
+      entries: { default: [250, 650, 'e'], cave6: [1150, 620, 'w'], vault: [760, 620, 'w'], landrover: [150, 650, 'e'] },
+      spots: { 'The sea of cloud': [0, 110, 790, 200], 'Camp radio': [635, 290, 65, 100], 'Finds table': [415, 295, 195, 110],
+        'Path to Cave 6': [1000, 190, 280, 200], 'Steps down to the granary': [500, 420, 200, 140] },
+      at: { 'Camp radio': [660, 600], 'Finds table': [510, 600], 'Steps down to the granary': [640, 600], 'Path to Cave 6': [1180, 600] },
+      npcs: { yeray: [330, 610], baute: [1010, 620], carmen: [200, 650] },
+    },
+    cave6: {
+      walk: [[60, 560], [540, 522], [1280, 560], [1280, 716], [0, 716], [0, 600]], scale: [520, 220, 716, 380],
+      entries: { default: [240, 640, 'e'], camp: [240, 640, 'e'] },
+      spots: { 'Engraved triangles': [830, 200, 450, 220], 'The beam': [430, 0, 560, 36], 'Empty sockets': [480, 55, 410, 70], 'A remaining disc': [905, 42, 52, 52],
+        'Your chalk marks': [280, 270, 760, 130], 'The great triangle': [550, 210, 270, 260], 'White crust': [1100, 400, 180, 160],
+        'Sit and wait half an hour': [60, 485, 190, 55], 'Path to the camp': [45, 160, 170, 340], 'The door in the floor': [540, 535, 280, 55] },
+      at: { 'The door in the floor': [680, 600], 'Sit and wait half an hour': [200, 600], 'Path to the camp': [130, 600] },
+      npcs: { vasco: [430, 640], carmen: [150, 600], yeray: [300, 690], baute: [1010, 620] },
+    },
   };
 
   // put a room's layout into its definition (called by main.js before the game starts)

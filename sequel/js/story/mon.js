@@ -63,7 +63,7 @@
     await G.busy(async () => {
       await say('alan_m_coming', 'vasco_m_no', 'alan_m_anyway');
       f.in_water = true;
-      const p = G.player; await p.walkTo(640, 690);
+      const p = G.player; await p.walkTo(680, 600);
       S.sfx('step_wet', 0.7);
       await S.waterTo('cave6', 0.22, 2000);
       await say('narr_m_quiet', 'vasco_m_ready');
