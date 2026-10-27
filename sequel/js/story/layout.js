@@ -50,6 +50,10 @@
       npcs: { vasco: [620, 620], yeray: [930, 650] },
       at: { 'Crates': [250, 650], 'Left anchor': [400, 600], 'Right anchor': [810, 600], 'The wall by the grille': [900, 620], 'Steps up': [1080, 640] },
     },
+    elena_car: {
+      spots: { 'The radio': [605, 515, 190, 50], 'Notebook on the passenger seat': [850, 550, 290, 165], 'The rear-view mirror': [575, 40, 185, 65],
+        'The window crank': [50, 535, 90, 85], 'The air': [130, 60, 1080, 280] },
+    },
     landrover: {
       spots: { 'Carmen': [20, 90, 480, 560], 'Temperature gauge': [545, 440, 265, 100], 'The bonnet': [280, 300, 700, 110], 'The footwell': [850, 575, 390, 145] },
     },

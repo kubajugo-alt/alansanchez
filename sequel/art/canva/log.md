@@ -27,3 +27,4 @@
 - 2026-10-27 figure `montesdeoca_surfer` Canva media MAHZP7cSX5w -> art/designs/montesdeoca_surfer.png 
 - 2026-10-27 bg `vault` Canva media MAHZP5eMvdg -> art/bg/vault.jpg 
 - 2026-10-27 bg `landrover` Canva media MAHZP1XAB10 -> art/bg/landrover.jpg 
+- 2026-10-27 bg `elena_car` Canva media MAHZP97wAiY -> art/bg/elena_car.jpg 
