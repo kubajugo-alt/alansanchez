@@ -76,7 +76,7 @@ ROOMS = {
     'landrover':     ('The road up · Carmen\'s Land Rover', '#05070f', '#151a2a', '#0e0d0c', ['windscreen', 'stars']),
     'camp':          ('Risco Caído · the dig camp', '#4d7fbf', '#f0e4c8', '#a57a52', ['cloudsea', 'tents']),
     'cave6':         ('Risco Caído · Cave 6', '#3a2c22', '#2a1f18', '#4a3628', ['dome', 'triangles', 'sockets']),
-    'title':         ('Alan Sanches II · The Shortest Night', '#3c5a8c', '#f0c890', '#e8e4dc', ['cloudsea']),
+    'title':         ('Alan Sanches II · The Shortest Night', '#1c2c4c', '#6a4a3a', '#1a1a22', ['cloudsea_night']),
     'vault':         ('Risco Caído · the granary vault', '#18130f', '#0f0c09', '#1d1712', ['grille', 'crates']),
 }
 
@@ -192,6 +192,9 @@ def rooms():
             motif(im, d, m, name)
         im = im.filter(ImageFilter.GaussianBlur(1.2))
         d = ImageDraw.Draw(im)
+        if rid == 'title':  # (the title screen writes its own words over it)
+            im.save(path, quality=88); mark(path); n += 1
+            continue
         # the name low on the left, clear of the menu buttons (top corners) and the inventory (bottom edge)
         tw = d.textlength(name, font=font(18))
         d.rectangle([16, 640, 40 + tw, 672], fill=(0, 0, 0))

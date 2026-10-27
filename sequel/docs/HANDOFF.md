@@ -20,7 +20,7 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
   played), seven days as chapters (Tuesday arrival and the blazer, Wednesday's bell and letter, Thursday's Colón and the
   break-in, Friday's fight and Rafa's bar, Saturday's morning after and the flood, Vasco's playable chapter, Sunday's
   choice with the airport's bad ending, the Land Rover and the vault, Monday's finale, confession and ending).
-- **1,018 lines**, written to the bible (the scenes it scripts word for word, the cold open and Vasco's chapter, are
+- **1,019 lines**, written to the bible (the scenes it scripts word for word, the cold open and Vasco's chapter, are
   used as written). **No voices yet**: captions run at reading pace; recordings go in `audio/voice/<id>.mp3` and
   `node scripts/build-manifest.mjs` lists them.
 - **The phone box** is the hint system: Inês, a coin a call, Chano at the kiosk for change; her story calls (Tue, Wed,
@@ -67,7 +67,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
 
 1. **Game II set up and written** (2026-10-27, the user: "Use the same repo to build the sequel - but make sure the first
    game stays intact and I can still edit it, prepare a new netlify project for it. Here is the bible... Don't bother
-   with Ludo sprites yet"). `sequel/` with the forked engine; the story in nine files; 1,018 lines; placeholder art
+   with Ludo sprites yet"). `sequel/` with the forked engine; the story in nine files; 1,019 lines; placeholder art
    (`scripts/placeholders.py`); Alan and Vasco from Game I (`scripts/import_game1.py`); the Netlify project created.
    Checked: `node --check` on every file; `scripts/validate.mjs` 0 errors, 0 warnings; `scripts/tests/play.mjs` plays
-   prologue to credits; Game I's `git archive HEAD` checked to leave `sequel/` out and Game I's validate run unchanged.
+   prologue to credits (98 steps, no page errors; the airport ending and a wrong disc on the way); Game I's `git archive HEAD` checked to leave `sequel/` out and Game I's validate run unchanged.
