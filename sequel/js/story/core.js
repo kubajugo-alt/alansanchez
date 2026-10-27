@@ -137,15 +137,15 @@
   // ---------------------------------------------------------------- the map
   const PIN = (id, x, y, text, open, go) => ({ id, x, y, text, open, go });
   S.PINS = [
-    PIN('canteras', 300, 250, 'Las Canteras · the beach, the kiosk, the phone box', () => F().ch >= 1 && F().ch <= 6),
-    PIN('hotel_lobby', 360, 300, 'Hotel Cristina', () => F().ch >= 1 && F().ch <= 6),
-    PIN('isleta', 470, 150, 'La Isleta · the fishermen\'s quay', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().fax_read && !F().isleta_flood)),
-    PIN('museum_hall', 760, 470, () => F().ch === 1 ? 'El Museo Canario · the reception, 8 pm' : F().ch === 3 && S.dinnerDue() ? 'El Museo Canario · the fundraising dinner' : 'El Museo Canario · Vegueta',
+    PIN('canteras', 595, 360, 'Las Canteras · the beach, the kiosk, the phone box', () => F().ch >= 1 && F().ch <= 6),
+    PIN('hotel_lobby', 665, 205, 'Hotel Cristina', () => F().ch >= 1 && F().ch <= 6),
+    PIN('isleta', 600, 110, 'La Isleta · the fishermen\'s quay', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().fax_read && !F().isleta_flood)),
+    PIN('museum_hall', 850, 600, () => F().ch === 1 ? 'El Museo Canario · the reception, 8 pm' : F().ch === 3 && S.dinnerDue() ? 'El Museo Canario · the fundraising dinner' : 'El Museo Canario · Vegueta',
       () => (F().ch === 1 && G.has('blazer') && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained)),
-    PIN('santa_ana', 820, 500, 'Plaza de Santa Ana · the cathedral', () => F().ch >= 2 && F().ch <= 4),
-    PIN('colon', 800, 430, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read),
-    PIN('rafa_bar', 860, 540, 'Vegueta · a bar on Calle Mendizábal', () => F().ch === 4 && F().cave_explained && !F().rafa_night),
-    PIN('carmen_flat', 700, 380, 'Triana · Carmen\'s flat', () => F().ch === 6 && F().chose_carmen),
+    PIN('santa_ana', 920, 520, 'Plaza de Santa Ana · the cathedral', () => F().ch >= 2 && F().ch <= 4),
+    PIN('colon', 1000, 575, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read),
+    PIN('rafa_bar', 940, 640, 'Vegueta · a bar on Calle Mendizábal', () => F().ch === 4 && F().cave_explained && !F().rafa_night),
+    PIN('carmen_flat', 700, 500, 'Triana · Carmen\'s flat', () => F().ch === 6 && F().chose_carmen),
   ];
   S.pinNext = () => {
     const f = F();
