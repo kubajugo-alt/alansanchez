@@ -24,3 +24,4 @@
 - 2026-10-27 figure `nieves_clerk` Canva media MAHZPlnmfDQ -> art/designs/nieves_clerk.png 
 - 2026-10-27 figure `chano_guard` Canva media MAHZPssDT0Y -> art/designs/chano_guard.png 
 - 2026-10-27 figure `fermin_mercedes` Canva media MAHZPoW2m5E -> art/designs/fermin_mercedes.png 
+- 2026-10-27 figure `montesdeoca_surfer` Canva media MAHZP7cSX5w -> art/designs/montesdeoca_surfer.png 
