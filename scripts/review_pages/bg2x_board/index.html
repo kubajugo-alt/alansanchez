@@ -1,0 +1,187 @@
+<title>Sharper Rooms</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* A restorer's bench: each room laid on the table, the old varnish (the painting stretched) left of the line, the
+   cleaned panel (the 2x upscale) right of it; drag the line, look closer, then mark it. */
+:root {
+  --bg: #f1ede6; --panel: #fbf9f5; --ink: #22201c; --muted: #6c665c; --line: #d8d1c4;
+  --brass: #9a6b22; --ok: #2f6b3e; --redo: #a2541b; --keep: #4d5a6b;
+  --display: 'Fraunces', Georgia, 'Times New Roman', serif; --body: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif; --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #17150f; --panel: #211e17; --ink: #ece6da; --muted: #a59d8e; --line: #3a352a;
+  --brass: #d6a252; --ok: #6fbf83; --redo: #e09153; --keep: #9fb0c6; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #17150f; --panel: #211e17; --ink: #ece6da; --muted: #a59d8e; --line: #3a352a;
+  --brass: #d6a252; --ok: #6fbf83; --redo: #e09153; --keep: #9fb0c6; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; }
+h1 { font: 650 clamp(28px, 4vw, 40px)/1.1 var(--display); margin: 0; text-wrap: balance; }
+.lede { margin: 0; max-width: 68ch; color: var(--muted); }
+.bar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; font-size: 14px; }
+.bar .tally { font-family: var(--mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar .note-db { color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg button { border: 0; background: transparent; color: var(--ink); font: inherit; padding: 5px 11px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 560px), 1fr)); gap: 22px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; }
+.card[data-dec="approved"] { border-color: var(--ok); } .card[data-dec="redo"] { border-color: var(--redo); } .card[data-dec="keep"] { border-color: var(--keep); }
+.head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 12px 14px 8px; }
+.head h2 { font: 500 19px/1.2 var(--display); margin: 0; }
+.head .fam { font: 12px var(--mono); color: var(--muted); letter-spacing: .02em; }
+.view { position: relative; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; background: #000; cursor: ew-resize; touch-action: pan-y; user-select: none; }
+.view.zoomed { cursor: grab; touch-action: none; }
+.view .layer { position: absolute; inset: 0; }
+.view img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; max-width: none; transform-origin: 0 0; pointer-events: none; }
+.view .after { clip-path: inset(0 0 0 var(--cut, 50%)); }
+.view .rule { position: absolute; top: 0; bottom: 0; left: var(--cut, 50%); width: 2px; margin-left: -1px; background: var(--brass); pointer-events: none; }
+.view .tag { position: absolute; top: 8px; font: 11px var(--mono); color: #fff; background: rgba(0, 0, 0, .55); padding: 2px 7px; border-radius: 3px; pointer-events: none; }
+.view .tag.l { left: 8px; } .view .tag.r { right: 8px; }
+.tools { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; padding: 10px 14px 4px; font-size: 14px; color: var(--muted); }
+.tools button { font: inherit; }
+.zoom { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.decide { display: grid; gap: 8px; padding: 6px 14px 14px; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.btns button { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 6px; padding: 6px 12px; font: 600 14px var(--body); cursor: pointer; }
+.btns button[data-v="approved"][aria-pressed="true"] { background: var(--ok); border-color: var(--ok); color: var(--panel); }
+.btns button[data-v="redo"][aria-pressed="true"] { background: var(--redo); border-color: var(--redo); color: var(--panel); }
+.btns button[data-v="keep"][aria-pressed="true"] { background: var(--keep); border-color: var(--keep); color: var(--panel); }
+.btns button:disabled { opacity: .5; cursor: default; }
+textarea { width: 100%; box-sizing: border-box; min-height: 2.6em; resize: vertical; font: 14px/1.4 var(--body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
+.saved { font: 12px var(--mono); color: var(--muted); min-height: 1.2em; }
+button:focus-visible, textarea:focus-visible, .view:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.empty { color: var(--muted); padding: 30px 0; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<div class="wrap">
+  <h1>Sharper rooms</h1>
+  <p class="lede">Each room painting upscaled to 2560 × 1440 (Real-ESRGAN, run locally). Left of the line: the painting as the game stretches it today. Right: the upscale. Drag the line, or press 100% to see real pixels and drag to look around. Only the rooms you approve go into the game, and only on sharp screens; the paintings themselves stay as they are.</p>
+  <div class="bar">
+    <div class="seg" id="f-show" role="group" aria-label="Show"></div>
+    <span class="tally" id="tally"></span>
+    <span class="note-db" id="dbnote">Connecting to the decisions store…</span>
+  </div>
+  <div class="grid" id="grid"><div class="empty">Loading the rooms…</div></div>
+</div>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const state = { rooms: [], dec: {}, db: null, canWrite: false, show: 'all' };
+  const SHOW = [['all', 'All'], ['open', 'Not decided'], ['approved', 'Approved'], ['redo', 'Redo'], ['keep', 'Keep painting']];
+  const decOf = r => (state.dec[r.name] || {}).decision || 'open';
+  const visible = () => state.rooms.filter(r => state.show === 'all' || decOf(r) === state.show);
+  function seg(el, opts) {
+    el.innerHTML = '';
+    for (const [v, label] of opts) {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.setAttribute('aria-pressed', String(state.show === v));
+      b.onclick = () => { state.show = v; seg(el, opts); render(); }; el.appendChild(b);
+    }
+  }
+  function tally() {
+    const n = { approved: 0, redo: 0, keep: 0, open: 0 }; for (const r of state.rooms) n[decOf(r)]++;
+    $('#tally').textContent = `${state.rooms.length} rooms · ${n.approved} approved · ${n.redo} redo · ${n.keep} keep painting · ${n.open} to decide`;
+  }
+  // the comparison: drag sets the line; at 100% each image is drawn at its upscale's own size and dragging pans
+  function viewer(el, r) {
+    const v = el.querySelector('.view'), imgs = v.querySelectorAll('img');
+    let zoom = false, cut = 50, px = 0.5, py = 0.5, drag = null;
+    const apply = () => {
+      v.style.setProperty('--cut', cut + '%'); v.classList.toggle('zoomed', zoom);
+      const w = v.clientWidth, h = v.clientHeight, s = zoom ? 2560 / w : 1;
+      const tx = zoom ? -(px * (w * s - w)) : 0, ty = zoom ? -(py * (h * s - h)) : 0;
+      imgs.forEach(i => { i.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`; });
+    };
+    const at = e => { const b = v.getBoundingClientRect(); return [(e.clientX - b.left) / b.width, (e.clientY - b.top) / b.height]; };
+    v.addEventListener('pointerdown', e => { drag = { p: at(e), px, py }; v.setPointerCapture(e.pointerId); if (!zoom) { cut = Math.max(0, Math.min(100, at(e)[0] * 100)); apply(); } });
+    v.addEventListener('pointermove', e => {
+      if (!drag) return; const p = at(e);
+      if (zoom) { px = Math.max(0, Math.min(1, drag.px - (p[0] - drag.p[0]))); py = Math.max(0, Math.min(1, drag.py - (p[1] - drag.p[1]))); }
+      else cut = Math.max(0, Math.min(100, p[0] * 100));
+      apply();
+    });
+    v.addEventListener('pointerup', () => { drag = null; }); v.addEventListener('pointercancel', () => { drag = null; });
+    v.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { cut = Math.max(0, Math.min(100, cut + (e.key === 'ArrowLeft' ? -5 : 5))); apply(); e.preventDefault(); } });
+    const zb = el.querySelector('.zoom');
+    zb.onclick = () => { zoom = !zoom; zb.textContent = zoom ? 'Fit' : '100%'; el.querySelector('.hint').textContent = zoom ? 'Drag to look around; the line stays where you left it.' : 'Drag across the picture to move the line.'; apply(); };
+    new ResizeObserver(apply).observe(v); apply();
+  }
+  let writing = Promise.resolve();
+  function decide(r, decision, el, noteOnly) {
+    if (!state.db || !state.canWrite) return;
+    const note = el.querySelector('textarea').value.trim();
+    const body = { decision: decision || 'open', note, at: new Date().toISOString() };
+    state.dec[r.name] = body;
+    if (!noteOnly) { el.dataset.dec = body.decision; el.querySelectorAll('.btns button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === decision))); tally(); }
+    const msg = el.querySelector('.saved'); msg.textContent = 'Saving…';
+    writing = writing.then(() => state.db.collection('decisions').doc(r.name).set(body))
+      .then(() => { msg.textContent = noteOnly ? 'Note saved' : 'Saved'; })
+      .catch(e => { msg.textContent = e && (e.code === 'invalid_argument' || e.code === 'permission_denied') ? 'You can view this board but not record decisions.' : 'Not saved. Try again in a moment.'; });
+  }
+  function card(r) {
+    const el = document.createElement('article'); el.className = 'card'; el.dataset.name = r.name; el.dataset.dec = decOf(r);
+    const d = state.dec[r.name] || {};
+    el.innerHTML = `
+      <div class="head"><h2></h2><span class="fam"></span></div>
+      <div class="view" tabindex="0" aria-label="Painting and upscale, compared">
+        <div class="layer"><img class="before" alt="" decoding="async" loading="lazy"></div>
+        <div class="layer after"><img alt="" decoding="async" loading="lazy"></div>
+        <div class="rule"></div><span class="tag l">painting, stretched</span><span class="tag r">upscale</span>
+      </div>
+      <div class="tools"><span class="hint">Drag across the picture to move the line.</span><button type="button" class="zoom">100%</button></div>
+      <div class="decide">
+        <div class="btns">
+          <button type="button" data-v="approved">Use the upscale</button>
+          <button type="button" data-v="redo">Redo</button>
+          <button type="button" data-v="keep">Keep the painting</button>
+        </div>
+        <textarea id="note-${r.name}" placeholder="Note (what looks wrong, where)"></textarea>
+        <div class="saved"></div>
+      </div>`;
+    el.querySelector('h2').textContent = r.label;
+    el.querySelector('.fam').textContent = r.name + '.jpg';
+    const [b, a] = el.querySelectorAll('img'); b.src = 'p/' + r.name + '.jpg'; a.src = 'u/' + r.name + '.jpg';
+    const ta = el.querySelector('textarea'); ta.value = d.note || '';
+    el.querySelectorAll('.btns button').forEach(btn => {
+      btn.setAttribute('aria-pressed', String(btn.dataset.v === decOf(r))); btn.disabled = !state.canWrite;
+      btn.onclick = () => decide(r, btn.dataset.v, el);
+    });
+    ta.disabled = !state.canWrite; ta.addEventListener('change', () => decide(r, (state.dec[r.name] || {}).decision, el, true));
+    viewer(el, r);
+    return el;
+  }
+  function render() {
+    tally();
+    const g = $('#grid'); g.innerHTML = '';
+    const vs = visible();
+    if (!vs.length) { g.innerHTML = '<div class="empty">' + (state.rooms.length ? 'No rooms with this filter.' : 'The room list did not load. Reload the page.') + '</div>'; return; }
+    for (const r of vs) g.appendChild(card(r));
+  }
+  seg($('#f-show'), SHOW);
+  fetch('rooms.json').then(r => r.json()).then(d => { state.rooms = d.rooms; render(); }).catch(() => render());
+  (async () => {
+    const db = window.claude && await window.claude.use('db').catch(() => null);
+    if (!db) { $('#dbnote').textContent = 'Decisions can be recorded only inside claude.ai while signed in.'; return; }
+    state.db = db;
+    const user = await window.claude.use('user').catch(() => null);
+    const w = user && user.can ? await user.can('data.write') : null;
+    state.canWrite = w !== false;
+    $('#dbnote').textContent = state.canWrite ? 'Decisions save as you click.' : 'You can view this board; decisions are recorded by the owner.';
+    if (state.rooms.length) render();
+    db.collection('decisions').onSnapshot(snap => {
+      const dec = {}; for (const d of snap.docs) if (d.exists) dec[d.id] = d.data();
+      state.dec = dec;
+      const shown = [...document.querySelectorAll('#grid .card')].map(e => e.dataset.name).join();
+      if (shown !== visible().map(r => r.name).join()) return render();
+      tally();
+      for (const el of document.querySelectorAll('#grid .card')) {
+        const r = state.rooms.find(x => x.name === el.dataset.name), v = decOf(r), ta = el.querySelector('textarea');
+        el.dataset.dec = v; el.querySelectorAll('.btns button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+        if (document.activeElement !== ta) ta.value = (state.dec[r.name] || {}).note || '';
+      }
+    }, () => { $('#dbnote').textContent = 'The decisions store stopped answering. Reload the page.'; });
+  })();
+})();
+</script>
