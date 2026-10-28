@@ -5,10 +5,10 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `394bcdd0` (Netlify `6ae0f495e700c5fb8cdf3879`,
-entry 80): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `a7fcbd59` (Netlify `6ae1498ab246bdf2ff2a7dcb`,
+entry 84): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-83); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-84); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1534,6 +1534,11 @@ session lived in the session's scratchpad and are gone; everything that matters 
    art/bg2x/shop.jpg (2560 wide), 1280x720 at ratio 1 and `?bg2x=0` art/bg/shop.jpg; 14 scenes at ratio 2 (shopjobs,
    sepit, bath, visitcop, bench, fado, laundry, celeste, semuseum, romance, thursday, bastos, finalerace, coldopen)
    with no errors; smoke intro, bench, sepit, visitcop, copbed pass; validate 0 errors.
+84. **Deploy of entries 81-83** (the user: "Just deploy what we have"). PR kubajugo-alt/alansanchez#9 merged (master
+   `a7fcbd59`). On the `git archive` export (own port, no `.env`, the 33 art/bg2x files in): smoke intro, bench, sepit,
+   visitcop pass; shopjobs, sepit, bath at pixel ratio 2, no errors. **Deployed:** Netlify `6ae1498ab246bdf2ff2a7dcb`.
+   Live: page 200, `/.env` 404, art/bg2x served, engine.js, main.js and art/bg2x/shop.jpg byte-identical; pixel ratio 2
+   and 1920x1080 load art/bg2x/shop.jpg, 1280 at ratio 1 and `?bg2x=0` art/bg/shop.jpg; live smoke bench, sepit pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
