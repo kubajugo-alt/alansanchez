@@ -4,14 +4,14 @@
  "frames": 36,
  "fps": 12,
  "meta": {
-  "w": 372,
-  "hh": 746,
+  "w": 333,
+  "hh": 809,
   "h": 720.0,
-  "ax": 146.7,
-  "fy": 733.1,
-  "top": 13.6
+  "ax": 113.3,
+  "fy": 799.8,
+  "top": 80.4
  },
- "flagged": 0,
+ "flagged": 3,
  "checks": [
   {
    "i": 0,
@@ -27,206 +27,206 @@
   },
   {
    "i": 2,
-   "height": 0.998,
-   "feet_drift": 0.0,
-   "flag": false
-  },
-  {
-   "i": 3,
-   "height": 0.978,
-   "feet_drift": 0.0,
-   "flag": false
-  },
-  {
-   "i": 4,
-   "height": 0.962,
-   "feet_drift": 0.0,
-   "flag": false
-  },
-  {
-   "i": 5,
-   "height": 0.926,
-   "feet_drift": 0.0,
-   "flag": false
-  },
-  {
-   "i": 6,
-   "height": 0.924,
-   "feet_drift": 0.0,
-   "flag": false
-  },
-  {
-   "i": 7,
-   "height": 0.933,
-   "feet_drift": 0.0,
-   "flag": false
-  },
-  {
-   "i": 8,
-   "height": 0.943,
+   "height": 1.001,
    "feet_drift": 0.001,
    "flag": false
   },
   {
-   "i": 9,
-   "height": 0.943,
+   "i": 3,
+   "height": 1.002,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 4,
+   "height": 1.002,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 5,
+   "height": 1.042,
    "feet_drift": 0.002,
    "flag": false
   },
   {
-   "i": 10,
-   "height": 0.939,
+   "i": 6,
+   "height": 1.092,
+   "feet_drift": 0.003,
+   "flag": true
+  },
+  {
+   "i": 7,
+   "height": 1.102,
    "feet_drift": 0.004,
+   "flag": true
+  },
+  {
+   "i": 8,
+   "height": 1.097,
+   "feet_drift": 0.003,
+   "flag": true
+  },
+  {
+   "i": 9,
+   "height": 1.079,
+   "feet_drift": 0.003,
+   "flag": false
+  },
+  {
+   "i": 10,
+   "height": 1.068,
+   "feet_drift": 0.001,
    "flag": false
   },
   {
    "i": 11,
-   "height": 0.946,
-   "feet_drift": 0.005,
+   "height": 1.064,
+   "feet_drift": 0.001,
    "flag": false
   },
   {
    "i": 12,
-   "height": 0.975,
+   "height": 1.063,
    "feet_drift": 0.006,
    "flag": false
   },
   {
    "i": 13,
-   "height": 0.999,
-   "feet_drift": 0.004,
+   "height": 1.06,
+   "feet_drift": 0.02,
    "flag": false
   },
   {
    "i": 14,
-   "height": 1.022,
-   "feet_drift": 0.003,
+   "height": 1.055,
+   "feet_drift": 0.028,
    "flag": false
   },
   {
    "i": 15,
-   "height": 1.023,
-   "feet_drift": 0.01,
+   "height": 1.035,
+   "feet_drift": 0.027,
    "flag": false
   },
   {
    "i": 16,
-   "height": 1.019,
-   "feet_drift": 0.009,
+   "height": 1.034,
+   "feet_drift": 0.022,
    "flag": false
   },
   {
    "i": 17,
-   "height": 1.015,
-   "feet_drift": 0.017,
+   "height": 1.033,
+   "feet_drift": 0.014,
    "flag": false
   },
   {
    "i": 18,
-   "height": 1.014,
-   "feet_drift": 0.032,
+   "height": 1.029,
+   "feet_drift": 0.008,
    "flag": false
   },
   {
    "i": 19,
-   "height": 1.013,
-   "feet_drift": 0.057,
+   "height": 1.029,
+   "feet_drift": 0.003,
    "flag": false
   },
   {
    "i": 20,
-   "height": 1.011,
-   "feet_drift": 0.077,
+   "height": 1.04,
+   "feet_drift": 0.002,
    "flag": false
   },
   {
    "i": 21,
-   "height": 1.009,
-   "feet_drift": 0.085,
+   "height": 1.053,
+   "feet_drift": 0.008,
    "flag": false
   },
   {
    "i": 22,
-   "height": 1.005,
-   "feet_drift": 0.089,
+   "height": 1.053,
+   "feet_drift": 0.018,
    "flag": false
   },
   {
    "i": 23,
-   "height": 1.003,
-   "feet_drift": 0.088,
+   "height": 1.053,
+   "feet_drift": 0.03,
    "flag": false
   },
   {
    "i": 24,
-   "height": 0.983,
-   "feet_drift": 0.054,
+   "height": 1.053,
+   "feet_drift": 0.034,
    "flag": false
   },
   {
    "i": 25,
-   "height": 0.98,
-   "feet_drift": 0.044,
-   "flag": false
-  },
-  {
-   "i": 26,
-   "height": 0.998,
-   "feet_drift": 0.073,
-   "flag": false
-  },
-  {
-   "i": 27,
-   "height": 0.995,
-   "feet_drift": 0.071,
-   "flag": false
-  },
-  {
-   "i": 28,
-   "height": 0.987,
-   "feet_drift": 0.055,
-   "flag": false
-  },
-  {
-   "i": 29,
-   "height": 0.981,
+   "height": 1.053,
    "feet_drift": 0.035,
    "flag": false
   },
   {
+   "i": 26,
+   "height": 1.053,
+   "feet_drift": 0.035,
+   "flag": false
+  },
+  {
+   "i": 27,
+   "height": 1.052,
+   "feet_drift": 0.035,
+   "flag": false
+  },
+  {
+   "i": 28,
+   "height": 1.052,
+   "feet_drift": 0.031,
+   "flag": false
+  },
+  {
+   "i": 29,
+   "height": 1.052,
+   "feet_drift": 0.023,
+   "flag": false
+  },
+  {
    "i": 30,
-   "height": 0.978,
-   "feet_drift": 0.025,
+   "height": 1.05,
+   "feet_drift": 0.008,
    "flag": false
   },
   {
    "i": 31,
-   "height": 0.973,
-   "feet_drift": 0.011,
+   "height": 1.046,
+   "feet_drift": 0.0,
    "flag": false
   },
   {
    "i": 32,
-   "height": 0.971,
+   "height": 1.021,
    "feet_drift": 0.003,
    "flag": false
   },
   {
    "i": 33,
-   "height": 0.968,
-   "feet_drift": 0.009,
+   "height": 1.014,
+   "feet_drift": 0.002,
    "flag": false
   },
   {
    "i": 34,
-   "height": 0.967,
-   "feet_drift": 0.015,
+   "height": 1.01,
+   "feet_drift": 0.001,
    "flag": false
   },
   {
    "i": 35,
-   "height": 0.966,
-   "feet_drift": 0.021,
+   "height": 1.009,
+   "feet_drift": 0.003,
    "flag": false
   }
  ]
