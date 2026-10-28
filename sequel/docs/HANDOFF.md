@@ -194,3 +194,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     Tuesday call (`called_tue2`) gates the lift; the museum opens after the first call. 58 lines rewritten (same ids,
     re-recorded), 114 new, 5 removed (`alan_t_lobby_1/2`, `vasco_t_lobby_2`, `chano_note`, `alan_mist_1`). Checked:
     validate 0 errors; `play.mjs` (new Tuesday route) won, 98 steps; every line voiced with the cast.
+18. **Every voice on one page, plus new studio-quality ones** (2026-10-28, the user: "give me the auditions page again
+    with all of the voices proposed for each character in the past (also the ones rejected), plus propose a 3 new ones
+    from the catalogue. Make sure the new ones are studio quality"). 63 new voices (3 per character), all from the
+    library's high-quality / professional category, one take each, in `audio/auditions6/` (git-ignored by the one
+    `/sequel/audio/auditions*/` rule). The page holds 200 voices: the current one first, the new three, then rounds
+    1–5; the designed voices are left out (the user's "Don't design voices"). Few new voices with a Spanish accent were
+    left in the library: Leoni (Carmen), Johi (Baute), Leo (Rafa), Lilith (Nieves; was an Elena option), Carlos
+    (Guardia 1). Tuesday's redeploy is waiting on the user's go-ahead.
