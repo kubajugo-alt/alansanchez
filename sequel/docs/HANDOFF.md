@@ -48,8 +48,11 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
   recordings get a telephone treatment after generation (narrow band about 300–3400 Hz, mono, light compression and a
   little line noise), applied in post so her original voice stays the source.
 - **Carmen's answering machine** (the prologue's "Trujillo. Speak, or don't.") gets the same telephone treatment.
-- **Everyone else gets a native Spanish ElevenLabs voice speaking English**: a Spanish voice (Canarian where the
-  library has one) reading the English lines, so the accent comes from the speaker, not from the text.
+- **Everyone else: English with a Spanish accent, or else a general American voice** (changed 2026-10-28, the user:
+  "none got a Spanish accent. Almost all sound British. If you can't do characters speaking with Spanish accent in
+  English, just use general/American accent for all except Gail and Derek"). The first rule (native Spanish voices
+  reading English) gave British-sounding reads; the recast prefers English-language voices that speak with a Spanish
+  accent, and falls back to general American. Never British for anyone but Gail and Derek.
 - **Gail and Derek are the exception**: working-class British English voices.
 - The voice ids for the sequel go in their own cast file under `sequel/scripts/`, never in Game I's.
 
@@ -123,3 +126,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    previews (`?scene=vault`, `landrover`, `elenacar`); the audition page now has 2–3 voices per character, built
    into the page so it plays on an iPhone; `ELEVENLABS_API_KEY` is in the root `.env` (git-ignored; text-to-speech
    works, the key cannot read the account).
+7. **Voices recast** (2026-10-28, quoted under "Voice casting"). The native-Spanish auditions are rejected; a new
+   round (English voices with a Spanish accent where the library has them, else general American; Gail and Derek
+   keep their British options) goes in `audio/auditions2/` and onto the same audition page.

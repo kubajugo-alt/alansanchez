@@ -29,3 +29,5 @@
 - 2026-10-27 bg `landrover` Canva media MAHZP1XAB10 -> art/bg/landrover.jpg 
 - 2026-10-27 bg `elena_car` Canva media MAHZP97wAiY -> art/bg/elena_car.jpg 
 - 2026-10-27 bg `map` Canva media MAHZP_nBtQA -> art/bg/map.jpg 
+- 2026-10-28 bg `title` Canva media MAHZQIYHYw0 -> art/bg/title.jpg 
+- 2026-10-28 still `still_title` Canva media MAHZQIYHYw0 -> art/stills/still_title.jpg same painting as the title room
