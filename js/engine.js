@@ -128,7 +128,11 @@
   const stillKeys = name => ['still:' + name, 'close:' + name, 'bg:' + name].filter(k => SRC[k]);
   function register() {
     const add = (k, s) => { if (!SRC[k]) { SRC[k] = s; total++; } };
-    for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) add('bg:' + b, 'art/bg/' + b + '.jpg');
+    // a screen drawn above 1280 px (engine/base.js render scale) gets each room painting's 2x upscale (art/bg2x/,
+    // Real-ESRGAN x2plus; approved by the user) where it has one; the paintings themselves are art/bg. ?bg2x=0: never
+    const big = !/[?&]bg2x=0\b/.test(location.search) && E.syncRenderScale && E.syncRenderScale() > 1;
+    const bg2x = big ? (window.BG2X || []) : [];
+    for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) add('bg:' + b, bg2x.includes(b) ? 'art/bg2x/' + b + '.jpg' : 'art/bg/' + b + '.jpg');
     for (const s of (window.STILLS || [])) add('still:' + s, 'art/stills/' + s + '.jpg');
     for (const c of (window.CLOSEUPS || [])) add('close:' + c, 'art/closeups/' + c + '.jpg');
     for (const k in E.SPRITES) add('spr:' + k, E.SPRITES[k].src || 'art/sprites/' + k + '.webp'); // src: an approved review frame
