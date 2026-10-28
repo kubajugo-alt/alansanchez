@@ -145,3 +145,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    baute design1 `K5ecvsRKoGewJWrAyhjW`, design2 `A0wQA5zZT8tE7GxqbZXG`, design3 `j6XSdsqSikGnqQ1XhLA1`; save the
    picked one with the connector's `creative_save_designed_voice`), plus library voices for all five. Files in
    `audio/auditions3/` (git-ignored); the audition page now shows only these five.
+10. **The cast complete but for the guard; the game voiced** (2026-10-28, the user's round-three picks: Vanessa for
+    Carmen, David for Baute, Pablo for Chano, Luis for Guardia 1; no pick for the museum guard, a fourth round of three
+    voices in `audio/auditions4/`). 1,012 of 1,019 lines voiced (`scripts/generate-voices.mjs`, 0 failures); the guard's
+    3 lines wait for his voice. Checked: manifest lists every file; validate 0 errors; `play.mjs` won, 98 steps.
