@@ -212,3 +212,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     for Carmen without it (her line twice, her steps scene), then with `language_code: "es"` on v4, v3, multilingual v2,
     flash v2.5 and turbo v2.5 (`audio/auditions7/`, git-ignored). Waiting on the user's ear: which model, then recast
     with the setting on.
+20. **Re-audition with the Spanish setting** (2026-10-28, the user: "2,4 and 5 work well. 5 ... turbo v2.5 - sounds
+    most natural"). Rule: Spanish-accented characters are voiced with `eleven_turbo_v2_5` and `language_code: "es"`;
+    `[pause]` becomes "…" (Turbo doesn't read bracket tags). Every candidate from rounds 1–6 plus Jimena (184 voices;
+    the barman candidate Max has been disabled by its owner) re-recorded that way into `audio/auditions8/`
+    (git-ignored), and the audition page republished with them. Not re-auditioned: Inês, Gail, Derek, Alan, Vasco,
+    the narrator. Next: the user re-picks, then cast.json and generate-voices.mjs get a per-voice model and language,
+    and those characters' lines are re-recorded.
