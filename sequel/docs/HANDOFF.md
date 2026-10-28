@@ -289,4 +289,21 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     crops at each addition, the beach sky's seam (the cloud clip now follows the roofline); play.mjs won, 103 steps.
     Review page with a clip per room: https://claude.ai/artifact/V77iQSPoJmwNKkw6k78az7; not deployed. Known, older: a
     faint vertical step in the beach's top-left sky (present without any of this; not looked into).
+29. **The Ludo animations in the game** (2026-10-28). The user approved the room movement ("all good") and the Ludo
+    board, except three to redo: Alan's climb ("remove the ledge, so he can climb onto anything"), his pull ("his
+    hands disappear out of the frame"), Vasco's second talk ("his face looks different").
+    - `scripts/ludo_install.py` copies each run's fitted frames to `art/sprites/<run>_NN.webp` (1267 frames, one box
+      per run so nothing slides) and writes `js/sprites_ludo.js` (sprite data and `window.LUDO`: frames, fps, and from
+      `scripts/ludo_measure.py` a walk's ground per frame and an action's hold frame).
+    - Engine (`js/engine/actor.js`, this fork only): `talkFps` plays the talk loop in order from the line's start; a
+      pose can be a run (in to its hold frame, held while the story runs, the rest played out); `viewTurn` plays the
+      side-to-front or side-to-back turn (reversed back, every other frame when walking off); `turnLR` plays the
+      turn round (mirrored for the other way); `walkStep` / `frontStep` / `backStep` set the stride per cycle.
+    - Story (`core.js`): Alan's frames follow `blazer_on` (vest set or blazer set); the blazer now comes off each new
+      morning (`S.day`) and goes back on for Thursday's dinner. Vasco on his set; the cast talk on their loops and
+      stand on the first frame (Baute and Chano in their new designs). Actions: phone, drink, write (Alan), reach,
+      kneel, trowel (Vasco). Held out until the redos are approved (`S.LUDO_HOLD`, Game I poses): climb, pull,
+      Vasco's talk b. Redos running (take 2 in `ludo_runs.json`, more room above for the pull).
+    - Checked: validate 0 errors; play.mjs won, 103 steps; a stepped capture on the beach (walk, the turn round, the
+      phone in, held and out) frame by frame.
 

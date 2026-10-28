@@ -70,7 +70,7 @@
   // ---------------------------------------------------------------- the dinner
   ROOMS.museum_hall.enter = async function () {
     if (S.dinnerDue() && !F().dinner_intro) {
-      F().dinner_intro = true;
+      F().dinner_intro = true; if (F().blazer_got) F().blazer_on = true; // the blazer again for the dinner
       await say('narr_dinner', 'vasco_th_speech_1', 'vasco_th_speech_2', 'baute_th_toast', 'alan_th_dinner_1');
     }
   };

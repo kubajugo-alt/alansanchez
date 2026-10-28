@@ -9,7 +9,11 @@
   // A character's frames (CHARS[ch].frames):
   //   idle: [rest, variant...]  talk: [gesture...]  walk: [8-frame profile cycle]
   //   front / back: standing frames seen from the front / back, frontWalk / backWalk: their cycles
-  //   poses: { name: frame }  loops: { name: { frames, fps } }  sets: { name: { idle?, talk? } }
+  //   poses: { name: frame | { frames, fps, hold } }  loops: { name: { frames, fps } }  sets: { name: { idle?, talk? } }
+//   Ludo runs (Game II): talkFps (talk is one continuous loop, played in order from the line's start), a pose as a run
+//   (plays in to its hold frame, holds while the story runs, plays the rest out), viewTurn { front, back } (side to
+//   that view, reversed for the way back), turnLR (facing right to facing left, mirrored for the other way), turnFps,
+//   walkStep / frontStep / backStep (ground per frame of each cycle, in heights)
   // Feet are pinned to (x, y). Breathing only stretches the upper body, the walk
   // cycle advances by the distance actually covered, and every pose change is
   // cross-dissolved.
@@ -201,7 +205,7 @@
             const i0 = Math.floor(this.phase), len = lens[((i0 % lens.length) + lens.length) % lens.length], rest = (i0 + 1 - this.phase) * len;
             if (m < rest) { this.phase += m / len; m = 0; } else { this.phase = i0 + 1; m -= rest; }
           }
-        } else this.phase += moved / (hh * (this.c.frameStep || (cyc.length >= 8 ? 0.085 : 0.17))); // frameStep: ground per frame (a 4-frame stride + passing cycle uses half)
+        } else this.phase += moved / (hh * ((this.dir === 'n' && this.F.backWalk && this.F.backStep) || (this.dir === 's' && this.F.frontWalk && this.F.frontStep) || this.F.walkStep || this.c.frameStep || (cyc.length >= 8 ? 0.085 : 0.17))); // frameStep: ground per frame (a 4-frame stride + passing cycle uses half)
         if (this.rigS && this.cur && this.cur.startsWith('rig:')) {
           const u0 = this.rigS.u; this.rigS.u += moved / (hh * E.rigStride(this.ch));
           if (Math.floor(u0 * 2) !== Math.floor(this.rigS.u * 2) && this.visible) Sound.step((E.room && E.room.floor) || 'stone', this === E.player ? 1 : 0.5, this.x);
@@ -316,6 +320,22 @@
       const ws = arr(F.walkStart).filter(ok); // a walk can open on a short run of frames (weight shift, first step)
       if (side && !this.pose && this.walking && ws.length && this.walkT < WALK_EDGE * ws.length) return ws[Math.floor(this.walkT / WALK_EDGE)];
       if (side && !this.pose && !this.walking && this.stopAt != null && E.time - this.stopAt < WALK_EDGE && ok(F.walkStop)) return F.walkStop;
+      // a Ludo turn between the side view and the front or back (frames.viewTurn): the run, side to that view, or reversed
+      if (F.viewTurn) {
+        const view = k => arr(F.front).concat(arr(F.frontWalk)).includes(k) ? 'front' : arr(F.back).concat(arr(F.backWalk)).includes(k) ? 'back' : 'side';
+        if (this.vtSeq && view(key) !== this.vtTo) this.vtSeq = null; // changed his mind: go straight there
+        if (!this.vtSeq && this.settled && !this.pose && view(key) !== view(this.settled)) {
+          const a = view(this.settled), b = view(key), run = a === 'side' ? F.viewTurn[b] : b === 'side' && F.viewTurn[a] ? F.viewTurn[a].slice().reverse() : null;
+          // walking off into it: every other frame, so the turn is made in the first step
+          const seq = run && run.every(ok) ? run.filter((f, i) => !this.walking || i % 2 === 0 || i === run.length - 1) : null;
+          if (seq) { this.vtSeq = seq; this.vtT0 = E.time; this.vtTo = b; }
+        }
+        if (this.vtSeq) {
+          const i = Math.floor((E.time - this.vtT0) * (F.turnFps || 30));
+          if (i < this.vtSeq.length) { this.runOn = true; this.runStep = 1 / (F.turnFps || 30); return this.vtSeq[i]; }
+          this.vtSeq = null;
+        }
+      }
       const IB = F.inbetween;
       if (!IB) { this.settled = key; return key; }
       if (this.ibSeq && this.ibTarget !== key) { // changed its mind: go straight there, unless the way there is this
@@ -338,6 +358,29 @@
     }
     rawKey() {
       const F = this.F;
+      this.runOn = false;
+      if (this.talking !== this.talkWas) { this.talkWas = this.talking; if (this.talking) this.talkT0 = E.time; }
+      // a pose drawn as a run (Ludo): in to its hold frame, held while the story runs, then the rest played out
+      if (this.pose !== this.poseWas) {
+        const was = this.poseWas && F.poses && F.poses[this.poseWas];
+        this.poseWas = this.pose; this.poseT0 = E.time;
+        this.poseOut = !this.pose && was && was.frames ? { frames: was.frames.slice((was.hold != null ? was.hold : was.frames.length - 1) + 1), fps: was.fps, t0: E.time } : null;
+      }
+      if (this.pose) {
+        const P = (F.poses && F.poses[this.pose]) || this.pose;
+        if (P && P.frames) { this.runOn = true; this.runStep = 1 / P.fps; return P.frames[Math.min(P.hold != null ? P.hold : P.frames.length - 1, Math.floor((E.time - this.poseT0) * P.fps))]; }
+      }
+      if (this.poseOut) {
+        const i = Math.floor((E.time - this.poseOut.t0) * this.poseOut.fps);
+        if (!this.walking && !this.talking && i < this.poseOut.frames.length) { this.runOn = true; this.runStep = 1 / this.poseOut.fps; return this.poseOut.frames[i]; }
+        this.poseOut = null;
+      }
+      // the right/left turn (frames.turnLR) is played by drawBody, which knows the facing
+      if (this.lrRun) {
+        const i = Math.floor((E.time - this.lrRun.t0) * (F.turnFps || 30));
+        if (i < this.lrRun.frames.length) { this.runOn = true; this.runStep = 1 / (F.turnFps || 30); return this.lrRun.frames[i]; }
+        this.lrRun = null;
+      }
       if (E.rigOn && E.rigOn(this.ch) && !this.pose && !this.set && !this.loopActive() && (this.dir === 'e' || this.dir === 'w')) return 'rig:' + this.ch;
       if (this.pose) return (F.poses && F.poses[this.pose]) || this.pose;
       if (this.walking) {
@@ -349,6 +392,7 @@
       }
       if (this.dir === 'n' && F.back) return arr(F.back)[0];
       if (this.dir === 's' && F.front) return arr(F.front)[0];
+      if (this.talking && F.talkFps && arr(F.talk).length) { const t = arr(F.talk); return t[Math.floor((E.time - (this.talkT0 || 0)) * F.talkFps) % t.length]; }
       if (this.talking) { const t = arr(F.talk); return t.length && this.talkIdx >= 0 ? t[this.talkIdx % t.length] : arr(F.idle)[0]; }
       if (this.loopActive()) { const L = F.loops[this.loop]; return L.frames[Math.floor(E.time * L.fps) % L.frames.length]; }
       const id = arr(F.idle), v = id[this.idleIdx % id.length];
@@ -483,16 +527,24 @@
       const paintedLeft = /^pair_/.test(key) ? !/^pair_(ib_)?(vasco_|guitar_p1|guitar_underwear)/.test(key) : !!sp.facesLeft;
       const looksLeft = flipped ? !paintedLeft : paintedLeft;
       const faceTurn = ew && this.lastLooksLeft != null && looksLeft !== this.lastLooksLeft && !ambientHold;
+      // a Ludo turn (frames.turnLR, painted from facing right to facing left): played as it is to face left, mirrored
+      // to face right; walking off into it, every other frame
+      if (faceTurn && F.turnLR && !this.pose && !window.FAST && arr(F.turnLR).every(f => E.SPRITES[f] && IMG['spr:' + f])) {
+        const run = F.turnLR.filter((f, i) => !this.walking || i % 2 === 0 || i === F.turnLR.length - 1);
+        this.lrRun = { frames: run, t0: E.time, left: looksLeft };
+        key = run[0]; sp = E.SPRITES[key]; // from this frame on: no flash of the new facing first
+      }
+      if (this.lrRun && arr(F.turnLR).includes(key)) { const pl = !!sp.facesLeft; flipped = this.lrRun.left ? pl : !pl; }
       if (faceTurn && !this.walking && !window.FAST) this.leanV += (looksLeft ? -1 : 1) * LEAN_TURN; // weight onto the new side
       if (ew) { this.lastLooksLeft = looksLeft; this.lastEW = this.dir; } // (lastEW: his last side facing, for smoke.js)
-      if (this.viaT == null && faceTurn && this.cur && !window.FAST && frontOK && key !== fk && this.cur !== fk && !this.pose) this.viaT = E.time;
+      if (this.viaT == null && faceTurn && !this.lrRun && this.cur && !window.FAST && frontOK && key !== fk && this.cur !== fk && !this.pose) this.viaT = E.time;
       if (this.viaT != null) {
         if (E.time - this.viaT < TURN_VIA && frontOK) { key = fk; sp = E.SPRITES[fk]; flipped = !!sp.facesLeft; }
         else { this.viaT = null; this.lastFlip = flipped; this.viaOut = true; } // out of the front view: no second turn
       }
       this.lastFlip = flipped;
       // a turn with no painted front view: the old facing dissolves into the new one (a mirror flip, softened)
-      const turned = faceTurn && !frontOK && !this.walking && !window.FAST && this.curFlip != null && this.curFlip !== flipped;
+      const turned = faceTurn && !this.lrRun && !frontOK && !this.walking && !window.FAST && this.curFlip != null && this.curFlip !== flipped;
       if (turned && key === this.cur) { this.prev = key; this.prevFlip = this.curFlip; this.fadeDur = this.fadeT = TURN_XF; this.fadeSim = true; this.fadeHand = false; }
       if (key !== this.cur) {
         // a walk frame to the next (in any of its cycles: side, front, back) is a step, blended as WALK says
@@ -500,7 +552,7 @@
         const stepX = inCycle && walkOpt(this).blend === 'dissolve' && !window.FAST; // a walk frame to the next: a very short cross-fade
         // a change in the middle of a dissolve leaves behind whichever painting is still more on screen (no pop)
         // a run drawn as one motion (its own frame rate, faster than IB_STEP): each frame hands over to the next one
-        const run = this.ibStep < IB_STEP && !!(this.ibSeq || this.ibWas);
+        const run = (this.ibStep < IB_STEP && !!(this.ibSeq || this.ibWas)) || this.runOn;
         const mid = !run && this.prev && this.fadeT > 0 && this.fadeT / (this.fadeDur || XFADE) > 0.5;
         if (!mid) this.prevFlip = this.curFlip != null ? this.curFlip : flipped; // the outgoing frame keeps the facing it was drawn with
         this.prev = this.cur && (!inCycle || stepX) ? (mid ? this.prev : this.cur) : null;
@@ -514,7 +566,7 @@
         const morph = morphable && canMorph();
         // a pair with morph data moves between poses; two near-identical paintings (a mouth, a hand,
         // a drag on the cigarette) get a quick eased cross-fade; anything else dissolves (plain, below)
-        const SIM = window.SIMILAR, ibHand = this.ibSeq || this.ibWas; this.ibWas = !!this.ibSeq; // in-between frames hand over with a quick cross-fade too
+        const SIM = window.SIMILAR, ibHand = this.ibSeq || this.ibWas || this.runOn; this.ibWas = !!this.ibSeq; // in-between frames hand over with a quick cross-fade too
         // into or out of a combined sprite, or from one pair painting to the next: a plain dissolve (pairs never morph)
         const pairs = this.prev && E.SPRITES[key] && E.SPRITES[this.prev] && E.SPRITES[key].rigid && E.SPRITES[this.prev].rigid;
         if (pairs && !(this.xfNext > 0)) this.xfNext = PAIR_STEP;
@@ -531,7 +583,7 @@
         const via = this.viaT != null || this.viaOut; // side, front, side: each hand-over quick enough for the swing
         // inside such a run, frame to frame: a fade of half a frame; into it and out of it, one frame
         const inRun = run && this.ibSeq && this.ibSeq.includes(key) && this.ibSeq.includes(this.prev);
-        this.fadeDur = run && similar && !forced ? this.ibStep * (inRun ? 0.5 : 1) : forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT
+        this.fadeDur = run && similar && !forced ? (this.runOn ? this.runStep : this.ibStep) * (inRun ? 0.5 : 1) : forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT
           : plain ? (via ? XFADE_SHORT : this.walking ? WALK_XF : XFADE) : MORPH_T;
         this.xfNext = 0;
         this.fadeSim = !!similar;

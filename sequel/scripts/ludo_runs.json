@@ -227,10 +227,11 @@
   {
    "name": "vasco_talk_b",
    "a": "vascos_side_k",
-   "prompt": "talking while standing in place, one bigger explaining gesture with both hands, then back to rest, feet stay planted",
+   "prompt": "talking while standing in place, one explaining gesture with his hands, then back to rest, feet stay planted; his face stays exactly the same man throughout, same features, same dark curly hair and light stubble, keeps his head in profile, only the mouth, eyes and hands move",
    "loop": true,
    "frames": 25,
-   "duration": 3
+   "duration": 3,
+   "take": 2
   },
   {
    "name": "alanv_phone",
@@ -251,18 +252,22 @@
   {
    "name": "alanv_climb",
    "a": "alanv_side_k",
-   "prompt": "reaches up with both hands, grips a high stone ledge and pulls himself up to climb it",
+   "prompt": "mimes climbing up onto something: reaches up with both hands, grips above his head, pulls himself up and steps up with one knee; only him in the picture, no ledge, no wall, no rock, no objects at all",
    "loop": false,
    "frames": 36,
-   "duration": 4
+   "duration": 4,
+   "take": 2,
+   "margin_v": 0.35
   },
   {
    "name": "alanv_pull",
    "a": "alanv_side_k",
-   "prompt": "reaches up with both hands, grips a hanging chain above him and pulls it down hard, then lets go",
+   "prompt": "reaches up with both hands just above his head, grips a chain there and pulls it down hard to chest height, then lets go; his hands stay in the picture the whole time; only him in the picture, no chain or objects drawn",
    "loop": false,
    "frames": 36,
-   "duration": 4
+   "duration": 4,
+   "take": 2,
+   "margin_v": 0.35
   },
   {
    "name": "alanv_write",

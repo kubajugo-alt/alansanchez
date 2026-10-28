@@ -16,9 +16,13 @@
   S.give = (id, silent) => G.giveItem(id, silent);
   // a character's frames: their Canva design (art/sprites/<id>_c.webp, scripts/figure_cut.py) once it's made, else the
   // stand-in figure (scripts/placeholders.py). One painting for now: the Ludo animation sets come later.
+  const LU = window.LUDO || {};
   S.ph = (id, scale, more, alias) => {
     const SP = window.SPRITES || {}, c = SP[id + '_c'] ? id + '_c' : alias && SP[alias + '_c'] ? alias + '_c' : null;
-    const f = c ? { idle: [c], talk: [c], walk: [c] }
+    // a Ludo talk loop (scripts/ludo_install.py): its first frame stands, the loop plays in order while they speak
+    const lt = LU['talk_' + id] || (alias && LU['talk_' + alias]);
+    const f = lt ? { idle: [lt.frames[0]], talk: lt.frames, talkFps: lt.fps, walk: [lt.frames[0]] }
+      : c ? { idle: [c], talk: [c], walk: [c] }
       : { idle: [id + '_ph_idle'], talk: [id + '_ph_talk', id + '_ph_idle'], walk: [id + '_ph_walk1', id + '_ph_idle'] };
     return { scale: scale || 1, frames: Object.assign(f, more || {}) };
   };
@@ -29,17 +33,36 @@
   S.discreet = () => (S.content() || S._content) === 'discreet';
 
   // ---------------------------------------------------------------- cast
-  // Alan and Vasco wear Game I's frames until their own Ludo sets are made (scripts/import_game1.py); everyone new is a
-  // placeholder figure (scripts/placeholders.py) until Canva designs them and Ludo animates them.
+  // Alan and Vasco walk, turn, talk and act on their Ludo runs (approved 2026-10-28; window.LUDO, scripts/ludo_install.py),
+  // over Game I's frames (scripts/import_game1.py) for anything Ludo didn't make; the cast talk on their Ludo loops and
+  // stand on each loop's first frame (S.ph). Alan has two outfits: the vest and cargo shorts, and the blazer with jeans
+  // (F().blazer_on: Tuesday evening from the lost-and-found, and Thursday's dinner; off each new morning).
+  const lu = n => (LU[n] ? LU[n].frames : null);
+  S.LUDO_HOLD = ['vasco' + '_talk_b']; // made, but the user asked for a redo ("his face looks different"): not played
+  const luSet = (p, base, poses) => {
+    if (!LU[p + '_walk_side']) return base;
+    const turnF = lu(p + '_turn_side_front'), turnB = lu(p + '_turn_side_back');
+    const Fr = Object.assign({}, base, {
+      idle: [lu(p + '_talk_a')[0]], talk: [p + '_talk_a', p + '_talk_b'].filter(n => lu(n) && !S.LUDO_HOLD.includes(n)).flatMap(lu), talkFps: LU[p + '_talk_a'].fps,
+      walk: lu(p + '_walk_side'), walkStep: LU[p + '_walk_side'].step,
+      front: turnF[turnF.length - 1], frontWalk: lu(p + '_walk_front'), frontStep: LU[p + '_walk_front'].step,
+      back: turnB[turnB.length - 1], backWalk: lu(p + '_walk_back'), backStep: LU[p + '_walk_back'].step,
+      viewTurn: { front: turnF, back: turnB }, turnLR: lu(p + '_turn_side_left'), turnFps: 30,
+    });
+    delete Fr.walkStart; delete Fr.walkStop; delete Fr.inbetween;
+    Fr.poses = Object.assign({}, base.poses);
+    for (const [pose, act] of Object.entries(poses || {})) { const R = LU[p + '_' + act]; if (R) Fr.poses[pose] = { frames: R.frames, fps: R.fps, hold: R.hold }; }
+    return Fr;
+  };
   S.CHARS = {
-    alan: { scale: 1, talkRest: [2.5, 5.5], talkGesture: [1.2, 2.2], frames: {
+    alan: { scale: 1, talkRest: [2.5, 5.5], talkGesture: [1.2, 2.2], game1: {
       idle: ['alan_side', 'alan_idle2'], talk: ['alan_talk', 'alan_talk2'],
       walk: Array.from({ length: 24 }, (_, i) => 'alan_w24_' + String(i).padStart(2, '0')),
       front: 'alan_front', frontWalk: ['alan_front_walk1', 'alan_front', 'alan_front_walk2', 'alan_front'],
       back: 'alan_back', backWalk: ['alan_back_walk1', 'alan_back', 'alan_back_walk2', 'alan_back'],
       poses: { reach: 'alan_reach', read: 'alan_read', pickup: 'alan_pickup', write: 'alan_write', phone: 'alan_phone', fluster: 'alan_fluster',
         flirt: 'alan_flirt', wink: 'alan_wink', drink: 'alan_drink', yawn: 'alan_yawn', stretch: 'alan_stretch', climb: 'alan_climb', pull: 'alan_pull', asleep: 'alan_asleep' } } },
-    vasco: { scale: 1.0, frames: {
+    vasco: { scale: 1.0, game1: {
       idle: ['vasco', 'vasco_idle2', 'vasco_idle3'], talk: ['vasco_talk', 'vasco_talk2', 'vasco_talk3'],
       walk: ['vasco_walk6_p1', 'vasco_walk6_p3', 'vasco_walk6_p5', 'vasco_walk6_p7', 'vasco_walk6_p9', 'vasco_walk6_p11', 'vasco_walk6_p13', 'vasco_walk6_p15'],
       front: 'vasco_front', back: 'vasco_back',
@@ -52,6 +75,15 @@
     gail: S.ph('gail', 0.88), derek: S.ph('derek', 0.94), guard: S.ph('guard', 0.95), elena: S.ph('elena', 0.92), clerk: S.ph('clerk', 0.9),
     surfer: S.ph('surfer', 0.98),
   };
+  {
+    const A = S.CHARS.alan, V = S.CHARS.vasco;
+    // (climb and pull: Game I's poses until their redos are approved; the user: "remove the ledge", "his hands disappear")
+    const vest = luSet('alanv', A.game1, { phone: 'phone', drink: 'drink', write: 'write' });
+    const blazer = luSet('alanb', A.game1); // (no actions made in the blazer: Game I's poses)
+    Object.defineProperty(A, 'frames', { get() { let on = false; try { on = !!(G.flags && G.flags.blazer_on); } catch (e) { /* not started */ } return on ? blazer : vest; } });
+    A.outfits = [vest, blazer]; // (both, for loading: engine.js framesOf walks whatever frames holds)
+    V.frames = luSet('vasco', V.game1, { reach: 'reach', kneel: 'kneel', trowel: 'trowel' });
+  }
   // the walks' step lengths: Game I's measurements for the borrowed cycles (js/story/core.js there, S.WALK_PLANT)
   S.WALK_PLANT = { vasco_walk6_p1: [0.190, -0.148], vasco_walk6_p3: [0.112], vasco_walk6_p5: [0.028], vasco_walk6_p7: [-0.061],
     vasco_walk6_p9: [0.207, -0.153], vasco_walk6_p11: [0.112], vasco_walk6_p13: [0.030], vasco_walk6_p15: [-0.065] };
@@ -124,7 +156,7 @@
   ];
   S.dayName = () => ['', 'Tuesday 18 June', 'Wednesday 19 June', 'Thursday 20 June', 'Friday 21 June', 'Saturday 22 June', 'Sunday 23 June', 'Monday 24 June'][F().ch || 1];
   S.day = async function (n, line) {
-    F().ch = n; if (G.room) G.refreshNpcs();
+    F().ch = n; F().blazer_on = false; if (G.room) G.refreshNpcs(); // a new morning: the vest again
     S.sfx('chapter_toll', 0.3);
     await G.card(S.DAYS[n][0], S.DAYS[n][1], 3200);
     if (line) await G.say(line, { offscreen: true });
