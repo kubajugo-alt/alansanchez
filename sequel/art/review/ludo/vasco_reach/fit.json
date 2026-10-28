@@ -1,0 +1,233 @@
+{
+ "name": "vasco_reach",
+ "kind": "act",
+ "frames": 36,
+ "fps": 12,
+ "meta": {
+  "w": 327,
+  "hh": 738,
+  "h": 720.0,
+  "ax": 199.1,
+  "fy": 728.7,
+  "top": 9.2
+ },
+ "flagged": 19,
+ "checks": [
+  {
+   "i": 0,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 1,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 2,
+   "height": 0.999,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 3,
+   "height": 0.996,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 4,
+   "height": 0.988,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 5,
+   "height": 0.976,
+   "feet_drift": 0.007,
+   "flag": false
+  },
+  {
+   "i": 6,
+   "height": 0.96,
+   "feet_drift": 0.008,
+   "flag": false
+  },
+  {
+   "i": 7,
+   "height": 0.925,
+   "feet_drift": 0.008,
+   "flag": false
+  },
+  {
+   "i": 8,
+   "height": 0.899,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 9,
+   "height": 0.856,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 10,
+   "height": 0.828,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 11,
+   "height": 0.785,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 12,
+   "height": 0.757,
+   "feet_drift": 0.006,
+   "flag": true
+  },
+  {
+   "i": 13,
+   "height": 0.719,
+   "feet_drift": 0.006,
+   "flag": true
+  },
+  {
+   "i": 14,
+   "height": 0.695,
+   "feet_drift": 0.006,
+   "flag": true
+  },
+  {
+   "i": 15,
+   "height": 0.666,
+   "feet_drift": 0.006,
+   "flag": true
+  },
+  {
+   "i": 16,
+   "height": 0.649,
+   "feet_drift": 0.006,
+   "flag": true
+  },
+  {
+   "i": 17,
+   "height": 0.63,
+   "feet_drift": 0.044,
+   "flag": true
+  },
+  {
+   "i": 18,
+   "height": 0.626,
+   "feet_drift": 0.048,
+   "flag": true
+  },
+  {
+   "i": 19,
+   "height": 0.637,
+   "feet_drift": 0.042,
+   "flag": true
+  },
+  {
+   "i": 20,
+   "height": 0.654,
+   "feet_drift": 0.013,
+   "flag": true
+  },
+  {
+   "i": 21,
+   "height": 0.693,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 22,
+   "height": 0.725,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 23,
+   "height": 0.776,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 24,
+   "height": 0.812,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 25,
+   "height": 0.867,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 26,
+   "height": 0.902,
+   "feet_drift": 0.007,
+   "flag": true
+  },
+  {
+   "i": 27,
+   "height": 0.947,
+   "feet_drift": 0.008,
+   "flag": false
+  },
+  {
+   "i": 28,
+   "height": 0.972,
+   "feet_drift": 0.008,
+   "flag": false
+  },
+  {
+   "i": 29,
+   "height": 0.994,
+   "feet_drift": 0.009,
+   "flag": false
+  },
+  {
+   "i": 30,
+   "height": 1.001,
+   "feet_drift": 0.009,
+   "flag": false
+  },
+  {
+   "i": 31,
+   "height": 1.006,
+   "feet_drift": 0.009,
+   "flag": false
+  },
+  {
+   "i": 32,
+   "height": 1.007,
+   "feet_drift": 0.009,
+   "flag": false
+  },
+  {
+   "i": 33,
+   "height": 1.005,
+   "feet_drift": 0.009,
+   "flag": false
+  },
+  {
+   "i": 34,
+   "height": 1.005,
+   "feet_drift": 0.009,
+   "flag": false
+  },
+  {
+   "i": 35,
+   "height": 1.004,
+   "feet_drift": 0.008,
+   "flag": false
+  }
+ ]
+}

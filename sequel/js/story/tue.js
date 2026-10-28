@@ -9,10 +9,71 @@
   const S = window.S, { G, F, say, ROOMS, T } = S;
   const ch = () => F().ch || 1;
 
+  // ---------------------------------------------------------------- small moving details over the paintings (as Game I's
+  // entry 21: nothing in art/bg changes, everything is drawn over it in a room's animBack, deterministic in t)
+  const im = () => G.bgImage();
+  const clipTo = (g, shapes) => {
+    g.beginPath();
+    for (const s of shapes) {
+      if (typeof s[0] === 'number') g.rect(s[0], s[1], s[2], s[3]);
+      else { s.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); }
+    }
+    g.clip();
+  };
+  // the panza de burro drifting: a soft cloud bank slid slowly across the painted sky, kept inside `shapes`
+  const BANKS = {};
+  function drift(g, t, key, shapes, o) {
+    const cl = BANKS[key] || (BANKS[key] = FX.makeClouds(o.seed || 11, o.rgb || '238,238,234', o.n || 22));
+    g.save(); clipTo(g, shapes); FX.drawClouds(g, cl, t, o.speed || 5, o.y || 0, o.a || 0.4); g.restore();
+  }
+  // the sea's edge: a thin line of foam washing up the sand and back, along a painted shoreline (lists of points)
+  function foam(g, t, lines, o) {
+    const per = (o && o.per) || 7, reach = (o && o.reach) || 6, a = (o && o.a) || 0.35;
+    g.save(); g.lineCap = 'round'; g.lineJoin = 'round';
+    lines.forEach((pts, j) => {
+      for (let k = 0; k < 2; k++) {
+        const p = ((t / per + j * 0.37 + k * 0.5) % 1), dy = reach * Math.sin(p * Math.PI), al = a * Math.sin(p * Math.PI);
+        g.strokeStyle = `rgba(240,240,232,${al.toFixed(3)})`; g.lineWidth = (o && o.w) || 1.6;
+        g.beginPath(); pts.forEach(([x, y], i) => { const yy = y + dy + Math.sin(x * 0.05 + t * 0.8) * 0.8; i ? g.lineTo(x, yy) : g.moveTo(x, yy); }); g.stroke();
+      }
+    });
+    g.restore();
+  }
+  // a ceiling fan turning: soft translucent blades sweeping round under the painted ones (ry/rx: its perspective)
+  function ceilFan(g, t, x, y, rx, ry, rps, a) {
+    g.save(); g.translate(x, y); g.scale(1, ry / rx); g.fillStyle = `rgba(30,22,16,${a || 0.12})`;
+    for (let i = 0; i < 5; i++) {
+      const b = t * rps * Math.PI * 2 + i * Math.PI * 2 / 5;
+      g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, rx, b, b + 0.32); g.closePath(); g.fill();
+    }
+    g.restore();
+  }
+  // a lamp's light breathing: a glow that flickers (a flame) or barely moves (a bulb)
+  const lamp = (g, t, x, y, r, rgb, a, seed, live) => FX.glow(g, x, y, r, rgb, a * (live ? FX.flicker(t, seed) : 0.94 + 0.06 * Math.sin(t * 0.9 + seed)));
+
   // ================================================================ GANDO
   ROOMS.gando = S.room({
     music: 'gando',
     name: 'Gando airport', bg: 'gando', floor: 'tile', ambience: 'museum', door: 'door',
+    animBack(g, t) {
+      // the sky over the apron through the glass (between the mullions, above the Iberia tail), a gull or two
+      const panes = [[[108, 22], [252, 62], [252, 285], [108, 285]], [[266, 66], [380, 96], [380, 218], [266, 218]], [[393, 100], [440, 112], [440, 270], [393, 270]]];
+      drift(g, t, 'gando', panes, { speed: 4, a: 0.35, seed: 3 });
+      g.save(); clipTo(g, panes); FX.birds(g, t, { y0: 120, y1: 200, n: 2, period: 21, color: 'rgba(60,60,64,0.6)', size: 4, x0: 90, x1: 460 }); g.restore();
+      // the empty belt going round ("The belt goes round. My suitcase doesn't."): its slats sliding by
+      g.save(); clipTo(g, [[[322, 476], [348, 463], [420, 457], [858, 446], [874, 449], [856, 465], [800, 473], [345, 488]]]);
+      g.strokeStyle = 'rgba(255,236,200,0.05)'; g.lineWidth = 1.5;
+      for (let x = 300 - (t * 22) % 26; x < 900; x += 26) { g.beginPath(); g.moveTo(x, 444); g.lineTo(x - 5, 490); g.stroke(); }
+      for (let k = 0; k < 2; k++) {
+        const bx = 300 + ((t * 22 + k * 300) % 600), gr = g.createLinearGradient(bx - 40, 0, bx + 40, 0);
+        gr.addColorStop(0, 'rgba(255,232,190,0)'); gr.addColorStop(0.5, 'rgba(255,232,190,0.07)'); gr.addColorStop(1, 'rgba(255,232,190,0)');
+        g.fillStyle = gr; g.fillRect(bx - 40, 440, 80, 52);
+      }
+      g.restore();
+      // the strip light hums; the palm by the taxi door stirs in the street air
+      lamp(g, t, 390, 46, 130, '255,240,200', 0.07, 1, false);
+      FX.sway(g, im(), [1212, 282, 50, 70], t * 0.7, 0.8, 0, true);
+    },
     entries: { default: [200, 660, 'e'] },
     npcs: [
       { id: 'vasco', x: 900, y: 650, dir: 'w', name: 'Vasco', when: () => ch() === 1 && !F().met_vasco,
@@ -47,6 +108,15 @@
   ROOMS.hotel_lobby = S.room({
     music: 'hotel_lobby',
     name: 'Hotel Cristina', bg: 'hotel_lobby', floor: 'tile', ambience: 'museum', door: 'door',
+    animBack(g, t) {
+      // through the street windows: the palm fronds stir, the promenade lamp and the sea at night
+      FX.sway(g, im(), [100, 82, 110, 66], t * 0.6, 1, 0.4, true); FX.sway(g, im(), [0, 62, 74, 64], t * 0.6, 1, 1.3, true);
+      FX.ripple(g, im(), [0, 322, 74, 26], t * 0.6, 0.6, 0.25);
+      lamp(g, t, 39, 232, 26, '255,226,160', 0.25, 2, false);
+      // the wall lantern's flame and the desk lamp
+      lamp(g, t, 398, 162, 46, '255,190,110', 0.22, 3, true);
+      lamp(g, t, 812, 245, 70, '255,214,150', 0.08, 4, false);
+    },
     entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], canteras: [140, 660, 'e'], hotel_room: [1120, 660, 'w'], gando: [140, 660, 'e'], hotel_restaurant: [1150, 680, 'w'] },
     npcs: [
       { id: 'nieves', ch: 'nieves', x: 640, y: 610, h: 360, dir: 'e', name: 'Nieves', at: [700, 660], look: () => say(F().ch === 5 && F().lobby_return_seen ? 'alan_look_nieves_sat' : 'alan_look_nieves'),
@@ -134,6 +204,16 @@
   ROOMS.hotel_room = S.room({
     music: 'hotel_room',
     name: 'Room 404', bg: 'hotel_room', floor: 'wood', ambience: 'night', door: 'door',
+    animBack(g, t) {
+      // through the open balcony door: the lid of cloud drifting, the bay moving, the surf on the far beach
+      drift(g, t, 'room404', [[860, 112, 140, 165]], { speed: 3, a: 0.4, seed: 7 });
+      FX.ripple(g, im(), [860, 318, 140, 40], t * 0.5, 0.8, 0.3);
+      foam(g, t, [[[862, 330], [900, 326], [940, 323], [1000, 322]]], { per: 9, reach: 2, a: 0.25, w: 1 });
+      // the air off the sea: the curtains breathe, the fan turns slowly
+      FX.billow(g, im(), [722, 70, 66, 455], t, 1.6, 8); FX.billow(g, im(), [1035, 52, 92, 490], t + 2, 1.8, 9);
+      ceilFan(g, t, 497, 78, 125, 16, 0.6, 0.1);
+      lamp(g, t, 14, 345, 60, '255,214,150', 0.07, 5, false);
+    },
     entries: { default: [900, 660, 'w'], hotel_lobby: [1100, 660, 'w'] },
     npcs: [
       { id: 'vasco', x: 520, y: 650, dir: 'e', name: 'Vasco', when: () => (ch() === 1 && F().called_tue2) || (ch() === 4 && !F().fight_done),
@@ -159,6 +239,16 @@
   ROOMS.canteras = S.room({
     music: 'canteras',
     name: 'Las Canteras', bg: 'canteras', floor: 'stone', ambience: () => 'harbour',
+    animBack(g, t) {
+      // the panza de burro drifting over the bay, gulls, the sea moving and the foam on the shore
+      drift(g, t, 'canteras', [[300, 0, 620, 345], [0, 0, 300, 160], [[920, 0], [1060, 0], [1000, 60], [920, 140]]], { speed: 4, a: 0.35, seed: 13, rgb: '232,226,214' });
+      FX.birds(g, t, { y0: 70, y1: 260, n: 3, period: 24, color: 'rgba(58,56,54,0.55)', size: 5, x0: 300, x1: 920 });
+      FX.ripple(g, im(), [425, 372, 555, 44], t * 0.6, 0.8, 0.2); FX.ripple(g, im(), [425, 416, 190, 48], t * 0.6, 0.8, 0.2);
+      foam(g, t, [[[422, 466], [500, 463], [606, 459]], [[740, 455], [818, 450]], [[905, 446], [950, 440], [990, 428]]], { per: 8, reach: 4, a: 0.3 });
+      // the palms by the hotel and the newspapers pegged on the kiosk
+      FX.sway(g, im(), [920, 40, 250, 240], t * 0.5, 1.1, 0, true); FX.sway(g, im(), [1060, 0, 220, 140], t * 0.5, 1, 1.7, true);
+      FX.sway(g, im(), [35, 334, 222, 62], t * 0.8, 0.7, 0.5);
+    },
     entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1150, 660, 'w'], beach: [820, 665, 'n'] },
     npcs: [
       { id: 'vasco', x: 820, y: 650, dir: 'w', name: 'Vasco', when: () => ch() === 1 && F().reception_done && !F().walk_done, look: 'alan_look_vasco_reception', talk: () => say('vasco_t_walk_alan') },
@@ -248,6 +338,13 @@
   ROOMS.museum_hall = S.room({
     music: 'museum_hall',
     name: 'El Museo Canario', bg: 'museum_hall', floor: 'tile', ambience: 'museum', door: 'door',
+    animBack(g, t) {
+      // the hanging lanterns' flames
+      [[226, 190, 1], [455, 300, 2], [557, 310, 3], [1030, 285, 4], [953, 392, 5]].forEach(([x, y, s]) => lamp(g, t, x, y, 44, '255,186,100', 0.2, s, true));
+      // the courtyard through the open door: its plants stir; cigarette smoke drifting in from the steps (Carmen's)
+      FX.sway(g, im(), [1102, 330, 40, 140], t * 0.6, 0.8, 0, true); FX.sway(g, im(), [1150, 395, 40, 70], t * 0.6, 0.7, 1, true);
+      if (ch() === 1 && !F().reception_done) { g.save(); clipTo(g, [[1095, 260, 125, 260]]); FX.wisps(g, t, 1190, 420, { n: 5, rise: 120, spread: 30, rgb: '220,220,215', a: 0.06, size: 14, speed: 0.12 }); g.restore(); }
+    },
     entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], archive: [960, 660, 'w'], baute_office: [640, 660, 's'], museum_courtyard: [1120, 660, 'w'] },
     npcs: [
       { id: 'baute', ch: 'baute', x: 520, y: 650, dir: 'e', name: 'Dr. Rayco Baute', when: () => (ch() === 1 && !F().reception_done) || (ch() === 3 && S.dinnerDue() && !F().caught),
@@ -282,6 +379,17 @@
   ROOMS.beach = S.room({
     music: 'beach',
     name: 'Las Canteras · the beach', bg: 'beach', floor: 'sand', ambience: () => 'harbour',
+    animBack(g, t) {
+      // the panza de burro sliding in off the sea, gulls over the surf
+      drift(g, t, 'beach', [[0, 0, 1280, 112], [620, 112, 660, 180], [[620, 292], [900, 292], [1280, 335], [1280, 292]]], { speed: 5, a: 0.4, seed: 17 });
+      FX.birds(g, t, { y0: 80, y1: 250, n: 3, period: 22, color: 'rgba(52,54,56,0.55)', size: 5, x0: 500, x1: 1300 });
+      // the sea between the boards rolling, the swash running up the sand and back
+      FX.ripple(g, im(), [382, 348, 520, 120], t * 0.6, 1.2, 0.18); FX.ripple(g, im(), [1112, 348, 168, 138], t * 0.6, 1.2, 0.18);
+      foam(g, t, [[[370, 393], [455, 405], [540, 418], [615, 428], [690, 437], [765, 445], [840, 452], [902, 458]], [[1112, 478], [1200, 483], [1280, 488]]], { per: 9, reach: 6, a: 0.22, w: 2.4 });
+      // the beach umbrella's skirt and the palms along the promenade
+      FX.sway(g, im(), [62, 334, 240, 84], t * 0.9, 0.8, 0);
+      FX.sway(g, im(), [0, 30, 68, 130], t * 0.5, 1, 0.6, true); FX.sway(g, im(), [168, 160, 80, 95], t * 0.5, 0.9, 1.4, true); FX.sway(g, im(), [330, 225, 60, 70], t * 0.5, 0.8, 2.2, true);
+    },
     entries: { default: [200, 665, 'e'], canteras: [200, 665, 'e'] },
     ambient: [
       { id: 'surfer', frames: ['surfer_ph_idle'], talkFrames: ['surfer_ph_talk'], x: 900, y: 655, dir: 'w', name: 'Surfers', look: () => S.lookSurfers(), talk: () => S.talkSurfers(), when: () => ch() <= 6 && !F().canteras_night },
@@ -301,6 +409,17 @@
   ROOMS.hotel_restaurant = S.room({
     music: 'hotel_restaurant',
     name: 'Hotel Cristina · the restaurant', bg: 'hotel_restaurant', floor: 'tile', ambience: 'museum', door: 'door',
+    animBack(g, t) {
+      // through the arched windows: the cloud drifting, the surf rolling in
+      drift(g, t, 'restaurant', [[0, 122, 158, 110], [298, 158, 102, 60], [496, 160, 30, 45]], { speed: 4, a: 0.38, seed: 19 });
+      FX.ripple(g, im(), [0, 256, 156, 70], t * 0.6, 1, 0.22);
+      foam(g, t, [[[0, 262], [60, 262], [155, 268]]], { per: 9, reach: 3, a: 0.3, w: 1.2 });
+      // the fans turning, steam off the chafing dishes, the sconces and the lamp
+      ceilFan(g, t, 588, 80, 100, 14, 0.9, 0.1); ceilFan(g, t, 797, 120, 70, 10, 0.8, 0.09);
+      [[720, 268], [812, 264], [885, 264], [962, 268]].forEach(([x, y], i) => FX.wisps(g, t + i * 1.3, x, y, { n: 4, rise: 40, spread: 6, a: 0.08, size: 7, speed: 0.25 }));
+      [[258, 185, 1], [740, 188, 2], [955, 186, 3]].forEach(([x, y, s]) => lamp(g, t, x, y, 34, '255,214,150', 0.12, s, false));
+      lamp(g, t, 1170, 222, 50, '255,214,150', 0.08, 4, false);
+    },
     entries: { default: [1100, 670, 'w'], hotel_lobby: [1100, 670, 'w'] },
     npcs: [
       { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => [1, 2, 3, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
@@ -319,6 +438,15 @@
   ROOMS.museum_courtyard = S.room({
     music: 'museum_courtyard',
     name: 'El Museo Canario · the courtyard', bg: 'museum_courtyard', floor: 'stone', ambience: 'street', door: 'door',
+    animBack(g, t) {
+      // the grey sky over the roof, a bird crossing
+      const sky = [[[270, 0], [1110, 0], [1110, 50], [960, 56], [700, 63], [480, 78], [380, 83], [330, 68], [270, 40]]];
+      drift(g, t, 'courtyard', sky, { speed: 3, a: 0.35, seed: 23 });
+      g.save(); clipTo(g, sky); FX.birds(g, t, { y0: 15, y1: 50, n: 1, period: 19, color: 'rgba(40,40,44,0.6)', size: 5, x0: 260, x1: 1120 }); g.restore();
+      // the dragon tree's crown and the bamboo by the fountain stir; the wall lanterns (the fountain stays dry)
+      FX.sway(g, im(), [945, 135, 300, 155], t * 0.4, 0.7, 0, true); FX.sway(g, im(), [295, 160, 140, 300], t * 0.5, 1.1, 1.2, true);
+      [[1250, 305, 1], [1028, 346, 2], [749, 364, 3]].forEach(([x, y, s]) => lamp(g, t, x, y, 30, '255,196,120', 0.16, s, true));
+    },
     entries: { default: [160, 665, 'e'], museum_hall: [160, 665, 'e'] },
     npcs: [
       { id: 'carmen', ch: 'carmen', x: 840, y: 640, dir: 'w', name: 'Dr. Carmen Trujillo', when: () => ch() === 1 && !F().reception_done,

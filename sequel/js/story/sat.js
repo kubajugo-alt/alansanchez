@@ -30,6 +30,18 @@
       { name: 'Window', rect: [860, 120, 260, 90], at: [980, 640], look: 'alan_look_studio_window' },
       { name: 'Door', rect: [1160, 250, 110, 320], at: [1200, 650], exit: 'map', entry: 'rafa_studio', locked: () => !F().rafa_truth, lockedLine: 'alan_studio_stay' },
     ],
+    // small moving details over the painting: the morning sun through the window, the coffee, the palm outside
+    animBack(g, t) {
+      const im = G.bgImage();
+      FX.sway(g, im, [792, 158, 48, 62], t * 0.7, 1.1, 0.4, true); // the palm beyond the window
+      // dust turning in the light that falls from the window to the floor by the bed
+      g.save(); g.beginPath(); g.moveTo(665, 115); g.lineTo(900, 110); g.lineTo(700, 520); g.lineTo(300, 540); g.closePath(); g.clip();
+      FX.motes(g, t, 300, 110, 600, 430, 26, '255,236,196'); g.restore();
+      FX.wisps(g, t, 600, 440, { n: 5, rise: 46, spread: 7, rgb: '255,250,240', a: 0.16, size: 7, speed: 0.22 }); // the moka pot's spout
+      FX.wisps(g, t + 1.3, 576, 461, { n: 4, rise: 36, spread: 5, rgb: '255,250,240', a: 0.12, size: 5, speed: 0.2 }); // Rafa's cup
+      FX.wisps(g, t + 2.6, 666, 467, { n: 4, rise: 36, spread: 5, rgb: '255,250,240', a: 0.12, size: 5, speed: 0.2 }); // Alan's cup
+      FX.glow(g, 1180, 184, 34, '255,226,160', 0.12 + 0.02 * Math.sin(t * 0.8)); // the stair lamp, an electric bulb: steady
+    },
   });
   S.rafaMorning = async function () {
     const f = F();

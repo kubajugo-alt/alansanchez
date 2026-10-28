@@ -44,6 +44,17 @@
       { name: 'Balcony', rect: [860, 120, 260, 280], at: [980, 640], look: 'alan_look_colon_balcony' },
       S.toMap([20, 250, 110, 320], [70, 650]),
     ],
+    // the parrot breathing on its perch, the palm in the courtyard stirring, the gallery lantern and the reading lamp, a moth
+    lights: [
+      { x: 116, y: 185, rgb: '255,205,130', kind: 'flame', seed: 3, glow: 50, ga: 0.18 },
+      { x: 1043, y: 390, rgb: '255,225,150', kind: 'gas', seed: 1, glow: 50, ga: 0.12 },
+    ],
+    animBack(g, t) {
+      const im = G.bgImage();
+      FX.sway(g, im, [28, 150, 66, 190], t * 0.7, 1.1, 0, true); FX.sway(g, im, [178, 185, 34, 110], t * 0.7, 0.9, 1.1, true);
+      FX.breathe(g, im, [320, 215, 70, 82], t, 0.012, 3.4);
+      FX.moth(g, t, 116, 190, 28, 18, 2);
+    },
   });
   S.talkMercedes = async function () {
     const f = F();
@@ -95,6 +106,22 @@
       { name: 'Shelves', rect: [40, 80, 220, 460], at: [200, 640], look: 'alan_look_baute_shelves' },
       { name: 'Back to the dinner', rect: [20, 250, 110, 320], at: [70, 650], exit: 'museum_hall', entry: 'baute_office', locked: () => F().saw_map, lockedLine: 'alan_th_too_late' },
     ],
+    // night: the desk lamp, the lamp in the corridor, a moth at the shade, the sea moving faintly beyond the window
+    lights: [
+      { x: 757, y: 332, rgb: '255,215,140', kind: 'steady', glow: 80, ga: 0.1 },
+      { x: 36, y: 264, rgb: '255,200,120', kind: 'flame', seed: 4, glow: 40, ga: 0.16 },
+    ],
+    animBack(g, t) {
+      for (const r of [[1160, 332, 82, 34], [1112, 336, 38, 30]]) {
+        g.save(); g.beginPath(); g.rect(...r); g.clip(); g.globalCompositeOperation = 'lighter';
+        for (let i = 0; i < 6; i++) {
+          const a = 0.1 * Math.max(0, Math.sin(t * (0.5 + i * 0.13) + i * 2.1)), x = r[0] + ((i * 37) % r[2]) + Math.sin(t * 0.3 + i) * 3, y = r[1] + ((i * 13) % r[3]);
+          g.strokeStyle = `rgba(150,170,210,${a.toFixed(3)})`; g.lineWidth = 1; g.beginPath(); g.moveTo(x, y); g.lineTo(x + 8 + i % 3 * 4, y); g.stroke();
+        }
+        g.restore();
+      }
+      FX.moth(g, t, 760, 335, 30, 20, 3);
+    },
   });
   S.searchDesk = async function () {
     if (F().caught) return;

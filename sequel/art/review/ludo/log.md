@@ -94,3 +94,4 @@
 | 2026-10-28 22:09 | improve | hydra | alanb_side_k -> alanb_side_k~ | improve | sequel/art/review/ludo/alanb_turn_side_left/ | 3 |
 | 2026-10-28 22:09 | hydra | hydra | alanv_side_k -> alanv_side_k~ |  | sequel/art/review/ludo/alanv_turn_side_left/ | 9 |
 | 2026-10-28 22:10 | improve | hydra | alanv_side_k -> alanv_side_k~ | improve | sequel/art/review/ludo/alanv_turn_side_left/ | 3 |
+| 2026-10-28 22:11 | improve | hydra | vascos_side_k -> vascos_front_k | improve | sequel/art/review/ludo/vasco_turn_side_front/ | 3 |

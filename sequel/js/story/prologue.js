@@ -30,6 +30,13 @@
       g.save(); g.globalAlpha = 0.25 + 0.6 * k; g.fillStyle = phase >= 1 ? `rgb(${Math.round(90 - 70 * k)},${Math.round(96 - 74 * k)},${Math.round(104 - 78 * k)})` : 'rgb(170,180,200)';
       g.beginPath(); g.moveTo(130, 70); g.lineTo(1150, 70); g.lineTo(1230, 515); g.lineTo(50, 515); g.closePath(); g.fill(); g.restore();
       if (phase === 0) FX.drawClouds && S.nightClouds && FX.drawClouds(g, S.nightClouds, t, 30, 360, 0.3);
+      if (phase === 0) {
+        // the stars and the moon over the sea of cloud, before she drives down into it
+        FX.twinkle(g, t, [[180, 60, 1], [262, 118, 1], [348, 40, 1], [420, 96, 1], [488, 150, 1], [540, 70, 1], [790, 58, 1], [842, 132, 1], [1010, 44, 1], [1074, 110, 1], [1140, 64, 1], [1196, 150, 1]], '220,228,255');
+        FX.glow(g, 936, 92, 70, '210,220,255', 0.08 + 0.02 * Math.sin(t * 0.4));
+        FX.water(g, t * 0.5, 820, 196, 240, 16, '200,212,240'); // the moonlight on the cloud tops
+      }
+      FX.glow(g, 705, 544, 46, '255,170,80', 0.16 + 0.03 * Math.sin(t * 2.3)); // the radio's dial
       // headlights on nothing
       FX.glow(g, 640, 470, 220, '255,240,200', phase ? 0.08 : 0.16);
       if (crankOpen) FX.wisps(g, t, 160, 300, { n: 4, rise: 40, spread: 30, rgb: '220,230,240', a: 0.08, size: 10, speed: 0.4 });

@@ -44,10 +44,29 @@
       { name: 'Steps down to the granary', rect: [640, 520, 140, 50], at: [700, 650], exit: 'vault', entry: 'camp', when: () => ch() === 6 },
     ],
     // the painting is a morning: Sunday night darkens it, Monday's sunrise warms it
-    animBack(g) {
+    animBack(g, t) {
+      const im = G.bgImage(), night = ch() === 6;
+      // the sea of cloud drifting below the camp (left of the cliff, behind the tents and the awning)
+      g.save(); g.beginPath(); g.moveTo(0, 104); g.lineTo(795, 104); g.lineTo(795, 330); g.lineTo(380, 330); g.lineTo(380, 220);
+      g.lineTo(330, 220); g.lineTo(330, 172); g.lineTo(0, 150); g.closePath(); g.clip();
+      for (let i = 0; i < 7; i++) {
+        const x = ((i * 190 + t * (5 + i % 3)) % 1100) - 160, y = 130 + (i * 53) % 190, r = 90 + (i % 3) * 40;
+        const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, 'rgba(255,255,255,0.13)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = gr; g.beginPath(); g.ellipse(x, y, r * 1.6, r * 0.5, 0, 0, 7); g.fill();
+      }
+      g.restore();
+      FX.billow(g, im, [336, 176, 290, 42], t, 1.3, 4.2); // the awning in the wind
+      FX.sway(g, im, [770, 300, 70, 46], t, 1.2, 0.2, true); // the broom by the generator
+      FX.sway(g, im, [1050, 400, 120, 70], t, 1.4, 1.7, true); // the grass on the path
+      if (!night) FX.birds(g, t, { y0: 120, y1: 230, x0: -40, x1: 780, n: 2, period: 30, color: 'rgba(40,36,34,0.6)', size: 6 }); // ravens over the cloud
+      // the painting is a morning: Sunday night darkens it, Monday's sunrise warms it
       if (ch() !== 6 && ch() !== 7) return;
       g.save(); g.globalCompositeOperation = 'multiply';
-      g.fillStyle = ch() === 6 ? 'rgb(52,62,110)' : 'rgb(255,214,170)'; g.fillRect(0, 0, 1280, 720); g.restore();
+      g.fillStyle = night ? 'rgb(52,62,110)' : 'rgb(255,214,170)'; g.fillRect(0, 0, 1280, 720); g.restore();
+      if (night) {
+        FX.twinkle(g, t, [[60, 30, 1], [140, 62, 1], [235, 22, 1], [318, 70, 1], [402, 38, 1], [486, 80, 1], [560, 18, 1], [640, 55, 1], [712, 30, 1], [770, 74, 1]], '230,236,255');
+        FX.glow(g, 158, 278, 48, '255,190,110', 0.75 * FX.flicker(t, 4)); // the storm lantern on the tent pole, lit
+      }
     },
   });
   S.yerayCoffee = async function () {
@@ -125,7 +144,13 @@
     animBack(g, t) {
       const f = F();
       // the blade of sunlight from the channel to where it falls; a cloud over the sun takes it (Monday)
+      // the cloud below the arch rolling, and a salt seep glistening down the far wall
+      FX.ripple(g, G.bgImage(), [48, 340, 140, 160], t * 0.3, 1.4, 0.04);
+      FX.trickles(g, t, [1010, 380, 240, 170], 3, '255,250,235', 0.25);
       if (ch() === 7 && f.cloud_over && !f.mirror_on) return;
+      // dust turning in the sun that comes in through the arch
+      g.save(); g.beginPath(); g.moveTo(60, 170); g.lineTo(210, 170); g.lineTo(560, 600); g.lineTo(60, 600); g.closePath(); g.clip();
+      FX.motes(g, t, 60, 170, 500, 430, 22, '255,232,180'); g.restore();
       S.drawSockets(g);
       const [x, y] = S.beamPoint(), [sx, sy] = S.SOCKETS[6];
       g.save(); g.globalAlpha = 0.5; g.fillStyle = 'rgba(255,226,150,1)';
@@ -258,6 +283,16 @@
         use: () => asV() ? S.scratchMark() : say('alan_look_mark'), items: { ltrowel: () => S.scratchMark() } },
       { name: 'Steps up', rect: [1160, 250, 110, 320], at: [1200, 650], when: () => !asV(), exit: 'camp', entry: 'vault', locked: () => !F().vasco_free || !G.has('discs'), lockedLine: () => !F().vasco_free ? 'alan_vault_not_without' : 'alan_vault_discs' },
     ],
+    // small moving details over the painting: the storm lantern, the torch by the grille, the light down the steps
+    animBack(g, t) {
+      FX.glow(g, 283, 292, 110, '255,170,80', 0.16 * FX.flicker(t, 1));
+      FX.flame(g, t, 283, 300, 14, 1, '255,190,100');
+      FX.glow(g, 733, 228, 120, '255,150,60', 0.2 * FX.flicker(t, 5));
+      FX.flame(g, t, 733, 244, 26, 5, '255,160,70');
+      FX.embers(g, t, 733, 218, 4);
+      FX.motes(g, t, 1105, 95, 100, 220, 10, '230,230,220');
+      FX.drips(g, t, [[968, 600, 60, 5.3], [214, 618, 90, 7.9]], '200,190,170');
+    },
     animFg(g, t) {
       S.drawWater(g, t, S.water.vault, '20,40,46');
       if (asV() && S.torch < 1) {

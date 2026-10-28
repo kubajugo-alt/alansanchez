@@ -60,7 +60,7 @@
         items: { drawing: () => say('carmen_su_drawing'), any: 'alan_fail_carmen_item' } },
     ],
     hotspots: [
-      { name: 'Answering machine', rect: [420, 420, 120, 50], at: [480, 650], look: () => say(F().elena_heard ? 'alan_look_machine_2' : 'alan_look_machine'), use: () => S.playElena() },
+      { name: 'Answering machine', rect: [320, 375, 90, 60], at: [380, 650], look: () => say(F().elena_heard ? 'alan_look_machine_2' : 'alan_look_machine'), use: () => S.playElena() },
       { name: 'Elena\'s box', rect: [60, 300, 180, 120], at: [200, 650], when: () => F().elena_heard, look: 'alan_look_elena_box',
         use: () => S.elenaBox(), take: () => S.elenaBox() },
       { name: 'Fridge', rect: [880, 300, 100, 240], at: [920, 650], look: 'alan_look_fridge', use: () => S.takeWater(), take: () => S.takeWater() },
@@ -69,6 +69,16 @@
       { name: 'Door', rect: [1160, 250, 110, 320], at: [1200, 650], exit: 'map', entry: 'carmen_flat', locked: () => true, lockedLine: () => F().knows_vault ? 'alan_su_go' : 'alan_su_not_leaving' },
     ],
     async enter() { if (!F().carmen_sun) { F().carmen_sun = true; await say('carmen_su_door', 'alan_su_idiot', 'carmen_su_idiot'); } },
+    // small moving details over the painting: the hanging lamp, the view from the kitchen window, the machine's light
+    animBack(g, t) {
+      const im = G.bgImage();
+      FX.glow(g, 450, 80, 70, '255,196,120', 0.16 * FX.flicker(t * 0.5, 2)); // the lantern over the photograph
+      FX.sway(g, im, [535, 88, 40, 58], t * 0.5, 0.6, 1.1); // the ivy trailing off the top shelf
+      FX.ripple(g, im, [940, 205, 100, 12], t * 0.6, 0.5, 0.4); // the sea beyond the roofs, under the cloud
+      FX.twinkle(g, t, [[956, 232, 1.5], [978, 246, 1.5], [1012, 228, 1.5], [1030, 252, 1.5], [995, 262, 1.5]], '255,220,150');
+      // the message light: Elena's message waiting, blinking until it's played
+      if (!F().elena_heard && Math.floor(t * 1.6) % 2 === 0) FX.glow(g, 378, 397, 9, '255,40,30', 0.75);
+    },
   });
   S.playElena = async function () {
     const f = F();
@@ -140,6 +150,16 @@
       { name: 'The footwell', rect: [760, 600, 240, 100], when: () => F().footwell, look: 'alan_lr_footwell' },
     ],
     animBack(g, t) {
+      const im = G.bgImage(), bump = Math.sin(t * 7.3) * 0.6 + Math.sin(t * 2.9) * 0.9; // the road under the wheels
+      // the stars over the sea of cloud, and the cloud itself rolling slowly below the wall
+      FX.twinkle(g, t, [[540, 112, 1], [598, 168, 1], [812, 104, 1], [868, 150, 1], [930, 118, 1], [1004, 172, 1], [1080, 98, 1], [1150, 140, 1], [1222, 116, 1], [760, 182, 1]], '230,236,255');
+      FX.ripple(g, im, [950, 202, 290, 78], t * 0.35, 1.2, 0.05);
+      FX.sway(g, im, [668, 150, 62, 166], t * 1.4, 2.2 + bump, 0.3); // the rosary off the mirror, swinging with the road
+      FX.glow(g, 680, 330, 260, '255,226,170', 0.05 + 0.025 * (1 + Math.sin(t * 5.1) * Math.sin(t * 1.7))); // the headlights, jolting
+      // the dashboard's lamps, and the cigarette breathing
+      FX.glow(g, 627, 462, 10, '120,255,120', 0.35); FX.glow(g, 559, 505, 10, '120,255,120', 0.35); FX.glow(g, 730, 519, 9, '255,160,60', 0.4);
+      FX.glow(g, 289, 307, 8, '255,120,50', 0.35 + 0.25 * Math.max(0, Math.sin(t * 0.9)));
+      FX.wisps(g, t, 292, 302, { n: 5, rise: 60, spread: 14, rgb: '200,200,210', a: 0.11, size: 7, speed: 0.18 });
       S.drawMist(g, t, 1);
       if (boiling === 1) FX.wisps(g, t, 640, 380, { n: 8, rise: 120, spread: 160, rgb: '235,235,235', a: 0.25, size: 26, speed: 0.6 });
     },

@@ -161,6 +161,12 @@
   S.ROOMS.map = {
     name: 'Las Palmas', bg: 'map', music: 'map', parallax: false, player: false, noSave: true, vignette: 0.25,
     anim(g, t) {
+      // the sea glinting round the city, and the shadow of a cloud (the panza de burro) drifting over it
+      FX.water(g, t * 0.6, 520, 18, 740, 70, '210,236,240');
+      FX.water(g, t * 0.6, 240, 612, 370, 90, '210,236,240');
+      { const x = ((t * 9) % 2000) - 360, y = 330 + Math.sin(t * 0.05) * 60, gr = g.createRadialGradient(x, y, 0, x, y, 340);
+        gr.addColorStop(0, 'rgba(40,50,60,0.10)'); gr.addColorStop(1, 'rgba(40,50,60,0)');
+        g.save(); g.fillStyle = gr; g.beginPath(); g.ellipse(x, y, 340, 220, 0, 0, 7); g.fill(); g.restore(); }
       for (const m of S.PINS) {
         if (!m.open()) continue;
         const p = 0.5 + 0.5 * Math.sin(t * 3 + m.x);

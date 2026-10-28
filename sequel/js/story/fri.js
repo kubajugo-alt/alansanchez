@@ -69,7 +69,24 @@
     async enter() {
       if (!F().bar_intro) { F().bar_intro = true; await say('narr_bar', 'alan_bar_in'); }
     },
+    // the two lanterns burning, a moth at one, the street lamp outside, and the smoke of the evening under the beams
+    lights: [
+      { x: 403, y: 138, rgb: '255,200,120', kind: 'flame', seed: 1, glow: 70, ga: 0.15 },
+      { x: 901, y: 178, rgb: '255,200,120', kind: 'flame', seed: 6, glow: 60, ga: 0.15 },
+      { x: 1242, y: 258, rgb: '255,215,150', kind: 'gas', seed: 2, glow: 26, ga: 0.2 },
+    ],
+    animBack(g, t) {
+      if (!smoke) {
+        smoke = FX.makeFog(19, '228,218,204', 0.6);
+        fade = document.createElement('canvas'); fade.width = 1280; fade.height = 720;
+        const fg = fade.getContext('2d'), gr = fg.createLinearGradient(0, 40, 0, 360);
+        gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); fg.fillStyle = gr; fg.fillRect(0, 0, 1280, 360);
+      }
+      FX.masked(g, fade, m => FX.drawFog(m, smoke, t, 0.24, 7, -220));
+      FX.moth(g, t, 902, 182, 26, 18, 5);
+    },
   });
+  let smoke = null, fade = null; // the bar's smoke bank and the mask that keeps it up under the ceiling
   // the door: before Rafa, "one drink"; after, three reasons to stay, and then the question
   const STAY = ['alan_stay_1', 'alan_stay_2', 'alan_stay_3'];
   S.tryLeave = function () {
