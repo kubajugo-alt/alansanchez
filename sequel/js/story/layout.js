@@ -8,10 +8,10 @@
   S.LAYOUT = {
     canteras: {
       walk: [[0, 640], [275, 630], [430, 590], [1040, 575], [1280, 600], [1280, 716], [0, 716]], scale: [590, 255, 716, 300],
-      entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1180, 650, 'w'] },
+      entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1180, 650, 'w'], beach: [820, 665, 'w'] },
       spots: { 'The sea': [420, 365, 600, 100], 'Promenade steps': [520, 485, 380, 75], 'Bonfires': [600, 405, 300, 80], 'Phone box': [292, 288, 130, 310],
         'Kiosk': [0, 165, 265, 460], 'Hotel Cristina': [1100, 120, 180, 470], 'To the city': [0, 600, 50, 116] },
-      npcs: { chano: [150, 660], surfer: [960, 640] },
+      npcs: { chano: [150, 660] },
     },
     gando: {
       walk: [[0, 560], [300, 570], [880, 540], [1100, 520], [1280, 515], [1280, 716], [0, 716]], scale: [520, 250, 716, 340],
@@ -21,10 +21,10 @@
     },
     hotel_lobby: {
       walk: [[0, 560], [345, 592], [940, 592], [1000, 528], [1080, 528], [1060, 716], [0, 716]], scale: [560, 370, 716, 450],
-      entries: { default: [150, 640, 'e'], map: [150, 640, 'e'], canteras: [150, 640, 'e'], gando: [150, 640, 'e'], hotel_room: [1030, 560, 'w'] },
+      entries: { default: [150, 640, 'e'], map: [150, 640, 'e'], canteras: [150, 640, 'e'], gando: [150, 640, 'e'], hotel_room: [1030, 560, 'w'], hotel_restaurant: [1000, 680, 'w'] },
       spots: { 'Lost and found box': [440, 270, 120, 80], 'Fax machine': [695, 305, 95, 50], 'House phone': [845, 320, 65, 35], 'Lifts': [1005, 100, 195, 420],
         'Out to Las Canteras': [0, 60, 230, 450] },
-      npcs: { nieves: [640, 555], gail: [190, 640], derek: [280, 655] },
+      npcs: { nieves: [640, 555] },
       at: { nieves: [700, 620] },
       occluders: [{ y: 585, polys: [[[345, 345], [940, 345], [940, 582], [345, 582]]] }],
     },
@@ -37,10 +37,10 @@
     },
     museum_hall: {
       walk: [[0, 580], [170, 562], [600, 522], [1280, 532], [1280, 716], [0, 716]], scale: [520, 260, 716, 360],
-      entries: { default: [140, 650, 'e'], map: [140, 650, 'e'], archive: [920, 560, 'w'], baute_office: [520, 560, 's'] },
+      entries: { default: [140, 650, 'e'], map: [140, 650, 'e'], archive: [920, 560, 'w'], baute_office: [520, 560, 's'], museum_courtyard: [1120, 600, 'w'] },
       spots: { 'Display cases': [170, 250, 220, 310], 'Corridor to the offices': [440, 300, 150, 210], 'Archive stairs': [840, 260, 160, 255],
         'Door to the steps': [1050, 230, 205, 300], 'Montesdeoca\'s van': [1050, 230, 205, 300], 'Out to Vegueta': [0, 120, 130, 440], 'Dinner table': [640, 290, 185, 230] },
-      npcs: { baute: [560, 600], vasco: [780, 590], carmen: [1150, 545], montesdeoca: [320, 640], guard: [515, 545], gail: [940, 620], derek: [1030, 630] },
+      npcs: { baute: [560, 600], vasco: [780, 590], montesdeoca: [320, 640], guard: [515, 545], gail: [940, 620], derek: [1030, 630] },
     },
     vault: {
       walk: [[0, 640], [210, 600], [360, 548], [850, 548], [1000, 600], [1040, 610], [1280, 640], [1280, 716], [0, 716]], scale: [548, 360, 716, 450],
@@ -66,17 +66,37 @@
     },
     santa_ana: {
       walk: [[270, 600], [500, 505], [830, 505], [1000, 560], [1280, 600], [1280, 716], [270, 716]], scale: [510, 150, 716, 380],
-      entries: { default: [400, 690, 'e'], map: [400, 690, 'e'], belfry: [580, 520, 's'] },
+      entries: { default: [400, 690, 'e'], map: [400, 690, 'e'], santa_ana_inside: [580, 520, 's'] },
       spots: { 'Cathedral clock': [555, 185, 45, 45], 'Bronze dogs': [40, 295, 380, 400], 'Timple players': [960, 410, 200, 180], 'Cathedral door': [540, 385, 75, 115],
         'To the city': [1230, 600, 50, 116] },
-      npcs: { fermin: [690, 560] },
       at: { 'Cathedral clock': [580, 520], 'Cathedral door': [580, 515] },
     },
     belfry: {
       walk: [[200, 600], [1240, 600], [1280, 716], [190, 716]], scale: [590, 320, 716, 390],
-      entries: { default: [280, 660, 'e'], santa_ana: [280, 660, 'e'] },
+      entries: { default: [280, 660, 'e'], santa_ana_inside: [280, 660, 'e'] },
       spots: { 'Clock winding drum': [130, 190, 290, 200], 'The north bell': [515, 150, 250, 260], 'Bell window': [915, 40, 270, 500], 'Stairs down': [0, 90, 195, 550] },
       npcs: { fermin: [900, 640] },
+    },
+    // the four rooms painted 2026-10-28 (Canva): the beach, the hotel restaurant, the museum courtyard, inside Santa Ana
+    beach: {
+      walk: [[0, 560], [1280, 560], [1280, 716], [0, 716]], scale: [560, 270, 716, 330],
+      entries: { default: [200, 665, 'e'], canteras: [200, 665, 'e'] },
+      npcs: { surfer: [880, 650] },
+    },
+    hotel_restaurant: {
+      walk: [[0, 640], [260, 585], [1280, 560], [1280, 716], [0, 716]], scale: [560, 340, 716, 420],
+      entries: { default: [1150, 670, 'w'], hotel_lobby: [1150, 670, 'w'] },
+      npcs: { gail: [560, 640], derek: [690, 650] },
+    },
+    museum_courtyard: {
+      walk: [[0, 600], [1280, 600], [1280, 716], [0, 716]], scale: [590, 310, 716, 380],
+      entries: { default: [160, 665, 'e'], museum_hall: [160, 665, 'e'] },
+      npcs: { carmen: [840, 625] },
+    },
+    santa_ana_inside: {
+      walk: [[0, 560], [1280, 560], [1280, 716], [0, 716]], scale: [560, 290, 716, 370],
+      entries: { default: [120, 665, 'e'], santa_ana: [120, 665, 'e'], belfry: [1060, 660, 'w'] },
+      npcs: { fermin: [760, 645] },
     },
     colon: {
       walk: [[0, 600], [1280, 600], [1280, 716], [0, 716]], scale: [590, 330, 716, 400],

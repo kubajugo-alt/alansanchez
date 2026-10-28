@@ -249,3 +249,21 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     carry `fx` (an ffmpeg filter; the raw take goes to `audio/voice_src/`), here pitched up and thinned. Its line now
     reads "[squawks] ¡Cristóbal! [squawks] ¡Cristóbal!" (captions hide the brackets); the file is the exact take the
     user picked. Play test: won, 98 steps, no errors.
+26. **New outfits and designs; Ludo started; four new rooms** (2026-10-28).
+    - Designs (Canva, approved): Alan's everyday outfit (black vest, khaki cargo shorts, white sneakers) and his
+      blazer outfit (the navy brass-button blazer over the vest, with jeans), Vasco in shirtsleeves (no blazer, tie or
+      key), Baute in darker browns, Chano repainted in the cast's realistic style (the first repaint still read as a
+      cartoon; the one kept used Baute as the style reference); back views for Alan (both outfits) and Vasco. Cut to
+      keyframes `art/sprites/*_k.webp`. Chano's scale 0.85 (the user: 15% shorter than Alan).
+    - Ludo: `scripts/ludo.py` (forked from Game I's: hydra, the improve pass, the 1.5x upscale, forge only on a
+      moderation refusal; key `LUDO_API_KEY` in the root .env, never printed), runs in `scripts/ludo_runs.json` (47:
+      talk loops for the cast; Alan x2 outfits and Vasco: side/front/back walks, turns, talks, actions). Results under
+      `art/review/ludo/` (raw downloads git-ignored). Only Alan and Vasco ever walk in the story, so nobody else gets a
+      walk. Not in the game yet: a review page comes first.
+    - Rooms (Canva, approved): `beach` (Las Canteras' sand, the panza de burro; the surfers moved here from the
+      promenade, reached by "Down to the beach"), `hotel_restaurant` (Gail and Derek moved here from the lobby; "To the
+      restaurant" at the lobby's right edge), `museum_courtyard` (Carmen's first scene on Tuesday, through the hall's
+      "Door to the steps"), `santa_ana_inside` (Don Fermín moved inside; the plaza's cathedral door now opens onto the
+      nave, and the tower door there is the one that needs his key; the belfry's stairs come down to the nave). 16 new
+      lines (looks and a first-visit narration per room, voiced); a synthesised sand footstep. Checked: validate 0
+      errors; play.mjs won, 103 steps (route updated for the moves); each room screenshotted with its people in place.

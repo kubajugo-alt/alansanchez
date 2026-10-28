@@ -1,0 +1,40 @@
+{
+ "spec": {
+  "a": "alanv_side_k",
+  "b": null,
+  "mid": null,
+  "prompt": "reaches up with both hands, grips a hanging chain above him and pulls it down hard, then lets go",
+  "loop": false,
+  "duration": 4,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "1fc3f77e-176a-40d3-8903-580ac6b76a8c",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/02ea246fe87f10bf7f155eea5d6fcb6f.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/57d2e6dd9e34791e8001e13c1d42863d.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/e71b86e3d99aafa399ce9d4e8e662e49.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.7916666666666665
+  },
+  "credits": 12
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "de5cc946-5b79-465d-beaf-cb714baf6253",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/345367ed1d1793fe5c2c5b33c80013d0.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/3f0b485bb4cd599d644190920238ab2b.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/1410be27a9a07fc9e38dfb3fbc91ab72.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.8333333333333335
+  },
+  "credits": 4
+ },
+ "model": "hydra"
+}

@@ -45,13 +45,11 @@
   // ================================================================ HOTEL: the lobby
   ROOMS.hotel_lobby = S.room({
     name: 'Hotel Cristina', bg: 'hotel_lobby', floor: 'tile', ambience: 'museum', door: 'door',
-    entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], canteras: [140, 660, 'e'], hotel_room: [1120, 660, 'w'], gando: [140, 660, 'e'] },
+    entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], canteras: [140, 660, 'e'], hotel_room: [1120, 660, 'w'], gando: [140, 660, 'e'], hotel_restaurant: [1150, 680, 'w'] },
     npcs: [
       { id: 'nieves', ch: 'nieves', x: 640, y: 610, h: 360, dir: 'e', name: 'Nieves', at: [700, 660], look: () => say(F().ch === 5 && F().lobby_return_seen ? 'alan_look_nieves_sat' : 'alan_look_nieves'),
         talk: () => S.talkNieves(),
         items: { inscription: () => S.fax('inscription'), letter: () => S.fax('letter'), any: 'alan_fail_nieves_item' } },
-      { id: 'gail', ch: 'gail', x: 250, y: 665, dir: 'e', name: 'Gail', when: () => [1, 2, 3, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
-      { id: 'derek', ch: 'derek', x: 340, y: 668, dir: 'e', name: 'Derek', when: () => [1, 2, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
     ],
     hotspots: [
       { name: 'Lost and found box', rect: [430, 440, 120, 80], at: [520, 640], look: () => { F().saw_blazer = true; return say(G.has('blazer') || F().blazer_got ? 'alan_look_lostfound_2' : 'alan_look_lostfound'); },
@@ -62,6 +60,7 @@
       { name: 'Lifts', rect: [1120, 250, 140, 320], at: [1150, 650], exit: 'hotel_room', entry: 'hotel_lobby', door: null, look: 'alan_look_lifts',
         locked: () => ch() === 1 && ((!F().reception_done && !G.has('blazer')) || (F().mist_seen && !F().called_tue2)),
         lockedLine: () => F().mist_seen ? 'alan_lift_call' : 'alan_lift_tue' },
+      { name: 'To the restaurant', rect: [1230, 420, 50, 296], at: [1210, 680], exit: 'hotel_restaurant', entry: 'hotel_lobby' },
       { name: 'Out to Las Canteras', rect: [20, 250, 110, 320], at: [70, 650], exit: 'canteras', entry: 'hotel_lobby', lockedLine: () => S.mapLock && S.mapLock(), locked: () => !!(S.mapLock && S.mapLock()) },
     ],
     async enter(entry) {
@@ -156,16 +155,14 @@
   // The visible clocks: the tide one step higher on the promenade every day; the San Juan bonfires taller every day.
   ROOMS.canteras = S.room({
     name: 'Las Canteras', bg: 'canteras', floor: 'stone', ambience: () => 'harbour',
-    entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1150, 660, 'w'] },
+    entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1150, 660, 'w'], beach: [820, 665, 'n'] },
     npcs: [
       { id: 'vasco', x: 820, y: 650, dir: 'w', name: 'Vasco', when: () => ch() === 1 && F().reception_done && !F().walk_done, look: 'alan_look_vasco_reception', talk: () => say('vasco_t_walk_alan') },
       { id: 'chano', ch: 'chano', x: 160, y: 650, dir: 'e', name: 'Chano', at: [260, 660], look: 'alan_look_chano', talk: () => S.talkChano(),
         items: { note5000: () => S.buyPaper(), coins: () => say('chano_coins'), any: 'chano_any' } },
     ],
-    ambient: [
-      { id: 'surfer', frames: ['surfer_ph_idle'], talkFrames: ['surfer_ph_talk'], x: 1000, y: 650, dir: 'w', name: 'Surfers', look: () => S.lookSurfers(), talk: () => S.talkSurfers(), when: () => ch() <= 6 && !F().canteras_night },
-    ],
     hotspots: [
+      { name: 'Down to the beach', rect: [700, 560, 250, 50], at: [820, 665], exit: 'beach', entry: 'canteras' },
       { name: 'The sea', rect: [440, 330, 520, 120], at: [700, 620], look: () => S.lookSea() },
       { name: 'Promenade steps', rect: [880, 500, 220, 60], at: [960, 640], look: () => say('alan_look_steps_' + Math.min(6, Math.max(1, S.tideStep()))) },
       { name: 'Bonfires', rect: [470, 470, 260, 80], at: [600, 640], when: () => ch() >= 2, look: () => say('alan_look_bonfire_' + Math.min(6, ch())) },
@@ -246,14 +243,12 @@
   // ================================================================ EL MUSEO CANARIO: the hall
   ROOMS.museum_hall = S.room({
     name: 'El Museo Canario', bg: 'museum_hall', floor: 'tile', ambience: 'museum', door: 'door',
-    entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], archive: [960, 660, 'w'], baute_office: [640, 660, 's'] },
+    entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], archive: [960, 660, 'w'], baute_office: [640, 660, 's'], museum_courtyard: [1120, 660, 'w'] },
     npcs: [
       { id: 'baute', ch: 'baute', x: 520, y: 650, dir: 'e', name: 'Dr. Rayco Baute', when: () => (ch() === 1 && !F().reception_done) || (ch() === 3 && S.dinnerDue() && !F().caught),
         look: 'alan_look_baute', talk: () => ch() === 1 ? S.talkBauteTue() : say('baute_th_busy'), items: { any: 'alan_fail_baute_item' } },
       { id: 'vasco', x: 800, y: 650, dir: 'w', name: 'Vasco', when: () => (ch() === 1 && !F().reception_done) || (ch() === 3 && S.dinnerDue() && !F().caught),
         look: () => say(ch() === 1 ? 'alan_look_vasco_reception' : 'alan_look_vasco_dinner'), talk: () => say(ch() === 1 ? 'vasco_t_reception' : 'vasco_th_dinner') },
-      { id: 'carmen', ch: 'carmen', x: 1150, y: 640, dir: 'w', name: 'Dr. Carmen Trujillo', when: () => ch() === 1 && !F().reception_done,
-        look: 'alan_look_carmen_steps', talk: () => S.talkCarmenTue() },
       { id: 'montesdeoca', ch: 'montesdeoca', x: 300, y: 662, dir: 'e', name: 'Ignacio Montesdeoca', when: () => (ch() === 1 && !F().reception_done) || ch() === 2 || (ch() === 3 && S.dinnerDue() && !F().caught),
         look: () => say(ch() === 2 ? 'alan_look_montesdeoca_wed' : 'alan_look_montesdeoca'), talk: () => S.talkMontesdeoca() },
       { id: 'guard', ch: 'guard', x: 660, y: 600, h: 380, dir: 'e', name: 'Museum guard', when: () => ch() === 3 && S.dinnerDue() && !F().derek_sent,
@@ -264,7 +259,7 @@
     hotspots: [
       { name: 'Display cases', rect: [180, 380, 540, 160], at: [440, 640], look: () => say(ch() === 2 ? 'alan_look_cases_wed' : 'alan_look_cases') },
       { name: 'Montesdeoca\'s van', rect: [1100, 200, 140, 200], at: [1150, 650], when: () => ch() === 2, look: () => { F().herring_van = true; return say('alan_look_van'); } },
-      { name: 'Door to the steps', rect: [1100, 200, 140, 360], at: [1150, 650], when: () => ch() === 1, look: 'alan_look_steps_door' },
+      { name: 'Door to the steps', rect: [1100, 200, 140, 360], at: [1150, 650], when: () => ch() === 1, look: 'alan_look_steps_door', exit: 'museum_courtyard', entry: 'museum_hall' },
       { name: 'Corridor to the offices', rect: [580, 300, 160, 260], at: [660, 640], when: () => ch() === 3 && S.dinnerDue(),
         look: () => say(F().derek_sent ? 'alan_look_corridor_free' : 'alan_look_corridor'), exit: 'baute_office', entry: 'museum_hall',
         locked: () => !F().derek_sent, lockedLine: 'guard_th_stop' },
@@ -278,6 +273,58 @@
       if (!F().narr_museum_hall && ch() === 1) { F().narr_museum_hall = true; await say('narr_t_museum_1', 'narr_t_museum_2'); }
     },
   });
+  // ================================================================ LAS CANTERAS: the sand (the surfers' place)
+  ROOMS.beach = S.room({
+    name: 'Las Canteras · the beach', bg: 'beach', floor: 'sand', ambience: () => 'harbour',
+    entries: { default: [200, 665, 'e'], canteras: [200, 665, 'e'] },
+    ambient: [
+      { id: 'surfer', frames: ['surfer_ph_idle'], talkFrames: ['surfer_ph_talk'], x: 900, y: 655, dir: 'w', name: 'Surfers', look: () => S.lookSurfers(), talk: () => S.talkSurfers(), when: () => ch() <= 6 && !F().canteras_night },
+    ],
+    hotspots: [
+      { name: 'Surfboards', rect: [900, 340, 220, 210], at: [960, 660], look: 'alan_look_surfboards' },
+      { name: 'The sea', rect: [520, 310, 760, 110], at: [700, 640], look: () => S.lookSea() },
+      { name: 'The sky', rect: [300, 0, 980, 200], at: [640, 660], look: 'alan_look_beach_sky' },
+      { name: 'Towels', rect: [160, 470, 360, 70], at: [340, 660], look: 'alan_look_towels' },
+      { name: 'Up to the promenade', rect: [0, 250, 110, 320], at: [70, 660], exit: 'canteras', entry: 'beach' },
+    ],
+    async enter() { if (!F().narr_beach) { F().narr_beach = true; await say('narr_beach_1'); } },
+    animFg(g, t) { S.drawMist(g, t, S.mistNow()); },
+  });
+
+  // ================================================================ HOTEL CRISTINA: the restaurant (Gail and Derek)
+  ROOMS.hotel_restaurant = S.room({
+    name: 'Hotel Cristina · the restaurant', bg: 'hotel_restaurant', floor: 'tile', ambience: 'museum', door: 'door',
+    entries: { default: [1100, 670, 'w'], hotel_lobby: [1100, 670, 'w'] },
+    npcs: [
+      { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => [1, 2, 3, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
+      { id: 'derek', ch: 'derek', x: 680, y: 662, dir: 'w', name: 'Derek', when: () => [1, 2, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
+    ],
+    hotspots: [
+      { name: 'Buffet', rect: [620, 300, 480, 90], at: [820, 640], look: 'alan_look_buffet' },
+      { name: 'Windows', rect: [0, 0, 480, 320], at: [300, 650], look: 'alan_look_restaurant_windows' },
+      { name: 'Dessert trolley', rect: [1020, 320, 155, 225], at: [1040, 660], look: 'alan_look_dessert_trolley' },
+      { name: 'Back to the lobby', rect: [1230, 120, 50, 450], at: [1210, 670], exit: 'hotel_lobby', entry: 'hotel_restaurant' },
+    ],
+    async enter() { if (!F().narr_restaurant) { F().narr_restaurant = true; await say('narr_restaurant_1'); } },
+  });
+
+  // ================================================================ EL MUSEO CANARIO: the courtyard (where Alan finds Carmen)
+  ROOMS.museum_courtyard = S.room({
+    name: 'El Museo Canario · the courtyard', bg: 'museum_courtyard', floor: 'stone', ambience: 'street', door: 'door',
+    entries: { default: [160, 665, 'e'], museum_hall: [160, 665, 'e'] },
+    npcs: [
+      { id: 'carmen', ch: 'carmen', x: 840, y: 640, dir: 'w', name: 'Dr. Carmen Trujillo', when: () => ch() === 1 && !F().reception_done,
+        look: 'alan_look_carmen_steps', talk: () => S.talkCarmenTue() },
+    ],
+    hotspots: [
+      { name: 'Dragon tree', rect: [940, 130, 300, 400], at: [1050, 660], look: 'alan_look_dragon_tree' },
+      { name: 'Fountain', rect: [395, 385, 170, 180], at: [480, 640], look: 'alan_look_courtyard_fountain' },
+      { name: 'Archive boxes', rect: [140, 450, 120, 115], at: [220, 650], look: 'alan_look_courtyard_boxes' },
+      { name: 'Back to the party', rect: [10, 280, 100, 285], at: [70, 660], exit: 'museum_hall', entry: 'museum_courtyard' },
+    ],
+    async enter() { if (!F().narr_courtyard && ch() === 1) { F().narr_courtyard = true; await say('narr_courtyard_1'); } },
+  });
+
   // leaving the reception: dusk on Las Canteras (the mist); otherwise the map
   S.leaveMuseum = () => {
     if (ch() === 1 && F().met_baute && F().met_carmen && !F().reception_done) { F().reception_done = true; return 'canteras'; }

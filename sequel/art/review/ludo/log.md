@@ -40,3 +40,26 @@
 | 2026-10-28 20:22 | hydra | hydra | alanv_side_k | talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; warm and wry | sequel/art/review/ludo/alanv_talk_a/ | 9 |
 | 2026-10-28 20:24 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_talk_a/ | 3 |
 | 2026-10-28 20:26 | hydra | hydra | alanb_side_k | walking to the right at an easy, natural pace, a full walk cycle | sequel/art/review/ludo/alanb_walk_side/ | 9 |
+| 2026-10-28 20:28 | hydra | hydra | alanb_front_k | walking towards the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/alanb_walk_front/ | 9 |
+| 2026-10-28 20:29 | improve | hydra | alanb_side_k | improve | sequel/art/review/ludo/alanb_walk_side/ | 3 |
+| 2026-10-28 20:30 | hydra | hydra | vascos_side_k | walking to the right at an easy, natural pace, a full walk cycle | sequel/art/review/ludo/vasco_walk_side/ | 9 |
+| 2026-10-28 20:31 | improve | hydra | alanb_front_k | improve | sequel/art/review/ludo/alanb_walk_front/ | 3 |
+| 2026-10-28 20:32 | improve | hydra | vascos_side_k | improve | sequel/art/review/ludo/vasco_walk_side/ | 3 |
+| 2026-10-28 20:37 | hydra | hydra | vascos_front_k | walking towards the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/vasco_walk_front/ | 9 |
+| 2026-10-28 20:38 | hydra | hydra | vascos_side_k | talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; warm and wry | sequel/art/review/ludo/vasco_talk_a/ | 9 |
+| 2026-10-28 20:38 | improve | hydra | vascos_front_k | improve | sequel/art/review/ludo/vasco_walk_front/ | 3 |
+| 2026-10-28 20:39 | hydra | hydra | vascos_side_k | talking while standing in place, one bigger explaining gesture with both hands, then back to rest, feet stay planted | sequel/art/review/ludo/vasco_talk_b/ | 9 |
+| 2026-10-28 20:40 | improve | hydra | vascos_side_k | improve | sequel/art/review/ludo/vasco_talk_a/ | 3 |
+| 2026-10-28 20:42 | improve | hydra | vascos_side_k | improve | sequel/art/review/ludo/vasco_talk_b/ | 3 |
+| 2026-10-28 20:45 | hydra | hydra | alanv_side_k | lifts an old telephone receiver to his ear with his right hand, listens and talks, then lowers it again | sequel/art/review/ludo/alanv_phone/ | 12 |
+| 2026-10-28 20:46 | hydra | hydra | alanv_side_k | lifts a small glass of rum with his right hand, takes a sip, lowers the glass again | sequel/art/review/ludo/alanv_drink/ | 12 |
+| 2026-10-28 20:46 | hydra | hydra | alanv_side_k | reaches up with both hands, grips a high stone ledge and pulls himself up to climb it | sequel/art/review/ludo/alanv_climb/ | 12 |
+| 2026-10-28 20:48 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_phone/ | 4 |
+| 2026-10-28 20:48 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_drink/ | 4 |
+| 2026-10-28 20:50 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_climb/ | 4 |
+| 2026-10-28 20:55 | hydra | hydra | alanv_side_k | reaches up with both hands, grips a hanging chain above him and pulls it down hard, then lets go | sequel/art/review/ludo/alanv_pull/ | 12 |
+| 2026-10-28 20:56 | hydra | hydra | alanv_side_k | takes a small notebook and pencil from his pocket, writes a few words, puts them away | sequel/art/review/ludo/alanv_write/ | 12 |
+| 2026-10-28 20:57 | hydra | hydra | vascos_side_k | crouches down, reaches towards the ground with one hand, then stands back up | sequel/art/review/ludo/vasco_reach/ | 12 |
+| 2026-10-28 20:57 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_pull/ | 4 |
+| 2026-10-28 20:59 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_write/ | 4 |
+| 2026-10-28 20:59 | improve | hydra | vascos_side_k | improve | sequel/art/review/ludo/vasco_reach/ | 4 |

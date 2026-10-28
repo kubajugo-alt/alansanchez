@@ -59,18 +59,30 @@
   // ================================================================ SANTA ANA
   ROOMS.santa_ana = S.room({
     name: 'Plaza de Santa Ana', bg: 'santa_ana', floor: 'stone', ambience: 'street',
-    entries: { default: [200, 660, 'e'], map: [200, 660, 'e'], belfry: [640, 650, 's'] },
-    npcs: [
-      { id: 'fermin', ch: 'fermin', x: 760, y: 640, dir: 'w', name: 'Don Fermín', when: () => ch() >= 2 && ch() <= 4, look: 'alan_look_fermin', talk: () => S.talkFermin() },
-    ],
+    entries: { default: [200, 660, 'e'], map: [200, 660, 'e'], santa_ana_inside: [640, 650, 's'] },
     hotspots: [
       { name: 'Cathedral clock', rect: [560, 110, 160, 120], at: [640, 640], look: () => say(F().clock_wound ? 'alan_look_clock_going' : 'alan_look_clock_stopped') },
       { name: 'Bronze dogs', rect: [170, 460, 110, 90], at: [230, 640], look: 'alan_look_dogs' },
       { name: 'Timple players', rect: [1040, 440, 200, 120], at: [1060, 650], look: () => say(ch() >= 4 ? 'alan_look_timple_mist' : 'alan_look_timple') },
-      { name: 'Cathedral door', rect: [580, 380, 120, 180], at: [640, 640], look: 'alan_look_cathedral_door', exit: 'belfry', entry: 'santa_ana',
-        locked: () => !F().clock_key, lockedLine: 'alan_cathedral_locked' },
+      { name: 'Cathedral door', rect: [580, 380, 120, 180], at: [640, 640], look: 'alan_look_cathedral_door', exit: 'santa_ana_inside', entry: 'santa_ana' },
       S.toMap([20, 250, 110, 320], [70, 650]),
     ],
+  });
+  // ================================================================ SANTA ANA: inside (Don Fermín; the stair to the bells)
+  ROOMS.santa_ana_inside = S.room({
+    name: 'Santa Ana · the nave', bg: 'santa_ana_inside', floor: 'stone', ambience: 'tower', door: 'door',
+    entries: { default: [120, 665, 'e'], santa_ana: [120, 665, 'e'], belfry: [1060, 660, 'w'] },
+    npcs: [
+      { id: 'fermin', ch: 'fermin', x: 760, y: 645, dir: 'w', name: 'Don Fermín', when: () => ch() >= 2 && ch() <= 4, look: 'alan_look_fermin', talk: () => S.talkFermin() },
+    ],
+    hotspots: [
+      { name: 'Columns', rect: [565, 0, 80, 520], at: [620, 650], look: 'alan_look_columns' },
+      { name: 'Altarpiece', rect: [275, 235, 120, 180], at: [360, 640], look: 'alan_look_altarpiece' },
+      { name: 'Door to the tower', rect: [1000, 190, 255, 355], at: [1060, 660], look: 'alan_look_tower_door', exit: 'belfry', entry: 'santa_ana_inside',
+        locked: () => !F().clock_key, lockedLine: 'alan_cathedral_locked' },
+      { name: 'Out to the plaza', rect: [0, 250, 60, 350], at: [60, 665], exit: 'santa_ana', entry: 'santa_ana_inside' },
+    ],
+    async enter() { if (!F().narr_santa_ana_in) { F().narr_santa_ana_in = true; await say('narr_santa_ana_in_1'); } },
   });
   S.talkFermin = async function () {
     const f = F();
@@ -97,7 +109,7 @@
   // ================================================================ SANTA ANA: the bell chamber
   ROOMS.belfry = S.room({
     name: 'Santa Ana · the bell chamber', bg: 'belfry', floor: 'wood', ambience: 'tower',
-    entries: { default: [400, 660, 'e'], santa_ana: [400, 660, 'e'] },
+    entries: { default: [400, 660, 'e'], santa_ana_inside: [400, 660, 'e'] },
     npcs: [
       { id: 'fermin', ch: 'fermin', x: 940, y: 650, dir: 'w', name: 'Don Fermín', look: 'alan_look_fermin', talk: () => S.talkFerminBelfry() },
     ],
@@ -107,7 +119,7 @@
       { name: 'The north bell', rect: [490, 120, 300, 300], at: [640, 640], look: () => S.lookBell(),
         items: { notebook: () => S.rubBell(), any: 'alan_bell_item' }, use: () => say('alan_use_bell') },
       { name: 'Bell window', rect: [1000, 180, 160, 220], at: [1040, 640], look: 'alan_look_bell_window' },
-      { name: 'Stairs down', rect: [20, 250, 110, 320], at: [70, 650], exit: 'santa_ana', entry: 'belfry' },
+      { name: 'Stairs down', rect: [20, 250, 110, 320], at: [70, 650], exit: 'santa_ana_inside', entry: 'belfry' },
     ],
   });
   S.windClock = async function () {

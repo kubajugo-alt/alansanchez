@@ -1,0 +1,40 @@
+{
+ "spec": {
+  "a": "alanv_side_k",
+  "b": null,
+  "mid": null,
+  "prompt": "takes a small notebook and pencil from his pocket, writes a few words, puts them away",
+  "loop": false,
+  "duration": 4,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "b5b0e70d-9cd6-4874-a810-ca1295b23bc7",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/140f3d1564d603413ef26707a26e0c30.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/5c8ec383af03d21f4174c0d2a656ad14.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/61ff4499f86ec38f8000ff9a67502d4a.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.7916666666666665
+  },
+  "credits": 12
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "e52f8c56-557f-49a9-8816-c6e9c9d59899",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/eae1f102e9a90403447de3bac01ec802.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/5d98ddd6503d9520b23d8e75f91eb6c0.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/9a334ac2f30bde8933aafcce3afe6763.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.75
+  },
+  "credits": 4
+ },
+ "model": "hydra"
+}

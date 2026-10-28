@@ -51,7 +51,7 @@ try {
   await expect('Tuesday at Gando', () => Game.room.id === 'gando');
   // ---- Tuesday
   await act('vasco', 'talk');
-  await act('gail', 'talk'); // (Gail's story alone is enough to claim the blazer: the box is never examined)
+  await act('To the restaurant', 'exit'); await act('gail', 'talk'); await act('Back to the lobby', 'exit'); // (Gail's story alone is enough to claim the blazer: the box is never examined)
   await act('nieves', 'talk', null, ['lost a blazer', 'A cigar band']);
   await expect('the blazer', () => Game.has('blazer'));
   // (the novel's order: Chano's change and the first call to Inês before the reception)
@@ -59,7 +59,7 @@ try {
   await expect('coins', () => Game.has('coins'));
   await act('Phone box', 'use');
   await expect('the first call', () => Game.flags.called_tue);
-  await go('museum_hall'); await act('baute', 'talk'); await act('carmen', 'talk'); await act('Out to Vegueta', 'exit');
+  await go('museum_hall'); await act('baute', 'talk'); await act('Door to the steps', 'exit'); await act('carmen', 'talk'); await act('Back to the party', 'exit'); await act('Out to Vegueta', 'exit');
   await expect('the walk and the mist', () => Game.flags.mist_seen && Game.room.id === 'canteras');
   await act('Phone box', 'use');
   await expect('the midnight call', () => Game.flags.called_tue2);
@@ -67,8 +67,8 @@ try {
   await expect('Wednesday', () => Game.flags.ch === 2);
   // ---- Wednesday
   await go('isleta'); await act('pino', 'talk');
-  await go('santa_ana'); await act('fermin', 'talk', null, ['wind it', 'little brass']);
-  await act('Cathedral door', 'exit'); await act('Clock winding drum', 'use'); await act('The north bell', 'look'); await act('The north bell', null, 'notebook');
+  await go('santa_ana'); await act('Cathedral door', 'exit'); await act('fermin', 'talk', null, ['wind it', 'little brass']);
+  await act('Door to the tower', 'exit'); await act('Clock winding drum', 'use'); await act('The north bell', 'look'); await act('The north bell', null, 'notebook');
   await act('fermin', 'talk');
   await expect('the letter', () => Game.has('letter') && Game.has('inscription'));
   await go('hotel_lobby'); await act('nieves', null, 'inscription'); await act('nieves', null, 'letter');

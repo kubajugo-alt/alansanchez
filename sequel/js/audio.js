@@ -509,6 +509,8 @@
     tile(t, v) { burst(t, 0.045, 'bandpass', 2200 + Math.random() * 300, 2.2, 0.08 * v); burst(t, 0.07, 'lowpass', 300, 1, 0.08 * v); },
     wet(t, v) { burst(t, 0.07, 'bandpass', 700 + Math.random() * 200, 1.4, 0.12 * v, 0.6); burst(t + 0.01, 0.12, 'highpass', 2500, 0.7, 0.03 * v, 0.4); },
     carpet(t, v) { burst(t, 0.08, 'lowpass', 380, 0.8, 0.12 * v); },
+    // dry sand: a soft give and a little hiss of grains
+    sand(t, v) { burst(t, 0.12, 'lowpass', 480 + Math.random() * 80, 0.7, 0.1 * v); burst(t + 0.02, 0.1, 'highpass', 3500, 0.7, 0.03 * v); },
     // a boat deck: hollow planks with a little boom under them
     deck(t, v) {
       burst(t, 0.12, 'bandpass', 180 + Math.random() * 40, 1.6, 0.22 * v);
