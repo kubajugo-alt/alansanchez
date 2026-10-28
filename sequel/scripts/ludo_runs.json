@@ -383,6 +383,23 @@
    "frames": 16,
    "duration": 1,
    "what": "turn: side (facing right) to facing away"
+  },
+  {
+   "name": "vasco_walk_back",
+   "a": "vascos_back_k",
+   "prompt": "walking away from the camera at an easy pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "vasco_turn_side_back",
+   "a": "vascos_side_k",
+   "b": "vascos_back_k",
+   "loop": false,
+   "frames": 16,
+   "duration": 1,
+   "what": "turn: side (facing right) to facing away"
   }
  ]
 }

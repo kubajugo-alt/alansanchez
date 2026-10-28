@@ -21,5 +21,61 @@
    "duration": 2.125
   },
   "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "0335d39e-33b7-4ce8-a9ca-d54e30593ca8",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/5ed38a264befc57c5ccaae071041c2c7.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/8aae506b6a8bc7dacefa94dc2b6ff72f.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/83d97467d32e006715c1678e4eaf2882.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 3
+ },
+ "model": "hydra",
+ "up": {
+  "status": "succeeded",
+  "job": "2bde6a56-e136-4a3c-bdeb-b8581c568ffe",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/73c199d8d64185538f6d3a2ddc2df6e5.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/c90fb5c1dd161306921fff8275abf53c.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/e5fe195d98eff4f16c8933e96c8cd9be.mp3",
+   "individual_frame_urls": [
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-a5f9650058bedb26c8688f4919b24e10.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-a944bd4e6f3b433ece9b24f3d3f8e63f.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-ab9ba55bca0d7dcf997552df458c48db.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-70a46322d9ef34dbdb1534934fdcd3e6.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-e03fcecbbc20408ba27d86b89723659d.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-9aa017494e4db9a2094a479dfa740ec0.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-ef062d02c63cae41c5cf2297d08abd64.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-57f2d143c9baf0b13a60d442bcd92cc1.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-39f7904ca74bac102508349028a52fa5.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-a5d91813f194a7ca6b76add43df3d9db.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-06f0bc82077afb7a9bd59f502c1b9db3.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-532459ab2aa0050ea8378692bca6a01d.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-f3cc7fa8e5662f75717223dc24abaa40.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-3beccaebe340806e025f958601548b97.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-ebad1d83b2cb20c620e924af6fcd4d86.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-6b35f5ba41e63e302d0516b721797cf7.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-191cff79f3f4ca69f8d3663b8b1bac75.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-eec29d3308f57c8027c81899829a4aac.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-1ee730a379723fbef0f0cd0659b42936.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-eaed8a84bb03d82a2bcd5eda8672f157.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-476fc90324152384ba394955d0ffda72.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-6420857a875c94c63d4162026876c0e8.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-747e30e8efcfd296c218fd43c0d6e485.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-163032a5886dbb3d982775ca2bef3f59.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-12e8c9e3e8f638cb330eb1c00660c31a.webp"
+   ],
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 0
  }
 }

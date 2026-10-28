@@ -41,3 +41,4 @@
 - 2026-10-28 figure `chano_v2` Canva media MAHZU0Ovbn8 -> art/designs/chano_v2.png repaint in the cast's realistic style (Baute as style reference; an earlier try, MAHZU4S4h9s, was still cartoonish)
 - 2026-10-28 figure `alanv_back` Canva media MAHZU8wbuY4 -> art/designs/alanv_back.png back views, everyday outfit (for the walk away)
 - 2026-10-28 figure `alanb_back` Canva media MAHZU3A1XWw -> art/designs/alanb_back.png back views, blazer outfit
+- 2026-10-28 figure `vasco_back` Canva media MAHZUxmKczA -> art/designs/vasco_back.png back views, shirtsleeves

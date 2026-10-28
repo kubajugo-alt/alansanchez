@@ -1,0 +1,40 @@
+{
+ "spec": {
+  "a": "guard_c",
+  "b": null,
+  "mid": null,
+  "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; an old bored museum guard, minimal movement",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "b06bf99f-a461-4108-b981-8831b5f89f2a",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/203ee81f41582defb0e046dc30f7590d.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/77d2d406cf70d53637df0744e00be627.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/3ad21c5b8685c08ae66951864715db67.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "429b55d4-1cce-49e8-a366-3048aff8f5e7",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/e5a8ae5a5e5480d237c50ee1c676698b.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/b268b12dc9dd6c20dc8f944854616e99.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/21ed2cbdc6eceec2ab17b45dec419f97.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 3
+ },
+ "model": "hydra"
+}

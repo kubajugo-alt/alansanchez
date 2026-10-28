@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "lolo_c",
+  "b": null,
+  "mid": null,
+  "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; an old fisherman, slow and tired",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ }
+}
