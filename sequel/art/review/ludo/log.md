@@ -73,3 +73,14 @@
 | 2026-10-28 21:16 | hydra | hydra | vascos_back_k | walking away from the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/vasco_walk_back/ | 9 |
 | 2026-10-28 21:18 | improve | hydra | alanb_back_k | improve | sequel/art/review/ludo/alanb_walk_back/ | 3 |
 | 2026-10-28 21:19 | improve | hydra | vascos_back_k | improve | sequel/art/review/ludo/vasco_walk_back/ | 3 |
+| 2026-10-28 21:38 | hydra | hydra | alanv_side_k | talking while standing in place, one bigger explaining gesture with both hands, then back to rest, feet stay planted | sequel/art/review/ludo/alanv_talk_b/ | 9 |
+| 2026-10-28 21:38 | hydra | hydra | alanb_side_k | talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; warm and wry | sequel/art/review/ludo/alanb_talk_a/ | 9 |
+| 2026-10-28 21:40 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_talk_b/ | 3 |
+| 2026-10-28 21:40 | improve | hydra | alanb_side_k | improve | sequel/art/review/ludo/alanb_talk_a/ | 3 |
+| 2026-10-28 21:41 | hydra | hydra | alanv_side_k -> alanv_front_k |  | sequel/art/review/ludo/alanv_turn_side_front/ | 9 |
+| 2026-10-28 21:43 | improve | hydra | alanv_side_k -> alanv_front_k | improve | sequel/art/review/ludo/alanv_turn_side_front/ | 3 |
+| 2026-10-28 21:45 | hydra | hydra | alanb_side_k -> alanb_front_k |  | sequel/art/review/ludo/alanb_turn_side_front/ | 9 |
+| 2026-10-28 21:46 | hydra | hydra | alanb_side_k -> alanb_side_k~ |  | sequel/art/review/ludo/alanb_turn_side_left/ | 9 |
+| 2026-10-28 21:47 | improve | hydra | alanb_side_k -> alanb_front_k | improve | sequel/art/review/ludo/alanb_turn_side_front/ | 3 |
+| 2026-10-28 21:48 | hydra | hydra | vascos_side_k -> vascos_front_k |  | sequel/art/review/ludo/vasco_turn_side_front/ | 9 |
+| 2026-10-28 21:49 | hydra | hydra | vascos_side_k -> vascos_side_k~ |  | sequel/art/review/ludo/vasco_turn_side_left/ | 9 |

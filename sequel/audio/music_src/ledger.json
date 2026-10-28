@@ -1,0 +1,341 @@
+{
+ "calls": [
+  {
+   "id": "test",
+   "take": 0,
+   "usd": 0.2,
+   "note": "three test calls before the script (one clip, one full track, one call that returned an error); counted as spent to be safe"
+  },
+  {
+   "id": "title",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:38"
+  },
+  {
+   "id": "elena_car",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:38"
+  },
+  {
+   "id": "title",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:38"
+  },
+  {
+   "id": "gando",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:38"
+  },
+  {
+   "id": "gando",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:38"
+  },
+  {
+   "id": "elena_car",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:38"
+  },
+  {
+   "id": "hotel_room",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:39"
+  },
+  {
+   "id": "hotel_lobby",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:39"
+  },
+  {
+   "id": "hotel_lobby",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:39"
+  },
+  {
+   "id": "hotel_room",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:39"
+  },
+  {
+   "id": "hotel_restaurant",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:39"
+  },
+  {
+   "id": "hotel_restaurant",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:39"
+  },
+  {
+   "id": "canteras",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:40"
+  },
+  {
+   "id": "beach",
+   "take": 2,
+   "usd": 0.0,
+   "note": "no audio returned"
+  },
+  {
+   "id": "canteras",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:40"
+  },
+  {
+   "id": "beach",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:40"
+  },
+  {
+   "id": "museum_hall",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:40"
+  },
+  {
+   "id": "museum_hall",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:40"
+  },
+  {
+   "id": "museum_courtyard",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:40"
+  },
+  {
+   "id": "museum_courtyard",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:41"
+  },
+  {
+   "id": "archive",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:41"
+  },
+  {
+   "id": "baute_office",
+   "take": 2,
+   "usd": 0.0,
+   "note": "no audio returned"
+  },
+  {
+   "id": "baute_office",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:41"
+  },
+  {
+   "id": "archive",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:41"
+  },
+  {
+   "id": "santa_ana",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:41"
+  },
+  {
+   "id": "santa_ana",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:42"
+  },
+  {
+   "id": "santa_ana_inside",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:42"
+  },
+  {
+   "id": "santa_ana_inside",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:42"
+  },
+  {
+   "id": "belfry",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:42"
+  },
+  {
+   "id": "belfry",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:42"
+  },
+  {
+   "id": "isleta",
+   "take": 1,
+   "usd": 0.0,
+   "note": "no audio returned"
+  },
+  {
+   "id": "colon",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:42"
+  },
+  {
+   "id": "colon",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:42"
+  },
+  {
+   "id": "isleta",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:43"
+  },
+  {
+   "id": "rafa_bar",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:43"
+  },
+  {
+   "id": "rafa_bar",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:43"
+  },
+  {
+   "id": "rafa_studio",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:43"
+  },
+  {
+   "id": "rafa_studio",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:43"
+  },
+  {
+   "id": "carmen_flat",
+   "take": 2,
+   "usd": 0.0,
+   "note": "no audio returned"
+  },
+  {
+   "id": "carmen_flat",
+   "take": 1,
+   "usd": 0.0,
+   "note": "no audio returned"
+  },
+  {
+   "id": "landrover",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:44"
+  },
+  {
+   "id": "landrover",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:44"
+  },
+  {
+   "id": "camp",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:44"
+  },
+  {
+   "id": "camp",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:44"
+  },
+  {
+   "id": "cave6",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:44"
+  },
+  {
+   "id": "cave6",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:44"
+  },
+  {
+   "id": "vault",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:44"
+  },
+  {
+   "id": "vault",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:44"
+  },
+  {
+   "id": "map",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:44"
+  },
+  {
+   "id": "map",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:45"
+  },
+  {
+   "id": "beach",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:46"
+  },
+  {
+   "id": "carmen_flat",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:46"
+  },
+  {
+   "id": "carmen_flat",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:46"
+  },
+  {
+   "id": "isleta",
+   "take": 1,
+   "usd": 0.08,
+   "time": "2026-10-28 21:46"
+  },
+  {
+   "id": "baute_office",
+   "take": 2,
+   "usd": 0.08,
+   "time": "2026-10-28 21:46"
+  }
+ ],
+ "spent": 4.2
+}

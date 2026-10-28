@@ -5,3 +5,4 @@
 *.ph export-ignore
 /audio/voice_src export-ignore
 /art/review export-ignore
+/audio/music_src export-ignore

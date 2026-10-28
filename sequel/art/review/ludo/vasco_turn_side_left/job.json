@@ -5,7 +5,21 @@
   "mid": null,
   "prompt": null,
   "loop": false,
-  "duration": 1,
+  "duration": 3,
   "frames": 16
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "c14ea7a8-1873-4e5f-8103-60122dd1d3de",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/658fcfb99a8292c23c81c1e0869a87da.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/d8267f8be4cd2ba249817cc19991b9b9.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/1609f4efe785959a84b43dd57ef5d9e0.mp3",
+   "num_frames": 16,
+   "num_cols": 4,
+   "num_rows": 4,
+   "duration": 2.7916666666666665
+  },
+  "credits": 9
  }
 }

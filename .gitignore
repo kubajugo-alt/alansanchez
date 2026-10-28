@@ -52,3 +52,5 @@ sequel/art/canva/*.png
 # Ludo.ai downloads for the sequel (sequel/scripts/ludo.py)
 /sequel/art/review/ludo/*/up/
 /sequel/art/review/ludo/*/true/
+/sequel/art/review/ludo/*/fit/
+/sequel/audio/music_src/*.mp3
