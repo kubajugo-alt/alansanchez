@@ -137,16 +137,19 @@
   // ---------------------------------------------------------------- the map
   const PIN = (id, x, y, text, open, go) => ({ id, x, y, text, open, go });
   S.PINS = [
-    PIN('canteras', 595, 360, 'Las Canteras · the beach, the kiosk, the phone box', () => F().ch >= 1 && F().ch <= 6),
-    PIN('hotel_lobby', 665, 205, 'Hotel Cristina', () => F().ch >= 1 && F().ch <= 6),
-    PIN('isleta', 600, 110, 'La Isleta · the fishermen\'s quay', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().fax_read && !F().isleta_flood)),
-    PIN('museum_hall', 850, 600, () => F().ch === 1 ? 'El Museo Canario · the reception, 8 pm' : F().ch === 3 && S.dinnerDue() ? 'El Museo Canario · the fundraising dinner' : 'El Museo Canario · Vegueta',
+    PIN('canteras', 668, 492, 'Las Canteras · the beach, the kiosk, the phone box', () => F().ch >= 1 && F().ch <= 6),
+    PIN('hotel_lobby', 706, 470, 'Hotel Cristina', () => F().ch >= 1 && F().ch <= 6),
+    PIN('isleta', 418, 316, 'La Isleta · the fishermen\'s quay', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().fax_read && !F().isleta_flood)),
+    PIN('museum_hall', 1156, 238, () => F().ch === 1 ? 'El Museo Canario · the reception, 8 pm' : F().ch === 3 && S.dinnerDue() ? 'El Museo Canario · the fundraising dinner' : 'El Museo Canario · Vegueta',
       () => (F().ch === 1 && G.has('blazer') && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained)),
-    PIN('santa_ana', 920, 520, 'Plaza de Santa Ana · the cathedral', () => F().ch >= 2 && F().ch <= 4),
-    PIN('colon', 1000, 575, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read),
-    PIN('rafa_bar', 940, 640, 'Vegueta · a bar on Calle Mendizábal', () => F().ch === 4 && F().cave_explained && !F().rafa_night),
-    PIN('carmen_flat', 700, 500, 'Triana · Carmen\'s flat', () => F().ch === 6 && F().chose_carmen),
+    PIN('santa_ana', 1166, 218, 'Plaza de Santa Ana · the cathedral', () => F().ch >= 2 && F().ch <= 4),
+    PIN('colon', 1138, 225, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read),
+    PIN('rafa_bar', 1145, 232, 'Vegueta · a bar on Calle Mendizábal', () => F().ch === 4 && F().cave_explained && !F().rafa_night),
+    PIN('carmen_flat', 1079, 250, 'Triana · Carmen\'s flat', () => F().ch === 6 && F().chose_carmen),
   ];
+  // where a pin's label sits, when not straight above it (the Vegueta places are a few hundred metres apart)
+  S.PIN_LABEL = { canteras: [-70, 80], museum_hall: [-110, 95], santa_ana: [-20, -100], colon: [-250, -25], rafa_bar: [-60, 150] };
+  S.pinLabelAt = m => { const o = S.PIN_LABEL[m.id]; return o ? [m.x + o[0], m.y + o[1]] : [m.x, m.y - 14]; };
   S.pinNext = () => {
     const f = F();
     if (f.ch === 1) return !G.has('blazer') ? 'hotel_lobby' : !f.reception_done ? 'museum_hall' : !f.called_tue ? 'canteras' : 'hotel_lobby';
@@ -163,13 +166,14 @@
         const p = 0.5 + 0.5 * Math.sin(t * 3 + m.x);
         FX.glow(g, m.x, m.y, 40 + p * 14, '255,120,60', 0.45);
         if (S.pinNext() === m.id) { FX.glow(g, m.x, m.y, 60 + p * 20, '255,170,80', 0.5); g.save(); g.strokeStyle = `rgba(255,210,122,${0.45 + 0.4 * p})`; g.lineWidth = 2.5; g.beginPath(); g.arc(m.x, m.y, 18 + p * 5, 0, 7); g.stroke(); g.restore(); }
+        if (S.PIN_LABEL[m.id]) { const [lx, ly] = S.pinLabelAt(m); g.save(); g.strokeStyle = 'rgba(42,10,4,0.75)'; g.lineWidth = 2; g.beginPath(); g.moveTo(m.x, m.y); g.lineTo(lx, ly - 12); g.stroke(); g.restore(); }
         g.fillStyle = '#7a1408'; g.strokeStyle = '#2a0a04'; g.lineWidth = 3; g.beginPath(); g.arc(m.x, m.y, 11, 0, 7); g.fill(); g.stroke();
         g.fillStyle = '#ffd27a'; g.beginPath(); g.arc(m.x, m.y, 4.5, 0, 7); g.fill();
       }
       g.font = "700 26px 'Cinzel', serif"; g.fillStyle = 'rgba(40,24,10,0.85)'; g.textAlign = 'right'; g.fillText(S.dayName(), 1240, 690); g.textAlign = 'left';
     },
     hotspots: S.PINS.map(m => ({ name: () => typeof m.text === 'function' ? m.text() : m.text, rect: [m.x - 30, m.y - 60, 60, 80], when: m.open, exit: m.go || m.id, entry: 'map', noBox: true })),
-    labels: S.PINS.map(m => ({ x: m.x, y: m.y - 14, text: () => typeof m.text === 'function' ? m.text() : m.text, when: m.open })),
+    labels: S.PINS.map(m => ({ x: S.pinLabelAt(m)[0], y: S.pinLabelAt(m)[1], text: () => typeof m.text === 'function' ? m.text() : m.text, when: m.open })),
   };
   // the way out to the map from a street, as a hotspot
   S.toMap = (rect, at) => ({ name: 'To the city', rect, at, exit: 'map', look: 'alan_look_tomap', kind: 'exit', locked: () => !!S.mapLock && !!S.mapLock(), lockedLine: () => S.mapLock && S.mapLock() });

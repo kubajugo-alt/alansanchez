@@ -111,3 +111,15 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    line hiss) makes Inês's telephone copy; the auditions page plays both. Next: the user's picks, then the cast file
    (`scripts/cast.json`, the sequel's own) and the full run. Also in this round: Canva cut-outs for Pino+Lolo,
    Nieves+check-in clerk, Chano+guard, Fermín+Mercedes (each checked: validate 0 errors, play.mjs won, 98 steps).
+6. **The map redrawn from real geography** (2026-10-28, the user: "Please use an accurate map of Las Palmas, this
+   looks very weird"). The Canva map invented its coastline, so `art/bg/map.jpg` is now painted by
+   `scripts/map_from_osm.py` from OpenStreetMap's standard tiles (zoom 15, 28.092–28.186 N, 15.392–15.462 W, 70 tiles
+   fetched once and stitched; only what each pixel is, sea, street, building, park, port, is kept and repainted on
+   paper, with no labels). Turned a quarter left so the long city fits the wide screen (north points left; compass
+   rose). Pins sit on the real places (`S.PINS`, core.js); the four Vegueta places are a few hundred metres apart, so
+   their labels sit apart with leader lines (`S.PIN_LABEL`). Credit added to the ending: "Map of Las Palmas drawn from
+   OpenStreetMap data © OpenStreetMap contributors (ODbL)". Previews `?scene=map`, `mapthu`, `mapfri` check the
+   labels on the busiest days. Also: the vault, the Land Rover and Elena's car painted in Canva with layouts and
+   previews (`?scene=vault`, `landrover`, `elenacar`); the audition page now has 2–3 voices per character, built
+   into the page so it plays on an iPhone; `ELEVENLABS_API_KEY` is in the root `.env` (git-ignored; text-to-speech
+   works, the key cannot read the account).

@@ -53,6 +53,8 @@
     vault: { flags: { ch: 5, isleta_flood: true, v_understood: true, v_fuse_seen: true, v_refused: true }, room: 'vault', pos: [620, 660, 'e'], run: async () => { S.becomeVasco(); ['ltrowel', 'torch'].forEach(k => S.give(k, true)); S.torch = 1; } },
     sun: { flags: { ch: 6, v_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => S.theChoice() },
     carmen: { flags: { ch: 6, chose_carmen: true, cave_explained: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('carmen_flat', 'map') },
+    mapthu: { flags: { ch: 3, wed_done: true, sent_to_colon: true }, room: 'map', pos: [640, 660, 'e'], run: async () => {} },
+    mapfri: { flags: { ch: 4, caught: true, fight_done: true, cave_explained: true }, room: 'map', pos: [640, 660, 'e'], run: async () => {} },
     map: { flags: { ch: 2, tue_done: true }, room: 'map', pos: [640, 660, 'e'], run: async () => {} },
     elenacar: { flags: { ch: 0 }, room: 'elena_car', pos: [640, 660, 'e'], run: async () => {} },
     landrover: { flags: { ch: 6, chose_carmen: true, knows_vault: true }, room: 'landrover', pos: [640, 660, 'e'], run: async () => {} },
