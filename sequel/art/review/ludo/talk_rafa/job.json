@@ -1,0 +1,40 @@
+{
+ "spec": {
+  "a": "rafa_c",
+  "b": null,
+  "mid": null,
+  "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a young painter and barman, animated and warm",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "c548f622-2918-46f1-9778-63c857d8c734",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/24c4c3a069b492ba9a94a7e544b6bb91.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/d3c5a46591cfea01804363d197859120.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/78fa9a8e5a49b5e5b89bc68146a6884c.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "25fba152-1d52-4b4d-8781-f6dd38053dab",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/7e372238b68776b14b2bb0a2528577e4.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/7c20db94b4c43529b822781671a73cce.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/f212948efcbf7aa2f6ddc68ba85cc380.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 3
+ },
+ "model": "hydra"
+}

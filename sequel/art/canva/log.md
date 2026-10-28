@@ -42,3 +42,5 @@
 - 2026-10-28 figure `alanv_back` Canva media MAHZU8wbuY4 -> art/designs/alanv_back.png back views, everyday outfit (for the walk away)
 - 2026-10-28 figure `alanb_back` Canva media MAHZU3A1XWw -> art/designs/alanb_back.png back views, blazer outfit
 - 2026-10-28 figure `vasco_back` Canva media MAHZUxmKczA -> art/designs/vasco_back.png back views, shirtsleeves
+- 2026-10-28 bg `hotel_restaurant` Canva media MAHZVNKYwfI -> art/bg/hotel_restaurant.jpg new room: the Hotel Cristina restaurant, panza de burro in the windows
+- 2026-10-28 bg `beach` Canva media MAHZVEfTqis -> art/bg/beach.jpg new room: Las Canteras beach under the panza de burro (first try MAHZUxjcq-s had a sunset)

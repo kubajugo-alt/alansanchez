@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "surfer_c",
+  "b": null,
+  "mid": null,
+  "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a laid-back young surfer, relaxed loose gestures",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "19ff2bcd-7fc9-4ac5-800d-5b18830c5ced",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/8487b3a542ddc7fd696461d2b3718535.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/1e2780aa77175ddb1ea8ba0de52b408b.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/19c70545a06d0148468abfadfd7639d2.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 9
+ }
+}
