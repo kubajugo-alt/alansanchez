@@ -36,3 +36,5 @@
 - 2026-10-28 still `still_arrival` Canva media MAHZQCtS6Po -> art/stills/still_arrival.jpg 
 - 2026-10-28 figure `alan_vest` Canva media MAHZUoLZyYk -> art/designs/alan_vest.png outfit: black vest, khaki cargo shorts, white sneakers (from Game I frames, media MAHZUs1sSS4)
 - 2026-10-28 figure `vasco_shirt` Canva media MAHZUqZNGSo -> art/designs/vasco_shirt.png outfit: no blazer/tie/key, sleeves rolled, collar open (from Game I frames, media MAHZUg6pJBM)
+- 2026-10-28 figure `alan_blazer` Canva media MAHZUqNBcR4 -> art/designs/alan_blazer.png outfit: navy brass-button blazer (short sleeves), black vest, jeans, white sneakers
+- 2026-10-28 figure `baute_brown` Canva media MAHZU3l9jr8 -> art/designs/baute_brown.png darker brown suit (from baute_c, media MAHZUl5tBFQ)
