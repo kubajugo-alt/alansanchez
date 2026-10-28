@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `394bcdd0` (Netlify `6ae0f495e700c5fb8cdf3879`,
 entry 80): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-82); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-83); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1526,6 +1526,14 @@ session lived in the session's scratchpad and are gone; everything that matters 
    `decisions`, one document per room: approved / redo / keep, and a note). Each card: the painting as the game
    stretches it today left of a draggable line, the upscale right; 100% shows real pixels and pans. Nothing goes in
    until the user decides; then the approved ones go into the game for screens drawn above 1280 (render scale > 1).
+83. **The 2x room paintings in the game** (the user: "Just deploy what we have", with no decisions on the board: taken as
+   approval for all 33). `art/bg2x/<room>.jpg` (moved from art/review/bg2x; shipped); art/bg unchanged. engine.js
+   register: a screen drawn above 1280 px (render scale > 1, read before the art streams in) loads the room's upscale
+   from art/bg2x where `window.BG2X` (main.js) lists it; at RS 1 (a 1280 screen, Light effects, FAST) the paintings in
+   art/bg. `?bg2x=0` never uses them. Checked in Chromium: 1280x720 at pixel ratio 2 and 1920x1080 load
+   art/bg2x/shop.jpg (2560 wide), 1280x720 at ratio 1 and `?bg2x=0` art/bg/shop.jpg; 14 scenes at ratio 2 (shopjobs,
+   sepit, bath, visitcop, bench, fado, laundry, celeste, semuseum, romance, thursday, bastos, finalerace, coldopen)
+   with no errors; smoke intro, bench, sepit, visitcop, copbed pass; validate 0 errors.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
