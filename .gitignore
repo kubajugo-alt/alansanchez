@@ -49,3 +49,6 @@ art/review/ludo/*/true/
 sequel/art/canva/*.png
 # the sequel: voice auditions for casting (not part of the game): every round's folder
 /sequel/audio/auditions*/
+# Ludo.ai downloads for the sequel (sequel/scripts/ludo.py)
+/sequel/art/review/ludo/*/up/
+/sequel/art/review/ludo/*/true/

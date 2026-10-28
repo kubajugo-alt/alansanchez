@@ -47,7 +47,7 @@
         sip: 'vasco_coffee_sip', worried: 'vasco_worried', stern: 'vasco_stern', tender: 'vasco_tender', laugh: 'vasco_laugh', find: 'vasco_find', give: 'vasco_give',
         sit: 'vasco_sit', hand: 'vasco_hand_out', deflate: 'vasco_deflate' } } },
     carmen: S.ph('carmen', 0.92), carmen_field: S.ph('carmen_field', 0.92, null, 'carmen'), baute: S.ph('baute', 1.04), baute_dig: S.ph('baute_dig', 1.04, null, 'baute'),
-    rafa: S.ph('rafa', 1.0), yeray: S.ph('yeray', 0.98), nieves: S.ph('nieves', 0.9), chano: S.ph('chano', 0.9), pino: S.ph('pino', 0.82),
+    rafa: S.ph('rafa', 1.0), yeray: S.ph('yeray', 0.98), nieves: S.ph('nieves', 0.9), chano: S.ph('chano', 0.85), pino: S.ph('pino', 0.82),
     lolo: S.ph('lolo', 0.86), fermin: S.ph('fermin', 0.8), mercedes: S.ph('mercedes', 0.82), montesdeoca: S.ph('montesdeoca', 0.98),
     gail: S.ph('gail', 0.88), derek: S.ph('derek', 0.94), guard: S.ph('guard', 0.95), elena: S.ph('elena', 0.92), clerk: S.ph('clerk', 0.9),
     surfer: S.ph('surfer', 0.98),

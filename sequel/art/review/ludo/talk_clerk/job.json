@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "clerk_c",
+  "b": null,
+  "mid": null,
+  "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a polite airline check-in clerk",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "49ca9731-ec06-44a4-9f73-91a011cc1c15",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/69606824d1cfa1b477ea6a3f7435f626.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/5b398564adec26c3a1cad27e5d749438.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/997719de73996de30e2e358cd4edae35.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 9
+ }
+}

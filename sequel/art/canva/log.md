@@ -39,3 +39,5 @@
 - 2026-10-28 figure `alan_blazer` Canva media MAHZUqNBcR4 -> art/designs/alan_blazer.png outfit: navy brass-button blazer (short sleeves), black vest, jeans, white sneakers
 - 2026-10-28 figure `baute_brown` Canva media MAHZU3l9jr8 -> art/designs/baute_brown.png darker brown suit (from baute_c, media MAHZUl5tBFQ)
 - 2026-10-28 figure `chano_v2` Canva media MAHZU0Ovbn8 -> art/designs/chano_v2.png repaint in the cast's realistic style (Baute as style reference; an earlier try, MAHZU4S4h9s, was still cartoonish)
+- 2026-10-28 figure `alanv_back` Canva media MAHZU8wbuY4 -> art/designs/alanv_back.png back views, everyday outfit (for the walk away)
+- 2026-10-28 figure `alanb_back` Canva media MAHZU3A1XWw -> art/designs/alanb_back.png back views, blazer outfit

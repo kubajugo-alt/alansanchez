@@ -1,0 +1,388 @@
+{
+ "runs": [
+  {
+   "name": "talk_carmen",
+   "a": "carmen_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a reserved, dry archivist; small restrained gestures",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_baute",
+   "a": "baute2_k",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a precise, soft-spoken archaeologist; a measured hand gesture",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_chano",
+   "a": "chano2_k",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a cheerful newsagent chatting on his phone, shoulders shaking as he laughs, newspaper stays under his arm",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_clerk",
+   "a": "clerk_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a polite airline check-in clerk",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_derek",
+   "a": "derek_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a loud British tourist, broad gestures",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_fermin",
+   "a": "fermin_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a very old bell-ringer, slow small movements",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_gail",
+   "a": "gail_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a chatty older British woman, nodding",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_guard",
+   "a": "guard_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; an old bored museum guard, minimal movement",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_lolo",
+   "a": "lolo_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; an old fisherman, slow and tired",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_mercedes",
+   "a": "mercedes_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a brisk scholar, one hand explaining",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_montesdeoca",
+   "a": "montesdeoca_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a loud, pompous, self-satisfied rich man, big expansive gestures, chin up",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_nieves",
+   "a": "nieves_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; an elegant hotel receptionist, composed, small polite gestures",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_pino",
+   "a": "pino_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; an old woman, slow gentle gestures",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_rafa",
+   "a": "rafa_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a young painter and barman, animated and warm",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_surfer",
+   "a": "surfer_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a laid-back young surfer, relaxed loose gestures",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "talk_yeray",
+   "a": "yeray_c",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a gossipy young man, quick lively gestures",
+   "loop": true,
+   "frames": 25,
+   "duration": 3,
+   "what": "talk loop"
+  },
+  {
+   "name": "alanv_walk_side",
+   "a": "alanv_side_k",
+   "prompt": "walking to the right at an easy, natural pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "alanv_walk_front",
+   "a": "alanv_front_k",
+   "prompt": "walking towards the camera at an easy pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "alanv_talk_a",
+   "a": "alanv_side_k",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; warm and wry",
+   "loop": true,
+   "frames": 25,
+   "duration": 3
+  },
+  {
+   "name": "alanv_talk_b",
+   "a": "alanv_side_k",
+   "prompt": "talking while standing in place, one bigger explaining gesture with both hands, then back to rest, feet stay planted",
+   "loop": true,
+   "frames": 25,
+   "duration": 3
+  },
+  {
+   "name": "alanb_walk_side",
+   "a": "alanb_side_k",
+   "prompt": "walking to the right at an easy, natural pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "alanb_walk_front",
+   "a": "alanb_front_k",
+   "prompt": "walking towards the camera at an easy pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "alanb_talk_a",
+   "a": "alanb_side_k",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; warm and wry",
+   "loop": true,
+   "frames": 25,
+   "duration": 3
+  },
+  {
+   "name": "vasco_walk_side",
+   "a": "vascos_side_k",
+   "prompt": "walking to the right at an easy, natural pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "vasco_walk_front",
+   "a": "vascos_front_k",
+   "prompt": "walking towards the camera at an easy pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "vasco_talk_a",
+   "a": "vascos_side_k",
+   "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; warm and wry",
+   "loop": true,
+   "frames": 25,
+   "duration": 3
+  },
+  {
+   "name": "vasco_talk_b",
+   "a": "vascos_side_k",
+   "prompt": "talking while standing in place, one bigger explaining gesture with both hands, then back to rest, feet stay planted",
+   "loop": true,
+   "frames": 25,
+   "duration": 3
+  },
+  {
+   "name": "alanv_phone",
+   "a": "alanv_side_k",
+   "prompt": "lifts an old telephone receiver to his ear with his right hand, listens and talks, then lowers it again",
+   "loop": false,
+   "frames": 36,
+   "duration": 4
+  },
+  {
+   "name": "alanv_drink",
+   "a": "alanv_side_k",
+   "prompt": "lifts a small glass of rum with his right hand, takes a sip, lowers the glass again",
+   "loop": false,
+   "frames": 36,
+   "duration": 4
+  },
+  {
+   "name": "alanv_climb",
+   "a": "alanv_side_k",
+   "prompt": "reaches up with both hands, grips a high stone ledge and pulls himself up to climb it",
+   "loop": false,
+   "frames": 36,
+   "duration": 4
+  },
+  {
+   "name": "alanv_pull",
+   "a": "alanv_side_k",
+   "prompt": "reaches up with both hands, grips a hanging chain above him and pulls it down hard, then lets go",
+   "loop": false,
+   "frames": 36,
+   "duration": 4
+  },
+  {
+   "name": "alanv_write",
+   "a": "alanv_side_k",
+   "prompt": "takes a small notebook and pencil from his pocket, writes a few words, puts them away",
+   "loop": false,
+   "frames": 36,
+   "duration": 4
+  },
+  {
+   "name": "vasco_reach",
+   "a": "vascos_side_k",
+   "prompt": "crouches down, reaches towards the ground with one hand, then stands back up",
+   "loop": false,
+   "frames": 36,
+   "duration": 4
+  },
+  {
+   "name": "vasco_kneel",
+   "a": "vascos_side_k",
+   "prompt": "kneels down on one knee and looks closely at the ground in front of him",
+   "loop": false,
+   "frames": 36,
+   "duration": 4
+  },
+  {
+   "name": "vasco_trowel",
+   "a": "vascos_side_k",
+   "prompt": "kneels down and carefully scrapes the ground with a small archaeologist's trowel",
+   "loop": false,
+   "frames": 36,
+   "duration": 4
+  },
+  {
+   "name": "alanv_turn_side_front",
+   "a": "alanv_side_k",
+   "b": "alanv_front_k",
+   "loop": false,
+   "frames": 16,
+   "duration": 1,
+   "what": "turn: side (facing right) to facing the camera"
+  },
+  {
+   "name": "alanv_turn_side_left",
+   "a": "alanv_side_k",
+   "b": "alanv_side_k~",
+   "loop": false,
+   "frames": 16,
+   "duration": 1,
+   "what": "turn: facing right to facing left"
+  },
+  {
+   "name": "alanb_turn_side_front",
+   "a": "alanb_side_k",
+   "b": "alanb_front_k",
+   "loop": false,
+   "frames": 16,
+   "duration": 1,
+   "what": "turn: side (facing right) to facing the camera"
+  },
+  {
+   "name": "alanb_turn_side_left",
+   "a": "alanb_side_k",
+   "b": "alanb_side_k~",
+   "loop": false,
+   "frames": 16,
+   "duration": 1,
+   "what": "turn: facing right to facing left"
+  },
+  {
+   "name": "vasco_turn_side_front",
+   "a": "vascos_side_k",
+   "b": "vascos_front_k",
+   "loop": false,
+   "frames": 16,
+   "duration": 1,
+   "what": "turn: side (facing right) to facing the camera"
+  },
+  {
+   "name": "vasco_turn_side_left",
+   "a": "vascos_side_k",
+   "b": "vascos_side_k~",
+   "loop": false,
+   "frames": 16,
+   "duration": 1,
+   "what": "turn: facing right to facing left"
+  },
+  {
+   "name": "alanv_walk_back",
+   "a": "alanv_back_k",
+   "prompt": "walking away from the camera at an easy pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "alanv_turn_side_back",
+   "a": "alanv_side_k",
+   "b": "alanv_back_k",
+   "loop": false,
+   "frames": 16,
+   "duration": 1,
+   "what": "turn: side (facing right) to facing away"
+  },
+  {
+   "name": "alanb_walk_back",
+   "a": "alanb_back_k",
+   "prompt": "walking away from the camera at an easy pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "alanb_turn_side_back",
+   "a": "alanb_side_k",
+   "b": "alanb_back_k",
+   "loop": false,
+   "frames": 16,
+   "duration": 1,
+   "what": "turn: side (facing right) to facing away"
+  }
+ ]
+}

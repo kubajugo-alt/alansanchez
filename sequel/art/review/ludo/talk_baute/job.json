@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "baute2_k",
+  "b": null,
+  "mid": null,
+  "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a precise, soft-spoken archaeologist; a measured hand gesture",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "81f2809c-f307-46eb-ae00-8ae7f45ebcdc",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/3db1a9cf5feb7ac3455bd6ed5a2a4b7c.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/8255a192e5cac573dc8c148ada5a8caf.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/96b67d9416e38b5af2b9cbb42d63f53c.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 9
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "spec": {
+  "a": "chano2_k",
+  "b": null,
+  "mid": null,
+  "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a cheerful newsagent chatting on his phone, shoulders shaking as he laughs, newspaper stays under his arm",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "b2516cbc-9acd-4497-bc22-ffd1b2bcddbd",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/27d1ea147288e47750e6e27f234d65bb.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/fa416518039f2112179b2135b06c0efa.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/8244b5b5991ef2ce816d2ee3d8087ae3.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.25
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "522ee3d2-a2a1-4774-b675-e14f23daf947",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/f15666d48747708a66f05616f57c0255.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/6e1fd29603861bddebd341026f2f5406.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/7673791872f0d325ac84c06b3993b7e8.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.3333333333333335
+  },
+  "credits": 3
+ },
+ "model": "hydra"
+}
