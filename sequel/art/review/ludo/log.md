@@ -35,3 +35,8 @@
 | 2026-10-28 20:16 | improve | hydra | yeray_c | improve | sequel/art/review/ludo/talk_yeray/ | 3 |
 | 2026-10-28 20:17 | hydra | hydra | alanv_side_k | walking to the right at an easy, natural pace, a full walk cycle | sequel/art/review/ludo/alanv_walk_side/ | 9 |
 | 2026-10-28 20:19 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_walk_side/ | 3 |
+| 2026-10-28 20:20 | hydra | hydra | alanv_front_k | walking towards the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/alanv_walk_front/ | 9 |
+| 2026-10-28 20:21 | improve | hydra | alanv_front_k | improve | sequel/art/review/ludo/alanv_walk_front/ | 3 |
+| 2026-10-28 20:22 | hydra | hydra | alanv_side_k | talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; warm and wry | sequel/art/review/ludo/alanv_talk_a/ | 9 |
+| 2026-10-28 20:24 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_talk_a/ | 3 |
+| 2026-10-28 20:26 | hydra | hydra | alanb_side_k | walking to the right at an easy, natural pace, a full walk cycle | sequel/art/review/ludo/alanb_walk_side/ | 9 |

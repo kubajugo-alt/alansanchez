@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alanb_front_k",
+  "b": null,
+  "mid": null,
+  "prompt": "walking towards the camera at an easy pace, a full walk cycle",
+  "loop": true,
+  "duration": 3,
+  "frames": 36
+ }
+}

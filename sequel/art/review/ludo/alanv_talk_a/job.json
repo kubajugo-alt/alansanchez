@@ -1,0 +1,40 @@
+{
+ "spec": {
+  "a": "alanv_side_k",
+  "b": null,
+  "mid": null,
+  "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; warm and wry",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "5faffaf7-dba9-41d8-96bc-183d394c1838",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/c4b8d379bcd02cd8cf2cd45ed5f75125.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/8f66d8f87f4c6d6544debda5619714de.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/d0358f3b179159b056e449219b95af32.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "fd181f28-d0a5-4200-b497-8a31bf335df1",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/6217769cff0059a4d013be9bc179ed5d.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/7f379949c28edd703fa95f96807c8877.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/98d7804ed182a8c54abd27d078db5b8f.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 3
+ },
+ "model": "hydra"
+}

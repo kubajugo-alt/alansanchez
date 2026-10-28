@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "vascos_side_k",
+  "b": null,
+  "mid": null,
+  "prompt": "walking to the right at an easy, natural pace, a full walk cycle",
+  "loop": true,
+  "duration": 3,
+  "frames": 36
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alanv_side_k",
+  "b": null,
+  "mid": null,
+  "prompt": "talking while standing in place, one bigger explaining gesture with both hands, then back to rest, feet stay planted",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ }
+}
