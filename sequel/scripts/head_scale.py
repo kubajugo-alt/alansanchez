@@ -68,6 +68,41 @@ def preview(out):
     sheet.save(out); print(out, sheet.size)
 
 
+# who gets a larger head, and the runs that are theirs (the user, 2026-10-28: "Do head size 8%")
+HEADS = {'vasco': (1.08, ('vasco_',)), 'baute': (1.08, ('talk_baute',)), 'yeray': (1.08, ('talk_yeray',))}
+PAD = 16  # headroom added above every frame of a scaled run (sprite px), so the bigger head never meets the edge
+
+
+def scale_for(run):
+    for who, (k, pre) in HEADS.items():
+        if run.startswith(pre): return who, k
+    return None, 1.0
+
+
+def heads_of(ims, ref):
+    """A face box per frame: YuNet where it finds one (smoothed over the run), else the head placed from the top of the
+    figure (a back view, a turn): ref = (face height, the face box's top below the figure's top, its centre's offset)."""
+    boxes = [face(im) for im in ims]
+    fh, dtop = ref
+    out = []
+    for im, b in zip(ims, boxes):
+        if b is not None and abs(b[3] - fh) < 0.35 * fh: out.append(list(b[:4])); continue
+        a = np.asarray(im)[..., 3] > 40; ys = np.where(a.any(1))[0]; top = ys.min()
+        band = a[top:top + int(fh * 1.3)]; xs = np.where(band.any(0))[0]
+        cx = xs.mean() if len(xs) else im.width / 2
+        out.append([cx - fh * 0.45, top + dtop, fh * 0.9, fh])
+    sm = []
+    for i in range(len(out)):   # a light smoothing over neighbours, so the bulge doesn't jitter frame to frame
+        nb = [out[j] for j in (i - 1, i, i + 1) if 0 <= j < len(out)]
+        sm.append([float(np.median([b[c] for b in nb])) for c in range(4)])
+    return sm
+
+
+def ref_of(im):
+    b = face(im); a = np.asarray(im)[..., 3] > 40; top = np.where(a.any(1))[0].min()
+    return (b[3], b[1] - top)
+
+
 if __name__ == '__main__':
     if sys.argv[1:2] == ['preview']: preview(sys.argv[2])
     else: sys.exit(__doc__)

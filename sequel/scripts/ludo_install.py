@@ -13,12 +13,15 @@ import glob, json, os, re, shutil, subprocess, sys
 
 SEQ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(SEQ, 'scripts'))
-import ludo_measure
+import ludo_measure, head_scale
+from PIL import Image
 
 L = os.path.join(SEQ, 'art/review/ludo')
 SPR = os.path.join(SEQ, 'art/sprites')
 # measured by eye where the feet test misreads (scripts/ludo_measure.py): Vasco's side walk is two steps a loop
 FIX = {'vasco_walk_side': {'steps': 2, 'step': 0.0162}}
+TALK = {'vasco': 'vasco_talk_a', 'baute': 'talk_baute', 'yeray': 'talk_yeray'}  # where each scaled head is measured
+REF = {}
 
 
 def canva_meta():
@@ -40,10 +43,19 @@ if __name__ == '__main__':
         n = r['name']; fit = json.load(open(os.path.join(L, n, 'fit.json'))); m = fit['meta']
         fl = bool((src.get(r['a']) or {}).get('facesLeft'))
         keys = []
-        for i, f in enumerate(sorted(glob.glob(os.path.join(L, n, 'fit', 'f*.webp')))):
-            k = f'{n}_{i:02d}'; keys.append(k)
-            shutil.copyfile(f, os.path.join(SPR, k + '.webp'))
-            sprites[k] = dict(m, **({'facesLeft': True} if fl else {}))
+        files = sorted(glob.glob(os.path.join(L, n, 'fit', 'f*.webp')))
+        who, k = head_scale.scale_for(n)
+        if who:   # a larger head (scripts/head_scale.py): the frames get headroom on top, so the box grows by PAD
+            ims = [Image.open(f).convert('RGBA') for f in files]
+            ref = REF.get(who) or REF.setdefault(who, head_scale.ref_of(Image.open(os.path.join(L, TALK[who], 'fit', 'f00.webp')).convert('RGBA')))
+            boxes = head_scale.heads_of(ims, ref)
+            P = head_scale.PAD
+            m = dict(m, hh=m['hh'] + P, fy=round(m['fy'] + P, 1), top=round(m['top'] + P, 1))
+        for i, f in enumerate(files):
+            key = f'{n}_{i:02d}'; keys.append(key)
+            if who: head_scale.grow(ims[i], boxes[i], k, head_scale.PAD).save(os.path.join(SPR, key + '.webp'), 'WEBP', quality=90, method=6)
+            else: shutil.copyfile(f, os.path.join(SPR, key + '.webp'))
+            sprites[key] = dict(m, **({'facesLeft': True} if fl else {}))
         ludo[n] = dict({'frames': keys, 'fps': fit['fps']}, **meas.get(n, {}))
     out = os.path.join(SEQ, 'js/sprites_ludo.js')
     with open(out, 'w') as f:
