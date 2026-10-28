@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alanb_back_k",
+  "b": null,
+  "mid": null,
+  "prompt": "walking away from the camera at an easy pace, a full walk cycle",
+  "loop": true,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "f9072db3-0af4-4d50-809e-8d22ec39d11e",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/3147e1a0a42908d05916a3a8fbb41df4.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/b5bf3efd9e9b3c4550a93fb7cbe6a50f.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/63c29693a82818ccc50e73458332d373.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.125
+  },
+  "credits": 9
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alanb_side_k",
+  "b": "alanb_back_k",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 1,
+  "frames": 16
+ }
+}

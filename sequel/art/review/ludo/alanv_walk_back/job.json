@@ -1,0 +1,40 @@
+{
+ "spec": {
+  "a": "alanv_back_k",
+  "b": null,
+  "mid": null,
+  "prompt": "walking away from the camera at an easy pace, a full walk cycle",
+  "loop": true,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "2cc5d4f7-fd47-484f-b525-de887fa7bde3",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/6758a80aad75b2841c12770d48a96cb4.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/0b24e584f0eb797d15d6f87ee64be90c.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/b454255e47d0674db1922e7130f9d9ef.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.125
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "f649c6e9-b337-4b0d-9a1d-2e5b3ac85dbb",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/f7255b856aa0a86e2439c3cc5c9fd9d1.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/475886e427ddc222063ea93a31ac6c3b.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/c9b7d6f798b889450a77e55345076700.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.2083333333333335
+  },
+  "credits": 3
+ },
+ "model": "hydra"
+}

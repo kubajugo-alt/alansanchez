@@ -302,7 +302,7 @@
    "b": "alanv_front_k",
    "loop": false,
    "frames": 16,
-   "duration": 1,
+   "duration": 3,
    "what": "turn: side (facing right) to facing the camera"
   },
   {
@@ -311,7 +311,7 @@
    "b": "alanv_side_k~",
    "loop": false,
    "frames": 16,
-   "duration": 1,
+   "duration": 3,
    "what": "turn: facing right to facing left"
   },
   {
@@ -320,7 +320,7 @@
    "b": "alanb_front_k",
    "loop": false,
    "frames": 16,
-   "duration": 1,
+   "duration": 3,
    "what": "turn: side (facing right) to facing the camera"
   },
   {
@@ -329,7 +329,7 @@
    "b": "alanb_side_k~",
    "loop": false,
    "frames": 16,
-   "duration": 1,
+   "duration": 3,
    "what": "turn: facing right to facing left"
   },
   {
@@ -338,7 +338,7 @@
    "b": "vascos_front_k",
    "loop": false,
    "frames": 16,
-   "duration": 1,
+   "duration": 3,
    "what": "turn: side (facing right) to facing the camera"
   },
   {
@@ -347,7 +347,7 @@
    "b": "vascos_side_k~",
    "loop": false,
    "frames": 16,
-   "duration": 1,
+   "duration": 3,
    "what": "turn: facing right to facing left"
   },
   {
@@ -364,7 +364,7 @@
    "b": "alanv_back_k",
    "loop": false,
    "frames": 16,
-   "duration": 1,
+   "duration": 3,
    "what": "turn: side (facing right) to facing away"
   },
   {
@@ -381,7 +381,7 @@
    "b": "alanb_back_k",
    "loop": false,
    "frames": 16,
-   "duration": 1,
+   "duration": 3,
    "what": "turn: side (facing right) to facing away"
   },
   {
@@ -398,7 +398,7 @@
    "b": "vascos_back_k",
    "loop": false,
    "frames": 16,
-   "duration": 1,
+   "duration": 3,
    "what": "turn: side (facing right) to facing away"
   }
  ]

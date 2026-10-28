@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "vascos_back_k",
+  "b": null,
+  "mid": null,
+  "prompt": "walking away from the camera at an easy pace, a full walk cycle",
+  "loop": true,
+  "duration": 3,
+  "frames": 36
+ }
+}
