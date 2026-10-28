@@ -139,3 +139,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    and Baute (`audio/auditions3/`, git-ignored). `scripts/generate-voices.mjs` (Game I's, adapted: key from the root
    `.env`, three at a time with retries, phone lines kept as recorded in `audio/voice_src/`, export-ignored) voices
    every cast line; uncast speakers are skipped.
+9. **Round three for the five uncast** (2026-10-28, the user: "The ones with no pick need a recast"): Carmen and Baute
+   get three ElevenLabs-designed voices each (Canarian, English with a Spanish accent; not saved to the library until
+   picked: carmen design1 `GhyBdqsIvAGNSpyNRTdC`, design2 `HU9N964ywaofdGh6HHgH`, design3 `HdVh6Zcztnh4Iguc42RY`;
+   baute design1 `K5ecvsRKoGewJWrAyhjW`, design2 `A0wQA5zZT8tE7GxqbZXG`, design3 `j6XSdsqSikGnqQ1XhLA1`; save the
+   picked one with the connector's `creative_save_designed_voice`), plus library voices for all five. Files in
+   `audio/auditions3/` (git-ignored); the audition page now shows only these five.
