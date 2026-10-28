@@ -95,3 +95,9 @@
 | 2026-10-28 22:09 | hydra | hydra | alanv_side_k -> alanv_side_k~ |  | sequel/art/review/ludo/alanv_turn_side_left/ | 9 |
 | 2026-10-28 22:10 | improve | hydra | alanv_side_k -> alanv_side_k~ | improve | sequel/art/review/ludo/alanv_turn_side_left/ | 3 |
 | 2026-10-28 22:11 | improve | hydra | vascos_side_k -> vascos_front_k | improve | sequel/art/review/ludo/vasco_turn_side_front/ | 3 |
+| 2026-10-28 23:00 | hydra | hydra | vascos_side_k | talking while standing in place, one explaining gesture with his hands, then back to rest, feet stay planted; his face stays exactly the same man throughout, same features, same dark curly hair and light stubble, keeps his head in profile, only the mouth, eyes and hands move | sequel/art/review/ludo/vasco_talk_b/ | 9 |
+| 2026-10-28 23:00 | hydra | hydra | alanv_side_k | reaches up with both hands just above his head, grips a chain there and pulls it down hard to chest height, then lets go; his hands stay in the picture the whole time; only him in the picture, no chain or objects drawn | sequel/art/review/ludo/alanv_pull/ | 12 |
+| 2026-10-28 23:01 | hydra | hydra | alanv_side_k | mimes climbing up onto something: reaches up with both hands, grips above his head, pulls himself up and steps up with one knee; only him in the picture, no ledge, no wall, no rock, no objects at all | sequel/art/review/ludo/alanv_climb/ | 12 |
+| 2026-10-28 23:01 | improve | hydra | vascos_side_k | improve | sequel/art/review/ludo/vasco_talk_b/ | 3 |
+| 2026-10-28 23:03 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_pull/ | 4 |
+| 2026-10-28 23:03 | improve | hydra | alanv_side_k | improve | sequel/art/review/ludo/alanv_climb/ | 4 |
