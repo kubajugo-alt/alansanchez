@@ -55,6 +55,12 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
   accent, and falls back to general American. Never British for anyone but Gail and Derek.
 - **Gail and Derek are the exception**: working-class British English voices.
 - **No designed voices** (2026-10-28, the user: "Don't design voices"): cast only from the ElevenLabs voice library.
+- **The accent comes from the language setting** (2026-10-28, the user: "When I choose this voice myself, set up to
+  Spanish, but I add english text to generate - this voice fully sounds like a clearly spanish person speaking
+  english... When you do them - they sound like native english speakers"). The app's language choice is the API's
+  `language_code`; every request so far sent English text with none, so the model read it as English. Spanish-accented
+  characters need `"language_code": "es"` on every request (all five models accept it). Which model matches the app is
+  the user's call from the samples.
 - The voice ids for the sequel go in their own cast file under `sequel/scripts/`, never in Game I's.
 
 ### Open, in the order I'd suggest
@@ -202,3 +208,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     1–5; the designed voices are left out (the user's "Don't design voices"). Few new voices with a Spanish accent were
     left in the library: Leoni (Carmen), Johi (Baute), Leo (Rafa), Lilith (Nieves; was an Elena option), Carlos
     (Guardia 1). Tuesday's redeploy is waiting on the user's go-ahead.
+19. **Why the voices sounded British: the language setting** (2026-10-28). Jimena (`7k6n1AfTEk6nYLMpXMOM`) sampled
+    for Carmen without it (her line twice, her steps scene), then with `language_code: "es"` on v4, v3, multilingual v2,
+    flash v2.5 and turbo v2.5 (`audio/auditions7/`, git-ignored). Waiting on the user's ear: which model, then recast
+    with the setting on.
