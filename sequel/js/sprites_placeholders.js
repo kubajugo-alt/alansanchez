@@ -515,4 +515,4 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "w": 300
 }
 });
-window.PLACEHOLDER_ART = {"bg": [], "stills": ["still_arrival", "still_bad_ending", "still_caught", "still_chain", "still_cloud_climb", "still_fight", "still_fireworks", "still_isleta_flood", "still_love_1", "still_love_2", "still_mist", "still_pepe", "still_rafa_drawing", "still_rafa_night", "still_road_down", "still_sunrise", "still_vault_dark"]};
+window.PLACEHOLDER_ART = {"bg": [], "stills": ["still_bad_ending", "still_caught", "still_chain", "still_cloud_climb", "still_fight", "still_fireworks", "still_isleta_flood", "still_love_1", "still_love_2", "still_mist", "still_pepe", "still_rafa_drawing", "still_rafa_night", "still_road_down", "still_sunrise", "still_vault_dark"]};
