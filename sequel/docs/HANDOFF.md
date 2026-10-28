@@ -244,3 +244,8 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     v3 directions ([laughs heartily], [proudly], [smug]...). Parrot ("still not right"): three takes from the
     sound-effects endpoint (`/v1/sound-generation`, a generated parrot saying "Cristóbal"), and two cartoon voices,
     plain and pitched up. `audio/auditions12/` (git-ignored).
+25. **Montesdeoca and the parrot cast; the cast is complete** (2026-10-28). Montesdeoca Ivan (loud, eccentric,
+    dramatic), v3 + `es`, 7 lines re-recorded. Parrot Snorre on v3 + `es` with an effect: `cast.json` voices can now
+    carry `fx` (an ffmpeg filter; the raw take goes to `audio/voice_src/`), here pitched up and thinned. Its line now
+    reads "[squawks] ¡Cristóbal! [squawks] ¡Cristóbal!" (captions hide the brackets); the file is the exact take the
+    user picked. Play test: won, 98 steps, no errors.

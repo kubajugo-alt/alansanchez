@@ -69,6 +69,11 @@ async function one(j) {
       const raw = path.join(srcDir, j.id + '.mp3');
       fs.writeFileSync(raw, buf);
       execFileSync('bash', [path.join(root, 'scripts', 'phone_fx.sh'), raw, j.file, cast.phone.preset]);
+    } else if (j.voice.fx) {
+      // a voice with its own effect (the parrot: pitched up and thinned) is saved raw, then filtered
+      const raw = path.join(srcDir, j.id + '.mp3');
+      fs.writeFileSync(raw, buf);
+      execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', raw, '-af', j.voice.fx, j.file]);
     } else fs.writeFileSync(j.file, buf);
     done++; if (done % 25 === 0) console.log(`✓ ${done}/${jobs.length}`);
     return;

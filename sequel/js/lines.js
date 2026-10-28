@@ -598,7 +598,7 @@ window.LINES = {
   alan_bye_mercedes: ['alan', "Thank you, Señora Quintana."],
   mercedes_bye: ['mercedes', "Upstairs, Mr. Sanches. Sleep upstairs."],
   alan_look_parrot: ['alan', "A parrot in the courtyard. It looks at me as if it's heard about me."],
-  parrot_squawk: ['parrot', "¡Cristóbal! ¡Cristóbal!"],
+  parrot_squawk: ['parrot', "[squawks] ¡Cristóbal! [squawks] ¡Cristóbal!"],
   alan_look_colon_shelves: ['alan', "Manuscripts about Columbus, who stopped here on the way to discovering that somebody was already there."],
   alan_look_colon_balcony: ['alan', "A carved wooden balcony over a courtyard of palms. Even the shade is old here."],
   narr_dinner: ['narr', "Thursday evening. El Museo Canario's fundraising dinner: tablecloths, candles, sponsors, and the expedition's new specialist, presenting."],
