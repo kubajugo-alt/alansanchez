@@ -54,12 +54,15 @@ try {
   await act('gail', 'talk'); // (Gail's story alone is enough to claim the blazer: the box is never examined)
   await act('nieves', 'talk', null, ['lost a blazer', 'A cigar band']);
   await expect('the blazer', () => Game.has('blazer'));
-  await go('museum_hall'); await act('baute', 'talk'); await act('carmen', 'talk'); await act('Out to Vegueta', 'exit');
-  await expect('the mist', () => Game.flags.mist_seen && Game.room.id === 'canteras');
-  await act('chano', 'talk', null, ['five-thousand']);
+  // (the novel's order: Chano's change and the first call to Inês before the reception)
+  await go('canteras'); await act('chano', 'talk');
   await expect('coins', () => Game.has('coins'));
   await act('Phone box', 'use');
   await expect('the first call', () => Game.flags.called_tue);
+  await go('museum_hall'); await act('baute', 'talk'); await act('carmen', 'talk'); await act('Out to Vegueta', 'exit');
+  await expect('the walk and the mist', () => Game.flags.mist_seen && Game.room.id === 'canteras');
+  await act('Phone box', 'use');
+  await expect('the midnight call', () => Game.flags.called_tue2);
   await act('Hotel Cristina', 'exit'); await act('Lifts', 'exit');
   await expect('Wednesday', () => Game.flags.ch === 2);
   // ---- Wednesday

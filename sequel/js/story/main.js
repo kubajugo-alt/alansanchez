@@ -38,8 +38,8 @@
     prologue: { flags: { ch: 0 }, room: 'gando', pos: [200, 660, 'e'], run: () => S.prologue() },
     tue: { flags: { ch: 1 }, room: 'gando', pos: [200, 660, 'e'], run: async () => {} },
     lobby: { flags: { ch: 1, met_vasco: true, jacket_needed: true }, room: 'hotel_lobby', pos: [300, 660, 'e'], run: async () => { S.give('note5000', true); } },
-    reception: { flags: { ch: 1, met_vasco: true, blazer_got: true, blazer_on: true }, room: 'museum_hall', pos: [200, 660, 'e'], run: async () => { S.give('blazer', true); S.give('note5000', true); } },
-    mist: { flags: { ch: 1, met_vasco: true, blazer_got: true, reception_done: true, met_baute: true, met_carmen: true }, room: 'canteras', pos: [640, 660, 'e'], run: async () => { S.give('note5000', true); await G.busy(() => S.mistScene()); } },
+    reception: { flags: { ch: 1, met_vasco: true, blazer_got: true, blazer_on: true, called_tue: true }, room: 'museum_hall', pos: [200, 660, 'e'], run: async () => { S.give('blazer', true); S.give('note5000', true); } },
+    mist: { flags: { ch: 1, met_vasco: true, blazer_got: true, called_tue: true, reception_done: true, met_baute: true, met_carmen: true, narr_canteras: true }, room: 'canteras', pos: [640, 660, 'e'], run: async () => { F().coins = 3; S.give('coins', true); await S.walkTue(); } },
     wed: { flags: { ch: 2, tue_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: async () => { F().coins = 3; S.give('coins', true); } },
     belfry: { flags: { ch: 2, clock_key: true, fermin_met: true }, room: 'belfry', pos: [400, 660, 'e'], run: async () => {} },
     thu: { flags: { ch: 3, wed_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: async () => { F().coins = 3; S.give('coins', true); S.give('letter', true); S.give('galindo', true); } },
@@ -111,7 +111,7 @@
       G.endStill();
       await S.day(1);
       await G.fade(false);
-      await say('narr_tue_1', 'alan_t_land');
+      await say('narr_tue_1', 'narr_t_gando_2', 'alan_t_land');
     });
     G.autosave();
   }

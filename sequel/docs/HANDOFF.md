@@ -177,3 +177,20 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
 16. **Redeployed with the blazer fix** (2026-10-28, the user: "yes, redeploy"). Same procedure (clean export, smoke test
     won); deploy 6ae15cf0e0cb1431fa4c4192. Live: the fixed tue.js served; `/.env`, `/scripts/`, `/audio/voice_src/` 404;
     `play.mjs` on the live site claims the blazer from Gail's story alone and wins.
+17. **Tuesday rewritten from the novel** (2026-10-28, the user: "The game's dialogue is flat and rushed compared with the
+    novel. The novel is now the tone reference... rewrite the game's dialogue day by day... Do Tuesday first and stop so
+    I can play it"). The novel is `docs/novel/the-shortest-night.md` and the new bible `docs/story-bible.md` (its
+    "Dialogue and atmosphere" section: the ten rules, the voice sheet, the chapter-to-scene map). Tuesday now follows
+    Chapter One in order: Gando (Vasco radiant, the kiss, "My trousers are not entirely here", Rayco, the drive under the
+    panza de burro, "Thursday, perhaps"); the hotel (Nieves's eyebrow, the box of German jackets; the blazer puzzle kept,
+    "Very elegant"); Chano's change and secret ("My knees can tell"); the first call (Pessoa and the Eça, the surfers,
+    "Don't break anything", the money runs out); the reception (narrated arrival, the skulls, Baute's grandmother and
+    the swimming pool; Carmen on the steps, the lighter's three tries, "I'm outside a party"); the walk, the bonfire for
+    San Juan, the mist told in the novel's prose; the midnight call ("It's here. It's come for me."); the night (the
+    Eça again, "Take off that terrible jacket", the sneezing lift; the day closes on "waiting for Sunday").
+    Mechanics: action beats are narrator lines and sound effects, never brackets (captions strip brackets, but the
+    voice model would read them as directions); narrator lines on first entry (`narr_hotel_lobby`, `narr_canteras`,
+    `narr_museum_hall` flags); calls can open directly and end without "What now?" (`S.CALLS` 4th field); a second
+    Tuesday call (`called_tue2`) gates the lift; the museum opens after the first call. 58 lines rewritten (same ids,
+    re-recorded), 114 new, 5 removed (`alan_t_lobby_1/2`, `vasco_t_lobby_2`, `chano_note`, `alan_mist_1`). Checked:
+    validate 0 errors; `play.mjs` (new Tuesday route) won, 98 steps; every line voiced with the cast.

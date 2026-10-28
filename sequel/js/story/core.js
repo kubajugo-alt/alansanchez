@@ -141,7 +141,7 @@
     PIN('hotel_lobby', 706, 470, 'Hotel Cristina', () => F().ch >= 1 && F().ch <= 6),
     PIN('isleta', 418, 316, 'La Isleta · the fishermen\'s quay', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().fax_read && !F().isleta_flood)),
     PIN('museum_hall', 1156, 238, () => F().ch === 1 ? 'El Museo Canario · the reception, 8 pm' : F().ch === 3 && S.dinnerDue() ? 'El Museo Canario · the fundraising dinner' : 'El Museo Canario · Vegueta',
-      () => (F().ch === 1 && G.has('blazer') && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained)),
+      () => (F().ch === 1 && G.has('blazer') && F().called_tue && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained)),
     PIN('santa_ana', 1166, 218, 'Plaza de Santa Ana · the cathedral', () => F().ch >= 2 && F().ch <= 4),
     PIN('colon', 1138, 225, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read),
     PIN('rafa_bar', 1145, 232, 'Vegueta · a bar on Calle Mendizábal', () => F().ch === 4 && F().cave_explained && !F().rafa_night),
@@ -152,7 +152,7 @@
   S.pinLabelAt = m => { const o = S.PIN_LABEL[m.id]; return o ? [m.x + o[0], m.y + o[1]] : [m.x, m.y - 14]; };
   S.pinNext = () => {
     const f = F();
-    if (f.ch === 1) return !G.has('blazer') ? 'hotel_lobby' : !f.reception_done ? 'museum_hall' : !f.called_tue ? 'canteras' : 'hotel_lobby';
+    if (f.ch === 1) return !G.has('blazer') && !f.reception_done ? 'hotel_lobby' : !f.called_tue ? 'canteras' : !f.reception_done ? 'museum_hall' : !f.called_tue2 ? 'canteras' : 'hotel_lobby';
     if (f.ch === 3 && S.dinnerDue()) return 'museum_hall';
     if (f.ch === 4) return !f.cave_explained ? 'museum_hall' : 'rafa_bar';
     if (f.ch === 5 && f.fax_read && !f.isleta_flood) return 'isleta';
@@ -181,14 +181,28 @@
   // ---------------------------------------------------------------- the phone box: calls to Inês
   // Every call costs a 100-peseta coin; Chano at the kiosk always has change, with gossip. Inês is the hint system:
   // the day's news first (a call that's due), then "What now?".
-  S.CALLS = [ // [flag, when, lines]: the calls the story needs, in order
-    ['called_tue', () => F().ch === 1 && F().mist_seen, () => S.callTue()],
+  S.CALLS = [ // [flag, when, lines, how]: the calls the story needs, in order. how.direct: the call opens on its own
+    // first line, not Inês's hello; how.hangup: it ends when the money or the line runs out, with no "What now?"
+    ['called_tue', () => F().ch === 1 && F().blazer_got && !F().reception_done, () => S.callTue1(), { direct: true, hangup: true }],
+    ['called_tue2', () => F().ch === 1 && F().mist_seen, () => S.callTue(), { direct: true, hangup: true }],
     ['called_wed', () => F().ch === 2 && F().fermin_letter, () => S.callWed()],
     ['called_thu', () => F().ch === 3, () => S.callThu()],
     ['called_fri', () => F().ch === 4 && F().fight_done, () => S.callFri()],
     ['called_sat', () => F().ch === 5 && F().rafa_truth, () => S.callSat()],
   ];
-  S.callTue = () => say('alan_call_tue_1', 'ines_call_tue_1', 'alan_call_tue_2', 'ines_call_tue_2', 'alan_call_tue_3', 'ines_call_tue_3');
+  // Tuesday, before the reception: Pessoa and the Eça, the surfers, "Don't break anything"; and the money runs out
+  S.callTue1 = async () => {
+    await say('ines_t_eca_1', 'alan_t_call_1', 'ines_t_eca_2', 'alan_t_call_2', 'ines_t_eca_3', 'alan_t_call_3', 'ines_t_eca_4', 'narr_t_surfers',
+      'alan_t_call_4', 'ines_t_what', 'alan_t_call_5', 'ines_t_alan', 'alan_t_call_6', 'ines_t_jealous', 'alan_t_call_7', 'ines_t_party', 'alan_t_call_8', 'ines_t_dontknow');
+    S.sfx('beep', 0.5); await S.T(400);
+    await say('narr_t_money');
+  };
+  // Tuesday, midnight: "It's here. It's come for me." And the line goes dead.
+  S.callTue = async () => {
+    await say('alan_call_tue_1', 'ines_call_tue_1', 'alan_call_tue_2', 'ines_call_tue_2', 'alan_call_tue_3', 'alan_call_tue_3b', 'ines_call_tue_3b',
+      'ines_call_tue_3', 'alan_call_tue_4', 'ines_call_tue_4', 'alan_call_tue_5', 'ines_call_tue_5', 'alan_call_tue_6', 'ines_call_tue_6', 'alan_call_tue_7');
+    S.sfx('dial_tone', 0.4); await S.T(600);
+  };
   S.callWed = () => say('alan_call_wed_1', 'ines_call_wed_1', 'alan_call_wed_2', 'ines_call_wed_2');
   S.callThu = () => say('ines_call_thu_1', 'alan_call_thu_1', 'ines_call_thu_2', 'alan_call_thu_2', 'ines_call_thu_3', 'alan_call_thu_3', 'ines_call_thu_4');
   S.callFri = () => say('ines_call_fri_1', 'alan_call_fri_1', 'ines_call_fri_2', 'alan_call_fri_2', 'ines_call_fri_3');
@@ -203,8 +217,10 @@
     S.sfx('payphone_coins', 0.7); await S.T(500); S.sfx('phone_dial', 0.5); await S.T(1400);
     const due = S.callDue();
     await S.posed('phone', async () => {
-      await say('ines_hello');
+      const how = (due && due[3]) || {};
+      if (!how.direct) await say('ines_hello');
       if (due) { f[due[0]] = true; await due[2](); }
+      if (how.hangup) return;
       await G.dialog([
         { line: 'alan_ask_ines_now', run: () => say(S.hint()) },
         { line: 'alan_ask_ines_pessoa', once: true, run: () => say(PESSOA[(f.pessoa_n = ((f.pessoa_n || 0) + 1)) % PESSOA.length]) },
@@ -221,6 +237,7 @@
     switch (f.ch) {
       case 1:
         if (!has('blazer') && !f.reception_done) return f.gail_hint ? 'ines_hint_nieves' : 'ines_hint_jacket';
+        if (!f.called_tue) return 'ines_hint_call_first';
         if (!f.reception_done) return 'ines_hint_reception';
         return 'ines_hint_hotel';
       case 2:
@@ -249,7 +266,7 @@
   const PAPER = 'close:paper_aged';
   S.NOTES = [
     // [when, text]: everything Alan has written down, in story order
-    [f => f.mist_seen, 'Tue. Black mist at dusk on Las Canteras, <i>against</i> the wind. It smells of the cistern. It\'s back. (Told Inês. Not Vasco.)'],
+    [f => f.mist_seen, 'Tue. A black mist on the sea at Las Canteras, coming in <i>against</i> the wind. It smells of the cistern. It\'s back. (Told Inês. Not Vasco. Tomorrow.)'],
     [f => f.saw_helmet, 'Wed. Doña Pino\'s nets brought up a helmet from 1478. The sea is emptying its pockets.'],
     [f => f.saw_disc_list, 'Wed. Museum conservation list: obsidian discs removed from Cave 6, one a day. Disc 2 today.'],
     [f => f.fermin_letter, 'Wed. Santa Ana has a bell with our mark on it. 1751. The founders were here. A sealed letter "for the next founder who comes". (Faxed to Inês: 18th-century Portuguese, faded.)'],
