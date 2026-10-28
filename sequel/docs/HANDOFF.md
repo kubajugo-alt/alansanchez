@@ -174,3 +174,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     the box offers it (`tue.js`). `play.mjs` now takes that route (Gail only, the box never examined): won, 97 steps.
     Saves keep working: the flag Gail sets (`gail_hint`) was already saved. Not deployed (the live site has the bug
     until the next deploy).
+16. **Redeployed with the blazer fix** (2026-10-28, the user: "yes, redeploy"). Same procedure (clean export, smoke test
+    won); deploy 6ae15cf0e0cb1431fa4c4192. Live: the fixed tue.js served; `/.env`, `/scripts/`, `/audio/voice_src/` 404;
+    `play.mjs` on the live site claims the blazer from Gail's story alone and wins.
