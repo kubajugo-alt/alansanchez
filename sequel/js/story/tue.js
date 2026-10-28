@@ -381,14 +381,14 @@
     name: 'Las Canteras · the beach', bg: 'beach', floor: 'sand', ambience: () => 'harbour',
     animBack(g, t) {
       // the panza de burro sliding in off the sea, gulls over the surf
-      drift(g, t, 'beach', [[0, 0, 1280, 112], [620, 112, 660, 180], [[620, 292], [900, 292], [1280, 335], [1280, 292]]], { speed: 5, a: 0.4, seed: 17 });
+      drift(g, t, 'beach', [[[0, 0], [1280, 0], [1280, 300], [900, 292], [700, 285], [620, 272], [600, 256], [500, 246], [430, 238], [400, 208], [350, 193], [280, 183], [250, 168], [200, 138], [150, 116], [70, 110], [58, 40], [0, 28]]], { speed: 5, a: 0.4, seed: 17 });
       FX.birds(g, t, { y0: 80, y1: 250, n: 3, period: 22, color: 'rgba(52,54,56,0.55)', size: 5, x0: 500, x1: 1300 });
       // the sea between the boards rolling, the swash running up the sand and back
       FX.ripple(g, im(), [382, 348, 520, 120], t * 0.6, 1.2, 0.18); FX.ripple(g, im(), [1112, 348, 168, 138], t * 0.6, 1.2, 0.18);
       foam(g, t, [[[370, 393], [455, 405], [540, 418], [615, 428], [690, 437], [765, 445], [840, 452], [902, 458]], [[1112, 478], [1200, 483], [1280, 488]]], { per: 9, reach: 6, a: 0.22, w: 2.4 });
       // the beach umbrella's skirt and the palms along the promenade
       FX.sway(g, im(), [62, 334, 240, 84], t * 0.9, 0.8, 0);
-      FX.sway(g, im(), [0, 30, 68, 130], t * 0.5, 1, 0.6, true); FX.sway(g, im(), [168, 160, 80, 95], t * 0.5, 0.9, 1.4, true); FX.sway(g, im(), [330, 225, 60, 70], t * 0.5, 0.8, 2.2, true);
+      FX.sway(g, im(), [168, 160, 80, 95], t * 0.5, 0.9, 1.4, true); FX.sway(g, im(), [330, 225, 60, 70], t * 0.5, 0.8, 2.2, true);
     },
     entries: { default: [200, 665, 'e'], canteras: [200, 665, 'e'] },
     ambient: [

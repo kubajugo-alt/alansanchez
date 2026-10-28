@@ -1,0 +1,233 @@
+{
+ "name": "vasco_walk_back",
+ "kind": "walk",
+ "frames": 36,
+ "fps": 12,
+ "meta": {
+  "w": 261,
+  "hh": 727,
+  "h": 720.0,
+  "ax": 96.5,
+  "fy": 725.0,
+  "top": 5.4
+ },
+ "flagged": 0,
+ "checks": [
+  {
+   "i": 0,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 1,
+   "height": 1.001,
+   "feet_drift": 0.014,
+   "flag": false
+  },
+  {
+   "i": 2,
+   "height": 0.997,
+   "feet_drift": 0.013,
+   "flag": false
+  },
+  {
+   "i": 3,
+   "height": 0.993,
+   "feet_drift": 0.013,
+   "flag": false
+  },
+  {
+   "i": 4,
+   "height": 0.984,
+   "feet_drift": 0.014,
+   "flag": false
+  },
+  {
+   "i": 5,
+   "height": 0.987,
+   "feet_drift": 0.024,
+   "flag": false
+  },
+  {
+   "i": 6,
+   "height": 0.977,
+   "feet_drift": 0.003,
+   "flag": false
+  },
+  {
+   "i": 7,
+   "height": 0.968,
+   "feet_drift": 0.042,
+   "flag": false
+  },
+  {
+   "i": 8,
+   "height": 0.979,
+   "feet_drift": 0.051,
+   "flag": false
+  },
+  {
+   "i": 9,
+   "height": 0.982,
+   "feet_drift": 0.057,
+   "flag": false
+  },
+  {
+   "i": 10,
+   "height": 0.986,
+   "feet_drift": 0.083,
+   "flag": false
+  },
+  {
+   "i": 11,
+   "height": 0.986,
+   "feet_drift": 0.084,
+   "flag": false
+  },
+  {
+   "i": 12,
+   "height": 0.984,
+   "feet_drift": 0.085,
+   "flag": false
+  },
+  {
+   "i": 13,
+   "height": 0.984,
+   "feet_drift": 0.088,
+   "flag": false
+  },
+  {
+   "i": 14,
+   "height": 0.987,
+   "feet_drift": 0.096,
+   "flag": false
+  },
+  {
+   "i": 15,
+   "height": 0.982,
+   "feet_drift": 0.098,
+   "flag": false
+  },
+  {
+   "i": 16,
+   "height": 0.976,
+   "feet_drift": 0.072,
+   "flag": false
+  },
+  {
+   "i": 17,
+   "height": 0.969,
+   "feet_drift": 0.05,
+   "flag": false
+  },
+  {
+   "i": 18,
+   "height": 0.972,
+   "feet_drift": 0.043,
+   "flag": false
+  },
+  {
+   "i": 19,
+   "height": 0.981,
+   "feet_drift": 0.024,
+   "flag": false
+  },
+  {
+   "i": 20,
+   "height": 0.982,
+   "feet_drift": 0.011,
+   "flag": false
+  },
+  {
+   "i": 21,
+   "height": 0.984,
+   "feet_drift": 0.01,
+   "flag": false
+  },
+  {
+   "i": 22,
+   "height": 0.982,
+   "feet_drift": 0.009,
+   "flag": false
+  },
+  {
+   "i": 23,
+   "height": 0.982,
+   "feet_drift": 0.008,
+   "flag": false
+  },
+  {
+   "i": 24,
+   "height": 0.982,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 25,
+   "height": 0.976,
+   "feet_drift": 0.002,
+   "flag": false
+  },
+  {
+   "i": 26,
+   "height": 0.964,
+   "feet_drift": 0.024,
+   "flag": false
+  },
+  {
+   "i": 27,
+   "height": 0.961,
+   "feet_drift": 0.048,
+   "flag": false
+  },
+  {
+   "i": 28,
+   "height": 0.973,
+   "feet_drift": 0.057,
+   "flag": false
+  },
+  {
+   "i": 29,
+   "height": 0.976,
+   "feet_drift": 0.067,
+   "flag": false
+  },
+  {
+   "i": 30,
+   "height": 0.981,
+   "feet_drift": 0.084,
+   "flag": false
+  },
+  {
+   "i": 31,
+   "height": 0.981,
+   "feet_drift": 0.084,
+   "flag": false
+  },
+  {
+   "i": 32,
+   "height": 0.982,
+   "feet_drift": 0.084,
+   "flag": false
+  },
+  {
+   "i": 33,
+   "height": 0.984,
+   "feet_drift": 0.089,
+   "flag": false
+  },
+  {
+   "i": 34,
+   "height": 0.983,
+   "feet_drift": 0.096,
+   "flag": false
+  },
+  {
+   "i": 35,
+   "height": 0.98,
+   "feet_drift": 0.097,
+   "flag": false
+  }
+ ]
+}

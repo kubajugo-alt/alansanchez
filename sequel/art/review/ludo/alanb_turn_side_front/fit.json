@@ -1,0 +1,113 @@
+{
+ "name": "alanb_turn_side_front",
+ "kind": "turn",
+ "frames": 16,
+ "fps": 12,
+ "meta": {
+  "w": 281,
+  "hh": 737,
+  "h": 720.0,
+  "ax": 133.1,
+  "fy": 727.5,
+  "top": 8.0
+ },
+ "flagged": 0,
+ "checks": [
+  {
+   "i": 0,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 1,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 2,
+   "height": 0.999,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 3,
+   "height": 0.995,
+   "feet_drift": 0.004,
+   "flag": false
+  },
+  {
+   "i": 4,
+   "height": 0.995,
+   "feet_drift": 0.009,
+   "flag": false
+  },
+  {
+   "i": 5,
+   "height": 1.0,
+   "feet_drift": 0.006,
+   "flag": false
+  },
+  {
+   "i": 6,
+   "height": 1.0,
+   "feet_drift": 0.005,
+   "flag": false
+  },
+  {
+   "i": 7,
+   "height": 1.003,
+   "feet_drift": 0.022,
+   "flag": false
+  },
+  {
+   "i": 8,
+   "height": 1.0,
+   "feet_drift": 0.036,
+   "flag": false
+  },
+  {
+   "i": 9,
+   "height": 1.003,
+   "feet_drift": 0.02,
+   "flag": false
+  },
+  {
+   "i": 10,
+   "height": 0.989,
+   "feet_drift": 0.005,
+   "flag": false
+  },
+  {
+   "i": 11,
+   "height": 0.986,
+   "feet_drift": 0.004,
+   "flag": false
+  },
+  {
+   "i": 12,
+   "height": 0.982,
+   "feet_drift": 0.002,
+   "flag": false
+  },
+  {
+   "i": 13,
+   "height": 0.995,
+   "feet_drift": 0.04,
+   "flag": false
+  },
+  {
+   "i": 14,
+   "height": 0.997,
+   "feet_drift": 0.043,
+   "flag": false
+  },
+  {
+   "i": 15,
+   "height": 0.999,
+   "feet_drift": 0.042,
+   "flag": false
+  }
+ ]
+}

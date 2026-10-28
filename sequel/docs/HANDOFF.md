@@ -276,3 +276,17 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     (docs/MUSIC.md). Every room has `music: '<its id>'` (the map: `map`); its `ambience:` stays underneath. The title
     screen plays `title` (audio.js maps Game I's `main_theme` calls to it). Raw takes are git-ignored. Checked: every
     file -23.0 ±0.1 LUFS; play.mjs won, 103 steps, no errors.
+28. **Small movement in every room** (2026-10-28). The user: "small environment movement (lights, clouds, birds,
+    water waves etc) added, to the background, just like we did with the first game". As Game I's entry 21: drawn
+    over the paintings in each room's `animBack` (no art/bg file changed), with the FX helpers plus a few local ones
+    in tue.js (`drift`: the panza de burro clipped to the painted sky; `foam`; `ceilFan`; `lamp`). Per room: clouds
+    and gulls wherever sky shows, waves and foam at the beach, Canteras, La Isleta and through the hotel windows,
+    palms and plants stirring (kept tiny: "there's no wind"), live flames on the painted candles and lanterns,
+    lamp glows, steam, dust in light shafts, moths, the parrot breathing, the baggage belt turning, stars at night.
+    Story kept: Santa Ana's clock stays stopped until wound, no bell moves, the courtyard fountain stays dry, the
+    answering machine blinks until Elena's message is heard, cigarette smoke at the hall door while Carmen is out.
+    Also fixed: the Colón parrot and Carmen's answering-machine hotspots now sit on the painted objects. Checked:
+    crops at each addition, the beach sky's seam (the cloud clip now follows the roofline); play.mjs won, 103 steps.
+    Review page with a clip per room: https://claude.ai/artifact/ (see the session); not deployed. Known, older: a
+    faint vertical step in the beach's top-left sky (present without any of this; not looked into).
+

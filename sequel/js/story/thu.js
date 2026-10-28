@@ -39,7 +39,7 @@
       { id: 'mercedes', ch: 'mercedes', x: 760, y: 645, dir: 'w', name: 'Mercedes Quintana', look: 'alan_look_mercedes', talk: () => S.talkMercedes() },
     ],
     hotspots: [
-      { name: 'Parrot', rect: [130, 250, 80, 90], at: [220, 650], look: 'alan_look_parrot', use: 'parrot_squawk' },
+      { name: 'Parrot', rect: [315, 210, 80, 140], at: [360, 650], look: 'alan_look_parrot', use: 'parrot_squawk' },
       { name: 'Shelves', rect: [340, 80, 520, 300], at: [600, 640], look: 'alan_look_colon_shelves' },
       { name: 'Balcony', rect: [860, 120, 260, 280], at: [980, 640], look: 'alan_look_colon_balcony' },
       S.toMap([20, 250, 110, 320], [70, 650]),

@@ -1,0 +1,113 @@
+{
+ "name": "alanv_turn_side_left",
+ "kind": "turn",
+ "frames": 16,
+ "fps": 12,
+ "meta": {
+  "w": 234,
+  "hh": 735,
+  "h": 720.0,
+  "ax": 95.3,
+  "fy": 728.9,
+  "top": 9.3
+ },
+ "flagged": 0,
+ "checks": [
+  {
+   "i": 0,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 1,
+   "height": 1.002,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 2,
+   "height": 1.006,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 3,
+   "height": 1.006,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 4,
+   "height": 1.002,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 5,
+   "height": 0.998,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 6,
+   "height": 0.979,
+   "feet_drift": 0.032,
+   "flag": false
+  },
+  {
+   "i": 7,
+   "height": 0.972,
+   "feet_drift": 0.043,
+   "flag": false
+  },
+  {
+   "i": 8,
+   "height": 0.972,
+   "feet_drift": 0.037,
+   "flag": false
+  },
+  {
+   "i": 9,
+   "height": 0.97,
+   "feet_drift": 0.042,
+   "flag": false
+  },
+  {
+   "i": 10,
+   "height": 0.972,
+   "feet_drift": 0.008,
+   "flag": false
+  },
+  {
+   "i": 11,
+   "height": 0.983,
+   "feet_drift": 0.01,
+   "flag": false
+  },
+  {
+   "i": 12,
+   "height": 0.991,
+   "feet_drift": 0.008,
+   "flag": false
+  },
+  {
+   "i": 13,
+   "height": 0.997,
+   "feet_drift": 0.012,
+   "flag": false
+  },
+  {
+   "i": 14,
+   "height": 1.002,
+   "feet_drift": 0.002,
+   "flag": false
+  },
+  {
+   "i": 15,
+   "height": 0.999,
+   "feet_drift": 0.02,
+   "flag": false
+  }
+ ]
+}
