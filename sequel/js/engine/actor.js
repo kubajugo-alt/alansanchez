@@ -392,7 +392,10 @@
       }
       if (this.dir === 'n' && F.back) return arr(F.back)[0];
       if (this.dir === 's' && F.front) return arr(F.front)[0];
-      if (this.talking && F.talkFps && arr(F.talk).length) { const t = arr(F.talk); return t[Math.floor((E.time - (this.talkT0 || 0)) * F.talkFps) % t.length]; }
+      if (this.talking && F.talkFps && arr(F.talk).length) {
+        const all = arr(F.talk), t = E.hasFace && all.some(E.hasFace) ? all.filter(E.hasFace) : all; // (frames with a face set, when there are any)
+        return t[Math.floor((E.time - (this.talkT0 || 0)) * F.talkFps) % t.length];
+      }
       if (this.talking) { const t = arr(F.talk); return t.length && this.talkIdx >= 0 ? t[this.talkIdx % t.length] : arr(F.idle)[0]; }
       if (this.loopActive()) { const L = F.loops[this.loop]; return L.frames[Math.floor(E.time * L.fps) % L.frames.length]; }
       const id = arr(F.idle), v = id[this.idleIdx % id.length];
