@@ -219,3 +219,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     (git-ignored), and the audition page republished with them. Not re-auditioned: Inês, Gail, Derek, Alan, Vasco,
     the narrator. Next: the user re-picks, then cast.json and generate-voices.mjs get a per-voice model and language,
     and those characters' lines are re-recorded.
+21. **Recast with native Spanish studio voices** (2026-10-28, the user: "re-cast using only spanish, studio quality
+    voices. you can look for completely new ones"; "for gail, use an old ladies british voice"; "derek is fine the
+    way he is"). Searched the catalogue (language es, category high_quality) and picked three per character (four for
+    Carmen, keeping Jimena), Spain and Latin America both; one Turbo v2.5 + Spanish take each into
+    `audio/auditions9/` (git-ignored). Gail: four older/mature British women (Beatrice, Jeanette, Maria (Manchester),
+    IDA), v4, no language setting. Derek unchanged. The audition page was republished with these 62 takes. The
+    voice ids are in the scratchpad (`rewrite/voices9.py`). Next: the user picks, then cast.json and the generator.
