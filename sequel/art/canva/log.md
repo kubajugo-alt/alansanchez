@@ -32,3 +32,4 @@
 - 2026-10-28 bg `title` Canva media MAHZQIYHYw0 -> art/bg/title.jpg 
 - 2026-10-28 still `still_title` Canva media MAHZQIYHYw0 -> art/stills/still_title.jpg same painting as the title room
 - 2026-10-28 still `still_elena_bar` Canva media MAHZQGPTdl0 -> art/stills/still_elena_bar.jpg 
+- 2026-10-28 still `still_barranco` Canva media MAHZQPkQrgY -> art/stills/still_barranco.jpg salt triangle added on the windscreen in post
