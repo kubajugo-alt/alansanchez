@@ -226,3 +226,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     `audio/auditions9/` (git-ignored). Gail: four older/mature British women (Beatrice, Jeanette, Maria (Manchester),
     IDA), v4, no language setting. Derek unchanged. The audition page was republished with these 62 takes. The
     voice ids are in the scratchpad (`rewrite/voices9.py`). Next: the user picks, then cast.json and the generator.
+22. **The recast re-recorded on Eleven v3** (2026-10-28, the user: "try redoing it with V3"). Same 62 voices and lines,
+    `eleven_v3` with `language_code: "es"` (Gail without a language setting), into `audio/auditions10/`
+    (git-ignored); the audition page now plays these takes.
