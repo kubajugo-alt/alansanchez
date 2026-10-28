@@ -84,3 +84,13 @@
 | 2026-10-28 21:47 | improve | hydra | alanb_side_k -> alanb_front_k | improve | sequel/art/review/ludo/alanb_turn_side_front/ | 3 |
 | 2026-10-28 21:48 | hydra | hydra | vascos_side_k -> vascos_front_k |  | sequel/art/review/ludo/vasco_turn_side_front/ | 9 |
 | 2026-10-28 21:49 | hydra | hydra | vascos_side_k -> vascos_side_k~ |  | sequel/art/review/ludo/vasco_turn_side_left/ | 9 |
+| 2026-10-28 21:51 | hydra | hydra | alanv_side_k -> alanv_back_k |  | sequel/art/review/ludo/alanv_turn_side_back/ | 9 |
+| 2026-10-28 21:52 | improve | hydra | vascos_side_k -> vascos_side_k~ | improve | sequel/art/review/ludo/vasco_turn_side_left/ | 3 |
+| 2026-10-28 21:52 | hydra | hydra | alanb_side_k -> alanb_back_k |  | sequel/art/review/ludo/alanb_turn_side_back/ | 9 |
+| 2026-10-28 21:53 | improve | hydra | alanv_side_k -> alanv_back_k | improve | sequel/art/review/ludo/alanv_turn_side_back/ | 3 |
+| 2026-10-28 21:55 | improve | hydra | alanb_side_k -> alanb_back_k | improve | sequel/art/review/ludo/alanb_turn_side_back/ | 3 |
+| 2026-10-28 21:56 | hydra | hydra | vascos_side_k -> vascos_back_k |  | sequel/art/review/ludo/vasco_turn_side_back/ | 9 |
+| 2026-10-28 21:58 | improve | hydra | vascos_side_k -> vascos_back_k | improve | sequel/art/review/ludo/vasco_turn_side_back/ | 3 |
+| 2026-10-28 22:09 | improve | hydra | alanb_side_k -> alanb_side_k~ | improve | sequel/art/review/ludo/alanb_turn_side_left/ | 3 |
+| 2026-10-28 22:09 | hydra | hydra | alanv_side_k -> alanv_side_k~ |  | sequel/art/review/ludo/alanv_turn_side_left/ | 9 |
+| 2026-10-28 22:10 | improve | hydra | alanv_side_k -> alanv_side_k~ | improve | sequel/art/review/ludo/alanv_turn_side_left/ | 3 |
