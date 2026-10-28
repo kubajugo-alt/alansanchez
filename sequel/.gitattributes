@@ -2,3 +2,4 @@
 scripts/** export-ignore
 docs/** export-ignore
 *.ph export-ignore
+audio/voice_src/** export-ignore

@@ -1,0 +1,27 @@
+{
+  "model_id": "eleven_v4",
+  "phone": { "speakers": ["ines"], "ids": ["elena_msg_01", "elena_msg_02", "elena_msg_03", "carmen_machine"], "preset": "line" },
+  "voices": {
+    "narr": { "voice_id": "2qQJWjw5XdG80GreshqG", "name": "Eleanor (Game I's narrator)", "role": "Narrator" },
+    "alan": { "voice_id": "CwhRBWXzGAHq8TQ4Fs17", "name": "Roger (Game I)", "role": "Alan Sanches" },
+    "vasco": { "voice_id": "c6SfcYrb2t09NHXiT80T", "name": "Jarnathan (Game I)", "role": "Vasco Teles" },
+    "ines": { "voice_id": "EXAVITQu4vr4xnSDxMaL", "name": "Game I's Inês, through the 1996 phone line", "role": "Inês Carvalho" },
+    "rafa": { "voice_id": "ZwLTvq6uCfb4W00YFl7F", "name": "Ernesto", "role": "Rafa" },
+    "nieves": { "voice_id": "tMg5UoQ6QR7jj4uQTxtH", "name": "Claudia English Hispanic accent", "role": "Nieves" },
+    "fermin": { "voice_id": "0dPqNXnhg2bmxQv1WKDp", "name": "Grandpa Storyteller Oxley", "role": "Don Fermín" },
+    "yeray": { "voice_id": "hmqTc336vfoNF6BO822U", "name": "Cesar", "role": "Yeray" },
+    "elena": { "voice_id": "CPEHCHnlRsWkpvhbDlfn", "name": "Paola", "role": "Dr. Elena Suárez" },
+    "pino": { "voice_id": "0rEo3eAjssGDUCXHYENf", "name": "Grandma Rachel", "role": "Doña Pino" },
+    "mercedes": { "voice_id": "7DTpboyigwqXiCkvQjMX", "name": "Carli - Calm, Warm", "role": "Mercedes Quintana" },
+    "montesdeoca": { "voice_id": "uZs6JatxmZWaaC4yPR1Z", "name": "Jolly old Mike", "role": "Ignacio Montesdeoca" },
+    "lolo": { "voice_id": "iUqOXhMfiOIbBejNtfLR", "name": "W. Storytime Oxley", "role": "Don Lolo" },
+    "gail": { "voice_id": "EQx6HGDYjkDpcli6vorJ", "name": "Lizzie - Cockney Character", "role": "Gail" },
+    "derek": { "voice_id": "sQGQZsvZ9uPuxtTy1uNh", "name": "Jim - Cockney London", "role": "Derek" },
+    "surfer": { "voice_id": "HY3TS25BHEPeVdb2Lwn4", "name": "Rodo - Calm & Low", "role": "Surfer" },
+    "clerk": { "voice_id": "0q9TlrIoQJIdxZP9oZh7", "name": "Hazel - Latino-English", "role": "Check-in clerk" },
+    "barman": { "voice_id": "lOEtO6uKXvOvJeMZaY4u", "name": "Robert Slight Latino Accent", "role": "Mountain barman" },
+    "gc2": { "voice_id": "mpVRUgSkq6igdH3U4I5H", "name": "Angel's Voice", "role": "Guardia Civil 2" },
+    "parrot": { "voice_id": "4NJLA7OQNVkeKe4jVdHw", "name": "Sean - Squeaky Kid", "role": "The parrot" },
+    "carmen": null, "baute": null, "chano": null, "guard": null, "gc1": null
+  }
+}

@@ -129,3 +129,13 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
 7. **Voices recast** (2026-10-28, quoted under "Voice casting"). The native-Spanish auditions are rejected; a new
    round (English voices with a Spanish accent where the library has them, else general American; Gail and Derek
    keep their British options) goes in `audio/auditions2/` and onto the same audition page.
+8. **The cast picked; recording starts** (2026-10-28, the user's picks from the round-two page). `scripts/cast.json` is
+   the sequel's cast: Ernesto (Rafa), Claudia (Nieves), Grandpa Storyteller Oxley (Fermín), Cesar (Yeray), Paola
+   (Elena), Grandma Rachel (Pino), Carli (Mercedes), Jolly old Mike (Montesdeoca), W. Storytime Oxley (Lolo), Lizzie
+   (Gail), Jim (Derek), Rodo (surfer), Hazel (clerk), Robert (barman), Angel (Guardia 2), Sean (parrot); Alan, Vasco,
+   Inês and the narrator keep Game I's voices; Inês through the "1996 phone line" (`phone_fx.sh line`, the user's pick),
+   and so are Elena's answering-machine message (`elena_msg_01`–`03`) and Carmen's machine (`carmen_machine`).
+   Not cast yet (no pick): Carmen, Baute, Chano, the guard, Guardia 1: a third round with designed voices for Carmen
+   and Baute (`audio/auditions3/`, git-ignored). `scripts/generate-voices.mjs` (Game I's, adapted: key from the root
+   `.env`, three at a time with retries, phone lines kept as recorded in `audio/voice_src/`, export-ignored) voices
+   every cast line; uncast speakers are skipped.
