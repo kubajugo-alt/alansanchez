@@ -70,3 +70,6 @@
 | 2026-10-28 21:09 | hydra | hydra | alanv_back_k | walking away from the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/alanv_walk_back/ | 9 |
 | 2026-10-28 21:15 | improve | hydra | alanv_back_k | improve | sequel/art/review/ludo/alanv_walk_back/ | 3 |
 | 2026-10-28 21:15 | hydra | hydra | alanb_back_k | walking away from the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/alanb_walk_back/ | 9 |
+| 2026-10-28 21:16 | hydra | hydra | vascos_back_k | walking away from the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/vasco_walk_back/ | 9 |
+| 2026-10-28 21:18 | improve | hydra | alanb_back_k | improve | sequel/art/review/ludo/alanb_walk_back/ | 3 |
+| 2026-10-28 21:19 | improve | hydra | vascos_back_k | improve | sequel/art/review/ludo/vasco_walk_back/ | 3 |
