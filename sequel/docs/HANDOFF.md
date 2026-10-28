@@ -159,3 +159,5 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     designed previews are dropped from the page and from `audio/auditions5/`; two more older library voices instead
     (Christopher `NdEhweaiOdufFIiyNPdk`, Grampa Werthers `MKlLqCItoCkvdhrxgtLv`). None of the designed voices was
     ever saved to the account.
+13. **The guard cast; every line voiced** (2026-10-28, the user's pick: Grampa Werthers for the museum guard). All 1,019
+    lines have a recording (`scripts/cast.json` complete). Checked: validate 0 errors; `play.mjs` won.

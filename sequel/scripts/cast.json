@@ -128,7 +128,11 @@
       "name": "Pablo Marshal",
       "role": "Chano"
     },
-    "guard": null,
+    "guard": {
+      "voice_id": "MKlLqCItoCkvdhrxgtLv",
+      "name": "Grampa Werthers - Old & Cranky",
+      "role": "Museum guard"
+    },
     "gc1": {
       "voice_id": "lyS8KUp1IJE7M2lYGH0S",
       "name": "Luis - Natural or Conversation",
