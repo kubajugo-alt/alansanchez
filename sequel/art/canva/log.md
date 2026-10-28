@@ -34,3 +34,4 @@
 - 2026-10-28 still `still_elena_bar` Canva media MAHZQGPTdl0 -> art/stills/still_elena_bar.jpg 
 - 2026-10-28 still `still_barranco` Canva media MAHZQPkQrgY -> art/stills/still_barranco.jpg salt triangle added on the windscreen in post
 - 2026-10-28 still `still_arrival` Canva media MAHZQCtS6Po -> art/stills/still_arrival.jpg 
+- 2026-10-28 figure `alan_vest` Canva media MAHZUoLZyYk -> art/designs/alan_vest.png outfit: black vest, khaki cargo shorts, white sneakers (from Game I frames, media MAHZUs1sSS4)
