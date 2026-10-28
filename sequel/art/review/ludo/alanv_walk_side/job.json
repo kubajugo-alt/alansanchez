@@ -1,0 +1,25 @@
+{
+ "spec": {
+  "a": "alanv_side_k",
+  "b": null,
+  "mid": null,
+  "prompt": "walking to the right at an easy, natural pace, a full walk cycle",
+  "loop": true,
+  "duration": 3,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "851dae62-dcbe-4d8d-9b0d-c390675d625c",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/96195794e414e85ff3edbaeb924836eb.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/55b1cc13ab1f9cfc335c49c304fb7f8c.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/713e54a324cbb84ce6c2f035d49c08b9.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.125
+  },
+  "credits": 9
+ }
+}

@@ -30,3 +30,7 @@
 | 2026-10-28 20:09 | hydra | hydra | rafa_c | talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a young painter and barman, animated and warm | sequel/art/review/ludo/talk_rafa/ | 9 |
 | 2026-10-28 20:11 | improve | hydra | rafa_c | improve | sequel/art/review/ludo/talk_rafa/ | 3 |
 | 2026-10-28 20:12 | hydra | hydra | surfer_c | talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a laid-back young surfer, relaxed loose gestures | sequel/art/review/ludo/talk_surfer/ | 9 |
+| 2026-10-28 20:13 | hydra | hydra | yeray_c | talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a gossipy young man, quick lively gestures | sequel/art/review/ludo/talk_yeray/ | 9 |
+| 2026-10-28 20:15 | improve | hydra | surfer_c | improve | sequel/art/review/ludo/talk_surfer/ | 3 |
+| 2026-10-28 20:16 | improve | hydra | yeray_c | improve | sequel/art/review/ludo/talk_yeray/ | 3 |
+| 2026-10-28 20:17 | hydra | hydra | alanv_side_k | walking to the right at an easy, natural pace, a full walk cycle | sequel/art/review/ludo/alanv_walk_side/ | 9 |

@@ -7,5 +7,34 @@
   "loop": true,
   "duration": 3,
   "frames": 25
- }
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "cd19e937-f499-4ec3-b5f2-6d5a806b56ea",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/8d1160464184e74574ad7d4f2bb2bcc2.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/306deb13d6f36879d7106b621989a7b1.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/0096062d47cb577dc8ccc7690e2e3a54.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "e899edee-71b6-49a3-a5e0-ffbcffb4b220",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/c9cb763287588caad5cf416763bf2292.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/ab1effbe24c2ac1127e4961ac17019bc.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/f07e5c015d16a805af3bd02282bd3c61.mp3",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.125
+  },
+  "credits": 3
+ },
+ "model": "hydra"
 }
