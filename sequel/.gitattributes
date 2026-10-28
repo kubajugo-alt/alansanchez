@@ -1,5 +1,6 @@
-# what Game II's export (`git archive HEAD:sequel`) leaves out: tools, notes and placeholder markers
-scripts/** export-ignore
-docs/** export-ignore
+# what Game II's export (`git archive HEAD:sequel`) leaves out: tools, notes, placeholder markers, and the phone lines
+# as recorded (the game plays the treated copies in audio/voice/)
+/scripts export-ignore
+/docs export-ignore
 *.ph export-ignore
-audio/voice_src/** export-ignore
+/audio/voice_src export-ignore
