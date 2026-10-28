@@ -47,9 +47,5 @@ art/review/ludo/*/true/
 
 # the sequel: Canva exports as downloaded (sequel/scripts/canva_in.py keeps the sized copies in the game)
 sequel/art/canva/*.png
-# the sequel: voice auditions for casting (not part of the game)
-sequel/audio/auditions/
-sequel/audio/auditions2/
-sequel/audio/auditions3/
-sequel/audio/auditions4/
-sequel/audio/auditions5/
+# the sequel: voice auditions for casting (not part of the game): every round's folder
+/sequel/audio/auditions*/
