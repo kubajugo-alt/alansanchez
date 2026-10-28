@@ -54,6 +54,7 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
   reading English) gave British-sounding reads; the recast prefers English-language voices that speak with a Spanish
   accent, and falls back to general American. Never British for anyone but Gail and Derek.
 - **Gail and Derek are the exception**: working-class British English voices.
+- **No designed voices** (2026-10-28, the user: "Don't design voices"): cast only from the ElevenLabs voice library.
 - The voice ids for the sequel go in their own cast file under `sequel/scripts/`, never in Game I's.
 
 ### Open, in the order I'd suggest
@@ -154,3 +155,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     design1 `sWtx4rOEzgyVl6lvSuFb`, design2 `fDFK7lIS4rZz2KYpWMJk`, design3 `i0zhL3BngeO9qb25BIqc`) and two older
     American library voices (Grits Oxley `8vYCG1Q6bAbJWXdRuCIr`, Scott W `6Xb9dRSSm1t1OLWvzT1T`) in
     `audio/auditions5/` (git-ignored), on the audition page.
+12. **No designed voices** (2026-10-28, the user: "Don't design voices"). The rule is in "Voice casting"; the guard's
+    designed previews are dropped from the page and from `audio/auditions5/`; two more older library voices instead
+    (Christopher `NdEhweaiOdufFIiyNPdk`, Grampa Werthers `MKlLqCItoCkvdhrxgtLv`). None of the designed voices was
+    ever saved to the account.
