@@ -149,3 +149,8 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     Carmen, David for Baute, Pablo for Chano, Luis for Guardia 1; no pick for the museum guard, a fourth round of three
     voices in `audio/auditions4/`). 1,012 of 1,019 lines voiced (`scripts/generate-voices.mjs`, 0 failures); the guard's
     3 lines wait for his voice. Checked: manifest lists every file; validate 0 errors; `play.mjs` won, 98 steps.
+11. **An older guard** (2026-10-28, the user: "Get me an older voice for the museum guard"). Three designed voices
+    (a Canarian man in his sixties, sleepy, English with a Spanish accent; reading all three of his lines; not saved:
+    design1 `sWtx4rOEzgyVl6lvSuFb`, design2 `fDFK7lIS4rZz2KYpWMJk`, design3 `i0zhL3BngeO9qb25BIqc`) and two older
+    American library voices (Grits Oxley `8vYCG1Q6bAbJWXdRuCIr`, Scott W `6Xb9dRSSm1t1OLWvzT1T`) in
+    `audio/auditions5/` (git-ignored), on the audition page.
