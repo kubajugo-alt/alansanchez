@@ -52,6 +52,7 @@
 
   // ================================================================ CARMEN'S FLAT
   ROOMS.carmen_flat = S.room({
+    music: 'carmen_flat',
     name: 'Carmen\'s flat, Triana', bg: 'carmen_flat', floor: 'tile', ambience: 'night', door: 'door',
     entries: { default: [1100, 660, 'w'], map: [1100, 660, 'w'] },
     npcs: [
@@ -127,6 +128,7 @@
   // ================================================================ THE LAND ROVER
   let boiling = 0;
   ROOMS.landrover = S.room({
+    music: 'landrover',
     name: 'The road up', bg: 'landrover', player: false, noSave: true, parallax: false, ambience: 'night',
     light: { ambient: 'rgb(140,150,180)', base: 0.8 },
     npcs: [],

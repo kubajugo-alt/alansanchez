@@ -52,6 +52,7 @@
 
   // ================================================================ RAFA'S BAR
   ROOMS.rafa_bar = S.room({
+    music: 'rafa_bar',
     name: 'A bar in Vegueta', bg: 'rafa_bar', floor: 'tile', ambience: 'tavern', door: 'door_tavern',
     light: { ambient: 'rgb(200,160,120)', base: 0.8 },
     entries: { default: [1120, 660, 'w'], map: [1120, 660, 'w'] },

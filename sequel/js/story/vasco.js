@@ -24,6 +24,7 @@
 
   // ================================================================ THE CAMP
   ROOMS.camp = S.room({
+    music: 'camp',
     name: 'Risco Caído · the camp', bg: 'camp', floor: 'stone', ambience: () => ch() === 6 ? 'night' : 'tower',
     light: { ambient: 'rgb(255,246,226)', base: 1 },
     entries: { default: [300, 660, 'e'], cave6: [1100, 660, 'w'], vault: [700, 660, 'w'], landrover: [200, 660, 'e'] },
@@ -91,6 +92,7 @@
     return BEAM_AT[Math.min(BEAM_AT.length - 1, f.v_time || 0)];
   };
   ROOMS.cave6 = S.room({
+    music: 'cave6',
     name: 'Cave 6', bg: 'cave6', floor: 'stone', ambience: 'cistern', parallax: false,
     light: { ambient: 'rgb(220,190,150)', base: 0.85 },
     entries: { default: [240, 660, 'e'], camp: [240, 660, 'e'] },
@@ -234,6 +236,7 @@
   // ================================================================ THE VAULT
   S.torch = 1;
   ROOMS.vault = S.room({
+    music: 'vault',
     name: 'The granary vault', bg: 'vault', floor: 'stone', ambience: 'cistern', parallax: false,
     light: { ambient: 'rgb(150,140,130)', base: 0.6 },
     entries: { default: [620, 660, 'e'], camp: [1100, 660, 'w'] },

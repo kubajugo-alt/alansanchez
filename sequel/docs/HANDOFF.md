@@ -38,7 +38,7 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
   what each painting must show (the art list). **New cast**: flat figures in the bible's palettes, names on their chests.
 - **Alan and Vasco** wear Game I's frames (Alan's 24-painting walk, Vasco's approved walk, their approved face kits, so
   they blink). Their Gran Canaria looks (Alan without his luggage, Vasco in field clothes) come with the Ludo sets.
-- No music (Game I's tracks are Lisbon's); `audio/music/tracks.json` is empty.
+- Music: 25 Lyria 3 Pro tracks the user picked, one per room plus the title theme and the map (entry 27).
 
 ### Voice casting (the user's rule, 2026-10-27)
 - **Alan, Vasco, Inês and the narrator keep their Game I voices** (Game I's `scripts/cast.json`): Alan
@@ -68,7 +68,7 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
 2. **Room paintings** (20) and **stills** (20): the placeholders' cards are the brief. Then depth maps and `parallax: true`.
 3. **Cast**: Canva designs (the bible's art prompts), then Ludo animation sets, as Game I's rule from 23 Oct.
 4. **Voices** (ElevenLabs, paid: only when asked, to the casting rule below), then lip-sync (Game I's `scripts/lipsync.py`, adapted).
-5. **Music**: a Gran Canaria score (timple, the Sea's stillness, Vasco's theme carried over).
+5. **Music**: done (entry 27); story cues on top of the rooms' tracks are still to place.
 6. ~~First deploy~~ done 28 Oct 2026; redeploy when the user asks (the stills still to paint, then again).
 
 ### Netlify
@@ -267,3 +267,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       nave, and the tower door there is the one that needs his key; the belfry's stairs come down to the nave). 16 new
       lines (looks and a first-visit narration per room, voiced); a synthesised sand footstep. Checked: validate 0
       errors; play.mjs won, 103 steps (route updated for the moves); each room screenshotted with its people in place.
+27. **Room music** (2026-10-28). The user: "use gemini to generate instrumental soundtracks appropriate for each of
+    the room, whilst keeping the game ambience" (budget: the 23 USD credit). `scripts/gen_music.py` (Lyria 3 Pro,
+    `GEMINI_API_KEY` in the root .env, never printed; a ledger in `audio/music_src/ledger.json` stops at 20 USD) made
+    two ~2-minute instrumental takes from a brief per room; 4.20 USD spent. The user picked one take per room on the
+    review page (the picks are in `scripts/music_install.py`). That script levels each to -23 LUFS with one gain and
+    encodes `audio/music/<id>.opus.m4a` and `.aac.m4a` with `tracks.json` (dur, inp, out, v), as Game I's
+    (docs/MUSIC.md). Every room has `music: '<its id>'` (the map: `map`); its `ambience:` stays underneath. The title
+    screen plays `title` (audio.js maps Game I's `main_theme` calls to it). Raw takes are git-ignored. Checked: every
+    file -23.0 ±0.1 LUFS; play.mjs won, 103 steps, no errors.

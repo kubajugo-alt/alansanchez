@@ -22,6 +22,7 @@
 
   // ================================================================ LA ISLETA
   ROOMS.isleta = S.room({
+    music: 'isleta',
     name: 'La Isleta', bg: 'isleta', floor: 'stone', ambience: 'harbour',
     entries: { default: [200, 660, 'e'], map: [200, 660, 'e'] },
     npcs: [
@@ -58,6 +59,7 @@
 
   // ================================================================ SANTA ANA
   ROOMS.santa_ana = S.room({
+    music: 'santa_ana',
     name: 'Plaza de Santa Ana', bg: 'santa_ana', floor: 'stone', ambience: 'street',
     entries: { default: [200, 660, 'e'], map: [200, 660, 'e'], santa_ana_inside: [640, 650, 's'] },
     hotspots: [
@@ -70,6 +72,7 @@
   });
   // ================================================================ SANTA ANA: inside (Don Fermín; the stair to the bells)
   ROOMS.santa_ana_inside = S.room({
+    music: 'santa_ana_inside',
     name: 'Santa Ana · the nave', bg: 'santa_ana_inside', floor: 'stone', ambience: 'tower', door: 'door',
     entries: { default: [120, 665, 'e'], santa_ana: [120, 665, 'e'], belfry: [1060, 660, 'w'] },
     npcs: [
@@ -108,6 +111,7 @@
 
   // ================================================================ SANTA ANA: the bell chamber
   ROOMS.belfry = S.room({
+    music: 'belfry',
     name: 'Santa Ana · the bell chamber', bg: 'belfry', floor: 'wood', ambience: 'tower',
     entries: { default: [400, 660, 'e'], santa_ana_inside: [400, 660, 'e'] },
     npcs: [
@@ -159,6 +163,7 @@
 
   // ================================================================ EL MUSEO CANARIO: the archive
   ROOMS.archive = S.room({
+    music: 'archive',
     name: 'El Museo Canario · the archive', bg: 'archive', floor: 'wood', ambience: 'office',
     entries: { default: [200, 660, 'e'], museum_hall: [200, 660, 'e'] },
     npcs: [

@@ -159,7 +159,7 @@
     return null;
   };
   S.ROOMS.map = {
-    name: 'Las Palmas', bg: 'map', parallax: false, player: false, noSave: true, vignette: 0.25,
+    name: 'Las Palmas', bg: 'map', music: 'map', parallax: false, player: false, noSave: true, vignette: 0.25,
     anim(g, t) {
       for (const m of S.PINS) {
         if (!m.open()) continue;

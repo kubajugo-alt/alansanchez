@@ -96,8 +96,8 @@
   const ROOM_XF = 1.5, LOOP_XF = 3, MUSIC_LEVEL = 0.5; // files at -23 LUFS: the bed sits ~10 dB under the voices
   const VOL = { full: 1, low: 0.5, quiet: 0.35 };
   const DUCK = { voice: 0.5, dry: 0.316, sung: 0.71 }; // -6 dB under lines, -10 dB under the narrator/machine/phone
-  // names the procedural score used, kept so an old call never falls silent
-  const LEGACY = { fado: 'tavern_day', fog: 'alfama_day', office: 'police_station', church: 'carmo_day', antiques: 'antiques_shop', tension: 'quay_cais_do_sodre', dawn: 'main_theme', sino: 'tavern_night', title: 'main_theme' };
+  // Game I's track names, kept so a forked call never falls silent: its main theme is this game's title theme
+  const LEGACY = { main_theme: 'title', title: 'title' };
   const VOL_KEY = 'shortest-night-music-volume';
   let musicVol = 1;
   try { const v = parseFloat(localStorage.getItem(VOL_KEY)); if (v >= 0 && v <= 1) musicVol = v; } catch (e) { /* storage unavailable */ }

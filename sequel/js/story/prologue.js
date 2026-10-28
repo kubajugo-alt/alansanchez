@@ -6,6 +6,7 @@
 
   let phase = 0, crankOpen = 0, triangle = 0; // phase: 0 the road, 1 the cloud, 2 the water
   ROOMS.elena_car = S.room({
+    music: 'elena_car',
     name: 'Elena\'s Renault 4', bg: 'elena_car', player: false, noSave: true, parallax: false, ambience: 'night',
     light: { ambient: 'rgb(150,160,190)', base: 0.8 },
     hotspots: [

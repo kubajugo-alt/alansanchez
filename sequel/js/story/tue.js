@@ -11,6 +11,7 @@
 
   // ================================================================ GANDO
   ROOMS.gando = S.room({
+    music: 'gando',
     name: 'Gando airport', bg: 'gando', floor: 'tile', ambience: 'museum', door: 'door',
     entries: { default: [200, 660, 'e'] },
     npcs: [
@@ -44,6 +45,7 @@
 
   // ================================================================ HOTEL: the lobby
   ROOMS.hotel_lobby = S.room({
+    music: 'hotel_lobby',
     name: 'Hotel Cristina', bg: 'hotel_lobby', floor: 'tile', ambience: 'museum', door: 'door',
     entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], canteras: [140, 660, 'e'], hotel_room: [1120, 660, 'w'], gando: [140, 660, 'e'], hotel_restaurant: [1150, 680, 'w'] },
     npcs: [
@@ -130,6 +132,7 @@
 
   // ================================================================ HOTEL: the room
   ROOMS.hotel_room = S.room({
+    music: 'hotel_room',
     name: 'Room 404', bg: 'hotel_room', floor: 'wood', ambience: 'night', door: 'door',
     entries: { default: [900, 660, 'w'], hotel_lobby: [1100, 660, 'w'] },
     npcs: [
@@ -154,6 +157,7 @@
   // ================================================================ LAS CANTERAS
   // The visible clocks: the tide one step higher on the promenade every day; the San Juan bonfires taller every day.
   ROOMS.canteras = S.room({
+    music: 'canteras',
     name: 'Las Canteras', bg: 'canteras', floor: 'stone', ambience: () => 'harbour',
     entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1150, 660, 'w'], beach: [820, 665, 'n'] },
     npcs: [
@@ -242,6 +246,7 @@
 
   // ================================================================ EL MUSEO CANARIO: the hall
   ROOMS.museum_hall = S.room({
+    music: 'museum_hall',
     name: 'El Museo Canario', bg: 'museum_hall', floor: 'tile', ambience: 'museum', door: 'door',
     entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], archive: [960, 660, 'w'], baute_office: [640, 660, 's'], museum_courtyard: [1120, 660, 'w'] },
     npcs: [
@@ -275,6 +280,7 @@
   });
   // ================================================================ LAS CANTERAS: the sand (the surfers' place)
   ROOMS.beach = S.room({
+    music: 'beach',
     name: 'Las Canteras · the beach', bg: 'beach', floor: 'sand', ambience: () => 'harbour',
     entries: { default: [200, 665, 'e'], canteras: [200, 665, 'e'] },
     ambient: [
@@ -293,6 +299,7 @@
 
   // ================================================================ HOTEL CRISTINA: the restaurant (Gail and Derek)
   ROOMS.hotel_restaurant = S.room({
+    music: 'hotel_restaurant',
     name: 'Hotel Cristina · the restaurant', bg: 'hotel_restaurant', floor: 'tile', ambience: 'museum', door: 'door',
     entries: { default: [1100, 670, 'w'], hotel_lobby: [1100, 670, 'w'] },
     npcs: [
@@ -310,6 +317,7 @@
 
   // ================================================================ EL MUSEO CANARIO: the courtyard (where Alan finds Carmen)
   ROOMS.museum_courtyard = S.room({
+    music: 'museum_courtyard',
     name: 'El Museo Canario · the courtyard', bg: 'museum_courtyard', floor: 'stone', ambience: 'street', door: 'door',
     entries: { default: [160, 665, 'e'], museum_hall: [160, 665, 'e'] },
     npcs: [

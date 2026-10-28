@@ -32,6 +32,7 @@
 
   // ================================================================ CASA DE COLÓN: the library
   ROOMS.colon = S.room({
+    music: 'colon',
     name: 'Casa de Colón', bg: 'colon', floor: 'wood', ambience: 'museum',
     entries: { default: [200, 660, 'e'], map: [200, 660, 'e'] },
     npcs: [
@@ -82,6 +83,7 @@
 
   // ================================================================ BAUTE'S OFFICE
   ROOMS.baute_office = S.room({
+    music: 'baute_office',
     name: 'Dr. Baute\'s office', bg: 'baute_office', floor: 'wood', ambience: 'office', door: 'door',
     entries: { default: [200, 660, 'e'], museum_hall: [200, 660, 'e'] },
     hotspots: [

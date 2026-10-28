@@ -16,6 +16,7 @@
 
   // ================================================================ RAFA'S STUDIO
   ROOMS.rafa_studio = S.room({
+    music: 'rafa_studio',
     name: 'Rafa\'s studio', bg: 'rafa_studio', floor: 'wood', ambience: 'street', door: 'door',
     entries: { default: [300, 660, 'e'], map: [1100, 660, 'w'] },
     npcs: [
