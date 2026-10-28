@@ -168,3 +168,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     `/audio/voice_src`). Export 138 MB; smoke-tested on its own port (`play.mjs` won, 98 steps); deployed with the
     Netlify MCP from the export folder (deploy 6ae14b17b7b1c6ea70482caf). Live: page, voices and art 200; `/.env`,
     `/scripts/`, `/docs/`, `/audio/voice_src/`, `/audio/auditions2/` 404; `play.mjs` on the live site won.
+15. **Blazer bug fixed** (2026-10-28, the user: "the option about the blazer does not show after the conversation with
+    Gail"). Nieves's "I seem to have lost a blazer" needed `saw_blazer`, set only by examining (right-click) the
+    lost-and-found box; Gail's story did not count, nor did a left-click on the box. Now Gail's story or any click on
+    the box offers it (`tue.js`). `play.mjs` now takes that route (Gail only, the box never examined): won, 97 steps.
+    Saves keep working: the flag Gail sets (`gail_hint`) was already saved. Not deployed (the live site has the bug
+    until the next deploy).

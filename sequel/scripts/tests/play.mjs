@@ -51,7 +51,7 @@ try {
   await expect('Tuesday at Gando', () => Game.room.id === 'gando');
   // ---- Tuesday
   await act('vasco', 'talk');
-  await act('Lost and found box', 'look'); await act('gail', 'talk');
+  await act('gail', 'talk'); // (Gail's story alone is enough to claim the blazer: the box is never examined)
   await act('nieves', 'talk', null, ['lost a blazer', 'A cigar band']);
   await expect('the blazer', () => Game.has('blazer'));
   await go('museum_hall'); await act('baute', 'talk'); await act('carmen', 'talk'); await act('Out to Vegueta', 'exit');

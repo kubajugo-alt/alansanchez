@@ -51,7 +51,7 @@
     ],
     hotspots: [
       { name: 'Lost and found box', rect: [430, 440, 120, 80], at: [520, 640], look: () => { F().saw_blazer = true; return say(G.has('blazer') || F().blazer_got ? 'alan_look_lostfound_2' : 'alan_look_lostfound'); },
-        use: () => say('alan_use_lostfound'), take: () => say('alan_use_lostfound') },
+        use: () => { F().saw_blazer = true; return say('alan_use_lostfound'); }, take: () => { F().saw_blazer = true; return say('alan_use_lostfound'); } },
       { name: 'Fax machine', rect: [760, 440, 90, 70], at: [760, 650], look: 'alan_look_fax_machine', use: () => say('alan_use_fax_machine'),
         items: { inscription: () => S.fax('inscription'), letter: () => S.fax('letter') } },
       { name: 'House phone', rect: [880, 450, 60, 60], at: [900, 650], look: 'alan_look_house_phone', use: () => S.housePhone() },
@@ -73,7 +73,7 @@
     if (ch() === 1 && !f.nieves_met) { f.nieves_met = true; await say('nieves_t_hello', 'alan_t_nieves_1', 'nieves_t_1'); }
     await G.dialog([
       { line: 'alan_ask_lostfound', once: true, when: () => ch() === 1 && !G.has('blazer') && !f.blazer_got, run: () => say('nieves_lostfound') },
-      { line: 'alan_claim_blazer', when: () => ch() === 1 && f.saw_blazer && !f.blazer_got, run: () => S.claimBlazer() },
+      { line: 'alan_claim_blazer', when: () => ch() === 1 && (f.saw_blazer || f.gail_hint) && !f.blazer_got, run: () => S.claimBlazer() },
       { line: 'alan_ask_message', when: () => ch() >= 2, run: () => say(ch() === 5 || ch() === 6 ? 'nieves_no_message_sat' : ch() === 4 ? 'nieves_message_fri' : 'nieves_message_day') },
       { line: 'alan_ask_fax', when: () => ch() === 2 && (G.has('inscription') || G.has('letter')) && !(f.faxed_inscription && f.faxed_letter), run: () => say('nieves_fax_how') },
       { line: 'alan_ask_fax_in', when: () => ch() === 5 && f.called_sat && !G.has('fax'), run: () => S.faxArrives() },
