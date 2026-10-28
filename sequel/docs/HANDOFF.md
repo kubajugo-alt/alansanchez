@@ -287,6 +287,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     answering machine blinks until Elena's message is heard, cigarette smoke at the hall door while Carmen is out.
     Also fixed: the Colón parrot and Carmen's answering-machine hotspots now sit on the painted objects. Checked:
     crops at each addition, the beach sky's seam (the cloud clip now follows the roofline); play.mjs won, 103 steps.
-    Review page with a clip per room: https://claude.ai/artifact/ (see the session); not deployed. Known, older: a
+    Review page with a clip per room: https://claude.ai/artifact/V77iQSPoJmwNKkw6k78az7; not deployed. Known, older: a
     faint vertical step in the beach's top-left sky (present without any of this; not looked into).
 
