@@ -63,11 +63,11 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
 3. **Cast**: Canva designs (the bible's art prompts), then Ludo animation sets, as Game I's rule from 23 Oct.
 4. **Voices** (ElevenLabs, paid: only when asked, to the casting rule below), then lip-sync (Game I's `scripts/lipsync.py`, adapted).
 5. **Music**: a Gran Canaria score (timple, the Sea's stillness, Vasco's theme carried over).
-6. **First deploy** to the new Netlify project (below), when the user asks.
+6. ~~First deploy~~ done 28 Oct 2026; redeploy when the user asks (the stills still to paint, then again).
 
 ### Netlify
 - Project **alan-sanchez-shortest-night**, id `a5e71264-d9a4-439a-b1e5-60ec3f98812d`, team kuba-jugo, created
-  27 Oct 2026, https://alan-sanchez-shortest-night.netlify.app. **Not deployed yet** (deploy only when asked).
+  27 Oct 2026, https://alan-sanchez-shortest-night.netlify.app. First deployed 28 Oct 2026 (log entry 14); deploy only when asked.
 - **Deploy** (only when the user asks): `node sequel/scripts/build-manifest.mjs` and commit; `git archive HEAD:sequel |
   tar -x -C <empty dir>` (sequel/.gitattributes leaves out `scripts/`, `docs/` and the `.ph` markers); smoke-test that
   folder on its own port (`play.mjs`); Netlify MCP `deploy-site` with the id above; run the command it returns from the
@@ -161,3 +161,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     ever saved to the account.
 13. **The guard cast; every line voiced** (2026-10-28, the user's pick: Grampa Werthers for the museum guard). All 1,019
     lines have a recording (`scripts/cast.json` complete). Checked: validate 0 errors; `play.mjs` won.
+14. **First deploy** (2026-10-28, the user: "once the remaining lines are done - are you able to deploy the game and show
+    it to me?"). Every line voiced, all rooms and cast painted; 15 stills still placeholder cards. Found on the way and
+    fixed: the round-two auditions had been committed by mistake (untracked again, still ignored), and `git archive
+    HEAD:sequel` kept `scripts/` and `docs/` (sequel/.gitattributes now names them as root paths: `/scripts`, `/docs`,
+    `/audio/voice_src`). Export 138 MB; smoke-tested on its own port (`play.mjs` won, 98 steps); deployed with the
+    Netlify MCP from the export folder (deploy 6ae14b17b7b1c6ea70482caf). Live: page, voices and art 200; `/.env`,
+    `/scripts/`, `/docs/`, `/audio/voice_src/`, `/audio/auditions2/` 404; `play.mjs` on the live site won.
