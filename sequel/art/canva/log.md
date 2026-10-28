@@ -38,4 +38,4 @@
 - 2026-10-28 figure `vasco_shirt` Canva media MAHZUqZNGSo -> art/designs/vasco_shirt.png outfit: no blazer/tie/key, sleeves rolled, collar open (from Game I frames, media MAHZUg6pJBM)
 - 2026-10-28 figure `alan_blazer` Canva media MAHZUqNBcR4 -> art/designs/alan_blazer.png outfit: navy brass-button blazer (short sleeves), black vest, jeans, white sneakers
 - 2026-10-28 figure `baute_brown` Canva media MAHZU3l9jr8 -> art/designs/baute_brown.png darker brown suit (from baute_c, media MAHZUl5tBFQ)
-- 2026-10-28 figure `chano_v2` Canva media MAHZU4S4h9s -> art/designs/chano_v2.png repaint: realistic proportions (from scale sheet MAHZUvnUwl4)
+- 2026-10-28 figure `chano_v2` Canva media MAHZU0Ovbn8 -> art/designs/chano_v2.png repaint in the cast's realistic style (Baute as style reference; an earlier try, MAHZU4S4h9s, was still cartoonish)
