@@ -34,39 +34,53 @@
       "role": "Inês Carvalho"
     },
     "rafa": {
-      "voice_id": "ZwLTvq6uCfb4W00YFl7F",
-      "name": "Ernesto",
-      "role": "Rafa"
+      "voice_id": "sERYuuj23GA091OBFePG",
+      "name": "Dani",
+      "role": "Rafa",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "nieves": {
-      "voice_id": "tMg5UoQ6QR7jj4uQTxtH",
-      "name": "Claudia English Hispanic accent",
-      "role": "Nieves"
+      "voice_id": "Xj1OOa85CcJ7mNrqTmBx",
+      "name": "Gloria",
+      "role": "Nieves",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "fermin": {
-      "voice_id": "0dPqNXnhg2bmxQv1WKDp",
-      "name": "Grandpa Storyteller Oxley",
-      "role": "Don Fermín"
+      "voice_id": "7qXldmK3yFlWBHejdkpP",
+      "name": "Julio Alonso",
+      "role": "Don Fermín",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "yeray": {
-      "voice_id": "hmqTc336vfoNF6BO822U",
-      "name": "Cesar",
-      "role": "Yeray"
+      "voice_id": "4L2A19qwD3pMcNlt484F",
+      "name": "Enzo",
+      "role": "Yeray",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "elena": {
-      "voice_id": "CPEHCHnlRsWkpvhbDlfn",
-      "name": "Paola",
-      "role": "Dr. Elena Suárez"
+      "voice_id": "RrEQHwbMIvoa9O0J5xAW",
+      "name": "Sofía (Smooth)",
+      "role": "Dr. Elena Suárez",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "pino": {
-      "voice_id": "0rEo3eAjssGDUCXHYENf",
-      "name": "Grandma Rachel",
-      "role": "Doña Pino"
+      "voice_id": "eBthAb30UYbt2nojGXeA",
+      "name": "Regina Martin",
+      "role": "Doña Pino",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "mercedes": {
-      "voice_id": "7DTpboyigwqXiCkvQjMX",
-      "name": "Carli - Calm, Warm",
-      "role": "Mercedes Quintana"
+      "voice_id": "OAbWSq6Q1ICHurlgLm00",
+      "name": "Irma la Dulce",
+      "role": "Mercedes Quintana",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "montesdeoca": {
       "voice_id": "uZs6JatxmZWaaC4yPR1Z",
@@ -74,14 +88,17 @@
       "role": "Ignacio Montesdeoca"
     },
     "lolo": {
-      "voice_id": "iUqOXhMfiOIbBejNtfLR",
-      "name": "W. Storytime Oxley",
-      "role": "Don Lolo"
+      "voice_id": "2lj4aExF052KSi14NJCI",
+      "name": "Oslo (Grandpa Storyteller)",
+      "role": "Don Lolo",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "gail": {
-      "voice_id": "EQx6HGDYjkDpcli6vorJ",
-      "name": "Lizzie - Cockney Character",
-      "role": "Gail"
+      "voice_id": "kkPJzQOWz2Oz9cUaEaQd",
+      "name": "Beatrice",
+      "role": "Gail",
+      "model_id": "eleven_v3"
     },
     "derek": {
       "voice_id": "sQGQZsvZ9uPuxtTy1uNh",
@@ -89,24 +106,32 @@
       "role": "Derek"
     },
     "surfer": {
-      "voice_id": "HY3TS25BHEPeVdb2Lwn4",
-      "name": "Rodo - Calm & Low",
-      "role": "Surfer"
+      "voice_id": "nZDJE2daaH0meWHbWbxh",
+      "name": "Nico (Latino Fresco)",
+      "role": "Surfer",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "clerk": {
-      "voice_id": "0q9TlrIoQJIdxZP9oZh7",
-      "name": "Hazel - Latino-English",
-      "role": "Check-in clerk"
+      "voice_id": "s4NXWwstm4IwAI2dMQ6M",
+      "name": "Lucía",
+      "role": "Check-in clerk",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "barman": {
-      "voice_id": "lOEtO6uKXvOvJeMZaY4u",
-      "name": "Robert Slight Latino Accent",
-      "role": "Mountain barman"
+      "voice_id": "MW0LBphjVXELkIY7lnfu",
+      "name": "Hugo López",
+      "role": "Mountain barman",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "gc2": {
-      "voice_id": "mpVRUgSkq6igdH3U4I5H",
-      "name": "Angel's Voice",
-      "role": "Guardia Civil 2"
+      "voice_id": "hVtAK6ZLnvyCMv5h9NeP",
+      "name": "Emanuel",
+      "role": "Guardia Civil 2",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "parrot": {
       "voice_id": "4NJLA7OQNVkeKe4jVdHw",
@@ -114,29 +139,39 @@
       "role": "The parrot"
     },
     "carmen": {
-      "voice_id": "XjJZDs8qBsxY4vx0TGuV",
-      "name": "Vanessa - Friendly & Engaging",
-      "role": "Carmen Trujillo"
+      "voice_id": "Tc7dePDnjW90vlgpLnhZ",
+      "name": "Graciela",
+      "role": "Carmen Trujillo",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "baute": {
-      "voice_id": "Eluz3qR23cj5B3yQ0IIO",
-      "name": "David",
-      "role": "Dr. Rayco Baute"
+      "voice_id": "FXn3GKRRt9FCEyTbrkaL",
+      "name": "Nico (History & Documentary)",
+      "role": "Dr. Rayco Baute",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "chano": {
-      "voice_id": "OhisAd2u8Q6qSA4xXAAT",
-      "name": "Pablo Marshal",
-      "role": "Chano"
+      "voice_id": "XyPIlDiohfZSbL4jAB2e",
+      "name": "Marco",
+      "role": "Chano",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "guard": {
-      "voice_id": "MKlLqCItoCkvdhrxgtLv",
-      "name": "Grampa Werthers - Old & Cranky",
-      "role": "Museum guard"
+      "voice_id": "GojDwihhnL1f7RrBuXsJ",
+      "name": "Luis (62)",
+      "role": "Museum guard",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     },
     "gc1": {
-      "voice_id": "lyS8KUp1IJE7M2lYGH0S",
-      "name": "Luis - Natural or Conversation",
-      "role": "Guardia Civil 1"
+      "voice_id": "YKrm0N1EAM9Bw27j8kuD",
+      "name": "Leónidas",
+      "role": "Guardia Civil 1",
+      "model_id": "eleven_v3",
+      "language_code": "es"
     }
   }
 }

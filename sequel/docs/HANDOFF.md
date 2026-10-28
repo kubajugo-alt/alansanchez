@@ -229,3 +229,18 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
 22. **The recast re-recorded on Eleven v3** (2026-10-28, the user: "try redoing it with V3"). Same 62 voices and lines,
     `eleven_v3` with `language_code: "es"` (Gail without a language setting), into `audio/auditions10/`
     (git-ignored); the audition page now plays these takes.
+23. **Sixteen voices cast; four re-auditioned** (2026-10-28, the user's picks). In `scripts/cast.json`: Carmen
+    Graciela, Baute Nico (History & Documentary), Rafa Dani, Chano Marco, Nieves Gloria, Yeray Enzo, Elena Sofía
+    (Smooth), Pino Regina Martin, Mercedes Irma la Dulce, surfer Nico (Latino Fresco), guard Luis (62), clerk Lucía,
+    barman Hugo López, GC1 Leónidas, GC2 Emanuel: each `model_id: eleven_v3`, `language_code: "es"`. Gail Beatrice
+    (v3, no language). Derek unchanged. `generate-voices.mjs` now sends a voice's own `model_id`/`language_code`
+    (falling back to the cast-wide model) and turns `[pause]` into "…" for Turbo/Flash. All 277 lines of those
+    speakers re-recorded (`--force`). Still open, re-auditioned (`audio/auditions11/`): Fermín and Lolo ("someone
+    older"), Montesdeoca ("funnier, fat, overly confident, obnoxious"), the parrot ("more like a parrot, maybe a
+    cartoon character voice"; with v3 [squawks] tags and two pitched-up takes).
+24. **Fermín and Lolo cast; Montesdeoca and the parrot re-auditioned again** (2026-10-28). Fermín Julio Alonso,
+    Lolo Oslo (Grandpa Storyteller), both v3 + `es`; their 25 lines re-recorded. Montesdeoca ("need different ones,
+    more expressive"): Ivan (loud, eccentric), Ricky Rocket, Javier, plus Gustavo and Odran again, with his line carrying
+    v3 directions ([laughs heartily], [proudly], [smug]...). Parrot ("still not right"): three takes from the
+    sound-effects endpoint (`/v1/sound-generation`, a generated parrot saying "Cristóbal"), and two cartoon voices,
+    plain and pitched up. `audio/auditions12/` (git-ignored).

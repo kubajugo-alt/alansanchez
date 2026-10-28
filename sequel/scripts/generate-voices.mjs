@@ -42,6 +42,17 @@ for (const [id, [who, text]] of Object.entries(LINES)) {
 }
 console.log(`${jobs.length} lines to voice` + (Object.keys(skipped).length ? `; not cast yet: ${JSON.stringify(skipped)}` : ''));
 
+// a voice can carry its own model and language: the Spanish cast reads English with language_code "es",
+// which is what gives them their accent; Turbo doesn't read [bracket] directions, so those become a pause
+function body(j) {
+  const model_id = j.voice.model_id || cast.model_id;
+  let text = j.text;
+  if (/turbo|flash/.test(model_id)) text = text.replace(/\[pause\]/g, '…').replace(/\s*\[[^\]]*\]\s*/g, ' ').trim();
+  const b = { text, model_id };
+  if (j.voice.language_code) b.language_code = j.voice.language_code;
+  return b;
+}
+
 const wait = ms => new Promise(r => setTimeout(r, ms));
 let done = 0, failed = 0;
 async function one(j) {
@@ -49,7 +60,7 @@ async function one(j) {
     const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${j.voice.voice_id}?output_format=mp3_44100_128`, {
       method: 'POST',
       headers: { 'xi-api-key': key, 'content-type': 'application/json' },
-      body: JSON.stringify({ text: j.text, model_id: cast.model_id }),
+      body: JSON.stringify(body(j)),
     });
     if (res.status === 429 || res.status >= 500) { await wait(2000 * (attempt + 1)); continue; }
     if (!res.ok) { console.error('✗', j.id, res.status, (await res.text()).slice(0, 200)); failed++; return; }
