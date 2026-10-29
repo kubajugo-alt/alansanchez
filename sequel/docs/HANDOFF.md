@@ -353,3 +353,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       hand-painted look ("Rafa got the textures right"); Game I's alan_side and alan_front uploaded to Canva as the
       reference (media MAHZW4cgw1U). The museum guard still to do.
 
+33. **Overnight cast repaint, first six compared with the approved cast** (2026-10-29). Canva repaints (two views,
+    Alan's rendering; prompts and progress in `art/designs/repaint_queue.json` and `repaint_done.json`) for Chano,
+    the guard, Nieves, the clerk, Pino and Lolo, exported through the scratch design (page 7) to
+    `art/designs/<id>_v2.png` (Chano `chano_v4`). Compared in `art/review/cast_repaint/`: `lineup12.jpg` (front views,
+    the approved six then the new six at Carmen's 92%), `heads12.jpg` (faces at one scale) and `lineup12_headfix.jpg`
+    (the new heads brought down to the cast's proportion with `head_scale.grow`, k 0.73-0.90). Measured face height /
+    figure height: approved 0.103-0.119, new 0.132-0.154 (guard), Nieves 0.117. Style: Nieves matches; the guard is
+    still a caricature, the clerk leans cartoon, Lolo and Pino carry heavier wrinkle linework, Chano's skin is
+    orange and glossy. The prompt for the rest gets a proportion line (`prompt_note`). Nothing in the game.
