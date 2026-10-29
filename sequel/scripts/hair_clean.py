@@ -72,15 +72,18 @@ def clean(im):
     light = zone & (A >= 64) & (L >= LIGHT_L) & (mx - mn <= SPREAD)
     dist = cv2.distanceTransform((~out).astype(np.uint8), cv2.DIST_L2, 3)        # px from the transparent outside
     take = np.zeros((H, W), bool); kinds = []
-    n, lab = cv2.connectedComponents(light.astype(np.uint8), connectivity=8)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(light.astype(np.uint8), connectivity=8)
     for i in range(1, n):
-        c = lab == i
+        x, y, w, h, sz = st[i]
+        if sz > MAX_PX: continue
+        y0, x0 = max(0, y - 1), max(0, x - 1); win = np.s_[y0:y + h + 1, x0:x + w + 1]   # the group and its ring
+        c = lab[win] == i
         ring = (cv2.dilate(c.astype(np.uint8), K8) > 0) & ~c
-        k, sz, peak = ring.sum(), c.sum(), mx[c].max()
-        if not k or sz > MAX_PX or peak < PEAK or (skin & ring).sum() > 0.1 * k: continue
-        if (hair | out)[ring].mean() < 0.6: continue                                # not among the hair
-        if dist[c].min() <= EDGE: take |= c; kinds.append('edge')                   # along the hair's outer edge
-        elif peak >= POCKET and (hair & ring).sum() >= 0.8 * k: take |= c; kinds.append('pocket')  # ringed by hair
+        k, peak = ring.sum(), mx[win][c].max()
+        if not k or peak < PEAK or (skin[win] & ring).sum() > 0.1 * k: continue
+        if (hair[win] | out[win])[ring].mean() < 0.6: continue                      # not among the hair
+        if dist[win][c].min() <= EDGE: take[win] |= c; kinds.append('edge')         # along the hair's outer edge
+        elif peak >= POCKET and (hair[win] & ring).sum() >= 0.8 * k: take[win] |= c; kinds.append('pocket')  # ringed by hair
     A2, rgb2 = A.copy(), rgb.copy()
     # hair colour beside each pixel (for the taken pixels' hidden colour and the fringe)
     hm = hair.astype(np.float32)
