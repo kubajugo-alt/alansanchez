@@ -53,6 +53,8 @@ def walk(run):
 
 
 STANDIN = {'G': 'B', 'H': 'C', 'X': 'A'}
+HEAD = {}
+import sys; sys.path.insert(0, os.path.join(SEQ, 'scripts')); import head_scale
 
 
 def mouth_for(D, m):
@@ -66,6 +68,10 @@ def mouth_for(D, m):
 def talk(fr, who, line, label):
     D = FACES[fr]; x, y, w, h = D['box']; dur, cues = LIPS[who][line]
     base = sprite(fr); s = 560 / base.height
+    if fr not in HEAD:
+        b = head_scale.face(base)
+        if b is not None: HEAD[fr] = (b[0] + b[2] / 2, b[1] + b[3] * 0.45, b[3] * 1.9)
+        else: HEAD[fr] = (x + w / 2, y + h / 2, max(w, h) * 1.6)
     lid_at = {1.0: 'half', 1.04: 'closed', 1.11: 'half', 1.15: None}
     def lid(t):
         u = t % 2.7
@@ -95,8 +101,9 @@ def talk(fr, who, line, label):
         if l: im.alpha_composite(Image.open(os.path.join(SEQ, 'art/faces', f'{fr}_eyes_{l}.webp')).convert('RGBA'), (x, y))
         frm = Image.new('RGB', (960, 600), BG)
         body = im.resize((round(im.width * s), 560), Image.LANCZOS); frm.paste(body, (30, 20), body)
-        pad = round(max(w, h) * 0.35); hx, hy = max(0, x - pad), max(0, y - pad)
-        head = im.crop((hx, hy, x + w + pad, y + h + pad)); k = 520 / head.height
+        # the whole head, centred on the face YuNet finds (a cast member's box is often the lower face only)
+        cx, cy, side = HEAD[fr]
+        head = im.crop((round(cx - side / 2), round(cy - side / 2), round(cx + side / 2), round(cy + side / 2))); k = 520 / head.height
         head = head.resize((round(head.width * k), 520), Image.LANCZOS); frm.paste(head, (min(400, 940 - head.width), 20), head)
         ImageDraw.Draw(frm).text((400, 556), label, fill=(225, 220, 210), font=FONT)
         frm.save(os.path.join(tmp, f'{n:05d}.png')); n += 1
@@ -111,9 +118,11 @@ def pick_line(who):
 
 
 if __name__ == '__main__':
-    os.makedirs(OUT, exist_ok=True); meta = {'walks': [], 'talks': []}
-    for run in ['alanv_walk_side', 'alanv_walk_front', 'alanv_walk_back', 'alanb_walk_side', 'alanb_walk_front', 'alanb_walk_back']:
-        walk(run); meta['walks'].append(run); print('walk', run, flush=True)
+    os.makedirs(OUT, exist_ok=True); meta = {'walks': ['alanv_walk_side', 'alanv_walk_front', 'alanv_walk_back', 'alanb_walk_side', 'alanb_walk_front', 'alanb_walk_back'], 'talks': []}
+    import sys
+    only_talk = '--talk' in sys.argv
+    for run in ([] if only_talk else ['alanv_walk_side', 'alanv_walk_front', 'alanv_walk_back', 'alanb_walk_side', 'alanb_walk_front', 'alanb_walk_back']):
+        walk(run); print('walk', run, flush=True)
     for fr, D in FACES.items():
         who = D.get('who')
         if not who or not D['mouths']: continue

@@ -95,7 +95,7 @@ figcaption {{ font-size: 15px; display: flex; flex-wrap: wrap; align-items: base
   </div>
   <figure class="clip" style="margin-top:18px"><div class="wide"><img src="emo_both.jpg" alt="Alan's nine expressions on his side and front views, close up and at game size"></div><figcaption><b>All nine on both views</b><span class="tech">scroll sideways</span></figcaption></figure>
 </section>
-<section class="note"><b>Not on this page:</b> the rooms' ambient motion (approved earlier), and the cast repaints, which are still being made in Canva. The emotions need an engine layer and a tag per line before they can go in.</section>
+<section class="note"><b>Not on this page:</b> Don Lolo, who only blinks (he has no lines with lip-sync); the rooms' ambient motion (approved earlier); and the cast repaints, which are still being made in Canva. The emotions need an engine layer and a tag per line before they can go in.</section>
 </main>
 '''
 open(os.path.join(A, 'index.html'), 'w').write(page)

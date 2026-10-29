@@ -407,3 +407,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     faint grey wisps outside the painting's outline (old lip line at the nose, ticks and dots under the chin) are
     removed. Checked over a dark room colour at 5x: `art/review/hair_clean/talking_mouths_dark.jpg`. Approvals
     unchanged (side sets ok, front set still waiting). Emotion patches (review) re-cut from the cleaned sprites.
+38. **Review page of every animation** (2026-10-29). The user: "do the page showing me all the animations".
+    `scripts/review_anim.py` renders clips from the game's own files into `art/review/anim/`: Alan's six walk cycles,
+    and every figure with a face set saying one line with lip-sync and blinks (close-up centred on the face YuNet
+    finds); `scripts/review_page.py` writes `index.html` (plus the emotion clips and sheet). Published as a private
+    artifact: https://claude.ai/artifact/VYCypKVRUqoSqdfXwm95HY. Same day: the guard's same-artist redo came in
+    (MAHZZrcFTJM); the next cast check-in is a session cron at 16:03 UTC (send_later was unavailable).
