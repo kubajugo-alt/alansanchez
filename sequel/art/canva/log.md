@@ -58,3 +58,4 @@
 - 2026-10-29 figure `baute_v4` Canva media MAHZW1reXu4 -> art/designs/baute_v4.png Baute in Alan's and Vasco v9's style (the user); candidate
 - 2026-10-29 figure `baute_v5_front` Canva media MAHZXNnod84 -> art/designs/baute_v5_front.png Baute front view, Alan's and Vasco's style (the user); candidate
 - 2026-10-29 figure `rafa_v3` Canva media MAHZXJOMGjc -> art/designs/rafa_v3.png Rafa as a handsome 23-year-old, Alan's and Vasco's style, side and front (the user); candidate
+- 2026-10-29 figure `yeray_v2` Canva media MAHZXLUb-FA -> art/designs/yeray_v2.png Yeray in Alan's style, side and front (the user); candidate
