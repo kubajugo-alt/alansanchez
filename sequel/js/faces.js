@@ -1156,7 +1156,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "vasco",
   "from": "jaw"
  },

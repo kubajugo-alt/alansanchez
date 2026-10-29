@@ -682,3 +682,8 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     Nieves: six library voices (Carmen "bold", Cristina, Gala, Esther, Inés González, Clara) on the same setup, three
     of her lines each: `art/review/voices/nieves/`, page https://claude.ai/artifact/E4BkZDqQmZfjDNKNsiPRXH (pick in its
     db, `picks/nieves`).
+66. **Nieves recast; the cast's voices in; Vasco's face on** (2026-10-29). The user: "nieves chosen" (db of the Nieves
+    page: "Carmen - Bold and Magnetic", iHGx33VgO2KQ1Fdw6noG): cast.json, v4 lively + accent cue like the rest; her 21
+    lines re-recorded. The other 279 Spanish lines done (279 voiced, 0 failed); no line without audio. The user:
+    "deploy everything - the characters placement as i chose it, the new vasco, the new voices": vascor_side_k's
+    face set `ok: true` (the mouth fix, entry 64).
