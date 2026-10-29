@@ -79,6 +79,12 @@ section > p { margin: 0 0 18px; max-width: 65ch; color: var(--muted); }
   <p>Only the brows, eyes and mouth change. Each clip: the line spoken with the emotion's brows and eyes over the talking mouth, then the emotion's own quiet face, with a blink.</p>
   <div class="grid" id="g-emo"></div>
 </section>
+<section>
+  <div class="eyebrow">New · waiting for you</div>
+  <h2>Emotions in the blazer</h2>
+  <p>The same eight, made the same way on the blazer's side view. The tank-top emotions above are approved.</p>
+  <div class="grid" id="g-emo2"></div>
+</section>
 </main>
 <script>
 const ITEMS = [
@@ -92,6 +98,8 @@ for (const [o, on] of [['alanv', 'Tank top'], ['alanb', 'Blazer']])
 const EMO = ['joy', 'mischievous', 'embarrassed', 'surprise', 'concern', 'sadness', 'fear', 'anger'];
 for (const e of EMO) for (const [v, vn] of [['side', 'side'], ['front', 'front']])
   ITEMS.push({ id: `emo_${v}_${e}`, group: 'emo', src: `emo_${v}_${e}.mp4`, title: `${e[0].toUpperCase() + e.slice(1)}, ${vn}`, tech: `alanv_${v}_k · ${e}_soft`, sound: true });
+for (const e of EMO)
+  ITEMS.push({ id: `emo_blazer_${e}`, group: 'emo2', src: `emo_blazer_${e}.mp4`, title: `${e[0].toUpperCase() + e.slice(1)}, blazer side`, tech: `alanb_side_k · ${e}_soft · new`, sound: true });
 
 const state = { verdicts: {}, notes: {}, db: null, user: null, canWrite: false };
 const $ = id => document.getElementById(id);
