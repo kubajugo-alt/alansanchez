@@ -975,10 +975,10 @@ window.FACES = {
  },
  "alanv_side_k": {
   "box": [
-   80,
-   45,
-   82,
-   92
+   79,
+   44,
+   83,
+   93
   ],
   "mouths": [
    "A",
@@ -1011,9 +1011,9 @@ window.FACES = {
  "alanb_side_k": {
   "box": [
    84,
-   46,
-   81,
-   91
+   45,
+   83,
+   93
   ],
   "mouths": [
    "A",
@@ -1537,10 +1537,10 @@ window.FACES = {
  },
  "alanv_front_k": {
   "box": [
-   99,
+   102,
    94,
-   80,
-   42
+   76,
+   40
   ],
   "mouths": [
    "A",

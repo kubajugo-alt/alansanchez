@@ -397,3 +397,13 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     once approved, and then the side sets' face patches need `scripts/face_from_game1.py` again (their box covers
     hair with the leftovers). Not touched: a dark teal (green-screen) tinge on some outer curl tips. Checked: no
     changed pixel is skin-coloured or below 14% of the figure's height; sheets looked over at 3x and 8x.
+37. **Hair clean-up installed; Alan's face patches regenerated and defringed** (2026-10-29). The user: "install the hair
+    clean-up and regenerate the face patches. Make sure there are no white lines/specks in his jaw when he speaks".
+    `hair_clean.py install` (112 of Alan's frames). Face patches rebuilt from the cleaned sprites: `face_from_game1.py`
+    (alanv/alanb side, boxes moved 1 px) and `face_kit.py find/build alanf` + `face_jaw.py alanf` (front; no new Gemini).
+    New `scripts/face_defringe.py`, run by both generators after they write a set: in every mouth patch, (1) a pale or
+    grey fringe along the outline takes the solid face's colour (removed where the painting itself is transparent),
+    (2) see-through pixels inside the face (the front view's upper teeth) are made solid, (3) hair-thin strokes and
+    faint grey wisps outside the painting's outline (old lip line at the nose, ticks and dots under the chin) are
+    removed. Checked over a dark room colour at 5x: `art/review/hair_clean/talking_mouths_dark.jpg`. Approvals
+    unchanged (side sets ok, front set still waiting). Emotion patches (review) re-cut from the cleaned sprites.

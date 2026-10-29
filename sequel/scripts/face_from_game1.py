@@ -110,3 +110,6 @@ if __name__ == '__main__':
         data[frame] = {'box': [bx, by, BW, BH], 'mouths': STATES, 'eyes': ['half', 'closed'], 'ok': True, 'who': 'alan', 'from': 'game1'}
         print(frame, 'head at', (bx, by), (BW, BH), 'fit', round(cc, 3))
     open(fp, 'w').write(head + 'window.FACES = ' + json.dumps(data, indent=1) + ';\n')
+    import face_defringe   # no pale fringe or stray strokes at the jaw while he talks (scripts/face_defringe.py)
+    for frame in frames:
+        if frame in data: print(frame, face_defringe.frame(frame), 'px cleaned')
