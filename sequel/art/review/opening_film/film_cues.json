@@ -1,0 +1,131 @@
+{
+ "duration": 136.75,
+ "cues": [
+  {
+   "id": "carmen_machine",
+   "who": "carmen",
+   "text": "Trujillo. Speak, or don't.",
+   "start": 15.6,
+   "end": 18.29
+  },
+  {
+   "id": "elena_msg_01",
+   "who": "elena",
+   "text": "Carmen. It's me. I know it's late. Somebody's taken one of the discs out of the channel. The wear marks are fresh. It isn't conservation.",
+   "start": 17.8,
+   "end": 27.83
+  },
+  {
+   "id": "elena_msg_02",
+   "who": "elena",
+   "text": "And it isn't a calendar either. I've been reading it wrong for a year. It's a door, Carmen. And someone's opening it.",
+   "start": 28.63,
+   "end": 36.68
+  },
+  {
+   "id": "elena_msg_03",
+   "who": "elena",
+   "text": "I'm driving down now. Don't smoke all of them before I get there. Te quiero.",
+   "start": 37.33,
+   "end": 42.58
+  },
+  {
+   "id": "barman_stay",
+   "who": "barman",
+   "text": "There's cloud on the road, doctora. Stay.",
+   "start": 43.68,
+   "end": 45.8
+  },
+  {
+   "id": "elena_stay",
+   "who": "elena",
+   "text": "There's always cloud on the road.",
+   "start": 46.18,
+   "end": 48.14
+  },
+  {
+   "id": "elena_look_radio",
+   "who": "elena",
+   "text": "Radio Las Palmas. Still awake. Someone has to be.",
+   "start": 58.58,
+   "end": 63.83
+  },
+  {
+   "id": "elena_look_mirror",
+   "who": "elena",
+   "text": "The camp lights, going out one by one. Rayco's still up. He never sleeps.",
+   "start": 65.58,
+   "end": 71.38
+  },
+  {
+   "id": "elena_look_notebook",
+   "who": "elena",
+   "text": "Seven circles in a line. One shaded empty. Six. There should be seven.",
+   "start": 72.48,
+   "end": 80.19
+  },
+  {
+   "id": "elena_look_radio_2",
+   "who": "elena",
+   "text": "Static. And under the static, surf. There's no surf up here.",
+   "start": 82.69,
+   "end": 89.53
+  },
+  {
+   "id": "elena_look_air",
+   "who": "elena",
+   "text": "Salt. Why is it salt?",
+   "start": 90.29,
+   "end": 93.84
+  },
+  {
+   "id": "elena_salt",
+   "who": "elena",
+   "text": "Water on the inside of the glass. On the inside.",
+   "start": 95.34,
+   "end": 99.13
+  },
+  {
+   "id": "elena_doors",
+   "who": "elena",
+   "text": "The doors. No. It's a door, Carmen. I told you it was a door.",
+   "start": 102.14,
+   "end": 108.17
+  },
+  {
+   "id": "gc_01",
+   "who": "gc1",
+   "text": "Flash flood. Has to be.",
+   "start": 113.54,
+   "end": 115.19
+  },
+  {
+   "id": "gc_02",
+   "who": "gc2",
+   "text": "There's no water in this barranco.",
+   "start": 115.54,
+   "end": 117.19
+  },
+  {
+   "id": "gc_03",
+   "who": "gc1",
+   "text": "Then it went somewhere.",
+   "start": 117.74,
+   "end": 118.97
+  },
+  {
+   "id": "narr_open_01",
+   "who": "narr",
+   "text": "The Guardia Civil said it was a flash flood.",
+   "start": 121.94,
+   "end": 124.87
+  },
+  {
+   "id": "narr_open_02",
+   "who": "narr",
+   "text": "It hadn't rained on that side of the mountain for forty days.",
+   "start": 125.54,
+   "end": 129.25
+  }
+ ]
+}

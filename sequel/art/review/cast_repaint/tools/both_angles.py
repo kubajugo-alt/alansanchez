@@ -15,7 +15,7 @@ def both(f, fb=None):
 C = [('Alan', (sprite('alanv_side_k'), sprite('alanv_front_k')), 1.0, 'in the game'),
      ('Vasco', both('vasco_v9'), 1.0, 'approved'), ('Baute', both('baute_v4', 'baute_v5_front'), 1.0, 'approved'),
      ('Rafa', both('rafa_v3'), 1.0, 'approved'), ('Yeray', both('yeray_v7'), 1.0, 'approved'), ('Carmen', both('carmen_v2'), .92, 'approved'),
-     ('Nieves', both('nieves_v2'), .92, 'kept from overnight'), ('Guard', both('guard_v3'), .92, 'redo, new')]
+     ('Nieves', both('nieves_v2'), .92, 'kept from overnight'), ('Guard', both('guard_v4'), .92, 'redo 2, new')]
 H = 620; font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 22); small = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 16)
 tiles = []
 for n, (s, f), k, st in C:

@@ -72,3 +72,4 @@
 - 2026-10-29 figure `pino_v2` Canva media MAHZY2Y2WDs -> art/designs/pino_v2.png overnight repaint, two views
 - 2026-10-29 figure `lolo_v2` Canva media MAHZZFccEpk -> art/designs/lolo_v2.png overnight repaint, two views
 - 2026-10-29 figure `guard_v3` Canva media MAHZZrcFTJM -> art/designs/guard_v3.png same-artist redo
+- 2026-10-29 figure `guard_v4` Canva media MAHZa8a30xk -> art/designs/guard_v4.png cast proportions, from the cast sheet only

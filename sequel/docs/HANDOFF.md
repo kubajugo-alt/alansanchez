@@ -509,3 +509,16 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     2 min 10 s, 4 existing paintings (still_elena_bar, bg elena_car, still_barranco, still_title) and 8 new ones, all 17
     recorded lines. Higgsfield: plus plan, 1,123.77 credits; image-to-video candidates Kling 3.0 and Cinema Studio
     Video. Nothing made yet.
+49. **Opening film: animated and cut; guard redone again** (2026-10-29). The user: "go ahead, animate the shots. the
+    guard however needs redoing - still looks like a different type of character, completely different proportions".
+    - Film: the 8 new paintings (Higgsfield GPT Image 2.5, references the four existing paintings, ~2.75 credits each;
+      shot 11 redone to show the water round her boots) and 14 clips (Higgsfield Kling 3.0 pro, silent, 12 credits per
+      8 s; Higgsfield offered its "IN THE DARK" preset for 7 of them and was told no with `declined_preset_id`). Ids in
+      `art/review/opening_film/jobs.json`; paintings in `paintings/`, clips in `clips/`. `scripts/opening_film.py`
+      cuts them to the storyboard with the 18 recorded lines, sound effects and the elena_car / title music:
+      `opening_film.mp4` (2 min 17 s, -17.9 LUFS, review copy with burnt captions and the title drawn on the last shot)
+      and `film_cues.json` (each line's start/end, for the game's own captions). Not in the game yet.
+    - Guard: the cast-sheet redo (MAHZZrcFTJM, `guard_v3`) still read as a different character. New take from the
+      approved cast sheet + Vasco v9 only, no old design: MAHZa8a30xk, `guard_v4`, in `art/review/cast_repaint/both_angles.jpg`.
+    - The 16:03 session cron for the rest of the cast redo never fired: the clerk, Chano, Pino, Lolo and the six still
+      to make are not started.
