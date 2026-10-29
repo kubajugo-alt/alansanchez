@@ -1,0 +1,187 @@
+<title>The Shortest Night Opening Film</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* layout: a storyboard; one row per shot (frame left, direction right), grouped in the bible's four movements */
+:root {
+  --bg: #e9e6e2; --panel: #dcd8d3; --card: #f4f1ed; --ink: #1f2128; --muted: #5f6370; --line: #cbc6c0;
+  --accent: #2e5a7a; --new: #8a5a14; --ok: #2f6b4f; --fix: #a3441f; --screen: #1d2029;
+  --display: "Fraunces", Georgia, serif; --body: "Source Sans 3", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #15171d; --panel: #1f2229; --card: #1b1e25; --ink: #e8e9ee; --muted: #9ba0ad; --line: #30343e;
+  --accent: #8fb8d8; --new: #e3b46a; --ok: #7cc4a0; --fix: #f0946c; --screen: #0e1015; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #15171d; --panel: #1f2229; --card: #1b1e25; --ink: #e8e9ee; --muted: #9ba0ad; --line: #30343e;
+  --accent: #8fb8d8; --new: #e3b46a; --ok: #7cc4a0; --fix: #f0946c; --screen: #0e1015; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); }
+main { max-width: 1120px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 40px; }
+header { display: grid; gap: 12px; }
+header h1 { font: 700 clamp(30px, 5vw, 46px)/1.05 var(--display); margin: 0; text-wrap: balance; }
+header p { margin: 0; max-width: 68ch; color: var(--muted); }
+.eyebrow { font: 400 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.facts { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 15px; font-variant-numeric: tabular-nums; }
+.facts b { font-weight: 600; }
+.status { font-size: 14px; color: var(--muted); }
+h2 { font: 500 26px/1.2 var(--display); margin: 0 0 4px; text-wrap: balance; }
+section > p { margin: 0 0 16px; color: var(--muted); max-width: 68ch; }
+.shots { display: grid; gap: 14px; }
+.shot { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 16px; }
+.shot[data-state="approved"] { border-color: var(--ok); } .shot[data-state="changes"] { border-color: var(--fix); }
+@media (max-width: 720px) { .shot { grid-template-columns: 1fr; } }
+.frame { aspect-ratio: 16 / 9; max-width: 100%; border-radius: 5px; overflow: hidden; background: var(--screen); position: relative; display: grid; place-items: center; }
+.frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.frame.topaint { background: repeating-linear-gradient(135deg, var(--screen) 0 14px, color-mix(in srgb, var(--screen) 88%, var(--new)) 14px 28px); color: #e9dcc4; padding: 14px; text-align: center; font: 500 15px/1.35 var(--display); }
+.frame.black { color: #c9c6be; font: 500 15px/1.4 var(--display); text-align: center; padding: 14px; }
+.tag { position: absolute; left: 8px; top: 8px; font: 400 11px var(--mono); letter-spacing: .05em; padding: 2px 7px; border-radius: 99px; background: rgba(0,0,0,.55); color: #fff; }
+.tag.new { background: #8a5a14; }
+.dir { display: grid; gap: 6px; min-width: 0; align-content: start; }
+.dir .head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.dir .num { font: 700 20px var(--display); color: var(--accent); }
+.dir .name { font: 600 17px var(--body); }
+.dir .len { font: 400 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.dir dl { margin: 0; display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 3px 10px; font-size: 15px; }
+.dir dt { font: 400 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding-top: 3px; }
+.dir dd { margin: 0; overflow-wrap: anywhere; }
+.dir q { font-style: italic; }
+.ctl { display: flex; flex-wrap: wrap; gap: 6px; }
+.ctl button { font: 600 13px var(--body); padding: 5px 12px; border-radius: 99px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+.ctl button[aria-pressed="true"].ok { background: var(--ok); border-color: var(--ok); color: var(--card); }
+.ctl button[aria-pressed="true"].fix { background: var(--fix); border-color: var(--fix); color: var(--card); }
+.ctl button:disabled, textarea:disabled, form button:disabled { opacity: .5; cursor: default; }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.notes li { font-size: 14px; background: var(--panel); border-radius: 6px; padding: 6px 9px; overflow-wrap: anywhere; }
+.notes .who { font: 400 11px var(--mono); color: var(--muted); display: block; }
+form { display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: end; }
+textarea { font: 14px/1.4 var(--body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; resize: vertical; min-height: 34px; min-width: 0; }
+form button { font: 600 13px var(--body); padding: 7px 12px; border-radius: 6px; border: 0; background: var(--accent); color: var(--card); cursor: pointer; }
+.how { background: var(--panel); border-radius: 8px; padding: 16px 18px; display: grid; gap: 8px; max-width: 76ch; }
+.how h2 { font-size: 22px; }
+.how ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+</style>
+<main>
+<header>
+  <div class="eyebrow">Game II · The Shortest Night · opening film · storyboard</div>
+  <h1>Elena's last drive</h1>
+  <p>The bible's cold open, told as a short film of animated paintings instead of the playable prologue. It runs before the game starts at the airport. Every line in it is already recorded; the paintings move in small, slow ways, as the rooms do. Mark each shot and leave notes; nothing is made until you've been through it.</p>
+  <div class="facts"><span><b>16</b> shots</span><span>about <b>2 min 10 s</b></span><span><b>4</b> paintings we have</span><span><b>8</b> new paintings</span><span><b>17</b> recorded lines</span></div>
+  <div class="status" id="status">Connecting the review store…</div>
+</header>
+<div id="acts" style="display:grid;gap:40px"></div>
+<section class="how">
+  <h2>How it gets made, once you approve</h2>
+  <ol>
+    <li>The 8 new paintings, in the game's painted style, from the bar and the barranco paintings as references. You review them as stills first.</li>
+    <li>Each shot animated from its painting with Higgsfield (image to video, a few seconds each, silent), keeping the painting as it is: slow camera moves, cloud, water, light, small gestures. You review the clips.</li>
+    <li>Cut together with the recorded lines, the radio, the surf and Elena's music; captions in the game's own lettering.</li>
+    <li>It plays when a new game starts, can be skipped with a click, and ends on the title card, then the airport.</li>
+  </ol>
+</section>
+</main>
+<script>
+const ACTS = [
+ { name: 'The bar in Artenara, 23:40', note: 'Her message to Carmen, the one Carmen keeps for six months.', shots: [
+  { id: 's01', n: 1, name: 'Date card', len: 5, frame: 'black', text: 'Gran Canaria · 21 December 1995 · the winter solstice',
+    shot: 'Black. The card fades in and out.', move: '—', sound: 'Wind on a mountain. Far off, a timple.', lines: '' },
+  { id: 's02', n: 2, name: 'Artenara at night', len: 7, frame: 'new', text: 'Cave houses on a cliff, one bar lit, the sea of cloud below under the moon',
+    shot: 'Wide, from below the village. The sea of cloud fills the bottom of the frame, silver.', move: 'Slow push in towards the lit bar. The cloud flows; the bar window flickers.', sound: 'Wind; a dog, once.', lines: '' },
+  { id: 's03', n: 3, name: 'The wall phone', len: 14, frame: 'bar', exist: true,
+    shot: 'The bar painting: Elena at the phone, the barman stacking chairs.', move: 'Slow dolly towards Elena. The barman lifts a chair; a coin drops.', sound: 'Coins, the ring, the machine picks up, beep.', lines: '<q>Trujillo. Speak, or don\'t.</q> · ELENA <q>Carmen. It\'s me. I know it\'s late. Somebody\'s taken one of the discs out of the channel…</q>' },
+  { id: 's04', n: 4, name: 'Elena, close', len: 14, frame: 'new', text: 'Elena at the phone, close: field jacket, pencil in her hair, lamp light',
+    shot: 'Medium close on Elena, the receiver to her ear.', move: 'Almost still: breath, her eyes drop, a very slow push.', sound: 'The bar\'s fridge hum.', lines: 'ELENA <q>And it isn\'t a calendar either… It\'s a door, Carmen. And someone\'s opening it.</q> <q>I\'m driving down now. Don\'t smoke all of them before I get there. Te quiero.</q>' },
+  { id: 's05', n: 5, name: 'Stay', len: 6, frame: 'bar', exist: true,
+    shot: 'The bar painting again, wider; she hangs up.', move: 'The barman doesn\'t look up. She goes; the door\'s light swings.', sound: 'Receiver down; the door.', lines: 'BARMAN <q>There\'s cloud on the road, doctora. Stay.</q> · ELENA <q>There\'s always cloud on the road.</q>' },
+ ]},
+ { name: 'The road down, 00:10', note: 'What was the playable car: her three looks become shots.', shots: [
+  { id: 's06', n: 6, name: 'Hairpins', len: 8, frame: 'new', text: 'A Renault 4\'s lights on the hairpins, falling towards a ceiling of cloud lit by the moon',
+    shot: 'High and wide: the mountain road, the little car, the cloud below.', move: 'The car winds down; its headlights sweep the rock.', sound: 'An old engine. Elena\'s music begins, low.', lines: '' },
+  { id: 's07', n: 7, name: 'The radio', len: 8, frame: 'car', exist: true,
+    shot: 'The car painting: the moonlit road through the windscreen, the radio\'s orange dial.', move: 'The road comes towards us; a slight sway; the dial glows.', sound: 'A timple and a woman singing, on the radio.', lines: 'ELENA <q>Radio Las Palmas. Still awake. Someone has to be.</q>' },
+  { id: 's08', n: 8, name: 'The mirror', len: 7, frame: 'new', text: 'The rear-view mirror: the dig camp\'s lights high above, going out one by one',
+    shot: 'Insert on the mirror.', move: 'The lights in the glass go out, one, then another.', sound: 'Radio, under.', lines: 'ELENA <q>The camp lights, going out one by one. Rayco\'s still up. He never sleeps.</q>' },
+  { id: 's09', n: 9, name: 'The notebook', len: 8, frame: 'new', text: 'Her notebook on the passenger seat: seven circles in a line, one shaded empty',
+    shot: 'Insert, looking down on the seat.', move: 'Moonlight slides across the page as the car turns.', sound: 'Radio, under.', lines: 'ELENA <q>Seven circles in a line. One shaded empty. Six. There should be seven.</q>' },
+ ]},
+ { name: 'Inside the cloud', note: 'The Sea finds her. Shown, never graphic: no struggle, no face under water.', shots: [
+  { id: 's10', n: 10, name: 'Into the cloud', len: 12, frame: 'car', exist: true,
+    shot: 'The car painting: the windscreen fills with grey, then black. Headlights on nothing.', move: 'The cloud swallows the glass from the edges in.', sound: 'The radio thins to static; under it, surf.', lines: 'ELENA <q>Static. And under the static, surf. There\'s no surf up here.</q> <q>Salt. Why is it salt?</q>' },
+  { id: 's11', n: 11, name: 'Water inside', len: 7, frame: 'new', text: 'Water beading on the inside of the glass; black water round her boots in the footwell',
+    shot: 'Two-part insert: the glass, then down to the footwell.', move: 'Beads run; the black water rises, slowly.', sound: 'Surf, closer.', lines: 'ELENA <q>Water on the inside of the glass. On the inside.</q>' },
+  { id: 's12', n: 12, name: 'The triangle', len: 8, frame: 'new', text: 'Her finger drawing a triangle, point down, in the condensation; water at her shoulders, seen from behind',
+    shot: 'Over her shoulder, on the windscreen.', move: 'The finger completes the triangle and stays on the glass.', sound: 'Surf all round, then quiet.', lines: 'ELENA <q>The doors. No. It\'s a door, Carmen. I told you it was a door.</q>' },
+  { id: 's13', n: 13, name: 'Black', len: 3, frame: 'black', text: '',
+    shot: 'Black.', move: '—', sound: 'The surf swells and stops.', lines: '' },
+ ]},
+ { name: 'Morning', note: 'The game\'s first clue, and the title.', shots: [
+  { id: 's14', n: 14, name: 'The barranco', len: 9, frame: 'barranco', exist: true,
+    shot: 'The barranco painting: red rock, spurge, the Renault upright, two Guardia.', move: 'Slow pan; heat shimmer; a camera flash at the windscreen.', sound: 'Birds, wind, the shutter.', lines: 'GUARDIA <q>Flash flood. Has to be.</q> · <q>There\'s no water in this barranco.</q> · <q>Then it went somewhere.</q>' },
+  { id: 's15', n: 15, name: 'The salt triangle', len: 8, frame: 'new', text: 'The windscreen in sun: a triangle, point down, dried in a crust of salt',
+    shot: 'Insert on the glass.', move: 'A slow push; the sun glints on the salt.', sound: 'Wind.', lines: 'NARRATOR <q>The Guardia Civil said it was a flash flood.</q> <q>It hadn\'t rained on that side of the mountain for forty days.</q>' },
+  { id: 's16', n: 16, name: 'Title', len: 6, frame: 'title', exist: true,
+    shot: 'The title painting.', move: 'A slow push; mist drifts.', sound: 'The title music.', lines: 'Then the airport, Tuesday.' },
+ ]},
+];
+const st = { v: {}, notes: {}, names: {}, db: null, user: null, can: false, me: '' };
+const $ = id => document.getElementById(id);
+for (const act of ACTS) {
+  const sec = document.createElement('section');
+  sec.innerHTML = `<div class="eyebrow">${act.shots[0].n === 1 ? 'Part one' : act.shots[0].n === 6 ? 'Part two' : act.shots[0].n === 10 ? 'Part three' : 'Part four'} · ${act.shots.reduce((s, x) => s + x.len, 0)} s</div><h2></h2><p></p><div class="shots"></div>`;
+  sec.querySelector('h2').textContent = act.name; sec.querySelector('p').textContent = act.note;
+  for (const s of act.shots) {
+    const el = document.createElement('article'); el.className = 'shot'; el.id = 'shot-' + s.id;
+    const fr = document.createElement('div');
+    if (s.frame === 'black') { fr.className = 'frame black'; fr.textContent = s.text; }
+    else if (s.frame === 'new') { fr.className = 'frame topaint'; fr.innerHTML = '<span class="tag new">new painting</span>'; fr.append(document.createTextNode(s.text)); }
+    else { fr.className = 'frame'; fr.innerHTML = `<img src="${s.frame}.jpg" alt=""><span class="tag">painting we have</span>`; fr.querySelector('img').alt = s.shot; }
+    const d = document.createElement('div'); d.className = 'dir';
+    d.innerHTML = `<div class="head"><span class="num">${s.n}</span><span class="name"></span><span class="len">${s.len} s</span></div>
+      <dl><dt>Shot</dt><dd class="a"></dd><dt>Moves</dt><dd class="b"></dd><dt>Sound</dt><dd class="c"></dd>${s.lines ? '<dt>Lines</dt><dd class="e"></dd>' : ''}</dl>
+      <div class="ctl"><button type="button" class="ok">Approve</button><button type="button" class="fix">Change</button></div>
+      <ul class="notes"></ul><form><textarea rows="1" placeholder="Note on this shot"></textarea><button type="submit">Add</button></form>`;
+    d.querySelector('.name').textContent = s.name; d.querySelector('.a').textContent = s.shot; d.querySelector('.b').textContent = s.move; d.querySelector('.c').textContent = s.sound;
+    if (s.lines) d.querySelector('.e').innerHTML = s.lines;
+    const ta = d.querySelector('textarea'); ta.id = 'note-' + s.id; ta.setAttribute('aria-label', 'Note on shot ' + s.n);
+    const [ok, fix] = d.querySelectorAll('.ctl button');
+    ok.onclick = () => verdict(s.id, 'approved'); fix.onclick = () => verdict(s.id, 'changes');
+    d.querySelector('form').onsubmit = e => { e.preventDefault(); note(s.id, ta, d.querySelector('form button')); };
+    el.append(fr, d); sec.querySelector('.shots').append(el);
+  }
+  $('acts').append(sec);
+}
+const IDS = ACTS.flatMap(a => a.shots.map(s => s.id));
+function render() {
+  for (const id of IDS) {
+    const el = $('shot-' + id), v = st.v[id] || ''; el.dataset.state = v;
+    el.querySelectorAll('.ctl button').forEach(b => { b.setAttribute('aria-pressed', String((b.className === 'ok' ? 'approved' : 'changes') === v)); b.disabled = !st.can; });
+    el.querySelector('textarea').disabled = !st.can; el.querySelector('form button').disabled = !st.can;
+    el.querySelector('.notes').replaceChildren(...(st.notes[id] || []).map(n => { const li = document.createElement('li'); const w = document.createElement('span'); w.className = 'who'; w.textContent = (st.names[n.by] || 'Someone') + ' · ' + new Date(n.at).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }); const t = document.createElement('span'); t.textContent = n.text; li.append(w, t); return li; }));
+  }
+}
+async function verdict(id, k) {
+  if (!st.db) return; const next = st.v[id] === k ? '' : k, prev = st.v[id]; st.v[id] = next; render();
+  try { await st.db.doc('verdicts/' + id).set({ item: id, status: next, by: st.me, at: Date.now() }); $('status').textContent = next ? 'Saved.' : 'Cleared.'; }
+  catch (e) { st.v[id] = prev; render(); $('status').textContent = 'Could not save (' + (e.code || 'error') + '). Try again.'; }
+}
+async function note(id, ta, b) {
+  const text = ta.value.trim(); if (!text || !st.db) return; b.disabled = true;
+  try { await st.db.collection('notes').add({ item: id, text: text.slice(0, 2000), by: st.me, at: Date.now() }); ta.value = ''; $('status').textContent = 'Note added.'; }
+  catch (e) { $('status').textContent = 'Could not add the note (' + (e.code || 'error') + '). Your text is still in the box.'; }
+  b.disabled = !st.can;
+}
+render();
+(async () => {
+  const [db, user] = await Promise.all([claude.use('db'), claude.use('user')]); st.user = user;
+  if (!db) { $('status').textContent = 'Reviewing needs you signed in to claude.ai with access to this page.'; return; }
+  st.db = db; try { st.me = user ? await user.id() : ''; } catch (e) {}
+  st.can = user ? user.can('data.write') !== false : true;
+  $('status').textContent = st.can ? 'Your verdicts and notes save as you go.' : 'You can read this storyboard; only people who can edit the page can add to it.';
+  const err = e => { $('status').textContent = 'The review store is not answering (' + e.code + '). Reload to try again.'; };
+  db.collection('verdicts').onSnapshot(s => { st.v = {}; s.docs.forEach(d => { const x = d.data(); if (x && x.status) st.v[x.item || d.id] = x.status; }); render(); }, err);
+  db.collection('notes').orderBy('at', 'asc').onSnapshot(async s => {
+    st.notes = {}; s.docs.forEach(d => { const x = d.data(); if (x && x.item) (st.notes[x.item] = st.notes[x.item] || []).push(x); }); render();
+    const ids = [...new Set(Object.values(st.notes).flat().map(n => n.by).filter(Boolean))];
+    if (user && ids.length) { try { const ps = await user.profiles(ids); ids.forEach(i => st.names[i] = (ps[i] && ps[i].name) || 'Someone'); render(); } catch (e) {} }
+  }, err);
+})();
+</script>

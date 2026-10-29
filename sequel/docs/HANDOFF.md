@@ -500,3 +500,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
 47. **Tank top front walk: Ludo redraw approved and installed** (2026-10-29). The 14-frame retimed loop from Ludo take 1
     (alanv_walk_front_t1, frames 3..22; take 2 came in later and was not used) approved ("approved") and installed with
     `walk_loop.py install alanv_walk_front`. All six of Alan's walks are now seamless loops. play.mjs won, 98 steps.
+48. **Deployed; opening film storyboarded** (2026-10-29). The user: "deploy with Alan's walks, talks, blinking and
+    emotions". Committed, `git archive HEAD:sequel` export, play.mjs on the export won (98 steps, no errors), Netlify
+    deploy `6ae3950d62b646671d494d6e`; live page 200, `/.env` 404, the new emotion, lid and walk files served.
+    Then: "replace the playable version of the intro with a series of animated paintings - an opening film... storyboard
+    it for me" (Higgsfield to animate). Storyboard page https://claude.ai/artifact/CARcDpAVTa3kZ9KhpbEBwC
+    (`art/review/opening_film/index.html`; db `verdicts`, `notes` per shot): the bible's cold open in 16 shots, about
+    2 min 10 s, 4 existing paintings (still_elena_bar, bg elena_car, still_barranco, still_title) and 8 new ones, all 17
+    recorded lines. Higgsfield: plus plan, 1,123.77 credits; image-to-video candidates Kling 3.0 and Cinema Studio
+    Video. Nothing made yet.
