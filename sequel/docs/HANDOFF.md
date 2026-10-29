@@ -543,3 +543,13 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     into their rooms at the layout's depth scale (`room_<room>.jpg`, `sheet.jpg`). Review page with verdicts/notes
     (db `verdicts`, `notes`): https://claude.ai/artifact/A6JdpNawcWPMW9AAQsNpJr. Not in the game: needs a simple
     "extras" layer (a static sprite per room per chapter, behind the walkable cast, no hotspot).
+52. **Background people: review applied; placement tool** (2026-10-29). Review (db of the review page): 16 approved;
+    removed quay_rope, vegueta_couple, beach_surfer_girl ("we don't need them"); redone in Higgsfield from the notes:
+    museum_waiter_tray and cathedral_priest and quay_crate_carrier standing, museum_guest_academic at the pair's
+    cocktail table, restaurant_waiter less formal (first takes in `art/designs/extras/first_takes/`). The user asked for
+    "a tool that would allow me to position them in different rooms, rotate or flip", "with the regular cast that is in
+    those rooms too, and Alan in each, so I can scale using him": https://claude.ai/artifact/1wi1TWruWDpxmZY97YAn9n
+    (`art/review/extras/placer/`, data.json made from extras.json + js/story/layout.js + the cast read from the running
+    game per room and chapter). Placements in its db, collection `placements`: {extra, room, x, y (feet, 1280x720),
+    size (x the depth height), rot (deg), flip, z (draw order nudge)}; seeded on first visit with the preview layout.
+    The game will read these into each room's `ambient` list (no name, no hotspot) once the user is done placing.

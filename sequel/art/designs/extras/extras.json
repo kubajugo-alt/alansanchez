@@ -7,7 +7,7 @@
    "id": "museum_waiter_tray",
    "room": "museum_hall",
    "aspect": "3:4",
-   "desc": "A waiter at a museum reception: a man in his thirties in a white waiter's jacket, black trousers and bow tie, walking, carrying a silver tray of champagne flutes on one raised hand. Seen from the side, walking.",
+   "desc": "A waiter at a museum reception: a man in his thirties in a white waiter's jacket, black trousers and bow tie, walking, carrying a silver tray of champagne flutes on one raised hand. Seen from the side, walking. (redone: standing)",
    "place": [
     300,
     600,
@@ -61,11 +61,11 @@
   {
    "id": "museum_guest_academic",
    "room": "museum_hall",
-   "aspect": "3:4",
+   "aspect": "4:3",
    "desc": "A guest at a museum reception: a young bearded academic in his thirties in a tweed jacket and open shirt, glasses, holding a glass of red wine and a museum brochure, laughing. Three-quarter view.",
    "place": [
-    1180,
-    605,
+    1150,
+    610,
     1.0
    ]
   },
@@ -78,17 +78,6 @@
     320,
     655,
     "w"
-   ]
-  },
-  {
-   "id": "beach_surfer_girl",
-   "room": "beach",
-   "aspect": "3:4",
-   "desc": "On Las Canteras beach: a young woman surfer in a short black wetsuit, wet hair tied back, walking with a surfboard under her arm. Seen from the side, walking.",
-   "place": [
-    560,
-    600,
-    0.97
    ]
   },
   {
@@ -158,17 +147,6 @@
    ]
   },
   {
-   "id": "vegueta_couple",
-   "room": "santa_ana",
-   "aspect": "3:4",
-   "desc": "In the old town of Vegueta: a young Canarian couple in light summer clothes walking hand in hand, the woman with a sun hat, the man carrying an ice cream. Seen from the side, walking.",
-   "place": [
-    760,
-    565,
-    1.0
-   ]
-  },
-  {
    "id": "vegueta_tourists_guidebook",
    "room": "santa_ana",
    "aspect": "3:4",
@@ -205,7 +183,7 @@
    "id": "cathedral_priest",
    "room": "santa_ana_inside",
    "aspect": "3:4",
-   "desc": "Inside the cathedral of Santa Ana: an elderly priest in a black cassock and white collar, walking slowly with a prayer book held against his chest. Seen from the side, walking.",
+   "desc": "Inside the cathedral of Santa Ana: an elderly priest in a black cassock and white collar, walking slowly with a prayer book held against his chest. Seen from the side, walking. (redone: standing)",
    "place": [
     640,
     585,
@@ -216,7 +194,7 @@
    "id": "restaurant_waiter",
    "room": "hotel_restaurant",
    "aspect": "3:4",
-   "desc": "In a 1990s seaside hotel restaurant: a waiter in his forties in a white jacket, black trousers and bow tie, a white napkin over his arm, pouring red wine from a bottle into a glass held at waist height. Three-quarter view.",
+   "desc": "In a 1990s seaside hotel restaurant: a waiter in his forties in a white jacket, black trousers and bow tie, a white napkin over his arm, pouring red wine from a bottle into a glass held at waist height. Three-quarter view. (redone: relaxed, white short-sleeved shirt and apron)",
    "place": [
     900,
     600,
@@ -238,21 +216,10 @@
    "id": "quay_crate_carrier",
    "room": "isleta",
    "aspect": "3:4",
-   "desc": "On the fishing quay of La Isleta: a strong fisherman in his forties in rubber boots, rolled-up sleeves and an apron, carrying a wooden crate of silver fish on his shoulder. Seen from the side, walking.",
+   "desc": "On the fishing quay of La Isleta: a strong fisherman in his forties in rubber boots, rolled-up sleeves and an apron, carrying a wooden crate of silver fish on his shoulder. Seen from the side, walking. (redone: standing)",
    "place": [
     600,
     565,
-    1.0
-   ]
-  },
-  {
-   "id": "quay_rope",
-   "room": "isleta",
-   "aspect": "3:4",
-   "desc": "On the fishing quay of La Isleta: a young fisherman in a striped T-shirt and rubber boots, coiling a thick mooring rope over his arm. Three-quarter view.",
-   "place": [
-    250,
-    525,
     1.0
    ]
   },
@@ -283,5 +250,44 @@
   "beach_old_man_chair": "2b108555-1ed6-4b36-a36d-308607752281",
   "vegueta_pigeons": "ae06449b-cb22-4d7e-a33b-7e448856b7fc",
   "vegueta_lottery": "f1998ef2-7463-4695-906e-f6a8c04abae9"
+ },
+ "removed": [
+  "beach_surfer_girl",
+  "quay_rope",
+  "vegueta_couple"
+ ],
+ "review_2026_10_29": {
+  "approved": [
+   "beach_old_man_chair",
+   "beach_sandcastle",
+   "beach_sunbather",
+   "beach_surfer_wax",
+   "canteras_german_tourist",
+   "cathedral_praying",
+   "cathedral_tourist",
+   "museum_cocktail_pair",
+   "museum_guest_linen",
+   "museum_guest_pearls",
+   "museum_waitress_canapes",
+   "quay_net_mender",
+   "quay_two_old",
+   "vegueta_lottery",
+   "vegueta_pigeons",
+   "vegueta_tourists_guidebook"
+  ],
+  "redo": {
+   "museum_waiter_tray": "make him standing, not walking",
+   "museum_guest_academic": "add the same cocktail table as the pair",
+   "restaurant_waiter": "too formal",
+   "cathedral_priest": "stand, not walk",
+   "quay_crate_carrier": "make him stand"
+  }
+ },
+ "redo_jobs": {
+  "museum_waiter_tray": "fcc55bd2-adc9-4489-9fde-51abb7fd415f",
+  "museum_guest_academic": "3338e092-0f43-4b27-8bc8-fea6cd13121f",
+  "restaurant_waiter": "e3fc8b88-8b21-4d11-91b7-86ae9913e9ac",
+  "cathedral_priest": "fae475b9-fac8-43c9-87fb-26daa0fd7457",
+  "quay_crate_carrier": "141eed7f-d9e2-42cc-9e3f-188f0ae761b9"
  }
 }

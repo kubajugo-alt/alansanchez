@@ -1,0 +1,223 @@
+<title>Background People Placer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* layout: a set-dresser's bench; room tabs across the top, the painting as the stage, the selected figure's controls beside it, the figure tray below */
+:root {
+  --bg: #ecebe7; --panel: #e0ded8; --card: #f7f6f2; --ink: #22242a; --muted: #62666f; --line: #cfccc4;
+  --accent: #2c6e7f; --sel: #e0a43a; --danger: #a8432a; --stage: #1c1d22;
+  --display: "Fraunces", Georgia, serif; --body: "Source Sans 3", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #17181c; --panel: #212329; --card: #1d1f24; --ink: #e9e8e4; --muted: #9da1aa; --line: #33363e;
+  --accent: #7cc0d1; --sel: #f0b450; --danger: #ef8a6c; --stage: #0f1013; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #17181c; --panel: #212329; --card: #1d1f24; --ink: #e9e8e4; --muted: #9da1aa; --line: #33363e;
+  --accent: #7cc0d1; --sel: #f0b450; --danger: #ef8a6c; --stage: #0f1013; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font: 15px/1.45 var(--body); }
+main { max-width: 1500px; margin: 0 auto; padding-block: 20px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 14px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+h1 { font: 600 26px/1.1 var(--display); margin: 0; }
+.status { font-size: 13px; color: var(--muted); }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tabs button { font: 600 13px var(--body); padding: 6px 12px; border-radius: 99px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--card); }
+.tabs button .n { font: 400 11px var(--mono); opacity: .75; margin-left: 4px; }
+.work { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .work { grid-template-columns: 1fr; } }
+.stage { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: var(--stage) center/cover no-repeat; border-radius: 6px; overflow: hidden; user-select: none; touch-action: none; }
+.stage svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.fig { position: absolute; transform-origin: 50% 100%; cursor: grab; touch-action: none; }
+.fig img { display: block; width: 100%; height: 100%; pointer-events: none; }
+.fig.sel { outline: 2px dashed var(--sel); outline-offset: 2px; }
+.fig.ghost { opacity: .6; cursor: move; }
+.fig.cast { pointer-events: none; }
+.fig .tag { position: absolute; left: 50%; top: -18px; transform: translateX(-50%); font: 400 10px var(--mono); background: rgba(0,0,0,.6); color: #fff; padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
+.fig:focus-visible { outline: 2px solid var(--accent); }
+.side { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 10px; }
+.side h2 { font: 600 17px var(--display); margin: 0; overflow-wrap: anywhere; }
+.side .hint { font-size: 13px; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 64px 1fr 44px; gap: 8px; align-items: center; font-size: 13px; }
+.row output { font: 400 12px var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.row input[type=range] { width: 100%; }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btns button, .side select { font: 600 13px var(--body); padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
+.btns button.danger { color: var(--danger); }
+.btns button:disabled { opacity: .45; cursor: default; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.toggles { display: grid; gap: 4px; font-size: 13px; }
+.tray { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 112px), 1fr)); gap: 8px; }
+.tray button { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 6px; cursor: pointer; display: grid; gap: 4px; color: var(--ink); font: 400 11px var(--mono); text-align: center; overflow-wrap: anywhere; }
+.tray button img { width: 100%; height: 90px; object-fit: contain; }
+.tray button.here { border-color: var(--accent); }
+.tray-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+.tray-h h2 { font: 600 17px var(--display); margin: 0; }
+.tray-h p { margin: 0; font-size: 13px; color: var(--muted); }
+</style>
+<main>
+<header>
+  <h1>Background people</h1>
+  <span class="status" id="status">Loading…</span>
+</header>
+<div class="tabs" id="tabs" role="group" aria-label="Rooms"></div>
+<div class="work">
+  <div class="stage" id="stage" aria-label="Room painting"><svg viewBox="0 0 1280 720" preserveAspectRatio="none" id="floor"></svg></div>
+  <aside class="side" id="side">
+    <h2 id="sel-name">Nothing selected</h2>
+    <p class="hint" id="sel-hint">Click a figure in the room to select it, or add one from the tray below. Drag to move: size follows the floor's depth, as in the game. Alan and the room's cast are there to measure against.</p>
+    <div class="row"><label for="size">Size</label><input type="range" id="size" min="0.5" max="1.6" step="0.01" value="1"><output id="size-o">1.00</output></div>
+    <div class="row"><label for="rot">Rotate</label><input type="range" id="rot" min="-45" max="45" step="1" value="0"><output id="rot-o">0°</output></div>
+    <div class="btns">
+      <button type="button" id="flip">Flip</button><button type="button" id="front">To front</button><button type="button" id="back">To back</button>
+      <button type="button" id="dup">Duplicate</button><button type="button" id="del" class="danger">Remove</button>
+    </div>
+    <label class="row" style="grid-template-columns:64px 1fr"><span>Room</span><select id="move"></select></label>
+    <div class="toggles">
+      <label><input type="checkbox" id="t-floor"> Show the walkable floor</label>
+      <label><input type="checkbox" id="t-alan" checked> Show Alan for scale (not saved; drag him)</label>
+      <label><input type="checkbox" id="t-cast" checked> Show the room's cast where the game stands them (fixed)</label>
+    </div>
+    <p class="hint">Keys: arrows nudge, Shift+arrows nudge more, F flips, Delete removes.</p>
+  </aside>
+</div>
+<section>
+  <div class="tray-h"><h2>Tray</h2><p>Click a figure to add it to this room. A figure can stand in several rooms; outlined ones are already in this room.</p></div>
+  <div class="tray" id="tray" style="margin-top:8px"></div>
+</section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const st = { data: null, room: null, pl: {}, sel: null, db: null, can: false, me: '', alan: { x: 200, y: 680 }, saving: {} };
+const W = 1280, H = 720;
+let R = {}, X = {};
+function heightAt(room, y) { const [y0, h0, y1, h1] = room.scale; return h0 + (h1 - h0) * (y - y0) / (y1 - y0); }
+function boxOf(p) {   // size of a placed figure in painting px, from the depth at its feet
+  const x = X[p.extra], room = R[p.room], Hy = heightAt(room, p.y) * (p.size || 1);
+  return x.k === 'w' ? { w: Hy, h: Hy * x.h / x.w } : { w: Hy * x.k * x.w / x.h, h: Hy * x.k };
+}
+function pct(v, of) { return (v / of * 100) + '%'; }
+function draw() {
+  const stage = $('stage'), room = R[st.room];
+  stage.style.backgroundImage = `url(bg_${st.room}.jpg)`;
+  stage.querySelectorAll('.fig').forEach(e => e.remove());
+  const list = Object.entries(st.pl).filter(([, p]) => p.room === st.room).sort((a, b) => (a[1].y + (a[1].z || 0)) - (b[1].y + (b[1].z || 0)));
+  for (const [id, p] of list) {
+    const b = boxOf(p), el = document.createElement('div'); el.className = 'fig' + (st.sel === id ? ' sel' : ''); el.tabIndex = 0; el.dataset.id = id;
+    el.setAttribute('aria-label', p.extra.replace(/_/g, ' '));
+    Object.assign(el.style, { left: pct(p.x - b.w / 2, W), top: pct(p.y - b.h, H), width: pct(b.w, W), height: pct(b.h, H),
+      transform: `rotate(${p.rot || 0}deg) scaleX(${p.flip ? -1 : 1})` });
+    el.innerHTML = `<img src="x_${p.extra}.webp" alt="">`;
+    el.addEventListener('pointerdown', e => startDrag(e, id));
+    el.addEventListener('focus', () => select(id));
+    stage.append(el);
+  }
+  if ($('t-cast').checked) for (const c of (st.data.cast[st.room] || [])) {   // the room's own cast, where the game stands them (fixed)
+    const el = document.createElement('div'); el.className = 'fig cast'; el.setAttribute('aria-label', c.name + ', where the game stands them');
+    const w = c.h * c.w / c.ih;
+    Object.assign(el.style, { left: pct(c.x - w * c.ax, W), top: pct(c.y - c.h, H), width: pct(w, W), height: pct(c.h, H), transform: `scaleX(${c.flip ? -1 : 1})` });
+    el.innerHTML = `<img src="${c.img}" alt=""><span class="tag"></span>`; el.querySelector('.tag').textContent = c.name; el.querySelector('.tag').style.transform = `translateX(-50%) scaleX(${c.flip ? -1 : 1})`;
+    stage.append(el);
+  }
+  if (st.alanRoom !== st.room) {   // Alan starts at the front of each room's floor, to the left
+    const ys = room.walk.map(p => p[1]); st.alan = { x: 220, y: Math.max(...ys) - 24 }; st.alanRoom = st.room;
+  }
+  if ($('t-alan').checked) {   // Alan, for scale
+    const Hy = heightAt(room, st.alan.y), w = Hy * st.data.alan.w / st.data.alan.h, el = document.createElement('div');
+    el.className = 'fig ghost'; el.setAttribute('aria-label', 'Alan, for scale');
+    Object.assign(el.style, { left: pct(st.alan.x - w / 2, W), top: pct(st.alan.y - Hy, H), width: pct(w, W), height: pct(Hy, H) });
+    el.innerHTML = '<img src="alan.webp" alt=""><span class="tag">Alan</span>'; el.addEventListener('pointerdown', e => startDrag(e, null)); stage.append(el);
+  }
+  $('floor').innerHTML = $('t-floor').checked ? `<polygon points="${room.walk.map(p => p.join(',')).join(' ')}" fill="rgba(60,170,210,.18)" stroke="rgba(60,170,210,.9)" stroke-width="2"/>` : '';
+  panel(); tabs(); tray();
+}
+function tabs() {
+  const t = $('tabs'); t.replaceChildren();
+  for (const r of st.data.rooms) {
+    const n = Object.values(st.pl).filter(p => p.room === r.id).length, b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('aria-pressed', String(r.id === st.room)); b.textContent = r.name;
+    const s = document.createElement('span'); s.className = 'n'; s.textContent = n; b.append(s);
+    b.onclick = () => { st.room = r.id; st.sel = null; draw(); }; t.append(b);
+  }
+}
+function tray() {
+  const t = $('tray'); t.replaceChildren();
+  for (const x of st.data.extras) {
+    const b = document.createElement('button'); b.type = 'button';
+    if (Object.values(st.pl).some(p => p.room === st.room && p.extra === x.id)) b.className = 'here';
+    b.innerHTML = `<img src="x_${x.id}.webp" alt=""><span></span>`; b.querySelector('span').textContent = x.id.replace(/_/g, ' ');
+    b.title = x.desc; b.disabled = !st.can; b.onclick = () => add(x.id); t.append(b);
+  }
+}
+function panel() {
+  const p = st.sel && st.pl[st.sel], on = !!p && st.can;
+  $('sel-name').textContent = p ? p.extra.replace(/_/g, ' ') : 'Nothing selected';
+  $('sel-hint').hidden = !!p;
+  ['size', 'rot', 'flip', 'front', 'back', 'dup', 'del', 'move'].forEach(k => $(k).disabled = !on);
+  $('size').value = p ? (p.size || 1) : 1; $('size-o').textContent = (+$('size').value).toFixed(2);
+  $('rot').value = p ? (p.rot || 0) : 0; $('rot-o').textContent = $('rot').value + '°';
+  $('move').replaceChildren(...st.data.rooms.map(r => new Option(r.name, r.id, false, p && p.room === r.id)));
+}
+function select(id) { if (st.sel === id) return; st.sel = id; document.querySelectorAll('.fig').forEach(e => e.classList.toggle('sel', e.dataset.id === id)); panel(); }
+function startDrag(e, id) {
+  e.preventDefault(); const stage = $('stage'), rect = stage.getBoundingClientRect(), k = W / rect.width;
+  const tgt = id ? st.pl[id] : st.alan; if (id) select(id); if (id && !st.can) return;
+  const sx = e.clientX, sy = e.clientY, ox = tgt.x, oy = tgt.y, el = e.currentTarget; el.setPointerCapture(e.pointerId); el.style.cursor = 'grabbing';
+  const move = ev => { tgt.x = Math.round(Math.max(0, Math.min(W, ox + (ev.clientX - sx) * k))); tgt.y = Math.round(Math.max(40, Math.min(H, oy + (ev.clientY - sy) * k))); draw(); };
+  const up = () => { el.removeEventListener('pointermove', move); el.removeEventListener('pointerup', up); el.removeEventListener('pointercancel', up); if (id && (tgt.x !== ox || tgt.y !== oy)) save(id); };
+  el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
+}
+function newId() { return 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function add(extra) {
+  const room = R[st.room], ys = room.walk.map(p => p[1]), y = Math.round((Math.min(...ys) + Math.max(...ys)) / 2), id = newId();
+  st.pl[id] = { extra, room: st.room, x: 640, y, size: 1, rot: 0, flip: false, z: 0 }; st.sel = id; draw(); save(id);
+}
+async function save(id) {
+  const p = st.pl[id]; if (!st.db || !p) return;
+  clearTimeout(st.saving[id]);
+  st.saving[id] = setTimeout(async () => {
+    try { await st.db.doc('placements/' + id).set({ ...p, by: st.me, at: Date.now() }); $('status').textContent = 'Saved.'; }
+    catch (e) { $('status').textContent = 'Could not save (' + (e.code || 'error') + '). Move it again to retry.'; }
+  }, 250);
+}
+async function remove(id) {
+  const p = st.pl[id]; delete st.pl[id]; st.sel = null; draw();
+  try { await st.db.doc('placements/' + id).delete(); $('status').textContent = 'Removed.'; }
+  catch (e) { st.pl[id] = p; draw(); $('status').textContent = 'Could not remove (' + (e.code || 'error') + ').'; }
+}
+$('size').oninput = () => { const p = st.pl[st.sel]; if (!p) return; p.size = +$('size').value; draw(); save(st.sel); };
+$('rot').oninput = () => { const p = st.pl[st.sel]; if (!p) return; p.rot = +$('rot').value; draw(); save(st.sel); };
+$('flip').onclick = () => { const p = st.pl[st.sel]; if (!p) return; p.flip = !p.flip; draw(); save(st.sel); };
+$('front').onclick = () => { const p = st.pl[st.sel]; if (!p) return; p.z = (p.z || 0) + 40; draw(); save(st.sel); };
+$('back').onclick = () => { const p = st.pl[st.sel]; if (!p) return; p.z = (p.z || 0) - 40; draw(); save(st.sel); };
+$('dup').onclick = () => { const p = st.pl[st.sel]; if (!p) return; const id = newId(); st.pl[id] = { ...p, x: Math.min(W, p.x + 60) }; st.sel = id; draw(); save(id); };
+$('del').onclick = () => { if (st.sel) remove(st.sel); };
+$('move').onchange = () => { const p = st.pl[st.sel]; if (!p) return; p.room = $('move').value; st.room = p.room; draw(); save(st.sel); };
+$('t-floor').onchange = draw; $('t-alan').onchange = draw; $('t-cast').onchange = draw;
+document.addEventListener('keydown', e => {
+  const p = st.sel && st.pl[st.sel]; if (!p || !st.can || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.type !== 'checkbox') return;
+  const d = e.shiftKey ? 10 : 2, m = { ArrowLeft: [-d, 0], ArrowRight: [d, 0], ArrowUp: [0, -d], ArrowDown: [0, d] }[e.key];
+  if (m) { e.preventDefault(); p.x += m[0]; p.y += m[1]; draw(); save(st.sel); document.querySelector(`.fig[data-id="${st.sel}"]`)?.focus(); }
+  else if (e.key === 'f' || e.key === 'F') { p.flip = !p.flip; draw(); save(st.sel); }
+  else if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); remove(st.sel); }
+});
+(async () => {
+  try { st.data = await (await fetch('data.json')).json(); } catch (e) { $('status').textContent = 'Could not load the rooms. Reload the page.'; return; }
+  st.data.rooms.forEach(r => R[r.id] = r); st.data.extras.forEach(x => X[x.id] = x);
+  st.room = st.data.extras[0].room;
+  // until the store answers: the starting layout (each figure where the review page showed it)
+  st.data.extras.forEach(x => st.pl['start_' + x.id] = { extra: x.id, room: x.room, x: x.x, y: x.y, size: 1, rot: 0, flip: false, z: 0 });
+  draw(); $('status').textContent = 'Connecting the store…';
+  const [db, user] = window.claude ? await Promise.all([claude.use('db'), claude.use('user')]) : [null, null];
+  if (!db) { $('status').textContent = 'Sign in to claude.ai with access to this page to place figures. This is the starting layout.'; return; }
+  st.db = db; try { st.me = user ? await user.id() : ''; } catch (e) {}
+  st.can = user ? user.can('data.write') !== false : true;
+  db.collection('placements').onSnapshot(s => {
+    if (s.empty && st.can && !st.seeded) {   // the first visit: save the starting layout so it can be moved
+      st.seeded = true; Object.keys(st.pl).forEach(id => save(id)); $('status').textContent = 'Starting layout saved. Drag away.'; return;
+    }
+    const next = {}; s.docs.forEach(d => { const v = d.data(); if (v && v.extra && X[v.extra] && R[v.room]) next[d.id] = v; });
+    if (!s.empty) { st.pl = next; if (st.sel && !st.pl[st.sel]) st.sel = null; draw(); }
+    $('status').textContent = st.can ? 'Changes save as you go.' : 'You can look; only people who can edit this page can move figures.';
+  }, e => { $('status').textContent = 'The store is not answering (' + e.code + '). Reload to try again.'; });
+})();
+</script>
