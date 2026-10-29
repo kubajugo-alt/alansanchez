@@ -362,3 +362,14 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     figure height: approved 0.103-0.119, new 0.132-0.154 (guard), Nieves 0.117. Style: Nieves matches; the guard is
     still a caricature, the clerk leans cartoon, Lolo and Pino carry heavier wrinkle linework, Chano's skin is
     orange and glossy. The prompt for the rest gets a proportion line (`prompt_note`). Nothing in the game.
+34. **Emotions on Alan's face, a test** (2026-10-29). The user: give the faces emotions the way they talk and blink,
+    by changing only parts of the face, with Gemini; test on Alan. `scripts/face_emotions.py` (gen / build / clip):
+    alanv_side_k's head cropped and enlarged 5x, Gemini (nano-banana 2.1) repaints only the brows, eyes and mouth for
+    joy, fear, anger, sadness, concern, surprise ($0.24 for the six, ledger in the review folder); each is lined up on
+    the hair, ear and neck (ECC fit 0.977-0.986), only the face in front of the ear kept, skin shifted to the sprite's.
+    Two patches each, in the face set's box: `_emo_<e>` (the whole box: silent) and `_emo_<e>_up` (brows and eyes:
+    laid over the lip-sync mouth while he talks, under the blink). Review: `art/review/emotions/alanv_side_k/sheet.jpg`
+    (game size, quiet / talking / blink) and `talk_clip.mp4` (one line spoken in each, then quiet). Not in the game:
+    the engine (js/engine/faces.js) would need an emotion layer and lines an emotion tag. Seen on the dark clip
+    background: white leftovers in his hair gaps (an agent is cleaning those, review only) and a pale edge under the
+    chin from the mouth patches.
