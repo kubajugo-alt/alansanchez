@@ -28,7 +28,7 @@ VIEWS = {
                          zone=[(290, 170), (470, 150), (560, 240), (560, 560), (330, 560), (290, 420)], split=345,
                          cheek=(300, 360, 330, 400)),
     'alanv_front_k': dict(crop=(74, 15, 194, 165), box=(96, 38, 76, 94), view='his head seen from the front, facing us',
-                          zone='ellipse', split=425, cheek=(380, 420, 190, 240)),
+                          zone='ellipse', split=425, eyes=322, cheek=(380, 420, 190, 240)),
 }
 FRAME = os.environ.get('EMO_FRAME', 'alanv_side_k')
 V = VIEWS[FRAME]; CROP = V['crop']
@@ -156,6 +156,8 @@ def build():
         N[..., :3] = np.clip(N[..., :3] + (B[cheek, :3].mean(0) - N[cheek, :3].mean(0)), 0, 255)
         full = N * zone[..., None] + B * (1 - zone[..., None])
         up = N.copy(); up[..., 3] = N[..., 3] * zone * upper
+        if e.startswith('closed'):  # a blink: the lids only, so an emotion's brows stay as they are while the eyes shut
+            up[..., 3] *= np.clip(1 - np.abs(yy - V['eyes']) / 34, 0, 1) ** 0.5
         # back to sprite px, and into the face set's box
         def tobox(a):
             s = cv2.resize(a, (CROP[2] - CROP[0], CROP[3] - CROP[1]), interpolation=cv2.INTER_AREA)
