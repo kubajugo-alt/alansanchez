@@ -48,8 +48,11 @@ function body(j) {
   const model_id = j.voice.model_id || cast.model_id;
   let text = j.text;
   if (/turbo|flash/.test(model_id)) text = text.replace(/\[pause\]/g, '…').replace(/\s*\[[^\]]*\]\s*/g, ' ').trim();
+  // (a voice's prefix leads the text, e.g. v4's "[strong Spanish accent] "; voice_settings as picked, 2026-10-29)
+  if (j.voice.prefix) text = j.voice.prefix + text;
   const b = { text, model_id };
   if (j.voice.language_code) b.language_code = j.voice.language_code;
+  if (j.voice.voice_settings) b.voice_settings = j.voice.voice_settings;
   return b;
 }
 

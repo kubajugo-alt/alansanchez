@@ -1,0 +1,57 @@
+<title>Nieves Recast</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* layout: one card per character, their two lines stacked, three takes across; a keep row under each */
+:root { --bg:#f3efe9; --card:#fbf8f3; --fg:#2a2420; --muted:#6f6359; --line:#ddd3c7; --accent:#9a4a22; --on:#e9d6c6;
+  --display:"Fraunces", Georgia, serif; --body:"Source Sans 3", system-ui, sans-serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1d1916; --card:#25201c; --fg:#ece4da; --muted:#a99a8c; --line:#3b332d; --accent:#e08c5c; --on:#4a3324; color-scheme:dark } }
+:root[data-theme="dark"] { --bg:#1d1916; --card:#25201c; --fg:#ece4da; --muted:#a99a8c; --line:#3b332d; --accent:#e08c5c; --on:#4a3324; color-scheme:dark }
+body { background:var(--bg); color:var(--fg); font:16px/1.45 var(--body); padding-block:28px 48px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)) }
+main { max-width:1180px; margin:0 auto; display:grid; gap:16px }
+h1 { font:650 clamp(26px,4vw,38px)/1.1 var(--display); margin:0; text-wrap:balance }
+.intro { margin:0; color:var(--muted); max-width:72ch }
+.who { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; display:grid; gap:12px }
+.who header { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px }
+h2 { font:650 20px/1.2 var(--display); margin:0 }
+.voice { font-size:13px; color:var(--muted) }
+.line { display:grid; gap:6px }
+q { font:500 15px/1.4 var(--display); quotes:"“" "”" }
+.takes { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:8px }
+.take { display:grid; gap:2px; min-width:0 }
+.tl { font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted) }
+audio { width:100%; height:36px }
+.pickrow { display:flex; flex-wrap:wrap; gap:6px; align-items:center }
+.pl { font-weight:600; font-size:14px }
+.pick { font:600 13px var(--body); padding:4px 12px; border-radius:999px; border:1px solid var(--accent); background:transparent; color:var(--accent); cursor:pointer }
+.pick[aria-pressed="true"] { background:var(--accent); color:var(--card) }
+.who.done { border-color:var(--accent) }
+.pick:focus-visible, textarea:focus-visible, .save:focus-visible { outline:2px solid var(--accent); outline-offset:2px }
+.notes { display:grid; gap:8px; max-width:720px }
+textarea { font:15px/1.4 var(--body); padding:10px; border-radius:6px; border:1px solid var(--line); background:var(--card); color:var(--fg); min-height:80px }
+.save { justify-self:start; font:600 14px var(--body); padding:8px 18px; border-radius:6px; border:0; background:var(--accent); color:var(--card); cursor:pointer }
+.status { font-size:13px; color:var(--muted) }
+</style>
+<main>
+  <h1>Nieves: a new voice</h1>
+  <p class="intro">Nieves, the Hotel Cristina receptionist: polite, dry, misses nothing. Six Spanish voices read three of her lines on v4 lively with the accent cue (the setup the rest of the cast now uses), after her current voice for comparison. Pick one; it saves.</p>
+<section class="who" data-w="gloria_now"><header><h2>Gloria (now)</h2><span class="voice">her current voice, as recorded</span></header><div class="takes"><div class="take"><span class="tl">Lost and found. … The Germans leave a great many jackets. Th…</span><audio controls preload="none" src="nieves_t_box__gloria_now.mp3"></audio></div><div class="take"><span class="tl">June is the panza de burro, señor. The donkey&#x27;s belly. Grey …</span><audio controls preload="none" src="nieves_island__gloria_now.mp3"></audio></div><div class="take"><span class="tl">Good morning, señor Sanches. … Last night&#x27;s shirt is very ni…</span><audio controls preload="none" src="nieves_sat_eyebrow__gloria_now.mp3"></audio></div></div><div class="pickrow"><button type="button" class="pick" data-w="nieves" data-v="gloria_now" aria-pressed="false">Cast as Nieves</button></div></section>
+<section class="who" data-w="carmen_bold"><header><h2>Carmen</h2><span class="voice">“bold and magnetic”</span></header><div class="takes"><div class="take"><span class="tl">Lost and found. … The Germans leave a great many jackets. Th…</span><audio controls preload="none" src="nieves_t_box__carmen_bold.mp3"></audio></div><div class="take"><span class="tl">June is the panza de burro, señor. The donkey&#x27;s belly. Grey …</span><audio controls preload="none" src="nieves_island__carmen_bold.mp3"></audio></div><div class="take"><span class="tl">Good morning, señor Sanches. … Last night&#x27;s shirt is very ni…</span><audio controls preload="none" src="nieves_sat_eyebrow__carmen_bold.mp3"></audio></div></div><div class="pickrow"><button type="button" class="pick" data-w="nieves" data-v="carmen_bold" aria-pressed="false">Cast as Nieves</button></div></section>
+<section class="who" data-w="cristina"><header><h2>Cristina</h2><span class="voice">“warm, clear, expressive”</span></header><div class="takes"><div class="take"><span class="tl">Lost and found. … The Germans leave a great many jackets. Th…</span><audio controls preload="none" src="nieves_t_box__cristina.mp3"></audio></div><div class="take"><span class="tl">June is the panza de burro, señor. The donkey&#x27;s belly. Grey …</span><audio controls preload="none" src="nieves_island__cristina.mp3"></audio></div><div class="take"><span class="tl">Good morning, señor Sanches. … Last night&#x27;s shirt is very ni…</span><audio controls preload="none" src="nieves_sat_eyebrow__cristina.mp3"></audio></div></div><div class="pickrow"><button type="button" class="pick" data-w="nieves" data-v="cristina" aria-pressed="false">Cast as Nieves</button></div></section>
+<section class="who" data-w="gala"><header><h2>Gala</h2><span class="voice">“fresh, energetic, spontaneous”</span></header><div class="takes"><div class="take"><span class="tl">Lost and found. … The Germans leave a great many jackets. Th…</span><audio controls preload="none" src="nieves_t_box__gala.mp3"></audio></div><div class="take"><span class="tl">June is the panza de burro, señor. The donkey&#x27;s belly. Grey …</span><audio controls preload="none" src="nieves_island__gala.mp3"></audio></div><div class="take"><span class="tl">Good morning, señor Sanches. … Last night&#x27;s shirt is very ni…</span><audio controls preload="none" src="nieves_sat_eyebrow__gala.mp3"></audio></div></div><div class="pickrow"><button type="button" class="pick" data-w="nieves" data-v="gala" aria-pressed="false">Cast as Nieves</button></div></section>
+<section class="who" data-w="esther"><header><h2>Esther</h2><span class="voice">“fun, warm, relaxed”</span></header><div class="takes"><div class="take"><span class="tl">Lost and found. … The Germans leave a great many jackets. Th…</span><audio controls preload="none" src="nieves_t_box__esther.mp3"></audio></div><div class="take"><span class="tl">June is the panza de burro, señor. The donkey&#x27;s belly. Grey …</span><audio controls preload="none" src="nieves_island__esther.mp3"></audio></div><div class="take"><span class="tl">Good morning, señor Sanches. … Last night&#x27;s shirt is very ni…</span><audio controls preload="none" src="nieves_sat_eyebrow__esther.mp3"></audio></div></div><div class="pickrow"><button type="button" class="pick" data-w="nieves" data-v="esther" aria-pressed="false">Cast as Nieves</button></div></section>
+<section class="who" data-w="ines_g"><header><h2>Inés González</h2><span class="voice">“friendly, cheerful”</span></header><div class="takes"><div class="take"><span class="tl">Lost and found. … The Germans leave a great many jackets. Th…</span><audio controls preload="none" src="nieves_t_box__ines_g.mp3"></audio></div><div class="take"><span class="tl">June is the panza de burro, señor. The donkey&#x27;s belly. Grey …</span><audio controls preload="none" src="nieves_island__ines_g.mp3"></audio></div><div class="take"><span class="tl">Good morning, señor Sanches. … Last night&#x27;s shirt is very ni…</span><audio controls preload="none" src="nieves_sat_eyebrow__ines_g.mp3"></audio></div></div><div class="pickrow"><button type="button" class="pick" data-w="nieves" data-v="ines_g" aria-pressed="false">Cast as Nieves</button></div></section>
+<section class="who" data-w="clara"><header><h2>Clara</h2><span class="voice">“simple, direct, proactive”</span></header><div class="takes"><div class="take"><span class="tl">Lost and found. … The Germans leave a great many jackets. Th…</span><audio controls preload="none" src="nieves_t_box__clara.mp3"></audio></div><div class="take"><span class="tl">June is the panza de burro, señor. The donkey&#x27;s belly. Grey …</span><audio controls preload="none" src="nieves_island__clara.mp3"></audio></div><div class="take"><span class="tl">Good morning, señor Sanches. … Last night&#x27;s shirt is very ni…</span><audio controls preload="none" src="nieves_sat_eyebrow__clara.mp3"></audio></div></div><div class="pickrow"><button type="button" class="pick" data-w="nieves" data-v="clara" aria-pressed="false">Cast as Nieves</button></div></section>
+  <span class="status" id="status" role="status">Your pick saves as you click.</span>
+</main>
+<script>
+let db = null; let pick = null;
+const btns = [...document.querySelectorAll('.pick')], st = document.getElementById('status');
+function show() { btns.forEach(b => b.setAttribute('aria-pressed', String(pick === b.dataset.v))); document.querySelectorAll('.who').forEach(s => s.classList.toggle('done', pick === s.dataset.w)); }
+btns.forEach(b => b.onclick = async () => { pick = pick === b.dataset.v ? null : b.dataset.v; show();
+  if (!db) { st.textContent = 'Saving needs claude.ai sign-in; tell me your pick in chat instead.'; return; }
+  try { await db.doc('picks/nieves').set({ pick, at: Date.now() }); st.textContent = 'Saved.'; } catch (e) { st.textContent = 'Could not save (' + (e.code || 'error') + '). Try again.'; } });
+document.querySelectorAll('audio').forEach(a => a.addEventListener('play', () => document.querySelectorAll('audio').forEach(o => { if (o !== a) o.pause(); })));
+(async () => { db = window.claude ? await claude.use('db') : null; if (!db) return;
+  try { const d = await db.doc('picks/nieves').get(); if (d.exists) { pick = d.data().pick || null; show(); } } catch (e) {} })();
+</script>

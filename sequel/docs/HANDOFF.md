@@ -673,3 +673,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     longest under 220 characters; the barman and Guardia 2 have one): now / v4 + accent cue / v4 lively (stability 0.3,
     style 0.5, speed 1.08) + accent cue: `art/review/voices/cast/`, page with a pick per character (db `picks/<who>`):
     https://claude.ai/artifact/X4cKETiFTYVK2aPgnBVxo1.
+65. **The Spanish cast on v4; Nieves recast samples** (2026-10-29). The user's picks (db of
+    https://claude.ai/artifact/X4cKETiFTYVK2aPgnBVxo1): "v4 lively + accent cue" for all 16, Carmen too ("for carmen,
+    I want v4 + accent cue lively"), and "we need to recast nieves". `scripts/cast.json`: those 17 voices get
+    `model_id: eleven_v4`, `voice_settings` {stability 0.3, similarity_boost 0.75, style 0.5, speed 1.08} and
+    `prefix: "[strong Spanish accent] "`; `generate-voices.mjs` leads the text with a voice's prefix and sends its
+    voice_settings (the cue never reaches js/lines.js or the captions). Their 279 lines re-recorded (23k characters).
+    Nieves: six library voices (Carmen "bold", Cristina, Gala, Esther, Inés González, Clara) on the same setup, three
+    of her lines each: `art/review/voices/nieves/`, page https://claude.ai/artifact/E4BkZDqQmZfjDNKNsiPRXH (pick in its
+    db, `picks/nieves`).
