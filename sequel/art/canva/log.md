@@ -52,3 +52,4 @@
 - 2026-10-29 figure `vasco_v4` Canva media MAHZWtJj8KE -> art/designs/vasco_v4.png linen field shirt, more unbuttoned, sleeves rolled high (the user; from vasco_v3; candidate)
 - 2026-10-29 figure `vasco_v5` Canva media MAHZW1uKIG8 -> art/designs/vasco_v5.png vasco_v4 with a little chest hair (the user); candidate
 - 2026-10-29 figure `vasco_v6` Canva media MAHZWzmeR6k -> art/designs/vasco_v6.png v5 repainted with Game I's hand-painted Alan as the style reference (media MAHZW4cgw1U); candidate
+- 2026-10-29 figure `vasco_v7` Canva media MAHZW2sP2q4 -> art/designs/vasco_v7.png v6 leaner than Alan, smooth shirt (the user); candidate
