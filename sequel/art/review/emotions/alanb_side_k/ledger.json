@@ -1,5 +1,5 @@
 {
- "spent": 0.2848,
+ "spent": 0.3282,
  "calls": [
   {
    "e": "fear_soft",
@@ -34,6 +34,11 @@
   {
    "e": "embarrassed_soft",
    "usd": 0.04,
+   "at": "2026-10-29 16:17"
+  },
+  {
+   "e": "mischievous_soft",
+   "usd": 0.0434,
    "at": "2026-10-29 16:17"
   }
  ]
