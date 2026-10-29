@@ -46,3 +46,4 @@
 - 2026-10-28 bg `beach` Canva media MAHZVEfTqis -> art/bg/beach.jpg new room: Las Canteras beach under the panza de burro (first try MAHZUxjcq-s had a sunset)
 - 2026-10-28 bg `museum_courtyard` Canva media MAHZVEyL0V4 -> art/bg/museum_courtyard.jpg new room: the Museo Canario courtyard, where Alan first finds Carmen
 - 2026-10-28 bg `santa_ana_inside` Canva media MAHZVCDYEbs -> art/bg/santa_ana_inside.jpg new room: inside Santa Ana, where Alan meets Don Fermín
+- 2026-10-29 figure `vasco_v3` Canva media MAHZWotWZLg -> art/designs/vasco_v3.png repaint in Alan's style (the user: Vasco too realistic; candidate, not in the game)
