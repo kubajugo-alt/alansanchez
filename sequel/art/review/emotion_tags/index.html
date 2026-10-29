@@ -1,0 +1,156 @@
+<title>Alan Emotion Tags</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* layout: a script-review sheet; one block per emotion (its face beside it), one row per tagged line with its verdict */
+:root {
+  --bg: #efeae4; --panel: #e5dfd8; --card: #f7f3ee; --ink: #231f26; --muted: #6b6270; --line: #d3cbc3;
+  --accent: #8a3b5c; --ok: #2f6b4f; --fix: #a3441f; --screen: #2e2b34;
+  --display: "Fraunces", Georgia, serif; --body: "Source Sans 3", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1b1920; --panel: #25222b; --card: #221f28; --ink: #ece6ee; --muted: #a39aa8; --line: #39343f;
+  --accent: #d38aa8; --ok: #7cc4a0; --fix: #f0946c; --screen: #2e2b34; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #1b1920; --panel: #25222b; --card: #221f28; --ink: #ece6ee; --muted: #a39aa8; --line: #39343f;
+  --accent: #d38aa8; --ok: #7cc4a0; --fix: #f0946c; --screen: #2e2b34; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); }
+main { max-width: 1040px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 36px; }
+header { display: grid; gap: 12px; }
+header h1 { font: 700 clamp(30px, 5vw, 44px)/1.05 var(--display); margin: 0; text-wrap: balance; }
+header p { margin: 0; max-width: 65ch; color: var(--muted); }
+.eyebrow { font: 400 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; font-variant-numeric: tabular-nums; font-size: 15px; }
+.tally b { font-weight: 600; } .ok { color: var(--ok); } .fix { color: var(--fix); }
+.status { font-size: 14px; color: var(--muted); }
+.emo { display: grid; grid-template-columns: 150px 1fr; gap: 18px; align-items: start; }
+@media (max-width: 640px) { .emo { grid-template-columns: 1fr; } .emo figure { max-width: 150px; } }
+.emo figure { margin: 0; display: grid; gap: 6px; }
+.emo figure img { width: 100%; max-width: 100%; border-radius: 6px; display: block; background: var(--screen); }
+.emo figure figcaption { font: 500 22px/1.1 var(--display); text-transform: capitalize; }
+.rows { display: grid; gap: 10px; min-width: 0; }
+.row { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: grid; gap: 8px; min-width: 0; }
+.row[data-state="keep"] { border-color: var(--ok); } .row[data-state="drop"], .row[data-state="change"] { border-color: var(--fix); }
+.row q { font-size: 17px; quotes: "\201C" "\201D"; overflow-wrap: anywhere; }
+.row .id { font: 400 12px var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+.ctl { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.ctl button { font: 600 13px var(--body); padding: 5px 12px; border-radius: 99px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+.ctl button[aria-pressed="true"].k { background: var(--ok); border-color: var(--ok); color: var(--card); }
+.ctl button[aria-pressed="true"].d { background: var(--fix); border-color: var(--fix); color: var(--card); }
+.ctl select { font: 13px var(--body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 99px; padding: 5px 10px; }
+.ctl button:disabled, .ctl select:disabled { opacity: .5; cursor: default; }
+button:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.notes li { font-size: 14px; background: var(--panel); border-radius: 6px; padding: 6px 9px; overflow-wrap: anywhere; }
+.notes .who { font: 400 11px var(--mono); color: var(--muted); display: block; }
+form { display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: end; }
+textarea { font: 14px/1.4 var(--body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; resize: vertical; min-height: 34px; min-width: 0; }
+form button { font: 600 13px var(--body); padding: 7px 12px; border-radius: 6px; border: 0; background: var(--accent); color: var(--card); cursor: pointer; }
+form button:disabled, textarea:disabled { opacity: .5; cursor: default; }
+.more { background: var(--panel); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.more h2 { font: 500 22px/1.2 var(--display); margin: 0; }
+.more p { margin: 0; color: var(--muted); max-width: 65ch; }
+</style>
+<main>
+<header>
+  <div class="eyebrow">Game II · The Shortest Night · Alan</div>
+  <h1>Which lines get a face</h1>
+  <p>34 of Alan's 484 lines, only where the feeling is plain. Every other line keeps his own face. For each line: <b>Keep</b>, <b>Drop</b> (he says it with his own face), or pick a different emotion. Notes go under the line; Claude reads them back.</p>
+  <div class="tally" aria-live="polite"><span><b id="t-k" class="ok">0</b> kept</span><span><b id="t-c" class="fix">0</b> changed</span><span><b id="t-d" class="fix">0</b> dropped</span><span><b id="t-o">0</b> not reviewed</span></div>
+  <div class="status" id="status">Connecting the review store…</div>
+</header>
+<div id="list" style="display:grid;gap:36px"></div>
+<section class="more">
+  <h2>A line I missed</h2>
+  <p>Name a line that should have a face, and which one. The line's words are enough.</p>
+  <ul class="notes" id="sugg"></ul>
+  <form id="sform"><textarea id="stext" rows="1" placeholder="e.g. the line about the trowel: joy" aria-label="Suggest a line" disabled></textarea><button type="submit" disabled>Add</button></form>
+</section>
+</main>
+<script>
+const ROWS = [{"id": "alan_su_vasco_1", "emotion": "joy", "text": "I came by Land Rover. With a woman who swears. [pause] Hello."}, {"id": "alan_m_after", "emotion": "joy", "text": "I'm wet. I'm alive. I'm wet and alive. [pause] It's over."}, {"id": "alan_su_out_1", "emotion": "joy", "text": "You were talking to yourself about me?"}, {"id": "alan_claim_blazer", "emotion": "mischievous", "text": "I seem to have lost a blazer. Navy. Brass buttons. Very sad about it."}, {"id": "alan_t_derek", "emotion": "mischievous", "text": "Film the sea. It's very interesting at the moment. Trust me."}, {"id": "alan_surf_4", "emotion": "mischievous", "text": "Vasco would say they're fine examples of the human form. Vasco would be right."}, {"id": "alan_t_walk_3", "emotion": "mischievous", "text": "I'm teasing. [pause] Will we be here for it?"}, {"id": "alan_derek_rope", "emotion": "mischievous", "text": "Derek. The best thing in the building is behind that rope down there. The mummies. They never let anyone film them."}, {"id": "alan_rafa_rum", "emotion": "mischievous", "text": "That's dangerous. That tastes like a good decision."}, {"id": "alan_look_nieves_sat", "emotion": "embarrassed", "text": "She saw me come in. In last night's shirt. The eyebrow saw too."}, {"id": "alan_s_wake_2", "emotion": "embarrassed", "text": "[pause] Oh, no. [pause] Oh, Alan."}, {"id": "alan_sat_nieves", "emotion": "embarrassed", "text": "Thank you, Nieves. It's had a big night."}, {"id": "alan_caught_1", "emotion": "embarrassed", "text": "I. [pause] The discs. Montesdeoca. I thought—"}, {"id": "alan_look_bell_mark", "emotion": "surprise", "text": "On the waist of the bell: an S between two little bells. [pause] Our mark. The Sanches mark. Here. In 1751. Before Lisbon. Before any of it."}, {"id": "alan_look_nets_wed", "emotion": "surprise", "text": "In the nets, something round and orange with rust. A helmet. A conquistador's helmet, in a fishing net."}, {"id": "alan_t_call_2", "emotion": "concern", "text": "Is he all right?"}, {"id": "alan_s_vasco", "emotion": "concern", "text": "Vasco read the lock. He's the best in the world at it. Which means it's coming for him too."}, {"id": "alan_su_where", "emotion": "concern", "text": "Where's Vasco?"}, {"id": "alan_su_idiot", "emotion": "concern", "text": "I'm an idiot. I've been an idiot all week. It was Baute, not Montesdeoca, and Vasco's up there, and nobody's heard from him since yesterday. Please."}, {"id": "alan_m_ask_hurt", "emotion": "concern", "text": "Are you hurt?"}, {"id": "alan_call_sat_1", "emotion": "sadness", "text": "I slept with someone. A painter. Twenty-three. I lied to him about Vasco. And I didn't tell Vasco first. I didn't tell anyone first. I didn't tell anyone anything. That's my whole personality."}, {"id": "alan_s_truth_3", "emotion": "sadness", "text": "I'm sorry."}, {"id": "alan_m_plain", "emotion": "sadness", "text": "That's it. That's all of it. I lied to him, and I didn't tell you first, and I'm telling you now."}, {"id": "alan_look_elena_box", "emotion": "sadness", "text": "A shoebox. 'E.' on the lid in marker. Everything left of a woman fits in a shoebox. It never seems right."}, {"id": "alan_look_drawing", "emotion": "sadness", "text": "Me. Asleep. In charcoal. He drew me while I slept. [pause] I look about twenty-five and completely at peace. I'm neither."}, {"id": "alan_call_tue_1", "emotion": "fear", "text": "It's here. [pause] It's come for me."}, {"id": "alan_call_tue_3b", "emotion": "fear", "text": "It can't be. We put it back. It's a thousand kilometres from Lisbon."}, {"id": "alan_look_sea_5", "emotion": "fear", "text": "I don't want to look at it. It's looking at me. It knows what I did last night. It doesn't care, which is worse."}, {"id": "alan_lr_feet", "emotion": "fear", "text": "Carmen. [pause] My feet are wet. There's water in the footwell. Salt. It's rising."}, {"id": "alan_lr_footwell", "emotion": "fear", "text": "Black water round my ankles. It knows me. I can feel it knowing me."}, {"id": "alan_look_door_in", "emotion": "fear", "text": "I'm in it to my waist. It's cold. It's patient. It's very, very patient."}, {"id": "alan_th_desk_2", "emotion": "anger", "text": "It's him. Montesdeoca. 'Twenty-third, at dawn.' He's going to do something on San Juan—"}, {"id": "alan_read_sketchbook_2", "emotion": "anger", "text": "'The discs go down to the lower vault at night. Only Rayco has the key.' [pause] Not Montesdeoca. Baute. It was Baute all along, and the clue was a metre from my elbow while I was busy lying."}, {"id": "alan_f_4", "emotion": "anger", "text": "That's not fair."}];
+const EMOS = ['joy', 'mischievous', 'embarrassed', 'surprise', 'concern', 'sadness', 'fear', 'anger'];
+const st = { tags: {}, notes: {}, sugg: [], names: {}, db: null, user: null, can: false, me: '' };
+const $ = id => document.getElementById(id);
+for (const e of EMOS) {
+  const rows = ROWS.filter(r => r.emotion === e); if (!rows.length) continue;
+  const sec = document.createElement('section'); sec.className = 'emo';
+  const fig = document.createElement('figure'); const img = document.createElement('img'); img.src = 'face_' + e + '.jpg'; img.alt = "Alan's " + e + ' face';
+  const fc = document.createElement('figcaption'); fc.textContent = e; fig.append(img, fc);
+  const list = document.createElement('div'); list.className = 'rows';
+  for (const r of rows) {
+    const el = document.createElement('article'); el.className = 'row'; el.id = 'r-' + r.id;
+    const q = document.createElement('q'); q.textContent = r.text.replace(/\[pause\]/g, '…');
+    const id = document.createElement('span'); id.className = 'id'; id.textContent = r.id;
+    const ctl = document.createElement('div'); ctl.className = 'ctl';
+    const k = document.createElement('button'); k.type = 'button'; k.className = 'k'; k.textContent = 'Keep';
+    const d = document.createElement('button'); d.type = 'button'; d.className = 'd'; d.textContent = 'Drop';
+    const s = document.createElement('select'); s.id = 'sel-' + r.id; s.setAttribute('aria-label', 'Different emotion for ' + r.id);
+    s.append(new Option('Different emotion…', ''), ...EMOS.filter(x => x !== e).map(x => new Option(x, x)));
+    k.onclick = () => save(r, 'keep', r.emotion); d.onclick = () => save(r, 'drop', null);
+    s.onchange = () => { if (s.value) save(r, 'change', s.value); };
+    ctl.append(k, d, s);
+    const ul = document.createElement('ul'); ul.className = 'notes';
+    const f = document.createElement('form'); const ta = document.createElement('textarea'); ta.id = 'n-' + r.id; ta.rows = 1; ta.placeholder = 'Note on this line'; ta.setAttribute('aria-label', 'Note on ' + r.id);
+    const b = document.createElement('button'); b.type = 'submit'; b.textContent = 'Add';
+    f.onsubmit = ev => { ev.preventDefault(); note('notes', { item: r.id }, ta, b); };
+    f.append(ta, b);
+    el.append(q, id, ctl, ul, f); list.append(el);
+  }
+  sec.append(fig, list); $('list').append(sec);
+}
+$('sform').onsubmit = ev => { ev.preventDefault(); note('suggestions', {}, $('stext'), $('sform').querySelector('button')); };
+const when = t => new Date(t).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+function li(n) { const li = document.createElement('li'); const w = document.createElement('span'); w.className = 'who'; w.textContent = (st.names[n.by] || 'Someone') + ' · ' + when(n.at); const t = document.createElement('span'); t.textContent = n.text; li.append(w, t); return li; }
+function render() {
+  let k = 0, c = 0, d = 0;
+  for (const r of ROWS) {
+    const el = $('r-' + r.id), t = st.tags[r.id], s = t ? t.status : '';
+    el.dataset.state = s;
+    const [bk, bd] = el.querySelectorAll('.ctl button'), sel = el.querySelector('select');
+    bk.setAttribute('aria-pressed', String(s === 'keep')); bd.setAttribute('aria-pressed', String(s === 'drop'));
+    sel.value = s === 'change' ? t.emotion : '';
+    [bk, bd, sel, el.querySelector('textarea'), el.querySelector('form button')].forEach(x => x.disabled = !st.can);
+    if (s === 'keep') k++; else if (s === 'change') c++; else if (s === 'drop') d++;
+    el.querySelector('.notes').replaceChildren(...(st.notes[r.id] || []).map(li));
+  }
+  $('sugg').replaceChildren(...st.sugg.map(li));
+  $('stext').disabled = !st.can; $('sform').querySelector('button').disabled = !st.can;
+  $('t-k').textContent = k; $('t-c').textContent = c; $('t-d').textContent = d; $('t-o').textContent = ROWS.length - k - c - d;
+}
+async function names() {
+  if (!st.user) return;
+  const ids = [...new Set([...Object.values(st.notes).flat(), ...st.sugg].map(n => n.by).filter(Boolean))];
+  if (!ids.length) return;
+  try { const ps = await st.user.profiles(ids); ids.forEach(i => st.names[i] = (ps[i] && ps[i].name) || 'Someone'); } catch (e) {}
+  render();
+}
+async function save(r, status, emotion) {
+  if (!st.db) return;
+  const cur = st.tags[r.id];
+  const clear = cur && cur.status === status && (status !== 'change' || cur.emotion === emotion);
+  const prev = cur; st.tags[r.id] = clear ? undefined : { status, emotion }; render();
+  try { await st.db.doc('tags/' + r.id).set({ line: r.id, proposed: r.emotion, status: clear ? '' : status, emotion: clear ? null : emotion, by: st.me, at: Date.now() }); $('status').textContent = clear ? 'Cleared.' : 'Saved.'; }
+  catch (e) { st.tags[r.id] = prev; render(); $('status').textContent = 'Could not save (' + (e.code || 'error') + '). Try again.'; }
+}
+async function note(col, extra, ta, btn) {
+  const text = ta.value.trim(); if (!text || !st.db) return; btn.disabled = true;
+  try { await st.db.collection(col).add({ ...extra, text: text.slice(0, 2000), by: st.me, at: Date.now() }); ta.value = ''; $('status').textContent = 'Added.'; }
+  catch (e) { $('status').textContent = 'Could not add it (' + (e.code || 'error') + '). Your text is still in the box.'; }
+  btn.disabled = !st.can;
+}
+render();
+(async () => {
+  const [db, user] = await Promise.all([claude.use('db'), claude.use('user')]);
+  st.user = user;
+  if (!db) { $('status').textContent = 'Reviewing needs you signed in to claude.ai with access to this page.'; return; }
+  st.db = db; try { st.me = user ? await user.id() : ''; } catch (e) {}
+  st.can = user ? user.can('data.write') !== false : true;
+  $('status').textContent = st.can ? 'Your choices and notes save as you go.' : 'You can read this review; only people who can edit the page can add to it.';
+  const err = e => { $('status').textContent = 'The review store is not answering (' + e.code + '). Reload to try again.'; };
+  db.collection('tags').onSnapshot(s => { st.tags = {}; s.docs.forEach(x => { const v = x.data(); if (v && v.status) st.tags[v.line || x.id] = { status: v.status, emotion: v.emotion }; }); render(); }, err);
+  db.collection('notes').orderBy('at', 'asc').onSnapshot(s => { st.notes = {}; s.docs.forEach(x => { const v = x.data(); if (v && v.item) (st.notes[v.item] = st.notes[v.item] || []).push(v); }); render(); names(); }, err);
+  db.collection('suggestions').orderBy('at', 'asc').onSnapshot(s => { st.sugg = s.docs.map(x => x.data()).filter(Boolean); render(); names(); }, err);
+  render();
+})();
+</script>

@@ -28,6 +28,10 @@ VIEWS = {
     'alanv_side_k': dict(crop=(50, 20, 190, 170), box=None, view='his head in profile, facing right',
                          zone=[(290, 170), (470, 150), (560, 240), (560, 560), (330, 560), (290, 420)], split=345,
                          cheek=(580, 640, 300, 380)),
+    # the blazer's side view: the same head as the tank top's, 5 px right and 1 down on its painting (the user: "Yes please")
+    'alanb_side_k': dict(crop=(55, 21, 195, 171), box=None, view='his head in profile, facing right',
+                         zone=[(290, 170), (470, 150), (560, 240), (560, 560), (330, 560), (290, 420)], split=345,
+                         cheek=(580, 640, 300, 380)),
     'alanv_front_k': dict(crop=(74, 15, 194, 165), box=(96, 38, 76, 94), view='his head seen from the front, facing us',
                           zone='ellipse', split=425, eyes=322, cheek=(600, 650, 250, 350)),
 }
