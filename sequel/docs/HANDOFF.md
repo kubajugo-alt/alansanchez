@@ -600,3 +600,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     (all seventeen $4.60). Lolo blinks only, as before (NO_MOUTH: the cigarette). Sheet:
     `art/review/cast_repaint/faces10.jpg` (faces7.jpg for the first seven). All `ok: false` until the user approves.
     validate: 0 errors; play.mjs: won in 98 steps.
+58. **The repainted cast's faces switched on** (2026-10-29). The user: "faces approved, switch them on". `ok: true` in
+    js/faces.js for the seventeen repaint frames (vascor_side_k, baute_r, chano_r and the other fourteen `<id>_r`);
+    the cast talk and blink on their repaints in the game. validate: 0 errors; play.mjs: won in 98 steps. Not deployed.

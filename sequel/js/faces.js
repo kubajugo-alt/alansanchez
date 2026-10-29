@@ -1156,7 +1156,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "vasco",
   "from": "jaw"
  },
@@ -1186,7 +1186,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "baute",
   "from": "jaw"
  },
@@ -1216,7 +1216,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "carmen",
   "from": "jaw"
  },
@@ -1246,7 +1246,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "rafa",
   "from": "jaw"
  },
@@ -1276,7 +1276,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "yeray",
   "from": "jaw"
  },
@@ -1306,7 +1306,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "nieves",
   "from": "jaw"
  },
@@ -1334,7 +1334,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "chano",
   "from": "jaw"
  },
@@ -1856,7 +1856,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "guard",
   "from": "jaw"
  },
@@ -1882,7 +1882,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "clerk",
   "from": "jaw"
  },
@@ -1908,7 +1908,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "pino",
   "from": "jaw"
  },
@@ -1924,7 +1924,7 @@ window.FACES = {
    "closed"
   ],
   "who": "lolo",
-  "ok": false
+  "ok": true
  },
  "fermin_r": {
   "box": [
@@ -1950,7 +1950,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "fermin",
   "from": "jaw"
  },
@@ -1978,7 +1978,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "mercedes",
   "from": "jaw"
  },
@@ -2008,7 +2008,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "montesdeoca",
   "from": "jaw"
  },
@@ -2036,7 +2036,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "surfer",
   "from": "jaw"
  },
@@ -2064,7 +2064,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "gail",
   "from": "jaw"
  },
@@ -2092,7 +2092,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "derek",
   "from": "jaw"
  }
