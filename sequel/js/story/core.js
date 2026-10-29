@@ -165,7 +165,8 @@
     PIN('hotel_lobby', 706, 470, 'Hotel Cristina', () => F().ch >= 1 && F().ch <= 6),
     PIN('isleta', 418, 316, 'La Isleta · the fishermen\'s quay', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().fax_read && !F().isleta_flood)),
     PIN('museum_hall', 1156, 238, () => F().ch === 1 ? 'El Museo Canario · the reception, 8 pm' : F().ch === 3 && S.dinnerDue() ? 'El Museo Canario · the fundraising dinner' : 'El Museo Canario · Vegueta',
-      () => (F().ch === 1 && G.has('blazer') && F().called_tue && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained)),
+      () => (F().ch === 1 && G.has('blazer') && F().called_tue && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained),
+      'museum_out'),   // (in through the street door: the outside first)
     PIN('santa_ana', 1166, 218, 'Plaza de Santa Ana · the cathedral', () => F().ch >= 2 && F().ch <= 4),
     PIN('colon', 1138, 225, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read),
     PIN('rafa_bar', 1145, 232, 'Vegueta · a bar on Calle Mendizábal', () => F().ch === 4 && F().cave_explained && !F().rafa_night),

@@ -64,12 +64,15 @@
         'Stairs up to the hall': [960, 210, 200, 350] },
       npcs: { carmen: [900, 640] },
     },
+    museum_out: {   // (the street corner outside El Museo Canario, 2026-10-29)
+      walk: [[0, 560], [560, 545], [720, 545], [1280, 560], [1280, 716], [0, 716]], scale: [545, 200, 716, 340],
+    },
     santa_ana: {
       walk: [[270, 600], [500, 505], [830, 505], [1000, 560], [1280, 600], [1280, 716], [270, 716]], scale: [510, 150, 716, 380],
       entries: { default: [400, 690, 'e'], map: [400, 690, 'e'], santa_ana_inside: [580, 520, 's'] },
-      spots: { 'Cathedral clock': [555, 185, 45, 45], 'Bronze dogs': [40, 295, 380, 400], 'Timple players': [960, 410, 200, 180], 'Cathedral door': [540, 385, 75, 115],
+      spots: { 'Cathedral clock': [378, 193, 44, 44], 'Bronze dogs': [40, 295, 380, 400], 'Timple players': [960, 410, 200, 180], 'Cathedral door': [540, 385, 75, 115],
         'To the city': [1230, 600, 50, 116] },
-      at: { 'Cathedral clock': [580, 520], 'Cathedral door': [580, 515] },
+      at: { 'Cathedral clock': [520, 520], 'Cathedral door': [580, 515] },   // (the clock on the left tower: the real-place repaint, 2026-10-29)
     },
     belfry: {
       walk: [[200, 600], [1240, 600], [1280, 716], [190, 716]], scale: [590, 320, 716, 390],

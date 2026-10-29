@@ -132,7 +132,8 @@
     animBack(g, t) {
       const im = G.bgImage();
       panza(g, t, skyMask('santa_ana', TOP, 360), 0.5);
-      FX.sway(g, im, [850, 0, 260, 100], t * 0.7, 1.3, 0, true); FX.sway(g, im, [815, 110, 160, 118], t * 0.7, 1.1, 1.3, true);
+      FX.sway(g, im, [880, 0, 370, 110], t * 0.7, 1.3, 0, true); FX.sway(g, im, [860, 130, 180, 120], t * 0.7, 1.1, 1.3, true);
+      FX.sway(g, im, [0, 0, 240, 150], t * 0.7, 1.2, 2.1, true);
       FX.birds(g, t, { y0: 40, y1: 170, n: 3, period: 23, color: 'rgba(44,44,50,0.6)', size: 6 });
     },
   });

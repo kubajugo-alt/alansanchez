@@ -104,6 +104,16 @@
   // the seven sockets on the skylight's lip, as painted (I-VI, then the seventh); the beam's landing points
   S.SOCKETS = [[509, 85], [578, 95], [648, 102], [720, 102], [792, 97], [864, 87], [931, 68]];
   S.GREAT = [685, 330]; S.DOOR = [680, 562];
+  // where the beam is drawn: it slides to a new place over BEAM_SLIDE s (eased), and sways a little and shimmers while
+  // it rests, as sunlight through a channel does
+  const BEAM_SLIDE = 2.6; let shown = null, from = null, target = null, slideT = 1, lastT = 0;
+  const beamShown = t => {
+    const to = S.beamPoint(), dt = Math.min(0.1, Math.max(0, t - lastT)); lastT = t;
+    if (!shown) { shown = to.slice(); target = to.slice(); }
+    if (to[0] !== target[0] || to[1] !== target[1]) { from = shown.slice(); target = to.slice(); slideT = 0; }
+    if (slideT < 1) { slideT = Math.min(1, slideT + dt / BEAM_SLIDE); const e = slideT * slideT * (3 - 2 * slideT); shown = [from[0] + (target[0] - from[0]) * e, from[1] + (target[1] - from[1]) * e]; }
+    return [shown[0] + 4 * Math.sin(t * 0.35), shown[1] + 2 * Math.sin(t * 0.27 + 1)];
+  };
   S.beamPoint = () => {
     const f = F();
     if (ch() === 7) return f.lock_closed || f.disc_turned ? S.GREAT : S.DOOR;
@@ -152,8 +162,8 @@
       g.save(); g.beginPath(); g.moveTo(60, 170); g.lineTo(210, 170); g.lineTo(560, 600); g.lineTo(60, 600); g.closePath(); g.clip();
       FX.motes(g, t, 60, 170, 500, 430, 22, '255,232,180'); g.restore();
       S.drawSockets(g);
-      const [x, y] = S.beamPoint(), [sx, sy] = S.SOCKETS[6];
-      g.save(); g.globalAlpha = 0.5; g.fillStyle = 'rgba(255,226,150,1)';
+      const [x, y] = beamShown(t), [sx, sy] = S.SOCKETS[6];
+      g.save(); g.globalAlpha = 0.47 + 0.06 * Math.sin(t * 2.3) * Math.sin(t * 0.9); g.fillStyle = 'rgba(255,226,150,1)';
       g.beginPath(); g.moveTo(sx - 8, sy + 10); g.lineTo(sx + 8, sy + 10); g.lineTo(x + 18, y); g.lineTo(x - 18, y); g.closePath(); g.fill(); g.restore();
       FX.glow(g, x, y, 60, '255,220,140', 0.6);
       for (const [mx, my] of (asV() ? f.v_marks || [] : [])) { g.save(); g.strokeStyle = 'rgba(250,250,250,0.85)'; g.lineWidth = 3; g.beginPath(); g.arc(mx, my, 12, 0, 7); g.stroke(); g.restore(); }
@@ -180,7 +190,9 @@
   S.waitHalfHour = async function () {
     const f = F();
     f.v_time = Math.min(BEAM_AT.length - 1, (f.v_time || 0) + 1);
-    await G.fade(true); await T(400); await G.fade(false);
+    // (the half hour as a time-lapse: the beam slides along the wall to its new place; the user, 2026-10-29: "i don't
+    // think the beam moves")
+    S.sfx('wind_arches', 0.25); await T(BEAM_SLIDE * 1000 + 300);
     G.setClock(['09:00', '09:30', '10:00', '10:30', '11:00'][f.v_time]);
     await say(f.v_time >= BEAM_AT.length - 1 ? 'vasco_wait_last' : 'vasco_wait');
   };

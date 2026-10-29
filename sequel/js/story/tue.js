@@ -335,6 +335,18 @@
   };
 
   // ================================================================ EL MUSEO CANARIO: the hall
+  // ================================================================ EL MUSEO CANARIO: the street corner outside
+  // (the user, 2026-10-29: "before alan enters a building, we need to show it from the outside"): the map's pin lands
+  // here, the corner door goes in, and the hall's way out comes back here
+  ROOMS.museum_out = S.room({
+    music: 'santa_ana',
+    name: 'El Museo Canario', bg: 'museum_out', floor: 'stone', ambience: 'street',
+    entries: { default: [200, 660, 'e'], map: [200, 660, 'e'], museum_hall: [632, 580, 's'] },
+    hotspots: [
+      { name: 'El Museo Canario', rect: [575, 330, 115, 195], at: [632, 560], exit: 'museum_hall', entry: 'map' },
+      S.toMap([0, 380, 60, 330], [60, 650]),
+    ],
+  });
   ROOMS.museum_hall = S.room({
     music: 'museum_hall',
     name: 'El Museo Canario', bg: 'museum_hall', floor: 'tile', ambience: 'museum', door: 'door',
@@ -464,7 +476,7 @@
   // leaving the reception: dusk on Las Canteras (the mist); otherwise the map
   S.leaveMuseum = () => {
     if (ch() === 1 && F().met_baute && F().met_carmen && !F().reception_done) { F().reception_done = true; return 'canteras'; }
-    return 'map';
+    return 'museum_out';
   };
   S.talkBauteTue = async function () {
     const f = F();

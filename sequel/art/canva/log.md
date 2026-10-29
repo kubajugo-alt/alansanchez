@@ -73,3 +73,7 @@
 - 2026-10-29 figure `lolo_v2` Canva media MAHZZFccEpk -> art/designs/lolo_v2.png overnight repaint, two views
 - 2026-10-29 figure `guard_v3` Canva media MAHZZrcFTJM -> art/designs/guard_v3.png same-artist redo
 - 2026-10-29 figure `guard_v4` Canva media MAHZa8a30xk -> art/designs/guard_v4.png cast proportions, from the cast sheet only
+- 2026-10-29 bg `cave6` Canva media  -> art/bg/cave6.jpg real Cave 6 repaint (Higgsfield), the user 2026-10-29: cave A
+- 2026-10-29 bg `santa_ana` Canva media  -> art/bg/santa_ana.jpg real Plaza de Santa Ana repaint (Higgsfield), the user 2026-10-29: santa ana A
+- 2026-10-29 bg `museum_hall` Canva media  -> art/bg/museum_hall.jpg Museo Canario hall with the skull cabinets (Higgsfield), the user 2026-10-29: museum A without the mummy cases
+- 2026-10-29 bg `museum_out` Canva media  -> art/bg/museum_out.jpg El Museo Canario from the street (Higgsfield), new room, the user 2026-10-29: 'Museo Canario outside is good'

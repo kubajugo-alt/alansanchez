@@ -616,3 +616,19 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     museum_out_a), sheet `art/review/rooms_real/sheet.jpg`. Nothing in the game yet: the user picks; a chosen repaint
     of an existing room needs its layout.js entry checked (cave6_a keeps the puzzle's positions); the two exteriors are
     new rooms between the map and the interiors.
+60. **Real places in: Cave 6, the museum's skulls, Santa Ana, the museum from the street; the beam moves** (2026-10-29).
+    The user: "cave A, museum A, but remove the mummy cabinets, santa ana A, Museo Canario outside is good. But re-do
+    casa colon, to match it closely to the original". Installed with `scripts/canva_in.py bg <room> file://...`
+    (the old paintings kept in `art/designs/rooms_real/old_*`): `cave6` (cave6_a: every puzzle position still lines up:
+    the seven sockets, the remaining disc, the great triangle, the door in the floor, the salt, the way out),
+    `museum_hall` (museum_hall_a2: take A with the two mummy cases painted out by an edit; the hotspots unchanged),
+    `santa_ana` (santa_ana_a: the clock spot moved to the left tower; the palm sways moved to the new palms).
+    New room `museum_out` (js/story/tue.js, layout.js): the map's museum pin lands there (`go`), the corner door goes
+    into the hall (entry 'map', so the hall behaves as before), and the hall's "Out to Vegueta" comes back to the
+    street (except after Tuesday's reception, still straight to Las Canteras); no new lines. Casa de Colón redone in
+    two takes (colon_out_b: an edit of take A; colon_out_c: fresh), sheet `art/review/rooms_real/colon_bc.jpg`, for
+    the user to pick. Alan's `alan_look_cases` still says "Mummies in goatskin" (voiced): raised with the user.
+    The beam (the user: "i don't think the beam moves"): it only jumped between its five places behind a fade when
+    Vasco waited. Now a wait is a time-lapse: the beam slides along the wall to its next place over 2.6 s (eased), and
+    at rest it sways a few pixels and shimmers. Checked in the running game (?scene=cave, frames during a wait).
+    validate: 0 errors; play.mjs: won in 98 steps.
