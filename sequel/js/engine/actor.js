@@ -18,6 +18,22 @@
   // cycle advances by the distance actually covered, and every pose change is
   // cross-dissolved.
   const arr = v => v == null ? [] : Array.isArray(v) ? v : [v];
+  // what a talk loop plays while someone speaks: once there are face sets (lip-sync), the longest unbroken run of frames
+  // that have mouths, played there and back (a frame without one would show the painting's own mouth, and skipping it
+  // would jump the head); without sets, the whole loop
+  const SPEAK = new WeakMap();
+  function speakLoop(F) {
+    const all = arr(F.talk); if (!E.hasFace || !all.some(E.hasFace)) return all;
+    let run = SPEAK.get(F);
+    if (!run) {
+      const n = all.length, ok = all.map(E.hasFace); let best = [0, 0];
+      for (let s = 0; s < n; s++) { if (!ok[s] || ok[(s - 1 + n) % n] && ok.some(v => !v)) continue; let k = 0; while (k < n && ok[(s + k) % n]) k++; if (k > best[1]) best = [s, k]; }
+      const seg = Array.from({ length: best[1] }, (_, k) => all[(best[0] + k) % n]);
+      run = seg.length > 2 ? seg.concat(seg.slice(1, -1).reverse()) : seg;
+      SPEAK.set(F, run);
+    }
+    return run;
+  }
   const XFADE = 0.2, MORPH_T = 0.34;
   const IB_STEP = 0.11;         // how long each in-between frame of a pose change is held (s)
   const WALK_EDGE = 0.13;       // the start step and the stop step of a walk are held this long (s)
@@ -393,8 +409,8 @@
       if (this.dir === 'n' && F.back) return arr(F.back)[0];
       if (this.dir === 's' && F.front) return arr(F.front)[0];
       if (this.talking && F.talkFps && arr(F.talk).length) {
-        const all = arr(F.talk), t = E.hasFace && all.some(E.hasFace) ? all.filter(E.hasFace) : all; // (frames with a face set, when there are any)
-        return t[Math.floor((E.time - (this.talkT0 || 0)) * F.talkFps) % t.length];
+        const t = speakLoop(F), i = Math.floor((E.time - (this.talkT0 || 0)) * F.talkFps) % t.length;
+        return t[i];
       }
       if (this.talking) { const t = arr(F.talk); return t.length && this.talkIdx >= 0 ? t[this.talkIdx % t.length] : arr(F.idle)[0]; }
       if (this.loopActive()) { const L = F.loops[this.loop]; return L.frames[Math.floor(E.time * L.fps) % L.frames.length]; }

@@ -4416,5 +4416,803 @@ window.FACES = {
   ],
   "who": "yeray",
   "ok": false
+ },
+ "talk_pino_00": {
+  "box": [
+   151,
+   54,
+   56,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_01": {
+  "box": [
+   151,
+   54,
+   56,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_02": {
+  "box": [
+   151,
+   54,
+   56,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_03": {
+  "box": [
+   151,
+   54,
+   56,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_04": {
+  "box": [
+   151,
+   54,
+   56,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_05": {
+  "box": [
+   151,
+   54,
+   56,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_06": {
+  "box": [
+   151,
+   54,
+   57,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_07": {
+  "box": [
+   151,
+   54,
+   57,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_08": {
+  "box": [
+   151,
+   54,
+   57,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_09": {
+  "box": [
+   151,
+   54,
+   57,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_10": {
+  "box": [
+   151,
+   54,
+   57,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_11": {
+  "box": [
+   151,
+   54,
+   57,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_12": {
+  "box": [
+   151,
+   54,
+   56,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_13": {
+  "box": [
+   151,
+   54,
+   56,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_14": {
+  "box": [
+   151,
+   54,
+   56,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_15": {
+  "box": [
+   151,
+   54,
+   56,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_16": {
+  "box": [
+   151,
+   54,
+   55,
+   89
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_17": {
+  "box": [
+   151,
+   54,
+   55,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_18": {
+  "box": [
+   151,
+   54,
+   54,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_19": {
+  "box": [
+   151,
+   54,
+   54,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_20": {
+  "box": [
+   151,
+   54,
+   54,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_21": {
+  "box": [
+   151,
+   54,
+   54,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_22": {
+  "box": [
+   151,
+   54,
+   54,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_23": {
+  "box": [
+   151,
+   54,
+   54,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_pino_24": {
+  "box": [
+   151,
+   54,
+   54,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "pino",
+  "ok": false
+ },
+ "talk_mercedes_00": {
+  "box": [
+   91,
+   61,
+   67,
+   80
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "mercedes",
+  "ok": false
+ },
+ "talk_mercedes_01": {
+  "box": [
+   91,
+   61,
+   70,
+   80
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "mercedes",
+  "ok": false
+ },
+ "talk_surfer_00": {
+  "box": [
+   162,
+   44,
+   59,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_01": {
+  "box": [
+   162,
+   44,
+   59,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_02": {
+  "box": [
+   162,
+   44,
+   59,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_03": {
+  "box": [
+   163,
+   44,
+   58,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_04": {
+  "box": [
+   159,
+   44,
+   61,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_05": {
+  "box": [
+   159,
+   44,
+   60,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_06": {
+  "box": [
+   158,
+   44,
+   62,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_07": {
+  "box": [
+   158,
+   44,
+   61,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_08": {
+  "box": [
+   158,
+   44,
+   62,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_09": {
+  "box": [
+   158,
+   44,
+   62,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
+ },
+ "talk_surfer_10": {
+  "box": [
+   158,
+   44,
+   63,
+   70
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "surfer",
+  "ok": false
  }
 };

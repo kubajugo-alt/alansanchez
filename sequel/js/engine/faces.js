@@ -163,7 +163,7 @@
 
   // a frame with a face set in use (the talk loops play only these while someone speaks: the lip-synced mouth never
   // gives way to the painted one)
-  const hasFace = k => !!FACES[k];
+  const hasFace = k => !!(FACES[k] && FACES[k].mouths.length);
   Object.assign(E, { faceImage, preloadFaces: preload, hasFace });
   if (document.readyState === 'complete') setTimeout(preload, 0); else window.addEventListener('load', () => setTimeout(preload, 0));
 })();

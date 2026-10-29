@@ -32,7 +32,7 @@ PRICE = (1.50, 7.50, 30.00)  # USD per 1M tokens: input, text out, image out
 WHO = {
     'alan': (['alanv_talk_a', 'alanv_talk_b'], 'the head of Alan, a man of thirty-eight with dark curly hair, clean-shaven', False),
     'alanb': (['alanb_talk_a'], 'the head of Alan, a man of thirty-eight with dark curly hair, clean-shaven', False),
-    'vasco': (['vasco_talk_a', 'vasco_talk_b'], 'the head of Vasco, a man in his thirties with dark curly hair and light stubble', False),
+    'vasco': (['vasco_talk_b', 'vasco_talk_a'], 'the head of Vasco, a man in his thirties with dark curly hair and light stubble', False),
     'carmen': (['talk_carmen'], 'the head of Carmen, a Canarian archivist in her early forties with short thick black hair', True),
     'baute': (['talk_baute'], 'the head of Dr. Rayco Baute, a Canarian archaeologist of fifty-six', False),
     'rafa': (['talk_rafa'], 'the head of Rafa, a Canarian painter of twenty-three with dark curly hair', False),
@@ -183,27 +183,61 @@ def gen(whos):
 
 
 # ---------------------------------------------------------------- borrow and build (Game I's, for one head box per set)
-def borrow(W, target, source):
+ZONE_MIN = 0.93   # how closely the eyes, or the mouth, must line up on a borrowed frame to get its patches there
+
+
+def inv_pt(w, p):
+    """The target point that an inverse-map affine w (target -> source) sends to source point p."""
+    A, t = w[:, :2].astype(np.float64), w[:, 2].astype(np.float64)
+    return (np.linalg.solve(A, np.array(p, np.float64) - t)).tolist()
+
+
+def borrow(W, target, source, info):
+    """The source frame's edits carried onto the target's head: one fit for the head, then a closer fit for the eyes and
+    one for the mouth (a head turning in a loop moves them differently). Returns (eyes fit, mouth fit) and the target's
+    landmarks; a part that fits less well than ZONE_MIN is left out (no blink there, or no mouths)."""
     t = Image.open(W + target + '/head.png').convert('RGBA'); W6, H6 = t.size
     sh = Image.open(W + source + '/head.png').convert('RGBA').resize((W6, H6), Image.LANCZOS)
     flat = lambda im: (np.asarray(im).astype(np.float32)[..., :3] * (np.asarray(im)[..., 3:] / 255) + np.array(BG, np.float32) * (1 - np.asarray(im)[..., 3:] / 255))
+    T, S = flat(t), flat(sh)
+    crit = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 300, 1e-6)
     w = np.eye(2, 3, dtype=np.float32)
-    try:
-        cc, w = cv2.findTransformECC(gray(flat(t)), gray(flat(sh)), w, cv2.MOTION_AFFINE, (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 300, 1e-6),
-                                     (np.asarray(t)[..., 3] > 128).astype(np.uint8) * 255, 5)
-    except cv2.error: return 0.0
-    # a big scale or turn means a different head (a hand across it, a turn): not borrowed
+    try: cc, w = cv2.findTransformECC(gray(T), gray(S), w, cv2.MOTION_AFFINE, crit, (np.asarray(t)[..., 3] > 128).astype(np.uint8) * 255, 5)
+    except cv2.error: return (0, 0), None
     sc = np.sqrt(abs(np.linalg.det(w[:, :2])))
-    if abs(sc - 1) > 0.08 or abs(np.degrees(np.arctan2(w[1, 0], w[0, 0]))) > 6: return 0.0
+    if abs(sc - 1) > 0.08 or abs(np.degrees(np.arctan2(w[1, 0], w[0, 0]))) > 6: return (0, 0), None
+    warp = lambda a, m: cv2.warpAffine(a, m, (W6, H6), flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
+    S1 = warp(S, w)
+    hb = np.array(info['head'][:2], np.float32); P = lambda p: ((np.array(p, np.float32) - hb) * UP).tolist()
+    Q = lambda p: (np.array(p, np.float32) / UP + hb).tolist()
+    e1, e2 = [inv_pt(w, P(e)) for e in info['eyes']]; m1, m2 = [inv_pt(w, P(m)) for m in info['mouth']]; nose = inv_pt(w, P(info['nose']))
+    bw_ = info['box'][2] * UP
+    def zone(cx, cy, rx, ry):
+        z = np.zeros((H6, W6), np.uint8); cv2.ellipse(z, (int(cx), int(cy)), (int(rx), int(ry)), 0, 0, 360, 255, -1); return z
+    ec = np.mean([e1, e2], 0); mc = np.mean([m1, m2], 0)
+    zones = {'eyes': zone(ec[0], ec[1], max(abs(e2[0] - e1[0]), 0.3 * bw_) * 0.95, 0.22 * bw_),
+             # (the mouth is fitted by the nose and the cheeks beside it, which hold still while the painted lips move)
+             'mouth': zone(nose[0], nose[1] - 0.04 * bw_, 0.4 * bw_, 0.2 * bw_)}
+    fits, refine = {}, {}
+    for k, z in zones.items():
+        r = np.eye(2, 3, dtype=np.float32)
+        try: c, r = cv2.findTransformECC(gray(T), gray(S1), r, cv2.MOTION_EUCLIDEAN, crit, z, 3)
+        except cv2.error: c = 0
+        fits[k], refine[k] = float(c), r
     for f in os.listdir(W + source):
         if not f.startswith(('mouth_', 'eyes_')) or not f.endswith('.png'): continue
+        part = 'eyes' if f.startswith('eyes_') else 'mouth'
+        if fits[part] < ZONE_MIN: continue
         g = np.asarray(Image.open(W + source + '/' + f).convert('RGB').resize((W6, H6), Image.LANCZOS)).astype(np.float32)
-        g = cv2.warpAffine(g, w, (W6, H6), flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
+        g = warp(warp(g, w), refine[part])
         Image.fromarray(np.clip(g, 0, 255).astype(np.uint8)).save(W + target + '/' + f)
-    return float(cc)
+    # the target's own landmarks, for its patch zones
+    me = lambda p, part: Q(inv_pt(refine[part], p))
+    lm = dict(info, eyes=[me(e1, 'eyes'), me(e2, 'eyes')], nose=me(nose, 'mouth'), mouth=[me(m1, 'mouth'), me(m2, 'mouth')])
+    return (fits['eyes'], fits['mouth']), lm
 
 
-def build_one(W, fr, info):
+def build_one(W, fr, info, align=True):
     head = Image.open(W + fr + '/head.png').convert('RGBA'); H6, W6 = head.size[1], head.size[0]
     h = np.asarray(head).astype(np.float32); al = h[..., 3:] / 255
     hb = info['head']; o = np.array(hb[:2], np.float32)
@@ -229,8 +263,10 @@ def build_one(W, fr, info):
         g = np.asarray(Image.open(f'{W}{fr}/{st}.png').convert('RGB').resize((W6, H6))).astype(np.float32)
         keep = al_mask.copy(); keep[mzone | ezone] = 0
         w = np.eye(2, 3, dtype=np.float32)
-        try: cc, w = cv2.findTransformECC(gray(on), gray(g), w, cv2.MOTION_AFFINE, (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 200, 1e-6), keep, 5)
-        except cv2.error: cc = 0
+        if not align: cc = 1.0
+        else:
+            try: cc, w = cv2.findTransformECC(gray(on), gray(g), w, cv2.MOTION_AFFINE, (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 200, 1e-6), keep, 5)
+            except cv2.error: cc = 0
         g = cv2.warpAffine(g, w, (W6, H6), flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
         A[st] = (g, float(cc))
     def region(names, zone):
@@ -303,9 +339,10 @@ def build(whos):
             if fr != fr0:
                 for f in os.listdir(W + fr):
                     if f.startswith(('mouth_', 'eyes_')): os.remove(W + fr + '/' + f)
-                cc = borrow(W, fr, fr0)
-                if cc < FIT_MIN: data.pop(fr, None); json.dump(None, open(done, 'w')); continue
-            r = build_one(W, fr, info)
+                fits, lm = borrow(W, fr, fr0, idx['frames'][fr0])
+                if lm is None: data.pop(fr, None); json.dump(None, open(done, 'w')); continue
+                info = lm
+            r = build_one(W, fr, info, align=fr == fr0)
             if not r: data.pop(fr, None); json.dump(None, open(done, 'w')); continue
             r.pop('fit'); r['who'] = who; json.dump(r, open(done, 'w'))
             r['ok'] = (data.get(fr) or {}).get('ok', False)

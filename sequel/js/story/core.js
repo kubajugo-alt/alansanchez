@@ -39,11 +39,11 @@
   // (F().blazer_on: Tuesday evening from the lost-and-found, and Thursday's dinner; off each new morning).
   const lu = n => (LU[n] ? LU[n].frames : null);
   S.LUDO_HOLD = []; // runs made but not approved yet (none: the three redos were approved on 2026-10-29)
-  const luSet = (p, base, poses) => {
+  const luSet = (p, base, poses, talks = ['_talk_a', '_talk_b']) => {
     if (!LU[p + '_walk_side']) return base;
     const turnF = lu(p + '_turn_side_front'), turnB = lu(p + '_turn_side_back');
     const Fr = Object.assign({}, base, {
-      idle: [lu(p + '_talk_a')[0]], talk: [p + '_talk_a', p + '_talk_b'].filter(n => lu(n) && !S.LUDO_HOLD.includes(n)).flatMap(lu), talkFps: LU[p + '_talk_a'].fps,
+      idle: [lu(p + talks[0])[0]], talk: talks.map(t => p + t).filter(n => lu(n) && !S.LUDO_HOLD.includes(n)).flatMap(lu), talkFps: LU[p + talks[0]].fps,
       walk: lu(p + '_walk_side'), walkStep: LU[p + '_walk_side'].step,
       front: turnF[turnF.length - 1], frontWalk: lu(p + '_walk_front'), frontStep: LU[p + '_walk_front'].step,
       back: turnB[turnB.length - 1], backWalk: lu(p + '_walk_back'), backStep: LU[p + '_walk_back'].step,
@@ -81,7 +81,7 @@
     const blazer = luSet('alanb', A.game1); // (no actions made in the blazer: Game I's poses)
     Object.defineProperty(A, 'frames', { get() { let on = false; try { on = !!(G.flags && G.flags.blazer_on); } catch (e) { /* not started */ } return on ? blazer : vest; } });
     A.outfits = [vest, blazer]; // (both, for loading: engine.js framesOf walks whatever frames holds)
-    V.frames = luSet('vasco', V.game1, { reach: 'reach', kneel: 'kneel', trowel: 'trowel' });
+    V.frames = luSet('vasco', V.game1, { reach: 'reach', kneel: 'kneel', trowel: 'trowel' }, ['_talk_b', '_talk_a']); // (he stands on his second loop: its face is the steadier)
   }
   // the walks' step lengths: Game I's measurements for the borrowed cycles (js/story/core.js there, S.WALK_PLANT)
   S.WALK_PLANT = { vasco_walk6_p1: [0.190, -0.148], vasco_walk6_p3: [0.112], vasco_walk6_p5: [0.028], vasco_walk6_p7: [-0.061],
