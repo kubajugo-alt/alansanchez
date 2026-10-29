@@ -2064,5 +2064,2357 @@ window.FACES = {
   ],
   "who": "alanb",
   "ok": false
+ },
+ "vasco_talk_a_00": {
+  "box": [
+   82,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_01": {
+  "box": [
+   81,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_02": {
+  "box": [
+   81,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_03": {
+  "box": [
+   80,
+   59,
+   62,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_04": {
+  "box": [
+   80,
+   59,
+   62,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_05": {
+  "box": [
+   81,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_06": {
+  "box": [
+   81,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_07": {
+  "box": [
+   81,
+   59,
+   62,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_08": {
+  "box": [
+   82,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_09": {
+  "box": [
+   82,
+   59,
+   62,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_11": {
+  "box": [
+   84,
+   59,
+   60,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_12": {
+  "box": [
+   85,
+   59,
+   59,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_13": {
+  "box": [
+   85,
+   59,
+   59,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_14": {
+  "box": [
+   85,
+   59,
+   59,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_15": {
+  "box": [
+   84,
+   59,
+   60,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_16": {
+  "box": [
+   83,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_17": {
+  "box": [
+   82,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_18": {
+  "box": [
+   81,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_19": {
+  "box": [
+   81,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_20": {
+  "box": [
+   81,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_21": {
+  "box": [
+   81,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_22": {
+  "box": [
+   81,
+   59,
+   61,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_23": {
+  "box": [
+   81,
+   59,
+   62,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "vasco_talk_a_24": {
+  "box": [
+   81,
+   59,
+   62,
+   61
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "vasco",
+  "ok": false
+ },
+ "talk_carmen_00": {
+  "box": [
+   118,
+   53,
+   41,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "carmen",
+  "ok": false
+ },
+ "talk_carmen_01": {
+  "box": [
+   117,
+   51,
+   41,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "carmen",
+  "ok": false
+ },
+ "talk_carmen_02": {
+  "box": [
+   117,
+   51,
+   41,
+   77
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "carmen",
+  "ok": false
+ },
+ "talk_carmen_03": {
+  "box": [
+   117,
+   51,
+   42,
+   77
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "carmen",
+  "ok": false
+ },
+ "talk_carmen_04": {
+  "box": [
+   117,
+   51,
+   44,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "carmen",
+  "ok": false
+ },
+ "talk_carmen_05": {
+  "box": [
+   116,
+   51,
+   45,
+   80
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "carmen",
+  "ok": false
+ },
+ "talk_carmen_06": {
+  "box": [
+   116,
+   52,
+   45,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "carmen",
+  "ok": false
+ },
+ "talk_carmen_14": {
+  "box": [
+   116,
+   52,
+   45,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "carmen",
+  "ok": false
+ },
+ "talk_carmen_15": {
+  "box": [
+   116,
+   52,
+   46,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "carmen",
+  "ok": false
+ },
+ "talk_baute_00": {
+  "box": [
+   132,
+   56,
+   38,
+   87
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "baute",
+  "ok": false
+ },
+ "talk_baute_01": {
+  "box": [
+   132,
+   56,
+   35,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "baute",
+  "ok": false
+ },
+ "talk_rafa_00": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_01": {
+  "box": [
+   79,
+   52,
+   66,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_02": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_03": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_04": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_05": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_06": {
+  "box": [
+   79,
+   52,
+   66,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_07": {
+  "box": [
+   80,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_08": {
+  "box": [
+   80,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_09": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_10": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_11": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_12": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_13": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_14": {
+  "box": [
+   79,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_15": {
+  "box": [
+   79,
+   52,
+   66,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_16": {
+  "box": [
+   79,
+   52,
+   66,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_17": {
+  "box": [
+   80,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_18": {
+  "box": [
+   82,
+   52,
+   63,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_19": {
+  "box": [
+   80,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_20": {
+  "box": [
+   80,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_21": {
+  "box": [
+   81,
+   52,
+   64,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_22": {
+  "box": [
+   80,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_23": {
+  "box": [
+   80,
+   52,
+   65,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_rafa_24": {
+  "box": [
+   79,
+   52,
+   66,
+   74
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "rafa",
+  "ok": false
+ },
+ "talk_chano_00": {
+  "box": [
+   126,
+   43,
+   57,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_01": {
+  "box": [
+   126,
+   43,
+   60,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_02": {
+  "box": [
+   126,
+   43,
+   59,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_03": {
+  "box": [
+   126,
+   43,
+   58,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_04": {
+  "box": [
+   126,
+   43,
+   57,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_05": {
+  "box": [
+   126,
+   43,
+   56,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_06": {
+  "box": [
+   126,
+   43,
+   58,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_07": {
+  "box": [
+   126,
+   43,
+   58,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_08": {
+  "box": [
+   126,
+   43,
+   59,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_09": {
+  "box": [
+   126,
+   43,
+   60,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_10": {
+  "box": [
+   126,
+   43,
+   60,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_12": {
+  "box": [
+   126,
+   43,
+   60,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_19": {
+  "box": [
+   127,
+   43,
+   59,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_20": {
+  "box": [
+   126,
+   43,
+   60,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_21": {
+  "box": [
+   126,
+   43,
+   60,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_22": {
+  "box": [
+   126,
+   43,
+   60,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_23": {
+  "box": [
+   126,
+   44,
+   60,
+   75
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_chano_24": {
+  "box": [
+   126,
+   43,
+   60,
+   76
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "chano",
+  "ok": false
+ },
+ "talk_nieves_00": {
+  "box": [
+   98,
+   50,
+   51,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_01": {
+  "box": [
+   98,
+   50,
+   51,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_02": {
+  "box": [
+   98,
+   49,
+   51,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_03": {
+  "box": [
+   98,
+   49,
+   51,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_04": {
+  "box": [
+   98,
+   49,
+   51,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_05": {
+  "box": [
+   98,
+   49,
+   53,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_06": {
+  "box": [
+   98,
+   49,
+   54,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_07": {
+  "box": [
+   99,
+   49,
+   53,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_08": {
+  "box": [
+   98,
+   49,
+   54,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_09": {
+  "box": [
+   98,
+   49,
+   54,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_10": {
+  "box": [
+   98,
+   49,
+   54,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_11": {
+  "box": [
+   98,
+   49,
+   54,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_12": {
+  "box": [
+   98,
+   49,
+   54,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_13": {
+  "box": [
+   99,
+   49,
+   53,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_14": {
+  "box": [
+   98,
+   50,
+   54,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_15": {
+  "box": [
+   98,
+   50,
+   54,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_nieves_16": {
+  "box": [
+   98,
+   50,
+   54,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "nieves",
+  "ok": false
+ },
+ "talk_yeray_00": {
+  "box": [
+   106,
+   60,
+   63,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_01": {
+  "box": [
+   106,
+   60,
+   63,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_02": {
+  "box": [
+   106,
+   60,
+   64,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_03": {
+  "box": [
+   106,
+   60,
+   65,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_04": {
+  "box": [
+   106,
+   61,
+   65,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_05": {
+  "box": [
+   106,
+   61,
+   65,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_06": {
+  "box": [
+   106,
+   60,
+   64,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_07": {
+  "box": [
+   106,
+   60,
+   63,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_08": {
+  "box": [
+   106,
+   60,
+   62,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_09": {
+  "box": [
+   106,
+   60,
+   66,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_18": {
+  "box": [
+   106,
+   60,
+   66,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_19": {
+  "box": [
+   106,
+   60,
+   66,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_20": {
+  "box": [
+   106,
+   61,
+   66,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_21": {
+  "box": [
+   106,
+   60,
+   64,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_22": {
+  "box": [
+   106,
+   61,
+   63,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_23": {
+  "box": [
+   106,
+   60,
+   66,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
+ },
+ "talk_yeray_24": {
+  "box": [
+   106,
+   60,
+   66,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "yeray",
+  "ok": false
  }
 };
