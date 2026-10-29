@@ -64,6 +64,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 225
 },
+"baute_r": {
+"ax": 122.1,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 249
+},
 "carmen_c": {
 "ax": 87.5,
 "fy": 740.0,
@@ -71,6 +79,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 219
+},
+"carmen_r": {
+"ax": 85.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 217
 },
 "chano2_k": {
 "ax": 101.0,
@@ -88,6 +104,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 418
 },
+"chano_r": {
+"ax": 108.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 250
+},
 "clerk_c": {
 "ax": 200.0,
 "facesLeft": true,
@@ -97,6 +121,15 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 417
 },
+"clerk_r": {
+"ax": 95.5,
+"facesLeft": true,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 196
+},
 "derek_c": {
 "ax": 122.0,
 "fy": 740.0,
@@ -104,6 +137,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 236
+},
+"derek_r": {
+"ax": 113.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 207
 },
 "fermin_c": {
 "ax": 168.5,
@@ -113,6 +154,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 321
 },
+"fermin_r": {
+"ax": 142.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 233
+},
 "gail_c": {
 "ax": 140.5,
 "fy": 740.0,
@@ -120,6 +169,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 253
+},
+"gail_r": {
+"ax": 124.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 222
 },
 "guard_c": {
 "ax": 114.1,
@@ -130,6 +187,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 245
 },
+"guard_r": {
+"ax": 71.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 215
+},
 "lolo_c": {
 "ax": 157.9,
 "facesLeft": true,
@@ -138,6 +203,15 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 323
+},
+"lolo_r": {
+"ax": 141.3,
+"facesLeft": true,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 261
 },
 "mercedes_c": {
 "ax": 131.2,
@@ -148,6 +222,15 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 256
 },
+"mercedes_r": {
+"ax": 119.5,
+"facesLeft": true,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 214
+},
 "montesdeoca_c": {
 "ax": 169.5,
 "fy": 740.0,
@@ -155,6 +238,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 330
+},
+"montesdeoca_r": {
+"ax": 142.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 264
 },
 "nieves_c": {
 "ax": 117.5,
@@ -164,6 +255,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 216
 },
+"nieves_r": {
+"ax": 103.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 193
+},
 "pino_c": {
 "ax": 149.1,
 "fy": 740.0,
@@ -172,8 +271,25 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 300
 },
+"pino_r": {
+"ax": 130.5,
+"facesLeft": true,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 237
+},
 "rafa_c": {
 "ax": 113.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 233
+},
+"rafa_r": {
+"ax": 87.5,
 "fy": 740.0,
 "h": 720.0,
 "hh": 760,
@@ -188,6 +304,30 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 370
+},
+"surfer_r": {
+"ax": 104.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 184
+},
+"vascor_front_k": {
+"ax": 128.7,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 261
+},
+"vascor_side_k": {
+"ax": 144.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 257
 },
 "vascos_back_k": {
 "ax": 136.2,
@@ -220,5 +360,13 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 226
+},
+"yeray_r": {
+"ax": 85.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 222
 }
 });

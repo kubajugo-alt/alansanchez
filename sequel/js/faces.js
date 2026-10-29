@@ -1081,6 +1081,263 @@ window.FACES = {
    "lid": false
   }
  },
+ "alanv_front_k": {
+  "box": [
+   102,
+   94,
+   76,
+   40
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "alanf",
+  "from": "jaw",
+  "emo": {
+   "box": [
+    96,
+    38,
+    76,
+    94
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "embarrassed",
+    "mischievous"
+   ],
+   "lid": true
+  }
+ },
+ "vascor_side_k": {
+  "box": [
+   133,
+   91,
+   47,
+   47
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "vasco",
+  "from": "jaw"
+ },
+ "baute_r": {
+  "box": [
+   117,
+   89,
+   53,
+   52
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "baute",
+  "from": "jaw"
+ },
+ "carmen_r": {
+  "box": [
+   103,
+   99,
+   43,
+   45
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "carmen",
+  "from": "jaw"
+ },
+ "rafa_r": {
+  "box": [
+   115,
+   92,
+   51,
+   51
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "rafa",
+  "from": "jaw"
+ },
+ "yeray_r": {
+  "box": [
+   115,
+   95,
+   44,
+   48
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "yeray",
+  "from": "jaw"
+ },
+ "nieves_r": {
+  "box": [
+   85,
+   90,
+   46,
+   49
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "nieves",
+  "from": "jaw"
+ },
+ "chano_r": {
+  "box": [
+   113,
+   87,
+   87,
+   55
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "chano",
+  "from": "jaw"
+ },
  "vascos_side_k": {
   "box": [
    138,
@@ -1572,54 +1829,5 @@ window.FACES = {
   "ok": true,
   "who": "derek",
   "from": "jaw"
- },
- "alanv_front_k": {
-  "box": [
-   102,
-   94,
-   76,
-   40
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "C_40",
-   "C_70",
-   "D",
-   "D_40",
-   "D_70",
-   "E",
-   "E_40",
-   "E_70",
-   "F",
-   "F_40",
-   "F_70"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "ok": true,
-  "who": "alanf",
-  "from": "jaw",
-  "emo": {
-   "box": [
-    96,
-    38,
-    76,
-    94
-   ],
-   "set": [
-    "fear",
-    "anger",
-    "sadness",
-    "concern",
-    "surprise",
-    "joy",
-    "embarrassed",
-    "mischievous"
-   ],
-   "lid": true
-  }
  }
 };

@@ -67,11 +67,11 @@ def LUDO():
 
 
 # the static sprite each figure stands and talks on (the user, 2026-10-29: "only... their original static sprites")
-STATIC = {'alanf': 'alanv_front_k', 'alan': 'alanv_side_k', 'alanb': 'alanb_side_k', 'vasco': 'vascos_side_k', 'baute': 'baute2_k', 'chano': 'chano2_k'}
+STATIC = {'alanf': 'alanv_front_k', 'alan': 'alanv_side_k', 'alanb': 'alanb_side_k', 'vasco': 'vascor_side_k', 'baute': 'baute_r', 'chano': 'chano_r'}   # the repaints, 2026-10-29
 
 
 def frames_of(who):
-    return [STATIC.get(who, who + '_c')]
+    return [STATIC.get(who, who + '_r')]
 
 
 def base_of(who): return frames_of(who)[0]
@@ -343,7 +343,10 @@ def build(whos):
     data = faces_js()
     keep = {f for w in WHO for f in frames_of(w)}
     # sets for frames no longer used (Alan's side sets come from Game I, scripts/face_from_game1.py: never this script's to drop)
-    for k in [k for k, d in data.items() if d.get('who') and d.get('from') != 'game1' and k not in keep]: data.pop(k)
+    # (the pre-repaint sprites' sets stay too, while their sprites are on disk: the repaints replaced them 2026-10-29, and
+    # keeping them lets the swap be undone)
+    old = lambda k: os.path.exists(os.path.join(SEQ, 'art/sprites', k + '.webp'))
+    for k in [k for k, d in data.items() if d.get('who') and d.get('from') != 'game1' and k not in keep and not old(k)]: data.pop(k)
     for who in whos:
         W = work(who); idx = json.load(open(W + 'index.json')); fr0 = idx['base']
         made = 0

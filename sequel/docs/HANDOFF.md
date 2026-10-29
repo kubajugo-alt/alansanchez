@@ -561,3 +561,26 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     and silently did nothing; the page now copies each record. Checked in Playwright with a mock store that freezes
     its snapshots: before the fix Flip did nothing, after it flips; duplicate, remove, cast select/flip work.
     Republished (version 2).
+54. **Placement tool: depth order, pick list, dragging; the repainted cast** (2026-10-29). The user: "the controls still
+    don't work", "the tool should be showing the re-done cast", "dragging still doesn't work properly". Found in the
+    store: "To front" had saved (the waiter's z was 240) but the cast and Alan were always drawn over every extra, so
+    nothing seemed to change; now everyone (extras, cast, Alan) is drawn in one depth order (feet y + z) and the cast
+    take To front / To back too. A "Pick" list selects anyone, also a figure hidden behind another. Dragging: every
+    move redraws the room, which replaced the grabbed element and lost the pointer after the first move (a 120 px drag
+    moved 24 px); the drag now follows the pointer on the window, store updates are held while dragging, and a save
+    takes its values when the change is made. The cast thumbnails are the repaints (below), Pino's and the surfer's flip
+    inverted (their repaints face the other way). Playwright, mock store with frozen snapshots and a slow echo: drags of
+    an extra, a cast member and Alan follow the full 120 px; front/back, size, rotate, flip, pick all work. Version 4.
+55. **The cast swapped to the repaints** (2026-10-29). The user: "it is time to replace the cast sprites with the
+    re-drawn ones". Each approved design's side view (the left half of the two-view paintings; baute_v4 whole) cut with
+    `scripts/figure_cut.py ... --half left [--left]` into `art/sprites/<id>_r.webp` (Vasco: `vascor_side_k` and
+    `vascor_front_k` from vasco_v9; his back stays `vascos_back_k` until a repainted back view exists). Facing left:
+    clerk, Pino, Lolo, Mercedes. `js/story/core.js`: the cast resolve `<id>_r` before `<id>_c` (STATIC: baute_r,
+    chano_r; Vasco `still('vascor')`); the guard and the surfer at Alan's height (scale 1.0). The old sprites and their
+    approved face sets stay on disk for comparison and rollback (`face_kit.py build` no longer drops sets whose sprite
+    is still on disk). `scripts/validate.mjs` now loads js/sprites_canva.js (it took `baute_r` for a line id).
+    Faces: `face_kit.py` points at the repaints (`STATIC`, default `<id>_r`); find for all 17 (all found, 0.91-0.94);
+    gen + build + face_jaw for the seven main speakers (Vasco, Baute, Carmen, Rafa, Yeray, Nieves, Chano), Gemini
+    $1.99; all `ok: false` until the user approves. Sheet: `art/review/cast_repaint/faces7.jpg`. Still to do: the other
+    ten face sets (~$2.85; the Gemini credit is nearly spent), Vasco's back view. Until faces are approved the
+    repainted cast stand without lip-sync. validate: 0 errors; play.mjs: won in 98 steps.

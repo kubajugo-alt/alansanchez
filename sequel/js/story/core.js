@@ -18,9 +18,11 @@
   // their original static sprites"; lip-sync and blinking are laid on it, js/engine/faces.js), else the stand-in figure
   // (scripts/placeholders.py). Baute and Chano stand in their redesigns (darker brown; the less cartoonish Chano).
   const LU = window.LUDO || {};
-  const STATIC = { baute: 'baute2_k', chano: 'chano2_k' };
+  // the repaints (the user, 2026-10-29: "it is time to replace the cast sprites with the re-drawn ones"): <id>_r, cut from
+  // art/designs/ (scripts/figure_cut.py); the earlier sprites stay on disk for comparison
+  const STATIC = { baute: 'baute_r', chano: 'chano_r' };
   S.ph = (id, scale, more, alias) => {
-    const SP = window.SPRITES || {}, own = k => STATIC[k] && SP[STATIC[k]] ? STATIC[k] : SP[k + '_c'] ? k + '_c' : null;
+    const SP = window.SPRITES || {}, own = k => STATIC[k] && SP[STATIC[k]] ? STATIC[k] : SP[k + '_r'] ? k + '_r' : SP[k + '_c'] ? k + '_c' : null;
     const c = own(id) || (alias && own(alias));
     const f = c ? { idle: [c], talk: [c], walk: [c] }
       : { idle: [id + '_ph_idle'], talk: [id + '_ph_talk', id + '_ph_idle'], walk: [id + '_ph_walk1', id + '_ph_idle'] };
@@ -64,15 +66,15 @@
     carmen: S.ph('carmen', 0.92), carmen_field: S.ph('carmen_field', 0.92, null, 'carmen'), baute: S.ph('baute', 1.04), baute_dig: S.ph('baute_dig', 1.04, null, 'baute'),
     rafa: S.ph('rafa', 1.0), yeray: S.ph('yeray', 0.98), nieves: S.ph('nieves', 0.9), chano: S.ph('chano', 0.85), pino: S.ph('pino', 0.82),
     lolo: S.ph('lolo', 0.86), fermin: S.ph('fermin', 0.8), mercedes: S.ph('mercedes', 0.82), montesdeoca: S.ph('montesdeoca', 0.98),
-    gail: S.ph('gail', 0.88), derek: S.ph('derek', 0.94), guard: S.ph('guard', 0.95), elena: S.ph('elena', 0.92), clerk: S.ph('clerk', 0.9),
-    surfer: S.ph('surfer', 0.98),
+    gail: S.ph('gail', 0.88), derek: S.ph('derek', 0.94), guard: S.ph('guard', 1.0), elena: S.ph('elena', 0.92), clerk: S.ph('clerk', 0.9),
+    surfer: S.ph('surfer', 1.0),
   };
   {
     const A = S.CHARS.alan, V = S.CHARS.vasco;
     const vest = still('alanv', 'alanv'), blazer = still('alanb', 'alanb');
     Object.defineProperty(A, 'frames', { get() { let on = false; try { on = !!(G.flags && G.flags.blazer_on); } catch (e) { /* not started */ } return on ? blazer : vest; } });
     A.outfits = [vest, blazer]; // (both, for loading: engine.js framesOf walks whatever frames holds)
-    V.frames = still('vascos');
+    V.frames = Object.assign(still('vascor'), { back: 'vascos_back_k' });   // (no repainted back view yet)
   }
   // the walks' step lengths: Game I's measurements for the borrowed cycles (js/story/core.js there, S.WALK_PLANT)
   S.WALK_PLANT = { vasco_walk6_p1: [0.190, -0.148], vasco_walk6_p3: [0.112], vasco_walk6_p5: [0.028], vasco_walk6_p7: [-0.061],

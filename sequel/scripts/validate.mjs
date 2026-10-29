@@ -6,7 +6,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 const SEQ = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const ctx = { window: {} }; vm.createContext(ctx);
-for (const f of ['js/lines.js', 'js/sprites_game1.js', 'js/sprites_placeholders.js']) vm.runInContext(fs.readFileSync(path.join(SEQ, f), 'utf8'), ctx);
+for (const f of ['js/lines.js', 'js/sprites_game1.js', 'js/sprites_placeholders.js', 'js/sprites_canva.js']) vm.runInContext(fs.readFileSync(path.join(SEQ, f), 'utf8'), ctx);
 const { LINES, SPEAKERS, SPRITES } = ctx.window;
 const story = fs.readdirSync(path.join(SEQ, 'js/story')).map(f => fs.readFileSync(path.join(SEQ, 'js/story', f), 'utf8')).join('\n')
   + fs.readFileSync(path.join(SEQ, 'js/engine/input.js'), 'utf8');

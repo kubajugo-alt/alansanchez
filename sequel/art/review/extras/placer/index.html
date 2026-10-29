@@ -72,6 +72,7 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px s
       <button type="button" id="dup">Duplicate</button><button type="button" id="del" class="danger">Remove</button>
     </div>
     <label class="row" style="grid-template-columns:64px 1fr"><span>Room</span><select id="move"></select></label>
+    <label class="row" style="grid-template-columns:64px 1fr"><span>Pick</span><select id="pick" aria-label="Everyone in this room"></select></label>
     <div class="toggles">
       <label><input type="checkbox" id="t-floor"> Show the walkable floor</label>
       <label><input type="checkbox" id="t-alan" checked> Show Alan for scale (not saved; drag him)</label>
@@ -100,8 +101,9 @@ function draw() {
   const stage = $('stage'), room = R[st.room];
   stage.style.backgroundImage = `url(bg_${st.room}.jpg)`;
   stage.querySelectorAll('.fig').forEach(e => e.remove());
-  const list = Object.entries(st.pl).filter(([, p]) => p.room === st.room).sort((a, b) => (a[1].y + (a[1].z || 0)) - (b[1].y + (b[1].z || 0)));
-  for (const [id, p] of list) {
+  // everyone in one depth order (feet lower = nearer), so To front / To back reach past the cast and Alan too
+  const items = [];
+  for (const [id, p] of Object.entries(st.pl)) if (p.room === st.room) items.push([p.y + (p.z || 0), () => {
     const b = boxOf(p), el = document.createElement('div'); el.className = 'fig' + (st.sel === id ? ' sel' : ''); el.tabIndex = 0; el.dataset.id = id;
     el.setAttribute('aria-label', p.extra.replace(/_/g, ' '));
     Object.assign(el.style, { left: pct(p.x - b.w / 2, W), top: pct(p.y - b.h, H), width: pct(b.w, W), height: pct(b.h, H),
@@ -109,30 +111,40 @@ function draw() {
     el.innerHTML = `<img src="x_${p.extra}.webp" alt="">`;
     el.addEventListener('pointerdown', e => startDrag(e, id));
     el.addEventListener('focus', () => select(id));
-    stage.append(el);
-  }
+    return el;
+  }]);
   if ($('t-cast').checked) for (const c of (st.data.cast[st.room] || [])) {   // the room's own cast: where the game stands them, until moved here
     const id = castId(st.room, c), p = st.cp[id] || { x: c.x, y: c.y, flip: c.flip, size: 1 };
-    const h = c.h * heightAt(room, p.y) / heightAt(room, c.y) * (p.size || 1), w = h * c.w / c.ih;
-    const el = document.createElement('div'); el.className = 'fig cast' + (st.sel === id ? ' sel' : ''); el.tabIndex = 0; el.dataset.id = id;
-    el.setAttribute('aria-label', c.name + ' (cast)');
-    Object.assign(el.style, { left: pct(p.x - w * (p.flip === c.flip ? c.ax : 1 - c.ax), W), top: pct(p.y - h, H), width: pct(w, W), height: pct(h, H), transform: `scaleX(${p.flip ? -1 : 1})` });
-    el.innerHTML = `<img src="${c.img}" alt=""><span class="tag"></span>`; el.querySelector('.tag').textContent = c.name; el.querySelector('.tag').style.transform = `translateX(-50%) scaleX(${p.flip ? -1 : 1})`;
-    el.addEventListener('pointerdown', e => startDrag(e, id));
-    el.addEventListener('focus', () => select(id));
-    stage.append(el);
+    items.push([p.y + (p.z || 0), () => {
+      const h = c.h * heightAt(room, p.y) / heightAt(room, c.y) * (p.size || 1), w = h * c.w / c.ih;
+      const el = document.createElement('div'); el.className = 'fig cast' + (st.sel === id ? ' sel' : ''); el.tabIndex = 0; el.dataset.id = id;
+      el.setAttribute('aria-label', c.name + ' (cast)');
+      Object.assign(el.style, { left: pct(p.x - w * (p.flip === c.flip ? c.ax : 1 - c.ax), W), top: pct(p.y - h, H), width: pct(w, W), height: pct(h, H), transform: `scaleX(${p.flip ? -1 : 1})` });
+      el.innerHTML = `<img src="${c.img}" alt=""><span class="tag"></span>`; el.querySelector('.tag').textContent = c.name; el.querySelector('.tag').style.transform = `translateX(-50%) scaleX(${p.flip ? -1 : 1})`;
+      el.addEventListener('pointerdown', e => startDrag(e, id));
+      el.addEventListener('focus', () => select(id));
+      return el;
+    }]);
   }
   if (st.alanRoom !== st.room) {   // Alan starts at the front of each room's floor, to the left
     const ys = room.walk.map(p => p[1]); st.alan = { x: 220, y: Math.max(...ys) - 24 }; st.alanRoom = st.room;
   }
-  if ($('t-alan').checked) {   // Alan, for scale
+  if ($('t-alan').checked) items.push([st.alan.y, () => {   // Alan, for scale
     const Hy = heightAt(room, st.alan.y), w = Hy * st.data.alan.w / st.data.alan.h, el = document.createElement('div');
     el.className = 'fig ghost'; el.setAttribute('aria-label', 'Alan, for scale');
     Object.assign(el.style, { left: pct(st.alan.x - w / 2, W), top: pct(st.alan.y - Hy, H), width: pct(w, W), height: pct(Hy, H) });
-    el.innerHTML = '<img src="alan.webp" alt=""><span class="tag">Alan</span>'; el.addEventListener('pointerdown', e => startDrag(e, null)); stage.append(el);
-  }
+    el.innerHTML = '<img src="alan.webp" alt=""><span class="tag">Alan</span>'; el.addEventListener('pointerdown', e => startDrag(e, null));
+    return el;
+  }]);
+  items.sort((a, b) => a[0] - b[0]).forEach(([, make]) => stage.append(make()));
   $('floor').innerHTML = $('t-floor').checked ? `<polygon points="${room.walk.map(p => p.join(',')).join(' ')}" fill="rgba(60,170,210,.18)" stroke="rgba(60,170,210,.9)" stroke-width="2"/>` : '';
-  panel(); tabs(); tray();
+  panel(); tabs(); tray(); pickList();
+}
+function pickList() {   // everyone in the room, so a figure hidden behind another can still be selected
+  const o = [new Option('Everyone in this room…', '')];
+  for (const [id, p] of Object.entries(st.pl)) if (p.room === st.room) o.push(new Option(p.extra.replace(/_/g, ' '), id, false, id === st.sel));
+  if ($('t-cast').checked) for (const c of (st.data.cast[st.room] || [])) { const id = castId(st.room, c); o.push(new Option(c.name + ' (cast)', id, false, id === st.sel)); }
+  $('pick').replaceChildren(...o);
 }
 function tabs() {
   const t = $('tabs'); t.replaceChildren();
@@ -157,7 +169,8 @@ function panel() {
   $('sel-name').textContent = p ? (cast ? p.cast + ' (cast)' : p.extra.replace(/_/g, ' ')) : 'Nothing selected';
   $('sel-hint').hidden = !!p;
   ['size', 'flip'].forEach(k => $(k).disabled = !on);
-  ['rot', 'front', 'back', 'dup', 'del', 'move'].forEach(k => $(k).disabled = !on || cast);
+  ['front', 'back'].forEach(k => $(k).disabled = !on);
+  ['rot', 'dup', 'del', 'move'].forEach(k => $(k).disabled = !on || cast);
   $('size').value = p ? (p.size || 1) : 1; $('size-o').textContent = (+$('size').value).toFixed(2);
   $('rot').value = p ? (p.rot || 0) : 0; $('rot-o').textContent = $('rot').value + '°';
   $('move').replaceChildren(...st.data.rooms.map(r => new Option(r.name, r.id, false, p && p.room === r.id)));
@@ -167,17 +180,23 @@ function castId(room, c) { return 'cast_' + room + '_' + c.name.normalize('NFD')
 function castOf(id) { for (const [room, cs] of Object.entries(st.data.cast)) for (const c of cs) if (castId(room, c) === id) return [room, c]; return []; }
 function target(id) {   // the editable record for a selection: a placed extra, or a cast member (made on first touch)
   if (!id) return null; if (st.pl[id]) return st.pl[id];
-  if (!st.cp[id]) { const [room, c] = castOf(id); if (!c) return null; st.cp[id] = { cast: c.name, room, x: c.x, y: c.y, size: 1, flip: c.flip }; }
+  if (!st.cp[id]) { const [room, c] = castOf(id); if (!c) return null; st.cp[id] = { cast: c.name, room, x: c.x, y: c.y, size: 1, flip: c.flip, z: 0 }; }
   return st.cp[id];
 }
 function select(id) { if (st.sel === id) return; st.sel = id; document.querySelectorAll('.fig').forEach(e => e.classList.toggle('sel', e.dataset.id === id)); panel(); }
 function startDrag(e, id) {
   e.preventDefault(); const stage = $('stage'), rect = stage.getBoundingClientRect(), k = W / rect.width;
   const tgt = id ? target(id) : st.alan; if (id) select(id); if (id && !st.can) return;
-  const sx = e.clientX, sy = e.clientY, ox = tgt.x, oy = tgt.y, el = e.currentTarget; el.setPointerCapture(e.pointerId); el.style.cursor = 'grabbing';
+  // follow the pointer on the window: each move redraws the room, which replaces the element that was grabbed
+  const sx = e.clientX, sy = e.clientY, ox = tgt.x, oy = tgt.y; st.dragging = true; document.body.style.cursor = 'grabbing';
   const move = ev => { tgt.x = Math.round(Math.max(0, Math.min(W, ox + (ev.clientX - sx) * k))); tgt.y = Math.round(Math.max(40, Math.min(H, oy + (ev.clientY - sy) * k))); draw(); };
-  const up = () => { el.removeEventListener('pointermove', move); el.removeEventListener('pointerup', up); el.removeEventListener('pointercancel', up); if (id && (tgt.x !== ox || tgt.y !== oy)) save(id); };
-  el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
+  const up = () => {
+    window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up);
+    st.dragging = false; document.body.style.cursor = '';
+    const moved = tgt.x !== ox || tgt.y !== oy; if (id && moved) save(id);
+    const held = st.pending; st.pending = null; if (held && !moved) st.apply(held);   // after a move the store sends a fresh one
+  };
+  window.addEventListener('pointermove', move); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
 }
 function newId() { return 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 function add(extra) {
@@ -186,9 +205,10 @@ function add(extra) {
 }
 async function save(id) {
   const p = target(id); if (!st.db || !p) return;
+  const body = { ...p };   // as it is now (a store update may replace the record before the write goes)
   clearTimeout(st.saving[id]);
   st.saving[id] = setTimeout(async () => {
-    try { await st.db.doc('placements/' + id).set({ ...p, by: st.me, at: Date.now() }); $('status').textContent = 'Saved.'; }
+    try { await st.db.doc('placements/' + id).set({ ...body, by: st.me, at: Date.now() }); $('status').textContent = 'Saved.'; }
     catch (e) { $('status').textContent = 'Could not save (' + (e.code || 'error') + '). Move it again to retry.'; }
   }, 250);
 }
@@ -200,11 +220,12 @@ async function remove(id) {
 $('size').oninput = () => { const p = target(st.sel); if (!p) return; p.size = +$('size').value; draw(); save(st.sel); };
 $('rot').oninput = () => { const p = st.pl[st.sel]; if (!p) return; p.rot = +$('rot').value; draw(); save(st.sel); };
 $('flip').onclick = () => { const p = target(st.sel); if (!p) return; p.flip = !p.flip; draw(); save(st.sel); };
-$('front').onclick = () => { const p = st.pl[st.sel]; if (!p) return; p.z = (p.z || 0) + 40; draw(); save(st.sel); };
-$('back').onclick = () => { const p = st.pl[st.sel]; if (!p) return; p.z = (p.z || 0) - 40; draw(); save(st.sel); };
+$('front').onclick = () => { const p = target(st.sel); if (!p) return; p.z = (p.z || 0) + 40; draw(); save(st.sel); };
+$('back').onclick = () => { const p = target(st.sel); if (!p) return; p.z = (p.z || 0) - 40; draw(); save(st.sel); };
 $('dup').onclick = () => { const p = st.pl[st.sel]; if (!p) return; const id = newId(); st.pl[id] = { ...p, x: Math.min(W, p.x + 60) }; st.sel = id; draw(); save(id); };
 $('del').onclick = () => { if (st.sel) remove(st.sel); };
 $('move').onchange = () => { const p = st.pl[st.sel]; if (!p) return; p.room = $('move').value; st.room = p.room; draw(); save(st.sel); };
+$('pick').onchange = () => { const id = $('pick').value; if (id) { st.sel = id; draw(); } };
 $('t-floor').onchange = draw; $('t-alan').onchange = draw; $('t-cast').onchange = draw;
 document.addEventListener('keydown', e => {
   const p = target(st.sel); if (!p || !st.can || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.type !== 'checkbox') return;
@@ -224,13 +245,15 @@ document.addEventListener('keydown', e => {
   if (!db) { $('status').textContent = 'Sign in to claude.ai with access to this page to place figures. This is the starting layout.'; return; }
   st.db = db; try { st.me = user ? await user.id() : ''; } catch (e) {}
   st.can = user ? user.can('data.write') !== false : true;
-  db.collection('placements').onSnapshot(s => {
+  st.apply = s => {   // (held while a figure is being dragged, so the store does not pull it back mid-drag)
+    if (st.dragging) { st.pending = s; return; }
     if (s.empty && st.can && !st.seeded) {   // the first visit: save the starting layout so it can be moved
       st.seeded = true; Object.keys(st.pl).forEach(id => save(id)); $('status').textContent = 'Starting layout saved. Drag away.'; return;
     }
     const next = {}, cp = {}; s.docs.forEach(d => { const v = { ...d.data() }; if (v && v.extra && X[v.extra] && R[v.room]) next[d.id] = v; else if (v && v.cast && R[v.room]) cp[d.id] = v; });
     if (!s.empty) { st.pl = next; st.cp = cp; if (st.sel && !st.pl[st.sel] && !castOf(st.sel)[1]) st.sel = null; draw(); }
     $('status').textContent = st.can ? 'Changes save as you go.' : 'You can look; only people who can edit this page can move figures.';
-  }, e => { $('status').textContent = 'The store is not answering (' + e.code + '). Reload to try again.'; });
+  };
+  db.collection('placements').onSnapshot(s => st.apply(s), e => { $('status').textContent = 'The store is not answering (' + e.code + '). Reload to try again.'; });
 })();
 </script>
