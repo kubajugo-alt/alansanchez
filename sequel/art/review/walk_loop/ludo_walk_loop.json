@@ -1,0 +1,47 @@
+{
+ "alanb_walk_side": {
+  "ludo": {
+   "frames": [
+    "alanb_walk_side_00",
+    "alanb_walk_side_01",
+    "alanb_walk_side_02",
+    "alanb_walk_side_03",
+    "alanb_walk_side_04",
+    "alanb_walk_side_05",
+    "alanb_walk_side_06",
+    "alanb_walk_side_07",
+    "alanb_walk_side_08",
+    "alanb_walk_side_09",
+    "alanb_walk_side_10",
+    "alanb_walk_side_11",
+    "alanb_walk_side_12",
+    "alanb_walk_side_13",
+    "alanb_walk_side_14",
+    "alanb_walk_side_15",
+    "alanb_walk_side_16",
+    "alanb_walk_side_17",
+    "alanb_walk_side_18",
+    "alanb_walk_side_19",
+    "alanb_walk_side_20",
+    "alanb_walk_side_21",
+    "alanb_walk_side_22",
+    "alanb_walk_side_23"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.0127,
+   "at": [
+    5,
+    17
+   ]
+  },
+  "sprite": {
+   "w": 339,
+   "hh": 738,
+   "h": 720,
+   "ax": 130.4,
+   "fy": 731.8,
+   "top": 12.3
+  }
+ }
+}

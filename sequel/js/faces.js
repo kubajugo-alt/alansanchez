@@ -1060,7 +1060,26 @@ window.FACES = {
   ],
   "ok": true,
   "who": "alan",
-  "from": "game1"
+  "from": "game1",
+  "emo": {
+   "box": [
+    84,
+    45,
+    83,
+    93
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "embarrassed",
+    "mischievous"
+   ],
+   "lid": false
+  }
  },
  "vascos_side_k": {
   "box": [

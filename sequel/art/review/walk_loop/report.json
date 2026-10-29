@@ -1,0 +1,145 @@
+{
+ "alanb_walk_side": {
+  "old": {
+   "frames": 36,
+   "steps": 3,
+   "step": 0.0213
+  },
+  "new": {
+   "frames": 24,
+   "steps": 2,
+   "step": 0.0127
+  },
+  "kept": "10..33",
+  "first_frame": 15,
+  "rotation": 5,
+  "drift_removed": {
+   "scale": 1.0076,
+   "dx": 1,
+   "dy": 3,
+   "over_frames": 24
+  },
+  "match_err": 8.6,
+  "inbetween": false,
+  "src": [
+   [
+    15
+   ],
+   [
+    16
+   ],
+   [
+    17
+   ],
+   [
+    18
+   ],
+   [
+    19
+   ],
+   [
+    20
+   ],
+   [
+    21
+   ],
+   [
+    22
+   ],
+   [
+    23
+   ],
+   [
+    24
+   ],
+   [
+    25
+   ],
+   [
+    26
+   ],
+   [
+    27
+   ],
+   [
+    28
+   ],
+   [
+    29
+   ],
+   [
+    30
+   ],
+   [
+    31
+   ],
+   [
+    32
+   ],
+   [
+    33
+   ],
+   [
+    10
+   ],
+   [
+    11
+   ],
+   [
+    12
+   ],
+   [
+    13
+   ],
+   [
+    14
+   ]
+  ],
+  "seam_before": {
+   "number": 2.22,
+   "seam": 57.2,
+   "median_step": 25.7,
+   "body": {
+    "tx": {
+     "seam": 1.9,
+     "median": 0.6
+    },
+    "bot": {
+     "seam": 3.0,
+     "median": 1.0
+    },
+    "h": {
+     "seam": 3.0,
+     "median": 3.0
+    }
+   }
+  },
+  "seam_after_drift_only": 1.28,
+  "seam_after": {
+   "number": 1.37,
+   "seam": 35.4,
+   "median_step": 25.8,
+   "body": {
+    "tx": {
+     "seam": 0.7,
+     "median": 0.9
+    },
+    "bot": {
+     "seam": 1.0,
+     "median": 1.0
+    },
+    "h": {
+     "seam": 1.0,
+     "median": 3.0
+    }
+   }
+  },
+  "edge_alpha": 0.0,
+  "ground_per_frame": {
+   "mean": 0.0127,
+   "min": -0.0139,
+   "max": 0.0625,
+   "old_frames_same_measure": 0.0116
+  }
+ }
+}

@@ -435,3 +435,8 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       `art/review/emotions/in_game_test.png`); play.mjs won in 98 steps, no errors (served from sequel/ with
       python3 -m http.server: npx http-server -s sequel served Game I's root here).
     - Not done: the blazer views (alanb_*) have no emotion set yet.
+41. **Blazer emotions approved and installed** (2026-10-29). The user: "emotions are ok". alanb_side_k's soft set
+    (Gemini $0.33; `VIEWS['alanb_side_k']` in face_emotions.py: the tank top's crop moved 5 px right, 1 down) installed
+    with `face_emotions.py install alanb_side_k`. All three of Alan's talking views now carry emotions; they show only
+    once lines are tagged (tags page: https://claude.ai/artifact/A4K8z2NvzgkfLR2EndtJiy, db `tags`, `notes`,
+    `suggestions`).
