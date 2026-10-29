@@ -1,8 +1,8 @@
 {
  "alanv_side_k": {
-  "changed": 78,
+  "changed": 74,
   "taken": 51,
-  "fringe": 27,
+  "fringe": 23,
   "edge_groups": 6,
   "pockets": 0
  },
@@ -21,9 +21,9 @@
   "pockets": 0
  },
  "alanb_side_k": {
-  "changed": 77,
+  "changed": 68,
   "taken": 46,
-  "fringe": 31,
+  "fringe": 22,
   "edge_groups": 5,
   "pockets": 0
  },
@@ -35,58 +35,58 @@
   "pockets": 0
  },
  "alanb_back_k": {
-  "changed": 3,
+  "changed": 2,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_side_00": {
-  "changed": 61,
+  "changed": 51,
   "taken": 32,
-  "fringe": 29,
+  "fringe": 19,
   "edge_groups": 4,
   "pockets": 0
  },
  "alanv_walk_side_01": {
-  "changed": 27,
+  "changed": 21,
   "taken": 11,
-  "fringe": 16,
+  "fringe": 10,
   "edge_groups": 2,
   "pockets": 0
  },
  "alanv_walk_side_02": {
-  "changed": 16,
+  "changed": 14,
   "taken": 7,
-  "fringe": 9,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanv_walk_side_03": {
-  "changed": 16,
-  "taken": 6,
-  "fringe": 10,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanv_walk_side_04": {
-  "changed": 13,
-  "taken": 6,
   "fringe": 7,
   "edge_groups": 1,
   "pockets": 0
  },
- "alanv_walk_side_05": {
-  "changed": 23,
+ "alanv_walk_side_03": {
+  "changed": 15,
   "taken": 6,
-  "fringe": 17,
+  "fringe": 9,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanv_walk_side_04": {
+  "changed": 12,
+  "taken": 6,
+  "fringe": 6,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanv_walk_side_05": {
+  "changed": 14,
+  "taken": 6,
+  "fringe": 8,
   "edge_groups": 1,
   "pockets": 0
  },
  "alanv_walk_side_06": {
-  "changed": 20,
+  "changed": 18,
   "taken": 7,
-  "fringe": 13,
+  "fringe": 11,
   "edge_groups": 1,
   "pockets": 0
  },
@@ -98,9 +98,9 @@
   "pockets": 0
  },
  "alanv_walk_side_08": {
-  "changed": 16,
+  "changed": 13,
   "taken": 7,
-  "fringe": 9,
+  "fringe": 6,
   "edge_groups": 1,
   "pockets": 0
  },
@@ -112,44 +112,44 @@
   "pockets": 0
  },
  "alanv_walk_side_10": {
-  "changed": 6,
+  "changed": 0,
   "taken": 0,
-  "fringe": 6,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_side_11": {
-  "changed": 15,
+  "changed": 12,
   "taken": 5,
-  "fringe": 10,
+  "fringe": 7,
   "edge_groups": 1,
   "pockets": 0
  },
  "alanv_walk_side_12": {
-  "changed": 15,
+  "changed": 12,
   "taken": 5,
-  "fringe": 10,
+  "fringe": 7,
   "edge_groups": 1,
   "pockets": 0
  },
  "alanv_walk_side_13": {
-  "changed": 12,
+  "changed": 3,
   "taken": 0,
-  "fringe": 12,
+  "fringe": 3,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_side_14": {
-  "changed": 18,
+  "changed": 10,
   "taken": 5,
-  "fringe": 13,
+  "fringe": 5,
   "edge_groups": 1,
   "pockets": 0
  },
  "alanv_walk_side_15": {
-  "changed": 12,
+  "changed": 4,
   "taken": 0,
-  "fringe": 12,
+  "fringe": 4,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -161,443 +161,443 @@
   "pockets": 0
  },
  "alanv_walk_side_17": {
+  "changed": 2,
+  "taken": 0,
+  "fringe": 2,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_18": {
+  "changed": 1,
+  "taken": 0,
+  "fringe": 1,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_19": {
   "changed": 5,
   "taken": 0,
   "fringe": 5,
   "edge_groups": 0,
   "pockets": 0
  },
- "alanv_walk_side_18": {
-  "changed": 9,
-  "taken": 0,
-  "fringe": 9,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_side_19": {
-  "changed": 8,
-  "taken": 0,
-  "fringe": 8,
-  "edge_groups": 0,
-  "pockets": 0
- },
  "alanv_walk_side_20": {
-  "changed": 6,
+  "changed": 0,
   "taken": 0,
-  "fringe": 6,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_side_21": {
+  "changed": 9,
+  "taken": 5,
+  "fringe": 4,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanv_walk_side_22": {
+  "changed": 2,
+  "taken": 0,
+  "fringe": 2,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_23": {
+  "changed": 7,
+  "taken": 0,
+  "fringe": 7,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_24": {
+  "changed": 4,
+  "taken": 0,
+  "fringe": 4,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_25": {
+  "changed": 5,
+  "taken": 0,
+  "fringe": 5,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_26": {
+  "changed": 2,
+  "taken": 0,
+  "fringe": 2,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_27": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_28": {
+  "changed": 1,
+  "taken": 0,
+  "fringe": 1,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_29": {
+  "changed": 10,
+  "taken": 5,
+  "fringe": 5,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanv_walk_side_30": {
   "changed": 13,
   "taken": 5,
   "fringe": 8,
   "edge_groups": 1,
   "pockets": 0
  },
- "alanv_walk_side_22": {
-  "changed": 8,
-  "taken": 0,
-  "fringe": 8,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_side_23": {
-  "changed": 10,
-  "taken": 0,
-  "fringe": 10,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_side_24": {
-  "changed": 8,
-  "taken": 0,
-  "fringe": 8,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_side_25": {
-  "changed": 7,
-  "taken": 0,
-  "fringe": 7,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_side_26": {
-  "changed": 7,
-  "taken": 0,
-  "fringe": 7,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_side_27": {
-  "changed": 6,
-  "taken": 0,
-  "fringe": 6,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_side_28": {
-  "changed": 6,
-  "taken": 0,
-  "fringe": 6,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_side_29": {
-  "changed": 18,
-  "taken": 5,
-  "fringe": 13,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanv_walk_side_30": {
-  "changed": 18,
-  "taken": 5,
-  "fringe": 13,
-  "edge_groups": 1,
-  "pockets": 0
- },
  "alanv_walk_side_31": {
-  "changed": 22,
-  "taken": 5,
-  "fringe": 17,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanv_walk_side_32": {
-  "changed": 15,
-  "taken": 5,
-  "fringe": 10,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanv_walk_side_33": {
-  "changed": 20,
-  "taken": 5,
-  "fringe": 15,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanv_walk_side_34": {
-  "changed": 18,
-  "taken": 6,
-  "fringe": 12,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanv_walk_side_35": {
-  "changed": 21,
-  "taken": 7,
-  "fringe": 14,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanv_walk_front_00": {
   "changed": 12,
   "taken": 5,
   "fringe": 7,
   "edge_groups": 1,
   "pockets": 0
  },
- "alanv_walk_front_01": {
+ "alanv_walk_side_32": {
   "changed": 10,
   "taken": 5,
   "fringe": 5,
   "edge_groups": 1,
   "pockets": 0
  },
+ "alanv_walk_side_33": {
+  "changed": 11,
+  "taken": 5,
+  "fringe": 6,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanv_walk_side_34": {
+  "changed": 11,
+  "taken": 6,
+  "fringe": 5,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanv_walk_side_35": {
+  "changed": 13,
+  "taken": 7,
+  "fringe": 6,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanv_walk_front_00": {
+  "changed": 7,
+  "taken": 5,
+  "fringe": 2,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanv_walk_front_01": {
+  "changed": 8,
+  "taken": 5,
+  "fringe": 3,
+  "edge_groups": 1,
+  "pockets": 0
+ },
  "alanv_walk_front_02": {
-  "changed": 14,
+  "changed": 7,
   "taken": 4,
-  "fringe": 10,
+  "fringe": 3,
   "edge_groups": 1,
   "pockets": 0
  },
  "alanv_walk_front_03": {
-  "changed": 10,
+  "changed": 5,
   "taken": 4,
-  "fringe": 6,
+  "fringe": 1,
   "edge_groups": 1,
   "pockets": 0
  },
  "alanv_walk_front_04": {
-  "changed": 7,
+  "changed": 1,
   "taken": 0,
-  "fringe": 7,
+  "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_05": {
-  "changed": 11,
+  "changed": 8,
   "taken": 3,
-  "fringe": 8,
+  "fringe": 5,
   "edge_groups": 1,
   "pockets": 0
  },
  "alanv_walk_front_06": {
-  "changed": 3,
+  "changed": 0,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_07": {
-  "changed": 9,
+  "changed": 1,
   "taken": 0,
-  "fringe": 9,
+  "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_08": {
-  "changed": 8,
+  "changed": 0,
   "taken": 0,
-  "fringe": 8,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_09": {
-  "changed": 5,
+  "changed": 0,
   "taken": 0,
-  "fringe": 5,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_10": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_11": {
-  "changed": 4,
+  "changed": 0,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_12": {
-  "changed": 4,
+  "changed": 0,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_13": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_14": {
-  "changed": 4,
+  "changed": 0,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_15": {
-  "changed": 3,
+  "changed": 0,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_16": {
-  "changed": 8,
+  "changed": 1,
   "taken": 0,
-  "fringe": 8,
+  "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_17": {
-  "changed": 6,
+  "changed": 0,
   "taken": 0,
-  "fringe": 6,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_18": {
-  "changed": 13,
+  "changed": 2,
   "taken": 0,
-  "fringe": 13,
+  "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_19": {
-  "changed": 5,
+  "changed": 0,
   "taken": 0,
-  "fringe": 5,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_20": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_21": {
-  "changed": 4,
+  "changed": 0,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_22": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_23": {
-  "changed": 8,
+  "changed": 0,
   "taken": 0,
-  "fringe": 8,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_24": {
-  "changed": 4,
+  "changed": 0,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_25": {
-  "changed": 7,
+  "changed": 0,
   "taken": 0,
-  "fringe": 7,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_26": {
-  "changed": 4,
+  "changed": 0,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_27": {
-  "changed": 8,
+  "changed": 0,
   "taken": 0,
-  "fringe": 8,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_front_28": {
-  "changed": 9,
-  "taken": 0,
-  "fringe": 9,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_front_29": {
-  "changed": 7,
-  "taken": 0,
-  "fringe": 7,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_front_30": {
-  "changed": 5,
-  "taken": 0,
-  "fringe": 5,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_front_31": {
-  "changed": 8,
-  "taken": 0,
-  "fringe": 8,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_front_32": {
-  "changed": 7,
-  "taken": 0,
-  "fringe": 7,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_front_33": {
-  "changed": 6,
-  "taken": 0,
-  "fringe": 6,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_front_34": {
-  "changed": 5,
-  "taken": 0,
-  "fringe": 5,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_front_35": {
   "changed": 2,
   "taken": 0,
   "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
- "alanv_walk_back_00": {
-  "changed": 3,
+ "alanv_walk_front_29": {
+  "changed": 0,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_front_30": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_front_31": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_front_32": {
+  "changed": 2,
+  "taken": 0,
+  "fringe": 2,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_front_33": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_front_34": {
+  "changed": 2,
+  "taken": 0,
+  "fringe": 2,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_front_35": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_00": {
+  "changed": 2,
+  "taken": 0,
+  "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_back_01": {
-  "changed": 3,
+  "changed": 0,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_back_02": {
-  "changed": 4,
+  "changed": 1,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_back_03": {
-  "changed": 5,
+  "changed": 0,
   "taken": 0,
-  "fringe": 5,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_back_04": {
-  "changed": 3,
+  "changed": 2,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_back_05": {
-  "changed": 4,
+  "changed": 2,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_back_06": {
-  "changed": 7,
+  "changed": 2,
   "taken": 0,
-  "fringe": 7,
+  "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanv_walk_back_07": {
-  "changed": 6,
+  "changed": 3,
   "taken": 1,
-  "fringe": 5,
+  "fringe": 2,
   "edge_groups": 1,
   "pockets": 0
  },
@@ -609,9 +609,9 @@
   "pockets": 0
  },
  "alanv_walk_back_09": {
-  "changed": 3,
+  "changed": 2,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -651,9 +651,9 @@
   "pockets": 0
  },
  "alanv_walk_back_15": {
-  "changed": 4,
+  "changed": 2,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -672,65 +672,65 @@
   "pockets": 0
  },
  "alanv_walk_back_18": {
-  "changed": 2,
-  "taken": 0,
-  "fringe": 2,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_19": {
-  "changed": 5,
-  "taken": 0,
-  "fringe": 5,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_20": {
-  "changed": 5,
-  "taken": 0,
-  "fringe": 5,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_21": {
-  "changed": 10,
-  "taken": 0,
-  "fringe": 10,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_22": {
-  "changed": 7,
-  "taken": 0,
-  "fringe": 7,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_23": {
-  "changed": 2,
-  "taken": 0,
-  "fringe": 2,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_24": {
-  "changed": 5,
-  "taken": 0,
-  "fringe": 5,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_25": {
   "changed": 1,
   "taken": 0,
   "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
- "alanv_walk_back_26": {
-  "changed": 4,
+ "alanv_walk_back_19": {
+  "changed": 0,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_20": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_21": {
+  "changed": 2,
+  "taken": 0,
+  "fringe": 2,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_22": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_23": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_24": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_25": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_26": {
+  "changed": 1,
+  "taken": 0,
+  "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -742,9 +742,9 @@
   "pockets": 0
  },
  "alanv_walk_back_28": {
-  "changed": 2,
+  "changed": 1,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -756,310 +756,310 @@
   "pockets": 0
  },
  "alanv_walk_back_30": {
-  "changed": 5,
-  "taken": 0,
-  "fringe": 5,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_31": {
   "changed": 3,
   "taken": 0,
   "fringe": 3,
   "edge_groups": 0,
   "pockets": 0
  },
+ "alanv_walk_back_31": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
  "alanv_walk_back_32": {
-  "changed": 2,
-  "taken": 0,
-  "fringe": 2,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_33": {
-  "changed": 2,
-  "taken": 0,
-  "fringe": 2,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_34": {
-  "changed": 2,
-  "taken": 0,
-  "fringe": 2,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanv_walk_back_35": {
   "changed": 1,
   "taken": 0,
   "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
+ "alanv_walk_back_33": {
+  "changed": 1,
+  "taken": 0,
+  "fringe": 1,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_34": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_back_35": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
  "alanb_walk_side_00": {
-  "changed": 38,
+  "changed": 37,
   "taken": 29,
-  "fringe": 9,
+  "fringe": 8,
   "edge_groups": 3,
   "pockets": 0
  },
  "alanb_walk_side_01": {
-  "changed": 43,
-  "taken": 27,
-  "fringe": 16,
-  "edge_groups": 3,
+  "changed": 24,
+  "taken": 20,
+  "fringe": 4,
+  "edge_groups": 2,
   "pockets": 0
  },
  "alanb_walk_side_02": {
-  "changed": 55,
+  "changed": 48,
   "taken": 30,
-  "fringe": 25,
+  "fringe": 18,
   "edge_groups": 4,
   "pockets": 0
  },
  "alanb_walk_side_03": {
-  "changed": 33,
+  "changed": 30,
   "taken": 21,
-  "fringe": 12,
+  "fringe": 9,
   "edge_groups": 2,
   "pockets": 0
  },
  "alanb_walk_side_04": {
-  "changed": 23,
+  "changed": 15,
   "taken": 11,
-  "fringe": 12,
+  "fringe": 4,
   "edge_groups": 1,
   "pockets": 0
  },
  "alanb_walk_side_05": {
-  "changed": 27,
+  "changed": 20,
   "taken": 14,
-  "fringe": 13,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_06": {
-  "changed": 14,
-  "taken": 5,
-  "fringe": 9,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_07": {
-  "changed": 5,
-  "taken": 0,
-  "fringe": 5,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanb_walk_side_08": {
-  "changed": 22,
-  "taken": 14,
-  "fringe": 8,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_09": {
-  "changed": 26,
-  "taken": 13,
-  "fringe": 13,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_10": {
-  "changed": 18,
-  "taken": 11,
-  "fringe": 7,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_11": {
-  "changed": 27,
-  "taken": 13,
-  "fringe": 14,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_12": {
-  "changed": 31,
-  "taken": 12,
-  "fringe": 19,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_13": {
-  "changed": 25,
-  "taken": 9,
-  "fringe": 16,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_14": {
-  "changed": 32,
-  "taken": 14,
-  "fringe": 18,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_15": {
-  "changed": 9,
-  "taken": 0,
-  "fringe": 9,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanb_walk_side_16": {
-  "changed": 15,
-  "taken": 8,
-  "fringe": 7,
-  "edge_groups": 2,
-  "pockets": 0
- },
- "alanb_walk_side_17": {
-  "changed": 12,
-  "taken": 6,
   "fringe": 6,
   "edge_groups": 1,
   "pockets": 0
  },
- "alanb_walk_side_18": {
-  "changed": 22,
+ "alanb_walk_side_06": {
+  "changed": 9,
+  "taken": 5,
+  "fringe": 4,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_07": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanb_walk_side_08": {
+  "changed": 17,
+  "taken": 14,
+  "fringe": 3,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_09": {
+  "changed": 18,
   "taken": 13,
-  "fringe": 9,
+  "fringe": 5,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_10": {
+  "changed": 14,
+  "taken": 11,
+  "fringe": 3,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_11": {
+  "changed": 20,
+  "taken": 13,
+  "fringe": 7,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_12": {
+  "changed": 19,
+  "taken": 12,
+  "fringe": 7,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_13": {
+  "changed": 15,
+  "taken": 9,
+  "fringe": 6,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_14": {
+  "changed": 18,
+  "taken": 14,
+  "fringe": 4,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_15": {
+  "changed": 1,
+  "taken": 0,
+  "fringe": 1,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanb_walk_side_16": {
+  "changed": 14,
+  "taken": 8,
+  "fringe": 6,
+  "edge_groups": 2,
+  "pockets": 0
+ },
+ "alanb_walk_side_17": {
+  "changed": 9,
+  "taken": 6,
+  "fringe": 3,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_18": {
+  "changed": 18,
+  "taken": 13,
+  "fringe": 5,
   "edge_groups": 1,
   "pockets": 0
  },
  "alanb_walk_side_19": {
-  "changed": 13,
-  "taken": 0,
-  "fringe": 13,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanb_walk_side_20": {
-  "changed": 5,
-  "taken": 0,
-  "fringe": 5,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanb_walk_side_21": {
   "changed": 6,
   "taken": 0,
   "fringe": 6,
   "edge_groups": 0,
   "pockets": 0
  },
- "alanb_walk_side_22": {
-  "changed": 22,
-  "taken": 10,
-  "fringe": 12,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_23": {
-  "changed": 19,
-  "taken": 11,
-  "fringe": 8,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_24": {
-  "changed": 26,
-  "taken": 11,
-  "fringe": 15,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_25": {
-  "changed": 20,
-  "taken": 11,
-  "fringe": 9,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_26": {
-  "changed": 22,
-  "taken": 10,
-  "fringe": 12,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_27": {
-  "changed": 20,
-  "taken": 10,
-  "fringe": 10,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_28": {
-  "changed": 23,
-  "taken": 12,
-  "fringe": 11,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_29": {
-  "changed": 17,
-  "taken": 8,
-  "fringe": 9,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_30": {
-  "changed": 12,
-  "taken": 7,
-  "fringe": 5,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_31": {
-  "changed": 18,
-  "taken": 12,
-  "fringe": 6,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_32": {
-  "changed": 21,
-  "taken": 12,
-  "fringe": 9,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_33": {
-  "changed": 18,
-  "taken": 7,
-  "fringe": 11,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_34": {
-  "changed": 13,
-  "taken": 7,
-  "fringe": 6,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_side_35": {
-  "changed": 20,
-  "taken": 8,
-  "fringe": 12,
-  "edge_groups": 1,
-  "pockets": 0
- },
- "alanb_walk_front_00": {
+ "alanb_walk_side_20": {
   "changed": 1,
   "taken": 0,
   "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
- "alanb_walk_front_01": {
+ "alanb_walk_side_21": {
   "changed": 2,
   "taken": 0,
   "fringe": 2,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanb_walk_side_22": {
+  "changed": 16,
+  "taken": 10,
+  "fringe": 6,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_23": {
+  "changed": 12,
+  "taken": 11,
+  "fringe": 1,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_24": {
+  "changed": 13,
+  "taken": 11,
+  "fringe": 2,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_25": {
+  "changed": 13,
+  "taken": 11,
+  "fringe": 2,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_26": {
+  "changed": 16,
+  "taken": 10,
+  "fringe": 6,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_27": {
+  "changed": 16,
+  "taken": 10,
+  "fringe": 6,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_28": {
+  "changed": 17,
+  "taken": 12,
+  "fringe": 5,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_29": {
+  "changed": 12,
+  "taken": 8,
+  "fringe": 4,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_30": {
+  "changed": 8,
+  "taken": 7,
+  "fringe": 1,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_31": {
+  "changed": 16,
+  "taken": 12,
+  "fringe": 4,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_32": {
+  "changed": 17,
+  "taken": 12,
+  "fringe": 5,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_33": {
+  "changed": 11,
+  "taken": 7,
+  "fringe": 4,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_34": {
+  "changed": 9,
+  "taken": 7,
+  "fringe": 2,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_side_35": {
+  "changed": 14,
+  "taken": 8,
+  "fringe": 6,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_walk_front_00": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanb_walk_front_01": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1071,9 +1071,9 @@
   "pockets": 0
  },
  "alanb_walk_front_03": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1092,16 +1092,16 @@
   "pockets": 0
  },
  "alanb_walk_front_06": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_front_07": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1113,9 +1113,9 @@
   "pockets": 0
  },
  "alanb_walk_front_09": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1141,16 +1141,16 @@
   "pockets": 0
  },
  "alanb_walk_front_13": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_front_14": {
-  "changed": 3,
+  "changed": 0,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1176,30 +1176,30 @@
   "pockets": 0
  },
  "alanb_walk_front_18": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_front_19": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_front_20": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_front_21": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1232,9 +1232,9 @@
   "pockets": 0
  },
  "alanb_walk_front_26": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1246,23 +1246,23 @@
   "pockets": 0
  },
  "alanb_walk_front_28": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_front_29": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_front_30": {
-  "changed": 3,
+  "changed": 0,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1288,16 +1288,16 @@
   "pockets": 0
  },
  "alanb_walk_front_34": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_front_35": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1344,9 +1344,9 @@
   "pockets": 0
  },
  "alanb_walk_back_06": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1365,9 +1365,9 @@
   "pockets": 0
  },
  "alanb_walk_back_09": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1393,9 +1393,9 @@
   "pockets": 0
  },
  "alanb_walk_back_13": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1407,37 +1407,37 @@
   "pockets": 0
  },
  "alanb_walk_back_15": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_back_16": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_back_17": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_back_18": {
-  "changed": 2,
+  "changed": 0,
   "taken": 0,
-  "fringe": 2,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_back_19": {
-  "changed": 1,
+  "changed": 0,
   "taken": 0,
-  "fringe": 1,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
@@ -1477,65 +1477,65 @@
   "pockets": 0
  },
  "alanb_walk_back_25": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanb_walk_back_26": {
   "changed": 1,
   "taken": 0,
   "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
- "alanb_walk_back_26": {
-  "changed": 4,
+ "alanb_walk_back_27": {
+  "changed": 0,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
- "alanb_walk_back_27": {
+ "alanb_walk_back_28": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanb_walk_back_29": {
+  "changed": 0,
+  "taken": 0,
+  "fringe": 0,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanb_walk_back_30": {
   "changed": 2,
   "taken": 0,
   "fringe": 2,
   "edge_groups": 0,
   "pockets": 0
  },
- "alanb_walk_back_28": {
-  "changed": 5,
-  "taken": 0,
-  "fringe": 5,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanb_walk_back_29": {
-  "changed": 4,
-  "taken": 0,
-  "fringe": 4,
-  "edge_groups": 0,
-  "pockets": 0
- },
- "alanb_walk_back_30": {
-  "changed": 7,
-  "taken": 0,
-  "fringe": 7,
-  "edge_groups": 0,
-  "pockets": 0
- },
  "alanb_walk_back_31": {
-  "changed": 4,
+  "changed": 0,
   "taken": 0,
-  "fringe": 4,
+  "fringe": 0,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_back_32": {
-  "changed": 6,
+  "changed": 1,
   "taken": 0,
-  "fringe": 6,
+  "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },
  "alanb_walk_back_33": {
-  "changed": 3,
+  "changed": 1,
   "taken": 0,
-  "fringe": 3,
+  "fringe": 1,
   "edge_groups": 0,
   "pockets": 0
  },

@@ -384,3 +384,16 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     sets), and face_jaw wrote "ok": true on every set it makes (it now keeps the old approval, default false).
     Review: `art/review/emotions/both_views_soft.jpg`, each view's `sheet_soft.jpg` and `talk_clip_soft.mp4`.
     Emotion tests so far $0.96, front mouths $0.28.
+36. **White leftovers out of Alan's hair, for review** (2026-10-29). The user: "remove the white leftovers of the
+    background from Alan's hair gaps". `scripts/hair_clean.py`: in the top fifth of the figure, the hair is the dark,
+    neutral areas that reach the top of the head (not the brows, tank top, blazer or shadowed skin); small groups of
+    pale grey-white pixels (peak at least 170, at most 80 px, not bordering skin) within 5 px of the transparent
+    outside become transparent (enclosed pockets only if near-white and ringed by hair: none found); then a two-pass
+    fringe on what borders them or the outside (grey, lighter than the hair beside it): alpha down by the background's
+    share, colour the neighbouring hair's. Covers what the game uses: alanv_/alanb_ side_k, front_k, back_k and the six
+    walk runs (222 frames): 112 changed, 1143 px (stills: side 74 / 68, front 9 / 8, back 1 / 2). Cleaned copies and
+    `report.json` in `art/review/hair_clean/`; sheets there: `sheet.jpg` (the stills) and `sheet_<run>.jpg` (each walk
+    run; blazer front walk had nothing). Nothing in the game: `hair_clean.py install` copies them over `art/sprites/`
+    once approved, and then the side sets' face patches need `scripts/face_from_game1.py` again (their box covers
+    hair with the leftovers). Not touched: a dark teal (green-screen) tinge on some outer curl tips. Checked: no
+    changed pixel is skin-coloured or below 14% of the figure's height; sheets looked over at 3x and 8x.
