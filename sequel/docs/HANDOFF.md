@@ -306,4 +306,21 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       Vasco's talk b. Redos running (take 2 in `ludo_runs.json`, more room above for the pull).
     - Checked: validate 0 errors; play.mjs won, 103 steps; a stepped capture on the beach (walk, the turn round, the
       phone in, held and out) frame by frame.
+30. **Redos approved; heads; lip-sync and blinking under way** (2026-10-28/29).
+    - The three Ludo redos (take 2: the climb mimed with nothing drawn, the pull with room above, Vasco's talk b with
+      his face kept) approved ("OK" x3) and on: Alan's `climb` and `pull` poses (the pull holds at the top of his reach,
+      frame 12), Vasco talks through both loops. `S.LUDO_HOLD` is empty.
+    - Heads (the user: Alan and Pino have the game's slightly large heads, Vasco, Baute and Yeray realistic; "Do head
+      size 8%"): `scripts/head_scale.py` grows the head about the neck with a bulge that fades out across the neck (no
+      seam, nothing below moves); `ludo_install.py` applies it to every frame of their runs (16 px of headroom added
+      to each run's box). Measured first: face height against figure height, Vasco 1/10.3, Alan, Baute, Yeray 1/8.9,
+      Pino 1/7. Checked on crops: standing, walking, back, kneeling, crouching.
+    - Lip-sync: Rhubarb 1.13.0 (the user: "Do rhubarb, like the first game"; binary in the scratchpad, `RHUBARB=`) on
+      all 1056 lines but the narrator's: `sequel/lipsync/<who>/<id>.json`, bundled in `js/lipsync.js` (loaded by
+      index.html). `scripts/lipsync.py` is Game I's, forked.
+    - Faces: `scripts/face_kit.py` (Game I's method): Gemini mouths A-F and shut eyes on each figure's standing frame
+      (19 figures, 133 edits, $5.40; Gemini in all about $9.60 of the 23), carried onto every frame of their talk loops
+      by lining the heads up (frames that don't line up get none). The engine plays only frames with a set while
+      someone speaks. Build running; all sets `"ok": false` until the user approves them on a review page.
+    - Checked: validate 0 errors; play.mjs won, 103 steps.
 

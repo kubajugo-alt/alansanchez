@@ -38,7 +38,7 @@
   // stand on each loop's first frame (S.ph). Alan has two outfits: the vest and cargo shorts, and the blazer with jeans
   // (F().blazer_on: Tuesday evening from the lost-and-found, and Thursday's dinner; off each new morning).
   const lu = n => (LU[n] ? LU[n].frames : null);
-  S.LUDO_HOLD = ['vasco' + '_talk_b']; // made, but the user asked for a redo ("his face looks different"): not played
+  S.LUDO_HOLD = []; // runs made but not approved yet (none: the three redos were approved on 2026-10-29)
   const luSet = (p, base, poses) => {
     if (!LU[p + '_walk_side']) return base;
     const turnF = lu(p + '_turn_side_front'), turnB = lu(p + '_turn_side_back');
@@ -77,8 +77,7 @@
   };
   {
     const A = S.CHARS.alan, V = S.CHARS.vasco;
-    // (climb and pull: Game I's poses until their redos are approved; the user: "remove the ledge", "his hands disappear")
-    const vest = luSet('alanv', A.game1, { phone: 'phone', drink: 'drink', write: 'write' });
+    const vest = luSet('alanv', A.game1, { phone: 'phone', drink: 'drink', write: 'write', climb: 'climb', pull: 'pull' });
     const blazer = luSet('alanb', A.game1); // (no actions made in the blazer: Game I's poses)
     Object.defineProperty(A, 'frames', { get() { let on = false; try { on = !!(G.flags && G.flags.blazer_on); } catch (e) { /* not started */ } return on ? blazer : vest; } });
     A.outfits = [vest, blazer]; // (both, for loading: engine.js framesOf walks whatever frames holds)

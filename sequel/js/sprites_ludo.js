@@ -1054,7 +1054,7 @@ window.LUDO = {
    "alanv_pull_35"
   ],
   "fps": 12,
-  "hold": 6,
+  "hold": 12,
   "diff": 0.276
  },
  "alanv_write": {

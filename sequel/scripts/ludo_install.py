@@ -19,7 +19,8 @@ from PIL import Image
 L = os.path.join(SEQ, 'art/review/ludo')
 SPR = os.path.join(SEQ, 'art/sprites')
 # measured by eye where the feet test misreads (scripts/ludo_measure.py): Vasco's side walk is two steps a loop
-FIX = {'vasco_walk_side': {'steps': 2, 'step': 0.0162}}
+FIX = {'vasco_walk_side': {'steps': 2, 'step': 0.0162},
+       'alanv_pull': {'hold': 12}}  # the pull holds at the top of his reach (frame 12), not where the outline first changes most
 TALK = {'vasco': 'vasco_talk_a', 'baute': 'talk_baute', 'yeray': 'talk_yeray'}  # where each scaled head is measured
 REF = {}
 
@@ -37,7 +38,7 @@ if __name__ == '__main__':
     for r in runs:
         n = r['name']
         if '_walk_' in n: meas[n] = FIX.get(n) or ludo_measure.walk(n, '_walk_side' in n)
-        elif not n.startswith('talk_') and '_talk_' not in n and '_turn_' not in n: meas[n] = ludo_measure.action(n)
+        elif not n.startswith('talk_') and '_talk_' not in n and '_turn_' not in n: meas[n] = FIX.get(n) or ludo_measure.action(n)
     sprites, ludo = {}, {}
     for r in runs:
         n = r['name']; fit = json.load(open(os.path.join(L, n, 'fit.json'))); m = fit['meta']
