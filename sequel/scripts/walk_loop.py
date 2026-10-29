@@ -63,7 +63,7 @@ SEAM_IB = 1.3      # in-between at the seam only if the seam is still this many 
 IB_K = 3           # ...over this many frames
 # Retimed runs (the user, 2026-10-29, on alanv_walk_front's first loop: "still jumps, doesn't loop"): a stride of
 # source frames first..last, the drift taken out over it, then resampled to N frames evenly spaced in pose (see retime())
-RETIME = {'alanv_walk_front': {'first': 20, 'last': 34, 'N': 14}}
+RETIME = {'alanv_walk_front': {'first': 20, 'last': 34, 'N': 15}}
 BG = (46, 43, 52)  # the review clips' background (scripts/review_anim.py)
 FONT = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
 
