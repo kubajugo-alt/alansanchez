@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alanv_front_k",
+  "b": null,
+  "mid": null,
+  "prompt": "walking straight towards the camera at an easy, steady pace: a full, even, symmetric walk cycle, both legs swing the same distance with the same rhythm, arms swinging gently in opposition, head level, no pauses or hesitation",
+  "loop": true,
+  "duration": 2.0,
+  "frames": 36
+ }
+}
