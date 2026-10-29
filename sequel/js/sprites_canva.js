@@ -353,6 +353,150 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 271
 },
+"x_beach_old_man_chair": {
+"ax": 272.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 544
+},
+"x_beach_sandcastle": {
+"ax": 609.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 1218
+},
+"x_beach_surfer_wax": {
+"ax": 163.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 326
+},
+"x_canteras_german_tourist": {
+"ax": 168.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 337
+},
+"x_cathedral_praying": {
+"ax": 189.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 379
+},
+"x_cathedral_priest": {
+"ax": 125.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 251
+},
+"x_cathedral_tourist": {
+"ax": 115.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 230
+},
+"x_museum_cocktail_pair": {
+"ax": 301.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 603
+},
+"x_museum_guest_academic": {
+"ax": 256.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 513
+},
+"x_museum_guest_linen": {
+"ax": 163.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 326
+},
+"x_museum_guest_pearls": {
+"ax": 117.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 235
+},
+"x_museum_waiter_tray": {
+"ax": 187.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 374
+},
+"x_quay_net_mender": {
+"ax": 281.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 562
+},
+"x_quay_two_old": {
+"ax": 346.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 693
+},
+"x_restaurant_waiter": {
+"ax": 139.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 278
+},
+"x_vegueta_lottery": {
+"ax": 218.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 436
+},
+"x_vegueta_pigeons": {
+"ax": 381.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 763
+},
+"x_vegueta_tourists_guidebook": {
+"ax": 146.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 293
+},
 "yeray_c": {
 "ax": 114.5,
 "fy": 740.0,

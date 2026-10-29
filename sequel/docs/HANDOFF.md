@@ -584,3 +584,19 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     $1.99; all `ok: false` until the user approves. Sheet: `art/review/cast_repaint/faces7.jpg`. Still to do: the other
     ten face sets (~$2.85; the Gemini credit is nearly spent), Vasco's back view. Until faces are approved the
     repainted cast stand without lip-sync. validate: 0 errors; play.mjs: won in 98 steps.
+56. **Background people and the cast's stands, as placed** (2026-10-29). The user: "placement done". The tool's 34
+    records (18 background figures in 7 rooms, 16 cast stands) saved as `art/designs/extras/placements.json`;
+    `scripts/extras_install.py` makes each figure's sprite (`art/sprites/x_<extra>.webp`, 720 px, feet centred) and
+    writes `js/story/extras.js` (generated): `S.EXTRAS` (each room's background people: ambient, no name, no hotspot;
+    painted-height factor as scale, the tool's size, flip, z, rot, and its height at that depth as the tool showed it,
+    since the game clamps depth to the floor) and `S.CAST_AT` (the cast's [x, y, dir, size?] per room; dir turned
+    round when flipped from how the game stood them). `js/story/layout.js` `applyLayout` merges both into the rooms.
+    Engine: `height()` takes a def's `size`; the depth sort adds a def's `z`; `refreshNpcs` takes `rot` (deg); clicks go
+    through nameless extras (the room behind them stays clickable). `scripts/tests/rooms_shot.mjs` (new): screenshots of
+    rooms at a chapter in the running game; the eight placed rooms in `art/review/extras/ingame/`, no page errors,
+    everyone where the tool had them.
+57. **The other ten face sets** (2026-10-29). The user: "do all mouths and blinks please". gen + build + face_jaw for
+    the guard, clerk, Pino, Lolo, Fermín, Mercedes, Montesdeoca, surfer, Gail, Derek on their repaints: Gemini $2.61
+    (all seventeen $4.60). Lolo blinks only, as before (NO_MOUTH: the cigarette). Sheet:
+    `art/review/cast_repaint/faces10.jpg` (faces7.jpg for the first seven). All `ok: false` until the user approves.
+    validate: 0 errors; play.mjs: won in 98 steps.

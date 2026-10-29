@@ -62,7 +62,7 @@
     E.npcs = (E.room.npcs || []).concat(amb).filter(n => !n.when || n.when()).map(n => {
       if (keep.has(n.id)) return keep.get(n.id);
       const a = new E.Actor(n.id, n.ch || n.id, n.x, n.y, n.dir);
-      a.def = n; a.h = n.h || null; a.overlay = n.overlay || null; a.loop = n.loop || null; a.set = (typeof n.set === 'function' ? n.set() : n.set) || null;
+      a.def = n; a.h = n.h || null; if (n.rot) a.rot = n.rot * Math.PI / 180; a.overlay = n.overlay || null; a.loop = n.loop || null; a.set = (typeof n.set === 'function' ? n.set() : n.set) || null;
       if (n.init) n.init(a);
       return a;
     });

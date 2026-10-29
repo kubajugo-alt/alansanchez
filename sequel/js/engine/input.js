@@ -28,7 +28,8 @@
       if (!E.hitShape(h, x, y)) continue;
       const ar = E.hotArea(h); if (ar <= bestA) { best = h; bestA = ar; }
     }
-    const people = E.npcs.filter(a => a.visible && a.def).sort((a, b) => b.y - a.y);
+    const people = E.npcs.filter(a => a.visible && a.def && !(a.def.ambient && !a.def.name)).sort(   // (nameless extras: clicks go through them)
+      (a, b) => b.y - a.y);
     const inBox = a => { const b = a.bbox(); return x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h; };
     // a click on someone's painted body is always that person
     for (const a of people) if (inBox(a) && a.opaqueAt(x, y)) return { kind: 'npc', actor: a, def: a.def };

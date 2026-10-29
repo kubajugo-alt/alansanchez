@@ -319,7 +319,7 @@
       this.resolve = null;
       if (r) r();
     }
-    height() { return (this.h || E.scaleAt(this.y)) * (this.c.scale || 1); }
+    height() { return (this.h || E.scaleAt(this.y)) * (this.c.scale || 1) * ((this.def && this.def.size) || 1); }   // (size: as placed in a room)
     // frames not painted yet fall back to the character's idle (then talk) frame
     frameKey() {
       const k = this.rawKey(), ok = f => f && E.SPRITES[f] && IMG['spr:' + f];

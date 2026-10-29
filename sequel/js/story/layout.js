@@ -162,6 +162,9 @@
 
   // put a room's layout into its definition (called by main.js before the game starts)
   S.applyLayout = function (ROOMS) {
+    // where the user stood the cast and the background people (the placement tool: js/story/extras.js)
+    for (const [id, at] of Object.entries(S.CAST_AT || {})) { const L = S.LAYOUT[id] = S.LAYOUT[id] || {}; L.npcs = Object.assign({}, L.npcs, at); }
+    for (const [id, xs] of Object.entries(S.EXTRAS || {})) if (ROOMS[id]) ROOMS[id].ambient = (ROOMS[id].ambient || []).concat(xs);
     const nameOf = h => { try { return typeof h.name === 'function' ? h.name() : h.name; } catch (e) { return null; } };
     for (const [id, L] of Object.entries(S.LAYOUT)) {
       const r = ROOMS[id]; if (!r) continue;
@@ -175,7 +178,7 @@
         if (L.at && L.at[n]) h.at = L.at[n];
       }
       for (const n of (r.npcs || []).concat(r.ambient || [])) {
-        const p = L.npcs && L.npcs[n.id]; if (p) { n.x = p[0]; n.y = p[1]; delete n.h; }
+        const p = L.npcs && L.npcs[n.id]; if (p) { n.x = p[0]; n.y = p[1]; delete n.h; if (p[2]) n.dir = p[2]; if (p[3]) n.size = p[3]; }
         if (L.at && L.at[n.id]) n.at = L.at[n.id];
       }
       r.painted = true;

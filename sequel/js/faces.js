@@ -1829,5 +1829,271 @@ window.FACES = {
   "ok": true,
   "who": "derek",
   "from": "jaw"
+ },
+ "guard_r": {
+  "box": [
+   89,
+   94,
+   40,
+   43
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "guard",
+  "from": "jaw"
+ },
+ "clerk_r": {
+  "box": [
+   94,
+   81,
+   34,
+   42
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "clerk",
+  "from": "jaw"
+ },
+ "pino_r": {
+  "box": [
+   123,
+   97,
+   41,
+   43
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "pino",
+  "from": "jaw"
+ },
+ "lolo_r": {
+  "box": [
+   65,
+   62,
+   31,
+   15
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "fermin_r": {
+  "box": [
+   153,
+   87,
+   48,
+   47
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "fermin",
+  "from": "jaw"
+ },
+ "mercedes_r": {
+  "box": [
+   105,
+   87,
+   41,
+   45
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "mercedes",
+  "from": "jaw"
+ },
+ "montesdeoca_r": {
+  "box": [
+   119,
+   81,
+   95,
+   48
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "montesdeoca",
+  "from": "jaw"
+ },
+ "surfer_r": {
+  "box": [
+   113,
+   81,
+   37,
+   45
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "surfer",
+  "from": "jaw"
+ },
+ "gail_r": {
+  "box": [
+   118,
+   96,
+   39,
+   43
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "gail",
+  "from": "jaw"
+ },
+ "derek_r": {
+  "box": [
+   111,
+   84,
+   46,
+   52
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "derek",
+  "from": "jaw"
  }
 };
