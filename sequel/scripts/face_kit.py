@@ -31,6 +31,8 @@ PRICE = (1.50, 7.50, 30.00)  # USD per 1M tokens: input, text out, image out
 # who: (the loops they talk in, the head for Gemini, a woman)
 WHO = {
     # (Alan's faces come from Game I's, finished by hand there: scripts/face_from_game1.py)
+    # Alan's front painting (the user, 2026-10-29: "make front talking mouths too"; his side ones are Game I's)
+    'alanf': ([], 'the head of Alan, a man in his thirties with dark wavy hair, seen from the front', False),
     'vasco': (['vasco_talk_b', 'vasco_talk_a'], 'the head of Vasco, a man in his thirties with dark curly hair and light stubble', False),
     'carmen': (['talk_carmen'], 'the head of Carmen, a Canarian archivist in her early forties with short thick black hair', True),
     'baute': (['talk_baute'], 'the head of Dr. Rayco Baute, a Canarian archaeologist of fifty-six', False),
@@ -65,7 +67,7 @@ def LUDO():
 
 
 # the static sprite each figure stands and talks on (the user, 2026-10-29: "only... their original static sprites")
-STATIC = {'alan': 'alanv_side_k', 'alanb': 'alanb_side_k', 'vasco': 'vascos_side_k', 'baute': 'baute2_k', 'chano': 'chano2_k'}
+STATIC = {'alanf': 'alanv_front_k', 'alan': 'alanv_side_k', 'alanb': 'alanb_side_k', 'vasco': 'vascos_side_k', 'baute': 'baute2_k', 'chano': 'chano2_k'}
 
 
 def frames_of(who):
@@ -340,7 +342,8 @@ def faces_js():
 def build(whos):
     data = faces_js()
     keep = {f for w in WHO for f in frames_of(w)}
-    for k in [k for k, d in data.items() if d.get('who') and k not in keep]: data.pop(k)   # sets for frames no longer used
+    # sets for frames no longer used (Alan's side sets come from Game I, scripts/face_from_game1.py: never this script's to drop)
+    for k in [k for k, d in data.items() if d.get('who') and d.get('from') != 'game1' and k not in keep]: data.pop(k)
     for who in whos:
         W = work(who); idx = json.load(open(W + 'index.json')); fr0 = idx['base']
         made = 0

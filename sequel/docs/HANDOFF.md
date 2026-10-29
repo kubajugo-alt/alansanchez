@@ -373,3 +373,14 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     the engine (js/engine/faces.js) would need an emotion layer and lines an emotion tag. Seen on the dark clip
     background: white leftovers in his hair gaps (an agent is cleaning those, review only) and a pale edge under the
     chin from the mouth patches.
+35. **Alan's emotions: softer, two more, both views; front talking mouths** (2026-10-29). The user: "some emotions are a
+    little bit too exaggerated" → a restrained set (`EMO_VAR=soft`, files `*_soft`), plus embarrassed and mischievous;
+    "test on both side and front views" → `face_emotions.py` takes `EMO_FRAME` (VIEWS: crop, box, face zone, eye line);
+    the front view's blink is Gemini's shut eyes cut to the lids only, so an emotion's brows stay through a blink. Skin
+    is matched on the neck, not the cheek (a blush had tinted the whole face). "Make front talking mouths too" →
+    `face_kit.py` gets `alanf` (alanv_front_k; find, gen $0.28, build) and `face_jaw.py alanf`: 14 mouths and shut eyes
+    in `art/faces/alanv_front_k_*`, set in js/faces.js with **"ok": false** (not in the game). Two fixes on the way:
+    face_kit's build dropped Alan's Game I-made side sets from js/faces.js (restored; it now keeps `from: game1`
+    sets), and face_jaw wrote "ok": true on every set it makes (it now keeps the old approval, default false).
+    Review: `art/review/emotions/both_views_soft.jpg`, each view's `sheet_soft.jpg` and `talk_clip_soft.mp4`.
+    Emotion tests so far $0.96, front mouths $0.28.

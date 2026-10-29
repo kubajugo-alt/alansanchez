@@ -170,19 +170,24 @@ def build():
 
 
 def compose(box_img=None, up=None, lid=None, scale=1):
-    """The sprite with a full-box patch (or a mouth), then the brows-and-eyes patch, then a blink, like js/engine/faces.js."""
-    x, y, w, h = box(); im = sprite()
+    """The sprite with a full-box patch (an emotion's, or a lip-sync mouth in the face set's own box), then the
+    brows-and-eyes patch, then a blink, in that order, like js/engine/faces.js."""
+    im = sprite()
+    def at(p):  # a face-set patch (art/faces) sits in the face set's box; an emotion's in this script's
+        if 'art/faces/' in p: return json.loads(open(os.path.join(SEQ, 'js/faces.js')).read().split('window.FACES = ', 1)[1].rstrip().rstrip(';'))[FRAME]['box']
+        return box()
     for p, full in ((box_img, True), (up, False), (lid, False)):
         if p is None: continue
-        pi = Image.open(p).convert('RGBA') if isinstance(p, str) else p
+        x, y, w, h = at(p); pi = Image.open(p).convert('RGBA')
         if full: im.paste(Image.new('RGBA', (w, h), (0, 0, 0, 0)), (x, y))
         im.alpha_composite(pi, (x, y))
     return im
 
 
 def lid_patch():
-    p = os.path.join(SEQ, 'art/faces', f'{FRAME}_eyes_closed.webp')
-    return p if os.path.exists(p) else os.path.join(OUT, f'{FRAME}_emo_closed_soft_up.webp')
+    # the emotion set's own shut eyes where it has them (lids only, so an emotion's brows stay), else the face set's
+    p = os.path.join(OUT, f'{FRAME}_emo_closed_soft_up.webp')
+    return p if os.path.exists(p) else os.path.join(SEQ, 'art/faces', f'{FRAME}_eyes_closed.webp')
 
 
 def sheet(res):

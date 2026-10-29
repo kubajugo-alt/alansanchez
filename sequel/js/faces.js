@@ -1534,5 +1534,35 @@ window.FACES = {
   "ok": true,
   "who": "derek",
   "from": "jaw"
+ },
+ "alanv_front_k": {
+  "box": [
+   99,
+   94,
+   80,
+   42
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "alanf",
+  "from": "jaw"
  }
 };

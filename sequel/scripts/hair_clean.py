@@ -11,13 +11,14 @@ back_k and their Ludo walk cycles (window.LUDO runs alanv_walk_* / alanb_walk_*)
 frame) and review sheets: each changed frame's head, before and after, 3x, on (40,40,40) and on (128,128,128); the
 still sprites on sheet.jpg, each walk run on sheet_<run>.jpg.
 
-Only the hair is touched (the top of the figure, within a few px of dark hair; the navy blazer and skin are not hair):
+Only the hair is touched: within a few px of the hair (the dark, neutral areas in the top fifth of the figure that reach
+the top of the head; so not the brows, the black tank top, the navy blazer or shadowed skin):
   1. Leftovers: groups of light, grey-white pixels (bright, low colour spread) next to the hair. A group that touches
      the transparent outside is background caught along the hair's edge; a group with no outside contact is taken only
      when it is near-white, small and ringed by dark hair (a pocket between curls). Any group that borders skin is left
      (eyes, teeth). Taken pixels become transparent.
-  2. Fringe: what is left on the hair's outer edge (touching the outside or a taken pixel) and still lighter than the
-     hair beside it is read as hair mixed with background: its alpha comes down by the background's share and its
+  2. Fringe: what is left on the hair's outer edge (touching the outside or a taken pixel) and still grey and lighter
+     than the hair beside it is read as hair mixed with background: its alpha comes down by the background's share and its
      colour becomes the neighbouring hair's. Two passes (a fringe is about two px wide).
 Painted highlights sit inside the hair (dark on both sides, no outside contact) and are mid grey, not near-white, so
 they are left; when in doubt, a pixel is left.
@@ -38,6 +39,7 @@ MAX_PX = 80          # a leftover group at most this many px (bigger light areas
 CROP = 0.165         # the sheet's crop: the top of the figure down to the chin
 EDGE = 5             # a group this close (px) to the transparent outside is the edge's background
 POCKET = 215         # deeper in, only a near-white group fully ringed by hair counts (a gap between curls)
+FRINGE_L, FRINGE_SPREAD = 70, 30   # a fringe pixel: at least this light, at most this colour spread
 BG_L = 240.0         # the background's luma, for the fringe's mix
 K8 = np.ones((3, 3), np.uint8)
 
@@ -67,7 +69,11 @@ def clean(im):
     r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
     L = 0.299 * r + 0.587 * g + 0.114 * b
     mx, mn = rgb.max(-1), rgb.min(-1)
-    hair = rows & (A >= 160) & (L < HAIR_L) & (b < r + 15)                       # dark, not navy
+    dark = rows & (A >= 160) & (L < HAIR_L) & (b < r + 15) & (r - b < 35)          # dark, not navy, not skin shadow
+    # the hair: the dark areas that reach the top of the head (the black tank top, the brows are apart from it)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(dark.astype(np.uint8), connectivity=8)
+    keep = [i for i in range(1, n) if st[i, 1] <= top + 15]
+    hair = np.isin(lab, keep) & dark
     skin = (A >= 160) & (r - b > 45) & (L >= 70)
     out = A < 64
     zone = rows & (cv2.dilate(hair.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11))) > 0)
@@ -92,13 +98,15 @@ def clean(im):
     hc = np.stack([local_mean(rgb[..., j], hm, 3)[0] for j in range(3)], -1)
     hL, hn = local_mean(L, hm, 2)
     A2[take] = 0; rgb2[take] = hc[take]
-    gone = out | take
+    # a fringe pixel is grey (hair mixed with a pale background): not the warm edge of the skin, not the navy blazer
+    pale = (L >= FRINGE_L) & (mx - mn <= FRINGE_SPREAD) & (r - b <= 30) & (b <= r + 5)
+    gone, done = out | take, np.zeros((H, W), bool)
+    mix = np.clip((L - hL) / np.maximum(BG_L - hL, 1), 0, 1)
     for _ in range(2):
         edge = (cv2.dilate(gone.astype(np.uint8), K8) > 0) & ~gone
-        f = edge & zone & (A2 > 0) & ~hair & ~skin & (mx - mn <= SPREAD + 8) & (hn > 0) & (L > hL + 30)
-        mix = np.clip((L - hL) / np.maximum(BG_L - hL, 1), 0, 1)
+        f = edge & zone & (A2 > 0) & ~done & ~hair & pale & (hn > 0) & (L > hL + 30)
         A2[f] = A2[f] * (1 - mix[f]); rgb2[f] = hc[f]
-        gone = gone | (f & (A2 < 64))
+        done |= f; gone |= f & (A2 < 64)
     o = np.dstack([rgb2, A2]).round().clip(0, 255).astype(np.uint8)
     a8 = np.asarray(im.convert('RGBA'))
     changed = (o[..., 3] != a8[..., 3]) | ((o[..., :3] != a8[..., :3]).any(-1) & (o[..., 3] > 0))
