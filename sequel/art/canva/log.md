@@ -65,3 +65,9 @@
 - 2026-10-29 figure `yeray_v6` Canva media MAHZXPZsIjg -> art/designs/yeray_v6.png Yeray from his first design: skinnier, no wrinkles, cap, side and front, Alan's style (the user); candidate
 - 2026-10-29 figure `yeray_v7` Canva media MAHZXPSp600 -> art/designs/yeray_v7.png v6 with a slightly concerned, intimidated face (the user); candidate
 - 2026-10-29 figure `carmen_v2` Canva media MAHZXGLKWZ4 -> art/designs/carmen_v2.png Carmen in Alan's style, side and front (the user); candidate
+- 2026-10-29 figure `chano_v4` Canva media MAHZXcSzuCw -> art/designs/chano_v4.png overnight repaint, two views
+- 2026-10-29 figure `guard_v2` Canva media MAHZXpfAUZQ -> art/designs/guard_v2.png overnight repaint, two views
+- 2026-10-29 figure `nieves_v2` Canva media MAHZYIKabJY -> art/designs/nieves_v2.png overnight repaint, two views
+- 2026-10-29 figure `clerk_v2` Canva media MAHZYfFDDDs -> art/designs/clerk_v2.png overnight repaint, two views
+- 2026-10-29 figure `pino_v2` Canva media MAHZY2Y2WDs -> art/designs/pino_v2.png overnight repaint, two views
+- 2026-10-29 figure `lolo_v2` Canva media MAHZZFccEpk -> art/designs/lolo_v2.png overnight repaint, two views
