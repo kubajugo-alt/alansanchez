@@ -323,4 +323,14 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       by lining the heads up (frames that don't line up get none). The engine plays only frames with a set while
       someone speaks. Build running; all sets `"ok": false` until the user approves them on a review page.
     - Checked: validate 0 errors; play.mjs won, 103 steps.
+31. **Lip-sync and blinking, round two; deployed for a look** (2026-10-29). The user on round one: Alan (both outfits)
+    OK; Vasco, Carmen, Rafa, Nieves, Yeray: the eyes (a ghost of the open eye under the blink, where the head moved in
+    the loop), Carmen's mouth off, Baute and Chano "shaking". Fixed: `face_kit.py` fits the eyes and the mouth each on
+    its own (the mouth by the nose and cheeks, which hold still while the painted lips move), and leaves out a part that
+    fits less than 0.93; the engine plays, while someone speaks, the longest unbroken run of frames with mouths, there and
+    back (`speakLoop` in actor.js), so no jumps. Vasco stands and talks on his second loop (the first has a squinting
+    eye); his new set $0.29. Round two: https://claude.ai/artifact/3hp6okNd3vpbUkoAfwsffA. Alan's 52 sets are on
+    (`"ok": true`); everyone else's show with `?faces=all` until approved. Deployed on the user's word ("deploy it, I
+    need to see them in the game"); `/lipsync` (the per-line cue files) is left out of the export, the game uses
+    `js/lipsync.js`.
 

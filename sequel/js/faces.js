@@ -992,7 +992,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_01": {
   "box": [
@@ -1013,7 +1013,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_02": {
   "box": [
@@ -1032,7 +1032,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_03": {
   "box": [
@@ -1051,7 +1051,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_04": {
   "box": [
@@ -1070,7 +1070,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_05": {
   "box": [
@@ -1089,7 +1089,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_06": {
   "box": [
@@ -1108,7 +1108,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_07": {
   "box": [
@@ -1127,7 +1127,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_08": {
   "box": [
@@ -1146,7 +1146,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_09": {
   "box": [
@@ -1165,7 +1165,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_10": {
   "box": [
@@ -1184,7 +1184,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_11": {
   "box": [
@@ -1203,7 +1203,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_12": {
   "box": [
@@ -1222,7 +1222,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_13": {
   "box": [
@@ -1241,7 +1241,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_14": {
   "box": [
@@ -1260,7 +1260,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_15": {
   "box": [
@@ -1279,7 +1279,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_16": {
   "box": [
@@ -1298,7 +1298,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_17": {
   "box": [
@@ -1317,7 +1317,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_18": {
   "box": [
@@ -1336,7 +1336,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_19": {
   "box": [
@@ -1355,7 +1355,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_20": {
   "box": [
@@ -1374,7 +1374,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_21": {
   "box": [
@@ -1393,7 +1393,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_22": {
   "box": [
@@ -1412,7 +1412,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_23": {
   "box": [
@@ -1431,7 +1431,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_a_24": {
   "box": [
@@ -1450,7 +1450,7 @@ window.FACES = {
   ],
   "eyes": [],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_b_00": {
   "box": [
@@ -1471,7 +1471,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_b_18": {
   "box": [
@@ -1492,7 +1492,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_b_19": {
   "box": [
@@ -1513,7 +1513,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_b_20": {
   "box": [
@@ -1534,7 +1534,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_b_21": {
   "box": [
@@ -1555,7 +1555,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_b_22": {
   "box": [
@@ -1576,7 +1576,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_b_23": {
   "box": [
@@ -1597,7 +1597,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanv_talk_b_24": {
   "box": [
@@ -1618,7 +1618,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alan",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_00": {
   "box": [
@@ -1639,7 +1639,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_01": {
   "box": [
@@ -1660,7 +1660,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_02": {
   "box": [
@@ -1681,7 +1681,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_03": {
   "box": [
@@ -1702,7 +1702,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_04": {
   "box": [
@@ -1723,7 +1723,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_05": {
   "box": [
@@ -1744,7 +1744,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_12": {
   "box": [
@@ -1765,7 +1765,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_13": {
   "box": [
@@ -1786,7 +1786,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_14": {
   "box": [
@@ -1807,7 +1807,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_15": {
   "box": [
@@ -1828,7 +1828,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_16": {
   "box": [
@@ -1849,7 +1849,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_17": {
   "box": [
@@ -1870,7 +1870,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_18": {
   "box": [
@@ -1891,7 +1891,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_19": {
   "box": [
@@ -1912,7 +1912,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_20": {
   "box": [
@@ -1933,7 +1933,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_21": {
   "box": [
@@ -1954,7 +1954,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_22": {
   "box": [
@@ -1975,7 +1975,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_23": {
   "box": [
@@ -1996,7 +1996,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "alanb_talk_a_24": {
   "box": [
@@ -2017,7 +2017,7 @@ window.FACES = {
    "closed"
   ],
   "who": "alanb",
-  "ok": false
+  "ok": true
  },
  "talk_carmen_00": {
   "box": [
