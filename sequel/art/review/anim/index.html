@@ -1,63 +1,182 @@
-<title>Shortest Night Animation Review</title>
+<title>Alan Animation Review</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap">
 <style>
-/* layout: a screening-room contact sheet; sections stack, clips sit in a wrapping grid */
+/* layout: a review sheet; three sections of clip cards in a wrapping grid, each card carries its verdict and its own thread */
 :root {
-  --bg: #efeae4; --panel: #e4ddd5; --ink: #231f26; --muted: #6b6270; --accent: #8a3b5c; --ok: #2f6b4f; --wait: #9a5b12; --screen: #2e2b34;
+  --bg: #efeae4; --panel: #e5dfd8; --card: #f7f3ee; --ink: #231f26; --muted: #6b6270; --line: #d3cbc3;
+  --accent: #8a3b5c; --ok: #2f6b4f; --fix: #a3441f; --screen: #2e2b34;
   --display: "Fraunces", Georgia, serif; --body: "Source Sans 3", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #1b1920; --panel: #25222b; --ink: #ece6ee; --muted: #a39aa8; --accent: #d38aa8; --ok: #7cc4a0; --wait: #e2a85a; --screen: #2e2b34; color-scheme: dark } }
-:root[data-theme="dark"] { --bg: #1b1920; --panel: #25222b; --ink: #ece6ee; --muted: #a39aa8; --accent: #d38aa8; --ok: #7cc4a0; --wait: #e2a85a; --screen: #2e2b34; color-scheme: dark }
+  --bg: #1b1920; --panel: #25222b; --card: #221f28; --ink: #ece6ee; --muted: #a39aa8; --line: #39343f;
+  --accent: #d38aa8; --ok: #7cc4a0; --fix: #f0946c; --screen: #2e2b34; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #1b1920; --panel: #25222b; --card: #221f28; --ink: #ece6ee; --muted: #a39aa8; --line: #39343f;
+  --accent: #d38aa8; --ok: #7cc4a0; --fix: #f0946c; --screen: #2e2b34; color-scheme: dark }
 body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); }
-main { max-width: 1240px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 48px; }
-header h1 { font: 700 clamp(30px, 5vw, 46px)/1.05 var(--display); margin: 0 0 10px; text-wrap: balance; }
+main { max-width: 1240px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 44px; }
+header { display: grid; gap: 14px; }
+header h1 { font: 700 clamp(30px, 5vw, 44px)/1.05 var(--display); margin: 0; text-wrap: balance; }
 header p { margin: 0; max-width: 65ch; color: var(--muted); }
-.eyebrow { font: 400 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-section h2 { font: 500 26px/1.2 var(--display); margin: 0 0 6px; text-wrap: balance; }
+.eyebrow { font: 400 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 18px; font-variant-numeric: tabular-nums; font-size: 15px; }
+.tally b { font-weight: 600; }
+.tally .ok { color: var(--ok); } .tally .fix { color: var(--fix); }
+.status { font-size: 14px; color: var(--muted); }
+section h2 { font: 500 26px/1.2 var(--display); margin: 4px 0 6px; text-wrap: balance; }
 section > p { margin: 0 0 18px; max-width: 65ch; color: var(--muted); }
-.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
-.grid.walks { grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); }
-.clip { margin: 0; display: grid; gap: 8px; min-width: 0; }
-.clip video, .clip img { width: 100%; max-width: 100%; display: block; background: var(--screen); border-radius: 6px; }
-figcaption { font-size: 15px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; min-width: 0; }
-.tech { flex-basis: 100%; font: 400 12px var(--mono); color: var(--muted); overflow-wrap: anywhere; }
-.pill { font: 600 11px var(--body); letter-spacing: .04em; text-transform: uppercase; padding: 1px 8px; border-radius: 99px; border: 1px solid currentColor; }
-.pill.ok { color: var(--ok); } .pill.wait { color: var(--wait); }
-.note { background: var(--panel); border-radius: 8px; padding: 14px 18px; max-width: 70ch; }
-.note b { font-weight: 600; }
-.wide { overflow-x: auto; } .wide img { max-width: none; width: 1400px; }
-@media (prefers-reduced-motion: reduce) { .walk video { animation: none; } }
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); }
+.grid.walks { grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr)); }
+.item { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 10px; min-width: 0; align-content: start; }
+.item[data-state="approved"] { border-color: var(--ok); }
+.item[data-state="changes"] { border-color: var(--fix); }
+.item video { width: 100%; max-width: 100%; display: block; background: var(--screen); border-radius: 5px; }
+.cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-width: 0; }
+.cap b { font-weight: 600; }
+.cap .tech { flex-basis: 100%; font: 400 12px var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+.verdict { display: flex; flex-wrap: wrap; gap: 6px; }
+.verdict button { font: 600 13px var(--body); padding: 5px 12px; border-radius: 99px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+.verdict button:hover { border-color: var(--muted); }
+.verdict button:focus-visible, .thread button:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.verdict button[aria-pressed="true"].ok { background: var(--ok); border-color: var(--ok); color: var(--card); }
+.verdict button[aria-pressed="true"].fix { background: var(--fix); border-color: var(--fix); color: var(--card); }
+.verdict button:disabled { opacity: .5; cursor: default; }
+.thread { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 8px; }
+.thread ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.thread li { font-size: 14px; background: var(--panel); border-radius: 6px; padding: 6px 9px; overflow-wrap: anywhere; }
+.thread li .who { font: 400 11px var(--mono); color: var(--muted); display: block; }
+.thread form { display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: end; }
+.thread textarea { font: 14px/1.4 var(--body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; resize: vertical; min-height: 36px; min-width: 0; }
+.thread form button { font: 600 13px var(--body); padding: 7px 12px; border-radius: 6px; border: 0; background: var(--accent); color: var(--card); cursor: pointer; }
+.thread form button:disabled { opacity: .5; cursor: default; }
+.empty { font-size: 13px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 <main>
 <header>
-  <div class="eyebrow">Game II · The Shortest Night · 29 October</div>
-  <h1>Every animation in the game, and the ones waiting for you</h1>
-  <p>Walks loop silently. Talking clips play with the voice: press play. Every clip is rendered from the game's own files, the same paintings and patches the game draws.</p>
+  <div class="eyebrow">Game II · The Shortest Night · Alan</div>
+  <h1>Alan's animations</h1>
+  <p>His talking and blinking, his walks, and each emotion on its own clip. Mark each clip <b>Approve</b> or <b>Needs changes</b> and leave a note under it; Claude reads them back. Talking clips play with his voice: press play.</p>
+  <div class="tally" id="tally" aria-live="polite"><span><b id="t-ok" class="ok">0</b> approved</span><span><b id="t-fix" class="fix">0</b> need changes</span><span><b id="t-open">0</b> not reviewed</span><span><b id="t-notes">0</b> notes</span></div>
+  <div class="status" id="status">Connecting the review store…</div>
 </header>
 <section>
-  <div class="eyebrow">In the game</div>
-  <h2>Alan walking</h2>
-  <p>The only full-body animation left in the game: both outfits, three directions. Everyone else stands on their painting.</p>
-  <div class="grid walks"><figure class="clip walk"><video src="walk_alanv_walk_side.mp4" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>tank top</b> · walking side<span class="tech">alanv_walk_side · 36 frames · 12 fps</span></figcaption></figure><figure class="clip walk"><video src="walk_alanv_walk_front.mp4" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>tank top</b> · walking towards us<span class="tech">alanv_walk_front · 36 frames · 12 fps</span></figcaption></figure><figure class="clip walk"><video src="walk_alanv_walk_back.mp4" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>tank top</b> · walking away<span class="tech">alanv_walk_back · 36 frames · 12 fps</span></figcaption></figure><figure class="clip walk"><video src="walk_alanb_walk_side.mp4" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>blazer</b> · walking side<span class="tech">alanb_walk_side · 36 frames · 12 fps</span></figcaption></figure><figure class="clip walk"><video src="walk_alanb_walk_front.mp4" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>blazer</b> · walking towards us<span class="tech">alanb_walk_front · 36 frames · 12 fps</span></figcaption></figure><figure class="clip walk"><video src="walk_alanb_walk_back.mp4" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>blazer</b> · walking away<span class="tech">alanb_walk_back · 36 frames · 12 fps</span></figcaption></figure></div>
+  <div class="eyebrow">In the game, except the front view</div>
+  <h2>Talking and blinking</h2>
+  <p>One line with the lip-sync mouths, a blink, then a moment quiet. The side faces were rebuilt today from the cleaned hair and checked for pale specks at the jaw. The front view's mouths are new.</p>
+  <div class="grid" id="g-talk"></div>
 </section>
 <section>
-  <div class="eyebrow">In the game, except Alan's front view</div>
-  <h2>Talking and blinking</h2>
-  <p>Each figure says one of their lines with the lip-sync mouths, blinks, then stays quiet for a moment. Alan's side faces were redone today from the cleaned-up hair and checked at 5x over a dark room colour for pale specks at the jaw. His front view's mouths are new and wait for your approval.</p>
-  <div class="grid"><figure class="clip talk"><video src="talk_alanv_side_k.mp4" controls playsinline preload="metadata"></video><figcaption><b>Alan</b> · tank top, side <span class="pill ok">in the game</span><span class="tech">alanv_side_k · line alan_ask_baute_cave</span></figcaption></figure><figure class="clip talk"><video src="talk_alanb_side_k.mp4" controls playsinline preload="metadata"></video><figcaption><b>Alan</b> · blazer, side <span class="pill ok">in the game</span><span class="tech">alanb_side_k · line alan_ask_baute_cave</span></figcaption></figure><figure class="clip talk"><video src="talk_alanv_front_k.mp4" controls playsinline preload="metadata"></video><figcaption><b>Alan</b> · tank top, front <span class="pill wait">waiting for you</span><span class="tech">alanv_front_k · line alan_ask_baute_cave</span></figcaption></figure><figure class="clip talk"><video src="talk_baute2_k.mp4" controls playsinline preload="metadata"></video><figcaption><b>Baute</b> <span class="pill ok">in the game</span><span class="tech">baute2_k · line alan_fail_baute_item</span></figcaption></figure><figure class="clip talk"><video src="talk_carmen_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Carmen</b> <span class="pill ok">in the game</span><span class="tech">carmen_c · line alan_fail_carmen_item</span></figcaption></figure><figure class="clip talk"><video src="talk_chano2_k.mp4" controls playsinline preload="metadata"></video><figcaption><b>Chano</b> <span class="pill ok">in the game</span><span class="tech">chano2_k · line chano_any</span></figcaption></figure><figure class="clip talk"><video src="talk_derek_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Derek</b> <span class="pill ok">in the game</span><span class="tech">derek_c · line derek_th_bye</span></figcaption></figure><figure class="clip talk"><video src="talk_fermin_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Don Fermín</b> <span class="pill ok">in the game</span><span class="tech">fermin_c · line fermin_belfry_again</span></figcaption></figure><figure class="clip talk"><video src="talk_pino_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Doña Pino</b> <span class="pill ok">in the game</span><span class="tech">pino_c · line pino_bye</span></figcaption></figure><figure class="clip talk"><video src="talk_gail_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Gail</b> <span class="pill ok">in the game</span><span class="tech">gail_c · line gail_w_again</span></figcaption></figure><figure class="clip talk"><video src="talk_mercedes_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Mercedes</b> <span class="pill ok">in the game</span><span class="tech">mercedes_c · line mercedes_bye</span></figcaption></figure><figure class="clip talk"><video src="talk_montesdeoca_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Montesdeoca</b> <span class="pill ok">in the game</span><span class="tech">montesdeoca_c · line montesdeoca_t_again</span></figcaption></figure><figure class="clip talk"><video src="talk_nieves_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Nieves</b> <span class="pill ok">in the game</span><span class="tech">nieves_c · line nieves_fax_in</span></figcaption></figure><figure class="clip talk"><video src="talk_rafa_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Rafa</b> <span class="pill ok">in the game</span><span class="tech">rafa_c · line rafa_3</span></figcaption></figure><figure class="clip talk"><video src="talk_clerk_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>The clerk</b> <span class="pill ok">in the game</span><span class="tech">clerk_c · line clerk_2</span></figcaption></figure><figure class="clip talk"><video src="talk_guard_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>The guard</b> <span class="pill ok">in the game</span><span class="tech">guard_c · line guard_th_1</span></figcaption></figure><figure class="clip talk"><video src="talk_surfer_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>The surfer</b> <span class="pill ok">in the game</span><span class="tech">surfer_c · line surfer_bark_1</span></figcaption></figure><figure class="clip talk"><video src="talk_vascos_side_k.mp4" controls playsinline preload="metadata"></video><figcaption><b>Vasco</b> <span class="pill ok">in the game</span><span class="tech">vascos_side_k · line vasco_anchor_cm</span></figcaption></figure><figure class="clip talk"><video src="talk_yeray_c.mp4" controls playsinline preload="metadata"></video><figcaption><b>Yeray</b> <span class="pill ok">in the game</span><span class="tech">yeray_c · line yeray_bar_3</span></figcaption></figure></div>
+  <div class="eyebrow">In the game</div>
+  <h2>Walking</h2>
+  <p>Both outfits, three directions, at the game's 12 frames a second. The hair clean-up is in these frames too.</p>
+  <div class="grid walks" id="g-walk"></div>
 </section>
 <section>
   <div class="eyebrow">Test · not in the game</div>
-  <h2>Alan's emotions</h2>
-  <p>Only the brows, eyes and mouth change. While he talks, the brows and eyes keep the emotion over the lip-sync mouth; when he is quiet, the emotion's own mouth shows. Blinks work in every emotion.</p>
-  <div class="grid">
-    <figure class="clip talk"><video src="emo_side.mp4" controls playsinline preload="metadata"></video><figcaption><b>Side view</b> · one line in each emotion<span class="tech">neutral, joy, fear, anger, sadness, concern, surprise, embarrassed, mischievous</span></figcaption></figure>
-    <figure class="clip talk"><video src="emo_front.mp4" controls playsinline preload="metadata"></video><figcaption><b>Front view</b> · one line in each emotion<span class="tech">same nine, with the new front mouths</span></figcaption></figure>
-  </div>
-  <figure class="clip" style="margin-top:18px"><div class="wide"><img src="emo_both.jpg" alt="Alan's nine expressions on his side and front views, close up and at game size"></div><figcaption><b>All nine on both views</b><span class="tech">scroll sideways</span></figcaption></figure>
+  <h2>Emotions</h2>
+  <p>Only the brows, eyes and mouth change. Each clip: the line spoken with the emotion's brows and eyes over the talking mouth, then the emotion's own quiet face, with a blink.</p>
+  <div class="grid" id="g-emo"></div>
 </section>
-<section class="note"><b>Not on this page:</b> Don Lolo, who only blinks (he has no lines with lip-sync); the rooms' ambient motion (approved earlier); and the cast repaints, which are still being made in Canva. The emotions need an engine layer and a tag per line before they can go in.</section>
 </main>
+<script>
+const ITEMS = [
+  { id: 'talk_alanv_side_k', group: 'talk', src: 'talk_alanv_side_k.mp4', title: 'Tank top, side', tech: 'alanv_side_k · alan_ask_baute_cave', sound: true },
+  { id: 'talk_alanb_side_k', group: 'talk', src: 'talk_alanb_side_k.mp4', title: 'Blazer, side', tech: 'alanb_side_k · alan_ask_baute_cave', sound: true },
+  { id: 'talk_alanv_front_k', group: 'talk', src: 'talk_alanv_front_k.mp4', title: 'Tank top, front', tech: 'alanv_front_k · new, not in the game yet', sound: true },
+];
+for (const [o, on] of [['alanv', 'Tank top'], ['alanb', 'Blazer']])
+  for (const [v, vn] of [['side', 'side'], ['front', 'towards us'], ['back', 'away']])
+    ITEMS.push({ id: `walk_${o}_walk_${v}`, group: 'walk', src: `walk_${o}_walk_${v}.mp4`, title: `${on}, ${vn}`, tech: `${o}_walk_${v} · 36 frames`, loop: true });
+const EMO = ['joy', 'mischievous', 'embarrassed', 'surprise', 'concern', 'sadness', 'fear', 'anger'];
+for (const e of EMO) for (const [v, vn] of [['side', 'side'], ['front', 'front']])
+  ITEMS.push({ id: `emo_${v}_${e}`, group: 'emo', src: `emo_${v}_${e}.mp4`, title: `${e[0].toUpperCase() + e.slice(1)}, ${vn}`, tech: `alanv_${v}_k · ${e}_soft`, sound: true });
+
+const state = { verdicts: {}, notes: {}, db: null, user: null, canWrite: false };
+const $ = id => document.getElementById(id);
+
+function card(it) {
+  const el = document.createElement('article'); el.className = 'item'; el.id = 'item-' + it.id;
+  const v = document.createElement('video'); v.src = it.src; v.playsInline = true; v.preload = 'metadata';
+  if (it.loop) { v.muted = true; v.loop = true; v.autoplay = true; } else v.controls = true;
+  const cap = document.createElement('div'); cap.className = 'cap';
+  const b = document.createElement('b'); b.textContent = it.title; const t = document.createElement('span'); t.className = 'tech'; t.textContent = it.tech;
+  cap.append(b, t);
+  const ver = document.createElement('div'); ver.className = 'verdict'; ver.setAttribute('role', 'group'); ver.setAttribute('aria-label', 'Verdict for ' + it.title);
+  for (const [k, label, cls] of [['approved', 'Approve', 'ok'], ['changes', 'Needs changes', 'fix']]) {
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = cls; btn.textContent = label; btn.dataset.k = k;
+    btn.setAttribute('aria-pressed', 'false'); btn.disabled = true;
+    btn.addEventListener('click', () => setVerdict(it.id, k)); ver.append(btn);
+  }
+  const th = document.createElement('div'); th.className = 'thread';
+  const ol = document.createElement('ol'); const em = document.createElement('div'); em.className = 'empty'; em.textContent = 'No notes yet.';
+  const f = document.createElement('form');
+  const ta = document.createElement('textarea'); ta.id = 'note-' + it.id; ta.rows = 1; ta.placeholder = 'Add a note on this clip'; ta.setAttribute('aria-label', 'Note on ' + it.title); ta.disabled = true;
+  const send = document.createElement('button'); send.type = 'submit'; send.textContent = 'Add'; send.disabled = true;
+  ta.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) f.requestSubmit(); });
+  f.addEventListener('submit', e => { e.preventDefault(); addNote(it.id, ta, send); });
+  f.append(ta, send); th.append(ol, em, f);
+  el.append(v, cap, ver, th);
+  $('g-' + it.group).append(el);
+}
+ITEMS.forEach(card);
+
+function render() {
+  let ok = 0, fix = 0, notes = 0;
+  for (const it of ITEMS) {
+    const el = $('item-' + it.id), s = state.verdicts[it.id] || '';
+    el.dataset.state = s;
+    el.querySelectorAll('.verdict button').forEach(b => { b.setAttribute('aria-pressed', String(b.dataset.k === s)); b.disabled = !state.canWrite; });
+    el.querySelector('textarea').disabled = !state.canWrite; el.querySelector('form button').disabled = !state.canWrite;
+    if (s === 'approved') ok++; else if (s === 'changes') fix++;
+    const list = state.notes[it.id] || []; notes += list.length;
+    const ol = el.querySelector('ol'); ol.replaceChildren();
+    for (const n of list) {
+      const li = document.createElement('li'); const who = document.createElement('span'); who.className = 'who';
+      who.textContent = (state.names[n.by] || 'Someone') + ' · ' + new Date(n.at).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      const tx = document.createElement('span'); tx.textContent = n.text; li.append(who, tx); ol.append(li);
+    }
+    el.querySelector('.empty').hidden = list.length > 0;
+  }
+  $('t-ok').textContent = ok; $('t-fix').textContent = fix; $('t-open').textContent = ITEMS.length - ok - fix; $('t-notes').textContent = notes;
+}
+state.names = {};
+async function resolveNames() {
+  if (!state.user) return;
+  const ids = [...new Set(Object.values(state.notes).flat().map(n => n.by).filter(Boolean))];
+  if (!ids.length) return;
+  try { const ps = await state.user.profiles(ids); for (const id of ids) state.names[id] = (ps[id] && ps[id].name) || 'Someone'; } catch (e) {}
+  render();
+}
+
+async function setVerdict(id, k) {
+  if (!state.db) return;
+  const next = state.verdicts[id] === k ? '' : k;   // pressing the active verdict clears it
+  const prev = state.verdicts[id]; state.verdicts[id] = next; render();
+  try { await state.db.doc('verdicts/' + id).set({ item: id, status: next, by: state.me || '', at: Date.now() }); $('status').textContent = next ? 'Saved.' : 'Cleared.'; }
+  catch (e) { state.verdicts[id] = prev; render(); $('status').textContent = 'Could not save that verdict (' + (e.code || 'error') + '). Try again.'; }
+}
+async function addNote(id, ta, btn) {
+  const text = ta.value.trim(); if (!text || !state.db) return;
+  btn.disabled = true;
+  try { await state.db.collection('notes').add({ item: id, text: text.slice(0, 2000), by: state.me || '', at: Date.now() }); ta.value = ''; $('status').textContent = 'Note added.'; }
+  catch (e) { $('status').textContent = 'Could not add the note (' + (e.code || 'error') + '). Your text is still in the box.'; }
+  btn.disabled = !state.canWrite;
+}
+
+(async () => {
+  const [db, user] = await Promise.all([claude.use('db'), claude.use('user')]);
+  state.user = user;
+  if (!db) { $('status').textContent = 'Reviewing needs you signed in to claude.ai with access to this page. The clips play either way.'; return; }
+  state.db = db;
+  try { state.me = user ? await user.id() : ''; } catch (e) { state.me = ''; }
+  state.canWrite = user ? (user.can('data.write') !== false) : true;
+  $('status').textContent = state.canWrite ? 'Your verdicts and notes save as you go.' : 'You can read the review; only people who can edit this page can add to it.';
+  db.collection('verdicts').onSnapshot(s => { state.verdicts = {}; s.docs.forEach(d => { const x = d.data(); if (x && x.status) state.verdicts[x.item || d.id] = x.status; }); render(); },
+    e => { $('status').textContent = 'The review store is not answering (' + e.code + '). Reload to try again.'; });
+  db.collection('notes').orderBy('at', 'asc').onSnapshot(s => { state.notes = {}; s.docs.forEach(d => { const x = d.data(); if (x && x.item) (state.notes[x.item] = state.notes[x.item] || []).push(x); }); render(); resolveNames(); },
+    e => { $('status').textContent = 'The review store is not answering (' + e.code + '). Reload to try again.'; });
+  render();
+})();
+</script>

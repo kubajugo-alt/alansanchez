@@ -413,3 +413,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     finds); `scripts/review_page.py` writes `index.html` (plus the emotion clips and sheet). Published as a private
     artifact: https://claude.ai/artifact/VYCypKVRUqoSqdfXwm95HY. Same day: the guard's same-artist redo came in
     (MAHZZrcFTJM); the next cast check-in is a session cron at 16:03 UTC (send_later was unavailable).
+39. **Alan-only review page with verdicts and notes** (2026-10-29). The user: "add a review functionality, with the
+    ability to leave comments. Also, I meant only having Alan's animations there". Same artifact
+    (https://claude.ai/artifact/VYCypKVRUqoSqdfXwm95HY), now 25 clips: his three talking/blinking views, six walks, and
+    each soft emotion on each view cut from the emotion clips (`art/review/anim/emo_<view>_<emotion>.mp4`). Each clip
+    has Approve / Needs changes and its own notes, stored in the page's db (capabilities db + user): collection
+    `verdicts` (doc id = clip id: {item, status, by, at}) and `notes` ({item, text, by, at}). Read them back with
+    ArtifactData list on those two collections. The other cast's clips stay in art/review/anim/ but are off the page.
