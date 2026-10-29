@@ -168,7 +168,7 @@
       () => (F().ch === 1 && G.has('blazer') && F().called_tue && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained),
       'museum_out'),   // (in through the street door: the outside first)
     PIN('santa_ana', 1166, 218, 'Plaza de Santa Ana · the cathedral', () => F().ch >= 2 && F().ch <= 4),
-    PIN('colon', 1138, 225, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read),
+    PIN('colon', 1138, 225, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read, 'colon_out'),
     PIN('rafa_bar', 1145, 232, 'Vegueta · a bar on Calle Mendizábal', () => F().ch === 4 && F().cave_explained && !F().rafa_night),
     PIN('carmen_flat', 1079, 250, 'Triana · Carmen\'s flat', () => F().ch === 6 && F().chose_carmen),
   ];

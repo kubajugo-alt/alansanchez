@@ -65,7 +65,10 @@
       npcs: { carmen: [900, 640] },
     },
     museum_out: {   // (the street corner outside El Museo Canario, 2026-10-29)
-      walk: [[0, 560], [560, 545], [720, 545], [1280, 560], [1280, 716], [0, 716]], scale: [545, 200, 716, 340],
+      walk: [[0, 560], [560, 545], [720, 545], [1280, 560], [1280, 716], [0, 716]], scale: [545, 125, 716, 300],   // (the door, 190 px, a head taller than a man)
+    },
+    colon_out: {   // (the square outside the Casa de Colón, 2026-10-29; the curved steps on the right kept off the floor)
+      walk: [[0, 560], [1080, 560], [1000, 620], [960, 716], [0, 716]], scale: [555, 105, 716, 290],
     },
     santa_ana: {
       walk: [[270, 600], [500, 505], [830, 505], [1000, 560], [1280, 600], [1280, 716], [270, 716]], scale: [510, 150, 716, 380],

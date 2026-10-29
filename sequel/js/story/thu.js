@@ -31,6 +31,17 @@
   };
 
   // ================================================================ CASA DE COLÓN: the library
+  // ================================================================ CASA DE COLÓN: the square outside (2026-10-29: the
+  // building from outside before Alan goes in; the map's pin lands here, the Gothic portal goes in)
+  ROOMS.colon_out = S.room({
+    music: 'santa_ana',
+    name: 'Casa de Colón', bg: 'colon_out', floor: 'stone', ambience: 'street',
+    entries: { default: [200, 660, 'e'], map: [200, 660, 'e'], colon: [715, 590, 's'] },
+    hotspots: [
+      { name: 'Casa de Colón', rect: [668, 385, 94, 160], at: [715, 570], exit: 'colon', entry: 'map' },
+      S.toMap([0, 380, 60, 300], [50, 650]),
+    ],
+  });
   ROOMS.colon = S.room({
     music: 'colon',
     name: 'Casa de Colón', bg: 'colon', floor: 'wood', ambience: 'museum',
@@ -42,7 +53,7 @@
       { name: 'Parrot', rect: [315, 210, 80, 140], at: [360, 650], look: 'alan_look_parrot', use: 'parrot_squawk' },
       { name: 'Shelves', rect: [340, 80, 520, 300], at: [600, 640], look: 'alan_look_colon_shelves' },
       { name: 'Balcony', rect: [860, 120, 260, 280], at: [980, 640], look: 'alan_look_colon_balcony' },
-      S.toMap([20, 250, 110, 320], [70, 650]),
+      { name: 'To the city', rect: [20, 250, 110, 320], at: [70, 650], exit: 'colon_out', entry: 'colon', look: 'alan_look_tomap', kind: 'exit' },
     ],
     // the parrot breathing on its perch, the palm in the courtyard stirring, the gallery lantern and the reading lamp, a moth
     lights: [

@@ -632,3 +632,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     Vasco waited. Now a wait is a time-lapse: the beam slides along the wall to its next place over 2.6 s (eased), and
     at rest it sways a few pixels and shimmers. Checked in the running game (?scene=cave, frames during a wait).
     validate: 0 errors; play.mjs: won in 98 steps.
+61. **Cave 6's extra hole; the Casa de Colón from outside** (2026-10-29). The user: "paint out the extra hole. and casa
+    colon - C, also keep alan's mummie line". The repainted cave had an eighth hole left of socket I, which would put a
+    player counting "fourth from the mouth" one socket off: filled (OpenCV inpaint plus the rock's own grain) in
+    art/bg/cave6.jpg, the pre-fix copy at `art/designs/rooms_real/cave6_before_holefix.jpg`; now five empty sockets
+    and two discs. New room `colon_out` (js/story/thu.js, layout.js) from colon_out_c: the map's Casa de Colón pin
+    lands there, the Gothic portal goes in (entry 'map'), and the house's "To the city" comes back out to the square;
+    the curved steps kept off the floor. `museum_out`'s scale corrected (Alan stood taller than its door): both street
+    rooms now put a man at about two thirds of the door. `alan_look_cases` kept as it is (the user). Screenshots in
+    the running game; validate: 0 errors; play.mjs: won in 98 steps. Not deployed.

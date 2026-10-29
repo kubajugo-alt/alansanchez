@@ -77,3 +77,4 @@
 - 2026-10-29 bg `santa_ana` Canva media  -> art/bg/santa_ana.jpg real Plaza de Santa Ana repaint (Higgsfield), the user 2026-10-29: santa ana A
 - 2026-10-29 bg `museum_hall` Canva media  -> art/bg/museum_hall.jpg Museo Canario hall with the skull cabinets (Higgsfield), the user 2026-10-29: museum A without the mummy cases
 - 2026-10-29 bg `museum_out` Canva media  -> art/bg/museum_out.jpg El Museo Canario from the street (Higgsfield), new room, the user 2026-10-29: 'Museo Canario outside is good'
+- 2026-10-29 bg `colon_out` Canva media  -> art/bg/colon_out.jpg Casa de Colon from the street (Higgsfield), new room, the user 2026-10-29: 'casa colon - C'
