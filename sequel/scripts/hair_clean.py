@@ -8,7 +8,8 @@ leftovers of the background from Alan's hair gaps").
 Default frames: every Alan sprite the game uses now (js/story/core.js `still()`): alanv_/alanb_ side_k, front_k,
 back_k and their Ludo walk cycles (window.LUDO runs alanv_walk_* / alanb_walk_*). Writes art/review/hair_clean/
 <frame>.webp (only the frames that changed; same size, WEBP q90 like ludo_install.py), report.json (pixels changed per
-frame) and sheet.jpg (each changed frame's head, before and after, 3x, on (40,40,40) and on (128,128,128)).
+frame) and review sheets: each changed frame's head, before and after, 3x, on (40,40,40) and on (128,128,128); the
+still sprites on sheet.jpg, each walk run on sheet_<run>.jpg.
 
 Only the hair is touched (the top of the figure, within a few px of dark hair; the navy blazer and skin are not hair):
   1. Leftovers: groups of light, grey-white pixels (bright, low colour spread) next to the hair. A group that touches
@@ -34,6 +35,7 @@ HAIR_L, LIGHT_L = 95, 130   # luma: hair is darker than HAIR_L; a leftover is at
 SPREAD = 42          # a leftover's colour spread (max - min channel) at most this: grey/white, not skin
 PEAK = 170           # a leftover's brightest pixel at least this (pale to white)
 MAX_PX = 80          # a leftover group at most this many px (bigger light areas are something painted)
+CROP = 0.165         # the sheet's crop: the top of the figure down to the chin
 EDGE = 5             # a group this close (px) to the transparent outside is the edge's background
 POCKET = 215         # deeper in, only a near-white group fully ringed by hair counts (a gap between curls)
 BG_L = 240.0         # the background's luma, for the fringe's mix
@@ -117,7 +119,7 @@ def sheet(rows, path):
     tiles = [(n, head(b, box), head(a, box), k) for n, b, a, k, box in rows]
     th = max(t[1][0].height for t in tiles) + 22
     tw = max(t[1][0].width for t in tiles)
-    per = 2                                                     # two sprites side by side
+    per = 3                                                     # three sprites side by side
     rw = 4 * tw + 3 * 6
     S = Image.new('RGB', (per * rw + (per - 1) * 30 + 20, ((len(tiles) + per - 1) // per) * th + 30), (20, 20, 20))
     d = ImageDraw.Draw(S)
@@ -140,8 +142,9 @@ def run(names):
         dst = os.path.join(OUT, nm + '.webp')
         if k:
             new.save(dst, 'WEBP', quality=90, method=6)
-            al = np.asarray(im)[..., 3]; cols = np.nonzero((al[top:top + int((bot - top) * HEAD)] > 0).any(0))[0]
-            rows.append((nm, im, new, k, (int(cols[0]) - 4, max(0, top - 4), int(cols[-1]) + 5, top + int((bot - top) * HEAD))))
+            hb = top + int((bot - top) * CROP)
+            al = np.asarray(im)[..., 3]; cols = np.nonzero((al[top:hb] > 0).any(0))[0]
+            rows.append((nm, im, new, k, (int(cols[0]) - 4, max(0, top - 4), int(cols[-1]) + 5, hb)))
         elif os.path.exists(dst): os.remove(dst)
         print(f'{nm}: {k} px changed ({taken} taken, {fringe} fringe; groups: {kinds.count("edge")} edge, {kinds.count("pocket")} pocket)')
     old = {}
@@ -149,8 +152,12 @@ def run(names):
     if os.path.exists(rp) and set(names) != set(frames()): old = json.load(open(rp))
     old.update(rep)
     json.dump(old, open(rp, 'w'), indent=1)
-    if rows: sheet(rows, os.path.join(OUT, 'sheet.jpg'))
-    print(f'{len(rows)} of {len(names)} frames changed, {sum(v["changed"] for v in rep.values())} px; sheet {OUT}/sheet.jpg')
+    groups = {}                                                 # the stills on sheet.jpg, each walk run on its own sheet
+    for r in rows: groups.setdefault(re.sub(r'_\d\d$', '', r[0]) if re.search(r'_\d\d$', r[0]) else '', []).append(r)
+    for g, rs in groups.items():
+        sheet(rs, os.path.join(OUT, f'sheet_{g}.jpg' if g else 'sheet.jpg'))
+    print(f'{len(rows)} of {len(names)} frames changed, {sum(v["changed"] for v in rep.values())} px; sheets: '
+          + ', '.join(f'sheet_{g}.jpg' if g else 'sheet.jpg' for g in groups) + f' in {OUT}')
 
 
 def install():

@@ -22,13 +22,13 @@ SEQ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT = os.path.dirname(SEQ)
 # per painting: the crop sent to Gemini (sprite px: head, ears and neck with room around), the patch box (the face set's
 # box in js/faces.js where there is one), how the head is seen, and in the 5x crop: the face that may change, the
-# line between the eyes and the mouth (the nose's underside) and a patch of cheek for the skin colour
+# line between the eyes and the mouth (the nose's underside) and a patch of neck for the skin colour (never the cheek: a blush would shift the whole face)
 VIEWS = {
     'alanv_side_k': dict(crop=(50, 20, 190, 170), box=None, view='his head in profile, facing right',
                          zone=[(290, 170), (470, 150), (560, 240), (560, 560), (330, 560), (290, 420)], split=345,
-                         cheek=(300, 360, 330, 400)),
+                         cheek=(580, 640, 300, 380)),
     'alanv_front_k': dict(crop=(74, 15, 194, 165), box=(96, 38, 76, 94), view='his head seen from the front, facing us',
-                          zone='ellipse', split=425, eyes=322, cheek=(380, 420, 190, 240)),
+                          zone='ellipse', split=425, eyes=322, cheek=(600, 650, 250, 350)),
 }
 FRAME = os.environ.get('EMO_FRAME', 'alanv_side_k')
 V = VIEWS[FRAME]; CROP = V['crop']
