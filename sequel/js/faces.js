@@ -4607,5 +4607,438 @@ window.FACES = {
   "eyes": [],
   "who": "clerk",
   "ok": false
+ },
+ "talk_fermin_00": {
+  "box": [
+   154,
+   45,
+   86,
+   87
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "fermin",
+  "ok": false
+ },
+ "talk_fermin_01": {
+  "box": [
+   152,
+   45,
+   87,
+   87
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "fermin",
+  "ok": false
+ },
+ "talk_fermin_02": {
+  "box": [
+   151,
+   45,
+   86,
+   87
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "fermin",
+  "ok": false
+ },
+ "talk_lolo_00": {
+  "box": [
+   161,
+   54,
+   58,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_01": {
+  "box": [
+   159,
+   54,
+   58,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_02": {
+  "box": [
+   158,
+   54,
+   62,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_03": {
+  "box": [
+   157,
+   54,
+   62,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_04": {
+  "box": [
+   156,
+   54,
+   62,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_05": {
+  "box": [
+   156,
+   54,
+   61,
+   78
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_06": {
+  "box": [
+   155,
+   54,
+   61,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_07": {
+  "box": [
+   155,
+   53,
+   60,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_08": {
+  "box": [
+   155,
+   82,
+   56,
+   50
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_09": {
+  "box": [
+   154,
+   82,
+   57,
+   50
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_10": {
+  "box": [
+   154,
+   82,
+   57,
+   50
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_11": {
+  "box": [
+   152,
+   81,
+   58,
+   51
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_12": {
+  "box": [
+   151,
+   52,
+   58,
+   80
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_16": {
+  "box": [
+   151,
+   51,
+   58,
+   80
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_17": {
+  "box": [
+   151,
+   52,
+   59,
+   80
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_18": {
+  "box": [
+   151,
+   52,
+   59,
+   80
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_19": {
+  "box": [
+   152,
+   54,
+   58,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
+ },
+ "talk_lolo_20": {
+  "box": [
+   152,
+   56,
+   60,
+   79
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "lolo",
+  "ok": false
  }
 };
