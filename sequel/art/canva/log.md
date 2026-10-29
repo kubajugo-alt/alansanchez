@@ -55,3 +55,4 @@
 - 2026-10-29 figure `vasco_v7` Canva media MAHZW2sP2q4 -> art/designs/vasco_v7.png v6 leaner than Alan, smooth shirt (the user); candidate
 - 2026-10-29 figure `vasco_v8` Canva media MAHZW97NjoE -> art/designs/vasco_v8.png v7 matched to Alan's current look, straight tousled hair, sleeves high (the user); candidate
 - 2026-10-29 figure `vasco_v9` Canva media MAHZW5X8jiA -> art/designs/vasco_v9.png v8 with Alan's smooth shading (the user); candidate
+- 2026-10-29 figure `baute_v4` Canva media MAHZW1reXu4 -> art/designs/baute_v4.png Baute in Alan's and Vasco v9's style (the user); candidate
