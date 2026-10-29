@@ -641,3 +641,15 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     the curved steps kept off the floor. `museum_out`'s scale corrected (Alan stood taller than its door): both street
     rooms now put a man at about two thirds of the door. `alan_look_cases` kept as it is (the user). Screenshots in
     the running game; validate: 0 errors; play.mjs: won in 98 steps. Not deployed.
+62. **Voice samples (Carmen); Vasco's original face** (2026-10-29). The user: "Most of the Spanish speaking characters
+    speak slowly and with barely any emotions... Carmen is the flattest... Let's try with samples"; "I really don't
+    like the face of new vasco. can we bring back his original facial features?". Voices: the Spanish cast read
+    English on eleven_v3 with language_code es and no voice_settings (the defaults). Samples for three Carmen lines
+    (carmen_f_1 dry, carmen_su_elena grief, carmen_lr_water urgent) in nine takes: as now; Graciela with stability 0;
+    with v3 audio cues; on eleven_v4 (es); v4 looser and 8% faster; and four library voices (Carolina, Paloma, Rocío,
+    Estela) on v3 with cues. `art/review/voices/carmen/` (spec.json, the mp3s), listening page with a saved pick
+    (db `picks/carmen`): https://claude.ai/artifact/1gpvuUQPrT5cmQTqPusJ4F (not watched: the session's webhook limit).
+    The sampler is a scratch script; the chosen setup goes into scripts/cast.json + generate-voices.mjs (cues kept out
+    of js/lines.js). Vasco: GPT Image 2.5 edits of vasco_v9 with Game I's Vasco heads as the face reference:
+    `art/designs/vasco_v10a.png`, `vasco_v10b.png`; comparison `art/review/cast_repaint/vasco_face.jpg`. Nothing in
+    the game yet.

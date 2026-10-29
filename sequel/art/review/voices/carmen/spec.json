@@ -1,0 +1,71 @@
+{
+ "lines": [
+  "carmen_f_1",
+  "carmen_su_elena",
+  "carmen_lr_water"
+ ],
+ "variants": {
+  "b_v3_creative": {
+   "model": "eleven_v3",
+   "settings": {
+    "stability": 0.0
+   }
+  },
+  "c_v3_tags": {
+   "model": "eleven_v3",
+   "settings": {
+    "stability": 0.0
+   },
+   "tags": true
+  },
+  "d_v4": {
+   "model": "eleven_v4"
+  },
+  "e_v4_lively": {
+   "model": "eleven_v4",
+   "settings": {
+    "stability": 0.3,
+    "similarity_boost": 0.75,
+    "style": 0.5,
+    "speed": 1.08
+   }
+  },
+  "f_carolina": {
+   "model": "eleven_v3",
+   "settings": {
+    "stability": 0.0
+   },
+   "tags": true,
+   "voice": "BkOojM1ZhtSAHgsAkMx2"
+  },
+  "g_paloma": {
+   "model": "eleven_v3",
+   "settings": {
+    "stability": 0.0
+   },
+   "tags": true,
+   "voice": "CS57JcynCr2pHsVpogbW"
+  },
+  "h_rocio": {
+   "model": "eleven_v3",
+   "settings": {
+    "stability": 0.0
+   },
+   "tags": true,
+   "voice": "ecMoe9ijZeyrNV2yVOdh"
+  },
+  "i_estela": {
+   "model": "eleven_v3",
+   "settings": {
+    "stability": 0.0
+   },
+   "tags": true,
+   "voice": "iuYybvSfclFoJ9ab2Im6"
+  }
+ },
+ "tags": {
+  "carmen_f_1": "[dryly] The burglar. [pause] [amused] You look terrible. Sit. I'm making coffee. [deadpan] That's not kindness, I want one.",
+  "carmen_su_elena": "[warmly, remembering] She laughed at everything. She drew everything. She left her socks in the bath for eight years. [pause] [voice breaking] We were going to buy a house in Artenara. Above the cloud.",
+  "carmen_lr_water": "[urgent, raising her voice over the engine] Water. On the radiator. Now, before she cracks. [frustrated] I'm not stopping in this cloud."
+ }
+}

@@ -1,0 +1,74 @@
+<title>Carmen's Voice</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* layout: one listening grid, takes down the side, the three lines across the top */
+:root { --bg:#f3efe9; --card:#fbf8f3; --fg:#2a2420; --muted:#6f6359; --line:#ddd3c7; --accent:#9a4a22; --on:#e9d6c6;
+  --display:"Fraunces", Georgia, serif; --body:"Source Sans 3", system-ui, sans-serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1d1916; --card:#25201c; --fg:#ece4da; --muted:#a99a8c; --line:#3b332d; --accent:#e08c5c; --on:#4a3324; color-scheme:dark } }
+:root[data-theme="dark"] { --bg:#1d1916; --card:#25201c; --fg:#ece4da; --muted:#a99a8c; --line:#3b332d; --accent:#e08c5c; --on:#4a3324; color-scheme:dark }
+body { background:var(--bg); color:var(--fg); font:16px/1.45 var(--body); padding-block:28px 48px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)) }
+main { max-width:1280px; margin:0 auto; display:grid; gap:18px }
+h1 { font:650 clamp(26px,4vw,38px)/1.1 var(--display); margin:0; text-wrap:balance }
+.intro { margin:0; color:var(--muted); max-width:70ch }
+.wrap { overflow-x:auto; border:1px solid var(--line); border-radius:8px; background:var(--card) }
+table { border-collapse:collapse; min-width:980px; width:100% }
+th, td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; text-align:left }
+thead th { font-weight:400; width:27% }
+thead th:first-child { width:19% }
+.lc { display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:4px }
+q { font:500 15px/1.4 var(--display); quotes:"“" "”" }
+tbody th { display:flex; flex-direction:column; gap:3px; font-weight:400 }
+.vn { font-weight:600 } .vd { font-size:13px; color:var(--muted) }
+audio { width:100%; min-width:220px; height:36px }
+tr.on { background:var(--on) }
+.pick { align-self:flex-start; margin-top:4px; font:600 13px var(--body); padding:4px 12px; border-radius:999px; border:1px solid var(--accent); background:transparent; color:var(--accent); cursor:pointer }
+.pick[aria-pressed="true"] { background:var(--accent); color:var(--card) }
+.pick:focus-visible, textarea:focus-visible, .save:focus-visible { outline:2px solid var(--accent); outline-offset:2px }
+.notes { display:grid; gap:8px; max-width:720px }
+textarea { font:15px/1.4 var(--body); padding:10px; border-radius:6px; border:1px solid var(--line); background:var(--card); color:var(--fg); min-height:80px }
+.save { justify-self:start; font:600 14px var(--body); padding:8px 18px; border-radius:6px; border:0; background:var(--accent); color:var(--card); cursor:pointer }
+.status { font-size:13px; color:var(--muted) }
+</style>
+<main>
+  <h1>Carmen’s voice: samples</h1>
+  <p class="intro">Three of Carmen’s lines, each read nine ways. The first row is how she sounds in the game now. Then Graciela (her current voice) with more expressive settings, the newer model and acting cues, and four other Spanish voices. Pick the one you want; whatever works for Carmen, I’ll try on the rest of the Spanish cast.</p>
+  <div class="wrap"><table>
+    <thead><tr><th scope="col"><span class="lc">Take</span></th><th scope="col"><span class="lc">Friday, her flat. Dry humour.</span><q>The burglar. … You look terrible. Sit. I&#x27;m making coffee. That&#x27;s not kindness, I want one.</q></th><th scope="col"><span class="lc">Sunday night. Grief, remembering Elena.</span><q>She laughed at everything. She drew everything. She left her socks in the bath for eight years. … We were going to buy a house in Artenara. Above the cloud.</q></th><th scope="col"><span class="lc">The road up in the fog. Urgent.</span><q>Water. On the radiator. Now, before she cracks. I&#x27;m not stopping in this cloud.</q></th></tr></thead>
+    <tbody>
+<tr data-v="a_now"><th scope="row"><span class="vn">Now</span><span class="vd">Graciela, as recorded (v3, default settings)</span><button type="button" class="pick" data-v="a_now" aria-pressed="false">Pick</button></th><td><audio controls preload="none" src="carmen_f_1__a_now.mp3"></audio></td><td><audio controls preload="none" src="carmen_su_elena__a_now.mp3"></audio></td><td><audio controls preload="none" src="carmen_lr_water__a_now.mp3"></audio></td></tr>
+<tr data-v="b_v3_creative"><th scope="row"><span class="vn">Graciela · expressive</span><span class="vd">v3, stability at its most expressive</span><button type="button" class="pick" data-v="b_v3_creative" aria-pressed="false">Pick</button></th><td><audio controls preload="none" src="carmen_f_1__b_v3_creative.mp3"></audio></td><td><audio controls preload="none" src="carmen_su_elena__b_v3_creative.mp3"></audio></td><td><audio controls preload="none" src="carmen_lr_water__b_v3_creative.mp3"></audio></td></tr>
+<tr data-v="c_v3_tags"><th scope="row"><span class="vn">Graciela · expressive + cues</span><span class="vd">as before, with acting cues ([dryly], [voice breaking]…)</span><button type="button" class="pick" data-v="c_v3_tags" aria-pressed="false">Pick</button></th><td><audio controls preload="none" src="carmen_f_1__c_v3_tags.mp3"></audio></td><td><audio controls preload="none" src="carmen_su_elena__c_v3_tags.mp3"></audio></td><td><audio controls preload="none" src="carmen_lr_water__c_v3_tags.mp3"></audio></td></tr>
+<tr data-v="d_v4"><th scope="row"><span class="vn">Graciela · v4</span><span class="vd">the newer model the English cast uses, Spanish accent</span><button type="button" class="pick" data-v="d_v4" aria-pressed="false">Pick</button></th><td><audio controls preload="none" src="carmen_f_1__d_v4.mp3"></audio></td><td><audio controls preload="none" src="carmen_su_elena__d_v4.mp3"></audio></td><td><audio controls preload="none" src="carmen_lr_water__d_v4.mp3"></audio></td></tr>
+<tr data-v="e_v4_lively"><th scope="row"><span class="vn">Graciela · v4 lively</span><span class="vd">v4, looser, more style, 8% faster</span><button type="button" class="pick" data-v="e_v4_lively" aria-pressed="false">Pick</button></th><td><audio controls preload="none" src="carmen_f_1__e_v4_lively.mp3"></audio></td><td><audio controls preload="none" src="carmen_su_elena__e_v4_lively.mp3"></audio></td><td><audio controls preload="none" src="carmen_lr_water__e_v4_lively.mp3"></audio></td></tr>
+<tr data-v="f_carolina"><th scope="row"><span class="vn">Carolina</span><span class="vd">new voice: &quot;warm and expressive&quot;, with cues</span><button type="button" class="pick" data-v="f_carolina" aria-pressed="false">Pick</button></th><td><audio controls preload="none" src="carmen_f_1__f_carolina.mp3"></audio></td><td><audio controls preload="none" src="carmen_su_elena__f_carolina.mp3"></audio></td><td><audio controls preload="none" src="carmen_lr_water__f_carolina.mp3"></audio></td></tr>
+<tr data-v="g_paloma"><th scope="row"><span class="vn">Paloma</span><span class="vd">new voice: changes of pace, with cues</span><button type="button" class="pick" data-v="g_paloma" aria-pressed="false">Pick</button></th><td><audio controls preload="none" src="carmen_f_1__g_paloma.mp3"></audio></td><td><audio controls preload="none" src="carmen_su_elena__g_paloma.mp3"></audio></td><td><audio controls preload="none" src="carmen_lr_water__g_paloma.mp3"></audio></td></tr>
+<tr data-v="h_rocio"><th scope="row"><span class="vn">Rocío</span><span class="vd">new voice: &quot;expressive&quot;, with cues</span><button type="button" class="pick" data-v="h_rocio" aria-pressed="false">Pick</button></th><td><audio controls preload="none" src="carmen_f_1__h_rocio.mp3"></audio></td><td><audio controls preload="none" src="carmen_su_elena__h_rocio.mp3"></audio></td><td><audio controls preload="none" src="carmen_lr_water__h_rocio.mp3"></audio></td></tr>
+<tr data-v="i_estela"><th scope="row"><span class="vn">Estela</span><span class="vd">new voice: conversational, with cues</span><button type="button" class="pick" data-v="i_estela" aria-pressed="false">Pick</button></th><td><audio controls preload="none" src="carmen_f_1__i_estela.mp3"></audio></td><td><audio controls preload="none" src="carmen_su_elena__i_estela.mp3"></audio></td><td><audio controls preload="none" src="carmen_lr_water__i_estela.mp3"></audio></td></tr>
+    </tbody>
+  </table></div>
+  <div class="notes">
+    <label for="note"><b>Notes</b> <span class="status">(optional: what you like or don’t, in any take)</span></label>
+    <textarea id="note" placeholder="e.g. Paloma for the grief line, but faster"></textarea>
+    <button type="button" class="save" id="save">Save</button>
+    <span class="status" id="status" role="status">Pick a take and save. I’ll read it from here.</span>
+  </div>
+</main>
+<script>
+let pick = null, db = null;
+const btns = [...document.querySelectorAll('.pick')];
+function show() { btns.forEach(b => { const on = b.dataset.v === pick; b.setAttribute('aria-pressed', String(on)); b.textContent = on ? 'Picked' : 'Pick'; b.closest('tr').classList.toggle('on', on); }); }
+btns.forEach(b => b.onclick = () => { pick = pick === b.dataset.v ? null : b.dataset.v; show(); save(); });
+document.querySelectorAll('audio').forEach(a => a.addEventListener('play', () => document.querySelectorAll('audio').forEach(o => { if (o !== a) o.pause(); })));
+async function save() {
+  const st = document.getElementById('status');
+  if (!db) { st.textContent = 'Saving needs claude.ai sign-in; tell me your pick in chat instead.'; return; }
+  try { await db.doc('picks/carmen').set({ pick, note: document.getElementById('note').value, at: Date.now() }); st.textContent = 'Saved.'; }
+  catch (e) { st.textContent = 'Could not save (' + (e.code || 'error') + '). Try again.'; }
+}
+document.getElementById('save').onclick = save;
+(async () => {
+  db = window.claude ? await claude.use('db') : null; if (!db) return;
+  try { const d = await db.doc('picks/carmen').get(); const v = d.exists ? d.data() : null; if (v) { pick = v.pick || null; document.getElementById('note').value = v.note || ''; show(); } } catch (e) {}
+})();
+</script>
