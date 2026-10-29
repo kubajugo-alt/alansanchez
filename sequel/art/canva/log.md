@@ -71,3 +71,4 @@
 - 2026-10-29 figure `clerk_v2` Canva media MAHZYfFDDDs -> art/designs/clerk_v2.png overnight repaint, two views
 - 2026-10-29 figure `pino_v2` Canva media MAHZY2Y2WDs -> art/designs/pino_v2.png overnight repaint, two views
 - 2026-10-29 figure `lolo_v2` Canva media MAHZZFccEpk -> art/designs/lolo_v2.png overnight repaint, two views
+- 2026-10-29 figure `guard_v3` Canva media MAHZZrcFTJM -> art/designs/guard_v3.png same-artist redo
