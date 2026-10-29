@@ -497,3 +497,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     included: figure 0.82-1.11, legs 0.84-1.09. Seam number 1.93 (old 36-frame walk) -> 1.02. LUDO step 0.0486 (2
     steps, 1.82 steps/s). Clips regenerated (old = the in-game 36 frames). To compare take 2 once it is fitted:
     `python3 scripts/walk_loop.py alanv_walk_front` (it tries every fitted take in RETIME). Not installed.
+47. **Tank top front walk: Ludo redraw approved and installed** (2026-10-29). The 14-frame retimed loop from Ludo take 1
+    (alanv_walk_front_t1, frames 3..22; take 2 came in later and was not used) approved ("approved") and installed with
+    `walk_loop.py install alanv_walk_front`. All six of Alan's walks are now seamless loops. play.mjs won, 98 steps.
