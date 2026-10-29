@@ -440,3 +440,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     with `face_emotions.py install alanb_side_k`. All three of Alan's talking views now carry emotions; they show only
     once lines are tagged (tags page: https://claude.ai/artifact/A4K8z2NvzgkfLR2EndtJiy, db `tags`, `notes`,
     `suggestions`).
+42. **Emotion tags in the game** (2026-10-29). The user reviewed the tags page: 33 kept, 1 dropped (alan_t_derek), no
+    notes or extra lines. `js/story/emotions.js` (new, loaded after story/core.js) sets `Engine.LINE_EMO` for those 33.
+    Checked: all 33 ids exist, all three of Alan's talking views have the 8 emotions, validate.mjs clean, play.mjs won
+    in 98 steps with no errors. Not deployed.

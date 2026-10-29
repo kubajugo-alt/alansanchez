@@ -29,7 +29,7 @@
    ],
    "fps": 12,
    "steps": 2,
-   "step": 0.0127,
+   "step": 0.0218,
    "at": [
     5,
     17
@@ -42,6 +42,203 @@
    "ax": 130.4,
    "fy": 731.8,
    "top": 12.3
+  }
+ },
+ "alanv_walk_side": {
+  "ludo": {
+   "frames": [
+    "alanv_walk_side_00",
+    "alanv_walk_side_01",
+    "alanv_walk_side_02",
+    "alanv_walk_side_03",
+    "alanv_walk_side_04",
+    "alanv_walk_side_05",
+    "alanv_walk_side_06",
+    "alanv_walk_side_07",
+    "alanv_walk_side_08",
+    "alanv_walk_side_09",
+    "alanv_walk_side_10",
+    "alanv_walk_side_11",
+    "alanv_walk_side_12",
+    "alanv_walk_side_13",
+    "alanv_walk_side_14",
+    "alanv_walk_side_15",
+    "alanv_walk_side_16",
+    "alanv_walk_side_17",
+    "alanv_walk_side_18",
+    "alanv_walk_side_19",
+    "alanv_walk_side_20",
+    "alanv_walk_side_21",
+    "alanv_walk_side_22",
+    "alanv_walk_side_23"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.0231,
+   "at": [
+    6,
+    17
+   ]
+  },
+  "sprite": {
+   "w": 356,
+   "hh": 734,
+   "h": 720,
+   "ax": 142.1,
+   "fy": 727.3,
+   "top": 7.8
+  }
+ },
+ "alanv_walk_front": {
+  "ludo": {
+   "frames": [
+    "alanv_walk_front_00",
+    "alanv_walk_front_01",
+    "alanv_walk_front_02",
+    "alanv_walk_front_03",
+    "alanv_walk_front_04",
+    "alanv_walk_front_05",
+    "alanv_walk_front_06",
+    "alanv_walk_front_07",
+    "alanv_walk_front_08",
+    "alanv_walk_front_09"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.068
+  },
+  "sprite": {
+   "w": 280,
+   "hh": 763,
+   "h": 720,
+   "ax": 154.6,
+   "fy": 731.1,
+   "top": 11.6
+  }
+ },
+ "alanv_walk_back": {
+  "ludo": {
+   "frames": [
+    "alanv_walk_back_00",
+    "alanv_walk_back_01",
+    "alanv_walk_back_02",
+    "alanv_walk_back_03",
+    "alanv_walk_back_04",
+    "alanv_walk_back_05",
+    "alanv_walk_back_06",
+    "alanv_walk_back_07",
+    "alanv_walk_back_08",
+    "alanv_walk_back_09",
+    "alanv_walk_back_10",
+    "alanv_walk_back_11",
+    "alanv_walk_back_12",
+    "alanv_walk_back_13",
+    "alanv_walk_back_14",
+    "alanv_walk_back_15",
+    "alanv_walk_back_16",
+    "alanv_walk_back_17",
+    "alanv_walk_back_18",
+    "alanv_walk_back_19",
+    "alanv_walk_back_20",
+    "alanv_walk_back_21",
+    "alanv_walk_back_22",
+    "alanv_walk_back_23"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.0283
+  },
+  "sprite": {
+   "w": 269,
+   "hh": 737,
+   "h": 720,
+   "ax": 151.9,
+   "fy": 725,
+   "top": 5.5
+  }
+ },
+ "alanb_walk_front": {
+  "ludo": {
+   "frames": [
+    "alanb_walk_front_00",
+    "alanb_walk_front_01",
+    "alanb_walk_front_02",
+    "alanb_walk_front_03",
+    "alanb_walk_front_04",
+    "alanb_walk_front_05",
+    "alanb_walk_front_06",
+    "alanb_walk_front_07",
+    "alanb_walk_front_08",
+    "alanb_walk_front_09",
+    "alanb_walk_front_10",
+    "alanb_walk_front_11",
+    "alanb_walk_front_12",
+    "alanb_walk_front_13",
+    "alanb_walk_front_14",
+    "alanb_walk_front_15",
+    "alanb_walk_front_16",
+    "alanb_walk_front_17",
+    "alanb_walk_front_18",
+    "alanb_walk_front_19",
+    "alanb_walk_front_20",
+    "alanb_walk_front_21",
+    "alanb_walk_front_22",
+    "alanb_walk_front_23",
+    "alanb_walk_front_24"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.0272
+  },
+  "sprite": {
+   "w": 268,
+   "hh": 738,
+   "h": 720,
+   "ax": 154,
+   "fy": 737.8,
+   "top": 18.3
+  }
+ },
+ "alanb_walk_back": {
+  "ludo": {
+   "frames": [
+    "alanb_walk_back_00",
+    "alanb_walk_back_01",
+    "alanb_walk_back_02",
+    "alanb_walk_back_03",
+    "alanb_walk_back_04",
+    "alanb_walk_back_05",
+    "alanb_walk_back_06",
+    "alanb_walk_back_07",
+    "alanb_walk_back_08",
+    "alanb_walk_back_09",
+    "alanb_walk_back_10",
+    "alanb_walk_back_11",
+    "alanb_walk_back_12",
+    "alanb_walk_back_13",
+    "alanb_walk_back_14",
+    "alanb_walk_back_15",
+    "alanb_walk_back_16",
+    "alanb_walk_back_17",
+    "alanb_walk_back_18",
+    "alanb_walk_back_19",
+    "alanb_walk_back_20",
+    "alanb_walk_back_21",
+    "alanb_walk_back_22",
+    "alanb_walk_back_23",
+    "alanb_walk_back_24"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.0272
+  },
+  "sprite": {
+   "w": 261,
+   "hh": 735,
+   "h": 720,
+   "ax": 90.9,
+   "fy": 734.1,
+   "top": 14.6
   }
  }
 }

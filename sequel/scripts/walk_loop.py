@@ -21,18 +21,21 @@ fitted frames under art/review/ludo/ are not used):
   2. Drift. The scale and shift that put frame c on frame a are what the figure drifted over the loop; frame a+k gets
      k/L of the opposite, so the body ends where it started and nothing jumps at the seam. A frame that needs no change
      is copied as it is; the rest are resampled once (Lanczos, premultiplied alpha), the box unchanged.
-  3. An in-between at the seam, only if the seam, after 2, is still clearly bigger than the run's typical frame step
-     (SEAM_IB): the last K frames are dissolved towards the frames that lead into frame a (lined up the same way).
+  3. An in-between at the seam, only if the seam, after 2, is still clearly bigger (SEAM_IB) than the step it stands
+     in for (frame c-1 to frame c, Ludo's own): the last K frames are dissolved towards the frames that lead into frame
+     a (lined up the same way). None of the six needed one (report.json: seam_vs_natural_step).
   4. The loop is turned so its first frame is the pose nearest the standing painting (alanv_side_k etc.), so a walk
      starts from the stride closest to the stance it leaves.
-  5. Measures for the engine (window.LUDO): steps per loop and ground per frame. Side views: the planted foot's slide
-     from frame to frame in the box (it is the ground going by), averaged over the loop, in heights (meta h), so the
-     feet don't slide in the game. Front and back: two steps a stride, and Game I's 0.34 heights a step
+  5. Measures for the engine (window.LUDO): steps per loop and ground per frame. Side views: scripts/ludo_measure.py's
+     measure (contacts at the peaks of the feet's spread, a step's ground the spread's range) read round the loop, so
+     it is the same measure as the game has now, on a whole number of steps; the planted foot's own slide in the box
+     is reported beside it as a check. Front and back: two steps a stride, and Game I's 0.34 heights a step
      (scripts/ludo_measure.py STEP_H), so the cadence is the same as before whatever the loop's length.
 
 Seam number (report.json): the frame-to-frame change across the seam (last frame to first, mean absolute colour
-difference over the figure, premultiplied alpha, 0-255) divided by the median of the same over the loop's other frame
-steps. 1.0 means the seam is an ordinary frame step; the old runs are measured the same way (frame 35 to frame 0).
+difference over the figure, premultiplied alpha, 0-255) divided by the median of the four frame steps around it (two
+before, two after). 1.0 means the seam is an ordinary frame step; the old runs are measured the same way (frame 35 to
+frame 0). Also reported: the body's jump at the seam (torso x, feet y, height, px) against its median frame step.
 
 Writes art/review/walk_loop/: frames/<run>_NN.webp, ludo_walk_loop.json (per run: the new LUDO entry, the sprite box,
 which source frames were kept, the drift taken out, the seam numbers), report.json, and per run walk_<run>.mp4 (the
@@ -55,7 +58,7 @@ RUNS = ['alanv_walk_side', 'alanv_walk_front', 'alanv_walk_back', 'alanb_walk_si
 START = 4          # the first frames are the feet coming apart from the standing keyframe: a loop starts after them
 MIN_L = 8          # the shortest loop considered (frames)
 STEP_H = 0.34      # front/back: a step towards or away from the camera, in heights (scripts/ludo_measure.py)
-SEAM_IB = 1.3      # in-between at the seam only if the seam is still this many times the median frame step
+SEAM_IB = 1.3      # in-between at the seam only if the seam is still this many times the step it replaces
 IB_K = 3           # ...over this many frames
 BG = (46, 43, 52)  # the review clips' background (scripts/review_anim.py)
 FONT = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
@@ -134,9 +137,12 @@ def pose_matrix(P, R, k=4):
 
 
 def seam_number(P):
-    """the step across the seam (last -> first) over the median of the other frame steps"""
+    """the step across the seam (last -> first) over the median of the four frame steps around it (two before, two
+    after: a walk's frame steps are bigger in the swing than in the stance, so the seam is judged against its
+    neighbours); also the run's overall median step"""
     st = [diff(P[i], P[(i + 1) % len(P)]) for i in range(len(P))]
-    return st[-1] / float(np.median(st[:-1])), st[-1], float(np.median(st[:-1]))
+    near = float(np.median([st[-3], st[-2], st[0], st[1]]))
+    return st[-1] / near, st[-1], near, float(np.median(st[:-1]))
 
 
 def drift_jump(F):
@@ -165,16 +171,31 @@ def ground_slide(F, fy, h0):
     return out
 
 
-def side_steps(F):
-    """contacts (the feet furthest apart) in the loop, cyclic: scripts/ludo_measure.py's side test"""
-    span = []
+def spans(F):
+    """side view: the feet's spread (the bottom 5% of the figure), per frame"""
+    out = []
     for a in F:
         ys, xs = np.nonzero(a[..., 3] > 0.16); lo = ys.max() - int(0.05 * (ys.max() - ys.min())); fx = xs[ys >= lo]
-        span.append(fx.max() - fx.min())
-    span = np.array(span, float); n = len(span)
+        out.append(fx.max() - fx.min())
+    return np.array(out, float)
+
+
+def side_steps(F, h0):
+    """scripts/ludo_measure.py's side measure, read round the loop: contacts are the peaks of the feet's spread; a step's
+    ground is the spread's range; ground per frame = steps x range / frames, in heights"""
+    span = spans(F); n = len(span)
     sm = np.array([span[[(i + j) % n for j in range(-2, 3)]].mean() for i in range(n)])
     pk = [i for i in range(n) if sm[i] > sm[(i - 1) % n] and sm[i] >= sm[(i + 1) % n]]
-    return [i for i in pk if sm[i] > sm.min() + 0.5 * (sm.max() - sm.min())]
+    at = [i for i in pk if sm[i] > sm.min() + 0.5 * (sm.max() - sm.min())]
+    steps = max(1, len(at))
+    return steps, round(steps * (np.percentile(span, 95) - np.percentile(span, 5)) / n / h0, 4), at
+
+
+def planted(g):
+    """the cross-check: the planted foot's mean slide back over the stance frames (forward skids and contact
+    hand-overs, over 2.5x the median, left out)"""
+    g = np.array(g); p = g[g > 0]; p = p[p <= 2.5 * np.median(p)]
+    return round(float(p.mean()), 4)
 
 
 # ---------------------------------------------------------------- the loop
@@ -201,10 +222,10 @@ def build(run, data, log=print):
         return warp(P[i], s ** t, t * dx, t * dy, ax, fy, cv2.INTER_LANCZOS4)
     Q = [fixed(i) for i in range(a, c)]
     src = [[i] for i in range(a, c)]
-    mid = seam_number(Q)
-    # 3. an in-between at the seam, only if still needed
+    mid = seam_number(Q); natural = diff(P[c - 1], P[c])   # the step the seam stands in for: frame c-1 to frame c
+    # 3. an in-between at the seam, only if the seam is still clearly bigger than the step it replaces
     ib = False
-    if mid[0] > SEAM_IB and a >= IB_K:
+    if mid[1] > SEAM_IB * natural and a >= IB_K:
         for j in range(IB_K):
             w = (j + 1) / (IB_K + 1); pos = L - IB_K + j
             t = (j - IB_K) / L   # frame a-K+j lined up as the frame that leads into the seam
@@ -225,16 +246,16 @@ def build(run, data, log=print):
         for i, q in enumerate(Q):
             r = reg(unpm(q)); sc.append(diff(ref, lowres(warp(q, 1, W / 2 - r['tx'], H - 6 - r['bot'], 0, 0), 4)))
         rot = int(np.argmin(sc))
+    after = seam_number(Q); body_after = drift_jump([unpm(q) for q in Q])   # at the cut, before turning the loop
     Q = Q[rot:] + Q[:rot]; src = src[rot:] + src[:rot]
-    after = seam_number(Q)
     out = [unpm(q) for q in Q]
     # box: the content must stay inside it
     edge = max(max(float(o[0, :, 3].max()), float(o[:, 0, 3].max()), float(o[:, -1, 3].max())) for o in out)
     # 5. measures
     if '_side' in run:
-        g = ground_slide(out, fy, h0); at = side_steps(out); steps = max(1, len(at))
-        ent = {'frames': None, 'fps': L0['fps'], 'steps': steps, 'step': round(float(np.mean(g)), 4), 'at': at}
-        old_g = float(np.mean(ground_slide(F[START:], fy, h0)[:-1]))
+        steps, step, at = side_steps(out, h0)
+        ent = {'frames': None, 'fps': L0['fps'], 'steps': steps, 'step': step, 'at': at}
+        g, old_g = planted(ground_slide(out, fy, h0)), planted(ground_slide(F[START:], fy, h0)[:-1])
     else:
         steps = 2
         ent = {'frames': None, 'fps': L0['fps'], 'steps': steps, 'step': round(steps * STEP_H / L, 4)}
@@ -243,19 +264,21 @@ def build(run, data, log=print):
     rep = {
         'old': {'frames': n, 'steps': L0.get('steps'), 'step': L0.get('step')},
         'new': {'frames': L, 'steps': ent['steps'], 'step': ent['step']},
-        'kept': f'{a}..{c - 1}', 'first_frame': a + rot if not ib or rot < L - IB_K else None, 'rotation': rot,
+        'kept': f'{a}..{c - 1}', 'starts_on_source_frame': a + rot, 'cut_after_new_frame': (L - rot - 1) % L,
         'drift_removed': {'scale': round(1 / s, 4), 'dx': -dx, 'dy': -dy, 'over_frames': L},
         'match_err': round(err, 1), 'inbetween': ib, 'src': src,
-        'seam_before': {'number': round(before[0], 2), 'seam': round(before[1], 1), 'median_step': round(before[2], 1),
-                        'body': drift_jump(F)},
+        'seam_before': {'number': round(before[0], 2), 'seam': round(before[1], 1), 'near_steps': round(before[2], 1),
+                        'run_median_step': round(before[3], 1), 'body': drift_jump(F)},
+        'natural_step_replaced': round(natural, 1),
+        'natural_body_step': {k: round(abs(reg(F[c])[k] - reg(F[c - 1])[k]), 1) for k in ('tx', 'bot', 'h')},
         'seam_after_drift_only': round(mid[0], 2),
-        'seam_after': {'number': round(after[0], 2), 'seam': round(after[1], 1), 'median_step': round(after[2], 1),
-                       'body': drift_jump(out)},
+        'seam_vs_natural_step': round(after[1] / natural, 2),
+        'seam_after': {'number': round(after[0], 2), 'seam': round(after[1], 1), 'near_steps': round(after[2], 1),
+                       'run_median_step': round(after[3], 1), 'body': body_after},
         'edge_alpha': round(edge, 3),
     }
     if g is not None:
-        rep['ground_per_frame'] = {'mean': round(float(np.mean(g)), 4), 'min': round(float(min(g)), 4),
-                                   'max': round(float(max(g)), 4), 'old_frames_same_measure': round(old_g, 4)}
+        rep['planted_foot_check'] = {'new_loop': g, 'old_run': old_g}
     log(f'  seam {before[0]:.2f} -> {after[0]:.2f} (drift only {mid[0]:.2f}{", in-between" if ib else ""}); '
         f'{L} frames, {ent["steps"]} steps, step {ent["step"]} (was {n}, {L0.get("steps")}, {L0.get("step")})')
     return out, ent, meta, rep, F
