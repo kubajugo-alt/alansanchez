@@ -687,3 +687,4 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     lines re-recorded. The other 279 Spanish lines done (279 voiced, 0 failed); no line without audio. The user:
     "deploy everything - the characters placement as i chose it, the new vasco, the new voices": vascor_side_k's
     face set `ok: true` (the mouth fix, entry 64).
+    Deployed on the user's word: Netlify deploy 6ae3d8bfe32ecd48904e452b from a clean git archive export (play.mjs on the export: won in 98 steps; /.env 404).
