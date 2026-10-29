@@ -484,3 +484,16 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     that is already installed (not 36 frames). Checked by eye: contact sheet, the in-betweens' legs at 1x, the seam bridge
     frames at full size, nothing ghosted. Clips regenerated: walk_alanv_walk_front.mp4 (4 loops), oldnew_alanv_walk_front.mp4.
     Not installed. Ludo's own: a faint shadow under one shoe in the frames from source 27-29.
+46. **Tank-top front walk from the redrawn Ludo take, for review** (2026-10-29). The user on the 14-frame retime: "still
+    uneven walk": the source drawing was lopsided. Main session had Ludo redraw it (even, symmetric cycle): take 1
+    `art/review/ludo/alanv_walk_front_t1` (fitted); take 2 (`_t2`) was still generating, not used. `walk_loop.py`'s
+    `RETIME` now names the takes and frame counts to try: `build_retimed` searches each fitted take for its best stride
+    and removes the drift. It retimes at 14/16/18/20 frames and keeps the evenest. It then sizes the head and shoulders
+    to the take's standing keyframe (searched about the head: scaled about the feet, scale and shift get confused), adds
+    16 px headroom, runs `hair_clean.clean` (1 px in all) and sets ax/fy/top by ludo_fit's feet convention read as the
+    loop's median. Result: take 1, stride 3..22 (20 frames; frame 23 sits on 3 at 0.5 of a step), 14 frames (4 source,
+    10 flow in-betweens), size x1.0125, box w 276 hh 762 ax 143.7 fy 756.5 top 21.5. Head widths match alanv_front_k
+    (87/74 px against 88/74); checked overlaid on the standing frame at game scale. Every step over the median, seam
+    included: figure 0.82-1.11, legs 0.84-1.09. Seam number 1.93 (old 36-frame walk) -> 1.02. LUDO step 0.0486 (2
+    steps, 1.82 steps/s). Clips regenerated (old = the in-game 36 frames). To compare take 2 once it is fitted:
+    `python3 scripts/walk_loop.py alanv_walk_front` (it tries every fitted take in RETIME). Not installed.

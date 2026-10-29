@@ -63,7 +63,9 @@ SEAM_IB = 1.3      # in-between at the seam only if the seam is still this many 
 IB_K = 3           # ...over this many frames
 # Retimed runs (the user, 2026-10-29, on alanv_walk_front's first loop: "still jumps, doesn't loop"): a stride of
 # source frames first..last, the drift taken out over it, then resampled to N frames evenly spaced in pose (see retime())
-RETIME = {'alanv_walk_front': {'first': 20, 'last': 34, 'N': 14}}
+# The tank-top front walk was then redrawn (the user on the retimed loop: "still uneven walk": Ludo's drawing was lopsided);
+# the loop is made from the redrawn takes (the better of those present) at the frame count with the evenest steps
+RETIME = {'alanv_walk_front': {'takes': ['alanv_walk_front_t1', 'alanv_walk_front_t2'], 'N': [14, 16, 18, 20]}}
 BG = (46, 43, 52)  # the review clips' background (scripts/review_anim.py)
 FONT = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
 
@@ -347,42 +349,105 @@ def retime(Q, N, snap=0.2, rounds=3):
     return best[1], best[2], d
 
 
+def take_frames(take):
+    """a Ludo take fitted by scripts/ludo_fit.py: its frames (art/review/ludo/<take>/fit/fNN.webp) and sprite meta"""
+    d = os.path.join(SEQ, 'art/review/ludo', take)
+    fs = sorted(glob.glob(os.path.join(d, 'fit', 'f*.webp')))
+    return [np.asarray(Image.open(f).convert('RGBA')).astype(np.float32) / 255 for f in fs], json.load(open(os.path.join(d, 'fit.json')))
+
+
+def find_stride(P, R, ax, fy, min_l=12, tries=6):
+    """the window a..c-1 whose next frame c sits best on a (as build(), strides of at least min_l frames)"""
+    D = pose_matrix(P, R); n = len(P)
+    pairs = sorted((D[a, c], a, c) for a in range(START - 1, n) for c in range(a + min_l, n)); seen, cand = [], []
+    for v, a, c in pairs:
+        if any(abs(a - a2) <= 1 and abs(c - c2) <= 1 for a2, c2 in seen): continue
+        seen.append((a, c))
+        if len(seen) > tries: break
+        cand.append((align(P[a], P[c], ax, fy), a, c))
+    return min(cand, key=lambda t: t[0][3])
+
+
+def body_scale(ref, q, ax, fy):
+    """the scale that gives q's head and shoulders (the top 40% of the box) the size of ref's: searched about the crop's
+    own middle (scaled about the far-off feet, a scale and a vertical shift look alike and the search mixes them up)"""
+    h = int(ref.shape[0] * 0.4)
+    return align(ref[:h], q[:h], ax, h / 2)[0]
+
+
+def feet_meta(out):
+    """scripts/ludo_fit.py's sprite meta convention (ax, fy: the feet's centre and lowest row; top), read as the median
+    over the loop rather than off one frame, so the anchor is where the walking figure stands on average"""
+    fx, fb, tp = [], [], []
+    for o in out:
+        ys, xs = np.where(o[..., 3] > 24 / 255); lo = ys.max() - max(4, int(0.04 * (ys.max() - ys.min())))
+        fx.append(xs[ys >= lo].mean()); fb.append(ys.max()); tp.append(ys.min())
+    return round(float(np.median(fx)), 1), round(float(np.median(fb)), 1), round(float(np.median(tp)), 1)
+
+
 def build_retimed(run, data, log=print):
-    """a stride chosen by eye and measure (RETIME), drift out, retimed even; seam and every frame step reported"""
-    R = RETIME[run]; L0 = data['L'][run]; keys = L0['frames']; meta = data['S'][keys[0]]
-    ax, fy, h0 = meta['ax'], meta['fy'], meta['h']
-    F = [load(k) for k in keys]; P = [pm(a) for a in F]; n = len(F)
-    before = seam_number(P); before_steps = [diff(P[i], P[(i + 1) % n]) for i in range(n)]
-    a, b, N = R['first'], R['last'], R['N']; L = b - a + 1
-    s, dx, dy, err = align(P[a], P[b], ax, fy)   # the body's drift over the stride (frame b put on frame a)
-    Q = [P[a].copy()] + [warp(P[i], s ** ((i - a) / (L - 1)), (i - a) / (L - 1) * dx, (i - a) / (L - 1) * dy, ax, fy,
-                              cv2.INTER_LANCZOS4) for i in range(a + 1, b + 1)]
-    out_p, src, d = retime(Q, N)
-    st, sl = pose_steps(out_p); dfull, dlegs = pose_steps(Q)
-    src = [[a + x for x in v[:2]] + v[2:] for v in src]
+    """RETIME: a stride of a Ludo take (or of the run's own frames), drift out, retimed even, sized and boxed as the
+    game's standing frames, hair cleaned; seam and every frame step reported"""
+    R = RETIME[run]; L0 = data['L'][run]; old = [load(k) for k in L0['frames']]; Po = [pm(a) for a in old]; n = len(old)
+    before = seam_number(Po); before_steps = [diff(Po[i], Po[(i + 1) % n]) for i in range(n)]
+    takes = [t for t in R['takes'] if os.path.exists(os.path.join(SEQ, 'art/review/ludo', t, 'fit.json'))]
+    best = None
+    for take in takes:
+        F, fit = take_frames(take); meta = dict(fit['meta']); ax, fy = meta['ax'], meta['fy']
+        P = [pm(a) for a in F]; Rg = [reg(a) for a in F]
+        (s, dx, dy, err), a, c = find_stride(P, Rg, ax, fy); L = c - a
+        log(f'{run} from {take}: stride {a}..{c - 1} ({L} frames; frame {c} on frame {a}: {err:.1f}, s={s:.4f} dx={dx} dy={dy})')
+        Q = [P[a].copy()] + [warp(P[i], s ** ((i - a) / L), (i - a) / L * dx, (i - a) / L * dy, ax, fy, cv2.INTER_LANCZOS4)
+                             for i in range(a + 1, c)]
+        dfull, dlegs = pose_steps(Q)
+        for N in R['N']:
+            out_p, src, _ = retime(Q, N); st, sl = pose_steps(out_p); score = max(st.max(), sl.max())
+            log(f'  {N} frames: worst step {score:.2f} (figure {st.max():.2f}, legs {sl.max():.2f}, lowest {min(st.min(), sl.min()):.2f})')
+            if best is None or score < best[0] - 0.02:
+                best = (score, take, fit, a, c, (s, dx, dy, err), out_p, [[a + x for x in v[:2]] + v[2:] for v in src], st, sl, dfull, dlegs)
+    score, take, fit, a, c, (s, dx, dy, err), out_p, src, st, sl, dfull, dlegs = best; N = len(out_p)
+    meta = dict(fit['meta']); ax, fy = meta['ax'], meta['fy']
+    # size: the head and shoulders as big as in the take's first frame (the standing keyframe, alanv_front_k's pose, fitted
+    # to 720 px like the game's standing frames), so he doesn't change size between walking and standing
+    F0 = pm(take_frames(take)[0][0])
+    k = float(np.median([body_scale(F0, out_p[i], ax, fy) for i in range(0, N, max(1, N // 4))]))
+    PAD = 16   # headroom on top (scripts/head_scale.py's PAD), so the resized head never meets the box's edge
+    out_p = [np.pad(q, ((PAD, 0), (0, 0), (0, 0))) for q in out_p]; fy += PAD; meta['hh'] += PAD
+    if abs(k - 1) > 0.002: out_p = [warp(q, k, 0, 0, ax, fy, cv2.INTER_LANCZOS4) for q in out_p]
+    after = seam_number(out_p); st, sl = pose_steps(out_p)
     out = [unpm(q) for q in out_p]
-    after = seam_number(out_p)
+    # the hair clean-up (scripts/hair_clean.py), as the game's other walk frames have it
+    import hair_clean
+    hc = []
+    for i, o in enumerate(out):
+        new, kpx = hair_clean.clean(Image.fromarray((np.clip(o, 0, 1) * 255 + 0.5).astype(np.uint8), 'RGBA'))[:2]
+        hc.append(kpx); out[i] = np.asarray(new.convert('RGBA')).astype(np.float32) / 255
+    nax, nfy, ntop = feet_meta(out)
+    meta.update(ax=nax, fy=nfy, top=ntop)
     ent = {'frames': [f'{run}_{i:02d}' for i in range(N)], 'fps': L0['fps'], 'steps': 2, 'step': round(2 * STEP_H / N, 4)}
     rep = {
         'old': {'frames': n, 'steps': L0.get('steps'), 'step': L0.get('step')},
-        'new': {'frames': N, 'steps': 2, 'step': ent['step']},
-        'method': 'retimed: source stride, drift out, resampled evenly along pose distance with optical-flow in-betweens',
-        'kept': f'{a}..{b}', 'drift_removed': {'scale': round(1 / s, 4), 'dx': -dx, 'dy': -dy, 'over_frames': L - 1},
+        'new': {'frames': N, 'steps': 2, 'step': ent['step'], 'steps_per_s_in_game': round(0.62 / ent['step'] * 2 / N, 2)},
+        'method': 'retimed: a stride of a new Ludo take, drift out, resampled evenly along pose distance with optical-flow '
+                  'in-betweens, sized to the standing keyframe, hair cleaned',
+        'take': take, 'kept': f'{a}..{c - 1}', 'match_err': round(err, 1),
+        'drift_removed': {'scale': round(1 / s, 4), 'dx': -dx, 'dy': -dy, 'over_frames': c - a},
+        'size_to_standing': round(k, 4), 'hair_clean_px': hc, 'sprite': meta,
         'src': src, 'source_frames_kept_as_is': sum(len(v) == 1 for v in src),
         'source_steps_over_median': {'figure': [round(float(x), 2) for x in dfull], 'legs': [round(float(x), 2) for x in dlegs]},
         'steps_over_median': {'figure': [round(float(x), 2) for x in st], 'legs': [round(float(x), 2) for x in sl]},
         'max_step_over_median': {'figure': round(float(st.max()), 2), 'legs': round(float(sl.max()), 2)},
+        'min_step_over_median': {'figure': round(float(st.min()), 2), 'legs': round(float(sl.min()), 2)},
         'seam_before': {'number': round(before[0], 2), 'seam': round(before[1], 1), 'near_steps': round(before[2], 1),
                         'run_median_step': round(before[3], 1), 'max_step_over_median': round(float(max(before_steps) / np.median(before_steps)), 2),
-                        'body': drift_jump(F)},
+                        'body': drift_jump(old)},
         'seam_after': {'number': round(after[0], 2), 'seam': round(after[1], 1), 'near_steps': round(after[2], 1),
                        'run_median_step': round(after[3], 1), 'body': drift_jump(out)},
         'edge_alpha': round(max(max(float(o[0, :, 3].max()), float(o[:, 0, 3].max()), float(o[:, -1, 3].max())) for o in out), 3),
     }
-    log(f'{run}: stride {a}..{b} retimed to {N} frames ({rep["source_frames_kept_as_is"]} source frames as they are); '
-        f'steps/median, figure {" ".join("%.2f" % x for x in st)} (max {st.max():.2f}; the stride as Ludo drew it {dfull.max():.2f}); '
-        f'legs {" ".join("%.2f" % x for x in sl)} (max {sl.max():.2f}; Ludo {dlegs.max():.2f})')
-    return out, ent, meta, rep, F
+    log(f'{run}: {take} {a}..{c - 1} retimed to {N} frames ({rep["source_frames_kept_as_is"]} source frames as they are), '
+        f'size x{k:.4f}; steps/median figure {" ".join("%.2f" % x for x in st)}; legs {" ".join("%.2f" % x for x in sl)}')
+    return out, ent, meta, rep, old
 
 
 # ---------------------------------------------------------------- review clips

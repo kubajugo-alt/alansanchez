@@ -70,7 +70,7 @@ section > p { margin: 0 0 18px; max-width: 65ch; color: var(--muted); }
 <section>
   <div class="eyebrow">New · waiting for you</div>
   <h2>Walking, now looping</h2>
-  <p>Five of these are approved and in the game; the tank top walking towards us is redone (one full stride, evenly spaced, new in-between frames) and waits for you. Each walk is one whole stride that loops without a jump: the first clip repeats it four times; the second shows the old walk beside the new, with the seam marked. Not in the game until you approve. (Your earlier "needs changes" on the old walks is kept in the review store.)</p>
+  <p>Five of these are approved and in the game; the tank top walking towards us is redrawn by Ludo as an even, symmetric stride, then looped and evenly spaced; it waits for you. Each walk is one whole stride that loops without a jump: the first clip repeats it four times; the second shows the old walk beside the new, with the seam marked. Not in the game until you approve. (Your earlier "needs changes" on the old walks is kept in the review store.)</p>
   <div class="grid walks" id="g-walk"></div>
 </section>
 <section>
@@ -92,12 +92,12 @@ const ITEMS = [
   { id: 'talk_alanb_side_k', group: 'talk', src: 'talk_alanb_side_k.mp4', title: 'Blazer, side', tech: 'alanb_side_k · alan_ask_baute_cave', sound: true },
   { id: 'talk_alanv_front_k', group: 'talk', src: 'talk_alanv_front_k.mp4', title: 'Tank top, front', tech: 'alanv_front_k · new, not in the game yet', sound: true },
 ];
-const LOOPN = { alanv_walk_side: '24-frame loop, was 36', alanv_walk_front: '14-frame loop, evenly spaced; was 36', alanv_walk_back: '24-frame loop, was 36',
+const LOOPN = { alanv_walk_side: '24-frame loop, was 36', alanv_walk_front: 'new Ludo drawing, 14-frame loop, evenly spaced', alanv_walk_back: '24-frame loop, was 36',
   alanb_walk_side: '24-frame loop, was 36', alanb_walk_front: '25-frame loop, was 36', alanb_walk_back: '25-frame loop, was 36' };
 for (const [o, on] of [['alanv', 'Tank top'], ['alanb', 'Blazer']])
   for (const [v, vn] of [['side', 'side'], ['front', 'towards us'], ['back', 'away']])
-    { const redo = o === 'alanv' && v === 'front', n = redo ? 'loop2' : 'loop', on2 = redo ? 'oldnew2' : 'oldnew';   // (the tank top's front walk, redone after "still jumps")
-      ITEMS.push({ id: `${n}_${o}_walk_${v}`, group: 'walk', src: `${n}_${o}_walk_${v}.mp4`, extra: `${on2}_${o}_walk_${v}.mp4`, title: `${on}, ${vn}` + (redo ? ' (redone)' : ''), tech: LOOPN[`${o}_walk_${v}`], loop: true }); }
+    { const redo = o === 'alanv' && v === 'front', n = redo ? 'loop3' : 'loop', on2 = redo ? 'oldnew3' : 'oldnew';   // (the tank top's front walk, redone after "still jumps")
+      ITEMS.push({ id: `${n}_${o}_walk_${v}`, group: 'walk', src: `${n}_${o}_walk_${v}.mp4`, extra: `${on2}_${o}_walk_${v}.mp4`, title: `${on}, ${vn}` + (redo ? ' (redrawn)' : ''), tech: LOOPN[`${o}_walk_${v}`], loop: true }); }
 const EMO = ['joy', 'mischievous', 'embarrassed', 'surprise', 'concern', 'sadness', 'fear', 'anger'];
 for (const e of EMO) for (const [v, vn] of [['side', 'side'], ['front', 'front']])
   ITEMS.push({ id: `emo_${v}_${e}`, group: 'emo', src: `emo_${v}_${e}.mp4`, title: `${e[0].toUpperCase() + e.slice(1)}, ${vn}`, tech: `alanv_${v}_k · ${e}_soft`, sound: true });
