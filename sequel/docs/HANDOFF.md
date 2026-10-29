@@ -662,3 +662,14 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     The other voices dropped; round two for Graciela: v4 with a "[strong Spanish accent]" cue (plain and lively), v3
     with cues sped up 12% (atempo, same pitch), v3 with stronger cues, and that sped up 10%. Same page, version 2.
     validate: 0 errors; play.mjs: won in 98 steps.
+64. **Vasco's wide-open mouth; the Spanish cast's voice samples** (2026-10-29). The user: "something is off with vasco's
+    mouth when wide open". The D shape pushed out past his profile and the jaw dropped ~9.5°: mouth D regenerated
+    (Gemini $0.04; the first D kept in `art/designs/vasco_faces_v10a_D1/`) and `face_jaw.py` gets `JAW_CAP` (a jaw's
+    drop as a share of the head box; Vasco 0.035 against the default 0.055): his C and D now open 6°. Sheet
+    `art/review/cast_repaint/vasco_mouth_fix.jpg`; still `ok: false`. Voices, the user: "We will use Graciela · v4 +
+    accent cue... I think we need to do it for all of the cast. Give me samples of their voices in different models".
+    Carmen's choice: eleven_v4, language_code es, the text led by "[strong Spanish accent]" (cast.json/generate-voices
+    to be changed when the cast's picks are in). Samples for the other 17 Spanish speakers (two lines each, the
+    longest under 220 characters; the barman and Guardia 2 have one): now / v4 + accent cue / v4 lively (stability 0.3,
+    style 0.5, speed 1.08) + accent cue: `art/review/voices/cast/`, page with a pick per character (db `picks/<who>`):
+    https://claude.ai/artifact/X4cKETiFTYVK2aPgnBVxo1.

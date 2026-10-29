@@ -21,6 +21,9 @@ sys.path.insert(0, os.path.join(SEQ, 'scripts'))
 import face_kit as K
 
 UP, BG = K.UP, np.array(K.BG, np.float32)
+# how far a jaw may drop, as a share of the head box (the user, 2026-10-29, on Vasco's repaint: "something is off with
+# vasco's mouth when wide open": his long, narrow face looks unhinged at the default)
+JAW_CAP = {'vasco': 0.035}
 ss = lambda e0, e1, v: (lambda q: q * q * (3 - 2 * q))(np.clip((v - e0) / (e1 - e0), 0, 1))
 
 
@@ -98,7 +101,7 @@ def one(who):
         want = 0.4 * float(rows.max() - rows.min()) if len(rows) else 0.0
         if st == 'C': want = max(want, 2 * UP)
         if st in 'AB': want = min(want, 0.7 * UP)
-        want = min(want, 0.055 * bh)
+        want = min(want, JAW_CAP.get(who, 0.055) * bh)
         f = want
         if hinge is not None:
             f = 0.0
