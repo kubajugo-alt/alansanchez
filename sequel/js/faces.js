@@ -5040,5 +5040,398 @@ window.FACES = {
   ],
   "who": "lolo",
   "ok": false
+ },
+ "talk_montesdeoca_00": {
+  "box": [
+   148,
+   39,
+   50,
+   98
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "montesdeoca",
+  "ok": false
+ },
+ "talk_montesdeoca_01": {
+  "box": [
+   145,
+   38,
+   50,
+   98
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "montesdeoca",
+  "ok": false
+ },
+ "talk_montesdeoca_02": {
+  "box": [
+   142,
+   36,
+   49,
+   21
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "who": "montesdeoca",
+  "ok": false
+ },
+ "talk_gail_00": {
+  "box": [
+   112,
+   61,
+   54,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_01": {
+  "box": [
+   113,
+   61,
+   56,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_02": {
+  "box": [
+   113,
+   61,
+   56,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_03": {
+  "box": [
+   113,
+   62,
+   58,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_04": {
+  "box": [
+   113,
+   62,
+   59,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_05": {
+  "box": [
+   112,
+   62,
+   60,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_06": {
+  "box": [
+   113,
+   62,
+   59,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_07": {
+  "box": [
+   112,
+   61,
+   60,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_11": {
+  "box": [
+   113,
+   91,
+   59,
+   52
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_15": {
+  "box": [
+   116,
+   61,
+   58,
+   81
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_16": {
+  "box": [
+   114,
+   61,
+   60,
+   82
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_17": {
+  "box": [
+   115,
+   62,
+   58,
+   23
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_gail_24": {
+  "box": [
+   110,
+   63,
+   59,
+   21
+  ],
+  "mouths": [],
+  "eyes": [
+   "closed"
+  ],
+  "who": "gail",
+  "ok": false
+ },
+ "talk_derek_00": {
+  "box": [
+   178,
+   56,
+   41,
+   88
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "derek",
+  "ok": false
+ },
+ "talk_derek_01": {
+  "box": [
+   178,
+   82,
+   40,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "who": "derek",
+  "ok": false
+ },
+ "talk_derek_23": {
+  "box": [
+   172,
+   84,
+   42,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "who": "derek",
+  "ok": false
+ },
+ "talk_derek_24": {
+  "box": [
+   176,
+   56,
+   42,
+   90
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "derek",
+  "ok": false
  }
 };
