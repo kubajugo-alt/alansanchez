@@ -4462,5 +4462,150 @@ window.FACES = {
   ],
   "who": "guard",
   "ok": false
+ },
+ "talk_clerk_00": {
+  "box": [
+   186,
+   49,
+   63,
+   92
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "clerk",
+  "ok": false
+ },
+ "talk_clerk_01": {
+  "box": [
+   185,
+   48,
+   64,
+   92
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "clerk",
+  "ok": false
+ },
+ "talk_clerk_02": {
+  "box": [
+   185,
+   48,
+   64,
+   92
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "clerk",
+  "ok": false
+ },
+ "talk_clerk_03": {
+  "box": [
+   185,
+   48,
+   64,
+   92
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "clerk",
+  "ok": false
+ },
+ "talk_clerk_04": {
+  "box": [
+   185,
+   48,
+   64,
+   92
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "clerk",
+  "ok": false
+ },
+ "talk_clerk_05": {
+  "box": [
+   185,
+   47,
+   64,
+   93
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "who": "clerk",
+  "ok": false
+ },
+ "talk_clerk_06": {
+  "box": [
+   189,
+   79,
+   60,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "eyes": [],
+  "who": "clerk",
+  "ok": false
  }
 };
