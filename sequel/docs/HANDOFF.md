@@ -332,5 +332,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     eye); his new set $0.29. Round two: https://claude.ai/artifact/3hp6okNd3vpbUkoAfwsffA. Alan's 52 sets are on
     (`"ok": true`); everyone else's show with `?faces=all` until approved. Deployed on the user's word ("deploy it, I
     need to see them in the game"); `/lipsync` (the per-line cue files) is left out of the export, the game uses
-    `js/lipsync.js`.
+    `js/lipsync.js`. Deploy 6ae2adbd52f3f8cfbebd9595 (clean export, play.mjs won on it first); live: `/.env`, `/scripts/`,
+    `/lipsync/` 404; the faces, cues, music and new engine served.
 
