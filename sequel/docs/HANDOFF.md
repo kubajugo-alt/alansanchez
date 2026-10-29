@@ -534,3 +534,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       driving; Elena struggling with the door instead of the boots. New lines film_01..film_12 (narrator, Eleanor) in
       js/lines.js, voiced; new paintings s07b (hands on the wheel) and s11b (the door); clips s07, s10, s11 redone
       (old ones kept as *_v1). Recut: 2 min 7 s, 12 narration lines, no character speaks.
+51. **Background people** (2026-10-29). The user: "add more background characters, keeping the same style for all"
+    (museum party guests and waiters; beach tourists, sunbathers, surfers; Vegueta; the cathedral; a hotel restaurant
+    waiter; fishermen at the quay; in poses that fit; no side/front pairs, "just their sprites in situ"). 24 made in
+    Higgsfield (GPT Image 2.5, the approved cast sheet as the style reference, 2.75 credits each; batches of at most
+    ~8, it rate-limits above that). Spec, room and preview placement: `art/designs/extras/extras.json`; paintings
+    `art/designs/extras/<id>.png`. `scripts/extras.py` keys and trims them (`art/review/extras/cut/`) and lays them
+    into their rooms at the layout's depth scale (`room_<room>.jpg`, `sheet.jpg`). Review page with verdicts/notes
+    (db `verdicts`, `notes`): https://claude.ai/artifact/A6JdpNawcWPMW9AAQsNpJr. Not in the game: needs a simple
+    "extras" layer (a static sprite per room per chapter, behind the walkable cast, no hotspot).

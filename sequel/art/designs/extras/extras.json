@@ -1,0 +1,287 @@
+{
+ "style": "One background character for a 1990s point-and-click adventure game set in Las Palmas de Gran Canaria in June 1996, painted as if by the same artist who painted the people in the reference image: the same smooth, clean painted look, soft broad shading, flat clean colour with a few soft folds, clean thin outlines, the same muted palette and lighting, the same realistic proportions (head about one eighth of the body height), not a caricature. ",
+ "end": " Full body with feet, on a flat plain green background, no floor, no shadow.",
+ "ref": "08e6e53f-e88a-4e73-ad11-482d5f6b3120",
+ "extras": [
+  {
+   "id": "museum_waiter_tray",
+   "room": "museum_hall",
+   "aspect": "3:4",
+   "desc": "A waiter at a museum reception: a man in his thirties in a white waiter's jacket, black trousers and bow tie, walking, carrying a silver tray of champagne flutes on one raised hand. Seen from the side, walking.",
+   "place": [
+    300,
+    600,
+    1.0
+   ]
+  },
+  {
+   "id": "museum_waitress_canapes",
+   "room": "museum_hall",
+   "aspect": "3:4",
+   "desc": "A waitress at a museum reception: a young woman in a black dress with a white apron, hair tied back, holding out a tray of canapés with both hands, smiling politely. Three-quarter view.",
+   "place": [
+    1000,
+    560,
+    0.97
+   ]
+  },
+  {
+   "id": "museum_guest_linen",
+   "room": "museum_hall",
+   "aspect": "3:4",
+   "desc": "A guest at a museum reception: a Canarian man in his fifties in a pale linen suit and open-necked shirt, holding a glass of red wine, mid-conversation, gesturing with his free hand. Three-quarter view.",
+   "place": [
+    700,
+    585,
+    1.0
+   ]
+  },
+  {
+   "id": "museum_guest_pearls",
+   "room": "museum_hall",
+   "aspect": "3:4",
+   "desc": "A guest at a museum reception: an elegant woman in her sixties in a dark green evening dress and pearls, grey hair in a chignon, holding a glass of white wine, listening. Three-quarter view.",
+   "place": [
+    770,
+    590,
+    0.96
+   ]
+  },
+  {
+   "id": "museum_cocktail_pair",
+   "room": "museum_hall",
+   "aspect": "4:3",
+   "desc": "Two guests networking at a tall round cocktail table with a white cloth: a man in a dark suit and a woman in a red dress, each with a glass of wine, leaning on the table, talking. Seen from the side; the table and both people fully visible.",
+   "place": [
+    480,
+    615,
+    1.0
+   ]
+  },
+  {
+   "id": "museum_guest_academic",
+   "room": "museum_hall",
+   "aspect": "3:4",
+   "desc": "A guest at a museum reception: a young bearded academic in his thirties in a tweed jacket and open shirt, glasses, holding a glass of red wine and a museum brochure, laughing. Three-quarter view.",
+   "place": [
+    1180,
+    605,
+    1.0
+   ]
+  },
+  {
+   "id": "beach_sunbather",
+   "room": "beach",
+   "aspect": "4:3",
+   "desc": "On Las Canteras beach: a woman in her forties sunbathing, lying on her back on a striped beach towel, in a modest one-piece swimsuit, sunglasses and a straw hat over her face, a paperback beside her. Seen from the side; the whole towel and figure visible.",
+   "place": [
+    320,
+    655,
+    "w"
+   ]
+  },
+  {
+   "id": "beach_surfer_girl",
+   "room": "beach",
+   "aspect": "3:4",
+   "desc": "On Las Canteras beach: a young woman surfer in a short black wetsuit, wet hair tied back, walking with a surfboard under her arm. Seen from the side, walking.",
+   "place": [
+    560,
+    600,
+    0.97
+   ]
+  },
+  {
+   "id": "beach_sandcastle",
+   "room": "beach",
+   "aspect": "4:3",
+   "desc": "On Las Canteras beach: a father in swimming shorts kneeling with his small son, building a sandcastle with a red bucket and spade; the little sandcastle between them. Seen from the side; everything visible.",
+   "place": [
+    850,
+    640,
+    0.62
+   ]
+  },
+  {
+   "id": "beach_old_man_chair",
+   "room": "beach",
+   "aspect": "3:4",
+   "desc": "On Las Canteras beach: an old Canarian man in a straw hat, white vest and rolled-up trousers, sitting in a folding beach chair reading a newspaper. Three-quarter view; the whole chair visible.",
+   "place": [
+    1110,
+    620,
+    0.78
+   ]
+  },
+  {
+   "id": "canteras_german_tourist",
+   "room": "canteras",
+   "aspect": "3:4",
+   "desc": "On the beach promenade: a German tourist in his fifties in a bucket hat, short-sleeved shirt, shorts and sandals with socks, a camera round his neck, looking at a folded map. Three-quarter view.",
+   "place": [
+    900,
+    610,
+    1.0
+   ]
+  },
+  {
+   "id": "beach_surfer_wax",
+   "room": "beach",
+   "aspect": "3:4",
+   "desc": "On Las Canteras beach: a young man surfer with short sun-bleached hair in board shorts, standing and waxing a surfboard propped upright beside him. Three-quarter view.",
+   "place": [
+    150,
+    600,
+    1.1
+   ]
+  },
+  {
+   "id": "vegueta_pigeons",
+   "room": "santa_ana",
+   "aspect": "3:4",
+   "desc": "In the old town square of Vegueta: an old woman in a black dress and cardigan sitting on a wooden park bench, scattering breadcrumbs for pigeons from a paper bag; two pigeons at her feet. Three-quarter view; the whole bench visible.",
+   "place": [
+    420,
+    640,
+    0.8
+   ]
+  },
+  {
+   "id": "vegueta_lottery",
+   "room": "santa_ana",
+   "aspect": "3:4",
+   "desc": "In the old town of Vegueta: a lottery-ticket seller, a man in his sixties in a cap and a grey jacket, strips of lottery tickets pinned to his jacket and held up in one hand, calling out. Three-quarter view.",
+   "place": [
+    1110,
+    640,
+    1.0
+   ]
+  },
+  {
+   "id": "vegueta_couple",
+   "room": "santa_ana",
+   "aspect": "3:4",
+   "desc": "In the old town of Vegueta: a young Canarian couple in light summer clothes walking hand in hand, the woman with a sun hat, the man carrying an ice cream. Seen from the side, walking.",
+   "place": [
+    760,
+    565,
+    1.0
+   ]
+  },
+  {
+   "id": "vegueta_tourists_guidebook",
+   "room": "santa_ana",
+   "aspect": "3:4",
+   "desc": "In the old town of Vegueta: a British tourist woman in her sixties in a sun visor and floral blouse, looking up at a building, holding an open guidebook. Three-quarter view.",
+   "place": [
+    910,
+    600,
+    0.96
+   ]
+  },
+  {
+   "id": "cathedral_praying",
+   "room": "santa_ana_inside",
+   "aspect": "3:4",
+   "desc": "Inside the cathedral of Santa Ana: an old woman in black with a black lace mantilla, kneeling on a low wooden kneeler in prayer, a rosary in her hands. Seen from the side; the kneeler visible.",
+   "place": [
+    300,
+    620,
+    0.66
+   ]
+  },
+  {
+   "id": "cathedral_tourist",
+   "room": "santa_ana_inside",
+   "aspect": "3:4",
+   "desc": "Inside the cathedral of Santa Ana: a young woman tourist in a long skirt and cardigan over her shoulders, looking up at the vaulted ceiling in wonder, a small camera in her hands. Three-quarter view.",
+   "place": [
+    900,
+    600,
+    0.97
+   ]
+  },
+  {
+   "id": "cathedral_priest",
+   "room": "santa_ana_inside",
+   "aspect": "3:4",
+   "desc": "Inside the cathedral of Santa Ana: an elderly priest in a black cassock and white collar, walking slowly with a prayer book held against his chest. Seen from the side, walking.",
+   "place": [
+    640,
+    585,
+    1.0
+   ]
+  },
+  {
+   "id": "restaurant_waiter",
+   "room": "hotel_restaurant",
+   "aspect": "3:4",
+   "desc": "In a 1990s seaside hotel restaurant: a waiter in his forties in a white jacket, black trousers and bow tie, a white napkin over his arm, pouring red wine from a bottle into a glass held at waist height. Three-quarter view.",
+   "place": [
+    900,
+    600,
+    1.0
+   ]
+  },
+  {
+   "id": "quay_net_mender",
+   "room": "isleta",
+   "aspect": "3:4",
+   "desc": "On the fishing quay of La Isleta: an old fisherman in a flat cap and a faded blue work shirt, sitting on an upturned wooden fish crate, mending a fishing net spread across his knees with a netting needle. Three-quarter view; the crate visible.",
+   "place": [
+    1010,
+    665,
+    0.72
+   ]
+  },
+  {
+   "id": "quay_crate_carrier",
+   "room": "isleta",
+   "aspect": "3:4",
+   "desc": "On the fishing quay of La Isleta: a strong fisherman in his forties in rubber boots, rolled-up sleeves and an apron, carrying a wooden crate of silver fish on his shoulder. Seen from the side, walking.",
+   "place": [
+    600,
+    565,
+    1.0
+   ]
+  },
+  {
+   "id": "quay_rope",
+   "room": "isleta",
+   "aspect": "3:4",
+   "desc": "On the fishing quay of La Isleta: a young fisherman in a striped T-shirt and rubber boots, coiling a thick mooring rope over his arm. Three-quarter view.",
+   "place": [
+    250,
+    525,
+    1.0
+   ]
+  },
+  {
+   "id": "quay_two_old",
+   "room": "isleta",
+   "aspect": "4:3",
+   "desc": "On the fishing quay of La Isleta: two old fishermen in caps standing and talking, one leaning on a bollard and smoking, the other with his hands in his pockets. Seen from the side; both fully visible.",
+   "place": [
+    420,
+    610,
+    1.0
+   ]
+  }
+ ],
+ "jobs": {
+  "museum_waitress_canapes": "3b138405-cd51-4c88-a7d5-e503120bb02e",
+  "museum_cocktail_pair": "e8384ce6-47ff-4238-afe1-70a0c256ef90",
+  "museum_guest_academic": "a5965d05-51ca-4d08-962b-af0cbde34d03",
+  "beach_sunbather": "e606db93-b80b-4655-89ce-7ec4edaaa2b7",
+  "beach_surfer_girl": "f47c9ffe-7686-4530-bd1f-a4ff34837547",
+  "beach_sandcastle": "cb35d2c6-a472-407b-ba7f-0ea63708fe3b",
+  "canteras_german_tourist": "6cfe7a71-442e-4ecb-97ea-905cddec2b36",
+  "beach_surfer_wax": "c8361c51-4ed3-4c31-8631-41cc9a961cba",
+  "museum_waiter_tray": "09c10d75-50e9-4259-bf22-a97afe763ade",
+  "museum_guest_linen": "620890d6-ee6e-4cbc-a977-8986a1fc694f",
+  "museum_guest_pearls": "2eeb7adc-b52e-4f25-b5e2-8c15f7206e37",
+  "beach_old_man_chair": "2b108555-1ed6-4b36-a36d-308607752281",
+  "vegueta_pigeons": "ae06449b-cb22-4d7e-a33b-7e448856b7fc",
+  "vegueta_lottery": "f1998ef2-7463-4695-906e-f6a8c04abae9"
+ }
+}
