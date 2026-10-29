@@ -62,3 +62,4 @@
 - 2026-10-29 figure `yeray_v3` Canva media MAHZXLa2AlM -> art/designs/yeray_v3.png Yeray with his own face (not like Vasco), smoother shirt (the user); candidate
 - 2026-10-29 figure `yeray_v4` Canva media MAHZXA4lUjQ -> art/designs/yeray_v4.png Yeray natural, not doll-like (the user: 'like ken'); candidate
 - 2026-10-29 figure `yeray_v5` Canva media MAHZXBE4BHs -> art/designs/yeray_v5.png Yeray with a field cap, rounder face, darker skin (the user); candidate
+- 2026-10-29 figure `yeray_v6` Canva media MAHZXPZsIjg -> art/designs/yeray_v6.png Yeray from his first design: skinnier, no wrinkles, cap, side and front, Alan's style (the user); candidate
