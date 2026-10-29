@@ -30,8 +30,7 @@ GEMINI = 'gemini-nano-banana-2.1'
 PRICE = (1.50, 7.50, 30.00)  # USD per 1M tokens: input, text out, image out
 # who: (the loops they talk in, the head for Gemini, a woman)
 WHO = {
-    'alan': (['alanv_talk_a', 'alanv_talk_b'], 'the head of Alan, a man of thirty-eight with dark curly hair, clean-shaven', False),
-    'alanb': (['alanb_talk_a'], 'the head of Alan, a man of thirty-eight with dark curly hair, clean-shaven', False),
+    # (Alan's faces come from Game I's, finished by hand there: scripts/face_from_game1.py)
     'vasco': (['vasco_talk_b', 'vasco_talk_a'], 'the head of Vasco, a man in his thirties with dark curly hair and light stubble', False),
     'carmen': (['talk_carmen'], 'the head of Carmen, a Canarian archivist in her early forties with short thick black hair', True),
     'baute': (['talk_baute'], 'the head of Dr. Rayco Baute, a Canarian archaeologist of fifty-six', False),

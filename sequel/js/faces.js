@@ -975,318 +975,463 @@ window.FACES = {
  },
  "alanv_side_k": {
   "box": [
-   115,
-   67,
-   36,
-   68
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "alan",
-  "ok": true
- },
- "alanb_side_k": {
-  "box": [
-   116,
-   65,
-   36,
-   73
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "alanb",
-  "ok": true
- },
- "vascos_side_k": {
-  "box": [
-   148,
-   68,
-   33,
-   60
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "vasco",
-  "ok": true
- },
- "carmen_c": {
-  "box": [
-   117,
-   72,
-   44,
-   73
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "carmen",
-  "ok": true
- },
- "baute2_k": {
-  "box": [
-   126,
-   64,
-   37,
-   67
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "baute",
-  "ok": true
- },
- "rafa_c": {
-  "box": [
-   128,
-   69,
-   43,
-   78
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "rafa",
-  "ok": true
- },
- "chano2_k": {
-  "box": [
-   145,
-   60,
-   51,
-   75
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "chano",
-  "ok": true
- },
- "nieves_c": {
-  "box": [
-   113,
-   65,
-   40,
-   75
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "nieves",
-  "ok": true
- },
- "yeray_c": {
-  "box": [
-   135,
-   68,
-   36,
-   70
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "yeray",
-  "ok": true
- },
- "pino_c": {
-  "box": [
-   174,
-   69,
+   80,
    45,
-   95
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "pino",
-  "ok": true
- },
- "mercedes_c": {
-  "box": [
-   65,
-   71,
-   48,
-   84
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "mercedes",
-  "ok": true
- },
- "surfer_c": {
-  "box": [
-   103,
-   57,
-   43,
-   75
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "surfer",
-  "ok": true
- },
- "guard_c": {
-  "box": [
-   63,
-   94,
-   60,
-   111
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "guard",
-  "ok": true
- },
- "clerk_c": {
-  "box": [
-   153,
-   63,
-   65,
-   93
-  ],
-  "mouths": [
-   "A",
-   "B",
-   "C",
-   "D",
-   "E",
-   "F"
-  ],
-  "eyes": [
-   "closed"
-  ],
-  "who": "clerk",
-  "ok": true
- },
- "fermin_c": {
-  "box": [
-   236,
-   73,
-   58,
+   82,
    92
   ],
   "mouths": [
    "A",
    "B",
    "C",
+   "C_40",
+   "C_70",
    "D",
+   "D_40",
+   "D_70",
    "E",
-   "F"
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "who": "alan",
+  "from": "game1"
+ },
+ "alanb_side_k": {
+  "box": [
+   84,
+   46,
+   81,
+   91
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70",
+   "G",
+   "H",
+   "H_40",
+   "H_70"
+  ],
+  "eyes": [
+   "half",
+   "closed"
+  ],
+  "ok": true,
+  "who": "alan",
+  "from": "game1"
+ },
+ "vascos_side_k": {
+  "box": [
+   138,
+   89,
+   46,
+   43
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
   ],
   "eyes": [
    "closed"
   ],
+  "ok": true,
+  "who": "vasco",
+  "from": "jaw"
+ },
+ "carmen_c": {
+  "box": [
+   94,
+   101,
+   60,
+   49
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "carmen",
+  "from": "jaw"
+ },
+ "baute2_k": {
+  "box": [
+   113,
+   88,
+   44,
+   47
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "baute",
+  "from": "jaw"
+ },
+ "rafa_c": {
+  "box": [
+   110,
+   93,
+   52,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "rafa",
+  "from": "jaw"
+ },
+ "chano2_k": {
+  "box": [
+   124,
+   85,
+   91,
+   52
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "chano",
+  "from": "jaw"
+ },
+ "nieves_c": {
+  "box": [
+   97,
+   91,
+   50,
+   50
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "nieves",
+  "from": "jaw"
+ },
+ "yeray_c": {
+  "box": [
+   121,
+   93,
+   44,
+   49
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "yeray",
+  "from": "jaw"
+ },
+ "pino_c": {
+  "box": [
+   155,
+   99,
+   62,
+   60
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "pino",
+  "from": "jaw"
+ },
+ "mercedes_c": {
+  "box": [
+   73,
+   100,
+   73,
+   57
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "mercedes",
+  "from": "jaw"
+ },
+ "surfer_c": {
+  "box": [
+   106,
+   82,
+   53,
+   49
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "surfer",
+  "from": "jaw"
+ },
+ "guard_c": {
+  "box": [
+   65,
+   135,
+   88,
+   72
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "guard",
+  "from": "jaw"
+ },
+ "clerk_c": {
+  "box": [
+   147,
+   94,
+   93,
+   59
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "clerk",
+  "from": "jaw"
+ },
+ "fermin_c": {
+  "box": [
+   214,
+   104,
+   77,
+   62
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
   "who": "fermin",
-  "ok": true
+  "from": "jaw"
  },
  "lolo_c": {
   "box": [
@@ -1304,65 +1449,90 @@ window.FACES = {
  },
  "montesdeoca_c": {
   "box": [
-   167,
-   56,
-   49,
-   100
+   148,
+   82,
+   125,
+   65
   ],
   "mouths": [
    "A",
    "B",
    "C",
+   "C_40",
+   "C_70",
    "D",
+   "D_40",
+   "D_70",
    "E",
-   "F"
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
   ],
   "eyes": [
    "closed"
   ],
+  "ok": true,
   "who": "montesdeoca",
-  "ok": true
+  "from": "jaw"
  },
  "gail_c": {
   "box": [
-   136,
-   77,
-   46,
-   78
+   117,
+   101,
+   62,
+   51
   ],
   "mouths": [
    "A",
    "B",
    "C",
+   "C_40",
+   "C_70",
    "D",
+   "D_40",
+   "D_70",
    "E",
+   "E_40",
+   "E_70",
    "F"
   ],
   "eyes": [
    "closed"
   ],
+  "ok": true,
   "who": "gail",
-  "ok": true
+  "from": "jaw"
  },
  "derek_c": {
   "box": [
-   147,
-   67,
-   48,
-   91
+   129,
+   99,
+   59,
+   59
   ],
   "mouths": [
    "A",
    "B",
    "C",
+   "C_40",
+   "C_70",
    "D",
+   "D_40",
+   "D_70",
    "E",
-   "F"
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
   ],
   "eyes": [
    "closed"
   ],
+  "ok": true,
   "who": "derek",
-  "ok": true
+  "from": "jaw"
  }
 };

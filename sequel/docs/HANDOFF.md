@@ -334,4 +334,22 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     need to see them in the game"); `/lipsync` (the per-line cue files) is left out of the export, the game uses
     `js/lipsync.js`. Deploy 6ae2adbd52f3f8cfbebd9595 (clean export, play.mjs won on it first); live: `/.env`, `/scripts/`,
     `/lipsync/` 404; the faces, cues, music and new engine served.
+32. **Static sprites, Game I's mouths, no intro, repaints under way** (2026-10-29).
+    - The user: "remove all the animations and definitely the stepping sounds from walking. Leave in only Alan's walk and
+      leave the lip sync and blinking on all the characters. But the characters should only be using their original
+      static sprites"; "remove the intro from the game for now. start with Alan at the airport". Done: core.js `still()`
+      sets (the Canva statics, `*_side_k` / `_front_k` / `_back_k`, `<id>_c`, Baute `baute2_k`, Chano `chano2_k`; no
+      poses, no turns, no talk loops; Alan's Ludo walk cycles only); audio.js `FOOTSTEPS = false`; main.js
+      `S.PLAY_PROLOGUE = false` (play.mjs skips it then: won, 98 steps). Room movement stays (approved separately).
+    - Mouths (the user: "we had a great solution for very natural blending of the mouth with the face... replicated.
+      Alan's face is probably already done there"): Alan's static sprites take Game I's finished alan_side faces
+      (`scripts/face_from_game1.py`, Game I's face_transfer: head lined up above the mouth, lips painted out, skin
+      shift; states A-H with 40/70% in-betweens, half and shut eyes; fit 0.93). Everyone else: `scripts/face_jaw.py`,
+      Game I's mouth_swaps generalised from landmarks: the figure's own jaw moves (swung about the hinge in profile,
+      pulled down when turned to us), old lips painted out, only Gemini's lips and opening laid on (kept inside the face
+      and above the jaw edge: no halo or grey fringe), in-betweens for C-F. Lolo blinks only (his cigarette). All on.
+    - Repaints in Alan's style (Canva; candidates in art/designs, not in the game): Vasco v3, then v4 (linen field shirt,
+      unbuttoned, sleeves high) and v5 (chest hair); Baute v3; Chano v3. The user: textures must match Alan's
+      hand-painted look ("Rafa got the textures right"); Game I's alan_side and alan_front uploaded to Canva as the
+      reference (media MAHZW4cgw1U). The museum guard still to do.
 
