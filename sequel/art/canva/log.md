@@ -48,3 +48,4 @@
 - 2026-10-28 bg `santa_ana_inside` Canva media MAHZVCDYEbs -> art/bg/santa_ana_inside.jpg new room: inside Santa Ana, where Alan meets Don Fermín
 - 2026-10-29 figure `vasco_v3` Canva media MAHZWotWZLg -> art/designs/vasco_v3.png repaint in Alan's style (the user: Vasco too realistic; candidate, not in the game)
 - 2026-10-29 figure `baute_v3` Canva media MAHZWlxtt3M -> art/designs/baute_v3.png repaint in Alan's style (the user: Baute too realistic; candidate, not in the game)
+- 2026-10-29 figure `chano_v3` Canva media MAHZWvDt2cE -> art/designs/chano_v3.png repaint in Alan's style (the user: Chano too realistic; candidate)

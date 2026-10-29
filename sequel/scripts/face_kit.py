@@ -65,8 +65,12 @@ def LUDO():
     return json.loads(subprocess.run(['node', '-e', js, os.path.join(SEQ, 'js/sprites_ludo.js')], capture_output=True, text=True, check=True).stdout)
 
 
+# the static sprite each figure stands and talks on (the user, 2026-10-29: "only... their original static sprites")
+STATIC = {'alan': 'alanv_side_k', 'alanb': 'alanb_side_k', 'vasco': 'vascos_side_k', 'baute': 'baute2_k', 'chano': 'chano2_k'}
+
+
 def frames_of(who):
-    L = LUDO(); return [f for run in WHO[who][0] for f in L[run]['frames']]
+    return [STATIC.get(who, who + '_c')]
 
 
 def base_of(who): return frames_of(who)[0]
@@ -326,6 +330,8 @@ def faces_js():
 
 def build(whos):
     data = faces_js()
+    keep = {f for w in WHO for f in frames_of(w)}
+    for k in [k for k, d in data.items() if d.get('who') and k not in keep]: data.pop(k)   # sets for frames no longer used
     for who in whos:
         W = work(who); idx = json.load(open(W + 'index.json')); fr0 = idx['base']
         made = 0

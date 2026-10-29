@@ -99,12 +99,13 @@
   }
 
   // ---------------------------------------------------------------- a new game
+  S.PLAY_PROLOGUE = false;
   async function newGame() {
     const scene = new URLSearchParams(location.search).get('scene');
     if (!S.content() && !window.FAST && !scene) await askContent();
     if (PREVIEW[scene]) return preview(scene);
     S.give('notebook', true); S.give('note5000', true);
-    await S.prologue();
+    if (S.PLAY_PROLOGUE) await S.prologue(); // (off for now, the user 2026-10-29: "remove the intro... start with Alan at the airport")
     await G.busy(async () => {
       F().ch = 1;
       await G.goRoom('gando', null, { instant: true, noEnter: true, noSave: true, pos: [200, 660, 'e'] });

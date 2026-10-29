@@ -521,7 +521,10 @@
   const STEP_VOL = 0.32; // the recorded steps sit under the dialogue and the room
   // footsteps sit where the walker is: panned by x, the bus swapped for a panner node
   let stepPan = null;
+  // Game II: no footsteps (the user, 2026-10-29: "definitely the stepping sounds from walking" out)
+  const FOOTSTEPS = false;
   function footstep(surface, vol, x) {
+    if (!FOOTSTEPS) return;
     if (!ctx) return;
     // recorded steps: step_<surface>, its takes picked at random, a touch of pitch so no two match
     const rec = SOUND_NEW && 'step_' + surface;

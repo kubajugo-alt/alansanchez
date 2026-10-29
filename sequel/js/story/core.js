@@ -14,15 +14,15 @@
   S.chat = (flag, first, again) => () => F()[flag] ? say(...[].concat(again)) : (F()[flag] = true, say(...[].concat(first)));
   S.posed = async function (pose, fn) { const p = G.player; p.pose = p.visible ? pose : null; try { await fn(); } finally { p.pose = null; } };
   S.give = (id, silent) => G.giveItem(id, silent);
-  // a character's frames: their Canva design (art/sprites/<id>_c.webp, scripts/figure_cut.py) once it's made, else the
-  // stand-in figure (scripts/placeholders.py). One painting for now: the Ludo animation sets come later.
+  // a character's frames: their Canva design, standing still (the user, 2026-10-29: "the characters should only be using
+  // their original static sprites"; lip-sync and blinking are laid on it, js/engine/faces.js), else the stand-in figure
+  // (scripts/placeholders.py). Baute and Chano stand in their redesigns (darker brown; the less cartoonish Chano).
   const LU = window.LUDO || {};
+  const STATIC = { baute: 'baute2_k', chano: 'chano2_k' };
   S.ph = (id, scale, more, alias) => {
-    const SP = window.SPRITES || {}, c = SP[id + '_c'] ? id + '_c' : alias && SP[alias + '_c'] ? alias + '_c' : null;
-    // a Ludo talk loop (scripts/ludo_install.py): its first frame stands, the loop plays in order while they speak
-    const lt = LU['talk_' + id] || (alias && LU['talk_' + alias]);
-    const f = lt ? { idle: [lt.frames[0]], talk: lt.frames, talkFps: lt.fps, walk: [lt.frames[0]] }
-      : c ? { idle: [c], talk: [c], walk: [c] }
+    const SP = window.SPRITES || {}, own = k => STATIC[k] && SP[STATIC[k]] ? STATIC[k] : SP[k + '_c'] ? k + '_c' : null;
+    const c = own(id) || (alias && own(alias));
+    const f = c ? { idle: [c], talk: [c], walk: [c] }
       : { idle: [id + '_ph_idle'], talk: [id + '_ph_talk', id + '_ph_idle'], walk: [id + '_ph_walk1', id + '_ph_idle'] };
     return { scale: scale || 1, frames: Object.assign(f, more || {}) };
   };
@@ -33,25 +33,17 @@
   S.discreet = () => (S.content() || S._content) === 'discreet';
 
   // ---------------------------------------------------------------- cast
-  // Alan and Vasco walk, turn, talk and act on their Ludo runs (approved 2026-10-28; window.LUDO, scripts/ludo_install.py),
-  // over Game I's frames (scripts/import_game1.py) for anything Ludo didn't make; the cast talk on their Ludo loops and
-  // stand on each loop's first frame (S.ph). Alan has two outfits: the vest and cargo shorts, and the blazer with jeans
-  // (F().blazer_on: Tuesday evening from the lost-and-found, and Thursday's dinner; off each new morning).
+  // Everyone stands and talks on their static Canva sprite (lip-sync and blinking on top). The one animation is Alan's
+  // walk, his Ludo cycles (side, towards us, away; window.LUDO, scripts/ludo_install.py); everyone else glides. No turns,
+  // no action poses (a pose shows the standing sprite). Alan has two outfits: the vest and cargo shorts, and the blazer
+  // with jeans (F().blazer_on: Tuesday evening from the lost-and-found, and Thursday's dinner; off each new morning).
   const lu = n => (LU[n] ? LU[n].frames : null);
-  S.LUDO_HOLD = []; // runs made but not approved yet (none: the three redos were approved on 2026-10-29)
-  const luSet = (p, base, poses, talks = ['_talk_a', '_talk_b']) => {
-    if (!LU[p + '_walk_side']) return base;
-    const turnF = lu(p + '_turn_side_front'), turnB = lu(p + '_turn_side_back');
-    const Fr = Object.assign({}, base, {
-      idle: [lu(p + talks[0])[0]], talk: talks.map(t => p + t).filter(n => lu(n) && !S.LUDO_HOLD.includes(n)).flatMap(lu), talkFps: LU[p + talks[0]].fps,
-      walk: lu(p + '_walk_side'), walkStep: LU[p + '_walk_side'].step,
-      front: turnF[turnF.length - 1], frontWalk: lu(p + '_walk_front'), frontStep: LU[p + '_walk_front'].step,
-      back: turnB[turnB.length - 1], backWalk: lu(p + '_walk_back'), backStep: LU[p + '_walk_back'].step,
-      viewTurn: { front: turnF, back: turnB }, turnLR: lu(p + '_turn_side_left'), turnFps: 30,
-    });
-    delete Fr.walkStart; delete Fr.walkStop; delete Fr.inbetween;
-    Fr.poses = Object.assign({}, base.poses);
-    for (const [pose, act] of Object.entries(poses || {})) { const R = LU[p + '_' + act]; if (R) Fr.poses[pose] = { frames: R.frames, fps: R.fps, hold: R.hold }; }
+  const still = (p, walker) => {
+    const Fr = { idle: [p + '_side_k'], talk: [p + '_side_k'], front: p + '_front_k', back: p + '_back_k', walk: [p + '_side_k'], poses: {} };
+    if (walker && LU[walker + '_walk_side']) Object.assign(Fr, {
+      walk: lu(walker + '_walk_side'), walkStep: LU[walker + '_walk_side'].step,
+      frontWalk: lu(walker + '_walk_front'), frontStep: LU[walker + '_walk_front'].step,
+      backWalk: lu(walker + '_walk_back'), backStep: LU[walker + '_walk_back'].step });
     return Fr;
   };
   S.CHARS = {
@@ -77,11 +69,10 @@
   };
   {
     const A = S.CHARS.alan, V = S.CHARS.vasco;
-    const vest = luSet('alanv', A.game1, { phone: 'phone', drink: 'drink', write: 'write', climb: 'climb', pull: 'pull' });
-    const blazer = luSet('alanb', A.game1); // (no actions made in the blazer: Game I's poses)
+    const vest = still('alanv', 'alanv'), blazer = still('alanb', 'alanb');
     Object.defineProperty(A, 'frames', { get() { let on = false; try { on = !!(G.flags && G.flags.blazer_on); } catch (e) { /* not started */ } return on ? blazer : vest; } });
     A.outfits = [vest, blazer]; // (both, for loading: engine.js framesOf walks whatever frames holds)
-    V.frames = luSet('vasco', V.game1, { reach: 'reach', kneel: 'kneel', trowel: 'trowel' }, ['_talk_b', '_talk_a']); // (he stands on his second loop: its face is the steadier)
+    V.frames = still('vascos');
   }
   // the walks' step lengths: Game I's measurements for the borrowed cycles (js/story/core.js there, S.WALK_PLANT)
   S.WALK_PLANT = { vasco_walk6_p1: [0.190, -0.148], vasco_walk6_p3: [0.112], vasco_walk6_p5: [0.028], vasco_walk6_p7: [-0.061],
