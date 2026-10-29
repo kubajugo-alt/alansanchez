@@ -31,7 +31,7 @@ h1 { font: 600 26px/1.1 var(--display); margin: 0; }
 .fig img { display: block; width: 100%; height: 100%; pointer-events: none; }
 .fig.sel { outline: 2px dashed var(--sel); outline-offset: 2px; }
 .fig.ghost { opacity: .6; cursor: move; }
-.fig.cast { pointer-events: none; }
+.fig.cast .tag { background: rgba(110,45,10,.75); }
 .fig .tag { position: absolute; left: 50%; top: -18px; transform: translateX(-50%); font: 400 10px var(--mono); background: rgba(0,0,0,.6); color: #fff; padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
 .fig:focus-visible { outline: 2px solid var(--accent); }
 .side { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 10px; }
@@ -64,7 +64,7 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px s
   <div class="stage" id="stage" aria-label="Room painting"><svg viewBox="0 0 1280 720" preserveAspectRatio="none" id="floor"></svg></div>
   <aside class="side" id="side">
     <h2 id="sel-name">Nothing selected</h2>
-    <p class="hint" id="sel-hint">Click a figure in the room to select it, or add one from the tray below. Drag to move: size follows the floor's depth, as in the game. Alan and the room's cast are there to measure against.</p>
+    <p class="hint" id="sel-hint">Click a figure in the room to select it, or add one from the tray below. Drag to move: size follows the floor's depth, as in the game. Alan and the room's cast are there to measure against; the cast can be moved, sized and flipped too.</p>
     <div class="row"><label for="size">Size</label><input type="range" id="size" min="0.5" max="1.6" step="0.01" value="1"><output id="size-o">1.00</output></div>
     <div class="row"><label for="rot">Rotate</label><input type="range" id="rot" min="-45" max="45" step="1" value="0"><output id="rot-o">0°</output></div>
     <div class="btns">
@@ -75,7 +75,7 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px s
     <div class="toggles">
       <label><input type="checkbox" id="t-floor"> Show the walkable floor</label>
       <label><input type="checkbox" id="t-alan" checked> Show Alan for scale (not saved; drag him)</label>
-      <label><input type="checkbox" id="t-cast" checked> Show the room's cast where the game stands them (fixed)</label>
+      <label><input type="checkbox" id="t-cast" checked> Show the room's cast (drag, size and flip them too; saved)</label>
     </div>
     <p class="hint">Keys: arrows nudge, Shift+arrows nudge more, F flips, Delete removes.</p>
   </aside>
@@ -87,7 +87,7 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px s
 </main>
 <script>
 const $ = id => document.getElementById(id);
-const st = { data: null, room: null, pl: {}, sel: null, db: null, can: false, me: '', alan: { x: 200, y: 680 }, saving: {} };
+const st = { data: null, room: null, pl: {}, cp: {}, sel: null, db: null, can: false, me: '', alan: { x: 200, y: 680 }, saving: {} };
 const W = 1280, H = 720;
 let R = {}, X = {};
 function heightAt(room, y) { const [y0, h0, y1, h1] = room.scale; return h0 + (h1 - h0) * (y - y0) / (y1 - y0); }
@@ -111,11 +111,15 @@ function draw() {
     el.addEventListener('focus', () => select(id));
     stage.append(el);
   }
-  if ($('t-cast').checked) for (const c of (st.data.cast[st.room] || [])) {   // the room's own cast, where the game stands them (fixed)
-    const el = document.createElement('div'); el.className = 'fig cast'; el.setAttribute('aria-label', c.name + ', where the game stands them');
-    const w = c.h * c.w / c.ih;
-    Object.assign(el.style, { left: pct(c.x - w * c.ax, W), top: pct(c.y - c.h, H), width: pct(w, W), height: pct(c.h, H), transform: `scaleX(${c.flip ? -1 : 1})` });
-    el.innerHTML = `<img src="${c.img}" alt=""><span class="tag"></span>`; el.querySelector('.tag').textContent = c.name; el.querySelector('.tag').style.transform = `translateX(-50%) scaleX(${c.flip ? -1 : 1})`;
+  if ($('t-cast').checked) for (const c of (st.data.cast[st.room] || [])) {   // the room's own cast: where the game stands them, until moved here
+    const id = castId(st.room, c), p = st.cp[id] || { x: c.x, y: c.y, flip: c.flip, size: 1 };
+    const h = c.h * heightAt(room, p.y) / heightAt(room, c.y) * (p.size || 1), w = h * c.w / c.ih;
+    const el = document.createElement('div'); el.className = 'fig cast' + (st.sel === id ? ' sel' : ''); el.tabIndex = 0; el.dataset.id = id;
+    el.setAttribute('aria-label', c.name + ' (cast)');
+    Object.assign(el.style, { left: pct(p.x - w * (p.flip === c.flip ? c.ax : 1 - c.ax), W), top: pct(p.y - h, H), width: pct(w, W), height: pct(h, H), transform: `scaleX(${p.flip ? -1 : 1})` });
+    el.innerHTML = `<img src="${c.img}" alt=""><span class="tag"></span>`; el.querySelector('.tag').textContent = c.name; el.querySelector('.tag').style.transform = `translateX(-50%) scaleX(${p.flip ? -1 : 1})`;
+    el.addEventListener('pointerdown', e => startDrag(e, id));
+    el.addEventListener('focus', () => select(id));
     stage.append(el);
   }
   if (st.alanRoom !== st.room) {   // Alan starts at the front of each room's floor, to the left
@@ -149,18 +153,27 @@ function tray() {
   }
 }
 function panel() {
-  const p = st.sel && st.pl[st.sel], on = !!p && st.can;
-  $('sel-name').textContent = p ? p.extra.replace(/_/g, ' ') : 'Nothing selected';
+  const p = target(st.sel), on = !!p && st.can, cast = !!p && !!p.cast;
+  $('sel-name').textContent = p ? (cast ? p.cast + ' (cast)' : p.extra.replace(/_/g, ' ')) : 'Nothing selected';
   $('sel-hint').hidden = !!p;
-  ['size', 'rot', 'flip', 'front', 'back', 'dup', 'del', 'move'].forEach(k => $(k).disabled = !on);
+  ['size', 'flip'].forEach(k => $(k).disabled = !on);
+  ['rot', 'front', 'back', 'dup', 'del', 'move'].forEach(k => $(k).disabled = !on || cast);
   $('size').value = p ? (p.size || 1) : 1; $('size-o').textContent = (+$('size').value).toFixed(2);
   $('rot').value = p ? (p.rot || 0) : 0; $('rot-o').textContent = $('rot').value + '°';
   $('move').replaceChildren(...st.data.rooms.map(r => new Option(r.name, r.id, false, p && p.room === r.id)));
 }
+// the cast's positions live in the same store as the extras: { cast: name, room, x, y, size, flip }
+function castId(room, c) { return 'cast_' + room + '_' + c.name.normalize('NFD').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+function castOf(id) { for (const [room, cs] of Object.entries(st.data.cast)) for (const c of cs) if (castId(room, c) === id) return [room, c]; return []; }
+function target(id) {   // the editable record for a selection: a placed extra, or a cast member (made on first touch)
+  if (!id) return null; if (st.pl[id]) return st.pl[id];
+  if (!st.cp[id]) { const [room, c] = castOf(id); if (!c) return null; st.cp[id] = { cast: c.name, room, x: c.x, y: c.y, size: 1, flip: c.flip }; }
+  return st.cp[id];
+}
 function select(id) { if (st.sel === id) return; st.sel = id; document.querySelectorAll('.fig').forEach(e => e.classList.toggle('sel', e.dataset.id === id)); panel(); }
 function startDrag(e, id) {
   e.preventDefault(); const stage = $('stage'), rect = stage.getBoundingClientRect(), k = W / rect.width;
-  const tgt = id ? st.pl[id] : st.alan; if (id) select(id); if (id && !st.can) return;
+  const tgt = id ? target(id) : st.alan; if (id) select(id); if (id && !st.can) return;
   const sx = e.clientX, sy = e.clientY, ox = tgt.x, oy = tgt.y, el = e.currentTarget; el.setPointerCapture(e.pointerId); el.style.cursor = 'grabbing';
   const move = ev => { tgt.x = Math.round(Math.max(0, Math.min(W, ox + (ev.clientX - sx) * k))); tgt.y = Math.round(Math.max(40, Math.min(H, oy + (ev.clientY - sy) * k))); draw(); };
   const up = () => { el.removeEventListener('pointermove', move); el.removeEventListener('pointerup', up); el.removeEventListener('pointercancel', up); if (id && (tgt.x !== ox || tgt.y !== oy)) save(id); };
@@ -172,7 +185,7 @@ function add(extra) {
   st.pl[id] = { extra, room: st.room, x: 640, y, size: 1, rot: 0, flip: false, z: 0 }; st.sel = id; draw(); save(id);
 }
 async function save(id) {
-  const p = st.pl[id]; if (!st.db || !p) return;
+  const p = target(id); if (!st.db || !p) return;
   clearTimeout(st.saving[id]);
   st.saving[id] = setTimeout(async () => {
     try { await st.db.doc('placements/' + id).set({ ...p, by: st.me, at: Date.now() }); $('status').textContent = 'Saved.'; }
@@ -184,9 +197,9 @@ async function remove(id) {
   try { await st.db.doc('placements/' + id).delete(); $('status').textContent = 'Removed.'; }
   catch (e) { st.pl[id] = p; draw(); $('status').textContent = 'Could not remove (' + (e.code || 'error') + ').'; }
 }
-$('size').oninput = () => { const p = st.pl[st.sel]; if (!p) return; p.size = +$('size').value; draw(); save(st.sel); };
+$('size').oninput = () => { const p = target(st.sel); if (!p) return; p.size = +$('size').value; draw(); save(st.sel); };
 $('rot').oninput = () => { const p = st.pl[st.sel]; if (!p) return; p.rot = +$('rot').value; draw(); save(st.sel); };
-$('flip').onclick = () => { const p = st.pl[st.sel]; if (!p) return; p.flip = !p.flip; draw(); save(st.sel); };
+$('flip').onclick = () => { const p = target(st.sel); if (!p) return; p.flip = !p.flip; draw(); save(st.sel); };
 $('front').onclick = () => { const p = st.pl[st.sel]; if (!p) return; p.z = (p.z || 0) + 40; draw(); save(st.sel); };
 $('back').onclick = () => { const p = st.pl[st.sel]; if (!p) return; p.z = (p.z || 0) - 40; draw(); save(st.sel); };
 $('dup').onclick = () => { const p = st.pl[st.sel]; if (!p) return; const id = newId(); st.pl[id] = { ...p, x: Math.min(W, p.x + 60) }; st.sel = id; draw(); save(id); };
@@ -194,11 +207,11 @@ $('del').onclick = () => { if (st.sel) remove(st.sel); };
 $('move').onchange = () => { const p = st.pl[st.sel]; if (!p) return; p.room = $('move').value; st.room = p.room; draw(); save(st.sel); };
 $('t-floor').onchange = draw; $('t-alan').onchange = draw; $('t-cast').onchange = draw;
 document.addEventListener('keydown', e => {
-  const p = st.sel && st.pl[st.sel]; if (!p || !st.can || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.type !== 'checkbox') return;
+  const p = target(st.sel); if (!p || !st.can || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.type !== 'checkbox') return;
   const d = e.shiftKey ? 10 : 2, m = { ArrowLeft: [-d, 0], ArrowRight: [d, 0], ArrowUp: [0, -d], ArrowDown: [0, d] }[e.key];
   if (m) { e.preventDefault(); p.x += m[0]; p.y += m[1]; draw(); save(st.sel); document.querySelector(`.fig[data-id="${st.sel}"]`)?.focus(); }
   else if (e.key === 'f' || e.key === 'F') { p.flip = !p.flip; draw(); save(st.sel); }
-  else if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); remove(st.sel); }
+  else if ((e.key === 'Delete' || e.key === 'Backspace') && !p.cast) { e.preventDefault(); remove(st.sel); }
 });
 (async () => {
   try { st.data = await (await fetch('data.json')).json(); } catch (e) { $('status').textContent = 'Could not load the rooms. Reload the page.'; return; }
@@ -215,8 +228,8 @@ document.addEventListener('keydown', e => {
     if (s.empty && st.can && !st.seeded) {   // the first visit: save the starting layout so it can be moved
       st.seeded = true; Object.keys(st.pl).forEach(id => save(id)); $('status').textContent = 'Starting layout saved. Drag away.'; return;
     }
-    const next = {}; s.docs.forEach(d => { const v = d.data(); if (v && v.extra && X[v.extra] && R[v.room]) next[d.id] = v; });
-    if (!s.empty) { st.pl = next; if (st.sel && !st.pl[st.sel]) st.sel = null; draw(); }
+    const next = {}, cp = {}; s.docs.forEach(d => { const v = { ...d.data() }; if (v && v.extra && X[v.extra] && R[v.room]) next[d.id] = v; else if (v && v.cast && R[v.room]) cp[d.id] = v; });
+    if (!s.empty) { st.pl = next; st.cp = cp; if (st.sel && !st.pl[st.sel] && !castOf(st.sel)[1]) st.sel = null; draw(); }
     $('status').textContent = st.can ? 'Changes save as you go.' : 'You can look; only people who can edit this page can move figures.';
   }, e => { $('status').textContent = 'The store is not answering (' + e.code + '). Reload to try again.'; });
 })();

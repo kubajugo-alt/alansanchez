@@ -553,3 +553,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     game per room and chapter). Placements in its db, collection `placements`: {extra, room, x, y (feet, 1280x720),
     size (x the depth height), rot (deg), flip, z (draw order nudge)}; seeded on first visit with the preview layout.
     The game will read these into each room's `ambient` list (no name, no hotspot) once the user is done placing.
+53. **Placement tool: cast draggable; buttons fixed** (2026-10-29). The user: "i should be able to drag all of the
+    characters, cast included"; "the buttons in the tool don't do anything". The room's cast can now be dragged, sized
+    and flipped (size follows depth from where the game stands them); saved in the same `placements` collection as
+    `{cast: name, room, x, y, size, flip}` with doc id `cast_<room>_<name>`. Alan stays a guide (not saved). The
+    buttons: the store's snapshots are frozen objects, so Flip/Size/Rotate/To front/To back wrote into a frozen record
+    and silently did nothing; the page now copies each record. Checked in Playwright with a mock store that freezes
+    its snapshots: before the fix Flip did nothing, after it flips; duplicate, remove, cast select/flip work.
+    Republished (version 2).
