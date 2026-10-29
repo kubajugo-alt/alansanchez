@@ -314,20 +314,20 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "w": 184
 },
 "vascor_front_k": {
-"ax": 128.7,
+"ax": 126.1,
 "fy": 740.0,
 "h": 720.0,
 "hh": 760,
 "top": 20.0,
-"w": 261
+"w": 258
 },
 "vascor_side_k": {
-"ax": 144.0,
+"ax": 140.7,
 "fy": 740.0,
 "h": 720.0,
 "hh": 760,
 "top": 20.0,
-"w": 257
+"w": 252
 },
 "vascos_back_k": {
 "ax": 136.2,

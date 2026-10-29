@@ -653,3 +653,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     of js/lines.js). Vasco: GPT Image 2.5 edits of vasco_v9 with Game I's Vasco heads as the face reference:
     `art/designs/vasco_v10a.png`, `vasco_v10b.png`; comparison `art/review/cast_repaint/vasco_face.jpg`. Nothing in
     the game yet.
+63. **Vasco's original face back (take A); Carmen's samples round two** (2026-10-29). The user: "Vasco take A looks ok".
+    `art/designs/vasco_v10a.png` cut into `vascor_side_k` / `vascor_front_k` (the v9 cuts kept as
+    `art/designs/vascor_*_v9.webp`); his face set regenerated (the cached v9 edits moved to
+    `art/designs/vasco_faces_v9_backup/`, else gen reuses them), Gemini $0.29 (in all about $17-18 of the $23);
+    `ok: false` until the user approves: sheet `art/review/cast_repaint/vasco_v10a_faces.jpg`. Voices, the user: "Graciela's
+    V4 and V4 lively are well expressive - but they completely lost the spanish accent. The new ones don't work".
+    The other voices dropped; round two for Graciela: v4 with a "[strong Spanish accent]" cue (plain and lively), v3
+    with cues sped up 12% (atempo, same pitch), v3 with stronger cues, and that sped up 10%. Same page, version 2.
+    validate: 0 errors; play.mjs: won in 98 steps.

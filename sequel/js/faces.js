@@ -1132,9 +1132,9 @@ window.FACES = {
  },
  "vascor_side_k": {
   "box": [
-   133,
+   134,
    91,
-   47,
+   43,
    47
   ],
   "mouths": [
@@ -1156,7 +1156,7 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": true,
+  "ok": false,
   "who": "vasco",
   "from": "jaw"
  },

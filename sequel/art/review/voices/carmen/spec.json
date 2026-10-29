@@ -30,42 +30,41 @@
     "speed": 1.08
    }
   },
-  "f_carolina": {
-   "model": "eleven_v3",
-   "settings": {
-    "stability": 0.0
-   },
-   "tags": true,
-   "voice": "BkOojM1ZhtSAHgsAkMx2"
+  "j_v4_accent": {
+   "model": "eleven_v4",
+   "tagset": "accent_tags"
   },
-  "g_paloma": {
-   "model": "eleven_v3",
+  "k_v4_accent_lively": {
+   "model": "eleven_v4",
+   "tagset": "accent_tags",
    "settings": {
-    "stability": 0.0
-   },
-   "tags": true,
-   "voice": "CS57JcynCr2pHsVpogbW"
+    "stability": 0.3,
+    "similarity_boost": 0.75,
+    "style": 0.5,
+    "speed": 1.08
+   }
   },
-  "h_rocio": {
+  "m_v3_strong": {
    "model": "eleven_v3",
    "settings": {
     "stability": 0.0
    },
-   "tags": true,
-   "voice": "ecMoe9ijZeyrNV2yVOdh"
-  },
-  "i_estela": {
-   "model": "eleven_v3",
-   "settings": {
-    "stability": 0.0
-   },
-   "tags": true,
-   "voice": "iuYybvSfclFoJ9ab2Im6"
+   "tagset": "strong_tags"
   }
  },
  "tags": {
   "carmen_f_1": "[dryly] The burglar. [pause] [amused] You look terrible. Sit. I'm making coffee. [deadpan] That's not kindness, I want one.",
   "carmen_su_elena": "[warmly, remembering] She laughed at everything. She drew everything. She left her socks in the bath for eight years. [pause] [voice breaking] We were going to buy a house in Artenara. Above the cloud.",
   "carmen_lr_water": "[urgent, raising her voice over the engine] Water. On the radiator. Now, before she cracks. [frustrated] I'm not stopping in this cloud."
+ },
+ "accent_tags": {
+  "carmen_f_1": "[strong Spanish accent] [dryly] The burglar. [pause] [amused] You look terrible. Sit. I'm making coffee. [deadpan] That's not kindness, I want one.",
+  "carmen_su_elena": "[strong Spanish accent] [warmly, remembering] She laughed at everything. She drew everything. She left her socks in the bath for eight years. [pause] [voice breaking] We were going to buy a house in Artenara. Above the cloud.",
+  "carmen_lr_water": "[strong Spanish accent] [urgent, raising her voice over the engine] Water. On the radiator. Now, before she cracks. [frustrated] I'm not stopping in this cloud."
+ },
+ "strong_tags": {
+  "carmen_f_1": "[dry, sardonic] The burglar. [pause] [amused, teasing] You look terrible. Sit. [brisk] I'm making coffee. [deadpan, a little smile] That's not kindness, I want one.",
+  "carmen_su_elena": "[softly, smiling through tears] She laughed at everything. She drew everything. [laughs softly] She left her socks in the bath for eight years. [long pause] [voice cracking, barely holding it together] We were going to buy a house in Artenara. [whispering] Above the cloud.",
+  "carmen_lr_water": "[shouting, urgent, panicked] Water! On the radiator. Now, before she cracks! [angry, through gritted teeth] I'm not stopping in this cloud."
  }
 }
