@@ -43,10 +43,12 @@ const expect = async (what, fn) => { const ok = await page.evaluate(fn); if (!ok
 let result = 'unfinished';
 try {
   page.evaluate(() => Game.begin(true)); // (not awaited: the prologue waits for the player)
-  await page.waitForFunction(() => Game.room && Game.room.id === 'elena_car', null, { timeout: 30000 });
-  // ---- the prologue
-  await act('The radio', 'use'); await act('Notebook on the passenger seat', 'look'); await act('The rear-view mirror', 'look');
-  await act('The window crank', 'use'); await act('The air', 'look');
+  // ---- the prologue (only when the game plays it: off for now, S.PLAY_PROLOGUE)
+  if (await page.evaluate(() => S.PLAY_PROLOGUE)) {
+    await page.waitForFunction(() => Game.room && Game.room.id === 'elena_car', null, { timeout: 30000 });
+    await act('The radio', 'use'); await act('Notebook on the passenger seat', 'look'); await act('The rear-view mirror', 'look');
+    await act('The window crank', 'use'); await act('The air', 'look');
+  }
   await page.waitForFunction(() => Game.room && Game.room.id === 'gando' && Game.flags.ch === 1, null, { timeout: 30000 });
   await expect('Tuesday at Gando', () => Game.room.id === 'gando');
   // ---- Tuesday

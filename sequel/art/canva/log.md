@@ -49,3 +49,5 @@
 - 2026-10-29 figure `vasco_v3` Canva media MAHZWotWZLg -> art/designs/vasco_v3.png repaint in Alan's style (the user: Vasco too realistic; candidate, not in the game)
 - 2026-10-29 figure `baute_v3` Canva media MAHZWlxtt3M -> art/designs/baute_v3.png repaint in Alan's style (the user: Baute too realistic; candidate, not in the game)
 - 2026-10-29 figure `chano_v3` Canva media MAHZWvDt2cE -> art/designs/chano_v3.png repaint in Alan's style (the user: Chano too realistic; candidate)
+- 2026-10-29 figure `vasco_v4` Canva media MAHZWtJj8KE -> art/designs/vasco_v4.png linen field shirt, more unbuttoned, sleeves rolled high (the user; from vasco_v3; candidate)
+- 2026-10-29 figure `vasco_v5` Canva media MAHZW1uKIG8 -> art/designs/vasco_v5.png vasco_v4 with a little chest hair (the user); candidate

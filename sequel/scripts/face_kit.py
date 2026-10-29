@@ -134,9 +134,12 @@ def api_key():
     return m.group(1).strip().strip('"\'')
 
 
+NO_MOUTH = {'lolo'}   # a cigarette at his lips: new mouths would paint it out, so he blinks only (as Game I's smokers)
+
+
 def jobs(who):
     she = WHO[who][2]
-    out = [('mouth_' + k, pron('Repaint ONLY his mouth, lips and, where the shape needs it, a slight drop of the jaw and chin, '
+    out = [] if who in NO_MOUTH else [('mouth_' + k, pron('Repaint ONLY his mouth, lips and, where the shape needs it, a slight drop of the jaw and chin, '
                                f'to make this mouth shape for lip-sync: {k}: {v}.', she)) for k, v in MOUTHS.items()]
     out.append(('eyes_closed', pron('Repaint ONLY his eyes and eyelids: both eyes fully CLOSED, the upper eyelids down so only '
                                     'the lash lines show, as at the bottom of a blink. Keep his eyebrows exactly where they are.', she)))
@@ -300,6 +303,7 @@ def build_one(W, fr, info, align=True):
         return cv2.resize(pad, (bw, bh), interpolation=cv2.INTER_AREA)
     rm, re_ = small(RM)[..., None], small(RE)[..., None]
     lip_s = small(cv2.GaussianBlur(lips.astype(np.float32) / 255, (0, 0), 4))[..., None]
+    lip_s = lip_s * cv2.erode((base[..., 3] > 250).astype(np.uint8), np.ones((7, 7), np.uint8)).astype(np.float32)[..., None]  # (the inpaint near the outline pulls in the flat background: blue specks)
     under = base.copy(); under[..., :3] = base[..., :3] * (1 - lip_s) + small(clean) * lip_s
     os.makedirs(os.path.join(SEQ, 'art/faces'), exist_ok=True)
     out = {'box': [int(sx), int(sy), bw, bh], 'mouths': [], 'eyes': [], 'fit': {}}
@@ -309,10 +313,16 @@ def build_one(W, fr, info, align=True):
         ring = (cv2.dilate((R > 0.05).astype(np.uint8), np.ones((25, 25), np.uint8)) > 0) & (R < 0.05) & (al[..., 0] > 0.9)
         if ring.any(): g = np.clip(g + (on[ring].mean(0) - g[ring].mean(0)), 0, 255)
         gs = small(g)
-        solid = small(((np.abs(g - np.array(BG, np.float32)).max(-1) > 30)).astype(np.float32))[..., None]
+        # where a dropped jaw paints over what was background it becomes opaque, but only where it is clearly painted, not
+        # Gemini's soft edge into the flat background (that edge showed as a bluish smear under the chin)
+        sol = (np.abs(g - np.array(BG, np.float32)).max(-1) > 70).astype(np.uint8)
+        sol = cv2.erode(sol, np.ones((7, 7), np.uint8))
+        solid = small(cv2.GaussianBlur(sol.astype(np.float32), (0, 0), 2))[..., None]
         if st.startswith('mouth_'):
-            p = under.copy(); p[..., :3] = gs * rm + under[..., :3] * (1 - rm)
-            p[..., 3:] = np.maximum(under[..., 3:], rm * solid * 255)
+            inner = cv2.erode((under[..., 3] > 250).astype(np.uint8), np.ones((7, 7), np.uint8)).astype(np.float32)[..., None]
+            k = rm * inner   # (not on the outline's soft edge: the open mouth's dark showed there as a smudge)
+            p = under.copy(); p[..., :3] = gs * k + under[..., :3] * (1 - k)
+            p[..., 3:] = under[..., 3:]   # inside the painting's own outline: a dropped jaw over the background left a smear
             Image.fromarray(np.clip(p, 0, 255).astype(np.uint8), 'RGBA').save(f'{SEQ}/art/faces/{fr}_{st[6:]}.webp', lossless=True)
             out['mouths'].append(st[6:])
         else:
