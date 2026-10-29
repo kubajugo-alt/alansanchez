@@ -364,6 +364,7 @@ def build(whos):
             if not r: data.pop(fr, None); json.dump(None, open(done, 'w')); continue
             r.pop('fit'); r['who'] = who; json.dump(r, open(done, 'w'))
             r['ok'] = (data.get(fr) or {}).get('ok', False)
+            if (data.get(fr) or {}).get('emo'): r['emo'] = data[fr]['emo']   # (emotions kept)
             data[fr] = r; made += 1
         print(who, made, 'of', len(idx['frames']), 'frames with a set', flush=True)
         write_faces(data)

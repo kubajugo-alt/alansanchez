@@ -23,6 +23,29 @@
     asked.add(f);
     D.mouths.forEach(s => patch(f + '_' + s));
     D.eyes.forEach(s => patch(f + '_eyes_' + s));
+    if (D.emo) { D.emo.set.forEach(e => { patch(f + '_emo_' + e); patch(f + '_emo_' + e + '_up'); }); if (D.emo.lid) patch(f + '_emo_lid'); }
+  }
+
+  // ---------------------------------------------------------------- emotions
+  // A line may carry an emotion (E.LINE_EMO[line id], set by the story): the face shows it while the line is spoken and
+  // holds it a moment after, then goes back to its painting. Never while walking (the user, 2026-10-29: "Alan will not
+  // be changing emotions or talking/blinking whilst walking"): a walk drops it.
+  const EMO_HOLD = 2.5; // s the emotion stays on a quiet face after its line
+  E.LINE_EMO = E.LINE_EMO || {};
+  function emotionOf(a) {
+    if (a.walking) { a.emo = null; return null; }
+    const sp = E.speaking;
+    if (sp && sp.actor === a) {
+      const e = E.LINE_EMO[sp.id] || null;
+      a.emo = e ? { k: e, until: null } : null;
+      return e;
+    }
+    if (a.emo) {
+      if (a.emo.until == null) a.emo.until = E.time + EMO_HOLD;
+      if (E.time < a.emo.until) return a.emo.k;
+      a.emo = null;
+    }
+    return null;
   }
   function preload() {
     if (!window.FAST) ['alan_side', 'alan_idle2', 'alan_talk', 'alan_talk2'].forEach(want);
@@ -131,19 +154,27 @@
       a.faceAt = E.time; a.faceM = mouthOf(a); a.faceWho = a.faceM ? (a.talkWho || a.ch) : null; a.faceL = {};
     }
     const layers = [];
+    if (a.faceEmoAt !== E.time) { a.faceEmoAt = E.time; a.faceE = emotionOf(a); }
     for (const [k, S, who] of sets) {
       want(k);
       const own = k === key, lidAt = own ? 'blink' : 'blink_' + who;
       if (!(lidAt in a.faceL)) a.faceL[lidAt] = lidOf(a, lidAt);
       const talks = own ? a.faceWho && (who === null || who === a.faceWho) && !P.some(p => p[2] === a.faceWho) : a.faceWho === who;
       const m = talks && mouthFor(S, a.faceM), mn = m ? k + '_' + m : null; // only the speaker's own face talks
-      const l = a.faceL[lidAt], lid = l && (S.eyes.includes(l) ? l : S.eyes.includes('closed') ? 'closed' : null); // no half-shut painting: shut for the whole blink
-      const ln = lid ? k + '_eyes_' + lid : null;
-      const mp = mn && patch(mn), lp = ln && patch(ln);
-      if (mp || lp) layers.push([S.box, mp, lp, (mp ? mn : '') + '|' + (lp ? ln : '')]);
+      // the emotion (own face only): over a talking mouth just the brows and eyes; quiet, the emotion's whole face
+      const em = own && S.emo && a.faceE && S.emo.set.includes(a.faceE) ? a.faceE : null;
+      const en = em ? k + '_emo_' + em + (mn ? '_up' : '') : null;
+      const l = a.faceL[lidAt];
+      // a view whose emotions came with their own shut lids (lids only, so an emotion's brows stay) blinks with those
+      const lid = l && (S.emo && S.emo.lid ? 'emo' : S.eyes.includes(l) ? l : S.eyes.includes('closed') ? 'closed' : null); // no half-shut painting: shut for the whole blink
+      const ln = lid === 'emo' ? k + '_emo_lid' : lid ? k + '_eyes_' + lid : null;
+      const mp = mn && patch(mn), ep = en && patch(en), lp = ln && patch(ln);
+      const eb = S.emo ? S.emo.box : S.box;
+      if (mp || ep || lp) layers.push({ box: S.box, mp, eb, ep, full: !!(ep && !mn), lb: lid === 'emo' ? eb : S.box, lp,
+        key: (mp ? mn : '') + '|' + (ep ? en : '') + '|' + (lp ? ln : '') });
     }
     if (!layers.length) return im;
-    const ck = key + '|' + layers.map(l => l[3]).join('|');
+    const ck = key + '|' + layers.map(l => l.key).join('|');
     let cv = cache.get(ck);
     if (cv) { cache.delete(ck); cache.set(ck, cv); } // (most recent last: the oldest goes first)
     if (!cv) {
@@ -154,8 +185,10 @@
       c.drawImage(im, 0, 0);
       // the lower face replaces the box, so no painted lips show under it; eyes after every mouth (two faces close together
       // in a pair painting can share some of a box)
-      for (const [[x, y, w, h], mp] of layers) if (mp) { c.clearRect(x, y, w, h); c.drawImage(mp, x, y, w, h); }
-      for (const [[x, y, w, h], , lp] of layers) if (lp) c.drawImage(lp, x, y, w, h);
+      for (const { box: [x, y, w, h], mp } of layers) if (mp) { c.clearRect(x, y, w, h); c.drawImage(mp, x, y, w, h); }
+      // an emotion: quiet, its whole face replaces its box; over a talking mouth, its brows and eyes are laid on
+      for (const { eb: [x, y, w, h], ep, full } of layers) if (ep) { if (full) c.clearRect(x, y, w, h); c.drawImage(ep, x, y, w, h); }
+      for (const { lb: [x, y, w, h], lp } of layers) if (lp) c.drawImage(lp, x, y, w, h);
       cache.set(ck, cv);
     }
     return cv;

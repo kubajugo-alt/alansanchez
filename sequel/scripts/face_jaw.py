@@ -182,7 +182,7 @@ if __name__ == '__main__':
                 big.alpha_composite(e, (ob[0] - min(box[0], ob[0]), ob[1] - min(box[1], ob[1])))
                 ne = big.crop((box[0] - min(box[0], ob[0]), box[1] - min(box[1], ob[1]), box[0] - min(box[0], ob[0]) + box[2], box[1] - min(box[1], ob[1]) + box[3]))
             ne.save(f'{SEQ}/art/faces/{fr}_eyes_closed.webp', lossless=True)
-        data[fr] = {'box': box, 'mouths': sorted(states), 'eyes': old.get('eyes', []), 'ok': old.get('ok', False), 'who': who, 'from': 'jaw'}  # (approval kept, never given here)
+        data[fr] = {'box': box, 'mouths': sorted(states), 'eyes': old.get('eyes', []), 'ok': old.get('ok', False), 'who': who, 'from': 'jaw', **({'emo': old['emo']} if old.get('emo') else {})}  # (approval and emotions kept, approval never given here)
         made.append(fr)
     K.write_faces(data)
     import face_defringe   # no pale fringe or stray strokes at the jaw while they talk (scripts/face_defringe.py)

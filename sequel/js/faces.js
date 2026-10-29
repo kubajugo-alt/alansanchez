@@ -1006,7 +1006,26 @@ window.FACES = {
   ],
   "ok": true,
   "who": "alan",
-  "from": "game1"
+  "from": "game1",
+  "emo": {
+   "box": [
+    79,
+    44,
+    83,
+    93
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "embarrassed",
+    "mischievous"
+   ],
+   "lid": false
+  }
  },
  "alanb_side_k": {
   "box": [
@@ -1561,8 +1580,27 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": false,
+  "ok": true,
   "who": "alanf",
-  "from": "jaw"
+  "from": "jaw",
+  "emo": {
+   "box": [
+    96,
+    38,
+    76,
+    94
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "embarrassed",
+    "mischievous"
+   ],
+   "lid": true
+  }
  }
 };

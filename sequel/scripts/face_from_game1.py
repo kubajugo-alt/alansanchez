@@ -107,7 +107,8 @@ if __name__ == '__main__':
         for s, e in EYES.items():
             a = w6(e); a[..., :3] = np.clip(a[..., :3] + shift, 0, 255)
             Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), 'RGBA').resize((BW, BH), Image.LANCZOS).save(OUT + f'{frame}_eyes_{s}.webp', lossless=True)
-        data[frame] = {'box': [bx, by, BW, BH], 'mouths': STATES, 'eyes': ['half', 'closed'], 'ok': True, 'who': 'alan', 'from': 'game1'}
+        emo = (data.get(frame) or {}).get('emo')   # (the emotions, scripts/face_emotions.py install, are kept)
+        data[frame] = {'box': [bx, by, BW, BH], 'mouths': STATES, 'eyes': ['half', 'closed'], 'ok': True, 'who': 'alan', 'from': 'game1', **({'emo': emo} if emo else {})}
         print(frame, 'head at', (bx, by), (BW, BH), 'fit', round(cc, 3))
     open(fp, 'w').write(head + 'window.FACES = ' + json.dumps(data, indent=1) + ';\n')
     import face_defringe   # no pale fringe or stray strokes at the jaw while he talks (scripts/face_defringe.py)

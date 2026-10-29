@@ -420,3 +420,18 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     has Approve / Needs changes and its own notes, stored in the page's db (capabilities db + user): collection
     `verdicts` (doc id = clip id: {item, status, by, at}) and `notes` ({item, text, by, at}). Read them back with
     ArtifactData list on those two collections. The other cast's clips stay in art/review/anim/ but are off the page.
+40. **Alan's front face and emotions in the game** (2026-10-29). Review page verdicts (db `verdicts`): all three
+    talking/blinking clips and all 16 emotion clips approved; the six walk cycles marked "needs changes" with no note
+    (asked). The user: "Alan will not be changing emotions or talking/blinking whilst walking".
+    - alanv_front_k's face set approved: "ok": true.
+    - `face_emotions.py install`: the soft set's patches to `art/faces/<frame>_emo_<e>[_up].webp` (+ `_emo_lid` for the
+      front), and `"emo": {box, set, lid}` on alanv_side_k and alanv_front_k in js/faces.js. face_from_game1 / face_kit /
+      face_jaw keep "emo" when they rebuild a set.
+    - `js/engine/faces.js`: an emotion layer. `Engine.LINE_EMO[lineId] = 'joy'` (etc.) shows that emotion while the
+      line is spoken (brows and eyes over the lip-sync mouth) and for 2.5 s after (the emotion's whole quiet face), then
+      the painting again; a walk drops it at once. A view with emotion lids (the front) blinks with those (the front's
+      face-kit eyelids sat outside its mouth box). No line carries an emotion yet, so the game looks as before until
+      the tags are approved. Checked live (anger and joy on alan_ask_baute_cave at Gando:
+      `art/review/emotions/in_game_test.png`); play.mjs won in 98 steps, no errors (served from sequel/ with
+      python3 -m http.server: npx http-server -s sequel served Game I's root here).
+    - Not done: the blazer views (alanb_*) have no emotion set yet.

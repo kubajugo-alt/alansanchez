@@ -4,6 +4,7 @@ change, to show joy, fear, anger, sadness, concern etc. ... test it on Alan ... 
 
   python3 sequel/scripts/face_emotions.py gen   [emotion ...]     Gemini paints the head with each expression
   python3 sequel/scripts/face_emotions.py build                   cut the patches and make the review sheet and clips
+  python3 sequel/scripts/face_emotions.py install [frame ...]      the approved soft set into art/faces and js/faces.js
 
 Same idea as the mouths and blinks (scripts/face_from_game1.py): the head is cropped from the sprite and enlarged,
 Gemini repaints only the brows, eyes and mouth, the result is lined up on the head (an affine fit on the hair, ear
@@ -247,9 +248,32 @@ def clip(line='alan_ask_baute_cave', fps=25):
                     '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '20', '-c:a', 'aac', '-shortest', out], check=True)
     subprocess.run(['rm', '-r', tmp]); print(out)
 
+def install(frames):
+    """The approved emotions into the game (the user approved the soft set on both views, 2026-10-29): each frame's
+    patches to art/faces/<frame>_emo_<e>.webp (whole box, quiet) and _emo_<e>_up.webp (brows and eyes, over the talking
+    mouth), its shut lids to _emo_lid.webp where the view has them; js/faces.js gets the frame's "emo": its box (not the
+    mouths' box), the emotions and whether it has lids. js/engine/faces.js draws them; js/story lines choose them."""
+    import shutil
+    global FRAME, V, CROP, OUT
+    fp = os.path.join(SEQ, 'js/faces.js'); head, body = open(fp).read().split('window.FACES = ', 1)
+    data = json.loads(body.rstrip().rstrip(';'))
+    for fr in frames:
+        FRAME, V = fr, VIEWS[fr]; CROP = V['crop']; OUT = os.path.join(SEQ, 'art/review/emotions', fr)
+        names = [k for k in SOFT if k != 'closed' and os.path.exists(os.path.join(OUT, f'{fr}_emo_{k}_soft.webp'))]
+        for e in names:
+            for suf in ('', '_up'):
+                shutil.copyfile(os.path.join(OUT, f'{fr}_emo_{e}_soft{suf}.webp'), os.path.join(SEQ, 'art/faces', f'{fr}_emo_{e}{suf}.webp'))
+        lid = os.path.exists(os.path.join(OUT, f'{fr}_emo_closed_soft_up.webp'))
+        if lid: shutil.copyfile(os.path.join(OUT, f'{fr}_emo_closed_soft_up.webp'), os.path.join(SEQ, 'art/faces', f'{fr}_emo_lid.webp'))
+        data[fr]['emo'] = {'box': list(box()), 'set': names, 'lid': lid}
+        print(fr, len(names), 'emotions', 'lids' if lid else '')
+    open(fp, 'w').write(head + 'window.FACES = ' + json.dumps(data, indent=1) + ';\n')
+
+
 if __name__ == '__main__':
     cmd = sys.argv[1:2]
     if cmd == ['gen']: gen([e if e in EMO else e + '_' + VAR for e in sys.argv[2:]] or list(EMO))
     elif cmd == ['build']: build()
     elif cmd == ['clip']: clip(*sys.argv[2:3])
+    elif cmd == ['install']: install(sys.argv[2:] or list(VIEWS))
     else: sys.exit(__doc__)
