@@ -470,3 +470,17 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     `walk_loop.py install` now takes run names; installed the five (24/24/24/25/25 frames, js/sprites_ludo.js
     rewritten, old frames past the new count removed). alanv_walk_front stays on its old 36 frames while it is redone
     (12-frame stride with even spacing via flow in-betweens). play.mjs won in 98 steps, no errors.
+45. **Tank-top front walk redone, for review** (2026-10-29). The user on its first loop: "still jumps, doesn't loop".
+    Two causes. Ludo's spacing in that run is very uneven: frame steps from 0.5 to 1.95x the median, and 2.55x on the
+    legs alone. Also, frames 11-26 hold a lopsided stride where the image-right leg hardly swings, so the 10-frame loop
+    had a 3/5 rhythm. The only stride with a full swing on each leg is source 20..34. `walk_loop.py` gets a retimed
+    path (`RETIME`, `build_retimed`, used for this run only). It takes the stride and removes the body's drift over
+    it (scale 1.0178, dx -7, dy +4 over 14 frames). It then resamples the closed loop to 14 frames evenly spaced in pose:
+    the mean of the whole-figure and torso-centred legs step measures. New frames are optical-flow in-betweens (OpenCV
+    DIS, both neighbours warped and mixed), and the seam (34 -> 20) is bridged the same way. Three rounds measure the
+    frames made and even out their places. 3 source frames are kept as they are (20, 27, 28); 11 are in-betweens. Every
+    frame step over the median, seam included: figure 0.89-1.09, legs 0.85-1.18. Seam number 1.93 -> 0.90. LUDO: 14
+    frames, 2 steps, step 0.0486 (= 2 x 0.34 / 14: 1.82 steps/s in the game, as before). Also: main() now skips a run
+    that is already installed (not 36 frames). Checked by eye: contact sheet, the in-betweens' legs at 1x, the seam bridge
+    frames at full size, nothing ghosted. Clips regenerated: walk_alanv_walk_front.mp4 (4 loops), oldnew_alanv_walk_front.mp4.
+    Not installed. Ludo's own: a faint shadow under one shoe in the frames from source 27-29.

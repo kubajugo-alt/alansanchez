@@ -63,7 +63,7 @@ SEAM_IB = 1.3      # in-between at the seam only if the seam is still this many 
 IB_K = 3           # ...over this many frames
 # Retimed runs (the user, 2026-10-29, on alanv_walk_front's first loop: "still jumps, doesn't loop"): a stride of
 # source frames first..last, the drift taken out over it, then resampled to N frames evenly spaced in pose (see retime())
-RETIME = {'alanv_walk_front': {'first': 20, 'last': 34, 'N': 15}}
+RETIME = {'alanv_walk_front': {'first': 20, 'last': 34, 'N': 14}}
 BG = (46, 43, 52)  # the review clips' background (scripts/review_anim.py)
 FONT = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
 
@@ -316,20 +316,35 @@ def pose_steps(Q):
     return a / np.median(a), b / np.median(b)
 
 
-def retime(Q, N, snap=0.2):
+def retime(Q, N, snap=0.2, rounds=3):
     """the closed loop Q (last frame -> first included) resampled to N frames evenly spaced along the pose distance
-    (the mean of pose_steps' two measures): Ludo's own spacing is uneven (frame steps from half to twice the median). A new frame within snap of a
-    spacing of a source frame is that frame as it is; the others are flow_mix in-betweens. The start is shifted so
-    as many source frames as possible are kept. The seam is just another stretch of the loop, bridged the same way."""
-    L = len(Q); d = np.mean(pose_steps(Q), 0); cum = np.r_[0, np.cumsum(d)]; sp = cum[-1] / N
+    (the mean of pose_steps' two measures): Ludo's own spacing is uneven (frame steps from half to twice the median, the
+    legs' to two and a half). A new frame within snap of a spacing of a source frame is that frame as it is; the others
+    are flow_mix in-betweens. The start is shifted so as many source frames as possible are kept. The seam is just
+    another stretch of the loop, bridged the same way. An in-between is not exactly where its share puts it (the flow
+    does not move everything evenly), so the frames made are measured and their places evened out again, a few rounds."""
+    L = len(Q); d = np.mean(pose_steps(Q), 0); cum = np.r_[0, np.cumsum(d)]; T = cum[-1]; sp = T / N
     off = min(np.linspace(0, sp, 40, endpoint=False), key=lambda o: sum(min(abs(cum[:-1] - p)) for p in o + sp * np.arange(N)))
-    out, src = [], []
-    for p in off + sp * np.arange(N):
-        j = int(np.argmin(abs(cum[:-1] - p)))
-        if abs(cum[j] - p) < snap * sp: out.append(Q[j]); src.append([j]); continue
-        i = int(np.searchsorted(cum, p, side='right') - 1); u = (p - cum[i]) / d[i]
-        out.append(flow_mix(Q[i], Q[(i + 1) % L], u)); src.append([i, (i + 1) % L, round(float(u), 2)])
-    return out, src, d
+    pos = off + sp * np.arange(N)
+    def make(pos):
+        out, src = [], []
+        for p in pos:
+            p = p % T; j = int(np.argmin(abs(cum[:-1] - p)))
+            if abs(cum[j] - p) < snap * sp: out.append(Q[j]); src.append([j]); continue
+            i = int(np.searchsorted(cum, p, side='right') - 1); u = (p - cum[i]) / d[i]
+            out.append(flow_mix(Q[i], Q[(i + 1) % L], u)); src.append([i, (i + 1) % L, round(float(u), 2)])
+        return out, src
+    out, src = make(pos); best = None
+    for r in range(rounds + 1):
+        m = np.mean(pose_steps(out), 0); score = m.max()
+        if best is None or score < best[0]: best = (score, out, src)
+        if r == rounds: break
+        # where the made frames really are (measured steps), against where they were meant to be: move the targets
+        # so the measured steps come out even (piecewise-linear, round the loop)
+        M = np.r_[0, np.cumsum(m)] * (T / m.sum()); P_ = np.r_[pos, pos[0] + T]
+        pos = np.interp(pos[0] + np.arange(N) * T / N, M + pos[0], P_)
+        out, src = make(pos)
+    return best[1], best[2], d
 
 
 def build_retimed(run, data, log=print):
