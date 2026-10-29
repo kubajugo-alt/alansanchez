@@ -3,7 +3,8 @@
 loopable - they are not at the moment").
 
   python3 sequel/scripts/walk_loop.py [run ...]     looped frames, LUDO entries, seam report and clips for review
-  python3 sequel/scripts/walk_loop.py install       puts the reviewed loops into the game (only after approval)
+  python3 sequel/scripts/walk_loop.py install [run ...]   puts the reviewed loops into the game (only after approval;
+                                                         just the runs named, when any are)
 
 What was wrong. Ludo drew each walk as a 36-frame clip, not a cycle: it starts from the standing keyframe (the first
 three or four frames are the feet coming apart), runs through about one and a half strides, and stops wherever frame 35
@@ -60,6 +61,9 @@ MIN_L = 8          # the shortest loop considered (frames)
 STEP_H = 0.34      # front/back: a step towards or away from the camera, in heights (scripts/ludo_measure.py)
 SEAM_IB = 1.3      # in-between at the seam only if the seam is still this many times the step it replaces
 IB_K = 3           # ...over this many frames
+# Retimed runs (the user, 2026-10-29, on alanv_walk_front's first loop: "still jumps, doesn't loop"): a stride of
+# source frames first..last, the drift taken out over it, then resampled to N frames evenly spaced in pose (see retime())
+RETIME = {'alanv_walk_front': {'first': 20, 'last': 34, 'N': 14}}
 BG = (46, 43, 52)  # the review clips' background (scripts/review_anim.py)
 FONT = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
 
@@ -284,6 +288,88 @@ def build(run, data, log=print):
     return out, ent, meta, rep, F
 
 
+# ---------------------------------------------------------------- retimed runs
+def grey(p):
+    return np.clip((p[..., :3].mean(-1) + 0.5 * (1 - p[..., 3])) * 255, 0, 255).astype(np.uint8)
+
+
+def flow_mix(A, B, t, dis=[]):
+    """the frame a share t of the way from A to B (premultiplied): each warped along the optical flow (DIS) towards
+    the other, then mixed; a plain cross-dissolve would ghost the legs"""
+    if not dis: dis.append(cv2.DISOpticalFlow_create(cv2.DISOPTICAL_FLOW_PRESET_MEDIUM))
+    gA, gB = grey(A), grey(B); fab = dis[0].calc(gA, gB, None); fba = dis[0].calc(gB, gA, None)
+    H, Wd = gA.shape; gx, gy = np.meshgrid(np.arange(Wd, dtype=np.float32), np.arange(H, dtype=np.float32))
+    rm = lambda im, fx, fy: cv2.remap(im.astype(np.float32), fx.astype(np.float32), fy.astype(np.float32), cv2.INTER_LINEAR,
+                                      borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+    return (1 - t) * rm(A, gx + t * fba[..., 0], gy + t * fba[..., 1]) + t * rm(B, gx + (1 - t) * fab[..., 0], gy + (1 - t) * fab[..., 1])
+
+
+def legs_c(p):
+    """the legs (below 45% of the box), the figure centred on its torso: leg motion without the body's sway"""
+    r = reg(unpm(p)); return warp(p, 1, p.shape[1] / 2 - r['tx'], 0, 0, 0)[int(p.shape[0] * 0.45):]
+
+
+def pose_steps(Q):
+    """frame steps round a loop, two ways, each over its median: the whole figure (diff) and the torso-centred legs"""
+    n = len(Q); Lg = [legs_c(q) for q in Q]
+    a = np.array([diff(Q[i], Q[(i + 1) % n]) for i in range(n)]); b = np.array([diff(Lg[i], Lg[(i + 1) % n]) for i in range(n)])
+    return a / np.median(a), b / np.median(b)
+
+
+def retime(Q, N, snap=0.2):
+    """the closed loop Q (last frame -> first included) resampled to N frames evenly spaced along the pose distance
+    (the mean of pose_steps' two measures): Ludo's own spacing is uneven (frame steps from half to twice the median). A new frame within snap of a
+    spacing of a source frame is that frame as it is; the others are flow_mix in-betweens. The start is shifted so
+    as many source frames as possible are kept. The seam is just another stretch of the loop, bridged the same way."""
+    L = len(Q); d = np.mean(pose_steps(Q), 0); cum = np.r_[0, np.cumsum(d)]; sp = cum[-1] / N
+    off = min(np.linspace(0, sp, 40, endpoint=False), key=lambda o: sum(min(abs(cum[:-1] - p)) for p in o + sp * np.arange(N)))
+    out, src = [], []
+    for p in off + sp * np.arange(N):
+        j = int(np.argmin(abs(cum[:-1] - p)))
+        if abs(cum[j] - p) < snap * sp: out.append(Q[j]); src.append([j]); continue
+        i = int(np.searchsorted(cum, p, side='right') - 1); u = (p - cum[i]) / d[i]
+        out.append(flow_mix(Q[i], Q[(i + 1) % L], u)); src.append([i, (i + 1) % L, round(float(u), 2)])
+    return out, src, d
+
+
+def build_retimed(run, data, log=print):
+    """a stride chosen by eye and measure (RETIME), drift out, retimed even; seam and every frame step reported"""
+    R = RETIME[run]; L0 = data['L'][run]; keys = L0['frames']; meta = data['S'][keys[0]]
+    ax, fy, h0 = meta['ax'], meta['fy'], meta['h']
+    F = [load(k) for k in keys]; P = [pm(a) for a in F]; n = len(F)
+    before = seam_number(P); before_steps = [diff(P[i], P[(i + 1) % n]) for i in range(n)]
+    a, b, N = R['first'], R['last'], R['N']; L = b - a + 1
+    s, dx, dy, err = align(P[a], P[b], ax, fy)   # the body's drift over the stride (frame b put on frame a)
+    Q = [P[a].copy()] + [warp(P[i], s ** ((i - a) / (L - 1)), (i - a) / (L - 1) * dx, (i - a) / (L - 1) * dy, ax, fy,
+                              cv2.INTER_LANCZOS4) for i in range(a + 1, b + 1)]
+    out_p, src, d = retime(Q, N)
+    st, sl = pose_steps(out_p); dfull, dlegs = pose_steps(Q)
+    src = [[a + x for x in v[:2]] + v[2:] for v in src]
+    out = [unpm(q) for q in out_p]
+    after = seam_number(out_p)
+    ent = {'frames': [f'{run}_{i:02d}' for i in range(N)], 'fps': L0['fps'], 'steps': 2, 'step': round(2 * STEP_H / N, 4)}
+    rep = {
+        'old': {'frames': n, 'steps': L0.get('steps'), 'step': L0.get('step')},
+        'new': {'frames': N, 'steps': 2, 'step': ent['step']},
+        'method': 'retimed: source stride, drift out, resampled evenly along pose distance with optical-flow in-betweens',
+        'kept': f'{a}..{b}', 'drift_removed': {'scale': round(1 / s, 4), 'dx': -dx, 'dy': -dy, 'over_frames': L - 1},
+        'src': src, 'source_frames_kept_as_is': sum(len(v) == 1 for v in src),
+        'source_steps_over_median': {'figure': [round(float(x), 2) for x in dfull], 'legs': [round(float(x), 2) for x in dlegs]},
+        'steps_over_median': {'figure': [round(float(x), 2) for x in st], 'legs': [round(float(x), 2) for x in sl]},
+        'max_step_over_median': {'figure': round(float(st.max()), 2), 'legs': round(float(sl.max()), 2)},
+        'seam_before': {'number': round(before[0], 2), 'seam': round(before[1], 1), 'near_steps': round(before[2], 1),
+                        'run_median_step': round(before[3], 1), 'max_step_over_median': round(float(max(before_steps) / np.median(before_steps)), 2),
+                        'body': drift_jump(F)},
+        'seam_after': {'number': round(after[0], 2), 'seam': round(after[1], 1), 'near_steps': round(after[2], 1),
+                       'run_median_step': round(after[3], 1), 'body': drift_jump(out)},
+        'edge_alpha': round(max(max(float(o[0, :, 3].max()), float(o[:, 0, 3].max()), float(o[:, -1, 3].max())) for o in out), 3),
+    }
+    log(f'{run}: stride {a}..{b} retimed to {N} frames ({rep["source_frames_kept_as_is"]} source frames as they are); '
+        f'steps/median, figure {" ".join("%.2f" % x for x in st)} (max {st.max():.2f}; the stride as Ludo drew it {dfull.max():.2f}); '
+        f'legs {" ".join("%.2f" % x for x in sl)} (max {sl.max():.2f}; Ludo {dlegs.max():.2f})')
+    return out, ent, meta, rep, F
+
+
 # ---------------------------------------------------------------- review clips
 def encode(d, out, fps):
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(fps), '-i', os.path.join(d, '%05d.png'),
@@ -328,7 +414,9 @@ def main(runs):
     J = json.load(open(jp)) if os.path.exists(jp) else {}
     REP = json.load(open(rp)) if os.path.exists(rp) else {}
     for run in runs:
-        out, ent, meta, rep, old = build(run, data)
+        if len(data['L'][run]['frames']) != 36:   # already installed: its frames are a loop now, not Ludo's run
+            print(f'{run}: installed already ({len(data["L"][run]["frames"])} frames), skipped'); continue
+        out, ent, meta, rep, old = (build_retimed if run in RETIME else build)(run, data)
         for f in glob.glob(os.path.join(OUT, 'frames', run + '_[0-9][0-9].webp')): os.remove(f)
         ims = [to_im(o) for o in out]
         for key, im in zip(ent['frames'], ims): im.save(os.path.join(OUT, 'frames', key + '.webp'), 'WEBP', quality=90, method=6)
@@ -341,8 +429,9 @@ def main(runs):
     print('wrote', OUT)
 
 
-def install():
+def install(runs=None):
     J = json.load(open(os.path.join(OUT, 'ludo_walk_loop.json'))); data = game_data()
+    if runs: J = {r: e for r, e in J.items() if r in runs}   # (only the approved ones: the user reviews each run)
     S, L = data['S'], data['L']
     for run, e in J.items():
         for k in L[run]['frames']: S.pop(k, None)
@@ -353,12 +442,12 @@ def install():
         L[run] = e['ludo']
     with open(LUDO_JS, 'w') as f:   # the same layout as scripts/ludo_install.py writes
         f.write('// Generated by sequel/scripts/ludo_install.py: the approved Ludo runs. Do not edit by hand.\n')
-        f.write('// Alan\'s six walk runs replaced by their seamless loops (scripts/walk_loop.py install).\n')
+        f.write('// Alan\'s walk runs replaced by their seamless loops where approved (scripts/walk_loop.py install).\n')
         f.write('window.SPRITES = Object.assign(window.SPRITES || {}, ' + json.dumps(S, separators=(',', ':')) + ');\n')
         f.write('window.LUDO = ' + json.dumps(L, indent=1) + ';\n')
     print(len(J), 'walk runs installed:', ', '.join(f'{r} {len(e["ludo"]["frames"])} frames' for r, e in J.items()))
 
 
 if __name__ == '__main__':
-    if sys.argv[1:2] == ['install']: install()
+    if sys.argv[1:2] == ['install']: install(sys.argv[2:])
     else: main(sys.argv[1:] or RUNS)

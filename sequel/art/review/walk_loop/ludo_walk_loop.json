@@ -101,11 +101,15 @@
     "alanv_walk_front_06",
     "alanv_walk_front_07",
     "alanv_walk_front_08",
-    "alanv_walk_front_09"
+    "alanv_walk_front_09",
+    "alanv_walk_front_10",
+    "alanv_walk_front_11",
+    "alanv_walk_front_12",
+    "alanv_walk_front_13"
    ],
    "fps": 12,
    "steps": 2,
-   "step": 0.068
+   "step": 0.0486
   },
   "sprite": {
    "w": 280,

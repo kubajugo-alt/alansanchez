@@ -465,3 +465,8 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     would undo it (and the hair clean-up). Open: the side views' planted foot measures slower in the box than the
     house measure (vest 0.0196, blazer 0.0144 vs 0.0231 / 0.0218), so some slide may remain in the game; the engine plays the
     side walk at about 2.2-2.4 steps/s and front/back at 1.8.
+44. **Five seamless walk loops installed** (2026-10-29). Review verdicts: loops approved for alanv_walk_side,
+    alanv_walk_back, alanb_walk_side, alanb_walk_front, alanb_walk_back; alanv_walk_front "still jumps, doesn't loop".
+    `walk_loop.py install` now takes run names; installed the five (24/24/24/25/25 frames, js/sprites_ludo.js
+    rewritten, old frames past the new count removed). alanv_walk_front stays on its old 36 frames while it is redone
+    (12-frame stride with even spacing via flow in-betweens). play.mjs won in 98 steps, no errors.

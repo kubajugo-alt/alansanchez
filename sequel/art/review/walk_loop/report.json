@@ -306,27 +306,26 @@
    "step": 0.0378
   },
   "new": {
-   "frames": 10,
+   "frames": 14,
    "steps": 2,
-   "step": 0.068
+   "step": 0.0486
   },
-  "kept": "16..25",
-  "starts_on_source_frame": 20,
-  "cut_after_new_frame": 5,
+  "method": "retimed: source stride, drift out, resampled evenly along pose distance with optical-flow in-betweens",
+  "kept": "20..34",
   "drift_removed": {
-   "scale": 0.9975,
-   "dx": -1,
-   "dy": -2,
-   "over_frames": 10
+   "scale": 1.0178,
+   "dx": -7,
+   "dy": 4,
+   "over_frames": 14
   },
-  "match_err": 11.1,
-  "inbetween": false,
   "src": [
    [
     20
    ],
    [
-    21
+    20,
+    21,
+    0.72
    ],
    [
     22
@@ -335,29 +334,91 @@
     23
    ],
    [
-    24
-   ],
-   [
     25
    ],
    [
-    16
+    26
    ],
    [
-    17
+    27,
+    28,
+    0.46
    ],
    [
-    18
+    28,
+    29,
+    0.4
    ],
    [
-    19
+    29,
+    30,
+    0.26
+   ],
+   [
+    30,
+    31,
+    0.18
+   ],
+   [
+    30,
+    31,
+    0.76
+   ],
+   [
+    32
+   ],
+   [
+    33,
+    34,
+    0.6
+   ],
+   [
+    34,
+    20,
+    0.44
    ]
   ],
+  "source_frames_kept_as_is": 6,
+  "source_steps_over_median": [
+   1.53,
+   0.72,
+   1.03,
+   0.57,
+   0.62,
+   1.02,
+   0.62,
+   1.0,
+   1.39,
+   1.02,
+   1.89,
+   0.5,
+   0.87,
+   0.6,
+   1.95
+  ],
+  "steps_over_median": [
+   1.16,
+   0.88,
+   1.01,
+   0.91,
+   0.99,
+   0.9,
+   1.01,
+   1.03,
+   0.99,
+   1.19,
+   0.89,
+   1.01,
+   0.95,
+   1.19
+  ],
+  "max_step_over_median": 1.19,
   "seam_before": {
    "number": 1.93,
    "seam": 31.0,
    "near_steps": 16.1,
    "run_median_step": 18.7,
+   "max_step_over_median": 2.05,
    "body": {
     "tx": {
      "seam": 0.5,
@@ -373,31 +434,23 @@
     }
    }
   },
-  "natural_step_replaced": 20.6,
-  "natural_body_step": {
-   "tx": 1.1,
-   "bot": 3,
-   "h": 4
-  },
-  "seam_after_drift_only": 1.62,
-  "seam_vs_natural_step": 0.98,
   "seam_after": {
-   "number": 1.62,
-   "seam": 20.2,
-   "near_steps": 12.5,
-   "run_median_step": 20.1,
+   "number": 1.22,
+   "seam": 25.1,
+   "near_steps": 20.6,
+   "run_median_step": 20.9,
    "body": {
     "tx": {
-     "seam": 1.8,
-     "median": 1.2
+     "seam": 3.5,
+     "median": 2.5
     },
     "bot": {
-     "seam": 1.0,
-     "median": 4.0
+     "seam": 0.0,
+     "median": 5.0
     },
     "h": {
-     "seam": 1.0,
-     "median": 3.0
+     "seam": 2.0,
+     "median": 4.0
     }
    }
   },
