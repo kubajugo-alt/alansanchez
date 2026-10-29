@@ -77,6 +77,19 @@ window.LINES = {
   gc_03: ['gc1', "Then it went somewhere."],
   narr_open_01: ['narr', "The Guardia Civil said it was a flash flood."],
   narr_open_02: ['narr', "It hadn't rained on that side of the mountain for forty days."],
+  // the opening film (scripts/opening_film.py): the narrator alone, building, giving little away (the user, 2026-10-29)
+  film_01: ['narr', "On the longest night of the year, the mountain goes to sleep early."],
+  film_02: ['narr', "In Artenara, one bar was still open, and one woman was still awake."],
+  film_03: ['narr', "She had found something in the cave that week. [pause] Something that should not have been missing."],
+  film_04: ['narr', "She told one person. Then she started down the mountain."],
+  film_05: ['narr', "From the summit, the road falls a thousand metres into the cloud."],
+  film_06: ['narr', "She had driven it a hundred times."],
+  film_07: ['narr', "Behind her, the lights of the camp went out, one by one."],
+  film_08: ['narr', "Seven marks on a cave wall. [pause] She had counted six."],
+  film_09: ['narr', "Then the cloud closed over the road, and the air began to smell of salt."],
+  film_10: ['narr', "She had time to leave one thing behind."],
+  film_11: ['narr', "In the morning, they found her car at the bottom of a dry ravine. [pause] The windows were closed."],
+  film_12: ['narr', "She had drowned. [pause] It had not rained on that side of the mountain for forty days."],
 
   // ================================================================ TUESDAY 18 JUNE: arrival
   narr_tue_1: ['narr', "Alan Sanches had been on Gran Canaria for fifty-five minutes, and in that time he had lost his luggage, his dignity, and the skin on the back of his neck."],

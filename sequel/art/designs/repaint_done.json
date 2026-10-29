@@ -1,4 +1,27 @@
 {
  "nieves": "MAHZYIKabJY",
- "guard": "MAHZa8a30xk"
+ "guard": "MAHZa8a30xk",
+ "_higgsfield_batch_2026_10_29": {
+  "clerk": "15dbd673-ead9-4cbf-8cfd-2e6ca545165a",
+  "chano": "849668ef-e595-48f0-b859-d0b4d0204868",
+  "pino": "3908abed-1155-45e1-9472-6c2cb7f2ae0d",
+  "fermin": "cc2eb0e3-1760-4395-80f6-31d36a9776d8",
+  "mercedes": "5d9b1688-cae6-4b93-beb8-3c5309992423",
+  "montesdeoca": "cfba42ec-8bdf-4de6-acdf-d073992630b3",
+  "gail": "3895c1cb-6cbd-48ab-8593-099fd4693f92",
+  "derek": "5580fd2c-0dfa-4b47-b1b6-14dd4120ed1f",
+  "_retry": [
+   "lolo",
+   "surfer"
+  ],
+  "_refs": {
+   "style": "08e6e53f-e88a-4e73-ad11-482d5f6b3120",
+   "nieves_clerk": "8a8a9f62-aa65-4ff1-89ed-a32c4ff609c0",
+   "chano_v3": "5142f37f-8117-4788-97e7-c36ad8869d42",
+   "pino_lolo": "fded814c-2ce4-4758-8cb7-8f8026b8f853",
+   "fermin_mercedes": "565bc5c0-ad3a-444d-b7a2-801274d625ae",
+   "montesdeoca_surfer": "60ec909c-8b46-4b82-892c-694be3c4637e",
+   "gail_derek": "0eb6cbdb-9e15-4b59-8c60-eecdee11a19b"
+  }
+ }
 }

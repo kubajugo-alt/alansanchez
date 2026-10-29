@@ -15,15 +15,22 @@ def both(f, fb=None):
 C = [('Alan', (sprite('alanv_side_k'), sprite('alanv_front_k')), 1.0, 'in the game'),
      ('Vasco', both('vasco_v9'), 1.0, 'approved'), ('Baute', both('baute_v4', 'baute_v5_front'), 1.0, 'approved'),
      ('Rafa', both('rafa_v3'), 1.0, 'approved'), ('Yeray', both('yeray_v7'), 1.0, 'approved'), ('Carmen', both('carmen_v2'), .92, 'approved'),
-     ('Nieves', both('nieves_v2'), .92, 'kept from overnight'), ('Guard', both('guard_v4'), .92, 'redo 2, new')]
+     ('Nieves', both('nieves_v2'), .92, 'kept from overnight'), ('Guard', both('guard_v4'), 1.0, 'approved, Alan\'s height')]
+NEW = [('Clerk', 'clerk'), ('Chano', 'chano'), ('Pino', 'pino'), ('Lolo', 'lolo'), ('Fermín', 'fermin'), ('Mercedes', 'mercedes'),
+       ('Montesdeoca', 'montesdeoca'), ('Surfer', 'surfer'), ('Gail', 'gail'), ('Derek', 'derek')]
+C2 = [(n, both(f + '_hf1'), 1.0 if f == 'surfer' else .92, 'new (Higgsfield)') for n, f in NEW]
 H = 620; font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 22); small = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 16)
-tiles = []
-for n, (s, f), k, st in C:
-    h = round(H * k); s = s.resize((round(s.width * h / s.height), h), Image.LANCZOS); f = f.resize((round(f.width * h / f.height), h), Image.LANCZOS)
-    t = Image.new('RGB', (s.width + f.width + 30, H + 70), (232, 228, 222)); t.paste(s, (5, H + 10 - h), s); t.paste(f, (s.width + 25, H + 10 - h), f)
-    d = ImageDraw.Draw(t); d.text((6, H + 18), n, fill=(30, 30, 30), font=font); d.text((6, H + 46), st, fill=(110, 100, 110), font=small); tiles.append(t)
-W = sum(t.width for t in tiles) + 20 * (len(tiles) + 1); S = Image.new('RGB', (W, H + 90), (232, 228, 222)); x = 20
-d = ImageDraw.Draw(S)
-for t in tiles: S.paste(t, (x, 10)); x += t.width + 20
-d.line((0, H + 20, W, H + 20), fill=(160, 160, 160), width=2)
-S.save(R + 'art/review/cast_repaint/both_angles.jpg', quality=90); print(S.size)
+def row(C):
+    tiles = []
+    for n, (s, f), k, st in C:
+        h = round(H * k); s = s.resize((round(s.width * h / s.height), h), Image.LANCZOS); f = f.resize((round(f.width * h / f.height), h), Image.LANCZOS)
+        t = Image.new('RGB', (s.width + f.width + 30, H + 70), (232, 228, 222)); t.paste(s, (5, H + 10 - h), s); t.paste(f, (s.width + 25, H + 10 - h), f)
+        d = ImageDraw.Draw(t); d.text((6, H + 18), n, fill=(30, 30, 30), font=font); d.text((6, H + 46), st, fill=(110, 100, 110), font=small); tiles.append(t)
+    W = sum(t.width for t in tiles) + 20 * (len(tiles) + 1); S = Image.new('RGB', (W, H + 90), (232, 228, 222)); x = 20
+    d = ImageDraw.Draw(S)
+    for t in tiles: S.paste(t, (x, 10)); x += t.width + 20
+    d.line((0, H + 20, W, H + 20), fill=(160, 160, 160), width=2)
+    return S
+A, B = row(C), row(C2)
+S = Image.new('RGB', (max(A.width, B.width), A.height + B.height + 20), (232, 228, 222)); S.paste(A, (0, 0)); S.paste(B, (0, A.height + 20))
+S.save(R + 'art/review/cast_repaint/both_angles.jpg', quality=88); print(S.size)

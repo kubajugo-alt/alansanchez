@@ -96,5 +96,15 @@
   "derek"
  ],
  "prompt_template": "The person {side_phrase}in the FIRST image ({who}; keep {pos} face, features, build, clothes, props and character), shown in two views side by side, a side view and a front view, standing relaxed. Paint {obj} as if by the same artist who painted the cast in the SECOND image, so {sub} fits in that line-up: the same smooth, clean painted look, smooth skin with soft broad shading (no glossy or orange skin), flat clean colour on the clothes with a few soft folds, clean thin outlines, the same muted palette and lighting. Realistic adult proportions like the people in the SECOND image: head about one eighth of the body height, natural face, NOT a caricature, no exaggerated nose, eyes, cheeks or jowls, age shown with only a few soft lines, no heavy wrinkle linework, no gritty texture, no hatching. Full body, both views, on a flat plain green background.",
- "note_2026_10_29": "The user: 'I want all characters to be consistent, like drawn by the same artist. Regenerate whatever you need.' Redo guard, clerk, Chano, Pino, Lolo (first takes in first_takes_rejected); Nieves kept. References now: source + style_ref (approved cast sheet, art/review/cast_repaint/cast_style_ref.png)."
+ "note_2026_10_29": "The user: 'I want all characters to be consistent, like drawn by the same artist. Regenerate whatever you need.' Redo guard, clerk, Chano, Pino, Lolo (first takes in first_takes_rejected); Nieves kept. References now: source + style_ref (approved cast sheet, art/review/cast_repaint/cast_style_ref.png).",
+ "heights": {
+  "default": 0.92,
+  "surfer": 1.0,
+  "guard": 1.0,
+  "_note": "the user: 'the surfer should keep Alan's height'; 'guard is good, just make him Alan's height'"
+ },
+ "approved": {
+  "guard": "MAHZa8a30xk (guard_v4)"
+ },
+ "guard_lesson": "The guard only came right when the old design was left out (refs: style_ref + Vasco v9, identity from text). If a character keeps its old proportions, do the same."
 }
