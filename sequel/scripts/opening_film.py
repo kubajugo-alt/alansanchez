@@ -22,24 +22,22 @@ LINES = json.loads(subprocess.run(['node', '-e', "global.window={};require(proce
                                    os.path.join(SEQ, 'js/lines.js')], capture_output=True, text=True, check=True).stdout)
 
 # (shot, part, length s, [(t, 'line'|'sfx', name, gain)])  a shot's length stretches to fit its last line
-SHOTS = [
+SHOTS = [   # the narrator alone (the user, 2026-10-29: "keep it all as a narrator... building suspense")
     ('s01', 1, 5, [(0, 'sfx', 'wind_arches', 0.5)]),
-    ('s02', 1, 7, [(0, 'sfx', 'tower_wind', 0.5), (3.5, 'sfx', 'dog_distant', 0.4)]),
-    ('s03', 1, 14, [(0.4, 'sfx', 'payphone_coins', 0.8), (2.0, 'sfx', 'phone_ring_distant', 0.5), (3.6, 'line', 'carmen_machine', 1),
-                    (5.3, 'sfx', 'beep', 0.5), (5.8, 'line', 'elena_msg_01', 1)]),
-    ('s04', 1, 14, [(0.3, 'line', 'elena_msg_02', 1), (9.0, 'line', 'elena_msg_03', 1)]),
-    ('s05', 1, 6, [(0.0, 'sfx', 'phone_hangup', 0.7), (0.6, 'line', 'barman_stay', 1), (3.1, 'line', 'elena_stay', 1), (5.6, 'sfx', 'door_tavern', 0.6)]),
-    ('s06', 2, 8, [(0, 'music', 'elena_car', 0.55)]),
-    ('s07', 2, 8, [(1.5, 'line', 'elena_look_radio', 1)]),
-    ('s08', 2, 7, [(0.5, 'line', 'elena_look_mirror', 1)]),
-    ('s09', 2, 8, [(0.4, 'line', 'elena_look_notebook', 1)]),
-    ('s10', 3, 12, [(0, 'music_out', '', 6), (1.0, 'sfx', 'wind_arches_2', 0.4), (2.0, 'line', 'elena_look_radio_2', 1),
-                    (6.5, 'sfx', 'crash_wave', 0.25), (9.6, 'line', 'elena_look_air', 1)]),
-    ('s11', 3, 7, [(0.2, 'sfx', 'water_seep', 0.7), (1.0, 'line', 'elena_salt', 1), (3.5, 'sfx', 'water_rise', 0.6)]),
-    ('s12', 3, 8, [(0.0, 'sfx', 'water_rise_2', 0.6), (0.8, 'line', 'elena_doors', 1)]),
+    ('s02', 1, 7, [(0, 'sfx', 'tower_wind', 0.5), (1.0, 'line', 'film_01', 1), (5.5, 'sfx', 'dog_distant', 0.35)]),
+    ('s03', 1, 12, [(0.4, 'sfx', 'payphone_coins', 0.7), (2.2, 'line', 'film_02', 1), (8.5, 'sfx', 'phone_ring_distant', 0.35)]),
+    ('s04', 1, 12, [(1.5, 'line', 'film_03', 1)]),
+    ('s05', 1, 6, [(0.3, 'sfx', 'phone_hangup', 0.7), (1.0, 'line', 'film_04', 1), (5.4, 'sfx', 'door_tavern', 0.6)]),
+    ('s06', 2, 8, [(0, 'music', 'elena_car', 0.55), (2.0, 'line', 'film_05', 1)]),
+    ('s07', 2, 8, [(3.0, 'line', 'film_06', 1)]),
+    ('s08', 2, 7, [(1.0, 'line', 'film_07', 1)]),
+    ('s09', 2, 8, [(1.5, 'line', 'film_08', 1)]),
+    ('s10', 3, 12, [(0, 'music_out', '', 6), (1.0, 'sfx', 'wind_arches_2', 0.4), (5.0, 'line', 'film_09', 1), (8.0, 'sfx', 'crash_wave', 0.25)]),
+    ('s11', 3, 7, [(0.2, 'sfx', 'water_rise', 0.7), (0.6, 'sfx', 'door_locked', 0.8), (2.3, 'sfx', 'door_locked_2', 0.8), (4.0, 'sfx', 'door_locked_3', 0.9)]),
+    ('s12', 3, 8, [(0.0, 'sfx', 'water_rise_2', 0.6), (3.5, 'line', 'film_10', 1)]),
     ('s13', 3, 3, [(0.0, 'sfx', 'crash_wave', 0.7)]),
-    ('s14', 4, 9, [(0.0, 'sfx', 'dawn_birds', 0.6), (1.2, 'line', 'gc_01', 1), (3.2, 'line', 'gc_02', 1), (5.4, 'line', 'gc_03', 1)]),
-    ('s15', 4, 8, [(0.6, 'line', 'narr_open_01', 1), (4.2, 'line', 'narr_open_02', 1)]),
+    ('s14', 4, 9, [(0.0, 'sfx', 'dawn_birds', 0.6), (1.0, 'line', 'film_11', 1)]),
+    ('s15', 4, 8, [(0.8, 'line', 'film_12', 1)]),
     ('s16', 4, 7, [(0, 'music', 'title', 0.7)]),
 ]
 CARD = 'Gran Canaria  ·  21 December 1995  ·  the winter solstice'

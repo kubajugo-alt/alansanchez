@@ -522,3 +522,15 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       approved cast sheet + Vasco v9 only, no old design: MAHZa8a30xk, `guard_v4`, in `art/review/cast_repaint/both_angles.jpg`.
     - The 16:03 session cron for the rest of the cast redo never fired: the clerk, Chano, Pino, Lolo and the six still
       to make are not started.
+50. **Cast redo finished in Higgsfield; film recut as narration** (2026-10-29).
+    - Guard approved ("guard is good"), at Alan's height (`repaint_queue.json` "heights": surfer and guard 1.0, the
+      rest 0.92). Canva was cooling down again, so the other ten (clerk, Chano, Pino, Lolo, Fermín, Mercedes,
+      Montesdeoca, surfer, Gail, Derek) were made in Higgsfield (GPT Image 2.5, 2.75 credits each; refs: the old
+      design + the approved cast sheet; job ids in `repaint_done.json` `_higgsfield_batch_2026_10_29`), saved as
+      `art/designs/<id>_hf1.png`. Line-up both angles: `art/review/cast_repaint/both_angles.jpg`. Face/height on the
+      front views (`tools/measure_all.py`, `head_ratios.txt`): approved cast 0.105-0.121; guard 0.106; new ten
+      0.103-0.120 except Chano 0.127.
+    - Film: "keep it all as a narrator... revealing not too much, building suspense"; hands on the wheel while
+      driving; Elena struggling with the door instead of the boots. New lines film_01..film_12 (narrator, Eleanor) in
+      js/lines.js, voiced; new paintings s07b (hands on the wheel) and s11b (the door); clips s07, s10, s11 redone
+      (old ones kept as *_v1). Recut: 2 min 7 s, 12 narration lines, no character speaks.
