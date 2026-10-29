@@ -603,3 +603,16 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
 58. **The repainted cast's faces switched on** (2026-10-29). The user: "faces approved, switch them on". `ok: true` in
     js/faces.js for the seventeen repaint frames (vascor_side_k, baute_r, chano_r and the other fourteen `<id>_r`);
     the cast talk and blink on their repaints in the game. validate: 0 errors; play.mjs: won in 98 steps. Not deployed.
+59. **Deployed; real-location repaints, first drafts** (2026-10-29). Deployed on the user's word: Netlify deploy
+    6ae3bfc9545734b15dd390e6 from a clean `git archive HEAD:sequel` export (play.mjs on the export: won in 98 steps;
+    `/.env` 404). Then the user sent photos of the real places: "repaint the cave. this is how it really looks like -
+    we need to keep it consistent with the real locations"; "tweak the interior of museo canario - it has skulls
+    everywhere"; "before alan enters a building, we need to show it from the outside" (Casa de Colón, El Museo
+    Canario); the Plaza de Santa Ana. The photos did not reach the sandbox, so the prompts describe each place (the
+    domed, ring-banded tuff of Risco Caído's Cave 6; the skull cabinets and mummy cases; the cathedral's real facade;
+    the Casa de Colón's balconies, Gothic portal and ochre zigzag base; the Museo Canario's cut corner with its
+    lettered lintel and iron balcony), with the current room paintings as style references. Higgsfield GPT Image 2.5,
+    8 images (~22 credits): `art/designs/rooms_real/` (cave6_a/b, museum_hall_a/b, santa_ana_a/b, colon_out_a,
+    museum_out_a), sheet `art/review/rooms_real/sheet.jpg`. Nothing in the game yet: the user picks; a chosen repaint
+    of an existing room needs its layout.js entry checked (cave6_a keeps the puzzle's positions); the two exteriors are
+    new rooms between the map and the interiors.
