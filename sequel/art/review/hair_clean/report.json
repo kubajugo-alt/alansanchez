@@ -1,0 +1,51 @@
+{
+ "alanv_side_k": {
+  "changed": 71,
+  "taken": 45,
+  "fringe": 26,
+  "edge_groups": 5,
+  "pockets": 0
+ },
+ "alanv_front_k": {
+  "changed": 9,
+  "taken": 7,
+  "fringe": 2,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanv_back_k": {
+  "changed": 1,
+  "taken": 0,
+  "fringe": 1,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanb_side_k": {
+  "changed": 77,
+  "taken": 46,
+  "fringe": 31,
+  "edge_groups": 5,
+  "pockets": 0
+ },
+ "alanb_front_k": {
+  "changed": 8,
+  "taken": 6,
+  "fringe": 2,
+  "edge_groups": 1,
+  "pockets": 0
+ },
+ "alanb_back_k": {
+  "changed": 3,
+  "taken": 0,
+  "fringe": 3,
+  "edge_groups": 0,
+  "pockets": 0
+ },
+ "alanv_walk_side_00": {
+  "changed": 61,
+  "taken": 32,
+  "fringe": 29,
+  "edge_groups": 4,
+  "pockets": 0
+ }
+}
