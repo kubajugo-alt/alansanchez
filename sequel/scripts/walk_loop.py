@@ -21,8 +21,8 @@ fitted frames under art/review/ludo/ are not used):
   2. Drift. The scale and shift that put frame c on frame a are what the figure drifted over the loop; frame a+k gets
      k/L of the opposite, so the body ends where it started and nothing jumps at the seam. A frame that needs no change
      is copied as it is; the rest are resampled once (Lanczos, premultiplied alpha), the box unchanged.
-  3. An in-between at the seam, only if the seam, after 2, is still clearly bigger (SEAM_IB) than the step it stands
-     in for (frame c-1 to frame c, Ludo's own): the last K frames are dissolved towards the frames that lead into frame
+  3. An in-between at the seam, only if the seam, after 2, is still clearly bigger (SEAM_IB) than both the step it stands
+     in for (frame c-1 to frame c, Ludo's own) and the steps around it: the last K frames are dissolved towards the frames that lead into frame
      a (lined up the same way). None of the six needed one (report.json: seam_vs_natural_step).
   4. The loop is turned so its first frame is the pose nearest the standing painting (alanv_side_k etc.), so a walk
      starts from the stride closest to the stance it leaves.
@@ -225,7 +225,7 @@ def build(run, data, log=print):
     mid = seam_number(Q); natural = diff(P[c - 1], P[c])   # the step the seam stands in for: frame c-1 to frame c
     # 3. an in-between at the seam, only if the seam is still clearly bigger than the step it replaces
     ib = False
-    if mid[1] > SEAM_IB * natural and a >= IB_K:
+    if mid[1] > SEAM_IB * max(natural, mid[2]) and a >= IB_K:
         for j in range(IB_K):
             w = (j + 1) / (IB_K + 1); pos = L - IB_K + j
             t = (j - IB_K) / L   # frame a-K+j lined up as the frame that leads into the seam

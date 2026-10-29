@@ -444,3 +444,24 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     notes or extra lines. `js/story/emotions.js` (new, loaded after story/core.js) sets `Engine.LINE_EMO` for those 33.
     Checked: all 33 ids exist, all three of Alan's talking views have the 8 emotions, validate.mjs clean, play.mjs won
     in 98 steps with no errors. Not deployed.
+43. **Alan's walks made to loop, for review** (2026-10-29). The user: "these walks need to be seamlessly loopable - they
+    are not at the moment". Cause: each Ludo walk is a 36-frame clip, not a cycle. It starts from the standing keyframe
+    (frames 0-3 are the feet parting), stops partway through a stride, and the figure drifts in its box (front/back up
+    to 17 px sideways and 1-2% in size). The engine plays frame = floor(phase) % 36, so every 36 frames the stride
+    restarts and the body jumps. New `scripts/walk_loop.py` works from the current art/sprites frames, which carry the
+    hair clean-up. For each run it finds the window a..c-1 whose next frame c lines up best with frame a (pose matrix,
+    then a scale-and-shift search), which is one whole stride (2 steps). It then takes out the drift between c and a
+    over the loop (frame a+k gets k/L of it; Lanczos on premultiplied alpha, box unchanged) and starts the loop on the
+    stride nearest the standing painting. It recomputes LUDO steps and step: for the side views, ludo_measure's formula
+    read round the loop; for front/back, 2 steps x 0.34 / frames. An in-between at the seam is coded but none was
+    needed: no seam was more than 1.3x both Ludo's own frame step there and the steps around it. Kept: alanv side 11..34 (24 frames, step 0.0231 as before), alanv
+    front 16..25 (10: the only clean cycle in that run), alanv back 11..34 (24, 0.0283), alanb side 10..33 (24, 0.0218),
+    alanb front 9..33 (25, 0.0272), alanb back 4..28 (25, 0.0272). Seam number (seam step / median of the 4 steps
+    around it; 1 = ordinary), before -> after: 2.11->1.39, 1.93->1.62, 2.91->1.91, 2.31->1.28, 3.15->0.98, 3.59->1.12.
+    Against the step Ludo drew there (frame c-1 to c): 0.97-1.31x (`seam_vs_natural_step`). Review in `art/review/walk_loop/`:
+    frames/, ludo_walk_loop.json, report.json, walk_<run>.mp4 (in place, 4 loops), oldnew_<run>.mp4. Not in the game:
+    `walk_loop.py install` (not run) copies the frames, deletes the old ones past the new count and rewrites the six
+    runs in js/sprites_ludo.js (dry-run on a scratch copy: 132 frames, entries complete). A later ludo_install.py run
+    would undo it (and the hair clean-up). Open: the side views' planted foot measures slower in the box than the
+    house measure (vest 0.0196, blazer 0.0144 vs 0.0231 / 0.0218), so some slide may remain in the game; the engine plays the
+    side walk at about 2.2-2.4 steps/s and front/back at 1.8.

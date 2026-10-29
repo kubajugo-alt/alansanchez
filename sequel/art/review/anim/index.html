@@ -68,9 +68,9 @@ section > p { margin: 0 0 18px; max-width: 65ch; color: var(--muted); }
   <div class="grid" id="g-talk"></div>
 </section>
 <section>
-  <div class="eyebrow">In the game</div>
-  <h2>Walking</h2>
-  <p>Both outfits, three directions, at the game's 12 frames a second. The hair clean-up is in these frames too.</p>
+  <div class="eyebrow">New · waiting for you</div>
+  <h2>Walking, now looping</h2>
+  <p>Each walk is now one whole stride that loops without a jump: the first clip repeats it four times; the second shows the old walk beside the new, with the seam marked. Not in the game until you approve. (Your earlier "needs changes" on the old walks is kept in the review store.)</p>
   <div class="grid walks" id="g-walk"></div>
 </section>
 <section>
@@ -92,9 +92,11 @@ const ITEMS = [
   { id: 'talk_alanb_side_k', group: 'talk', src: 'talk_alanb_side_k.mp4', title: 'Blazer, side', tech: 'alanb_side_k · alan_ask_baute_cave', sound: true },
   { id: 'talk_alanv_front_k', group: 'talk', src: 'talk_alanv_front_k.mp4', title: 'Tank top, front', tech: 'alanv_front_k · new, not in the game yet', sound: true },
 ];
+const LOOPN = { alanv_walk_side: '24-frame loop, was 36', alanv_walk_front: '10-frame loop, was 36', alanv_walk_back: '24-frame loop, was 36',
+  alanb_walk_side: '24-frame loop, was 36', alanb_walk_front: '25-frame loop, was 36', alanb_walk_back: '25-frame loop, was 36' };
 for (const [o, on] of [['alanv', 'Tank top'], ['alanb', 'Blazer']])
   for (const [v, vn] of [['side', 'side'], ['front', 'towards us'], ['back', 'away']])
-    ITEMS.push({ id: `walk_${o}_walk_${v}`, group: 'walk', src: `walk_${o}_walk_${v}.mp4`, title: `${on}, ${vn}`, tech: `${o}_walk_${v} · 36 frames`, loop: true });
+    ITEMS.push({ id: `loop_${o}_walk_${v}`, group: 'walk', src: `loop_${o}_walk_${v}.mp4`, extra: `oldnew_${o}_walk_${v}.mp4`, title: `${on}, ${vn}`, tech: LOOPN[`${o}_walk_${v}`], loop: true });
 const EMO = ['joy', 'mischievous', 'embarrassed', 'surprise', 'concern', 'sadness', 'fear', 'anger'];
 for (const e of EMO) for (const [v, vn] of [['side', 'side'], ['front', 'front']])
   ITEMS.push({ id: `emo_${v}_${e}`, group: 'emo', src: `emo_${v}_${e}.mp4`, title: `${e[0].toUpperCase() + e.slice(1)}, ${vn}`, tech: `alanv_${v}_k · ${e}_soft`, sound: true });
@@ -108,6 +110,8 @@ function card(it) {
   const el = document.createElement('article'); el.className = 'item'; el.id = 'item-' + it.id;
   const v = document.createElement('video'); v.src = it.src; v.playsInline = true; v.preload = 'metadata';
   if (it.loop) { v.muted = true; v.loop = true; v.autoplay = true; } else v.controls = true;
+  let x = null;
+  if (it.extra) { x = document.createElement('video'); x.src = it.extra; x.muted = true; x.loop = true; x.autoplay = true; x.playsInline = true; x.preload = 'metadata'; x.setAttribute('aria-label', 'Old and new loop side by side'); }
   const cap = document.createElement('div'); cap.className = 'cap';
   const b = document.createElement('b'); b.textContent = it.title; const t = document.createElement('span'); t.className = 'tech'; t.textContent = it.tech;
   cap.append(b, t);
@@ -125,7 +129,7 @@ function card(it) {
   ta.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) f.requestSubmit(); });
   f.addEventListener('submit', e => { e.preventDefault(); addNote(it.id, ta, send); });
   f.append(ta, send); th.append(ol, em, f);
-  el.append(v, cap, ver, th);
+  el.append(...(x ? [v, x] : [v]), cap, ver, th);
   $('g-' + it.group).append(el);
 }
 ITEMS.forEach(card);
