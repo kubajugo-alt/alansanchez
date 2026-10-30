@@ -45,21 +45,21 @@ exactly at noon".
    are now drawings of the row of sockets with a sign by each, crossed out and redrawn, and on the last sheet a second
    arrangement in pencil, with every line converging on the floor, and in the margin, underlined three times:
    *Puerta.*
-2. **The cave, at noon** (he waits for it; Saturday is a turning day too, the light is near its fullest): the column of light down through the opening; only two triangles lit (the great one, and one
-   small one on the right). Looking at the dark triangles: "Something cut at the point. Worn smooth."
+2. **The cave, at noon** (he waits for it; Saturday is a turning day too, the light is near its fullest): the column of light down through the opening; only one triangle lit (the great one). Looking at the dark triangles: "Something cut at the point. Worn smooth."
    - **Chalk on a triangle** (an archaeologist's trick: chalk dust rubbed into a worn cut makes it read): each triangle's
      sign, one at a time; his notebook fills in a row of seven signs, as they stand on the wall.
-   - **The scenes round the triangles:** he reads the two lit ones (the moon going down, Magec) and knows them: "It's
+   - **The scenes round the triangles:** he reads the lit one (Magec) and, by his torch, the one beside it (the moon going down) and knows them: "It's
      the grandmothers' romance. The women and the moons. The order is in a song, and I don't have the words." He reads
      the others into his notebook; the radio cuts him off.
-3. **Down the rope ladder, the lower chamber:** five empty sockets, two discs: the sun disc in the middle, the crescent
-   disc beside it. The column of light on all seven sockets; two columns rising.
+3. **Down the rope ladder, the lower chamber:** six empty sockets and one disc, the sun in the middle (the discs came out
+   one a month since December; the sixth, the crescent, in May). The column of light on all seven sockets; one column
+   rising, to the great triangle.
    - **The frieze**, read panel by panel (the women in white on the cliff; the ships; the black sea over the ships and
      the houses; the women on the shore beating the sea with branches; Magec; the cave with its seven circles, each with
      its sign, and a line rising from each; the woman standing in the water). The cave panel is the key: the order of
      the signs along the floor.
-   - **The test:** he lifts the crescent disc and sets it in another socket. Its column jumps to a different triangle
-     (the wrong one), and the crescent's own triangle goes dark. "They're keyed. Each disc has its word, and its place
+   - **The test:** he lifts the sun disc and sets it in the next socket along. Its column jumps to a small triangle
+     on the other side (the columns cross), and the great triangle goes dark; the water stirs in the door below. "They're keyed. Each disc has its word, and its place
      in the sentence." He puts it back.
    - **Elena's charts on the frieze:** her pencil arrangement is the frieze's order turned round: every column on the
      floor. The door order. "It isn't counting days... It's holding something down." He has both orders now: the one
@@ -109,7 +109,7 @@ lock is a sentence said in light. Said in the wrong order, it is another sentenc
   reversed: socket 1 (far left) lights triangle 7 (far right), and so on. The sun is in the middle both ways.
 - The wall, left to right: rings, spiral, zigzag, **sun**, crescent, triangle, chequer.
 - So the floor, left to right: chequer, triangle, crescent, **sun**, zigzag, spiral, rings.
-- Vasco works this out on Saturday (the chalk; the crescent test) and scratches it in the vault. Alan has it in his
+- Vasco works this out on Saturday (the chalk; the sun-disc test) and scratches it in the vault. Alan has it in his
   notebook on Monday.
 
 ### When: the grandmothers' telling (Baute's)

@@ -1099,3 +1099,21 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Note on the standing rule "the room paintings never change": the user asked for the repaint. Nothing is
       installed until the user picks; installing means re-checking each room's walk box, hotspots, depth map and any
       overlay cut from the painting (the vault bars, the water clip).
+
+103. **Rooms touched up; Rafa's bar; the disc timeline made monthly; Yeray drunk** (2026-10-30, for review). The user:
+    the interiors must share the exteriors' cloud ("Rafa's flat, restaurant, mercado", then "casa colon seems too
+    sunny too"); "Alan visits Carmen's flat at night"; "remove the cigarette from Carmen driving painting"; "remove the
+    table from rafa's bar. we will add it as a sprite, yeray will be sitting at it and drinking"; "the bottles at the
+    bar should look like arehucas bottles"; the lower cave's walls in real Canarii shapes (the Gáldar manner, pintaderas;
+    the crescent sign drawn as their half-circle fan); "don't do yeray with higgsfield. We need to use canva"; drunk
+    lines approved; the discs came out "one per month since december"; Vasco came at the end of May, lives in a
+    university flat, and moves into the hotel for Alan's week.
+    - Art (`art/review/bg_real/`): rafa_studio, hotel_restaurant, mercado, colon overcast; carmen_flat at night;
+      landrover without the cigarette (only her mouth changed); rafa_bar without its table and with Arehucas on the
+      shelves; `rafa_bar_table.png` (+ .json), the table cut by a green-key pass. Cave 6 walls: two takes (`low_real_*_a`,
+      `_b`; current B).
+    - Yeray at the table: Canva (refs MAHZggrl51w, the in-game yeray_r + yeray_c; MAHZgmK14mA, the table) hit a credit
+      cooldown; a reminder is set to retry. The Higgsfield takes were deleted.
+    - Lines: 27 rewritten (`docs/puzzles/LINES_TIMELINE.md`, old and new side by side), validate: 0 errors. Not yet
+      re-recorded. Bible and CAVE6.md follow the monthly timeline (Saturday: six sockets empty, only the sun disc; the
+      test is done with the sun disc).
