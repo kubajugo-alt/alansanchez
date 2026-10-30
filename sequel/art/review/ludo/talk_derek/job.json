@@ -1,0 +1,65 @@
+{
+ "spec": {
+  "a": "derek_c",
+  "b": null,
+  "mid": null,
+  "prompt": "talking calmly while standing in place, small natural hand gestures and slight head movements, feet stay planted; a loud British tourist, broad gestures",
+  "loop": true,
+  "duration": 3,
+  "frames": 25
+ },
+ "forge": {
+  "status": "succeeded",
+  "job": "8a746ee6-0533-44f8-91a9-66e1f2f16cd3",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/cf3b4f0d3adad3766ae2c485fb23159f.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/a7f6f2d0df07e0b87f5b0e4c400971af.mp4",
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.8125
+  },
+  "credits": 4.5
+ },
+ "model": "forge",
+ "up": {
+  "status": "succeeded",
+  "job": "118040d5-afe2-4af3-8930-fa8697f8da86",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/3a5b24cfc151c78e0569986450475ad0.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/fe70555bb5b0abda1d8ac808ffba6a79.mp4",
+   "individual_frame_urls": [
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-57190dd47765fbf7b1574c6ec8e78d22.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-82b25fa8acd61755391cd3bd5da65901.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-daca4abeedb74ce9191bddb6528b4794.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-dc9b2490c9082d5e87245b230408b771.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-1a32f0ffc2a2525ace8fe0c18d118df4.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-c877f6521d92143aab319fb92fe8318f.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-1771f8b58efb74c388f75088813a7003.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-86eb08643fef405e300570cb4b871456.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-08d0db85cd2d11429a593727d22719a4.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-a0f28c681f710ec69068eee438c2ceee.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-3de4295c86b3332e4c14964dba80a7d3.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-0a2d2377d1c47a5acca13c87d07f94bc.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-642e0f9d1576c437c337150ffc966361.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-11eb66d26214dfce0c460b84259a6d3c.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-915452638ce0e84475d4cb121cc4955b.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-cd1abb2c5176f33825384912454eb98f.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-6a5135f1ccad3f195587c4c0620fb498.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-da33ec9670592b849a0df70a5ec8b048.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-73c936ce20490d71a9f153af7425a96e.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-b5700b043be084faea120df50722ddd5.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-1f96eeb8f7f1dc70c861ed6480731050.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-4ed78b35716dc81f4ba19f58da8fb7b7.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-379024525f883811db29758ac7468347.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-764039ca8077c361cec9e12c909624a9.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-d627c8b75658fd163ef28c321e7e4e2c.webp"
+   ],
+   "num_frames": 25,
+   "num_cols": 5,
+   "num_rows": 5,
+   "duration": 2.6875
+  },
+  "credits": 0
+ }
+}

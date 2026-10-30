@@ -1,0 +1,72 @@
+{
+ "spec": {
+  "a": "alanb_side_k",
+  "b": "alanb_side_k~",
+  "mid": null,
+  "prompt": null,
+  "loop": false,
+  "duration": 3,
+  "frames": 16
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "d78effb3-1018-4361-aaf7-d4006cda573f",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/d6c7b6f4badcd02ce1dd1408ae864081.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/03e26c0f45019ad55c0fe6ce436d3857.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/60eb8698639e928cda52bfb52091bf9e.mp3",
+   "num_frames": 16,
+   "num_cols": 4,
+   "num_rows": 4,
+   "duration": 2.7916666666666665
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "34b599f3-9f8c-47ad-b151-8956f4797ec5",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/06cae51f3ace395f8143199fd594866a.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/bfc68df126053c2aab2de189cba38a04.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/ea9d11bcda8482a35a2b44d098411996.mp3",
+   "num_frames": 16,
+   "num_cols": 4,
+   "num_rows": 4,
+   "duration": 2.875
+  },
+  "credits": 3
+ },
+ "model": "hydra",
+ "up": {
+  "status": "succeeded",
+  "job": "d59ce495-edd0-4b5c-8bcd-73427afb3ace",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/8188466c207207d96eeb17f143e4071d.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/48a4550a76de4454740e7c492054413c.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/ea9d11bcda8482a35a2b44d098411996.mp3",
+   "individual_frame_urls": [
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-b780ade7380f64a7f1d128008f7edeae.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-8358920233b26363e1a9629fcee5a380.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-10b1c2bd8d00cef416d9597943ec62e4.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-43ac15001bee306ddb0a969ff474cc29.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-d828e543f1d487e9c77d79d245ea3bf3.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-f2b72f1c766030d05cb6f8ec73e32d43.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-083cc55f3c95debcbf1e9888aeec81f8.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-adf3ba3b35ff3fb4474a76f157551f1c.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-d0a7df70f97315ae19af8dad7d38cbd2.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-1266597139eb0124a8d36c3476b1719b.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-a5dab3b13055c36dc9e000a537b338a6.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-b2115f023d9d3d102d29bead77b6c09a.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-85ed9ae99152e9fc6c0d68e85b98aa52.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-32dc2c932cdd41e232bed8d52d07962e.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-9c4d74875edd68598cefce2fb03128ac.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-22fa9e14e51ebf3ad7400b5fe9d43191.webp"
+   ],
+   "num_frames": 16,
+   "num_cols": 4,
+   "num_rows": 4,
+   "duration": 2.7083333333333335
+  },
+  "credits": 0
+ }
+}

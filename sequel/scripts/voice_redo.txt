@@ -1,0 +1,3 @@
+# Lines whose text changed after their audio was recorded: re-record with
+#   node scripts/generate-voices.mjs $(grep -v '^#' scripts/voice_redo.txt)
+# (HANDOFF entry 88). Empty this file once done.

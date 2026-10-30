@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `a7fcbd59` (Netlify `6ae1498ab246bdf2ff2a7dcb`,
 entry 84): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-84); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-85; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1539,6 +1539,15 @@ session lived in the session's scratchpad and are gone; everything that matters 
    visitcop pass; shopjobs, sepit, bath at pixel ratio 2, no errors. **Deployed:** Netlify `6ae1498ab246bdf2ff2a7dcb`.
    Live: page 200, `/.env` 404, art/bg2x served, engine.js, main.js and art/bg2x/shop.jpg byte-identical; pixel ratio 2
    and 1920x1080 load art/bg2x/shop.jpg, 1280 at ratio 1 and `?bg2x=0` art/bg/shop.jpg; live smoke bench, sepit pass.
+
+85. **Game II started in `sequel/`** (2026-10-27, the user: "Use the same repo to build the sequel - but make sure the
+   first game stays intact and I can still edit it, prepare a new netlify project for it"). The Shortest Night lives in
+   `sequel/`, its own web root with a forked engine (copied at `394bcdd0`); it has its own handoff,
+   `sequel/docs/HANDOFF.md`, which logs its work from now on. For Game I only two things changed: `.gitattributes`
+   adds `sequel/ export-ignore`, so Game I's `git archive HEAD` export is what it was; `CLAUDE.md` points at the sequel.
+   Game I's code, art, tests and Netlify project are untouched; `node scripts/validate.mjs` reads as before (0 errors).
+   The sequel's Netlify project: `alan-sanchez-shortest-night` (`a5e71264-d9a4-439a-b1e5-60ec3f98812d`), not deployed.
+
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

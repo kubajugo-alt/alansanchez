@@ -1,0 +1,510 @@
+{
+ "cast_beach_surfer": {
+  "cast": "Surfer",
+  "flip": true,
+  "room": "beach",
+  "size": 1,
+  "x": 1052,
+  "y": 686,
+  "z": 0
+ },
+ "cast_colon_mercedes": {
+  "cast": "Mercedes",
+  "flip": true,
+  "room": "colon",
+  "size": 1,
+  "x": 721,
+  "y": 682,
+  "z": 0
+ },
+ "cast_gando_clerk": {
+  "cast": "Clerk",
+  "flip": false,
+  "room": "gando",
+  "size": 1,
+  "x": 868,
+  "y": 525,
+  "z": 0
+ },
+ "cast_gando_vasco": {
+  "cast": "Vasco",
+  "flip": true,
+  "room": "gando",
+  "size": 1,
+  "x": 516,
+  "y": 667,
+  "z": 0
+ },
+ "cast_hotel_lobby_nieves": {
+  "cast": "Nieves",
+  "flip": true,
+  "room": "hotel_lobby",
+  "size": 1,
+  "x": 618,
+  "y": 556,
+  "z": 0
+ },
+ "cast_hotel_restaurant_derek": {
+  "cast": "Derek",
+  "flip": true,
+  "room": "hotel_restaurant",
+  "size": 1,
+  "x": 720,
+  "y": 641,
+  "z": 0
+ },
+ "cast_hotel_restaurant_gail": {
+  "cast": "Gail",
+  "flip": false,
+  "room": "hotel_restaurant",
+  "size": 1,
+  "x": 594,
+  "y": 648,
+  "z": 0
+ },
+ "cast_isleta_lolo": {
+  "cast": "Lolo",
+  "flip": false,
+  "room": "isleta",
+  "size": 1.08,
+  "x": 630,
+  "y": 669,
+  "z": 0
+ },
+ "cast_isleta_pino": {
+  "cast": "Pino",
+  "flip": true,
+  "room": "isleta",
+  "size": 1.08,
+  "x": 530,
+  "y": 666,
+  "z": 0
+ },
+ "cast_isleta_yeray": {
+  "cast": "Yeray",
+  "flip": true,
+  "room": "isleta",
+  "size": 1,
+  "x": 1193,
+  "y": 670,
+  "z": 0
+ },
+ "cast_museum_courtyard_carmen": {
+  "cast": "Carmen",
+  "flip": true,
+  "room": "museum_courtyard",
+  "size": 1,
+  "x": 899,
+  "y": 644,
+  "z": 0
+ },
+ "cast_museum_hall_baute": {
+  "cast": "Baute",
+  "flip": false,
+  "room": "museum_hall",
+  "size": 1,
+  "x": 600,
+  "y": 573,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_baute": {
+  "cast": "Baute",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 799,
+  "y": 587,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_derek": {
+  "cast": "Derek",
+  "flip": true,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 355,
+  "y": 646,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_gail": {
+  "cast": "Gail",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 998,
+  "y": 630,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_guard": {
+  "cast": "Guard",
+  "flip": true,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 508,
+  "y": 541,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_montesdeoca": {
+  "cast": "Montesdeoca",
+  "flip": true,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 904,
+  "y": 586,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_vasco": {
+  "cast": "Vasco",
+  "flip": true,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 1242,
+  "y": 641,
+  "z": 0
+ },
+ "cast_museum_hall_montesdeoca": {
+  "cast": "Montesdeoca",
+  "flip": true,
+  "room": "museum_hall",
+  "size": 1,
+  "x": 893,
+  "y": 689,
+  "z": 0
+ },
+ "cast_museum_hall_vasco": {
+  "cast": "Vasco",
+  "flip": true,
+  "room": "museum_hall",
+  "size": 1,
+  "x": 788,
+  "y": 560,
+  "z": 0
+ },
+ "cast_rafa_bar_rafa": {
+  "cast": "Rafa",
+  "flip": false,
+  "room": "rafa_bar",
+  "size": 1,
+  "x": 469,
+  "y": 585,
+  "z": 0
+ },
+ "cast_santa_ana_inside_fermin": {
+  "cast": "Ferm\u00edn",
+  "flip": true,
+  "room": "santa_ana_inside",
+  "size": 1,
+  "x": 924,
+  "y": 657,
+  "z": 0
+ },
+ "pmvtzsme660we": {
+  "extra": "museum_guest_pearls",
+  "flip": true,
+  "room": "museum_hall",
+  "rot": 0,
+  "size": 1.03,
+  "x": 1220,
+  "y": 674,
+  "z": 120
+ },
+ "pmvuaqv70kkdm": {
+  "extra": "restaurant_table",
+  "flip": false,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 1,
+  "x": 129,
+  "y": 529,
+  "z": 0
+ },
+ "pmvubfn6vsvih": {
+  "extra": "quay_crate_carrier",
+  "flip": false,
+  "room": "mercado",
+  "rot": 0,
+  "size": 1,
+  "x": 839,
+  "y": 444,
+  "z": 0
+ },
+ "pmvubg2nfzv5c": {
+  "extra": "cathedral_tourist",
+  "flip": false,
+  "room": "mercado",
+  "rot": 0,
+  "size": 1,
+  "x": 380,
+  "y": 534,
+  "z": 0
+ },
+ "pmvud8o73cubg": {
+  "extra": "museum_cocktail_table_glasses",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 850,
+  "y": 621,
+  "z": 0
+ },
+ "pmvud9qd9fxbq": {
+  "extra": "museum_guest_pearls",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 1068,
+  "y": 619,
+  "z": 0
+ },
+ "pmvud9y2gh4c6": {
+  "extra": "museum_guest_linen",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 1158,
+  "y": 613,
+  "z": -40
+ },
+ "pmvudar83hl1u": {
+  "extra": "museum_cocktail_table",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 1118,
+  "y": 645,
+  "z": 0
+ },
+ "pmvudd933cayc": {
+  "extra": "museum_waiter_tray",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 206,
+  "y": 584,
+  "z": 0
+ },
+ "pmvudg0npak60": {
+  "extra": "museum_buffet",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 0.77,
+  "x": 362,
+  "y": 623,
+  "z": 0
+ },
+ "rest_gail_derek": {
+  "extra": "restaurant_gail_derek",
+  "flip": true,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 1,
+  "x": 695,
+  "y": 632,
+  "z": 0
+ },
+ "rest_table_1": {
+  "extra": "restaurant_table",
+  "flip": true,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 0.98,
+  "x": 431,
+  "y": 483,
+  "z": 0
+ },
+ "rest_table_2": {
+  "extra": "restaurant_table",
+  "flip": true,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 0.96,
+  "x": 690,
+  "y": 448,
+  "z": 0
+ },
+ "rest_table_3": {
+  "extra": "restaurant_table",
+  "flip": true,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 1.19,
+  "x": 304,
+  "y": 674,
+  "z": 0
+ },
+ "start_beach_old_man_chair": {
+  "extra": "beach_old_man_chair",
+  "flip": false,
+  "room": "beach",
+  "rot": 0,
+  "size": 0.7,
+  "x": 268,
+  "y": 548,
+  "z": 0
+ },
+ "start_beach_sandcastle": {
+  "extra": "beach_sandcastle",
+  "flip": false,
+  "room": "beach",
+  "rot": -1,
+  "size": 0.66,
+  "x": 516,
+  "y": 514,
+  "z": 0
+ },
+ "start_beach_surfer_wax": {
+  "extra": "beach_surfer_wax",
+  "flip": true,
+  "room": "beach",
+  "rot": 0,
+  "size": 0.79,
+  "x": 1186,
+  "y": 554,
+  "z": 0
+ },
+ "start_canteras_german_tourist": {
+  "extra": "canteras_german_tourist",
+  "flip": false,
+  "room": "canteras",
+  "rot": 0,
+  "size": 1,
+  "x": 994,
+  "y": 572,
+  "z": 0
+ },
+ "start_cathedral_praying": {
+  "extra": "cathedral_praying",
+  "flip": false,
+  "room": "santa_ana_inside",
+  "rot": 0,
+  "size": 0.93,
+  "x": 644,
+  "y": 511,
+  "z": 0
+ },
+ "start_cathedral_priest": {
+  "extra": "cathedral_priest",
+  "flip": true,
+  "room": "santa_ana_inside",
+  "rot": 0,
+  "size": 0.75,
+  "x": 727,
+  "y": 511,
+  "z": 0
+ },
+ "start_cathedral_tourist": {
+  "extra": "cathedral_tourist",
+  "flip": false,
+  "room": "santa_ana_inside",
+  "rot": 0,
+  "size": 0.73,
+  "x": 366,
+  "y": 573,
+  "z": 0
+ },
+ "start_museum_cocktail_pair": {
+  "extra": "museum_cocktail_pair",
+  "flip": false,
+  "room": "museum_hall",
+  "rot": 0,
+  "size": 1,
+  "x": 393,
+  "y": 604,
+  "z": 0
+ },
+ "start_museum_guest_academic": {
+  "extra": "museum_guest_academic",
+  "flip": false,
+  "room": "museum_hall",
+  "rot": 0,
+  "size": 1,
+  "x": 1090,
+  "y": 664,
+  "z": 0
+ },
+ "start_museum_guest_linen": {
+  "extra": "museum_guest_linen",
+  "flip": false,
+  "room": "museum_hall",
+  "rot": 0,
+  "size": 1,
+  "x": 693,
+  "y": 556,
+  "z": 0
+ },
+ "start_museum_waiter_tray": {
+  "extra": "museum_waiter_tray",
+  "flip": false,
+  "room": "museum_hall",
+  "rot": 0,
+  "size": 1,
+  "x": 198,
+  "y": 576,
+  "z": -80
+ },
+ "start_quay_net_mender": {
+  "extra": "quay_net_mender",
+  "flip": false,
+  "room": "isleta",
+  "rot": 0,
+  "size": 1.08,
+  "x": 1033,
+  "y": 670,
+  "z": 0
+ },
+ "start_quay_two_old": {
+  "extra": "quay_two_old",
+  "flip": false,
+  "room": "isleta",
+  "rot": 0,
+  "size": 1,
+  "x": 119,
+  "y": 535,
+  "z": 0
+ },
+ "start_restaurant_waiter": {
+  "extra": "restaurant_waiter",
+  "flip": false,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 0.77,
+  "x": 889,
+  "y": 421,
+  "z": 0
+ },
+ "start_vegueta_lottery": {
+  "extra": "vegueta_lottery",
+  "flip": false,
+  "room": "santa_ana",
+  "rot": 0,
+  "size": 1,
+  "x": 1166,
+  "y": 686,
+  "z": 0
+ },
+ "start_vegueta_pigeons": {
+  "extra": "vegueta_pigeons",
+  "flip": true,
+  "room": "santa_ana",
+  "rot": 0,
+  "size": 0.75,
+  "x": 871,
+  "y": 541,
+  "z": -160
+ },
+ "start_vegueta_tourists_guidebook": {
+  "extra": "vegueta_tourists_guidebook",
+  "flip": true,
+  "room": "santa_ana",
+  "rot": 0,
+  "size": 1,
+  "x": 470,
+  "y": 590,
+  "z": 0
+ }
+}

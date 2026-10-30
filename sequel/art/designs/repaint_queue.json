@@ -1,0 +1,110 @@
+{
+ "queue": [
+  {
+   "id": "chano",
+   "src": "MAHZWvDt2cE",
+   "side": "",
+   "who": "Chano: a heavy-set, balding older Canarian man with a big grey moustache, white sleeveless undershirt, grey trousers, sandals, talking on a mobile phone with a folded newspaper under his arm"
+  },
+  {
+   "id": "guard",
+   "src": "MAHZPssDT0Y",
+   "side": "on the RIGHT",
+   "who": "the museum security guard: a thin older man with a grey moustache, grey uniform with peaked cap, arms folded, a radio at his belt"
+  },
+  {
+   "id": "nieves",
+   "src": "MAHZPlnmfDQ",
+   "side": "on the LEFT",
+   "who": "Nieves, the hotel receptionist: a slim woman with dark hair in a bun, navy uniform jacket and skirt with a red neck scarf, navy heels"
+  },
+  {
+   "id": "clerk",
+   "src": "MAHZPlnmfDQ",
+   "side": "on the RIGHT",
+   "who": "the airport clerk: a plump, cheerful woman with short brown hair, red uniform jacket and skirt with a patterned scarf, holding a rubber stamp and a ticket"
+  },
+  {
+   "id": "pino",
+   "src": "MAHZPvF1eis",
+   "side": "on the LEFT",
+   "who": "Dona Pino: an old Canarian fisherwoman in a black headscarf, black dress and apron, rubber boots, holding a book"
+  },
+  {
+   "id": "lolo",
+   "src": "MAHZPvF1eis",
+   "side": "on the RIGHT",
+   "who": "Don Lolo: a thin, old Canarian fisherman with a flat cap, white shirt and braces, a cigarette at his lips, a walking stick and a net over his shoulder"
+  },
+  {
+   "id": "fermin",
+   "src": "MAHZPoW2m5E",
+   "side": "on the LEFT",
+   "who": "Don Fermin: an old, stooped sacristan with round glasses, a black cassock, holding a big ring of old keys"
+  },
+  {
+   "id": "mercedes",
+   "src": "MAHZPoW2m5E",
+   "side": "on the RIGHT",
+   "who": "Mercedes: an older librarian with grey hair in a bun and glasses, grey cardigan, long dark skirt, holding a book"
+  },
+  {
+   "id": "montesdeoca",
+   "src": "MAHZP7cSX5w",
+   "side": "on the LEFT",
+   "who": "Ignacio Montesdeoca: a portly, self-satisfied Canarian businessman with slicked grey hair, white guayabera shirt, cream trousers, a cigar"
+  },
+  {
+   "id": "surfer",
+   "src": "MAHZP7cSX5w",
+   "side": "on the RIGHT",
+   "who": "the surfer: a young, lean, shirtless man with long dreadlocked hair, a shell necklace, purple board shorts, a towel over his shoulder and a surfboard"
+  },
+  {
+   "id": "gail",
+   "src": "MAHZPXeE2ig",
+   "side": "on the LEFT",
+   "who": "Gail: an old English lady tourist with a white sun hat, a pink flowered sundress, sandals, holding a guidebook"
+  },
+  {
+   "id": "derek",
+   "src": "MAHZPXeE2ig",
+   "side": "on the RIGHT",
+   "who": "Derek: an old English gentleman tourist, bald, light blue polo shirt, Union Jack shorts, socks and sandals, a camcorder"
+  }
+ ],
+ "prompt_note": "2026-10-29 comparison (art/review/cast_repaint/): the first six came out with larger heads than the approved cast (face = 13-15% of height vs 10-12%) and the guard is still a caricature. Add to the prompt: 'realistic adult proportions, head about one eighth of the body height, NOT a caricature, no exaggerated nose, eyes or jowls, like the THIRD image (Vasco)'.",
+ "first_takes_rejected": {
+  "guard": "MAHZXpfAUZQ",
+  "clerk": "MAHZYfFDDDs",
+  "chano": "MAHZXcSzuCw",
+  "pino": "MAHZY2Y2WDs",
+  "lolo": "MAHZZFccEpk"
+ },
+ "style_ref": "MAHZZTfnpIg",
+ "order": [
+  "guard",
+  "clerk",
+  "chano",
+  "pino",
+  "lolo",
+  "fermin",
+  "mercedes",
+  "montesdeoca",
+  "surfer",
+  "gail",
+  "derek"
+ ],
+ "prompt_template": "The person {side_phrase}in the FIRST image ({who}; keep {pos} face, features, build, clothes, props and character), shown in two views side by side, a side view and a front view, standing relaxed. Paint {obj} as if by the same artist who painted the cast in the SECOND image, so {sub} fits in that line-up: the same smooth, clean painted look, smooth skin with soft broad shading (no glossy or orange skin), flat clean colour on the clothes with a few soft folds, clean thin outlines, the same muted palette and lighting. Realistic adult proportions like the people in the SECOND image: head about one eighth of the body height, natural face, NOT a caricature, no exaggerated nose, eyes, cheeks or jowls, age shown with only a few soft lines, no heavy wrinkle linework, no gritty texture, no hatching. Full body, both views, on a flat plain green background.",
+ "note_2026_10_29": "The user: 'I want all characters to be consistent, like drawn by the same artist. Regenerate whatever you need.' Redo guard, clerk, Chano, Pino, Lolo (first takes in first_takes_rejected); Nieves kept. References now: source + style_ref (approved cast sheet, art/review/cast_repaint/cast_style_ref.png).",
+ "heights": {
+  "default": 0.92,
+  "surfer": 1.0,
+  "guard": 1.0,
+  "_note": "the user: 'the surfer should keep Alan's height'; 'guard is good, just make him Alan's height'"
+ },
+ "approved": {
+  "guard": "MAHZa8a30xk (guard_v4)"
+ },
+ "guard_lesson": "The guard only came right when the old design was left out (refs: style_ref + Vasco v9, identity from text). If a character keeps its old proportions, do the same."
+}

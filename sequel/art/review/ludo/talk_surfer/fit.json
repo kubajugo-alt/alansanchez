@@ -1,0 +1,83 @@
+{
+ "name": "talk_surfer",
+ "kind": "talk",
+ "frames": 11,
+ "fps": 10,
+ "meta": {
+  "w": 345,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 197.5,
+  "fy": 725.3,
+  "top": 5.8
+ },
+ "flagged": 0,
+ "checks": [
+  {
+   "i": 0,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 1,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 2,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 3,
+   "height": 1.0,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 4,
+   "height": 1.0,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 5,
+   "height": 1.0,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 6,
+   "height": 1.0,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 7,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 8,
+   "height": 0.999,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 9,
+   "height": 0.999,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 10,
+   "height": 0.999,
+   "feet_drift": 0.0,
+   "flag": false
+  }
+ ]
+}

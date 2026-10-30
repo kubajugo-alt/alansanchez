@@ -1,0 +1,89 @@
+{
+ "duration": 127.0,
+ "cues": [
+  {
+   "id": "film_01",
+   "who": "narr",
+   "text": "On the longest night of the year, the mountain goes to sleep early.",
+   "start": 6.0,
+   "end": 10.28
+  },
+  {
+   "id": "film_02",
+   "who": "narr",
+   "text": "In Artenara, one bar was still open, and one woman was still awake.",
+   "start": 14.2,
+   "end": 19.35
+  },
+  {
+   "id": "film_03",
+   "who": "narr",
+   "text": "She had found something in the cave that week. Something that should not have been missing.",
+   "start": 25.5,
+   "end": 31.53
+  },
+  {
+   "id": "film_04",
+   "who": "narr",
+   "text": "She told one person. Then she started down the mountain.",
+   "start": 37.0,
+   "end": 41.13
+  },
+  {
+   "id": "film_05",
+   "who": "narr",
+   "text": "From the summit, the road falls a thousand metres into the cloud.",
+   "start": 44.0,
+   "end": 48.28
+  },
+  {
+   "id": "film_06",
+   "who": "narr",
+   "text": "She had driven it a hundred times.",
+   "start": 53.0,
+   "end": 55.51
+  },
+  {
+   "id": "film_07",
+   "who": "narr",
+   "text": "Behind her, the lights of the camp went out, one by one.",
+   "start": 59.0,
+   "end": 63.52
+  },
+  {
+   "id": "film_08",
+   "who": "narr",
+   "text": "Seven marks on a cave wall. She had counted six.",
+   "start": 66.5,
+   "end": 71.25
+  },
+  {
+   "id": "film_09",
+   "who": "narr",
+   "text": "Then the cloud closed over the road, and the air began to smell of salt.",
+   "start": 78.0,
+   "end": 82.91
+  },
+  {
+   "id": "film_10",
+   "who": "narr",
+   "text": "She had time to leave one thing behind.",
+   "start": 95.5,
+   "end": 98.27
+  },
+  {
+   "id": "film_11",
+   "who": "narr",
+   "text": "In the morning, they found her car at the bottom of a dry ravine. The windows were closed.",
+   "start": 104.0,
+   "end": 110.61
+  },
+  {
+   "id": "film_12",
+   "who": "narr",
+   "text": "She had drowned. It had not rained on that side of the mountain for forty days.",
+   "start": 112.8,
+   "end": 119.15
+  }
+ ]
+}

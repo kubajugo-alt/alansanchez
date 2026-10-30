@@ -1,0 +1,233 @@
+/* The Drowned Bell: the game frame, scene and cursors, captions, inventory, menus, dialogue,
+   cards, modals (title, death, ending, cipher), the clock overlay and the close-up documents. */
+:root {
+  --gold: #e0b866;
+  --gold-dim: #8a6a30;
+  --ink: #f2e8d2;
+  --panel: rgba(18, 12, 8, 0.86);
+}
+/* ---------- page and game frame ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font-family: 'Alegreya Sans', sans-serif; overflow: hidden; }
+#frame { width: 100vw; height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center; }
+#game {
+  position: relative; width: min(100vw, calc(100dvh * 16 / 9)); aspect-ratio: 16 / 9; background: #000; overflow: hidden;
+  font-size: calc(min(100vw, calc(100dvh * 16 / 9)) / 1280 * 16);
+  user-select: none; -webkit-user-select: none;
+}
+/* ---------- scene and cursors ---------- */
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M16 4v24M4 16h24' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M16 5v22M5 16h22' stroke='%23f0d890' stroke-width='2'/%3E%3C/svg%3E") 16 16, crosshair; }
+#scene.c-look { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ccircle cx='15' cy='15' r='9' fill='none' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M22 22l9 9' stroke='%23000' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='15' cy='15' r='9' fill='rgba(180,220,240,.3)' stroke='%23f0d890' stroke-width='2.5'/%3E%3Cpath d='M22 22l9 9' stroke='%23a0703a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") 15 15, help; }
+#scene.c-use { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cpath d='M12 30V12a2.5 2.5 0 015 0v8-12a2.5 2.5 0 015 0v12-9a2.5 2.5 0 015 0v10-6a2.5 2.5 0 014 0v9c0 5-4 8-9 8h-3c-4 0-6-2-8-5l-4-6a2.4 2.4 0 014-3z' fill='%23f0d890' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 14 4, pointer; }
+#scene.c-talk { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='34'%3E%3Cpath d='M4 4h30v18H16l-8 8v-8H4z' fill='%23f0d890' stroke='%23000' stroke-width='2.5' stroke-linejoin='round'/%3E%3Ccircle cx='13' cy='13' r='2' fill='%23000'/%3E%3Ccircle cx='19' cy='13' r='2' fill='%23000'/%3E%3Ccircle cx='25' cy='13' r='2' fill='%23000'/%3E%3C/svg%3E") 4 4, pointer; }
+#scene.c-exit { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cpath d='M4 13h16V5l13 13-13 13v-8H4z' fill='%23f0d890' stroke='%23000' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E") 30 18, pointer; }
+
+/* ---------- speech, narration, hover names, room labels ---------- */
+.outlined { text-shadow: 0 0 3px #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0 3px 6px rgba(0,0,0,.8); }
+/* --cap: the menu's text size (Small 0.85, Medium 1, Large 1.25) for captions, choices and hover names */
+#speech {
+  position: absolute; width: max-content; max-width: 52%; transform: translate(-50%, -100%); text-align: center;
+  font-size: calc(1.55em * var(--cap, 1)); font-weight: 700; line-height: 1.12; pointer-events: none; display: none;
+  text-shadow: 0 0 3px #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0 3px 8px rgba(0,0,0,.9);
+}
+#narration {
+  position: absolute; left: 50%; width: min(84%, 48em); transform: translateX(-50%); bottom: 5%; padding: 0.7em 1.2em; display: none; pointer-events: none;
+  background: linear-gradient(rgba(14,10,6,.88), rgba(10,7,4,.92)); border: 1px solid rgba(224,184,102,.45);
+  box-shadow: 0 6px 30px rgba(0,0,0,.6); text-align: center;
+}
+#narration .who { font-family: 'Cinzel', serif; color: var(--gold); font-size: 0.95em; letter-spacing: .12em; margin-bottom: .2em; }
+#narration .who:empty { display: none; }
+#narration.top { bottom: auto; top: 5%; }
+#bag, #menu-btn, #nb-btn, #hot-btn { transition: opacity .5s; }
+#game.cine #bag, #game.cine #menu-btn, #game.cine #nb-btn, #game.cine #hot-btn, #game.cine #invbar { opacity: 0; pointer-events: none; }
+#narration .txt { font-size: calc(1.4em * var(--cap, 1)); line-height: 1.25; }
+#hover {
+  position: absolute; transform: translate(-50%, -100%); white-space: nowrap; pointer-events: none; display: none;
+  font-family: 'Cinzel', serif; font-weight: 700; font-size: calc(1.05em * var(--cap, 1)); color: #fff3cf; letter-spacing: .04em;
+  text-shadow: 0 0 3px #000, 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+}
+#labels { position: absolute; inset: 0; pointer-events: none; }
+#labels .lbl {
+  position: absolute; transform: translate(-50%, -135%); white-space: nowrap; font-family: 'Cinzel', serif; font-weight: 700;
+  font-size: 1.05em; color: #3a220c; background: rgba(244, 228, 190, 0.92); padding: .15em .6em; border: 1px solid #7a5428;
+  box-shadow: 0 3px 10px rgba(0,0,0,.45);
+}
+
+/* ---------- inventory bar and the corner buttons ---------- */
+#invbar {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 15%; transform: translateY(100%); transition: transform .25s ease;
+  background: linear-gradient(rgba(20,13,8,0), rgba(20,13,8,.92) 30%); display: flex; align-items: flex-end; justify-content: center; padding-bottom: .6%;
+  pointer-events: none; /* (the band is see-through to clicks: only the items box below takes them) */
+}
+#invbar #inventory { pointer-events: auto; }
+#invbar.show, #game.holding #invbar { transform: none; }
+#invbar.flash #inventory { box-shadow: 0 0 22px rgba(224,184,102,.8); }
+#inventory {
+  display: flex; gap: .5em; padding: .4em .8em; background: rgba(30,20,12,.9); border: 1px solid rgba(224,184,102,.5); border-radius: .4em;
+  min-height: 5.4em; min-width: 20em; justify-content: center; transition: box-shadow .3s;
+}
+#inventory .slot { width: 5em; height: 5em; border-radius: .3em; background: radial-gradient(rgba(80,56,30,.6), rgba(30,20,12,.4)); cursor: pointer; border: 1px solid transparent; }
+#inventory .slot:hover { border-color: var(--gold); background: radial-gradient(rgba(120,86,40,.7), rgba(40,26,14,.5)); }
+#inventory .slot.selected { border-color: #ffe9b0; box-shadow: 0 0 12px rgba(255,220,140,.7) inset; }
+#inventory .slot canvas { width: 100%; height: 100%; pointer-events: none; }
+#bag, #menu-btn, #nb-btn, #hot-btn {
+  position: absolute; top: 1.5%; width: 2.6em; height: 2.6em; border-radius: 50%; border: 1px solid rgba(224,184,102,.6);
+  background: rgba(20,13,8,.65); color: var(--gold); font-size: 1em; cursor: pointer;
+}
+#menu-btn { right: 1.2%; }
+#bag { right: 5.2%; }
+#nb-btn { right: 9.2%; font-size: 1.15em; }
+#nb-btn.hidden { display: none; }
+/* touch: the corner buttons at least 44 px */
+@media (pointer: coarse) { #bag, #menu-btn, #nb-btn, #hot-btn { min-width: 44px; min-height: 44px; } }
+/* calm motion (the menu, or the device's reduced-motion setting): no drifting title */
+body.calm #title { animation: none; }
+@media (prefers-reduced-motion: reduce) { #title { animation: none; } #marks .mk i { animation: none; } }
+/* keyboard focus: a clear ring on whatever has it */
+#menu button:focus-visible, .modal button:focus-visible, #dialog button:focus-visible, #closeup button:focus-visible { outline: 2px solid #ffe2a0; outline-offset: 2px; }
+#hot-btn { left: 1.2%; font-size: 1.1em; }
+/* first-time tips (js/engine/tips.js): one line in the corner under the ◎ button */
+#tip { position: absolute; left: 1.2%; top: 11%; max-width: min(30em, 60%); z-index: 8; display: flex; align-items: flex-start; gap: .6em;
+  padding: .55em .8em; background: rgba(20,13,8,.88); border: 1px solid rgba(224,184,102,.55); box-shadow: 0 4px 18px rgba(0,0,0,.5);
+  color: #f4e6c4; font-size: calc(.95em * var(--cap, 1)); line-height: 1.3; opacity: 0; transform: translateY(-.4em); transition: opacity .4s, transform .4s; pointer-events: none; }
+#tip.on { opacity: 1; transform: none; pointer-events: auto; }
+#tip button { background: none; border: none; color: var(--gold); cursor: pointer; font-size: .9em; padding: 0 .1em; }
+#game.cine #tip { opacity: 0; pointer-events: none; }
+/* show what you can click (H, or the ◎ button): a ring and a name on everything for a moment */
+#marks { position: absolute; inset: 0; pointer-events: none; z-index: 6; opacity: 0; transition: opacity .35s; }
+#marks.on { opacity: 1; }
+#marks .mk { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+#marks .mk i { width: 1.1em; height: 1.1em; border-radius: 50%; border: 2px solid #ffe2a0; box-shadow: 0 0 8px rgba(255,220,150,.9), inset 0 0 6px rgba(255,220,150,.6); animation: mkPulse 1s ease-in-out infinite; }
+#marks .mk.exit i { border-radius: 2px; transform: rotate(45deg); }
+#marks .mk span { margin-top: .25em; font-family: 'Cinzel', serif; font-size: .72em; color: #f6e2b0; text-shadow: 0 1px 3px #000, 0 0 6px #000; white-space: nowrap; }
+@keyframes mkPulse { 50% { transform: scale(1.25); } }
+#marks .mk.exit i { animation: none; }
+#inventory .slot { position: relative; }
+#inventory .slot .read { position: absolute; left: 50%; bottom: -.2em; transform: translateX(-50%); font: 700 .62em 'Cinzel', serif; color: var(--gold); background: rgba(20,13,8,.92); border: 1px solid rgba(224,184,102,.6); border-radius: .3em; padding: .05em .45em; cursor: pointer; }
+#inventory .slot .read:hover { color: #ffe9b0; border-color: #ffe9b0; }
+/* ---------- menu and dialogue choices ---------- */
+#menu { position: absolute; top: 9%; right: 1.2%; display: none; flex-direction: column; gap: .3em; }
+#menu.open { display: flex; }
+#menu button, .modal button, #dialog button {
+  font-family: 'Cinzel', serif; font-weight: 700; color: var(--gold); background: rgba(28,18,10,.92);
+  border: 1px solid rgba(224,184,102,.6); cursor: pointer; font-size: 1em; padding: .35em 1em;
+}
+#menu button.off { opacity: .45; text-decoration: line-through; }
+#menu button:hover, .modal button:hover { background: #4a3218; color: #fff0c8; }
+#dialog {
+  position: absolute; left: 10%; right: 10%; bottom: 3%; display: none; flex-direction: column; gap: .3em; padding: .7em;
+  background: var(--panel); border: 1px solid rgba(224,184,102,.5); box-shadow: 0 8px 30px rgba(0,0,0,.7);
+}
+#dialog.open { display: flex; }
+#dialog button { text-align: left; font-family: 'Alegreya Sans', sans-serif; font-weight: 500; font-size: calc(1.3em * var(--cap, 1)); color: #f4e6c4; background: transparent; border: none; padding: .2em .5em; }
+#dialog button:hover { background: rgba(224,184,102,.15); color: #fff; }
+#dialog .n { display: inline-block; width: 1.6em; color: var(--gold-dim); font-family: 'Cinzel', serif; }
+/* ---------- toast, fade, chapter card ---------- */
+#toast { position: absolute; top: 3%; left: 50%; transform: translateX(-50%); padding: .3em 1em; background: var(--panel); border: 1px solid var(--gold-dim); opacity: 0; transition: opacity .3s; pointer-events: none; font-family: 'Cinzel', serif; }
+#toast.on { opacity: 1; }
+/* a room or painting still on its way (slow connection): a quiet note over the black */
+#loadnote { position: absolute; right: 2.5%; bottom: 4%; z-index: 60; color: var(--gold-dim); font-family: 'Cinzel', serif; letter-spacing: .1em; opacity: 0; transition: opacity .4s; pointer-events: none; }
+#loadnote.on { opacity: .85; animation: loadPulse 1.6s ease-in-out infinite; }
+@keyframes loadPulse { 50% { opacity: .4; } }
+
+#fade { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity .45s; }
+#fade.on { opacity: 1; }
+#card { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; background: #000; pointer-events: none; }
+#card.on { display: flex; animation: cardIn 2.8s ease forwards; }
+@keyframes cardIn { 0% { opacity: 0 } 20% { opacity: 1 } 80% { opacity: 1 } 100% { opacity: 0 } }
+#card .t1 { font-family: 'Cinzel', serif; color: var(--gold-dim); font-size: 1.4em; letter-spacing: .5em; }
+#card .t2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 3.4em; margin-top: .2em; letter-spacing: .06em; }
+
+/* ---------- modals: title, death, ending ---------- */
+.modal { position: absolute; inset: 0; background: rgba(5,4,3,.94); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4%; }
+.modal.hidden { display: none; }
+.modal h1 { margin: 0; font-family: 'Cinzel', serif; color: var(--gold); font-size: 4.6em; font-weight: 700; letter-spacing: .08em; text-shadow: 0 4px 24px rgba(0,0,0,.9), 0 0 40px rgba(224,184,102,.25); }
+.modal h2 { margin: .1em 0 .7em; font-family: 'Cinzel', serif; color: #e8d8b0; font-size: 2.1em; font-weight: 500; letter-spacing: .3em; text-shadow: 0 3px 14px rgba(0,0,0,.9); }
+.modal p { font-size: 1.25em; color: #c8b890; margin: .4em 0; max-width: 46em; }
+.modal button { padding: .35em 1.5em; margin: .3em; font-size: 1.35em; }
+#title { background: #000 url('../art/bg/title.jpg') center / cover no-repeat; justify-content: space-between; padding: 5% 4% 3%; animation: titleDrift 40s ease-in-out infinite alternate; }
+@keyframes titleDrift { from { background-size: 100% auto; background-position: 50% 50%; } to { background-size: 107% auto; background-position: 46% 42%; } }
+#title .title-text { margin-top: 1%; }
+#title .menu { display: flex; gap: 1em; opacity: 0; transition: opacity .6s; }
+#title.ready .menu { opacity: 1; }
+#title .loading { width: 30%; height: 4px; background: rgba(255,255,255,.15); }
+#title.ready .loading { visibility: hidden; }
+#loadbar { height: 100%; width: 0; background: var(--gold); transition: width .2s; }
+#title .small { font-size: 1em; color: #d8c8a0; text-shadow: 0 2px 6px #000; }
+#btn-continue[disabled] { opacity: .35; cursor: default; }
+#death { background: rgba(0, 14, 22, .92); }
+#death:not(.hidden) { animation: deathIn 1.2s ease; }
+@keyframes deathIn { from { opacity: 0 } to { opacity: 1 } }
+#death h2 { color: #8ac0d8; }
+#ending .credits p { font-size: 1.05em; color: #9a8a68; margin: .2em; }
+/* ---------- cipher wheel ---------- */
+#cipher { background: rgba(10, 10, 14, .96); }
+#cipher .hint { font-style: italic; }
+#cipher .wheel { font-family: 'Cinzel', serif; font-size: 1.35em; letter-spacing: .4em; margin: .5em 0 1em; padding: .6em 1.2em; border: 1px solid #5a5a6a; background: #191920; border-radius: .3em; }
+#cipher .outer { color: #e8e4dc; }
+#cipher .inner { color: var(--gold); }
+#cipher .ledger-line { font-size: 1.35em; margin: .2em 0; display: flex; gap: 1em; }
+#cipher .lbl { color: #8a7a60; font-family: 'Cinzel', serif; width: 5em; text-align: right; }
+#cipher .ct { color: #c8b890; letter-spacing: .12em; }
+#cipher .pt { color: #ffe6a8; letter-spacing: .12em; }
+#cipher .shift { display: inline-block; min-width: 3em; font-size: 2em; color: var(--gold); font-family: 'Cinzel', serif; }
+#cipher .controls { margin-top: .5em; display: flex; align-items: center; gap: .6em; }
+
+/* ---------- harbour clock overlay (Ch. IV) ---------- */
+#clock { position: absolute; top: 2.2%; left: 50%; transform: translateX(-50%) scale(0.9); padding: 0.35em 0.9em 0.3em; font: 700 clamp(14px, 2.1vw, 26px) 'Cinzel', serif; letter-spacing: 0.08em; color: #f6e2b0; background: radial-gradient(circle at 40% 30%, #4a3a20, #1a130a); border: 2px solid #b8913f; border-radius: 999px; box-shadow: 0 0 0 3px #2a1d0c, 0 6px 18px rgba(0,0,0,0.6); opacity: 0; pointer-events: none; transition: opacity 0.6s, transform 0.6s; z-index: 7; }
+#clock.on { opacity: 1; transform: translateX(-50%) scale(1); }
+#clock.tick { animation: clocktick 0.9s ease-out; }
+@keyframes clocktick { 0% { transform: translateX(-50%) scale(1.25); color: #fff; } 100% { transform: translateX(-50%) scale(1); } }
+
+/* ---------- close-up viewer ---------- */
+#closeup { position: absolute; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; gap: 2%; background: rgba(5,4,3,0.82); }
+#closeup.hidden { display: none; }
+#closeup .page { position: relative; height: 92%; width: auto; max-width: 60%; aspect-ratio: 3/4; background: #e9dcc0 center/cover no-repeat; box-shadow: 0 18px 50px rgba(0,0,0,0.75); border-radius: 3px; overflow: hidden; color: #2b1c10; padding: 6% 7%; box-sizing: border-box; font-size: clamp(9px, 1.45vw, 18px); line-height: 1.5; }
+#closeup .page.wide { width: 68%; height: auto; max-width: none; aspect-ratio: 4/3; padding: 0; }
+#closeup .page.square { width: 46%; height: auto; max-width: none; aspect-ratio: 1/1; padding: 0; border-radius: 50%; }
+#closeup .page.land { width: 78%; height: auto; max-width: none; aspect-ratio: 16/9; padding: 0; }
+#closeup .page canvas.draw { position: absolute; inset: 0; width: 100%; height: 100%; }
+#closeup button { font: 700 clamp(14px, 2vw, 26px) 'Cinzel', serif; color: #f1dca8; background: rgba(30,20,10,0.8); border: 1px solid #8c6a30; border-radius: 6px; padding: 0.2em 0.6em; cursor: pointer; }
+#closeup .x { position: absolute; top: 3%; right: 3%; }
+#closeup .page h3 { font: 700 1.2em 'IM Fell English', serif; margin: 0 0 0.6em; text-align: center; letter-spacing: 0.04em; }
+#closeup .page p { margin: 0 0 0.7em; }
+.doc-ledger { font-family: 'IM Fell English', serif; color: #3a2414; }
+.doc-ledger .cipher { letter-spacing: 0.22em; font-size: 0.95em; word-break: break-all; opacity: 0.85; }
+.doc-hand { font-family: 'Homemade Apple', cursive; color: #2a2a4a; font-size: 0.9em; line-height: 1.9; }
+.doc-typed { font-family: 'Special Elite', monospace; color: #1d1d1d; font-size: 0.92em; }
+.doc-typed .stamp { position: absolute; right: 8%; top: 10%; transform: rotate(-14deg); border: 3px solid rgba(170,20,20,0.75); color: rgba(170,20,20,0.8); font: 700 1.5em 'Special Elite', monospace; padding: 0.1em 0.4em; letter-spacing: 0.1em; }
+.doc-table { width: 100%; border-collapse: collapse; font-family: 'Homemade Apple', cursive; font-size: 0.72em; color: #2a2a4a; }
+.doc-table td, .doc-table th { border-bottom: 1px solid rgba(60,40,20,0.25); padding: 0.15em 0.3em; text-align: center; }
+.doc-table th { font-family: 'IM Fell English', serif; font-size: 1.1em; color: #3a2414; }
+.doc-table .circled { border: 2px solid rgba(160,30,30,0.7); border-radius: 50%; }
+.doc-label { position: absolute; left: 0; right: 0; text-align: center; font: 700 1.6em 'Cinzel', serif; color: #e9d29a; text-shadow: 0 2px 6px #000; letter-spacing: 0.12em; }
+.doc-engrave { position: absolute; left: 0; right: 0; top: 44%; text-align: center; font: 700 2.4em 'Cinzel', serif; letter-spacing: 0.25em; color: rgba(40,30,15,0.85); text-shadow: 1px 1px 0 rgba(255,230,170,0.45), -1px -1px 0 rgba(0,0,0,0.5); }
+.doc-tags { position: absolute; inset: 0; }
+.doc-tags span { position: absolute; font: 700 1.05em 'Special Elite', monospace; color: #3a2a10; background: #d9c07a; border-radius: 3px; padding: 0.05em 0.35em; transform: rotate(-4deg); box-shadow: 1px 2px 3px rgba(0,0,0,0.5); }
+/* Prof. Bastos's flat (js/story/bastos.js): the collection and its books; the recorder */
+#bshelf { background: rgba(14, 11, 8, .95); padding: 2% 3%; }
+#bshelf h2 { font-size: 1.6em; margin: 0 0 .1em; }
+#bshelf .hint { font-size: 1em; margin: 0 0 .6em; }
+#bshelf .objs { display: grid; grid-template-columns: repeat(8, 1fr); gap: .6em; width: 92%; min-height: 9.5vw; margin-bottom: 1em; }
+#bshelf .obj, #bshelf .onshelf { padding: 0; margin: 0; border: 2px solid transparent; border-radius: 4px; background: none; overflow: hidden; line-height: 0; }
+#bshelf .obj img { width: 100%; aspect-ratio: 1; display: block; }
+#bshelf .obj.sel, #bshelf .spine.sel { border-color: var(--gold); box-shadow: 0 0 14px rgba(224,184,102,.6); }
+#bshelf .books { display: grid; grid-template-columns: repeat(8, 1fr); gap: .6em; width: 92%; padding: .5em .5em 0; background: linear-gradient(#2a1a10, #3b2616); border-bottom: 1.2em solid #5a3a22; box-shadow: 0 10px 24px rgba(0,0,0,.6); }
+#bshelf .slot { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+#bshelf .gap { display: block; height: 4.6vw; }
+#bshelf .onshelf { width: 4.6vw; margin-bottom: .2em; }
+#bshelf .onshelf img { width: 100%; aspect-ratio: 1; display: block; }
+#bshelf .spine { width: 70%; height: 15vw; margin: 0; padding: .6em .2em; display: flex; flex-direction: column; align-items: center; gap: .5em; border: 2px solid rgba(0,0,0,.4); border-radius: 3px 3px 0 0; color: #f0dfb8; background-image: linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,255,255,.08) 30%, rgba(0,0,0,.25)); }
+#bshelf .spine svg { width: 72%; background: #e9dcc0; color: #3a2a1a; border-radius: 2px; padding: 8%; box-sizing: border-box; }
+#bshelf .spine span { writing-mode: vertical-rl; font-family: 'IM Fell English', serif; font-size: .95em; letter-spacing: .05em; }
+#brec { background: rgba(8, 7, 6, .95); padding: 1.5% 2%; }
+#brec .deck { position: relative; width: min(88%, 145vh); line-height: 0; box-shadow: 0 18px 50px rgba(0,0,0,.75); }
+#brec .deck img { width: 100%; display: block; }
+#brec .tape { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#brec .tape circle { fill: rgba(40,32,26,.92); stroke: #b8a888; stroke-width: .35; }
+#brec .tape .r2 { fill: rgba(60,52,44,.5); stroke-dasharray: 1 .8; }
+#brec .tape .t { fill: none; stroke: #4a3020; stroke-width: .5; }
+#brec .tape .t.half { stroke-dasharray: 9 40; }
+#brec .spot { position: absolute; margin: 0; padding: 0; background: transparent; border: 2px solid transparent; border-radius: 6px; }
+#brec .spot:hover, #brec .spot:focus-visible { border-color: rgba(255,226,160,.7); background: rgba(255,226,160,.08); }
+#brec .state { font-size: 1.15em; margin: .7em 0 .2em; min-height: 1.4em; color: #e8d8b0; }

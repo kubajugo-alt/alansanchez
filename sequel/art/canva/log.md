@@ -1,0 +1,84 @@
+- 2026-10-27 bg `canteras` Canva media MAHZPP-ulz4 -> art/bg/canteras.jpg 
+- 2026-10-27 bg `gando` Canva media MAHZPNRVnCI -> art/bg/gando.jpg 
+- 2026-10-27 bg `hotel_lobby` Canva media MAHZPKI-9BQ -> art/bg/hotel_lobby.jpg 
+- 2026-10-27 bg `hotel_room` Canva media MAHZPAo19zM -> art/bg/hotel_room.jpg 
+- 2026-10-27 bg `museum_hall` Canva media MAHZPNIfGI0 -> art/bg/museum_hall.jpg 
+- 2026-10-27 bg `archive` Canva media MAHZPOB7Qik -> art/bg/archive.jpg 
+- 2026-10-27 bg `santa_ana` Canva media MAHZPFO2Dds -> art/bg/santa_ana.jpg 
+- 2026-10-27 bg `belfry` Canva media MAHZPDS3yC8 -> art/bg/belfry.jpg 
+- 2026-10-27 bg `colon` Canva media MAHZPCTTeO8 -> art/bg/colon.jpg 
+- 2026-10-27 bg `isleta` Canva media MAHZPMufVaA -> art/bg/isleta.jpg 
+- 2026-10-27 bg `rafa_bar` Canva media MAHZPLX40hA -> art/bg/rafa_bar.jpg 
+- 2026-10-27 bg `rafa_studio` Canva media MAHZPHU_4q0 -> art/bg/rafa_studio.jpg 
+- 2026-10-27 bg `carmen_flat` Canva media MAHZPJ7CFQI -> art/bg/carmen_flat.jpg 
+- 2026-10-27 bg `baute_office` Canva media MAHZPKWDfiU -> art/bg/baute_office.jpg 
+- 2026-10-27 bg `camp` Canva media MAHZPE3AiTY -> art/bg/camp.jpg 
+- 2026-10-27 bg `cave6` Canva media MAHZPYJ-2RQ -> art/bg/cave6.jpg 
+- 2026-10-27 figure `carmen` Canva media MAHZPfrpYuA -> art/designs/carmen.png 
+- 2026-10-27 figure `baute` Canva media MAHZPbiIGEM -> art/designs/baute.png 
+- 2026-10-27 figure `rafa` Canva media MAHZPSa4_dA -> art/designs/rafa.png 
+- 2026-10-27 figure `yeray` Canva media MAHZPURUUXg -> art/designs/yeray.png 
+- 2026-10-27 figure `gail_derek` Canva media MAHZPXeE2ig -> art/designs/gail_derek.png 
+- 2026-10-27 figure `rafa` Canva media MAHZPqKAeW4 -> art/designs/rafa.png repaint: a face unlike Alan
+- 2026-10-27 figure `pino_lolo` Canva media MAHZPvF1eis -> art/designs/pino_lolo.png 
+- 2026-10-27 figure `nieves_clerk` Canva media MAHZPlnmfDQ -> art/designs/nieves_clerk.png 
+- 2026-10-27 figure `chano_guard` Canva media MAHZPssDT0Y -> art/designs/chano_guard.png 
+- 2026-10-27 figure `fermin_mercedes` Canva media MAHZPoW2m5E -> art/designs/fermin_mercedes.png 
+- 2026-10-27 figure `montesdeoca_surfer` Canva media MAHZP7cSX5w -> art/designs/montesdeoca_surfer.png 
+- 2026-10-27 bg `vault` Canva media MAHZP5eMvdg -> art/bg/vault.jpg 
+- 2026-10-27 bg `landrover` Canva media MAHZP1XAB10 -> art/bg/landrover.jpg 
+- 2026-10-27 bg `elena_car` Canva media MAHZP97wAiY -> art/bg/elena_car.jpg 
+- 2026-10-27 bg `map` Canva media MAHZP_nBtQA -> art/bg/map.jpg 
+- 2026-10-28 bg `title` Canva media MAHZQIYHYw0 -> art/bg/title.jpg 
+- 2026-10-28 still `still_title` Canva media MAHZQIYHYw0 -> art/stills/still_title.jpg same painting as the title room
+- 2026-10-28 still `still_elena_bar` Canva media MAHZQGPTdl0 -> art/stills/still_elena_bar.jpg 
+- 2026-10-28 still `still_barranco` Canva media MAHZQPkQrgY -> art/stills/still_barranco.jpg salt triangle added on the windscreen in post
+- 2026-10-28 still `still_arrival` Canva media MAHZQCtS6Po -> art/stills/still_arrival.jpg 
+- 2026-10-28 figure `alan_vest` Canva media MAHZUoLZyYk -> art/designs/alan_vest.png outfit: black vest, khaki cargo shorts, white sneakers (from Game I frames, media MAHZUs1sSS4)
+- 2026-10-28 figure `vasco_shirt` Canva media MAHZUqZNGSo -> art/designs/vasco_shirt.png outfit: no blazer/tie/key, sleeves rolled, collar open (from Game I frames, media MAHZUg6pJBM)
+- 2026-10-28 figure `alan_blazer` Canva media MAHZUqNBcR4 -> art/designs/alan_blazer.png outfit: navy brass-button blazer (short sleeves), black vest, jeans, white sneakers
+- 2026-10-28 figure `baute_brown` Canva media MAHZU3l9jr8 -> art/designs/baute_brown.png darker brown suit (from baute_c, media MAHZUl5tBFQ)
+- 2026-10-28 figure `chano_v2` Canva media MAHZU0Ovbn8 -> art/designs/chano_v2.png repaint in the cast's realistic style (Baute as style reference; an earlier try, MAHZU4S4h9s, was still cartoonish)
+- 2026-10-28 figure `alanv_back` Canva media MAHZU8wbuY4 -> art/designs/alanv_back.png back views, everyday outfit (for the walk away)
+- 2026-10-28 figure `alanb_back` Canva media MAHZU3A1XWw -> art/designs/alanb_back.png back views, blazer outfit
+- 2026-10-28 figure `vasco_back` Canva media MAHZUxmKczA -> art/designs/vasco_back.png back views, shirtsleeves
+- 2026-10-28 bg `hotel_restaurant` Canva media MAHZVNKYwfI -> art/bg/hotel_restaurant.jpg new room: the Hotel Cristina restaurant, panza de burro in the windows
+- 2026-10-28 bg `beach` Canva media MAHZVEfTqis -> art/bg/beach.jpg new room: Las Canteras beach under the panza de burro (first try MAHZUxjcq-s had a sunset)
+- 2026-10-28 bg `museum_courtyard` Canva media MAHZVEyL0V4 -> art/bg/museum_courtyard.jpg new room: the Museo Canario courtyard, where Alan first finds Carmen
+- 2026-10-28 bg `santa_ana_inside` Canva media MAHZVCDYEbs -> art/bg/santa_ana_inside.jpg new room: inside Santa Ana, where Alan meets Don Fermín
+- 2026-10-29 figure `vasco_v3` Canva media MAHZWotWZLg -> art/designs/vasco_v3.png repaint in Alan's style (the user: Vasco too realistic; candidate, not in the game)
+- 2026-10-29 figure `baute_v3` Canva media MAHZWlxtt3M -> art/designs/baute_v3.png repaint in Alan's style (the user: Baute too realistic; candidate, not in the game)
+- 2026-10-29 figure `chano_v3` Canva media MAHZWvDt2cE -> art/designs/chano_v3.png repaint in Alan's style (the user: Chano too realistic; candidate)
+- 2026-10-29 figure `vasco_v4` Canva media MAHZWtJj8KE -> art/designs/vasco_v4.png linen field shirt, more unbuttoned, sleeves rolled high (the user; from vasco_v3; candidate)
+- 2026-10-29 figure `vasco_v5` Canva media MAHZW1uKIG8 -> art/designs/vasco_v5.png vasco_v4 with a little chest hair (the user); candidate
+- 2026-10-29 figure `vasco_v6` Canva media MAHZWzmeR6k -> art/designs/vasco_v6.png v5 repainted with Game I's hand-painted Alan as the style reference (media MAHZW4cgw1U); candidate
+- 2026-10-29 figure `vasco_v7` Canva media MAHZW2sP2q4 -> art/designs/vasco_v7.png v6 leaner than Alan, smooth shirt (the user); candidate
+- 2026-10-29 figure `vasco_v8` Canva media MAHZW97NjoE -> art/designs/vasco_v8.png v7 matched to Alan's current look, straight tousled hair, sleeves high (the user); candidate
+- 2026-10-29 figure `vasco_v9` Canva media MAHZW5X8jiA -> art/designs/vasco_v9.png v8 with Alan's smooth shading (the user); candidate
+- 2026-10-29 figure `baute_v4` Canva media MAHZW1reXu4 -> art/designs/baute_v4.png Baute in Alan's and Vasco v9's style (the user); candidate
+- 2026-10-29 figure `baute_v5_front` Canva media MAHZXNnod84 -> art/designs/baute_v5_front.png Baute front view, Alan's and Vasco's style (the user); candidate
+- 2026-10-29 figure `rafa_v3` Canva media MAHZXJOMGjc -> art/designs/rafa_v3.png Rafa as a handsome 23-year-old, Alan's and Vasco's style, side and front (the user); candidate
+- 2026-10-29 figure `yeray_v2` Canva media MAHZXLUb-FA -> art/designs/yeray_v2.png Yeray in Alan's style, side and front (the user); candidate
+- 2026-10-29 figure `yeray_v3` Canva media MAHZXLa2AlM -> art/designs/yeray_v3.png Yeray with his own face (not like Vasco), smoother shirt (the user); candidate
+- 2026-10-29 figure `yeray_v4` Canva media MAHZXA4lUjQ -> art/designs/yeray_v4.png Yeray natural, not doll-like (the user: 'like ken'); candidate
+- 2026-10-29 figure `yeray_v5` Canva media MAHZXBE4BHs -> art/designs/yeray_v5.png Yeray with a field cap, rounder face, darker skin (the user); candidate
+- 2026-10-29 figure `yeray_v6` Canva media MAHZXPZsIjg -> art/designs/yeray_v6.png Yeray from his first design: skinnier, no wrinkles, cap, side and front, Alan's style (the user); candidate
+- 2026-10-29 figure `yeray_v7` Canva media MAHZXPSp600 -> art/designs/yeray_v7.png v6 with a slightly concerned, intimidated face (the user); candidate
+- 2026-10-29 figure `carmen_v2` Canva media MAHZXGLKWZ4 -> art/designs/carmen_v2.png Carmen in Alan's style, side and front (the user); candidate
+- 2026-10-29 figure `chano_v4` Canva media MAHZXcSzuCw -> art/designs/chano_v4.png overnight repaint, two views
+- 2026-10-29 figure `guard_v2` Canva media MAHZXpfAUZQ -> art/designs/guard_v2.png overnight repaint, two views
+- 2026-10-29 figure `nieves_v2` Canva media MAHZYIKabJY -> art/designs/nieves_v2.png overnight repaint, two views
+- 2026-10-29 figure `clerk_v2` Canva media MAHZYfFDDDs -> art/designs/clerk_v2.png overnight repaint, two views
+- 2026-10-29 figure `pino_v2` Canva media MAHZY2Y2WDs -> art/designs/pino_v2.png overnight repaint, two views
+- 2026-10-29 figure `lolo_v2` Canva media MAHZZFccEpk -> art/designs/lolo_v2.png overnight repaint, two views
+- 2026-10-29 figure `guard_v3` Canva media MAHZZrcFTJM -> art/designs/guard_v3.png same-artist redo
+- 2026-10-29 figure `guard_v4` Canva media MAHZa8a30xk -> art/designs/guard_v4.png cast proportions, from the cast sheet only
+- 2026-10-29 bg `cave6` Canva media  -> art/bg/cave6.jpg real Cave 6 repaint (Higgsfield), the user 2026-10-29: cave A
+- 2026-10-29 bg `santa_ana` Canva media  -> art/bg/santa_ana.jpg real Plaza de Santa Ana repaint (Higgsfield), the user 2026-10-29: santa ana A
+- 2026-10-29 bg `museum_hall` Canva media  -> art/bg/museum_hall.jpg Museo Canario hall with the skull cabinets (Higgsfield), the user 2026-10-29: museum A without the mummy cases
+- 2026-10-29 bg `museum_out` Canva media  -> art/bg/museum_out.jpg El Museo Canario from the street (Higgsfield), new room, the user 2026-10-29: 'Museo Canario outside is good'
+- 2026-10-29 bg `colon_out` Canva media  -> art/bg/colon_out.jpg Casa de Colon from the street (Higgsfield), new room, the user 2026-10-29: 'casa colon - C'
+- 2026-10-29 bg `beach_sun` Canva media  -> art/bg/beach_sun.jpg the beach with the cloud torn open (Higgsfield edit of beach.jpg), Tuesday's nap
+- 2026-10-29 bg `mercado` Canva media  -> art/bg/mercado.jpg Mercado del Puerto, new room (Higgsfield), Tuesday's aloe
+- 2026-10-29 still `still_nap` Canva media  -> art/stills/still_nap.jpg Alan asleep on the beach (Higgsfield)
+- 2026-10-30 bg `hotel_restaurant` Canva media  -> art/bg/hotel_restaurant.jpg the restaurant without its tables (Higgsfield edit), furnished with table sprites (the user, 2026-10-30)

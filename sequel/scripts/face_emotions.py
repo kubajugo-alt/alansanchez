@@ -1,0 +1,283 @@
+#!/usr/bin/env python3
+"""Emotions on a painted face, without repainting the sprite (the user, 2026-10-29: "just have elements of their face
+change, to show joy, fear, anger, sadness, concern etc. ... test it on Alan ... use Gemini for that").
+
+  python3 sequel/scripts/face_emotions.py gen   [emotion ...]     Gemini paints the head with each expression
+  python3 sequel/scripts/face_emotions.py build                   cut the patches and make the review sheet and clips
+  python3 sequel/scripts/face_emotions.py install [frame ...]      the approved soft set into art/faces and js/faces.js
+
+Same idea as the mouths and blinks (scripts/face_from_game1.py): the head is cropped from the sprite and enlarged,
+Gemini repaints only the brows, eyes and mouth, the result is lined up on the head (an affine fit on the hair, ear
+and neck, which must not move), and only the face in front of the ear is kept, feathered and shifted to the
+sprite's skin colour. Two patches per emotion, in the face set's box (js/faces.js):
+  <frame>_emo_<e>.webp     the whole box with the emotion (silent: replaces the box like a mouth does)
+  <frame>_emo_<e>_up.webp  brows and eyes only, soft-edged (talking: laid over the lip-sync mouth, under the blink)
+Everything goes to art/review/emotions/<frame>/ for review; nothing here touches the game.
+The Gemini key comes from the root .env and is never printed.
+"""
+import base64, datetime, io, json, os, subprocess, sys
+import cv2, numpy as np
+from PIL import Image, ImageDraw, ImageFont
+
+SEQ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(SEQ)
+# per painting: the crop sent to Gemini (sprite px: head, ears and neck with room around), the patch box (the face set's
+# box in js/faces.js where there is one), how the head is seen, and in the 5x crop: the face that may change, the
+# line between the eyes and the mouth (the nose's underside) and a patch of neck for the skin colour (never the cheek: a blush would shift the whole face)
+VIEWS = {
+    'alanv_side_k': dict(crop=(50, 20, 190, 170), box=None, view='his head in profile, facing right',
+                         zone=[(290, 170), (470, 150), (560, 240), (560, 560), (330, 560), (290, 420)], split=345,
+                         cheek=(580, 640, 300, 380)),
+    # the blazer's side view: the same head as the tank top's, 5 px right and 1 down on its painting (the user: "Yes please")
+    'alanb_side_k': dict(crop=(55, 21, 195, 171), box=None, view='his head in profile, facing right',
+                         zone=[(290, 170), (470, 150), (560, 240), (560, 560), (330, 560), (290, 420)], split=345,
+                         cheek=(580, 640, 300, 380)),
+    'alanv_front_k': dict(crop=(74, 15, 194, 165), box=(96, 38, 76, 94), view='his head seen from the front, facing us',
+                          zone='ellipse', split=425, eyes=322, cheek=(600, 650, 250, 350)),
+}
+FRAME = os.environ.get('EMO_FRAME', 'alanv_side_k')
+V = VIEWS[FRAME]; CROP = V['crop']
+K = 5                      # enlargement sent to Gemini
+KEY = (0, 177, 64)
+OUT = os.path.join(SEQ, 'art/review/emotions', FRAME)
+MODEL, PRICE = 'gemini-nano-banana-2.1', (1.50, 7.50, 30.00)
+EMO = {
+    'joy': 'genuine joy: a broad open smile showing the top teeth, cheeks raised, eyes narrowed and crinkled at the corner, brows relaxed and lifted',
+    'fear': 'fear: brows raised high and pulled together, upper eyelid raised so more of the eye shows, lips parted and stretched back tense',
+    'anger': 'anger: brows pulled down hard and together, a deep furrow, eyes narrowed in a glare, lips pressed tight in a hard line, jaw set',
+    'sadness': 'sadness: the inner end of the brow raised and the outer end dropped, upper eyelid drooping, gaze lowered, mouth corners turned down',
+    'concern': 'worried concern: brows slightly raised and drawn together, a small crease between them, eyes attentive, lips closed and slightly tightened, no smile',
+    'surprise': 'surprise: brows raised high and arched, eyes wide open, jaw dropped a little with the mouth open in a small oval',
+}
+
+
+# softer takes (the user, 2026-10-29: "some emotions are a little bit too exaggerated"): restrained, as an actor
+# would play them on camera, still readable small
+SOFT = {
+    'fear': 'quiet apprehension: brows lifted a little and drawn slightly together, eyes a touch wider than usual, lips just parted',
+    'anger': 'controlled irritation: brows lowered a little and drawn together, a slight frown line, eyes steady and narrowed slightly, lips closed and firm',
+    'sadness': 'quiet sadness: the inner end of the brow lifted a little, eyelids slightly lowered, gaze a little down, mouth corners turned down slightly',
+    'concern': 'mild concern: brows drawn together a little, a faint crease between them, lips closed, no smile',
+    'surprise': 'mild surprise: brows raised, eyes a little wider, lips slightly parted',
+    'joy': 'warm happiness: a natural open smile showing a little of the top teeth, cheeks lifted, eyes slightly narrowed',
+    # (the user: "add embarrassed and mischievous")
+    'embarrassed': 'embarrassment: a small awkward closed-mouth smile, brows lifted a little in the middle, gaze glancing down and away, a light flush on the cheeks',
+    'mischievous': 'mischief: a sly lopsided half-smile with one corner of the mouth raised, eyes slightly narrowed with a knowing glint, one brow raised a little',
+    # not an emotion: his eyes shut, for blinking on a painting that has no blink yet (the front view)
+    'closed': 'his eyes gently closed as in a blink, everything else exactly the same neutral face',
+}
+VAR = os.environ.get('EMO_VAR', '')   # '' the first takes, 'soft' the restrained ones (their files end in _soft)
+if VAR == 'soft': EMO = {k + '_soft': SOFT[k] for k in SOFT}
+
+
+def api_key():
+    if os.environ.get('GEMINI_API_KEY'): return os.environ['GEMINI_API_KEY']
+    for line in open(os.path.join(ROOT, '.env')):
+        k, _, v = line.strip().partition('=')
+        if k == 'GEMINI_API_KEY': return v.strip().strip('"\'')
+    sys.exit('GEMINI_API_KEY missing from .env')
+
+
+def box():
+    if V['box']: return V['box']
+    return json.loads(open(os.path.join(SEQ, 'js/faces.js')).read().split('window.FACES = ', 1)[1].rstrip().rstrip(';'))[FRAME]['box']
+
+
+def sprite():
+    return Image.open(os.path.join(SEQ, 'art/sprites', FRAME + '.webp')).convert('RGBA')
+
+
+def base_crop():
+    """The head crop, enlarged (RGBA) and on the key colour (what Gemini sees)."""
+    c = sprite().crop(CROP).resize(((CROP[2] - CROP[0]) * K, (CROP[3] - CROP[1]) * K), Image.LANCZOS)
+    bg = Image.new('RGBA', c.size, KEY + (255,)); bg.alpha_composite(c)
+    return c, bg.convert('RGB')
+
+
+def gen(names):
+    from google import genai
+    client = genai.Client(api_key=api_key(), http_options={'timeout': 240_000})
+    os.makedirs(OUT, exist_ok=True)
+    _, keyed = base_crop()
+    buf = io.BytesIO(); keyed.save(buf, 'PNG'); data = base64.b64encode(buf.getvalue()).decode()
+    ledger = os.path.join(OUT, 'ledger.json'); led = json.load(open(ledger)) if os.path.exists(ledger) else {'spent': 0, 'calls': []}
+    for e in names:
+        text = ('This is a close-up of a painted character from a point-and-click adventure game: ' + V['view'] + '. '
+                f'Change ONLY his facial expression, to {EMO[e]}. Only the eyebrows, eyelids, eyes, mouth and the small creases '
+                'around them may change. Keep everything else exactly as it is, pixel for pixel: the head\'s position, size and '
+                'angle (do not turn or move the head), the hair, the ear, the nose, the jaw and neck, the skin colour, the lighting, '
+                'the painted style, the outline and the framing. The expression must read clearly even when the image is shown '
+                'very small. ' + ('Keep it subtle and natural, as a film actor would play it: restrained, not exaggerated, '
+                'not a cartoon. ' if VAR == 'soft' else '') + f'Same flat plain green background (RGB {KEY}).')
+        it = client.interactions.create(model=MODEL, input=[{'type': 'text', 'text': text}, {'type': 'image', 'data': data, 'mime_type': 'image/png'}],
+                                        response_format={'type': 'image', 'aspect_ratio': '1:1', 'image_size': '1K'})
+        if not getattr(it, 'output_image', None) or not it.output_image.data: print(e, 'no image'); continue
+        Image.open(io.BytesIO(base64.b64decode(it.output_image.data))).save(os.path.join(OUT, f'{e}_raw.png'))
+        u = it.usage
+        img_out = sum(m.tokens or 0 for m in (u.output_tokens_by_modality or []) if str(m.modality).lower().endswith('image'))
+        txt_out = (u.total_output_tokens or 0) - img_out + (u.total_thought_tokens or 0)
+        cost = (u.total_input_tokens or 0) * PRICE[0] / 1e6 + txt_out * PRICE[1] / 1e6 + img_out * PRICE[2] / 1e6
+        led['spent'] = round(led['spent'] + cost, 4); led['calls'].append({'e': e, 'usd': round(cost, 4), 'at': f'{datetime.datetime.utcnow():%Y-%m-%d %H:%M}'})
+        json.dump(led, open(ledger, 'w'), indent=1)
+        print(e, f'${cost:.4f}', 'total', led['spent'])
+
+
+# ---------------------------------------------------------------- cutting the patches
+gray = lambda a: cv2.cvtColor((a[..., :3] / 255).astype(np.float32), cv2.COLOR_RGB2GRAY)
+
+
+def key_out(rgb):
+    a = rgb.astype(np.int32); r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    al = np.where((g > r + 25) & (g > b + 15), 0, 255).astype(np.uint8)
+    al = cv2.erode(al, np.ones((3, 3), np.uint8))
+    out = np.dstack([rgb, al]).astype(np.float32)
+    out[..., 1] = np.minimum(out[..., 1], np.maximum(out[..., 0], out[..., 2]) + 10)  # green spill off the outline
+    return out
+
+
+def build():
+    base, _ = base_crop(); B = np.asarray(base).astype(np.float32); H, W = B.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    fx, fy, fw, fh = box()
+    # the face in front of the ear, brow to chin (crop px): only here may the expression change
+    zone = np.zeros((H, W), np.uint8)
+    if V['zone'] == 'ellipse': cv2.ellipse(zone, (300, 385), (135, 185), 0, 0, 360, 255, -1)
+    else: cv2.fillPoly(zone, [np.array(V['zone'], np.int32)], 255)
+    zone = cv2.GaussianBlur(zone.astype(np.float32) / 255, (0, 0), 10)
+    upper = np.clip((V['split'] - yy) / 30, 0, 1).astype(np.float32)          # brows and eyes: above the nose's underside
+    fitmask = np.zeros((H, W), np.uint8); fitmask[B[..., 3] > 128] = 255; fitmask[zone > 0.05] = 0
+    c0, c1, c2, c3 = V['cheek']; cheek = (yy > c0) & (yy < c1) & (xx > c2) & (xx < c3) & (B[..., 3] > 200)
+    spr = np.asarray(sprite()).astype(np.float32)
+    boxA = spr[fy:fy + fh, fx:fx + fw]
+    res = {}
+    for e in EMO:
+        p = os.path.join(OUT, f'{e}_raw.png')
+        if not os.path.exists(p): continue
+        N = key_out(np.asarray(Image.open(p).convert('RGB').resize((W, H), Image.LANCZOS)))
+        warp = np.eye(2, 3, dtype=np.float32)
+        try: cc, warp = cv2.findTransformECC(gray(B), gray(N), warp, cv2.MOTION_AFFINE, (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 300, 1e-6), fitmask, 5)
+        except cv2.error: cc = 0
+        N = cv2.warpAffine(N, warp, (W, H), flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+        N[..., :3] = np.clip(N[..., :3] + (B[cheek, :3].mean(0) - N[cheek, :3].mean(0)), 0, 255)
+        full = N * zone[..., None] + B * (1 - zone[..., None])
+        up = N.copy(); up[..., 3] = N[..., 3] * zone * upper
+        if e.startswith('closed'):  # a blink: the lids only, so an emotion's brows stay as they are while the eyes shut
+            up[..., 3] *= np.clip(1 - np.abs(yy - V['eyes']) / 34, 0, 1) ** 0.5
+        # back to sprite px, and into the face set's box
+        def tobox(a):
+            s = cv2.resize(a, (CROP[2] - CROP[0], CROP[3] - CROP[1]), interpolation=cv2.INTER_AREA)
+            return s[fy - CROP[1]:fy - CROP[1] + fh, fx - CROP[0]:fx - CROP[0] + fw]
+        fb, ub = tobox(full), tobox(up)
+        Image.fromarray(np.clip(fb, 0, 255).astype(np.uint8), 'RGBA').save(os.path.join(OUT, f'{FRAME}_emo_{e}.webp'), lossless=True)
+        Image.fromarray(np.clip(ub, 0, 255).astype(np.uint8), 'RGBA').save(os.path.join(OUT, f'{FRAME}_emo_{e}_up.webp'), lossless=True)
+        res[e] = round(float(cc), 3); print(e, 'fit', res[e])
+    sheet(res)
+
+
+def compose(box_img=None, up=None, lid=None, scale=1):
+    """The sprite with a full-box patch (an emotion's, or a lip-sync mouth in the face set's own box), then the
+    brows-and-eyes patch, then a blink, in that order, like js/engine/faces.js."""
+    im = sprite()
+    def at(p):  # a face-set patch (art/faces) sits in the face set's box; an emotion's in this script's
+        if 'art/faces/' in p: return json.loads(open(os.path.join(SEQ, 'js/faces.js')).read().split('window.FACES = ', 1)[1].rstrip().rstrip(';'))[FRAME]['box']
+        return box()
+    for p, full in ((box_img, True), (up, False), (lid, False)):
+        if p is None: continue
+        x, y, w, h = at(p); pi = Image.open(p).convert('RGBA')
+        if full: im.paste(Image.new('RGBA', (w, h), (0, 0, 0, 0)), (x, y))
+        im.alpha_composite(pi, (x, y))
+    return im
+
+
+def lid_patch():
+    # the emotion set's own shut eyes where it has them (lids only, so an emotion's brows stay), else the face set's
+    p = os.path.join(OUT, f'{FRAME}_emo_closed_soft_up.webp')
+    return p if os.path.exists(p) else os.path.join(SEQ, 'art/faces', f'{FRAME}_eyes_closed.webp')
+
+
+def sheet(res):
+    F = os.path.join(SEQ, 'art/faces/')
+    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 18)
+    cols = [('neutral', None, None)] + [(e, os.path.join(OUT, f'{FRAME}_emo_{e}.webp'), os.path.join(OUT, f'{FRAME}_emo_{e}_up.webp')) for e in res if not e.startswith('closed')]
+    tiles = []
+    for n, full, up in cols:
+        quiet = compose(full)
+        talk = compose(F + f'{FRAME}_D.webp', up) if os.path.exists(F + f'{FRAME}_D.webp') else compose(full)
+        blink = compose(full, None, lid_patch())
+        heads = [im.crop(CROP).resize(((CROP[2] - CROP[0]) * 2, (CROP[3] - CROP[1]) * 2), Image.LANCZOS) for im in (quiet, talk, blink)]
+        game = quiet.crop((0, 0, quiet.width, quiet.height)).resize((round(quiet.width * 300 / quiet.height), 300), Image.LANCZOS)
+        t = Image.new('RGB', (max(heads[0].width, game.width) + 20, 300 + 3 * heads[0].height + 120), (232, 228, 222))
+        d = ImageDraw.Draw(t); d.text((10, 6), n, fill=(30, 30, 30), font=font)
+        t.paste(game, (10, 30), game); yy = 340
+        for lab, h_ in zip(('quiet', 'talking (D)' if os.path.exists(F + f'{FRAME}_D.webp') else '(no talking set yet)', 'blink'), heads):
+            t.paste(h_, (10, yy), h_); d.text((14, yy + 2), lab, fill=(90, 90, 90), font=font); yy += h_.height + 25
+        tiles.append(t)
+    W = sum(t.width for t in tiles); S = Image.new('RGB', (W, tiles[0].height), (232, 228, 222)); x = 0
+    for t in tiles: S.paste(t, (x, 0)); x += t.width
+    S.save(os.path.join(OUT, 'sheet' + ('_' + VAR if VAR else '') + '.jpg'), quality=90); print('sheet', S.size)
+
+
+
+def clip(line='alan_ask_baute_cave', fps=25):
+    """One line spoken in each emotion (Rhubarb cues, no in-betweens), then a second quiet; with the voice."""
+    import tempfile
+    F = os.path.join(SEQ, 'art/faces/')
+    L = json.loads(open(os.path.join(SEQ, 'js/lipsync.js')).read().split('window.LIPSYNC = ', 1)[1].rstrip().rstrip(';'))['alan'][line]
+    dur, cues = L
+    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 28)
+    tmp = tempfile.mkdtemp(dir=OUT); n = 0
+    emos = ['neutral'] + [e for e in EMO if not e.startswith('closed') and os.path.exists(os.path.join(OUT, f'{FRAME}_emo_{e}.webp'))]
+    talks = os.path.exists(F + f'{FRAME}_A.webp')
+    for e in emos:
+        full = None if e == 'neutral' else os.path.join(OUT, f'{FRAME}_emo_{e}.webp')
+        up = None if e == 'neutral' else os.path.join(OUT, f'{FRAME}_emo_{e}_up.webp')
+        for i in range(int((dur + 1.2) * fps)):
+            t = i / fps; s = 'X'
+            for t0, v in cues:
+                if t0 <= t + 0.06: s = v
+            s = {'X': 'A', 'G': 'B'}.get(s, s)
+            blink = lid_patch() if 1.5 < t % 3.2 < 1.62 else None
+            im = compose(F + f'{FRAME}_{s}.webp', up, blink) if t < dur and talks else compose(full, None, blink)
+            fr = Image.new('RGB', (1280, 720), (60, 58, 56))
+            body = im.resize((round(im.width * 640 / im.height), 640), Image.LANCZOS); fr.paste(body, (80, 40), body)
+            head = im.crop(CROP).resize(((CROP[2] - CROP[0]) * 4, (CROP[3] - CROP[1]) * 4), Image.LANCZOS); fr.paste(head, (520, 60), head)
+            ImageDraw.Draw(fr).text((520, 660), e + ('  (talking)' if t < dur else '  (quiet)'), fill=(235, 230, 220), font=font)
+            fr.save(os.path.join(tmp, f'{n:05d}.png')); n += 1
+    voice = os.path.join(SEQ, 'audio/voice', line + '.mp3')
+    seg = os.path.join(tmp, 'seg.wav'); allw = os.path.join(tmp, 'all.wav')
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', voice, '-af', f'apad=whole_dur={dur + 1.2}', '-ar', '44100', '-ac', '1', seg], check=True)
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error'] + sum([['-i', seg] for _ in emos], []) + ['-filter_complex', ''.join(f'[{k}:a]' for k in range(len(emos))) + f'concat=n={len(emos)}:v=0:a=1', allw], check=True)
+    out = os.path.join(OUT, 'talk_clip' + ('_' + VAR if VAR else '') + '.mp4')
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(fps), '-i', os.path.join(tmp, '%05d.png'), '-i', allw,
+                    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '20', '-c:a', 'aac', '-shortest', out], check=True)
+    subprocess.run(['rm', '-r', tmp]); print(out)
+
+def install(frames):
+    """The approved emotions into the game (the user approved the soft set on both views, 2026-10-29): each frame's
+    patches to art/faces/<frame>_emo_<e>.webp (whole box, quiet) and _emo_<e>_up.webp (brows and eyes, over the talking
+    mouth), its shut lids to _emo_lid.webp where the view has them; js/faces.js gets the frame's "emo": its box (not the
+    mouths' box), the emotions and whether it has lids. js/engine/faces.js draws them; js/story lines choose them."""
+    import shutil
+    global FRAME, V, CROP, OUT
+    fp = os.path.join(SEQ, 'js/faces.js'); head, body = open(fp).read().split('window.FACES = ', 1)
+    data = json.loads(body.rstrip().rstrip(';'))
+    for fr in frames:
+        FRAME, V = fr, VIEWS[fr]; CROP = V['crop']; OUT = os.path.join(SEQ, 'art/review/emotions', fr)
+        names = [k for k in SOFT if k != 'closed' and os.path.exists(os.path.join(OUT, f'{fr}_emo_{k}_soft.webp'))]
+        for e in names:
+            for suf in ('', '_up'):
+                shutil.copyfile(os.path.join(OUT, f'{fr}_emo_{e}_soft{suf}.webp'), os.path.join(SEQ, 'art/faces', f'{fr}_emo_{e}{suf}.webp'))
+        lid = os.path.exists(os.path.join(OUT, f'{fr}_emo_closed_soft_up.webp'))
+        if lid: shutil.copyfile(os.path.join(OUT, f'{fr}_emo_closed_soft_up.webp'), os.path.join(SEQ, 'art/faces', f'{fr}_emo_lid.webp'))
+        data[fr]['emo'] = {'box': list(box()), 'set': names, 'lid': lid}
+        print(fr, len(names), 'emotions', 'lids' if lid else '')
+    open(fp, 'w').write(head + 'window.FACES = ' + json.dumps(data, indent=1) + ';\n')
+
+
+if __name__ == '__main__':
+    cmd = sys.argv[1:2]
+    if cmd == ['gen']: gen([e if e in EMO else e + '_' + VAR for e in sys.argv[2:]] or list(EMO))
+    elif cmd == ['build']: build()
+    elif cmd == ['clip']: clip(*sys.argv[2:3])
+    elif cmd == ['install']: install(sys.argv[2:] or list(VIEWS))
+    else: sys.exit(__doc__)

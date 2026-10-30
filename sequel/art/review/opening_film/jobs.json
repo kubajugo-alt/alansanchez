@@ -1,0 +1,36 @@
+{
+ "model": "kling3_0 pro, silent",
+ "paintings": {
+  "s02": "bae03962-14a9-4739-bf18-c6e4addf5a2e",
+  "s04": "1e136636-3b75-43d7-a0fd-4ba577922f4e",
+  "s06": "cf8f1c95-c961-4769-9eaf-3716b303009e",
+  "s08": "8ea2f69b-fc26-4c2b-8c18-e6aea492cd34",
+  "s09": "740dc0bf-1c69-4465-b19c-b825a19f0e5b",
+  "s11_first": "7389c574-37a4-470e-b13f-297bbd068c80",
+  "s11": "f209a1b1-d161-4cde-9f2c-89d04ee7af56",
+  "s12": "022db5ce-be68-495e-96b3-863d10dac6ce",
+  "s15": "ce9a67c4-316d-4b16-85b6-44fe792ed07c"
+ },
+ "existing_uploads": {
+  "bar": "0a7ce6ab-b732-4f80-8a19-352f9ac52592",
+  "car": "22db7569-b3cd-4f61-95d3-e9d73bf07591",
+  "barranco": "56b555d4-454d-4ec0-a554-623218d70a14",
+  "title": "706383d5-4c4c-499c-b051-597b3bd245d4"
+ },
+ "clips": {
+  "s02": "fcd37d24-af1b-4730-bc5c-aaa334617aca",
+  "s03": "90ba1350-80c6-4551-b032-e2ec33f8cdb3",
+  "s04": "a51abc3b-d37f-4ab9-ae63-97a0849ca39e",
+  "s05": "c582b0e4-88dc-4b6a-a69a-332b8c84d37c",
+  "s06": "11646d57-90c6-4453-839a-b87731d7b57e",
+  "s07": "d2d6a669-b184-480b-939f-c83e4aedcd0e",
+  "s08": "0a053855-95bd-401e-874c-eabc0966f0b8",
+  "s09": "8e9b0732-6bfe-4763-b765-1dbbb878413d",
+  "s10": "9ac7e790-f717-47a9-9e36-fc01af511ea4",
+  "s12": "0c41c9f8-7cd5-408d-9d97-3504d7827b60",
+  "s14": "9184ca7e-b540-4b82-88a4-bfecfc305896",
+  "s15": "06418d96-72b6-4aee-942d-cafdf42f6b97",
+  "s16": "e35f4719-8f51-444c-8561-9624d875244f",
+  "s11": "a165cb9f-4faf-42be-82b7-7df000f480b7"
+ }
+}

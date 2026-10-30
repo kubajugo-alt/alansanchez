@@ -1,0 +1,126 @@
+{
+ "walks": [
+  "alanv_walk_side",
+  "alanv_walk_front",
+  "alanv_walk_back",
+  "alanb_walk_side",
+  "alanb_walk_front",
+  "alanb_walk_back"
+ ],
+ "talks": [
+  {
+   "frame": "alanv_side_k",
+   "who": "alan",
+   "line": "alan_ask_baute_cave",
+   "ok": true
+  },
+  {
+   "frame": "alanb_side_k",
+   "who": "alan",
+   "line": "alan_ask_baute_cave",
+   "ok": true
+  },
+  {
+   "frame": "vascos_side_k",
+   "who": "vasco",
+   "line": "vasco_anchor_cm",
+   "ok": true
+  },
+  {
+   "frame": "carmen_c",
+   "who": "carmen",
+   "line": "alan_fail_carmen_item",
+   "ok": true
+  },
+  {
+   "frame": "baute2_k",
+   "who": "baute",
+   "line": "alan_fail_baute_item",
+   "ok": true
+  },
+  {
+   "frame": "rafa_c",
+   "who": "rafa",
+   "line": "rafa_3",
+   "ok": true
+  },
+  {
+   "frame": "chano2_k",
+   "who": "chano",
+   "line": "chano_any",
+   "ok": true
+  },
+  {
+   "frame": "nieves_c",
+   "who": "nieves",
+   "line": "nieves_fax_in",
+   "ok": true
+  },
+  {
+   "frame": "yeray_c",
+   "who": "yeray",
+   "line": "yeray_bar_3",
+   "ok": true
+  },
+  {
+   "frame": "pino_c",
+   "who": "pino",
+   "line": "pino_bye",
+   "ok": true
+  },
+  {
+   "frame": "mercedes_c",
+   "who": "mercedes",
+   "line": "mercedes_bye",
+   "ok": true
+  },
+  {
+   "frame": "surfer_c",
+   "who": "surfer",
+   "line": "surfer_bark_1",
+   "ok": true
+  },
+  {
+   "frame": "guard_c",
+   "who": "guard",
+   "line": "guard_th_1",
+   "ok": true
+  },
+  {
+   "frame": "clerk_c",
+   "who": "clerk",
+   "line": "clerk_2",
+   "ok": true
+  },
+  {
+   "frame": "fermin_c",
+   "who": "fermin",
+   "line": "fermin_belfry_again",
+   "ok": true
+  },
+  {
+   "frame": "montesdeoca_c",
+   "who": "montesdeoca",
+   "line": "montesdeoca_t_again",
+   "ok": true
+  },
+  {
+   "frame": "gail_c",
+   "who": "gail",
+   "line": "gail_w_again",
+   "ok": true
+  },
+  {
+   "frame": "derek_c",
+   "who": "derek",
+   "line": "derek_th_bye",
+   "ok": true
+  },
+  {
+   "frame": "alanv_front_k",
+   "who": "alanf",
+   "line": "alan_ask_baute_cave",
+   "ok": false
+  }
+ ]
+}

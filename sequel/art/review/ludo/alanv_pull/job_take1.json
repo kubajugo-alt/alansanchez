@@ -1,0 +1,92 @@
+{
+ "spec": {
+  "a": "alanv_side_k",
+  "b": null,
+  "mid": null,
+  "prompt": "reaches up with both hands, grips a hanging chain above him and pulls it down hard, then lets go",
+  "loop": false,
+  "duration": 4,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "1fc3f77e-176a-40d3-8903-580ac6b76a8c",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/02ea246fe87f10bf7f155eea5d6fcb6f.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/57d2e6dd9e34791e8001e13c1d42863d.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/e71b86e3d99aafa399ce9d4e8e662e49.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.7916666666666665
+  },
+  "credits": 12
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "de5cc946-5b79-465d-beaf-cb714baf6253",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/345367ed1d1793fe5c2c5b33c80013d0.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/3f0b485bb4cd599d644190920238ab2b.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/1410be27a9a07fc9e38dfb3fbc91ab72.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.8333333333333335
+  },
+  "credits": 4
+ },
+ "model": "hydra",
+ "up": {
+  "status": "succeeded",
+  "job": "859aa257-e24d-4224-b90a-b505c7e5820b",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/1249946df4a8e1d7519165f096644829.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/d2b62f4eb8e2184122f0dbdeb6e0eb8d.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/1410be27a9a07fc9e38dfb3fbc91ab72.mp3",
+   "individual_frame_urls": [
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-afe903a8c8c744f723e2df4b4a49b18c.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-8a1e088859c62d426f6b17c89839848c.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-5313181bf4380c4d9a95e4724526301d.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-2ccd7ff89f0a519f834548bd92479cfa.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-551d7303833f1171bfed50621bf5289b.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-ad25c202c6d74e7877a29f12671eee06.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-5e5cb2925b5294e03d3fda6a8f82af56.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-f59fcbb4d38609c4d6b1d4576b7fee63.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-9eaa609a02542f9cab00bf12fe89f16c.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-0ae844cd6822de3af3afbf43b41c38c8.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-54d8043d8c43e25fdc00fc11475bf87e.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-ee5e197dc36234d6db07cb749a733953.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-9a9b6c79039a32e72ef44623a4fb7f50.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-f7680c2667b400f68086c2dee370a780.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-8bedd9f5b5ff7dc8d4bdf53688675b0b.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-b6fe47c4dfb3392515c24a2e1a3ea9c2.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-b0390d4d0cce8276b44a71dbfcfd14bd.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-ec70ef78ceaa1237caac66ee609f8b1d.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-047dcc46fb5ef63f30883c9380d38768.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-a81d878489ed72ebde119a016636d675.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-8c9f9368cf25773618ce381ba55e0362.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-3eaf9e0636e6f8ec558e5cfe430d6856.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-f35d162e1c81d25b775bd724da9df667.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-5ade17722e40883a0853a01368d00e74.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-c42abf0e870b60437ec8ece77a012bd7.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-e2a729128233ae4b838f4ff53cb53947.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-125ba36f6100578f16810400c4ac16e4.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-aba851adb02d0dae2700a2795608b364.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-c68e3f1ac374abfadd287360e40b257f.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-7a948d3dc90146eeb0cbcb5a22d92610.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-1b41a98aa35e236bf5904a6d24d7311e.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-100739459d310b9870f4c4e0b656faf2.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-5de6d65097b9cc2f0e7c5cb6f9737e27.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-96dfdf235a66ce169050e5e62294263d.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-b675f67755251bf5a7726787ed5d3eb4.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-e9e6b721ca529f6ec59086fd633cd9f6.webp"
+   ],
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.9583333333333335
+  },
+  "credits": 0
+ }
+}
