@@ -25,6 +25,21 @@ brackets are HANDOFF entries with the detail.
   Ludo credits (check before a run); ElevenLabs (the user's plan). The user does **not** want other voices or cloned
   voices as a fallback: if ElevenLabs runs out, stop and say so.
 
+## External services (what each is for, how it's reached, what it costs)
+
+| Service | Used for | How we reach it | Notes |
+|---|---|---|---|
+| **ElevenLabs** | every voiced line (2,500+), voice auditions | API from `scripts/generate-voices.mjs` with `ELEVENLABS_API_KEY` in the root `.env`; the ElevenLabs MCP connector (`creative_list_voices`, `creative_generate_speech`) for searching the library and quick samples | Library voices only (no designed, no cloned voices, no other providers). Credits on the user's plan; ~120 lines a minute. |
+| **Higgsfield** | images (`gpt_image_2_5`: cast and extras designs, outfits, props, room repaints, day/night edits, film paintings) and video (`kling3_0`: the sea loops, the opening film) | Higgsfield MCP: `generate_image(_batch)`, `generate_video(_batch)`, `jobs_wait`, `media_upload` + `curl PUT` (headers `Content-Type`, `If-None-Match: *`) + `media_confirm`; download `result_url` with curl | Credits: check `balance`. Image ~2.75 credits, Kling pro ~12 per 8 s. Decline its suggested presets with `declined_preset_id`. It has ElevenLabs inside, but not our library voices: not for the game's voices. |
+| **Ludo.ai** | sprite animation (walk cycles, talk loops, the undressing) | API `https://api.ludo.ai/api` from `scripts/ludo.py`, `LUDO_API_KEY` in the root `.env` | Credits (~420 left at the last count). hydra refuses on moderation: use `--model forge`. |
+| **Google Gemini** | face patches (mouths, eyes, emotions: `gemini-nano-banana-2.1` in `face_kit.py`, `face_emotions.py`) and the room music (Lyria 3 Pro, `gen_music.py`) | API, `GEMINI_API_KEY` in the root `.env` | Budget $23, about $19 used: ledgers in the scripts stop at $20. |
+| **Canva** | the first rooms and cast designs | Canva MCP (`generate-design`, `export-design`, uploads); `scripts/canva_in.py` imports exports | Has cooldowns; Higgsfield took over when it cooled down. |
+| **Netlify** | hosting: project `alan-sanchez-shortest-night`, site `a5e71264-d9a4-439a-b1e5-60ec3f98812d`, https://alan-sanchez-shortest-night.netlify.app | Netlify MCP `deploy-site`, then the `npx -y @netlify/mcp@latest --site-id ... --proxy-path ...` command it returns, run from the export folder | Deploy only when the user asks (section 12). |
+| **GitHub** | the repository `kubajugo-alt/alansanchez`, branch `claude/sequel-shortest-night` | git (push through the session's proxy); GitHub MCP tools for pull requests | Commit and push after every piece of work. |
+| **claude.ai Artifacts** | review pages (voices, animations, emotion tags, music, storyboards) and the placement tool | the Artifact tool (publish/read), `ArtifactData` for their databases (`verdicts`, `notes`, `placements`) | Private to the user. Reading a page's db is how we get the user's verdicts and placements. A session can watch at most 10 artifacts. |
+| **OpenStreetMap** | the map of Las Palmas (`scripts/map_from_osm.py`, from a stitched tile render) | one-off | © OpenStreetMap contributors (ODbL), credited in the game. |
+| Local tools | Rhubarb Lip Sync 1.13 (`RHUBARB=` path; not in the repo, https://github.com/DanielSWolf/rhubarb-lip-sync), OpenCV models `scripts/models/yunet.onnx` and `sface.onnx` (faces), ffmpeg, Playwright + Chromium (`/opt/pw-browsers/chromium`), Python (numpy, Pillow, opencv) | | |
+
 ## 1. Rooms (paintings, layout, day and night)
 
 - **Painting**: Canva (`scripts/canva_in.py`, record in `art/canva/log.md`) for the first set; later real-place
