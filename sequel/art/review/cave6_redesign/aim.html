@@ -29,14 +29,14 @@ const D=[[387,572],[475,572],[558,572],[641,572],[725,572],[810,572],[897,572]];
 const DM=[{"socket": 0, "x": 339, "y": 546, "w": 97, "h": 59}, {"socket": 1, "x": 427, "y": 546, "w": 97, "h": 59}, {"socket": 2, "x": 510, "y": 546, "w": 97, "h": 59}, {"socket": 3, "x": 593, "y": 546, "w": 97, "h": 59}, {"socket": 4, "x": 677, "y": 546, "w": 97, "h": 59}, {"socket": 5, "x": 762, "y": 546, "w": 97, "h": 59}, {"socket": 6, "x": 849, "y": 546, "w": 97, "h": 59}],SPR=DM.map((m,i)=>{const im=new Image();im.src='discs/disc_'+i+'.png';return im});
 const OPEN=[640,97,255,82],RIM=170;
 // the wall, left to right; a disc in socket i lights triangle 6-i (the columns cross in the opening)
-const WALL=['rings','spiral','zigzag','sun','crescent','triangle','chequer'];
-const TURN=['zigzag','chequer','triangle','rings','spiral','crescent','sun'];
-const SCENE={zigzag:'The sea standing up, black, higher than the cliffs. The trees bent the other way. At the edge, a wave curling over a roof.',
- chequer:'Fields and houses under water. A boat on a roof. On another roof, a woman in white, looking up the cliff.',
- triangle:'Women in white coming down the cliff paths, in a line. The last one carries a jar on her head.',
- rings:'The women pouring their jars into the sea; rings spreading. One of them has a palm branch raised.',
- spiral:'The women in the water to the waist, beating it with branches. The water turning, going down. One woman left standing alone.',
- crescent:'The moon going down into the sea. One woman standing in it, her arm pointing up at the great triangle.',
+const WALL=['wax_crescent','first_quarter','wax_gibbous','sun','wan_gibbous','last_quarter','wan_crescent'];
+const TURN=['wax_gibbous','last_quarter','wax_crescent','wan_gibbous','first_quarter','wan_crescent','sun'];
+const SCENE={wax_gibbous:'The sea standing up, black, higher than the cliffs. The trees bent the other way. At the edge, a wave curling over a roof.',
+ last_quarter:'Fields and houses under water. A boat on a roof. On another roof, a woman in white, looking up the cliff.',
+ wax_crescent:'Women in white coming down the cliff paths, in a line. The last one carries a jar on her head.',
+ wan_gibbous:'The women pouring their jars into the sea; rings spreading. One of them has a palm branch raised.',
+ first_quarter:'The women in the water to the waist, beating it with branches. The water turning, going down. One woman left standing alone.',
+ wan_crescent:'The moon going down into the sea. One woman standing in it, her arm pointing up at the great triangle.',
  sun:'Magec. The rays. Nothing at the edge: this is where it ends.'};
 // the column's top end runs along the line of the triangles' centres (extended a little each side)
 const PATH=[[CEN[0][0]-40,CEN[0][1]+2],...CEN,[CEN[6][0]+40,CEN[6][1]+2]];
@@ -47,11 +47,11 @@ let S;function reset(){S={sock:Array(7).fill(null),aim:Array(7).fill(null),set:A
  say('');tray();state()}
 const sayEl=document.getElementById('say');function say(t){sayEl.textContent=t}
 function tray(){const el=document.getElementById('tray');el.innerHTML='';
- TURN.forEach(n=>{const b=document.createElement('button');b.textContent=n;b.disabled=S.sock.includes(n)||S.cur===null||S.dead||S.won;
+ TURN.forEach(n=>{const b=document.createElement('button');b.textContent=n.replace('_',' ');b.disabled=S.sock.includes(n)||S.cur===null||S.dead||S.won;
   b.onclick=()=>{S.sock[S.cur]=n;S.aim[S.cur]=.5;tray();state()};el.appendChild(b)})}
 function state(){document.getElementById('state').textContent=S.dead?'The Sea takes him. (Start again.)':S.won?'All seven lit. The door shuts.':
  `Surges: ${S.surges} of 3. `+(S.cur===null?'Click an empty socket.':S.sock[S.cur]?`Aiming the ${S.sock[S.cur]} disc.`:'Pick a disc for this socket.')}
-const ask=document.getElementById('ask');TURN.forEach(n=>{const b=document.createElement('button');b.textContent='Read me the '+n;
+const ask=document.getElementById('ask');TURN.forEach(n=>{const b=document.createElement('button');b.textContent='Read me the '+n.replace('_',' ');
  b.onclick=()=>say('Vasco: "'+SCENE[n]+'"');ask.appendChild(b)});
 document.getElementById('reset').onclick=reset;
 function hit(i){const p=along(S.aim[i]);let best=-1,bd=1e9;CEN.forEach((c,k)=>{const d=Math.abs(c[0]-p[0]);if(d<bd){bd=d;best=k}});

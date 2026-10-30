@@ -18,11 +18,11 @@ exactly at noon".
   by the sun: **14:05 Canary summer time** (UTC+1, in force in 1996; Risco Caído at 15.66° W puts the sun's noon an hour
   after the clock's, and the equation of time adds two minutes that week), the sun 85.4° up. The user: "the canary summer
   time please - this is important to know". Vasco knows it to the minute.
-- Each disc is a shallow obsidian mirror, ground to its own curve, with a sign cut in its back: seven Canario signs, the
-  patterns of the island's own clay seals (pintaderas): a spiral, a zigzag (the sea), concentric rings, a chequer, a
-  triangle, the half-circle fan ("the crescent" in these notes: the moon half gone into the sea; a crescent as such is
-  not a Canario sign), and the rayed sun, Magec. The same seven signs are cut, worn almost smooth, at the point of the
-  seven triangles above, and round each triangle a scene (see "The order").
+- Each disc is a shallow obsidian mirror, ground to its own curve, with a sign cut in its back. The user: "replace the
+  symbols with the phases of the moon". Six discs are the moon in her phases (waxing crescent, first quarter, waxing
+  gibbous, waning gibbous, last quarter, waning crescent); the seventh is the rayed sun, Magec. The same seven signs
+  are cut, worn almost smooth, above the seven triangles, and round each triangle a scene (see "The order"). A phase is
+  cut as the moon's outline with her lit part hollowed out whole (`etch.py`).
 - In its own socket, a disc gathers the light and throws a column of it back up through the floor opening onto its own
   triangle. The sun disc, in the middle, lights the great triangle. Every morning, seven triangles lit: the sentence read
   out, the lock kept true.
@@ -76,8 +76,8 @@ exactly at noon".
   the row. Water coming up through the floor opening. Vasco looks down at it the way he looks at an altarpiece: "He's
   moved the sun. It's on the door."
 - **Alan goes down the rope ladder** ("It's coming for me anyway"), into the water rising round his legs. He has five
-  discs from the vault, each now its own thing in his pockets: the spiral disc, the zigzag disc, the rings disc, the
-  chequer disc, the triangle disc. Vasco kneels at the rim of the floor opening, above, reading the triangles.
+  discs from the vault, each now its own thing in his pockets: the waxing gibbous, the last quarter, the waxing crescent,
+  the waning gibbous and the first quarter. Vasco kneels at the rim of the floor opening, above, reading the triangles.
 - **Stuck.** Alan has the five discs and where they go (Vasco's vault mark), but not when. Vasco, above, reads him the
   scenes; without the telling there's no order. One disc set by guess is a surge.
 - **Baute's last help.** Through the cave mouth Baute sees the black stain spreading over Las Palmas; Carmen names her
@@ -85,7 +85,8 @@ exactly at noon".
   echoes each verse down in English), and gives up the disc he kept on him: the crescent, May's.
 - **The puzzle:** each verse matched to its scene (a notebook page, "The grandmothers' telling": seven verses, a sign
   to choose for each from the scenes Vasco has read); then each disc into its socket, in the telling's order, and
-  aimed at its triangle. Alan sets zigzag, chequer, triangle, rings, spiral, then the crescent.
+  aimed at its triangle. Alan sets the waxing gibbous, the last quarter, the waxing crescent, the waning gibbous,
+  the first quarter, then the crescent (the waning crescent).
 - **The sun disc:** last, Alan has to lift Magec out of the door socket and set it in the middle. As he reaches for it,
   a cloud crosses the sun (as now): no light, no columns, nothing to tell right from wrong, and the water at his chest.
   Carmen tears the wing mirror off the Land Rover, runs up the path to the top of the rock where the shaft comes out,
@@ -107,8 +108,10 @@ lock is a sentence said in light. Said in the wrong order, it is another sentenc
 ### Where: the signs at the triangles' points, read in a mirror
 - Each triangle has its disc's sign cut at its point. The columns cross in the floor opening, so the floor is the wall
   reversed: socket 1 (far left) lights triangle 7 (far right), and so on. The sun is in the middle both ways.
-- The wall, left to right: rings, spiral, zigzag, **sun**, crescent, triangle, chequer.
-- So the floor, left to right: chequer, triangle, crescent, **sun**, zigzag, spiral, rings.
+- The wall, left to right: waxing crescent, first quarter, waxing gibbous, **sun**, waning gibbous, last quarter,
+  waning crescent (the moon growing towards the sun, and going away from him).
+- So the floor, left to right: waning crescent, last quarter, waning gibbous, **sun**, waxing gibbous, first quarter,
+  waxing crescent.
 - Vasco works this out on Saturday (the chalk; the sun-disc test) and scratches it in the vault. Alan has it in his
   notebook on Monday.
 
@@ -126,12 +129,12 @@ which disc went when: Yeray carried them down in a sack, and the transfer sheets
 
 | Moon (Baute took it out) | Verse (Baute's grandmother, as he says it) | Sign | Scene round its triangle |
 |---|---|---|---|
-| 1, the winter turning (20 December) | "When the sun was smallest, the water stood up taller than the mountain, and the wind could not push it." | zigzag | the sea standing up black, the trees bent the other way |
-| 2 (January) | "In the second moon it lay down in our houses and slept there." | chequer | fields and houses under water, a boat on a roof |
-| 3 (February) | "In the third moon the white ones came down the goat paths." | triangle | the women in white coming down the cliff paths |
-| 4 (March) | "In the fourth moon they gave it the goats' milk, and it drank." | rings | the women pouring jars into the sea, rings spreading |
-| 5 (April) | "In the fifth moon they beat it like a dog, and it went down to its bed." | spiral | the women beating the sea with branches, the water turning down |
-| 6 (May) | "In the sixth moon one stayed in the water, and the moon went in with her." | crescent | the moon going down into the sea, one woman standing in it |
+| 1, the winter turning (20 December) | "When the sun was smallest, the water stood up taller than the mountain, and the wind could not push it." | waxing gibbous | the sea standing up black, the trees bent the other way |
+| 2 (January) | "In the second moon it lay down in our houses and slept there." | last quarter | fields and houses under water, a boat on a roof |
+| 3 (February) | "In the third moon the white ones came down the goat paths." | waxing crescent | the women in white coming down the cliff paths |
+| 4 (March) | "In the fourth moon they gave it the goats' milk, and it drank." | waning gibbous | the women pouring jars into the sea, rings spreading |
+| 5 (April) | "In the fifth moon they beat it like a dog, and it went down to its bed." | first quarter | the women beating the sea with branches, the water turning down |
+| 6 (May) | "In the sixth moon one stayed in the water, and the moon went in with her." | waning crescent | the moon going down into the sea, one woman standing in it |
 | 7, the summer turning (noon, 24 June) | "And on the long day, at the top of the day, they set the sun in the middle, and the year began." | sun | Magec |
 
 The verses don't name the signs: each has to be matched to the scene round its triangle, which only Vasco, above, can
@@ -162,7 +165,7 @@ the game's.
   keys): its column sweeps across the wall above, seen through the floor opening, in real time. The columns cross in the
   opening, so a disc on the right reaches the triangles on the left. Click (or Enter) to set it where it is.
 - **Three ways to be wrong**, each a surge (the water a hand higher; three and the Sea takes him: death screen, retry
-  from the checkpoint): the column set on another disc's triangle (Vasco: "That's the rings' triangle!"); a disc set out
+  from the checkpoint): the column set on another disc's triangle (Vasco: "That's the last quarter's triangle!"); a disc set out
   of its turn in the story; a disc in the wrong socket can't reach its own triangle at all. Set on bare rock: nothing
   happens, aim again.
 - **Right**: the column holds, the patch of light settles on the triangle, and Vasco reads that scene aloud as it lights.
@@ -275,7 +278,8 @@ the sea at midnight) stays as it is: the shortest night, then the noon of the tu
   walls, what we have was not used by this culture". They are painted the way the Canarios painted, as in the Cueva
   Pintada at Gáldar: bands and panels of red ochre, white and black, made of the shapes of their clay seals
   (pintaderas): rayed suns, dotted triangles, triangles of triangles, chequers of dotted squares, concentric ovals,
-  zigzags, half-circle fans, spirals. The seven signs are among them; the story itself is only round the triangles.
+  zigzags, half-circle fans, spirals. The disc signs (the moon's phases and the sun) are not among them: they are only on the floor and above the
+  triangles; the story is only round the triangles.
   Two takes: `low_real_*_a.png` / `_b.png` (the current files are B; the figurative version is kept as
   `*_figurative.png`).
 - Code: the cave (upper), a new room for the lower chamber, the light drawn in columns (vasco.js, mon.js); the five
