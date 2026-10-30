@@ -922,6 +922,8 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     at dawn; Monday's cave at 06:52 (twenty minutes to the 7:12 sunrise); Vasco "lay in that vault"; Pino's helmet "in
     the same week"; Rafa's tight black curls, clean-shaven; Lisbon thirteen hundred kilometres; Carmen and Elena eleven
     years. Left: the bell's "FVNDIDO EM LISBOA E NAS PALMAS" (both, which fits). 18 lines changed (entry 88's list).
+    Checked: validate.mjs 0 errors; the full play.mjs run of the merged game, prologue to credits: won, 118 steps, no
+    page errors.
 90. **Environment movement: reviewed** (2026-10-30). The user: "review the quality of environment movement, check if it
     is realistic and if not propose solutions". docs/review/env_movement.md (with crops and heatmaps in
     docs/review/env_movement/): the amount and taste are right; the technique isn't. The sea loops slow and jump every
