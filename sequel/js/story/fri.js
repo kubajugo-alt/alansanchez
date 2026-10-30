@@ -142,15 +142,17 @@
     name: 'A bar in Vegueta', bg: 'rafa_bar', floor: 'tile', ambience: 'tavern', door: 'door_tavern',
     light: { ambient: 'rgb(200,160,120)', base: 0.8 },
     entries: { default: [1120, 660, 'w'], map: [1120, 660, 'w'] },
+    layers: [{ img: 'rafa_table', x: 706.5, y: 364.5, w: 303, h: 199, when: () => !!F().yeray_left }],
     npcs: [
       { id: 'rafa', ch: 'rafa', x: 520, y: 610, h: 370, dir: 'e', name: 'Rafa', at: [640, 660], look: () => say(F().rafa_talked ? 'alan_look_rafa_2' : 'alan_look_rafa'), talk: () => S.talkRafa(),
         items: { napkin: () => say('rafa_napkin_back'), any: 'alan_fail_rafa_item' } },
-      { id: 'yeray', ch: 'yeray', x: 160, y: 615, h: 370, dir: 'e', name: 'A boy at the end of the bar', when: () => !F().yeray_left, look: 'alan_look_yeray_bar', talk: () => S.talkYerayBar() },
+      // (Yeray drunk at the corner table, a seated sprite with the table and the Arehucas, 2026-10-30; the empty table is a layer)
+      { id: 'yeray', ch: 'yeray_drunk', x: 858, y: 563.5, h: 236.5, dir: 'e', fixedDir: true, name: 'A boy at the corner table', when: () => !F().yeray_left, look: 'alan_look_yeray_bar', talk: () => S.talkYerayBar() },
     ],
     hotspots: [
       { name: 'Bottles', rect: [60, 230, 800, 70], at: [500, 650], look: 'alan_look_bottles' },
       { name: 'The faces on the walls', rect: [440, 85, 560, 210], at: [760, 650], look: 'alan_look_portraits' },
-      { name: 'Domino table', rect: [880, 470, 160, 80], at: [940, 650], look: 'alan_look_domino' },
+      { name: 'Domino table', rect: [880, 470, 160, 80], at: [940, 650], look: 'alan_look_domino', when: () => false }, // (the painted domino players went with the repaint, 2026-10-30)
       { name: 'Door', rect: [1160, 250, 110, 320], at: [1200, 650], exit: 'map', entry: 'rafa_bar', locked: () => true, lockedLine: () => S.tryLeave() },
     ],
     async enter() {

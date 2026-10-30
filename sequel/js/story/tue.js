@@ -492,6 +492,28 @@
       await S.maybeToast();
     },
   });
+  // ================================================================ THE CORRIDOR OF SKULLS (Tuesday: Vasco's moment)
+  // the museum's corridor of skulls and mummies, Vasco's office at the end (repainted, take B, 2026-10-30); only the
+  // reception's quiet moment uses it: Vasco walks Alan down here and back
+  ROOMS.museum_corridor = S.room({
+    music: 'museum_hall',
+    name: 'The corridor of skulls', bg: 'museum_corridor', floor: 'tile', ambience: 'museum', door: 'door',
+    walk: [[585, 470], [690, 470], [800, 525], [935, 600], [990, 716], [220, 716], [350, 630], [480, 525]], scale: [470, 150, 716, 440],
+    entries: { default: [560, 670, 'e'], museum_hall: [560, 670, 'e'] },
+    npcs: [
+      { id: 'vasco', x: 720, y: 640, dir: 'w', name: 'Vasco', when: () => !!F().in_corridor, look: 'alan_look_vasco_reception', talk: () => say('vasco_p_later') },
+    ],
+    hotspots: [
+      { name: 'The skulls', rect: [0, 0, 340, 470], at: [380, 660], look: 'alan_p_3' },
+      { name: 'Back to the party', rect: [240, 690, 760, 30], at: [600, 700], exit: 'museum_hall', entry: 'museum_corridor', locked: () => !!F().in_corridor },
+    ],
+    lights: [
+      { x: 358, y: 128, rgb: '255,200,120', kind: 'flame', seed: 3, glow: 60, ga: 0.14 },
+      { x: 937, y: 130, rgb: '255,200,120', kind: 'flame', seed: 5, glow: 60, ga: 0.14 },
+      { x: 468, y: 250, rgb: '255,200,120', kind: 'flame', seed: 7, glow: 30, ga: 0.12 },
+      { x: 808, y: 250, rgb: '255,200,120', kind: 'flame', seed: 9, glow: 30, ga: 0.12 },
+    ],
+  });
   // ================================================================ LAS CANTERAS: the sand (the surfers' place)
   ROOMS.beach = S.room({
     music: 'beach',
@@ -657,8 +679,15 @@
       return S.maybeToast();
     }
     if (!f.vasco_moment) {
+      // the moment is in the corridor of skulls, by the door of his office at the end (the user, 2026-10-30)
       f.vasco_moment = true;
-      await say('vasco_p_5', 'narr_p_3', 'vasco_p_6', 'alan_p_3', 'vasco_p_7', 'vasco_p_8', 'alan_p_4', 'narr_p_4', 'vasco_p_9', 'narr_p_5', 'alan_p_5');
+      await say('vasco_p_5');
+      f.in_corridor = true;
+      await G.goRoom('museum_corridor', 'museum_hall');
+      await say('narr_p_3', 'vasco_p_6', 'alan_p_3', 'vasco_p_7', 'vasco_p_8', 'alan_p_4', 'narr_p_4', 'vasco_p_9', 'narr_p_5');
+      f.in_corridor = false;
+      await G.goRoom('museum_hall', 'museum_corridor');
+      await say('alan_p_5');
       return S.maybeToast();
     }
     return say(f.met_carmen ? 'vasco_p_later2' : 'vasco_p_later');
