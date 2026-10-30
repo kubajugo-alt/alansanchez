@@ -1,0 +1,126 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Cave 6: aiming the discs (prototype)</title>
+<style>
+body{margin:0;background:#111;color:#ddd;font:14px Georgia,serif}
+#wrap{position:relative;max-width:1280px;margin:0 auto}
+canvas{width:100%;display:block;cursor:crosshair}
+#hud{max-width:1280px;margin:8px auto;display:flex;gap:16px;flex-wrap:wrap;padding:0 16px;box-sizing:border-box}
+#hud .box{background:#1d1a16;border:1px solid #3a342b;padding:8px 10px;flex:1;min-width:260px}
+button{font:inherit;background:#2b261f;color:#eee;border:1px solid #5a4f3f;margin:2px;padding:3px 8px;cursor:pointer}
+button:disabled{opacity:.35;cursor:default}
+#say{min-height:3em;font-style:italic;color:#f0dfb8}
+</style></head><body>
+<div id="wrap"><canvas id="c" width="1280" height="720"></canvas></div>
+<div id="hud">
+  <div class="box"><b>Alan (below)</b>: click an empty socket, pick a disc, then aim it: move the mouse (or ← →) and the
+    column sweeps across the wall above; click (or Enter) to set it.<br><div id="tray"></div>
+    <div id="state"></div><button id="reset">Start again</button></div>
+  <div class="box"><b>Vasco (above), reading the wall</b>: <div id="ask"></div><div id="say"></div></div>
+</div>
+<script>
+const W=1280,H=720,cv=document.getElementById('c'),g=cv.getContext('2d');
+const img=new Image();img.src='lower_final_1280.png';
+// the seven triangles as seen from below, through the floor opening (from beams_render.py)
+const TRI=[[[288,268],[348,268],[317,335]],[[368,272],[430,272],[399,337]],[[449,274],[510,274],[479,339]],
+ [[535,215],[760,215],[642,415]],[[787,274],[853,274],[817,340]],[[873,272],[939,272],[903,338]],[[957,268],[1020,268],[990,335]]]
+ .map(t=>t.map(([x,y])=>[417+(x-230)*440/830,50+(y-180)*143/270]));
+const CEN=TRI.map(t=>[(t[0][0]+t[1][0]+t[2][0])/3,(t[0][1]+t[1][1]+t[2][1])/3]),WID=TRI.map(t=>t[1][0]-t[0][0]);
+const D=[[396,565],[475,565],[558,565],[638,565],[719,565],[799,565],[879,565]];
+const OPEN=[637.5,98,232.5,74],RIM=150;
+// the wall, left to right; a disc in socket i lights triangle 6-i (the columns cross in the opening)
+const WALL=['rings','spiral','zigzag','sun','crescent','triangle','chequer'];
+const TURN=['zigzag','chequer','triangle','rings','spiral','crescent','sun'];
+const SCENE={zigzag:'The sea standing up, black, higher than the cliffs. The trees bent the other way. At the edge, a wave curling over a roof.',
+ chequer:'Fields and houses under water. A boat on a roof. On another roof, a woman in white, looking up the cliff.',
+ triangle:'Women in white coming down the cliff paths, in a line. The last one carries a jar on her head.',
+ rings:'The women pouring their jars into the sea; rings spreading. One of them has a palm branch raised.',
+ spiral:'The women in the water to the waist, beating it with branches. The water turning, going down. One woman left standing alone.',
+ crescent:'The moon going down into the sea. One woman standing in it, her arm pointing up at the great triangle.',
+ sun:'Magec. The rays. Nothing at the edge: this is where it ends.'};
+// the column's top end runs along the line of the triangles' centres (extended a little each side)
+const PATH=[[CEN[0][0]-40,CEN[0][1]+2],...CEN,[CEN[6][0]+40,CEN[6][1]+2]];
+function along(u){u=Math.max(0,Math.min(1,u));let L=[0];for(let i=1;i<PATH.length;i++)L.push(L[i-1]+Math.hypot(PATH[i][0]-PATH[i-1][0],PATH[i][1]-PATH[i-1][1]));
+ let s=u*L[L.length-1],i=1;while(i<L.length-1&&L[i]<s)i++;const f=(s-L[i-1])/(L[i]-L[i-1]);
+ return [PATH[i-1][0]+(PATH[i][0]-PATH[i-1][0])*f,PATH[i-1][1]+(PATH[i][1]-PATH[i-1][1])*f]}
+let S;function reset(){S={sock:Array(7).fill(null),aim:Array(7).fill(null),set:Array(7).fill(false),cur:null,next:0,surges:0,dead:false,won:false};
+ say('');tray();state()}
+const sayEl=document.getElementById('say');function say(t){sayEl.textContent=t}
+function tray(){const el=document.getElementById('tray');el.innerHTML='';
+ TURN.forEach(n=>{const b=document.createElement('button');b.textContent=n;b.disabled=S.sock.includes(n)||S.cur===null||S.dead||S.won;
+  b.onclick=()=>{S.sock[S.cur]=n;S.aim[S.cur]=.5;tray();state()};el.appendChild(b)})}
+function state(){document.getElementById('state').textContent=S.dead?'The Sea takes him. (Start again.)':S.won?'All seven lit. The door shuts.':
+ `Surges: ${S.surges} of 3. `+(S.cur===null?'Click an empty socket.':S.sock[S.cur]?`Aiming the ${S.sock[S.cur]} disc.`:'Pick a disc for this socket.')}
+const ask=document.getElementById('ask');TURN.forEach(n=>{const b=document.createElement('button');b.textContent='Read me the '+n;
+ b.onclick=()=>say('Vasco: "'+SCENE[n]+'"');ask.appendChild(b)});
+document.getElementById('reset').onclick=reset;
+function hit(i){const p=along(S.aim[i]);let best=-1,bd=1e9;CEN.forEach((c,k)=>{const d=Math.abs(c[0]-p[0]);if(d<bd){bd=d;best=k}});
+ return bd<WID[best]*.28?best:-1}
+cv.addEventListener('mousemove',e=>{if(S.cur===null||!S.sock[S.cur]||S.set[S.cur])return;const r=cv.getBoundingClientRect();
+ const x=(e.clientX-r.left)*W/r.width;S.aim[S.cur]=Math.max(0,Math.min(1,(x-250)/(1030-250)))});
+addEventListener('keydown',e=>{if(S.cur===null||!S.sock[S.cur]||S.set[S.cur])return;
+ if(e.key==='ArrowLeft')S.aim[S.cur]=Math.max(0,S.aim[S.cur]-.004);if(e.key==='ArrowRight')S.aim[S.cur]=Math.min(1,S.aim[S.cur]+.004);
+ if(e.key==='Enter')commit()});
+cv.addEventListener('click',e=>{if(S.dead||S.won)return;const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*W/r.width,y=(e.clientY-r.top)*H/r.height;
+ if(S.cur!==null&&S.sock[S.cur]&&!S.set[S.cur]){commit();return}
+ D.forEach((d,i)=>{if(Math.hypot(x-d[0],(y-d[1])*2)<38&&!S.sock[i]){S.cur=i;tray();state()}})});
+function surge(t){S.surges++;say(t);const i=S.cur;S.sock[i]=null;S.aim[i]=null;S.cur=null;if(S.surges>=3)S.dead=true;tray();state()}
+function commit(){const i=S.cur,n=S.sock[i],k=hit(i);
+ if(k<0){say('The column is on bare rock. Aim it at a triangle.');return}
+ if(WALL[k]!==n){surge(`Vasco: "That's the ${WALL[k]}'s triangle, not the ${n}'s!" The water surges.`);return}
+ if(TURN[S.next]!==n){surge(`The ${n}'s triangle lights, out of its turn. The water surges up the ladder.`);return}
+ S.set[i]=true;S.cur=null;S.next++;say('Vasco: "'+SCENE[n]+'" It holds.');if(S.next===7){S.won=true;S.t0=performance.now()/1000}tray();state()}
+// light
+function clipAboveRim(){g.beginPath();g.rect(0,RIM,W,H);g.ellipse(OPEN[0],OPEN[1],OPEN[2],OPEN[3],0,0,Math.PI*2);g.clip()}
+function column(p0,w0,p1,w1,a){const dx=p1[0]-p0[0],dy=p1[1]-p0[1],L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;
+ const gr=g.createLinearGradient(p0[0],p0[1],p1[0],p1[1]);gr.addColorStop(0,`rgba(255,228,160,${a})`);gr.addColorStop(1,`rgba(255,228,160,${a*.8})`);
+ g.fillStyle=gr;g.beginPath();g.moveTo(p0[0]+nx*w0/2,p0[1]+ny*w0/2);g.lineTo(p1[0]+nx*w1/2,p1[1]+ny*w1/2);
+ g.lineTo(p1[0]-nx*w1/2,p1[1]-ny*w1/2);g.lineTo(p0[0]-nx*w0/2,p0[1]-ny*w0/2);g.closePath();g.filter='blur(2px)';g.fill();g.filter='none';
+ // dust
+ const t=performance.now()/1000;g.fillStyle=`rgba(255,240,200,${a*.9})`;for(let j=0;j<18;j++){const f=((j*0.137+t*0.03*(1+j%3))%1),o=Math.sin(j*12.9+t*.4)*.4;
+  const w=w0+(w1-w0)*f;g.fillRect(p0[0]+dx*f+nx*w*o,p0[1]+dy*f+ny*w*o,1.5,1.5)}}
+function patch(c,w,a){g.save();g.translate(c[0],c[1]);g.scale(1,.75);const r=g.createRadialGradient(0,0,0,0,0,w*.6);
+ r.addColorStop(0,`rgba(255,232,170,${a})`);r.addColorStop(.7,`rgba(255,228,160,${a*.6})`);r.addColorStop(1,'rgba(255,228,160,0)');
+ g.fillStyle=r;g.beginPath();g.arc(0,0,w*.6,0,Math.PI*2);g.fill();g.restore()}
+function glyph(n,x,y){g.save();g.strokeStyle='#e8d8b0';g.lineWidth=1.6;g.beginPath();
+ if(n==='rings'){g.arc(x,y,7,0,7);g.moveTo(x+3.5,y);g.arc(x,y,3.5,0,7)}
+ else if(n==='spiral'){for(let a=0;a<12;a+=.3){const r=a*.7;g.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r*.6)}}
+ else if(n==='zigzag'){g.moveTo(x-9,y);for(let k=0;k<6;k++)g.lineTo(x-9+(k+1)*3,y+(k%2?3:-3))}
+ else if(n==='chequer'){g.rect(x-7,y-5,14,10);g.moveTo(x,y-5);g.lineTo(x,y+5);g.moveTo(x-7,y);g.lineTo(x+7,y)}
+ else if(n==='triangle'){g.moveTo(x-7,y-5);g.lineTo(x+7,y-5);g.lineTo(x,y+6);g.closePath()}
+ else if(n==='crescent'){g.arc(x,y,7,.6,5.7);g.arc(x+4,y,5,5.2,1.1,true)}
+ else {g.arc(x,y,4,0,7);for(let a=0;a<8;a++){g.moveTo(x+Math.cos(a*.785)*6,y+Math.sin(a*.785)*4);g.lineTo(x+Math.cos(a*.785)*10,y+Math.sin(a*.785)*7)}}
+ g.stroke();g.restore()}
+function harimaguada(x,y,k,t,j,a){// a woman of light, outline only: robe, raised arms with a branch, swaying
+ const sw=Math.sin(t*2.2+j)*.12,arm=Math.sin(t*3+j*1.7);g.save();g.translate(x,y);g.scale(k,k);g.rotate(sw*.3);
+ g.strokeStyle=`rgba(255,238,190,${a})`;g.fillStyle=`rgba(255,228,160,${a*.18})`;g.lineWidth=2.2;g.lineJoin='round';
+ g.shadowColor=`rgba(255,220,150,${a})`;g.shadowBlur=14;
+ g.beginPath();g.moveTo(-8,-118);g.quadraticCurveTo(-22+sw*30,-60,-30+sw*40,0);g.quadraticCurveTo(0,8,30+sw*40,0);g.quadraticCurveTo(22+sw*30,-60,8,-118);g.closePath();g.fill();g.stroke();
+ g.beginPath();g.ellipse(0,-130,7,9,0,0,7);g.fill();g.stroke();
+ g.beginPath();g.moveTo(-7,-112);g.quadraticCurveTo(-26,-128-arm*10,-20,-160-arm*12);g.moveTo(7,-112);g.quadraticCurveTo(26,-128+arm*10,20,-160+arm*12);g.stroke();
+ g.beginPath();const bx=-20,by=-160-arm*12;for(let f=0;f<5;f++){g.moveTo(bx,by);g.lineTo(bx-14+f*7,by-16+Math.abs(f-2)*4)}g.stroke();
+ g.restore()}
+function frame(){g.globalCompositeOperation='source-over';g.clearRect(0,0,W,H);if(img.complete)g.drawImage(img,0,0,W,H);
+ g.globalCompositeOperation='screen';
+ g.save();clipAboveRim();column([640,34],36,[639,567],586,.18);g.restore();
+ g.save();g.translate(639,567);g.scale(1,.09);const r=g.createRadialGradient(0,0,0,0,0,300);r.addColorStop(0,'rgba(255,228,160,.4)');r.addColorStop(1,'rgba(255,228,160,0)');g.fillStyle=r;g.beginPath();g.arc(0,0,300,0,7);g.fill();g.restore();
+ for(let i=0;i<7;i++){if(!S.sock[i])continue;const p=along(S.aim[i]),k=hit(i),w=k>=0?WID[k]*.8:22,live=i===S.cur&&!S.set[i];
+  g.save();clipAboveRim();column([D[i][0],D[i][1]-6],40,p,w,S.set[i]?.3:.22);g.restore();
+  g.save();g.beginPath();g.ellipse(OPEN[0],OPEN[1],OPEN[2],OPEN[3],0,0,7);g.clip();patch(p,w,S.set[i]?.5:live?.38:.3);g.restore()}
+ g.globalCompositeOperation='source-over';
+ // sockets and discs
+ D.forEach(([x,y],i)=>{g.strokeStyle=i===S.cur?'#ffd88a':'rgba(255,220,160,.35)';g.lineWidth=i===S.cur?2:1;g.beginPath();g.ellipse(x,y,26,10,0,0,7);g.stroke();
+  if(S.sock[i]){g.fillStyle='rgba(20,18,16,.75)';g.beginPath();g.ellipse(x,y+16,16,9,0,0,7);g.fill();glyph(S.sock[i],x,y+16)}});
+ // the closing: the women of light dance in the columns, the triangles flare; then it fades to the columns alone
+ if(S.won){const t=performance.now()/1000-S.t0,env=t<2?t/2:t<9?1:Math.max(0,1-(t-9)/2.5);if(env>0){
+  g.globalCompositeOperation='screen';
+  g.save();g.beginPath();g.ellipse(OPEN[0],OPEN[1],OPEN[2],OPEN[3],0,0,7);g.clip();g.filter='blur(3px)';
+  TRI.forEach(tr=>{g.fillStyle=`rgba(255,226,150,${.55*env})`;g.beginPath();g.moveTo(...tr[0]);g.lineTo(...tr[1]);g.lineTo(...tr[2]);g.closePath();g.fill()});
+  g.filter='none';g.restore();
+  const ghosts=[];for(let j=0;j<7;j++){const a=t*.55+j*Math.PI*2/7,z=Math.cos(a);ghosts.push([z,a,j])}
+  ghosts.sort((p,q)=>p[0]-q[0]).forEach(([z,a,j])=>harimaguada(639+Math.sin(a)*170,548+z*14,.8+z*.15,t,j,env*(.55+.35*(z+1)/2)));
+  g.globalCompositeOperation='source-over'}}
+ // the water, a hand higher with every surge
+ if(S.surges){g.fillStyle=`rgba(10,20,26,${.25+.12*S.surges})`;g.fillRect(0,H-40-S.surges*40,W,40+S.surges*40)}
+ requestAnimationFrame(frame)}
+reset();img.onload=()=>{};requestAnimationFrame(frame);
+</script></body></html>

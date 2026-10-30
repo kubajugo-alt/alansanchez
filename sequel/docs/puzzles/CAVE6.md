@@ -138,9 +138,23 @@ it gives the shape, not the hands.
   reading the wall. Alan can't see the triangles' scenes; Vasco can't reach the discs. That's why Vasco stays up.
 - Talk to Vasco: "Read me the one with the [sign]". He describes the scene and what's at its edge. Alan's notebook
   gets a page, "The story on the wall", seven blanks to fill with signs (the existing pages mechanic, `S.PAGES`).
-- Put a disc in: the right socket and its turn, its column rises, its triangle lights, and Vasco reads the scene aloud as
-  it lights, as confirmation. The wrong socket: the column hits the wrong triangle. The wrong turn: the column rises to
-  its own triangle, but the water surges. Three surges and the Sea takes him (death screen, retry from the checkpoint).
+- **Aim it.** The user: "after each positioning of the disk, it has to be set to an angle that would point at the
+  correct triangle - so the last disk lights up the first triangle etc. ... watching the beam move in real time". A disc
+  sits on a rounded base in its socket and rocks. Once it's in, the player tilts it (mouse left and right, or the arrow
+  keys): its column sweeps across the wall above, seen through the floor opening, in real time. The columns cross in the
+  opening, so a disc on the right reaches the triangles on the left. Click (or Enter) to set it where it is.
+- **Three ways to be wrong**, each a surge (the water a hand higher; three and the Sea takes him: death screen, retry
+  from the checkpoint): the column set on another disc's triangle (Vasco: "That's the rings' triangle!"); a disc set out
+  of its turn in the story; a disc in the wrong socket can't reach its own triangle at all. Set on bare rock: nothing
+  happens, aim again.
+- **Right**: the column holds, the patch of light settles on the triangle, and Vasco reads that scene aloud as it lights.
+- **When the seventh is set**: the triangles flare up with light; the harimaguadas, made of light, outlines only, come
+  out of the columns and dance in a ring round the noon column, arms raised with their branches; then the women and the
+  triangles' glow fade, and it's only the columns of light again. (The user's idea; the one time the cave shows what it
+  is. Not the Sea: the women.) Then the door shuts and takes Alan (as before).
+- Prototype: `art/review/cave6_redesign/aim.html` (`aim_play.html` is the same, with the painting inside the file),
+  over the lower-chamber painting; the light follows `beams_render.py`. The women are drawn by code there, as
+  placeholders: in the game they'd be painted (or animated frames), still only outlines of light.
 - The first five are the player's. Then Baute and the crescent (as before), then the sun out of the door socket and into
   the middle, under Carmen's mirror.
 
