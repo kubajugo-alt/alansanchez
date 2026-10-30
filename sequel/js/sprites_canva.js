@@ -939,6 +939,15 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 293
 },
+"yeray_asleep_table": {
+"ax": 513.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 1027
+},
 "yeray_c": {
 "ax": 114.5,
 "fy": 740.0,
