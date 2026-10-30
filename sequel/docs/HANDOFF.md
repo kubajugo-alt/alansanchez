@@ -25,9 +25,9 @@ root, in the same repository as Game I. Read, in this order:
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
   the ending. Every day rewritten from the novel (entries 17, 87). `node scripts/tests/play.mjs` plays it all.
 - **2,664 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs (entry 94), except
-  the 115 lines of the new puzzles (entry 95), text only until the user has played them. The ElevenLabs key lives in the
-  root `.env`, which a cloud container doesn't have (entry 97).
-- **Puzzles** (entry 95, `docs/puzzles/DESIGN.md`, `js/story/puzzles.js`): knowledge as inventory: words Alan earns,
+  the 115 lines of the new puzzles (entry 97), text only until the user has played them. The ElevenLabs key lives in the
+  root `.env`, which a cloud container doesn't have (entry 99).
+- **Puzzles** (entry 97, `docs/puzzles/DESIGN.md`, `js/story/puzzles.js`): knowledge as inventory: words Alan earns,
   notebook pages with blanks (1483 told twice, the case built wrong on Thursday and again on Saturday, the founders'
   letter, who's next), folio 12, the break-in against Vasco's twenty minutes, the two radios (Lolo, the tower, Baute's
   lie; Vasco's foil), the tide table, island words.
@@ -37,21 +37,20 @@ root, in the same repository as Game I. Read, in this order:
   (the `.ph` markers in `art/stills/`).
 - **Movement**: the sea is Higgsfield loops masked onto the paintings (`js/story/sea.js`, entry 75); the rest is each
   room's `animBack` (Game I's FX helpers). Reviewed in `docs/review/env_movement.md` (entry 90): fixes proposed, not made.
-  Depth maps exist for every room (entry 91); **parallax is still off** (`S.room` defaults to `parallax: false`).
+  Depth maps exist for every room (entry 91); **parallax is on** (entry 96) except the map, the cars, Cave 6 and the vault.
 - **Music**: one track a room (entry 27). Sound effects from Game I. Room ambience.
 - **The phone box** is the hint system (Inês, a coin a call; Chano for change). Alan's notebook (N). **Carmen's toll**:
   a packet of Coronas from Chano every day he talks to her (entry 78).
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
 ### Open, in the order I'd suggest
-1. **The puzzles (entry 95)**: the user plays them; then their 115 lines are voiced (`node scripts/generate-voices.mjs`,
+1. **The puzzles (entry 97)**: the user plays them; then their 115 lines are voiced (`node scripts/generate-voices.mjs`,
    needs the key) and the retired lines' recordings can go.
-   **The granary (entry 96)**: the user picks a take of the cell seen from inside; then the crate numbers, the upscale,
-   Vasco's chapter in the new room, Sunday re-staged. **"Pesetas" (entry 97)**: two audition sets to make and play.
-2. **Deploy** of everything since entry 83 (the rewrite, the reception, the upscale, the puzzles) when the user asks.
+   **The granary (entry 98)**: the user picks a take of the cell seen from inside; then the crate numbers, the upscale,
+   Vasco's chapter in the new room, Sunday re-staged. **"Pesetas" (entry 99)**: two audition sets to make and play.
+2. **Deploy** of what came after entry 95's deploy (parallax, entry 96; the puzzles) when the user asks.
    Add `/art/designs` to `sequel/.gitattributes` first: 272 MB of source art the game never loads (the export is 742 MB).
-3. **Parallax**: switch it on (drop the `parallax: false` default in `S.room`; the map stays flat), record the rooms for
-   the user, deploy when approved.
+3. **Parallax** is on (entry 96): the recording waits for the user's approval before a deploy.
 4. **Environment movement**: the user's pick from the ten fixes in `docs/review/env_movement.md`.
 5. **Stills**: the 16 text cards still to paint.
 6. Waiting on the user: which new puzzles to build; Carmen's spot in the vault on Sunday and Vasco at the camp may
@@ -964,7 +963,26 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     fermin_belfry_wind was refused by ElevenLabs ("may violate our Terms of Service": "I'll sit here and die quietly");
     now "...and wheeze quietly while you work", voiced. Every line of a voiced speaker has its file (2,577 voice files).
     The background people's 45 lines were already voiced (entry 82).
-95. **New puzzles: knowledge as inventory** (2026-10-30). The user: "there is too little multi-stage puzzles. Most of
+95. **Merged and deployed** (2026-10-30). The user: "once all is done, and you've checked for inconsistencies... merge and
+    deploy"; then "Eleven lab credits topped up". master merged into the branch first (one conflict, Game I's handoff
+    header: the sequel's start note there renumbered 85 after Game I's entries 81-84); PR #10 merged into master
+    (403add89). Export of 942599ea (git archive HEAD:sequel, 751 MB): play.mjs on it won, 118 steps, no errors. Netlify
+    deploy 6ae494cf4e9fe96acad03de0 (the first upload got a 500 from Netlify; the second went through). Live: the page,
+    an upscaled painting, the new voices and lines served; /.env 404.
+96. **Parallax on** (2026-10-30). The user: "Yes to parallax". core.js S.room no longer defaults to parallax: false,
+    so every room with a depth map (entry 91) draws through js/parallax.js (Game I's: a 2.2% zoom, the camera ±14 px
+    with Alan's x and a slow sway, the depth that holds still 0.45; the GL canvas is sized to the painting buffer, so
+    the upscaled paintings stay sharp). Still flat, as their rooms say: the map, the two cars (fixed first-person views),
+    Cave 6 (the finale's sockets and beam take exact clicks) and the vault. Recording for the user:
+    art/review/parallax_recording.mp4 (12 rooms, 9 s each, Alan across and back), made with
+    scripts/tests/record_steps.mjs: the game's frame loop driven one 1/30 s step at a time (requestAnimationFrame taken
+    over, STEP_DT), the sea loops seeked to the same clock and the canvas saved each frame, so the video is smooth and
+    at true speed however slowly the headless browser renders (a plain screen recording ran at a few fps, and the
+    game's own slow-device check turns parallax off in it: the effects setting is forced to Full). Measured on
+    Canteras: the far town and the near paving slide about 9 px against each other across a walk. play.mjs with it on:
+    won, 118 steps, no errors. Not deployed:
+    waiting for the user's approval.
+97. **New puzzles: knowledge as inventory** (2026-10-30). The user: "there is too little multi-stage puzzles. Most of
     the tasks Alan has are 'go to a place, talk to a person'... attempting the contact with Vasco via the radio... more
     with the documents... the Castillian and Canarii perspective... the Montesdeoca/Baute motives... the rules about the
     sea, that are now essentially handed by Ines... drawing inspiration from other great games of the genre"; nine
@@ -995,7 +1013,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     Checked: validate.mjs 0 errors (the 80 warnings: the background people's ids the validator can't see,
     the unused film_ lines, and the retired lines above); a page clicked through in the browser (wrong answers say so);
     play.mjs on the new route (`S.fillPage` for the pages): won, prologue to credits, 129 steps, no page errors.
-96. **The granary, redesigned** (2026-10-30). The user: "the room design makes it look ridiculous (when the water is
+98. **The granary, redesigned** (2026-10-30). The user: "the room design makes it look ridiculous (when the water is
     rising, Alan and Yeray are in the room with Vasco, but aren't affected, the room is open, the grille doesn't block the
     exit)... draw the room with code first". The painting already shows the answer: the cell is the alcove behind the
     bars; the crates and the steps are outside it. `art/review/vault_redesign/mock.html` (sheet.jpg): Sunday from the
@@ -1006,7 +1024,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     `takes_v2.jpg` (`v2_take1-3.png`); the crate numbers need repainting on the pick. Proposed mechanics: Vasco hooks
     the lantern (round the corner of the grille's wall) with the trowel for light, digs the anchors, the mark; Sunday:
     crate 29 as a fulcrum for Yeray's pick, the three pull the grille down. Not built yet: waiting for the pick.
-97. **"Pesetas" with a Spanish accent** (2026-10-30). The user: "when chano and aloe lady say 'pesetas' they say it in an
+99. **"Pesetas" with a Spanish accent** (2026-10-30). The user: "when chano and aloe lady say 'pesetas' they say it in an
     english accent". Three lines (candelaria_2, chano_t_chacho, chano_postcard). `scripts/generate-voices.mjs` now takes
     `--tts=FILE` (the text the voice reads, by id, where it must differ from the caption; `scripts/tts_text.json` by
     default) and `--out=DIR` (auditions; no manifest). Two sets to audition: `scripts/tts_pesetas_a.json` ("pesétas")
