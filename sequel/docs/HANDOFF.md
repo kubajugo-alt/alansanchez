@@ -726,3 +726,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     each Spanish speaker's sentences carry a Spanish word (counting señor, cariño, chacho... already there). Dry run
     first, two rules dropped after it ("listen" as a verb; "my friend" where Carmen means Elena). 53 lines changed and
     re-recorded on the v4 setup. validate: 0 errors.
+69. **People noticing Alan** (2026-10-30). The user: "funny comments about Alan - how sexy he is. And he should react
+    sometimes flirty (when men say that) sometimes embarrassed (when women do it)". Six exchanges, each once, on
+    Tuesday: Doña Candelaria with the aloe, Gail after it, Nieves when he comes back burnt (embarrassed); the surfer
+    after the burn, Chano once Alan's in the blazer, Montesdeoca at the reception (flirty). Alan's replies carry the
+    embarrassed / mischievous faces (js/story/emotions.js; also alan_t_burnt and alan_t_swell). 12 lines, voiced.
+    validate 0 errors; play.mjs won in 106 steps.

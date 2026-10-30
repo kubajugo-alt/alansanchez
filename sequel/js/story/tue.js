@@ -153,6 +153,7 @@
   };
   S.talkNieves = async function () {
     const f = F();
+    if (ch() === 1 && f.burnt && !f.nieves_burnt) { f.nieves_burnt = true; await say('nieves_t_burnt_look', 'alan_t_shy_nieves'); }
     await G.dialog([
       { line: 'alan_ask_room_early', when: () => ch() === 1 && !f.burnt, run: () => say('nieves_room_early') },
       { line: 'alan_ask_lostfound', once: true, when: () => ch() === 1 && !G.has('blazer') && !f.blazer_got, run: () => say('nieves_lostfound') },
@@ -184,7 +185,7 @@
     if (ch() === 1) {
       if (!f.burnt) return f.gail_met ? say('gail_t_again') : (f.gail_met = true, say('gail_t_1', 'derek_t_1'));
       if (!f.aloe_done) return f.aloe_sent ? say('gail_t_burn_again') : (f.aloe_sent = true, say('gail_t_burn_1', 'derek_t_burn', 'gail_t_burn_2', 'alan_t_burn', 'derek_t_burn_2'));
-      if (!f.gail_hint) { f.gail_hint = true; return say('gail_t_aloe', 'alan_t_jacket', 'gail_t_blazer', 'derek_t_cigar', 'alan_t_gail'); }
+      if (!f.gail_hint) { f.gail_hint = true; return say('gail_t_aloe', 'gail_t_shoulders', 'derek_t_burn_2', 'alan_t_shy_gail', 'alan_t_jacket', 'gail_t_blazer', 'derek_t_cigar', 'alan_t_gail'); }
       return say('gail_t_again');
     }
     if (ch() === 2) return say(f.gail_wed ? 'gail_w_again' : (f.gail_wed = true, 'gail_w_1'));
@@ -315,6 +316,7 @@
     await say(['', 'surfer_bark_1', 'surfer_bark_2', 'surfer_bark_3', 'surfer_bark_4', 'surfer_bark_5', 'surfer_bark_6'][Math.min(6, ch())]);
     // Tuesday: as if the surfer had said something rude to it, the cloud tears open
     const f = F();
+    if (ch() === 1 && f.burnt && !f.surfer_alan) { f.surfer_alan = true; await say('surfer_t_alan', 'alan_t_flirt_surfer'); }
     if (ch() === 1 && G.room && G.room.id === 'beach' && !f.burnt && !f.sun_out) { f.sun_out = true; S.sfx('fog_lift', 0.4); S.UNDRESS.forEach(k => window.Engine.want('spr:' + k)); await say('narr_t_sun_1', 'alan_t_sun_1'); }
   };
   // Tuesday on the beach: down to his underwear on a borrowed towel, five minutes that are not five minutes, and the burn
@@ -359,6 +361,7 @@
     const f = F();
     if (G.has('note5000')) return S.buyPaper();
     if (!f.chano_met) { f.chano_met = true; await say('chano_hello'); }
+    if (ch() === 1 && f.blazer_on && !f.chano_star) { f.chano_star = true; await say('chano_t_filmstar', 'alan_t_flirt_chano'); }
     await G.dialog([
       { line: 'alan_ask_change', when: () => G.has('note5000'), run: () => S.buyPaper(), bye: true },
       { line: 'alan_ask_change_again', when: () => !G.has('note5000') && !G.has('coins'), run: async () => {
@@ -533,7 +536,7 @@
     }
     await G.busy(async () => {
       S.sfx('coins_clink', 0.5); await T(500);
-      await say('candelaria_3');
+      await say('candelaria_3', 'candelaria_shoulders', 'alan_t_shy_cand');
       f.aloe_done = true; S.give('aloe');
       await say('alan_t_cand_2', 'candelaria_4');
     });
@@ -631,7 +634,7 @@
   };
   S.talkMontesdeoca = async function () {
     const f = F();
-    if (ch() === 1) { if (f.blazer_on && !f.monte_blazer) { f.monte_blazer = true; return say('montesdeoca_t_1', 'alan_t_monte_1', 'montesdeoca_t_2'); } return say('montesdeoca_t_again'); }
+    if (ch() === 1) { if (f.blazer_on && !f.monte_blazer) { f.monte_blazer = true; return say('montesdeoca_t_1', 'alan_t_monte_1', 'montesdeoca_t_alan', 'alan_t_flirt_monte', 'montesdeoca_t_2'); } return say('montesdeoca_t_again'); }
     if (ch() === 2) { f.herring_monte = true; return say('montesdeoca_w_1', 'alan_w_monte_1', 'montesdeoca_w_2'); }
     return say('montesdeoca_th_1');
   };
