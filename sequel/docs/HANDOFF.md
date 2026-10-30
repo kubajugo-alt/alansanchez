@@ -1197,3 +1197,18 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       page errors; screenshots of both rooms, Saturday at noon, the sun-disc test, the aiming, the telling page and the
       closing checked by eye.
 
+107. **Stills, rooms, voices, loops, Yeray asleep, the corridor, Vasco slimmer, icons and close-ups** (2026-10-30). The user:
+    "put the stills in the game... You can also replace the rooms. and then re-record 48 lines and build cave 6".
+    - art/stills: the 16 painted stills replace the text cards (love_1: the Canva kiss, then Vasco redone slimmer with his
+      own face and brown hair by a Higgsfield nano edit, Canva refusing; love_2: the fireworks silhouette).
+    - art/bg: the 29 repainted rooms (bg_real, aligned) with new depth maps; museum_corridor (take B) as a room: Vasco's
+      Tuesday moment walks Alan down it (tue.js; 4 lines touched and recorded).
+    - Rafa's bar: drunk Yeray at the corner table (seated sprite yeray_drunk_table); he no longer leaves, he falls asleep
+      on it (yeray_asleep_table, lined up with the drunk one); 3 lines rewritten, 2 new, recorded; BIBLE updated.
+    - The 48 caption-only lines re-recorded (same voices) with lip-sync; voice_stale emptied for them.
+    - The sea loops filmed again from the repaints (kling3_0, 7 rooms; La Isleta twice); the Land Rover's windscreen plays
+      the road going by (sea_clips.py ROI); its cigarette glow and smoke removed.
+    - Vasco on the bed in a towel: slimmer, baked at the user's placement on the new room (review, not in the game).
+    - Review page https://claude.ai/artifact/J2kS2suV1n66uFDs6ZrhHR: 24 inventory icons and 11 close-ups
+      (art/review/items/), awaiting approval.
+    Checks: validate 0 errors; screenshots of the rooms, the bar, the corridor and the Land Rover; play runs (entry 106).
