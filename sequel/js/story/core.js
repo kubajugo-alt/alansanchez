@@ -67,13 +67,16 @@
     rafa: S.ph('rafa', 1.0), yeray: S.ph('yeray', 0.98), nieves: S.ph('nieves', 0.9), chano: S.ph('chano', 0.85), pino: S.ph('pino', 0.82),
     lolo: S.ph('lolo', 0.86), fermin: S.ph('fermin', 0.8), mercedes: S.ph('mercedes', 0.82), montesdeoca: S.ph('montesdeoca', 0.98),
     gail: S.ph('gail', 0.88), derek: S.ph('derek', 0.94), guard: S.ph('guard', 1.0), elena: S.ph('elena', 0.92), clerk: S.ph('clerk', 0.9),
-    surfer: S.ph('surfer', 1.0),
+    surfer: S.ph('surfer', 1.0), candelaria: S.ph('candelaria', 0.86),
   };
   {
     const A = S.CHARS.alan, V = S.CHARS.vasco;
     const vest = still('alanv', 'alanv'), blazer = still('alanb', 'alanb');
-    Object.defineProperty(A, 'frames', { get() { let on = false; try { on = !!(G.flags && G.flags.blazer_on); } catch (e) { /* not started */ } return on ? blazer : vest; } });
-    A.outfits = [vest, blazer]; // (both, for loading: engine.js framesOf walks whatever frames holds)
+    // and Tuesday's beach: down to his underwear (Game I's frame from behind, a painted front; the undressing itself:
+    // S.undressFrames, js/story/tue.js)
+    const undies = { idle: ['alan_uw_front'], talk: ['alan_uw_front'], walk: ['alan_uw_front'], front: 'alan_uw_front', back: 'alan_uw_back', poses: {} };
+    Object.defineProperty(A, 'frames', { get() { let on = false, uw = false; try { on = !!(G.flags && G.flags.blazer_on); uw = !!(G.flags && G.flags.undressed); } catch (e) { /* not started */ } return uw ? undies : on ? blazer : vest; } });
+    A.outfits = [vest, blazer, undies]; // (all of them, for loading: engine.js framesOf walks whatever frames holds)
     V.frames = Object.assign(still('vascor'), { back: 'vascos_back_k' });   // (no repainted back view yet)
   }
   // the walks' step lengths: Game I's measurements for the borrowed cycles (js/story/core.js there, S.WALK_PLANT)
@@ -114,6 +117,8 @@
     note5000: { name: 'A 5,000-peseta note', look: 'alan_look_note' },
     coins: { name: () => (F().coins || 0) === 1 ? 'One 100-peseta coin' : `${F().coins || 0} coins of 100 pesetas`, look: 'alan_look_coins' },
     newspaper: { name: () => 'La Provincia, ' + S.dayName(), icon: () => 'newspaper', look: () => S.readPaper() },
+    aloe: { name: 'An aloe leaf', look: 'alan_look_aloe' },
+    postcard: { name: () => F().postcard_written ? 'A postcard to Inês' : 'A postcard', look: () => S.writeCard() },
     blazer: { name: 'A navy blazer (not his)', look: () => say(F().blazer_on ? 'alan_look_blazer_on' : 'alan_look_blazer') },
     inscription: { name: 'Rubbing of the bell', icon: () => 'sketch', look: () => S.readInscription() },
     letter: { name: 'The founders\' letter, 1751', icon: () => 'ledger', look: () => S.readLetter() },
@@ -163,9 +168,10 @@
   S.PINS = [
     PIN('canteras', 668, 492, 'Las Canteras · the beach, the kiosk, the phone box', () => F().ch >= 1 && F().ch <= 6),
     PIN('hotel_lobby', 706, 470, 'Hotel Cristina', () => F().ch >= 1 && F().ch <= 6),
+    PIN('mercado', 690, 452, 'Mercado del Puerto · the aloe lady', () => F().ch === 1 && F().aloe_sent && !F().aloe_done),
     PIN('isleta', 418, 316, 'La Isleta · the fishermen\'s quay', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().fax_read && !F().isleta_flood)),
     PIN('museum_hall', 1156, 238, () => F().ch === 1 ? 'El Museo Canario · the reception, 8 pm' : F().ch === 3 && S.dinnerDue() ? 'El Museo Canario · the fundraising dinner' : 'El Museo Canario · Vegueta',
-      () => (F().ch === 1 && G.has('blazer') && F().called_tue && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained),
+      () => (F().ch === 1 && F().blazer_on && F().called_tue && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained),
       'museum_out'),   // (in through the street door: the outside first)
     PIN('santa_ana', 1166, 218, 'Plaza de Santa Ana · the cathedral', () => F().ch >= 2 && F().ch <= 4),
     PIN('colon', 1138, 225, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read, 'colon_out'),
@@ -177,7 +183,8 @@
   S.pinLabelAt = m => { const o = S.PIN_LABEL[m.id]; return o ? [m.x + o[0], m.y + o[1]] : [m.x, m.y - 14]; };
   S.pinNext = () => {
     const f = F();
-    if (f.ch === 1) return !G.has('blazer') && !f.reception_done ? 'hotel_lobby' : !f.called_tue ? 'canteras' : !f.reception_done ? 'museum_hall' : !f.called_tue2 ? 'canteras' : 'hotel_lobby';
+    if (f.ch === 1) return !f.burnt ? 'canteras' : !f.aloe_done ? 'mercado' : !f.gail_hint ? 'canteras' : !f.blazer_on && !f.reception_done ? 'hotel_lobby'
+      : !f.called_tue ? 'canteras' : !f.reception_done ? 'museum_hall' : !f.called_tue2 ? 'canteras' : 'hotel_lobby';
     if (f.ch === 3 && S.dinnerDue()) return 'museum_hall';
     if (f.ch === 4) return !f.cave_explained ? 'museum_hall' : 'rafa_bar';
     if (f.ch === 5 && f.fax_read && !f.isleta_flood) return 'isleta';
@@ -214,7 +221,7 @@
   // the day's news first (a call that's due), then "What now?".
   S.CALLS = [ // [flag, when, lines, how]: the calls the story needs, in order. how.direct: the call opens on its own
     // first line, not Inês's hello; how.hangup: it ends when the money or the line runs out, with no "What now?"
-    ['called_tue', () => F().ch === 1 && F().blazer_got && !F().reception_done, () => S.callTue1(), { direct: true, hangup: true }],
+    ['called_tue', () => F().ch === 1 && F().blazer_on && !F().reception_done, () => S.callTue1(), { direct: true, hangup: true }],
     ['called_tue2', () => F().ch === 1 && F().mist_seen, () => S.callTue(), { direct: true, hangup: true }],
     ['called_wed', () => F().ch === 2 && F().fermin_letter, () => S.callWed()],
     ['called_thu', () => F().ch === 3, () => S.callThu()],
@@ -267,7 +274,10 @@
     const f = F(), has = G.has;
     switch (f.ch) {
       case 1:
-        if (!has('blazer') && !f.reception_done) return f.gail_hint ? 'ines_hint_nieves' : 'ines_hint_jacket';
+        if (!f.burnt) return 'ines_hint_beach';
+        if (!f.aloe_done) return 'ines_hint_aloe';
+        if (!f.blazer_got && !f.reception_done) return f.gail_hint ? 'ines_hint_nieves' : 'ines_hint_gail';
+        if (!f.blazer_on && !f.reception_done) return 'ines_hint_dress';
         if (!f.called_tue) return 'ines_hint_call_first';
         if (!f.reception_done) return 'ines_hint_reception';
         return 'ines_hint_hotel';

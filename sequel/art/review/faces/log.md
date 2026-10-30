@@ -403,3 +403,8 @@
 | 2026-10-29 22:58 | vasco | mouth_D | 0.0412 |
 | 2026-10-29 22:58 | vasco | eyes_closed | 0.0449 |
 | 2026-10-29 23:06 | vasco | mouth_D | 0.0383 |
+| 2026-10-29 23:57 | candelaria | mouth_A | 0.0395 |
+| 2026-10-29 23:57 | candelaria | mouth_F | 0.0386 |
+| 2026-10-29 23:57 | candelaria | mouth_D | 0.0414 |
+| 2026-10-29 23:57 | candelaria | eyes_closed | 0.0390 |
+| 2026-10-29 23:57 | candelaria | mouth_C | 0.0392 |

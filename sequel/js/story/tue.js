@@ -8,6 +8,9 @@
 (function () {
   const S = window.S, { G, F, say, ROOMS, T } = S;
   const ch = () => F().ch || 1;
+  // Tuesday's sunburn on Alan's skin (js/engine/faces.js, skinTint): from the nap until the night; softer once the aloe's
+  // on; gone by Wednesday ("Tomorrow you'll be brown")
+  window.Engine.sunburn = () => (ch() === 1 && F().burnt) ? (F().aloe_done ? 0.5 : 0.75) : 0;
 
   // ---------------------------------------------------------------- small moving details over the paintings (as Game I's
   // entry 21: nothing in art/bg changes, everything is drawn over it in a room's animBack, deterministic in t)
@@ -92,8 +95,9 @@
   });
   S.meetVasco = async function () {
     if (F().met_vasco) return;
-    await say('narr_t_vasco_1', 'vasco_t_hello', 'narr_t_kiss', 'alan_t_hello', 'vasco_t_luggage', 'vasco_t_sunburn', 'alan_t_luggage',
-      'vasco_t_sorry', 'vasco_t_cave', 'vasco_t_light', 'alan_t_cave', 'vasco_t_rayco', 'alan_t_rayco', 'vasco_t_rayco_2', 'alan_t_proud');
+    // (the user, 2026-10-29: no sunburn talk here, he burns on the beach later; instead a moment of being glad)
+    await say('narr_t_vasco_1', 'vasco_t_hello', 'narr_t_kiss', 'alan_t_hello', 'vasco_t_luggage', 'vasco_t_missed', 'alan_t_missed',
+      'vasco_t_missed_2', 'narr_t_hold', 'alan_t_missed_2', 'alan_t_luggage', 'vasco_t_sorry', 'vasco_t_cave', 'vasco_t_light', 'alan_t_cave', 'vasco_t_rayco', 'alan_t_rayco', 'vasco_t_rayco_2', 'alan_t_proud');
     F().met_vasco = true;
     await say('vasco_t_go');
     await G.fade(true);
@@ -130,8 +134,8 @@
         items: { inscription: () => S.fax('inscription'), letter: () => S.fax('letter') } },
       { name: 'House phone', rect: [880, 450, 60, 60], at: [900, 650], look: 'alan_look_house_phone', use: () => S.housePhone() },
       { name: 'Lifts', rect: [1120, 250, 140, 320], at: [1150, 650], exit: 'hotel_room', entry: 'hotel_lobby', door: null, look: 'alan_look_lifts',
-        locked: () => ch() === 1 && ((!F().reception_done && !G.has('blazer')) || (F().mist_seen && !F().called_tue2)),
-        lockedLine: () => F().mist_seen ? 'alan_lift_call' : 'alan_lift_tue' },
+        locked: () => ch() === 1 && ((!F().reception_done && !F().blazer_got) || (F().mist_seen && !F().called_tue2)),
+        lockedLine: () => F().mist_seen ? 'alan_lift_call' : !F().burnt ? 'alan_lift_checkin' : 'alan_lift_tue' },
       { name: 'To the restaurant', rect: [1230, 420, 50, 296], at: [1210, 680], exit: 'hotel_restaurant', entry: 'hotel_lobby' },
       { name: 'Out to Las Canteras', rect: [20, 250, 110, 320], at: [70, 650], exit: 'canteras', entry: 'hotel_lobby', lockedLine: () => S.mapLock && S.mapLock(), locked: () => !!(S.mapLock && S.mapLock()) },
     ],
@@ -141,14 +145,16 @@
   });
   S.lobbyArrival = async function () {
     F().narr_hotel_lobby = true; F().nieves_met = true;
-    await say('narr_t_hotel_1', 'narr_t_hotel_2', 'nieves_t_hello', 'alan_t_nieves_1', 'nieves_t_1', 'narr_t_eyebrow', 'vasco_t_lobby_1');
-    S.sfx('case_open', 0.4);
-    await say('nieves_t_box', 'nieves_lostfound', 'vasco_t_lobby_3');
+    // check-in is at two: two hours to kill (the user, 2026-10-29), so Las Palmas first
+    await say('narr_t_hotel_1', 'narr_t_hotel_2', 'nieves_t_hello', 'alan_t_nieves_1', 'nieves_t_1', 'narr_t_eyebrow',
+      'nieves_t_checkin', 'alan_t_checkin', 'nieves_t_checkin_2', 'vasco_t_lobby_1', 'vasco_t_lobby_go');
     F().jacket_needed = true;
+    G.setClock('12:00');
   };
   S.talkNieves = async function () {
     const f = F();
     await G.dialog([
+      { line: 'alan_ask_room_early', when: () => ch() === 1 && !f.burnt, run: () => say('nieves_room_early') },
       { line: 'alan_ask_lostfound', once: true, when: () => ch() === 1 && !G.has('blazer') && !f.blazer_got, run: () => say('nieves_lostfound') },
       { line: 'alan_claim_blazer', when: () => ch() === 1 && (f.saw_blazer || f.gail_hint) && !f.blazer_got, run: () => S.claimBlazer() },
       { line: 'alan_ask_message', when: () => ch() >= 2, run: () => say(ch() === 5 || ch() === 6 ? 'nieves_no_message_sat' : ch() === 4 ? 'nieves_message_fri' : 'nieves_message_day') },
@@ -162,11 +168,11 @@
     const f = F();
     await say('nieves_pocket');
     await G.dialog([
+      // (he doesn't put it on here: jeans first, from Vasco's bag upstairs; the user, 2026-10-29)
       { line: 'alan_pocket_cigar', when: () => f.gail_hint, run: async () => {
         await say('nieves_blazer_ok');
-        f.blazer_got = true; f.blazer_on = true; S.give('blazer');
-        S.sfx('cloth_jacket', 0.5);
-        await say('narr_t_sleeves', 'nieves_t_elegant', 'alan_blazer_on');
+        f.blazer_got = true; S.give('blazer');
+        await say('nieves_t_key');
       }, bye: true },
       { line: 'alan_pocket_dignity', run: () => say('nieves_pocket_dignity'), bye: true },
       { line: 'alan_pocket_nothing', run: () => say('nieves_pocket_nothing'), bye: true },
@@ -174,13 +180,32 @@
   };
   S.talkGail = async function () {
     const f = F();
-    if (ch() === 1) { if (!f.gail_hint) { f.gail_hint = true; return say('gail_t_1', 'derek_t_1', 'gail_t_2', 'alan_t_gail'); } return say('gail_t_again'); }
+    // Tuesday on the beach: hello; after the nap, the market; after the aloe, the blazer (the user, 2026-10-29)
+    if (ch() === 1) {
+      if (!f.burnt) return f.gail_met ? say('gail_t_again') : (f.gail_met = true, say('gail_t_1', 'derek_t_1'));
+      if (!f.aloe_done) return f.aloe_sent ? say('gail_t_burn_again') : (f.aloe_sent = true, say('gail_t_burn_1', 'derek_t_burn', 'gail_t_burn_2', 'alan_t_burn', 'derek_t_burn_2'));
+      if (!f.gail_hint) { f.gail_hint = true; return say('gail_t_aloe', 'alan_t_jacket', 'gail_t_blazer', 'derek_t_cigar', 'alan_t_gail'); }
+      return say('gail_t_again');
+    }
     if (ch() === 2) return say(f.gail_wed ? 'gail_w_again' : (f.gail_wed = true, 'gail_w_1'));
     if (ch() === 3) return say('gail_th_1');
     if (ch() === 6) return say('gail_su_1', 'derek_su_1');
   };
+  // Tuesday, room 404: Vasco's good jeans from his bag, then the stranger's blazer (the user, 2026-10-29: "he should go
+  // to the room, get the jeans from Vasco's bag and then put the jacket on"; "they are tight... biting into his balls")
+  S.dressTue = async function () {
+    const f = F();
+    if (!(ch() === 1 && f.blazer_got && !f.blazer_on)) return say('alan_look_fieldbag');
+    await G.busy(async () => {
+      await say('alan_look_fieldbag_jeans');
+      await G.fade(true); S.sfx('cloth_jacket', 0.5); await T(700);
+      f.blazer_on = true;   // (Alan's frames follow the flag: js/story/core.js)
+      await G.fade(false);
+      await say('narr_t_dress', 'alan_t_jeans_tight', 'alan_blazer_on');
+    });
+  };
   S.talkDerek = async function () {
-    if (ch() === 1) return say('derek_t_2', 'alan_t_derek');
+    if (ch() === 1) return F().burnt && !F().aloe_done ? say('derek_t_burn_2') : say('derek_t_2', 'alan_t_derek');
     if (ch() === 2) return say('derek_w_1');
     if (ch() === 6) return say('derek_su_2');
   };
@@ -223,7 +248,9 @@
       { name: 'Balcony window', rect: [860, 120, 260, 280], at: [980, 620], look: () => say(['', 'alan_look_window_1', 'alan_look_window_2', 'alan_look_window_3', 'alan_look_window_4', 'alan_look_window_5', 'alan_look_window_6', 'alan_look_window_7'][ch()]) },
       { name: 'Bed', rect: [140, 420, 500, 150], at: [420, 640], look: () => say(ch() === 5 ? 'alan_look_bed_sat' : 'alan_look_bed'), use: () => say(ch() === 5 ? 'alan_look_bed_sat' : 'alan_use_bed') },
       { name: 'Note on the pillow', rect: [200, 400, 70, 40], at: [300, 640], when: () => ch() === 2, look: 'alan_look_vnote', take: 'alan_look_vnote' },
-      { name: 'Vasco\'s field bag', rect: [700, 480, 90, 80], at: [700, 650], when: () => ch() <= 3, look: 'alan_look_fieldbag' },
+      { name: 'Vasco\'s field bag', rect: [700, 480, 90, 80], at: [700, 650], when: () => ch() <= 3,
+        look: () => say(ch() === 1 && F().blazer_got && !F().blazer_on ? 'alan_look_fieldbag_jeans' : 'alan_look_fieldbag'),
+        use: () => S.dressTue(), take: () => S.dressTue() },
       { name: 'Packed bag', rect: [700, 480, 120, 80], at: [700, 650], when: () => ch() === 6, look: 'alan_look_packed', use: () => S.theChoice() },
       { name: 'Door', rect: [1120, 200, 140, 370], at: [1140, 650], exit: 'hotel_lobby', entry: 'hotel_room',
         locked: () => (ch() === 6 && !F().chose_carmen) || (ch() === 4 && !F().fight_done), lockedLine: () => ch() === 4 ? 'alan_door_fight' : 'alan_door_choice' },
@@ -253,7 +280,7 @@
     npcs: [
       { id: 'vasco', x: 820, y: 650, dir: 'w', name: 'Vasco', when: () => ch() === 1 && F().reception_done && !F().walk_done, look: 'alan_look_vasco_reception', talk: () => say('vasco_t_walk_alan') },
       { id: 'chano', ch: 'chano', x: 160, y: 650, dir: 'e', name: 'Chano', at: [260, 660], look: 'alan_look_chano', talk: () => S.talkChano(),
-        items: { note5000: () => S.buyPaper(), coins: () => say('chano_coins'), any: 'chano_any' } },
+        items: { note5000: () => S.buyPaper(), coins: () => say('chano_coins'), postcard: () => S.postCard(), any: 'chano_any' } },
     ],
     hotspots: [
       { name: 'Down to the beach', rect: [700, 560, 250, 50], at: [820, 665], exit: 'beach', entry: 'canteras' },
@@ -284,7 +311,34 @@
     f.surf_day = ch(); const k = f.surf_n || 0; f.surf_n = k + 1;
     return say(SURF[Math.min(k, SURF.length - 1)]);
   };
-  S.talkSurfers = () => say(['', 'surfer_bark_1', 'surfer_bark_2', 'surfer_bark_3', 'surfer_bark_4', 'surfer_bark_5', 'surfer_bark_6'][Math.min(6, ch())]);
+  S.talkSurfers = async () => {
+    await say(['', 'surfer_bark_1', 'surfer_bark_2', 'surfer_bark_3', 'surfer_bark_4', 'surfer_bark_5', 'surfer_bark_6'][Math.min(6, ch())]);
+    // Tuesday: as if the surfer had said something rude to it, the cloud tears open
+    const f = F();
+    if (ch() === 1 && G.room && G.room.id === 'beach' && !f.burnt && !f.sun_out) { f.sun_out = true; S.sfx('fog_lift', 0.4); S.UNDRESS.forEach(k => window.Engine.want('spr:' + k)); await say('narr_t_sun_1', 'alan_t_sun_1'); }
+  };
+  // Tuesday on the beach: down to his underwear on a borrowed towel, five minutes that are not five minutes, and the burn
+  // (the user, 2026-10-29). The undressing plays the frames cut from Higgsfield's video (S.UNDRESS) when they're in.
+  S.UNDRESS = Object.keys(window.SPRITES || {}).filter(k => /^alan_undress_\d+$/.test(k)).sort();
+  S.sunbathe = async function () {
+    const f = F();
+    if (f.burnt) return say('alan_look_towels');
+    await G.busy(async () => {
+      const p = G.player; await p.walkTo(340, 650);
+      const vest = S.CHARS.alan.outfits[0];
+      await window.Engine.ensure(S.UNDRESS.map(k => 'spr:' + k));   // (every frame in before it plays)
+      for (const k of S.UNDRESS) { vest.poses.undress = k; p.pose = 'undress'; await T(1000 / 12); }
+      p.pose = null; f.undressed = true; G.refreshNpcs();
+      await say('narr_t_sun_2', 'alan_t_sun_2');
+      await S.paint('still_nap', async () => {
+        S.sfx('water_lap', 0.4); await say('narr_t_sun_3');
+      }, { zoom: [1.0, 1.1], pan: [[0.5, 0.5], [0.45, 0.55]] });
+      // the cloud is back, it's ten past four, and he's the colour of a postbox
+      f.sun_out = false; f.burnt = true; f.undressed = false; G.setClock('16:10');
+      G.endStill(); await G.fade(false); G.refreshNpcs();
+      await say('alan_t_burnt', 'narr_t_dress_beach');
+    });
+  };
   // Chano: change for the phone, a paper a day, gossip and the weather
   // Tuesday: change for Lisbon, a paper for the good rate, and a secret for free
   S.buyPaper = async function () {
@@ -293,8 +347,10 @@
       f.chano_met = true;
       await say('alan_t_chano_1', 'chano_t_lisbon', 'alan_t_chano_2', 'chano_t_doctor', 'alan_t_chano_3', 'chano_hello', 'alan_buy_paper');
       S.sfx('coins_clink', 0.6);
-      G.takeItem('note5000'); f.coins = (f.coins || 0) + 6; S.give('coins'); f.paper_day = ch(); S.give('newspaper');
+      G.takeItem('note5000'); f.coins = (f.coins || 0) + 6; S.give('coins'); f.paper_day = ch(); S.give('newspaper'); f.change_got = true;
       await say('chano_change', 'chano_t_secret', 'alan_t_chano_why', 'chano_t_knees');
+      // (the market woman said "chacho" at him: Chano explains; the user, 2026-10-29)
+      if (f.cand_note && !f.chacho) { f.chacho = true; await say('alan_t_chacho', 'chano_t_chacho'); }
       return;
     }
     return S.talkChano();
@@ -311,8 +367,20 @@
       { line: 'alan_ask_paper', when: () => !G.has('note5000') && f.paper_day !== ch(), run: async () => { await say('chano_paper'); f.paper_day = ch(); G.takeItem('newspaper'); S.give('newspaper', true); G.toast('Today\'s La Provincia'); } },
       { line: 'alan_ask_gossip', when: () => f.gossip_day !== ch(), run: async () => { f.gossip_day = ch(); await say('chano_gossip_' + Math.min(6, ch())); if (ch() === 2) f.herring_chano = true; } },
       { line: 'alan_ask_weather', once: true, run: () => say('chano_weather_' + Math.min(6, ch())) },
+      { line: 'alan_t_chacho', when: () => f.cand_note && !f.chacho, run: async () => { f.chacho = true; await say('chano_t_chacho'); } },
+      // a postcard to Inês (Tuesday): bought here, written in the inventory, posted here
+      { line: 'alan_ask_postcard', when: () => ch() === 1 && f.change_got && !f.postcard_got, run: async () => {
+        f.postcard_got = true; S.sfx('coins_clink', 0.4); await say('chano_postcard'); S.give('postcard');
+      } },
       { line: 'alan_bye_chano', bye: true, run: () => say('chano_bye') },
     ]);
+  };
+  // the postcard: written from the inventory (a look), posted at the kiosk (Chano gives it to the postman at five)
+  S.postCard = async function () {
+    const f = F();
+    if (!f.postcard_written) return say('alan_postcard_written');
+    G.takeItem('postcard'); f.postcard_posted = true;
+    await say('chano_postcard_post');
   };
   // after nine: the walk on the promenade, the bonfire for San Juan, and the black mist, against the wind, under the
   // grey panza de burro. Only Alan knows the smell, and he doesn't say.
@@ -391,9 +459,11 @@
   ROOMS.beach = S.room({
     music: 'beach',
     name: 'Las Canteras · the beach', bg: 'beach', floor: 'sand', ambience: () => 'harbour',
+    // Tuesday: the cloud tears open for a while after Alan talks to the surfer (the user, 2026-10-29)
+    bgs: ['beach_sun'], bgFn: () => F().sun_out ? 'beach_sun' : 'beach',
     animBack(g, t) {
-      // the panza de burro sliding in off the sea, gulls over the surf
-      drift(g, t, 'beach', [[[0, 0], [1280, 0], [1280, 300], [900, 292], [700, 285], [620, 272], [600, 256], [500, 246], [430, 238], [400, 208], [350, 193], [280, 183], [250, 168], [200, 138], [150, 116], [70, 110], [58, 40], [0, 28]]], { speed: 5, a: 0.4, seed: 17 });
+      // the panza de burro sliding in off the sea, gulls over the surf (none of it while the sun's out)
+      if (!F().sun_out) drift(g, t, 'beach', [[[0, 0], [1280, 0], [1280, 300], [900, 292], [700, 285], [620, 272], [600, 256], [500, 246], [430, 238], [400, 208], [350, 193], [280, 183], [250, 168], [200, 138], [150, 116], [70, 110], [58, 40], [0, 28]]], { speed: 5, a: 0.4, seed: 17 });
       FX.birds(g, t, { y0: 80, y1: 250, n: 3, period: 22, color: 'rgba(52,54,56,0.55)', size: 5, x0: 500, x1: 1300 });
       // the sea between the boards rolling, the swash running up the sand and back
       FX.ripple(g, im(), [382, 348, 520, 120], t * 0.6, 1.2, 0.18); FX.ripple(g, im(), [1112, 348, 168, 138], t * 0.6, 1.2, 0.18);
@@ -406,16 +476,68 @@
     ambient: [
       { id: 'surfer', frames: ['surfer_ph_idle'], talkFrames: ['surfer_ph_talk'], x: 900, y: 655, dir: 'w', name: 'Surfers', look: () => S.lookSurfers(), talk: () => S.talkSurfers(), when: () => ch() <= 6 && !F().canteras_night },
     ],
+    // Gail and Derek, under the umbrella on Tuesday (on later days they're in the hotel restaurant)
+    npcs: [
+      { id: 'gail', ch: 'gail', x: 300, y: 600, dir: 'e', name: 'Gail', when: () => ch() === 1 && !F().undressed, look: 'alan_look_gail', talk: () => S.talkGail() },
+      { id: 'derek', ch: 'derek', x: 420, y: 612, dir: 'w', name: 'Derek', when: () => ch() === 1 && !F().undressed, look: 'alan_look_derek', talk: () => S.talkDerek() },
+    ],
     hotspots: [
       { name: 'Surfboards', rect: [900, 340, 220, 210], at: [960, 660], look: 'alan_look_surfboards' },
       { name: 'The sea', rect: [520, 310, 760, 110], at: [700, 640], look: () => S.lookSea() },
       { name: 'The sky', rect: [300, 0, 980, 200], at: [640, 660], look: 'alan_look_beach_sky' },
-      { name: 'Towels', rect: [160, 470, 360, 70], at: [340, 660], look: 'alan_look_towels' },
+      { name: 'Towels', rect: [160, 470, 360, 70], at: [340, 660], look: () => say(F().sun_out ? 'alan_look_towels_sun' : 'alan_look_towels'),
+        use: () => F().sun_out ? S.sunbathe() : say('alan_look_towels') },
       { name: 'Up to the promenade', rect: [0, 250, 110, 320], at: [70, 660], exit: 'canteras', entry: 'beach' },
     ],
-    async enter() { if (!F().narr_beach) { F().narr_beach = true; await say('narr_beach_1'); } },
+    async enter() {
+      if (!F().narr_beach) { F().narr_beach = true; await say('narr_beach_1'); }
+      if (ch() === 1 && !F().swell_said) { F().swell_said = true; await say('alan_t_swell'); }   // (the blond surfer; the user, 2026-10-29)
+    },
     animFg(g, t) { S.drawMist(g, t, S.mistNow()); },
   });
+
+  // ================================================================ MERCADO DEL PUERTO (Tuesday afternoon: the aloe)
+  // The 1891 iron-and-glass market by Parque Santa Catalina (the user, 2026-10-29: Gail and Derek send the sunburnt Alan
+  // here; the aloe unlocks Gail's blazer). Doña Candelaria's aloe costs five hundred, and she can't change a 5,000 note.
+  ROOMS.mercado = S.room({
+    music: 'canteras',
+    name: 'Mercado del Puerto', bg: 'mercado', floor: 'tile', ambience: 'museum',
+    animBack(g, t) {
+      // the hanging globe lamps glowing, dust turning in the light under the glass roof
+      lamp(g, t, 1064, 70, 40, '255,226,170', 0.16, 1, false); lamp(g, t, 310, 85, 34, '255,226,170', 0.12, 2, false);
+      g.save(); g.beginPath(); g.rect(300, 120, 700, 330); g.clip(); FX.motes(g, t, 300, 120, 700, 330, 18, '255,236,190'); g.restore();
+      FX.sway(g, im(), [1000, 280, 280, 200], t * 0.4, 0.5, 0.7, true);
+    },
+    entries: { default: [640, 690, 'n'], map: [640, 690, 'n'] },
+    npcs: [
+      { id: 'candelaria', ch: 'candelaria', x: 900, y: 600, dir: 'e', name: 'Doña Candelaria', at: [800, 640], look: 'alan_look_candelaria',
+        talk: () => S.talkCandelaria(), items: { note5000: () => S.talkCandelaria(), coins: () => S.talkCandelaria(), any: 'candelaria_again' } },
+    ],
+    hotspots: [
+      { name: 'Fruit stall', rect: [0, 150, 270, 350], at: [240, 640], look: 'alan_look_fruit' },
+      { name: 'Cheese counter', rect: [270, 300, 150, 110], at: [380, 560], look: 'alan_look_cheese' },
+      { name: 'The bar', rect: [500, 280, 260, 150], at: [620, 480], look: 'alan_look_mercado_bar' },
+      { name: 'Aloe plants', rect: [990, 250, 290, 300], at: [900, 640], look: 'alan_look_aloe', use: () => S.talkCandelaria() },
+      { name: 'The roof', rect: [400, 0, 600, 200], at: [640, 600], noBox: true, look: 'alan_look_mercado_roof' },
+      S.toMap([480, 690, 320, 30], [640, 705]),
+    ],
+    async enter() { if (!F().narr_mercado) { F().narr_mercado = true; await say('narr_t_mercado'); } },
+  });
+  S.talkCandelaria = async function () {
+    const f = F();
+    if (f.aloe_done) return say('candelaria_bye');
+    if (!f.cand_met) { f.cand_met = true; await say('candelaria_1', 'alan_t_cand_1', 'candelaria_2'); }
+    if (!f.change_got) {
+      if (G.has('note5000')) { f.cand_note = true; return say('alan_t_cand_note', 'candelaria_note'); }
+      return say('candelaria_again');
+    }
+    await G.busy(async () => {
+      S.sfx('coins_clink', 0.5); await T(500);
+      await say('candelaria_3');
+      f.aloe_done = true; S.give('aloe');
+      await say('alan_t_cand_2', 'candelaria_4');
+    });
+  };
 
   // ================================================================ HOTEL CRISTINA: the restaurant (Gail and Derek)
   ROOMS.hotel_restaurant = S.room({
@@ -434,8 +556,8 @@
     },
     entries: { default: [1100, 670, 'w'], hotel_lobby: [1100, 670, 'w'] },
     npcs: [
-      { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => [1, 2, 3, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
-      { id: 'derek', ch: 'derek', x: 680, y: 662, dir: 'w', name: 'Derek', when: () => [1, 2, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
+      { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => [2, 3, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
+      { id: 'derek', ch: 'derek', x: 680, y: 662, dir: 'w', name: 'Derek', when: () => [2, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
     ],
     hotspots: [
       { name: 'Buffet', rect: [620, 300, 480, 90], at: [820, 640], look: 'alan_look_buffet' },

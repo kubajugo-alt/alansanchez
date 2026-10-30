@@ -303,6 +303,20 @@
     "speed": 1.08
    },
    "prefix": "[strong Spanish accent] "
+  },
+  "candelaria": {
+   "voice_id": "M9RTtrzRACmbUzsEMq8p",
+   "name": "Abuelita de Cuento",
+   "role": "Doña Candelaria, the aloe stall at the Mercado del Puerto",
+   "model_id": "eleven_v4",
+   "language_code": "es",
+   "voice_settings": {
+    "stability": 0.3,
+    "similarity_boost": 0.75,
+    "style": 0.5,
+    "speed": 1.08
+   },
+   "prefix": "[strong Spanish accent] "
   }
  },
  "_note_2026_10_29_v4": "The user picked 'v4 lively + accent cue' for the Spanish cast (art/review/voices/cast/, picks in its db): eleven_v4, language_code es, the lively voice_settings, and the text led by prefix. Nieves recast (the user's pick, art/review/voices/nieves/): Carmen - Bold and Magnetic. The parrot stays on v3 with its fx."

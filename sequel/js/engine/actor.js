@@ -626,6 +626,7 @@
       }
       // the mouth and eyelids (js/engine/faces.js) go into the painting before it is lit and bent
       if (E.faceImage) { A.im = E.faceImage(this, A.key, A.im); if (B) B.im = E.faceImage(this, B.key, B.im); }
+      if (E.skinTint) { A.im = E.skinTint(this, A.key, A.im); if (B) B.im = E.skinTint(this, B.key, B.im); }   // (Tuesday's sunburn)
       const h = this.height();
       // union of both frames, in feet-relative coordinates
       const U = { x: Math.min(A.x, B ? B.x : A.x), y: Math.min(A.y, B ? B.y : A.y) };

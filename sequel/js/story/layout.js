@@ -11,7 +11,9 @@
       entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1180, 650, 'w'], beach: [820, 665, 'w'] },
       spots: { 'The sea': [420, 365, 600, 100], 'Promenade steps': [520, 485, 380, 75], 'Bonfires': [600, 405, 300, 80], 'Phone box': [292, 288, 130, 310],
         'Kiosk': [0, 165, 265, 460], 'Hotel Cristina': [1100, 120, 180, 470], 'To the city': [0, 600, 50, 116] },
-      npcs: { chano: [150, 660] },
+      // Chano inside his kiosk (the user, 2026-10-29), the counter and the panelled front hiding him below the waist
+      npcs: { chano: [150, 605] },
+      occluders: [{ y: 612, polys: [[[0, 494], [274, 494], [274, 640], [0, 640]]] }],
     },
     gando: {
       walk: [[0, 560], [300, 570], [880, 540], [1100, 520], [1280, 515], [1280, 716], [0, 716]], scale: [520, 250, 716, 340],
@@ -63,6 +65,9 @@
       spots: { 'Conservation list': [530, 215, 90, 115], 'Ashtray': [700, 412, 40, 20], 'Photographs of Cave 6': [635, 220, 150, 130], 'Stacks': [0, 40, 460, 560],
         'Stairs up to the hall': [960, 210, 200, 350] },
       npcs: { carmen: [900, 640] },
+    },
+    mercado: {   // (the Mercado del Puerto, Tuesday's aloe, 2026-10-29)
+      walk: [[0, 640], [270, 560], [300, 520], [440, 455], [960, 455], [985, 560], [1000, 716], [0, 716]], scale: [455, 165, 716, 395],
     },
     museum_out: {   // (the street corner outside El Museo Canario, 2026-10-29)
       walk: [[0, 560], [560, 545], [720, 545], [1280, 560], [1280, 716], [0, 716]], scale: [545, 125, 716, 300],   // (the door, 190 px, a head taller than a man)

@@ -688,3 +688,33 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     "deploy everything - the characters placement as i chose it, the new vasco, the new voices": vascor_side_k's
     face set `ok: true` (the mouth fix, entry 64).
     Deployed on the user's word: Netlify deploy 6ae3d8bfe32ecd48904e452b from a clean git archive export (play.mjs on the export: won in 98 steps; /.env 404).
+67. **Tuesday's afternoon: check-in at two, the beach, the burn, the market, the jeans** (2026-10-29/30). The user's
+    design: "He arrives at the hotel, but Nieves tells him check-in is not until 14:00... He goes to the beach, and after
+    talking to the surfer, panza de burro clears for a moment... he decides to undress and sunbathe. he falls asleep.
+    when he wakes up, he is burnt... he talks to gail and derek, they send him to mercado del puerto. once he gets the
+    aloe vera, this unlocks the blazer conversation with gail"; plus Chano's paper (Montesdeoca's south-coast hotel, the
+    panza de burro, "chacho") and a postcard to Inês; the airport's sunburn talk replaced by a reunion beat; the jacket
+    put on in the room after Vasco's jeans ("they are biting into his balls"); a double-meaning line about the blond
+    surfer; Chano inside his kiosk.
+    Story (js/story/tue.js, core.js, docs.js, lines.js; 62 new lines, 8 retired; all voiced, Spanish speakers on the v4
+    setup): the lobby arrival sets the clock to 12:00 and closes the lifts until the nap (alan_lift_checkin); Gail and
+    Derek are on the beach on Tuesday (not the restaurant); talking to the surfer opens the sky (F().sun_out: the room's
+    `bgFn` swaps to art/bg/beach_sun.jpg, a Higgsfield edit of beach.jpg); "Towels" sunbathes: the undress plays, then
+    still_nap, then 16:10, cloud back, F().burnt; Gail sends him to the Mercado del Puerto (new room `mercado`, map pin
+    while needed); Doña Candelaria (new character: Higgsfield design candelaria_hf1 -> candelaria_r, face set $0.20,
+    voice "Abuelita de Cuento" on the v4 setup) can't change the 5,000 note; Chano breaks it (f.change_got) and explains
+    chacho; the aloe (item) softens the burn; Gail's blazer hint; Nieves gives the blazer and the key (no dressing);
+    room 404: Vasco's field bag -> the jeans line, the blazer on (F().blazer_on); the first call and the museum pin now
+    need blazer_on; Inês's hints and the map's next-pin follow the new order. The paper's Tuesday page and the postcard
+    (written from the inventory, posted at the kiosk) in docs.js.
+    Sunburn: js/engine/faces.js `skinTint` (the player's skin by colour, recoloured once per frame and strength, hooked
+    after the face patches in actor.js); `Engine.sunburn()` 0.75 after the nap, 0.5 with the aloe, 0 from Wednesday.
+    Undressing: Game I's underwear frame from behind copied as `alan_uw_back`; a painted front `alan_uw_front`
+    (Higgsfield); Ludo (hydra refused on moderation; forge: `ludo.py gen --model forge`, new `--take`, `--margin-v/-h`
+    flags) take 3 (shoes, vest over the head, shorts down and stepped out of; nothing clipped; takes 1-2 cropped the
+    arms / lost the shorts), cut to 36 frames `alan_undress_NN` at Alan's scale, and `scripts/head_swap.py` (new: the
+    real face from alanv_front_k warped onto each frame by YuNet landmarks, colour-matched, feathered) on the 33 with a
+    face (Forge had distorted it). Kling refused the same as a video. Alan has a third outfit (F().undressed).
+    Chano: layout npcs [150, 605] behind the counter, with an occluder for the counter and front panel.
+    Checked: validate 0 errors; play.mjs updated for the new Tuesday and won in 106 steps; the beach sequence
+    screenshotted in the running game (the undress playing, the still, the burn). Not deployed.

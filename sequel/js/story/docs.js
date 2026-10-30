@@ -8,7 +8,8 @@
 
   // ---------------------------------------------------------------- the paper, one a day from Chano's kiosk
   const PAPERS = {
-    1: ['Las Palmas cumple 518 años', 'The city prepares for San Juan: bonfire permits issued for Las Canteras and Alcaravaneras. Panza de burro expected all week.'],
+    // (Tuesday's plants two things early: Montesdeoca's south-coast plans and the weather; the user, 2026-10-29)
+    1: ['Montesdeoca anuncia un nuevo hotel en el sur', 'Ignacio Montesdeoca, owner of the Hotel Cristina, presents plans for a 600-room resort at Meloneras, "with a waterfall". Also: Las Palmas turns 518; bonfire permits for San Juan. The weather: panza de burro until further notice.'],
     2: ['El Museo Canario recibe a sus mecenas', 'The Risco Caído expedition welcomes "a specialist from Lisbon". Hotelier Ignacio Montesdeoca promises new display cases.'],
     3: ['Muere ahogado en su cama un pescador de La Isleta', 'José "Pepe" Santana, 61, one of four survivors of the trawler Virgen del Pino (1971), found drowned in his bed. His floor was dry. Police speak of "a medical cause".'],
     4: ['Mareas a deshoras en Las Canteras', 'The harbour master cannot explain tides arriving at the wrong hours. Surfers report "waves coming in backwards".'],
@@ -19,9 +20,19 @@
   S.readPaper = async function () {
     const p = PAPERS[F().paper_day || F().ch || 1] || PAPERS[1];
     await G.closeup([page(`<p style="font-family:'IM Fell English',serif;text-align:center;font-size:1.3em">LA PROVINCIA</p><h3>${p[0]}</h3><p>${p[1]}</p>`, 'doc-news')]);
-    await say(F().ch === 3 ? 'alan_read_paper_pepe' : F().ch === 5 ? 'alan_read_paper_agustin' : 'alan_read_paper');
+    await say(F().ch === 3 ? 'alan_read_paper_pepe' : F().ch === 5 ? 'alan_read_paper_agustin' : (F().paper_day || F().ch) === 1 ? 'alan_read_paper_tue' : 'alan_read_paper');
     if (F().ch === 3) F().pepe_known = true;
     if (F().ch === 5) F().agustin_known = true;
+  };
+
+  // Tuesday's postcard to Inês (bought and posted at Chano's kiosk, js/story/tue.js): written from the inventory
+  S.writeCard = async function () {
+    const f = F();
+    if (f.postcard_written) return say('alan_look_postcard');
+    await G.closeup([page(`<h3>Las Canteras · Gran Canaria</h3><p>Inês. Arrived. Luggage in Madrid. Vasco is radiant, there's no other word for it. He kissed me in front of two nuns.</p><p>I don't know why that makes me want to cry. Don't tell him.</p><p style="text-align:right">A.</p>`)]);
+    await say('alan_postcard_write');
+    f.postcard_written = true;
+    await say('alan_postcard_written');
   };
 
   // ---------------------------------------------------------------- the bell and the founders

@@ -78,3 +78,6 @@
 - 2026-10-29 bg `museum_hall` Canva media  -> art/bg/museum_hall.jpg Museo Canario hall with the skull cabinets (Higgsfield), the user 2026-10-29: museum A without the mummy cases
 - 2026-10-29 bg `museum_out` Canva media  -> art/bg/museum_out.jpg El Museo Canario from the street (Higgsfield), new room, the user 2026-10-29: 'Museo Canario outside is good'
 - 2026-10-29 bg `colon_out` Canva media  -> art/bg/colon_out.jpg Casa de Colon from the street (Higgsfield), new room, the user 2026-10-29: 'casa colon - C'
+- 2026-10-29 bg `beach_sun` Canva media  -> art/bg/beach_sun.jpg the beach with the cloud torn open (Higgsfield edit of beach.jpg), Tuesday's nap
+- 2026-10-29 bg `mercado` Canva media  -> art/bg/mercado.jpg Mercado del Puerto, new room (Higgsfield), Tuesday's aloe
+- 2026-10-29 still `still_nap` Canva media  -> art/stills/still_nap.jpg Alan asleep on the beach (Higgsfield)

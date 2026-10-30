@@ -200,3 +200,31 @@
   Object.assign(E, { faceImage, preloadFaces: preload, hasFace });
   if (document.readyState === 'complete') setTimeout(preload, 0); else window.addEventListener('load', () => setTimeout(preload, 0));
 })();
+
+// Sunburn (the user, 2026-10-29: Alan falls asleep on the beach on Tuesday and wakes burnt, "let's add red hues to his
+// skin"): the player's skin, found by colour (warm, mid-saturation hues; not the khaki, the hair or the clothes), is
+// pulled towards red by E.sunburn() (0..1, from the story). Each painted frame is recoloured once per strength and kept.
+(function () {
+  const E = window.Engine; const done = new WeakMap();
+  function skinTint(actor, key, im) {
+    const k = actor === E.player && E.sunburn ? E.sunburn() : 0;
+    if (!k || !im || !im.width) return im;
+    let per = done.get(im); if (!per) done.set(im, per = {});
+    const q = Math.round(k * 20) / 20; if (per[q]) return per[q];
+    const c = document.createElement('canvas'); c.width = im.width; c.height = im.height;
+    const x = c.getContext('2d'); x.drawImage(im, 0, 0);
+    let d; try { d = x.getImageData(0, 0, c.width, c.height); } catch (e) { return im; }
+    const p = d.data;
+    for (let i = 0; i < p.length; i += 4) {
+      if (p[i + 3] < 128) continue;
+      const r = p[i], g = p[i + 1], b = p[i + 2], mx = Math.max(r, g, b), mn = Math.min(r, g, b), s = (mx - mn) / (mx + 1e-6), v = mx / 255;
+      if (!(r > g && g >= b * 0.95 && s > 0.28 && s < 0.8 && v > 0.28)) continue;
+      const h = ((Math.atan2(Math.sqrt(3) * (g - b), 2 * r - g - b) * 180 / Math.PI) + 360) % 360;
+      if (h <= 4 || h >= 30) continue;
+      p[i] = r * (1 - q) + Math.min(255, r * 1.1 + 22) * q; p[i + 1] = g * (1 - q) + g * 0.62 * q; p[i + 2] = b * (1 - q) + b * 0.58 * q;
+    }
+    x.putImageData(d, 0, 0);
+    return (per[q] = c);
+  }
+  Object.assign(E, { skinTint });
+})();

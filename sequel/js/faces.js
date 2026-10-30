@@ -2095,5 +2095,31 @@ window.FACES = {
   "ok": true,
   "who": "derek",
   "from": "jaw"
+ },
+ "candelaria_r": {
+  "box": [
+   125,
+   92,
+   44,
+   54
+  ],
+  "mouths": [
+   "A",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": false,
+  "who": "candelaria",
+  "from": "jaw"
  }
 };

@@ -50,6 +50,7 @@ WHO = {
     'montesdeoca': (['talk_montesdeoca'], 'the head of Ignacio Montesdeoca, a portly, self-satisfied Canarian businessman', False),
     'gail': (['talk_gail'], 'the head of Gail, an old English lady', True),
     'derek': (['talk_derek'], 'the head of Derek, an old English gentleman', False),
+    'candelaria': ([], 'the head of Doña Candelaria, a Canarian market woman in her sixties with a patterned headscarf', True),
 }
 MOUTHS = {
     'A': 'lips pressed together and closed, as for P, B or M (relaxed, no smile)',

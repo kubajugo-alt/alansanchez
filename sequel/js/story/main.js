@@ -6,7 +6,7 @@
 
   // ---------------------------------------------------------------- art the engine preloads
   window.FIRST_ROOM = 'gando';
-  window.STILLS = ['still_elena_bar', 'still_barranco', 'still_title', 'still_arrival', 'still_mist', 'still_love_1', 'still_pepe', 'still_caught',
+  window.STILLS = ['still_elena_bar', 'still_nap', 'still_barranco', 'still_title', 'still_arrival', 'still_mist', 'still_love_1', 'still_pepe', 'still_caught',
     'still_fight', 'still_rafa_night', 'still_rafa_drawing', 'still_isleta_flood', 'still_vault_dark', 'still_cloud_climb', 'still_bad_ending',
     'still_chain', 'still_sunrise', 'still_road_down', 'still_fireworks', 'still_love_2'];
   window.CLOSEUPS = ['paper_aged'];

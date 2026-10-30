@@ -53,12 +53,28 @@ try {
   await expect('Tuesday at Gando', () => Game.room.id === 'gando');
   // ---- Tuesday
   await act('vasco', 'talk');
-  await act('To the restaurant', 'exit'); await act('gail', 'talk'); await act('Back to the lobby', 'exit'); // (Gail's story alone is enough to claim the blazer: the box is never examined)
-  await act('nieves', 'talk', null, ['lost a blazer', 'A cigar band']);
-  await expect('the blazer', () => Game.has('blazer'));
-  // (the novel's order: Chano's change and the first call to Inês before the reception)
+  // (2026-10-29: check-in at two; the beach, the surfer, the sun, the nap and the burn; Gail sends him to the market; the
+  // aloe lady can't change a 5,000 note, Chano can; then Gail's blazer, Nieves, and the jeans in the room)
+  await go('beach', 'canteras'); await act('surfer', 'talk');
+  await expect('the sun out', () => Game.flags.sun_out);
+  await act('Towels', 'use');
+  await expect('the burn', () => Game.flags.burnt && !Game.flags.undressed);
+  await act('gail', 'talk');
+  await go('mercado'); await act('candelaria', 'talk');
   await go('canteras'); await act('chano', 'talk');
-  await expect('coins', () => Game.has('coins'));
+  await expect('change and chacho', () => Game.flags.change_got && Game.flags.chacho && Game.has('coins'));
+  await act('chano', 'talk', null, ['postcards']); await quiet(); await page.evaluate(() => Game.readItem('postcard')); await quiet(); await act('chano', null, 'postcard');
+  await expect('the postcard posted', () => Game.flags.postcard_posted);
+  await go('mercado'); await act('candelaria', 'talk');
+  await expect('the aloe', () => Game.flags.aloe_done);
+  await go('beach', 'canteras'); await act('gail', 'talk');
+  await go('hotel_lobby', 'canteras'); await act('nieves', 'talk', null, ['lost a blazer', 'A cigar band']);
+  await expect('the blazer', () => Game.has('blazer'));
+  await act('Lifts', 'exit'); await act('Vasco\'s field bag', 'use');
+  await expect('dressed', () => Game.flags.blazer_on);
+  await act('Door', 'exit');
+  // (the novel's order: Chano's change and the first call to Inês before the reception)
+  await go('canteras');
   await act('Phone box', 'use');
   await expect('the first call', () => Game.flags.called_tue);
   await go('museum_hall'); await act('baute', 'talk'); await act('Door to the steps', 'exit'); await act('carmen', 'talk'); await act('Back to the party', 'exit'); await act('Out to Vegueta', 'exit');
