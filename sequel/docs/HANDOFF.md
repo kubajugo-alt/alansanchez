@@ -767,3 +767,28 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     into art/designs/extras/placements.json and installed with extras_install.py (S.EXTRAS.mercado; the crate carrier's
     sprite art/sprites/x_quay_crate_carrier.webp made, it had not been placed before). Screenshot from the game:
     art/review/mercado_extras.png, no page errors.
+75. **The sea moves: Higgsfield loops; the lobby by day** (2026-10-30). The user: "the backgrounds, with the sea (beach and
+    las canteras) should go through highsfield - we need to animate the waves"; "may others, where the sea is visible
+    through the windows too"; "also - hotel lobby shows the outside at night - it shouldn't all the time".
+    Seven kling3_0 loops (pro, 5 s, start and end image = the painting, "only the sea moves"): canteras, beach,
+    beach_sun, hotel_restaurant, hotel_room, isleta, hotel_lobby_day. Each checked for where it moves (only the water;
+    the canteras phone box glass and a palm, and a palm on the sunny beach, kept out with a region) and that its frames
+    line up with the painting (to the pixel; 2-3 levels darker, lifted back). scripts/sea_clips.py cuts each to the box
+    where the water moves, with a feathered mask: art/video/<bg>.mp4 (h264) + .webm (VP9, for browsers without h264) +
+    <bg>_mask.png, 770 KB for all; js/story/sea_clips.js (generated, S.SEA) where each box sits. js/story/sea.js:
+    S.sea(g, bg) draws the playing loop through its mask in the room's animBack; false until the video can be drawn,
+    so each room keeps its old canvas ripple/foam as the fallback; only the loop on screen plays (S.seaTick from every
+    room's animFg pauses the rest). Wired in canteras, beach (beach / beach_sun by sun_out), hotel_restaurant,
+    hotel_room, hotel_lobby (by day), isleta (wed.js).
+    The lobby: art/bg/hotel_lobby.jpg (the night painting) unchanged; new art/bg/hotel_lobby_day.jpg = the night painting
+    with the street windows (x < 244) taken from a Higgsfield gpt_image_2_5 day edit (overcast promenade, sea, palms;
+    the rest of that edit had lost the "Hotel Cristina" sign and the poster's lettering, so only the windows were
+    used). bgFn: night only on Tuesday after the reception (S.lobbyNight: ch 1 && reception_done), day otherwise; the
+    promenade lamp's glow only at night. Its night loop came back all but still, so the night lobby keeps its canvas
+    ripple. Screenshots of every room in the game, two moments 1.3 s apart (the water moves, nothing else);
+    recording art/review/sea_recording.mp4 (canteras, beach, sunny beach, restaurant, room, lobby by day, La Isleta).
+76. **The museum's guests only at the parties** (2026-10-30). The user: "make sure that after the parties, the guests
+    disappear from the museum". S.EXTRAS_WHEN[room] (layout.js applyLayout gives a room's background people a `when`);
+    museum_hall and museum_courtyard: S.museumParty() = Tuesday before the reception ends, or Thursday's dinner before
+    Alan is caught. Checked in the game: the hall's five background figures at the reception and the dinner, none after
+    either, none on Wednesday.

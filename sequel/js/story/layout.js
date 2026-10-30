@@ -175,7 +175,11 @@
   S.applyLayout = function (ROOMS) {
     // where the user stood the cast and the background people (the placement tool: js/story/extras.js)
     for (const [id, at] of Object.entries(S.CAST_AT || {})) { const L = S.LAYOUT[id] = S.LAYOUT[id] || {}; L.npcs = Object.assign({}, L.npcs, at); }
-    for (const [id, xs] of Object.entries(S.EXTRAS || {})) if (ROOMS[id]) ROOMS[id].ambient = (ROOMS[id].ambient || []).concat(xs);
+    // (a room's background people can be there only some of the time: S.EXTRAS_WHEN[room], e.g. the museum's party guests)
+    for (const [id, xs] of Object.entries(S.EXTRAS || {})) if (ROOMS[id]) {
+      const w = (S.EXTRAS_WHEN || {})[id];
+      ROOMS[id].ambient = (ROOMS[id].ambient || []).concat(w ? xs.map(x => Object.assign({ when: w }, x)) : xs);
+    }
     const nameOf = h => { try { return typeof h.name === 'function' ? h.name() : h.name; } catch (e) { return null; } };
     for (const [id, L] of Object.entries(S.LAYOUT)) {
       const r = ROOMS[id]; if (!r) continue;

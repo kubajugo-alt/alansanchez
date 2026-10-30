@@ -25,7 +25,7 @@
     }
     // the stand-in figures' names, wherever they appear
     const fg = r.animFg;
-    r.animFg = function (g, t) { if (fg) fg.call(this, g, t); S.placeholderNames(g); };
+    r.animFg = function (g, t) { if (fg) fg.call(this, g, t); S.placeholderNames(g); S.seaTick(); };
   }
   for (const c of Object.values(S.CHARS)) if (c.frames && c.frames.walk) S.walkTiming(c.frames);
 

@@ -90,8 +90,10 @@
       panza(g, t, skyMask('isleta', TOP, 300), 0.5);
       FX.sway(g, im, [288, 215, 60, 46], t * 0.8, 1.1, 0, true); // the palm over the far quay
       // the harbour: the boats' reflections wavering (the hulls themselves stay put), a few glints
-      FX.ripple(g, im, [375, 388, 430, 34], t, 1.1, 0.22); FX.ripple(g, im, [285, 422, 530, 44], t * 0.9, 1.3, 0.2);
-      glints(g, t, [290, 392, 510, 72], 14, '200,205,210', 0.16);
+      if (!S.sea(g, 'isleta')) {   // (the Higgsfield loop, js/story/sea.js; the canvas ripple until it can play)
+        FX.ripple(g, im, [375, 388, 430, 34], t, 1.1, 0.22); FX.ripple(g, im, [285, 422, 530, 44], t * 0.9, 1.3, 0.2);
+        glints(g, t, [290, 392, 510, 72], 14, '200,205,210', 0.16);
+      }
       FX.birds(g, t, { y0: 60, y1: 180, n: 2, period: 19, color: 'rgba(238,238,234,0.8)', size: 8 }); // gulls
     },
     animFg(g, t) { S.drawMist(g, t, ch() >= 4 && ch() <= 5 ? 0.3 : 0); },

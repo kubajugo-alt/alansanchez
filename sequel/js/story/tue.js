@@ -109,14 +109,19 @@
   };
 
   // ================================================================ HOTEL: the lobby
+  S.lobbyNight = () => ch() === 1 && !!F().reception_done;
   ROOMS.hotel_lobby = S.room({
     music: 'hotel_lobby',
     name: 'Hotel Cristina', bg: 'hotel_lobby', floor: 'tile', ambience: 'museum', door: 'door',
+    // the painting is the lobby at night; by day the street windows show the promenade under the cloud (hotel_lobby_day,
+    // the night painting with a Higgsfield day view put into its windows, 2026-10-30). Night: Tuesday after the reception.
+    bgs: ['hotel_lobby_day'], bgFn: () => S.lobbyNight() ? 'hotel_lobby' : 'hotel_lobby_day',
     animBack(g, t) {
-      // through the street windows: the palm fronds stir, the promenade lamp and the sea at night
+      // through the street windows: the palm fronds stir, the sea moving (by day the Higgsfield loop), the promenade lamp lit at night
+      const night = S.lobbyNight();
       FX.sway(g, im(), [100, 82, 110, 66], t * 0.6, 1, 0.4, true); FX.sway(g, im(), [0, 62, 74, 64], t * 0.6, 1, 1.3, true);
-      FX.ripple(g, im(), [0, 322, 74, 26], t * 0.6, 0.6, 0.25);
-      lamp(g, t, 39, 232, 26, '255,226,160', 0.25, 2, false);
+      if (night || !S.sea(g, 'hotel_lobby_day')) FX.ripple(g, im(), [0, 322, 74, 26], t * 0.6, 0.6, 0.25);
+      if (night) lamp(g, t, 39, 232, 26, '255,226,160', 0.25, 2, false);
       // the wall lantern's flame and the desk lamp
       lamp(g, t, 398, 162, 46, '255,190,110', 0.22, 3, true);
       lamp(g, t, 812, 245, 70, '255,214,150', 0.08, 4, false);
@@ -233,8 +238,10 @@
     animBack(g, t) {
       // through the open balcony door: the lid of cloud drifting, the bay moving, the surf on the far beach
       drift(g, t, 'room404', [[860, 112, 140, 165]], { speed: 3, a: 0.4, seed: 7 });
-      FX.ripple(g, im(), [860, 318, 140, 40], t * 0.5, 0.8, 0.3);
-      foam(g, t, [[[862, 330], [900, 326], [940, 323], [1000, 322]]], { per: 9, reach: 2, a: 0.25, w: 1 });
+      if (!S.sea(g, 'hotel_room')) {   // (the Higgsfield loop, js/story/sea.js; the canvas ripple until it can play)
+        FX.ripple(g, im(), [860, 318, 140, 40], t * 0.5, 0.8, 0.3);
+        foam(g, t, [[[862, 330], [900, 326], [940, 323], [1000, 322]]], { per: 9, reach: 2, a: 0.25, w: 1 });
+      }
       // the air off the sea: the curtains breathe, the fan turns slowly
       FX.billow(g, im(), [722, 70, 66, 455], t, 1.6, 8); FX.billow(g, im(), [1035, 52, 92, 490], t + 2, 1.8, 9);
       ceilFan(g, t, 497, 78, 125, 16, 0.6, 0.1);
@@ -271,8 +278,10 @@
       // the panza de burro drifting over the bay, gulls, the sea moving and the foam on the shore
       drift(g, t, 'canteras', [[300, 0, 620, 345], [0, 0, 300, 160], [[920, 0], [1060, 0], [1000, 60], [920, 140]]], { speed: 4, a: 0.35, seed: 13, rgb: '232,226,214' });
       FX.birds(g, t, { y0: 70, y1: 260, n: 3, period: 24, color: 'rgba(58,56,54,0.55)', size: 5, x0: 300, x1: 920 });
-      FX.ripple(g, im(), [425, 372, 555, 44], t * 0.6, 0.8, 0.2); FX.ripple(g, im(), [425, 416, 190, 48], t * 0.6, 0.8, 0.2);
-      foam(g, t, [[[422, 466], [500, 463], [606, 459]], [[740, 455], [818, 450]], [[905, 446], [950, 440], [990, 428]]], { per: 8, reach: 4, a: 0.3 });
+      if (!S.sea(g, 'canteras')) {
+        FX.ripple(g, im(), [425, 372, 555, 44], t * 0.6, 0.8, 0.2); FX.ripple(g, im(), [425, 416, 190, 48], t * 0.6, 0.8, 0.2);
+        foam(g, t, [[[422, 466], [500, 463], [606, 459]], [[740, 455], [818, 450]], [[905, 446], [950, 440], [990, 428]]], { per: 8, reach: 4, a: 0.3 });
+      }
       // the palms by the hotel and the newspapers pegged on the kiosk
       FX.sway(g, im(), [920, 40, 250, 240], t * 0.5, 1.1, 0, true); FX.sway(g, im(), [1060, 0, 220, 140], t * 0.5, 1, 1.7, true);
       FX.sway(g, im(), [35, 334, 222, 62], t * 0.8, 0.7, 0.5);
@@ -419,6 +428,10 @@
       S.toMap([0, 380, 60, 330], [60, 650]),
     ],
   });
+  // the museum's guests, waiters and waitresses are there only for the parties: Tuesday's reception and Thursday's
+  // fundraising dinner (the user, 2026-10-30: "after the parties, the guests disappear from the museum")
+  S.museumParty = () => (ch() === 1 && !F().reception_done) || (ch() === 3 && S.dinnerDue() && !F().caught);
+  S.EXTRAS_WHEN = Object.assign(S.EXTRAS_WHEN || {}, { museum_hall: () => S.museumParty(), museum_courtyard: () => S.museumParty() });
   ROOMS.museum_hall = S.room({
     music: 'museum_hall',
     name: 'El Museo Canario', bg: 'museum_hall', floor: 'tile', ambience: 'museum', door: 'door',
@@ -470,8 +483,10 @@
       if (!F().sun_out) drift(g, t, 'beach', [[[0, 0], [1280, 0], [1280, 300], [900, 292], [700, 285], [620, 272], [600, 256], [500, 246], [430, 238], [400, 208], [350, 193], [280, 183], [250, 168], [200, 138], [150, 116], [70, 110], [58, 40], [0, 28]]], { speed: 5, a: 0.4, seed: 17 });
       FX.birds(g, t, { y0: 80, y1: 250, n: 3, period: 22, color: 'rgba(52,54,56,0.55)', size: 5, x0: 500, x1: 1300 });
       // the sea between the boards rolling, the swash running up the sand and back
-      FX.ripple(g, im(), [382, 348, 520, 120], t * 0.6, 1.2, 0.18); FX.ripple(g, im(), [1112, 348, 168, 138], t * 0.6, 1.2, 0.18);
-      foam(g, t, [[[370, 393], [455, 405], [540, 418], [615, 428], [690, 437], [765, 445], [840, 452], [902, 458]], [[1112, 478], [1200, 483], [1280, 488]]], { per: 9, reach: 6, a: 0.22, w: 2.4 });
+      if (!S.sea(g, F().sun_out ? 'beach_sun' : 'beach')) {
+        FX.ripple(g, im(), [382, 348, 520, 120], t * 0.6, 1.2, 0.18); FX.ripple(g, im(), [1112, 348, 168, 138], t * 0.6, 1.2, 0.18);
+        foam(g, t, [[[370, 393], [455, 405], [540, 418], [615, 428], [690, 437], [765, 445], [840, 452], [902, 458]], [[1112, 478], [1200, 483], [1280, 488]]], { per: 9, reach: 6, a: 0.22, w: 2.4 });
+      }
       // the beach umbrella's skirt and the palms along the promenade
       FX.sway(g, im(), [62, 334, 240, 84], t * 0.9, 0.8, 0);
       FX.sway(g, im(), [168, 160, 80, 95], t * 0.5, 0.9, 1.4, true); FX.sway(g, im(), [330, 225, 60, 70], t * 0.5, 0.8, 2.2, true);
@@ -546,8 +561,10 @@
     animBack(g, t) {
       // through the arched windows: the cloud drifting, the surf rolling in
       drift(g, t, 'restaurant', [[0, 122, 158, 110], [298, 158, 102, 60], [496, 160, 30, 45]], { speed: 4, a: 0.38, seed: 19 });
-      FX.ripple(g, im(), [0, 256, 156, 70], t * 0.6, 1, 0.22);
-      foam(g, t, [[[0, 262], [60, 262], [155, 268]]], { per: 9, reach: 3, a: 0.3, w: 1.2 });
+      if (!S.sea(g, 'hotel_restaurant')) {
+        FX.ripple(g, im(), [0, 256, 156, 70], t * 0.6, 1, 0.22);
+        foam(g, t, [[[0, 262], [60, 262], [155, 268]]], { per: 9, reach: 3, a: 0.3, w: 1.2 });
+      }
       // the fans turning, steam off the chafing dishes, the sconces and the lamp
       ceilFan(g, t, 588, 80, 100, 14, 0.9, 0.1); ceilFan(g, t, 797, 120, 70, 10, 0.8, 0.09);
       [[720, 268], [812, 264], [885, 264], [962, 268]].forEach(([x, y], i) => FX.wisps(g, t + i * 1.3, x, y, { n: 4, rise: 40, spread: 6, a: 0.08, size: 7, speed: 0.25 }));
