@@ -107,6 +107,60 @@
   "y": 573,
   "z": 0
  },
+ "cast_museum_hall_dinner_baute": {
+  "cast": "Baute",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 799,
+  "y": 587,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_derek": {
+  "cast": "Derek",
+  "flip": true,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 355,
+  "y": 646,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_gail": {
+  "cast": "Gail",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 998,
+  "y": 630,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_guard": {
+  "cast": "Guard",
+  "flip": true,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 508,
+  "y": 541,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_montesdeoca": {
+  "cast": "Montesdeoca",
+  "flip": true,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 904,
+  "y": 586,
+  "z": 0
+ },
+ "cast_museum_hall_dinner_vasco": {
+  "cast": "Vasco",
+  "flip": true,
+  "room": "museum_hall_dinner",
+  "size": 1,
+  "x": 1242,
+  "y": 641,
+  "z": 0
+ },
  "cast_museum_hall_montesdeoca": {
   "cast": "Montesdeoca",
   "flip": true,
@@ -142,56 +196,6 @@
   "x": 924,
   "y": 657,
   "z": 0
- },
- "dinner_pmvtzsme660we": {
-  "extra": "museum_guest_pearls",
-  "flip": true,
-  "room": "museum_hall_dinner",
-  "rot": 0,
-  "size": 1.03,
-  "x": 1220,
-  "y": 674,
-  "z": 120
- },
- "dinner_start_museum_cocktail_pair": {
-  "extra": "museum_cocktail_pair",
-  "flip": false,
-  "room": "museum_hall_dinner",
-  "rot": 0,
-  "size": 1,
-  "x": 393,
-  "y": 604,
-  "z": 0
- },
- "dinner_start_museum_guest_academic": {
-  "extra": "museum_guest_academic",
-  "flip": false,
-  "room": "museum_hall_dinner",
-  "rot": 0,
-  "size": 1,
-  "x": 1090,
-  "y": 664,
-  "z": 0
- },
- "dinner_start_museum_guest_linen": {
-  "extra": "museum_guest_linen",
-  "flip": false,
-  "room": "museum_hall_dinner",
-  "rot": 0,
-  "size": 1,
-  "x": 693,
-  "y": 556,
-  "z": 0
- },
- "dinner_start_museum_waiter_tray": {
-  "extra": "museum_waiter_tray",
-  "flip": false,
-  "room": "museum_hall_dinner",
-  "rot": 0,
-  "size": 1,
-  "x": 198,
-  "y": 576,
-  "z": -80
  },
  "pmvtzsme660we": {
   "extra": "museum_guest_pearls",
@@ -231,6 +235,66 @@
   "size": 1,
   "x": 380,
   "y": 534,
+  "z": 0
+ },
+ "pmvud8o73cubg": {
+  "extra": "museum_cocktail_table_glasses",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 850,
+  "y": 621,
+  "z": 0
+ },
+ "pmvud9qd9fxbq": {
+  "extra": "museum_guest_pearls",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 1068,
+  "y": 619,
+  "z": 0
+ },
+ "pmvud9y2gh4c6": {
+  "extra": "museum_guest_linen",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 1158,
+  "y": 613,
+  "z": -40
+ },
+ "pmvudar83hl1u": {
+  "extra": "museum_cocktail_table",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 1118,
+  "y": 645,
+  "z": 0
+ },
+ "pmvudd933cayc": {
+  "extra": "museum_waiter_tray",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 206,
+  "y": 584,
+  "z": 0
+ },
+ "pmvudg0npak60": {
+  "extra": "museum_buffet",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 0.77,
+  "x": 362,
+  "y": 623,
   "z": 0
  },
  "rest_gail_derek": {

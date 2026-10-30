@@ -825,3 +825,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     lobby by day, the museum guests only at the parties, no Tuesday clock, Carmen's cigarettes, the Mercado's people;
     not yet the dinner's own layout, entry 79, which waits for the user's placement); play.mjs on the export: won in 111
     steps. Netlify deploy 6ae404d80321e95fc58e9503; /.env 404, the videos and the lobby's day painting served.
+81. **The dinner, as the user placed it** (2026-10-30). The user: "dinner placement done". The tool's museum_hall_dinner
+    tab (the user removed the seeded copies): the buffet (size 0.77) at the front left, the cocktail table with glasses
+    and the empty one on the right, the waiter, linen and pearls guests; the cast moved (Derek by the buffet, Baute and
+    Montesdeoca at the glasses table, Gail and Vasco on the right, the guard at the corridor). Installed with
+    extras_install.py (S.EXTRAS / S.CAST_AT museum_hall_dinner). The "Dinner table" hotspot (the knife) moved onto the
+    buffet ([160, 455, 440, 150], walk-to 400,690; smaller than the display cases behind it, so it wins the click).
+    Checked in the game: Tuesday unchanged, Thursday as placed (art/review/museum_dinner.png), hover over the buffet
+    names the Dinner table.

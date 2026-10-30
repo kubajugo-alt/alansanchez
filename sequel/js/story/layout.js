@@ -41,7 +41,9 @@
       walk: [[0, 580], [170, 562], [600, 522], [1280, 532], [1280, 716], [0, 716]], scale: [520, 260, 716, 360],
       entries: { default: [140, 650, 'e'], map: [140, 650, 'e'], archive: [920, 560, 'w'], baute_office: [520, 560, 's'], museum_courtyard: [1120, 600, 'w'] },
       spots: { 'Display cases': [170, 250, 220, 310], 'Corridor to the offices': [440, 300, 150, 210], 'Archive stairs': [840, 260, 160, 255],
-        'Door to the steps': [1050, 230, 205, 300], 'Montesdeoca\'s van': [1050, 230, 205, 300], 'Out to Vegueta': [0, 120, 130, 440], 'Dinner table': [640, 290, 185, 230] },
+        'Door to the steps': [1050, 230, 205, 300], 'Montesdeoca\'s van': [1050, 230, 205, 300], 'Out to Vegueta': [0, 120, 130, 440],
+        'Dinner table': [160, 455, 440, 150] },   // (Thursday: the buffet the user placed, 2026-10-30; the knife is taken from it; smaller than the cases behind, so it wins)
+      at: { 'Dinner table': [400, 690] },
       npcs: { baute: [560, 600], vasco: [780, 590], montesdeoca: [320, 640], guard: [515, 545], gail: [940, 620], derek: [1030, 630] },
     },
     vault: {

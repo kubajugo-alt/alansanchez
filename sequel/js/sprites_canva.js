@@ -795,6 +795,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 230
 },
+"x_museum_buffet": {
+"ax": 903.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 1806
+},
 "x_museum_cocktail_pair": {
 "ax": 301.5,
 "fy": 740.0,
@@ -802,6 +810,22 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 603
+},
+"x_museum_cocktail_table": {
+"ax": 261.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 522
+},
+"x_museum_cocktail_table_glasses": {
+"ax": 226.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 453
 },
 "x_museum_guest_academic": {
 "ax": 256.5,

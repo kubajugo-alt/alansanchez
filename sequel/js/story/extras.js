@@ -241,67 +241,77 @@ window.S.EXTRAS = {
  ],
  "museum_hall_dinner": [
   {
-   "id": "x_museum_waiter_tray_2",
-   "frames": [
-    "x_museum_waiter_tray"
-   ],
-   "x": 198,
-   "y": 576,
-   "dir": "e",
-   "scale": 1.0,
-   "size": 1,
-   "h": 288.6,
-   "z": -80
-  },
-  {
    "id": "x_museum_guest_linen_2",
    "frames": [
     "x_museum_guest_linen"
    ],
-   "x": 693,
-   "y": 556,
+   "x": 1158,
+   "y": 613,
    "dir": "e",
    "scale": 1.0,
    "size": 1,
-   "h": 278.4
+   "h": 307.4,
+   "z": -40
   },
   {
-   "id": "x_museum_cocktail_pair_2",
+   "id": "x_museum_waiter_tray_2",
    "frames": [
-    "x_museum_cocktail_pair"
+    "x_museum_waiter_tray"
    ],
-   "x": 393,
-   "y": 604,
+   "x": 206,
+   "y": 584,
    "dir": "e",
    "scale": 1.0,
    "size": 1,
-   "h": 302.9
-  },
-  {
-   "id": "x_museum_guest_academic_2",
-   "frames": [
-    "x_museum_guest_academic"
-   ],
-   "x": 1090,
-   "y": 664,
-   "dir": "e",
-   "scale": 1.0,
-   "size": 1,
-   "h": 333.5
+   "h": 292.7
   },
   {
    "id": "x_museum_guest_pearls_2",
    "frames": [
     "x_museum_guest_pearls"
    ],
-   "x": 1220,
-   "y": 674,
-   "dir": "w",
+   "x": 1068,
+   "y": 619,
+   "dir": "e",
    "scale": 0.96,
-   "size": 1.03,
-   "h": 338.6,
-   "flip": true,
-   "z": 120
+   "size": 1,
+   "h": 310.5
+  },
+  {
+   "id": "x_museum_cocktail_table_glasses",
+   "frames": [
+    "x_museum_cocktail_table_glasses"
+   ],
+   "x": 850,
+   "y": 621,
+   "dir": "e",
+   "scale": 0.771,
+   "size": 1,
+   "h": 311.5
+  },
+  {
+   "id": "x_museum_buffet",
+   "frames": [
+    "x_museum_buffet"
+   ],
+   "x": 362,
+   "y": 623,
+   "dir": "e",
+   "scale": 0.809,
+   "size": 0.77,
+   "h": 312.6
+  },
+  {
+   "id": "x_museum_cocktail_table",
+   "frames": [
+    "x_museum_cocktail_table"
+   ],
+   "x": 1118,
+   "y": 645,
+   "dir": "e",
+   "scale": 0.66,
+   "size": 1,
+   "h": 323.8
   }
  ],
  "santa_ana": [
@@ -482,6 +492,38 @@ window.S.CAST_AT = {
   "montesdeoca": [
    893,
    689,
+   "w"
+  ]
+ },
+ "museum_hall_dinner": {
+  "guard": [
+   508,
+   541,
+   "e"
+  ],
+  "montesdeoca": [
+   904,
+   586,
+   "w"
+  ],
+  "baute": [
+   799,
+   587,
+   "e"
+  ],
+  "gail": [
+   998,
+   630,
+   "e"
+  ],
+  "vasco": [
+   1242,
+   641,
+   "w"
+  ],
+  "derek": [
+   355,
+   646,
    "w"
   ]
  },
