@@ -1,0 +1,102 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Cave 6 redesign mock</title>
+<style>body { margin: 0; background: #111; } canvas { display: block; margin: 0 0 8px; }</style>
+<body>
+<canvas id="a" width="1280" height="720"></canvas>
+<canvas id="b" width="1280" height="720"></canvas>
+<canvas id="c" width="1280" height="720"></canvas>
+<script>
+// Cave 6, laid out by code before any painting (the user, 2026-10-30: "There is one small opening in the ceiling. The
+// beam of light goes through it directly into the hole in the floor. And there, at this hole (which will need a close
+// up), there are 7 discs that reflect the light... 6 discs direct the light through a path on the smaller triangles.
+// The 7th is reached by the light last, and it lands on the big triangle").
+// Two views: A the cave (the dome, the small opening, the beam into the hole, the great triangle); B/C the hole, close.
+const CLEAN = location.search.includes('clean');
+function label(g, x, y, t, o = {}) { if (CLEAN) return; g.save(); g.font = (o.big ? '700 22px' : '600 15px') + ' sans-serif'; const w = g.measureText(t).width + 14;
+  g.fillStyle = 'rgba(0,0,0,0.75)'; g.fillRect(x - w / 2, y - 13, w, 24); g.fillStyle = o.fg || '#ffe9b0'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(t, x, y); g.restore(); }
+function title(g, t, s) { if (CLEAN) return; g.save(); g.fillStyle = 'rgba(0,0,0,0.8)'; g.fillRect(0, 0, 1280, 60); g.fillStyle = '#fff'; g.font = '700 22px sans-serif'; g.fillText(t, 16, 26);
+  g.fillStyle = '#d8c9a8'; g.font = '15px sans-serif'; g.fillText(s, 16, 48); g.restore(); }
+function poly(g, P, fill, stroke, lw) { g.save(); g.beginPath(); P.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath();
+  if (fill) { g.fillStyle = fill; g.fill(); } if (stroke) { g.strokeStyle = stroke; g.lineWidth = lw || 3; g.stroke(); } g.restore(); }
+function tri(g, x, y, s, fill, lit) { poly(g, [[x - s, y - s * 0.8], [x + s, y - s * 0.8], [x, y + s * 0.9]], lit ? 'rgba(255,214,120,0.95)' : fill, 'rgba(40,24,10,0.6)', 2);
+  if (lit) { const gr = g.createRadialGradient(x, y, 2, x, y, s * 2.4); gr.addColorStop(0, 'rgba(255,220,140,0.6)'); gr.addColorStop(1, 'rgba(255,220,140,0)'); g.fillStyle = gr; g.fillRect(x - s * 3, y - s * 3, s * 6, s * 6); } }
+function beam(g, pts, w) { g.save(); g.strokeStyle = 'rgba(255,226,140,0.85)'; g.lineWidth = w || 10; g.lineCap = 'round'; g.shadowColor = 'rgba(255,220,130,0.9)'; g.shadowBlur = 18;
+  g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); g.restore(); }
+function disc(g, x, y, r, set, n) { g.save(); const gr = g.createRadialGradient(x - r * 0.3, y - r * 0.3, 1, x, y, r); gr.addColorStop(0, set ? 'rgba(170,180,190,1)' : 'rgba(60,40,22,1)');
+  gr.addColorStop(0.4, set ? 'rgba(20,20,26,1)' : 'rgba(80,56,30,1)'); gr.addColorStop(1, set ? 'rgba(4,4,6,1)' : 'rgba(120,84,44,1)'); g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+  g.strokeStyle = 'rgba(30,18,8,0.9)'; g.lineWidth = 3; g.stroke(); g.restore(); if (n) label(g, x, y - r - 14, n, { fg: '#cfe2ff' }); }
+
+// ------------------------------------------------------------ A: the cave
+function cave(g) {
+  g.fillStyle = '#7a5530'; g.fillRect(0, 0, 1280, 720);
+  // the dome: banded tuff, closing in to a small opening up and to the right
+  for (let i = 0; i < 9; i++) { g.fillStyle = i % 2 ? '#8e6538' : '#a87a46'; g.beginPath(); g.ellipse(640, -140 + i * 28, 1000 - i * 60, 520 - i * 40, 0, 0, Math.PI); g.fill(); }
+  // the back wall, the bench, the floor
+  poly(g, [[0, 260], [1280, 260], [1280, 470], [0, 470]], '#9a6f3e');
+  poly(g, [[180, 470], [1100, 470], [1140, 500], [140, 500]], '#7e5a32');
+  poly(g, [[0, 500], [1280, 500], [1280, 720], [0, 720]], '#b48a52');
+  // the arch out to the sea of cloud (left), as now
+  poly(g, [[40, 500], [40, 200], [120, 140], [210, 200], [210, 500]], '#cfe0ee'); poly(g, [[40, 380], [210, 380], [210, 500], [40, 500]], '#f2f2f2');
+  // the great triangle on the back wall; the rows of small ones either side
+  poly(g, [[540, 215], [820, 215], [680, 450]], '#7e5a32', 'rgba(40,24,10,0.7)', 3);
+  for (let i = 0; i < 4; i++) tri(g, 300 + i * 62, 360, 20, '#7e5a32');
+  for (let i = 0; i < 7; i++) tri(g, 820 + i * 66, 360, 20, '#7e5a32');
+  // the small opening: one, small, in the dome to the upper right (a channel slanting through the rock to the cliff face)
+  poly(g, [[930, 70], [968, 64], [972, 92], [934, 98]], '#e8f0ff', '#3a2610', 3);
+  label(g, 1060, 70, 'one small opening (a slanting channel through the rock, to the east)');
+  // the hole in the floor, and the beam: straight in from the opening to the hole at the turning sunrise
+  g.save(); g.fillStyle = '#1a1008'; g.beginPath(); g.ellipse(640, 600, 170, 46, 0, 0, 7); g.fill(); g.strokeStyle = '#5a3c1e'; g.lineWidth = 8; g.stroke(); g.restore();
+  beam(g, [[950, 82], [660, 596]], 14);
+  label(g, 640, 680, 'the hole in the floor: steps down to the lower chamber, where the discs are');
+  label(g, 830, 330, 'San Juan sunrise: the beam goes straight into the hole', { fg: '#ffe0a0' });
+  // the last of the seven throws it up out of the hole onto the great triangle
+  beam(g, [[700, 590], [680, 340]], 7);
+  tri(g, 680, 330, 26, '#7e5a32', true);
+  label(g, 560, 300, 'the 7th disc throws it onto the great triangle', { fg: '#ffe0a0' });
+  label(g, 125, 120, 'the way out (as now)', { fg: '#c9f5c9' });
+  title(g, 'A · CAVE 6 · the room', 'One small opening. No ring of sockets in the roof, no ladder. The discs are in the chamber below the hole.');
+}
+
+// ------------------------------------------------------------ B/C: the lower chamber (the user: "it would probably need an
+// extra room - the lower part of the cave, where the disks are"): a low round room under the cave floor, reached down rock
+// steps through the hole; the seven sockets round its walls at arm's height, each by a small triangle; its floor is the door
+const S = [[250, 430], [400, 470], [560, 490], [720, 490], [880, 470], [1030, 430], [700, 250]];   // I-VI round the wall; VII high, under the hole
+function lower(g, phase) {
+  g.fillStyle = '#5a3e22'; g.fillRect(0, 0, 1280, 720);
+  // the low curved back wall and the ceiling, with the hole up in it (the light comes down through it from the cave above)
+  for (let i = 0; i < 5; i++) { g.fillStyle = i % 2 ? '#6e4c2a' : '#7c5630'; g.beginPath(); g.ellipse(640, 560, 760 - i * 30, 420 - i * 30, 0, Math.PI, 0); g.fill(); }
+  poly(g, [[0, 0], [1280, 0], [1280, 140], [0, 140]], '#4a3219');
+  g.save(); g.fillStyle = '#f4e2b0'; g.beginPath(); g.ellipse(700, 120, 120, 34, 0, 0, 7); g.fill(); g.strokeStyle = '#2a1a0c'; g.lineWidth = 6; g.stroke(); g.restore();
+  label(g, 700, 72, 'the hole up into the cave (the beam comes down through it)');
+  // the rock steps up to the hole, on the right (no ladder)
+  for (let i = 0; i < 6; i++) poly(g, [[1060 + i * 26, 620 - i * 70], [1280, 620 - i * 70], [1280, 650 - i * 70], [1060 + i * 26, 650 - i * 70]], '#8e6538', 'rgba(40,24,10,0.5)', 2);
+  label(g, 1170, 660, 'steps cut in the rock, up to the hole', { fg: '#c9f5c9' });
+  // the floor, and the door in it
+  poly(g, [[0, 560], [1280, 560], [1280, 720], [0, 720]], '#6a4a28');
+  g.save(); g.fillStyle = '#120a05'; g.beginPath(); g.ellipse(620, 640, 220, 50, 0, 0, 7); g.fill(); g.strokeStyle = '#3a2410'; g.lineWidth = 6; g.stroke(); g.restore();
+  label(g, 620, 690, 'the floor of the lower chamber: the door (the water comes up here)', { fg: '#cfe2ff' });
+  // the small triangles, one above each socket (I-VI); VII high on the wall under the hole
+  const names = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+  S.forEach(([x, y], i) => { if (i < 6) tri(g, x, y - 70, 18, '#5e4024', phase === 'lit'); });
+  S.forEach(([x, y], i) => disc(g, x, y, i === 6 ? 30 : 24, phase === 'sat' ? i >= 5 : true, names[i]));
+  if (phase === 'sat') {
+    beam(g, [[700, 130], [620, 640]], 10);
+    label(g, 900, 200, 'Saturday: five discs gone; the light falls straight onto the door', { fg: '#ffe0a0' });
+    label(g, 300, 360, 'Vasco down here with chalk, charts, clinometer', { fg: '#c9f5c9' });
+  } else {
+    beam(g, [[700, 130], S[0], S[1], S[2], S[3], S[4], S[5], S[6], [700, 130]], 8);
+    label(g, 640, 330, 'down through the hole to I; I → II → III → IV → V → VI, a small triangle lit at each', { fg: '#ffe0a0' });
+    label(g, 900, 250, 'VII, last: back up through the hole onto the great triangle', { fg: '#ffe0a0' });
+    g.save(); g.fillStyle = 'rgba(20,40,46,0.72)'; g.fillRect(0, 520, 1050, 200); g.restore();
+    label(g, 520, 560, 'Monday: Alan down here; the water rises from the door; every socket in arm\'s reach', { fg: '#bfe6ff' });
+    label(g, 700, 30, 'Vasco kneeling at the hole above, calling the sockets', { fg: '#c9f5c9' });
+  }
+  title(g, phase === 'sat' ? 'B · THE LOWER CHAMBER · Saturday (Vasco)' : 'C · THE LOWER CHAMBER · Monday (Alan)',
+    'A room of its own under the cave floor, down rock steps through the hole: the seven discs round its walls, its floor the door.');
+}
+cave(document.getElementById('a').getContext('2d'));
+lower(document.getElementById('b').getContext('2d'), 'sat');
+lower(document.getElementById('c').getContext('2d'), 'lit');
+document.title = 'ready';
+</script>
