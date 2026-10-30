@@ -11,9 +11,9 @@
     // (Tuesday's plants two things early: Montesdeoca's south-coast plans and the weather; the user, 2026-10-29)
     1: ['Montesdeoca anuncia un nuevo hotel en el sur', 'Ignacio Montesdeoca, owner of the Hotel Cristina, presents plans for a 600-room resort at Meloneras, "with a waterfall". Also: Las Palmas turns 518; bonfire permits for San Juan. The weather: panza de burro until further notice.'],
     2: ['El Museo Canario recibe a sus mecenas', 'The Risco Caído expedition welcomes "a specialist from Lisbon". Hotelier Ignacio Montesdeoca promises new display cases.'],
-    3: ['Muere ahogado en su cama un pescador de La Isleta', 'José "Pepe" Santana, 61, one of four survivors of the trawler Virgen del Pino (1971), found drowned in his bed. His floor was dry. Police speak of "a medical cause".'],
+    3: ['Un mes sin respuestas', 'A month after José "Pepe" Santana, 72, a La Isleta fisherman and one of seven survivors of the trawler Virgen del Pino (1971), was found drowned in his bed, his floor dry, his son asks why the police closed the file in a day.'],
     4: ['Mareas a deshoras en Las Canteras', 'The harbour master cannot explain tides arriving at the wrong hours. Surfers report "waves coming in backwards".'],
-    5: ['Ex-socorrista hallado muerto en su domicilio', 'Agustín Ramos, 71, forty years a lifeguard at Las Canteras, found dead in his armchair at home in Guanarteme. Natural causes, say the police.'],
+    5: ['Seis muertes por ahogamiento lejos del agua', 'Six people found drowned far from any water since December, one a month: in the barranco below Artenara, in Agaete, Arguineguín, Gáldar, Telde and La Isleta. The police "see no relation".'],
     6: ['Niebla y agua en La Isleta', 'Black fog and flooding in La Isleta on Saturday evening, with no rain and no wind. A fisherwoman, 74, "saved by her husband, who was mending nets".'],
     7: ['¡Feliz cumpleaños, Las Palmas!', 'Fireworks tonight over Las Canteras for the city\'s 518th birthday.'],
   };
@@ -22,7 +22,6 @@
     await G.closeup([page(`<p style="font-family:'IM Fell English',serif;text-align:center;font-size:1.3em">LA PROVINCIA</p><h3>${p[0]}</h3><p>${p[1]}</p>`, 'doc-news')]);
     await say(F().ch === 3 ? 'alan_read_paper_pepe' : F().ch === 5 ? 'alan_read_paper_agustin' : (F().paper_day || F().ch) === 1 ? 'alan_read_paper_tue' : 'alan_read_paper');
     if (F().ch === 3) F().pepe_known = true;
-    if (F().ch === 5) F().agustin_known = true;
   };
 
   // Tuesday's postcard to Inês (bought and posted at Chano's kiosk, js/story/tue.js): written from the inventory
@@ -82,9 +81,10 @@
 
   // ---------------------------------------------------------------- La Isleta
   S.readPinoList = async function () {
-    const struck = n => (F().ch >= 3 && n === 1) || (F().ch >= 5 && n === 2);
-    const names = ['José Santana', 'Agustín Ramos', 'Pino Medina', 'Antonio Cabrera', 'Manuel Déniz'];
-    await G.closeup([page(`<h3>Los que el mar devolvió</h3>${names.map((nm, i) => `<p>${struck(i + 1) ? `<s>${nm}</s>` : nm}</p>`).join('')}<p style="opacity:0.7">(The four from the <i>Virgen del Pino</i>, 1971, and Agustín, who was not on the boat: "the sea had him first, in '58, and an old man in a rowing boat took him back".)</p><p style="opacity:0.7">(In pencil, by the names: Antonio, <i>Caracas</i>. Manuel, <i>Tamaraceite, arriba: never liked the sea anyway</i>. Pino, <i>aquí</i>.)</p>${F().alan_on_list ? '<p style="font-family:\'Homemade Apple\',cursive">Alan Sanches</p>' : ''}`)]);
+    // the seven the fishing boat pulled out of the water in 1971: five crossed out, one a month since Christmas
+    const struck = n => n <= 5;
+    const names = ['Juan Afonso', 'Tomás Rivero', 'Andrés Ojeda', 'Domingo Hernández', 'José Santana', 'Pino Medina', 'Antonio Cabrera'];
+    await G.closeup([page(`<h3>Los que el mar devolvió</h3>${names.map((nm, i) => `<p>${struck(i + 1) ? `<s>${nm}</s>` : nm}</p>`).join('')}<p style="opacity:0.7">(The seven from the <i>Virgen del Pino</i>, 1971.)</p><p style="opacity:0.7">(In pencil, by the crossed-out names: <i>enero, Agaete · febrero, Arguineguín · marzo, Gáldar · abril, Telde · mayo, aquí</i>. By Antonio: <i>Caracas</i>. By Pino: <i>junio</i>.)</p>${F().alan_on_list ? '<p style="font-family:\'Homemade Apple\',cursive">Alan Sanches</p>' : ''}`)]);
     F().pino_list = true;
   };
 

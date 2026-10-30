@@ -4,7 +4,7 @@
 // ("go home before Sunday"); back on the wall at dusk, the mist comes up the steps and Alan walks inland into Vegueta;
 // the bar with no name: Rafa, the rum, the napkin; three tries to leave (eleven, midnight and the telephone, two
 // o'clock); Yeray talking at the end of the bar to a man too busy to hear; "Is there someone?" "No." The studio and
-// Santa Ana's bells at three; and, across the city, Agustín Ramos.
+// Santa Ana's bells at three.
 // Room first seen today: Rafa's bar.
 (function () {
   const S = window.S, { G, F, say, ROOMS, T } = S;
@@ -272,20 +272,7 @@
     if (!S.discreet()) await S.paint('still_rafa_night', night, { zoom: [1.0, 1.1] });
     else { await G.fade(true); await night(); }
     G.endStill();
-    await S.agustin();
     await S.startSat();
   };
 
-  // ---------------------------------------------------------------- Agustín Ramos (a cutscene, on black)
-  // The lifeguard pulled out of a rip in 1958, asleep in his armchair in Guanarteme at three in the morning.
-  S.agustin = async function () {
-    await G.fade(true);
-    await T(600);
-    await say('narr_agustin_1', 'narr_agustin_2', 'narr_agustin_3', 'narr_agustin_4');
-    S.sfx('salt_fizz', 0.35); await T(600);
-    await say('narr_agustin_5');
-    S.sfx('water_rise', 0.4);
-    await say('narr_agustin_6', 'narr_agustin_7');
-    await T(1200);
-  };
 })();

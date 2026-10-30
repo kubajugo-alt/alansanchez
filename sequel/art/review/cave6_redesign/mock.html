@@ -1,0 +1,109 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Cave 6 redesign mock</title>
+<style>body { margin: 0; background: #111; } canvas { display: block; margin: 0 0 8px; }</style>
+<body>
+<canvas id="a" width="1280" height="720"></canvas>
+<canvas id="b" width="1280" height="720"></canvas>
+<canvas id="c" width="1280" height="720"></canvas>
+<script>
+// Cave 6, laid out by code before any painting (the user, 2026-10-30: "There is one small opening in the ceiling. The
+// beam of light goes through it directly into the hole in the floor. And there, at this hole (which will need a close
+// up), there are 7 discs that reflect the light... 6 discs direct the light through a path on the smaller triangles.
+// The 7th is reached by the light last, and it lands on the big triangle").
+// Two views: A the cave (the dome, the small opening, the beam into the hole, the great triangle); B/C the hole, close.
+const CLEAN = location.search.includes('clean');
+function label(g, x, y, t, o = {}) { if (CLEAN) return; g.save(); g.font = (o.big ? '700 22px' : '600 15px') + ' sans-serif'; const w = g.measureText(t).width + 14;
+  g.fillStyle = 'rgba(0,0,0,0.75)'; g.fillRect(x - w / 2, y - 13, w, 24); g.fillStyle = o.fg || '#ffe9b0'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(t, x, y); g.restore(); }
+function title(g, t, s) { if (CLEAN) return; g.save(); g.fillStyle = 'rgba(0,0,0,0.8)'; g.fillRect(0, 0, 1280, 60); g.fillStyle = '#fff'; g.font = '700 22px sans-serif'; g.fillText(t, 16, 26);
+  g.fillStyle = '#d8c9a8'; g.font = '15px sans-serif'; g.fillText(s, 16, 48); g.restore(); }
+function poly(g, P, fill, stroke, lw) { g.save(); g.beginPath(); P.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath();
+  if (fill) { g.fillStyle = fill; g.fill(); } if (stroke) { g.strokeStyle = stroke; g.lineWidth = lw || 3; g.stroke(); } g.restore(); }
+function tri(g, x, y, s, fill, lit) { poly(g, [[x - s, y - s * 0.8], [x + s, y - s * 0.8], [x, y + s * 0.9]], lit ? 'rgba(255,214,120,0.95)' : fill, 'rgba(40,24,10,0.6)', 2);
+  if (lit) { const gr = g.createRadialGradient(x, y, 2, x, y, s * 2.4); gr.addColorStop(0, 'rgba(255,220,140,0.6)'); gr.addColorStop(1, 'rgba(255,220,140,0)'); g.fillStyle = gr; g.fillRect(x - s * 3, y - s * 3, s * 6, s * 6); } }
+function beam(g, pts, w) { g.save(); g.strokeStyle = 'rgba(255,226,140,0.85)'; g.lineWidth = w || 10; g.lineCap = 'round'; g.shadowColor = 'rgba(255,220,130,0.9)'; g.shadowBlur = 18;
+  g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); g.restore(); }
+function disc(g, x, y, r, set, n) { g.save(); const gr = g.createRadialGradient(x - r * 0.3, y - r * 0.3, 1, x, y, r); gr.addColorStop(0, set ? 'rgba(170,180,190,1)' : 'rgba(60,40,22,1)');
+  gr.addColorStop(0.4, set ? 'rgba(20,20,26,1)' : 'rgba(80,56,30,1)'); gr.addColorStop(1, set ? 'rgba(4,4,6,1)' : 'rgba(120,84,44,1)'); g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+  g.strokeStyle = 'rgba(30,18,8,0.9)'; g.lineWidth = 3; g.stroke(); g.restore(); if (n) label(g, x, y - r - 14, n, { fg: '#cfe2ff' }); }
+
+// (the user, 2026-10-30, with a drawn section: "since the light travels in straight lines, this is how the layout should
+// look like"): the opening in the ceiling straight above the opening in the floor; the light fans from it down through
+// the floor opening onto seven discs in a row at the bottom of the lower level; each disc throws it back up, crossing,
+// onto its own triangle on the upper level's back wall (three small, the great one in the middle, three small); a short
+// ladder down at the left edge of the floor opening; Vasco, Carmen, Baute and Yeray on the upper level, Alan below.
+const TRIS = [[292, 260, 70], [455, 260, 70], [617, 260, 70], [940, 260, 160], [1263, 260, 70], [1425, 260, 70], [1587, 260, 70]];
+const DISCS = [710, 787, 864, 941, 1017, 1094, 1171].map(x => [x, 942]);
+const SRC = [940, 50];
+// which disc lights which triangle: the reflections cross (left discs to right triangles and back), the middle one to the great
+const MAP = [6, 2, 1, 3, 5, 4, 0];
+function section(g) {
+  const k = 1280 / 1920; g.save(); g.scale(k, k);
+  g.fillStyle = '#fff'; g.fillRect(0, 0, 1920, 1080);
+  g.fillStyle = '#c9d1da'; g.beginPath(); g.arc(940, 5, 50, 0, 7); g.fill();
+  TRIS.forEach(([x, y, w]) => { g.beginPath(); g.moveTo(x - w, y - 27); g.lineTo(x + w, y - 27); g.lineTo(x, y + (w > 100 ? 255 : 95)); g.closePath(); g.fill(); });
+  g.strokeStyle = '#111'; g.lineWidth = 5; g.beginPath(); g.moveTo(10, 600); g.lineTo(617, 600); g.moveTo(1300, 600); g.lineTo(1920, 600); g.stroke();
+  for (let y = 615; y < 1050; y += 92) { g.fillStyle = '#111'; g.fillRect(592, y, 22, 64); }
+  DISCS.forEach(([x, y]) => { g.fillStyle = '#c9d1da'; g.beginPath(); g.arc(x, y, 38, 0, 7); g.fill(); });
+  g.strokeStyle = '#f2c94c'; g.lineWidth = 4; g.setLineDash([6, 6]);
+  DISCS.forEach(([x, y], i) => { g.beginPath(); g.moveTo(SRC[0], SRC[1]); g.lineTo(x, y - 38); g.stroke();
+    const t = TRIS[MAP[i]]; g.beginPath(); g.moveTo(x, y - 38); g.lineTo(t[0], t[1] + (t[2] > 100 ? 120 : 40)); g.stroke(); });
+  g.setLineDash([]);
+  const man = (x, y, s) => { g.fillStyle = '#111'; g.beginPath(); g.arc(x, y - 200 * s, 18 * s, 0, 7); g.fill(); g.fillRect(x - 22 * s, y - 180 * s, 44 * s, 90 * s); g.fillRect(x - 18 * s, y - 92 * s, 14 * s, 92 * s); g.fillRect(x + 4 * s, y - 92 * s, 14 * s, 92 * s); };
+  [190, 313, 433, 553].forEach(x => man(x, 600, 1)); man(1336, 1045, 1);
+  g.fillStyle = '#111'; g.font = '24px sans-serif';
+  g.fillText('Beam entry in the ceiling', 618, 66); g.fillText('Triangles', 60, 300); g.fillText('Opening in the floor', 840, 622);
+  g.fillText('Upper level of the cave', 1642, 562); g.fillText('Lower level of the cave', 1642, 651); g.fillText('Ladder', 504, 830);
+  g.fillText('Disks', 912, 1040); g.fillText('Alan', 1443, 942);
+  ['Vasco', 'Carmen', 'Baute', 'Yeray'].forEach((n, i) => g.fillText(n, 46, 462 + i * 33));
+  g.restore();
+  title(g, 'A · THE SECTION (the user\'s drawing, redrawn)', 'Light in straight lines: down through the floor opening to each disc, back up, crossing, to its own triangle.');
+}
+// ------------------------------------------------------------ B: the upper level, as the game shows it
+function upper(g) {
+  g.fillStyle = '#7a5530'; g.fillRect(0, 0, 1280, 720);
+  for (let i = 0; i < 6; i++) { g.fillStyle = i % 2 ? '#8e6538' : '#a87a46'; g.beginPath(); g.ellipse(640, -160 + i * 26, 900 - i * 60, 300 - i * 30, 0, 0, Math.PI); g.fill(); }
+  poly(g, [[0, 150], [1280, 150], [1280, 480], [0, 480]], '#9a6f3e');
+  poly(g, [[0, 480], [1280, 480], [1280, 720], [0, 720]], '#b48a52');
+  poly(g, [[30, 480], [30, 230], [100, 170], [170, 230], [170, 480]], '#cfe0ee');
+  // the small opening in the ceiling, straight above the floor opening
+  g.save(); g.fillStyle = '#eef4ff'; g.beginPath(); g.ellipse(640, 40, 34, 12, 0, 0, 7); g.fill(); g.restore();
+  label(g, 780, 40, 'one small opening in the ceiling');
+  // the back wall: three small triangles, the great one in the middle, three small
+  const T = [[230, 250], [330, 250], [430, 250], [640, 250], [850, 250], [950, 250], [1050, 250]];
+  T.forEach(([x, y], i) => i === 3 ? poly(g, [[x - 120, y - 70], [x + 120, y - 70], [x, y + 170]], 'rgba(255,214,120,0.9)', 'rgba(40,24,10,0.6)', 3) : tri(g, x, y, 34, '#7e5a32', true));
+  // the opening in the floor, the ladder down at its left edge
+  g.save(); g.fillStyle = '#140c06'; g.beginPath(); g.ellipse(640, 600, 260, 70, 0, 0, 7); g.fill(); g.strokeStyle = '#5a3c1e'; g.lineWidth = 8; g.stroke(); g.restore();
+  poly(g, [[408, 560], [420, 560], [420, 640], [408, 640]], '#3a2410'); poly(g, [[450, 560], [462, 560], [462, 640], [450, 640]], '#3a2410');
+  for (let y = 570; y < 640; y += 16) poly(g, [[408, y], [462, y], [462, y + 5], [408, y + 5]], '#3a2410');
+  label(g, 435, 670, 'ladder down', { fg: '#c9f5c9' });
+  beam(g, [[640, 46], [640, 590]], 10);
+  [-200, -120, -40, 40, 120, 200].forEach((dx, i) => beam(g, [[640 + dx * 0.6, 600], T[[0, 1, 2, 4, 5, 6][i]]], 3));
+  beam(g, [[640, 600], [640, 330]], 6);
+  label(g, 640, 690, 'the opening in the floor: the discs are at the bottom, in the lower level');
+  title(g, 'B · THE UPPER LEVEL (the room the game shows)', 'The ceiling opening above the floor opening; the triangles on the back wall; the ladder down at the left edge.');
+}
+// ------------------------------------------------------------ C: the lower level
+function lowerLevel(g) {
+  g.fillStyle = '#4e3620'; g.fillRect(0, 0, 1280, 720);
+  poly(g, [[0, 0], [1280, 0], [1280, 170], [0, 170]], '#3a2814');
+  g.save(); g.fillStyle = '#f4e2b0'; g.beginPath(); g.ellipse(640, 140, 300, 50, 0, 0, 7); g.fill(); g.restore();
+  label(g, 640, 60, 'the opening up to the upper level: the light comes down, the reflections go back up');
+  poly(g, [[0, 170], [1280, 170], [1280, 520], [0, 520]], '#6e4c2a');
+  poly(g, [[0, 520], [1280, 520], [1280, 720], [0, 720]], '#5e4224');
+  // the ladder up, left
+  poly(g, [[300, 150], [314, 150], [314, 640], [300, 640]], '#2e1c0c'); poly(g, [[370, 150], [384, 150], [384, 640], [370, 640]], '#2e1c0c');
+  for (let y = 170; y < 640; y += 44) poly(g, [[300, y], [384, y], [384, y + 8], [300, y + 8]], '#2e1c0c');
+  label(g, 342, 680, 'ladder up', { fg: '#c9f5c9' });
+  // seven discs in a row in sockets at the bottom, under the opening
+  const D = [430, 500, 570, 640, 710, 780, 850];
+  D.forEach((x, i) => { g.save(); g.globalAlpha = 0.5; beam(g, [[640, 150], [x, 560]], 4); g.restore(); beam(g, [[x, 560], [640 + (x - 640) * -0.9, 150]], 3); disc(g, x, 570, 26, true, ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][i]); });
+  label(g, 640, 620, 'seven discs in a row, in sockets at the bottom', { fg: '#ffe0a0' });
+  label(g, 1050, 470, 'Alan, Monday: the water rises down here', { fg: '#bfe6ff' });
+  title(g, 'C · THE LOWER LEVEL (a room of its own)', 'Down the ladder: the seven discs at arm\'s reach, the opening overhead.');
+}
+section(document.getElementById('a').getContext('2d'));
+upper(document.getElementById('b').getContext('2d'));
+lowerLevel(document.getElementById('c').getContext('2d'));
+document.title = 'ready';
+</script>
