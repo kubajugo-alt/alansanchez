@@ -605,7 +605,7 @@ window.LINES = {
   alan_rub_bell: ['alan', "A rubbing of the inscription and the mark. Inês will want to see this. Inês will want to frame this."],
   alan_rub_again: ['alan', "I've got the rubbing. One's enough. More than enough."],
   alan_look_bell_window: ['alan', "The whole of Vegueta: flat roofs, palm trees, the sea. And over everything, the grey lid."],
-  fermin_belfry_wind: ['fermin', "The clock, señor. There, sulking. I'll sit here and die quietly while you work."],
+  fermin_belfry_wind: ['fermin', "The clock, señor. There, sulking. I'll sit here and wheeze quietly while you work."],
   fermin_belfry_look: ['fermin', "Look at la campana, señor. The north one. Look at her waist."],
   fermin_name: ['fermin', "You have founder's hands. My grandfather said you could always tell. The men who make bells understand the things that hang."],
   alan_w_name: ['alan', "Sanches. Alan Sanches."],

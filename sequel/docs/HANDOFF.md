@@ -950,3 +950,8 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     we did in terms of animations, sea, sounds, environment movement etc", "also add info about all the external
     services we are using". How we work, step by step (rooms, sprites, Ludo, faces, sea loops, ambient motion,
     sound and voices, recording with sound, deploy) and every external service with what it is for and its limits.
+94. **Every line voiced** (2026-10-30). The user: "Eleven lab credits topped up". generate-voices.mjs: the 209 missing
+    lines, then the 86 re-records in scripts/voice_redo.txt (now empty but for its header): all done, 0 failed.
+    fermin_belfry_wind was refused by ElevenLabs ("may violate our Terms of Service": "I'll sit here and die quietly");
+    now "...and wheeze quietly while you work", voiced. Every line of a voiced speaker has its file (2,577 voice files).
+    The background people's 45 lines were already voiced (entry 82).
