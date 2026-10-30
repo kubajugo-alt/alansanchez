@@ -427,7 +427,8 @@
   };
   // every placeholder room: a walkable floor along the bottom, figures scaled to it, hotspots met on the floor below them
   S.FLOOR = [[0, 575], [1280, 575], [1280, 716], [0, 716]];
-  // (no depth parallax until a room has its painting and a depth map: scripts/depth_map.py in Game I, then parallax: true)
-  S.room = (def) => Object.assign({ walk: S.FLOOR, scale: [575, 400, 716, 470], floor: 'stone', parallax: false,
+  // depth parallax in every room from its depth map (art/bg/<bg>_depth.png, scripts/depth_map.py; the user, 2026-10-30:
+  // "Yes to parallax"); a room that must hold still says parallax: false (the map, the two cars, Cave 6, the vault)
+  S.room = (def) => Object.assign({ walk: S.FLOOR, scale: [575, 400, 716, 470], floor: 'stone',
     light: { ambient: 'rgb(235,228,215)', base: 0.95 }, entries: { default: [640, 660, 'e'] } }, def);
 })();
