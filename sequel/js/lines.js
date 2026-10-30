@@ -1083,7 +1083,7 @@ window.LINES = {
   yeray_su_pull: ['yeray', "The grille! Pull when I lever! ¡Juntos!"],
   yeray_su_after: ['yeray', "I carried el doctor down here. Saturday. Me and Dr. Baute. [pause] I'll tell the Guardia. All of it."],
   alan_look_grille: ['alan', "The grille. One bottom anchor gone, the other a centimetre from giving. Yeray's pick in the gap."],
-  alan_look_grille_off: ['alan', "The grille, hanging by its chain. Three idiots and a pick. Four, counting Vasco, who did most of it."],
+  alan_look_grille_off: ['alan', "The grille, torn out and down on the stone. Three idiots and a pick. Four, counting Vasco, who did most of it."],
   alan_su_pull: ['alan', "Yeray, lever! Carmen, the handle!"],
   yeray_su_2: ['yeray', "Again! ¡Otra vez!"],
   narr_grille: ['narr', "Something gave: a crack deep in the stone, like a bone breaking. The grille tore out of the threshold and swung outward on its chain, and Alan reached in under it, into the black water, and got Vasco by the collar, and pulled."],
@@ -2741,5 +2741,8 @@ window.LINES = {
   ines_hint_radio: ['ines', "If the museum's shut, you need a radio. Fishermen have radios. Old men who don't sleep listen to them."],
   ines_hint_tower: ['ines', "Height, he said? Go up something tall. You wound a clock in one, I'm told."],
   alan_bye_lolo: ['alan', "I'll come back. Sounding more local."],
+  // the granary (2026-10-30, HANDOFF 98)
+  alan_su_more_hands: ['alan', "It moved. It's not enough. [pause] Carmen! The handle, with Yeray!"],
+  vasco_crates_reach: ['vasco', "Through the bars, a metre away. It might as well be Lisbon."],
   ines_hint_next: ['ines', "Who's on the list, where's lowest, when's the water. You have all three. Look at the sea, for once, instead of the sky."],
 };

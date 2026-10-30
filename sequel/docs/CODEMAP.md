@@ -43,7 +43,7 @@ when Game I's engine changes. A fix wanted in both is made in both, on purpose. 
 | `js/story/thu.js` | Thursday: Carmen's history, Casa de Colón, the dinner, Baute's office, caught. |
 | `js/story/fri.js` | Friday: the fight, Carmen's coffee, Rafa's bar. |
 | `js/story/sat.js` | Saturday, Alan: Rafa's studio, the fax, the flood. |
-| `js/story/vasco.js` | Saturday, Vasco's chapter, and the mountain's rooms with all their days: the camp, Cave 6, the vault. |
+| `js/story/vasco.js` | Saturday, Vasco's chapter, and the mountain's rooms with all their days: the camp, Cave 6, the vault (Sunday: Vasco behind the bars, `S.vaultBars`; `vault_open` once he's out) and the cell seen from inside (`vault_cell`, Saturday). |
 | `js/story/sun.js` | Sunday: the choice, the bad ending, Carmen's flat, the Land Rover, the rescue. |
 | `js/story/mon.js` | Monday: the finale (`S.ORDER`, the sockets, the surge and the death screen, the mirror, the sixth disc, the seventh's angle), the confession, the ending. |
 | `js/story/puzzles.js` | The puzzles of HANDOFF entry 97 (`docs/puzzles/DESIGN.md`): `S.WORDS` (words Alan earns, each from a flag), `S.PAGES` (notebook pages with blanks; `S.openPage`, `S.fillPage`, `S.ON_SOLVE`), the notebook with its open pages first, Inês's hints for the new steps; then the day hooks: folio 12, the case, the talk's clock, the receipt, Vasco's note, Don Lolo's radio, the tower and Baute, the tide table, the warning, Vasco's foil. Loaded after mon.js. |

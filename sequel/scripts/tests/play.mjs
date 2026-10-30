@@ -177,7 +177,7 @@ try {
   await act('Camp radio', 'look'); await act('Stove', 'take'); await act('Camp radio', null, 'foil');   // (the foil: the message Lolo heard)
   await expect('the message sent', () => Game.flags.v_sent);
   await act('baute', 'talk');
-  await expect('the vault', () => Game.room.id === 'vault');
+  await expect('the vault, from inside the cell', () => Game.room.id === 'vault_cell');
   await act('Left anchor', 'use'); await act('Left anchor', 'use'); await act('Left anchor', 'use');
   await act('The wall by the grille', 'use'); await act('Right anchor', 'use');
   await act('Right anchor', 'use', null, ['airport']);
@@ -193,7 +193,10 @@ try {
   await expect('the Land Rover', () => Game.room.id === 'landrover');
   await act('The bonnet', null, 'water');
   await expect('the camp at night', () => Game.room.id === 'camp');
-  await act('Steps down to the granary', 'exit'); await act('The grille', 'use'); await act('Crates', 'take');
+  await act('Steps down to the granary', 'exit'); await act('The grille', 'use');   // (2026-10-30: one heave holds; Carmen on the handle too)
+  await act('carmen', 'talk'); await act('The grille', 'use');
+  await expect('Vasco out', () => Game.flags.vasco_free);
+  await act('Crates', 'take');
   // ---- Monday
   await expect('Monday in Cave 6', () => Game.flags.ch === 7 && Game.room.id === 'cave6');
   await act('The door in the floor', 'use');

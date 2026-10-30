@@ -338,18 +338,26 @@
     await say('yeray_su_come', 'narr_vault_su_3', 'narr_vault_su_4');
   };
   S.talkYerayVault = () => F().vasco_free ? say('yeray_su_after') : say('yeray_su_pull');
-  S.talkCarmenVault = () => F().vasco_free ? say(G.has('discs') ? 'carmen_vault_up' : 'carmen_vault_after') : say('carmen_vault_pull');
   S.talkVascoVault = () => F().vasco_free ? say('vasco_su_vault') : say('alan_su_vasco_talk');
+  // (2026-10-30) the first heave, Alan and Yeray: it moves, and holds; it needs Carmen's weight on the pick handle too
+  S.talkCarmenVault = () => { const f = F(); if (f.vasco_free) return say(G.has('discs') ? 'carmen_vault_up' : 'carmen_vault_after'); if (f.grille_heaved) f.carmen_on = true; return say('carmen_vault_pull'); };
   S.tearGrille = async function () {
     const f = F();
     if (f.vasco_free) return say('alan_look_grille_off');
+    if (!f.grille_heaved) {
+      await G.busy(async () => {
+        await say('alan_su_pull', 'narr_grille_1');
+        await S.posed('pull', async () => { S.sfx('chain_creak', 0.6); await T(900); S.sfx('stone_clack', 0.7); await T(500); });
+        f.grille_heaved = true;
+        await say('yeray_su_2', 'alan_su_more_hands');
+      });
+      return;
+    }
+    if (!f.carmen_on) return say('alan_su_more_hands');
     await G.busy(async () => {
-      await say('alan_su_pull', 'narr_grille_1');
-      await S.posed('pull', async () => { S.sfx('chain_creak', 0.6); await T(900); S.sfx('stone_clack', 0.7); await T(500); });
-      await say('yeray_su_2', 'narr_grille_2');
+      await say('narr_grille_2');
       await S.posed('pull', async () => { S.sfx('brass_heavy', 0.7); await T(900); });
-      f.vasco_free = true;
-      { const v = G.npc('vasco'); if (v) { v.x = 780; v.y = 670; v.dir = 'w'; } }
+      f.vasco_free = true; G.refreshNpcs();   // (out: the vasco_free figure, in front of the open alcove)
       await say('narr_grille', 'narr_grille_3');
       await say('narr_grille_4');
       S.sfx('water_drain', 0.5);

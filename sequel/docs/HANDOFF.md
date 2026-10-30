@@ -25,8 +25,8 @@ root, in the same repository as Game I. Read, in this order:
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
   the ending. Every day rewritten from the novel (entries 17, 87). `node scripts/tests/play.mjs` plays it all.
 - **2,664 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs (entry 94), except
-  the 115 lines of the new puzzles (entry 97), text only until the user has played them. The ElevenLabs key lives in the
-  root `.env`, which a cloud container doesn't have (entry 99).
+  the puzzles' lines too (entry 100). The ElevenLabs key lives in the root `.env` (git-ignored; a new cloud container
+  needs it again, entry 99).
 - **Puzzles** (entry 97, `docs/puzzles/DESIGN.md`, `js/story/puzzles.js`): knowledge as inventory: words Alan earns,
   notebook pages with blanks (1483 told twice, the case built wrong on Thursday and again on Saturday, the founders'
   letter, who's next), folio 12, the break-in against Vasco's twenty minutes, the two radios (Lolo, the tower, Baute's
@@ -44,10 +44,8 @@ root, in the same repository as Game I. Read, in this order:
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
 ### Open, in the order I'd suggest
-1. **The puzzles (entry 97)**: the user plays them; then their 115 lines are voiced (`node scripts/generate-voices.mjs`,
-   needs the key) and the retired lines' recordings can go.
-   **The granary (entry 98)**: the user picks a take of the cell seen from inside; then the crate numbers, the upscale,
-   Vasco's chapter in the new room, Sunday re-staged. **"Pesetas" (entry 99)**: two audition sets to make and play.
+1. **The granary (entries 98, 100)**: built; the user to see it in the game (`?scene=vault` for the cell,
+   `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved and voiced; "pesetas" is B (entry 100).
 2. **Deploy** of what came after entry 95's deploy (parallax, entry 96; the puzzles) when the user asks.
    Add `/art/designs` to `sequel/.gitattributes` first: 272 MB of source art the game never loads (the export is 742 MB).
 3. **Parallax** is on (entry 96): the recording waits for the user's approval before a deploy.
@@ -1031,3 +1029,31 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     and `_b.json` (the price said in Spanish). Not generated: no ELEVENLABS_API_KEY in this cloud container (the root .env
     is the user's); the connector can't send the language code and settings these voices were made with, and the rule is
     the same voices only.
+100. **Puzzles voiced; "pesetas" said in Spanish; the granary built** (2026-10-30). The user: "the puzzles are ok";
+    "bottom right for granary"; the ElevenLabs key (now in the root .env only, git-ignored, never printed); "B for both".
+    - Voices: generate-voices.mjs for every line without a file: 116 voiced, 0 failed (Inês's through the phone line as
+      always). Later the three granary lines below.
+    - "Pesetas": the B takes (the price said in Spanish; the captions unchanged) copied into audio/voice for
+      candelaria_2, chano_t_chacho, chano_postcard (made with the game's own voices and settings); their text is
+      `scripts/tts_text.json`, so a re-record says it the same way. The audition sets: audio/auditions_pesetas/
+      (git-ignored).
+    - The granary: the cell seen from inside is round 2's take 3 (`art/review/vault_redesign/v2_take3.png`); its bottom
+      crate said 39: a Higgsfield edit with only the number changed, pasted back as a small feathered patch
+      (`vault_cell_chosen.png`); 1280 original `art/designs/rooms_1280/vault_cell.jpg`; Higgsfield upscale (2k), the
+      original crates pasted back (the upscaler wrote 31/30/30) -> `art/bg/vault_cell.jpg`. Sunday's painting after the
+      grille comes down, `art/bg/vault_open.jpg`: a Higgsfield edit of the vault (the grille torn out and down, the alcove
+      open), only the alcove and the floor in front taken from it (`vault_open_comp.png`, upscaled), over the existing
+      upscaled vault, so nothing else moves when the painting switches. The vault's crates had drifted in entry 92's
+      upscale (37/33/29); the original crates pasted back into both Sunday paintings, to match the cell (37, 36, 29).
+    - Code (vasco.js, sun.js, layout.js): Vasco's chapter in `ROOMS.vault_cell` (the cell floor only; the grille, the
+      crates through the bars, the walls, the two anchors at the grille's foot, the wall by the grille for the mark; the
+      water fills the cell and stands at the grille; the torch as before). The proposed lantern step was dropped: the
+      Sunday painting keeps the lantern on its hook. Sunday's `vault`: Vasco behind the bars in the alcove (smaller,
+      h 270), the water only behind the bars at his face (`S.water.vault` scaled to the alcove), the painting's own bars
+      cut back over both (`S.vaultBars`); `bgFn` switches to vault_open once he's out. The rescue has a second stage: one
+      heave (Alan and Yeray) moves it and holds ("Carmen! The handle, with Yeray!"); with Carmen on the handle, the
+      existing scene. New lines: alan_su_more_hands, vasco_crates_reach; alan_look_grille_off re-worded ("torn out and
+      down on the stone") and re-recorded. The old lines already told it this way ("held up by nothing", "came out under
+      the bars"); only the staging was wrong. Previews: `?scene=vault` (the cell), `?scene=rescue_vault` (new).
+    Checked: screenshots in the game, dry and with the water up, both rooms (Vasco behind the bars, the others dry;
+    the cell's water at the grille); play.mjs on the merged branch with all of it: won, 131 steps, no page errors.

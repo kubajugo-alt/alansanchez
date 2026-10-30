@@ -344,7 +344,7 @@
     await G.fade(true);
     await say('narr_v_drug', 'narr_v8_drug_2', 'yeray_v8_sorry', 'baute_v8_sleep', 'narr_v8_drug_3');
     f.v_baute_here = false; f.v_yeray_gone = true;
-    await G.goRoom('vault', null, { instant: true, noEnter: true, noSave: true, pos: [620, 660, 'e'] });
+    await G.goRoom('vault_cell', null, { instant: true, noEnter: true, noSave: true, pos: [560, 670, 'e'] });
     S.torch = 1;
     await T(800);
     await G.fade(false);
@@ -359,10 +359,14 @@
   ROOMS.vault = S.room({
     music: 'vault',
     name: 'The granary vault', bg: 'vault', floor: 'stone', ambience: 'cistern', parallax: false,
+    bgs: ['vault_open'], bgFn: () => F().vasco_free ? 'vault_open' : 'vault',   // (the grille torn out and down: a second painting)
     light: { ambient: 'rgb(150,140,130)', base: 0.6 },
     entries: { default: [620, 660, 'e'], camp: [1100, 660, 'w'] },
     npcs: [
-      { id: 'vasco', x: 640, y: 640, dir: 'e', name: 'Vasco', when: () => ch() === 6, look: () => say(F().vasco_free ? 'alan_look_vasco_vault_2' : 'alan_look_vasco_vault'), talk: () => S.talkVascoVault() },
+      // (2026-10-30, the user: "when the water is rising, Alan and Yeray are in the room with Vasco, but aren't affected...
+      // the grille doesn't block the exit"): Vasco is behind the bars, in the alcove the painting shows, until he's out
+      { id: 'vasco', x: 600, y: 512, h: 270, dir: 'e', name: 'Vasco', when: () => ch() === 6 && !F().vasco_free, look: 'alan_look_vasco_vault', talk: () => S.talkVascoVault() },
+      { id: 'vasco', x: 780, y: 670, dir: 'w', name: 'Vasco', when: () => ch() === 6 && !!F().vasco_free, look: 'alan_look_vasco_vault_2', talk: () => S.talkVascoVault() },
       { id: 'yeray', ch: 'yeray', x: 960, y: 660, dir: 'w', name: 'Yeray', when: () => ch() === 6, look: 'alan_look_yeray_vault', talk: () => S.talkYerayVault() },
       // Sunday night: Carmen came down the cleft behind Alan (sun.js)
       { id: 'carmen', ch: 'carmen_field', x: 1110, y: 660, dir: 'w', name: 'Carmen', when: () => ch() === 6 && F().su_camp, look: 'alan_look_carmen_vault', talk: () => S.talkCarmenVault() },
@@ -394,13 +398,68 @@
       FX.motes(g, t, 1105, 95, 100, 220, 10, '230,230,220');
       FX.drips(g, t, [[968, 600, 60, 5.3], [214, 618, 90, 7.9]], '200,190,170');
     },
+    // the Sea's water only behind the bars, at his face, never through them; then the bars again over Vasco and the water
+    // (cut from the painting itself: so he's in the cell, not in front of it)
     animFg(g, t) {
-      S.drawWater(g, t, S.water.vault, '20,40,46');
+      if (!F().vasco_free && S.water.vault > 0) {
+        const top = 512 - 245 * Math.min(1, S.water.vault / 0.46);
+        g.save(); g.beginPath(); g.rect(366, 64, 476, 448); g.clip(); S.drawWater(g, t, (720 - top) / 720, '20,40,46'); g.restore();
+      }
+      if (!F().vasco_free) S.vaultBars(g);
       if (asV() && S.torch < 1) {
         // the dark, and what the torch still shows
         const p = G.player, r = 40 + 260 * S.torch;
         g.save(); const gr = g.createRadialGradient(p.x, p.y - 200, r * 0.3, p.x, p.y - 200, r + 200);
         gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, `rgba(0,0,0,${0.97})`);
+        g.fillStyle = gr; g.fillRect(0, 0, 1280, 720); g.restore();
+      }
+    },
+  });
+  // the bars of the grille on the Sunday painting (measured on the 1280 painting), drawn back over whoever's behind them
+  const BARS = [375, 406, 440, 474, 510, 547, 585, 623, 664, 704, 744, 782, 818];
+  S.vaultBars = function (g) {
+    const im = G.bgImage(); if (!im || !im.width) return;
+    const k = im.width / 1280, cut = (x, y, w, h) => g.drawImage(im, x * k, y * k, w * k, h * k, x, y, w, h);
+    for (const x of BARS) cut(x - 7, 62, 14, 462);
+    cut(362, 176, 484, 16); cut(362, 500, 484, 26);   // (the crossbar, the bottom rail)
+  };
+
+  // ================================================================ THE CELL (Saturday: the vault from inside)
+  // (the user, 2026-10-30: "for the inside ones, we need to paint a new room, in which Vasco sees the other room from a
+  // different perspective, from behind the bars"; "narrower... you'd see the crates only"): the alcove behind Sunday's
+  // grille; through the bars the crates, the lantern's light from the right, the stairs' grey daylight from the left
+  ROOMS.vault_cell = S.room({
+    music: 'vault',
+    name: 'The granary vault · behind the grille', bg: 'vault_cell', floor: 'stone', ambience: 'cistern', parallax: false,
+    light: { ambient: 'rgb(150,140,130)', base: 0.6 },
+    walk: [[150, 612], [1130, 612], [1280, 716], [0, 716]], scale: [612, 330, 716, 420],
+    entries: { default: [560, 670, 'e'] },
+    hotspots: [
+      { name: 'The grille', rect: [190, 85, 865, 450], at: [620, 640], noBox: true, look: 'vasco_look_grille', use: 'vasco_look_grille' },
+      { name: 'Crates', rect: [880, 250, 170, 230], at: [900, 640],
+        look: () => F().v_crates_seen ? say('vasco_look_crates') : (F().v_crates_seen = true, say('vasco_look_crates', 'vasco_look_crates_2', 'vasco_look_crates_3')),
+        take: 'vasco_crates_reach', use: 'vasco_crates_reach' },
+      { name: 'Walls', rect: [0, 100, 185, 440], at: [230, 660], noBox: true,
+        look: () => F().v_walls_seen ? say('vasco_look_walls_2') : (F().v_walls_seen = true, say('vasco_look_walls', 'vasco_look_serpent', 'narr_v8_coils')) },
+      { name: 'Left anchor', rect: [195, 540, 60, 60], at: [270, 650], look: () => say(F().v_left >= 3 ? 'vasco_anchor_out' : 'vasco_look_anchor'),
+        use: () => S.dig('left'), items: { ltrowel: () => S.dig('left') } },
+      { name: 'Right anchor', rect: [995, 540, 60, 60], at: [1000, 650], look: () => say(F().v_right >= 2 ? 'vasco_anchor_cm' : 'vasco_look_anchor'),
+        use: () => S.dig('right'), items: { ltrowel: () => S.dig('right') } },
+      { name: 'The wall by the grille', rect: [1060, 120, 140, 380], at: [1060, 650], look: () => say(F().v_marked ? 'vasco_look_mark' : 'vasco_look_wallbit'),
+        use: () => S.scratchMark(), items: { ltrowel: () => S.scratchMark() } },
+    ],
+    // the lantern beyond the corner, the grey daylight from the stairs; the water in the cell (the whole floor is the
+    // cell: at the grille it stands like a wall and never passes); the torch failing
+    animBack(g, t) {
+      FX.glow(g, 1050, 260, 220, '255,170,80', 0.12 * FX.flicker(t, 1));
+      FX.motes(g, t, 220, 120, 260, 300, 8, '220,224,230');
+    },
+    animFg(g, t) {
+      S.drawWater(g, t, S.water.vault, '20,40,46');
+      if (S.torch < 1) {
+        const p = G.player, r = 40 + 260 * S.torch;
+        g.save(); const gr = g.createRadialGradient(p.x, p.y - 200, r * 0.3, p.x, p.y - 200, r + 200);
+        gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,0.97)');
         g.fillStyle = gr; g.fillRect(0, 0, 1280, 720); g.restore();
       }
     },
