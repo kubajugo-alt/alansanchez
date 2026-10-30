@@ -1193,6 +1193,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       the cave (it's at the camp); the women of light are the prototype's code-drawn outlines, not painted.
     - Checks: `node scripts/validate.mjs` 0 errors (126 warnings: the earlier 80 plus the retired lines); play.mjs
       won in 130 steps through the new route (its one page error, a 404 for `art/layers/rafa_table.webp`, is the
-      bar's table layer removed in 42c99172 by the parallel work on Rafa's bar, not this); screenshots of both rooms, Saturday at noon, the sun-disc test, the aiming, the telling page and the
+      bar's table layer removed in 42c99172 by the parallel work on Rafa's bar, not this); run again: won, 130 steps, no
+      page errors; screenshots of both rooms, Saturday at noon, the sun-disc test, the aiming, the telling page and the
       closing checked by eye.
 
