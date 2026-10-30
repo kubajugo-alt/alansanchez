@@ -1,37 +1,53 @@
-// The Shortest Night — Monday 24 June: San Juan, Las Palmas's 518th birthday. Chapters Eleven and Twelve of the novel.
-// The lock: Baute on his camp stool, the seventh disc at his guess; Alan's answer (Vicente Lacerda: "It's just the sea").
-// Two halves, two people: Vasco calls each disc from the floor; Alan stands in the Sea's water on the ladder over the
-// door and sets them, in the order called (II, IV, III, VI, V; a wrong one makes the water surge; three and it takes
-// him). Ten minutes: Baute sees the stain over Las Palmas, Carmen names her street, and he gives up the sixth (socket I).
-// The seventh: Vasco's instructions; a cloud crosses the sun; Carmen rips the Land Rover's wing mirror off; Alan turns
-// the disc by the light as Vasco calls it (left, down, down). The water drags Alan down; the chain of hands holds.
+// The Shortest Night — Monday 24 June: San Juan, Las Palmas's 518th birthday. Chapters Eleven and Twelve of the novel,
+// with Cave 6 as redesigned on 2026-10-30 (docs/puzzles/CAVE6.md).
+// Dawn in the cave: Baute on his camp stool; he tipped the sun disc by eye at four in the morning and waits for twelve,
+// "the top of the day" to him; Alan's answer (Vicente Lacerda: "It's just the sea"). At twelve the column comes down
+// the shaft and the sun disc sends it back up at a slant: a spot of gold that climbs the shaft's wall towards the sky,
+// and at 14:05, true noon, the door opens. Two halves, two people: Vasco at the rim reads the wall (Alan can't see it
+// from below); Alan in the chamber, in the Sea's water, has the five discs from the vault and where they go (the signs
+// in the floor, Vasco's vault mark), not when. Baute breaks (the stain over Las Palmas, Carmen's street), says his
+// grandmother's telling verse by verse (Vasco echoes it in English) and gives up the crescent he kept. Each verse to its
+// scene on a notebook page; each disc into its socket in the telling's order, and aimed (tipped left and right with the
+// mouse or the arrow keys, the column sweeping across the wall in real time; a click or Enter sets it). Three ways to
+// be wrong, each a surge (another disc's triangle; out of its turn; a wrong socket can't reach its own): three and the
+// Sea takes him. Then the sun disc, laid flat: a cloud; Carmen's wing mirror from the top of the rock. The seventh set:
+// the triangles flare, the women of light dance round the noon column; the door shuts and takes Alan; the chain of hands.
 // The confession (the player chooses when, and how), the trowel, Yeray's fuse and the Guardia, Carmen and Rayco on the
 // rock, the road down, Nieves, Chano and San Borondón, the fireworks, the last night, the coffee.
 (function () {
   const S = window.S, { G, F, say, ROOMS, T } = S;
-  // the order Vasco calls the sockets in (I..VI = 0..5), as the novel's: II, IV, III, VI, V; the sixth disc, Baute's, goes in I
-  S.ORDER = [1, 3, 2, 5, 4, 0];
-  const CALL = ['vasco_call_1', 'vasco_call_2', 'vasco_call_3', 'vasco_call_4', 'vasco_call_5', 'vasco_call_6'];
-  // the seventh, turned by the light: what Vasco calls, and the turn that answers it
-  const TURN = [['vasco_m_left', 'left'], ['vasco_m_down', 'down'], ['vasco_m_down_2', 'down']];
+  const { WALL, FLOOR, TURN, NAME } = S.CAVE;
   const placedN = () => (F().placed || []).length;
+  // the discs, each its own thing in his pockets (the five from the vault, the crescent from Baute)
+  const DISC_ICON = { wax_gibbous: 'Gibbous +', last_quarter: 'Last qtr', wax_crescent: 'Crescent +', wan_gibbous: 'Gibbous −', first_quarter: 'First qtr', wan_crescent: 'Crescent −' };
+  for (const s of TURN) if (s !== 'sun') {
+    S.ITEMS['disc_' + s] = { name: 'Obsidian disc: the ' + NAME[s], look: s === 'wan_crescent' ? 'alan_look_disc6' : 'alan_look_discs' };
+    window.ICON_LABELS['disc_' + s] = DISC_ICON[s];
+  }
+  S.giveDiscs = () => { for (const s of TURN.slice(0, 5)) S.give('disc_' + s, true); };
+  // the clock: minutes since midnight, kept in the save (twelve to 14:05 is the race)
+  const clock = m => { F().mclock = m; G.setClock(String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0')); };
+  // each disc set moves the clock on; the sixth leaves two minutes; the sun at 14:05
+  const SET_AT = [745, 765, 785, 805, 820, 843];
+  // the water in the chamber: a hand higher with each disc and each surge
+  const waterBase = () => { const f = F(); return f.cloud_over ? 0.42 : 0.17 + 0.025 * placedN(); };
   // what Vasco would say now, to put Alan back on the thread (after a surge, after a retry)
   S.callNow = function () {
     const f = F(), n = placedN();
-    if (n < 6) return n === 5 && !G.has('disc6') ? 'vasco_m_six' : CALL[n];
+    if (n < 6) return f.disc6_given ? 'vasco_m_page' : 'vasco_m_ready';
     if (f.cloud_over && !f.mirror_on) return 'vasco_m_light';
-    if (f.mirror_on) return TURN[Math.min(2, f.turn || 0)][0];
-    return 'vasco_m_seventh_2';
+    if (f.mirror_on) return 'vasco_m_seventh_2';
+    return 'vasco_m_seventh';
   };
 
-  // ---------------------------------------------------------------- dawn: Baute on his stool, and Alan's answer
+  // ---------------------------------------------------------------- dawn: Baute on his stool, and Alan's answer; noon
   S.startMon = async function () {
     await G.busy(async () => {
       await G.fade(true);
-      await G.goRoom('cave6', null, { instant: true, noEnter: true, noSave: true, pos: [560, 660, 'e'] });
-      G.setClock('06:52');
+      await G.goRoom('cave6', null, { instant: true, noEnter: true, noSave: true, pos: [470, 660, 'e'] });
+      clock(412);
       await S.day(7);
-      S.water.cave6 = 0.1;
+      S.water.cave6 = 0; S.water.cave6_low = 0.1;
       await G.fade(false);
       await say('narr_cave_mon', 'narr_mon_baute');
       await say('baute_m_1', 'baute_m_1b', 'baute_m_1c');
@@ -39,8 +55,11 @@
       await say('narr_mon_smile', 'baute_m_2', 'baute_m_2b');
       await say('alan_m_1', 'narr_mon_alan', 'alan_m_1b', 'alan_m_1c', 'alan_m_1d', 'alan_m_1e');
       S.sfx('water_rise_2', 0.7);
-      await S.waterTo('cave6', 0.16, 1200);
-      await say('narr_mon_surge', 'vasco_m_twenty');
+      await S.waterTo('cave6_low', 0.16, 1200);
+      await say('narr_mon_surge', 'narr_mon_wait');
+      for (const m of [480, 570, 660, 718]) { clock(m); await T(window.FAST ? 10 : 600); }
+      clock(720); S.sfx('fog_lift', 0.3);
+      await say('narr_mon_noon', 'vasco_m_twenty', 'vasco_m_climb');
       await say('carmen_m_five', 'narr_mon_tighter');
       await say('vasco_m_halves', 'vasco_m_who');
       G.checkpoint();
@@ -50,14 +69,12 @@
   S.talkVascoCave = async function () {
     const f = F();
     if (f.lock_closed) return S.confessionTalk();
-    if (!f.in_water) return say('vasco_m_door');
-    return say(S.callNow()); // he says it again
+    return say('vasco_m_door');
   };
   S.talkCarmenCave = async function () {
     const f = F();
     if (f.lock_closed) return f.fuse_in ? say('carmen_m_guardia_done') : say('carmen_m_fuse');
-    if (f.cloud_over && !f.mirror_on) return S.wingMirror();
-    return say(f.mirror_on ? 'carmen_m_holding' : 'carmen_m_1');
+    return say('carmen_m_1');
   };
   S.talkYerayCave = async function () {
     const f = F();
@@ -75,51 +92,117 @@
     return say(f.disc6_given ? 'baute_m_given' : 'baute_m_hold');
   };
 
-  // ---------------------------------------------------------------- into the water, up the ladder
+  // ---------------------------------------------------------------- down the rope ladder, into the water
   S.stepIn = async function () {
     const f = F();
-    if (f.lock_closed) return say('alan_look_door');
-    if (f.in_water) return say('alan_m_in_already');
-    if (!G.has('discs')) return say('alan_m_no_discs');
+    if (f.lock_closed) return say('alan_look_hole');
+    if (f.in_water) return G.goRoom('cave6_low', 'cave6');
+    if (G.has('discs')) { G.takeItem('discs'); S.giveDiscs(); }   // (a save from before the redesign: the bag of five)
+    if (!TURN.slice(0, 5).some(s => G.has('disc_' + s))) return say('alan_m_no_discs');
     await G.busy(async () => {
       await say('alan_m_coming', 'vasco_m_no', 'alan_m_anyway');
       f.in_water = true;
-      const p = G.player; await p.walkTo(680, 600);
+      await G.fade(true);
+      await G.goRoom('cave6_low', 'cave6', { instant: true, noEnter: true, noSave: true });
+      S.water.cave6_low = 0.12;
+      await G.fade(false);
       S.sfx('step_wet', 0.7);
-      await S.waterTo('cave6', 0.22, 2000);
+      await S.waterTo('cave6_low', waterBase(), 2000);
       await say('narr_m_quiet', 'narr_m_quiet_2', 'alan_m_knows');
-      await say('vasco_m_ready', CALL[0]);
+      await say('vasco_m_ready');
       G.checkpoint();
     });
   };
-  S.lookSocket = i => say((F().placed || []).includes(i) ? 'alan_socket_set' : 'alan_socket_empty');
-  S.placeDisc = async function (i) {
-    const f = F(), placed = f.placed || (f.placed = []), n = placed.length;
-    if (placed.includes(i)) return say('alan_socket_set');
-    if (n === 5 && !G.has('disc6')) return say('vasco_m_six');
-    if (i !== S.ORDER[n]) return S.surge();
-    await S.posed('climb', async () => { S.sfx('stone_notch', 0.6); await T(700); });
-    placed.push(i);
-    if (n < 5) { f.discs_left = 5 - placed.length; if (!f.discs_left) G.takeItem('discs'); else G.renderInv(); }
-    else G.takeItem('disc6');
-    await say(['vasco_m_good_1', 'vasco_m_good_2', 'vasco_m_good_3', 'vasco_m_good_4', 'vasco_m_good_5', 'vasco_m_good_6'][n]);
-    if (n === 0) await say('narr_m_smudge');
-    if (placed.length === 5) return S.bauteGives();
-    if (placed.length === 6) return S.sixSet();
-    return say(CALL[placed.length]);
+  // Vasco at the rim, above: he reads the scene round any triangle; he can't say which comes first; when the cloud has
+  // taken the light, Alan shouts for Carmen instead
+  S.talkVascoBelow = async function () {
+    const f = F();
+    if (f.cloud_over && !f.mirror_on) return S.wingMirror();
+    let first = false;
+    await G.dialog([
+      ...WALL.map(s => ({ label: 'Read me the one with the ' + NAME[s].replace(/^the /, '') + '.', run: () => say('vasco_scene_' + s) })),
+      { label: 'Which one goes first?', bye: true, run: () => { first = true; } },
+      { label: 'Nothing. Keep watching.', bye: true },
+    ]);
+    if (!first) return;
+    if (!f.disc6_given) { await say('vasco_m_stuck'); return S.bauteGives(); }
+    if (f.telling_known) return say('alan_pz_telling_done');
+    await say('vasco_m_page'); return S.openPage('telling');
   };
-  // a wrong placement (or a wrong turn of the seventh): the water surges; three and it takes him
-  S.surge = async function () {
+
+  // ---------------------------------------------------------------- aiming a disc (the user: "watching the beam move in
+  // real time"): the disc rocks on its rounded base; the mouse (left and right) or the arrow keys tip it, and its column
+  // sweeps across the wall above, seen up through the hole; a click or Enter sets it where it is; Escape (or a right
+  // click) takes it out again. A socket's disc reaches only the triangles round the one its socket faces (6 - i).
+  // Resolves to the triangle hit (0..6), -1 for bare rock, or null when he took it out.
+  S.AIM = null;
+  S.autoAim = null;   // (tests: fn(socket, sign) -> the triangle to set it on)
+  S.aim = function (socket, sign) {
+    const m = 6 - socket, lo = Math.max(-0.6, m - 1.6), hi = Math.min(6.6, m + 1.6);
+    const A = S.AIM = { socket, sign, s: Math.min(hi, Math.max(lo, m + (Math.random() < 0.5 ? -1 : 1) * 0.9)), lo, hi };
+    return new Promise(done => {
+      const canvas = document.getElementById('scene');
+      const end = v => { canvas.removeEventListener('mousemove', move, true); canvas.removeEventListener('click', click, true); canvas.removeEventListener('contextmenu', ctx, true); document.removeEventListener('keydown', key, true); S.AIM = null; done(v); };
+      const commit = () => { const k = S.wallHit(A.s); S.sfx('stone_notch_2', 0.4); end(k); };
+      const move = e => { const r = canvas.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * 1280; A.s = lo + (hi - lo) * Math.max(0, Math.min(1, (x - 240) / 800)); };
+      const click = e => { e.stopImmediatePropagation(); e.preventDefault(); commit(); };
+      const ctx = e => { e.stopImmediatePropagation(); e.preventDefault(); end(null); };
+      const key = e => {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { A.s = Math.max(lo, Math.min(hi, A.s + (e.key === 'ArrowLeft' ? -0.04 : 0.04))); }
+        else if (e.key === 'Enter' || e.key === ' ') commit();
+        else if (e.key === 'Escape') end(null);
+        else return;
+        e.stopImmediatePropagation(); e.preventDefault();
+      };
+      canvas.addEventListener('mousemove', move, true); canvas.addEventListener('click', click, true); canvas.addEventListener('contextmenu', ctx, true);
+      document.addEventListener('keydown', key, true);
+      if (!F().aim_tip) { F().aim_tip = true; if (G.toast && !window.FAST) G.toast('Tip it: the mouse left and right, or ← →. Click or Enter to set it. Esc takes it out.'); }
+      if (S.autoAim) { const k = S.autoAim(socket, sign); A.s = k; setTimeout(commit, window.FAST ? 30 : 900); }
+    });
+  };
+
+  // a disc into a socket, then aimed: right (its own triangle, in its turn), bare rock (aim again), or a surge
+  S.placeDisc = async function (i, sign) {
+    const f = F(), placed = f.placed || (f.placed = []), sockSign = FLOOR[i];
+    if (!f.in_water) return;
+    if (sockSign === 'sun') return say('alan_look_seventh');
+    if (placed.includes(sockSign)) return say('alan_socket_set');
+    G.takeItem('disc_' + sign);
+    await S.posed('pickup', async () => { S.sfx('stone_notch', 0.6); await T(window.FAST ? 10 : 500); });
+    let k;
+    for (;;) {
+      k = await S.aim(i, sign);
+      if (k !== -1) break;
+      await say('vasco_m_rock');
+    }
+    if (k === null) { S.give('disc_' + sign, true); return; }   // (taken out again: no harm done)
+    const want = 6 - WALL.indexOf(sign);   // (the socket this disc belongs in)
+    if (WALL[k] !== sign) { S.give('disc_' + sign, true); return S.surge('vasco_hit_' + WALL[k]); }
+    if (i !== want) { S.give('disc_' + sign, true); return S.surge('vasco_m_wrong_1'); }
+    if (TURN[placed.length] !== sign) { S.give('disc_' + sign, true); return S.surge('vasco_m_turn'); }
+    placed.push(sign);
+    clock(SET_AT[placed.length - 1]);
+    S.sfx('glass_set', 0.4);
+    await say(['vasco_m_good_1', 'vasco_m_good_2', 'vasco_m_good_3', 'vasco_m_good_4', 'vasco_m_good_5', 'vasco_m_good_6'][placed.length - 1], 'vasco_scene_' + sign);
+    await S.waterTo('cave6_low', waterBase(), 900);
+    if (placed.length === 5 && !f.disc6_given) return S.bauteGives();
+    if (placed.length === 6) return S.sixSet();
+    if (placed.length >= 2) G.checkpoint();
+  };
+  // a wrong disc (or the sun set wrong): the water surges; three and it takes him
+  S.surge = async function (why) {
     const f = F();
     f.surges = (f.surges || 0) + 1;
-    const was = S.water.cave6 || 0.22;
+    const was = S.water.cave6_low || waterBase();
     S.sfx('water_rise_2', 0.7);
-    await S.waterTo('cave6', was + 0.1, 900);
+    if (why) await say(why);
+    await S.waterTo('cave6_low', was + 0.06 * f.surges, 900);
     if (f.surges >= 3) return S.drowned();
     if (f.surges === 1) {
       await say('narr_m_surge_1', 'vasco_m_wrong_1');
-      await S.waterTo('cave6', was + 0.03, 1400);
+      await S.waterTo('cave6_low', was + 0.04, 1400);
       await say('narr_m_dog');
+      if (!f.disc6_given) { await say('vasco_m_stuck'); return S.bauteGives(); }
     } else await say('vasco_m_wrong_2');
     await say(S.callNow());
   };
@@ -133,61 +216,67 @@
     const cp = F()._checkpoint;
     if (cp) await G.loadSave(cp);
     const f = F(); f.surges = 0;
-    S.water.cave6 = f.cloud_over ? 0.5 : 0.22;
+    S.water.cave6_low = waterBase();
     if (f.in_water) { G.toast('Again. Listen to him.'); await say(S.callNow()); }
   };
 
-  // ---------------------------------------------------------------- ten minutes: the stain over the city, the sixth disc
+  // ---------------------------------------------------------------- Baute's last help: the stain over the city, the
+  // telling (his grandmother's, verse by verse; Vasco says each one down into the hole in English), the crescent
   S.bauteGives = async function () {
     const f = F();
+    if (f.disc6_given) return;
     await G.busy(async () => {
+      clock(Math.max(f.mclock || 0, 800));
       await say('narr_m_ten', 'narr_m_baute_up');
       S.sfx('fog_lift', 0.4);
       await say('narr_m_stain', 'narr_m_south');
       await say('narr_m_carmen_wades', 'carmen_m_street', 'carmen_m_street_2', 'carmen_m_street_3');
       await say('narr_m_baute_silent', 'carmen_m_concrete');
       await say('narr_m_goes_out', 'baute_m_stain_3');
+      await say('narr_m_telling_1', 'baute_m_grandmother');
+      for (let n = 1; n <= 7; n++) await say('baute_m_verse_' + n, 'vasco_m_verse_' + n);
       S.sfx('step_wet_2', 0.6);
-      await say('narr_m_wades', 'baute_m_listen');
-      f.disc6_given = true; S.give('disc6');
-      await say(CALL[5]);
+      await say('narr_m_wades', 'baute_m_listen', 'baute_m_crescent');
+      f.disc6_given = true; f.telling_heard = true; S.give('disc_wan_crescent');
+      await say('vasco_m_page');
+      G.checkpoint();
     });
+    if (!f.telling_known) await S.openPage('telling');
   };
-  // six set: two minutes, and how to turn the seventh
+  // six moons set: two minutes; the sun, flat, in the middle
   S.sixSet = async function () {
     await G.busy(async () => {
-      S.sfx('dawn_birds', 0.25);
-      await say('narr_m_wire', 'vasco_m_seventh', 'vasco_m_seventh_2', 'vasco_m_seventh_3');
+      await say('narr_m_wire', 'vasco_m_seventh', 'vasco_m_seventh_3');
       await say('alan_m_yes', 'vasco_m_dead_centre', 'alan_m_understand');
       G.checkpoint();
     });
   };
 
-  // ---------------------------------------------------------------- the seventh: the cloud, the mirror, the turn
+  // ---------------------------------------------------------------- the seventh: the cloud, the mirror, the sun laid flat
   S.turnSeventh = async function () {
     const f = F();
     if (f.lock_closed) return say('alan_look_seventh_set');
     if (!f.in_water || placedN() < 6) return say('vasco_m_seventh_wait');
     if (!f.cloud_over) return S.cloudCrosses();
     if (!f.mirror_on) return say('alan_m_dark', 'vasco_m_light');
-    return S.turnByLight();
+    return S.layFlat();
   };
   S.cloudCrosses = async function () {
     const f = F();
     await G.busy(async () => {
-      await S.posed('climb', async () => { await say('narr_m_seventh_hand'); });
+      await S.posed('pickup', async () => { await say('narr_m_seventh_hand'); });
       S.sfx('water_rise', 0.5);
-      await S.waterTo('cave6', 0.4, 1600);
+      await S.waterTo('cave6_low', 0.34, 1600);
       await say('narr_m_chest');
       f.cloud_over = true; S.sfx('fog_lift', 0.5);
       await say('narr_m_cloud', 'vasco_m_nonono');
       S.sfx('water_rise_3', 0.8);
-      await S.waterTo('cave6', 0.5, 1000);
+      await S.waterTo('cave6_low', 0.42, 1000);
       await say('narr_m_roar', 'vasco_m_light');
       G.checkpoint();
     });
   };
-  // Alan shouts for Carmen: she's already gone, to the Land Rover, and back with its wing mirror
+  // Alan shouts up for Carmen: she's already gone, to the Land Rover, and up onto the rock with its wing mirror
   S.wingMirror = async function () {
     const f = F();
     await G.busy(async () => {
@@ -195,42 +284,40 @@
       await T(500);
       S.sfx('tile_shatter', 0.6); S.sfx('shutter_bang', 0.4);
       await say('narr_m_glass', 'narr_m_wing', 'carmen_m_mirror');
-      f.mirror_on = true; f.turn = 0; S.sfx('glass_set', 0.5);
-      await say('narr_m_fuse_run', 'narr_m_too_far', TURN[0][0]);
+      f.mirror_on = true; S.sfx('glass_set', 0.5);
+      await say('narr_m_fuse_run', 'narr_m_too_far', 'vasco_m_seventh_2');
       G.checkpoint();
     });
   };
-  S.turnByLight = async function () {
+  // the sun disc, tipped by Baute, laid flat and aimed like the others: onto the great triangle, in the middle
+  S.layFlat = async function () {
     const f = F();
-    while ((f.turn || 0) < TURN.length) {
-      let pick = null;
-      await G.dialog([
-        { label: 'Turn it left', run: () => { pick = 'left'; }, bye: true },
-        { label: 'Turn it right', run: () => { pick = 'right'; }, bye: true },
-        { label: 'Tilt it down', run: () => { pick = 'down'; }, bye: true },
-        { label: 'Tilt it up', run: () => { pick = 'up'; }, bye: true },
-      ]);
-      const step = f.turn || 0;
-      if (pick !== TURN[step][1]) {
-        await S.surge();
-        if ((f.surges || 0) >= 3) return;
-        continue;
-      }
-      S.sfx('stone_notch_2', 0.5); await T(500);
-      f.turn = step + 1;
-      if (step === 0) await say('narr_m_slide', TURN[1][0]);
-      else if (step === 1) { await S.waterTo('cave6', 0.55, 900); await say('narr_m_mouth', TURN[2][0]); }
-      else await say('narr_m_centre');
+    if (!f.mirror_held) { f.mirror_held = true; await say('carmen_m_holding'); }
+    let k;
+    for (;;) {
+      k = await S.aim(3, 'sun');
+      if (k !== -1) break;
+      await say('vasco_m_rock');
     }
+    if (k === null) return;
+    if (k !== 3) return S.surge('vasco_hit_' + WALL[k]);
+    await say('narr_m_mouth');
     return S.closeLock();
   };
   S.closeLock = async function () {
     const f = F();
-    f.disc_turned = true;
+    f.sun_flat = true; f.disc_turned = true; clock(845);
     await G.busy(async () => {
       S.sfx('stone_wheel', 0.7); await T(600);
       await say('narr_m_sun', 'narr_m_beam', 'vasco_m_true');
-      await say('narr_m_dead_centre', 'narr_m_tilt', 'narr_m_lit', 'narr_m_breath');
+      await say('narr_m_dead_centre', 'narr_m_tilt', 'narr_m_lit');
+      // the triangles flare; the women of light, in a ring round the noon column; then only the columns
+      S.closing = performance.now() / 1000; S.sfx('bell_hum', 0.35);
+      await say('narr_m_women');
+      await T(window.FAST ? 20 : Math.max(0, 9500 - (performance.now() / 1000 - S.closing) * 1000));
+      await say('narr_m_women_2');
+      S.closing = null;
+      await say('narr_m_breath');
       S.sfx('water_drain', 0.8);
       await S.paint('still_chain', async () => {
         await say('narr_m_drag', 'narr_m_drag_2', 'alan_m_so_this', 'narr_m_stops');
@@ -238,13 +325,14 @@
         await say('narr_m_dry', 'narr_m_chain_2', 'narr_m_nobody');
         await say('vasco_m_stopped', 'vasco_m_twice', 'vasco_m_twice_2');
       }, { zoom: [1.0, 1.1] });
+      f.lock_closed = true; f.in_water = false; S.water.cave6_low = 0; S.water.cave6 = 0;
+      await G.goRoom('cave6', null, { instant: true, noEnter: true, noSave: true, pos: [560, 660, 'e'] });
       await S.paint('still_sunrise', async () => {
         S.sfx('dawn_birds', 0.4);
         await say('narr_m_torn', 'narr_m_glimpse', 'narr_m_nobody_said');
         await say('narr_m_sunrise', 'narr_m_waking', 'narr_m_reading', 'narr_m_wrist');
       }, { zoom: [1.0, 1.08], pan: [[0.5, 0.6], [0.5, 0.45]] });
       G.endStill();
-      f.lock_closed = true; f.in_water = false; S.water.cave6 = 0;
       G.setClock(null);
       const p = G.player; p.x = 560; p.y = 660;
       await G.fade(false);

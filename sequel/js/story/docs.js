@@ -59,14 +59,16 @@
 
   // ---------------------------------------------------------------- the museum
   S.readDiscList = async function () {
-    const n = S.discsOut(), rows = [1, 2, 3, 4, 5, 6, 7].map(i => `<p>Disco ${['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][i - 1]} · ${i <= n ? (i === 1 ? '<s>21.XII.95</s> retirado (conservación)' : `retirado ${17 + i}.VI.96 (conservación)`) : '<i>in situ</i>'}</p>`).join('');
+    // (one a month, at the new moon, from the winter turning: CAVE6.md; the seventh, the sun, never left)
+    const n = S.discsOut(), DATES = ['20.XII.95', '20.I.96', '18.II.96', '19.III.96', '17.IV.96', '17.V.96'];
+    const rows = [1, 2, 3, 4, 5, 6, 7].map(i => `<p>Disco ${['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][i - 1]} · ${i <= n ? `retirado ${DATES[i - 1]} (conservación)` : '<i>in situ</i>'}</p>`).join('');
     await G.closeup([page(`<h3>Cueva 6 · discos de obsidiana · conservación</h3>${rows}<p style="text-align:right">R. B.</p>`, 'doc-ledger')]);
     F().saw_disc_list = true;
     await say(F().ch >= 5 ? 'alan_look_disclist_late' : 'alan_look_disclist');
   };
   S.readInquiry = async function () {
     await G.closeup([
-      page(`<h3>Pesquisa · 1484 · fol. 11</h3><p>Into the loss of the caravels <i>Santa Clara</i>, <i>La Gallega</i> and <i>San Telmo</i>, and of the camp before Gáldar.</p><p>Juan de Quintana, master of the <i>Santa Clara</i>, sworn: that on the eve of the equinox of March the sea rose black <b>against the wind</b>; that women in white sang on the cliffs; that the sea came every night thereafter into low places and beds, for three months; that on the morning of Saint John it went back, and did not come again.</p>`),
+      page(`<h3>Pesquisa · 1484 · fol. 11</h3><p>Into the loss of the caravels <i>Santa Clara</i>, <i>La Gallega</i> and <i>San Telmo</i>, and of the camp before Gáldar.</p><p>Juan de Quintana, master of the <i>Santa Clara</i>, sworn: that on the eve of the equinox of March the sea rose black <b>against the wind</b>; that women in white sang on the cliffs; that the sea came every night thereafter into low places and beds, for three months; that at noon on the day of Saint John it went back, and did not come again.</p>`),
       page(`<h3>fol. 13</h3><p>The bishop declared it a miracle of the Baptist.</p><p>Juan de Quintana, pulled from the water by a Canario fisherman, died in his bed eleven days after giving this testimony. He was found drowned.</p><p style="font-family:'Homemade Apple',cursive;text-align:right;margin-top:2em">Nadie preguntó a las mujeres.</p><p style="font-size:0.8em;opacity:0.7">1505: requested by the Holy Office, which searched one year for "las brujas del 83", and found no one.</p>`),
     ]);
     F().inquiry_read = true;
@@ -74,7 +76,7 @@
   S.readBauteDesk = async function () {
     await G.closeup([
       page(`<h3>Photograph · 1966</h3><p>A hillside of red earth torn open, a bulldozer, a skip. A young man in shirtsleeves with a clipboard has turned to look at the camera. On the back, in ink: <i>Abuela's hill. They put them in the skip.</i></p>`),
-      page(`<h3>Map · the south coast</h3><p>Maspalomas, Playa del Inglés, San Agustín. Six hotels circled in red. In the margin: <b>24·VI · amanecer</b>. Four of the six are Montesdeoca's.</p>`),
+      page(`<h3>Map · the south coast</h3><p>Maspalomas, Playa del Inglés, San Agustín. Six hotels circled in red. In the margin: <b>24·VI · mediodía</b>. Four of the six are Montesdeoca's.</p>`),
     ]);
     F().saw_map = true;
   };
@@ -105,8 +107,8 @@
   // ---------------------------------------------------------------- Elena
   S.readElena = async function () {
     await G.closeup([
-      page(`<h3>E. Suárez · Cueva 6 · 1995</h3><p>Seven circles in a line; one shaded empty. <i>"Six. There should be seven."</i></p><p>Not a calendar. The triangles are arrows: all of them point <b>down</b>. The discs are not ornaments, they steer the beam. With all seven the San Juan sun falls dead centre on the great triangle. <b>That is the lock.</b></p>`),
-      page(`<p>To close it: every disc back, the last one turned to the tilt of the world. To open it: the last one turned so the beam falls on the door.</p><p>The door is in the floor.</p><p><i>Whoever closes it has to be in the water. Ask C. if the grandmothers' saying has a second half.</i></p>`),
+      page(`<h3>E. Suárez · Cueva 6 · 1995</h3><p>Seven circles in a row, the floor of the chamber under the cave; one shaded empty. <i>"Six. There should be seven."</i></p><p>Not a calendar. The triangles are arrows: all of them point <b>down</b>. The discs are not ornaments, they are mirrors: at noon each throws the sun back up onto its own triangle. Six moons and the sun. <b>That is the lock.</b></p>`),
+      page(`<p>To close it: every disc back in its own socket, the sun flat in the middle, at noon on the turning. To open it: the sun turned to face the sun. Send him back.</p><p>The door is in the floor.</p><p><i>Whoever closes it has to be in the water. Ask C. if the grandmothers' saying has a second half.</i></p>`),
     ]);
     F().elena_read = true;
   };
@@ -115,7 +117,7 @@
     F().gc_seen = true;
   };
   S.readCharts = async function () {
-    await G.closeup([page(`<h3>E. Suárez · sun paths, Cueva 6</h3><p>The beam's path by date and hour, in a careful hand: equinox, solstice, the days between. A dotted line marked <i>"con los siete"</i> runs to the great triangle at the back, at <i>"San Juan, amanecer"</i>.</p><p>On the last sheet, the solstice, a second line in pencil that touches no triangle, and in the margin, underlined three times: <i>Puerta.</i></p>`, 'doc-ledger')]);
+    await G.closeup([page(`<h3>E. Suárez · Cueva 6 · the sockets</h3><p>The row of seven sockets in the chamber under the cave, in a careful hand, a sign by each, crossed out and drawn again; over them the seven triangles on the wall above, numbered, and a line from each socket to a triangle, every line crossing in the hole.</p><p>On the last sheet, in pencil, the middle socket on its own: the sun disc, drawn tipped a little off the flat. <i>"4° 36′ S."</i> In the margin <i>"14:05"</i>, and underlined three times: <i>Puerta.</i></p>`, 'doc-ledger')]);
     await say('vasco_look_charts');
   };
 })();

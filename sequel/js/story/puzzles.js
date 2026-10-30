@@ -58,6 +58,14 @@
     panza: W('island', 'panza de burro', f => f.burnt),
     guagua: W('island', 'guagua', f => f.knows_guagua),
     guiri: W('island', 'guiri', f => f.mercedes_met),
+    // the moon's faces and the sun, the signs over the triangles in Cave 6 (Monday, once Baute has said the telling)
+    sign_wax_crescent: W('sign', 'the waxing crescent', f => f.telling_heard),
+    sign_first_quarter: W('sign', 'the first quarter', f => f.telling_heard),
+    sign_wax_gibbous: W('sign', 'the waxing gibbous', f => f.telling_heard),
+    sign_sun: W('sign', 'the sun', f => f.telling_heard),
+    sign_wan_gibbous: W('sign', 'the waning gibbous', f => f.telling_heard),
+    sign_last_quarter: W('sign', 'the last quarter', f => f.telling_heard),
+    sign_wan_crescent: W('sign', 'the waning crescent', f => f.telling_heard),
   };
   S.knows = id => { const w = S.WORDS[id]; try { return !!(w && w.when(F())); } catch (e) { return false; } };
   // a toast for each word newly earned (after every finished action: G.autosave is called then)
@@ -66,7 +74,7 @@
     const seen = f.words_seen || (f.words_seen = []);
     for (const id of Object.keys(S.WORDS)) if (!seen.includes(id) && S.knows(id)) {
       seen.push(id);
-      if (G.toast && !window.FAST) G.toast(`Noted: “${S.WORDS[id].text}”`);
+      if (G.toast && !window.FAST && S.WORDS[id].kind !== 'sign') G.toast(`Noted: “${S.WORDS[id].text}”`);
     }
   };
   const autosave = G.autosave;
@@ -80,7 +88,7 @@
       intro: 'The Castilians wrote it down. Carmen told it the other way. Same spring, same sea.',
       rows: ['<i>"Women in white singing on the cliffs."</i><br>They were {a}.',
         '<i>"The sea rose black against the wind."</i><br>Not weather: {b}.',
-        '<i>"A miracle of the Baptist,"</i> on Saint John\'s morning.<br>It was {c}, at the turn of the year.',
+        '<i>"A miracle of the Baptist,"</i> at noon on Saint John\'s day.<br>It was {c}, at the turn of the year.',
         '<i>"It did not come again."</i><br>Because {d}.'],
       blanks: { a: ['history', 'harimaguadas'], b: ['history', 'called'], c: ['history', 'magec'], d: ['history', 'cueva'] } },
     { id: 'case_thu', title: 'Who is taking the discs?', done: 'case_thu',
@@ -104,7 +112,7 @@
       rows: ['<span class="old">"…o Mar fere primeiro a quem entende a <b>f·ch·d·ra</b>…"</span><br>{a}',
         '<span class="old">"…vem buscar toda alma que lhe foi <b>dev·lv·da</b>…"</span><br>{b}',
         '<span class="old">"…e só se fecha numa <b>v·r·g·m</b>, de dentro da sua água…"</span><br>{c}',
-        '<span class="old">"…à <b>p·rt·</b>, enquanto o sol nasce."</span><br>{d}',
+        '<span class="old">"…à <b>p·rt·</b>, com o sol no alto."</span><br>{d}',
         '<span class="old" style="opacity:0.4">"A última … pôs as pedras … e quando … desceo com ella …"</span><br><i>(The last paragraph is gone. Inês has the professor.)</i>'],
       blanks: { a: ['pt', 'fechadura'], b: ['pt', 'devolvida'], c: ['pt', 'viragem'], d: ['pt', 'porta'] } },
     { id: 'next', title: 'Who\'s next', done: 'next_known',
@@ -113,6 +121,20 @@
       rows: ['Next on Doña Pino\'s list, still within its reach: {a}.', 'It comes up from below, where the city is lowest: {b}.',
         'It comes with the tide. High water tonight: {c}.'],
       blanks: { a: ['name', 'pino'], b: ['where', 'isleta'], c: ['time', 't1904'] } },
+    // Monday, in the water: Baute's grandmother's telling, verse by verse, each to the scene round its triangle (the
+    // scenes Vasco reads from the rim); the order the discs go in (docs/puzzles/CAVE6.md, "When")
+    { id: 'telling', title: 'The grandmothers\' telling', done: 'telling_known', cls: 'pz-telling',
+      open: f => f.ch === 7 && f.telling_heard && !f.lock_closed,
+      intro: 'Baute\'s grandmother\'s. One verse a moon. Which moon\'s scene goes with which verse? (Vasco will read me any of them.)',
+      rows: ['When the sun was smallest, the water stood up taller than the mountain, and the wind could not push it. {a}',
+        'In the second moon it lay down in our houses and slept there. {b}',
+        'In the third moon the white ones came down the goat paths. {c}',
+        'In the fourth moon they gave it the goats\' milk, and it drank. {d}',
+        'In the fifth moon they beat it like a dog, and it went down to its bed. {e}',
+        'In the sixth moon one stayed in the water, and the moon went in with her. {f}',
+        'And on the long day, at the top of the day, they set the sun in the middle, and the year began. {g}'],
+      blanks: { a: ['sign', 'sign_wax_gibbous'], b: ['sign', 'sign_last_quarter'], c: ['sign', 'sign_wax_crescent'], d: ['sign', 'sign_wan_gibbous'],
+        e: ['sign', 'sign_first_quarter'], f: ['sign', 'sign_wan_crescent'], g: ['sign', 'sign_sun'] } },
   ];
   S.page = id => S.PAGES.find(p => p.id === id);
   const fills = id => { const f = F(), pg = f.pg || (f.pg = {}); return pg[id] || (pg[id] = {}); };
@@ -196,7 +218,9 @@
     #closeup .page.pz .pz-status { text-align: center; margin-top: 1em; opacity: 0.85; }
     #closeup .page.pz .pz-status.ok { color: #1e4a1a; font-size: 1.6em; }
     #closeup .page.pz .pz-status.no { color: #7a1408; font-weight: 700; }
-    #closeup .page.pz .old { font-family: 'IM Fell English', serif; opacity: 0.75; }`;
+    #closeup .page.pz .old { font-family: 'IM Fell English', serif; opacity: 0.75; }
+    #closeup .page.pz.pz-telling { font-size: clamp(8px, 1.12vw, 14px); }
+    #closeup .page.pz.pz-telling p { margin: 0.32em 0; }`;
   document.head.appendChild(css);
 })();
 
@@ -223,7 +247,7 @@
     [f => f.receipt_read, 'Sat. In the lining of the blazer: a mass for the dead of Tasarte, 1966, paid every year. I. M.'],
     [f => f.tasarte_told, 'Sat. Chano: Tasarte, 1966. Montesdeoca\'s bulldozers, Baute\'s grandmother\'s people in the skip. Six hotels circled: targets.'],
     [f => f.vnote_read, 'Sat. Vasco\'s note from Tuesday: the camp listens on Canal 9, on the hour.'],
-    [f => f.radio_lolo_got, 'Sat. Don Lolo heard a Portuguese on the mountain\'s channel this morning: "Tell Alan... the van... the discs... under—"'],
+    [f => f.radio_lolo_got, 'Sat. Don Lolo heard a Portuguese on the mountain\'s channel this afternoon: "Tell Alan... the van... the discs... under—"'],
     [f => f.radio_lie, 'Sat. From Santa Ana\'s tower, on Lolo\'s radio: Baute says Vasco took the guagua down after the cave. The guagua goes at seven in the morning. He\'s lying.'],
     [f => f.next_known, 'Sat. Doña Pino is next. La Isleta, on the high tide: 19:04.'],
   );
@@ -269,7 +293,7 @@
     await say('mercedes_folio_2', 'mercedes_folio_3', 'mercedes_folio_4', 'mercedes_folio_5', 'alan_th_folio');
     f.folio12 = true;
   };
-  S.readFolio12 = () => G.closeup([page(`<h3>Pesquisa · 1484 · fol. 12</h3><p>Pedro, Canario, fisherman of Gáldar, baptised, sworn: that he pulled the master Juan de Quintana from the sea on the fourth night.</p><p>That the women in white did not call the sea upon the Castilians alone, but called it, and it would not be aimed, and on the third night it took his own village.</p><p>That they shut it out with Magec, at the cave of the light above Artenara, on the morning of the turn. And that the sea will want back the ones he took from it.</p><p style="font-size:0.85em;opacity:0.75">(Struck through, the whole folio, in another ink. In the margin of fol. 13: <i>Nadie preguntó a las mujeres.</i>)</p>`)]);
+  S.readFolio12 = () => G.closeup([page(`<h3>Pesquisa · 1484 · fol. 12</h3><p>Pedro, Canario, fisherman of Gáldar, baptised, sworn: that he pulled the master Juan de Quintana from the sea on the fourth night.</p><p>That the women in white did not call the sea upon the Castilians alone, but called it, and it would not be aimed, and on the third night it took his own village.</p><p>That they shut it out with Magec, at the cave of the light above Artenara, at noon on the day of the turn. And that the sea will want back the ones he took from it.</p><p style="font-size:0.85em;opacity:0.75">(Struck through, the whole folio, in another ink. In the margin of fol. 13: <i>Nadie preguntó a las mujeres.</i>)</p>`)]);
   // the case: Gail's news gives the last piece (the contract upstairs); then he builds it
   const gdThu = S.gdThu;
   S.gdThu = async function () {
@@ -402,6 +426,7 @@
     await say('alan_look_tides');
   };
   S.ON_SOLVE.next = () => say('alan_pz_next_done');
+  S.ON_SOLVE.telling = () => say('alan_pz_telling_done');
   // the warning, then the flood (sat.js S.floodScene): Lolo stays awake because Alan told him
   S.warnLolo = async function () {
     await G.busy(async () => {

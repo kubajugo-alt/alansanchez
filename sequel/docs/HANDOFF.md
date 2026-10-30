@@ -47,6 +47,8 @@ root, in the same repository as Game I. Read, in this order:
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
 ### Open, in the order I'd suggest
+0. **Cave 6, redesigned (entry 106)**: built and playable (`?scene=cave`, `cave_low`, `monday`, `aim`, `aim_sun`); its
+   199 lines (118 changed, 81 new) wait for the user's read in `docs/puzzles/CAVE6_LINES.md`, then recording.
 1. **The granary (entries 98, 100)**: built and live; the user to see it in the game (`?scene=vault` for the cell,
    `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved, voiced and live; "pesetas" is B (entry 100).
 2. **Deployed** (entry 101): everything to here is live.
@@ -1143,3 +1145,54 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     the in-game vascor (MAHZgxwIxeM) and the bed ref, more chest hair; exported via page 7 of DAHYZ-SDzRE, kept as
     `art/designs/vasco_towel_bed.png`, keyed, rotated 11°, night-graded, placed by the user on a placement page (https://claude.ai/artifact/MF3B4betqnWGEtUw27peHw, db `placements/vasco_towel`: centre 300.3,404.2, width 340.9, -9°, brightness 0.86), baked at (116,278) on `hotel_room`
     (`art/review/bg_real/hotel_room_vasco_towel.png/.json`, preview `hotel_room_vasco_preview.jpg`). Awaiting approval.
+106. **Cave 6 built as redesigned: the cave, the chamber under it, the order riddle, the aiming, the women of light**
+    (2026-10-30). The design the user approved, `docs/puzzles/CAVE6.md`, made playable.
+    - Art: `art/bg/cave6.jpg` is now `art/review/cave6_redesign/up_real_etched.png` (one opening in the roof, the hole in
+      the floor with the rope ladder, the seven triangles and their moon signs), and the new room `cave6_low` is
+      `low_real_empty_etched.png` (take B, the pintadera walls, the moon-phase signs etched by each socket; the
+      un-suffixed `*_etched.png` files are B with the moon phases, the `*_etched_b.png` ones still carry the old signs);
+      both Lanczos-upscaled to 2560x1440, depth maps made (`scripts/depth_map.py`; parallax stays off in both). The discs
+      put back are sprites, `art/layers/cave6_disc_<socket>.webp` from `discs/disc_N.png` at `discs.json`'s places.
+    - Code (`js/story/vasco.js`): `S.CAVE` (the wall order, the floor = the wall mirrored, the telling's order), the
+      light in both rooms drawn from one state (`S.columns()`, `S.lightOn()`: the noon column down the shaft, each disc's
+      column crossing in the hole to its triangle, Baute's tipped sun going up the shaft, the cloud, the mirror), ported
+      from `aim.html`, and the code-drawn women of light (`S.harimaguada`). Saturday: chalk on the triangles (the seven
+      signs), the torch on them (the scenes: the grandmothers' romance, no words), "Sit and wait for noon" (14:04), down
+      the rope ladder (locked until noon): the floor signs (the wall in a mirror), the sun disc moved one socket along and
+      back (its column jumps across), Elena's last sheet on the sun disc ("4° 36′ S", "14:05": send the sun back),
+      swallowed; out to the radio as before. The vault mark is the seven signs in floor order and an A.
+    - Monday (`js/story/mon.js`): dawn in the cave as before (Baute tipped the sun at four, by eye); the morning passes
+      to twelve; the column comes down and the sun disc sends it up the shaft at a slant (a spot climbing the shaft's
+      wall to 14:05, `F().mclock`); down the rope ladder (`cave6_low`, in the water); Vasco at the rim reads any scene;
+      the five discs from the vault are five items (`disc_<sign>`), the crescent a sixth from Baute; each disc into a
+      socket is then **aimed** (`S.aim`: mouse left/right or the arrow keys tip it, the column sweeps the wall in real
+      time, click or Enter sets it, Esc or a right click takes it out; a socket reaches only the triangles round its
+      own); bare rock: aim again; another disc's triangle, a wrong socket, or out of the telling's turn: a surge (three:
+      the death screen, retry from the checkpoint). Stuck ("Which one goes first?", or the first surge, or five set):
+      Baute's last help (the stain, Carmen's street, the telling verse by verse in Spanish, Vasco's English, the
+      crescent) and the page "The grandmothers' telling" (`js/story/puzzles.js`: each verse to a sign; the words are the
+      seven signs). The six moons in the telling's order; then the sun disc: the cloud, Carmen's wing mirror from the top
+      of the rock, the sun laid flat on the great triangle; the triangles flare and the women of light dance round the
+      noon column (about ten seconds), then only the columns; the door takes Alan; `still_chain`; back in the upper cave
+      for `still_sunrise` and the confession.
+    - Lines (`js/lines.js`): 118 changed, 81 new, side by side in `docs/puzzles/CAVE6_LINES.md` for the user's read;
+      the changed lines' recordings moved to `audio/voice_stale/` (captions until re-recorded), their ids appended to
+      `scripts/voice_redo.txt`; nothing generated. Everything that spoke of the slot, the channel, the beam steered by a
+      disc, the clinometer, 23° 26′, the tilt of the world and sunrise as the moment of the lock is rewritten to noon,
+      the moons and the telling (Tuesday to Monday, the letter, Baute's map, the inquiry, Sunday's rock, the Guardia at
+      four). The San Juan night is unchanged. Saturday's radio lines follow Vasco's noon (Lolo heard him "this
+      afternoon"). 45 old-mechanic lines are no longer said (listed in CAVE6_LINES.md), kept so no recording is orphaned.
+      The museum's disc list and the notebook now say one a month (20.XII.95 to 17.V.96); Elena's notebook and charts
+      rewritten (`js/story/docs.js`).
+    - Previews (`js/story/main.js`): `cave` (Saturday, 09:00), `cave_low` (the chamber at noon), `monday` (the finale
+      from dawn), `aim` (in the water, two set), `aim_sun` (the sun under the mirror).
+    - Decided differently from CAVE6.md: the sun disc stays in its own socket, tipped (the approved "last disc" section;
+      the earlier text had Baute move it to the end of the row); Saturday's cave work runs to the sun's noon (14:04), so
+      Lolo's and Baute's radio lines move from "this morning" to the afternoon; no walls figures down below (the story is
+      only round the triangles upstairs), so the "frieze" step is the floor signs; the radio doesn't cut Vasco off in
+      the cave (it's at the camp); the women of light are the prototype's code-drawn outlines, not painted.
+    - Checks: `node scripts/validate.mjs` 0 errors (126 warnings: the earlier 80 plus the retired lines); play.mjs
+      won in 130 steps through the new route (its one page error, a 404 for `art/layers/rafa_table.webp`, is the
+      bar's table layer removed in 42c99172 by the parallel work on Rafa's bar, not this); screenshots of both rooms, Saturday at noon, the sun-disc test, the aiming, the telling page and the
+      closing checked by eye.
+

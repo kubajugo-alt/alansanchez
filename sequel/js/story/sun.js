@@ -6,7 +6,7 @@
 // this morning); working out where Vasco is. The Land Rover up through the panza: the boiling radiator, the black, the
 // water in the footwell on Alan's side only, Carmen driving through it; out above the cloud into the stars, the bonfires
 // glowing under it. The vault at dusk, cut away to: Vasco talks Yeray round. The camp in the dark; the rescue at the
-// grille; the discs; 23° 26′ and the A; the talk on the rock ("Not now"); the path to Cave 6. Then Monday (mon.js).
+// grille; the discs; the seven signs and the A; the talk on the rock ("Not now"); the path to Cave 6. Then Monday (mon.js).
 // Rooms first seen today: Carmen's flat, the Land Rover. The vault and the camp live in vasco.js; the Sunday parts of
 // them are here (the vault's Sunday entry, the rescue, the discs; Vasco and Yeray at the camp after it).
 (function () {
@@ -340,7 +340,7 @@
   S.talkYerayVault = () => F().vasco_free ? say('yeray_su_after') : say('yeray_su_pull');
   S.talkVascoVault = () => F().vasco_free ? say('vasco_su_vault') : say('alan_su_vasco_talk');
   // (2026-10-30) the first heave, Alan and Yeray: it moves, and holds; it needs Carmen's weight on the pick handle too
-  S.talkCarmenVault = () => { const f = F(); if (f.vasco_free) return say(G.has('discs') ? 'carmen_vault_up' : 'carmen_vault_after'); if (f.grille_heaved) f.carmen_on = true; return say('carmen_vault_pull'); };
+  S.talkCarmenVault = () => { const f = F(); if (f.vasco_free) return say(G.has('disc_wax_gibbous') ? 'carmen_vault_up' : 'carmen_vault_after'); if (f.grille_heaved) f.carmen_on = true; return say('carmen_vault_pull'); };
   S.tearGrille = async function () {
     const f = F();
     if (f.vasco_free) return say('alan_look_grille_off');
@@ -371,11 +371,11 @@
     const f = F();
     if (F().as_vasco) return say('vasco_look_crates');
     if (!f.vasco_free) return say('alan_crates_first');
-    if (G.has('discs') || f.ch === 7) return say('alan_crates_empty');
+    if (G.has('disc_wax_gibbous') || f.ch === 7) return say('alan_crates_empty');
     await G.busy(async () => {
       await say('narr_discs_1', 'narr_discs_2');
       S.sfx('cloth_jacket', 0.4);
-      S.give('discs'); f.discs_left = 5;
+      S.giveDiscs();
       await say('alan_su_discs', 'vasco_su_discs');
       await say('narr_mark_su', 'alan_su_mark', 'narr_mark_su_2');
       f.v_marked = true;

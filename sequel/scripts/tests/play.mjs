@@ -1,6 +1,6 @@
 // Plays The Shortest Night from the prologue to the end credits, as a player would (through hotspots, people and
-// dialogue choices, with window.FAST on), and prints where it got to. Also takes the airport's bad ending and one wrong
-// disc in the finale on the way.
+// dialogue choices, with window.FAST on), and prints where it got to. Also takes the airport's bad ending and one disc
+// out of its turn in the finale on the way.
 // usage: node play.mjs <baseUrl>     (serve sequel/ first: npx -y http-server -p 8099 -c-1 -s sequel)
 import { createRequire } from 'module';
 const require = createRequire('/opt/node22/lib/node_modules/');
@@ -170,10 +170,16 @@ try {
   // ---- Vasco
   await expect('playing Vasco', () => Game.player.speaker === 'vasco');
   await act('yeray', 'talk'); await act('Finds table', 'take'); await act('Path to Cave 6', 'exit');
-  await act('The beam', 'use'); await act('Sit and wait half an hour', 'use'); await act('The beam', 'use'); await act('Sit and wait half an hour', 'use'); await act('The beam', 'use');
-  await act('Your chalk marks', null, 'elena_charts'); await act('A remaining disc', 'use');
-  await act('The great triangle', null, 'elena_charts'); await act('A remaining disc', null, 'clinometer');
-  await expect('the angle, and out to the camp', () => Game.flags.v_understood && Game.room.id === 'camp');
+  // (2026-10-30, the redesigned Cave 6: the signs brought up with chalk, the scenes by torch, noon at 14:04; down the rope
+  // ladder: the floor signs, the sun disc moved one socket along and back, Elena's "Puerta" against the sun disc)
+  await act('Engraved triangles', null, 'chalk'); await act('Engraved triangles', null, 'torch');
+  await act('Sit and wait for noon', 'use');
+  await expect('noon in the cave', () => Game.flags.v_chalked && Game.flags.v_scenes && Game.flags.v_noon);
+  await act('Rope ladder down', 'exit');
+  await expect('the chamber under the cave', () => Game.room.id === 'cave6_low');
+  await act('Signs in the floor', 'look'); await act('Socket · the sun', 'use');
+  await act('Socket · the sun', null, 'elena_charts');
+  await expect('Puerta, and out to the camp', () => Game.flags.v_test && Game.flags.v_understood && Game.room.id === 'camp');
   await act('Camp radio', 'look'); await act('Stove', 'take'); await act('Camp radio', null, 'foil');   // (the foil: the message Lolo heard)
   await expect('the message sent', () => Game.flags.v_sent);
   await act('baute', 'talk');
@@ -198,22 +204,27 @@ try {
   await expect('Vasco out', () => Game.flags.vasco_free);
   await act('Crates', 'take');
   // ---- Monday
-  await expect('Monday in Cave 6', () => Game.flags.ch === 7 && Game.room.id === 'cave6');
-  await act('The door in the floor', 'use');
-  // the novel's order: II, IV, III, VI, V, then Baute's disc in I
-  await act('Socket I', null, 'discs'); // (wrong on purpose: the water surges)
-  await expect('a surge', () => Game.flags.surges === 1);
-  await act('Socket II', null, 'discs'); await act('Socket IV', null, 'discs'); await act('Socket III', null, 'discs');
-  await act('Socket VI', null, 'discs'); await act('Socket V', null, 'discs');
-  await expect('the sixth disc', () => Game.has('disc6'));
-  await act('Socket I', null, 'disc6');
-  // the seventh: the cloud crosses the sun; Carmen and the Land Rover's wing mirror; turned by the light as Vasco calls it
-  await act('The seventh disc', 'use');
+  // (2026-10-30, the redesigned finale, docs/puzzles/CAVE6.md: noon at twelve, Baute's sun going up the shaft; Alan down
+  // the rope ladder with the five discs; Vasco reads a scene; a disc out of the telling's turn (a surge on purpose); Baute's
+  // telling and the crescent; the page; the six moons in the telling's order, each aimed (S.autoAim: onto the triangle its
+  // socket faces); the sun disc: the cloud, Carmen's mirror, laid flat on the great triangle)
+  await expect('Monday in Cave 6, noon', () => Game.flags.ch === 7 && Game.room.id === 'cave6' && Game.flags.mclock >= 720);
+  await act('Rope ladder down', 'use');
+  await expect('in the water, in the chamber', () => Game.room.id === 'cave6_low' && Game.flags.in_water);
+  await quiet(); await page.evaluate(() => { S.autoAim = i => 6 - i; });
+  await act('Vasco, at the rim', 'talk', null, ['waxing gibbous']);
+  await act('Socket · first quarter', null, 'disc_first_quarter');   // (out of its turn: the water surges)
+  await expect('a surge, the telling and the crescent', () => Game.flags.surges === 1 && Game.flags.disc6_given && Game.has('disc_wan_crescent'));
+  await quiet(); await page.evaluate(() => S.fillPage('telling', { a: 'sign_wax_gibbous', b: 'sign_last_quarter', c: 'sign_wax_crescent', d: 'sign_wan_gibbous', e: 'sign_first_quarter', f: 'sign_wan_crescent', g: 'sign_sun' }));
+  for (const [sock, disc] of [['waxing gibbous', 'wax_gibbous'], ['last quarter', 'last_quarter'], ['waxing crescent', 'wax_crescent'], ['waning gibbous', 'wan_gibbous'], ['first quarter', 'first_quarter'], ['waning crescent', 'wan_crescent']])
+    await act('Socket · ' + sock, null, 'disc_' + disc);
+  await expect('six moons set, in the telling\'s order', () => (Game.flags.placed || []).join() === 'wax_gibbous,last_quarter,wax_crescent,wan_gibbous,first_quarter,wan_crescent' && Game.flags.telling_known);
+  await act('Socket · the sun', 'use');
   await expect('the cloud', () => Game.flags.cloud_over && !Game.flags.mirror_on);
-  await act('carmen', 'talk');
+  await act('Vasco, at the rim', 'talk');
   await expect('the mirror', () => Game.flags.mirror_on);
-  await act('The seventh disc', 'use', null, ['left', 'down', 'down']);
-  await expect('the lock closed', () => Game.flags.lock_closed);
+  await act('Socket · the sun', 'use');
+  await expect('the lock closed', () => Game.flags.lock_closed && Game.room.id === 'cave6');
   await act('yeray', 'talk'); await act('vasco', 'talk', null, ['I have to tell you', 'I broke both']);
   await act('Path to the camp', 'exit'); await act('Camp radio', null, 'fuse');
   await page.waitForSelector('#ending:not(.hidden)', { timeout: 60000 });

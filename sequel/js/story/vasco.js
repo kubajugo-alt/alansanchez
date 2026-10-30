@@ -1,11 +1,14 @@
 // The Shortest Night — Saturday 22 June, Vasco's chapter (played as Vasco, about half an hour; the camp and Cave 6
-// rewritten from the novel's Chapter Seven, 2026-10-30). The camp at 07:00
-// (Yeray's "Portuguese guy"; Elena's sun charts); Cave 6 at 09:00, reading the light (mark the beam at three times, find
-// it off its path, turn a disc to steer it, work out San Juan's sunrise, measure the last disc's angle: 23° 26′); the
-// understanding; the radio without its fuse; Baute's refusal; the vault: the mark on the wall, the anchors dug out with
-// Lorenzo's trowel, the water rising, the prayer.
-// The mountain's rooms live here with every day's use of them: the camp (Sunday night, Monday's sunrise), Cave 6
-// (Monday's finale: mon.js), the vault (Sunday's rescue: sun.js).
+// rewritten from the novel's Chapter Seven, 2026-10-30; Cave 6 redesigned the same day, docs/puzzles/CAVE6.md). The camp
+// at 07:00 (Yeray's "Portuguese guy"; Elena's charts); Cave 6 from 09:00: the signs over the triangles brought up with
+// chalk, the scenes round them read by torch (the grandmothers' telling: he knows it exists, not the words), noon at
+// 14:04 (Canary summer time) and the one column on the great triangle; down the rope ladder to the chamber of sockets:
+// the floor is the wall in a mirror, the sun disc moved one socket along (the columns cross), Elena's "Puerta" (the sun
+// disc tipped 4° 36′ S at 14:05: send the sun back), swallowed; the radio without its fuse; Baute's refusal; the vault:
+// the mark on the wall (the seven signs in floor order, and an A), the anchors dug out with Lorenzo's trowel, the water
+// rising, the prayer.
+// The mountain's rooms live here with every day's use of them: the camp (Sunday night, Monday), Cave 6 and the chamber
+// under it (Monday's finale: mon.js), the vault (Sunday's rescue: sun.js).
 (function () {
   const S = window.S, { G, F, say, ROOMS, T } = S;
   const ch = () => F().ch || 1;
@@ -91,7 +94,7 @@
       await say('narr_v_yeray_7', 'vasco_v_yeray_4');
     });
   };
-  // the expedition files: Elena Suárez's sun charts, and on the last one a second line in pencil, and a word
+  // the expedition files: Elena Suárez's charts of the sockets, and on the last one the sun disc in pencil, and a word
   S.takeCharts = async function () {
     if (!asV()) return say('alan_look_finds_camp');
     if (G.has('elena_charts')) return say('vasco_finds_again');
@@ -99,7 +102,7 @@
       S.sfx('paper_shuffle', 0.5);
       await say('narr_v_charts_1', 'narr_v_charts_2', 'vasco_take_1', 'narr_v_charts_3', 'narr_v_charts_4');
       await S.posed('find', () => say('vasco_take_2'));
-      S.give('elena_charts'); S.give('chalk', true); S.give('clinometer', true); S.give('vnotebook', true);
+      S.give('elena_charts'); S.give('chalk', true); S.give('vnotebook', true);
       await say('vasco_take_charts');
     });
   };
@@ -146,163 +149,344 @@
     });
   };
 
-  // ================================================================ CAVE 6
-  // The beam: where it falls on the wall at each half hour (Vasco's chapter), or steered by a disc onto a triangle
-  const BEAM_AT = [[330, 360], [420, 330], [520, 300], [880, 360], [1010, 380]];
-  // the seven sockets on the skylight's lip, as painted (I-VI, then the seventh); the beam's landing points
-  S.SOCKETS = [[509, 85], [578, 95], [648, 102], [720, 102], [792, 97], [864, 87], [931, 68]];
-  S.GREAT = [685, 330]; S.DOOR = [680, 562];
-  // where the beam is drawn: it slides to a new place over BEAM_SLIDE s (eased), and sways a little and shimmers while
-  // it rests, as sunlight through a channel does
-  const BEAM_SLIDE = 2.6; let shown = null, from = null, target = null, slideT = 1, lastT = 0;
-  const beamShown = t => {
-    const to = S.beamPoint(), dt = Math.min(0.1, Math.max(0, t - lastT)); lastT = t;
-    if (!shown) { shown = to.slice(); target = to.slice(); }
-    if (to[0] !== target[0] || to[1] !== target[1]) { from = shown.slice(); target = to.slice(); slideT = 0; }
-    if (slideT < 1) { slideT = Math.min(1, slideT + dt / BEAM_SLIDE); const e = slideT * slideT * (3 - 2 * slideT); shown = [from[0] + (target[0] - from[0]) * e, from[1] + (target[1] - from[1]) * e]; }
-    return [shown[0] + 4 * Math.sin(t * 0.35), shown[1] + 2 * Math.sin(t * 0.27 + 1)];
+  // ================================================================ CAVE 6 (redesigned 2026-10-30, docs/puzzles/CAVE6.md)
+  // Two rooms. The cave (cave6): one small opening in the roof, a hole in the floor straight under it with a rope ladder,
+  // seven triangles on the back wall (three small, the great one, three small), a sign over each: the moon in six
+  // phases round the sun. The chamber under it (cave6_low): seven sockets in a row in the floor, a sign cut by each.
+  // At noon a column of sunlight comes down the shaft onto all seven sockets, and each disc throws a column back up
+  // through the hole onto its own triangle. The columns cross in the hole, so the floor is the wall in a mirror.
+  const WALL = ['wax_crescent', 'first_quarter', 'wax_gibbous', 'sun', 'wan_gibbous', 'last_quarter', 'wan_crescent'];
+  const FLOOR = WALL.slice().reverse();   // socket i holds FLOOR[i] and lights triangle 6 - i
+  // the grandmothers' telling: the order the women set them in, one a moon from the winter turning (Baute took them out
+  // in the same order, at the same moons, December to May); the sun last, at noon on the long day
+  const TURN = ['wax_gibbous', 'last_quarter', 'wax_crescent', 'wan_gibbous', 'first_quarter', 'wan_crescent', 'sun'];
+  const NAME = { wax_crescent: 'waxing crescent', first_quarter: 'first quarter', wax_gibbous: 'waxing gibbous', sun: 'the sun',
+    wan_gibbous: 'waning gibbous', last_quarter: 'last quarter', wan_crescent: 'waning crescent' };
+  // the cave, as painted: each triangle [left, right, point], the hole in the floor, the opening in the roof
+  const TRI_UP = [[[288, 268], [348, 268], [317, 335]], [[368, 272], [430, 272], [399, 337]], [[449, 274], [510, 274], [479, 339]],
+    [[535, 215], [760, 215], [642, 415]], [[787, 274], [853, 274], [817, 340]], [[873, 272], [939, 272], [903, 338]], [[957, 268], [1020, 268], [990, 335]]];
+  const HOLE = [640, 548, 205, 48], ROOF = [640, 55];
+  // the chamber, as painted: the sockets, the triangles seen up through the hole, the hole (ellipse), the shaft's mouth
+  const SOCK = [[387, 572], [475, 572], [558, 572], [641, 572], [725, 572], [810, 572], [897, 572]];
+  const DISC_AT = [339, 427, 510, 593, 677, 762, 849].map(x => [x, 546, 97, 59]);   // (the disc sprites, from discs.json)
+  const TRI_LOW = [[[444, 95], [476, 95], [460, 133]], [[489, 98], [521, 98], [505, 135]], [[533, 101], [565, 101], [549, 136]],
+    [[582, 76], [695, 76], [637, 177]], [[714, 101], [746, 101], [730, 136]], [[759, 98], [791, 98], [775, 135]], [[804, 95], [836, 95], [820, 133]]];
+  const OPEN = [640, 97, 255, 82], RIM = 170, SHAFT = [640, 34];
+  const cen = t => [(t[0][0] + t[1][0] + t[2][0]) / 3, (t[0][1] + t[1][1] + t[2][1]) / 3], wid = t => t[1][0] - t[0][0];
+  const CEN_LOW = TRI_LOW.map(cen), CEN_UP = TRI_UP.map(cen);
+  S.CAVE = { WALL, FLOOR, TURN, NAME, SOCK, CEN_LOW, TRI_LOW };
+  S.socketOf = sign => FLOOR.indexOf(sign);
+  // a point on the wall (seen through the hole) at a position s along the row of triangles (0..6, beyond the ends too)
+  S.wallAt = function (s) {
+    if (s <= 0) return [CEN_LOW[0][0] + s * 40, CEN_LOW[0][1] - s * 2];
+    if (s >= 6) return [CEN_LOW[6][0] + (s - 6) * 40, CEN_LOW[6][1] + (s - 6) * 2];
+    const k = Math.floor(s), f = s - k, a = CEN_LOW[k], b = CEN_LOW[k + 1];
+    return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f];
   };
-  S.beamPoint = () => {
+  // which triangle a column at s lands on (-1: bare rock between them)
+  S.wallHit = s => { const k = Math.round(s); return k >= 0 && k <= 6 && Math.abs(s - k) < (k === 3 ? 0.36 : 0.26) ? k : -1; };
+  const discImg = [0, 1, 2, 3, 4, 5, 6].map(i => { const im = new Image(); im.src = 'art/layers/cave6_disc_' + i + '.webp'; return im; });
+
+  // ---------------------------------------------------------------- what the light is doing now (both rooms)
+  // Saturday: noon once Vasco has waited for it; only the sun disc in (the test moves it one socket along).
+  // Monday: noon from twelve by the clock (F().mclock, minutes); the sun disc tipped by Baute, its column going up the
+  // shaft at a slant until Alan lays it flat; a cloud takes the light, Carmen's mirror gives it back.
+  S.lightOn = () => {
     const f = F();
-    if (ch() === 7) {
-      if (f.lock_closed || f.disc_turned) return S.GREAT;
-      // (the seventh, turned by the mirror's light: the spot walks onto the great triangle, a turn at a time, mon.js f.turn)
-      if (f.mirror_on) return [[S.GREAT[0] + 150, S.GREAT[1]], [S.GREAT[0] + 60, S.GREAT[1] - 10], [S.GREAT[0] + 20, S.GREAT[1] + 10]][Math.min(2, f.turn || 0)];
-      return S.DOOR;
-    }
-    if (f.v_steer) return [492, 300];
-    return BEAM_AT[Math.min(BEAM_AT.length - 1, f.v_time || 0)];
+    if (asV()) return !!f.v_noon;
+    if (ch() !== 7) return false;
+    if (f.lock_closed || S.closing) return true;
+    if ((f.mclock || 0) < 720) return false;
+    return !f.cloud_over || !!f.mirror_on;
   };
+  // [socket, triangle] for every column standing now (triangle 'shaft': straight back up, Baute's tip)
+  S.columns = function () {
+    const f = F(), out = [];
+    if (asV() || ch() < 7) { if (f.v_noon || asV()) out.push(S.vTest ? [4, 2] : [3, 3]); return out; }
+    for (const s of f.placed || []) { const i = S.socketOf(s); out.push([i, 6 - i]); }
+    if (f.lock_closed || S.closing || f.sun_flat) out.push([3, 3]);
+    else out.push([3, 'shaft']);
+    return out;
+  };
+  // the spot of Baute's column climbing the wall of the shaft: 0 at twelve, 1 at 14:05 (the sky)
+  S.shaftK = () => Math.max(0, Math.min(1, ((F().mclock || 720) - 720) / 125));
+
+  const column = (g, p0, w0, p1, w1, a, t) => {
+    const dx = p1[0] - p0[0], dy = p1[1] - p0[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+    const gr = g.createLinearGradient(p0[0], p0[1], p1[0], p1[1]);
+    gr.addColorStop(0, `rgba(255,228,160,${a})`); gr.addColorStop(1, `rgba(255,228,160,${a * 0.8})`);
+    g.fillStyle = gr; g.beginPath(); g.moveTo(p0[0] + nx * w0 / 2, p0[1] + ny * w0 / 2); g.lineTo(p1[0] + nx * w1 / 2, p1[1] + ny * w1 / 2);
+    g.lineTo(p1[0] - nx * w1 / 2, p1[1] - ny * w1 / 2); g.lineTo(p0[0] - nx * w0 / 2, p0[1] - ny * w0 / 2); g.closePath(); g.fill();
+    // dust turning in it
+    g.fillStyle = `rgba(255,240,200,${a * 0.9})`;
+    for (let j = 0; j < 16; j++) { const k = (j * 0.137 + t * 0.03 * (1 + j % 3)) % 1, o = Math.sin(j * 12.9 + t * 0.4) * 0.4, w = w0 + (w1 - w0) * k; g.fillRect(p0[0] + dx * k + nx * w * o, p0[1] + dy * k + ny * w * o, 1.5, 1.5); }
+  };
+  const patch = (g, c, w, a) => {
+    g.save(); g.translate(c[0], c[1]); g.scale(1, 0.75);
+    const r = g.createRadialGradient(0, 0, 0, 0, 0, w * 0.6);
+    r.addColorStop(0, `rgba(255,232,170,${a})`); r.addColorStop(0.7, `rgba(255,228,160,${a * 0.6})`); r.addColorStop(1, 'rgba(255,228,160,0)');
+    g.fillStyle = r; g.beginPath(); g.arc(0, 0, w * 0.6, 0, 7); g.fill(); g.restore();
+  };
+  const triFill = (g, tr, a) => { g.fillStyle = `rgba(255,226,150,${a})`; g.beginPath(); g.moveTo(...tr[0]); g.lineTo(...tr[1]); g.lineTo(...tr[2]); g.closePath(); g.fill(); };
+  // a woman of light (outline only: robe, raised arms with a branch, swaying); the closing, when the seventh is set
+  S.harimaguada = function (g, x, y, k, t, j, a) {
+    const sw = Math.sin(t * 2.2 + j) * 0.12, arm = Math.sin(t * 3 + j * 1.7);
+    g.save(); g.translate(x, y); g.scale(k, k); g.rotate(sw * 0.3);
+    g.strokeStyle = `rgba(255,238,190,${a})`; g.fillStyle = `rgba(255,228,160,${a * 0.18})`; g.lineWidth = 2.2; g.lineJoin = 'round';
+    g.shadowColor = `rgba(255,220,150,${a})`; g.shadowBlur = 14;
+    g.beginPath(); g.moveTo(-8, -118); g.quadraticCurveTo(-22 + sw * 30, -60, -30 + sw * 40, 0); g.quadraticCurveTo(0, 8, 30 + sw * 40, 0); g.quadraticCurveTo(22 + sw * 30, -60, 8, -118); g.closePath(); g.fill(); g.stroke();
+    g.beginPath(); g.ellipse(0, -130, 7, 9, 0, 0, 7); g.fill(); g.stroke();
+    g.beginPath(); g.moveTo(-7, -112); g.quadraticCurveTo(-26, -128 - arm * 10, -20, -160 - arm * 12); g.moveTo(7, -112); g.quadraticCurveTo(26, -128 + arm * 10, 20, -160 + arm * 12); g.stroke();
+    g.beginPath(); const bx = -20, by = -160 - arm * 12; for (let f = 0; f < 5; f++) { g.moveTo(bx, by); g.lineTo(bx - 14 + f * 7, by - 16 + Math.abs(f - 2) * 4); } g.stroke();
+    g.restore();
+  };
+
+  // ---------------------------------------------------------------- the chamber: the light, the discs, the closing
+  const clipAboveRim = g => { g.beginPath(); g.rect(0, RIM, 1280, 720); g.ellipse(OPEN[0], OPEN[1], OPEN[2], OPEN[3], 0, 0, 7); g.clip(); };
+  const clipOpen = g => { g.beginPath(); g.ellipse(OPEN[0], OPEN[1], OPEN[2], OPEN[3], 0, 0, 7); g.clip(); };
+  S.drawLowLight = function (g, t) {
+    const f = F(), on = S.lightOn(), A = S.AIM;
+    g.save(); g.globalCompositeOperation = 'screen';
+    if (on) {
+      // the noon column down the shaft and through the hole, onto the whole row
+      g.save(); clipAboveRim(g); column(g, [SHAFT[0], SHAFT[1]], 36, [642, 575], 600, 0.16, t); g.restore();
+      g.save(); g.translate(639, 567); g.scale(1, 0.09); const r = g.createRadialGradient(0, 0, 0, 0, 0, 300);
+      r.addColorStop(0, 'rgba(255,228,160,.4)'); r.addColorStop(1, 'rgba(255,228,160,0)'); g.fillStyle = r; g.beginPath(); g.arc(0, 0, 300, 0, 7); g.fill(); g.restore();
+      for (const [i, k] of S.columns()) {
+        if (A && A.socket === i) continue;
+        const p0 = [SOCK[i][0], SOCK[i][1] - 6];
+        if (k === 'shaft') {   // Baute's tip: up the shaft at a slant, a spot of gold climbing its wall towards the sky
+          const q = S.shaftK(), p1 = [SHAFT[0] + 40 - 36 * q, SHAFT[1] + 50 - 46 * q];
+          g.save(); clipAboveRim(g); column(g, p0, 30, p1, 16, 0.24, t); g.restore();
+          g.save(); clipOpen(g); patch(g, p1, 26, 0.55); g.restore();
+          continue;
+        }
+        const c = CEN_LOW[k], w = wid(TRI_LOW[k]) * 0.8;
+        g.save(); clipAboveRim(g); column(g, p0, 40, c, w, 0.3, t); g.restore();
+        g.save(); clipOpen(g); patch(g, c, w, 0.5); g.restore();
+      }
+      if (A) {   // the disc being aimed: its column sweeps across the wall as it tips
+        const p = S.wallAt(A.s), k = S.wallHit(A.s), w = k >= 0 ? wid(TRI_LOW[k]) * 0.8 : 22;
+        g.save(); clipAboveRim(g); column(g, [SOCK[A.socket][0], SOCK[A.socket][1] - 6], 40, p, w, 0.24, t); g.restore();
+        g.save(); clipOpen(g); patch(g, p, w, 0.4); g.restore();
+      }
+    }
+    g.restore();
+    // the discs in their sockets
+    const full = new Set(S.columns().map(c => c[0])); if (A) full.add(A.socket);
+    if (asV() && S.vTest) { full.delete(3); full.add(4); }
+    for (const i of full) { const im = discImg[i]; if (im.complete && im.naturalWidth) g.drawImage(im, ...DISC_AT[i]); }
+    if (A) {   // the socket being worked: a faint ring
+      g.save(); g.strokeStyle = 'rgba(255,216,138,0.7)'; g.lineWidth = 2; g.beginPath(); g.ellipse(SOCK[A.socket][0], SOCK[A.socket][1], 30, 11, 0, 0, 7); g.stroke(); g.restore();
+    }
+    // the closing: the triangles flare, the women of light dance in a ring round the noon column, then only the columns
+    if (S.closing) {
+      const e = performance.now() / 1000 - S.closing, env = e < 2 ? e / 2 : e < 9 ? 1 : Math.max(0, 1 - (e - 9) / 2.5);
+      if (env > 0) {
+        g.save(); g.globalCompositeOperation = 'screen';
+        g.save(); clipOpen(g); g.filter = 'blur(3px)'; TRI_LOW.forEach(tr => triFill(g, tr, 0.55 * env)); g.filter = 'none'; g.restore();
+        const ring = [];
+        for (let j = 0; j < 7; j++) { const a = e * 0.55 + j * Math.PI * 2 / 7, z = Math.cos(a); ring.push([z, a, j]); }
+        ring.sort((p, q) => p[0] - q[0]).forEach(([z, a, j]) => S.harimaguada(g, 639 + Math.sin(a) * 170, 548 + z * 14, 0.8 + z * 0.15, e, j, env * (0.55 + 0.35 * (z + 1) / 2)));
+        g.restore();
+      }
+    }
+  };
+  // ---------------------------------------------------------------- the cave: the same light, seen from above
+  S.drawUpLight = function (g, t) {
+    const f = F();
+    // Monday: the Sea's water standing in the hole until the lock shuts
+    if (ch() === 7 && !f.lock_closed) {
+      // (low in the hole, below the rim: dark, a slow glint moving on it)
+      g.save(); g.beginPath(); g.ellipse(HOLE[0] + 6, HOLE[1] + 24, HOLE[2] - 34, HOLE[3] - 26, 0, 0, 7); g.clip();
+      g.fillStyle = 'rgba(12,26,32,0.62)'; g.fillRect(HOLE[0] - HOLE[2], HOLE[1] - HOLE[3], HOLE[2] * 2, HOLE[3] * 2 + 40);
+      const gx = HOLE[0] + Math.sin(t * 0.4) * 90, gl = g.createRadialGradient(gx, HOLE[1] + 24, 0, gx, HOLE[1] + 24, 70);
+      gl.addColorStop(0, 'rgba(150,190,200,0.16)'); gl.addColorStop(1, 'rgba(150,190,200,0)'); g.fillStyle = gl; g.fillRect(gx - 140, HOLE[1] - 10, 280, 70);
+      g.restore();
+    }
+    if (!S.lightOn()) return;
+    g.save(); g.globalCompositeOperation = 'screen';
+    // the noon column down from the roof into the hole
+    column(g, [ROOF[0], ROOF[1] + 6], 34, [HOLE[0], HOLE[1] + 10], 150, 0.2, t);
+    for (const [i, k] of S.columns()) {
+      const x0 = HOLE[0] - 44 + i * 14, p0 = [x0, HOLE[1] + 6];
+      if (k === 'shaft') { column(g, p0, 20, [ROOF[0] + 6, ROOF[1] + 10], 14, 0.2, t); continue; }
+      const c = CEN_UP[k], w = wid(TRI_UP[k]) * 0.75;
+      column(g, p0, 24, c, w, 0.24, t);
+      patch(g, c, w, 0.45);
+    }
+    if (f.lock_closed) TRI_UP.forEach(tr => triFill(g, tr, 0.12 + 0.04 * Math.sin(t * 1.3)));
+    g.restore();
+  };
+
+  // ---------------------------------------------------------------- the cave (upper)
   ROOMS.cave6 = S.room({
     music: 'cave6',
     name: 'Cave 6', bg: 'cave6', floor: 'stone', ambience: 'cistern', parallax: false,
-    light: { ambient: 'rgb(220,190,150)', base: 0.85 },
-    entries: { default: [240, 660, 'e'], camp: [240, 660, 'e'] },
+    light: { ambient: 'rgb(226,206,176)', base: 0.9 },
+    entries: { default: [200, 640, 'e'], camp: [200, 640, 'e'], cave6_low: [470, 650, 'e'] },
     npcs: [
-      { id: 'vasco', x: 420, y: 660, dir: 'e', name: 'Vasco', when: () => ch() === 7, look: 'alan_look_vasco_cave', talk: () => S.talkVascoCave() },
-      { id: 'carmen', ch: 'carmen_field', x: 160, y: 650, dir: 'e', name: 'Carmen', when: () => ch() === 7, look: 'alan_look_carmen_mirror', talk: () => S.talkCarmenCave() },
-      { id: 'yeray', ch: 'yeray', x: 300, y: 690, dir: 'e', name: 'Yeray', when: () => ch() === 7, look: 'alan_look_yeray_cave', talk: () => S.talkYerayCave() },
-      { id: 'baute', ch: 'baute_dig', x: 1040, y: 650, dir: 'w', name: 'Rayco Baute', when: () => ch() === 7, look: 'alan_look_baute_cave', talk: () => S.talkBauteCave() },
+      { id: 'vasco', x: 780, y: 650, dir: 'w', name: 'Vasco', when: () => ch() === 7, look: 'alan_look_vasco_cave', talk: () => S.talkVascoCave() },
+      { id: 'carmen', ch: 'carmen_field', x: 190, y: 640, dir: 'e', name: 'Carmen', when: () => ch() === 7 && (!F().cloud_over || F().lock_closed), look: 'alan_look_carmen_mirror', talk: () => S.talkCarmenCave() },
+      { id: 'yeray', ch: 'yeray', x: 330, y: 690, dir: 'e', name: 'Yeray', when: () => ch() === 7, look: 'alan_look_yeray_cave', talk: () => S.talkYerayCave() },
+      { id: 'baute', ch: 'baute_dig', x: 1060, y: 620, dir: 'w', name: 'Rayco Baute', when: () => ch() === 7, look: 'alan_look_baute_cave', talk: () => S.talkBauteCave() },
     ],
     hotspots: [
-      // Vasco's chapter
-      { name: 'Engraved triangles', rect: [140, 190, 960, 180], at: [640, 640], noBox: true, look: () => say(asV() ? 'vasco_look_triangles' : 'alan_look_triangles') },
-      { name: 'The beam', rect: [600, 60, 120, 120], at: [640, 640], when: () => asV(), look: 'vasco_look_beam', items: { chalk: () => S.markBeam() }, use: () => S.markBeam() },
-      { name: 'Empty sockets', rect: [470, 14, 240, 46], at: [560, 640], when: () => asV(),
-        look: () => F().v_sockets_seen ? say('vasco_look_sockets') : (F().v_sockets_seen = true, say('vasco_look_sockets_1', 'vasco_look_sockets_2', 'vasco_look_sockets')) },
-      { name: 'A remaining disc', rect: [720, 14, 70, 46], at: [740, 640], when: () => asV(), look: 'vasco_look_disc',
-        use: () => S.turnDisc(), items: { clinometer: () => S.measureDisc(), any: 'vasco_disc_item' } },
-      { name: 'Your chalk marks', rect: [280, 250, 560, 120], at: [560, 640], when: () => asV() && (F().v_marks || []).length > 0,
-        look: () => say((F().v_marks || []).length >= 3 ? 'vasco_look_marks_3' : 'vasco_look_marks'), items: { elena_charts: () => S.compareMarks() } },
-      { name: 'The great triangle', rect: [560, 380, 160, 120], at: [640, 640], look: () => say(asV() ? 'vasco_look_great' : 'alan_look_great'),
-        items: { elena_charts: () => S.sanJuan() } },
-      { name: 'White crust', rect: [1060, 470, 140, 70], at: [1080, 650], when: () => asV(), look: 'vasco_look_salt' },
-      { name: 'Sit and wait half an hour', rect: [60, 470, 180, 80], at: [160, 650], when: () => asV() && !F().v_steer, look: 'vasco_look_rock', use: () => S.waitHalfHour() },
-      { name: 'Path to the camp', rect: [20, 250, 110, 320], at: [70, 650], exit: 'camp', entry: 'cave6', when: () => asV() || (ch() === 7 && F().lock_closed) },
-      // Monday: the seven sockets, the seventh disc, the door in the floor (mon.js)
-      ...[0, 1, 2, 3, 4, 5].map(i => ({ name: () => 'Socket ' + ['I', 'II', 'III', 'IV', 'V', 'VI'][i] + ((F().placed || []).includes(i) ? ' (set)' : ''), rect: [S.SOCKETS[i][0] - 26, S.SOCKETS[i][1] - 26, 52, 52], at: [680, 600],
-        when: () => ch() === 7 && F().in_water, look: () => S.lookSocket(i), items: { discs: () => S.placeDisc(i), disc6: () => S.placeDisc(i) } })),
-      { name: 'The seventh disc', rect: [905, 42, 52, 52], at: [680, 600], when: () => ch() === 7, look: () => say(F().disc_turned ? 'alan_look_seventh_set' : 'alan_look_seventh'), use: () => S.turnSeventh() },
-      { name: 'The door in the floor', rect: [520, 600, 240, 70], at: [640, 690], when: () => ch() === 7, look: () => say(F().in_water ? 'alan_look_door_in' : 'alan_look_door'), use: () => S.stepIn() },
+      { name: 'The great triangle', rect: [535, 210, 225, 210], at: [640, 660], look: () => say(asV() ? 'vasco_look_great' : 'alan_look_great'),
+        items: { chalk: () => S.chalkSigns(), torch: () => S.readScenes() } },
+      { name: 'Engraved triangles', rect: [270, 180, 770, 180], at: [640, 660], noBox: true, look: () => say(asV() ? 'vasco_look_triangles' : 'alan_look_triangles'),
+        use: () => asV() ? S.chalkSigns() : say('alan_look_triangles'), items: { chalk: () => S.chalkSigns(), torch: () => S.readScenes() } },
+      { name: 'The opening in the roof', rect: [585, 22, 110, 62], at: [640, 660], look: () => say(asV() ? 'vasco_look_opening' : 'alan_look_cave_photos') },
+      { name: 'Rope ladder down', rect: [425, 495, 430, 110], at: [500, 650],
+        look: () => say(asV() ? 'vasco_look_hole' : 'alan_look_hole'),
+        exit: 'cave6_low', entry: 'cave6', locked: () => asV() && !F().v_noon, lockedLine: 'vasco_ladder_dark',
+        when: () => asV() },
+      { name: 'Rope ladder down', rect: [425, 495, 430, 110], at: [500, 650], when: () => ch() === 7,
+        look: 'alan_look_hole', use: () => S.stepIn() },
+      { name: 'White crust', rect: [1130, 430, 150, 100], at: [1100, 650], when: () => asV(), look: 'vasco_look_salt' },
+      { name: 'Sit and wait for noon', rect: [60, 455, 170, 60], at: [190, 630], when: () => asV() && !F().v_noon, look: 'vasco_look_rock', use: () => S.waitNoon() },
+      { name: 'Path to the camp', rect: [35, 150, 185, 300], at: [140, 630], exit: 'camp', entry: 'cave6', when: () => asV() || (ch() === 7 && F().lock_closed) },
     ],
     animBack(g, t) {
-      const f = F();
-      // the blade of sunlight from the channel to where it falls; a cloud over the sun takes it (Monday)
-      // the cloud below the arch rolling, and a salt seep glistening down the far wall
-      FX.ripple(g, G.bgImage(), [48, 340, 140, 160], t * 0.3, 1.4, 0.04);
-      FX.trickles(g, t, [1010, 380, 240, 170], 3, '255,250,235', 0.25);
-      if (ch() === 7 && f.cloud_over && !f.mirror_on) return;
-      // dust turning in the sun that comes in through the arch
-      g.save(); g.beginPath(); g.moveTo(60, 170); g.lineTo(210, 170); g.lineTo(560, 600); g.lineTo(60, 600); g.closePath(); g.clip();
-      FX.motes(g, t, 60, 170, 500, 430, 22, '255,232,180'); g.restore();
-      S.drawSockets(g);
-      const [x, y] = beamShown(t), [sx, sy] = S.SOCKETS[6];
-      g.save(); g.globalAlpha = 0.47 + 0.06 * Math.sin(t * 2.3) * Math.sin(t * 0.9); g.fillStyle = 'rgba(255,226,150,1)';
-      g.beginPath(); g.moveTo(sx - 8, sy + 10); g.lineTo(sx + 8, sy + 10); g.lineTo(x + 18, y); g.lineTo(x - 18, y); g.closePath(); g.fill(); g.restore();
-      FX.glow(g, x, y, 60, '255,220,140', 0.6);
-      for (const [mx, my] of (asV() ? f.v_marks || [] : [])) { g.save(); g.strokeStyle = 'rgba(250,250,250,0.85)'; g.lineWidth = 3; g.beginPath(); g.arc(mx, my, 12, 0, 7); g.stroke(); g.restore(); }
+      // the cloud below the arch rolling, dust in the sun through the arch
+      FX.ripple(g, G.bgImage(), [40, 330, 160, 140], t * 0.3, 1.4, 0.04);
+      g.save(); g.beginPath(); g.moveTo(60, 170); g.lineTo(215, 170); g.lineTo(560, 640); g.lineTo(60, 640); g.closePath(); g.clip();
+      FX.motes(g, t, 60, 170, 500, 470, 18, '255,232,180'); g.restore();
+      S.drawUpLight(g, t);
     },
-    animFg(g, t) { S.drawWater(g, t, S.water.cave6, '24,48,56'); },
-    // Vasco's first time in today: the doorway you stoop through, the dome, the triangles, the blade of light
+    // Vasco's first time in today: the arch, the dome, the triangles, the opening and the hole
     async enter() {
-      if (asV() && !F().v_cave_intro) { F().v_cave_intro = true; await say('narr_v_cave_1', 'narr_v_cave_2', 'narr_v_cave_3', 'narr_v_cave_4', 'narr_v_cave_5'); }
+      if (asV() && !F().v_cave_intro) {
+        F().v_cave_intro = true; G.setClock('09:00');
+        await say('narr_v_cave_1', 'narr_v_cave_2', 'narr_v_cave_3', 'narr_v_cave_4', 'narr_v_cave_5');
+      }
     },
   });
-  // which sockets hold a disc: Saturday, the sixth and the seventh still do; Monday, the ones Alan has set, and the seventh
-  S.socketFull = i => i === 6 || (ch() === 7 ? (F().placed || []).includes(i) : ch() <= 5 && i === 5);
-  S.drawSockets = function (g) {
-    S.SOCKETS.forEach(([x, y], i) => {
-      g.save();
-      if (S.socketFull(i)) {
-        const gr = g.createRadialGradient(x - 6, y - 6, 2, x, y, 19);
-        gr.addColorStop(0, 'rgba(140,150,160,0.95)'); gr.addColorStop(0.35, 'rgba(20,20,26,1)'); gr.addColorStop(1, 'rgba(6,6,8,1)');
-        g.fillStyle = gr; g.beginPath(); g.arc(x, y, 18, 0, 7); g.fill();
-      } else {
-        const gr = g.createRadialGradient(x, y + 4, 2, x, y, 20);
-        gr.addColorStop(0, 'rgba(40,26,14,1)'); gr.addColorStop(0.75, 'rgba(70,46,24,1)'); gr.addColorStop(1, 'rgba(120,84,44,0.9)');
-        g.fillStyle = gr; g.beginPath(); g.arc(x, y, 19, 0, 7); g.fill();
-      }
-      g.restore();
+
+  // ---------------------------------------------------------------- the chamber under it (lower)
+  ROOMS.cave6_low = S.room({
+    music: 'cave6',
+    name: 'Cave 6 · the chamber under it', bg: 'cave6_low', floor: 'stone', ambience: 'cistern', parallax: false,
+    light: { ambient: 'rgb(214,192,160)', base: 0.85 },
+    entries: { default: [520, 640, 'e'], cave6: [520, 640, 'e'] },
+    hotspots: [
+      // the seven sockets, by the sign cut in front of each (floor order: the wall in a mirror)
+      ...FLOOR.map((sign, i) => ({
+        name: 'Socket · ' + NAME[sign], rect: [SOCK[i][0] - 38, 548, 76, 46], at: [SOCK[i][0], 655],
+        look: () => S.lookSocket(i), use: () => S.useSocket(i),
+        items: Object.assign({ elena_charts: () => S.understand(i) }, ...TURN.filter(s => s !== 'sun').map(s => ({ ['disc_' + s]: () => S.placeDisc(i, s) }))),
+      })),
+      { name: 'Signs in the floor', rect: [340, 598, 600, 30], at: [640, 660], look: () => say(asV() ? (F().v_floor ? 'vasco_floor_2' : (F().v_floor = true, 'vasco_floor_1')) : 'alan_look_floor_signs') },
+      { name: 'The door', rect: [560, 632, 160, 50], at: [640, 690], look: () => say(asV() ? 'vasco_look_low_door' : F().in_water ? 'alan_look_door_in' : 'alan_look_door') },
+      { name: 'Painted walls', rect: [0, 190, 1280, 320], noBox: true, at: [640, 650], look: () => say(asV() ? 'vasco_look_low_walls' : 'alan_look_low_walls') },
+      { name: 'The hole above', rect: [400, 20, 480, 150], at: [640, 650], when: () => asV(), look: 'vasco_look_low_opening' },
+      { name: 'Vasco, at the rim', rect: [400, 20, 480, 150], at: [640, 650], when: () => ch() === 7, look: 'alan_look_vasco_cave', talk: () => S.talkVascoBelow() },
+      { name: 'Rope ladder up', rect: [430, 140, 90, 400], at: [500, 640], exit: 'cave6', entry: 'cave6_low', when: () => asV() },
+      { name: 'Rope ladder', rect: [430, 140, 90, 400], at: [500, 640], when: () => ch() === 7, look: 'alan_m_in_already', use: 'alan_m_in_already' },
+    ],
+    animBack(g, t) { S.drawLowLight(g, t); },
+    // the Sea's water in the chamber (lighter than elsewhere: the sockets and the discs stay visible under it)
+    animFg(g, t) {
+      const level = S.water.cave6_low; if (!(level > 0)) return;
+      const top = 720 - level * 720;
+      g.save(); const gr = g.createLinearGradient(0, top, 0, 720);
+      gr.addColorStop(0, 'rgba(24,48,56,0.55)'); gr.addColorStop(1, 'rgba(6,14,18,0.8)');
+      g.fillStyle = gr; g.beginPath(); g.moveTo(0, 720);
+      for (let x = 0; x <= 1280; x += 16) g.lineTo(x, top + Math.sin(x * 0.02 + t * 1.6) * 4 + Math.sin(x * 0.007 - t * 0.9) * 5);
+      g.lineTo(1280, 720); g.closePath(); g.fill();
+      g.strokeStyle = 'rgba(200,225,230,0.25)'; g.lineWidth = 1.5; g.beginPath();
+      for (let x = 0; x <= 1280; x += 16) g[x ? 'lineTo' : 'moveTo'](x, top + Math.sin(x * 0.02 + t * 1.6) * 4 + Math.sin(x * 0.007 - t * 0.9) * 5);
+      g.stroke(); g.restore();
+    },
+    async enter() {
+      if (asV() && !F().v_low_intro) { F().v_low_intro = true; await say('narr_v_low_1', 'narr_v_low_2'); }
+    },
+  });
+
+  S.lookSocket = function (i) {
+    const f = F(), sign = FLOOR[i];
+    if (asV()) {
+      if (sign === 'sun') return say('vasco_look_disc');
+      if (!f.v_sockets_seen) { f.v_sockets_seen = true; return say('vasco_look_sockets_1', 'vasco_look_sockets_2', 'vasco_look_sockets'); }
+      return say('vasco_look_sockets');
+    }
+    if (sign === 'sun') return say(f.lock_closed ? 'alan_look_seventh_set' : 'alan_look_seventh');
+    return say((f.placed || []).includes(sign) ? 'alan_socket_set' : 'alan_socket_empty');
+  };
+  S.useSocket = function (i) {
+    if (asV()) return FLOOR[i] === 'sun' ? S.sunTest() : say('vasco_look_sockets');
+    return FLOOR[i] === 'sun' ? S.turnSeventh() : S.lookSocket(i);
+  };
+
+  // ---------------------------------------------------------------- Saturday: reading the cave
+  // the chalk in the worn cuts over the triangles: the seven signs, as they stand on the wall
+  S.chalkSigns = async function () {
+    const f = F();
+    if (!asV()) return say('alan_look_triangles');
+    if (!G.has('chalk')) return say('vasco_need_chalk');
+    if (f.v_chalked) return say('vasco_chalk_again');
+    await G.busy(async () => {
+      await S.posed('hand', async () => { S.sfx('pencil_scribble', 0.5); await say('narr_v_chalk_1'); });
+      await say('vasco_chalk_1', 'narr_v_chalk_2');
+      S.sfx('pencil_scribble', 0.4);
+      await say('vasco_chalk_2', 'vasco_chalk_3');
+      f.v_chalked = true;
     });
   };
-  S.waitHalfHour = async function () {
+  // the scenes round the triangles, by the torch raked across the wall: he knows them, and hasn't the words
+  S.readScenes = async function () {
     const f = F();
-    f.v_time = Math.min(BEAM_AT.length - 1, (f.v_time || 0) + 1);
-    // (the half hour as a time-lapse: the beam slides along the wall to its new place; the user, 2026-10-29: "i don't
-    // think the beam moves")
-    S.sfx('wind_arches', 0.25); await T(BEAM_SLIDE * 1000 + 300);
-    G.setClock(['09:00', '09:30', '10:00', '10:30', '11:00'][f.v_time]);
-    await say(f.v_time >= BEAM_AT.length - 1 ? 'vasco_wait_last' : 'vasco_wait');
-  };
-  S.markBeam = async function () {
-    const f = F(), m = f.v_marks || (f.v_marks = []), p = S.beamPoint();
-    if (!G.has('chalk')) return say('vasco_need_chalk');
-    if (m.some(q => q[0] === p[0])) return say('vasco_marked_already');
-    if (m.length >= 3) return say('vasco_marks_enough');
-    await S.posed('reach', async () => { S.sfx('pencil_scribble', 0.5); await T(700); });
-    m.push(p);
-    await say(m.length === 1 ? 'vasco_mark_1' : m.length === 2 ? 'vasco_mark_2' : 'vasco_mark_3');
-  };
-  S.compareMarks = async function () {
-    const f = F();
-    if ((f.v_marks || []).length < 3) return say('vasco_compare_early');
-    if (f.v_offpath) return say('vasco_offpath_1');
-    f.v_offpath = true;
-    S.sfx('paper_shuffle_2', 0.4);
-    await say('narr_v_offpath_1', 'narr_v_offpath_2', 'vasco_offpath_1', 'vasco_offpath_2');
-  };
-  // up the ladder to the two discs left; one turns, stone on glass, and the blade of light jumps onto a triangle
-  S.turnDisc = async function () {
-    const f = F();
-    if (!f.v_offpath) return say('vasco_disc_why');
-    if (f.v_steer) return say('vasco_disc_again');
-    await say('narr_v_steer_1');
-    S.sfx('stone_notch', 0.6); await T(600);
-    f.v_steer = true;
-    await say('narr_v_steer_2', 'vasco_steer_1', 'vasco_steer_2', 'vasco_steer_3');
-  };
-  // two hours on the floor with her charts and his trigonometry: San Juan's sunrise, with all seven, dead centre
-  S.sanJuan = async function () {
-    const f = F();
-    if (!asV()) return say('alan_look_great');
-    if (!f.v_steer) return say('vasco_sanjuan_early');
-    if (f.v_center) return say('vasco_sanjuan_again');
-    await S.posed('kneel', async () => { S.sfx('pencil_scribble', 0.4); await say('narr_v_sanjuan_1', 'narr_v_sanjuan_1b', 'vasco_sanjuan_1', 'vasco_sanjuan_1b'); });
-    f.v_center = true;
-    await say('vasco_sanjuan_2');
-  };
-  // the seventh disc's angle: the tilt of the world. Then the other number (Elena's "Puerta"), swallowed; what the cave is
-  // for; Alan; and out to the radio
-  S.measureDisc = async function () {
-    const f = F();
-    if (!f.v_center) return say('vasco_measure_early');
-    if (f.v_understood) return say('vasco_measure_again');
+    if (!asV()) return say('alan_look_triangles');
+    if (!f.v_chalked) return say('vasco_scenes_early');
+    if (f.v_scenes) return say('vasco_scenes_again');
     await G.busy(async () => {
-      S.sfx('stone_notch_2', 0.5); await T(800);
-      await say('narr_v_angle_1');
+      await say('narr_v_scenes_1', 'vasco_scenes_1', 'vasco_scenes_2', 'vasco_scenes_3');
+      S.sfx('pencil_scribble', 0.4);
+      await say('narr_v_scenes_2');
+      f.v_scenes = true;
+    });
+  };
+  // the rock by the mouth: the morning goes by, and at four minutes past two (Canary summer time) the sun looks down
+  S.waitNoon = async function () {
+    const f = F();
+    if (f.v_noon) return say('vasco_noon_again');
+    await G.busy(async () => {
+      await say('narr_v_noon_1');
+      S.sfx('wind_arches', 0.25);
+      for (const c of ['10:00', '11:00', '12:00', '13:00', '14:04']) { G.setClock(c); await T(window.FAST ? 10 : 500); }
+      f.v_noon = true;
+      S.sfx('fog_lift', 0.3);
+      await say('narr_v_noon_2', 'narr_v_noon_3', 'vasco_noon_1');
+    });
+  };
+  // the test: the sun disc lifted into the next socket; its column jumps across to a small triangle on the far side
+  S.vTest = false;
+  S.sunTest = async function () {
+    const f = F();
+    if (f.v_test) return say('vasco_test_again');
+    await G.busy(async () => {
+      await S.posed('kneel', async () => { S.sfx('stone_notch', 0.6); await say('narr_v_test_1'); });
+      S.vTest = true; S.sfx('stone_clack', 0.4); S.sfx('water_lap', 0.3);
+      await say('narr_v_test_2', 'vasco_test_1', 'vasco_test_2');
+      await S.posed('kneel', async () => { S.sfx('stone_notch_2', 0.6); await T(500); });
+      S.vTest = false;
+      await say('narr_v_test_3');
+      f.v_test = true;
+    });
+  };
+  // Elena's last sheet against the floor: how to send the sun back (the angle, the hour), and, turned round, how to shut
+  // it. He swallows the corner with the numbers; what the cave is for; Alan; and out to the radio
+  S.understand = async function (i) {
+    const f = F();
+    if (!asV()) return;
+    if (FLOOR[i] !== 'sun' || !(f.v_chalked && f.v_scenes && f.v_test)) return say('vasco_puerta_early');
+    if (f.v_understood) return say('vasco_finds_again');
+    await G.busy(async () => {
+      S.sfx('paper_shuffle', 0.5);
+      await say('narr_v_puerta_1', 'narr_v_angle_1');
       S.sfx('v_vasco_laugh', 0.5);
       await S.posed('laugh', () => say('narr_v_angle_2'));
-      await say('vasco_v_04', 'narr_v_angle_3', 'narr_v_angle_4', 'narr_v_angle_4b', 'vasco_v_door', 'narr_v_angle_5', 'narr_v_angle_6');
+      await say('vasco_v_04', 'narr_v_angle_3', 'vasco_puerta_1', 'narr_v_angle_4', 'narr_v_angle_4b', 'vasco_v_door', 'narr_v_angle_5', 'narr_v_angle_6');
       f.v_understood = true;
       await say('narr_v_whole', 'vasco_v_arrows', 'vasco_v_read', 'vasco_v_read_2', 'vasco_v_05', 'vasco_v_06');
       await S.posed('worried', () => say('narr_v_alan_1', 'vasco_v_alan', 'narr_v_alan_2', 'narr_v_alan_3', 'vasco_v_alan_2', 'vasco_v_radio'));
@@ -386,7 +570,7 @@
         use: () => S.dig('right'), items: { ltrowel: () => S.dig('right') } },
       { name: 'The wall by the grille', rect: [900, 300, 120, 160], at: [880, 650], look: () => say(F().v_marked ? (asV() ? 'vasco_look_mark' : 'alan_look_mark') : 'vasco_look_wallbit'),
         use: () => asV() ? S.scratchMark() : say('alan_look_mark'), items: { ltrowel: () => S.scratchMark() } },
-      { name: 'Steps up', rect: [1160, 250, 110, 320], at: [1200, 650], when: () => !asV(), exit: 'camp', entry: 'vault', locked: () => !F().vasco_free || !G.has('discs'), lockedLine: () => !F().vasco_free ? 'alan_vault_not_without' : 'alan_vault_discs' },
+      { name: 'Steps up', rect: [1160, 250, 110, 320], at: [1200, 650], when: () => !asV(), exit: 'camp', entry: 'vault', locked: () => !F().vasco_free || !G.has('disc_wax_gibbous'), lockedLine: () => !F().vasco_free ? 'alan_vault_not_without' : 'alan_vault_discs' },
     ],
     // small moving details over the painting: the storm lantern, the torch by the grille, the light down the steps
     animBack(g, t) {

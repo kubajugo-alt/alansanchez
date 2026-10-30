@@ -49,7 +49,15 @@
     sat: { flags: { ch: 5, rafa_night: true }, room: 'rafa_studio', pos: [300, 660, 'e'], run: async () => {} },
     flood: { flags: { ch: 5, rafa_truth: true, called_sat: true, fax_read: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('isleta', 'map') },
     vasco: { flags: { ch: 5, isleta_flood: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => G.busy(() => S.startVasco()) },
-    cave: { flags: { ch: 5, isleta_flood: true }, room: 'cave6', pos: [240, 660, 'e'], run: async () => { S.becomeVasco(); ['elena_charts', 'chalk', 'clinometer', 'vnotebook', 'ltrowel', 'torch'].forEach(k => S.give(k, true)); } },
+    // Saturday in Cave 6 (Vasco, 09:00); the chamber under it at noon, signs and scenes read
+    cave: { flags: { ch: 5, isleta_flood: true }, room: 'cave6', pos: [200, 640, 'e'], run: async () => { S.becomeVasco(); ['elena_charts', 'chalk', 'vnotebook', 'ltrowel', 'torch'].forEach(k => S.give(k, true)); } },
+    cave_low: { flags: { ch: 5, isleta_flood: true, v_cave_intro: true, v_chalked: true, v_scenes: true, v_noon: true }, room: 'cave6_low', pos: [520, 640, 'e'], run: async () => { S.becomeVasco(); ['elena_charts', 'chalk', 'vnotebook', 'ltrowel', 'torch'].forEach(k => S.give(k, true)); G.setClock('14:04'); } },
+    // Monday: in the water at 13:30, two discs set, the telling heard (the aiming: use a disc on its socket)
+    aim: { flags: { ch: 7, in_water: true, mclock: 765, placed: ['wax_gibbous', 'last_quarter'], disc6_given: true, telling_heard: true, telling_known: true, surges: 0 }, room: 'cave6_low', pos: [520, 640, 'e'],
+      run: async () => { ['wax_crescent', 'wan_gibbous', 'first_quarter', 'wan_crescent'].forEach(s => S.give('disc_' + s, true)); S.water.cave6_low = 0.22; G.setClock('12:45'); } },
+    // Monday: the sun disc, under Carmen's mirror (six set)
+    aim_sun: { flags: { ch: 7, in_water: true, mclock: 843, placed: ['wax_gibbous', 'last_quarter', 'wax_crescent', 'wan_gibbous', 'first_quarter', 'wan_crescent'], disc6_given: true, telling_heard: true, telling_known: true, cloud_over: true, mirror_on: true, surges: 0 },
+      room: 'cave6_low', pos: [640, 650, 'e'], run: async () => { S.water.cave6_low = 0.42; G.setClock('14:03'); } },
     vault: { flags: { ch: 5, isleta_flood: true, v_understood: true, v_fuse_seen: true, v_refused: true }, room: 'vault_cell', pos: [560, 670, 'e'], run: async () => { S.becomeVasco(); ['ltrowel', 'torch'].forEach(k => S.give(k, true)); S.torch = 1; } },
     sun: { flags: { ch: 6, v_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => S.theChoice() },
     carmen: { flags: { ch: 6, chose_carmen: true, cave_explained: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('carmen_flat', 'map') },
@@ -61,7 +69,8 @@
     rescue: { flags: { ch: 6, chose_carmen: true, knows_vault: true, driving: true, radiator_filled: true }, room: 'camp', pos: [300, 660, 'e'], run: async () => {} },
     rescue_vault: { flags: { ch: 6, chose_carmen: true, knows_vault: true, su_camp: true }, room: 'vault', pos: [1060, 650, 'w'], run: async () => {} },
     finale: { flags: { ch: 6, vasco_free: true, v_marked: true }, room: 'vault', pos: [400, 660, 'e'], run: () => S.takeDiscs() },
-    confession: { flags: { ch: 7, lock_closed: true, placed: [1, 3, 2, 5, 4, 0], disc_turned: true, disc6_given: true, cloud_over: true, mirror_on: true, turn: 3 }, room: 'cave6', pos: [560, 660, 'e'], run: async () => {} },
+    monday: { flags: { ch: 6, vasco_free: true, v_marked: true, su_rock: true }, room: 'camp', pos: [520, 660, 'e'], run: async () => { S.giveDiscs(); await S.startMon(); } },
+    confession: { flags: { ch: 7, lock_closed: true, placed: ['wax_gibbous', 'last_quarter', 'wax_crescent', 'wan_gibbous', 'first_quarter', 'wan_crescent'], sun_flat: true, disc_turned: true, disc6_given: true, cloud_over: true, mirror_on: true }, room: 'cave6', pos: [560, 660, 'e'], run: async () => {} },
   };
   async function preview(k) {
     const P = PREVIEW[k];
