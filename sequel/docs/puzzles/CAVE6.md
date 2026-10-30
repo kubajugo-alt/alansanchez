@@ -183,6 +183,45 @@ the game's.
   any that clash are rewritten.
 - Baute's grandmother's telling joins his backstory (Tasarte, 1966): it's what he inherited instead of a grave.
 
+## The last disc: what only Vasco can read (proposal)
+
+The user: "Baute knows how to remove (the order and frequency) the disks - there must be the last piece of knowledge
+only Vasco can decipher, the one that opens the lock. In other words - what to do with the last disk. This Baute is
+unsure of and that is why he got Vasco".
+
+**The gap in the song.** The grandmothers' telling ends with the women setting the sun in the middle "on the long day,
+at the top of the day". Said backwards, moon by moon, it takes out six stones; Baute has done that. But nobody ever
+sang how to take the sun out: the song only goes one way. The seventh is not words, it's light. It isn't in the song;
+it's in the cave.
+
+**What the door needs (the opening).** Two numbers, both astronomy, Vasco's trade and Elena's:
+- **Where and how to set the sun disc.** Not out: moved to the western end of the row (where the sun goes down into
+  the sea) and tipped so its column comes back down onto the door in the middle of the floor instead of rising to the
+  great triangle. The tilt depends on the height of the sun at that moment (85.4° on the 24th): one angle, to a fraction
+  of a degree. Too little and the column hits the wall; too much and it hits the rim.
+- **When.** At true noon on the turning day, when the column stands straightest. Not the clock's noon: at Risco Caído,
+  in Canary summer time, it is **14:05**. Baute, a digger who reads the island by the old women's words, thinks "the top
+  of the day" is twelve o'clock.
+Elena had both: her pencil chart ("Puerta") is the sun disc in the western socket with an angle written against it,
+and "14:05" in the margin. Elena is dead; Baute can't read her working (he hired Vasco "to read light the way you read a
+page"). That's why he needs Vasco, and why he keeps Vasco until the 24th.
+
+**Saturday.** Vasco reads Elena's chart against the cave and understands it: the opening (the western socket, the tilt,
+14:05) and, the same geometry turned round, the closing (every disc in its own socket, the sun in the middle, at the
+same minute). He refuses Baute the opening, tears off the corner of the chart with the angle and the hour, and
+swallows it. In the vault he scratches only what closes it (the signs in floor order, and an A).
+
+**Monday.** Without the number Baute sets the sun disc in the western socket at four in the morning and tips it by
+eye, and waits for twelve. At twelve the light isn't straight down yet: the column falls short, on the wall, and
+nothing opens; the water only stirs. That is the heroes' window, the two hours they climb the path in. As the sun
+climbs to 14:05, the column slides across the floor towards the door: Baute's guess is close, "and with six nails out,
+close will do". The race is to put the five back, the crescent, and the sun in the middle, before the column reaches
+the door at 14:05.
+
+**What changes:** the "opening angle" stays Vasco's secret, as in the bible, but now it is a tilt and an hour, not
+23° 26′; Baute's Monday mistake is the hour, which gives the finale its clock (the column visibly crawling towards the
+door as the sun climbs).
+
 ## The noon, through the story
 
 Everything that ties the lock to the sunrise of the 24th moves to its noon (about 25 lines; the list in the work):
