@@ -175,7 +175,7 @@
   };
   // the visible clocks: the tide on the promenade steps, the discs crossed off, the bonfires (one more each day)
   S.tideStep = () => Math.min(6, (F().ch || 1) + (F().ch >= 5 ? 1 : 0));   // Tue 1, Wed 2, Thu 3, Fri 4; the flood night lifts it to the top
-  S.discsOut = () => ({ 0: 1, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 6 })[F().ch || 0];
+  S.discsOut = () => (F().ch || 0) === 0 ? 1 : 6;   // (one a month since December: six out by June; the sun never left, CAVE6.md)
 
   // ---------------------------------------------------------------- the map
   const PIN = (id, x, y, text, open, go) => ({ id, x, y, text, open, go });
@@ -331,17 +331,17 @@
     // [when, text]: everything Alan has written down, in story order
     [f => f.mist_seen, 'Tue. A black mist on the sea at Las Canteras, coming in <i>against</i> the wind. It smells of the cistern. It\'s back. (Told Inês. Not Vasco. Tomorrow.)'],
     [f => f.saw_helmet, 'Wed. Doña Pino\'s nets brought up a helmet from 1478. The sea is emptying its pockets.'],
-    [f => f.saw_disc_list, 'Wed. Museum conservation list: obsidian discs removed from Cave 6, one a day. Disc 2 today.'],
+    [f => f.saw_disc_list, 'Wed. Museum conservation list: obsidian discs removed from Cave 6, one a month since December. Six out. One line left.'],
     [f => f.fermin_letter, 'Wed. Santa Ana has a bell with our mark on it. 1751. The founders were here. A sealed letter "for the next founder who comes". (Faxed to Inês: 18th-century Portuguese, faded.)'],
     [f => f.pepe_known, 'Thu. Pepe Santana, fisherman, drowned in his bed in La Isleta. Dry sheets, window shut, door locked. Lungs full of the sea.'],
     [f => f.pino_list, 'Thu. Doña Pino\'s list: the seven the sea gave back from the <i>Virgen del Pino</i>, 1971. Five crossed out, one a month since Christmas. "The sea is taking back its debts."'],
     [f => f.lore_carmen, 'Thu. Carmen: the Harimaguadas called the sea on the Castilians in 1483 and shut it out again at the cave. The grandmothers in Artenara say the cave "holds the sea down".'],
-    [f => f.inquiry_read, 'Thu. Casa de Colón, the 1484 inquiry: the sea rose black against the wind, came every night for three months, went back at sunrise on Saint John\'s day. "Nadie preguntó a las mujeres."'],
+    [f => f.inquiry_read, 'Thu. Casa de Colón, the 1484 inquiry: the sea rose black against the wind, came every night for three months, went back at noon on Saint John\'s day. "Nadie preguntó a las mujeres."'],
     [f => f.called_thu, 'Thu. Inês: the foundry ledger. 1751, "to study the lock". 1755, "We did what we learned in the Canaries." And the Sea knows my blood.'],
     [f => f.saw_map, 'Thu. Baute\'s desk: a photograph of a bulldozed burial ground, 1966, and a map of the south coast resorts, circled. Montesdeoca\'s resorts. (It\'s Montesdeoca?)'],
     [f => f.suitcase_done, 'Thu. The tide on the third step at noon. Montesdeoca\'s contract will be in Baute\'s office, one floor up from the dinner. Find it while Vasco talks. (Don\'t ask Vasco.)'],
     [f => f.fight_done, 'Fri. Vasco has gone up the mountain till Monday. He told me about Lorenzo, the man he left in Rome. "I won\'t be left by a man who\'s scared." The discs go to the museum\'s lab, he says; he signed the sheets. He said go home: there\'s a flight on Sunday.'],
-    [f => f.cave_explained, 'Fri. Carmen: the beam crosses the cave; the triangles are arrows; the discs are mirrors. San Juan is when the sun turns back. "Go home before Sunday."'],
+    [f => f.cave_explained, 'Fri. Carmen: at noon the sun comes down through the roof onto seven discs, and each throws it back onto its own triangle; the triangles are arrows; the discs are mirrors. San Juan is when the sun turns back. "Go home before Sunday."'],
     [f => f.sketchbook_read, 'Sat. Rafa\'s sketchbook: the boy at the bar was Yeray. "The discs go down to the lower vault at night. Only Rayco has the key." Not Montesdeoca. Baute.'],
     [f => f.footprint_seen, 'Sat. A wet footprint on the tiles by Vasco\'s side of the bed. A bare foot, long and narrow. Salt. Dry by the time the coffee came.'],
     [f => f.fax_read, 'Sat. The letter, decoded: the Sea strikes first at whoever understands the lock. It comes for everyone taken back from it. Whoever closes the lock stands in the water, and goes down with it.'],
