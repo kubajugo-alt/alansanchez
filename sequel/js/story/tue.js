@@ -374,6 +374,7 @@
   S.talkChano = async function () {
     const f = F();
     if (G.has('note5000')) return S.buyPaper();
+    if (ch() === 5 && f.called_sat && !f.chano_sat && S.chanoSat) return S.chanoSat();
     if (!f.chano_met) { f.chano_met = true; await say('chano_hello'); }
     if (ch() === 3 && !f.chano_pepe && S.chanoNewsThu) await S.chanoNewsThu();   // Thursday: Chano's news, Pepe Santana (thu.js); sets pepe_known
     if (ch() === 1 && f.blazer_on && !f.chano_star) { f.chano_star = true; await say('chano_t_filmstar', 'alan_t_flirt_chano'); }

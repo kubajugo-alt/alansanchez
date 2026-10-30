@@ -201,7 +201,7 @@
     if (f.ch === 3 && S.suitcaseDue && S.suitcaseDue()) return 'hotel_lobby';
     if (f.ch === 3 && S.dinnerDue()) return 'museum_hall';
     if (f.ch === 4) return !f.cave_explained ? 'museum_hall' : 'rafa_bar';
-    if (f.ch === 5 && f.fax_read && !f.isleta_flood) return 'isleta';
+    if (f.ch === 5) return !f.footprint_seen ? null : !f.called_sat ? 'canteras' : !f.fax_read ? 'hotel_lobby' : !f.isleta_flood ? 'isleta' : null;
     if (f.ch === 6) return f.chose_carmen && !f.carmen_sun ? 'carmen_flat' : null;
     return null;
   };
@@ -241,7 +241,7 @@
     ['called_wed', () => F().ch === 2 && F().fermin_letter, () => S.callWed()],
     ['called_thu', () => F().ch === 3, () => S.callThu()],
     ['called_fri', () => F().ch === 4 && F().fight_done, () => S.callFri()],
-    ['called_sat', () => F().ch === 5 && F().rafa_truth, () => S.callSat()],
+    ['called_sat', () => F().ch === 5 && F().rafa_truth, () => S.callSatScene(), { direct: true, hangup: true }],
   ];
   // Tuesday, before the reception: Pessoa and the Eça, the surfers, "Don't break anything"; and the money runs out
   S.callTue1 = async () => {
@@ -261,7 +261,6 @@
     'narr_th_call_2', 'ines_th_call_5', 'ines_th_call_6', 'alan_call_thu_3', 'ines_th_call_7', 'ines_th_call_8', 'alan_th_call_4', 'narr_th_call_3',
     'ines_th_call_9', 'alan_th_call_5', 'ines_call_thu_4');
   S.callFri = () => say('ines_call_fri_1', 'alan_call_fri_1', 'ines_call_fri_2', 'alan_call_fri_2', 'ines_call_fri_3');
-  S.callSat = () => say('ines_call_sat_1', 'alan_call_sat_1', 'ines_call_sat_2', 'alan_call_sat_2', 'ines_call_sat_3', 'alan_call_sat_3', 'ines_call_sat_4');
   S.callDue = () => S.CALLS.find(c => !F()[c[0]] && c[1]());
   const PESSOA = ['ines_pessoa_1', 'ines_pessoa_2', 'ines_pessoa_3', 'ines_pessoa_4', 'ines_pessoa_5'];
   S.phoneBox = async function () {
@@ -284,6 +283,7 @@
       ]);
     });
     S.sfx('phone_hangup', 0.6);
+    if (S.afterCall) await S.afterCall();   // (Saturday: Chano's newspaper straight after the call, sat.js)
   };
 
   // ---------------------------------------------------------------- hints (Inês, "What now?")
@@ -340,7 +340,10 @@
     [f => f.fight_done, 'Fri. Vasco has gone up the mountain till Monday. He told me about Lorenzo, the man he left in Rome. "I won\'t be left by a man who\'s scared." The discs go to the museum\'s lab, he says; he signed the sheets. He said go home: there\'s a flight on Sunday.'],
     [f => f.cave_explained, 'Fri. Carmen: the beam crosses the cave; the triangles are arrows; the discs are mirrors. San Juan is when the sun turns back. "Go home before Sunday."'],
     [f => f.sketchbook_read, 'Sat. Rafa\'s sketchbook: the boy at the bar was Yeray. "The discs go down to the lower vault at night. Only Rayco has the key." Not Montesdeoca. Baute.'],
+    [f => f.footprint_seen, 'Sat. A wet footprint on the tiles by Vasco\'s side of the bed. A bare foot, long and narrow. Salt. Dry by the time the coffee came.'],
     [f => f.fax_read, 'Sat. The letter, decoded: the Sea strikes first at whoever understands the lock. It comes for everyone taken back from it. Whoever closes the lock stands in the water, and goes down with it.'],
+    [f => f.chano_sat, 'Sat. Agustín Ramos, the old lifeguard, drowned in his armchair. Pulled out of a rip in 1958. Taken back.'],
+    [f => f.tried, 'Sat. Museum shut, the dig\'s radio dead, every car booked, the bus gone. The seven o\'clock bus tomorrow, then.'],
     [f => f.isleta_flood, 'Sat. La Isleta flooded. Doña Pino woke with water at her lips. I wrote my name at the bottom of her list.'],
     [f => f.elena_heard, 'Sun. Elena\'s message: "It\'s a door, Carmen. And someone\'s opening it."'],
     [f => f.knows_vault, 'Sun. Vasco read the cave right. Baute has put him where he puts the discs.'],

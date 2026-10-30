@@ -13,7 +13,7 @@
     2: ['El Museo Canario recibe a sus mecenas', 'The Risco Caído expedition welcomes "a specialist from Lisbon". Hotelier Ignacio Montesdeoca promises new display cases.'],
     3: ['Muere ahogado en su cama un pescador de La Isleta', 'José "Pepe" Santana, 61, one of four survivors of the trawler Virgen del Pino (1971), found drowned in his bed. His floor was dry. Police speak of "a medical cause".'],
     4: ['Mareas a deshoras en Las Canteras', 'The harbour master cannot explain tides arriving at the wrong hours. Surfers report "waves coming in backwards".'],
-    5: ['Fallece Agustín Ramos, socorrista jubilado', 'The retired lifeguard, saved from a rip at Las Canteras in 1958, was found in his armchair, drowned. The third death by water on dry land this week.'],
+    5: ['Ex-socorrista hallado muerto en su domicilio', 'Agustín Ramos, 71, forty years a lifeguard at Las Canteras, found dead in his armchair at home in Guanarteme. Natural causes, say the police.'],
     6: ['Niebla y agua en La Isleta', 'Black fog and flooding in La Isleta on Saturday evening, with no rain and no wind. A fisherwoman, 74, "saved by her husband, who was mending nets".'],
     7: ['¡Feliz cumpleaños, Las Palmas!', 'Fireworks tonight over Las Canteras for the city\'s 518th birthday.'],
   };
@@ -92,7 +92,7 @@
   S.readSketchbook = async function () {
     await G.closeup([
       page(`<h3>&nbsp;</h3><p>Fishermen. A dog asleep under a domino table. Hands, dozens of hands. A woman laughing with her eyes shut.</p>`),
-      page(`<h3>Friday</h3><p>A boy at the end of the bar, head on his arm. Beside him, in Rafa's quick hand, words caught as they were said:</p><p style="font-family:'Homemade Apple',cursive">"la conservación es mentira — los discos bajan a la bóveda de abajo, de noche — sólo Rayco tiene la llave — ¿y si se lo digo al doctor?"</p><p>Underneath: <b>Yeray, del Risco</b>.</p>`),
+      page(`<h3>Friday</h3><p>A paper napkin from the bar: a boy at the end of the counter, side-on, leaning in, mid-sentence, his hand round a bottle. Round him, in Rafa's quick pencil:</p><p style="font-family:'Homemade Apple',cursive">Every night this week. · Conservation — but they never go in the van. · I carry them myself. · Down to the vault. Old granary under the caves. · Only Baute has the key. · The Portuguese doctor doesn't know.</p><p>Underneath: <b>Yeray, del Risco</b>.</p>`),
       page(`<h3>Friday, later</h3><p>A man with his head thrown back, laughing too hard. Under it: <i>el portugués. Triste.</i></p>`),
     ]);
     if (!F().sketchbook_read) { F().sketchbook_read = true; await say('alan_read_sketchbook_1', 'alan_read_sketchbook_2', 'alan_read_sketchbook_3'); }
@@ -115,7 +115,7 @@
     F().gc_seen = true;
   };
   S.readCharts = async function () {
-    await G.closeup([page(`<h3>E. Suárez · sun paths, Cueva 6</h3><p>The beam's path by date and hour, in a careful hand: equinox, solstice, the days between. A dotted line marked <i>"con los siete"</i> runs to the great triangle at the back, at <i>"San Juan, amanecer"</i>.</p>`, 'doc-ledger')]);
+    await G.closeup([page(`<h3>E. Suárez · sun paths, Cueva 6</h3><p>The beam's path by date and hour, in a careful hand: equinox, solstice, the days between. A dotted line marked <i>"con los siete"</i> runs to the great triangle at the back, at <i>"San Juan, amanecer"</i>.</p><p>On the last sheet, the solstice, a second line in pencil that touches no triangle, and in the margin, underlined three times: <i>Puerta.</i></p>`, 'doc-ledger')]);
     await say('vasco_look_charts');
   };
 })();
