@@ -1072,3 +1072,30 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     originals (104 MB), the real-place room repaints and their old versions (rooms_real, 32 MB), the Tuesday cast
     paintings (13 MB), the cast's Higgsfield redo sheets (<id>_hf1.png, about 3.5 MB each) and their earlier versions,
     the 1280 originals of every painting (rooms_1280), Vasco's jacket takes, a face-kit backup, the ungraded props.
+
+102. **Cave 6 redesign, the order riddle, and every room repainted sharp (for review, nothing in the game yet)**
+    (2026-10-30). The user, over the session: the order of the discs is a riddle (where: the signs, mirrored, as the
+    columns cross; when: Baute's grandmother's telling, one stone a moon from the winter turning, which is why he took
+    the discs out one a month from 20 December; Vasco knows the telling exists, only Baute has the words, his last
+    help); each disc is aimed at its triangle with the column moving in real time; when the seventh is set the
+    harimaguadas of light dance in the columns and the triangles flare, then it's only columns again; the signs
+    etched in the floor by each socket and above each triangle; "the texture of the cave looks very unrealistic";
+    "GPT on high quality gives the sharpest - I would re-paint all the background/paintings using it"; a new room, the
+    Museo Canario corridor of skulls and mummies with Vasco's office at the end (where he takes Alan for a private word
+    during the party); Elena's car is not used in play.
+    - Design: `docs/puzzles/CAVE6.md` (the order: where and when; the telling's seven verses; aiming; the closing;
+      what this changes in the bible: the discs out one a month, Dec to May).
+    - Cave art (`art/review/cave6_redesign/`): `up_real_etched.png`, `low_real_etched.png` (GPT image 2.5, quality
+      high, 2k; the low-quality default was what made the mosaic texture), `low_real_one_disc_etched.png` (only the sun
+      in), `low_real_empty_etched.png`, `discs/disc_0..6.png` + `discs.json` (each disc cut with a soft mask at its
+      socket; any state is the empty or one-disc painting plus sprites), `discs/socket_empty.png`; the signs drawn by
+      `etch.py` (floor order chequer, triangle, crescent, sun, zigzag, spiral, rings; wall order reversed).
+      Prototype: `aim.html` / `aim_play.html` (self-contained), scripted run: 7 set, 0 surges, the closing plays.
+    - Rooms (`art/review/bg_real/`): 29 rooms repainted from the current paintings with GPT image 2.5 high, each
+      fitted back onto the original's framing by `align.py` (edge match 0.65 to 0.91; scale and offset in
+      `align_log.txt`; the lowest are vault_cell 0.65 and camp 0.68, both by lighting, the layout holds), saved at the
+      original size as `<room>.jpg`; before/after in `sheet_1..3.jpg`. Not repainted: map, cave6 (replaced by the
+      new cave), elena_car (not used). New: `museum_corridor_a.png` / `_b.png`, two takes (`sheet_corridor.jpg`).
+    - Note on the standing rule "the room paintings never change": the user asked for the repaint. Nothing is
+      installed until the user picks; installing means re-checking each room's walk box, hotspots, depth map and any
+      overlay cut from the painting (the vault bars, the water clip).
