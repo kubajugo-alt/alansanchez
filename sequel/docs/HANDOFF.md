@@ -955,3 +955,22 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     fermin_belfry_wind was refused by ElevenLabs ("may violate our Terms of Service": "I'll sit here and die quietly");
     now "...and wheeze quietly while you work", voiced. Every line of a voiced speaker has its file (2,577 voice files).
     The background people's 45 lines were already voiced (entry 82).
+95. **Merged and deployed** (2026-10-30). The user: "once all is done, and you've checked for inconsistencies... merge and
+    deploy"; then "Eleven lab credits topped up". master merged into the branch first (one conflict, Game I's handoff
+    header: the sequel's start note there renumbered 85 after Game I's entries 81-84); PR #10 merged into master
+    (403add89). Export of 942599ea (git archive HEAD:sequel, 751 MB): play.mjs on it won, 118 steps, no errors. Netlify
+    deploy 6ae494cf4e9fe96acad03de0 (the first upload got a 500 from Netlify; the second went through). Live: the page,
+    an upscaled painting, the new voices and lines served; /.env 404.
+96. **Parallax on** (2026-10-30). The user: "Yes to parallax". core.js S.room no longer defaults to parallax: false,
+    so every room with a depth map (entry 91) draws through js/parallax.js (Game I's: a 2.2% zoom, the camera ±14 px
+    with Alan's x and a slow sway, the depth that holds still 0.45; the GL canvas is sized to the painting buffer, so
+    the upscaled paintings stay sharp). Still flat, as their rooms say: the map, the two cars (fixed first-person views),
+    Cave 6 (the finale's sockets and beam take exact clicks) and the vault. Recording for the user:
+    art/review/parallax_recording.mp4 (12 rooms, 9 s each, Alan across and back), made with
+    scripts/tests/record_steps.mjs: the game's frame loop driven one 1/30 s step at a time (requestAnimationFrame taken
+    over, STEP_DT), the sea loops seeked to the same clock and the canvas saved each frame, so the video is smooth and
+    at true speed however slowly the headless browser renders (a plain screen recording ran at a few fps, and the
+    game's own slow-device check turns parallax off in it: the effects setting is forced to Full). Measured on
+    Canteras: the far town and the near paving slide about 9 px against each other across a walk. play.mjs with it on:
+    won, 118 steps, no errors. Not deployed:
+    waiting for the user's approval.
