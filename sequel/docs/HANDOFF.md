@@ -718,3 +718,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     Chano: layout npcs [150, 605] behind the counter, with an occluder for the counter and front panel.
     Checked: validate 0 errors; play.mjs updated for the new Tuesday and won in 106 steps; the beach sequence
     screenshotted in the running game (the undress playing, the still, the burn). Not deployed.
+68. **Spanish words in the Spanish cast's English** (2026-10-30). The user: "replace some words they say in english with
+    their spanish equivalents. things that are obvious (fiesta, playa, sol, museo etc.)... in about 30% of the sentences".
+    `scripts/spanish_words.py` (new): one swap per line from a short list (gracias, por favor, hola, buenos días, claro,
+    la playa, fiesta, el sol, el museo, el mar, la isla, la cueva, la iglesia, café, nada, mañana, vale, sí, abuela,
+    la campana, vino, el doctor; "oye" only for an opening "Listen,"), lines picked by a stable hash until about 30% of
+    each Spanish speaker's sentences carry a Spanish word (counting señor, cariño, chacho... already there). Dry run
+    first, two rules dropped after it ("listen" as a verb; "my friend" where Carmen means Elena). 53 lines changed and
+    re-recorded on the v4 setup. validate: 0 errors.
