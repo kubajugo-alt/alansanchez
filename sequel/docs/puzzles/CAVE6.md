@@ -15,7 +15,9 @@ exactly at noon".
   sunlight comes down the shaft at noon, through the floor opening, and falls on the whole row of seven sockets at once.
   At the summer turning the sun at Risco Caído stands almost straight overhead (85° at 28° N): the column is at its
   fullest. The lock is renewed, and can be opened or shut, **at noon on the day the sun turns back: 24 June.** True noon,
-  by the sun: in Canary summer time, a few minutes past two by the clock (Vasco would say so).
+  by the sun: **14:05 Canary summer time** (UTC+1, in force in 1996; Risco Caído at 15.66° W puts the sun's noon an hour
+  after the clock's, and the equation of time adds two minutes that week), the sun 85.4° up. The user: "the canary summer
+  time please - this is important to know". Vasco knows it to the minute.
 - Each disc is a shallow obsidian mirror, ground to its own curve, with a sign cut in its back: seven Canario signs, the
   patterns of the island's own clay seals (pintaderas): a spiral, a zigzag (the sea), concentric rings, a chequer, a
   triangle, a crescent, and the rayed sun, Magec. The same seven signs are cut, worn almost smooth, at the point of the
@@ -94,7 +96,7 @@ Everything that ties the lock to the sunrise of the 24th moves to its noon (abou
 Vasco's "the sunrise on the twenty-fourth is the whole point" and Friday's "the sunrise on Monday"; Carmen's "the
 morning el sol turns back" (the day); Baute's map, "24·VI · mediodía"; the 1484 inquiry and the bible (the sea went back
 at noon on Saint John's day; the bishop's miracle); the letter ("at the noon of the turning"); Sunday on the rock ("What
-time is it, cariño?" "A few minutes past two. By the sun, noon."); Monday's clock and the Guardia (in the afternoon);
+time is noon, cariño?" "Five past two. By your watch."); Monday's clock and the Guardia (in the afternoon);
 the stills "sunrise" and "the chain" (painted again in noon light). The San Juan night itself (the bonfires, the city in
 the sea at midnight) stays as it is: the shortest night, then the noon of the turn.
 
