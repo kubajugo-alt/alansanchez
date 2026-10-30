@@ -732,3 +732,4 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     after the burn, Chano once Alan's in the blazer, Montesdeoca at the reception (flirty). Alan's replies carry the
     embarrassed / mischievous faces (js/story/emotions.js; also alan_t_burnt and alan_t_swell). 12 lines, voiced.
     validate 0 errors; play.mjs won in 106 steps.
+    Deployed on the user's word: Netlify deploy 6ae3e88e93e0814ebcf74aa1 (git archive export; play.mjs on it: won in 106 steps; /.env 404).
