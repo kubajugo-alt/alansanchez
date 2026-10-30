@@ -21,7 +21,7 @@ for (const m of story.matchAll(new RegExp(`'((?:${PREFIX})_[a-z0-9_]+)'`, 'g')))
 for (const m of story.matchAll(/'([a-z]+_[a-z0-9_]*_)' \+/g)) for (const k of Object.keys(LINES)) if (k.startsWith(m[1])) used.add(k);
 for (const who of ['alan', 'vasco']) for (const k of Object.keys(LINES)) if (new RegExp(`^${who}_(fail_\\d\\d|fail_look|fail_talk|fail_take|def_item|npc_busy)$`).test(k)) used.add(k);
 used.add('narr_death'); // (the death modal's text: LINES.narr_death)
-const NOT_LINES = new Set(Object.keys(SPRITES).concat(['baute_office', 'rafa_bar', 'rafa_studio', 'elena_car', 'carmen_flat', 'carmen_field', 'baute_dig', 'gc_photo', 'elena_notebook', 'elena_charts', 'rafa_table', 'yeray_drunk', 'museum_corridor']));
+const NOT_LINES = new Set(Object.keys(SPRITES).concat(['baute_office', 'rafa_bar', 'rafa_studio', 'elena_car', 'carmen_flat', 'carmen_field', 'baute_dig', 'gc_photo', 'elena_notebook', 'elena_charts', 'yeray_drunk', 'yeray_asleep', 'museum_corridor']));
 for (const id of used) if (!LINES[id] && !NOT_LINES.has(id) && !/_$/.test(id)) err('line used but not written: ' + id);
 for (const id of Object.keys(LINES)) if (!used.has(id)) warn('line never used: ' + id);
 for (const [id, [who]] of Object.entries(LINES)) if (!SPEAKERS[who]) err(`line ${id}: speaker '${who}' has no name in SPEAKERS`);

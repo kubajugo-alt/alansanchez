@@ -72,6 +72,7 @@
     // person to click; the user, 2026-10-30: "draw a table, exactly like the one in the restaurant, but have Gail and
     // Derek sit at it")
     yeray_drunk: { scale: 1, frames: { idle: ['yeray_drunk_table'], talk: ['yeray_drunk_table'], walk: ['yeray_drunk_table'] } },
+    yeray_asleep: { scale: 1, frames: { idle: ['yeray_asleep_table'], talk: ['yeray_asleep_table'], walk: ['yeray_asleep_table'] } },
     gail_seated: { scale: 0.74, frames: { idle: ['gail_seated'], talk: ['gail_seated'], walk: ['gail_seated'] } },
     derek_seated: { scale: 0.74, frames: { idle: ['derek_seated'], talk: ['derek_seated'], walk: ['derek_seated'] } },
   };

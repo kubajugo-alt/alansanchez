@@ -142,12 +142,13 @@
     name: 'A bar in Vegueta', bg: 'rafa_bar', floor: 'tile', ambience: 'tavern', door: 'door_tavern',
     light: { ambient: 'rgb(200,160,120)', base: 0.8 },
     entries: { default: [1120, 660, 'w'], map: [1120, 660, 'w'] },
-    layers: [{ img: 'rafa_table', x: 706.5, y: 364.5, w: 303, h: 199, when: () => !!F().yeray_left }],
     npcs: [
       { id: 'rafa', ch: 'rafa', x: 520, y: 610, h: 370, dir: 'e', name: 'Rafa', at: [640, 660], look: () => say(F().rafa_talked ? 'alan_look_rafa_2' : 'alan_look_rafa'), talk: () => S.talkRafa(),
         items: { napkin: () => say('rafa_napkin_back'), any: 'alan_fail_rafa_item' } },
       // (Yeray drunk at the corner table, a seated sprite with the table and the Arehucas, 2026-10-30; the empty table is a layer)
       { id: 'yeray', ch: 'yeray_drunk', x: 858, y: 563.5, h: 236.5, dir: 'e', fixedDir: true, name: 'A boy at the corner table', when: () => !F().yeray_left, look: 'alan_look_yeray_bar', talk: () => S.talkYerayBar() },
+      // (he doesn't leave: he falls asleep on the table, the user 2026-10-30; f.yeray_left now means asleep)
+      { id: 'yeray_asleep', ch: 'yeray_asleep', x: 859, y: 564, h: 220, dir: 'e', fixedDir: true, name: 'The boy asleep at the corner table', when: () => !!F().yeray_left, look: 'alan_look_yeray_asleep', talk: () => say('alan_yeray_asleep') },
     ],
     hotspots: [
       { name: 'Bottles', rect: [60, 230, 800, 70], at: [500, 650], look: 'alan_look_bottles' },
@@ -215,7 +216,7 @@
   S.yerayLeaves = async function () {
     const f = F();
     await say('narr_yeray_go_1', 'narr_yeray_go_2');
-    S.sfx('door_tavern', 0.5); f.yeray_left = true; G.refreshNpcs();
+    f.yeray_left = true; G.refreshNpcs();   // (asleep on the table, not gone)
     await say('rafa_yeray_1', 'rafa_yeray_2', 'narr_yeray_go_3', 'alan_yeray_3');
     S.sfx('pencil_scribble', 0.4);
     await say('narr_yeray_go_4');
