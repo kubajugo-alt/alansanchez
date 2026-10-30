@@ -748,3 +748,14 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     `derek_seated`, full-size and rigid, drawn at the same spot so each is its own person to click. In the restaurant on
     Tuesday, Wednesday and Sunday (`seat_gail`, `seat_derek`, scale 0.74, at 600,660); Thursday keeps Gail standing
     alone (Derek is at the museum dinner). Screenshot in the running game; play.mjs won.
+72. **The restaurant, furnished as the user placed it** (2026-10-30). The user: "it's out of scale with the other tables. I
+    suggest you remove the tables from the background, and add empty table sprites, based on Gail's and Derek's table";
+    then "put the restaurant in the positioning tool, i will place and adjust the sprites myself"; "restaurant placement
+    done". art/bg/hotel_restaurant.jpg is a Higgsfield edit with the room's tables and chairs taken out (the old one in
+    `art/designs/rooms_real/old_hotel_restaurant.jpg`); `table_empty` (an edit of Gail and Derek's table with them
+    taken out). In the placement tool two new tray items for the restaurant (`restaurant_table`, `restaurant_gail_derek`,
+    their cut-outs in art/review/extras/cut/ and entries in extras.json), the standing Gail and Derek out of its cast.
+    The user's layout (four empty tables, theirs flipped at 695,632, the waiter) installed with extras_install.py:
+    empty tables as ambient extras; Gail and Derek's table sets seat_gail / seat_derek's stand (the tool's centred x
+    turned into the sprite's anchor, mirrored when flipped; size by the tool's depth); a cast record the tool no longer
+    shows keeps its own flip. Screenshot `art/review/restaurant_tables.png`; play.mjs won.

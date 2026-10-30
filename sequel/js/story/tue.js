@@ -542,10 +542,7 @@
   ROOMS.hotel_restaurant = S.room({
     music: 'hotel_restaurant',
     name: 'Hotel Cristina · the restaurant', bg: 'hotel_restaurant', floor: 'tile', ambience: 'museum', door: 'door',
-    // the tables: the painting without its own (the user, 2026-10-30), set with the empty version of Gail and Derek's
-    // table so every table matches theirs; sized by depth like the placed extras (h: the floor's height there)
-    ambient: [[150, 705], [350, 585], [870, 575]].map(([x, y], i) => ({ id: 'table_' + i, frames: ['table_empty'], x, y, dir: 'e', scale: 0.457,
-      h: 340 + 80 * (y - 560) / 156 })),
+    // (its tables: the painting has none of its own; table sprites placed by the user in the placement tool, js/story/extras.js)
     animBack(g, t) {
       // through the arched windows: the cloud drifting, the surf rolling in
       drift(g, t, 'restaurant', [[0, 122, 158, 110], [298, 158, 102, 60], [496, 160, 30, 45]], { speed: 4, a: 0.38, seed: 19 });

@@ -851,6 +851,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 693
 },
+"x_restaurant_table": {
+"ax": 640.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 1281
+},
 "x_restaurant_waiter": {
 "ax": 139.0,
 "fy": 740.0,

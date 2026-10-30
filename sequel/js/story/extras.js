@@ -69,6 +69,57 @@ window.S.EXTRAS = {
    "scale": 1.0,
    "size": 0.77,
    "h": 268.7
+  },
+  {
+   "id": "x_restaurant_table",
+   "frames": [
+    "x_restaurant_table"
+   ],
+   "x": 690,
+   "y": 448,
+   "dir": "w",
+   "scale": 0.457,
+   "size": 0.96,
+   "h": 282.6,
+   "flip": true
+  },
+  {
+   "id": "x_restaurant_table_2",
+   "frames": [
+    "x_restaurant_table"
+   ],
+   "x": 431,
+   "y": 483,
+   "dir": "w",
+   "scale": 0.457,
+   "size": 0.98,
+   "h": 300.5,
+   "flip": true
+  },
+  {
+   "id": "x_restaurant_table_3",
+   "frames": [
+    "x_restaurant_table"
+   ],
+   "x": 129,
+   "y": 529,
+   "dir": "e",
+   "scale": 0.457,
+   "size": 1,
+   "h": 324.1
+  },
+  {
+   "id": "x_restaurant_table_4",
+   "frames": [
+    "x_restaurant_table"
+   ],
+   "x": 304,
+   "y": 674,
+   "dir": "w",
+   "scale": 0.457,
+   "size": 1.19,
+   "h": 398.5,
+   "flip": true
   }
  ],
  "isleta": [
@@ -279,6 +330,16 @@ window.S.CAST_AT = {
   ]
  },
  "hotel_restaurant": {
+  "seat_gail": [
+   670,
+   632,
+   "w"
+  ],
+  "seat_derek": [
+   670,
+   632,
+   "w"
+  ],
   "derek": [
    720,
    641,

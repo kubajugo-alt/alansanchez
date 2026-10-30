@@ -54,9 +54,10 @@ def main():
             # the tool centres the picture on x, the game stands the sprite on its own anchor (ax): move x across, and
             # size it as the tool showed it (depth unclamped there, clamped in the game)
             m = meta['gail_seated']; free, game = depth(r, p['y']); size = p.get('size', 1) * free / game
-            Hd = free * 0.74 * p.get('size', 1); wd = Hd * m['w'] / m['h'] * (720 / m['h']) if False else Hd * (m['w'] / 720)
-            xg = round(p['x'] - wd / 2 + (m['ax'] / m['w']) * wd)
-            for sid in ('seat_gail', 'seat_derek'): cast.setdefault(r, {})[sid] = [xg, p['y'], 'e'] + ([round(size, 3)] if abs(size - 1) > 0.005 else [])
+            Hd = free * 0.74 * p.get('size', 1); wd = Hd * (m['w'] / 720); fx = m['ax'] / m['w']
+            if p.get('flip'): fx = 1 - fx   # (mirrored: the anchor mirrors with it)
+            xg = round(p['x'] - wd / 2 + fx * wd)
+            for sid in ('seat_gail', 'seat_derek'): cast.setdefault(r, {})[sid] = [xg, p['y'], 'w' if p.get('flip') else 'e'] + ([round(size, 3)] if abs(size - 1) > 0.005 else [])
             continue
         if 'extra' in p:
             x = p['extra']; k = SPEC[x]['place'][2]
@@ -69,8 +70,9 @@ def main():
             if p.get('rot'): e['rot'] = p['rot']
             extras.setdefault(r, []).append(e)
         else:
-            cid = ID(p['cast']); g = GAME[r][cid]; first = next(c for c in CAST[r] if ID(c['name']) == cid)
-            d = g['dir'] if p.get('flip') == first['flip'] else {'e': 'w', 'w': 'e'}[g['dir']]
+            cid = ID(p['cast']); g = GAME[r][cid]; first = next((c for c in CAST[r] if ID(c['name']) == cid), None)
+            # (a cast member the tool no longer shows in this room, e.g. the restaurant's standing Gail and Derek: their own flip)
+            d = ('w' if p.get('flip') else 'e') if first is None else g['dir'] if p.get('flip') == first['flip'] else {'e': 'w', 'w': 'e'}[g['dir']]
             free, game = depth(r, p['y']); size = round(p.get('size', 1) * free / game, 3)
             cast.setdefault(r, {})[cid] = [p['x'], p['y'], d] + ([size] if abs(size - 1) > 0.005 else [])
     json.dump(meta, open(side, 'w'), indent=1, sort_keys=True)
