@@ -1,6 +1,7 @@
 // The Shortest Night — the prologue: Gran Canaria, 21 December 1995, the winter solstice. Elena Suárez's message from
 // the bar in Artenara (a painting), her drive down into the cloud (played: the car drives itself, the player looks
-// around it), the water, and the morning in the barranco (a painting). About four minutes.
+// around it), the water, and the morning in the barranco (a painting). About four minutes. Written from the novel's
+// "Prologue: The Longest Night" (Paco and the chairs, the dropped ribbon of road, the ink, the footwell, the triangle).
 (function () {
   const S = window.S, { G, F, say, ROOMS, T } = S;
 
@@ -55,19 +56,20 @@
     if (phase) return;
     phase = 1; S.cloudAt = performance.now() / 1000;
     S.sfx('fog_lift', 0.5);
-    await say('narr_pro_cloud');
+    await say('narr_pro_cloud', 'narr_pro_dark');
   };
   S.theWater = async function () {
     if (phase >= 2) return;
     phase = 2; G.cutscene = true;
     try {
       S.sfx('water_seep', 0.5); await T(800);
-      await say('elena_salt');
+      await say('elena_salt', 'narr_pro_footwell');
       S.sfx('water_rise', 0.6);
       await S.waterTo('elena_car', 0.32, 3500);
-      await say('elena_doors');
+      await say('narr_pro_brake', 'elena_doors', 'narr_pro_stop');
       // she stops trying the doors, and draws on the glass
       for (let i = 0; i <= 20; i++) { triangle = i / 20; await G.wait(window.FAST ? 2 : 80); }
+      await say('narr_pro_triangle');
       S.sfx('water_rise_2', 0.6);
       await S.waterTo('elena_car', 0.7, 4500);
       await T(900);
@@ -84,16 +86,18 @@
       await G.card(S.DAYS[0][0], S.DAYS[0][1], 3200);
       Sound.ambience('tavern');
       await S.paint('still_elena_bar', async () => {
+        await say('narr_pro_bar_1', 'narr_pro_bar_2');
         S.sfx('payphone_coins', 0.6); await T(900);
         await say('carmen_machine', 'elena_msg_01', 'elena_msg_02', 'elena_msg_03');
         S.sfx('phone_hangup', 0.5); await T(400);
-        await say('barman_stay', 'elena_stay');
+        S.sfx('chair_scrape', 0.4);
+        await say('narr_pro_paco', 'barman_stay', 'elena_stay', 'narr_pro_out');
       }, { zoom: [1.0, 1.12], pan: [[0.45, 0.55], [0.55, 0.5]] });
       Sound.ambience('night');
       await G.goRoom('elena_car', null, { instant: true, noEnter: true, noSave: true });
       G.endStill();
       await G.fade(false);
-      await say('narr_pro_road');
+      await say('narr_pro_road', 'narr_pro_road_2');
     });
     // the player looks around the car until the cloud, and the water, take it
     await new Promise(res => { const iv = setInterval(() => { if (phase >= 2 && !G.isBusy) { clearInterval(iv); res(); } }, 200); S._proSkip = () => { phase = 2; }; });
@@ -101,7 +105,8 @@
       Sound.ambience(null);
       await S.paint('still_barranco', async () => {
         S.sfx('dawn_birds', 0.3); await T(700);
-        await say('gc_01', 'gc_02', 'gc_03', 'narr_open_01', 'narr_open_02');
+        await say('narr_pro_morning', 'narr_pro_crust', 'gc_01', 'gc_02', 'narr_pro_cigarette', 'gc_03');
+        await say('narr_open_01', 'narr_open_02', 'narr_open_03');
       }, { zoom: [1.0, 1.1], pan: [[0.5, 0.6], [0.5, 0.45]] });
       S.water.elena_car = 0;
       await S.paint('still_title', () => T(3500), { zoom: [1.0, 1.06] });

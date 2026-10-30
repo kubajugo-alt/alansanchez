@@ -64,8 +64,20 @@
     await G.fade(false);
     if (line) await say(line);
   };
+  // lines heard in the dark (no one on screen to speak them): the caption box, with the speaker's name
+  const off = async (...ids) => { for (const id of ids) await G.say(id, { offscreen: true }); };
+  // Wednesday opens the novel's way (Chapter Two): Vasco leaving at dawn, in the grey light, and the thing Alan doesn't say
   S.startWed = async function () {
-    await S.morning(2, 'alan_w_wake');
+    await G.fade(true);
+    await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [720, 640, 'e'] });
+    await S.day(2);
+    await off('narr_w_dawn_1');
+    S.sfx('floor_creak', 0.4);
+    await off('narr_w_dawn_2', 'narr_w_dawn_3', 'vasco_w_dawn_1', 'alan_w_dawn_1', 'vasco_w_dawn_2', 'alan_w_dawn_1', 'vasco_w_dawn_3', 'narr_w_dawn_4', 'alan_w_dawn_3', 'narr_w_dawn_5');
+    S.sfx('door', 0.4);
+    await off('narr_w_dawn_6');
+    await G.fade(false);
+    await say('narr_w_dawn_7', 'alan_w_wake');
   };
 
   // ================================================================ LA ISLETA
@@ -83,7 +95,10 @@
       { name: 'The things in the nets', rect: [580, 520, 100, 50], at: [640, 640], when: () => ch() >= 2 && ch() <= 4, look: () => say('alan_look_finds_' + Math.min(4, ch())) },
       S.toMap([20, 250, 110, 320], [70, 650]),
     ],
-    async enter() { if (ch() === 5 && !F().isleta_flood) return S.floodScene(); },
+    async enter() {
+      if (ch() === 5 && !F().isleta_flood) return S.floodScene();
+      if (ch() === 2 && !F().narr_isleta) { F().narr_isleta = true; await say('narr_w_isleta_1', 'narr_w_isleta_2', 'narr_w_isleta_3'); }
+    },
     lights: [{ x: 95, y: 180, rgb: '255,214,150', kind: 'gas', seed: 2, glow: 34, ga: 0.22 }], // the lit lamp on the left quay
     animBack(g, t) {
       const im = G.bgImage();
@@ -101,12 +116,31 @@
   S.talkPino = async function () {
     const f = F();
     if (ch() === 2) {
-      if (!f.saw_helmet) { f.saw_helmet = true; await say('pino_w_1', 'alan_w_pino_1', 'pino_w_2', 'alan_w_pino_2', 'pino_w_3'); return S.checkWed(); }
-      return say('pino_w_again');
+      // the novel's quay: the net giving up the conquest, "the sea's emptying its pockets", the sea's memory; and, across
+      // the harbour, a salvage boat nobody notices (Pell's one trace, the bible's series layer)
+      if (!f.saw_helmet) {
+        await say('narr_w_pino_1', 'narr_w_pino_2', 'alan_w_pino_1', 'narr_w_pino_3', 'pino_w_2', 'pino_w_2b');
+        S.sfx('splash', 0.25);
+        await say('narr_w_pino_4', 'pino_w_2c', 'alan_w_pino_2', 'narr_w_pino_5', 'pino_w_3', 'pino_w_1', 'lolo_w_talk', 'pino_w_tourists',
+          'alan_w_pino_3', 'narr_w_pino_6', 'pino_w_worse', 'pino_w_pretty', 'alan_w_pino_shy', 'narr_w_pino_7', 'pino_w_memory_1', 'pino_w_memory_2',
+          'narr_w_pino_8', 'pino_w_restless', 'alan_w_pino_4');
+        S.sfx('ship_bell', 0.15);
+        await say('narr_w_pell_1', 'narr_w_pell_2');
+        f.saw_helmet = true;
+        await S.checkWed();
+      }
+      await G.dialog([
+        { line: 'alan_ask_pino_sword', once: true, run: () => say('pino_w_sword') },
+        { line: 'alan_ask_pino_lolo', once: true, run: () => { f.lolo_met = true; return say('pino_w_lolo', 'lolo_w_1'); } },
+        { line: 'alan_bye_pino', bye: true, run: () => say('pino_w_again') },
+      ]);
+      return;
     }
     if (ch() === 3) {
       await G.dialog([
-        { line: 'alan_ask_pino_pepe', once: true, when: () => f.pepe_known || f.paper_day === 3, run: async () => { await say('pino_th_pepe_1', 'pino_th_pepe_2'); await S.readPinoList(); await say('pino_th_debts', 'alan_th_debts'); } },
+        { line: 'alan_ask_pino_pepe', once: true, when: () => f.pepe_known || f.paper_day === 3, run: async () => {
+          if (S.pinoMissal) return S.pinoMissal();   // (Thursday's scene, thu.js; the old short one if it isn't there)
+          await say('pino_th_pepe_1', 'pino_th_pepe_2'); await S.readPinoList(); await say('pino_th_debts', 'alan_th_debts'); } },
         { line: 'alan_ask_pino_sea', once: true, run: () => say('pino_th_sea') },
         { line: 'alan_bye_pino', bye: true, run: () => say('pino_bye') },
       ]);
@@ -129,6 +163,17 @@
       { name: 'Cathedral door', rect: [580, 380, 120, 180], at: [640, 640], look: 'alan_look_cathedral_door', exit: 'santa_ana_inside', entry: 'santa_ana' },
       S.toMap([20, 250, 110, 320], [70, 650]),
     ],
+    // first time: the decision made on the walk ("the kind of decision that felt brave at the time") and the plaza; with
+    // the founders' letter, back down from the tower: he opens it on the fountain's edge, between two of the dogs
+    async enter() {
+      const f = F();
+      if (ch() === 2 && !f.narr_santa_ana) { f.narr_santa_ana = true; await say('narr_w_decide_1', 'narr_w_decide_2', 'narr_w_decide_3', 'narr_w_decide_4', 'narr_w_plaza_1'); }
+      if (ch() === 2 && f.fermin_letter && !f.letter_opened) {
+        f.letter_opened = true;
+        S.sfx('paper_shuffle', 0.4);
+        await say('narr_w_open_1', 'narr_w_open_2', 'alan_w_open_1', 'narr_w_open_3', 'alan_w_letter');
+      }
+    },
     // the cloud moving behind the towers, the two palms' crowns stirring, pigeons now and then. The painted
     // clocks are left alone (stopped until Alan winds the cathedral's; their hands are painted).
     animBack(g, t) {
@@ -154,7 +199,12 @@
         locked: () => !F().clock_key, lockedLine: 'alan_cathedral_locked' },
       { name: 'Out to the plaza', rect: [0, 250, 60, 350], at: [60, 665], exit: 'santa_ana', entry: 'santa_ana_inside' },
     ],
-    async enter() { if (!F().narr_santa_ana_in) { F().narr_santa_ana_in = true; await say('narr_santa_ana_in_1'); } },
+    async enter() {
+      if (F().narr_santa_ana_in) return;
+      F().narr_santa_ana_in = true;
+      await say('narr_santa_ana_in_1');
+      if (!F().clock_wound) { S.sfx('clock_wind', 0.25); await say('narr_w_nave_2', 'narr_w_nave_3'); }
+    },
     // the altar candles alive (the left chapel's and the side altar's), a little light down from the high window, dust in it
     lights: [
       { x: 340, y: 330, rgb: '255,190,110', kind: 'candle', seed: 4, glow: 110, ga: 0.07 },
@@ -170,7 +220,8 @@
   });
   S.talkFermin = async function () {
     const f = F();
-    if (!f.fermin_met) { f.fermin_met = true; await say('fermin_w_1', 'alan_w_fermin_1', 'fermin_w_2'); }
+    // the novel's first meeting: the clock stuck since Sunday, the gallbladder, Fuerteventura, the broken accordion
+    if (!f.fermin_met) { f.fermin_met = true; await say('alan_w_fermin_1', 'narr_w_fermin_2', 'fermin_w_1', 'fermin_w_2', 'fermin_w_3'); }
     await G.dialog([
       { line: 'alan_ask_fermin_clock', once: true, when: () => !f.clock_wound, run: () => say('fermin_clock_1', 'fermin_clock_2') },
       { line: 'alan_offer_wind', when: () => !f.clock_key && !f.clock_wound, run: () => S.pickKey(), bye: true },
@@ -182,6 +233,8 @@
   // the ring of keys: the clock's is the one with a bell on its bow ("everything here has a bell on it")
   S.pickKey = async function () {
     const f = F();
+    // "I know bells." (he hears himself say it); then the ring of forty keys, held out
+    if (!f.fermin_offer) { f.fermin_offer = true; await say('fermin_w_clocks', 'alan_w_bells', 'narr_w_fermin_3', 'narr_w_fermin_4'); S.sfx('keys_ring', 0.4); }
     await say('fermin_ring');
     await G.dialog([
       { label: 'The big iron one, like a church door', run: () => say('fermin_key_wrong_1'), bye: true },
@@ -206,6 +259,12 @@
       { name: 'Bell window', rect: [1000, 180, 160, 220], at: [1040, 640], look: 'alan_look_bell_window' },
       { name: 'Stairs down', rect: [20, 250, 110, 320], at: [70, 650], exit: 'santa_ana_inside', entry: 'belfry' },
     ],
+    // first time: a hundred and twelve steps, Don Fermín dying on every landing; the room, the clock and the bells
+    async enter() {
+      if (F().narr_belfry) return;
+      F().narr_belfry = true;
+      await say('narr_w_belfry_1', 'fermin_w_landing', 'narr_w_belfry_2', 'narr_w_belfry_3');
+    },
     // only the window lives: the cloud over the city, the palm, the sea, a gull; dust in the light, and the ropes
     // stirring in the draught. The bell hangs still (nobody rings it) and the clock's drum turns only when wound.
     animBack(g, t) {
@@ -225,20 +284,28 @@
     const f = F();
     if (f.clock_wound) return say('alan_drum_again');
     await S.posed('pull', async () => { for (let i = 0; i < 3; i++) { S.sfx('clock_wind', 0.6); await T(700); } });
+    // the novel: twenty minutes, a slipped tooth in the escapement, the skin of his left hand; then "Founder's hands" and the
+    // name, and the old man very still
+    await say('narr_w_clock_1', 'narr_w_clock_2');
     f.clock_wound = true;
+    S.sfx('grandfather_tick', 0.4); await T(600);
     S.sfx('clock_chime', 0.5);
-    await say('fermin_founder_hands', 'alan_w_hands', 'fermin_bell_show');
+    await say('alan_w_clock', 'narr_w_clock_3', 'fermin_founder_hands', 'alan_w_hands', 'fermin_name', 'fermin_w_yourname', 'alan_w_name', 'narr_w_still', 'fermin_bell_show');
   };
   S.lookBell = async function () {
     const f = F();
     if (!f.clock_wound) return say('alan_look_bell_dark');
+    if (f.saw_mark) return say('alan_look_bell_mark_2');
     f.saw_mark = true;
-    await say('alan_look_bell_mark');
+    await say('narr_w_bell_1', 'alan_look_bell_mark', 'narr_w_bell_2');
+    S.sfx('bell_hum_soft', 0.4);
+    await say('narr_w_bell_3');
   };
   S.rubBell = async function () {
     const f = F();
     if (!f.clock_wound) return say('alan_look_bell_dark');
     if (G.has('inscription') || f.faxed_inscription) return say('alan_rub_again');
+    if (!f.saw_mark) await S.lookBell();   // (the mark found first, the novel's moment, even if he goes straight for the pencil)
     await S.posed('write', async () => { S.sfx('pencil_scribble', 0.6); await T(1400); });
     S.give('inscription'); f.saw_mark = true;
     await say('alan_rub_bell');
@@ -248,9 +315,12 @@
     if (!f.clock_wound) return say('fermin_belfry_wind');
     if (!f.saw_mark) return say('fermin_belfry_look');
     if (!f.fermin_letter) {
-      await say('fermin_name', 'alan_w_name', 'fermin_letter_1', 'fermin_letter_2');
+      // the founders from Lisbon who "came to look at the mountain, not the sea"; the chest; the oilcloth packet under black wax
+      await say('fermin_founders_1', 'fermin_founders_2', 'fermin_founders_3', 'fermin_founders_4', 'alan_w_founders_q');
+      S.sfx('drawer_open', 0.4);
+      await say('narr_w_chest', 'narr_w_chest_2', 'fermin_letter_1', 'fermin_letter_2');
       f.fermin_letter = true; S.give('letter');
-      await say('alan_w_letter');
+      await say('narr_w_letter_take', 'alan_w_fermin_thanks', 'fermin_belfry_again');
       return S.checkWed();
     }
     return say('fermin_belfry_again');
@@ -272,6 +342,12 @@
       { name: 'Stacks', rect: [40, 80, 220, 460], at: [200, 640], look: 'alan_look_stacks' },
       { name: 'Stairs up to the hall', rect: [1160, 250, 110, 320], at: [1200, 650], exit: 'museum_hall', entry: 'archive' },
     ],
+    // first time: the basement, PROHIBIDO FUMAR, and Carmen smoking under it
+    async enter() {
+      if (F().narr_archive || ch() < 2 || ch() > 4) return;
+      F().narr_archive = true;
+      await say('narr_w_arch_1', 'narr_w_arch_2');
+    },
     // the hanging lantern and the stair lamp burning, daylight from the little window with dust in it, a moth
     lights: [
       { x: 617, y: 148, rgb: '255,200,120', kind: 'flame', seed: 2, glow: 70, ga: 0.16 },
@@ -301,27 +377,114 @@
     const f = F();
     if (!await S.carmenToll()) return;
     if (ch() === 2) {
-      if (!f.carmen_wed) {
-        f.carmen_wed = true; S.sfx('match', 0.5);
-        await say('carmen_w_1', 'alan_w_carmen_1', 'carmen_w_2', 'alan_w_carmen_2', 'carmen_w_3');
-        S.give('galindo'); await say('carmen_w_galindo');
-        return S.checkWed();
-      }
+      if (!f.carmen_wed) return S.carmenWed();
       return say('carmen_w_again');
     }
     if (ch() === 3) return S.carmenLore();
     if (ch() === 4) return S.carmenCave();
   };
+  // Wednesday in the archive, the novel's scene: "No." / "I haven't asked anything." / "You were going to."; the discs;
+  // the mist and the helmet (her pen stops); June, the panza, every June a theory; her back turned, the photograph face
+  // down; Abreu Galindo held out behind her. Then, when he has gone, Carmen alone: the photograph righted, the message
+  // she has never erased, the lighter's three tries. Alan comes back to the hall.
+  S.carmenWed = async function () {
+    const f = F();
+    await G.busy(async () => {
+      await say('narr_w_carmen_1', 'carmen_w_1', 'alan_w_carmen_0', 'carmen_w_no2', 'alan_w_carmen_discs', 'carmen_w_cons', 'alan_w_carmen_cons', 'carmen_w_cons2',
+        'narr_w_carmen_2', 'alan_w_carmen_name', 'narr_w_carmen_3', 'alan_w_carmen_1', 'alan_w_carmen_2', 'narr_w_carmen_4');
+      if (f.saw_helmet) await say('alan_w_carmen_helmet');
+      await say('alan_w_carmen_cave', 'narr_w_carmen_5', 'carmen_w_2', 'carmen_w_june2');
+      S.sfx('glass_set', 0.3);
+      await say('narr_w_carmen_6', 'carmen_w_3');
+      S.sfx('filing_cabinet', 0.35);
+      await say('narr_w_carmen_7', 'narr_w_carmen_8', 'alan_w_carmen_thanks', 'carmen_w_senor');
+      S.sfx('book_take', 0.5);
+      await say('narr_w_carmen_9');
+      f.carmen_wed = true; S.give('galindo');
+      await say('carmen_w_galindo', 'carmen_w_galindo2');
+      // Carmen alone (the cutaway: Alan has gone up the stairs)
+      await G.fade(true);
+      await G.goRoom('museum_hall', 'archive', { instant: true, noEnter: true, noSave: true });
+      await off('narr_w_carmen_10', 'narr_w_carmen_11', 'narr_w_carmen_12');
+      for (let i = 0; i < 3; i++) { S.sfx('match', 0.45); await T(450); }
+      await off('narr_w_carmen_13');
+      await G.fade(false);
+      await S.checkWed();
+    });
+  };
+
+  // ---------------------------------------------------------------- the museum on Wednesday: the van and the list
+  // (the hall is tue.js's; its enter is chained here, not replaced, and thu.js chains this one in turn)
+  const hallEnter = ROOMS.museum_hall.enter;
+  ROOMS.museum_hall.enter = async function (entry) {
+    if (hallEnter) await hallEnter.call(this, entry);
+    const f = F();
+    if (ch() !== 2 || f.narr_museum_wed) return;
+    f.narr_museum_wed = true;
+    S.sfx('chair_scrape', 0.3);
+    await say('narr_w_van_1', 'narr_w_van_2', 'narr_w_van_3', 'alan_w_crate_1', 'alan_w_crate_2', 'narr_w_van_4', 'narr_w_van_5', 'alan_w_crate_3', 'narr_w_van_6');
+    f.saw_disc_list = true; f.herring_van = true;
+    await S.checkWed();
+  };
+
+  // ---------------------------------------------------------------- Chano's theory (after the archive)
+  // The novel: "Chano was waiting for him at the kiosk with a newspaper and a theory." Montesdeoca's hotel in Artenara,
+  // the neat explanation a frightened man would like to be true. On the way into Las Canteras, or at the kiosk.
+  S.chanoTheory = async function () {
+    const f = F();
+    f.chano_theory = true; f.herring_chano = true;
+    await say('narr_w_chano_1', 'chano_w_th_1', 'alan_w_chano_1', 'chano_w_th_2', 'chano_w_th_3', 'chano_w_th_4');
+    S.sfx('coins_clink', 0.3);
+    await say('narr_w_chano_2', 'narr_w_chano_3', 'narr_w_chano_4');
+  };
+  const theoryDue = () => ch() === 2 && F().carmen_wed && !F().chano_theory;
+  const canterasEnter = ROOMS.canteras.enter;
+  ROOMS.canteras.enter = async function (entry) {
+    if (canterasEnter) await canterasEnter.call(this, entry);
+    if (theoryDue()) await S.chanoTheory();
+  };
+  const talkChano = S.talkChano;
+  S.talkChano = async function () {
+    if (theoryDue() && !G.has('note5000')) await S.chanoTheory();
+    return talkChano.apply(this, arguments);
+  };
 
   // ---------------------------------------------------------------- the end of Wednesday
+  // Everything found: Alan decides (again) to tell Vasco tonight, and goes back to the hotel. Room 404 closes the day: Vasco
+  // home after ten, asleep before Alan can say it ("the kind of decision that felt kind at the time"); then Pepe Santana.
   S.wedDone = () => { const f = F(); return f.saw_helmet && f.fermin_letter && f.faxed_inscription && f.faxed_letter && f.saw_disc_list && f.carmen_wed; };
   S.checkWed = async function () {
     const f = F();
-    if (ch() !== 2 || f.wed_done || !S.wedDone()) return;
+    if (ch() !== 2 || f.wed_ready || !S.wedDone()) return;
+    f.wed_ready = true;
+    await say('alan_w_done');
+  };
+  const roomEnter = ROOMS.hotel_room.enter;
+  ROOMS.hotel_room.enter = async function (entry) {
+    if (ch() === 2 && F().wed_ready && !F().wed_done) return S.endWed();
+    if (roomEnter) return roomEnter.call(this, entry);
+  };
+  S.endWed = async function () {
+    const f = F();
+    if (f.wed_done) return;
     f.wed_done = true;
     await G.busy(async () => {
-      await say('alan_w_done');
-      await S.paint('still_pepe', async () => { S.sfx('water_drain', 0.4); await say('narr_pepe_1', 'narr_pepe_2'); }, { zoom: [1.0, 1.1] });
+      await G.fade(true);
+      await off('narr_w_night_1', 'narr_w_night_2');
+      S.sfx('bed_springs', 0.4);
+      await off('vasco_w_night_1', 'narr_w_night_3', 'vasco_w_night_2', 'vasco_w_night_3', 'vasco_w_night_4', 'narr_w_night_4', 'alan_w_night_1', 'narr_w_night_5', 'narr_w_night_6');
+      S.sfx('lamp_click', 0.4);
+      await off('narr_w_night_7', 'narr_w_night_8', 'narr_w_night_9');
+      // Pepe Santana (the novel's cutaway, ending on his last words)
+      await S.paint('still_pepe', async () => {
+        await say('narr_pepe_1', 'narr_pepe_3', 'narr_pepe_4', 'narr_pepe_5');
+        S.sfx('water_lap', 0.3);
+        await say('narr_pepe_6', 'narr_pepe_7');
+        S.sfx('water_rise', 0.35);
+        await say('narr_pepe_8', 'narr_pepe_9');
+        S.sfx('water_drain', 0.4); await T(900);
+        await say('narr_pepe_2');
+      }, { zoom: [1.0, 1.1] });
       G.endStill();
       await S.startThu();
     });

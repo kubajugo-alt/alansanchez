@@ -1,0 +1,949 @@
+{
+ "changed": {
+  "narr_cave_mon": [
+   "narr",
+   "Nobody sat down. They stood in the black water in the round gold room, with the triangles pointing down at them from every wall, and the slot in the roof going slowly from black to grey."
+  ],
+  "baute_m_1": [
+   "baute",
+   "I turned it myself. The last one. At four o'clock. By eye."
+  ],
+  "vasco_m_1": [
+   "vasco",
+   "It's wrong."
+  ],
+  "baute_m_2": [
+   "baute",
+   "Mira. The light doesn't point the sea, Vasco. It just opens the door."
+  ],
+  "alan_m_1": [
+   "alan",
+   "It won't."
+  ],
+  "vasco_m_halves": [
+   "vasco",
+   "Start with the five. Quickly. I'll tell you where. I have to stay down here with the charts and read the light, or I can't call them."
+  ],
+  "vasco_m_who": [
+   "vasco",
+   "And someone has to stand in the water at the door, on the ladder, and set them. While it rises. [pause] I'll find a way to do both."
+  ],
+  "vasco_m_door": [
+   "vasco",
+   "The ladder's over the door. Whoever stands on it can reach the channel. [pause] Not you, Alan."
+  ],
+  "alan_look_vasco_cave": [
+   "alan",
+   "Vasco at the foot of the ladder, grey with tiredness, Elena's charts sodden in one hand and his notebook in the other. His legs are shaking. His voice isn't."
+  ],
+  "alan_look_carmen_mirror": [
+   "alan",
+   "Carmen, soaked to the waist in her rust-coloured shirt, watching the slot in the roof go from grey to pearl."
+  ],
+  "alan_look_baute_cave": [
+   "alan",
+   "Baute on his camp stool, the sixth disc in his cracked hands, very calm. The pendant at his throat."
+  ],
+  "carmen_m_1": [
+   "carmen",
+   "Do what he says, hombre. For once in your life, do exactly what somebody says."
+  ],
+  "yeray_m_1": [
+   "yeray",
+   "I've got... there's something in my pocket, I should have... [pause] Forget it. After. Do what el doctor says."
+  ],
+  "narr_m_quiet": [
+   "narr",
+   "Alan climbed the ladder with a disc of black glass in his hand, and the water came up after him, like a tide coming up a slipway. As if it couldn't bear to let him out of its reach."
+  ],
+  "vasco_m_ready": [
+   "vasco",
+   "Listen to me, and only me. One at a time, in the order I say. Flat face to the sky. Long edge towards the back wall."
+  ],
+  "vasco_call_1": [
+   "vasco",
+   "Socket two. From the left. That one first. Tilt it down. More. Stop."
+  ],
+  "vasco_call_2": [
+   "vasco",
+   "Next. Socket four."
+  ],
+  "vasco_call_3": [
+   "vasco",
+   "Socket three."
+  ],
+  "vasco_call_4": [
+   "vasco",
+   "Socket six. Next to the seventh."
+  ],
+  "vasco_call_5": [
+   "vasco",
+   "Socket five."
+  ],
+  "vasco_call_6": [
+   "vasco",
+   "Socket one. The near end. The first one the light touches. Flat face to the sky. Tilt it towards me."
+  ],
+  "vasco_m_good_1": [
+   "vasco",
+   "More. There. Stop. Leave it."
+  ],
+  "vasco_m_good_4": [
+   "vasco",
+   "Good. One more of ours."
+  ],
+  "vasco_m_good_5": [
+   "vasco",
+   "Five. [pause] Ten minutes."
+  ],
+  "vasco_m_good_6": [
+   "vasco",
+   "Six. [pause] Good."
+  ],
+  "vasco_m_wrong_1": [
+   "vasco",
+   "Turn it. To your right. A quarter turn. Now. [pause] Take it out. Listen to me, Alan. Only me."
+  ],
+  "vasco_m_wrong_2": [
+   "vasco",
+   "Alan! It's at your chest. Please. [pause] Listen to me."
+  ],
+  "narr_m_drown": [
+   "narr",
+   "The water rose over the ladder, and over the man on it, and went quiet."
+  ],
+  "baute_m_listen": [
+   "baute",
+   "I'm sorry. I'm so sorry. [pause] Take it. Por favor. Quickly."
+  ],
+  "vasco_m_seventh": [
+   "vasco",
+   "Two minutes. Now the last one. The seventh, at the far end. Alan, listen to me. You have to turn it back."
+  ],
+  "narr_m_cloud": [
+   "narr",
+   "And then a cloud crossed the sun. A small one, a wisp, drifting in from the east just as the sun cleared the horizon. It shouldn't have been there. The gold in the slot went grey."
+  ],
+  "vasco_m_light": [
+   "vasco",
+   "I've lost the light! I can't read it without the light!"
+  ],
+  "alan_m_carmen_light": [
+   "alan",
+   "Carmen! The sun! Anything that shines!"
+  ],
+  "carmen_m_mirror": [
+   "carmen",
+   "Venga. Venga, you ugly thing. [pause] Come on!"
+  ],
+  "carmen_m_holding": [
+   "carmen",
+   "I'm holding it. My arms are going to fall off, hombre. Turn the thing."
+  ],
+  "narr_m_beam": [
+   "narr",
+   "It ran down the channel through all seven discs, gold on black on gold, and went across the cave, and the spot from Carmen's mirror vanished in it like a candle in the sun."
+  ],
+  "vasco_m_true": [
+   "vasco",
+   "There. There. Stop. Alan. Stop. Don't move. [pause] That's it. That's the one."
+  ],
+  "narr_m_breath": [
+   "narr",
+   "Then it breathed out. A long, slow, vast exhalation, through the rock, through the mountain, through the whole island. And the water began to go down."
+  ],
+  "narr_m_drag": [
+   "narr",
+   "It went down the way it had come, back into the rock, and it took Alan with it. It pulled him off the top of the ladder as easily as a hand pulls a weed."
+  ],
+  "narr_m_chain": [
+   "narr",
+   "The water pulled, and the hand held. Someone above him was shouting, and someone had hold of the man who was shouting, and someone had hold of them. A chain of hands, in the black, against the sea."
+  ],
+  "vasco_m_twice": [
+   "vasco",
+   "I've let go of people before. I got on a train once, in the middle of the night, and let go of the best man I ever knew."
+  ],
+  "narr_m_sunrise": [
+   "narr",
+   "The sun climbed. Over Las Palmas the black stain sank back through the white, thinning, like ink dissolving in water, until there was nothing over the city but the ordinary grey of the panza de burro."
+  ],
+  "alan_m_after": [
+   "alan",
+   "You were right. It's beautiful. [pause] It's the most beautiful place I've ever stood."
+  ],
+  "carmen_m_after": [
+   "carmen",
+   "[pause] Huh. One try."
+  ],
+  "alan_m_fuse": [
+   "alan",
+   "Thank you, Yeray. You came back down with bread and a pick. That counts."
+  ],
+  "yeray_m_fuse": [
+   "yeray",
+   "The radio fuse. Dr. Baute told me to take it, Saturday. I've had it the whole time. [pause] Lo siento. Call whoever you have to call."
+  ],
+  "vasco_m_hurt": [
+   "vasco",
+   "I've got a lump on my forehead the size of a quail's egg, from the doorway of this cave, and I can't remember getting it."
+  ],
+  "alan_m_confess_1": [
+   "alan",
+   "On Friday night, after you left, I went out. To a bar in Vegueta. Rafa's bar. I drank too much rum."
+  ],
+  "alan_m_plain": [
+   "alan",
+   "I broke both of them. Both your rules. I didn't tell you first. And I did it on purpose."
+  ],
+  "alan_m_plain_2": [
+   "alan",
+   "Because we'd had a fight. Because you'd left. Because I was angry and frightened and I wanted, for one night, to be somebody with nothing to lose."
+  ],
+  "vasco_m_plain_1": [
+   "vasco",
+   "Yeray told me. On Saturday morning, at the camp. He said there was a Portuguese guy at Rafa's bar on Friday night."
+  ],
+  "narr_m_silence": [
+   "narr",
+   "Vasco said nothing for a long time. Above them a hawk was turning, very high, in the blue. The sun climbed a finger's width over the cloud."
+  ],
+  "vasco_m_trowel_1": [
+   "vasco",
+   "Lorenzo gave me this. In Rome, on my twenty-seventh birthday. He said: 'For the day you find something worth keeping.'"
+  ],
+  "vasco_m_trowel_2": [
+   "vasco",
+   "For the day you find something worth keeping. [pause] Keep it."
+  ],
+  "carmen_m_guardia": [
+   "carmen",
+   "They'll be here in an hour. From Artenara. [pause] I told them Rayco would be waiting."
+  ],
+  "carmen_m_ride": [
+   "carmen",
+   "I'll come down with you. In the car. I'm not letting you go down that road on your own."
+  ],
+  "carmen_m_keys": [
+   "carmen",
+   "Bring it back to the flat. Calle Perdomo, above the farmacia. Fill the radiator at the bottom of the hill."
+  ],
+  "narr_end_road": [
+   "narr",
+   "They drove down in the afternoon. Alan drove. The Land Rover started on the third try, and boiled once at the top of the first hill, and Vasco swore at it in Portuguese until it stopped."
+  ],
+  "vasco_end_hand": [
+   "narr",
+   "At the bottom of the cloud, where the grey city began to show through, Alan changed gear for the next bend, and Vasco reached over and put his hand on Alan's, on the gearstick. And left it there."
+  ],
+  "narr_end_plain": [
+   "narr",
+   "It wasn't forgiveness. Neither of them pretended it was. But the hand stayed."
+  ],
+  "narr_end_excuses": [
+   "narr",
+   "It wasn't forgiveness. It was careful, and quiet, and it was a start."
+  ],
+  "narr_end_fireworks": [
+   "narr",
+   "They watched the fireworks from the balcony of the hotel room: gold and red and green and white, bursting under the grey lid of the panza, so that the whole cloud lit up from underneath like a lampshade."
+  ],
+  "narr_love_2_warm": [
+   "narr",
+   "It was not like Tuesday night. It wasn't easy, and it wasn't funny. It was two men who knew exactly what they had nearly lost, choosing, very deliberately, in the dark, not to lose it."
+  ],
+  "narr_love_2_quiet": [
+   "narr",
+   "It was not like Tuesday night. They were too tired and too careful, and nothing had been mended yet. It was quiet. It was slow. It wasn't forgiveness. It was a choice."
+  ],
+  "narr_pro_road": [
+   "narr",
+   "The road from Artenara falls off the top of Gran Canaria like a dropped ribbon. Hairpin after hairpin, pine trees on one side and nothing at all on the other."
+  ],
+  "barman_stay": [
+   "barman",
+   "There's cloud on the road, doctora. Thick tonight. Stay. My wife will make up the room."
+  ],
+  "elena_use_radio": [
+   "elena",
+   "A timple, quick and bright, and a woman singing about a fisherman's wife. Leave it. It's company."
+  ],
+  "elena_look_notebook": [
+   "elena",
+   "Seven circles along the channel. Six filled in. The seventh gone over so hard the paper's torn. [pause] Six. There should be seven."
+  ],
+  "elena_look_mirror": [
+   "elena",
+   "The lights of the camp, going out one by one. One window still lit. [pause] Rayco's still up. He never sleeps."
+  ],
+  "narr_pro_cloud": [
+   "narr",
+   "Then the car went into the cloud, and the world went grey, pressing against the windscreen like wet wool."
+  ],
+  "gc_02": [
+   "gc2",
+   "There's no water in this barranco, hombre."
+  ],
+  "narr_open_01": [
+   "narr",
+   "The Guardia Civil recorded the death of Dr. Elena Suárez as an accident caused by a flash flood. Her lungs were full of water, and the water was salt."
+  ]
+ },
+ "new": {
+  "narr_mon_baute": [
+   "narr",
+   "Rayco Baute looked back at them, quite calmly, from his camp stool. A black glass disc lay in his cracked hands."
+  ],
+  "baute_m_1b": [
+   "baute",
+   "I watched Elena do it a hundred times. And I watched you do it, Vasco, last week, when you thought I wasn't looking."
+  ],
+  "baute_m_1c": [
+   "baute",
+   "I'm not a mathematician. But I'm not a fool either. [pause] With six of seven gone, close will do. I can see in your face that you know it."
+  ],
+  "narr_mon_look": [
+   "narr",
+   "Vasco didn't answer. He was looking up at the seventh disc, black in its socket at the far end of the slot, the long, slow, total look he gave an altarpiece."
+  ],
+  "baute_m_close": [
+   "baute",
+   "It's close."
+  ],
+  "vasco_m_1b": [
+   "vasco",
+   "It's wrong, Rayco. It's turned too far. It won't go to the door. It'll go past it. Off the triangles. Out of the cave mouth."
+  ],
+  "vasco_m_1c": [
+   "vasco",
+   "I worked it out yesterday, before you locked me up. That line goes down the barranco and north. Not south. [pause] It points at the city."
+  ],
+  "narr_mon_smile": [
+   "narr",
+   "Baute smiled at him, very gently, the way you smile at a child who has had a bad dream."
+  ],
+  "baute_m_2b": [
+   "baute",
+   "I'll point it. I've waited thirty years to point it. It'll come where it's called."
+  ],
+  "narr_mon_alan": [
+   "narr",
+   "Baute looked at him then, for the first time, properly. The bookseller. The boyfriend. The man caught behind his desk with his hand on a map."
+  ],
+  "alan_m_1b": [
+   "alan",
+   "It doesn't come where it's called. It goes where it wants, and it takes whatever's in its way."
+  ],
+  "alan_m_1c": [
+   "alan",
+   "A man in Lisbon tried to point it, eight months ago. Vicente Lacerda. He had a reason too. A very good one. He'd lost someone he loved."
+  ],
+  "alan_m_1d": [
+   "alan",
+   "When it came, it took him. It took half the people on the shore. It had me too, and it let me go, because of whose blood I've got. [pause] I don't think it'll do that twice."
+  ],
+  "alan_m_1e": [
+   "alan",
+   "It doesn't listen, Dr. Baute. It's not a weapon. It's not even angry. It's just the sea."
+  ],
+  "narr_mon_surge": [
+   "narr",
+   "Something moved behind Baute's dark eyes. Then the water rose, all at once, from the ankles to the knees in a single breath, and under the floor came a long, deep sound, like something enormous turning over in its sleep."
+  ],
+  "vasco_m_twenty": [
+   "vasco",
+   "Twenty minutes to sunrise. [pause] Alan. The discs."
+  ],
+  "carmen_m_five": [
+   "carmen",
+   "Five. Mira, there are only five. We need six."
+  ],
+  "narr_mon_tighter": [
+   "narr",
+   "Alan looked at the disc in Baute's hands. Baute looked down at it, and his hands closed on it, tighter."
+  ],
+  "narr_m_quiet_2": [
+   "narr",
+   "And it was quiet. The breathing under the floor had stopped. The water lay round his legs and did not pull. It only held him, the way something very large holds still when it is looking at you."
+  ],
+  "alan_m_knows": [
+   "alan",
+   "It knows me. It remembers the cistern. [pause] It's waiting for me to slip."
+  ],
+  "narr_m_smudge": [
+   "narr",
+   "On the wall across the cave, very faint in the grey, a smudge of paler grey shifted, and settled, where the beam would be when the sun came."
+  ],
+  "narr_m_surge_1": [
+   "narr",
+   "The disc went in at the wrong angle, and the water surged, roaring, up to his waist. Carmen shouted. Yeray yelled. The whole ladder shook."
+  ],
+  "narr_m_dog": [
+   "narr",
+   "The water dropped back to his knees, sulkily, like a dog called off."
+  ],
+  "narr_m_ten": [
+   "narr",
+   "The slot above Alan's head had gone from pearl to pale gold. The sky was coming. He looked down from the ladder."
+  ],
+  "narr_m_baute_up": [
+   "narr",
+   "Rayco Baute had stood up from his camp stool, the water at his waist, the sixth disc held against his chest in both hands. He wasn't looking at any of them. He was looking out of the cave mouth, at the sea of cloud."
+  ],
+  "narr_m_stain": [
+   "narr",
+   "It had been white all night under the stars. It wasn't white now. Over Las Palmas a stain was spreading through it, black, oily black, like ink dropped into milk, coming up through the white from underneath."
+  ],
+  "narr_m_south": [
+   "narr",
+   "And in the south, where the resorts were, the cloud was clean. The great white hotels of Maspalomas stood along a blue and empty sea in a line like teeth, with nothing coming for them at all."
+  ],
+  "narr_m_carmen_wades": [
+   "narr",
+   "Carmen waded over to stand beside him. She didn't touch him. She only stood there, soaked to the waist, and looked at it with him."
+  ],
+  "carmen_m_street": [
+   "carmen",
+   "That's my street. Under there. Calle Perdomo, above the farmacia."
+  ],
+  "carmen_m_street_2": [
+   "carmen",
+   "That's La Isleta. That's where Doña Pino lives. She's seventy-four. That's the playa where Elena nearly drowned when she was a girl."
+  ],
+  "carmen_m_street_3": [
+   "carmen",
+   "There'll be ten thousand people on it this morning, Rayco. Our people. Canarios. Asleep."
+  ],
+  "narr_m_baute_silent": [
+   "narr",
+   "Rayco said nothing."
+  ],
+  "carmen_m_concrete": [
+   "carmen",
+   "And there's your concrete. In el sol. Look at it. Not a drop."
+  ],
+  "narr_m_goes_out": [
+   "narr",
+   "Something went out of Baute's face, all at once, the way a candle goes out. Thirty years of it. It left an old man standing in cold water with a piece of black glass in his hands."
+  ],
+  "narr_m_wades": [
+   "narr",
+   "He waded to the foot of the ladder, slowly, as if he were very tired, and held the disc up to Alan. His hands were shaking."
+  ],
+  "narr_m_wire": [
+   "narr",
+   "The slot above him was blazing gold now. On the far horizon, beyond the edge of the sea of cloud, a line of fire had appeared, thin and bright as a wire."
+  ],
+  "vasco_m_seventh_2": [
+   "vasco",
+   "Rayco's turned it too far to the right. Left, and down, to twenty-three degrees twenty-six minutes. You can't measure it. You'll have to do it by the light."
+  ],
+  "vasco_m_seventh_3": [
+   "vasco",
+   "When the sun comes in, it runs down the line and goes across the cave. I'll tell you where it lands. Turn it until it lands on the great triangle. Dead centre."
+  ],
+  "alan_m_yes": [
+   "alan",
+   "Yes."
+  ],
+  "vasco_m_dead_centre": [
+   "vasco",
+   "Dead centre, Alan. Not close."
+  ],
+  "alan_m_understand": [
+   "alan",
+   "I understand."
+  ],
+  "narr_m_seventh_hand": [
+   "narr",
+   "He climbed to the top of the ladder, reached along the slot as far as his arm would go, and put his hand on the seventh disc. It was colder than the others. It was colder than the water."
+  ],
+  "narr_m_chest": [
+   "narr",
+   "The water was at his chest. Two metres off the floor of the cave, and the sea at his chest, holding him the way you hold something you are not yet sure whether to keep."
+  ],
+  "vasco_m_nonono": [
+   "vasco",
+   "No. No, no, no."
+  ],
+  "narr_m_roar": [
+   "narr",
+   "The water surged to Alan's chin. Under the floor the breathing came back, louder than it had ever been, a great hollow roar like surf in a sea cave, and the whole mountain seemed to shake with it."
+  ],
+  "alan_m_dark": [
+   "alan",
+   "I can't see where it lands. Nobody can. Not without the sun."
+  ],
+  "narr_m_carmen_gone": [
+   "narr",
+   "But Carmen was already gone. Out of the cave mouth, into the dawn, wading and then running along the cliff path towards the camp."
+  ],
+  "narr_m_glass": [
+   "narr",
+   "And then, impossibly, over the roar of the water, the sound of breaking glass and tearing metal."
+  ],
+  "narr_m_wing": [
+   "narr",
+   "She came back with the Land Rover's wing mirror in her hands, ripped off its bracket and trailing a broken wire. She stood in the cave mouth facing east and held it up, high, in both hands, swearing at it the way she swore at the radiator."
+  ],
+  "narr_m_fuse_run": [
+   "narr",
+   "A beam of reflected sunlight went straight up into the slot and hit the first disc. It ran down the channel from mirror to mirror like fire down a fuse, gold, blinding, and went across the cave."
+  ],
+  "narr_m_too_far": [
+   "narr",
+   "It hit the far wall a metre to the right of the great triangle. On the bare rock. Too far."
+  ],
+  "vasco_m_left": [
+   "vasco",
+   "Left. Turn it left. Slowly."
+  ],
+  "narr_m_slide": [
+   "narr",
+   "Under his numb fingers the disc moved, stiffly, with a faint gritty sound. On the far wall the gold spot slid left, across the rock, onto the edge of the great triangle."
+  ],
+  "vasco_m_down": [
+   "vasco",
+   "Good. Slowly. Slowly. [pause] And down."
+  ],
+  "narr_m_mouth": [
+   "narr",
+   "The water was at his mouth. He tipped his head back to breathe. He couldn't feel his hands any more. He could only see them, in the gold light, on the black disc, turning."
+  ],
+  "vasco_m_down_2": [
+   "vasco",
+   "Down. A little more. A little more."
+  ],
+  "narr_m_centre": [
+   "narr",
+   "The spot of gold crossed the great triangle, slowly, from the edge to the middle."
+  ],
+  "narr_m_sun": [
+   "narr",
+   "The little cloud slid off the face of the sun. The real light came, the first light of the twenty-fourth of June, pouring in through the slot like water through a broken dam."
+  ],
+  "narr_m_dead_centre": [
+   "narr",
+   "A single blade of gold from the roof to the back wall. And at its end, at the very centre of the great triangle, where every line of every carving converged, a spot of light the size of a hand. Dead centre."
+  ],
+  "narr_m_tilt": [
+   "narr",
+   "Twenty-three degrees. Twenty-six minutes. The tilt of the world."
+  ],
+  "narr_m_lit": [
+   "narr",
+   "For a moment nothing happened. Every triangle on every wall was lit at once, as if the whole room had been written on in fire. The water lay round Alan, up to his chin, and did not move."
+  ],
+  "narr_m_drag_2": [
+   "narr",
+   "Black. Cold. The roar in his ears, and the pull, down and down. And below him, where the floor of the cave should have been, there was no stone. Only more dark, opening."
+  ],
+  "alan_m_so_this": [
+   "alan",
+   "So this is how she went. Alone in the water, when the door shut."
+  ],
+  "narr_m_stops": [
+   "narr",
+   "He stopped fighting. The light was on the triangle. He had done it. Nothing else mattered."
+  ],
+  "narr_m_hand": [
+   "narr",
+   "And a hand closed on his wrist. Hard enough to hurt. The way a man holds a rope over a cliff."
+  ],
+  "narr_m_dry": [
+   "narr",
+   "Then, all at once, the pull was gone. He was lying on dry stone at the foot of the great triangle, in the gold light, coughing up the sea."
+  ],
+  "narr_m_chain_2": [
+   "narr",
+   "Vasco knelt over him with Alan's wrist in both hands. Behind him Carmen had her fists knotted in the back of Vasco's shirt. Behind her, soaked to the shoulders, Yeray. And behind Yeray, both arms locked round the boy's waist, Rayco Baute."
+  ],
+  "narr_m_nobody": [
+   "narr",
+   "Nobody let go for a long time."
+  ],
+  "vasco_m_stopped": [
+   "vasco",
+   "You stopped. I saw your face. You were letting it take you."
+  ],
+  "vasco_m_twice_2": [
+   "vasco",
+   "I wasn't going to do it twice."
+  ],
+  "narr_m_torn": [
+   "narr",
+   "Later, when they could stand, Carmen went to the cave mouth with the broken mirror still hanging from one hand, and made a sound, and they all went to look. The sun was up. And the cloud had torn."
+  ],
+  "narr_m_glimpse": [
+   "narr",
+   "Through one of the holes, far below, the sea lay flat and blue in the first sun. And for a moment, beneath the glitter, something very large turned over, slowly, the way a sleeper turns, and went down, and down, until it was gone."
+  ],
+  "narr_m_nobody_said": [
+   "narr",
+   "Nobody said anything about it, afterwards, to anyone. Not one of them."
+  ],
+  "narr_m_waking": [
+   "narr",
+   "Down there, ten thousand people were waking up on the beaches among the ashes of their bonfires, on the city's five hundred and eighteenth birthday, without the faintest idea that anything had happened at all."
+  ],
+  "narr_m_reading": [
+   "narr",
+   "In Cave 6 the light walked slowly across the wall, from triangle to triangle, like someone reading a very old sentence out loud, word by word, to keep it true."
+  ],
+  "narr_m_wrist": [
+   "narr",
+   "Vasco sat beside Alan on the dry floor, with his back against the wall, still holding Alan's wrist. He didn't seem to know he was doing it. Alan didn't tell him."
+  ],
+  "narr_m_out": [
+   "narr",
+   "They came out to the cave mouth, into the sun. The first time Alan had stood in it, properly, since he landed. He closed his eyes, soaked through, shaking, and felt it on his face."
+  ],
+  "narr_m_one_try": [
+   "narr",
+   "Carmen sat down on the flat rock with the wing mirror in her lap, trailing its wire, and lit a cigarette. It took her one try. She looked at the lighter in surprise."
+  ],
+  "narr_m_baute_hat": [
+   "narr",
+   "Rayco Baute sat a little way off with his hat in his hands, looking at the cloud, like a man who had carried something heavy up a mountain for thirty years, and put it down, and didn't know what to do with his arms."
+  ],
+  "narr_m_old_thing": [
+   "narr",
+   "And Alan could feel himself beginning to do it again. The old thing. Choosing the moment. Later, when Vasco's rested. Later, in Lisbon, with a drink. Later, when I've worked out how to say it so it doesn't sound so bad."
+  ],
+  "alan_m_today": [
+   "alan",
+   "Tell him. Today. Not when it's convenient."
+  ],
+  "narr_m_fuse_twist": [
+   "narr",
+   "Yeray took it out of the pocket of his shorts, wrapped in a twist of paper, and held it out without a word."
+  ],
+  "narr_m_radio": [
+   "narr",
+   "The radio hummed. The dial lit up. Carmen came up behind Alan, took the handset out of his hand, and turned her back on everyone."
+  ],
+  "narr_m_cousin": [
+   "narr",
+   "The someone at the Guardia Civil turned out, after some confusion, to be her cousin, the sergeant, the one who had given her the photographs in January. She talked to him for a long time, in a low voice."
+  ],
+  "vasco_m_hurt_2": [
+   "vasco",
+   "[pause] I'm all right. You held on. I held on."
+  ],
+  "narr_m_later": [
+   "narr",
+   "Alan looked at the cloud. Later. He could hear himself saying it, and he hated the sound."
+  ],
+  "narr_m_turned": [
+   "narr",
+   "Vasco turned and looked at him. And Alan told him, before he could say what is it, or not now, or anything at all. Plainly, in the sun, with the others near enough to hear and none of them looking."
+  ],
+  "alan_m_confess_1b": [
+   "alan",
+   "And I met someone. The barman. Rafa. And I slept with him."
+  ],
+  "alan_m_confess_1c": [
+   "alan",
+   "He asked me if there was someone. Straight out. And I said no. [pause] I said it twice."
+  ],
+  "alan_m_plain_3": [
+   "alan",
+   "And then I lied to him about you. And I would have lied to you about him. On Saturday morning I was already working out how."
+  ],
+  "narr_m_all": [
+   "narr",
+   "He stopped. That was all of it. He didn't say I was drunk. He didn't say it meant nothing, because it hadn't meant nothing, and he wasn't going to lie about that either."
+  ],
+  "narr_m_hawk": [
+   "narr",
+   "Vasco looked at him for a very long time. Above them a hawk was turning, very high, in the blue. The cigarette in Carmen's fingers burned down, unsmoked."
+  ],
+  "vasco_m_knew_2": [
+   "vasco",
+   "Funny. Sad underneath. Like a man at his own party who doesn't know why he came."
+  ],
+  "vasco_m_knew_3": [
+   "vasco",
+   "I told myself it couldn't be you. There are a great many Portuguese men in Las Palmas. I lay in that channel all night and told myself that, over and over."
+  ],
+  "vasco_m_knew_4": [
+   "vasco",
+   "[pause] And I knew. Of course I knew."
+  ],
+  "vasco_m_knew_5": [
+   "vasco",
+   "Then you came down the steps into the water to get me. And I thought: if he tells me, he'll tell me before I ask. And if he doesn't, he'll wait until I do."
+  ],
+  "vasco_m_didnt_wait": [
+   "vasco",
+   "You didn't wait."
+  ],
+  "alan_m_no": [
+   "alan",
+   "No."
+  ],
+  "narr_m_watch": [
+   "narr",
+   "Vasco looked down at his hands. He didn't say it's all right. He didn't say I forgive you. Vasco wasn't a man who said things he didn't mean yet."
+  ],
+  "narr_m_stay": [
+   "narr",
+   "And he didn't move away. They stood side by side on the rock in the sun, a hand's breadth apart, as if something held under the surface for a very long time had been let go, and had drawn back, and was gone."
+  ],
+  "narr_m_pocket": [
+   "narr",
+   "After a while Vasco reached into his shirt pocket and held something out to Alan on his palm. A small silver trowel, with a worn black handle and half a blade."
+  ],
+  "vasco_m_trowel_1b": [
+   "vasco",
+   "I kept it twelve years. Through the whole of the Church. I used it in the vault to write on the wall, and to dig my way out, and I broke it."
+  ],
+  "vasco_m_trowel_1c": [
+   "vasco",
+   "[pause] I don't need it any more."
+  ],
+  "narr_m_warm": [
+   "narr",
+   "It was warm from Vasco's pocket. Alan closed his hand round it and put it in his own, and his hand stayed on it there, through the wet cloth, for a long time."
+  ],
+  "narr_end_rock": [
+   "narr",
+   "Carmen went over to Rayco, who was still sitting on the rock with his hat in his hands, and stood looking down at him. Her old teacher."
+  ],
+  "carmen_m_tell_rayco": [
+   "carmen",
+   "They'll be here in an hour, Rayco. I told them you'd be waiting."
+  ],
+  "baute_m_wait": [
+   "baute",
+   "[pause] I'll wait."
+  ],
+  "baute_m_elena": [
+   "baute",
+   "Carmen. [pause] Elena..."
+  ],
+  "carmen_m_notnow": [
+   "carmen",
+   "I know. I know, Rayco. Not now. There'll be time for that."
+  ],
+  "carmen_m_visit": [
+   "carmen",
+   "I'll visit. I'll bring you cigarettes. I'll shout at you through the glass. Every week, for as long as it takes."
+  ],
+  "carmen_m_right": [
+   "carmen",
+   "You were right about Tasarte. You were right about all of it. Somebody has to keep saying it. Properly. In a way that doesn't drown anyone."
+  ],
+  "carmen_m_me": [
+   "carmen",
+   "[pause] Looks like it's going to have to be me."
+  ],
+  "narr_end_smoke": [
+   "narr",
+   "She lit a cigarette and gave it to him, and lit another for herself, and they sat side by side on the rock and smoked, and looked at the sea of cloud, and didn't say anything else."
+  ],
+  "narr_end_keys": [
+   "narr",
+   "After a while Carmen took the Land Rover's keys off their carabiner and threw them over her shoulder without looking. Alan caught them."
+  ],
+  "carmen_m_keys_2": [
+   "carmen",
+   "It doesn't have a left wing mirror any more. Don't let it see you hating it."
+  ],
+  "narr_end_guardia": [
+   "narr",
+   "The Guardia came at nine, in a white Land Rover even older than Carmen's: two young officers who looked at Rayco Baute as if they had been sent to arrest a mountain."
+  ],
+  "narr_end_handshake": [
+   "narr",
+   "He went with them quietly. At the door of the car he shook Vasco's hand, and held it, and didn't let go for a long moment."
+  ],
+  "baute_m_director": [
+   "baute",
+   "You'll make a fine director one day, Vasco. Of something. [pause] Don't let them put you in a museo."
+  ],
+  "narr_end_away": [
+   "narr",
+   "Carmen got in beside him, and Yeray got in the front, and the white Land Rover went away down the dirt road towards Artenara in a cloud of red dust. And Alan and Vasco were alone on the mountain."
+  ],
+  "narr_end_cloud": [
+   "narr",
+   "Then they went down into the cloud. It was only cloud. Grey and cool, ten minutes of it, the wipers going, smelling of pine and wet earth. There was no salt in it at all."
+  ],
+  "narr_end_promise": [
+   "narr",
+   "Alan didn't say anything for a long time. Then, because he had promised himself he would never again not say a thing because he was afraid of the answer, he said it."
+  ],
+  "alan_end_ask": [
+   "alan",
+   "Vasco. Are we... I mean, after this. Are we going to be..."
+  ],
+  "narr_end_window": [
+   "narr",
+   "Vasco looked out at the grey city coming up to meet them, at the long curve of Las Canteras, and the sea, and beyond it, very far away, along the old sail route from Lisbon to the Americas, the next island."
+  ],
+  "narr_end_gearstick": [
+   "narr",
+   "And his hand stayed on Alan's on the gearstick, all the way down."
+  ],
+  "narr_end_city": [
+   "narr",
+   "The city was having its birthday. Flags, brass bands, smoke from the food stalls, children with sparklers. Five hundred and eighteen years. Nobody knew how nearly it hadn't had a five hundred and nineteenth."
+  ],
+  "narr_end_nieves": [
+   "narr",
+   "Nieves was behind the desk when they came in. She looked at Vasco's forehead, and the blanket he was still wearing, and at Alan's clothes, which had been through rum and turpentine and a flooded granary and a flooded cave."
+  ],
+  "narr_end_eyebrow": [
+   "narr",
+   "Her eyebrow went up. All the way up. As far as it would go. And then she smiled. Alan had never seen her smile. It transformed her entirely."
+  ],
+  "nieves_end_1": [
+   "nieves",
+   "Welcome back, Dr. Teles. Señor Sanches. [pause] There are no messages."
+  ],
+  "nieves_end_2": [
+   "nieves",
+   "There is fresh café in the machine. I made it myself. [pause] It is still terrible."
+  ],
+  "narr_end_chano": [
+   "narr",
+   "Chano was at his kiosk on the corner, selling the last of the fireworks, and he waved a box of rockets at them as they came out onto the promenade at dusk."
+  ],
+  "chano_end_1": [
+   "chano",
+   "You found him."
+  ],
+  "alan_end_found": [
+   "alan",
+   "I found him."
+  ],
+  "chano_end_2": [
+   "chano",
+   "Up the montaña."
+  ],
+  "alan_end_mountain": [
+   "alan",
+   "Up the mountain."
+  ],
+  "narr_end_chano_nod": [
+   "narr",
+   "Chano nodded, satisfied, as if this were exactly what he had predicted all along. Then he leaned over the counter and lowered his voice."
+  ],
+  "chano_end_3": [
+   "chano",
+   "My cousin's husband's brother was out on his boat at sunrise this morning. Off Agaete. And he swears to God, on his mother's grave, he saw San Borondón."
+  ],
+  "chano_end_4": [
+   "chano",
+   "The island. The one that's only there sometimes. It came up out of the sea at sunrise, green, with trees on it, and mountains. Then el sol came up, and it was gone."
+  ],
+  "chano_end_5": [
+   "chano",
+   "Of course, he's a liar. Everybody knows he's a liar. [pause] But still. Strange day."
+  ],
+  "alan_end_strange": [
+   "alan",
+   "Strange day."
+  ],
+  "narr_end_fireworks_2": [
+   "narr",
+   "Below them the sea came in and went out on the sand, quietly, harmlessly, the ordinary sea. After a while Vasco's hand found Alan's on the rail."
+  ],
+  "narr_love_2_after": [
+   "narr",
+   "Afterwards Vasco didn't fall asleep at once, the way he usually did. He lay with his head on Alan's chest, and they listened to the sea together until the grey light came."
+  ],
+  "narr_end_morning": [
+   "narr",
+   "In the morning, when Alan woke, Vasco had already gone down to the lobby. The balcony doors were open, and the grey light of the panza lay over the room, the way it would every morning until July."
+  ],
+  "narr_end_lift": [
+   "narr",
+   "The ceiling fan went round. Down the corridor, the lift sneezed."
+  ],
+  "narr_end_coffee": [
+   "narr",
+   "And on the bedside table, on Alan's side of the bed, there was a cup of coffee. From the machine in the lobby. It would be terrible."
+  ],
+  "narr_end_drank": [
+   "narr",
+   "Alan lay there and looked at it for a long time. Then he sat up, and reached for it, and drank it."
+  ],
+  "narr_pro_bar_1": [
+   "narr",
+   "The bar in Artenara had been closing for an hour. The shutters were halfway down, the television was off, and Paco was putting the chairs up on the tables, one at a time."
+  ],
+  "narr_pro_bar_2": [
+   "narr",
+   "The last customer was standing at the telephone on the wall, feeding it coins. Dr. Elena Suárez, forty-five, awake since five that morning, with a pencil pushed through the knot of her hair."
+  ],
+  "narr_pro_paco": [
+   "narr",
+   "Paco did not look up from the chairs."
+  ],
+  "narr_pro_out": [
+   "narr",
+   "She smiled at him, and went out into the cold."
+  ],
+  "narr_pro_road_2": [
+   "narr",
+   "And below, always, the cloud. Tonight it lay silver under the moon, like a frozen ocean, and it was coming up to meet her."
+  ],
+  "narr_pro_dark": [
+   "narr",
+   "The grey grew darker. Charcoal. Then black, until the headlights were two weak yellow smudges, and then not even that. It was like driving into ink."
+  ],
+  "narr_pro_footwell": [
+   "narr",
+   "She looked down. There was water in the footwell. Black, and cold, and rising round her boots the way a tide rises, patiently, from below."
+  ],
+  "narr_pro_brake": [
+   "narr",
+   "She pressed the brake. The car did not slow. It went on down the hairpins at the same gentle crawl, as if someone else were driving it. As if it knew the way."
+  ],
+  "narr_pro_stop": [
+   "narr",
+   "Elena Suárez had spent her whole life reading the marks other people left on stone. When she understood there was nothing left she could do, she stopped doing things."
+  ],
+  "narr_pro_triangle": [
+   "narr",
+   "She raised one finger and drew on the fogged glass. Three lines. A triangle, point down. She kept her finger on the glass, at the point. Pointing at the sea."
+  ],
+  "narr_pro_morning": [
+   "narr",
+   "In the morning a goatherd found the car at the bottom of a dry barranco a little below the road. Upright. Undamaged. The windows closed, the doors locked from the inside."
+  ],
+  "narr_pro_crust": [
+   "narr",
+   "On the windscreen a shape had dried into the glass in a fine white crust. A triangle, pointing down. The crust was salt."
+  ],
+  "narr_pro_cigarette": [
+   "narr",
+   "The older officer lit a cigarette and looked at the car for a long time."
+  ],
+  "narr_open_03": [
+   "narr",
+   "After that, for six months, nothing happened at all. The Sea is patient. It answers only at a turning of the year. And the next turning was June."
+  ]
+ },
+ "removed": [
+  "baute_m_stain_1",
+  "baute_m_stain_2",
+  "vasco_m_thank",
+  "vasco_m_seventh_how",
+  "vasco_m_yeray",
+  "alan_m_yeray"
+ ],
+ "emotions": {
+  "embarrassed": [
+   "alan_end_ask"
+  ],
+  "fear": [
+   "alan_m_knows"
+  ]
+ },
+ "core_changes": "x",
+ "play_route": "  // ---- Monday\n  await expect('Monday in Cave 6', () => Game.flags.ch === 7 && Game.room.id === 'cave6');\n  await act('The door in the floor', 'use');\n  // the novel's order: II, IV, III, VI, V, then Baute's disc in I\n  await act('Socket I', null, 'discs'); // (wrong on purpose: the water surges)\n  await expect('a surge', () => Game.flags.surges === 1);\n  await act('Socket II', null, 'discs'); await act('Socket IV', null, 'discs'); await act('Socket III', null, 'discs');\n  await act('Socket VI', null, 'discs'); await act('Socket V', null, 'discs');\n  await expect('the sixth disc', () => Game.has('disc6'));\n  await act('Socket I', null, 'disc6');\n  // the seventh: the cloud crosses the sun; Carmen and the Land Rover's wing mirror; turned by the light as Vasco calls it\n  await act('The seventh disc', 'use');\n  await expect('the cloud', () => Game.flags.cloud_over && !Game.flags.mirror_on);\n  await act('carmen', 'talk');\n  await expect('the mirror', () => Game.flags.mirror_on);\n  await act('The seventh disc', 'use', null, ['left', 'down', 'down']);\n  await expect('the lock closed', () => Game.flags.lock_closed);\n  await act('yeray', 'talk'); await act('vasco', 'talk', null, ['I have to tell you', 'I broke both']);\n  await act('Path to the camp', 'exit'); await act('Camp radio', null, 'fuse');\n  await page.waitForSelector('#ending:not(.hidden)', { timeout: 60000 });\n  result = 'won';\n} catch (e) { result = 'stopped: ' + e.message; }\nconsole.log(JSON.stringify({ result, steps: step, errors: errs.slice(0, 20) }, null, 1));\nawait browser.close();\nprocess.exit(result === 'won' && !errs.length ? 0 : 1);",
+ "notes": "x"
+}
