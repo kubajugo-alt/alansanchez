@@ -49,6 +49,15 @@ def main():
     extras, cast, n = {}, {}, {}
     for doc, p in sorted(P.items(), key=lambda t: (t[1]['room'], t[1]['y'] + t[1].get('z', 0))):
         r = p['room']
+        if p.get('extra') == 'restaurant_gail_derek':
+            # Gail and Derek's table is two people in the game (seat_gail, seat_derek: one painting split in two halves);
+            # the tool centres the picture on x, the game stands the sprite on its own anchor (ax): move x across, and
+            # size it as the tool showed it (depth unclamped there, clamped in the game)
+            m = meta['gail_seated']; free, game = depth(r, p['y']); size = p.get('size', 1) * free / game
+            Hd = free * 0.74 * p.get('size', 1); wd = Hd * m['w'] / m['h'] * (720 / m['h']) if False else Hd * (m['w'] / 720)
+            xg = round(p['x'] - wd / 2 + (m['ax'] / m['w']) * wd)
+            for sid in ('seat_gail', 'seat_derek'): cast.setdefault(r, {})[sid] = [xg, p['y'], 'e'] + ([round(size, 3)] if abs(size - 1) > 0.005 else [])
+            continue
         if 'extra' in p:
             x = p['extra']; k = SPEC[x]['place'][2]
             if f'x_{x}' not in meta: meta[f'x_{x}'] = sprite(x)

@@ -233,6 +233,28 @@
     610,
     1.0
    ]
+  },
+  {
+   "id": "restaurant_table",
+   "room": "hotel_restaurant",
+   "aspect": "4:3",
+   "desc": "An empty table like Gail and Derek's: white cloth, two rattan chairs, set for two.",
+   "place": [
+    600,
+    660,
+    0.457
+   ]
+  },
+  {
+   "id": "restaurant_gail_derek",
+   "room": "hotel_restaurant",
+   "aspect": "4:3",
+   "desc": "Gail and Derek at their table (in the game: two clickable halves).",
+   "place": [
+    600,
+    660,
+    0.74
+   ]
   }
  ],
  "jobs": {

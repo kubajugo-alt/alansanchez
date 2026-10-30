@@ -81,3 +81,4 @@
 - 2026-10-29 bg `beach_sun` Canva media  -> art/bg/beach_sun.jpg the beach with the cloud torn open (Higgsfield edit of beach.jpg), Tuesday's nap
 - 2026-10-29 bg `mercado` Canva media  -> art/bg/mercado.jpg Mercado del Puerto, new room (Higgsfield), Tuesday's aloe
 - 2026-10-29 still `still_nap` Canva media  -> art/stills/still_nap.jpg Alan asleep on the beach (Higgsfield)
+- 2026-10-30 bg `hotel_restaurant` Canva media  -> art/bg/hotel_restaurant.jpg the restaurant without its tables (Higgsfield edit), furnished with table sprites (the user, 2026-10-30)

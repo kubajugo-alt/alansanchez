@@ -326,7 +326,8 @@
     const f = F();
     if (f.burnt) return say('alan_look_towels');
     await G.busy(async () => {
-      const p = G.player; await p.walkTo(340, 650);
+      // (by the empty towels painted on the sand; the user, 2026-10-30)
+      const p = G.player; await p.walkTo(640, 572);
       const vest = S.CHARS.alan.outfits[0];
       await window.Engine.ensure(S.UNDRESS.map(k => 'spr:' + k));   // (every frame in before it plays)
       for (const k of S.UNDRESS) { vest.poses.undress = k; p.pose = 'undress'; await T(1000 / 12); }
@@ -484,7 +485,7 @@
       { name: 'The sea', rect: [520, 310, 760, 110], at: [700, 640], look: () => S.lookSea() },
       { name: 'The sky', rect: [300, 0, 980, 200], at: [640, 660], look: 'alan_look_beach_sky' },
       { name: 'Towels', rect: [160, 470, 360, 70], at: [340, 660], look: () => say(F().sun_out ? 'alan_look_towels_sun' : 'alan_look_towels'),
-        use: () => F().sun_out ? S.sunbathe() : say('alan_look_towels') },
+        use: () => F().sun_out ? S.sunbathe() : say('alan_look_towels') },   // (the towels: hotspot rect from layout.js)
       { name: 'Up to the promenade', rect: [0, 250, 110, 320], at: [70, 660], exit: 'canteras', entry: 'beach' },
     ],
     async enter() {
@@ -541,6 +542,10 @@
   ROOMS.hotel_restaurant = S.room({
     music: 'hotel_restaurant',
     name: 'Hotel Cristina · the restaurant', bg: 'hotel_restaurant', floor: 'tile', ambience: 'museum', door: 'door',
+    // the tables: the painting without its own (the user, 2026-10-30), set with the empty version of Gail and Derek's
+    // table so every table matches theirs; sized by depth like the placed extras (h: the floor's height there)
+    ambient: [[150, 705], [350, 585], [870, 575]].map(([x, y], i) => ({ id: 'table_' + i, frames: ['table_empty'], x, y, dir: 'e', scale: 0.457,
+      h: 340 + 80 * (y - 560) / 156 })),
     animBack(g, t) {
       // through the arched windows: the cloud drifting, the surf rolling in
       drift(g, t, 'restaurant', [[0, 122, 158, 110], [298, 158, 102, 60], [496, 160, 30, 45]], { speed: 4, a: 0.38, seed: 19 });

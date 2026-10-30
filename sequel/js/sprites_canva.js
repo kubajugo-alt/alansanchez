@@ -691,6 +691,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 184
 },
+"table_empty": {
+"ax": 670.2,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 1281
+},
 "vascor_front_k": {
 "ax": 126.1,
 "fy": 740.0,
