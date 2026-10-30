@@ -821,3 +821,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     each cast member the user stands elsewhere for the dinner, x/y/dir/size that follow `when` (accessors over the
     reception's). extras_install.py knows the variant's depth is the hall's (BASE). Checked in the game: reception and
     dinner each with their own five, none after either.
+80. **Deployed** (2026-10-30). The user: "do deploy". Export of 4f01811e (git archive HEAD:sequel: the sea loops, the
+    lobby by day, the museum guests only at the parties, no Tuesday clock, Carmen's cigarettes, the Mercado's people;
+    not yet the dinner's own layout, entry 79, which waits for the user's placement); play.mjs on the export: won in 111
+    steps. Netlify deploy 6ae404d80321e95fc58e9503; /.env 404, the videos and the lobby's day painting served.
