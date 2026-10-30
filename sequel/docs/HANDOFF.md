@@ -971,5 +971,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     over, STEP_DT), the sea loops seeked to the same clock and the canvas saved each frame, so the video is smooth and
     at true speed however slowly the headless browser renders (a plain screen recording ran at a few fps, and the
     game's own slow-device check turns parallax off in it: the effects setting is forced to Full). Measured on
-    Canteras: the far town and the near paving slide about 9 px against each other across a walk. Not deployed:
+    Canteras: the far town and the near paving slide about 9 px against each other across a walk. play.mjs with it on:
+    won, 118 steps, no errors. Not deployed:
     waiting for the user's approval.
