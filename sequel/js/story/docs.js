@@ -75,7 +75,7 @@
   S.readBauteDesk = async function () {
     await G.closeup([
       page(`<h3>Photograph · 1966</h3><p>A hillside of red earth torn open, a bulldozer, a skip. A young man in shirtsleeves with a clipboard has turned to look at the camera. On the back, in ink: <i>Abuela's hill. They put them in the skip.</i></p>`),
-      page(`<h3>Map · the south coast</h3><p>Maspalomas, Playa del Inglés, San Agustín. Six hotels circled in red. In the margin: <b>23·VI · amanecer</b>. Four of the six are Montesdeoca's.</p>`),
+      page(`<h3>Map · the south coast</h3><p>Maspalomas, Playa del Inglés, San Agustín. Six hotels circled in red. In the margin: <b>24·VI · amanecer</b>. Four of the six are Montesdeoca's.</p>`),
     ]);
     F().saw_map = true;
   };
@@ -83,8 +83,8 @@
   // ---------------------------------------------------------------- La Isleta
   S.readPinoList = async function () {
     const struck = n => (F().ch >= 3 && n === 1) || (F().ch >= 5 && n === 2);
-    const names = ['José Santana', 'Agustín Ramos', 'Pino Medina', 'Antonio Cabrera'];
-    await G.closeup([page(`<h3>Virgen del Pino · 1971</h3>${names.map((nm, i) => `<p>${struck(i + 1) ? `<s>${nm}</s>` : nm}</p>`).join('')}<p style="opacity:0.7">(Agustín was not on the boat: "the sea had him first, in '58, and an old man in a rowing boat took him back".)</p>${F().alan_on_list ? '<p style="font-family:\'Homemade Apple\',cursive">Alan Sanches</p>' : ''}`)]);
+    const names = ['José Santana', 'Agustín Ramos', 'Pino Medina', 'Antonio Cabrera', 'Manuel Déniz'];
+    await G.closeup([page(`<h3>Los que el mar devolvió</h3>${names.map((nm, i) => `<p>${struck(i + 1) ? `<s>${nm}</s>` : nm}</p>`).join('')}<p style="opacity:0.7">(The four from the <i>Virgen del Pino</i>, 1971, and Agustín, who was not on the boat: "the sea had him first, in '58, and an old man in a rowing boat took him back".)</p>${F().alan_on_list ? '<p style="font-family:\'Homemade Apple\',cursive">Alan Sanches</p>' : ''}`)]);
     F().pino_list = true;
   };
 

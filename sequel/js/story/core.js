@@ -173,7 +173,7 @@
     G.autosave();
   };
   // the visible clocks: the tide on the promenade steps, the discs crossed off, the bonfires (one more each day)
-  S.tideStep = () => Math.max(0, Math.min(6, (F().ch || 1) - 1 + (F().ch >= 5 ? 1 : 0)));
+  S.tideStep = () => Math.min(6, (F().ch || 1) + (F().ch >= 5 ? 1 : 0));   // Tue 1, Wed 2, Thu 3, Fri 4; the flood night lifts it to the top
   S.discsOut = () => ({ 0: 1, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 6 })[F().ch || 0];
 
   // ---------------------------------------------------------------- the map
@@ -331,7 +331,7 @@
     [f => f.saw_disc_list, 'Wed. Museum conservation list: obsidian discs removed from Cave 6, one a day. Disc 2 today.'],
     [f => f.fermin_letter, 'Wed. Santa Ana has a bell with our mark on it. 1751. The founders were here. A sealed letter "for the next founder who comes". (Faxed to Inês: 18th-century Portuguese, faded.)'],
     [f => f.pepe_known, 'Thu. Pepe Santana, fisherman, drowned in his bed in La Isleta. Dry sheets, window shut, door locked. Lungs full of the sea.'],
-    [f => f.pino_list, 'Thu. Doña Pino\'s list: the four survivors of the <i>Virgen del Pino</i>, 1971. "The sea is taking back its debts."'],
+    [f => f.pino_list, 'Thu. Doña Pino\'s list: the four survivors of the <i>Virgen del Pino</i>, 1971, and Agustín, whom the sea gave back in \'58. "The sea is taking back its debts."'],
     [f => f.lore_carmen, 'Thu. Carmen: the Harimaguadas called the sea on the Castilians in 1483 and shut it out again at the cave. The grandmothers in Artenara say the cave "holds the sea down".'],
     [f => f.inquiry_read, 'Thu. Casa de Colón, the 1484 inquiry: the sea rose black against the wind, came every night for three months, went back at sunrise on Saint John\'s day. "Nadie preguntó a las mujeres."'],
     [f => f.called_thu, 'Thu. Inês: the foundry ledger. 1751, "to study the lock". 1755, "We did what we learned in the Canaries." And the Sea knows my blood.'],

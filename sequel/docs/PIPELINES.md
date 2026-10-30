@@ -51,6 +51,14 @@ brackets are HANDOFF entries with the detail.
 - **Day/night or weather variants**: a second painting `art/bg/<room>_<variant>.jpg`, listed in the room's `bgs` (so it
   preloads) and chosen by `bgFn: () => ...`. The lobby by day (75) is the night painting with only its windows replaced
   from a Higgsfield day edit (an edit of the whole room lost the lettering): composite, don't re-generate.
+- **Sharpness** (92): every painting goes through Higgsfield `upscale_image` (bytedance, `resolution: "2k"`, width
+  1280, height 720: it returns 3840x2160; 2 credits each; at most 8 jobs at once), is downscaled to 2560x1440 (Lanczos,
+  JPEG q88) and saved over `art/bg/<room>.jpg`; the 1280 original goes to `art/designs/rooms_1280/` first. The
+  upscaler repaints fine detail, so check every room before installing: original beside upscale, a change map (both
+  blurred, abs difference), then every detail the story names (`grep` the hotspot names and lines). Paste the
+  original back, feathered, where a story detail changed (Rafa's easel drawing); keep the original where the whole
+  thing got worse (the map). A new or repainted room: upscale it the same way once the user approves it. Scripts that
+  read positions from a painting scale it to 1280x720 first.
 
 ## 2. Room movement (the environment, drawn over the paintings)
 
@@ -157,6 +165,9 @@ in `js/story/docs.js` (`G.closeup([page(...)])`).
   Spanish-speaking cast: `model_id: eleven_v4`, `language_code: es`, `voice_settings {stability 0.3, similarity_boost
   0.75, style 0.5, speed 1.08}`, `prefix "[strong Spanish accent] "` ("v4 lively + accent cue", 64-66). Gail and Derek
   British (v3). Library voices only, never designed or cloned. Recasting: samples on a page, the user picks.
+- **Out of credits**: stop and tell the user ("we can't have different voices", "don't clone then"); never another
+  service or a clone. Lines with no file play as text. `scripts/voice_redo.txt` keeps the ids whose text changed after
+  recording (88).
 - **Generate**: `node sequel/scripts/generate-voices.mjs` voices every missing line; pass ids to re-record changed lines
   (`... id1 id2 ...`); `--force` everything. Inês and the answering machine go through `scripts/phone_fx.sh`. Then
   `node sequel/scripts/build-manifest.mjs` (also stamps the scripts in index.html: commit that).

@@ -45,7 +45,7 @@ def main():
         if not os.path.exists(p): continue
         im = cut(p); im.save(os.path.join(O, 'cut', e['id'] + '.png')); rooms.setdefault(e['room'], []).append((e, im))
     for room, items in rooms.items():
-        bg = Image.open(os.path.join(SEQ, 'art/bg', room + '.jpg')).convert('RGBA')
+        bg = Image.open(os.path.join(SEQ, 'art/bg', room + '.jpg')).convert('RGBA').resize((1280, 720), Image.LANCZOS)   # (paintings may be stored larger)
         y0, h0, y1, h1 = L[room]['scale']
         for e, im in sorted(items, key=lambda t: t[0]['place'][1]):   # back to front
             x, y, k = e['place']; H = h0 + (h1 - h0) * (y - y0) / (y1 - y0)

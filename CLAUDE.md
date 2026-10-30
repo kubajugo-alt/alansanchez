@@ -8,4 +8,4 @@ In short: the room paintings (`art/bg/`) never change; nothing goes into the gam
 
 ## Game II: The Shortest Night (`sequel/`)
 
-The sequel lives in `sequel/`, its own web root with a forked copy of the engine; it never loads anything from Game I's folders, and Game I's export (`git archive HEAD`) leaves it out. Before working on it read "Start here" in `sequel/docs/HANDOFF.md` (and keep its log); the story is `sequel/docs/BIBLE.md`, the code `sequel/docs/CODEMAP.md`. It deploys to its own Netlify project (`alan-sanchez-shortest-night`), only when asked. The same rules hold for both games.
+The sequel lives in `sequel/`, its own web root with a forked copy of the engine; it never loads anything from Game I's folders, and Game I's export (`git archive HEAD`) leaves it out. Before working on it read "Start here" in `sequel/docs/HANDOFF.md` (and keep its log); the story is `sequel/docs/BIBLE.md`, the code `sequel/docs/CODEMAP.md`, how we work (art, sea, movement, sound, voices, deploy) and the external services `sequel/docs/PIPELINES.md`. It deploys to its own Netlify project (`alan-sanchez-shortest-night`), only when asked. The same rules hold for both games.

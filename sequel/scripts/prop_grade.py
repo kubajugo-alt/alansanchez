@@ -32,7 +32,7 @@ def grade(key, room, rows, k):
         os.makedirs(KEEP, exist_ok=True); shutil.copy(os.path.join(SEQ, 'art/sprites', key + '.webp'), src)
     a = np.asarray(Image.open(src).convert('RGBA')).astype(np.float32)
     rgb, al = a[..., :3] / 255, a[..., 3]
-    bg = np.asarray(Image.open(os.path.join(SEQ, 'art/bg', room + '.jpg')).convert('RGB')).astype(np.float32)[rows[0]:rows[1]] / 255
+    bg = np.asarray(Image.open(os.path.join(SEQ, 'art/bg', room + '.jpg')).convert('RGB').resize((1280, 720), Image.LANCZOS)).astype(np.float32)[rows[0]:rows[1]] / 255
     # the room's light: the colour of its brightest tenth (lamplight on cloth, plaster, stone), as a filter
     lum = bg.mean(2); light = bg[lum >= np.percentile(lum, 90)].mean(0); light = light / light.max()
     lit = rgb * (1 - k + k * light) * (1 - 0.18 * k)             # in its light, and a touch dimmer

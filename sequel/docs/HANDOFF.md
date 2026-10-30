@@ -1,10 +1,15 @@
 # The Shortest Night: handoff
 
-## Start here (2026-10-27)
+## Start here (2026-10-30)
 
-Game II, *Alan Sanches II: The Shortest Night* (Gran Canaria, 18–24 June 1996), built on the bible
-(`docs/BIBLE.md`, copied from the Claude Doc https://claude.ai/artifact/9FEy2s3FNfz3bZy93rqhit; the doc is the
-source). It lives in `sequel/`, its own web root, in the same repository as Game I. Code: `docs/CODEMAP.md`.
+Game II, *Alan Sanches II: The Shortest Night* (Gran Canaria, 18–24 June 1996). It lives in `sequel/`, its own web
+root, in the same repository as Game I. Read, in this order:
+- this section, then the newest entries of the session log below (87 onwards is the latest work);
+- `docs/PIPELINES.md`: **how we work**, step by step (rooms, sprites, Ludo, faces and lip-sync, the sea loops, ambient
+  movement, sound and voices, recording with sound, deploy) and **every external service** with its limits;
+- `docs/CODEMAP.md` for the code; `docs/BIBLE.md` and `docs/story-bible.md` for the story (brought up to date with the
+  game on 2026-10-30, entry 89; the Claude Doc is older); `docs/novel/the-shortest-night.md` is the novel the days
+  were rewritten from (entries 17, 87).
 
 ### Game I stays as it was
 - Nothing outside `sequel/` changed except two lines: `.gitattributes` keeps `sequel/` out of Game I's `git archive
@@ -15,30 +20,33 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
   sound effects (`audio/sfx/`, copied). Nothing is loaded from outside `sequel/`.
 - Saves, settings and tips use their own `shortest-night-*` keys, so the two games never share a save on one browser.
 
-### What is in the game
-- **The whole story is playable**, prologue to credits, as the bible lays it out: the prologue (Elena's last drive,
-  played), seven days as chapters (Tuesday arrival and the blazer, Wednesday's bell and letter, Thursday's Colón and the
-  break-in, Friday's fight and Rafa's bar, Saturday's morning after and the flood, Vasco's playable chapter, Sunday's
-  choice with the airport's bad ending, the Land Rover and the vault, Monday's finale, confession and ending).
-- **1,019 lines**, written to the bible (the scenes it scripts word for word, the cold open and Vasco's chapter, are
-  used as written). **No voices yet**: captions run at reading pace; recordings go in `audio/voice/<id>.mp3` and
-  `node scripts/build-manifest.mjs` lists them.
-- **The phone box** is the hint system: Inês, a coin a call, Chano at the kiosk for change; her story calls (Tue, Wed,
-  Thu, Fri, Sat) come first, then "What now?". Alan's notebook (N) lists what he knows and what Inês would say.
-- **Puzzles**: the lost-and-found blazer (Gail's hint, Nieves's question); the clock key and winding, the bell rubbing,
-  the fax; Derek's camcorder and the guard, the dinner knife and the desk; the three tries to leave Rafa's bar; Vasco's
-  light channel (marks at three times, the charts, turning a disc, San Juan's sunrise, the clinometer), the anchors and
-  the mark; the deduction at Carmen's; the radiator; the grille; the finale's called order, the cloud and the mirror,
-  the sixth disc, the seventh's angle (three wrong placements drown Alan: retry from the finale's checkpoint); the
-  confession's three ways (they change the last scenes' tone).
+### What is in the game (2026-10-30)
+- **The whole story is playable**, prologue to credits: the prologue (Elena's last drive), Tuesday to Monday as
+  chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
+  the ending. Every day rewritten from the novel (entries 17, 87). `node scripts/tests/play.mjs` plays it all.
+- **2,549 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs except about
+  290: ElevenLabs ran out of credits (entry 88; what to run when it is topped up, and the rule: same voices only).
+- **Art**: 28 room paintings (upscaled to 2560x1440, entry 92; the 1280 originals in `art/designs/rooms_1280/`) plus the
+  map; the cast painted and animated (Ludo walks, talk loops, face kits with blinks and lip-sync); 19 background
+  people who talk (`js/story/bgtalk.js`); props graded into their rooms. **Stills**: 21 painted, 16 still text cards
+  (the `.ph` markers in `art/stills/`).
+- **Movement**: the sea is Higgsfield loops masked onto the paintings (`js/story/sea.js`, entry 75); the rest is each
+  room's `animBack` (Game I's FX helpers). Reviewed in `docs/review/env_movement.md` (entry 90): fixes proposed, not made.
+  Depth maps exist for every room (entry 91); **parallax is still off** (`S.room` defaults to `parallax: false`).
+- **Music**: one track a room (entry 27). Sound effects from Game I. Room ambience.
+- **The phone box** is the hint system (Inês, a coin a call; Chano for change). Alan's notebook (N). **Carmen's toll**:
+  a packet of Coronas from Chano every day he talks to her (entry 78).
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
-### Placeholders (the user: "don't bother with Ludo sprites yet")
-- **Rooms**: 20 stand-in paintings; the game draws their hotspots as labelled boxes. **Stills**: 20 text cards that say
-  what each painting must show (the art list). **New cast**: flat figures in the bible's palettes, names on their chests.
-- **Alan and Vasco** wear Game I's frames (Alan's 24-painting walk, Vasco's approved walk, their approved face kits, so
-  they blink). Their Gran Canaria looks (Alan without his luggage, Vasco in field clothes) come with the Ludo sets.
-- Music: 25 Lyria 3 Pro tracks the user picked, one per room plus the title theme and the map (entry 27).
+### Open, in the order I'd suggest
+1. **Voices**: when the user has topped up ElevenLabs, the two commands in entry 88; then `build-manifest`, deploy.
+2. **Deploy** of everything since entry 83 (the rewrite, the reception, the upscale) when the user asks.
+3. **Parallax**: switch it on (drop the `parallax: false` default in `S.room`; the map stays flat), record the rooms for
+   the user, deploy when approved.
+4. **Environment movement**: the user's pick from the ten fixes in `docs/review/env_movement.md`.
+5. **Stills**: the 16 text cards still to paint.
+6. Waiting on the user: which new puzzles to build; Carmen's spot in the vault on Sunday and Vasco at the camp may
+   need placing with the placement tool.
 
 ### Voice casting (the user's rule, 2026-10-27)
 - **Alan, Vasco, Inês and the narrator keep their Game I voices** (Game I's `scripts/cast.json`): Alan
@@ -62,14 +70,8 @@ source). It lives in `sequel/`, its own web root, in the same repository as Game
   characters need `"language_code": "es"` on every request (all five models accept it). Which model matches the app is
   the user's call from the samples.
 - The voice ids for the sequel go in their own cast file under `sequel/scripts/`, never in Game I's.
-
-### Open, in the order I'd suggest
-1. **The user's read of the story and lines** before anything is painted or voiced (nothing goes in without approval).
-2. **Room paintings** (20) and **stills** (20): the placeholders' cards are the brief. Then depth maps and `parallax: true`.
-3. **Cast**: Canva designs (the bible's art prompts), then Ludo animation sets, as Game I's rule from 23 Oct.
-4. **Voices** (ElevenLabs, paid: only when asked, to the casting rule below), then lip-sync (Game I's `scripts/lipsync.py`, adapted).
-5. **Music**: done (entry 27); story cues on top of the rooms' tracks are still to place.
-6. ~~First deploy~~ done 28 Oct 2026; redeploy when the user asks (the stills still to paint, then again).
+- **Only these voices, ever** (2026-10-30, the user: "we can't have different voices", "don't clone then"): if
+  ElevenLabs runs out, stop and tell the user. No other service's voices, no clones, no stand-ins.
 
 ### Netlify
 - Project **alan-sanchez-shortest-night**, id `a5e71264-d9a4-439a-b1e5-60ec3f98812d`, team kuba-jugo, created
@@ -884,3 +886,65 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     "One of them knows what he looks like asleep. I win." The way out opens after the toast (toast_done). 47 lines.
     Fixed on the way: thu.js replaced the hall's enter() outright, so Tuesday's arrival narration had never played;
     it now chains it. play.mjs: the new reception route.
+87. **Wednesday to Monday rewritten from the novel** (2026-10-30). The user: "we were planning to adjust the game to the
+    novel - with amended bible. we did tuesday only"; "do all of the days". Six agents, one day each, with the brief
+    docs/rewrite/BRIEF.md (Tuesday's method, entry 17: the novel's scenes in its order, its best lines, narration beats
+    as narration, every puzzle, flag, hotspot and exit kept). Each wrote its own story file(s) and a
+    docs/rewrite/<day>.json: new and changed lines, plus "core_changes" (what it needed from the shared files).
+    scripts/merge_rewrite.py merges a day's lines into js/lines.js; the core changes were applied by hand (core.js:
+    callWed, callThu, the Saturday call row S.callSatScene, S.afterCall in S.phoneBox, the Thursday suitcase hint and
+    pin, Saturday's pin chain, Sunday's pin to carmen_flat, the notebook entries for the suitcase, the fight, the
+    footprint, Chano's Saturday; tue.js: Chano's news on Thursday, S.gdThu, Gail and Derek seated on Thursday, the lobby
+    calls S.suitcaseThu, Montesdeoca's Wednesday lines, S.chanoSat). Approved by the user ("all ok"): Thursday's
+    suitcase step, the parrots' "guiri feo", Montesdeoca recognising his blazer, Monday's new seventh-disc puzzle and
+    the socket order (II, IV, III, VI, V, then I), Sunday's choice at the Iberia desk. Consistency pass across the days
+    (bells, the suitcase, Pepe, sunrise at 7:12, the father, disc counts) and fixes. 2,549 lines; validate.mjs 0 errors.
+    play.mjs: every day's new route.
+88. **Voices for the rewrite; ElevenLabs out of credits** (2026-10-30). generate-voices.mjs voiced 1,009 new lines and
+    re-recorded 353 changed ones, then 15 more, then stopped: "You have 0 credits remaining" (quota 341,004). Not
+    voiced yet: 209 new lines (110 of them Saturday's, plus the calls, the flood, playable Vasco) and 69 Saturday
+    re-records, plus fermin_belfry_wind and the 18 lines changed in entry 89. Lines without a file play as text, as
+    before. The user's rule: "we can't have different voices", "don't clone then": no other service, no clones; wait for
+    the top-up, then:
+      node scripts/generate-voices.mjs                       (every line with no file)
+      node scripts/generate-voices.mjs $(grep -v '^#' scripts/voice_redo.txt)   (re-records, 86 ids: old audio, new text)
+89. **The bibles brought up to date; the game's own contradictions fixed** (2026-10-30). The user: "Make sure that the
+    bible is up to date with the game"; "once all is done, and you've checked for inconsistencies (if there are some,
+    fix them as you see fit)". An agent rewrote docs/BIBLE.md and docs/story-bible.md against the code and lines (the
+    repo files are the current version; the Claude Doc is older) and listed 17 contradictions inside the game. Fixed:
+    the tide (S.tideStep: Tue 1, Wed 2, Thu 3, Fri 4, top from Saturday, so Derek's "third step" and Friday's "one
+    higher" agree); Pepe 61 everywhere; Pepe's death silent (Chano's neighbour "heard nothing"); the four pulled out
+    "the next morning"; Pino's list headed "Los que el mar devolvió", the four from the Virgen del Pino (a fourth
+    survivor named, Manuel Déniz) and Agustín, and its notebook entry; the founders four (Inês, the fax); "their bronze
+    in the hold" (they cast the bell here); Tuesday's opening no longer loses the skin on his neck (the burn is the
+    beach's); Carmen's first toll no longer says "I told you"; Saturday in yesterday's trousers and vest, not the
+    ruined suit; Yeray: the discs "never reach the lab, I carry them down myself"; Baute's map and Alan read the 24th
+    at dawn; Monday's cave at 06:52 (twenty minutes to the 7:12 sunrise); Vasco "lay in that vault"; Pino's helmet "in
+    the same week"; Rafa's tight black curls, clean-shaven; Lisbon thirteen hundred kilometres; Carmen and Elena eleven
+    years. Left: the bell's "FVNDIDO EM LISBOA E NAS PALMAS" (both, which fits). 18 lines changed (entry 88's list).
+90. **Environment movement: reviewed** (2026-10-30). The user: "review the quality of environment movement, check if it
+    is realistic and if not propose solutions". docs/review/env_movement.md (with crops and heatmaps in
+    docs/review/env_movement/): the amount and taste are right; the technique isn't. The sea loops slow and jump every
+    5 s; the row-shift helpers move whatever is in their rectangle (frames, pillars, signs) and tear at its edge; cloud
+    overlays brighten the sky and show their clip; the prologue car has a pale quad over the dashboard. Ten fixes,
+    ranked, about 1.5-2 days. Not applied: waiting for the user's choice.
+91. **Depth maps for every room; parallax still off** (2026-10-30). The user: "I'd add the parallax effect (depth map)
+    to all of the game". scripts/depth_map.py (Game I's, Depth Anything V2 small, ONNX): art/bg/<room>_depth.png for 27
+    paintings (not the map). The engine loads a depth map only for a room without parallax: false, and S.room defaults
+    to parallax: false, so nothing has changed in play yet: switching it on (and the recording for the user) comes
+    after the deploy.
+92. **Sharper paintings: Higgsfield's upscale** (2026-10-30). The user: "for game 1 we did an image quality fix... I
+    think this game needs this too"; shown a test, "The upscaled ones look much better". The engine already draws at the
+    screen's resolution; the paintings were 1280x720. Each painting went through Higgsfield upscale_image (bytedance,
+    "2k": 3840x2160), downscaled to 2560x1440 (q88) over art/bg/<room>.jpg; the 1280x720 originals are kept in
+    art/designs/rooms_1280/ (29 files). The engine draws a painting into the 1280x720 frame whatever its size, so
+    nothing else changed. Checked room by room (original, upscale, change map, then the story's details): the map
+    stays the original (its streets came back washed out); Rafa's easel drawing (Alan asleep, narr_s_drawing_1) came
+    back as a woman sitting up, so the original drawing is pasted back, feathered; the vault crates' numbers and the
+    hotel room's pictures drifted (in no line). The sea loops (cut from the old paintings) sit without a seam
+    (checked in game at 1920x1080: canteras, beach, isleta, the restaurant). scripts/extras.py and prop_grade.py now
+    scale the painting to 1280x720 before reading positions from it. art/bg grows from about 7 to 26 MB.
+93. **docs/PIPELINES.md** (2026-10-30). The user: "make sure that the documentation holds instructions about everything
+    we did in terms of animations, sea, sounds, environment movement etc", "also add info about all the external
+    services we are using". How we work, step by step (rooms, sprites, Ludo, faces, sea loops, ambient motion,
+    sound and voices, recording with sound, deploy) and every external service with what it is for and its limits.

@@ -29,7 +29,7 @@
     await G.busy(async () => {
       await G.fade(true);
       await G.goRoom('cave6', null, { instant: true, noEnter: true, noSave: true, pos: [560, 660, 'e'] });
-      G.setClock('05:52');
+      G.setClock('06:52');
       await S.day(7);
       S.water.cave6 = 0.1;
       await G.fade(false);
