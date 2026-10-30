@@ -190,7 +190,7 @@ window.LINES = {
   candelaria_shoulders: ['candelaria', "Ay, what shoulders. [pause] If I was thirty years younger, mi niño, I'd charge you nothing."],
   alan_t_shy_cand: ['alan', "I... thank you. That's... [pause] The aloe's very cold. That's why I've gone this colour."],
   gail_t_shoulders: ['gail', "Mind you, there's a lovely pair of shoulders under all that red. Isn't there, Derek?"],
-  alan_t_shy_gail: ['alan', "Oh. Gosh. [pause] I'll just stand behind the umbrella for a bit."],
+  alan_t_shy_gail: ['alan', "Oh. Gosh. [pause] I'll just stand behind the potted palm for a bit."],
   nieves_t_burnt_look: ['nieves', "Señor. You have been to la playa. [pause] All of you, I think. Every part that the hotel can see."],
   alan_t_shy_nieves: ['alan', "Not every part. [pause] Oh, God. Forget I said that. Please."],
   surfer_t_alan: ['surfer', "Hey, the red guy! Nice tan, man. [pause] Nice everything, actually. You surf?"],
@@ -1237,6 +1237,7 @@ window.LINES = {
 
   // ================================================================ Inês's hints ("What now?")
   ines_hint_beach: ['ines', "Two hours to kill on a beach and you're phoning me? Go and look at the sea, Alan. Talk to someone young. It'll do you good, or at least it'll do you something."],
+  ines_hint_burn: ['ines', "You're burnt? Of course you are. Ask the English couple in your hotel restaurant. Sunburn is their national sport."],
   ines_hint_aloe: ['ines', "You fell asleep in the sun. Of course you did. Do what the English lady said, find the plant woman at the market, and don't argue with her."],
   ines_hint_gail: ['ines', "A jacket, by eight. Ask the English lady with the camcorder husband. Tourists notice everything that isn't theirs."],
   ines_hint_dress: ['ines', "You've got the blazer. Now go upstairs and put trousers on. Vasco's, if you must. Then call me back."],

@@ -2,6 +2,7 @@
 window.SPRITES = Object.assign(window.SPRITES || {}, {
 "alan_undress_00": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -10,6 +11,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_01": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -18,6 +20,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_02": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -26,6 +29,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_03": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -34,6 +38,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_04": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -42,6 +47,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_05": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -50,6 +56,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_06": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -58,6 +65,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_07": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -66,6 +74,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_08": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -74,6 +83,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_09": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -82,6 +92,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_10": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -90,6 +101,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_11": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -98,6 +110,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_12": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -106,6 +119,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_13": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -114,6 +128,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_14": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -122,6 +137,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_15": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -130,6 +146,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_16": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -138,6 +155,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_17": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -146,6 +164,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_18": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -154,6 +173,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_19": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -162,6 +182,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_20": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -170,6 +191,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_21": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -178,6 +200,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_22": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -186,6 +209,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_23": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -194,6 +218,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_24": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -202,6 +227,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_25": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -210,6 +236,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_26": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -218,6 +245,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_27": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -226,6 +254,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_28": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -234,6 +263,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_29": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -242,6 +272,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_30": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -250,6 +281,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_31": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -258,6 +290,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_32": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -266,6 +299,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_33": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -274,6 +308,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_34": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,
@@ -282,6 +317,7 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 },
 "alan_undress_35": {
 "ax": 200.0,
+"cut": true,
 "fy": 880.8,
 "h": 720.0,
 "hh": 913,

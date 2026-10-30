@@ -183,7 +183,7 @@
   S.pinLabelAt = m => { const o = S.PIN_LABEL[m.id]; return o ? [m.x + o[0], m.y + o[1]] : [m.x, m.y - 14]; };
   S.pinNext = () => {
     const f = F();
-    if (f.ch === 1) return !f.burnt ? 'canteras' : !f.aloe_done ? 'mercado' : !f.gail_hint ? 'canteras' : !f.blazer_on && !f.reception_done ? 'hotel_lobby'
+    if (f.ch === 1) return !f.burnt ? 'canteras' : !f.aloe_sent ? 'hotel_lobby' : !f.aloe_done ? 'mercado' : !f.blazer_on && !f.reception_done ? 'hotel_lobby'
       : !f.called_tue ? 'canteras' : !f.reception_done ? 'museum_hall' : !f.called_tue2 ? 'canteras' : 'hotel_lobby';
     if (f.ch === 3 && S.dinnerDue()) return 'museum_hall';
     if (f.ch === 4) return !f.cave_explained ? 'museum_hall' : 'rafa_bar';
@@ -275,6 +275,7 @@
     switch (f.ch) {
       case 1:
         if (!f.burnt) return 'ines_hint_beach';
+        if (!f.aloe_sent) return 'ines_hint_burn';
         if (!f.aloe_done) return 'ines_hint_aloe';
         if (!f.blazer_got && !f.reception_done) return f.gail_hint ? 'ines_hint_nieves' : 'ines_hint_gail';
         if (!f.blazer_on && !f.reception_done) return 'ines_hint_dress';

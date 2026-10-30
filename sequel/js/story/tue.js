@@ -479,11 +479,6 @@
     ambient: [
       { id: 'surfer', frames: ['surfer_ph_idle'], talkFrames: ['surfer_ph_talk'], x: 900, y: 655, dir: 'w', name: 'Surfers', look: () => S.lookSurfers(), talk: () => S.talkSurfers(), when: () => ch() <= 6 && !F().canteras_night },
     ],
-    // Gail and Derek, under the umbrella on Tuesday (on later days they're in the hotel restaurant)
-    npcs: [
-      { id: 'gail', ch: 'gail', x: 300, y: 600, dir: 'e', name: 'Gail', when: () => ch() === 1 && !F().undressed, look: 'alan_look_gail', talk: () => S.talkGail() },
-      { id: 'derek', ch: 'derek', x: 420, y: 612, dir: 'w', name: 'Derek', when: () => ch() === 1 && !F().undressed, look: 'alan_look_derek', talk: () => S.talkDerek() },
-    ],
     hotspots: [
       { name: 'Surfboards', rect: [900, 340, 220, 210], at: [960, 660], look: 'alan_look_surfboards' },
       { name: 'The sea', rect: [520, 310, 760, 110], at: [700, 640], look: () => S.lookSea() },
@@ -559,8 +554,9 @@
     },
     entries: { default: [1100, 670, 'w'], hotel_lobby: [1100, 670, 'w'] },
     npcs: [
-      { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => [2, 3, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
-      { id: 'derek', ch: 'derek', x: 680, y: 662, dir: 'w', name: 'Derek', when: () => [2, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
+      // (the user, 2026-10-30: Gail and Derek stay in the restaurant at all times; Alan comes here for their advice)
+      { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => [1, 2, 3, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
+      { id: 'derek', ch: 'derek', x: 680, y: 662, dir: 'w', name: 'Derek', when: () => [1, 2, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
     ],
     hotspots: [
       { name: 'Buffet', rect: [620, 300, 480, 90], at: [820, 640], look: 'alan_look_buffet' },

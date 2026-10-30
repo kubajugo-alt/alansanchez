@@ -59,7 +59,7 @@ try {
   await expect('the sun out', () => Game.flags.sun_out);
   await act('Towels', 'use');
   await expect('the burn', () => Game.flags.burnt && !Game.flags.undressed);
-  await act('gail', 'talk');
+  await go('hotel_lobby', 'canteras'); await act('To the restaurant', 'exit'); await act('gail', 'talk');
   await go('mercado'); await act('candelaria', 'talk');
   await go('canteras'); await act('chano', 'talk');
   await expect('change and chacho', () => Game.flags.change_got && Game.flags.chacho && Game.has('coins'));
@@ -67,8 +67,8 @@ try {
   await expect('the postcard posted', () => Game.flags.postcard_posted);
   await go('mercado'); await act('candelaria', 'talk');
   await expect('the aloe', () => Game.flags.aloe_done);
-  await go('beach', 'canteras'); await act('gail', 'talk');
-  await go('hotel_lobby', 'canteras'); await act('nieves', 'talk', null, ['lost a blazer', 'A cigar band']);
+  await go('hotel_lobby', 'canteras'); await act('To the restaurant', 'exit'); await act('gail', 'talk'); await act('Back to the lobby', 'exit');
+  await act('nieves', 'talk', null, ['lost a blazer', 'A cigar band']);
   await expect('the blazer', () => Game.has('blazer'));
   await act('Lifts', 'exit'); await act('Vasco\'s field bag', 'use');
   await expect('dressed', () => Game.flags.blazer_on);

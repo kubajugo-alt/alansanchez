@@ -733,3 +733,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     embarrassed / mischievous faces (js/story/emotions.js; also alan_t_burnt and alan_t_swell). 12 lines, voiced.
     validate 0 errors; play.mjs won in 106 steps.
     Deployed on the user's word: Netlify deploy 6ae3e88e93e0814ebcf74aa1 (git archive export; play.mjs on it: won in 106 steps; /.env 404).
+70. **Tuesday fixes: the undressing; Gail and Derek back in the restaurant** (2026-10-30). The user, after the deploy:
+    "The undressing animation is broken"; "Gail and Derek should stay in the restaurant at all times, this is where Alan
+    will find them for the advice". The undress frames were being dissolved into each other (the engine's cross-fade
+    on every frame change) and bent by the breathing mesh, so the clothes smeared: sprites can now carry `cut` (set on
+    alan_undress_NN): frame to frame of a `cut` run is a straight cut, and a `cut` frame gets no breathing bend
+    (js/engine/actor.js). Captured in the running game every 0.3 s: clean. Gail and Derek: off the beach, in the
+    restaurant on Tuesday too (both pieces of advice there); the map's next pin and Inês's hints follow
+    (ines_hint_burn new; alan_t_shy_gail's umbrella became the potted palm; 2 lines voiced). play.mjs: won, 109 steps.

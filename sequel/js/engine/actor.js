@@ -608,6 +608,9 @@
         this.fadeSim = !!similar;
         this.fadeHand = !!(forced || plain);
         this.viaOut = false;
+        // an animation painted frame by frame (a sprite marked `cut`, e.g. Tuesday's undressing): straight cuts from one
+        // of its frames to the next, no dissolve to smear it
+        if (E.SPRITES[key] && E.SPRITES[key].cut && this.prev && E.SPRITES[this.prev] && E.SPRITES[this.prev].cut) this.fadeDur = 0;
         this.fadeT = this.prev ? this.fadeDur : 0;
         this.cur = key;
       }
@@ -658,7 +661,7 @@
       const lit = shaded || unlit ? comp : E.lightSprite(comp, bwq, bhq, Uq, h * q, lights);
       const LP = shaded ? E.lightParams(Uq, h * q, lights, q) : null;
       // a combined sprite (two people in one painting) is never bent or stretched: no breath, sway or tilt
-      const rigid = !!(E.SPRITES[key].rigid || (B && B.sp.rigid));
+      const rigid = !!(E.SPRITES[key].rigid || E.SPRITES[key].cut || (B && B.sp.rigid));   // (cut: a frame-by-frame animation, no breathing bend)
       // breathing: the chest rises and widens a touch above the hips; feet stay put
       const b = rigid ? 0 : this.calm * (0.0065 * Math.sin(this.breath * Math.PI * 2 / 3.9) + 0.0045);
       const sx = 1 + b * 0.45, sy = 1 + b;
