@@ -122,7 +122,8 @@
   S.restorePlayer = () => { if (F().as_vasco) { G.player.ch = 'vasco'; G.player.speaker = 'vasco'; } };
 
   // ---------------------------------------------------------------- items
-  window.PAINTED_ICONS = ['notebook', 'coins', 'newspaper', 'key', 'sketch', 'coffee', 'ledger', 'file55', 'tidecard', 'knife'];
+  window.PAINTED_ICONS = ['notebook', 'coins', 'newspaper', 'key', 'sketch', 'coffee', 'ledger', 'file55', 'tidecard', 'knife',
+    'disc_wax_crescent', 'disc_first_quarter', 'disc_wax_gibbous', 'disc_wan_gibbous', 'disc_last_quarter', 'disc_wan_crescent', 'disc_sun'];   // (the discs: each its moon, 2026-10-30)
   window.ICON_LABELS = { note5000: '5,000 ptas', blazer: 'Blazer', inscription: 'Rubbing', letter: '1751 letter', galindo: 'Abreu Galindo', napkin: 'Napkin',
     drawing: 'Drawing', fax: 'Fax', elena_notebook: "Elena's notebook", gc_photo: 'Photo', water: 'Water', discs: 'Discs', disc6: 'Sixth disc', trowel: 'Trowel',
     elena_charts: 'Sun charts', chalk: 'Chalk', clinometer: 'Clino-meter', vnotebook: 'Notebook', torch: 'Torch', ltrowel: 'Trowel', fuse: 'Fuse' };
@@ -367,7 +368,10 @@
   };
 
   // ---------------------------------------------------------------- the Sea's water and the black mist
-  // S.water[room] = 0..1 of the screen's height; S.mist[room] = 0..1 strength. Drawn over the figures (animFg).
+  // S.water[key] = the level, 0..1; S.mist[room] = 0..1 strength. In the rooms js/story/water.js knows (S.WATER_ROOMS:
+  // the cell, the vault, Cave 6's chamber, the Land Rover) the level is a height above the floor, S.WATER_K = 2 figure
+  // heights per unit, drawn in the room's perspective round the figures. S.drawWater is the old flat water rising up the
+  // screen, over the figures (animFg): only Elena's car still uses it (the prologue).
   S.water = {}; S.mistOn = {};
   S.drawWater = function (g, t, level, rgb) {
     if (!(level > 0)) return;
