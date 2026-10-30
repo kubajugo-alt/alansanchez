@@ -741,3 +741,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     (js/engine/actor.js). Captured in the running game every 0.3 s: clean. Gail and Derek: off the beach, in the
     restaurant on Tuesday too (both pieces of advice there); the map's next pin and Inês's hints follow
     (ines_hint_burn new; alan_t_shy_gail's umbrella became the potted palm; 2 lines voiced). play.mjs: won, 109 steps.
+71. **Gail and Derek at their table** (2026-10-30). The user: "draw a table, exactly like the one in the restaurant, but
+    have Gail and Derek sit at it. It will be a sprite". Higgsfield (GPT Image 2.5; refs: the restaurant painting and
+    their designs), take A (`art/designs/gail_derek_table_a.png`: Gail mid-sentence, Derek eyeing a papa arrugada, the
+    camcorder by his plate) cut to `gail_derek_table`, then split down the middle (3 px overlap) into `gail_seated` and
+    `derek_seated`, full-size and rigid, drawn at the same spot so each is its own person to click. In the restaurant on
+    Tuesday, Wednesday and Sunday (`seat_gail`, `seat_derek`, scale 0.74, at 600,660); Thursday keeps Gail standing
+    alone (Derek is at the museum dinner). Screenshot in the running game; play.mjs won.

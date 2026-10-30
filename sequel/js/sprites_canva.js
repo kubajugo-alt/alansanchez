@@ -498,6 +498,15 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 207
 },
+"derek_seated": {
+"ax": 541.2,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 953
+},
 "fermin_c": {
 "ax": 168.5,
 "fy": 740.0,
@@ -522,6 +531,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 253
 },
+"gail_derek_table": {
+"ax": 541.2,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 953
+},
 "gail_r": {
 "ax": 124.5,
 "fy": 740.0,
@@ -529,6 +546,15 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 222
+},
+"gail_seated": {
+"ax": 541.2,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 953
 },
 "guard_c": {
 "ax": 114.1,

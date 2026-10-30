@@ -68,6 +68,11 @@
     lolo: S.ph('lolo', 0.86), fermin: S.ph('fermin', 0.8), mercedes: S.ph('mercedes', 0.82), montesdeoca: S.ph('montesdeoca', 0.98),
     gail: S.ph('gail', 0.88), derek: S.ph('derek', 0.94), guard: S.ph('guard', 1.0), elena: S.ph('elena', 0.92), clerk: S.ph('clerk', 0.9),
     surfer: S.ph('surfer', 1.0), candelaria: S.ph('candelaria', 0.86),
+    // Gail and Derek at their table in the hotel restaurant (one painting split down the middle, so each half is its own
+    // person to click; the user, 2026-10-30: "draw a table, exactly like the one in the restaurant, but have Gail and
+    // Derek sit at it")
+    gail_seated: { scale: 0.74, frames: { idle: ['gail_seated'], talk: ['gail_seated'], walk: ['gail_seated'] } },
+    derek_seated: { scale: 0.74, frames: { idle: ['derek_seated'], talk: ['derek_seated'], walk: ['derek_seated'] } },
   };
   {
     const A = S.CHARS.alan, V = S.CHARS.vasco;

@@ -555,8 +555,10 @@
     entries: { default: [1100, 670, 'w'], hotel_lobby: [1100, 670, 'w'] },
     npcs: [
       // (the user, 2026-10-30: Gail and Derek stay in the restaurant at all times; Alan comes here for their advice)
-      { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => [1, 2, 3, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
-      { id: 'derek', ch: 'derek', x: 680, y: 662, dir: 'w', name: 'Derek', when: () => [1, 2, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
+      { id: 'seat_gail', ch: 'gail_seated', x: 600, y: 660, dir: 'e', fixedDir: true, name: 'Gail', when: () => [1, 2, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
+      { id: 'seat_derek', ch: 'derek_seated', x: 600, y: 660, dir: 'e', fixedDir: true, name: 'Derek', when: () => [1, 2, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
+      { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => ch() === 3, look: 'alan_look_gail', talk: () => S.talkGail() },
+      { id: 'derek', ch: 'derek', x: 680, y: 662, dir: 'w', name: 'Derek', when: () => false, look: 'alan_look_derek', talk: () => S.talkDerek() },
     ],
     hotspots: [
       { name: 'Buffet', rect: [620, 300, 480, 90], at: [820, 640], look: 'alan_look_buffet' },
