@@ -1,323 +1,566 @@
 {
- "model_id": "eleven_v4",
- "phone": {
-  "speakers": [
-   "ines"
-  ],
-  "ids": [
-   "elena_msg_01",
-   "elena_msg_02",
-   "elena_msg_03",
-   "carmen_machine"
-  ],
-  "preset": "line"
- },
- "voices": {
-  "narr": {
-   "voice_id": "2qQJWjw5XdG80GreshqG",
-   "name": "Eleanor (Game I's narrator)",
-   "role": "Narrator"
+  "model_id": "eleven_v4",
+  "phone": {
+    "speakers": [
+      "ines"
+    ],
+    "ids": [
+      "elena_msg_01",
+      "elena_msg_02",
+      "elena_msg_03",
+      "carmen_machine"
+    ],
+    "preset": "line"
   },
-  "alan": {
-   "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
-   "name": "Roger (Game I)",
-   "role": "Alan Sanches"
+  "voices": {
+    "narr": {
+      "voice_id": "2qQJWjw5XdG80GreshqG",
+      "name": "Eleanor (Game I's narrator)",
+      "role": "Narrator"
+    },
+    "alan": {
+      "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+      "name": "Roger (Game I)",
+      "role": "Alan Sanches"
+    },
+    "vasco": {
+      "voice_id": "c6SfcYrb2t09NHXiT80T",
+      "name": "Jarnathan (Game I)",
+      "role": "Vasco Teles"
+    },
+    "ines": {
+      "voice_id": "EXAVITQu4vr4xnSDxMaL",
+      "name": "Game I's Inês, through the 1996 phone line",
+      "role": "Inês Carvalho"
+    },
+    "rafa": {
+      "voice_id": "sERYuuj23GA091OBFePG",
+      "name": "Dani",
+      "role": "Rafa",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "nieves": {
+      "voice_id": "iHGx33VgO2KQ1Fdw6noG",
+      "name": "Carmen - Bold and Magnetic",
+      "role": "Nieves",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "fermin": {
+      "voice_id": "7qXldmK3yFlWBHejdkpP",
+      "name": "Julio Alonso",
+      "role": "Don Fermín",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "yeray": {
+      "voice_id": "4L2A19qwD3pMcNlt484F",
+      "name": "Enzo",
+      "role": "Yeray",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "elena": {
+      "voice_id": "RrEQHwbMIvoa9O0J5xAW",
+      "name": "Sofía (Smooth)",
+      "role": "Dr. Elena Suárez",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "pino": {
+      "voice_id": "eBthAb30UYbt2nojGXeA",
+      "name": "Regina Martin",
+      "role": "Doña Pino",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "mercedes": {
+      "voice_id": "OAbWSq6Q1ICHurlgLm00",
+      "name": "Irma la Dulce",
+      "role": "Mercedes Quintana",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "montesdeoca": {
+      "voice_id": "R2Pq3ERXfDMQB548iPNB",
+      "name": "Ivan (loud, eccentric, dramatic)",
+      "role": "Ignacio Montesdeoca",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "lolo": {
+      "voice_id": "2lj4aExF052KSi14NJCI",
+      "name": "Oslo (Grandpa Storyteller)",
+      "role": "Don Lolo",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "gail": {
+      "voice_id": "kkPJzQOWz2Oz9cUaEaQd",
+      "name": "Beatrice",
+      "role": "Gail",
+      "model_id": "eleven_v3"
+    },
+    "derek": {
+      "voice_id": "sQGQZsvZ9uPuxtTy1uNh",
+      "name": "Jim - Cockney London",
+      "role": "Derek"
+    },
+    "surfer": {
+      "voice_id": "nZDJE2daaH0meWHbWbxh",
+      "name": "Nico (Latino Fresco)",
+      "role": "Surfer",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "clerk": {
+      "voice_id": "s4NXWwstm4IwAI2dMQ6M",
+      "name": "Lucía",
+      "role": "Check-in clerk",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "barman": {
+      "voice_id": "MW0LBphjVXELkIY7lnfu",
+      "name": "Hugo López",
+      "role": "Mountain barman",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "gc2": {
+      "voice_id": "hVtAK6ZLnvyCMv5h9NeP",
+      "name": "Emanuel",
+      "role": "Guardia Civil 2",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "parrot": {
+      "voice_id": "JSV4pJFuHRMCWZTxkpoQ",
+      "name": "Snorre, pitched up and thinned",
+      "role": "The parrot",
+      "model_id": "eleven_v3",
+      "language_code": "es",
+      "fx": "asetrate=44100*1.3,aresample=44100,atempo=0.85,highpass=f=500"
+    },
+    "carmen": {
+      "voice_id": "Tc7dePDnjW90vlgpLnhZ",
+      "name": "Graciela",
+      "role": "Carmen Trujillo",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "baute": {
+      "voice_id": "FXn3GKRRt9FCEyTbrkaL",
+      "name": "Nico (History & Documentary)",
+      "role": "Dr. Rayco Baute",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "chano": {
+      "voice_id": "XyPIlDiohfZSbL4jAB2e",
+      "name": "Marco",
+      "role": "Chano",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "guard": {
+      "voice_id": "GojDwihhnL1f7RrBuXsJ",
+      "name": "Luis (62)",
+      "role": "Museum guard",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "gc1": {
+      "voice_id": "YKrm0N1EAM9Bw27j8kuD",
+      "name": "Leónidas",
+      "role": "Guardia Civil 1",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "candelaria": {
+      "voice_id": "M9RTtrzRACmbUzsEMq8p",
+      "name": "Abuelita de Cuento",
+      "role": "Doña Candelaria, the aloe stall at the Mercado del Puerto",
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] "
+    },
+    "x_beach_old_man_chair": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "GojDwihhnL1f7RrBuXsJ",
+      "name": "Luis",
+      "role": "Background: Old man with a newspaper"
+    },
+    "x_beach_sandcastle": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "7ilYbYb99yBZGMUUKSaf",
+      "name": "Alex",
+      "role": "Background: Father and son"
+    },
+    "x_beach_surfer_wax": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "Thkz4r8fshqG13klONQh",
+      "name": "Carlos (Canarian)",
+      "role": "Background: Surfer waxing his board"
+    },
+    "x_canteras_german_tourist": {
+      "voice_id": "X2lOsegWDRKD5RdbwfrK",
+      "name": "Ingo",
+      "role": "Background: German tourist",
+      "model_id": "eleven_v3",
+      "prefix": "[German accent] "
+    },
+    "x_restaurant_waiter": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "3M4zHJpega0h0ehbBKu1",
+      "name": "Mr Gaspard",
+      "role": "Background: Waiter"
+    },
+    "x_quay_two_old": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "8mBRP99B2Ng2QwsJMFQl",
+      "name": "El Faraon 4",
+      "role": "Background: Two old fishermen"
+    },
+    "x_quay_net_mender": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "orF2qy9215xjwqqxqsWW",
+      "name": "Rafael",
+      "role": "Background: Old man mending a net"
+    },
+    "x_quay_crate_carrier": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "Zt0xwc7cwPm1AjX7ectp",
+      "name": "Javier",
+      "role": "Background: Fishmonger"
+    },
+    "x_cathedral_tourist": {
+      "voice_id": "IosqM5LMIzqPfT0efhhy",
+      "name": "Kerry",
+      "role": "Background: Tourist",
+      "model_id": "eleven_v3"
+    },
+    "x_museum_waiter_tray": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "QdeV7TsH9psct2D4UdTk",
+      "name": "Marco",
+      "role": "Background: Waiter with champagne"
+    },
+    "x_museum_guest_linen": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "ewZshglVwjWcMIuBYCCS",
+      "name": "Antonio Lobo",
+      "role": "Background: Guest in a linen suit"
+    },
+    "x_museum_cocktail_pair": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "Y78FoQowFAZ83lz3YjCw",
+      "name": "Alba Noches",
+      "role": "Background: Couple at a table"
+    },
+    "x_museum_guest_academic": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "sERYuuj23GA091OBFePG",
+      "name": "Dani",
+      "role": "Background: Young academic"
+    },
+    "x_museum_guest_pearls": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "iuYybvSfclFoJ9ab2Im6",
+      "name": "Estela",
+      "role": "Background: Lady in pearls"
+    },
+    "x_vegueta_pigeons": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "9oWKy782oltLmeuOUdq7",
+      "name": "Carmen Perez",
+      "role": "Background: Woman feeding the pigeons"
+    },
+    "x_vegueta_tourists_guidebook": {
+      "voice_id": "RILOU7YmBhvwJGDGjNmP",
+      "name": "Jeanette",
+      "role": "Background: Tourist with a guidebook",
+      "model_id": "eleven_v3"
+    },
+    "x_vegueta_lottery": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "Yb8JGzcZyW5YYzenhRCm",
+      "name": "El Abuelo Charlie",
+      "role": "Background: Lottery seller"
+    },
+    "x_cathedral_praying": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "RgXx32WYOGrd7gFNifSf",
+      "name": "Eva Dorado",
+      "role": "Background: Woman praying"
+    },
+    "x_cathedral_priest": {
+      "model_id": "eleven_v4",
+      "language_code": "es",
+      "voice_settings": {
+        "stability": 0.3,
+        "similarity_boost": 0.75,
+        "style": 0.5,
+        "speed": 1.08
+      },
+      "prefix": "[strong Spanish accent] ",
+      "voice_id": "9TcPbUAhHnAV8mzFDAWU",
+      "name": "El Faraon 2",
+      "role": "Background: Priest"
+    }
   },
-  "vasco": {
-   "voice_id": "c6SfcYrb2t09NHXiT80T",
-   "name": "Jarnathan (Game I)",
-   "role": "Vasco Teles"
-  },
-  "ines": {
-   "voice_id": "EXAVITQu4vr4xnSDxMaL",
-   "name": "Game I's Inês, through the 1996 phone line",
-   "role": "Inês Carvalho"
-  },
-  "rafa": {
-   "voice_id": "sERYuuj23GA091OBFePG",
-   "name": "Dani",
-   "role": "Rafa",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "nieves": {
-   "voice_id": "iHGx33VgO2KQ1Fdw6noG",
-   "name": "Carmen - Bold and Magnetic",
-   "role": "Nieves",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "fermin": {
-   "voice_id": "7qXldmK3yFlWBHejdkpP",
-   "name": "Julio Alonso",
-   "role": "Don Fermín",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "yeray": {
-   "voice_id": "4L2A19qwD3pMcNlt484F",
-   "name": "Enzo",
-   "role": "Yeray",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "elena": {
-   "voice_id": "RrEQHwbMIvoa9O0J5xAW",
-   "name": "Sofía (Smooth)",
-   "role": "Dr. Elena Suárez",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "pino": {
-   "voice_id": "eBthAb30UYbt2nojGXeA",
-   "name": "Regina Martin",
-   "role": "Doña Pino",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "mercedes": {
-   "voice_id": "OAbWSq6Q1ICHurlgLm00",
-   "name": "Irma la Dulce",
-   "role": "Mercedes Quintana",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "montesdeoca": {
-   "voice_id": "R2Pq3ERXfDMQB548iPNB",
-   "name": "Ivan (loud, eccentric, dramatic)",
-   "role": "Ignacio Montesdeoca",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "lolo": {
-   "voice_id": "2lj4aExF052KSi14NJCI",
-   "name": "Oslo (Grandpa Storyteller)",
-   "role": "Don Lolo",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "gail": {
-   "voice_id": "kkPJzQOWz2Oz9cUaEaQd",
-   "name": "Beatrice",
-   "role": "Gail",
-   "model_id": "eleven_v3"
-  },
-  "derek": {
-   "voice_id": "sQGQZsvZ9uPuxtTy1uNh",
-   "name": "Jim - Cockney London",
-   "role": "Derek"
-  },
-  "surfer": {
-   "voice_id": "nZDJE2daaH0meWHbWbxh",
-   "name": "Nico (Latino Fresco)",
-   "role": "Surfer",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "clerk": {
-   "voice_id": "s4NXWwstm4IwAI2dMQ6M",
-   "name": "Lucía",
-   "role": "Check-in clerk",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "barman": {
-   "voice_id": "MW0LBphjVXELkIY7lnfu",
-   "name": "Hugo López",
-   "role": "Mountain barman",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "gc2": {
-   "voice_id": "hVtAK6ZLnvyCMv5h9NeP",
-   "name": "Emanuel",
-   "role": "Guardia Civil 2",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "parrot": {
-   "voice_id": "JSV4pJFuHRMCWZTxkpoQ",
-   "name": "Snorre, pitched up and thinned",
-   "role": "The parrot",
-   "model_id": "eleven_v3",
-   "language_code": "es",
-   "fx": "asetrate=44100*1.3,aresample=44100,atempo=0.85,highpass=f=500"
-  },
-  "carmen": {
-   "voice_id": "Tc7dePDnjW90vlgpLnhZ",
-   "name": "Graciela",
-   "role": "Carmen Trujillo",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "baute": {
-   "voice_id": "FXn3GKRRt9FCEyTbrkaL",
-   "name": "Nico (History & Documentary)",
-   "role": "Dr. Rayco Baute",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "chano": {
-   "voice_id": "XyPIlDiohfZSbL4jAB2e",
-   "name": "Marco",
-   "role": "Chano",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "guard": {
-   "voice_id": "GojDwihhnL1f7RrBuXsJ",
-   "name": "Luis (62)",
-   "role": "Museum guard",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "gc1": {
-   "voice_id": "YKrm0N1EAM9Bw27j8kuD",
-   "name": "Leónidas",
-   "role": "Guardia Civil 1",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  },
-  "candelaria": {
-   "voice_id": "M9RTtrzRACmbUzsEMq8p",
-   "name": "Abuelita de Cuento",
-   "role": "Doña Candelaria, the aloe stall at the Mercado del Puerto",
-   "model_id": "eleven_v4",
-   "language_code": "es",
-   "voice_settings": {
-    "stability": 0.3,
-    "similarity_boost": 0.75,
-    "style": 0.5,
-    "speed": 1.08
-   },
-   "prefix": "[strong Spanish accent] "
-  }
- },
- "_note_2026_10_29_v4": "The user picked 'v4 lively + accent cue' for the Spanish cast (art/review/voices/cast/, picks in its db): eleven_v4, language_code es, the lively voice_settings, and the text led by prefix. Nieves recast (the user's pick, art/review/voices/nieves/): Carmen - Bold and Magnetic. The parrot stays on v3 with its fx."
+  "_note_2026_10_29_v4": "The user picked 'v4 lively + accent cue' for the Spanish cast (art/review/voices/cast/, picks in its db): eleven_v4, language_code es, the lively voice_settings, and the text led by prefix. Nieves recast (the user's pick, art/review/voices/nieves/): Carmen - Bold and Magnetic. The parrot stays on v3 with its fx."
 }

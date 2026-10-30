@@ -833,3 +833,17 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     buffet ([160, 455, 440, 150], walk-to 400,690; smaller than the display cases behind it, so it wins the click).
     Checked in the game: Tuesday unchanged, Thursday as placed (art/review/museum_dinner.png), hover over the buffet
     names the Dinner table.
+82. **The background people talk** (2026-10-30). The user: "let's give the background characters some lines to say,
+    suitable for their situation. It would be good if half of them were flirts with Alan played for comedic effect".
+    19 figures (the tourist twice: the market and the cathedral), each: their line + Alan's answer the first time, a
+    short line after (60 lines, bg_* / alan_bg_* in lines.js). 10 flirt: the men (surfer waxing, German tourist,
+    restaurant waiter, fishmonger at the market, museum waiter, guest in linen) and Alan flirts back (tagged
+    mischievous); the women (tourist at the market, woman in red at the cocktail table, lady in pearls, British
+    tourist with the guidebook) and he blushes (embarrassed). The rest fit their spot (the old man's newspaper, the
+    sandcastle, the fishermen's boat, the nets, the pigeons, the lottery, the praying woman, the priest, the academic's
+    thesis). Spanish speakers on v4 + accent cue like the cast, one Spanish word in about a third of their lines;
+    new voices in cast.json (one per figure: library voices by age and sex; the surfer's has a Canarian accent; the
+    German on v3 with a German accent cue; the two British on v3). js/story/bgtalk.js (S.BG, S.bgFor): layout.js gives
+    each placed figure its name (hover), speaker and talk/look; engine speech.js finds a speaker by `def.speaker` too
+    (the dinner's copies have ids ending _2). Checked in the game: the surfer, the lady in pearls at the dinner (and
+    her second line), the tourist in the cathedral and at the market, the German: the right lines, captions over them.

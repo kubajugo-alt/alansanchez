@@ -178,9 +178,11 @@
     // where the user stood the cast and the background people (the placement tool: js/story/extras.js)
     for (const [id, at] of Object.entries(S.CAST_AT || {})) { const L = S.LAYOUT[id] = S.LAYOUT[id] || {}; L.npcs = Object.assign({}, L.npcs, at); }
     // (a room's background people can be there only some of the time: S.EXTRAS_WHEN[room], e.g. the museum's party guests)
+    // (and each one who has something to say, a name and a talk: js/story/bgtalk.js)
+    const talker = (x, room) => Object.assign({}, x, S.bgFor ? S.bgFor(x.frames[0], room) : null);
     for (const [id, xs] of Object.entries(S.EXTRAS || {})) if (ROOMS[id]) {
       const w = (S.EXTRAS_WHEN || {})[id];
-      ROOMS[id].ambient = (ROOMS[id].ambient || []).concat(w ? xs.map(x => Object.assign({ when: w }, x)) : xs);
+      ROOMS[id].ambient = (ROOMS[id].ambient || []).concat(xs.map(x => Object.assign(w ? { when: w } : {}, talker(x, id))));
     }
     const nameOf = h => { try { return typeof h.name === 'function' ? h.name() : h.name; } catch (e) { return null; } };
     for (const [id, L] of Object.entries(S.LAYOUT)) {
@@ -204,7 +206,7 @@
     // dinner, the user, 2026-10-30): its own background people, and its cast standing elsewhere while `when` holds
     for (const [vid, v] of Object.entries(S.VARIANTS || {})) {
       const r = ROOMS[v.room]; if (!r) continue;
-      r.ambient = (r.ambient || []).concat(((S.EXTRAS || {})[vid] || []).map(x => Object.assign({ when: v.when }, x)));
+      r.ambient = (r.ambient || []).concat(((S.EXTRAS || {})[vid] || []).map(x => Object.assign({ when: v.when }, talker(x, v.room))));
       const at = (S.CAST_AT || {})[vid] || {};
       for (const n of r.npcs || []) {
         const p = at[n.id]; if (!p) continue;

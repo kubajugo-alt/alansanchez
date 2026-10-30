@@ -14,7 +14,8 @@
     // the player speaks from the player's figure: Alan, or Vasco in his own chapter (E.player.speaker)
     if (who === (E.player.speaker || 'alan')) return E.player.visible ? E.player : null;
     if (who === 'alan') return null; // (Alan's voice, off, while Vasco is played: a phone, a memory)
-    return E.npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible)
+    // (a figure can speak as someone else: the same background person placed twice has two ids and one speaker)
+    return E.npcs.find(a => (a.id === who || a.id === 'npc_' + who || (a.def && a.def.speaker === who)) && a.visible)
       // someone painted into Alan's pair frame speaks from the pair (Game.pairSpeaker: pose -> speaker id)
       || (E.player.visible && E.player.pose && ((E.player.pairWho && (E.player.pairWho === who || E.player.pairWho === 'npc_' + who))
         || (window.Game.pairSpeaker && window.Game.pairSpeaker(E.player.pose) === who)) ? E.player : null);
@@ -29,7 +30,7 @@
   // to whoever he is talking with (the last NPC who spoke, else the nearest one).
   // the names Alan calls people by, for addressee(): a name standing alone ("Inês. Catch.", "Thank you, Father.")
   const CALLED = window.CALLED || {};
-  const visibleNpc = who => E.npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible);
+  const visibleNpc = who => E.npcs.find(a => (a.id === who || a.id === 'npc_' + who || (a.def && a.def.speaker === who)) && a.visible);
   function addressee(id) {
     if (!id) return null;
     const to = window.Game.lineTo && window.Game.lineTo(id);
