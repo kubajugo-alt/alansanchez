@@ -21,7 +21,7 @@ exactly at noon".
 - Each disc is a shallow obsidian mirror, ground to its own curve, with a sign cut in its back: seven Canario signs, the
   patterns of the island's own clay seals (pintaderas): a spiral, a zigzag (the sea), concentric rings, a chequer, a
   triangle, a crescent, and the rayed sun, Magec. The same seven signs are cut, worn almost smooth, at the point of the
-  seven triangles above (see "How Vasco knows the order").
+  seven triangles above, and round each triangle a scene (see "The order").
 - In its own socket, a disc gathers the light and throws a column of it back up through the floor opening onto its own
   triangle. The sun disc, in the middle, lights the great triangle. Every morning, seven triangles lit: the sentence read
   out, the lock kept true.
@@ -48,6 +48,8 @@ exactly at noon".
    small one on the right). Looking at the dark triangles: "Something cut at the point. Worn smooth."
    - **Chalk on a triangle** (an archaeologist's trick: chalk dust rubbed into a worn cut makes it read): each triangle's
      sign, one at a time; his notebook fills in a row of seven signs, as they stand on the wall.
+   - **The scenes round the triangles:** he reads the two lit ones (the moon going down, Magec) and sees the rule:
+     "Each picture holds the hand of the next one." He starts on the others; the radio cuts him off.
 3. **Down the rope ladder, the lower chamber:** five empty sockets, two discs: the sun disc in the middle, the crescent
    disc beside it. The column of light on all seven sockets; two columns rising.
    - **The frieze**, read panel by panel (the women in white on the cliff; the ships; the black sea over the ships and
@@ -74,11 +76,9 @@ exactly at noon".
 - **Alan goes down the rope ladder** ("It's coming for me anyway"), into the water rising round his legs. He has five
   discs from the vault, each now its own thing in his pockets: the spiral disc, the zigzag disc, the rings disc, the
   chequer disc, the triangle disc. Vasco kneels at the rim of the floor opening, above, reading the triangles.
-- **The puzzle:** each disc into its own socket, in any order he likes. The sockets aren't marked (worn away); the order
-  is in the frieze on the walls around him, and in the signs Vasco scratched by the grille (the notebook has them).
-  - Right socket: its column rises and its triangle lights; Vasco, above, names it ("The spiral. Yes. That's its word.").
-  - Wrong socket: its column hits the wrong triangle, or the floor; the water surges. Three surges and it takes him
-    (as now: death screen, retry from the last checkpoint).
+- **The puzzle:** each disc into its own socket, at its own turn (see "The order: where each disc goes, and when").
+  Where: the signs Vasco scratched in the vault (the notebook has them). When: the scenes round the triangles, which
+  only Vasco, above, can see and read to him.
 - **The sixth:** after five, Baute sees the black stain spreading over Las Palmas through the cave mouth; Carmen names
   her street (as now). He gives up the disc he took on Sunday: the crescent.
 - **The sun disc:** last, Alan has to lift Magec out of the door socket and set it in the middle. As he reaches for it,
@@ -90,25 +90,59 @@ exactly at noon".
   chain of hands: Vasco reaching down through the floor opening to his wrist, Carmen holding Vasco, Yeray Carmen, Baute
   Yeray. They haul him up through the opening.
 
-## How Vasco knows the order
+## The order: where each disc goes, and when (the riddle)
 
-The order is written on the wall, and the light tells you how to read it.
+The user: "it matters which disks goes in place in which order. It shouldn't just be left to right - otherwise there is
+no riddle. We also need a reason for Vasco to be upstairs - so I'd put additional inscriptions around the triangles too,
+so he can read them and give the directions to Alan who is downstairs."
 
-- **The triangles carry the order.** Each triangle has its disc's sign cut at its point, worn almost smooth. On
-  Saturday, Vasco rubs chalk into each one (an archaeologist's trick) and copies the row as it stands on the wall, left
-  to right: seven signs, the sun in the middle at the great triangle.
-- **The columns cross.** Each column rises from its disc through the floor opening, so the columns cross there, as in
-  the section drawing. A disc on the left lights a triangle on the right. Vasco sees it with the two discs left: the
-  crescent, one socket to the left of the sun, lights the small triangle just to the right of the great one. He moves it
-  once to be sure: one socket further left, and its column lands one triangle further right.
-- **So the floor is the wall reversed.** "It's a mirror. Read the wall backwards and you have the floor." The sun is the
-  same either way: the middle.
-- **The frieze agrees.** The cave panel in the lower chamber draws the seven circles on the floor with their signs, in
-  floor order. It is faded and half gone, so it confirms the order but can't give all of it.
-- **What he leaves behind.** In the vault he scratches the seven signs by the grille, already in floor order, and an A.
-  On Monday, Alan has them in his notebook, and Vasco checks each one from above against its triangle.
+Two questions, two halves of the cave: **where** each disc goes (its socket) and **when** it goes in (its turn). The
+lock is a sentence said in light. Said in the wrong order, it is another sentence, and the Sea hears it.
 
-Baute's door order needs none of this: he only moves the sun to the end of the row.
+### Where: the signs at the triangles' points, read in a mirror
+- Each triangle has its disc's sign cut at its point. The columns cross in the floor opening, so the floor is the wall
+  reversed: socket 1 (far left) lights triangle 7 (far right), and so on. The sun is in the middle both ways.
+- The wall, left to right: rings, spiral, zigzag, **sun**, crescent, triangle, chequer.
+- So the floor, left to right: chequer, triangle, crescent, **sun**, zigzag, spiral, rings.
+- Vasco works this out on Saturday (the chalk; the crescent test) and scratches it in the vault. Alan has it in his
+  notebook on Monday.
+
+### When: the story cut round the triangles
+Round each triangle, in shallow relief, a scene in small figures; seven scenes, one story: the night in 1483 the women
+called the Sea and then sent it back. The scenes are not in order along the wall. Each one hands over to the next:
+something at its edge walks out of it and into another scene. Vasco: "It's a story, and each picture holds the hand of
+the next one. Find the one nobody hands into, and follow the hands."
+
+| Turn | Sign | The scene round its triangle | What it hands over (its edge) |
+|---|---|---|---|
+| 1 | zigzag | the sea standing up black, higher than the cliffs, the trees bent the other way (the inquiry: "against the wind") | a wave curling over a roof |
+| 2 | chequer | the fields and houses under water, a boat on a roof | on a roof, a woman in white, looking up the cliff |
+| 3 | triangle | the women in white coming down the cliff paths in a line | the last woman carrying a jar on her head |
+| 4 | rings | the women pouring jars of milk and butter into the sea, rings spreading | a woman with a palm branch raised |
+| 5 | spiral | the women in the water to the waist, beating the sea with branches; the water turning, going down | a woman left standing alone in the water |
+| 6 | crescent | the moon going down into the sea, one woman standing in it | her arm pointing up at the great triangle |
+| 7 | sun | Magec, rayed, over the great triangle | (nothing: the end) |
+
+Real roots: the harimaguadas; Abreu Galindo's rite in drought, the women carrying milk and butter and palm branches down
+to the sea and beating it with sticks (here turned round, to send the sea back); the sun, Magec; the black sea "against
+the wind" from the game's 1484 inquiry. The scenes are the game's.
+
+The story ends with the moon and the sun, the two discs Baute holds: he took the end of the sentence. The first scene
+nobody hands into is the zigzag: the sea came first.
+
+The downstairs frieze tells the same story in big panels (the player saw it in Vasco's chapter), faded and incomplete:
+it gives the shape, not the hands.
+
+### How it's played on Monday
+- Alan, downstairs in the rising water, with five discs; Vasco, upstairs at the rim of the floor opening with his torch,
+  reading the wall. Alan can't see the triangles' scenes; Vasco can't reach the discs. That's why Vasco stays up.
+- Talk to Vasco: "Read me the one with the [sign]". He describes the scene and what's at its edge. Alan's notebook
+  gets a page, "The story on the wall", seven blanks to fill with signs (the existing pages mechanic, `S.PAGES`).
+- Put a disc in: the right socket and its turn, its column rises, its triangle lights, and Vasco reads the scene aloud as
+  it lights, as confirmation. The wrong socket: the column hits the wrong triangle. The wrong turn: the column rises to
+  its own triangle, but the water surges. Three surges and the Sea takes him (death screen, retry from the checkpoint).
+- The first five are the player's. Then Baute and the crescent (as before), then the sun out of the door socket and into
+  the middle, under Carmen's mirror.
 
 ## The noon, through the story
 
