@@ -154,8 +154,10 @@
     await say('narr_t_hotel_1', 'narr_t_hotel_2', 'nieves_t_hello', 'alan_t_nieves_1', 'nieves_t_1', 'narr_t_eyebrow',
       'nieves_t_checkin', 'alan_t_checkin', 'nieves_t_checkin_2', 'vasco_t_lobby_1', 'vasco_t_lobby_go');
     F().jacket_needed = true;
-    G.setClock('12:00');
   };
+  // (Tuesday had a clock on screen, 12:00 at the check-in and 16:10 after the nap: taken out, the user, 2026-10-30, "we
+  // don't need it"; a save made while it showed comes back without it)
+  { const set = window.Engine.setClock; window.Engine.setClock = t => set(t === '12:00' || t === '16:10' ? null : t); }
   S.talkNieves = async function () {
     const f = F();
     if (ch() === 1 && f.burnt && !f.nieves_burnt) { f.nieves_burnt = true; await say('nieves_t_burnt_look', 'alan_t_shy_nieves'); }
@@ -346,7 +348,7 @@
         S.sfx('water_lap', 0.4); await say('narr_t_sun_3');
       }, { zoom: [1.0, 1.1], pan: [[0.5, 0.5], [0.45, 0.55]] });
       // the cloud is back, it's ten past four, and he's the colour of a postbox
-      f.sun_out = false; f.burnt = true; f.undressed = false; G.setClock('16:10');
+      f.sun_out = false; f.burnt = true; f.undressed = false;
       G.endStill(); await G.fade(false); G.refreshNpcs();
       await say('alan_t_burnt', 'narr_t_dress_beach');
     });
@@ -378,6 +380,10 @@
         await say('chano_change_again_' + Math.min(6, ch())); f.coins = (f.coins || 0) + 4; S.give('coins');
       }, bye: true },
       { line: 'alan_ask_paper', when: () => !G.has('note5000') && f.paper_day !== ch(), run: async () => { await say('chano_paper'); f.paper_day = ch(); G.takeItem('newspaper'); S.give('newspaper', true); G.toast('Today\'s La Provincia'); } },
+      // Carmen's toll for a talk in the archive (wed.js S.carmenToll)
+      { line: 'alan_ask_cigs', when: () => ch() >= 2 && ch() <= 4 && !G.has('cigarettes') && f.carmen_cigs_day !== ch(), run: async () => {
+        S.sfx('coins_clink', 0.4); await say('chano_cigs'); S.give('cigarettes');
+      } },
       { line: 'alan_ask_gossip', when: () => f.gossip_day !== ch(), run: async () => { f.gossip_day = ch(); await say('chano_gossip_' + Math.min(6, ch())); if (ch() === 2) f.herring_chano = true; } },
       { line: 'alan_ask_weather', once: true, run: () => say('chano_weather_' + Math.min(6, ch())) },
       { line: 'alan_t_chacho', when: () => f.cand_note && !f.chacho, run: async () => { f.chacho = true; await say('chano_t_chacho'); } },

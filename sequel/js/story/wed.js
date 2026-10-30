@@ -263,7 +263,7 @@
     entries: { default: [200, 660, 'e'], museum_hall: [200, 660, 'e'] },
     npcs: [
       { id: 'carmen', ch: 'carmen', x: 700, y: 640, dir: 'w', name: 'Dr. Carmen Trujillo', when: () => ch() >= 2 && ch() <= 4, look: 'alan_look_carmen', talk: () => S.talkCarmen(),
-        items: { inscription: () => say('carmen_inscription'), letter: () => say('carmen_letter'), any: 'alan_fail_carmen_item' } },
+        items: { inscription: () => say('carmen_inscription'), letter: () => say('carmen_letter'), cigarettes: () => S.talkCarmen(), any: 'alan_fail_carmen_item' } },
     ],
     hotspots: [
       { name: 'Conservation list', rect: [880, 300, 120, 160], at: [930, 640], look: async () => { await S.readDiscList(); await S.checkWed(); } },
@@ -284,8 +284,22 @@
       FX.moth(g, t, 618, 150, 34, 22, 1);
     },
   });
+  // the toll (the user, 2026-10-30): no talk in the archive without a packet of cigarettes from Chano's kiosk, once a day
+  S.carmenToll = async function () {
+    const f = F();
+    if (f.carmen_cigs_day === ch()) return true;
+    if (!G.has('cigarettes')) {
+      if (f.carmen_cigs_asked === ch()) await say('carmen_cigs_none_2');
+      else { f.carmen_cigs_asked = ch(); await say('carmen_cigs_none', 'alan_cigs_none'); }
+      return false;
+    }
+    G.takeItem('cigarettes'); f.carmen_cigs_day = ch(); S.sfx('match', 0.5);
+    await say('alan_cigs_give', 'carmen_cigs_thanks_' + ch());
+    return true;
+  };
   S.talkCarmen = async function () {
     const f = F();
+    if (!await S.carmenToll()) return;
     if (ch() === 2) {
       if (!f.carmen_wed) {
         f.carmen_wed = true; S.sfx('match', 0.5);

@@ -792,3 +792,16 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     museum_hall and museum_courtyard: S.museumParty() = Tuesday before the reception ends, or Thursday's dinner before
     Alan is caught. Checked in the game: the hall's five background figures at the reception and the dinner, none after
     either, none on Wednesday.
+77. **No clock on Tuesday** (2026-10-30). The user: "game keeps showing time 16:10 - remove it, we don't need it". The
+    two clocks entry 63's Tuesday put on screen (12:00 at the check-in, 16:10 after the nap) taken out of tue.js; a save
+    made while one showed comes back without it (Engine.setClock drops '12:00' and '16:10'). The other clocks (Sunday
+    22:40, Monday 05:52) stay.
+78. **Carmen's toll: cigarettes** (2026-10-30). The user: "new rule - each time Alan goes to Carmen to talk in the
+    archive, he needs to bring her cigarettes. which he can buy at the kiosk from chano". New item `cigarettes` (A packet
+    of Coronas, the Canarian brand; drawn as a tag icon for now, like the aloe). Chano: "A packet of Coronas, please."
+    (Wednesday to Friday, when Alan has none and hasn't paid today's toll). wed.js S.carmenToll, at the start of
+    S.talkCarmen: once per day (ch 2, 3, 4; the archive's Carmen days), without a packet she won't talk
+    (carmen_cigs_none + Alan's reply the first time that day, carmen_cigs_none_2 after); with one, Alan hands it over
+    (or uses it on her) and she thanks him, a different line each day, then the day's talk goes on. Her Tuesday "Bring
+    cigarettes." sets it up. 10 new lines (Carmen and Chano with a Spanish word each), voiced with generate-voices.mjs.
+    play.mjs buys a packet before each of the three archive talks.

@@ -90,11 +90,11 @@ try {
   await act('fermin', 'talk');
   await expect('the letter', () => Game.has('letter') && Game.has('inscription'));
   await go('hotel_lobby'); await act('nieves', null, 'inscription'); await act('nieves', null, 'letter');
-  await go('canteras'); await act('Phone box', 'use');
+  await go('canteras'); await act('Phone box', 'use'); await act('chano', 'talk', null, ['Coronas']);   // (Carmen's toll)
   await go('museum_hall'); await act('Montesdeoca\'s van', 'look'); await act('Archive stairs', 'exit'); await act('carmen', 'talk'); await act('Conservation list', 'look');
   await expect('Thursday', () => Game.flags.ch === 3);
   // ---- Thursday
-  await go('canteras'); await act('chano', 'talk', null, ['Today\'s paper']);
+  await go('canteras'); await act('chano', 'talk', null, ['Today\'s paper', 'Coronas']);
   await go('museum_hall'); await act('Archive stairs', 'exit'); await act('carmen', 'talk', null, ['Castilians']);
   await go('isleta'); await act('pino', 'talk', null, ['Pepe']);
   await go('colon'); await act('mercedes', 'talk', null, ['May I read']);
@@ -104,7 +104,7 @@ try {
   await act('Dinner table', 'take'); await act('Corridor to the offices', 'exit'); await act('Desk drawer', null, 'knife');
   await expect('Friday, after the fight', () => Game.flags.ch === 4 && Game.flags.fight_done);
   // ---- Friday
-  await go('canteras'); await act('Phone box', 'use');
+  await go('canteras'); await act('Phone box', 'use'); await act('chano', 'talk', null, ['Coronas']);
   await go('museum_hall'); await act('Archive stairs', 'exit'); await act('carmen', 'talk');
   await expect('how the cave works', () => Game.flags.cave_explained);
   await go('rafa_bar'); await act('rafa', 'talk'); await act('rafa', 'talk', null, ['draw me']);

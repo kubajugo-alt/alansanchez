@@ -124,6 +124,7 @@
     coins: { name: () => (F().coins || 0) === 1 ? 'One 100-peseta coin' : `${F().coins || 0} coins of 100 pesetas`, look: 'alan_look_coins' },
     newspaper: { name: () => 'La Provincia, ' + S.dayName(), icon: () => 'newspaper', look: () => S.readPaper() },
     aloe: { name: 'An aloe leaf', look: 'alan_look_aloe' },
+    cigarettes: { name: 'A packet of Coronas', look: 'alan_look_cigarettes' },
     postcard: { name: () => F().postcard_written ? 'A postcard to Inês' : 'A postcard', look: () => S.writeCard() },
     blazer: { name: 'A navy blazer (not his)', look: () => say(F().blazer_on ? 'alan_look_blazer_on' : 'alan_look_blazer') },
     inscription: { name: 'Rubbing of the bell', icon: () => 'sketch', look: () => S.readInscription() },
