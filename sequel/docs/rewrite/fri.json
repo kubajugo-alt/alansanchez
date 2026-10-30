@@ -1,0 +1,1113 @@
+{
+ "changed": {
+  "vasco_f_1": [
+   "vasco",
+   "The team's picking me up at half past. Rayco wants everyone on site for the solstice."
+  ],
+  "alan_f_1": [
+   "alan",
+   "Through to Monday."
+  ],
+  "vasco_f_2": [
+   "vasco",
+   "I know what you were doing in his office. You were looking for something to prove that someone was doing something wrong."
+  ],
+  "alan_f_choice_c": [
+   "alan",
+   "I didn't want to spoil it for you."
+  ],
+  "vasco_f_3c": [
+   "vasco",
+   "Spoil it."
+  ],
+  "alan_f_choice_a": [
+   "alan",
+   "Because nobody would have believed me."
+  ],
+  "vasco_f_3a": [
+   "vasco",
+   "Nobody? I'm not nobody, Alan. You didn't ask me. You never ask. You'd rather break into a desk than say 'Vasco, I'm frightened'."
+  ],
+  "alan_f_choice_b": [
+   "alan",
+   "In my defence, I was very sunburnt."
+  ],
+  "vasco_f_4": [
+   "vasco",
+   "Do you know what I've been doing for eight months? I've been waiting. Every morning."
+  ],
+  "alan_f_4": [
+   "alan",
+   "That's not true."
+  ],
+  "vasco_f_lorenzo_1": [
+   "vasco",
+   "When I was in Rome, at the Gregorian, I was twenty-six. There was a man called Lorenzo. An architect."
+  ],
+  "vasco_f_lorenzo_2": [
+   "vasco",
+   "He was very kind. Very patient. He knew what I was, and what I wanted to be, and he never once asked me to choose. He just waited. For four years."
+  ],
+  "vasco_f_lorenzo_3": [
+   "vasco",
+   "I've been the one who leaves. I know what it looks like from the inside. I know exactly what it does to the person who's left."
+  ],
+  "vasco_f_leave": [
+   "vasco",
+   "If you're right. About the mist. About the sea. If it's really here. [pause]"
+  ],
+  "alan_f_alone": [
+   "alan",
+   "[pause] There's a flight on Sunday."
+  ],
+  "carmen_cigs_thanks_4": [
+   "carmen",
+   "Coronas. Even today. [pause] Bueno."
+  ],
+  "carmen_f_1": [
+   "carmen",
+   "That was the stupidest thing I have ever seen anyone do in this building. And I once watched a deputy minister try on a mummy's necklace."
+  ],
+  "alan_f_carmen_1": [
+   "alan",
+   "Thank you."
+  ],
+  "carmen_f_coffee": [
+   "carmen",
+   "It wasn't a compliment. [pause] He left this morning. Your doctor. I heard."
+  ],
+  "alan_f_carmen_2": [
+   "alan",
+   "The cave. Tell me how it works. Not the story. The stone."
+  ],
+  "carmen_f_beam": [
+   "carmen",
+   "From the spring equinox to the autumn one, el sol comes in through that channel every morning, and the light walks across the wall."
+  ],
+  "carmen_f_triangles": [
+   "carmen",
+   "They all point down. Every one. The textbooks say they're fertility symbols."
+  ],
+  "carmen_f_discs": [
+   "carmen",
+   "A friend of mine thought they were arrows. [pause] She thought the discs in the channel were mirrors. Steering the light, to keep it on its path."
+  ],
+  "carmen_f_san_juan": [
+   "carmen",
+   "Las Palmas was founded on Saint John's day. The twenty-fourth of June. Did you know that? In the old reckoning, that was the solstice."
+  ],
+  "carmen_f_go_home": [
+   "carmen",
+   "Go home, Señor Sanches. [pause] Before Sunday."
+  ],
+  "carmen_f_bye": [
+   "carmen",
+   "Don't thank me. Go home."
+  ],
+  "narr_bar": [
+   "narr",
+   "The bar has no name over the door. It's just the bar at the bottom of the street behind the cathedral, the one the locals go to."
+  ],
+  "alan_bar_in": [
+   "alan",
+   "Two drinks. Then the hotel. And in the morning a car, and the mountain, and something to say to him. I'll think of it on the way up."
+  ],
+  "alan_stay_0": [
+   "alan",
+   "I came in for two drinks. I haven't had one yet."
+  ],
+  "rafa_1": [
+   "rafa",
+   "You look like a man who needs rum."
+  ],
+  "alan_rafa_1": [
+   "alan",
+   "Is that how I look?"
+  ],
+  "rafa_2": [
+   "rafa",
+   "That, or a priest. You have the face of a man who's been listening to confessions all day."
+  ],
+  "alan_rafa_rum": [
+   "alan",
+   "Another."
+  ],
+  "rafa_3": [
+   "rafa",
+   "Rafa."
+  ],
+  "alan_rafa_2": [
+   "alan",
+   "Alan."
+  ],
+  "rafa_4": [
+   "rafa",
+   "Alan. [pause] Inglés?"
+  ],
+  "alan_ask_rafa_paint": [
+   "alan",
+   "The faces on the walls. Are they yours?"
+  ],
+  "rafa_paint": [
+   "rafa",
+   "All mine. I paint everyone who comes in. It's a sort of tax. Since I was sixteen."
+  ],
+  "alan_rafa_paint": [
+   "alan",
+   "And where would I go? Between the dog in the hat and the fisherman?"
+  ],
+  "alan_ask_rafa_island": [
+   "alan",
+   "Why not go now? Madrid's not far."
+  ],
+  "rafa_island": [
+   "rafa",
+   "The light. You can't get light like this in Madrid. In Madrid the light is like a government building. Here it's..."
+  ],
+  "alan_rafa_island": [
+   "alan",
+   "It's been grey since I arrived."
+  ],
+  "alan_ask_rafa_draw": [
+   "alan",
+   "What are you doing with that pencil?"
+  ],
+  "rafa_draw_1": [
+   "rafa",
+   "Paying my tax."
+  ],
+  "alan_rafa_napkin": [
+   "alan",
+   "That's not fair."
+  ],
+  "rafa_draw_3": [
+   "rafa",
+   "Drawing's never fair. That's what it's for."
+  ],
+  "rafa_another": [
+   "rafa",
+   "Salud. [pause] To terrible ron."
+  ],
+  "alan_bye_rafa": [
+   "alan",
+   "Back in a minute."
+  ],
+  "rafa_bye": [
+   "rafa",
+   "I'm not going anywhere, hombre. I work here."
+  ],
+  "alan_look_napkin": [
+   "alan",
+   "Me, in pencil, on a napkin. A dozen lines. Tired, amused, and something far back behind the eyes. [pause] He saw that in a dozen lines."
+  ],
+  "alan_look_yeray_bar": [
+   "alan",
+   "A boy at the far end of the bar, his T-shirt grey with dust, drinking beer fast, like he's trying to put out a fire. He'll talk to anyone. Nobody's listening. I'm not either."
+  ],
+  "yeray_bar_1": [
+   "yeray",
+   "...every night, I'm telling you, every night this week, after the others are asleep..."
+  ],
+  "yeray_bar_2": [
+   "yeray",
+   "...down to the vault, the old granary, under the caves, and he locks it, and only he has the key..."
+  ],
+  "yeray_bar_3": [
+   "yeray",
+   "...and el doctor doesn't know. The Portuguese. He thinks they're going to Las Palmas. He keeps asking me about the lab..."
+  ],
+  "yeray_bar_4": [
+   "yeray",
+   "Me? Fine. Fine. [pause] Forget it."
+  ],
+  "yeray_bar_5": [
+   "yeray",
+   "...conservation, he says, conservation, but they never go in the van, never, I carry them myself..."
+  ],
+  "alan_yeray_2": [
+   "alan",
+   "Sounds rough."
+  ],
+  "alan_stay_1": [
+   "alan",
+   "[pause] One more."
+  ],
+  "alan_stay_3": [
+   "alan",
+   "I'm just talking. I'm just... I just needed somewhere to sit. I'm not..."
+  ],
+  "rafa_closing": [
+   "rafa",
+   "I know. [pause] Me too."
+  ],
+  "narr_rafa_night": [
+   "narr",
+   "The studio is one room under the roof, hot from the day, with a big window open on the dark rooftops of Vegueta and the cathedral's two towers black against the orange sky. Turpentine and coffee and the sea."
+  ],
+  "alan_look_window_4": [
+   "alan",
+   "A lorry of pallets going by for the bonfires. No Land Rover."
+  ],
+  "alan_look_sea_4": [
+   "alan",
+   "I don't look at it for long any more."
+  ],
+  "alan_look_bonfire_4": [
+   "alan",
+   "Three times the height of a man. A straw figure on top in somebody's hat. He burns on Sunday night."
+  ],
+  "nieves_message_fri": [
+   "nieves",
+   "Dr. Teles left at half past five, señor. No message. [pause] He looked at the stairs for some time first."
+  ],
+  "ines_call_fri_1": [
+   "ines",
+   "Alan. [pause] You sound like a man who hasn't slept. What did you do?"
+  ],
+  "alan_call_fri_1": [
+   "alan",
+   "I got caught going through Baute's desk at the dinner. In front of everyone. In front of Vasco. He's gone up the mountain till Monday."
+  ],
+  "ines_call_fri_2": [
+   "ines",
+   "And you had the fight. [pause] Did he say the thing? The thing he's been not saying since January?"
+  ],
+  "alan_call_fri_2": [
+   "alan",
+   "He told me about a man called Lorenzo. And a coffee pot."
+  ]
+ },
+ "new": {
+  "narr_f_1": [
+   "narr",
+   "Neither of them slept. At five o'clock, when the alarm goes, neither of them pretends to."
+  ],
+  "narr_f_2": [
+   "narr",
+   "Vasco sits on the edge of the bed with his back to Alan and his head in his hands. Outside it's still dark. The fan goes round. Down the corridor, the lift sneezes, once, for nobody."
+  ],
+  "vasco_f_1b": [
+   "vasco",
+   "We're staying up there tonight. Tomorrow too, probably. Through to Monday."
+  ],
+  "vasco_f_sunrise": [
+   "vasco",
+   "The sunrise on Monday is the one that matters. San Juan. I told you."
+  ],
+  "alan_f_told": [
+   "alan",
+   "You told me."
+  ],
+  "narr_f_3": [
+   "narr",
+   "Vasco doesn't move. Alan lies on his back and watches the fan going round."
+  ],
+  "alan_f_ask": [
+   "alan",
+   "Are you going to ask me? What I was doing in his office?"
+  ],
+  "vasco_f_2b": [
+   "vasco",
+   "Because you'd decided something was wrong, and instead of telling me, you broke into my director's office in the middle of my presentation."
+  ],
+  "vasco_f_2c": [
+   "vasco",
+   "In front of the people who are paying for the work I've wanted to do my whole life."
+  ],
+  "alan_f_monte": [
+   "alan",
+   "It's Montesdeoca. Vasco, listen to me. The discs from the cave are going into his van. One a day. He wants a hotel at Artenara, Chano says..."
+  ],
+  "narr_f_4": [
+   "narr",
+   "Vasco lifts his head."
+  ],
+  "vasco_f_chano": [
+   "vasco",
+   "Chano. [pause] The man at the kiosk."
+  ],
+  "alan_f_chano": [
+   "alan",
+   "He knows everything."
+  ],
+  "vasco_f_lottery": [
+   "vasco",
+   "He sells lottery tickets, Alan."
+  ],
+  "narr_f_5": [
+   "narr",
+   "Vasco turns round on the bed at last and looks at him. His eyes are red."
+  ],
+  "vasco_f_van": [
+   "vasco",
+   "The discs go in Ignacio's van because Ignacio paid for the new display cases and offered the van to take them down. That's all."
+  ],
+  "vasco_f_van_2": [
+   "vasco",
+   "I signed the transfer sheets myself. They're in the conservation lab in the museum's basement. You could have asked me. [pause] You could have just asked me."
+  ],
+  "narr_f_6": [
+   "narr",
+   "Alan sits up."
+  ],
+  "alan_f_else": [
+   "alan",
+   "There's something else."
+  ],
+  "vasco_f_course": [
+   "vasco",
+   "Of course there is."
+  ],
+  "alan_f_mist": [
+   "alan",
+   "On Tuesday. On the promenade. There was a mist."
+  ],
+  "narr_f_7": [
+   "narr",
+   "And he tells him. All of it, in the grey light, in the wrong order, too fast, the way you tell something you've been carrying for too long."
+  ],
+  "narr_f_8": [
+   "narr",
+   "The black mist coming in against the wind. The smell of the cistern. The helmet in Doña Pino's net, the fisherman drowned in his bed, the tide on the steps."
+  ],
+  "narr_f_8b": [
+   "narr",
+   "The bell in Santa Ana with his family's mark on it. The sealed letter. The fax to Inês."
+  ],
+  "narr_f_9": [
+   "narr",
+   "Vasco listens without moving. When it's done, he's quiet for a long time."
+  ],
+  "vasco_f_tuesday": [
+   "vasco",
+   "Tuesday."
+  ],
+  "alan_f_vasco": [
+   "alan",
+   "Vasco..."
+  ],
+  "vasco_f_tuesday_2": [
+   "vasco",
+   "You saw it on Tuesday. You stood next to me on the promenade, and you smelled the thing that nearly killed you in that cistern, and you said sunburn."
+  ],
+  "narr_f_10": [
+   "narr",
+   "He laughs: a short, terrible laugh with no air in it."
+  ],
+  "vasco_f_sunburn": [
+   "vasco",
+   "Sunburn. [pause] And then you went to bed with me."
+  ],
+  "alan_f_spoil": [
+   "alan",
+   "Your week. Your cave. You were so happy, Vasco. You were lit up. I've never seen you like that."
+  ],
+  "alan_f_spoil_2": [
+   "alan",
+   "I didn't want to walk in with my ghosts and turn it into a week about me."
+  ],
+  "vasco_f_eighty": [
+   "vasco",
+   "So instead you made it about you in front of eighty people."
+  ],
+  "narr_f_11": [
+   "narr",
+   "Alan opens his mouth, and closes it."
+  ],
+  "narr_f_12": [
+   "narr",
+   "Vasco gets up and goes to the window, and stands with his back to the room, looking out at the dark sea. In his shorts, with his shoulders hunched, he looks much older than thirty-nine, and much younger."
+  ],
+  "vasco_f_coffee": [
+   "vasco",
+   "I make the coffee and I put it by the bed, and I wait for you to decide whether you're staying. Every single morning."
+  ],
+  "vasco_f_coffee_2": [
+   "vasco",
+   "I can see you deciding. You wake up, and you look at the coffee, and you look at me, and I can see you thinking: is this the day I go?"
+  ],
+  "vasco_f_true": [
+   "vasco",
+   "It's true. You know it's true."
+  ],
+  "narr_f_13": [
+   "narr",
+   "He turns round."
+  ],
+  "vasco_f_true_2": [
+   "vasco",
+   "And I've never said anything. Because I thought, he'll stop. He'll get used to it. One morning he'll wake up and just drink the coffee."
+  ],
+  "vasco_f_true_3": [
+   "vasco",
+   "And every time you go off on your own and keep something from me, and handle it, the way you always handle things, on your own, so you never have to need anybody..."
+  ],
+  "vasco_f_true_4": [
+   "vasco",
+   "I think: that's him packing. That's him getting ready to leave."
+  ],
+  "vasco_f_know": [
+   "vasco",
+   "You don't know that. You've never known that."
+  ],
+  "narr_f_14": [
+   "narr",
+   "The room is getting lighter. Below the window a lorry goes by on the promenade with a load of wooden pallets for the bonfires."
+  ],
+  "narr_f_15": [
+   "narr",
+   "Vasco sits down on the chair by the window, heavily, as if his legs have stopped holding him up."
+  ],
+  "vasco_f_tell": [
+   "vasco",
+   "I'm going to tell you something. I should have told you in January, before I moved in. I didn't, because I was ashamed."
+  ],
+  "vasco_f_lorenzo_1b": [
+   "vasco",
+   "He was restoring a church in Trastevere, and I was writing about the same church, and we met on the scaffolding."
+  ],
+  "narr_f_smile": [
+   "narr",
+   "He almost smiles."
+  ],
+  "vasco_f_lorenzo_2b": [
+   "vasco",
+   "He'd say, whenever you're ready. Whenever you're ready, Vasco, I'll be here."
+  ],
+  "narr_f_16": [
+   "narr",
+   "He looks down at his hands."
+  ],
+  "vasco_f_lorenzo_flat": [
+   "vasco",
+   "And then one day I was ready. Or nearly. He'd found a flat for us. Two rooms over a bakery, with a terrace where you could see the dome of Saint Peter's."
+  ],
+  "vasco_f_lorenzo_4": [
+   "vasco",
+   "He took me to see it. He'd already bought a coffee pot."
+  ],
+  "narr_f_17": [
+   "narr",
+   "His voice catches, and he waits until it doesn't."
+  ],
+  "vasco_f_lorenzo_5": [
+   "vasco",
+   "And I went home that night, and packed my bags, and took the night train to Lisbon. I didn't tell him. I didn't leave a note. I didn't call."
+  ],
+  "vasco_f_lorenzo_6": [
+   "vasco",
+   "I was so frightened of wanting something that much that I ran away from it in the middle of the night, like a thief."
+  ],
+  "vasco_f_lorenzo_7": [
+   "vasco",
+   "And I hid in the Church for nine years, because the Church was the one place he couldn't follow me."
+  ],
+  "narr_f_fan": [
+   "narr",
+   "The fan goes round."
+  ],
+  "narr_f_18": [
+   "narr",
+   "He looks up at Alan. His eyes are wet, and very steady."
+  ],
+  "vasco_f_lorenzo_8": [
+   "vasco",
+   "And I won't be left by a man who's scared. Not again. Not by you. [pause] I'd rather go first."
+  ],
+  "narr_f_19": [
+   "narr",
+   "Outside, a horn sounds. Twice."
+  ],
+  "narr_f_20": [
+   "narr",
+   "Vasco dresses quickly, in his field clothes: the dusty trousers, the shirt, the boots. Notebook, water bottle, hat. Alan sits on the bed and watches him, and can't think of a single word."
+  ],
+  "narr_f_21": [
+   "narr",
+   "At the door, Vasco stops. He doesn't turn round."
+  ],
+  "vasco_f_leave_2": [
+   "vasco",
+   "Then you should go home, Alan. Go back to Lisbon. There's a flight on Sunday. Go and be safe."
+  ],
+  "alan_f_you": [
+   "alan",
+   "And you?"
+  ],
+  "vasco_f_needed": [
+   "vasco",
+   "I'm needed here."
+  ],
+  "narr_f_22": [
+   "narr",
+   "Alan listens to the footsteps going down the corridor. The lift sneezing. The street door, the Land Rover's door, the engine, and the Land Rover pulling away along the promenade in the grey dawn, towards the mountains."
+  ],
+  "narr_f_23": [
+   "narr",
+   "On the bedside table, Vasco's cup from yesterday morning is still standing where he left it, a ring of dried coffee in the bottom."
+  ],
+  "narr_f_24": [
+   "narr",
+   "There is no coffee by the bed this morning."
+  ],
+  "narr_f_wall_1": [
+   "narr",
+   "He doesn't go to La Isleta. He doesn't go to the cathedral, or the phone box. He goes and sits on the sea wall."
+  ],
+  "narr_f_wall_2": [
+   "narr",
+   "The longest day of the year. On the solstice the sun seems to stand still in the sky: sol stitium, the sun standing. Somewhere above the grey lid of the panza, it's standing still."
+  ],
+  "narr_f_wall_3": [
+   "narr",
+   "And he feels exactly the same. As if something has stopped. As if the world is holding its breath, waiting to see which way it will turn."
+  ],
+  "narr_f_wall_4": [
+   "narr",
+   "The tide comes up the steps, one higher than yesterday. Nobody is filming it."
+  ],
+  "narr_f_wall_5": [
+   "narr",
+   "The bonfire on the beach is nearly finished: three times the height of a man, pallets and broken chairs and old doors and dried palm fronds, with a straw figure tied to the top in a hat."
+  ],
+  "narr_f_wall_5b": [
+   "narr",
+   "Along the beach there are others, getting smaller into the distance, like the teeth of a comb."
+  ],
+  "narr_f_wall_6": [
+   "narr",
+   "He sits there for most of the day. He thinks about Lorenzo, whom he has never met, standing in an empty flat in Rome with a new coffee pot, waiting for someone who has already got on a train."
+  ],
+  "narr_f_wall_7": [
+   "narr",
+   "He thinks about the coffee by the bed. About the fact that Vasco was right. That's the worst of it. Every morning for eight months, Alan has looked at the coffee and wondered whether this was the day."
+  ],
+  "narr_f_wall_8": [
+   "narr",
+   "Not because he wanted to go. Because he was so frightened of how much he wanted to stay. And Vasco saw it, every single morning. And made the coffee anyway."
+  ],
+  "narr_f_chano_1": [
+   "narr",
+   "In the afternoon Chano comes out of his kiosk with two bottles of beer, sits down on the wall beside him, hands him one, and says nothing at all for twenty minutes. For Chano, a kind of miracle."
+  ],
+  "chano_f_1": [
+   "chano",
+   "El doctor left early this morning."
+  ],
+  "alan_f_chano_1": [
+   "alan",
+   "Yes."
+  ],
+  "chano_f_2": [
+   "chano",
+   "With a face."
+  ],
+  "alan_f_chano_2": [
+   "alan",
+   "Yes."
+  ],
+  "narr_f_chano_2": [
+   "narr",
+   "Chano nods slowly. He drinks his beer and looks at the sea."
+  ],
+  "chano_f_3": [
+   "chano",
+   "My wife left me once. Nineteen seventy-nine. Three weeks. She went to her sister's in Telde."
+  ],
+  "alan_f_chano_3": [
+   "alan",
+   "What did you do?"
+  ],
+  "chano_f_4": [
+   "chano",
+   "I went to Telde, hombre. What do you think?"
+  ],
+  "narr_f_chano_3": [
+   "narr",
+   "He finishes his beer and stands up."
+  ],
+  "chano_f_5": [
+   "chano",
+   "She's still angry about it. Seventeen years. She says I took too long."
+  ],
+  "narr_f_chano_4": [
+   "narr",
+   "He goes back to his kiosk."
+  ],
+  "alan_f_wall_end": [
+   "alan",
+   "Carmen. [pause] Carmen will be rude to me. That's something to do."
+  ],
+  "narr_f_arch_1": [
+   "narr",
+   "She was at the dinner. She saw everything. He waits for the sunglasses to come down."
+  ],
+  "narr_f_arch_2": [
+   "narr",
+   "They don't. She gets up, goes to a camping stove under the PROHIBIDO FUMAR sign, makes two small cups of coffee in a battered pot, and puts one in front of him."
+  ],
+  "alan_f_carmen_1b": [
+   "alan",
+   "Everyone hears everything here."
+  ],
+  "carmen_f_island": [
+   "carmen",
+   "It's an island. [pause] What do you want, Señor Sanches?"
+  ],
+  "narr_f_arch_3": [
+   "narr",
+   "She's quiet for a moment. Then she takes an envelope of photographs from a drawer and spreads them on the desk between them."
+  ],
+  "narr_f_arch_3b": [
+   "narr",
+   "Cave 6. The round dome. The triangles, hundreds of them, cut into the walls. The slot in the roof. A blade of light lying on the stone."
+  ],
+  "carmen_f_beam_2": [
+   "carmen",
+   "Through the triangles. Touching them one after another, the whole summer long. At the solstice it reaches the biggest one, at the back."
+  ],
+  "narr_f_arch_4": [
+   "narr",
+   "She touches it in the photograph, lightly, with one nicotine-stained finger."
+  ],
+  "alan_f_carmen_and": [
+   "alan",
+   "And you?"
+  ],
+  "carmen_f_sentence": [
+   "carmen",
+   "She thought the whole thing was a sentence, and the light was reading it out loud, every day, so it stayed true."
+  ],
+  "alan_f_carmen_friend": [
+   "alan",
+   "Your friend?"
+  ],
+  "carmen_f_dead": [
+   "carmen",
+   "She's dead."
+  ],
+  "narr_f_arch_5": [
+   "narr",
+   "Carmen gathers the photographs up again, quickly, and puts them back in the envelope."
+  ],
+  "carmen_f_san_juan_2": [
+   "carmen",
+   "El sol stands still for three days, and on the fourth morning it turns back. The Canarios knew it. The Church knew it. Rejón knew it when he planted his flag."
+  ],
+  "narr_f_arch_6": [
+   "narr",
+   "She shuts the drawer."
+  ],
+  "carmen_f_san_juan_3": [
+   "carmen",
+   "Everybody on la isla has always known that morning matters. Nobody remembers why."
+  ],
+  "alan_f_carmen_why": [
+   "alan",
+   "Matters how? What happens if the light doesn't stay on its path?"
+  ],
+  "narr_f_arch_7": [
+   "narr",
+   "She looks at him then. Properly. And Alan sees, for the first time, that she's frightened."
+  ],
+  "alan_ask_carmen_dinner": [
+   "alan",
+   "You saw his face. At the dinner."
+  ],
+  "carmen_f_dinner": [
+   "carmen",
+   "I saw. [pause] The face of a man hit by somebody he loves. It's a particular face. I wore it for a year, in my marriage."
+  ],
+  "carmen_f_dinner_2": [
+   "carmen",
+   "It doesn't last, hombre. It's the other face you want to worry about. The one that stops minding."
+  ],
+  "narr_f_dusk_1": [
+   "narr",
+   "Back on the sea wall, late in the afternoon, he thinks about Artenara. The mountain. The long white road going up through the cloud. He could hire a car. He could be there in two hours."
+  ],
+  "alan_f_dusk_1": [
+   "alan",
+   "And say what?"
+  ],
+  "alan_f_dusk_2": [
+   "alan",
+   "I'm sorry. I'm scared. I'm scared of the sea and I'm scared of you. [pause] And I'm much more scared of you."
+  ],
+  "narr_f_dusk_2": [
+   "narr",
+   "He doesn't hire a car."
+  ],
+  "narr_f_dusk_3": [
+   "narr",
+   "The sun goes down at nine. He can't see it go, under the panza, but he feels it: the grey light going dull, then bruised, then orange as the streetlights come on along the promenade."
+  ],
+  "narr_f_dusk_4": [
+   "narr",
+   "And then, out on the water, past the reef, the black line. It comes in against the wind, as it did on Tuesday, low and oily and slow. But faster tonight. Thicker."
+  ],
+  "narr_f_dusk_5": [
+   "narr",
+   "It doesn't stop at the waterline. It comes up over the sand, between the unlit bonfires, curling round their bases like smoke round the legs of a table, and up over the first step, and the second."
+  ],
+  "narr_f_dusk_6": [
+   "narr",
+   "People are noticing now. A dog barks and pulls away. Some teenagers on the wall stand up, laugh nervously, and move further along. A waiter comes out of the café, looks at it, crosses himself, and goes back in."
+  ],
+  "narr_f_dusk_7": [
+   "narr",
+   "'Panza,' says a woman going past, to her husband, in the voice of someone who has lived through forty Junes. 'It's just the panza, coming down low.'"
+  ],
+  "narr_f_dusk_8": [
+   "narr",
+   "It isn't the panza. The panza is above them, grey and high and still, where it always is. This is underneath it."
+  ],
+  "narr_f_dusk_9": [
+   "narr",
+   "The smell comes up the steps. Alan doesn't decide to stand up. He finds he's standing, and then walking, fast, away from the sea. Not running. Not quite."
+  ],
+  "narr_f_walk_1": [
+   "narr",
+   "He walks for a long time. Through Triana, past the shuttered shops and the people eating late at pavement tables. Over the dry bed of the Guiniguada on the big road bridge."
+  ],
+  "narr_f_walk_2": [
+   "narr",
+   "Into Vegueta, the old town, the cobbled streets round the cathedral, where the houses lean together over his head and the iron lamps make yellow pools on the stones, and every corner has a candle burning in a little shrine."
+  ],
+  "narr_f_walk_3": [
+   "narr",
+   "He doesn't know where he's going. That's the point. It's the night the sun stands still, and he wants, very badly, for one night, to be someone who has nothing to lose."
+  ],
+  "narr_f_walk_4": [
+   "narr",
+   "At the bottom of a narrow street behind the cathedral there's a bar with its doors open, and music coming out of it, and warm yellow light, and laughter. He goes in."
+  ],
+  "narr_bar_2": [
+   "narr",
+   "One long narrow room under dark beams. Every inch of wall is faces: portraits in charcoal and ink and watercolour, pinned up and overlapping. Old men with cigarettes. Fishermen. Children. A dog in a hat."
+  ],
+  "narr_bar_3": [
+   "narr",
+   "At the far end, dominoes slapped down as if they'd insulted somebody. A radio singing about a woman who went to Venezuela and never came back. It smells of rum and coffee and the sea."
+  ],
+  "narr_bar_4": [
+   "narr",
+   "And there's no mist in here at all."
+  ],
+  "alan_look_portraits": [
+   "alan",
+   "Hundreds of faces, quick and loose, one on top of another. Whoever did these looks at people properly. [pause] I'm not sure I'd want him looking at me."
+  ],
+  "narr_rafa_1": [
+   "narr",
+   "The barman is young, lean and brown, with dark curls pushed back as if he's forgotten about them. A cobalt shirt open over a white vest, a pencil behind his ear, a towel on his shoulder. His fingers are smudged black."
+  ],
+  "narr_rafa_2": [
+   "narr",
+   "He finishes his sentence and comes down the bar, smiling: a wide, easy smile, the kind that doesn't ask anything."
+  ],
+  "rafa_2b": [
+   "rafa",
+   "Ron. Local. It's terrible. You'll love it."
+  ],
+  "narr_rafa_3": [
+   "narr",
+   "It's terrible. Sweet and rough, burnt sugar and wood, and it goes down his throat like a lit match. He loves it."
+  ],
+  "narr_rafa_4": [
+   "narr",
+   "The barman laughs, pours another, and leans on the counter."
+  ],
+  "alan_rafa_3": [
+   "alan",
+   "Portuguese. With an American mother. It's complicated."
+  ],
+  "rafa_5": [
+   "rafa",
+   "Everything's complicated, hombre. Drink your rum."
+  ],
+  "rafa_paint_2": [
+   "rafa",
+   "Madrid, one day. Art school, when I've saved enough. [pause] I've been saying that for seven years. I think I like it here too much."
+  ],
+  "rafa_paint_3": [
+   "rafa",
+   "By the door. Where I can see you come in."
+  ],
+  "alan_rafa_flatter": [
+   "alan",
+   "Careful. I'm very easily flattered after two rums."
+  ],
+  "narr_rafa_light": [
+   "narr",
+   "He searches for the word, gives up, and makes a shape in the air with his blackened fingers."
+  ],
+  "rafa_island_2": [
+   "rafa",
+   "Here it's alive."
+  ],
+  "rafa_island_3": [
+   "rafa",
+   "That's the panza. That's not the light. The light's above it. You have to go up to see it. [pause] Have you been up?"
+  ],
+  "alan_rafa_island_2": [
+   "alan",
+   "No. [pause] Not yet."
+  ],
+  "narr_rafa_draw": [
+   "narr",
+   "He doesn't look down at the napkin. He looks at Alan, and talks, and laughs, and the pencil moves on the paper by itself, quickly, lightly, like something with its own mind."
+  ],
+  "narr_napkin": [
+   "narr",
+   "He turns the napkin round. It's Alan: three quarters, chin on hand, at the counter. A dozen lines, no more. And somehow exactly him."
+  ],
+  "narr_napkin_2": [
+   "narr",
+   "Not the face he checks in the mirror for grey. The face he has tonight: tired and amused and, somewhere far back behind the eyes, frightened."
+  ],
+  "narr_rafa_touch": [
+   "narr",
+   "Someone at the tables calls for Rafa. He goes up the bar, and touches Alan's shoulder as he passes, very lightly, and Alan feels it all the way down his arm, and doesn't hear anything else at all."
+  ],
+  "narr_yeray_talk": [
+   "narr",
+   "He turns back to his beer and goes on talking to it, low and fast, as if Alan had never asked."
+  ],
+  "yeray_bar_6": [
+   "yeray",
+   "...and I keep saying sí, doctor, the lab, and I can't look at him... if I say anything I lose everything, he's been like a father..."
+  ],
+  "narr_yeray_talk_2": [
+   "narr",
+   "He's already looking back down the bar, at Rafa's hands."
+  ],
+  "narr_leave_1": [
+   "narr",
+   "The first time he tries to leave is at eleven."
+  ],
+  "alan_leave_1": [
+   "alan",
+   "I should go."
+  ],
+  "rafa_leave_1": [
+   "rafa",
+   "Already? You've only had three. Nobody leaves after three. It's bad luck."
+  ],
+  "rafa_leave_1b": [
+   "rafa",
+   "It's like leaving a story in the middle."
+  ],
+  "alan_leave_1b": [
+   "alan",
+   "I have to be up early."
+  ],
+  "rafa_leave_1c": [
+   "rafa",
+   "Why?"
+  ],
+  "narr_leave_1b": [
+   "narr",
+   "And Alan stands there with his money on the counter, and can't think of a single reason. Nobody needs him up early. Nobody is waiting for him. There's no coffee by the bed."
+  ],
+  "narr_leave_2": [
+   "narr",
+   "The second time is at midnight."
+  ],
+  "alan_leave_2": [
+   "alan",
+   "Rafa. Have you got a telephone?"
+  ],
+  "narr_leave_2b": [
+   "narr",
+   "Rafa puts an old black telephone with a coin box on the counter. Alan feeds it most of his change and calls the museum, which is closed, and then the night number, which is a security guard who has obviously been asleep."
+  ],
+  "alan_leave_2b": [
+   "alan",
+   "Is there any way to reach the dig at Risco Caído? The camp has a radio. Could the museum radio the camp?"
+  ],
+  "narr_leave_2c": [
+   "narr",
+   "The guard goes away for a long time."
+  ],
+  "guard_f_1": [
+   "guard",
+   "Nada, señor. No answer from the camp. The radio must be switched off. Perhaps they're all asleep. It's midnight."
+  ],
+  "guard_f_2": [
+   "guard",
+   "Is it an emergency?"
+  ],
+  "narr_leave_2d": [
+   "narr",
+   "Alan stands by the counter with the receiver in his hand. Is it an emergency?"
+  ],
+  "alan_leave_2c": [
+   "alan",
+   "No. [pause] No. It can wait."
+  ],
+  "narr_leave_2e": [
+   "narr",
+   "Rafa pours him another rum without being asked, and doesn't say anything, and that's somehow worse and better than anything he could have said."
+  ],
+  "narr_yeray_go_1": [
+   "narr",
+   "The boy at the end of the bar leaves at about one. On his way to the door he stops and looks at Alan, unsteady, as if he's trying to remember where he's seen him before."
+  ],
+  "narr_yeray_go_2": [
+   "narr",
+   "A nice face, Alan thinks, vaguely. An unhappy face. Then he's gone into the street."
+  ],
+  "rafa_yeray_1": [
+   "rafa",
+   "Yeray. He's on the dig, up at Artenara. He comes down when he can't stand it."
+  ],
+  "rafa_yeray_2": [
+   "rafa",
+   "He's got a lot on his mind, pobrecito."
+  ],
+  "narr_yeray_go_3": [
+   "narr",
+   "Alan should have asked. Later he'll think about this moment more than any of the others. The dig at Artenara? What's on his mind?"
+  ],
+  "alan_yeray_3": [
+   "alan",
+   "Hasn't everyone."
+  ],
+  "narr_yeray_go_4": [
+   "narr",
+   "Rafa looks at him for a moment. Then he picks up the napkin he was drawing on while Yeray talked, turns it over, draws something on the back, and puts it in his pocket."
+  ],
+  "alan_stay_napkin": [
+   "alan",
+   "Not yet. He's been drawing all night, and he hasn't drawn me. [pause] I'm a little offended."
+  ],
+  "narr_leave_3": [
+   "narr",
+   "The third time is at two, when the domino players have gone, and the radio is off, and Rafa is putting the chairs up on the tables."
+  ],
+  "alan_leave_3": [
+   "alan",
+   "I should go."
+  ],
+  "narr_q_1": [
+   "narr",
+   "Rafa puts the last chair up and comes round the end of the bar, wiping his hands on the towel, and stands in front of Alan, very close. He has to tilt his head back a little to look at him. He does, and smiles."
+  ],
+  "narr_q_2": [
+   "narr",
+   "They stand there in the empty bar, under the hundreds of painted faces."
+  ],
+  "rafa_upstairs": [
+   "rafa",
+   "My studio's upstairs. I've got café. Real café. Not the terrible ron."
+  ],
+  "narr_q_3": [
+   "narr",
+   "Alan doesn't move. And then Rafa asks it, simply, lightly, the way you'd ask someone the time, not looking away. He's asked it before. He's the kind of man who asks."
+  ],
+  "narr_q_4": [
+   "narr",
+   "The bar is very quiet."
+  ],
+  "narr_q_5": [
+   "narr",
+   "Alan thinks of a man asleep in a hotel room with one arm thrown across his chest. He thinks of the coffee by the bed. Of two small conditions, said quietly in a kitchen in Lisbon in January, as if they were nothing."
+  ],
+  "narr_q_6": [
+   "narr",
+   "Tell me first. Not after. And never to settle a fight."
+  ],
+  "narr_q_7": [
+   "narr",
+   "He thinks: he told me to go home. He thinks: he's not even answering his radio."
+  ],
+  "narr_q_8": [
+   "narr",
+   "He thinks: I'm thirty-eight years old, and I have never once stayed anywhere long enough to be left, and I'm not going to start tonight."
+  ],
+  "narr_q_9": [
+   "narr",
+   "And then, because some part of him still wants to be caught, still wants Rafa to hear it, he says it again, quieter, with a pause in front of it that anyone could have heard."
+  ],
+  "narr_q_10": [
+   "narr",
+   "Rafa looks at him for a long moment, with his head a little on one side, the way he looked at Yeray."
+  ],
+  "narr_q_11": [
+   "narr",
+   "Then he takes the pencil from behind his ear and puts it in his pocket, and takes Alan's hand in his blackened fingers, and leads him to the stairs."
+  ],
+  "narr_rafa_night_2": [
+   "narr",
+   "Rafa doesn't make the coffee."
+  ],
+  "narr_rafa_night_3": [
+   "narr",
+   "It's nothing like the hotel. Nothing familiar, nothing known. For an hour, in the hot dark under the roof, with Santa Ana striking the quarters, Alan is twenty-three again, and there's nothing he can lose."
+  ],
+  "narr_rafa_night_4": [
+   "narr",
+   "It's wonderful. That's the worst of it. He'd hoped, somewhere, that it would be terrible. It isn't. It's warm and real and generous and kind."
+  ],
+  "narr_rafa_night_5": [
+   "narr",
+   "Afterwards Rafa falls asleep almost at once, sprawled across the mattress like a cat in the sun. Alan lies on his back and looks at the ceiling."
+  ],
+  "narr_rafa_night_6": [
+   "narr",
+   "Through the open window, the bells of Santa Ana strike three. His family's bell among them, with his family's mark on it."
+  ],
+  "narr_rafa_night_7": [
+   "narr",
+   "The sound goes on in the dark long after the striking stops, the way a bell does, humming, remembering, and it seems to be asking him something, over and over, in a language he has always understood and always pretended not to."
+  ],
+  "narr_rafa_night_8": [
+   "narr",
+   "He doesn't answer it."
+  ],
+  "narr_agustin_1": [
+   "narr",
+   "On the other side of the city, in a flat in Guanarteme two streets back from Las Canteras, a retired lifeguard called Agustín Ramos is asleep in his armchair in front of the television."
+  ],
+  "narr_agustin_2": [
+   "narr",
+   "Forty years on Las Canteras. More than two hundred people pulled out of the sea, and never one lost. There's a plaque about it at the town hall."
+  ],
+  "narr_agustin_3": [
+   "narr",
+   "What the plaque doesn't say is that in August 1958 a rip at the north end of the beach took him out past the reef and held him under, until an old man in a rowing boat got an oar to him, and then a hand."
+  ],
+  "narr_agustin_4": [
+   "narr",
+   "He has spent the rest of his life paying the sea back, one swimmer at a time."
+  ],
+  "narr_agustin_5": [
+   "narr",
+   "At three o'clock the late western on the television dissolves into grey static, and the static begins to make a sound. He knows it before he's awake: waves at the north end of Las Canteras, on a calm afternoon, past the reef."
+  ],
+  "narr_agustin_6": [
+   "narr",
+   "The carpet is wet round his slippers. Then his ankles are wet. He doesn't try to get up. He has always known, if he's honest, that this was a loan, not a gift."
+  ],
+  "narr_agustin_7": [
+   "narr",
+   "'Thirty-eight years,' he says to the sea, quite calmly. 'You were patient. I'll give you that.'"
+  ]
+ },
+ "removed": [
+  "alan_rafa_napkin_2",
+  "rafa_after_lie"
+ ],
+ "emotions": {
+  "mischievous": [
+   "alan_rafa_flatter"
+  ],
+  "sadness": [
+   "alan_f_alone"
+  ]
+ },
+ "core_changes": "Nothing is required outside fri.js for Friday to play. Optional, in files I may not edit:\n1. core.js S.NOTES, a notebook entry for the fight (insert before the cave_explained entry):\n    [f => f.fight_done, 'Fri. Vasco has gone up the mountain till Monday. He told me about Lorenzo, the man he left in Rome. \"I won\\'t be left by a man who\\'s scared.\" The discs go to the museum\\'s lab, he says; he signed the sheets. He said go home: there\\'s a flight on Sunday.'],\n2. core.js S.tideStep: on Friday it returns 3, so the Promenade steps look says \"Third step\" (alan_look_steps_3), while the novel has the tide on the fourth step on Friday (and fri.js's sea-wall narration now says only \"one higher than yesterday\"). If the novel's count is wanted: S.tideStep = () => Math.max(0, Math.min(6, (F().ch || 1) + (F().ch >= 5 ? 0 : 0))) ... i.e. ch rather than ch-1 from Wednesday; left to whoever owns tue.js/core.js, since every day's step line would shift.\n3. core.js S.hint, case 4: 'ines_hint_fri_night' can no longer be reached (after Carmen, Friday goes straight on to the dusk and the bar); harmless, can stay.\n4. js/story/emotions.js: 'alan_f_4' is tagged anger; its text is now \"That's not true.\" (still fits). Add the two tags in \"emotions\" below (alan_rafa_flatter mischievous, alan_f_alone sadness) if wanted.\n5. The rafa_bar map pin (core.js, \"Vegueta · a bar on Calle Mendizábal\"): the novel's bar has no name and no street; the pin is never seen now (Alan walks there from the dusk scene and the bar's door stays locked), so it can stay.",
+ "play_route": "  // ---- Friday\n  // (the fight plays on its own; the first visit to Las Canteras is the sea wall and Chano; after Carmen's talk the dusk,\n  // the mist and the walk into Vegueta play on their own and end in the bar; each try at the door is a scene)\n  await go('canteras'); await act('Phone box', 'use'); await act('chano', 'talk', null, ['Coronas']);\n  await go('museum_hall'); await act('Archive stairs', 'exit'); await act('carmen', 'talk');\n  await expect('how the cave works', () => Game.flags.cave_explained);\n  await expect('the walk into Vegueta', () => Game.room.id === 'rafa_bar' && Game.flags.dusk_fri);\n  await act('rafa', 'talk'); await act('rafa', 'talk', null, ['pencil']);\n  await expect('the napkin', () => Game.has('napkin'));\n  await act('Door', 'exit'); await act('Door', 'exit');\n  await expect('Yeray gone, unheard', () => Game.flags.yeray_left);\n  await page.evaluate(() => { window.__choices = ['No.']; }); await act('Door', 'exit');\n  await page.waitForFunction(() => Game.flags.ch === 5, null, { timeout: 30000 });\n  await expect('Saturday in the studio', () => Game.room.id === 'rafa_studio');",
+ "notes": "Friday rewritten from Chapters Four and Five, scene by scene in the novel's order, keeping the novel's lines.\n- The fight (hotel room, plays on waking): five in the morning, the lift sneezing; \"Through to Monday\"; Vasco answers the van (Ignacio paid for the cases, the transfer sheets, \"You could have just asked me\" - the red herring answered); Alan tells him about the mist at last; \"you said sunburn... and then you went to bed with me\"; one choice for Alan's answer (the novel's \"I didn't want to spoil it for you\" first; a deflection; a joke), tone only; the coffee by the bed; Lorenzo told in full (the Gregorian, the scaffolding in Trastevere, the flat over the bakery, the coffee pot, the night train, nine years in the Church); \"I won't be left by a man who's scared. I'd rather go first.\"; the horn; the still_fight at the door (\"go home... a flight on Sunday\" / \"I'm needed here\"); the Land Rover going; the dried cup; \"There is no coffee by the bed this morning.\"\n- The sea wall (first visit to Las Canteras after the fight; fri.js chains ROOMS.canteras.enter after tue.js/wed.js): sol stitium, the tide, the bonfire with the straw figure, Lorenzo's coffee pot, the coffee by the bed; Chano's two beers and Telde. The phone box (Inês's Friday call, lines touched up) and the Coronas stay as before.\n- Carmen's coffee (archive; toll first, carmen_cigs_thanks_4 rewritten to lead into it): the camping stove, the deputy minister and the mummy's necklace, \"It's an island\", \"Not the story. The stone.\", the photographs, the light walking the triangles, \"A friend of mine thought they were arrows\", the sentence read aloud, \"She's dead.\", Las Palmas founded on Saint John's day, the fourth morning; Alan asks the obvious next question (rule 2) and gets \"the lock is weakest the morning el sol turns back\"; \"Go home, Señor Sanches. Before Sunday.\" Then optional topics (Elena?, Sunday, a new one on Vasco's face at the dinner).\n- Dusk and the walk (forced, right after Carmen; the map pin for the bar is never needed): the car he doesn't hire (\"And say what?\"), the sun going down at nine, the mist thicker than Tuesday's up the first steps (canteras mist raised to 0.85 while it plays, by wrapping S.mistNow in fri.js), the dog, the teenagers, the waiter crossing himself, \"It's just the panza\", Alan walking inland; Triana, the Guiniguada, Vegueta's shrines, the bar's open door - narrated on black with footsteps.\n- The bar: arrival (no name, the faces, dominoes, Venezuela song, no mist); new hotspot \"The faces on the walls\"; Rafa's first talk is the novel's (\"a man who needs rum... or a priest\", \"Ron. Local. It's terrible. You'll love it.\", \"Portuguese. With an American mother.\"); topics: the paintings and the tax and Madrid (with one flirt from Alan), the light above the panza (\"Have you been up?\" \"Not yet.\"), the pencil and the napkin (\"That's not fair.\" \"Drawing's never fair.\"), another rum. Yeray's half-sentences come from the novel and are spread over the topics and his own talk; Alan never hears them.\n- Three tries to leave, each a scene started from the door (the door's lockedLine returns the first narrator line and queues the rest under G.busy; the engine plays one voice at a time): eleven (\"Nobody leaves after three... like leaving a story in the middle\", no coffee by the bed, \"One more\"); midnight (Rafa's telephone, the museum's night guard - speaker 'guard' - \"Is it an emergency?\" \"It can wait\", \"He's not even answering his radio\"), then Yeray leaves (hidden from the room after), Rafa: \"He's on the dig... pobrecito\", Alan doesn't ask (\"Hasn't everyone.\"), Rafa draws on the back of Yeray's napkin and pockets it (sets up Saturday's sketchbook); two o'clock (needs the napkin: \"Me too\", the studio upstairs, \"Is there someone?\", the two conditions, his three thoughts, \"No.\" then, if picked, the second \"...No.\").\n- The studio (still_rafa_night, or black in Discreet): the novel's night, told without anything explicit; the bells of Santa Ana strike three, \"his family's bell among them\"; \"He doesn't answer it.\" No change needed in sat.js.\n- Agustín Ramos (new, rule 9): a cutscene on black (there is no still for it; a still_agustin card would be the art to add), ending on his last line, read by the narrator as a quotation because he has no speaker (\"'Thirty-eight years,' he says to the sea, quite calmly. 'You were patient. I'll give you that.'\"). If a voice for Agustín is wanted later, it's a new speaker (an old Canarian man, Spanish accent, calm).\n- Unsure: the fight runs about 75 lines (the novel's longest scene; split for captions). carmen_cigs_thanks_4 lives in wed.js's toll; if the Wednesday agent also rewrote it, prefer mine for Friday's lead-in (\"Coronas. Even today. Bueno.\"). Removed ids are only alan_rafa_napkin_2 and rafa_after_lie (grep: used nowhere else)."
+}

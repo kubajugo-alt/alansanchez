@@ -27,7 +27,7 @@
       // Montesdeoca's van: the red herring, answered
       await say('alan_f_monte', 'narr_f_4', 'vasco_f_chano', 'alan_f_chano', 'vasco_f_lottery', 'narr_f_5', 'vasco_f_van', 'vasco_f_van_2');
       // the mist, told at last
-      await say('narr_f_6', 'alan_f_else', 'vasco_f_course', 'alan_f_mist', 'narr_f_7', 'narr_f_8', 'narr_f_9');
+      await say('narr_f_6', 'alan_f_else', 'vasco_f_course', 'alan_f_mist', 'narr_f_7', 'narr_f_8', 'narr_f_8b', 'narr_f_9');
       await say('vasco_f_tuesday', 'alan_f_vasco', 'vasco_f_tuesday_2', 'narr_f_10', 'vasco_f_sunburn');
       await G.dialog([
         { line: 'alan_f_choice_c', run: () => say('vasco_f_3c', 'alan_f_spoil', 'alan_f_spoil_2', 'vasco_f_eighty'), bye: true },
@@ -57,20 +57,20 @@
   };
 
   // ---------------------------------------------------------------- the sea wall: all day, and Chano with two beers
-  // (on the first visit to Las Canteras after the fight; tue.js's own arrival is kept, not replaced)
+  // (on the first visit to Las Canteras after the fight; the enter of tue.js and wed.js is chained, not replaced)
   const canterasEnter = ROOMS.canteras.enter;
   ROOMS.canteras.enter = async function (entry) {
+    if (canterasEnter) await canterasEnter.call(this, entry);
     const f = F();
-    if (f.ch === 4 && f.fight_done && !f.wall_fri) { f.wall_fri = true; return S.seaWall(); }
-    if (canterasEnter) return canterasEnter.call(this, entry);
+    if (f.ch === 4 && f.fight_done && !f.wall_fri) { f.wall_fri = true; await S.seaWall(); }
   };
   S.seaWall = async function () {
     await G.fade(true);
-    const p = G.player; p.x = 380; p.y = 660; p.dir = 'w';
+    const p = G.player; p.x = 360; p.y = 660; p.dir = 'w';   // (on the wall by the kiosk, Chano beside him)
     await G.fade(false);
     await say('narr_f_wall_1', 'narr_f_wall_2', 'narr_f_wall_3');
     S.sfx('water_lap', 0.3);
-    await say('narr_f_wall_4', 'narr_f_wall_5', 'narr_f_wall_6', 'narr_f_wall_7', 'narr_f_wall_8');
+    await say('narr_f_wall_4', 'narr_f_wall_5', 'narr_f_wall_5b', 'narr_f_wall_6', 'narr_f_wall_7', 'narr_f_wall_8');
     S.sfx('glass_set', 0.4);
     await say('narr_f_chano_1', 'chano_f_1', 'alan_f_chano_1', 'chano_f_2', 'alan_f_chano_2', 'narr_f_chano_2',
       'chano_f_3', 'alan_f_chano_3', 'chano_f_4', 'narr_f_chano_3', 'chano_f_5', 'narr_f_chano_4');
@@ -88,7 +88,7 @@
       S.sfx('coffee_cups', 0.5);
       await say('carmen_f_1', 'alan_f_carmen_1', 'carmen_f_coffee', 'alan_f_carmen_1b', 'carmen_f_island', 'alan_f_carmen_2');
       S.sfx('paper_shuffle', 0.5);
-      await say('narr_f_arch_3', 'carmen_f_beam', 'carmen_f_beam_2', 'narr_f_arch_4', 'carmen_f_triangles', 'alan_f_carmen_and',
+      await say('narr_f_arch_3', 'narr_f_arch_3b', 'carmen_f_beam', 'carmen_f_beam_2', 'narr_f_arch_4', 'carmen_f_triangles', 'alan_f_carmen_and',
         'carmen_f_discs', 'carmen_f_sentence', 'alan_f_carmen_friend', 'carmen_f_dead', 'narr_f_arch_5');
       await say('carmen_f_san_juan', 'carmen_f_san_juan_2');
       S.sfx('drawer_open', 0.4);
@@ -116,7 +116,7 @@
     f.dusk_fri = true;
     await G.busy(async () => {
       await G.fade(true);
-      await G.goRoom('canteras', null, { instant: true, noEnter: true, noSave: true, pos: [960, 640, 'n'] });
+      await G.goRoom('canteras', null, { instant: true, noEnter: true, noSave: true, pos: [700, 615, 'n'] });   // (at the rail, facing the sea)
       await G.fade(false);
       await say('narr_f_dusk_1', 'alan_f_dusk_1', 'alan_f_dusk_2', 'narr_f_dusk_2', 'narr_f_dusk_3');
       S.sfx('crash_wave', 0.35); f.dusk_mist = true;
@@ -125,7 +125,7 @@
       await say('narr_f_dusk_6', 'narr_f_dusk_7', 'narr_f_dusk_8');
       S.sfx('water_lap', 0.35);
       await say('narr_f_dusk_9');
-      await G.player.walkTo(1080, 690);
+      await G.player.walkTo(30, 670);   // (inland: the way to the city)
       await G.fade(true);
       S.sfx('step_cobble', 0.4);
       await say('narr_f_walk_1', 'narr_f_walk_2');

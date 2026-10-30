@@ -1,0 +1,906 @@
+{
+ "changed": {
+  "alan_w_wake": [
+   "alan",
+   "Up the mountain, into the sun. Down here it's grey, and I have a whole day and nothing to do with it but worry."
+  ],
+  "alan_look_vnote": [
+   "alan",
+   "'Coffee by the bed. It's terrible. Go and see the island. V.' [pause] He put a kiss and crossed it out and put it back."
+  ],
+  "alan_look_nets_wed": [
+   "alan",
+   "Something in the net the colour of dried blood. A helmet. A conquistador's helmet, in a fishing net."
+  ],
+  "alan_look_finds_2": [
+   "alan",
+   "A clay pot, a cannonball grown over with orange coral, an iron bolt and the helmet. Five hundred years down there. All of it coming up this week."
+  ],
+  "alan_w_pino_1": [
+   "alan",
+   "That's old."
+  ],
+  "pino_w_2": [
+   "pino",
+   "Fourteen seventy-eight. The year the Castilians came. My grandson took one like it to el museo last week, and they told him."
+  ],
+  "alan_w_pino_2": [
+   "alan",
+   "Why?"
+  ],
+  "pino_w_3": [
+   "pino",
+   "Because it's looking for something. When you lose something, you empty your pockets."
+  ],
+  "pino_w_1": [
+   "pino",
+   "Pino. Doña Pino, to you. That's Lolo. He doesn't talk."
+  ],
+  "pino_w_again": [
+   "pino",
+   "Go on, Portuguese. Go and look at something dry. La catedral. [pause] I'll keep the helmet. Somebody should."
+  ],
+  "alan_look_dogs": [
+   "alan",
+   "Eight bronze dogs, life-sized. Nobody has ever been able to explain them to me. The islands were named for dogs, apparently. Canis."
+  ],
+  "alan_look_clock_stopped": [
+   "alan",
+   "The cathedral clock. Stopped. Every so often something up there grinds, and catches, and gives up. I know the feeling."
+  ],
+  "alan_w_fermin_1": [
+   "alan",
+   "It's stuck."
+  ],
+  "fermin_w_1": [
+   "fermin",
+   "It has been stuck since Sunday. The man who winds it is in hospital with his gallbladder."
+  ],
+  "fermin_w_2": [
+   "fermin",
+   "The man who replaces the man who winds it is on holiday in Fuerteventura. The bishop says, Fermín, wind it yourself."
+  ],
+  "alan_offer_wind": [
+   "alan",
+   "I could try. Let me wind it."
+  ],
+  "alan_ask_fermin_clock": [
+   "alan",
+   "What's wrong with it?"
+  ],
+  "fermin_clock_1": [
+   "fermin",
+   "Old age. Something inside it has slipped. It grinds, it catches, and then nada. Like me on the stairs."
+  ],
+  "fermin_bells": [
+   "fermin",
+   "Four. The big one, the north one, is the oldest. Cast in 1751. My grandfather never liked to talk about her."
+  ],
+  "fermin_founders": [
+   "fermin",
+   "That they went up to Artenara for a month, and came back quiet. And one of them came back white as a candle, and never said why."
+  ],
+  "fermin_key_right": [
+   "fermin",
+   "That one. Go up, señor. I'll come behind you. [pause] Slowly. If I die on the stairs, finish the clock first."
+  ],
+  "fermin_belfry_wind": [
+   "fermin",
+   "The clock, señor. There, sulking. I'll sit here and die quietly while you work."
+  ],
+  "fermin_belfry_look": [
+   "fermin",
+   "Look at la campana, señor. The north one. Look at her waist."
+  ],
+  "alan_look_drum": [
+   "alan",
+   "The clock: a great black box of wheels and ratchets, two chains down through the floor to the weights. Something in there has slipped a tooth. I can hear it."
+  ],
+  "alan_look_drum_wound": [
+   "alan",
+   "Ticking. Slowly, like a heart starting. My left hand paid for it."
+  ],
+  "alan_drum_again": [
+   "alan",
+   "It's going. I'm leaving it alone. Clocks are like cats: they prefer it when you stop helping."
+  ],
+  "fermin_founder_hands": [
+   "fermin",
+   "Founder's hands."
+  ],
+  "alan_w_hands": [
+   "alan",
+   "What?"
+  ],
+  "fermin_name": [
+   "fermin",
+   "You have founder's hands. My grandfather said you could always tell. The men who make bells understand the things that hang."
+  ],
+  "alan_w_name": [
+   "alan",
+   "Sanches. Alan Sanches."
+  ],
+  "fermin_bell_show": [
+   "fermin",
+   "Come. Look at her waist. Where the shadow is."
+  ],
+  "alan_look_bell_mark": [
+   "alan",
+   "The S between two bells. And round it, a ring of tiny letters. [pause] Sanches me fez. Lisboa. 1751."
+  ],
+  "fermin_letter_1": [
+   "fermin",
+   "They left this. With my family. 'For the next founder who comes.' That's what it says on the outside."
+  ],
+  "fermin_letter_2": [
+   "fermin",
+   "Two hundred and forty-five years we've kept it. My father said, Fermín, nobody will ever come. [pause] My father was wrong about many things."
+  ],
+  "fermin_belfry_again": [
+   "fermin",
+   "Do. Before I die on the stairs. [pause] And mind the third step on the way down, señor."
+  ],
+  "alan_w_letter": [
+   "alan",
+   "One word in four I can read. Inês can read all of them. [pause] Inês needs a fax machine."
+  ],
+  "alan_fax_letter": [
+   "alan",
+   "And this. Eight pages, both sides, carefully. On the cover sheet: 'Inês. Sorry. Can you read this? It's urgent. A.'"
+  ],
+  "nieves_fax_one": [
+   "nieves",
+   "Sent, señor. At hotel prices, I hope it was a love letter."
+  ],
+  "nieves_fax_both": [
+   "nieves",
+   "All sent, señor. Lisbon has already replied: one word, 'OBRIGADA', in capitals. It did not look grateful."
+  ],
+  "nieves_fax_done": [
+   "nieves",
+   "That has already gone, señor. Twice would be extravagant, even for a Portuguese."
+  ],
+  "alan_call_wed_1": [
+   "alan",
+   "Inês. There's a bell in the cathedral here with our mark on it. 'Sanches me fez.' 1751."
+  ],
+  "ines_call_wed_1": [
+   "ines",
+   "Seventeen fifty-one. [pause] Four years before Lisbon, Alan."
+  ],
+  "alan_call_wed_2": [
+   "alan",
+   "And a letter. The founders left it with the sacristan's family, sealed. 'For the next founder who comes.' Nobody came for two hundred and forty-five years."
+  ],
+  "ines_call_wed_2": [
+   "ines",
+   "Until you. [pause] What does it say?"
+  ],
+  "ines_hint_wed_done": [
+   "ines",
+   "Go back to the hotel, Alan. Wait up for him. [pause] And tell him."
+  ],
+  "alan_look_van": [
+   "alan",
+   "MONTESDEOCA HOTELES S.A., in gold, on a van at the side door. Long flat crates going in, each with a sheet stapled to it."
+  ],
+  "montesdeoca_w_1": [
+   "montesdeoca",
+   "¡Hombre! The Portuguese, without my jacket! Brown already, look. Yesterday a lobster, today a nice prawn. The ladies like a prawn."
+  ],
+  "alan_w_monte_1": [
+   "alan",
+   "Only the ladies? [pause] Shame. What's going in the van, Don Ignacio?"
+  ],
+  "montesdeoca_w_2": [
+   "montesdeoca",
+   "Cases, hombre. Display cases. German glass, steel, the best. My gift to el museo."
+  ],
+  "alan_look_disclist": [
+   "alan",
+   "The list on the board. 'Removed for conservation.' One a day, the dates typed in already, blank spaces waiting. Initialled R. B."
+  ],
+  "carmen_cigs_thanks_2": [
+   "carmen",
+   "Coronas. Gracias. [pause] That buys you the chair. Not the conversation."
+  ],
+  "carmen_w_1": [
+   "carmen",
+   "No."
+  ],
+  "alan_w_carmen_1": [
+   "alan",
+   "Last night on the beach there was a mist. A black mist. It came in off the sea against the wind."
+  ],
+  "alan_w_carmen_2": [
+   "alan",
+   "It smelled of salt, and of something old. I've smelled it before, in Lisbon. And when I smelled it there, people died."
+  ],
+  "carmen_w_2": [
+   "carmen",
+   "It's June. It's the panza de burro. Every June the cloud comes down, and the tourists see shapes in it."
+  ],
+  "carmen_w_3": [
+   "carmen",
+   "Go to la playa, Señor Sanches. Swim. In the daytime. Go and buy your boyfriend a present. It's a beautiful island. Enjoy it."
+  ],
+  "carmen_w_galindo": [
+   "carmen",
+   "Abreu Galindo, fifteen-nineties. If you want to understand this island, start with the people it belonged to."
+  ],
+  "carmen_w_again": [
+   "carmen",
+   "Read the book, Señor Sanches. Then come back. [pause] With Coronas."
+  ],
+  "chano_gossip_2": [
+   "chano",
+   "You want to see the real Las Palmas, go to La Isleta. The tourists don't go. The fishermen are still there. My mother's family is from there. They'll rob you, hombre, but honestly."
+  ],
+  "gail_w_1": [
+   "gail",
+   "Ooh, look at you, love. Brown as a conker overnight. Derek, why don't you go brown like that? [pause] Don't answer."
+  ],
+  "alan_w_done": [
+   "alan",
+   "A helmet from the conquest, discs leaving a cave one a day, our mark on a bell, and a letter nobody's opened in two hundred and forty-five years."
+  ],
+  "narr_pepe_1": [
+   "narr",
+   "On the other side of the city, in La Isleta, in a small blue house three streets back from the harbour, a fisherman called Pepe Santana went to bed at half past ten, as he had every night for fifty years."
+  ],
+  "narr_pepe_2": [
+   "narr",
+   "In the morning his son found him in his bed, under the dry sheets, with the window closed and the door locked, and his lungs full of the sea."
+  ]
+ },
+ "new": {
+  "narr_w_dawn_1": [
+   "narr",
+   "Vasco left at dawn."
+  ],
+  "narr_w_dawn_2": [
+   "narr",
+   "Alan half woke to the sound of him moving around the room in the grey light, trying to be quiet and failing, the way tall men always fail: a knee against the bedside table, a whispered curse in Portuguese, a boot dropped."
+  ],
+  "narr_w_dawn_3": [
+   "narr",
+   "Then a hand on his hair, and a kiss on the side of his head that smelled of toothpaste and sun cream."
+  ],
+  "vasco_w_dawn_1": [
+   "vasco",
+   "Coffee's by the bed. It's terrible. It's from the machine in the lobby. Nieves made me promise not to tell anyone it exists."
+  ],
+  "alan_w_dawn_1": [
+   "alan",
+   "Mm."
+  ],
+  "vasco_w_dawn_2": [
+   "vasco",
+   "I'll be back for dinner. Late. Go and see the island."
+  ],
+  "vasco_w_dawn_3": [
+   "vasco",
+   "Alan. [pause] Are you all right? Last night, on the promenade. You looked like you'd seen a ghost."
+  ],
+  "narr_w_dawn_4": [
+   "narr",
+   "This was the moment. Alan lay with his eyes closed and the hand on his hair, and felt the words rising in him, ready. I did see a ghost. It's the thing from the cistern, and it's here, and I'm frightened."
+  ],
+  "alan_w_dawn_3": [
+   "alan",
+   "Sunburn. [pause] I'm delicate."
+  ],
+  "narr_w_dawn_5": [
+   "narr",
+   "Vasco laughed softly, and the hand went away, and the door closed."
+  ],
+  "narr_w_dawn_6": [
+   "narr",
+   "Alan lay in the grey light and listened to the Land Rover start in the street below, and pull away, and fade into the sound of the sea."
+  ],
+  "narr_w_dawn_7": [
+   "narr",
+   "Then he drank the terrible coffee, which was terrible, and went to see the island."
+  ],
+  "narr_w_isleta_1": [
+   "narr",
+   "La Isleta was a lump of old volcanic rock on the end of the city, joined to the rest of it by a thin neck of sand, with the port on one side and the open ocean on the other."
+  ],
+  "narr_w_isleta_2": [
+   "narr",
+   "Narrow streets of low square houses in faded blues and pinks and greens, washing on every roof, a dog asleep in every doorway; and at the bottom, a little harbour of wooden boats. Virgen del Carmen. Dos Hermanos. Esperanza."
+  ],
+  "narr_w_isleta_3": [
+   "narr",
+   "The air smelled of diesel and fish and frying oil. On the quay, under the grey panza, an old woman was sorting a net, and beside her, on an upturned fish crate, a thin old man in a flat cap was mending the same net."
+  ],
+  "narr_w_pino_1": [
+   "narr",
+   "She was pulling things out of the net and laying them on the quay. Not fish. A clay pot furred with weed. An iron ball grown a skin of orange coral. A short, thick bolt of iron. And a helmet."
+  ],
+  "narr_w_pino_2": [
+   "narr",
+   "A soldier's helmet, the old kind, with a ridge over the top like a cockerel's crest, so corroded it had gone the colour of dried blood. Weed hung from it. A small crab was living in it."
+  ],
+  "narr_w_pino_3": [
+   "narr",
+   "The old woman looked up at him. Her eyes were very black and very sharp."
+  ],
+  "pino_w_2b": [
+   "pino",
+   "Five hundred years in el mar, and it comes up in my net on a Tuesday."
+  ],
+  "narr_w_pino_4": [
+   "narr",
+   "She tipped the crab gently out of the helmet and back into the harbour."
+  ],
+  "pino_w_2c": [
+   "pino",
+   "Every day this week. Every day, something. Cannonballs. Crossbow bolts. Pots. A sword on Saturday, all in one piece. [pause] The sea's emptying its pockets."
+  ],
+  "narr_w_pino_5": [
+   "narr",
+   "The old man on the crate took the cigarette out of his mouth, looked at it, and put it back in."
+  ],
+  "lolo_w_talk": [
+   "lolo",
+   "I talk."
+  ],
+  "pino_w_tourists": [
+   "pino",
+   "He doesn't talk to tourists."
+  ],
+  "alan_w_pino_3": [
+   "alan",
+   "I'm not a tourist. I'm Portuguese."
+  ],
+  "narr_w_pino_6": [
+   "narr",
+   "Doña Pino looked at him for a long moment: at his face, and at his trousers, which he had sewn up badly with the hotel sewing kit."
+  ],
+  "pino_w_worse": [
+   "pino",
+   "That's worse. The Portuguese think they own el mar."
+  ],
+  "pino_w_pretty": [
+   "pino",
+   "Pretty, though. Lolo, mira. A pretty one. [pause] Pity about the trousers."
+  ],
+  "alan_w_pino_shy": [
+   "alan",
+   "Thank you. I think. [pause] The trousers have had a very difficult week."
+  ],
+  "narr_w_pino_7": [
+   "narr",
+   "But she was almost smiling. She held up the helmet and turned it in her hands, and looked into it as if it were a bowl of water she could read."
+  ],
+  "pino_w_memory_1": [
+   "pino",
+   "You know what the old people said here, when I was a girl? They said the sea has a memory."
+  ],
+  "pino_w_memory_2": [
+   "pino",
+   "It never forgets anything it's taken. [pause] And it never forgets anything that was taken back from it."
+  ],
+  "narr_w_pino_8": [
+   "narr",
+   "She set the helmet down on the quay, very carefully, as if it might still have a head in it."
+  ],
+  "pino_w_restless": [
+   "pino",
+   "It's been very quiet for a long time, the sea here. Five hundred years. Now it's restless. [pause] No me gusta. I don't like it."
+  ],
+  "alan_w_pino_4": [
+   "alan",
+   "No. [pause] Neither do I."
+  ],
+  "narr_w_pell_1": [
+   "narr",
+   "Across the harbour, a big grey salvage boat was tied up at the commercial quay, all cranes and winches, with a name painted on her stern in white letters: Atlantic Recovery. Pell Marine, Nassau."
+  ],
+  "narr_w_pell_2": [
+   "narr",
+   "Two men in orange overalls sat on her deck, smoking, watching the fishing boats. [pause] Alan didn't notice it. Nobody did."
+  ],
+  "alan_ask_pino_sword": [
+   "alan",
+   "A sword, you said? All in one piece?"
+  ],
+  "pino_w_sword": [
+   "pino",
+   "On Saturday. My grandson wanted to sell it to a German on la playa. I hit him with it. [pause] The flat side. I'm not a savage."
+  ],
+  "alan_ask_pino_lolo": [
+   "alan",
+   "Is Don Lolo your husband?"
+  ],
+  "pino_w_lolo": [
+   "pino",
+   "Fifty-five years. He mends the nets. I mend everything else."
+  ],
+  "narr_w_decide_1": [
+   "narr",
+   "Somewhere along the way, in the grey heat, with his shirt sticking to his back, Alan realised he had made up his mind."
+  ],
+  "narr_w_decide_2": [
+   "narr",
+   "He would tell Vasco tonight. Properly. He would sit him down, and pour him a drink, and say it plainly."
+  ],
+  "narr_w_decide_3": [
+   "narr",
+   "And before that he would find out what he could, so that when he said it, it would sound less like a man who was frightened of the sea, and more like a man who knew something."
+  ],
+  "narr_w_decide_4": [
+   "narr",
+   "It was the kind of decision that felt brave at the time."
+  ],
+  "narr_w_plaza_1": [
+   "narr",
+   "He went to the cathedral, because cathedrals were where bells were, and bells, in Alan's experience, were where trouble was."
+  ],
+  "narr_w_plaza_2": [
+   "narr",
+   "Santa Ana stood on its own square in Vegueta, a great grey stone front with two square towers, facing a long plaza of palms and cobbles and, for reasons nobody could ever explain to him, eight life-sized bronze dogs."
+  ],
+  "narr_w_open_1": [
+   "narr",
+   "He opened it in the plaza, on the edge of a fountain between two of the bronze dogs, with his skinned hand stinging."
+  ],
+  "narr_w_open_2": [
+   "narr",
+   "Four sheets of thick paper, covered on both sides in a small, cramped, brown hand, faded at the folds almost to nothing. Portuguese, but the Portuguese of two and a half centuries ago."
+  ],
+  "alan_w_open_1": [
+   "alan",
+   "Aos que vierem depois de nós. [pause] To those who come after us."
+  ],
+  "narr_w_open_3": [
+   "narr",
+   "And further down, a word that made the back of his neck go cold despite the heat. Mar. The Sea. With a capital letter."
+  ],
+  "narr_w_nave_2": [
+   "narr",
+   "A few old women were praying. A few tourists were reading their guidebooks in whispers. And somewhere above him, a clock was failing to strike."
+  ],
+  "narr_w_nave_3": [
+   "narr",
+   "A very small, very old man in a long black coat was glaring up at the noise through glasses as thick as the bottoms of bottles, holding an iron ring the size of a dinner plate, hung with at least forty keys."
+  ],
+  "narr_w_fermin_2": [
+   "narr",
+   "The old man turned the glasses on him."
+  ],
+  "fermin_w_3": [
+   "fermin",
+   "Fermín is seventy-six years old and has a heart like a broken accordion. [pause] The bishop is not seventy-six."
+  ],
+  "fermin_w_clocks": [
+   "fermin",
+   "You know clocks?"
+  ],
+  "alan_w_bells": [
+   "alan",
+   "I know bells. My family made them. A long time ago."
+  ],
+  "narr_w_fermin_3": [
+   "narr",
+   "Alan heard himself say it, and was surprised."
+  ],
+  "narr_w_fermin_4": [
+   "narr",
+   "The old man looked at him for a long moment through the glasses. Then he held out the ring of keys."
+  ],
+  "narr_w_belfry_1": [
+   "narr",
+   "The bell chamber was at the top of a hundred and twelve stone steps, which Don Fermín climbed behind him one at a time, stopping on every landing to tell Alan that he would die on the next one."
+  ],
+  "fermin_w_landing": [
+   "fermin",
+   "Not this one. [pause] The next one, señor. Tell the bishop."
+  ],
+  "narr_w_belfry_2": [
+   "narr",
+   "It was a square stone room open to the sky through tall arches, with black beams overhead and pigeon feathers everywhere. Below lay the old town, and beyond it the grey sea, under the flat grey lid of the panza."
+  ],
+  "narr_w_belfry_3": [
+   "narr",
+   "In the middle of the room hung the clock, a great black box of wheels and ratchets on a cradle of iron and oak. And beyond it, in the largest of the arches, the bells."
+  ],
+  "narr_w_clock_1": [
+   "narr",
+   "It took him twenty minutes, a great deal of swearing, and most of the skin on his left hand."
+  ],
+  "narr_w_clock_2": [
+   "narr",
+   "Something in the escapement had slipped a tooth. When he eased it back, the whole black box shuddered, and sighed, and began to tick again, slowly, like a heart starting."
+  ],
+  "alan_w_clock": [
+   "alan",
+   "There. [pause] I'd like my skin back, but there."
+  ],
+  "narr_w_clock_3": [
+   "narr",
+   "Don Fermín, getting his breath back on a wooden chest in the corner, took off his glasses and polished them."
+  ],
+  "fermin_w_yourname": [
+   "fermin",
+   "What did you say your name was?"
+  ],
+  "narr_w_still": [
+   "narr",
+   "The old man was very still for a moment. Then he got up off the chest, slowly, and went to the largest of the bells, and beckoned."
+  ],
+  "narr_w_bell_1": [
+   "narr",
+   "It was a big bell, bigger than a man, dark bronze gone green at the lip. Round its shoulder ran a band of raised letters, and below that, almost hidden in the shadow of the waist, a small cast mark."
+  ],
+  "narr_w_bell_2": [
+   "narr",
+   "Sanches made me. He had seen that mark on a bell in Lisbon, at the bottom of a flooded tower, eight months ago. On the frontispiece of his grandfather's books. In his dreams."
+  ],
+  "narr_w_bell_3": [
+   "narr",
+   "He put his hand on the bronze. It was cold, and it hummed faintly under his palm, the way bells always do, as if remembering the last time they were struck."
+  ],
+  "alan_look_bell_mark_2": [
+   "alan",
+   "Sanches me fez. [pause] I keep looking at it as if it might change its mind."
+  ],
+  "fermin_founders_1": [
+   "fermin",
+   "The founders came from Lisbon, señor. In seventeen fifty-one. On a ship, with their tools in the hold, to make a bell for Santa Ana. A gift, they said."
+  ],
+  "fermin_founders_2": [
+   "fermin",
+   "They cast her here, with their own hands. And then they went up into the mountains for a month."
+  ],
+  "fermin_founders_3": [
+   "fermin",
+   "My grandfather's grandfather was sacristan then. He wrote it down. He said it was the strangest thing."
+  ],
+  "fermin_founders_4": [
+   "fermin",
+   "Bell founders, from Lisbon. [pause] And they came to look at the mountain, not el mar."
+  ],
+  "alan_w_founders_q": [
+   "alan",
+   "What were they looking for?"
+  ],
+  "narr_w_chest": [
+   "narr",
+   "Don Fermín didn't answer at once. He lifted the lid of the chest and rummaged among old vestments and candle stubs and a broken crucifix, and came up with a flat packet of oilcloth, tied with a faded cord and sealed with black wax."
+  ],
+  "narr_w_chest_2": [
+   "narr",
+   "Pressed into the wax was the same mark."
+  ],
+  "narr_w_letter_take": [
+   "narr",
+   "Alan took it. It was light, and dry, and it felt heavier than the bell."
+  ],
+  "alan_w_fermin_thanks": [
+   "alan",
+   "I'll come back and tell you what it says. When I know."
+  ],
+  "narr_w_van_1": [
+   "narr",
+   "It was the middle of the afternoon when he got to the museum, and the place was full of crates."
+  ],
+  "narr_w_van_2": [
+   "narr",
+   "A big white van was backed up to the side door, MONTESDEOCA HOTELES S.A. on its side in gold letters, and two men in overalls were loading long, flat, heavy crates into it from a trolley."
+  ],
+  "narr_w_van_3": [
+   "narr",
+   "Each crate had a sheet of paper stapled to its side. Alan slowed down as he passed, and read the nearest."
+  ],
+  "alan_w_crate_1": [
+   "alan",
+   "'Conservation transfer. Risco Caído, Cave 6.' [pause] 'Obsidian disc, polished, two of seven. Removed for conservation. Nineteenth of June.'"
+  ],
+  "alan_w_crate_2": [
+   "alan",
+   "And under it, a line for every day this week. The dates typed in already. Blank spaces, waiting."
+  ],
+  "narr_w_van_4": [
+   "narr",
+   "One a day."
+  ],
+  "narr_w_van_5": [
+   "narr",
+   "The man with the trolley saw him reading and moved between him and the crate, not unfriendly, but firmly. 'Display cases,' he said. 'New ones. From Don Ignacio. A gift for the museum.'"
+  ],
+  "alan_w_crate_3": [
+   "alan",
+   "And the discs?"
+  ],
+  "narr_w_van_6": [
+   "narr",
+   "The man shrugged. 'I just carry them.'"
+  ],
+  "alan_w_monte_2": [
+   "alan",
+   "And the discs from the cave?"
+  ],
+  "montesdeoca_w_3": [
+   "montesdeoca",
+   "Rayco's little stones? Ask Rayco. He takes things out of holes. I put hotels in them. ¡Ja!"
+  ],
+  "narr_w_arch_1": [
+   "narr",
+   "The archive was in the basement: a long low room under a vaulted ceiling, grey metal shelving from floor to ceiling, grey cardboard boxes, and the smell of dust and old paper and cigarette smoke."
+  ],
+  "narr_w_arch_2": [
+   "narr",
+   "There was a large sign on the wall that said PROHIBIDO FUMAR. Carmen was sitting under it, smoking, at a desk buried in files, with an ashtray that had not been emptied since the Franco era."
+  ],
+  "narr_w_carmen_1": [
+   "narr",
+   "She looked at him, and lowered the sunglasses from her head to the end of her nose."
+  ],
+  "alan_w_carmen_0": [
+   "alan",
+   "I haven't asked anything."
+  ],
+  "carmen_w_no2": [
+   "carmen",
+   "You were going to."
+  ],
+  "alan_w_carmen_discs": [
+   "alan",
+   "The discs from the cave. The obsidian ones. There's a list upstairs. One a day, every day. Why?"
+  ],
+  "carmen_w_cons": [
+   "carmen",
+   "Conservation."
+  ],
+  "alan_w_carmen_cons": [
+   "alan",
+   "Of what? They've been there five hundred years."
+  ],
+  "carmen_w_cons2": [
+   "carmen",
+   "That's why they need conserving."
+  ],
+  "narr_w_carmen_2": [
+   "narr",
+   "She went back to her file."
+  ],
+  "alan_w_carmen_name": [
+   "alan",
+   "Carmen."
+  ],
+  "narr_w_carmen_3": [
+   "narr",
+   "He sat down on the edge of her desk, which she clearly hated."
+  ],
+  "narr_w_carmen_4": [
+   "narr",
+   "She didn't look up from the file. But her hand, holding the pen, had stopped moving."
+  ],
+  "alan_w_carmen_helmet": [
+   "alan",
+   "And today I watched an old woman in La Isleta pull a conquistador's helmet out of her net. She says the sea's been giving things back all week."
+  ],
+  "alan_w_carmen_cave": [
+   "alan",
+   "And at the same time, somebody is taking the cave apart, one piece a day, and calling it conservation."
+  ],
+  "narr_w_carmen_5": [
+   "narr",
+   "Carmen put the pen down."
+  ],
+  "carmen_w_june2": [
+   "carmen",
+   "Every June the fishermen pull up junk, because the currents change. Every June someone comes into my archive with a theory."
+  ],
+  "narr_w_carmen_6": [
+   "narr",
+   "She stubbed her cigarette out, too hard."
+  ],
+  "narr_w_carmen_7": [
+   "narr",
+   "She said it too fast. She was already turning her whole chair round to the shelves, so that by the time she finished she had her back to him, and was pulling down a box she didn't need."
+  ],
+  "narr_w_carmen_8": [
+   "narr",
+   "On the corner of her desk, under the ashtray, a photograph in a cheap plastic frame lay face down. He didn't touch it."
+  ],
+  "alan_w_carmen_thanks": [
+   "alan",
+   "Thank you."
+  ],
+  "carmen_w_senor": [
+   "carmen",
+   "Señor Sanches."
+  ],
+  "narr_w_carmen_9": [
+   "narr",
+   "Without turning round, she took a thick old book off the shelf and held it out behind her at arm's length, the way you'd hand someone something you didn't want to be seen giving."
+  ],
+  "carmen_w_galindo2": [
+   "carmen",
+   "Read the part about the harimaguadas. [pause] And bring it back. It's the archive's copy. If you get sand in it, I'll have you deported."
+  ],
+  "narr_w_carmen_10": [
+   "narr",
+   "When he had gone, Carmen Trujillo sat with her back to the door for a long time. Then she turned round and righted the photograph: two women on a mountain, squinting into the sun, one with a pencil through her hair."
+  ],
+  "narr_w_carmen_11": [
+   "narr",
+   "At home, on the table by the door, there was an answering machine with a message on it that she had listened to only once, on the morning of the twenty-second of December, and had never been able to erase."
+  ],
+  "narr_w_carmen_12": [
+   "narr",
+   "It's a door, Carmen. And someone's opening it."
+  ],
+  "narr_w_carmen_13": [
+   "narr",
+   "She lit another cigarette. It took her three tries."
+  ],
+  "narr_w_chano_1": [
+   "narr",
+   "Chano was waiting for him at the kiosk with a newspaper and a theory."
+  ],
+  "chano_w_th_1": [
+   "chano",
+   "You've been to el museo. You saw Montesdeoca's van."
+  ],
+  "alan_w_chano_1": [
+   "alan",
+   "How do you..."
+  ],
+  "chano_w_th_2": [
+   "chano",
+   "Everyone saw Montesdeoca's van. Montesdeoca's van is very big."
+  ],
+  "chano_w_th_3": [
+   "chano",
+   "You know what he wants? A hotel in Artenara. A big one. Guanche-themed. With a cave restaurant, and waiters in goatskins, hombre."
+  ],
+  "chano_w_th_4": [
+   "chano",
+   "And the only thing in his way is that dig. If the cave's important, he can't build. But if somebody proves the cave's not important..."
+  ],
+  "narr_w_chano_2": [
+   "narr",
+   "He let it hang in the air, and sold a woman a lottery ticket."
+  ],
+  "narr_w_chano_3": [
+   "narr",
+   "Alan thought about a man in a white guayabera with a gold watch and a cigar he wasn't allowed to light, nodding along as Vasco explained the light, as if he understood every word."
+  ],
+  "narr_w_chano_4": [
+   "narr",
+   "It made sense. It was neat. It was the kind of explanation that a man who was frightened of something much larger would very much like to be true."
+  ],
+  "alan_call_wed_3": [
+   "alan",
+   "One word in four. 'Lock'. 'Mountain'. 'Water'. And 'Mar', with a capital M."
+  ],
+  "ines_call_wed_3": [
+   "ines",
+   "Fax it. Every page, both sides, and draw me the mark. I'll be up all night with Bastos's dictionary."
+  ],
+  "alan_call_wed_4": [
+   "alan",
+   "Your thesis."
+  ],
+  "ines_call_wed_4": [
+   "ines",
+   "My thesis can wait. It's about the dead. They're patient."
+  ],
+  "alan_call_wed_5": [
+   "alan",
+   "Inês. I haven't told him yet."
+  ],
+  "ines_call_wed_5": [
+   "ines",
+   "Alan. [pause] Then tell him tonight. Not when it's convenient. Tonight."
+  ],
+  "alan_w_done_2": [
+   "alan",
+   "Back to the hotel. Vasco's home tonight. [pause] And tonight I tell him."
+  ],
+  "narr_w_night_1": [
+   "narr",
+   "Vasco didn't get back until after ten."
+  ],
+  "narr_w_night_2": [
+   "narr",
+   "He came in grey with dust and exhaustion, and kissed Alan, and fell face down across the bed with his boots still on."
+  ],
+  "vasco_w_night_1": [
+   "vasco",
+   "I love it. I love it so much. [pause] My back is broken."
+  ],
+  "narr_w_night_3": [
+   "narr",
+   "Alan sat on the edge of the bed and unlaced his boots for him."
+  ],
+  "vasco_w_night_2": [
+   "vasco",
+   "They took another disc out today. Rayco's sending them all down to the city for conservation. One a day."
+  ],
+  "vasco_w_night_3": [
+   "vasco",
+   "He wants them stabilised before the public opening in the autumn. He's right, obsidian splits along the grain."
+  ],
+  "vasco_w_night_4": [
+   "vasco",
+   "But I hate it. I hate seeing the empty sockets. [pause] It's like a smile with teeth missing."
+  ],
+  "narr_w_night_4": [
+   "narr",
+   "Alan put the boots side by side on the floor. This was it. He had decided. He would say it now."
+  ],
+  "alan_w_night_1": [
+   "alan",
+   "Vasco."
+  ],
+  "narr_w_night_5": [
+   "narr",
+   "But Vasco was asleep."
+  ],
+  "narr_w_night_6": [
+   "narr",
+   "Alan sat there for a while in the light of the bedside lamp, looking at him."
+  ],
+  "narr_w_night_7": [
+   "narr",
+   "Then he took off the rest of Vasco's clothes, as gently as he could, the way you'd undress a child who'd fallen asleep in the car, and pulled the sheet over him, and turned out the light."
+  ],
+  "narr_w_night_8": [
+   "narr",
+   "Tomorrow, he thought. Tomorrow, at the dinner. After his presentation. When he's happy."
+  ],
+  "narr_w_night_9": [
+   "narr",
+   "It was the kind of decision that felt kind at the time."
+  ],
+  "narr_pepe_3": [
+   "narr",
+   "He was sixty-four. He had been at sea since he was twelve. In 1971 he had been one of the crew of a trawler called the Virgen del Pino, which went down with eleven men aboard."
+  ],
+  "narr_pepe_4": [
+   "narr",
+   "He was one of the four pulled out of the water alive the next morning, clinging to a hatch cover. He had never talked about it, and he had never once since been able to sleep with the window open."
+  ],
+  "narr_pepe_5": [
+   "narr",
+   "Tonight the window was shut, as always. The door was locked. The house was quiet and dry and warm."
+  ],
+  "narr_pepe_6": [
+   "narr",
+   "He woke at two in the morning to the smell of salt."
+  ],
+  "narr_pepe_7": [
+   "narr",
+   "He lay in the dark with his heart hammering, and heard it, as close as the pillow under his ear: the slow rush and draw of waves. Then he felt the cold, rising from the foot of the bed."
+  ],
+  "narr_pepe_8": [
+   "narr",
+   "Pepe Santana did not shout. He was a fisherman. He knew the sea, and he knew at once, with the whole of his body, that it had come back for what had been taken from it."
+  ],
+  "narr_pepe_8b": [
+   "narr",
+   "Twenty-five years ago, on a cold morning, a fishing boat had hauled him out of the water by his collar."
+  ],
+  "narr_pepe_9": [
+   "narr",
+   "He only said, very quietly, into the dark: 'Ah. There you are.'"
+  ]
+ },
+ "removed": [],
+ "emotions": {
+  "embarrassed": [
+   "alan_w_pino_shy"
+  ],
+  "mischievous": [
+   "alan_w_monte_1"
+  ]
+ },
+ "core_changes": "1. js/story/core.js, S.callWed (line ~257), replace with the longer call (the novel has the fax's cover note; the call carries Inês's 'tell him'):\n  S.callWed = () => say('alan_call_wed_1', 'ines_call_wed_1', 'alan_call_wed_2', 'ines_call_wed_2', 'alan_call_wed_3', 'ines_call_wed_3', 'alan_call_wed_4', 'ines_call_wed_4', 'alan_call_wed_5', 'ines_call_wed_5');\n  (Without this the first four, re-texted, still make a call, ending on Inês's 'What does it say?'.)\n2. js/story/tue.js, S.talkMontesdeoca, the ch() === 2 line (~705), replace with:\n    if (ch() === 2) { f.herring_monte = true; return say('montesdeoca_w_1', 'alan_w_monte_1', 'montesdeoca_w_2', 'alan_w_monte_2', 'montesdeoca_w_3'); }\n  (Without it the three re-texted lines still read as a whole exchange.)\n3. js/story/emotions.js: add 'alan_w_pino_shy' to embarrassed (Doña Pino calls him pretty) and 'alan_w_monte_1' to mischievous (he flirts back at Montesdeoca). alan_look_bell_mark and alan_look_nets_wed keep 'surprise'.\n4. js/story/core.js S.NOTES, the Wednesday notes (optional, to match the new lines): saw_disc_list -> 'Wed. A Montesdeoca van at the museum loading crates. The list on them: obsidian discs out of Cave 6, one a day, the dates typed in for the whole week. Disc 2 today. \"Conservation.\"'; fermin_letter -> 'Wed. Santa Ana has a bell with our mark on it: \"Sanches me fez. Lisboa. 1751.\" The founders came \"to look at the mountain, not the sea\". They left a letter \"for the next founder who comes\": \"Aos que vierem depois de nós\". Mar, with a capital M. (Faxed to Inês.)'. And Pepe's Thursday note (core.js 'Dry floor. Wet bed.') should follow the novel's dry sheets: e.g. 'Dry sheets, window shut, door locked. Lungs full of the sea.' (Thursday's agent may already change it.)\n5. js/story/docs.js S.readInscription (optional): the novel's mark carries the words; add a line under the S between two bells: <p style=\"text-align:center;font-family:'IM Fell English',serif;font-size:0.85em\">SANCHES ME FEZ · LISBOA · 1751</p>, to match alan_look_bell_mark. S.readLetter (optional): open the fragments with 'Aos que vierem depois de nós …' (the first line Alan reads in the plaza) before 'Ao proximo fundidor que vier …'.\nNo other file needs a change: the dawn, the van, Chano's theory and the night are all in wed.js (the museum hall's, Las Canteras' and room 404's enter hooks and S.talkChano are chained there, not replaced: wed.js loads after tue.js and before thu.js, and thu.js chains the hall's enter on top).",
+ "play_route": "  // ---- Wednesday\n  // (2026-10-30, the novel's Chapter Two: Vasco leaving at dawn; Pino's helmet; Santa Ana, the clock, the bell and the letter;\n  // the fax; the van and Carmen's brush-off; Chano's theory; the day ends in room 404, Vasco asleep, then Pepe)\n  await go('isleta'); await act('pino', 'talk');\n  await go('santa_ana'); await act('Cathedral door', 'exit'); await act('fermin', 'talk', null, ['wind it', 'little brass']);\n  await act('Door to the tower', 'exit'); await act('Clock winding drum', 'use'); await act('The north bell', 'look'); await act('The north bell', null, 'notebook');\n  await act('fermin', 'talk');\n  await expect('the letter', () => Game.has('letter') && Game.has('inscription'));\n  await act('Stairs down', 'exit'); await act('Out to the plaza', 'exit');\n  await expect('the letter opened', () => Game.flags.letter_opened);\n  await go('hotel_lobby'); await act('nieves', null, 'inscription'); await act('nieves', null, 'letter');\n  await go('canteras'); await act('Phone box', 'use'); await act('chano', 'talk', null, ['Coronas']);   // (Carmen's toll)\n  await go('museum_hall');\n  await expect('the van and the list', () => Game.flags.saw_disc_list);\n  await act('Archive stairs', 'exit'); await act('carmen', 'talk');\n  await expect('Carmen, and back in the hall', () => Game.flags.carmen_wed && Game.has('galindo') && Game.room.id === 'museum_hall' && Game.flags.wed_ready);\n  await go('canteras');\n  await expect('Chano\\'s theory', () => Game.flags.chano_theory);\n  await act('Hotel Cristina', 'exit'); await act('Lifts', 'exit');\n  await expect('Thursday', () => Game.flags.ch === 3);",
+ "notes": "Wednesday follows Chapter Two scene by scene. Structure changes (all in wed.js): (a) S.startWed plays the dawn in the dark after the day card (Vasco's voice offscreen; 'Sunburn. I'm delicate.'), then the terrible coffee; S.morning itself is unchanged (Thu/Fri/Sun use it). (b) The day no longer ends the moment the six things are done: S.checkWed sets f.wed_ready and Alan says he'll tell Vasco tonight; the day ends when he goes up to room 404 (S.endWed, chained onto hotel_room.enter): Vasco home after ten, asleep before Alan can say it, then the Pepe still in the novel's words, then Thursday. f.wed_done is still set (main.js previews and the old save shape keep working). Ines's 'wed done' hint already says go back to the hotel. (c) The museum hall's first Wednesday entry plays the van and the crate list and sets saw_disc_list (the novel's reading of the list); the archive board still sets it too. (d) Carmen's scene ends with Carmen alone (photograph, the answering machine, three tries of the lighter) over black, and Alan back in the museum hall. (e) Chano's theory plays on entering Las Canteras (or talking to Chano) after the archive, once. chano_gossip_2 is now the novel's 'go to La Isleta'. (f) Santa Ana plaza: the decision ('felt brave at the time') on the first visit; with the letter, he opens it on the fountain. The nave: the clock failing to strike, Don Fermín's gallbladder/Fuerteventura/accordion; 'I know bells' before the ring of keys. The belfry: 112 steps and Fermín dying on the next landing; the slipped tooth and the skinned hand; 'Founder's hands' and the name; the mark looked at (a rub without a look shows the look first); the founders' story and the oilcloth packet from the chest (it was 'a tin behind the oldest beam'). (g) Pino: the novel's quay, the crab in the helmet, 'I talk.', 'That's worse', the sea's memory; Pell's salvage boat as narration only ('Alan didn't notice it. Nobody did.'); then a small 'Ask about' menu (the sword, Lolo; bye = alan_bye_pino, shared with Thursday). Doña Pino calls him pretty, he's embarrassed (the looks rule).\nAlso: the Thursday branch of S.talkPino now calls S.pinoMissal (thu.js, the Thursday agent's) when it exists, and falls back to the old lines otherwise (thu.js says it is 'called from wed.js S.talkPino').\nS.talkCarmen: S.carmenToll still first; only the ch 2 branch changed (now S.carmenWed); ch 3/4 still go to S.carmenLore/S.carmenCave.\nChoices I was unsure of: the novel's founders arrive 'with a bell in the hold'; the game's inscription and the bible say the bell was cast in Las Palmas, so Fermín says they came 'with their tools in the hold' and cast her here; I left out the novel's 'three of them' because the decoded fax (docs.js) is signed by four initials. The novel faxes from a copy shop in Triana; the game keeps the hotel's fax and Nieves (only the cover note is the novel's). Pepe's son finds him under dry sheets (the novel), where the old line had his wife and a soaked bed: the Thursday lines (Chano's news, Pino, the notebook) should match; the trawler's sinking is left unplaced (no 'off Africa'/'off Gando') so it agrees with whichever Thursday keeps. Gail's Wednesday line used to mention a drowning before Pepe died that night; it's now a remark on Alan's tan. Fermín's bells are four (the novel), not five.\nRemoved: none (every old Wednesday id is reused with new text; fermin_ring, fermin_key_wrong_*, fermin_clock_2, alan_rub_*, lolo_*, carmen_inscription/letter etc. kept as they were).\nCarmen, Chano, Pino, Fermín, Montesdeoca and Nieves keep a Spanish word in about a third of their sentences (el museo, el mar, la playa, mira, hombre, señor, gracias, nada, no me gusta, la campana, ¡ja!)."
+}

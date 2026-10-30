@@ -167,7 +167,7 @@
     // the founders' letter, back down from the tower: he opens it on the fountain's edge, between two of the dogs
     async enter() {
       const f = F();
-      if (ch() === 2 && !f.narr_santa_ana) { f.narr_santa_ana = true; await say('narr_w_decide_1', 'narr_w_decide_2', 'narr_w_decide_3', 'narr_w_decide_4', 'narr_w_plaza_1'); }
+      if (ch() === 2 && !f.narr_santa_ana) { f.narr_santa_ana = true; await say('narr_w_decide_1', 'narr_w_decide_2', 'narr_w_decide_3', 'narr_w_decide_4', 'narr_w_plaza_1', 'narr_w_plaza_2'); }
       if (ch() === 2 && f.fermin_letter && !f.letter_opened) {
         f.letter_opened = true;
         S.sfx('paper_shuffle', 0.4);
@@ -457,7 +457,7 @@
     const f = F();
     if (ch() !== 2 || f.wed_ready || !S.wedDone()) return;
     f.wed_ready = true;
-    await say('alan_w_done');
+    await say('alan_w_done', 'alan_w_done_2');
   };
   const roomEnter = ROOMS.hotel_room.enter;
   ROOMS.hotel_room.enter = async function (entry) {
@@ -472,16 +472,16 @@
       await G.fade(true);
       await off('narr_w_night_1', 'narr_w_night_2');
       S.sfx('bed_springs', 0.4);
-      await off('vasco_w_night_1', 'narr_w_night_3', 'vasco_w_night_2', 'vasco_w_night_3', 'vasco_w_night_4', 'narr_w_night_4', 'alan_w_night_1', 'narr_w_night_5', 'narr_w_night_6');
+      await off('vasco_w_night_1', 'narr_w_night_3', 'vasco_w_night_2', 'vasco_w_night_3', 'vasco_w_night_4', 'narr_w_night_4', 'alan_w_night_1', 'narr_w_night_5', 'narr_w_night_6', 'narr_w_night_7');
       S.sfx('lamp_click', 0.4);
-      await off('narr_w_night_7', 'narr_w_night_8', 'narr_w_night_9');
+      await off('narr_w_night_8', 'narr_w_night_9');
       // Pepe Santana (the novel's cutaway, ending on his last words)
       await S.paint('still_pepe', async () => {
         await say('narr_pepe_1', 'narr_pepe_3', 'narr_pepe_4', 'narr_pepe_5');
         S.sfx('water_lap', 0.3);
         await say('narr_pepe_6', 'narr_pepe_7');
         S.sfx('water_rise', 0.35);
-        await say('narr_pepe_8', 'narr_pepe_9');
+        await say('narr_pepe_8', 'narr_pepe_8b', 'narr_pepe_9');
         S.sfx('water_drain', 0.4); await T(900);
         await say('narr_pepe_2');
       }, { zoom: [1.0, 1.1] });

@@ -4,7 +4,7 @@
 // and Gail and Derek at their table; the plan and the suitcase; the dinner (Vasco's talk, Derek's fall), Baute's office,
 // caught in front of everyone, Vasco among them; the silent night.
 // The scenes whose rooms live elsewhere are written here and called from there: S.chanoNewsThu (the kiosk, tue.js),
-// S.pinoMissal (La Isleta, wed.js), S.gdThu (the restaurant, tue.js), S.suitcaseThu (the lobby, tue.js).
+// S.pinoMissal (La Isleta: wed.js S.talkPino already calls it), S.gdThu (the restaurant, tue.js), S.suitcaseThu (the lobby, tue.js).
 // Rooms first seen today: Casa de Colón, Baute's office.
 (function () {
   const S = window.S, { G, F, say, ROOMS, T } = S;
@@ -29,7 +29,7 @@
 
   // ---------------------------------------------------------------- La Isleta: Doña Pino's missal (called from wed.js S.talkPino)
   S.pinoMissal = async function () {
-    await say('pino_th_pepe_1', 'pino_th_pepe_1b', 'pino_th_pepe_2');
+    await say('narr_th_pino_1', 'pino_th_pepe_1', 'pino_th_pepe_1b', 'pino_th_pepe_2');
     await S.readPinoList();
     await say('narr_th_pino_2', 'pino_th_pepe_3', 'alan_th_pino_1', 'pino_th_debts', 'pino_th_debts_2', 'narr_th_pino_3', 'pino_th_know',
       'narr_th_pino_4', 'narr_th_pino_5', 'alan_th_debts');
