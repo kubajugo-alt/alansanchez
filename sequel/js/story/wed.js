@@ -99,7 +99,7 @@
       S.toMap([20, 250, 110, 320], [70, 650]),
     ],
     async enter() {
-      if (ch() === 5 && !F().isleta_flood) return S.floodScene();
+      if (ch() === 5 && F().next_known && !F().isleta_flood) return S.warnLolo();   // (puzzles.js: the warning, then the flood)
       if (ch() === 2 && !F().narr_isleta) { F().narr_isleta = true; await say('narr_w_isleta_1', 'narr_w_isleta_2', 'narr_w_isleta_3'); }
     },
     lights: [{ x: 95, y: 180, rgb: '255,214,150', kind: 'gas', seed: 2, glow: 34, ga: 0.22 }], // the lit lamp on the left quay
@@ -149,10 +149,10 @@
       ]);
       return;
     }
-    if (ch() === 5) return say('pino_s_name');
+    if (ch() === 5) return F().isleta_flood ? say('pino_s_name') : say('pino_s_lolo_hint');
     return say('pino_f_1');
   };
-  S.talkLolo = () => ch() === 5 ? say('lolo_s_2') : ch() === 4 ? say('lolo_f_1', 'alan_f_lolo', 'lolo_f_2') : say(F().lolo_met ? 'lolo_again' : (F().lolo_met = true, 'lolo_w_1'));
+  S.talkLolo = () => ch() === 5 ? S.loloRadio() : ch() === 4 ? say('lolo_f_1', 'alan_f_lolo', 'lolo_f_2') : say(F().lolo_met ? 'lolo_again' : (F().lolo_met = true, 'lolo_w_1'));
 
   // ================================================================ SANTA ANA
   ROOMS.santa_ana = S.room({

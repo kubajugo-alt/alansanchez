@@ -51,7 +51,7 @@
       entries: { default: [620, 640, 'e'], camp: [1060, 650, 'w'] },
       spots: { 'Crates': [60, 340, 150, 270], 'Walls': [0, 40, 350, 220], 'The grille': [360, 60, 490, 470], 'Left anchor': [350, 500, 60, 50],
         'Right anchor': [795, 495, 60, 55], 'The wall by the grille': [850, 150, 140, 380], 'Steps up': [1000, 80, 240, 520] },
-      npcs: { vasco: [620, 620], yeray: [930, 650] },
+      npcs: { yeray: [930, 650] },   // (Vasco: behind the bars until he's out, vasco.js; 2026-10-30)
       at: { 'Crates': [250, 650], 'Left anchor': [400, 600], 'Right anchor': [810, 600], 'The wall by the grille': [900, 620], 'Steps up': [1080, 640] },
     },
     elena_car: {

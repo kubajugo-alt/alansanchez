@@ -390,6 +390,9 @@
       } },
       { line: 'alan_ask_gossip', when: () => f.gossip_day !== ch(), run: async () => { f.gossip_day = ch(); await say('chano_gossip_' + Math.min(6, ch())); if (ch() === 2) f.herring_chano = true; } },
       { line: 'alan_ask_weather', once: true, run: () => say('chano_weather_' + Math.min(6, ch())) },
+      // Saturday (puzzles.js): the guagua to the mountain; and, with the receipt from the blazer, Tasarte
+      { line: 'alan_ask_chano_guagua', once: true, when: () => ch() === 5 && !f.knows_guagua, run: async () => { await say('chano_s_guagua'); f.knows_guagua = true; } },
+      { line: 'alan_ask_chano_tasarte', when: () => ch() === 5 && f.receipt_read && !f.tasarte_told, run: () => S.chanoTasarte(), bye: true },
       { line: 'alan_t_chacho', when: () => f.cand_note && !f.chacho, run: async () => { f.chacho = true; await say('chano_t_chacho'); } },
       // a postcard to Inês (Tuesday): bought here, written in the inventory, posted here
       { line: 'alan_ask_postcard', when: () => ch() === 1 && f.change_got && !f.postcard_got, run: async () => {

@@ -112,10 +112,16 @@ try {
   await go('isleta'); await act('pino', 'talk', null, ['Pepe']);
   await go('colon'); await act('mercedes', 'talk');
   await expect('the inquiry', () => Game.flags.inquiry_read);
+  // (2026-10-30, puzzles.js: the two tellings of 1483 on a notebook page, then folio 12 from Mercedes)
+  await quiet(); await page.evaluate(() => S.fillPage('tellings', { a: 'harimaguadas', b: 'called', c: 'magec', d: 'cueva' }));
+  await act('mercedes', 'talk', null, ['folios']);
+  await expect('the two tellings and folio 12', () => Game.flags.tellings && Game.flags.folio12);
   await go('canteras'); await act('Phone box', 'use');
-  await go('hotel_lobby', 'canteras');   // (the plan, the suitcase, the jacket again)
-  await expect('the suitcase; the dinner is due', () => Game.flags.suitcase_done && Game.flags.blazer_on && S.dinnerDue());
-  await act('To the restaurant', 'exit'); await act('seat_gail', 'talk'); await act('Back to the lobby', 'exit');   // (the tide; the invitation)
+  // (the restaurant first now: Gail's news of the contract upstairs; then the case on a page; then the lobby's suitcase)
+  await go('hotel_lobby', 'canteras'); await act('To the restaurant', 'exit'); await act('seat_gail', 'talk');   // (the tide; the invitation; the contract)
+  await quiet(); await page.evaluate(() => S.fillPage('case_thu', { a: 'montesdeoca', b: 'van', c: 'artenara_hotel', d: 'office' }));
+  await act('Back to the lobby', 'exit');   // (the plan, the suitcase, the jacket again)
+  await expect('the suitcase; the dinner is due', () => Game.flags.case_thu && Game.flags.suitcase_done && Game.flags.blazer_on && S.dinnerDue());
   await go('museum_hall'); await act('derek', 'talk', null, ['best angle']);
   await act('Dinner table', 'take'); await act('Corridor to the offices', 'exit'); await act('Desk drawer', null, 'knife');
   await expect('Friday, after the fight', () => Game.flags.ch === 4 && Game.flags.fight_done);
@@ -138,10 +144,27 @@ try {
   await act('Sketchbook', 'look'); await act('rafa', 'talk', null, ['When you asked']);
   await expect('the drawing', () => Game.has('drawing'));
   await expect('the footprint in 404', () => Game.flags.footprint_seen && Game.room.id === 'hotel_room');
+  // (2026-10-30, puzzles.js: the letter read by Alan; the call; Chano; the blazer's receipt and Tasarte; the case again;
+  // Vasco's note; Don Lolo's radio, for two island words; the tower, the hour, Baute's lie; the tide table; who's next)
+  await quiet(); await page.evaluate(() => S.fillPage('letter', { a: 'fechadura', b: 'devolvida', c: 'viragem', d: 'porta' }));
+  await act('Chest of drawers', 'look');
+  await expect('Vasco\'s note', () => Game.flags.vnote_read && Game.has('vnote'));
   await go('canteras'); await act('Phone box', 'use');
   await expect('Chano\'s news', () => Game.flags.chano_sat);
-  await go('hotel_lobby'); await act('House phone', 'use'); await act('nieves', 'talk', null, ['Has a fax']);
-  await expect('the fax, and he tried', () => Game.flags.fax_read && Game.flags.tried);
+  await quiet(); await page.evaluate(() => S.ITEMS.blazer.look()); await quiet();
+  await expect('the receipt', () => Game.flags.receipt_read);
+  await act('chano', 'talk', null, ['mountain']); await act('chano', 'talk', null, ['Tasarte']);
+  await expect('Tasarte', () => Game.flags.tasarte_told && Game.flags.knows_guagua);
+  await quiet(); await page.evaluate(() => S.fillPage('case_sat', { a: 'baute', b: 'carry', c: 'tasarte', d: 'targets' }));
+  await act('Tide table', 'look');
+  await go('hotel_lobby'); await act('nieves', 'talk', null, ['Has a fax']);
+  await expect('the fax', () => Game.flags.fax_read);
+  await go('isleta'); await act('lolo', 'talk', null, ['Chacho', 'panza']);
+  await expect('Lolo\'s radio', () => Game.has('radio_lolo'));
+  await go('santa_ana'); await act('Cathedral door', 'exit'); await act('Door to the tower', 'exit');
+  await act('Bell window', null, 'radio_lolo'); await act('Sit and wait for the hour', 'use', null, ['once a day']);
+  await expect('Baute\'s lie, and he tried', () => Game.flags.radio_lie && Game.flags.tried);
+  await quiet(); await page.evaluate(() => S.fillPage('next', { a: 'pino', b: 'isleta', c: 't1904' }));
   await go('isleta');
   await page.waitForFunction(() => Game.room && Game.room.id === 'camp' && Game.player.speaker === 'vasco', null, { timeout: 30000 });
   // ---- Vasco
@@ -151,8 +174,10 @@ try {
   await act('Your chalk marks', null, 'elena_charts'); await act('A remaining disc', 'use');
   await act('The great triangle', null, 'elena_charts'); await act('A remaining disc', null, 'clinometer');
   await expect('the angle, and out to the camp', () => Game.flags.v_understood && Game.room.id === 'camp');
-  await act('Camp radio', 'look'); await act('baute', 'talk');
-  await expect('the vault', () => Game.room.id === 'vault');
+  await act('Camp radio', 'look'); await act('Stove', 'take'); await act('Camp radio', null, 'foil');   // (the foil: the message Lolo heard)
+  await expect('the message sent', () => Game.flags.v_sent);
+  await act('baute', 'talk');
+  await expect('the vault, from inside the cell', () => Game.room.id === 'vault_cell');
   await act('Left anchor', 'use'); await act('Left anchor', 'use'); await act('Left anchor', 'use');
   await act('The wall by the grille', 'use'); await act('Right anchor', 'use');
   await act('Right anchor', 'use', null, ['airport']);
@@ -168,7 +193,10 @@ try {
   await expect('the Land Rover', () => Game.room.id === 'landrover');
   await act('The bonnet', null, 'water');
   await expect('the camp at night', () => Game.room.id === 'camp');
-  await act('Steps down to the granary', 'exit'); await act('The grille', 'use'); await act('Crates', 'take');
+  await act('Steps down to the granary', 'exit'); await act('The grille', 'use');   // (2026-10-30: one heave holds; Carmen on the handle too)
+  await act('carmen', 'talk'); await act('The grille', 'use');
+  await expect('Vasco out', () => Game.flags.vasco_free);
+  await act('Crates', 'take');
   // ---- Monday
   await expect('Monday in Cave 6', () => Game.flags.ch === 7 && Game.room.id === 'cave6');
   await act('The door in the floor', 'use');

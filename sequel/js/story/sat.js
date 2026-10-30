@@ -124,7 +124,9 @@
     S.sfx('knock', 0.5); await T(500);
     await say('narr_s_room_7');
     f.footprint_seen = true;
-    await say('alan_s_call_due');
+    // (2026-10-30) the letter first, in his own hand's language: then the call (puzzles.js)
+    if (!f.letter_read) { await say('alan_s_letter_first'); await S.openPage('letter'); }
+    if (f.letter_read) await say('alan_s_call_due');
     G.autosave();
   };
 
@@ -132,11 +134,12 @@
   // The novel's call at eleven, with the last of his change: the confession, "Tell him. Today.", the letter read down
   // the line, the pips, "Promise me you'll come h—". It ends on the dead line, with no "What now?".
   S.callSatScene = async function () {
+    // (2026-10-30: Alan has read the rules himself, puzzles.js; Inês reads him only the paragraph he couldn't: the cost)
     await say('ines_call_sat_1', 'ines_call_sat_1b', 'alan_call_sat_0', 'ines_call_sat_1c', 'narr_call_sat_1', 'alan_call_sat_1', 'alan_call_sat_1b',
       'narr_call_sat_2', 'ines_call_sat_2', 'alan_call_sat_2', 'ines_call_sat_2b', 'ines_call_sat_2c', 'alan_call_sat_2b', 'narr_call_sat_3',
       'ines_call_sat_3', 'alan_call_sat_3', 'ines_call_sat_4', 'ines_call_sat_5', 'ines_call_sat_6', 'ines_call_sat_7', 'alan_call_sat_4',
-      'ines_call_sat_8', 'ines_call_sat_9', 'ines_call_sat_10', 'narr_call_sat_5', 'ines_call_sat_11', 'ines_call_sat_12', 'ines_call_sat_13', 'ines_call_sat_14',
-      'ines_call_sat_15', 'ines_call_sat_16', 'alan_call_sat_5', 'ines_call_sat_17', 'alan_call_sat_6');
+      'alan_call_sat_read', 'ines_call_sat_you', 'alan_call_sat_rules', 'ines_call_sat_last', 'narr_call_sat_5', 'ines_call_sat_11', 'ines_call_sat_12',
+      'ines_call_sat_16', 'alan_call_sat_5', 'ines_call_sat_17', 'alan_call_sat_6');
     S.sfx('beep', 0.5); await T(400);
     await say('narr_call_sat_7', 'ines_call_sat_18');
     S.sfx('dial_tone', 0.4); await T(600);
@@ -164,7 +167,6 @@
     S.give('fax');
     await S.readFax();
     await say('alan_s_vasco', 'alan_s_after_fax');
-    if (!f.tried) await S.tried();
   };
   // Later, he would need to know that he had tried: the museum shut, the dig's radio dead, no car on the island, the bus
   // gone. Tomorrow, the seven o'clock bus. Then, at seven in the evening, people running towards La Isleta.
@@ -172,11 +174,11 @@
     const f = F();
     await G.busy(async () => {
       await G.fade(true);
-      await say('narr_s_tried_1', 'narr_s_tried_2', 'narr_s_tried_3', 'narr_s_tried_4', 'narr_s_tried_5', 'alan_s_tried', 'narr_s_tried_6', 'narr_s_tried_7');
+      // (2026-10-30: he has radioed the camp himself, puzzles.js, so the guard's radio is gone from it; and the flood isn't
+      // news shouted past the hotel any more: he works out where and when it will come)
+      await say('narr_s_tried_1', 'narr_s_tried_2', 'narr_s_tried_4', 'narr_s_tried_5', 'alan_s_tried', 'narr_s_tried_6', 'narr_s_tried_7');
       f.tried = true;
       await G.fade(false);
-      S.sfx('voices_window', 0.5);
-      await say('narr_s_seven', 'alan_s_seven');
     });
   };
 
@@ -190,7 +192,7 @@
       await S.paint('still_isleta_flood', async () => {
         S.sfx('water_rise', 0.5);
         await say('narr_flood_1', 'narr_flood_2', 'narr_flood_3', 'narr_flood_4', 'narr_flood_5', 'narr_flood_door', 'narr_flood_bed',
-          'pino_s_1', 'pino_s_1b', 'pino_s_2', 'pino_s_3', 'lolo_s_1', 'pino_s_4', 'lolo_s_2', 'narr_flood_lolo', 'lolo_s_3', 'narr_flood_lolo_2');
+          'pino_s_1', 'pino_s_1b', 'pino_s_2', 'pino_s_3', 'lolo_s_1', 'pino_s_4', 'lolo_s_2', 'narr_flood_lolo', 'lolo_s_watched', 'lolo_s_3');
       }, { zoom: [1.0, 1.1] });
       G.endStill(); await G.fade(false);
       S.sfx('water_drain', 0.4);

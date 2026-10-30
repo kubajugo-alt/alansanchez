@@ -1,0 +1,181 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Vault redesign mock</title>
+<style>
+  body { margin: 0; background: #111; color: #eee; font: 15px/1.4 sans-serif; }
+  canvas { display: block; margin: 0 0 8px; }
+</style>
+<body>
+<canvas id="a" width="1280" height="720"></canvas>
+<canvas id="b" width="1280" height="720"></canvas>
+<canvas id="c" width="1280" height="720"></canvas>
+<canvas id="d" width="1280" height="720"></canvas>
+<script>
+// The granary vault, laid out by code before any painting is briefed (the user, 2026-10-30: "the room is open, the grille
+// doesn't block the exit... draw the room with code first, so it does make sense").
+// One space, two views:
+//   OUTSIDE (Sunday, Alan): the outer chamber, looking at the cell through the grille. The existing painting already
+//     shows this: crates and the steps up are outside; the cell is the dark alcove behind the bars.
+//   INSIDE (Saturday, Vasco): the same grille from the cell side, the outer chamber beyond it, out of reach. New painting.
+// The Sea's water is only ever in the cell, and stops at the bars.
+const BARS = [375, 406, 440, 474, 510, 547, 585, 623, 664, 704, 744, 782, 818];
+const CELL = { x0: 362, x1: 840, top: 62, sill: 508 };   // the grille's frame on the existing painting
+
+const CLEAN = location.search.includes('clean');
+function label(g, x, y, text, opts = {}) {
+  if (CLEAN) return;
+  g.save(); g.font = (opts.big ? '700 22px' : '600 16px') + ' sans-serif';
+  const w = g.measureText(text).width + 14;
+  g.fillStyle = opts.bg || 'rgba(0,0,0,0.72)'; g.fillRect(x - w / 2, y - 14, w, 26);
+  g.fillStyle = opts.fg || '#ffe9b0'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, x, y);
+  g.restore();
+}
+function arrow(g, x1, y1, x2, y2, col = '#ffd27a') {
+  g.save(); g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 3; g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke();
+  const a = Math.atan2(y2 - y1, x2 - x1); g.beginPath(); g.moveTo(x2, y2);
+  g.lineTo(x2 - 14 * Math.cos(a - 0.4), y2 - 14 * Math.sin(a - 0.4)); g.lineTo(x2 - 14 * Math.cos(a + 0.4), y2 - 14 * Math.sin(a + 0.4)); g.fill(); g.restore();
+}
+function poly(g, P, fill, stroke, dash) {
+  g.save(); g.beginPath(); P.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath();
+  if (fill) { g.fillStyle = fill; g.fill(); }
+  if (stroke) { g.strokeStyle = stroke; g.lineWidth = 3; g.setLineDash(dash || []); g.stroke(); }
+  g.restore();
+}
+// a figure as a plain silhouette with a name: feet at (x, y), h tall
+function figure(g, x, y, h, name, col) {
+  if (CLEAN) return;
+  g.save(); g.fillStyle = col || 'rgba(230,220,200,0.62)';
+  const hw = h * 0.13;
+  g.beginPath(); g.arc(x, y - h + h * 0.08, h * 0.08, 0, 7); g.fill();               // head
+  g.fillRect(x - hw, y - h + h * 0.17, hw * 2, h * 0.42);                         // body
+  g.fillRect(x - hw, y - h * 0.42, hw * 0.85, h * 0.42); g.fillRect(x + hw * 0.15, y - h * 0.42, hw * 0.85, h * 0.42); // legs
+  g.restore();
+  label(g, x, y - h - 18, name);
+}
+function bars(g, x0, x1, top, bottom, xs, cross) {
+  g.save(); g.strokeStyle = '#2b2219'; g.lineWidth = 9;
+  for (const x of xs) { g.beginPath(); g.moveTo(x, top); g.lineTo(x, bottom); g.stroke(); }
+  g.strokeStyle = '#4a3a2a'; g.lineWidth = 3;
+  for (const x of xs) { g.beginPath(); g.moveTo(x - 2, top); g.lineTo(x - 2, bottom); g.stroke(); }
+  g.fillStyle = '#2b2219'; g.fillRect(x0, cross - 6, x1 - x0, 12); g.fillRect(x0, bottom - 8, x1 - x0, 14);
+  g.restore();
+}
+function water(g, x0, x1, top, bottom) {
+  const gr = g.createLinearGradient(0, top, 0, bottom); gr.addColorStop(0, 'rgba(26,48,56,0.92)'); gr.addColorStop(1, 'rgba(4,10,14,0.97)');
+  g.save(); g.fillStyle = gr; g.beginPath(); g.moveTo(x0, bottom);
+  for (let x = x0; x <= x1; x += 12) g.lineTo(x, top + Math.sin(x * 0.05) * 3);
+  g.lineTo(x1, bottom); g.closePath(); g.fill(); g.restore();
+}
+function title(g, text, sub) {
+  if (CLEAN) return;
+  g.save(); g.fillStyle = 'rgba(0,0,0,0.78)'; g.fillRect(0, 0, 1280, sub ? 62 : 38);
+  g.fillStyle = '#fff'; g.font = '700 22px sans-serif'; g.fillText(text, 16, 26);
+  if (sub) { g.fillStyle = '#d8c9a8'; g.font = '15px sans-serif'; g.fillText(sub, 16, 50); }
+  g.restore();
+}
+
+// ------------------------------------------------------------ A, B: OUTSIDE (Sunday), the existing painting re-staged
+function outside(g, im, phase) {
+  g.drawImage(im, 0, 0, 1280, 720);
+  g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(0, 0, 1280, 720);
+  // the outer chamber's floor: where Alan, Yeray and Carmen can walk
+  poly(g, [[0, 640], [210, 600], [362, 540], [850, 540], [1000, 600], [1280, 640], [1280, 716], [0, 716]], 'rgba(120,200,120,0.16)', 'rgba(140,230,140,0.9)', [10, 6]);
+  label(g, 640, 690, 'outer chamber: Alan, Yeray, Carmen walk here', { fg: '#c9f5c9' });
+  // the cell: behind the bars, a shallow walkable strip at the alcove's floor
+  poly(g, [[CELL.x0 + 10, CELL.sill - 4], [CELL.x1 - 10, CELL.sill - 4], [CELL.x1 - 30, CELL.sill - 40], [CELL.x0 + 30, CELL.sill - 40]], 'rgba(120,160,255,0.2)', 'rgba(150,180,255,0.9)', [8, 6]);
+  if (phase === 'before') {
+    // Vasco inside, small (deeper than the bars); the water only behind the bars, up to his mouth, not spilling
+    figure(g, 600, CELL.sill - 14, 300, 'Vasco (inside the cell)', 'rgba(210,200,190,0.8)');
+    water(g, CELL.x0 + 6, CELL.x1 - 6, 252, CELL.sill);
+    bars(g, CELL.x0, CELL.x1, CELL.top, CELL.sill + 6, BARS, 183);
+    label(g, 600, 420, "the Sea's water: behind the bars only, at his mouth", { fg: '#bfe6ff' });
+    figure(g, 900, 660, 380, 'Yeray (pick on the right anchor)');
+    figure(g, 250, 690, 400, 'Alan');
+    figure(g, 1130, 672, 390, 'Carmen');
+    // the anchors: rings in the sill at the grille's feet (painted)
+    g.save(); g.strokeStyle = '#ff7a5a'; g.lineWidth = 4; g.beginPath(); g.arc(378, 532, 22, 0, 7); g.stroke(); g.beginPath(); g.arc(820, 538, 22, 0, 7); g.stroke(); g.restore();
+    label(g, 300, 575, 'left anchor (dug out by Vasco)', { fg: '#ffb39c' });
+    label(g, 900, 575, 'right anchor: 1 cm left', { fg: '#ffb39c' });
+    // the crate as a fulcrum
+    arrow(g, 150, 600, 330, 545); label(g, 140, 620, 'crate 29: fulcrum for the pick', { fg: '#ffd27a' });
+    label(g, 1130, 120, 'steps up to the camp', { fg: '#c9f5c9' });
+    title(g, 'OUTSIDE · Sunday night · before', 'Existing painting, re-staged. Vasco is BEHIND the bars; the water only in the cell. Alan and Yeray stay dry.');
+  } else {
+    // the grille torn free and down; the water standing where the bars were, then sinking
+    g.save(); g.fillStyle = 'rgba(0,0,0,0.6)'; g.fillRect(CELL.x0, CELL.top, CELL.x1 - CELL.x0, CELL.sill - CELL.top); g.restore();
+    water(g, CELL.x0 + 6, CELL.x1 - 6, 420, CELL.sill);
+    label(g, 600, 400, 'the water stays behind the line, looks at them, and sinks away', { fg: '#bfe6ff' });
+    // the grille, fallen outward onto the floor
+    g.save(); g.translate(0, 0); g.strokeStyle = '#2b2219'; g.lineWidth = 8;
+    for (let i = 0; i < 13; i++) { const x = 380 + i * 36; g.beginPath(); g.moveTo(x, 560); g.lineTo(x + 60, 690); g.stroke(); }
+    g.fillStyle = '#2b2219'; g.fillRect(380, 555, 440, 10); g.fillRect(440, 682, 440, 10); g.restore();
+    label(g, 640, 630, 'the grille, torn out and down', { fg: '#ffd27a' });
+    figure(g, 520, 700, 400, 'Alan (pulls Vasco out by the collar)');
+    figure(g, 690, 690, 380, 'Vasco (out)');
+    figure(g, 940, 670, 380, 'Yeray');
+    figure(g, 1130, 672, 390, 'Carmen');
+    title(g, 'OUTSIDE · Sunday night · after', 'The water gone, the cell is open. The crates of discs were outside all along: Vasco could see them, never reach them.');
+  }
+}
+
+// ------------------------------------------------------------ C, D: INSIDE (Saturday, Vasco), a new painting, drawn here
+function inside(g, phase) {
+  // (the user, 2026-10-30: "this space should be narrower, and you wouldn't see the stairs from it, only the light on the
+  // wall from the stairs, as they are on the same wall the grille is. you'd see the crates only")
+  // From inside the alcove, looking out: the grille fills the far end; beyond it the outer chamber's floor and its far
+  // wall (the side the Sunday view is painted from), the crates on the right (mirrored); the lantern and the steps are
+  // on the grille's own wall, out of sight: only their light comes in, warm from the right, grey daylight from the left.
+  g.fillStyle = '#2e2216'; g.fillRect(0, 0, 1280, 720);
+  // beyond the bars: the outer chamber's far wall and floor
+  poly(g, [[170, 90], [1110, 90], [1110, 400], [170, 400]], '#5c4630');
+  poly(g, [[170, 400], [1110, 400], [1110, 560], [170, 560]], '#6b5236');
+  for (const [x, y] of [[300, 170], [420, 190], [560, 160]]) poly(g, [[x, y], [x + 60, y], [x + 60, y + 55], [x, y + 55]], '#3a2b1c');
+  // the light from the two things he can't see: the lantern (right, warm), the steps (left, grey daylight)
+  let gr = g.createRadialGradient(1120, 300, 10, 1120, 300, 520); gr.addColorStop(0, 'rgba(255,180,90,0.55)'); gr.addColorStop(1, 'rgba(255,180,90,0)');
+  g.fillStyle = gr; g.fillRect(170, 90, 940, 470);
+  gr = g.createLinearGradient(170, 0, 520, 0); gr.addColorStop(0, 'rgba(210,215,220,0.45)'); gr.addColorStop(1, 'rgba(210,215,220,0)');
+  g.fillStyle = gr; g.fillRect(170, 90, 350, 470);
+  label(g, 330, 120, 'grey daylight from the steps (on this wall, out of sight)', { fg: '#dfe6ee' });
+  label(g, 930, 120, 'lantern light (lantern just round the corner, right)', { fg: '#ffe0a0' });
+  // the crates, beyond the bars on the right: five discs
+  poly(g, [[860, 330], [1010, 330], [1010, 540], [860, 540]], '#7a5a34'); poly(g, [[875, 250], [995, 250], [995, 330], [875, 330]], '#6e5030');
+  poly(g, [[880, 190], [985, 190], [985, 250], [880, 250]], '#6a4c2c');
+  label(g, 935, 575, 'crates 29 · 36 · 37: five discs, out of reach', { fg: '#ffe0a0' });
+  // the narrow cell: side walls close, low vault, the floor
+  poly(g, [[0, 0], [170, 90], [170, 560], [0, 720]], '#3f2f20');
+  poly(g, [[1280, 0], [1110, 90], [1110, 560], [1280, 720]], '#3b2c1d');
+  poly(g, [[0, 0], [1280, 0], [1110, 90], [170, 90]], '#2a1f15');
+  poly(g, [[0, 720], [170, 560], [1110, 560], [1280, 720]], '#4b3a28');
+  for (const [x, y] of [[40, 160], [40, 330]]) poly(g, [[x, y], [x + 70, y + 30], [x + 70, y + 100], [x, y + 80]], '#1f160e');
+  if (!CLEAN) poly(g, [[60, 716], [185, 575], [1095, 575], [1220, 716]], 'rgba(120,200,120,0.16)', 'rgba(140,230,140,0.9)', [10, 6]);
+  label(g, 640, 690, 'the cell: narrow; Vasco walks only here', { fg: '#c9f5c9' });
+  if (!CLEAN) poly(g, [[1120, 160], [1230, 110], [1230, 470], [1120, 520]], 'rgba(255,255,255,0.08)', 'rgba(255,230,170,0.8)');
+  label(g, 1150, 500, '23° 26′ · A.', { fg: '#ffe0a0' });
+  if (phase === 'water') {
+    g.save(); g.beginPath(); g.moveTo(0, 720); g.lineTo(0, 640); g.lineTo(170, 500); g.lineTo(1110, 500); g.lineTo(1280, 640); g.lineTo(1280, 720); g.closePath(); g.clip();
+    water(g, 0, 1280, 500, 720); g.restore();
+    label(g, 640, 620, 'the water: in the cell only; at the grille it stands like a wall and never passes', { fg: '#bfe6ff' });
+  }
+  // the grille, filling the far end, on its tuff sill, anchors at the corners, the padlock outside
+  const xs = []; for (let x = 186; x <= 1094; x += 36) xs.push(x);
+  bars(g, 172, 1108, 92, 560, xs, 200);
+  poly(g, [[170, 560], [1110, 560], [1125, 580], [155, 580]], '#6b5638');
+  if (!CLEAN) { g.save(); g.strokeStyle = '#ff7a5a'; g.lineWidth = 4; g.beginPath(); g.arc(190, 568, 18, 0, 7); g.stroke(); g.beginPath(); g.arc(1090, 568, 18, 0, 7); g.stroke(); g.restore(); }
+  label(g, 190, 610, 'left anchor', { fg: '#ffb39c' }); label(g, 1090, 610, 'right anchor', { fg: '#ffb39c' });
+  poly(g, [[625, 330], [655, 330], [655, 362], [625, 362]], '#8a7040'); label(g, 640, 380, 'padlock (outside)', { fg: '#ffe0a0' });
+  figure(g, 470, 660, 420, phase === 'water' ? 'Vasco (water to the chest)' : 'Vasco', 'rgba(220,210,195,0.85)');
+  if (phase === 'water') { g.save(); g.beginPath(); g.rect(400, 520, 140, 250); g.clip(); water(g, 400, 540, 520, 720); g.restore(); }
+  title(g, phase === 'water' ? 'INSIDE · Saturday · the water' : 'INSIDE · Saturday · Vasco wakes',
+    'New painting: from inside the narrow cell. Through the bars only the crates; the lantern and the steps are on the grille\'s own wall, seen only by their light.');
+}
+
+const im = new Image();
+im.onload = () => {
+  outside(document.getElementById('a').getContext('2d'), im, 'before');
+  outside(document.getElementById('b').getContext('2d'), im, 'after');
+  inside(document.getElementById('c').getContext('2d'), 'dry');
+  inside(document.getElementById('d').getContext('2d'), 'water');
+  document.title = 'ready';
+};
+im.src = '../../designs/rooms_1280/vault.jpg';
+</script>

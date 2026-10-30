@@ -50,7 +50,7 @@
     flood: { flags: { ch: 5, rafa_truth: true, called_sat: true, fax_read: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('isleta', 'map') },
     vasco: { flags: { ch: 5, isleta_flood: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => G.busy(() => S.startVasco()) },
     cave: { flags: { ch: 5, isleta_flood: true }, room: 'cave6', pos: [240, 660, 'e'], run: async () => { S.becomeVasco(); ['elena_charts', 'chalk', 'clinometer', 'vnotebook', 'ltrowel', 'torch'].forEach(k => S.give(k, true)); } },
-    vault: { flags: { ch: 5, isleta_flood: true, v_understood: true, v_fuse_seen: true, v_refused: true }, room: 'vault', pos: [620, 660, 'e'], run: async () => { S.becomeVasco(); ['ltrowel', 'torch'].forEach(k => S.give(k, true)); S.torch = 1; } },
+    vault: { flags: { ch: 5, isleta_flood: true, v_understood: true, v_fuse_seen: true, v_refused: true }, room: 'vault_cell', pos: [560, 670, 'e'], run: async () => { S.becomeVasco(); ['ltrowel', 'torch'].forEach(k => S.give(k, true)); S.torch = 1; } },
     sun: { flags: { ch: 6, v_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => S.theChoice() },
     carmen: { flags: { ch: 6, chose_carmen: true, cave_explained: true }, room: 'map', pos: [640, 660, 'e'], run: () => G.goRoom('carmen_flat', 'map') },
     mapthu: { flags: { ch: 3, wed_done: true, sent_to_colon: true }, room: 'map', pos: [640, 660, 'e'], run: async () => {} },
@@ -59,6 +59,7 @@
     elenacar: { flags: { ch: 0 }, room: 'elena_car', pos: [640, 660, 'e'], run: async () => {} },
     landrover: { flags: { ch: 6, chose_carmen: true, knows_vault: true }, room: 'landrover', pos: [640, 660, 'e'], run: async () => {} },
     rescue: { flags: { ch: 6, chose_carmen: true, knows_vault: true, driving: true, radiator_filled: true }, room: 'camp', pos: [300, 660, 'e'], run: async () => {} },
+    rescue_vault: { flags: { ch: 6, chose_carmen: true, knows_vault: true, su_camp: true }, room: 'vault', pos: [1060, 650, 'w'], run: async () => {} },
     finale: { flags: { ch: 6, vasco_free: true, v_marked: true }, room: 'vault', pos: [400, 660, 'e'], run: () => S.takeDiscs() },
     confession: { flags: { ch: 7, lock_closed: true, placed: [1, 3, 2, 5, 4, 0], disc_turned: true, disc6_given: true, cloud_over: true, mirror_on: true, turn: 3 }, room: 'cave6', pos: [560, 660, 'e'], run: async () => {} },
   };

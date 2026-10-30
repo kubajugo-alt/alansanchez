@@ -67,8 +67,8 @@
   };
   S.readInquiry = async function () {
     await G.closeup([
-      page(`<h3>Pesquisa · 1484</h3><p>Into the loss of the caravels <i>Santa Clara</i>, <i>La Gallega</i> and <i>San Telmo</i>, and of the camp before Gáldar.</p><p>Juan de Quintana, master of the <i>Santa Clara</i>, sworn: that on the eve of the equinox of March the sea rose black <b>against the wind</b>; that women in white sang on the cliffs; that the sea came every night thereafter into low places and beds, for three months; that on the morning of Saint John it went back, and did not come again.</p>`),
-      page(`<p>The bishop declared it a miracle of the Baptist.</p><p>Juan de Quintana, pulled from the water by a Canario fisherman, died in his bed eleven days after giving this testimony. He was found drowned.</p><p style="font-family:'Homemade Apple',cursive;text-align:right;margin-top:2em">Nadie preguntó a las mujeres.</p><p style="font-size:0.8em;opacity:0.7">1505: requested by the Holy Office, which searched one year for "las brujas del 83", and found no one.</p>`),
+      page(`<h3>Pesquisa · 1484 · fol. 11</h3><p>Into the loss of the caravels <i>Santa Clara</i>, <i>La Gallega</i> and <i>San Telmo</i>, and of the camp before Gáldar.</p><p>Juan de Quintana, master of the <i>Santa Clara</i>, sworn: that on the eve of the equinox of March the sea rose black <b>against the wind</b>; that women in white sang on the cliffs; that the sea came every night thereafter into low places and beds, for three months; that on the morning of Saint John it went back, and did not come again.</p>`),
+      page(`<h3>fol. 13</h3><p>The bishop declared it a miracle of the Baptist.</p><p>Juan de Quintana, pulled from the water by a Canario fisherman, died in his bed eleven days after giving this testimony. He was found drowned.</p><p style="font-family:'Homemade Apple',cursive;text-align:right;margin-top:2em">Nadie preguntó a las mujeres.</p><p style="font-size:0.8em;opacity:0.7">1505: requested by the Holy Office, which searched one year for "las brujas del 83", and found no one.</p>`),
     ]);
     F().inquiry_read = true;
   };
@@ -84,7 +84,7 @@
   S.readPinoList = async function () {
     const struck = n => (F().ch >= 3 && n === 1) || (F().ch >= 5 && n === 2);
     const names = ['José Santana', 'Agustín Ramos', 'Pino Medina', 'Antonio Cabrera', 'Manuel Déniz'];
-    await G.closeup([page(`<h3>Los que el mar devolvió</h3>${names.map((nm, i) => `<p>${struck(i + 1) ? `<s>${nm}</s>` : nm}</p>`).join('')}<p style="opacity:0.7">(The four from the <i>Virgen del Pino</i>, 1971, and Agustín, who was not on the boat: "the sea had him first, in '58, and an old man in a rowing boat took him back".)</p>${F().alan_on_list ? '<p style="font-family:\'Homemade Apple\',cursive">Alan Sanches</p>' : ''}`)]);
+    await G.closeup([page(`<h3>Los que el mar devolvió</h3>${names.map((nm, i) => `<p>${struck(i + 1) ? `<s>${nm}</s>` : nm}</p>`).join('')}<p style="opacity:0.7">(The four from the <i>Virgen del Pino</i>, 1971, and Agustín, who was not on the boat: "the sea had him first, in '58, and an old man in a rowing boat took him back".)</p><p style="opacity:0.7">(In pencil, by the names: Antonio, <i>Caracas</i>. Manuel, <i>Tamaraceite, arriba: never liked the sea anyway</i>. Pino, <i>aquí</i>.)</p>${F().alan_on_list ? '<p style="font-family:\'Homemade Apple\',cursive">Alan Sanches</p>' : ''}`)]);
     F().pino_list = true;
   };
 
