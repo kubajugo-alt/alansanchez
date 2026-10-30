@@ -759,3 +759,4 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     empty tables as ambient extras; Gail and Derek's table sets seat_gail / seat_derek's stand (the tool's centred x
     turned into the sprite's anchor, mirrored when flipped; size by the tool's depth); a cast record the tool no longer
     shows keeps its own flip. Screenshot `art/review/restaurant_tables.png`; play.mjs won.
+73. **The undress: walked to, facing us** (2026-10-30). The user: "he should be using his walking sprite to get to the towel. plus, let's drop the last frame, with his back in the underwear". The Towels hotspot's walk-to point is the spot by the towels (640,572), so the engine walks him there on his own walk; S.sunbathe only walks if he isn't there; after undressing he faces us, and the underwear outfit has no back view (Game I's alan_uw_back no longer used). Recorded from the game via Game.act('Towels', 'use'): art/review/undress_recording.mp4.

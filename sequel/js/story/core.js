@@ -79,7 +79,8 @@
     const vest = still('alanv', 'alanv'), blazer = still('alanb', 'alanb');
     // and Tuesday's beach: down to his underwear (Game I's frame from behind, a painted front; the undressing itself:
     // S.undressFrames, js/story/tue.js)
-    const undies = { idle: ['alan_uw_front'], talk: ['alan_uw_front'], walk: ['alan_uw_front'], front: 'alan_uw_front', back: 'alan_uw_back', poses: {} };
+    // (no view from behind: the user, 2026-10-30, dropped Game I's back frame here, "it doesn't have much sense")
+    const undies = { idle: ['alan_uw_front'], talk: ['alan_uw_front'], walk: ['alan_uw_front'], front: 'alan_uw_front', back: 'alan_uw_front', poses: {} };
     Object.defineProperty(A, 'frames', { get() { let on = false, uw = false; try { on = !!(G.flags && G.flags.blazer_on); uw = !!(G.flags && G.flags.undressed); } catch (e) { /* not started */ } return uw ? undies : on ? blazer : vest; } });
     A.outfits = [vest, blazer, undies]; // (all of them, for loading: engine.js framesOf walks whatever frames holds)
     V.frames = Object.assign(still('vascor'), { back: 'vascos_back_k' });   // (no repainted back view yet)

@@ -327,11 +327,11 @@
     if (f.burnt) return say('alan_look_towels');
     await G.busy(async () => {
       // (by the empty towels painted on the sand; the user, 2026-10-30)
-      const p = G.player; await p.walkTo(640, 572);
+      const p = G.player; if (Math.hypot(p.x - 640, p.y - 572) > 6) await p.walkTo(640, 572);
       const vest = S.CHARS.alan.outfits[0];
       await window.Engine.ensure(S.UNDRESS.map(k => 'spr:' + k));   // (every frame in before it plays)
       for (const k of S.UNDRESS) { vest.poses.undress = k; p.pose = 'undress'; await T(1000 / 12); }
-      p.pose = null; f.undressed = true; G.refreshNpcs();
+      p.pose = null; f.undressed = true; p.dir = 's'; G.refreshNpcs();   // (facing us in his underwear)
       await say('narr_t_sun_2', 'alan_t_sun_2');
       await S.paint('still_nap', async () => {
         S.sfx('water_lap', 0.4); await say('narr_t_sun_3');
@@ -484,7 +484,7 @@
       { name: 'Surfboards', rect: [900, 340, 220, 210], at: [960, 660], look: 'alan_look_surfboards' },
       { name: 'The sea', rect: [520, 310, 760, 110], at: [700, 640], look: () => S.lookSea() },
       { name: 'The sky', rect: [300, 0, 980, 200], at: [640, 660], look: 'alan_look_beach_sky' },
-      { name: 'Towels', rect: [160, 470, 360, 70], at: [340, 660], look: () => say(F().sun_out ? 'alan_look_towels_sun' : 'alan_look_towels'),
+      { name: 'Towels', rect: [160, 470, 360, 70], at: [640, 572],   // (he walks to the towels on his own walk, then undresses there) look: () => say(F().sun_out ? 'alan_look_towels_sun' : 'alan_look_towels'),
         use: () => F().sun_out ? S.sunbathe() : say('alan_look_towels') },   // (the towels: hotspot rect from layout.js)
       { name: 'Up to the promenade', rect: [0, 250, 110, 320], at: [70, 660], exit: 'canteras', entry: 'beach' },
     ],
