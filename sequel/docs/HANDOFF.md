@@ -847,3 +847,40 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     each placed figure its name (hover), speaker and talk/look; engine speech.js finds a speaker by `def.speaker` too
     (the dinner's copies have ids ending _2). Checked in the game: the surfer, the lady in pearls at the dinner (and
     her second line), the tourist in the cathedral and at the market, the German: the right lines, captions over them.
+83. **Deployed** (2026-10-30). The user: "deploy". Export of 15c2df48 (the dinner as placed, the knife on the buffet);
+    play.mjs on the export: won, 111 steps. Netlify deploy 6ae40c4f47f1092c1fd4a9e5; /.env 404.
+84. **The props, graded into their rooms** (2026-10-30). The user: "it would be good to run a filter through the props,
+    to make them a little more blend in with the background". scripts/prop_grade.py: the museum's buffet and cocktail
+    tables and the restaurant's empty table, lit part of the way by their room's light (the colour of the brightest
+    tenth of the painting where they stand), a touch dimmer, darker towards the floor, a little quieter, the cut edge
+    softened by a pixel. Ungraded originals in art/designs/props_ungraded/. (First try, moving their Lab mean to the
+    room's, turned the cloths dirty grey; dropped.) Before/after: art/review/props_grade_museum.jpg, _restaurant.jpg.
+    Gail and Derek's own table (part of their seated sprites) not graded: people on it.
+85. **Vasco in a navy suit at the parties** (2026-10-30). The user: "we need to put vasco in a jacket at these dinners";
+    takes A (linen) and B (navy), Higgsfield edits of vascor_side_k / vascor_front_k (art/review/vasco_jacket_takes.jpg);
+    the user: "let's do navy suit for vasco". scripts/vasco_dinner.py: keyed, scaled and placed where the everyday
+    sprite stands, his own head pasted back down to the collar (feathered), so his face set fits pixel for pixel:
+    vascor_dinner_side_k / _front_k (face set copied as vascor_dinner_side_k in js/faces.js and art/faces/; the front
+    had none). core.js: V.frames follows S.vascoDressed() (Tuesday from the first call to the end of the walk on the
+    promenade, Thursday at the dinner), V.outfits for loading; engine.js framesOf also walks a character's outfits.
+86. **The Tuesday reception, as the user rewrote it** (2026-10-30). The user: "we need to give Alan a reason to be at the
+    Tuesday party. Vasco invited him, but he dismisses him. We need Vasco to introduce Alan to Baute (only then dialogue
+    with Baute is possible). Would be funny if people at the party commented on Alan's burnt tan too. Vasco should have
+    a moment with him, thanking for supporting and explaining how important it is for him... Montesdeoca should raise a
+    toast to Vasco/Baute or give a quick speech" after Carmen; "the goal is to make Alan self-conscious, but proud of
+    Vasco's success, but also a bit jealous"; "Montesdeoca is an asshole, and Baute secretly can't stand him".
+    tue.js: arriving, Vasco across the room raises one finger (narr_p_arrive). S.talkVascoTue: 1) glad, the sunburn, the
+    Cabildo, "ten minutes", gone (Alan "like a coat handed in at the door"); 2) until Alan has met Montesdeoca: "go and
+    charm somebody"; 3) after: "Montesdeoca found you. I'm sorry", takes his hand across the room ("My Alan"), Alan
+    walks to Baute, Baute's meeting (as before); 4) the moment in the corner by the cases (Dr. Suárez, his name on the
+    paper, "I wanted you to see it"; Alan proud, "the whole room had Vasco, and Alan had ten minutes"; "You get the
+    rest"); then pointers to Carmen. Baute before the introduction: Alan won't just walk up (alan_p_baute_shy); after,
+    a question about Montesdeoca: "he'll tell you so. Twice" and a smile that "stopped just below the eyes".
+    Montesdeoca: the jacket gag kept, then the sunburn ("my hotels live off people like you"), and Vasco as something
+    he pays for ("a little bit mine, no?"). The guests' first word at the reception is the sunburn (bgtalk.js
+    S.BG_BURN, five of them). S.maybeToast (on entering the hall, and after Vasco's moment): with Baute met, the moment
+    had and Carmen met, Montesdeoca's toast on the stairs ("nobody pays for old bones... a little hotel with a swimming
+    pool... a joke!"; Baute laughs, his glass doesn't move, knuckles white; "his magician of the light! Vasco!"), Alan's
+    "One of them knows what he looks like asleep. I win." The way out opens after the toast (toast_done). 47 lines.
+    Fixed on the way: thu.js replaced the hall's enter() outright, so Tuesday's arrival narration had never played;
+    it now chains it. play.mjs: the new reception route.

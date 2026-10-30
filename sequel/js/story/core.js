@@ -84,6 +84,12 @@
     Object.defineProperty(A, 'frames', { get() { let on = false, uw = false; try { on = !!(G.flags && G.flags.blazer_on); uw = !!(G.flags && G.flags.undressed); } catch (e) { /* not started */ } return uw ? undies : on ? blazer : vest; } });
     A.outfits = [vest, blazer, undies]; // (all of them, for loading: engine.js framesOf walks whatever frames holds)
     V.frames = Object.assign(still('vascor'), { back: 'vascos_back_k' });   // (no repainted back view yet)
+    // dressed for the museum's parties, a navy blazer (the user, 2026-10-30; scripts/vasco_dinner.py): Tuesday from the
+    // reception to the end of the walk on the promenade, Thursday at the dinner; his own head, so his face set fits
+    const dinner = Object.assign(still('vascor_dinner'), { back: 'vascor_dinner_side_k' }), day = V.frames;
+    S.vascoDressed = () => { try { const f = G.flags; return (f.ch === 1 && f.called_tue && !f.walk_done) || (f.ch === 3 && S.dinnerDue && S.dinnerDue()); } catch (e) { return false; } };
+    Object.defineProperty(V, 'frames', { get() { return S.vascoDressed() ? dinner : day; } });
+    V.outfits = [day, dinner];
   }
   // the walks' step lengths: Game I's measurements for the borrowed cycles (js/story/core.js there, S.WALK_PLANT)
   S.WALK_PLANT = { vasco_walk6_p1: [0.190, -0.148], vasco_walk6_p3: [0.112], vasco_walk6_p5: [0.028], vasco_walk6_p7: [-0.061],

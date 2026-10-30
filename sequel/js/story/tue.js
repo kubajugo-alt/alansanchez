@@ -456,9 +456,9 @@
     entries: { default: [140, 660, 'e'], map: [140, 660, 'e'], archive: [960, 660, 'w'], baute_office: [640, 660, 's'], museum_courtyard: [1120, 660, 'w'] },
     npcs: [
       { id: 'baute', ch: 'baute', x: 520, y: 650, dir: 'e', name: 'Dr. Rayco Baute', when: () => (ch() === 1 && !F().reception_done) || (ch() === 3 && S.dinnerDue() && !F().caught),
-        look: 'alan_look_baute', talk: () => ch() === 1 ? S.talkBauteTue() : say('baute_th_busy'), items: { any: 'alan_fail_baute_item' } },
+        look: 'alan_look_baute', talk: () => ch() === 1 ? (F().baute_intro ? S.talkBauteTue() : say('alan_p_baute_shy')) : say('baute_th_busy'), items: { any: 'alan_fail_baute_item' } },
       { id: 'vasco', x: 800, y: 650, dir: 'w', name: 'Vasco', when: () => (ch() === 1 && !F().reception_done) || (ch() === 3 && S.dinnerDue() && !F().caught),
-        look: () => say(ch() === 1 ? 'alan_look_vasco_reception' : 'alan_look_vasco_dinner'), talk: () => say(ch() === 1 ? 'vasco_t_reception' : 'vasco_th_dinner') },
+        look: () => say(ch() === 1 ? 'alan_look_vasco_reception' : 'alan_look_vasco_dinner'), talk: () => ch() === 1 ? S.talkVascoTue() : say('vasco_th_dinner') },
       { id: 'montesdeoca', ch: 'montesdeoca', x: 300, y: 662, dir: 'e', name: 'Ignacio Montesdeoca', when: () => (ch() === 1 && !F().reception_done) || ch() === 2 || (ch() === 3 && S.dinnerDue() && !F().caught),
         look: () => say(ch() === 2 ? 'alan_look_montesdeoca_wed' : 'alan_look_montesdeoca'), talk: () => S.talkMontesdeoca() },
       { id: 'guard', ch: 'guard', x: 660, y: 600, h: 380, dir: 'e', name: 'Museum guard', when: () => ch() === 3 && S.dinnerDue() && !F().derek_sent,
@@ -477,10 +477,12 @@
         take: async () => { if (G.has('knife') || F().desk_open) return say('alan_table_again'); S.give('knife'); await say('alan_take_knife'); } },
       { name: 'Archive stairs', rect: [960, 300, 120, 260], at: [980, 650], when: () => ch() >= 2 && ch() <= 4 && !(ch() === 3 && S.dinnerDue()), exit: 'archive', entry: 'museum_hall' },
       { name: 'Out to Vegueta', rect: [20, 250, 110, 320], at: [70, 650], exit: () => S.leaveMuseum(), entry: 'museum_hall',
-        locked: () => (ch() === 1 && !(F().met_baute && F().met_carmen)) || (ch() === 3 && S.dinnerDue() && !F().caught), lockedLine: () => ch() === 1 ? 'alan_reception_stay' : 'alan_dinner_stay' },
+        locked: () => (ch() === 1 && !F().toast_done) || (ch() === 3 && S.dinnerDue() && !F().caught),
+        lockedLine: () => ch() !== 1 ? 'alan_dinner_stay' : F().met_baute && !F().vasco_moment ? 'alan_reception_vasco' : 'alan_reception_stay' },
     ],
     async enter() {
-      if (!F().narr_museum_hall && ch() === 1) { F().narr_museum_hall = true; await say('narr_t_museum_1', 'narr_t_museum_2'); }
+      if (!F().narr_museum_hall && ch() === 1) { F().narr_museum_hall = true; await say('narr_t_museum_1', 'narr_t_museum_2', 'narr_p_arrive', 'alan_p_arrive'); }
+      await S.maybeToast();
     },
   });
   // ================================================================ LAS CANTERAS: the sand (the surfers' place)
@@ -628,8 +630,39 @@
 
   // leaving the reception: dusk on Las Canteras (the mist); otherwise the map
   S.leaveMuseum = () => {
-    if (ch() === 1 && F().met_baute && F().met_carmen && !F().reception_done) { F().reception_done = true; return 'canteras'; }
+    if (ch() === 1 && F().toast_done && !F().reception_done) { F().reception_done = true; return 'canteras'; }
     return 'museum_out';
+  };
+  // Vasco at the reception (the user, 2026-10-30): he invited Alan and has no time for him; after Montesdeoca has had a go
+  // at Alan he brings him to Baute (only then can Alan talk to Baute); after Baute, a moment for the two of them. Alan:
+  // self-conscious, proud of him, a little jealous.
+  S.talkVascoTue = async function () {
+    const f = F();
+    if (!f.vasco_busy) { f.vasco_busy = true; return say('vasco_p_1', 'alan_p_1', 'vasco_p_2', 'narr_p_1', 'alan_p_2'); }
+    if (!f.monte_met) return say('vasco_p_wait');
+    if (!f.baute_intro) {
+      f.baute_intro = true;
+      await say('vasco_p_3', 'narr_p_2');
+      const b = G.npcs && G.npcs.find ? G.npcs.find(a => a.id === 'baute') : null;
+      if (b) await G.player.walkTo(b.x + (b.dir === 'w' ? -110 : 110), Math.max(b.y + 10, 600));
+      await say('vasco_p_4');
+      await S.talkBauteTue();
+      return S.maybeToast();
+    }
+    if (!f.vasco_moment) {
+      f.vasco_moment = true;
+      await say('vasco_p_5', 'narr_p_3', 'vasco_p_6', 'alan_p_3', 'vasco_p_7', 'vasco_p_8', 'alan_p_4', 'narr_p_4', 'vasco_p_9', 'narr_p_5', 'alan_p_5');
+      return S.maybeToast();
+    }
+    return say(f.met_carmen ? 'vasco_p_later2' : 'vasco_p_later');
+  };
+  // after Carmen on the steps (and Baute, and Vasco's moment): Montesdeoca's toast, and the evening can end
+  S.maybeToast = async function () {
+    const f = F();
+    if (ch() !== 1 || f.toast_done || !(f.met_baute && f.vasco_moment && f.met_carmen) || G.room.id !== 'museum_hall') return;
+    f.toast_done = true;
+    S.sfx('glass_clink', 0.6);
+    await say('narr_p_toast_1', 'montesdeoca_p_toast_1', 'montesdeoca_p_toast_2', 'narr_p_toast_2', 'montesdeoca_p_toast_3', 'narr_p_toast_3', 'alan_p_toast');
   };
   S.talkBauteTue = async function () {
     const f = F();
@@ -643,6 +676,7 @@
       { line: 'alan_ask_baute_cave', once: true, run: () => say('baute_t_cave', 'baute_t_cave_2') },
       { line: 'alan_ask_baute_vasco', once: true, run: () => say('baute_t_vasco') },
       { line: 'alan_ask_baute_discs', once: true, run: () => say('baute_t_discs') },
+      { line: 'alan_ask_baute_monte', once: true, when: () => !!f.monte_met, run: () => say('baute_p_monte', 'narr_p_baute_monte') },
       { line: 'alan_bye_baute', bye: true, run: () => say('baute_t_bye') },
     ]);
   };
@@ -662,7 +696,12 @@
   };
   S.talkMontesdeoca = async function () {
     const f = F();
-    if (ch() === 1) { if (f.blazer_on && !f.monte_blazer) { f.monte_blazer = true; return say('montesdeoca_t_1', 'alan_t_monte_1', 'montesdeoca_t_alan', 'alan_t_flirt_monte', 'montesdeoca_t_2'); } return say('montesdeoca_t_again'); }
+    if (ch() === 1) {
+      // (the user, 2026-10-30: "Montesdeoca is an asshole"): the jacket, the sunburn, and Vasco as something he paid for
+      if (!f.monte_met) { f.monte_met = f.monte_blazer = true;
+        return say('montesdeoca_t_1', 'alan_t_monte_1', 'montesdeoca_t_alan', 'alan_t_flirt_monte', 'montesdeoca_p_burn', 'alan_p_monte_1', 'montesdeoca_p_vasco', 'alan_p_monte_2', 'montesdeoca_t_2'); }
+      return say('montesdeoca_t_again');
+    }
     if (ch() === 2) { f.herring_monte = true; return say('montesdeoca_w_1', 'alan_w_monte_1', 'montesdeoca_w_2'); }
     return say('montesdeoca_th_1');
   };

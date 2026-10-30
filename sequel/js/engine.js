@@ -92,7 +92,7 @@
   // the frames a character can show (every name in its frames table that is a painted sprite)
   const framesOf = id => {
     const out = new Set(), c = CHARS[id], walk = v => { if (typeof v === 'string') { if (E.SPRITES[v]) out.add(v); } else if (v && typeof v === 'object') for (const x of Object.values(v)) walk(x); };
-    if (c) walk(c.frames);
+    if (c) { walk(c.frames); if (c.outfits) walk(c.outfits); }   // (and every outfit it can change into)
     return [...out];
   };
   const roomArt = id => {

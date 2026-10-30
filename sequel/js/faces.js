@@ -2121,5 +2121,35 @@ window.FACES = {
   "ok": false,
   "who": "candelaria",
   "from": "jaw"
+ },
+ "vascor_dinner_side_k": {
+  "box": [
+   134,
+   91,
+   42,
+   47
+  ],
+  "mouths": [
+   "A",
+   "B",
+   "C",
+   "C_40",
+   "C_70",
+   "D",
+   "D_40",
+   "D_70",
+   "E",
+   "E_40",
+   "E_70",
+   "F",
+   "F_40",
+   "F_70"
+  ],
+  "eyes": [
+   "closed"
+  ],
+  "ok": true,
+  "who": "vasco",
+  "from": "jaw"
  }
 };

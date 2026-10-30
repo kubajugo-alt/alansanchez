@@ -77,7 +77,9 @@ try {
   await go('canteras');
   await act('Phone box', 'use');
   await expect('the first call', () => Game.flags.called_tue);
-  await go('museum_hall'); await act('baute', 'talk'); await act('Door to the steps', 'exit'); await act('carmen', 'talk'); await act('Back to the party', 'exit'); await act('Out to Vegueta', 'exit');
+  await go('museum_hall'); await act('vasco', 'talk'); await act('montesdeoca', 'talk'); await act('vasco', 'talk'); await act('vasco', 'talk');   // (busy; Montesdeoca; to Baute; the moment)
+  await act('Door to the steps', 'exit'); await act('carmen', 'talk'); await act('Back to the party', 'exit');   // (the toast)
+  await expect('the toast', () => Game.flags.toast_done); await act('Out to Vegueta', 'exit');
   await expect('the walk and the mist', () => Game.flags.mist_seen && Game.room.id === 'canteras');
   await act('Phone box', 'use');
   await expect('the midnight call', () => Game.flags.called_tue2);
