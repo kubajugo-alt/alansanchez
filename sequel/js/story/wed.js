@@ -64,19 +64,22 @@
     await G.fade(false);
     if (line) await say(line);
   };
-  // lines heard in the dark (no one on screen to speak them): the caption box, with the speaker's name
+  // lines spoken by someone not on screen (or by Alan while he is hidden): the caption box, with the speaker's name.
+  // (The captions sit under the black of G.fade, so these scenes play over the room with Alan hidden, not over black.)
   const off = async (...ids) => { for (const id of ids) await G.say(id, { offscreen: true }); };
   // Wednesday opens the novel's way (Chapter Two): Vasco leaving at dawn, in the grey light, and the thing Alan doesn't say
   S.startWed = async function () {
     await G.fade(true);
     await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [720, 640, 'e'] });
     await S.day(2);
+    G.player.visible = false;   // (the room in the grey light; Alan is in bed, half asleep)
+    await G.fade(false);
     await off('narr_w_dawn_1');
     S.sfx('floor_creak', 0.4);
     await off('narr_w_dawn_2', 'narr_w_dawn_3', 'vasco_w_dawn_1', 'alan_w_dawn_1', 'vasco_w_dawn_2', 'alan_w_dawn_1', 'vasco_w_dawn_3', 'narr_w_dawn_4', 'alan_w_dawn_3', 'narr_w_dawn_5');
     S.sfx('door', 0.4);
     await off('narr_w_dawn_6');
-    await G.fade(false);
+    await G.fade(true); G.player.visible = true; await G.fade(false);
     await say('narr_w_dawn_7', 'alan_w_wake');
   };
 
@@ -402,13 +405,13 @@
       await say('narr_w_carmen_9');
       f.carmen_wed = true; S.give('galindo');
       await say('carmen_w_galindo', 'carmen_w_galindo2');
-      // Carmen alone (the cutaway: Alan has gone up the stairs)
-      await G.fade(true);
-      await G.goRoom('museum_hall', 'archive', { instant: true, noEnter: true, noSave: true });
+      // Carmen alone (Alan has gone up the stairs): the archive without him, then the hall
+      S.sfx('stairs', 0.4);
+      await G.fade(true); G.player.visible = false; await G.fade(false);
       await off('narr_w_carmen_10', 'narr_w_carmen_11', 'narr_w_carmen_12');
       for (let i = 0; i < 3; i++) { S.sfx('match', 0.45); await T(450); }
       await off('narr_w_carmen_13');
-      await G.fade(false);
+      await G.goRoom('museum_hall', 'archive', { noEnter: true });
       await S.checkWed();
     });
   };
@@ -469,12 +472,13 @@
     if (f.wed_done) return;
     f.wed_done = true;
     await G.busy(async () => {
-      await G.fade(true);
-      await off('narr_w_night_1', 'narr_w_night_2');
+      await G.fade(true); await T(600); await G.fade(false);   // (the evening goes by)
+      await say('narr_w_night_1', 'narr_w_night_2');
       S.sfx('bed_springs', 0.4);
-      await off('vasco_w_night_1', 'narr_w_night_3', 'vasco_w_night_2', 'vasco_w_night_3', 'vasco_w_night_4', 'narr_w_night_4', 'alan_w_night_1', 'narr_w_night_5', 'narr_w_night_6', 'narr_w_night_7');
+      await off('vasco_w_night_1'); await say('narr_w_night_3'); await off('vasco_w_night_2', 'vasco_w_night_3', 'vasco_w_night_4');
+      await say('narr_w_night_4', 'alan_w_night_1', 'narr_w_night_5', 'narr_w_night_6', 'narr_w_night_7');
       S.sfx('lamp_click', 0.4);
-      await off('narr_w_night_8', 'narr_w_night_9');
+      await say('narr_w_night_8', 'narr_w_night_9');
       // Pepe Santana (the novel's cutaway, ending on his last words)
       await S.paint('still_pepe', async () => {
         await say('narr_pepe_1', 'narr_pepe_3', 'narr_pepe_4', 'narr_pepe_5');
