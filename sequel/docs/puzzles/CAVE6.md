@@ -35,7 +35,7 @@ exactly at noon".
 - **To close it:** at noon on the turning day, every disc back in its own socket, set by someone standing in the Sea's water,
   which comes up through the door into the lower chamber. When the seventh triangle lights, the door shuts and the
   water goes down through it, and takes whoever is standing in it.
-- **Baute's plan, Monday:** he has only the sun disc and the crescent, the last he took (in May), which he keeps on him. At four in the morning he went down
+- **Baute's plan, Monday:** see "The last disc" (he tips the sun disc to send the sun back). He has only the sun disc and the crescent, the last he took (in May), which he keeps on him. At four in the morning he went down
   and moved the sun disc from the middle into the socket at the end of the row, the one that, alone, throws Magec's
   column straight onto the door. With six discs gone, the door doesn't need the whole order: "close will do".
 
@@ -194,33 +194,34 @@ at the top of the day". Said backwards, moon by moon, it takes out six stones; B
 sang how to take the sun out: the song only goes one way. The seventh is not words, it's light. It isn't in the song;
 it's in the cave.
 
-**What the door needs (the opening).** Two numbers, both astronomy, Vasco's trade and Elena's:
-- **Where and how to set the sun disc.** Not out: moved to the western end of the row (where the sun goes down into
-  the sea) and tipped so its column comes back down onto the door in the middle of the floor instead of rising to the
-  great triangle. The tilt depends on the height of the sun at that moment (85.4° on the 24th): one angle, to a fraction
-  of a degree. Too little and the column hits the wall; too much and it hits the rim.
-- **When.** At true noon on the turning day, when the column stands straightest. Not the clock's noon: at Risco Caído,
-  in Canary summer time, it is **14:05**. Baute, a digger who reads the island by the old women's words, thinks "the top
-  of the day" is twelve o'clock.
-Elena had both: her pencil chart ("Puerta") is the sun disc in the western socket with an angle written against it,
-and "14:05" in the margin. Elena is dead; Baute can't read her working (he hired Vasco "to read light the way you read a
-page"). That's why he needs Vasco, and why he keeps Vasco until the 24th.
+**What the door needs (the opening): send the sun back.** The user: "basically, we need to send the sun back. Which
+means specific angle on a specific time". The women set the sun in the middle; to undo it, the sun disc has to give
+Magec back: throw his light straight back up the shaft, out of the cave, to the sun it came from, instead of up to the
+great triangle. A mirror only does that when it faces the sun square on, so it is one angle at one moment:
+- **The angle.** The sun disc, in its own socket in the middle, tipped 4.6° from flat, towards the south: square to
+  the sun at its height on the 24th (85.4°, due south).
+- **The moment.** True noon on the turning day, when the sun stands there. Not the clock's noon: at Risco Caído, in
+  Canary summer time, it is **14:05**.
+At that minute the column goes back up the shaft and out into the sky, the great triangle goes dark, the sentence loses
+its last word, and the door opens. Elena had both: her pencil chart ("Puerta") is the sun disc with "4° 36′ S" written
+against it and "14:05" in the margin. Elena is dead; Baute can't read her working (he hired Vasco "to read light the
+way you read a page"). That's why he needs Vasco, and why he keeps him until the 24th.
 
-**Saturday.** Vasco reads Elena's chart against the cave and understands it: the opening (the western socket, the tilt,
-14:05) and, the same geometry turned round, the closing (every disc in its own socket, the sun in the middle, at the
-same minute). He refuses Baute the opening, tears off the corner of the chart with the angle and the hour, and
-swallows it. In the vault he scratches only what closes it (the signs in floor order, and an A).
+**Saturday.** Vasco reads Elena's chart against the cave and understands it: the opening (tip the sun disc square to
+the sun, 14:05) and, turned round, the closing (every disc in its own socket, the sun flat in the middle, at the same
+minute). He refuses Baute the opening, tears off the corner of the chart with the angle and the hour, and swallows it.
+In the vault he scratches only what closes it (the signs in floor order, and an A).
 
-**Monday.** Without the number Baute sets the sun disc in the western socket at four in the morning and tips it by
-eye, and waits for twelve. At twelve the light isn't straight down yet: the column falls short, on the wall, and
-nothing opens; the water only stirs. That is the heroes' window, the two hours they climb the path in. As the sun
-climbs to 14:05, the column slides across the floor towards the door: Baute's guess is close, "and with six nails out,
-close will do". The race is to put the five back, the crescent, and the sun in the middle, before the column reaches
-the door at 14:05.
+**Monday.** Without the numbers Baute tips the sun disc by eye at four in the morning and waits for twelve, because
+"the top of the day" in the song is twelve o'clock to him. At twelve the sun isn't there yet: the column goes up the
+shaft at a slant and hits its wall, and nothing opens; the water only stirs. That's the heroes' window, the two hours
+they climb the path in. As the sun climbs towards 14:05 the spot of light creeps up the shaft wall towards the sky
+(seen from below, through the opening), because Baute's guess is close, "and with six nails out, close will do". The
+race: the five back, the crescent, and the sun disc laid flat in the middle, before the light leaves the shaft at 14:05.
 
-**What changes:** the "opening angle" stays Vasco's secret, as in the bible, but now it is a tilt and an hour, not
-23° 26′; Baute's Monday mistake is the hour, which gives the finale its clock (the column visibly crawling towards the
-door as the sun climbs).
+**What changes:** the "opening angle" stays Vasco's secret, as in the bible, but now it is "send the sun back": a tilt
+square to the sun and the hour, not 23° 26′; the sun disc stays in its own socket (no move to the western end); Baute's
+mistake is the hour, which gives the finale its clock (the light visibly climbing the shaft).
 
 ## The noon, through the story
 
