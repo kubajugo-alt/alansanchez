@@ -51,6 +51,8 @@ root, in the same repository as Game I. Read, in this order:
    199 lines (118 changed, 81 new) wait for the user's read in `docs/puzzles/CAVE6_LINES.md`, then recording.
 1. **The granary (entries 98, 100)**: built and live; the user to see it in the game (`?scene=vault` for the cell,
    `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved, voiced and live; "pesetas" is B (entry 100).
+1a. **The water (entry 108)**: redesigned, in the game; for the user's review (`art/review/water/`; `?scene=vault`,
+    `rescue_vault`, `aim`, `aim_sun`, `landrover`).
 2. **Deployed** (entry 101): everything to here is live.
 3. **Parallax** is on (entry 96): the recording waits for the user's approval before a deploy.
 4. **Environment movement**: the user's pick from the ten fixes in `docs/review/env_movement.md`.
@@ -1212,3 +1214,47 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Review page https://claude.ai/artifact/J2kS2suV1n66uFDs6ZrhHR: 24 inventory icons and 11 close-ups
       (art/review/items/), awaiting approval.
     Checks: validate 0 errors; screenshots of the rooms, the bar, the corridor and the Land Rover; play runs (entry 106).
+108. **The Sea's water redesigned: a plane in the room, round the figures** (2026-10-30, for review). The user:
+     "re-designing the water. Now it's just a flat overlay raising on the camera. It should follow the floor and fill the
+     room in a 3D style. And it shouldn't be so uniformly transparent - we need more realistic water"; on the first
+     sheets: "looks great, but i think the angle of the water surface might be off".
+     - `js/story/water.js` (new): the water is a horizontal plane `S.waterH(level)` figure heights above the floor, seen
+       in the room's perspective. Each room's wall/floor seam is marked by hand (`seam`, a polyline): a floor pixel stands
+       on its own row, a wall pixel on the seam's row below it; heights go through the painting's own horizon (`hz`, where
+       its wall lines meet: 400 in the chamber, 200 in the cell), so on a side wall the waterline runs parallel to the
+       courses and friezes and converges on the vanishing point (`art/review/water/waterlines_perspective.jpg`). The first
+       version took the floor rows from the depth maps (a line depth -> row fitted over the walk polygon); on the walls
+       that came out almost flat, so it is only the fallback now for a room with no seam. Each figure is its own little
+       wall from its feet (`a.h` or `E.scaleAt`); its silhouette is its own sprite frame (`Actor.place`), drawn in depth
+       order into a mask, so no dry notches beside heads.
+     - The look (one WebGL pass after the figures, before `animFg`, at 0.75 of 1280x720): the first half figure of water
+       fairly clear (Vasco seen through it), then colour and opacity by the depth looked through (reds go first, then
+       grey, near black and opaque where deep), less light the deeper; the room mirrored in the surface (more far off);
+       refraction (painting and figures wobble); faint caustics; the room's light as a broken shimmering trail on the
+       surface (the noon column, the torch, the lantern) and small glints on the ripples; a pale broken line on the walls,
+       and on a body only a thin wavering glint with a little shadow under it. No WebGL: a 2D version (the painting's
+       water from the same floor rows at 320 px, under the figures; each figure's submerged part over it), `?water=2d`.
+     - Rooms (`S.WATER_ROOMS`): `vault_cell` (stops at the grille and stands there like a wall),
+       `vault` (only behind the bars, level across the cell at Vasco's height there, 270; the bars still drawn over),
+       `cave6_low` (clearer, less mirror: the sockets and discs stay readable), `landrover` (no floor: a flat footwell on
+       Alan's side, soft-edged, sloshing; Carmen's side dry). Elena's car keeps the old flat `S.drawWater` (unused).
+       `art/bg/vault_cell_depth.png` made with `scripts/depth_map.py` (the cell had none; used only by the fallback).
+     - Engine: `render.js` calls `E.waterPass.begin / figure / end` (3 lines); the old `S.drawWater` calls left the
+       vault, the cell, the chamber and the Land Rover.
+     - Levels against the lines: `S.waterH` is a table, 0.12 shins (0.2), 0.17 knees (0.28), 0.3 waist (0.6), 0.4 chest
+       (0.76), 0.42 chin (0.85), 0.46 nose (0.92). Cell: 0.12 "my knees are wet" (kneeling), 0.3 "It's at my waist";
+       **Saturday's last rise 0.45 -> 0.36** (0.45 put it at his mouth on Saturday night, before Sunday's "By the evening
+       of Sunday, the water was at Vasco's chest", 0.4, and "closed over his mouth", 0.46). Vault 0.4 chest, 0.46 nose
+       ("at its nose"). Chamber 0.17 "round his legs" (knees), up to 0.295 with five discs (waist), 0.34 "at his chest"
+       (lower chest, 0.67), 0.42 "to Alan's chin" and "at his mouth". Land Rover: its own footwell (y 653 / 578).
+       Not changed (mon.js, another session's): the first surge goes to was+0.06 ("up to his waist") and then to
+       **was+0.04 for "dropped back to his knees"**, higher than it was; about 0.15 would match. `alan_look_door_in` ("in
+       it to my waist") is true only late in the chamber. `narr_vy_3` ("It was not filling the room. It was filling the
+       space around him") fits the cell (the water stops at the bars) but the cell itself fills.
+     - Review: `art/review/water/` (before/after per room at two or three levels, the waterlines over the paintings, the
+       2D version).
+     Checks: validate 0 errors; screenshots of all four rooms at their levels with figures standing in the water, GL and
+     2D; play.mjs won, 130 steps, no page errors (before and after the perspective fix). Frame time, headless Chromium
+     with software GL (so only relative): the chamber 65 ms a frame without water, 137–176 with it at 0.75 (143 at half
+     size; the pass's own JS 0.4–1 ms a frame), the 2D version 96–130 (its JS 6 ms). On a GPU it is one full-screen shader
+     and two texture copies a frame; not yet measured on a device (`?fps`).

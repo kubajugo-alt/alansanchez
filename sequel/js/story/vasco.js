@@ -385,19 +385,7 @@
       { name: 'Rope ladder', rect: [430, 140, 90, 400], at: [500, 640], when: () => ch() === 7, look: 'alan_m_in_already', use: 'alan_m_in_already' },
     ],
     animBack(g, t) { S.drawLowLight(g, t); },
-    // the Sea's water in the chamber (lighter than elsewhere: the sockets and the discs stay visible under it)
-    animFg(g, t) {
-      const level = S.water.cave6_low; if (!(level > 0)) return;
-      const top = 720 - level * 720;
-      g.save(); const gr = g.createLinearGradient(0, top, 0, 720);
-      gr.addColorStop(0, 'rgba(24,48,56,0.55)'); gr.addColorStop(1, 'rgba(6,14,18,0.8)');
-      g.fillStyle = gr; g.beginPath(); g.moveTo(0, 720);
-      for (let x = 0; x <= 1280; x += 16) g.lineTo(x, top + Math.sin(x * 0.02 + t * 1.6) * 4 + Math.sin(x * 0.007 - t * 0.9) * 5);
-      g.lineTo(1280, 720); g.closePath(); g.fill();
-      g.strokeStyle = 'rgba(200,225,230,0.25)'; g.lineWidth = 1.5; g.beginPath();
-      for (let x = 0; x <= 1280; x += 16) g[x ? 'lineTo' : 'moveTo'](x, top + Math.sin(x * 0.02 + t * 1.6) * 4 + Math.sin(x * 0.007 - t * 0.9) * 5);
-      g.stroke(); g.restore();
-    },
+    // (the Sea's water in the chamber: js/story/water.js, clearer there, so the sockets and the discs stay readable)
     async enter() {
       if (asV() && !F().v_low_intro) { F().v_low_intro = true; await say('narr_v_low_1', 'narr_v_low_2'); }
     },
@@ -582,13 +570,10 @@
       FX.motes(g, t, 1105, 95, 100, 220, 10, '230,230,220');
       FX.drips(g, t, [[968, 600, 60, 5.3], [214, 618, 90, 7.9]], '200,190,170');
     },
-    // the Sea's water only behind the bars, at his face, never through them; then the bars again over Vasco and the water
-    // (cut from the painting itself: so he's in the cell, not in front of it)
+    // the Sea's water only behind the bars, at his face, never through them (js/story/water.js: the cell's floor, clipped to
+    // the bars); then the bars again over Vasco and the water (cut from the painting itself: so he's in the cell, not in
+    // front of it)
     animFg(g, t) {
-      if (!F().vasco_free && S.water.vault > 0) {
-        const top = 512 - 245 * Math.min(1, S.water.vault / 0.46);
-        g.save(); g.beginPath(); g.rect(366, 64, 476, 448); g.clip(); S.drawWater(g, t, (720 - top) / 720, '20,40,46'); g.restore();
-      }
       if (!F().vasco_free) S.vaultBars(g);
       if (asV() && S.torch < 1) {
         // the dark, and what the torch still shows
@@ -638,8 +623,7 @@
       FX.glow(g, 1050, 260, 220, '255,170,80', 0.12 * FX.flicker(t, 1));
       FX.motes(g, t, 220, 120, 260, 300, 8, '220,224,230');
     },
-    animFg(g, t) {
-      S.drawWater(g, t, S.water.vault, '20,40,46');
+    animFg(g, t) {   // (the water: js/story/water.js, drawn before this; it stands at the grille like a wall)
       if (S.torch < 1) {
         const p = G.player, r = 40 + 260 * S.torch;
         g.save(); const gr = g.createRadialGradient(p.x, p.y - 200, r * 0.3, p.x, p.y - 200, r + 200);
@@ -678,10 +662,11 @@
     f[k] = (f[k] || 0) + 1;
     if (side === 'left') return say(['', 'vasco_dig_1', 'vasco_dig_2', 'vasco_dig_left_out'][f.v_left]);
     if (f.v_right === 1) { await S.waterTo('vault', 0.3, 2500); return say('vasco_dig_right_1'); }
-    // the blade snaps with a centimetre left; the water at his chest; the torch going
+    // the blade snaps with a centimetre left; the water at his chest; the torch going (0.36: chest high, js/story/water.js;
+    // Sunday evening it's at his chest still, 0.4, and only then at his mouth, 0.46)
     S.sfx('stone_clack', 0.6);
     await say('vasco_snap');
-    await S.waterTo('vault', 0.45, 2500);
+    await S.waterTo('vault', 0.36, 2500);
     await S.vaultEnd();
   };
   S.vaultEnd = async function () {

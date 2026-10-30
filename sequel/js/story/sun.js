@@ -257,7 +257,7 @@
       S.drawMist(g, t, 1);
       if (boiling === 1) FX.wisps(g, t, 640, 380, { n: 8, rise: 120, spread: 160, rgb: '235,235,235', a: 0.25, size: 26, speed: 0.6 });
     },
-    animFg(g, t) { S.drawWater(g, t, S.water.landrover, '24,44,50'); },
+    // (the Sea's water in the footwell, on Alan's side only: js/story/water.js)
   });
   // out of Las Palmas at five, against the crowds going down to the beaches; up into the cloud; the radiator
   S.drive = async function () {

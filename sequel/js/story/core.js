@@ -369,8 +369,8 @@
 
   // ---------------------------------------------------------------- the Sea's water and the black mist
   // S.water[key] = the level, 0..1; S.mist[room] = 0..1 strength. In the rooms js/story/water.js knows (S.WATER_ROOMS:
-  // the cell, the vault, Cave 6's chamber, the Land Rover) the level is a height above the floor, S.WATER_K = 2 figure
-  // heights per unit, drawn in the room's perspective round the figures. S.drawWater is the old flat water rising up the
+  // the cell, the vault, Cave 6's chamber, the Land Rover) the level is a height above the floor (S.waterH(level)
+  // figure heights), drawn in the room's perspective round the figures. S.drawWater is the old flat water rising up the
   // screen, over the figures (animFg): only Elena's car still uses it (the prologue).
   S.water = {}; S.mistOn = {};
   S.drawWater = function (g, t, level, rgb) {
