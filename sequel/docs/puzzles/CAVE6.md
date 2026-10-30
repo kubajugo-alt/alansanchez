@@ -183,7 +183,7 @@ the game's.
   any that clash are rewritten.
 - Baute's grandmother's telling joins his backstory (Tasarte, 1966): it's what he inherited instead of a grave.
 
-## The last disc: what only Vasco can read (proposal)
+## The last disc: what only Vasco can read (approved: "IT DOES", 2026-10-30)
 
 The user: "Baute knows how to remove (the order and frequency) the disks - there must be the last piece of knowledge
 only Vasco can decipher, the one that opens the lock. In other words - what to do with the last disk. This Baute is
