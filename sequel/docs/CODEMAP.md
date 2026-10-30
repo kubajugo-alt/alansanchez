@@ -19,6 +19,7 @@ when Game I's engine changes. A fix wanted in both is made in both, on purpose. 
 | `js/engine/saves.js` | Its own keys (`shortest-night-save-v1`, ...), no Game I migrations. |
 | `js/engine/tips.js` | Its own key; the "stuck" tip points at the phone box; a tip for Vasco's chapter. |
 | `js/audio.js` | Its own volume key. |
+| `js/engine/stills.js` | A close-up page can be interactive (`p.mount(el, redraw)`; the puzzles' pages). |
 | `js/fx.js` | The painted inventory icons are listed by the story (`window.PAINTED_ICONS`); an item with no icon yet shows a luggage tag with its short name (`window.ICON_LABELS`). |
 
 ## Load order (index.html)
@@ -45,6 +46,7 @@ when Game I's engine changes. A fix wanted in both is made in both, on purpose. 
 | `js/story/vasco.js` | Saturday, Vasco's chapter, and the mountain's rooms with all their days: the camp, Cave 6, the vault. |
 | `js/story/sun.js` | Sunday: the choice, the bad ending, Carmen's flat, the Land Rover, the rescue. |
 | `js/story/mon.js` | Monday: the finale (`S.ORDER`, the sockets, the surge and the death screen, the mirror, the sixth disc, the seventh's angle), the confession, the ending. |
+| `js/story/puzzles.js` | The puzzles of HANDOFF entry 95 (`docs/puzzles/DESIGN.md`): `S.WORDS` (words Alan earns, each from a flag), `S.PAGES` (notebook pages with blanks; `S.openPage`, `S.fillPage`, `S.ON_SOLVE`), the notebook with its open pages first, Inês's hints for the new steps; then the day hooks: folio 12, the case, the talk's clock, the receipt, Vasco's note, Don Lolo's radio, the tower and Baute, the tide table, the warning, Vasco's foil. Loaded after mon.js. |
 | `js/story/layout.js` | Applies the placement tool's output to the rooms: hotspot rects (`spots`), standing points (`at`), the cast's stands, `S.EXTRAS_WHEN` (when a room's extras show: the museum's guests only at the parties), and `S.VARIANTS` (a room's second layout, e.g. `museum_hall_dinner`: the cast's x, y, dir and size become getters that switch on the variant's `when`). |
 | `js/story/main.js` | `STILLS`, placeholder wiring (hotspot boxes, default standing spots), the `?scene=` previews (`PREVIEW`), the content setting, `newGame`, `Game.init`. |
 
@@ -83,7 +85,8 @@ original.
 
 ## Testing
 
-Serve `sequel/` (`npx -y http-server -p 8099 -c-1 -s sequel`), then:
+Serve `sequel/` (`npx -y http-server sequel -p 8099 -c-1 -s`, the folder first: with it after `-s` the server
+quietly serves the repository root, Game I), then:
 
 - `node sequel/scripts/validate.mjs`: every line id used exists, every line is used, speakers named, art on disk.
 - `node sequel/scripts/tests/play.mjs http://localhost:8099/`: plays the whole game, prologue to credits, through

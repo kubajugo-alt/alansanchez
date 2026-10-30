@@ -176,6 +176,10 @@ in `js/story/docs.js` (`G.closeup([page(...)])`).
   `scripts/spanish_words.py`). People comment on Alan's looks: he flirts back with men, blushes with women (69). Ids
   name recordings: never rename one; a changed text needs re-recording.
 
+- **A word said the Spanish way** (HANDOFF 97): `scripts/tts_text.json` holds, by line id, the text the voice reads
+  where it must differ from the caption (e.g. the price in Spanish); `generate-voices.mjs --tts=FILE --out=DIR` makes
+  auditions without touching the game's recordings.
+
 ## 10. Music and sound
 
 - **Music**: one track per room, Lyria 3 Pro (`scripts/gen_music.py`, ledger stops at $20), the user picks a take,

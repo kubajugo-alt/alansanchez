@@ -24,8 +24,13 @@ root, in the same repository as Game I. Read, in this order:
 - **The whole story is playable**, prologue to credits: the prologue (Elena's last drive), Tuesday to Monday as
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
   the ending. Every day rewritten from the novel (entries 17, 87). `node scripts/tests/play.mjs` plays it all.
-- **2,549 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs except about
-  290: ElevenLabs ran out of credits (entry 88; what to run when it is topped up, and the rule: same voices only).
+- **2,664 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs (entry 94), except
+  the 115 lines of the new puzzles (entry 95), text only until the user has played them. The ElevenLabs key lives in the
+  root `.env`, which a cloud container doesn't have (entry 97).
+- **Puzzles** (entry 95, `docs/puzzles/DESIGN.md`, `js/story/puzzles.js`): knowledge as inventory: words Alan earns,
+  notebook pages with blanks (1483 told twice, the case built wrong on Thursday and again on Saturday, the founders'
+  letter, who's next), folio 12, the break-in against Vasco's twenty minutes, the two radios (Lolo, the tower, Baute's
+  lie; Vasco's foil), the tide table, island words.
 - **Art**: 28 room paintings (upscaled to 2560x1440, entry 92; the 1280 originals in `art/designs/rooms_1280/`) plus the
   map; the cast painted and animated (Ludo walks, talk loops, face kits with blinks and lip-sync); 19 background
   people who talk (`js/story/bgtalk.js`); props graded into their rooms. **Stills**: 21 painted, 16 still text cards
@@ -39,8 +44,12 @@ root, in the same repository as Game I. Read, in this order:
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
 ### Open, in the order I'd suggest
-1. **Voices**: when the user has topped up ElevenLabs, the two commands in entry 88; then `build-manifest`, deploy.
-2. **Deploy** of everything since entry 83 (the rewrite, the reception, the upscale) when the user asks.
+1. **The puzzles (entry 95)**: the user plays them; then their 115 lines are voiced (`node scripts/generate-voices.mjs`,
+   needs the key) and the retired lines' recordings can go.
+   **The granary (entry 96)**: the user picks a take of the cell seen from inside; then the crate numbers, the upscale,
+   Vasco's chapter in the new room, Sunday re-staged. **"Pesetas" (entry 97)**: two audition sets to make and play.
+2. **Deploy** of everything since entry 83 (the rewrite, the reception, the upscale, the puzzles) when the user asks.
+   Add `/art/designs` to `sequel/.gitattributes` first: 272 MB of source art the game never loads (the export is 742 MB).
 3. **Parallax**: switch it on (drop the `parallax: false` default in `S.room`; the map stays flat), record the rooms for
    the user, deploy when approved.
 4. **Environment movement**: the user's pick from the ten fixes in `docs/review/env_movement.md`.
@@ -955,3 +964,52 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     fermin_belfry_wind was refused by ElevenLabs ("may violate our Terms of Service": "I'll sit here and die quietly");
     now "...and wheeze quietly while you work", voiced. Every line of a voiced speaker has its file (2,577 voice files).
     The background people's 45 lines were already voiced (entry 82).
+95. **New puzzles: knowledge as inventory** (2026-10-30). The user: "there is too little multi-stage puzzles. Most of
+    the tasks Alan has are 'go to a place, talk to a person'... attempting the contact with Vasco via the radio... more
+    with the documents... the Castillian and Canarii perspective... the Montesdeoca/Baute motives... the rules about the
+    sea, that are now essentially handed by Ines... drawing inspiration from other great games of the genre"; nine
+    proposals, then "all sound like a very good idea". The design: `docs/puzzles/DESIGN.md`. The code: `js/story/puzzles.js`
+    (loaded after mon.js): `S.WORDS` (each earned by a flag the story already sets, so old saves know them; a toast when
+    new, from G.autosave), `S.PAGES` (notebook pages with blanks: click a gap to cycle the words of its kind; filled, the
+    page says right or how many are wrong; `S.fillPage` for tests), `S.openPage`, `S.ON_SOLVE`; the engine's close-up takes
+    an interactive page (`p.mount`, js/engine/stills.js, the fork's one change here). Day by day:
+    - Thursday: "1483, told twice" (the inquiry's phrases against Carmen's and Galindo's); then folio 12 (Mercedes: the
+      inquiry jumps fol. 11 to 13; the missing folio is a Canario fisherman's statement, struck out; fiction). Gail's
+      news that Montesdeoca's contract is framed in Baute's office; "Who is taking the discs?" built by the player
+      (wrong on purpose: Montesdeoca); struck through after Friday's fight. The dinner needs all three
+      (thu.js `ready`). The break-in runs against "Vasco's talk · 20 min" (a look 1, an action 3; then ten minutes of
+      questions; then a professor's lecture, no limit).
+    - Friday: Carmen gives Elena's door ("Una puerta. In the floor"; Alan: "Porta").
+    - Saturday: the letter first, in 404 after the footprint: four faded words from his week (fechadura, devolvida,
+      viragem, porta); the call then has him read Inês the rules and her read him only the cost. The blazer's lining (a
+      receipt: a mass for the dead of Tasarte, every year, I. M.); Chano: the guagua at seven, and Tasarte; "Who is
+      taking the discs? (again)". Vasco's note under his books ("Canal 9, on the hour"); Don Lolo lends his radio to a man
+      who talks like the island (two of chacho, panza de burro, guagua, guiri) and tells of the Portuguese voice on the
+      mountain's channel; Santa Ana's tower; wait for one o'clock; Baute's lie, caught with the guagua's hour. Then "he
+      tries" (without the guard's radio), the tide table in the phone box, "Who's next" (Pino Medina, La Isleta, 19:04),
+      and Alan warns Lolo before the flood ("You said watch. I watched.").
+    - Vasco's chapter: the foil from Yeray's packet by the stove bridges the fuse: the message Lolo heard, then Baute.
+    - Sunday: the deduction names Lolo's "under" and Baute's lie.
+    115 new lines, text only (no recordings until the user has played them). Retired (unused now, recordings kept):
+    narr_th_plan_2/3, ines_call_sat_8/9/10/13/14/15, narr_s_tried_3, narr_s_seven, alan_s_seven, narr_flood_lolo_2.
+    Checked: validate.mjs 0 errors (the 80 warnings: the background people's ids the validator can't see,
+    the unused film_ lines, and the retired lines above); a page clicked through in the browser (wrong answers say so);
+    play.mjs on the new route (`S.fillPage` for the pages): won, prologue to credits, 129 steps, no page errors.
+96. **The granary, redesigned** (2026-10-30). The user: "the room design makes it look ridiculous (when the water is
+    rising, Alan and Yeray are in the room with Vasco, but aren't affected, the room is open, the grille doesn't block the
+    exit)... draw the room with code first". The painting already shows the answer: the cell is the alcove behind the
+    bars; the crates and the steps are outside it. `art/review/vault_redesign/mock.html` (sheet.jpg): Sunday from the
+    outer chamber on the existing painting, Vasco behind the bars, the water only behind them; Vasco's chapter from
+    inside the cell, a new painting. The user: Sunday "makes sense"; inside, "this space should be narrower, and you
+    wouldn't see the stairs from it, only the light on the wall from the stairs... you'd see the crates only". Layout
+    redrawn; Higgsfield gpt_image_2_5 (the vault painting and the clean layout as references), round 2 in
+    `takes_v2.jpg` (`v2_take1-3.png`); the crate numbers need repainting on the pick. Proposed mechanics: Vasco hooks
+    the lantern (round the corner of the grille's wall) with the trowel for light, digs the anchors, the mark; Sunday:
+    crate 29 as a fulcrum for Yeray's pick, the three pull the grille down. Not built yet: waiting for the pick.
+97. **"Pesetas" with a Spanish accent** (2026-10-30). The user: "when chano and aloe lady say 'pesetas' they say it in an
+    english accent". Three lines (candelaria_2, chano_t_chacho, chano_postcard). `scripts/generate-voices.mjs` now takes
+    `--tts=FILE` (the text the voice reads, by id, where it must differ from the caption; `scripts/tts_text.json` by
+    default) and `--out=DIR` (auditions; no manifest). Two sets to audition: `scripts/tts_pesetas_a.json` ("pesétas")
+    and `_b.json` (the price said in Spanish). Not generated: no ELEVENLABS_API_KEY in this cloud container (the root .env
+    is the user's); the connector can't send the language code and settings these voices were made with, and the rule is
+    the same voices only.

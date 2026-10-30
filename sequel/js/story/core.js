@@ -182,12 +182,13 @@
     PIN('canteras', 668, 492, 'Las Canteras · the beach, the kiosk, the phone box', () => F().ch >= 1 && F().ch <= 6),
     PIN('hotel_lobby', 706, 470, 'Hotel Cristina', () => F().ch >= 1 && F().ch <= 6),
     PIN('mercado', 690, 452, 'Mercado del Puerto · the aloe lady', () => F().ch === 1 && F().aloe_sent && !F().aloe_done),
-    PIN('isleta', 418, 316, 'La Isleta · the fishermen\'s quay', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().fax_read && !F().isleta_flood)),
+    PIN('isleta', 418, 316, () => F().ch === 5 && F().next_known ? 'La Isleta · before seven' : 'La Isleta · the fishermen\'s quay',
+      () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && !F().isleta_flood && ((F().case_sat && !F().radio_lolo_got) || F().next_known))),   // (Saturday: Lolo's radio, then the warning: puzzles.js)
     PIN('museum_hall', 1156, 238, () => F().ch === 1 ? 'El Museo Canario · the reception, 8 pm' : F().ch === 3 && S.dinnerDue() ? 'El Museo Canario · the fundraising dinner' : 'El Museo Canario · Vegueta',
       () => (F().ch === 1 && F().blazer_on && F().called_tue && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explained),
       'museum_out'),   // (in through the street door: the outside first)
-    PIN('santa_ana', 1166, 218, 'Plaza de Santa Ana · the cathedral', () => F().ch >= 2 && F().ch <= 4),
-    PIN('colon', 1138, 225, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().inquiry_read, 'colon_out'),
+    PIN('santa_ana', 1166, 218, 'Plaza de Santa Ana · the cathedral', () => (F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().radio_lolo_got && !F().radio_lie)),
+    PIN('colon', 1138, 225, 'Casa de Colón', () => F().ch === 3 && F().sent_to_colon && !F().folio12, 'colon_out'),   // (until folio 12 is found: js/story/puzzles.js)
     PIN('rafa_bar', 1145, 232, 'Vegueta · a bar on Calle Mendizábal', () => F().ch === 4 && F().cave_explained && !F().rafa_night),
     PIN('carmen_flat', 1079, 250, 'Triana · Carmen\'s flat', () => F().ch === 6 && F().chose_carmen),
   ];
@@ -201,7 +202,8 @@
     if (f.ch === 3 && S.suitcaseDue && S.suitcaseDue()) return 'hotel_lobby';
     if (f.ch === 3 && S.dinnerDue()) return 'museum_hall';
     if (f.ch === 4) return !f.cave_explained ? 'museum_hall' : 'rafa_bar';
-    if (f.ch === 5) return !f.footprint_seen ? null : !f.called_sat ? 'canteras' : !f.fax_read ? 'hotel_lobby' : !f.isleta_flood ? 'isleta' : null;
+    if (f.ch === 5) return !f.footprint_seen || !f.letter_read ? null : !f.called_sat ? 'canteras' : !f.case_sat ? null : !f.radio_lolo_got ? 'isleta'
+      : !f.radio_lie ? 'santa_ana' : !f.next_known ? null : !f.isleta_flood ? 'isleta' : null;
     if (f.ch === 6) return f.chose_carmen && !f.carmen_sun ? 'carmen_flat' : null;
     return null;
   };
@@ -241,7 +243,7 @@
     ['called_wed', () => F().ch === 2 && F().fermin_letter, () => S.callWed()],
     ['called_thu', () => F().ch === 3, () => S.callThu()],
     ['called_fri', () => F().ch === 4 && F().fight_done, () => S.callFri()],
-    ['called_sat', () => F().ch === 5 && F().rafa_truth, () => S.callSatScene(), { direct: true, hangup: true }],
+    ['called_sat', () => F().ch === 5 && F().rafa_truth && F().letter_read, () => S.callSatScene(), { direct: true, hangup: true }],   // (the letter read first: puzzles.js)
   ];
   // Tuesday, before the reception: Pessoa and the Eça, the surfers, "Don't break anything"; and the money runs out
   S.callTue1 = async () => {

@@ -27,7 +27,13 @@ if (!key) { console.error('Set ELEVENLABS_API_KEY (or put it in the repository .
 const args = process.argv.slice(2);
 const force = args.includes('--force');
 const only = args.filter(a => !a.startsWith('--'));
-fs.mkdirSync(outDir, { recursive: true }); fs.mkdirSync(srcDir, { recursive: true });
+// --out=DIR writes the recordings there instead of audio/voice (auditions; the manifest is left alone)
+const outArg = (args.find(a => a.startsWith('--out=')) || '').slice(6);
+// --tts=FILE: the text the voice reads, by line id, where it must differ from the caption (scripts/tts_text.json by
+// default; e.g. "pesetas" said the Spanish way, 2026-10-30): the caption in js/lines.js never changes
+const ttsArg = (args.find(a => a.startsWith('--tts=')) || '').slice(6) || path.join(root, 'scripts', 'tts_text.json');
+const TTS = fs.existsSync(ttsArg) ? JSON.parse(fs.readFileSync(ttsArg, 'utf8')) : {};
+fs.mkdirSync(outArg || outDir, { recursive: true }); fs.mkdirSync(srcDir, { recursive: true });
 const isPhone = (id, who) => cast.phone.speakers.includes(who) || cast.phone.ids.includes(id);
 
 const jobs = [];
@@ -36,9 +42,9 @@ for (const [id, [who, text]] of Object.entries(LINES)) {
   if (only.length && !only.includes(id)) continue;
   const voice = cast.voices[who];
   if (!voice) { skipped[who] = (skipped[who] || 0) + 1; continue; }
-  const file = path.join(outDir, id + '.mp3');
+  const file = path.join(outArg || outDir, id + '.mp3');
   if (!force && !only.length && fs.existsSync(file)) continue;
-  jobs.push({ id, who, text, voice, file });
+  jobs.push({ id, who, text: TTS[id] || text, voice, file });
 }
 console.log(`${jobs.length} lines to voice` + (Object.keys(skipped).length ? `; not cast yet: ${JSON.stringify(skipped)}` : ''));
 
@@ -86,4 +92,4 @@ async function one(j) {
 const queue = jobs.slice();
 await Promise.all(Array.from({ length: 3 }, async () => { while (queue.length) await one(queue.shift()); }));
 console.log(`done: ${done} voiced, ${failed} failed`);
-await import('./build-manifest.mjs');
+if (!outArg) await import('./build-manifest.mjs');

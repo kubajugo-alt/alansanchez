@@ -15,8 +15,10 @@
   };
   // the afternoon: back to the hotel for a jacket (the suitcase), then the dinner. A save made at the dinner before the
   // suitcase existed (dinner_intro) still counts as dressed.
-  S.suitcaseDue = () => { const f = F(); return ch() === 3 && f.lore_carmen && f.inquiry_read && f.called_thu && !f.suitcase_done && !f.dinner_intro; };
-  S.dinnerDue = () => { const f = F(); return ch() === 3 && f.lore_carmen && f.inquiry_read && f.called_thu && !!(f.suitcase_done || f.dinner_intro); };
+  // (and, since 2026-10-30, the two tellings of 1483, folio 12 and the case built in the notebook: js/story/puzzles.js)
+  const ready = f => f.lore_carmen && f.inquiry_read && f.called_thu && f.tellings && f.folio12 && f.case_thu;
+  S.suitcaseDue = () => { const f = F(); return ch() === 3 && ready(f) && !f.suitcase_done && !f.dinner_intro; };
+  S.dinnerDue = () => { const f = F(); return ch() === 3 && (f.dinner_intro || ready(f)) && !!(f.suitcase_done || f.dinner_intro); };
 
   // ---------------------------------------------------------------- the kiosk: Chano's news (called from tue.js S.talkChano)
   S.chanoNewsThu = async function () {
@@ -130,6 +132,7 @@
     }
     await G.dialog([
       { line: 'alan_ask_inquiry', when: () => !f.inquiry_read, run: () => S.readInquiryAloud() },
+      { line: 'alan_ask_folio', when: () => f.tellings && !f.folio12, run: () => S.folio12() },
       { line: 'alan_ask_mercedes_witches', once: true, when: () => f.inquiry_read, run: () => say('mercedes_women_2', 'mercedes_women_3') },
       { line: 'alan_ask_mercedes_parrots', once: true, run: () => say('mercedes_parrots', 'parrot_squawk') },
       { line: 'alan_bye_mercedes', bye: true, run: () => say('mercedes_bye') },
@@ -153,7 +156,7 @@
     const f = F();
     if (f.suitcase_done) return;
     await G.busy(async () => {
-      await say('narr_th_plan_1', 'narr_th_plan_2', 'narr_th_plan_3', 'narr_th_plan_4', 'narr_th_plan_5');
+      await say('narr_th_plan_1', 'narr_th_plan_4', 'narr_th_plan_5');   // (the plan itself is the player's now: the case page, puzzles.js)
       await say('narr_th_case_1', 'nieves_th_case_1', 'nieves_th_case_2');
       S.sfx('case_open', 0.5); await T(600);
       await say('alan_th_case_1', 'alan_th_case_2', 'nieves_th_case_3', 'narr_th_case_eyebrow', 'nieves_th_case_4');

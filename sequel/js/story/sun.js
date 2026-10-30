@@ -210,6 +210,7 @@
         await say('narr_su_museum');
         S.sfx('phone_dial', 0.5); await T(1000);
         await say('narr_su_lab', 'carmen_su_lab_1', 'carmen_su_lab_2', 'alan_su_six', 'narr_su_think');
+        if (f.radio_lie) await say('alan_su_lolo');   // (2026-10-30: Lolo's radio and Baute's lie, puzzles.js)
       });
     }
     await say('alan_su_think_1', 'alan_su_think_2', 'alan_su_think_3');

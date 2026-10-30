@@ -38,7 +38,9 @@
     hotspots: [
       { name: 'The sea of cloud', rect: [0, 360, 1280, 180], at: [640, 600], noBox: true, look: () => say(asV() ? 'vasco_look_cloud' : ch() === 6 ? 'alan_look_cloud_night' : 'alan_look_cloud_mon') },
       { name: 'Camp radio', rect: [430, 460, 90, 70], at: [470, 650], look: () => S.lookRadio(), use: () => S.lookRadio(),
-        items: { fuse: () => S.fuseIn() } },
+        items: { fuse: () => S.fuseIn(), foil: () => S.foilRadio() } },
+      { name: 'Stove', rect: [165, 345, 110, 60], at: [250, 640], when: () => asV(), look: 'vasco_look_stove',
+        take: () => S.takeFoil(), use: () => S.takeFoil() },
       { name: 'Finds table', rect: [580, 450, 220, 80], at: [690, 650], look: () => say(asV() ? (G.has('elena_charts') ? 'vasco_finds_again' : 'vasco_look_finds') : 'alan_look_finds_camp'),
         use: () => S.takeCharts(), take: () => S.takeCharts() },
       { name: 'Path to Cave 6', rect: [1160, 250, 110, 320], at: [1200, 650], exit: 'cave6', entry: 'camp', when: () => asV() || ch() === 7,
@@ -119,15 +121,29 @@
         await say('narr_v_fuse_1');
         await S.posed('kneel', async () => { S.sfx('case_open', 0.5); await say('narr_v_fuse_2', 'vasco_radio_fuse', 'narr_v_fuse_3'); });
         await S.posed('worried', () => say('narr_v_fuse_4', 'narr_v_fuse_5', 'vasco_v_see'));
-        f.v_baute_here = true; G.refreshNpcs();
-        const b = G.npc('baute'); if (b) b.dir = 'w';
-        await say('narr_v_shadow', 'baute_v_01');
-        G.player.dir = 'e';
-        await say('narr_v_baute_1', 'narr_v_baute_2', 'baute_v_01b');
       });
       return;
     }
     return say('vasco_radio_fuse_2');
+  };
+  // (2026-10-30) the foil from Yeray's packet as a fuse: a few seconds on the air, the message Don Lolo heard (puzzles.js);
+  // then the foil burns through, and Rayco's shadow falls across the radio
+  S.foilRadio = async function () {
+    const f = F();
+    if (!f.v_fuse_seen || f.v_baute_here) return say('vasco_look_foil');
+    G.takeItem('foil');
+    await G.busy(async () => {
+      await S.posed('kneel', async () => { S.sfx('case_open', 0.4); await say('vasco_r_foil_1'); });
+      S.sfx('relay_click', 0.5);
+      await say('narr_v_r_1', 'vasco_r_send');
+      S.sfx('match', 0.5);
+      await say('narr_v_r_2', 'vasco_r_after');
+      f.v_sent = true; f.v_baute_here = true; G.refreshNpcs();
+      const b = G.npc('baute'); if (b) b.dir = 'w';
+      await say('narr_v_shadow', 'baute_v_01');
+      G.player.dir = 'e';
+      await say('narr_v_baute_1', 'narr_v_baute_2', 'baute_v_heard', 'baute_v_01b');
+    });
   };
 
   // ================================================================ CAVE 6
