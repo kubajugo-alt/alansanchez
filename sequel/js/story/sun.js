@@ -245,15 +245,15 @@
     ],
     animBack(g, t) {
       const im = G.bgImage(), bump = Math.sin(t * 7.3) * 0.6 + Math.sin(t * 2.9) * 0.9; // the road under the wheels
-      // the stars over the sea of cloud, and the cloud itself rolling slowly below the wall
+      // the road going by through the windscreen: a Higgsfield loop masked onto the glass, as the sea (the user,
+      // 2026-10-30); until it can play, the cloud rolling slowly below the wall
+      if (!S.sea(g, 'landrover')) FX.ripple(g, im, [950, 202, 290, 78], t * 0.35, 1.2, 0.05);
+      // the stars over the sea of cloud
       FX.twinkle(g, t, [[540, 112, 1], [598, 168, 1], [812, 104, 1], [868, 150, 1], [930, 118, 1], [1004, 172, 1], [1080, 98, 1], [1150, 140, 1], [1222, 116, 1], [760, 182, 1]], '230,236,255');
-      FX.ripple(g, im, [950, 202, 290, 78], t * 0.35, 1.2, 0.05);
       FX.sway(g, im, [668, 150, 62, 166], t * 1.4, 2.2 + bump, 0.3); // the rosary off the mirror, swinging with the road
       FX.glow(g, 680, 330, 260, '255,226,170', 0.05 + 0.025 * (1 + Math.sin(t * 5.1) * Math.sin(t * 1.7))); // the headlights, jolting
-      // the dashboard's lamps, and the cigarette breathing
+      // the dashboard's lamps (no cigarette: the user took it out of the painting, 2026-10-30)
       FX.glow(g, 627, 462, 10, '120,255,120', 0.35); FX.glow(g, 559, 505, 10, '120,255,120', 0.35); FX.glow(g, 730, 519, 9, '255,160,60', 0.4);
-      FX.glow(g, 289, 307, 8, '255,120,50', 0.35 + 0.25 * Math.max(0, Math.sin(t * 0.9)));
-      FX.wisps(g, t, 292, 302, { n: 5, rise: 60, spread: 14, rgb: '200,200,210', a: 0.11, size: 7, speed: 0.18 });
       S.drawMist(g, t, 1);
       if (boiling === 1) FX.wisps(g, t, 640, 380, { n: 8, rise: 120, spread: 160, rgb: '235,235,235', a: 0.25, size: 26, speed: 0.6 });
     },
