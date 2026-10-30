@@ -198,9 +198,11 @@
     const f = F();
     if (f.ch === 1) return !f.burnt ? 'canteras' : !f.aloe_sent ? 'hotel_lobby' : !f.aloe_done ? 'mercado' : !f.blazer_on && !f.reception_done ? 'hotel_lobby'
       : !f.called_tue ? 'canteras' : !f.reception_done ? 'museum_hall' : !f.called_tue2 ? 'canteras' : 'hotel_lobby';
+    if (f.ch === 3 && S.suitcaseDue && S.suitcaseDue()) return 'hotel_lobby';
     if (f.ch === 3 && S.dinnerDue()) return 'museum_hall';
     if (f.ch === 4) return !f.cave_explained ? 'museum_hall' : 'rafa_bar';
     if (f.ch === 5 && f.fax_read && !f.isleta_flood) return 'isleta';
+    if (f.ch === 6) return f.chose_carmen && !f.carmen_sun ? 'carmen_flat' : null;
     return null;
   };
   S.ROOMS.map = {
@@ -254,8 +256,10 @@
       'ines_call_tue_3', 'alan_call_tue_4', 'ines_call_tue_4', 'alan_call_tue_5', 'ines_call_tue_5', 'alan_call_tue_6', 'ines_call_tue_6', 'alan_call_tue_7');
     S.sfx('dial_tone', 0.4); await S.T(600);
   };
-  S.callWed = () => say('alan_call_wed_1', 'ines_call_wed_1', 'alan_call_wed_2', 'ines_call_wed_2');
-  S.callThu = () => say('ines_call_thu_1', 'alan_call_thu_1', 'ines_call_thu_2', 'alan_call_thu_2', 'ines_call_thu_3', 'alan_call_thu_3', 'ines_call_thu_4');
+  S.callWed = () => say('alan_call_wed_1', 'ines_call_wed_1', 'alan_call_wed_2', 'ines_call_wed_2', 'alan_call_wed_3', 'ines_call_wed_3', 'alan_call_wed_4', 'ines_call_wed_4', 'alan_call_wed_5', 'ines_call_wed_5');
+  S.callThu = () => say('ines_call_thu_1', 'alan_call_thu_1', 'ines_call_thu_2', 'narr_th_call_1', 'ines_call_thu_3', 'ines_th_call_4', 'alan_call_thu_2',
+    'narr_th_call_2', 'ines_th_call_5', 'ines_th_call_6', 'alan_call_thu_3', 'ines_th_call_7', 'ines_th_call_8', 'alan_th_call_4', 'narr_th_call_3',
+    'ines_th_call_9', 'alan_th_call_5', 'ines_call_thu_4');
   S.callFri = () => say('ines_call_fri_1', 'alan_call_fri_1', 'ines_call_fri_2', 'alan_call_fri_2', 'ines_call_fri_3');
   S.callSat = () => say('ines_call_sat_1', 'alan_call_sat_1', 'ines_call_sat_2', 'alan_call_sat_2', 'ines_call_sat_3', 'alan_call_sat_3', 'ines_call_sat_4');
   S.callDue = () => S.CALLS.find(c => !F()[c[0]] && c[1]());
@@ -304,6 +308,7 @@
       case 3:
         if (!f.lore_carmen) return 'ines_hint_carmen_lore';
         if (!f.inquiry_read) return f.sent_to_colon ? 'ines_hint_colon' : 'ines_hint_carmen_lore';
+        if (f.called_thu && !f.suitcase_done && !f.dinner_intro) return 'ines_hint_suitcase';
         if (!f.caught) return f.derek_sent ? 'ines_hint_desk' : 'ines_hint_guard';
         return 'ines_hint_thu_done';
       case 4:
@@ -325,12 +330,14 @@
     [f => f.saw_helmet, 'Wed. Doña Pino\'s nets brought up a helmet from 1478. The sea is emptying its pockets.'],
     [f => f.saw_disc_list, 'Wed. Museum conservation list: obsidian discs removed from Cave 6, one a day. Disc 2 today.'],
     [f => f.fermin_letter, 'Wed. Santa Ana has a bell with our mark on it. 1751. The founders were here. A sealed letter "for the next founder who comes". (Faxed to Inês: 18th-century Portuguese, faded.)'],
-    [f => f.pepe_known, 'Thu. Pepe Santana, fisherman, drowned in his bed in La Isleta. Dry floor. Wet bed.'],
+    [f => f.pepe_known, 'Thu. Pepe Santana, fisherman, drowned in his bed in La Isleta. Dry sheets, window shut, door locked. Lungs full of the sea.'],
     [f => f.pino_list, 'Thu. Doña Pino\'s list: the four survivors of the <i>Virgen del Pino</i>, 1971. "The sea is taking back its debts."'],
     [f => f.lore_carmen, 'Thu. Carmen: the Harimaguadas called the sea on the Castilians in 1483 and shut it out again at the cave. The grandmothers in Artenara say the cave "holds the sea down".'],
     [f => f.inquiry_read, 'Thu. Casa de Colón, the 1484 inquiry: the sea rose black against the wind, came every night for three months, went back at sunrise on Saint John\'s day. "Nadie preguntó a las mujeres."'],
     [f => f.called_thu, 'Thu. Inês: the foundry ledger. 1751, "to study the lock". 1755, "We did what we learned in the Canaries." And the Sea knows my blood.'],
     [f => f.saw_map, 'Thu. Baute\'s desk: a photograph of a bulldozed burial ground, 1966, and a map of the south coast resorts, circled. Montesdeoca\'s resorts. (It\'s Montesdeoca?)'],
+    [f => f.suitcase_done, 'Thu. The tide on the third step at noon. Montesdeoca\'s contract will be in Baute\'s office, one floor up from the dinner. Find it while Vasco talks. (Don\'t ask Vasco.)'],
+    [f => f.fight_done, 'Fri. Vasco has gone up the mountain till Monday. He told me about Lorenzo, the man he left in Rome. "I won\'t be left by a man who\'s scared." The discs go to the museum\'s lab, he says; he signed the sheets. He said go home: there\'s a flight on Sunday.'],
     [f => f.cave_explained, 'Fri. Carmen: the beam crosses the cave; the triangles are arrows; the discs are mirrors. San Juan is when the sun turns back. "Go home before Sunday."'],
     [f => f.sketchbook_read, 'Sat. Rafa\'s sketchbook: the boy at the bar was Yeray. "The discs go down to the lower vault at night. Only Rayco has the key." Not Montesdeoca. Baute.'],
     [f => f.fax_read, 'Sat. The letter, decoded: the Sea strikes first at whoever understands the lock. It comes for everyone taken back from it. Whoever closes the lock stands in the water, and goes down with it.'],

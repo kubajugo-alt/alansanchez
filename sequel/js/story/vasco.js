@@ -148,7 +148,12 @@
   };
   S.beamPoint = () => {
     const f = F();
-    if (ch() === 7) return f.lock_closed || f.disc_turned ? S.GREAT : S.DOOR;
+    if (ch() === 7) {
+      if (f.lock_closed || f.disc_turned) return S.GREAT;
+      // (the seventh, turned by the mirror's light: the spot walks onto the great triangle, a turn at a time, mon.js f.turn)
+      if (f.mirror_on) return [[S.GREAT[0] + 150, S.GREAT[1]], [S.GREAT[0] + 60, S.GREAT[1] - 10], [S.GREAT[0] + 20, S.GREAT[1] + 10]][Math.min(2, f.turn || 0)];
+      return S.DOOR;
+    }
     if (f.v_steer) return [492, 300];
     return BEAM_AT[Math.min(BEAM_AT.length - 1, f.v_time || 0)];
   };

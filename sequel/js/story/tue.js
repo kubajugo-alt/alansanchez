@@ -145,6 +145,7 @@
       { name: 'Out to Las Canteras', rect: [20, 250, 110, 320], at: [70, 650], exit: 'canteras', entry: 'hotel_lobby', lockedLine: () => S.mapLock && S.mapLock(), locked: () => !!(S.mapLock && S.mapLock()) },
     ],
     async enter(entry) {
+      if (S.suitcaseDue && S.suitcaseDue()) return S.suitcaseThu();   // Thursday afternoon: the plan, the suitcase, the jacket again (thu.js)
       if (ch() === 5 && entry === 'map' && !F().lobby_return_seen) return S.lobbySat();
     },
   });
@@ -196,7 +197,7 @@
       return say('gail_t_again');
     }
     if (ch() === 2) return say(f.gail_wed ? 'gail_w_again' : (f.gail_wed = true, 'gail_w_1'));
-    if (ch() === 3) return say('gail_th_1');
+    if (ch() === 3) return S.gdThu();   // Thursday: the tide, the dinner invitation (thu.js)
     if (ch() === 6) return say('gail_su_1', 'derek_su_1');
   };
   // Tuesday, room 404: Vasco's good jeans from his bag, then the stranger's blazer (the user, 2026-10-29: "he should go
@@ -213,6 +214,7 @@
     });
   };
   S.talkDerek = async function () {
+    if (ch() === 3) return S.gdThu();
     if (ch() === 1) return F().burnt && !F().aloe_done ? say('derek_t_burn_2') : say('derek_t_2', 'alan_t_derek');
     if (ch() === 2) return say('derek_w_1');
     if (ch() === 6) return say('derek_su_2');
@@ -373,6 +375,7 @@
     const f = F();
     if (G.has('note5000')) return S.buyPaper();
     if (!f.chano_met) { f.chano_met = true; await say('chano_hello'); }
+    if (ch() === 3 && !f.chano_pepe && S.chanoNewsThu) await S.chanoNewsThu();   // Thursday: Chano's news, Pepe Santana (thu.js); sets pepe_known
     if (ch() === 1 && f.blazer_on && !f.chano_star) { f.chano_star = true; await say('chano_t_filmstar', 'alan_t_flirt_chano'); }
     await G.dialog([
       { line: 'alan_ask_change', when: () => G.has('note5000'), run: () => S.buyPaper(), bye: true },
@@ -587,9 +590,9 @@
     entries: { default: [1100, 670, 'w'], hotel_lobby: [1100, 670, 'w'] },
     npcs: [
       // (the user, 2026-10-30: Gail and Derek stay in the restaurant at all times; Alan comes here for their advice)
-      { id: 'seat_gail', ch: 'gail_seated', x: 600, y: 660, dir: 'e', fixedDir: true, name: 'Gail', when: () => [1, 2, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
-      { id: 'seat_derek', ch: 'derek_seated', x: 600, y: 660, dir: 'e', fixedDir: true, name: 'Derek', when: () => [1, 2, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
-      { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => ch() === 3, look: 'alan_look_gail', talk: () => S.talkGail() },
+      { id: 'seat_gail', ch: 'gail_seated', x: 600, y: 660, dir: 'e', fixedDir: true, name: 'Gail', when: () => [1, 2, 3, 6].includes(ch()), look: 'alan_look_gail', talk: () => S.talkGail() },
+      { id: 'seat_derek', ch: 'derek_seated', x: 600, y: 660, dir: 'e', fixedDir: true, name: 'Derek', when: () => [1, 2, 3, 6].includes(ch()), look: 'alan_look_derek', talk: () => S.talkDerek() },
+      { id: 'gail', ch: 'gail', x: 560, y: 655, dir: 'e', name: 'Gail', when: () => false, look: 'alan_look_gail', talk: () => S.talkGail() },
       { id: 'derek', ch: 'derek', x: 680, y: 662, dir: 'w', name: 'Derek', when: () => false, look: 'alan_look_derek', talk: () => S.talkDerek() },
     ],
     hotspots: [
@@ -702,7 +705,7 @@
         return say('montesdeoca_t_1', 'alan_t_monte_1', 'montesdeoca_t_alan', 'alan_t_flirt_monte', 'montesdeoca_p_burn', 'alan_p_monte_1', 'montesdeoca_p_vasco', 'alan_p_monte_2', 'montesdeoca_t_2'); }
       return say('montesdeoca_t_again');
     }
-    if (ch() === 2) { f.herring_monte = true; return say('montesdeoca_w_1', 'alan_w_monte_1', 'montesdeoca_w_2'); }
+    if (ch() === 2) { f.herring_monte = true; return say('montesdeoca_w_1', 'alan_w_monte_1', 'montesdeoca_w_2', 'alan_w_monte_2', 'montesdeoca_w_3'); }
     return say('montesdeoca_th_1');
   };
 

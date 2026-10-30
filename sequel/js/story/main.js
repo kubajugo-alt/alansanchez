@@ -43,7 +43,7 @@
     wed: { flags: { ch: 2, tue_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: async () => { F().coins = 3; S.give('coins', true); } },
     belfry: { flags: { ch: 2, clock_key: true, fermin_met: true }, room: 'belfry', pos: [400, 660, 'e'], run: async () => {} },
     thu: { flags: { ch: 3, wed_done: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: async () => { F().coins = 3; S.give('coins', true); S.give('letter', true); S.give('galindo', true); } },
-    dinner: { flags: { ch: 3, lore_carmen: true, inquiry_read: true, called_thu: true, sent_to_colon: true }, room: 'museum_hall', pos: [200, 660, 'e'], run: async () => {} },
+    dinner: { flags: { ch: 3, lore_carmen: true, inquiry_read: true, called_thu: true, sent_to_colon: true, suitcase_done: true }, room: 'museum_hall', pos: [200, 660, 'e'], run: async () => {} },
     fri: { flags: { ch: 4, caught: true }, room: 'hotel_room', pos: [720, 640, 'e'], run: () => S.fight() },
     bar: { flags: { ch: 4, fight_done: true, cave_explained: true }, room: 'rafa_bar', pos: [1100, 660, 'w'], run: async () => {} },
     sat: { flags: { ch: 5, rafa_night: true }, room: 'rafa_studio', pos: [300, 660, 'e'], run: async () => {} },
@@ -60,7 +60,7 @@
     landrover: { flags: { ch: 6, chose_carmen: true, knows_vault: true }, room: 'landrover', pos: [640, 660, 'e'], run: async () => {} },
     rescue: { flags: { ch: 6, chose_carmen: true, knows_vault: true, driving: true, radiator_filled: true }, room: 'camp', pos: [300, 660, 'e'], run: async () => {} },
     finale: { flags: { ch: 6, vasco_free: true, v_marked: true }, room: 'vault', pos: [400, 660, 'e'], run: () => S.takeDiscs() },
-    confession: { flags: { ch: 7, lock_closed: true, placed: [3, 0, 4, 1, 5, 2], disc_turned: true, disc6_given: true }, room: 'cave6', pos: [560, 660, 'e'], run: async () => {} },
+    confession: { flags: { ch: 7, lock_closed: true, placed: [1, 3, 2, 5, 4, 0], disc_turned: true, disc6_given: true, cloud_over: true, mirror_on: true, turn: 3 }, room: 'cave6', pos: [560, 660, 'e'], run: async () => {} },
   };
   async function preview(k) {
     const P = PREVIEW[k];
