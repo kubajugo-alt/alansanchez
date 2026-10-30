@@ -38,7 +38,6 @@
     archive: W('where', 'the archive', f => f.carmen_wed),
     isleta: W('where', 'La Isleta', f => f.saw_helmet),
     canteras: W('where', 'Las Canteras', f => f.burnt),
-    tamaraceite: W('where', 'Tamaraceite', f => f.pino_list),
     // the founders' Portuguese (Alan's own language; it's the 1751 hand he can't read)
     fechadura: W('pt', 'fechadura', f => f.called_thu),
     calado: W('pt', 'calado', f => f.called_thu),
@@ -49,13 +48,11 @@
     // Doña Pino's list
     pino: W('name', 'Pino Medina', f => f.pino_list),
     antonio: W('name', 'Antonio Cabrera', f => f.pino_list),
-    manuel: W('name', 'Manuel Déniz', f => f.pino_list),
-    agustin: W('name', 'Agustín Ramos', f => f.pino_list),
+    pepe: W('name', 'José Santana', f => f.pino_list),
     // the hours
     t1904: W('time', '19:04', f => f.tide_read),
     t0700: W('time', '07:00', f => f.knows_guagua),
     t1300: W('time', '13:00', f => f.vnote_read),
-    t0300: W('time', '03:00', f => f.agustin_known),
     // island words (used on Don Lolo, and the parrots)
     chacho: W('island', 'chacho', f => f.chacho),
     panza: W('island', 'panza de burro', f => f.burnt),
@@ -112,7 +109,7 @@
       blanks: { a: ['pt', 'fechadura'], b: ['pt', 'devolvida'], c: ['pt', 'viragem'], d: ['pt', 'porta'] } },
     { id: 'next', title: 'Who\'s next', done: 'next_known',
       open: f => f.ch === 5 && f.radio_lie,
-      intro: 'It comes for the ones it had and lost. Pepe. Agustín. Juan de Quintana, five hundred years ago. Who\'s left, and where, and when?',
+      intro: 'It comes for the ones it had and lost: the Virgen del Pino, one a month since Christmas. Juan de Quintana, five hundred years ago. Who\'s left, and where, and when?',
       rows: ['Next on Doña Pino\'s list, still within its reach: {a}.', 'It comes up from below, where the city is lowest: {b}.',
         'It comes with the tide. High water tonight: {c}.'],
       blanks: { a: ['name', 'pino'], b: ['where', 'isleta'], c: ['time', 't1904'] } },

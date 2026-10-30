@@ -3,7 +3,7 @@
 // words: the discs go down to the vault under the caves, only Baute has the key); the truth over Rafa's coffee and the
 // drawing given; the walk back through a city getting ready for its fiesta; Nieves and the empty pigeonhole; the wet
 // footprint by Vasco's side of the bed; Inês ("Tell him. Today.") and the letter read down the line; Chano's news
-// (Agustín); the fax; he tries (museum, cars, bus) and decides on the seven o'clock bus; La Isleta floods at seven,
+// (La Provincia counts the six); the fax; he tries (museum, cars, bus) and decides on the seven o'clock bus; La Isleta floods at seven,
 // Doña Pino saved by Don Lolo, Alan's name at the bottom of her list; the night, the phone that doesn't ring. Then
 // Vasco's chapter (vasco.js). Room first seen today: Rafa's studio.
 (function () {
@@ -150,7 +150,7 @@
   S.chanoSat = async function () {
     const f = F();
     if (f.chano_sat) return;
-    f.chano_sat = true; f.gossip_day = 5; f.agustin_known = true;
+    f.chano_sat = true; f.gossip_day = 5;
     await G.busy(async () => {
       await say('narr_s_chano_1', 'chano_s_1', 'narr_s_chano_2');
       f.paper_day = 5; G.takeItem('newspaper'); S.give('newspaper', true); G.toast('Today\'s La Provincia');
