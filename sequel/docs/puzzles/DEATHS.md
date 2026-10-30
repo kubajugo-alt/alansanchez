@@ -1,42 +1,45 @@
-# Six moons, six dead (proposal, 2026-10-30)
+# Six moons, six dead (decided 2026-10-30; not built yet)
 
 The user: "it also explains why the sea attacks at night - the sun isn't there to watch, and the moons influence was
-already removed, one for each month. But that means we need to change it, and give it 6 deaths, one for each month,
-starting with Elena in december".
+already removed, one for each month ... give it 6 deaths, one for each month, starting with Elena in december"; then:
+"they should all (except Elena) be in their 70s, all canarian - all on the ship with dona pino. Pino would be the June
+one"; Pepe is May's; Agustín is cut.
 
 **The rule.** The Sea comes at night: the sun isn't there to watch, and with each disc out one more of the moon's faces
-has no sun on it. Each time Baute took a disc out (at the new moon, the darkest night of the month), the Sea took
-someone that same night: whoever understood the lock, or someone it once had and was cheated of. Six discs, six
-moons, six dead. Nobody put them side by side: different towns, different months, "heart", "a stroke in the bath",
-small notices at the back of *La Provincia*.
+has no sun on it. Each time Baute took a disc out (at the new moon), the Sea took someone that same night: first the
+one who understood the lock, then, one a moon, the survivors of the *Virgen del Pino*. Nobody put them side by side:
+different towns, "heart", "a stroke", small notices at the back of *La Provincia*. Only Doña Pino, crossing names out
+of her missal one a month, knows.
 
-| Moon | Disc out | Who | Where | What the Sea was owed | How they were found |
+**The ship.** The *Virgen del Pino*, a trawler out of La Isleta, went down in a storm off Cape Bojador in 1971: eleven
+men and one woman (Pino, the cook's stand-in). In the morning a fishing boat pulled **seven** out of the water (was:
+four). Five were lost.
+
+| Moon | Disc out | Who | Age | Where | Found |
 |---|---|---|---|---|---|
-| 1, 20 Dec 1995 | zigzag | Dr. Elena Suárez | the barranco below Artenara | nothing: she understood the lock | in her Renault 4, upright, doors locked, lungs full of seawater (as now) |
-| 2, Jan 1996 | chequer | Remedios Afonso, 67 | Agaete | swept off the rocks at Puerto de las Nieves as a girl in 1941, pulled out by a fisherman with a boathook | in her bed, the window shut, a little sand in the sheets |
-| 3, Feb 1996 | triangle | Tomás Rivero, 52, tuna fisherman | Arguineguín | went over the side in a squall in 1979, hauled back by his brother | in his van on the dry harbour wall, the windows wound up |
-| 4, Mar 1996 | rings | Juan Ojeda, 81 | Gáldar | the last survivor of the coastal mail boat *Isla de Tamarán*, sunk off Sardina in 1932 | in his chair in front of the radio, the radio still on |
-| 5, Apr 1996 | spiral | Dolores Hernández, 45 | Telde (Melenara) | dragged out of the surf at seven, in 1958, by her father | in an empty bath, the plug out, the bath bone dry |
-| 6, May 1996 | crescent | Jens Kröger, 34, a German windsurfer | Pozo Izquierdo | pulled out by the Red Cross launch in 1993 | in his camper van, parked a hundred metres from the water |
+| Dec 1995 | waxing gibbous | Dr. Elena Suárez | 41 | the barranco below Artenara | in her Renault 4, doors locked, lungs full of seawater (as now) |
+| Jan 1996 | last quarter | Juan Afonso, the trawler's mate | 76 | Agaete | in his bed, the window shut, a little sand in the sheets |
+| Feb | waxing crescent | Tomás Rivero | 73 | Arguineguín | in his van on the dry harbour wall, the windows wound up |
+| Mar | waning gibbous | Andrés Ojeda | 78 | Gáldar | in his chair in front of the radio, the radio still on |
+| Apr | first quarter | Domingo Hernández | 71 | Telde (Melenara) | in an empty bath, the plug out, the bath bone dry |
+| May | waning crescent | José "Pepe" Santana | 72 | La Isleta, Calle Pescadores | in his bed, window shut, door locked; his son found him ("Ah. There you are.") |
+| June (the turning) | (none: the sun stays) | Doña Pino Medina | 74 | La Isleta | Saturday at seven, the sea up through the drains; Lolo, warned by Alan, pulls her up (as now) |
 
-(Invented people and an invented mail boat; Agaete, Arguineguín, Gáldar, Melenara, Pozo Izquierdo and *La Provincia*
-are real. Agaete is the town of the Bajada de la Rama, the feast that comes from the Canarios' rite of beating the
-sea.)
+Still alive: Antonio Cabrera, in Venezuela ("Maybe it can't reach Venezuela. Maybe it can."). (Invented people;
+the towns and *La Provincia* are real. Agaete is the town of the Bajada de la Rama, the feast that comes from the
+Canarios' rite of beating the sea.)
 
-**June: no more waiting for the moon.** With six discs out, the Sea doesn't wait for a dark night any more: Pepe
-Santana on Wednesday, Agustín Ramos on Friday, Doña Pino nearly on Saturday, Alan and Vasco threatened (as now). The
-week's deaths stay; they are the escalation.
-
-**What Alan can find (a puzzle, optional).** In Carmen's archive there is a folder filed under "E": five small clippings
-from *La Provincia* that Carmen cut out herself after Elena died, without knowing why, because each one was someone
-drowned where there was no water. Alan lines their dates up with
-the dates on the conservation list (one a month since December) and they match, night for night. The page: "Every time
-a disc came out, the Sea [took someone] that night. At [the new moon]. It comes in the [dark]." That's how Alan learns
-that the discs and the deaths are one thing, before anyone tells him.
-
-**What changes.**
-- Bible: "Then nothing, for six months" goes; the victims table gets the five; Carmen's folder.
-- Lines: `narr_open_03` ("After that, for six months, nothing happened at all...") becomes e.g. "After that, once a
-  month, on the darkest night, somebody on the island drowned in a dry place. Nobody put them side by side." The lines
-  that say the Sea "answers only at a turning" are rechecked.
-- The prologue and the answering machine (six months of blinking) stay.
+**What it changes in the game (to build, with the lines shown before any re-record).**
+- **Pepe** becomes last month's death, still raw: the Wednesday-night cutaway (narr_pepe_1–9) is no longer "tonight".
+  It can stay as a cutaway told as a memory (the night of 17 May), or move to Thursday as Chano's telling. Chano
+  (chano_th_pepe_*): "last month", "Seven came up out of el mar the next morning. One a month, since Christmas. Now
+  two." Pino (pino_th_pepe_1b): "a fishing boat pulled seven of us out". narr_pepe_3/4: seventy-two; "one of the seven".
+  The newspaper on Thursday (alan_read_paper_pepe) becomes a short notice from May, kept by Chano.
+- **Agustín** is cut: the Friday-night cutaway (narr_agustin_*, `S.agustin` in fri.js), Saturday's Chano news
+  (chano_s_1–6), the Saturday paper (alan_read_paper_agustin), Pino's line about him (pino_f_1), his name on the list,
+  and the "who's next" page's words (`agustin`, `03:00` in puzzles.js, `agustin_known`) are replaced: the page asks for
+  the next on the list (Pino), where the water comes (La Isleta, lowest) and when (the tide at 19:04), from the five
+  crossed-out names, their dates and the tide table.
+- **The week's dread** comes from the pattern instead: Doña Pino's missal with five names crossed out a month apart,
+  Carmen's clippings (optional puzzle: their dates match the conservation list night for night), and Pino's Saturday.
+- **Bible**: the victims table, "The list", "then nothing for six months" (narr_open_03 too), Pepe's age.
