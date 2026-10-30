@@ -1135,3 +1135,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       from Canva (`art/review/bg_real/rafa_bar_yeray_drunk.png`, from the in-game yeray_r/c); Vasco on the bed in a towel
       waiting on Canva's cooldown (reminder set).
     - Checks: validate 0 errors; play.mjs won in 131 steps, no page errors.
+105. **Stills approved (all but the love scenes); Vasco in a towel on the hotel bed** (2026-10-30, review only). The
+    user approved every still on the approval page except `still_love_1` and `still_love_2`, after the comment fixes
+    (mist at night with the dark mist, Alan's clothes, the catchers only Baute/Montesdeoca/Vasco, Rafa's longer bed and
+    Alan's portrait on the easel, one Elena and no discs in the chain, Alan's black tank top, shorts and white trainers,
+    Alan in the Land Rover). The love scenes are to be shown another way (open). Vasco on the bed: Canva MAHZhGYusW8 from
+    the in-game vascor (MAHZgxwIxeM) and the bed ref, more chest hair; exported via page 7 of DAHYZ-SDzRE, kept as
+    `art/designs/vasco_towel_bed.png`, keyed, rotated 11°, night-graded, placed at (128,318) on `hotel_room`
+    (`art/review/bg_real/hotel_room_vasco_towel.png/.json`, preview `hotel_room_vasco_preview.jpg`). Awaiting approval.
