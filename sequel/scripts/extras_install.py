@@ -27,8 +27,12 @@ LAY = json.loads(subprocess.run(['node', '-e', "global.window={S:{}};require(pro
                                   os.path.join(SEQ, 'js/story/layout.js')], capture_output=True, text=True, check=True).stdout)
 
 
+# a room laid out a second way for an occasion (the tool's own tab; js/story/layout.js S.VARIANTS puts it into the room)
+BASE = {'museum_hall_dinner': 'museum_hall'}
+
+
 def depth(room, y):   # (the tool's height at a depth, y0-y1 extended past the floor; the game clamps it to the floor's range)
-    y0, h0, y1, h1 = LAY[room]['scale']; free = h0 + (h1 - h0) * (y - y0) / (y1 - y0)
+    y0, h0, y1, h1 = LAY[BASE.get(room, room)]['scale']; free = h0 + (h1 - h0) * (y - y0) / (y1 - y0)
     return free, h0 + (h1 - h0) * max(0, min(1, (y - y0) / (y1 - y0)))
 
 

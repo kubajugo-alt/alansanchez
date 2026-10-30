@@ -436,8 +436,13 @@
   });
   // the museum's guests, waiters and waitresses are there only for the parties: Tuesday's reception and Thursday's
   // fundraising dinner (the user, 2026-10-30: "after the parties, the guests disappear from the museum")
-  S.museumParty = () => (ch() === 1 && !F().reception_done) || (ch() === 3 && S.dinnerDue() && !F().caught);
-  S.EXTRAS_WHEN = Object.assign(S.EXTRAS_WHEN || {}, { museum_hall: () => S.museumParty(), museum_courtyard: () => S.museumParty() });
+  // the dinner has its own layout (the user, 2026-10-30: "I need to be able to position these and the characters
+  // differently then they were positioned at the first party"): placement tool tab museum_hall_dinner, layout.js S.VARIANTS
+  S.receptionOn = () => ch() === 1 && !F().reception_done;
+  S.dinnerOn = () => ch() === 3 && S.dinnerDue() && !F().caught;
+  S.museumParty = () => S.receptionOn() || S.dinnerOn();
+  S.EXTRAS_WHEN = Object.assign(S.EXTRAS_WHEN || {}, { museum_hall: () => S.receptionOn(), museum_courtyard: () => S.receptionOn() });
+  S.VARIANTS = Object.assign(S.VARIANTS || {}, { museum_hall_dinner: { room: 'museum_hall', when: () => S.dinnerOn() } });
   ROOMS.museum_hall = S.room({
     music: 'museum_hall',
     name: 'El Museo Canario', bg: 'museum_hall', floor: 'tile', ambience: 'museum', door: 'door',

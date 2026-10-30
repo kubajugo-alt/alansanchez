@@ -255,6 +255,39 @@
     660,
     0.74
    ]
+  },
+  {
+   "id": "museum_cocktail_table",
+   "room": "museum_hall",
+   "aspect": "4:3",
+   "desc": "Thursday's dinner (the user, 2026-10-30): the guests' tall cocktail table, empty (a Higgsfield edit of museum_cocktail_pair with the pair taken out).",
+   "place": [
+    400,
+    600,
+    0.66
+   ]
+  },
+  {
+   "id": "museum_cocktail_table_glasses",
+   "room": "museum_hall",
+   "aspect": "4:3",
+   "desc": "Thursday's dinner: the cocktail table with two half-finished glasses and a plate of canapés, the guests just stepped away.",
+   "place": [
+    800,
+    600,
+    0.771
+   ]
+  },
+  {
+   "id": "museum_buffet",
+   "room": "museum_hall",
+   "aspect": "16:9",
+   "desc": "Thursday's dinner: the buffet, a long table in a white cloth, chafing dishes, papas arrugadas with mojo, cheeses, ham, fruit, cakes, glasses (references: the cocktail pair and the cast sheet).",
+   "place": [
+    640,
+    560,
+    0.809
+   ]
   }
  ],
  "jobs": {
@@ -271,7 +304,10 @@
   "museum_guest_pearls": "2eeb7adc-b52e-4f25-b5e2-8c15f7206e37",
   "beach_old_man_chair": "2b108555-1ed6-4b36-a36d-308607752281",
   "vegueta_pigeons": "ae06449b-cb22-4d7e-a33b-7e448856b7fc",
-  "vegueta_lottery": "f1998ef2-7463-4695-906e-f6a8c04abae9"
+  "vegueta_lottery": "f1998ef2-7463-4695-906e-f6a8c04abae9",
+  "museum_cocktail_table": "09729f2e-43f1-4490-a311-574481ccb3fe",
+  "museum_cocktail_table_glasses": "00b35dcf-10c9-453e-833e-9075605a0b33",
+  "museum_buffet": "03b8596e-5a29-4ec8-86f6-fc7c13e80f06"
  },
  "removed": [
   "beach_surfer_girl",

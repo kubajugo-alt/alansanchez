@@ -143,6 +143,56 @@
   "y": 657,
   "z": 0
  },
+ "dinner_pmvtzsme660we": {
+  "extra": "museum_guest_pearls",
+  "flip": true,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1.03,
+  "x": 1220,
+  "y": 674,
+  "z": 120
+ },
+ "dinner_start_museum_cocktail_pair": {
+  "extra": "museum_cocktail_pair",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 393,
+  "y": 604,
+  "z": 0
+ },
+ "dinner_start_museum_guest_academic": {
+  "extra": "museum_guest_academic",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 1090,
+  "y": 664,
+  "z": 0
+ },
+ "dinner_start_museum_guest_linen": {
+  "extra": "museum_guest_linen",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 693,
+  "y": 556,
+  "z": 0
+ },
+ "dinner_start_museum_waiter_tray": {
+  "extra": "museum_waiter_tray",
+  "flip": false,
+  "room": "museum_hall_dinner",
+  "rot": 0,
+  "size": 1,
+  "x": 198,
+  "y": 576,
+  "z": -80
+ },
  "pmvtzsme660we": {
   "extra": "museum_guest_pearls",
   "flip": true,

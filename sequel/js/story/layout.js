@@ -198,5 +198,19 @@
       }
       r.painted = true;
     }
+    // a room laid out a second way for an occasion (S.VARIANTS[id] = { room, when }: the museum's hall at Thursday's
+    // dinner, the user, 2026-10-30): its own background people, and its cast standing elsewhere while `when` holds
+    for (const [vid, v] of Object.entries(S.VARIANTS || {})) {
+      const r = ROOMS[v.room]; if (!r) continue;
+      r.ambient = (r.ambient || []).concat(((S.EXTRAS || {})[vid] || []).map(x => Object.assign({ when: v.when }, x)));
+      const at = (S.CAST_AT || {})[vid] || {};
+      for (const n of r.npcs || []) {
+        const p = at[n.id]; if (!p) continue;
+        delete n.h;
+        const base = { x: n.x, y: n.y, dir: n.dir, size: n.size }, alt = { x: p[0], y: p[1], dir: p[2] || n.dir, size: p[3] || n.size };
+        for (const k of ['x', 'y', 'dir', 'size'])
+          Object.defineProperty(n, k, { get: () => (v.when() ? alt : base)[k], set: val => { base[k] = val; }, enumerable: true, configurable: true });
+      }
+    }
   };
 })();

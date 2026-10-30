@@ -239,6 +239,71 @@ window.S.EXTRAS = {
    "z": 120
   }
  ],
+ "museum_hall_dinner": [
+  {
+   "id": "x_museum_waiter_tray_2",
+   "frames": [
+    "x_museum_waiter_tray"
+   ],
+   "x": 198,
+   "y": 576,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 1,
+   "h": 288.6,
+   "z": -80
+  },
+  {
+   "id": "x_museum_guest_linen_2",
+   "frames": [
+    "x_museum_guest_linen"
+   ],
+   "x": 693,
+   "y": 556,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 1,
+   "h": 278.4
+  },
+  {
+   "id": "x_museum_cocktail_pair_2",
+   "frames": [
+    "x_museum_cocktail_pair"
+   ],
+   "x": 393,
+   "y": 604,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 1,
+   "h": 302.9
+  },
+  {
+   "id": "x_museum_guest_academic_2",
+   "frames": [
+    "x_museum_guest_academic"
+   ],
+   "x": 1090,
+   "y": 664,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 1,
+   "h": 333.5
+  },
+  {
+   "id": "x_museum_guest_pearls_2",
+   "frames": [
+    "x_museum_guest_pearls"
+   ],
+   "x": 1220,
+   "y": 674,
+   "dir": "w",
+   "scale": 0.96,
+   "size": 1.03,
+   "h": 338.6,
+   "flip": true,
+   "z": 120
+  }
+ ],
  "santa_ana": [
   {
    "id": "x_vegueta_pigeons",

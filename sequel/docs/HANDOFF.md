@@ -805,3 +805,19 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     (or uses it on her) and she thanks him, a different line each day, then the day's talk goes on. Her Tuesday "Bring
     cigarettes." sets it up. 10 new lines (Carmen and Chano with a Spanish word each), voiced with generate-voices.mjs.
     play.mjs buys a packet before each of the three archive talks.
+79. **The fundraising dinner: its furniture and its own layout** (2026-10-30). The user: "fundraising dinner. First of
+    all I need 2 empty cocktail tables. and 1 buffet table, as sprites. And I need to be able to position these and the
+    characters differently then they were positioned at the first party". Higgsfield gpt_image_2_5 (green ground, keyed
+    by extras.py's cut): museum_cocktail_table (an edit of museum_cocktail_pair with the pair taken out),
+    museum_cocktail_table_glasses (the same with two half-finished glasses and canapés), museum_buffet (cloth, chafing
+    dishes, papas arrugadas and mojo, cheese, ham, fruit, cakes, glasses; refs the pair and the cast sheet); in
+    extras.json with their heights (the cocktail table's cloth 0.66 of a figure, as at the reception; the buffet's top at
+    0.45). Placement tool: a second tab for the hall, "Museum hall · Thursday dinner" (`museum_hall_dinner`), with the
+    dinner's cast where the game stands them now (Baute, Vasco, Montesdeoca, the guard, Gail, Derek; new c_guard_c,
+    c_gail_r, c_derek_r), the three pieces in the tray; seeded with copies of the reception's five guests (doc ids
+    dinner_*), so it isn't empty until the user places it. Game: tue.js S.receptionOn / S.dinnerOn; the hall's own
+    background people only at the reception (S.EXTRAS_WHEN), S.VARIANTS.museum_hall_dinner = { room: 'museum_hall',
+    when: dinnerOn }; layout.js applyLayout gives the hall the variant's background people (with that `when`) and, for
+    each cast member the user stands elsewhere for the dinner, x/y/dir/size that follow `when` (accessors over the
+    reception's). extras_install.py knows the variant's depth is the hall's (BASE). Checked in the game: reception and
+    dinner each with their own five, none after either.
