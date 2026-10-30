@@ -223,6 +223,40 @@ race: the five back, the crescent, and the sun disc laid flat in the middle, bef
 square to the sun and the hour, not 23° 26′; the sun disc stays in its own socket (no move to the western end); Baute's
 mistake is the hour, which gives the finale its clock (the light visibly climbing the shaft).
 
+## The moon (approved idea, 2026-10-30)
+
+The user: "let's write the moon into the story. The 6 small triangles represent its phases. It makes sense, because
+the moon controls the tides. But it's the sun that commands the moon (moon only reflects the sun's will/light), that's
+why its light is needed on the triangles. The big triangle means sun."
+
+**What the wall says.** The great triangle is the sun, Magec. The six small ones are the moon, in her phases: carved
+above each small triangle's point, beside the disc's sign, a moon in one shape, waxing on the left of the sun (thin,
+half, nearly full, growing towards him) and waning on the right (nearly full, half, thin, going away from him). The row
+reads as one whole month of moon round the sun.
+
+**Why the lock works (the lore).**
+- The moon pulls the sea: the tides are hers. A sea without its moon goes where it likes.
+- But the moon has no light of her own. Every bit of it is the sun's; she only gives his light back. So the sun commands
+  the moon, and through her the sea.
+- So the women made the lock that way: each disc is a small moon, a black mirror that only gives the sun's light back,
+  and it throws that light onto its own moon on the wall. Seven triangles lit at noon: the sun in the middle, and the
+  moon in every one of her faces wearing his light. The sea obeys the moon, the moon obeys the sun.
+- **A disc out, a moon dark.** Each disc Baute took out (one a month, at the new moon, when the moon is dark anyway)
+  left one of her faces without the sun. That's why the tides went wrong disc by disc, and the mist came: the sea
+  slipping its leash a moon at a time.
+- **Sending the sun back** (the opening) takes the master away: the sun disc, square to the sun at 14:05, throws Magec
+  back up the shaft, the great triangle goes dark, the moons have no one to obey, and the sea comes in through the door.
+- **Closing** puts the order back: every moon lit by the sun, the sun in the middle, at the same minute.
+
+**Real roots.** The astronomers who studied Risco Caído (Belmonte, Cuenca and others, 2018) read Cave 6 as a lunisolar
+calendar: the light marks the sun's year and the moon's months. Abreu Galindo writes that the Canarios counted the year
+by moons. The tides are the moon's (physics). The lock, the women and the sea are the game's.
+
+**Vasco, Saturday** (sample, for the line rewrite): "Six moons and a sun. [pause] The moon pulls the sea. And the moon
+has no light of her own: every bit of it is his. They lit the moons with the sun. That's the leash."
+**And on Monday**, when the light climbs the shaft: "He's sending the sun back. Without him the moon's no one's. And the
+sea's no one's."
+
 ## The noon, through the story
 
 Everything that ties the lock to the sunrise of the 24th moves to its noon (about 25 lines; the list in the work):
