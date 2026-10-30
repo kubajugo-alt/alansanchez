@@ -34,7 +34,7 @@ exactly at noon".
 - **To close it:** at noon on the turning day, every disc back in its own socket, set by someone standing in the Sea's water,
   which comes up through the door into the lower chamber. When the seventh triangle lights, the door shuts and the
   water goes down through it, and takes whoever is standing in it.
-- **Baute's plan, Monday:** he has only the sun disc and the one he took on Sunday. At four in the morning he went down
+- **Baute's plan, Monday:** he has only the sun disc and the crescent, the last he took (in May), which he keeps on him. At four in the morning he went down
   and moved the sun disc from the middle into the socket at the end of the row, the one that, alone, throws Magec's
   column straight onto the door. With six discs gone, the door doesn't need the whole order: "close will do".
 
@@ -48,8 +48,9 @@ exactly at noon".
    small one on the right). Looking at the dark triangles: "Something cut at the point. Worn smooth."
    - **Chalk on a triangle** (an archaeologist's trick: chalk dust rubbed into a worn cut makes it read): each triangle's
      sign, one at a time; his notebook fills in a row of seven signs, as they stand on the wall.
-   - **The scenes round the triangles:** he reads the two lit ones (the moon going down, Magec) and sees the rule:
-     "Each picture holds the hand of the next one." He starts on the others; the radio cuts him off.
+   - **The scenes round the triangles:** he reads the two lit ones (the moon going down, Magec) and knows them: "It's
+     the grandmothers' romance. The women and the moons. The order is in a song, and I don't have the words." He reads
+     the others into his notebook; the radio cuts him off.
 3. **Down the rope ladder, the lower chamber:** five empty sockets, two discs: the sun disc in the middle, the crescent
    disc beside it. The column of light on all seven sockets; two columns rising.
    - **The frieze**, read panel by panel (the women in white on the cliff; the ships; the black sea over the ships and
@@ -76,11 +77,14 @@ exactly at noon".
 - **Alan goes down the rope ladder** ("It's coming for me anyway"), into the water rising round his legs. He has five
   discs from the vault, each now its own thing in his pockets: the spiral disc, the zigzag disc, the rings disc, the
   chequer disc, the triangle disc. Vasco kneels at the rim of the floor opening, above, reading the triangles.
-- **The puzzle:** each disc into its own socket, at its own turn (see "The order: where each disc goes, and when").
-  Where: the signs Vasco scratched in the vault (the notebook has them). When: the scenes round the triangles, which
-  only Vasco, above, can see and read to him.
-- **The sixth:** after five, Baute sees the black stain spreading over Las Palmas through the cave mouth; Carmen names
-  her street (as now). He gives up the disc he took on Sunday: the crescent.
+- **Stuck.** Alan has the five discs and where they go (Vasco's vault mark), but not when. Vasco, above, reads him the
+  scenes; without the telling there's no order. One disc set by guess is a surge.
+- **Baute's last help.** Through the cave mouth Baute sees the black stain spreading over Las Palmas; Carmen names her
+  street (as now). He breaks: he says his grandmother's telling, verse by verse, from the stool, in Spanish (Vasco
+  echoes each verse down in English), and gives up the disc he kept on him: the crescent, May's.
+- **The puzzle:** each verse matched to its scene (a notebook page, "The grandmothers' telling": seven verses, a sign
+  to choose for each from the scenes Vasco has read); then each disc into its socket, in the telling's order, and
+  aimed at its triangle. Alan sets zigzag, chequer, triangle, rings, spiral, then the crescent.
 - **The sun disc:** last, Alan has to lift Magec out of the door socket and set it in the middle. As he reaches for it,
   a cloud crosses the sun (as now): no light, no columns, nothing to tell right from wrong, and the water at his chest.
   Carmen tears the wing mirror off the Land Rover, runs up the path to the top of the rock where the shaft comes out,
@@ -107,31 +111,44 @@ lock is a sentence said in light. Said in the wrong order, it is another sentenc
 - Vasco works this out on Saturday (the chalk; the crescent test) and scratches it in the vault. Alan has it in his
   notebook on Monday.
 
-### When: the story cut round the triangles
-Round each triangle, in shallow relief, a scene in small figures; seven scenes, one story: the night in 1483 the women
-called the Sea and then sent it back. The scenes are not in order along the wall. Each one hands over to the next:
-something at its edge walks out of it and into another scene. Vasco: "It's a story, and each picture holds the hand of
-the next one. Find the one nobody hands into, and follow the hands."
+### When: the grandmothers' telling (Baute's)
+The user: "the order ... will be coming from an old canarian legend - that vasco knows that exists and figures out it's
+the key, but only Baute knows precisely from his grandmother - this will be Baute's final help ... and it will also
+explain why he removed the disks one by one, each month starting in December".
 
-| Turn | Sign | The scene round its triangle | What it hands over (its edge) |
+**The telling.** The Artenara grandmothers keep a telling (a *romance* said at the hearth, never written) of how the
+women put the Sea back to bed: not in one night but over half a year, one stone a moon, from the winter turning to the
+summer turning. Each verse is a moon and a stone. Said in order, it locks; said backwards, word by word at the same
+moons, it unlocks. That is why Baute, who had it from his grandmother in Tasarte, took the discs out **one a month,
+from the night of 20 December**: he was unsaying it at the moons the women said it, in their order. Nobody else knew
+which disc went when: Yeray carried them down in a sack, and the transfer sheets only say "disco de obsidiana".
+
+| Moon (Baute took it out) | Verse (Baute's grandmother, as he says it) | Sign | Scene round its triangle |
 |---|---|---|---|
-| 1 | zigzag | the sea standing up black, higher than the cliffs, the trees bent the other way (the inquiry: "against the wind") | a wave curling over a roof |
-| 2 | chequer | the fields and houses under water, a boat on a roof | on a roof, a woman in white, looking up the cliff |
-| 3 | triangle | the women in white coming down the cliff paths in a line | the last woman carrying a jar on her head |
-| 4 | rings | the women pouring jars of milk and butter into the sea, rings spreading | a woman with a palm branch raised |
-| 5 | spiral | the women in the water to the waist, beating the sea with branches; the water turning, going down | a woman left standing alone in the water |
-| 6 | crescent | the moon going down into the sea, one woman standing in it | her arm pointing up at the great triangle |
-| 7 | sun | Magec, rayed, over the great triangle | (nothing: the end) |
+| 1, the winter turning (20 December) | "When the sun was smallest, the water stood up taller than the mountain, and the wind could not push it." | zigzag | the sea standing up black, the trees bent the other way |
+| 2 (January) | "In the second moon it lay down in our houses and slept there." | chequer | fields and houses under water, a boat on a roof |
+| 3 (February) | "In the third moon the white ones came down the goat paths." | triangle | the women in white coming down the cliff paths |
+| 4 (March) | "In the fourth moon they gave it the goats' milk, and it drank." | rings | the women pouring jars into the sea, rings spreading |
+| 5 (April) | "In the fifth moon they beat it like a dog, and it went down to its bed." | spiral | the women beating the sea with branches, the water turning down |
+| 6 (May) | "In the sixth moon one stayed in the water, and the moon went in with her." | crescent | the moon going down into the sea, one woman standing in it |
+| 7, the summer turning (noon, 24 June) | "And on the long day, at the top of the day, they set the sun in the middle, and the year began." | sun | Magec |
 
-Real roots: the harimaguadas; Abreu Galindo's rite in drought, the women carrying milk and butter and palm branches down
-to the sea and beating it with sticks (here turned round, to send the sea back); the sun, Magec; the black sea "against
-the wind" from the game's 1484 inquiry. The scenes are the game's.
+The verses don't name the signs: each has to be matched to the scene round its triangle, which only Vasco, above, can
+see. That matching is the player's riddle on Monday.
 
-The story ends with the moon and the sun, the two discs Baute holds: he took the end of the sentence. The first scene
-nobody hands into is the zigzag: the sea came first.
+**Real roots.** Abreu Galindo writes that the Canarios counted the year by moons and began it at the summer turning,
+with days of feasting (to check against the text before any line uses it); the harimaguadas; his drought rite (the
+women carrying milk and palm branches down to the sea and beating it with sticks). The telling itself, and the lock, are
+the game's.
 
-The downstairs frieze tells the same story in big panels (the player saw it in Vasco's chapter), faded and incomplete:
-it gives the shape, not the hands.
+**Who knows what.**
+- **Vasco** knows the telling exists. He heard of it in Artenara and finds it in the scenes round the triangles on
+  Saturday ("It's the grandmothers' romance. The women and the moons. That's the key: the order is in a song, and I
+  don't have the words."). He can read every scene; he can't put them in order. Six moons is too many orders to guess
+  with the water rising.
+- **Baute** has the words, from his grandmother. On Saturday, in the vault, Vasco works out why the discs went one a
+  month ("You were saying it backwards. Who taught you?") and Baute says nothing.
+- **Carmen** knows the first line, as a lullaby, and no more (a nice touch on Sunday; optional).
 
 ### How it's played on Monday
 - Alan, downstairs in the rising water, with five discs; Vasco, upstairs at the rim of the floor opening with his torch,
@@ -157,6 +174,13 @@ it gives the shape, not the hands.
   placeholders: in the game they'd be painted (or animated frames), still only outlines of light.
 - The first five are the player's. Then Baute and the crescent (as before), then the sun out of the door socket and into
   the middle, under Carmen's mirror.
+
+## What this changes in the bible
+- The discs came out one a month, from 20 December to May (not disc 1 in December and 2–5 that week): the mist and the
+  tides got worse moon by moon, which fits "the mist and the tides got worse disc by disc". The lines that date the
+  removals (the transfer sheets, Pino's list of the dates, Carmen's "disc one came out in December") are checked and
+  any that clash are rewritten.
+- Baute's grandmother's telling joins his backstory (Tasarte, 1966): it's what he inherited instead of a grave.
 
 ## The noon, through the story
 
