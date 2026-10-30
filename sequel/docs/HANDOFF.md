@@ -2,6 +2,9 @@
 
 ## Start here (2026-10-30)
 
+**One session only** (2026-10-30, the user: "from now on, only you will work"): this branch, `claude/happy-ptolemy-m086fu`
+(PR #13), is the line of work; other branches on the remote are old Game I work and are not merged here.
+
 Game II, *Alan Sanches II: The Shortest Night* (Gran Canaria, 18–24 June 1996). It lives in `sequel/`, its own web
 root, in the same repository as Game I. Read, in this order:
 - this section, then the newest entries of the session log below (87 onwards is the latest work);
@@ -44,10 +47,9 @@ root, in the same repository as Game I. Read, in this order:
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
 ### Open, in the order I'd suggest
-1. **The granary (entries 98, 100)**: built; the user to see it in the game (`?scene=vault` for the cell,
-   `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved and voiced; "pesetas" is B (entry 100).
-2. **Deploy** of what came after entry 95's deploy (parallax, entry 96; the puzzles) when the user asks.
-   Add `/art/designs` to `sequel/.gitattributes` first: 272 MB of source art the game never loads (the export is 742 MB).
+1. **The granary (entries 98, 100)**: built and live; the user to see it in the game (`?scene=vault` for the cell,
+   `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved, voiced and live; "pesetas" is B (entry 100).
+2. **Deployed** (entry 101): everything to here is live.
 3. **Parallax** is on (entry 96): the recording waits for the user's approval before a deploy.
 4. **Environment movement**: the user's pick from the ten fixes in `docs/review/env_movement.md`.
 5. **Stills**: the 16 text cards still to paint.
@@ -1057,3 +1059,16 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       the bars"); only the staging was wrong. Previews: `?scene=vault` (the cell), `?scene=rescue_vault` (new).
     Checked: screenshots in the game, dry and with the water up, both rooms (Vasco behind the bars, the others dry;
     the cell's water at the grille); play.mjs on the merged branch with all of it: won, 131 steps, no page errors.
+101. **Deployed: the puzzles, the granary, parallax** (2026-10-30). The user: "deploy it, and include everything the other
+    session did. from now on, only you will work". Everything the other session did for the sequel (entries 95-96:
+    the previous deploy, parallax on) was already on master and merged here; the other remote branches are Game I work
+    from 14-23 October, left alone. `sequel/.gitattributes` now leaves out `/art/designs` (272 MB of source art the game
+    never loads; nothing in index.html, js/ or css/ refers to it): the export (git archive of d2baae15) is 491 MB, down
+    from 751. play.mjs on the export, its own port: won, 131 steps, no page errors. Netlify deploy
+    6ae4c6d3df14b076b0e4317c (MCP deploy-site, the command run from the export folder). Live: the page,
+    puzzles.js, vault_cell.jpg, vault_open.jpg, the new voices and the "pesetas" re-records 200; /.env, /scripts/,
+    /docs/, /art/designs/, /audio/voice_src/ 404. play.mjs on the live site: won, 131 steps, no page errors.
+    What /art/designs holds (all still in the repository, only kept out of the export): the extras' Higgsfield
+    originals (104 MB), the real-place room repaints and their old versions (rooms_real, 32 MB), the Tuesday cast
+    paintings (13 MB), the cast's Higgsfield redo sheets (<id>_hf1.png, about 3.5 MB each) and their earlier versions,
+    the 1280 originals of every painting (rooms_1280), Vasco's jacket takes, a face-kit backup, the ungraded props.
