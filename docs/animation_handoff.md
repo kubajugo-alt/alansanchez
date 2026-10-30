@@ -5,10 +5,10 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `b32075c1` (Netlify `6adcabcf4c2e47f091f4b028`,
-entry 78): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `a7fcbd59` (Netlify `6ae1498ab246bdf2ff2a7dcb`,
+entry 84): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-80; entry 80: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-85; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1501,8 +1501,46 @@ session lived in the session's scratchpad and are gone; everything that matters 
      figures in place; smoke intro, bench, sepit, visitcop, bath, copbed pass.
    - Not done: the room paintings themselves are 1280x720 JPEGs, so on larger screens they are still upscaled; a 2x
      AI upscale (new files, the user's call: the paintings never change without approval) is being tried on two rooms.
+80. **Deploy of entry 79** (the user: "Merge and deploy"). PR kubajugo-alt/alansanchez#8 merged (master `394bcdd0`). On
+   the `git archive` export (own port, no `.env`): smoke intro, bench, sepit, visitcop, copbed, shopjobs pass;
+   shopjobs, sepit, bath at RS 1.5 with effects on, no errors. **Deployed:** Netlify `6ae0f495e700c5fb8cdf3879`. Live:
+   page 200, `/.env` 404, base.js, actor.js, render.js, parallax.js, lights.js byte-identical; at 1920x1080 the live
+   game picks RS 1.5 itself (shopjobs, sepit, no errors); live smoke bench, visitcop pass. Still open: the 2x room
+   upscale trial (Real-ESRGAN, run locally, was stopped by the session's safety check as code from outside: the
+   user's call).
+81. **Room paintings upscaled 2x: a trial on two rooms** (the user, after the safety check had stopped it: "I want to
+   allow the upscaler"). Real-ESRGAN run locally on the CPU (torch 2.14 CPU, spandrel 0.4.2; the official weights
+   RealESRGAN_x4plus_anime_6B and RealESRGAN_x2plus, sha256 f872d837... and 49fafd45..., kept out of the repo), 192 px
+   tiles with a 16 px overlap, 30-50 s a room. The illustration model sharpens but smooths the brushwork flat; the
+   general x2plus keeps the painted texture and grain: x2plus chosen. `art/review/bg2x/shop.jpg`, `se_cloister.jpg`
+   (2560x1440, JPEG 92, about 650 KB against 150-190 KB); art/bg unchanged. `?bg2x` (engine.js register, main.js
+   `window.BG2X`) loads them in place of the paintings, for review only (art/review is not deployed). Seen in the game
+   at pixel ratio 2: the picture frame, the register's engraving, the cloister's capitals and far arches hold their
+   lines; in the cloister the far arches show a little more through the fog. Waiting on the user: all 34 rooms or not.
+82. **All 33 room paintings upscaled, on a board** (the user: "Go ahead and" (the message cut off there), after the
+   trial). Real-ESRGAN x2plus on every painting in art/bg but the title screen (the user's standing rule), about 30 s
+   each: `art/review/bg2x/<room>.jpg`, 2560x1440, JPEG 92 (about 21 MB in all; not deployed). The variants that swap in
+   place agree with their base outside what changed: shop / nomag / drawer / drawer_nomag differ by 0.01 grey levels
+   there, ferreira's drawers 0.6, the tavern without the guitar 0.26 (the paintings themselves 0 to 0.4). Board:
+   https://claude.ai/artifact/TmtrrJCTe6SPkiNSfkLJhZ (source scripts/review_pages/bg2x_board/index.html; collection
+   `decisions`, one document per room: approved / redo / keep, and a note). Each card: the painting as the game
+   stretches it today left of a draggable line, the upscale right; 100% shows real pixels and pans. Nothing goes in
+   until the user decides; then the approved ones go into the game for screens drawn above 1280 (render scale > 1).
+83. **The 2x room paintings in the game** (the user: "Just deploy what we have", with no decisions on the board: taken as
+   approval for all 33). `art/bg2x/<room>.jpg` (moved from art/review/bg2x; shipped); art/bg unchanged. engine.js
+   register: a screen drawn above 1280 px (render scale > 1, read before the art streams in) loads the room's upscale
+   from art/bg2x where `window.BG2X` (main.js) lists it; at RS 1 (a 1280 screen, Light effects, FAST) the paintings in
+   art/bg. `?bg2x=0` never uses them. Checked in Chromium: 1280x720 at pixel ratio 2 and 1920x1080 load
+   art/bg2x/shop.jpg (2560 wide), 1280x720 at ratio 1 and `?bg2x=0` art/bg/shop.jpg; 14 scenes at ratio 2 (shopjobs,
+   sepit, bath, visitcop, bench, fado, laundry, celeste, semuseum, romance, thursday, bastos, finalerace, coldopen)
+   with no errors; smoke intro, bench, sepit, visitcop, copbed pass; validate 0 errors.
+84. **Deploy of entries 81-83** (the user: "Just deploy what we have"). PR kubajugo-alt/alansanchez#9 merged (master
+   `a7fcbd59`). On the `git archive` export (own port, no `.env`, the 33 art/bg2x files in): smoke intro, bench, sepit,
+   visitcop pass; shopjobs, sepit, bath at pixel ratio 2, no errors. **Deployed:** Netlify `6ae1498ab246bdf2ff2a7dcb`.
+   Live: page 200, `/.env` 404, art/bg2x served, engine.js, main.js and art/bg2x/shop.jpg byte-identical; pixel ratio 2
+   and 1920x1080 load art/bg2x/shop.jpg, 1280 at ratio 1 and `?bg2x=0` art/bg/shop.jpg; live smoke bench, sepit pass.
 
-80. **Game II started in `sequel/`** (2026-10-27, the user: "Use the same repo to build the sequel - but make sure the
+85. **Game II started in `sequel/`** (2026-10-27, the user: "Use the same repo to build the sequel - but make sure the
    first game stays intact and I can still edit it, prepare a new netlify project for it"). The Shortest Night lives in
    `sequel/`, its own web root with a forked engine (copied at `394bcdd0`); it has its own handoff,
    `sequel/docs/HANDOFF.md`, which logs its work from now on. For Game I only two things changed: `.gitattributes`
