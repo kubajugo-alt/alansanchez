@@ -16,9 +16,11 @@ def glyph(n):
         P += [[(-1, -1), (1, -1), (1, 1), (-1, 1), (-1, -1)], [(0, -1), (0, 1)], [(-1, 0), (1, 0)]]
     elif n == 'triangle':
         P.append([(-1, -.8), (1, -.8), (0, 1), (-1, -.8)])
-    elif n == 'crescent':
-        P.append([(math.cos(a), math.sin(a)) for a in np.arange(.7, 2 * math.pi - .7, .1)] +
-                 [(.55 + .75 * math.cos(a), .75 * math.sin(a)) for a in np.arange(2 * math.pi - 1.2, 1.2, -.1)])
+    elif n == 'crescent':   # the pintaderas' half-circle fan: the moon (or the sun) half gone into the sea
+        P.append([(math.cos(a), -math.sin(a) + .45) for a in np.arange(0, math.pi + .01, .1)] + [(1, .45)])
+        P.append([(.35 * math.cos(a), -.35 * math.sin(a) + .45) for a in np.arange(0, math.pi + .01, .15)])
+        for k in range(1, 6):
+            a = k * math.pi / 6; P.append([(.35 * math.cos(a), -.35 * math.sin(a) + .45), (math.cos(a), -math.sin(a) + .45)])
     else:
         P.append([(.38 * math.cos(a / 30 * 2 * math.pi), .38 * math.sin(a / 30 * 2 * math.pi)) for a in range(31)])
         for k in range(8):
