@@ -19,14 +19,15 @@ button:disabled{opacity:.35;cursor:default}
 </div>
 <script>
 const W=1280,H=720,cv=document.getElementById('c'),g=cv.getContext('2d');
-const img=new Image();img.src='lower_final_1280.png';
+const img=new Image();img.src='low_real_empty_etched.png';
 // the seven triangles as seen from below, through the floor opening (from beams_render.py)
-const TRI=[[[288,268],[348,268],[317,335]],[[368,272],[430,272],[399,337]],[[449,274],[510,274],[479,339]],
- [[535,215],[760,215],[642,415]],[[787,274],[853,274],[817,340]],[[873,272],[939,272],[903,338]],[[957,268],[1020,268],[990,335]]]
- .map(t=>t.map(([x,y])=>[417+(x-230)*440/830,50+(y-180)*143/270]));
+// the seven triangles as seen from below, through the floor opening (the realistic painting)
+const TRI=[[[444,95],[476,95],[460,133]],[[489,98],[521,98],[505,135]],[[533,101],[565,101],[549,136]],
+ [[582,76],[695,76],[637,177]],[[714,101],[746,101],[730,136]],[[759,98],[791,98],[775,135]],[[804,95],[836,95],[820,133]]];
 const CEN=TRI.map(t=>[(t[0][0]+t[1][0]+t[2][0])/3,(t[0][1]+t[1][1]+t[2][1])/3]),WID=TRI.map(t=>t[1][0]-t[0][0]);
-const D=[[396,565],[475,565],[558,565],[638,565],[719,565],[799,565],[879,565]];
-const OPEN=[637.5,98,232.5,74],RIM=150;
+const D=[[387,572],[475,572],[558,572],[641,572],[725,572],[810,572],[897,572]];
+const DM=[{"socket": 0, "x": 339, "y": 546, "w": 97, "h": 59}, {"socket": 1, "x": 427, "y": 546, "w": 97, "h": 59}, {"socket": 2, "x": 510, "y": 546, "w": 97, "h": 59}, {"socket": 3, "x": 593, "y": 546, "w": 97, "h": 59}, {"socket": 4, "x": 677, "y": 546, "w": 97, "h": 59}, {"socket": 5, "x": 762, "y": 546, "w": 97, "h": 59}, {"socket": 6, "x": 849, "y": 546, "w": 97, "h": 59}],SPR=DM.map((m,i)=>{const im=new Image();im.src='discs/disc_'+i+'.png';return im});
+const OPEN=[640,97,255,82],RIM=170;
 // the wall, left to right; a disc in socket i lights triangle 6-i (the columns cross in the opening)
 const WALL=['rings','spiral','zigzag','sun','crescent','triangle','chequer'];
 const TURN=['zigzag','chequer','triangle','rings','spiral','crescent','sun'];
@@ -101,7 +102,7 @@ function harimaguada(x,y,k,t,j,a){// a woman of light, outline only: robe, raise
  g.restore()}
 function frame(){g.globalCompositeOperation='source-over';g.clearRect(0,0,W,H);if(img.complete)g.drawImage(img,0,0,W,H);
  g.globalCompositeOperation='screen';
- g.save();clipAboveRim();column([640,34],36,[639,567],586,.18);g.restore();
+ g.save();clipAboveRim();column([640,34],36,[642,575],600,.18);g.restore();
  g.save();g.translate(639,567);g.scale(1,.09);const r=g.createRadialGradient(0,0,0,0,0,300);r.addColorStop(0,'rgba(255,228,160,.4)');r.addColorStop(1,'rgba(255,228,160,0)');g.fillStyle=r;g.beginPath();g.arc(0,0,300,0,7);g.fill();g.restore();
  for(let i=0;i<7;i++){if(!S.sock[i])continue;const p=along(S.aim[i]),k=hit(i),w=k>=0?WID[k]*.8:22,live=i===S.cur&&!S.set[i];
   g.save();clipAboveRim();column([D[i][0],D[i][1]-6],40,p,w,S.set[i]?.3:.22);g.restore();
@@ -109,7 +110,7 @@ function frame(){g.globalCompositeOperation='source-over';g.clearRect(0,0,W,H);i
  g.globalCompositeOperation='source-over';
  // sockets and discs
  D.forEach(([x,y],i)=>{g.strokeStyle=i===S.cur?'#ffd88a':'rgba(255,220,160,.35)';g.lineWidth=i===S.cur?2:1;g.beginPath();g.ellipse(x,y,26,10,0,0,7);g.stroke();
-  if(S.sock[i]){g.fillStyle='rgba(20,18,16,.75)';g.beginPath();g.ellipse(x,y+16,16,9,0,0,7);g.fill();glyph(S.sock[i],x,y+16)}});
+  if(S.sock[i]&&SPR[i].complete)g.drawImage(SPR[i],DM[i].x,DM[i].y)});
  // the closing: the women of light dance in the columns, the triangles flare; then it fades to the columns alone
  if(S.won){const t=performance.now()/1000-S.t0,env=t<2?t/2:t<9?1:Math.max(0,1-(t-9)/2.5);if(env>0){
   g.globalCompositeOperation='screen';
