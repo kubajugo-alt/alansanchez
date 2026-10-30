@@ -20,7 +20,8 @@ exactly at noon".
   time please - this is important to know". Vasco knows it to the minute.
 - Each disc is a shallow obsidian mirror, ground to its own curve, with a sign cut in its back: seven Canario signs, the
   patterns of the island's own clay seals (pintaderas): a spiral, a zigzag (the sea), concentric rings, a chequer, a
-  triangle, a crescent, and the rayed sun, Magec. The same seven signs are cut, worn almost smooth, at the point of the
+  triangle, the half-circle fan ("the crescent" in these notes: the moon half gone into the sea; a crescent as such is
+  not a Canario sign), and the rayed sun, Magec. The same seven signs are cut, worn almost smooth, at the point of the
   seven triangles above, and round each triangle a scene (see "The order").
 - In its own socket, a disc gathers the light and throws a column of it back up through the floor opening onto its own
   triangle. The sun disc, in the middle, lights the great triangle. Every morning, seven triangles lit: the sentence read
@@ -196,6 +197,13 @@ the sea at midnight) stays as it is: the shortest night, then the noon of the tu
 
 - Paintings: the cave (one small opening, the floor opening, the rope ladder) and the lower chamber (the discs, the
   frieze, the triangles through the opening), as approved; both upscaled.
+- The lower chamber's walls carry no figures. The user: "the lower cave should use the actual canarii shapes on the
+  walls, what we have was not used by this culture". They are painted the way the Canarios painted, as in the Cueva
+  Pintada at Gáldar: bands and panels of red ochre, white and black, made of the shapes of their clay seals
+  (pintaderas): rayed suns, dotted triangles, triangles of triangles, chequers of dotted squares, concentric ovals,
+  zigzags, half-circle fans, spirals. The seven signs are among them; the story itself is only round the triangles.
+  Two takes: `low_real_*_a.png` / `_b.png` (the current files are B; the figurative version is kept as
+  `*_figurative.png`).
 - Code: the cave (upper), a new room for the lower chamber, the light drawn in columns (vasco.js, mon.js); the five
   discs become five items, plus the crescent and the sun disc; the notebook gets a page for the signs.
 - Lines: everything that speaks of the ring of sockets in the roof, the slot, the ladder over the door, steering the
