@@ -27,9 +27,9 @@ sea.)
 Santana on Wednesday, Agustín Ramos on Friday, Doña Pino nearly on Saturday, Alan and Vasco threatened (as now). The
 week's deaths stay; they are the escalation.
 
-**What Alan can find (a puzzle, optional).** In Carmen's archive, Elena's box (or Carmen's own folder, the one she never
-opened) holds five small clippings from *La Provincia*, cut out by Elena before she died? No: she died first. Better:
-Carmen cut them out herself, after Elena, without knowing why, and filed them under "E". Alan lines their dates up with
+**What Alan can find (a puzzle, optional).** In Carmen's archive there is a folder filed under "E": five small clippings
+from *La Provincia* that Carmen cut out herself after Elena died, without knowing why, because each one was someone
+drowned where there was no water. Alan lines their dates up with
 the dates on the conservation list (one a month since December) and they match, night for night. The page: "Every time
 a disc came out, the Sea [took someone] that night. At [the new moon]. It comes in the [dark]." That's how Alan learns
 that the discs and the deaths are one thing, before anyone tells him.
