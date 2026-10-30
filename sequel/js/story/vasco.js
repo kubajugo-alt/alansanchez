@@ -271,7 +271,7 @@
     if (!asV()) return say('alan_look_great');
     if (!f.v_steer) return say('vasco_sanjuan_early');
     if (f.v_center) return say('vasco_sanjuan_again');
-    await S.posed('kneel', async () => { S.sfx('pencil_scribble', 0.4); await say('narr_v_sanjuan_1', 'vasco_sanjuan_1', 'vasco_sanjuan_1b'); });
+    await S.posed('kneel', async () => { S.sfx('pencil_scribble', 0.4); await say('narr_v_sanjuan_1', 'narr_v_sanjuan_1b', 'vasco_sanjuan_1', 'vasco_sanjuan_1b'); });
     f.v_center = true;
     await say('vasco_sanjuan_2');
   };
@@ -286,7 +286,7 @@
       await say('narr_v_angle_1');
       S.sfx('v_vasco_laugh', 0.5);
       await S.posed('laugh', () => say('narr_v_angle_2'));
-      await say('vasco_v_04', 'narr_v_angle_3', 'narr_v_angle_4', 'vasco_v_door', 'narr_v_angle_5', 'narr_v_angle_6');
+      await say('vasco_v_04', 'narr_v_angle_3', 'narr_v_angle_4', 'narr_v_angle_4b', 'vasco_v_door', 'narr_v_angle_5', 'narr_v_angle_6');
       f.v_understood = true;
       await say('narr_v_whole', 'vasco_v_arrows', 'vasco_v_read', 'vasco_v_read_2', 'vasco_v_05', 'vasco_v_06');
       await S.posed('worried', () => say('narr_v_alan_1', 'vasco_v_alan', 'narr_v_alan_2', 'narr_v_alan_3', 'vasco_v_alan_2', 'vasco_v_radio'));

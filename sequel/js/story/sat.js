@@ -119,7 +119,7 @@
   S.footprint = async function () {
     const f = F();
     await G.goRoom('hotel_room', 'hotel_lobby', { noEnter: true, noSave: true });
-    await say('narr_s_room_1', 'narr_s_room_2', 'narr_s_room_3', 'alan_s_print_1', 'narr_s_room_4', 'narr_s_room_5');
+    await say('narr_s_room_1', 'narr_s_room_2', 'narr_s_room_3', 'narr_s_room_3b', 'alan_s_print_1', 'narr_s_room_4', 'narr_s_room_5');
     await S.posed('pickup', async () => { S.sfx('water_seep', 0.3); await say('narr_s_room_6'); });
     S.sfx('knock', 0.5); await T(500);
     await say('narr_s_room_7');
@@ -135,7 +135,7 @@
     await say('ines_call_sat_1', 'ines_call_sat_1b', 'alan_call_sat_0', 'ines_call_sat_1c', 'narr_call_sat_1', 'alan_call_sat_1', 'alan_call_sat_1b',
       'narr_call_sat_2', 'ines_call_sat_2', 'alan_call_sat_2', 'ines_call_sat_2b', 'ines_call_sat_2c', 'alan_call_sat_2b', 'narr_call_sat_3',
       'ines_call_sat_3', 'alan_call_sat_3', 'ines_call_sat_4', 'ines_call_sat_5', 'ines_call_sat_6', 'ines_call_sat_7', 'alan_call_sat_4',
-      'ines_call_sat_8', 'ines_call_sat_9', 'ines_call_sat_10', 'narr_call_sat_5', 'ines_call_sat_11', 'ines_call_sat_12', 'ines_call_sat_14',
+      'ines_call_sat_8', 'ines_call_sat_9', 'ines_call_sat_10', 'narr_call_sat_5', 'ines_call_sat_11', 'ines_call_sat_12', 'ines_call_sat_13', 'ines_call_sat_14',
       'ines_call_sat_15', 'ines_call_sat_16', 'alan_call_sat_5', 'ines_call_sat_17', 'alan_call_sat_6');
     S.sfx('beep', 0.5); await T(400);
     await say('narr_call_sat_7', 'ines_call_sat_18');
