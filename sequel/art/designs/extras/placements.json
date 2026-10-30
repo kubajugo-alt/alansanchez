@@ -153,6 +153,76 @@
   "y": 674,
   "z": 120
  },
+ "pmvuaqv70kkdm": {
+  "extra": "restaurant_table",
+  "flip": false,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 1,
+  "x": 129,
+  "y": 529,
+  "z": 0
+ },
+ "pmvubfn6vsvih": {
+  "extra": "quay_crate_carrier",
+  "flip": false,
+  "room": "mercado",
+  "rot": 0,
+  "size": 1,
+  "x": 839,
+  "y": 444,
+  "z": 0
+ },
+ "pmvubg2nfzv5c": {
+  "extra": "cathedral_tourist",
+  "flip": false,
+  "room": "mercado",
+  "rot": 0,
+  "size": 1,
+  "x": 380,
+  "y": 534,
+  "z": 0
+ },
+ "rest_gail_derek": {
+  "extra": "restaurant_gail_derek",
+  "flip": true,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 1,
+  "x": 695,
+  "y": 632,
+  "z": 0
+ },
+ "rest_table_1": {
+  "extra": "restaurant_table",
+  "flip": true,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 0.98,
+  "x": 431,
+  "y": 483,
+  "z": 0
+ },
+ "rest_table_2": {
+  "extra": "restaurant_table",
+  "flip": true,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 0.96,
+  "x": 690,
+  "y": 448,
+  "z": 0
+ },
+ "rest_table_3": {
+  "extra": "restaurant_table",
+  "flip": true,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 1.19,
+  "x": 304,
+  "y": 674,
+  "z": 0
+ },
  "start_beach_old_man_chair": {
   "extra": "beach_old_man_chair",
   "flip": false,
@@ -283,6 +353,16 @@
   "y": 535,
   "z": 0
  },
+ "start_restaurant_waiter": {
+  "extra": "restaurant_waiter",
+  "flip": false,
+  "room": "hotel_restaurant",
+  "rot": 0,
+  "size": 0.77,
+  "x": 889,
+  "y": 421,
+  "z": 0
+ },
  "start_vegueta_lottery": {
   "extra": "vegueta_lottery",
   "flip": false,
@@ -311,66 +391,6 @@
   "size": 1,
   "x": 470,
   "y": 590,
-  "z": 0
- },
- "pmvuaqv70kkdm": {
-  "extra": "restaurant_table",
-  "flip": false,
-  "room": "hotel_restaurant",
-  "rot": 0,
-  "size": 1,
-  "x": 129,
-  "y": 529,
-  "z": 0
- },
- "rest_gail_derek": {
-  "extra": "restaurant_gail_derek",
-  "flip": true,
-  "room": "hotel_restaurant",
-  "rot": 0,
-  "size": 1,
-  "x": 695,
-  "y": 632,
-  "z": 0
- },
- "rest_table_1": {
-  "extra": "restaurant_table",
-  "flip": true,
-  "room": "hotel_restaurant",
-  "rot": 0,
-  "size": 0.98,
-  "x": 431,
-  "y": 483,
-  "z": 0
- },
- "rest_table_2": {
-  "extra": "restaurant_table",
-  "flip": true,
-  "room": "hotel_restaurant",
-  "rot": 0,
-  "size": 0.96,
-  "x": 690,
-  "y": 448,
-  "z": 0
- },
- "rest_table_3": {
-  "extra": "restaurant_table",
-  "flip": true,
-  "room": "hotel_restaurant",
-  "rot": 0,
-  "size": 1.19,
-  "x": 304,
-  "y": 674,
-  "z": 0
- },
- "start_restaurant_waiter": {
-  "extra": "restaurant_waiter",
-  "flip": false,
-  "room": "hotel_restaurant",
-  "rot": 0,
-  "size": 0.77,
-  "x": 889,
-  "y": 421,
   "z": 0
  }
 }

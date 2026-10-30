@@ -148,6 +148,32 @@ window.S.EXTRAS = {
    "h": 296.9
   }
  ],
+ "mercado": [
+  {
+   "id": "x_quay_crate_carrier",
+   "frames": [
+    "x_quay_crate_carrier"
+   ],
+   "x": 839,
+   "y": 444,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 1,
+   "h": 155.3
+  },
+  {
+   "id": "x_cathedral_tourist",
+   "frames": [
+    "x_cathedral_tourist"
+   ],
+   "x": 380,
+   "y": 534,
+   "dir": "e",
+   "scale": 0.97,
+   "size": 1,
+   "h": 234.6
+  }
+ ],
  "museum_hall": [
   {
    "id": "x_museum_waiter_tray",
@@ -281,7 +307,7 @@ window.S.EXTRAS = {
    "flip": true
   },
   {
-   "id": "x_cathedral_tourist",
+   "id": "x_cathedral_tourist_2",
    "frames": [
     "x_cathedral_tourist"
    ],

@@ -760,3 +760,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     turned into the sprite's anchor, mirrored when flipped; size by the tool's depth); a cast record the tool no longer
     shows keeps its own flip. Screenshot `art/review/restaurant_tables.png`; play.mjs won.
 73. **The undress: walked to, facing us** (2026-10-30). The user: "he should be using his walking sprite to get to the towel. plus, let's drop the last frame, with his back in the underwear". The Towels hotspot's walk-to point is the spot by the towels (640,572), so the engine walks him there on his own walk; S.sunbathe only walks if he isn't there; after undressing he faces us, and the underwear outfit has no back view (Game I's alan_uw_back no longer used). Recorded from the game via Game.act('Towels', 'use'): art/review/undress_recording.mp4.
+74. **The Mercado's background people** (2026-10-30). The user: "add mercado to the background people sheet"; then "i
+    added 2 background characters to mercado". The placement tool got the Mercado del Puerto room (bg_mercado.jpg, its
+    walk and depth from layout.js; Candelaria as its cast, `c_candelaria_r.webp`, entry in cast_rooms.json). The user's
+    two placements (quay_crate_carrier at the fish counter 839,444; cathedral_tourist by the cheese stall 380,534) copied
+    into art/designs/extras/placements.json and installed with extras_install.py (S.EXTRAS.mercado; the crate carrier's
+    sprite art/sprites/x_quay_crate_carrier.webp made, it had not been placed before). Screenshot from the game:
+    art/review/mercado_extras.png, no page errors.

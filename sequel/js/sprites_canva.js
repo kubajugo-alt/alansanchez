@@ -835,6 +835,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 374
 },
+"x_quay_crate_carrier": {
+"ax": 174.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 348
+},
 "x_quay_net_mender": {
 "ax": 281.0,
 "fy": 740.0,
