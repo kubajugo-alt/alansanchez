@@ -955,3 +955,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     fermin_belfry_wind was refused by ElevenLabs ("may violate our Terms of Service": "I'll sit here and die quietly");
     now "...and wheeze quietly while you work", voiced. Every line of a voiced speaker has its file (2,577 voice files).
     The background people's 45 lines were already voiced (entry 82).
+95. **Merged and deployed** (2026-10-30). The user: "once all is done, and you've checked for inconsistencies... merge and
+    deploy"; then "Eleven lab credits topped up". master merged into the branch first (one conflict, Game I's handoff
+    header: the sequel's start note there renumbered 85 after Game I's entries 81-84); PR #10 merged into master
+    (403add89). Export of 942599ea (git archive HEAD:sequel, 751 MB): play.mjs on it won, 118 steps, no errors. Netlify
+    deploy 6ae494cf4e9fe96acad03de0 (the first upload got a 500 from Netlify; the second went through). Live: the page,
+    an upscaled painting, the new voices and lines served; /.env 404.
