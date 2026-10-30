@@ -1141,5 +1141,5 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     Alan's portrait on the easel, one Elena and no discs in the chain, Alan's black tank top, shorts and white trainers,
     Alan in the Land Rover). The love scenes are to be shown another way (open). Vasco on the bed: Canva MAHZhGYusW8 from
     the in-game vascor (MAHZgxwIxeM) and the bed ref, more chest hair; exported via page 7 of DAHYZ-SDzRE, kept as
-    `art/designs/vasco_towel_bed.png`, keyed, rotated 11°, night-graded, placed at (128,318) on `hotel_room`
+    `art/designs/vasco_towel_bed.png`, keyed, rotated 11°, night-graded, placed by the user on a placement page (https://claude.ai/artifact/MF3B4betqnWGEtUw27peHw, db `placements/vasco_towel`: centre 300.3,404.2, width 340.9, -9°, brightness 0.86), baked at (116,278) on `hotel_room`
     (`art/review/bg_real/hotel_room_vasco_towel.png/.json`, preview `hotel_room_vasco_preview.jpg`). Awaiting approval.

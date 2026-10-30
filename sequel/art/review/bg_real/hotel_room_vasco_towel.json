@@ -1,1 +1,17 @@
-{"x": 128, "y": 318, "w": 430, "h": 179, "room": "hotel_room", "note": "Vasco on the bed in a towel, first night; Canva MAHZhGYusW8"}
+{
+ "x": 116,
+ "y": 278,
+ "w": 369,
+ "h": 253,
+ "room": "hotel_room",
+ "placed_by": "user",
+ "placement": {
+  "cx": 300.3,
+  "cy": 404.2,
+  "w": 340.9,
+  "rot": -9,
+  "flip": false,
+  "bright": 0.86
+ },
+ "note": "Vasco on the bed in a towel, first night; Canva MAHZhGYusW8; placed by the user on the placement page"
+}
