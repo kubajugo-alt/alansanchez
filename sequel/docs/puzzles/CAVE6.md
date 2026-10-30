@@ -18,9 +18,10 @@ exactly at noon".
   by the sun: **14:05 Canary summer time** (UTC+1, in force in 1996; Risco Caído at 15.66° W puts the sun's noon an hour
   after the clock's, and the equation of time adds two minutes that week), the sun 85.4° up. The user: "the canary summer
   time please - this is important to know". Vasco knows it to the minute.
-- Each disc is a shallow obsidian mirror, ground to its own curve, with a sign cut in its back: one of the seven
-  islands (see "The seven, and their order"). The same seven signs are cut, worn almost smooth, at the point of the
-  seven triangles above.
+- Each disc is a shallow obsidian mirror, ground to its own curve, with a sign cut in its back: seven Canario signs, the
+  patterns of the island's own clay seals (pintaderas): a spiral, a zigzag (the sea), concentric rings, a chequer, a
+  triangle, a crescent, and the rayed sun, Magec. The same seven signs are cut, worn almost smooth, at the point of the
+  seven triangles above (see "How Vasco knows the order").
 - In its own socket, a disc gathers the light and throws a column of it back up through the floor opening onto its own
   triangle. The sun disc, in the middle, lights the great triangle. Every morning, seven triangles lit: the sentence read
   out, the lock kept true.
@@ -89,53 +90,25 @@ exactly at noon".
   chain of hands: Vasco reaching down through the floor opening to his wrist, Carmen holding Vasco, Yeray Carmen, Baute
   Yeray. They haul him up through the opening.
 
-## The seven, and their order (proposal; real and invented kept apart)
+## How Vasco knows the order
 
-The user: "we need to think about the rationale of the order and the symbolism of 7 - ideally tying it to real
-canarian myths".
+The order is written on the wall, and the light tells you how to read it.
 
-**Seven = the seven islands.** The Canarios' world was seven islands on the sea (Abreu Galindo's own title, the book Alan
-carries all week: *Historia de la conquista de las siete islas de Canaria*; real). Each disc is an island, cut on its
-back with the sign of that island's holy place (real places; the signs as emblems are the game's):
+- **The triangles carry the order.** Each triangle has its disc's sign cut at its point, worn almost smooth. On
+  Saturday, Vasco rubs chalk into each one (an archaeologist's trick) and copies the row as it stands on the wall, left
+  to right: seven signs, the sun in the middle at the great triangle.
+- **The columns cross.** Each column rises from its disc through the floor opening, so the columns cross there, as in
+  the section drawing. A disc on the left lights a triangle on the right. Vasco sees it with the two discs left: the
+  crescent, one socket to the left of the sun, lights the small triangle just to the right of the great one. He moves it
+  once to be sure: one socket further left, and its column lands one triangle further right.
+- **So the floor is the wall reversed.** "It's a mirror. Read the wall backwards and you have the floor." The sun is the
+  same either way: the middle.
+- **The frieze agrees.** The cave panel in the lower chamber draws the seven circles on the floor with their signs, in
+  floor order. It is faded and half gone, so it confirms the order but can't give all of it.
+- **What he leaves behind.** In the vault he scratches the seven signs by the grille, already in floor order, and an A.
+  On Monday, Alan has them in his notebook, and Vasco checks each one from above against its triangle.
 
-| Socket (east to west) | Island, by its old name | Its sign (its holy place) |
-|---|---|---|
-| 1 | Lanzarote, *Titerroygatra* | the grooved ritual stone of Zonzamas |
-| 2 | Fuerteventura, *Erbania* | La Pared, the wall across the island between its two kingdoms |
-| 3 | Gran Canaria, *Tamarán* | the sacred rock (Bentayga), and the triangle of Risco Caído |
-| **4, the middle** | **Tenerife, *Achinet*: Echeyde, the mountain** | **the sun, Magec** |
-| 5 | La Gomera | the table mountain of Fortaleza (Chipude), a sanctuary |
-| 6 | La Palma, *Benahoare* | Idafe, the pillar of rock in the Caldera |
-| 7 | El Hierro, *Esero* | the Garoé, the holy tree that rained cloud-water |
-
-**The order = the sun's road.** The row of sockets runs east to west, as the islands lie on the sea and as Magec crosses
-them each day: it rises over Titerroygatra and goes down behind Esero. That order is simply the map of the archipelago,
-east to west (real geography). In it, Tenerife falls exactly in the middle: fourth of seven (real). So the middle disc,
-the one that lights the great triangle, is Echeyde with the sun on it.
-
-**Why the sun in the middle: the real myth.** On Tenerife the Guanches told that Guayota, the evil one who lived inside
-Echeyde (Teide) with his black dogs, stole Magec and took him down into the mountain, and the world went dark; Achamán
-freed Magec and sealed Guayota inside (real tradition, recorded in the 19th century). The black dogs, the tibicenas, are
-Gran Canaria's too (real). From Risco Caído you see Teide across the sea (real). The harimaguadas who made the lock (the
-game's invention) built it as that story told in light: as long as the sun stands at the centre of the islands and its
-light reaches the great triangle, Magec is free and what is below stays below.
-
-**The door order: Magec put down into the sea.** Move the sun disc from the middle to the end of the road, the western
-socket, Esero, where the sun goes down into the sea: Magec taken down, Guayota's theft done again. That is Elena's
-"Puerta" and Baute's Monday. Vasco on Saturday: "He doesn't need the whole order. He needs the sun in the west."
-
-**Seven women.** In 1483 seven harimaguadas set the seven stones, one island each; the last, the seventh, set the sun
-and went down with the door (the game's invention, on the letter's "the last of the women").
-
-**Where the player learns the order:** the frieze in the lower chamber (seven islands drawn on the sea, each with its
-sign, the sun rising behind the first); a tourist map of the Canary Islands (the hotel lobby or Gando: the islands east
-to west); Galindo's seven islands; the signs Vasco scratches in the vault, in order. Someone who knows the Canaries can
-solve it from the map alone; that is fair, and it is the point.
-
-**Real sources:** Abreu Galindo's sea-beating rite in drought (the women with milk, butter and palm branches, the sea
-struck with sticks); the Guayota-Magec-Achamán myth; Risco Caído's Cave 6 (a light sanctuary on a wall of pubic
-triangles; discovered 1996); the islands' old names and holy places. Invented: the lock, the discs and their signs, the
-seven women, the door order.
+Baute's door order needs none of this: he only moves the sun to the end of the row.
 
 ## The noon, through the story
 
