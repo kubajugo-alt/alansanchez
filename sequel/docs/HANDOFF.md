@@ -1117,3 +1117,21 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Lines: 27 rewritten (`docs/puzzles/LINES_TIMELINE.md`, old and new side by side), validate: 0 errors. Not yet
       re-recorded. Bible and CAVE6.md follow the monthly timeline (Saturday: six sockets empty, only the sun disc; the
       test is done with the sun disc).
+
+104. **Six moons, six dead; Pepe a flashback, Agustín cut; stills repainted; deployed** (2026-10-30). The user: the
+    five dead January to May are *Virgen del Pino* survivors in their seventies, Pino is June's ("Pino would be the June
+    one"), Pepe is May's ("do a flashback"), Agustín is cut; "merge and deploy everything done so far".
+    - Story (`docs/puzzles/DEATHS.md`, bible): seven pulled out of the sea in 1971 (was four); Juan Afonso, Tomás
+      Rivero, Andrés Ojeda, Domingo Hernández, Pepe Santana, one a month at the new moon; Pino on Saturday; Antonio in
+      Venezuela. Wednesday night's Pepe cutaway is now a flashback to 17 May (narr_pepe_1/3/5); Thursday's paper and
+      Chano say "a month ago"; Pino's list is the seven, five struck, with months in pencil; Friday's Agustín cutaway
+      removed (fri.js); Saturday's paper (and Chano) is La Provincia counting six drowned far from water since
+      December; the "who's next" page lost Agustín/Manuel/03:00/Tamaraceite; Baute names the six at the end.
+    - Voices: the 48 lines whose text changed today (`git diff origin/master -- js/lines.js`) had their old recordings
+      moved to `audio/voice_stale/` (export-ignored), so they play as captions until re-recorded with the same voices
+      after the user has read them (`docs/puzzles/LINES_TIMELINE.md` lists the timeline ones).
+    - Art (review only, not in the game): the 16 stills repainted (`art/review/stills_real/`, approval page with the
+      lines: https://claude.ai/artifact/3HmhS16b9YWYjNWo7feP4C, verdicts in db `verdicts`); drunk Yeray at Rafa's table
+      from Canva (`art/review/bg_real/rafa_bar_yeray_drunk.png`, from the in-game yeray_r/c); Vasco on the bed in a towel
+      waiting on Canva's cooldown (reminder set).
+    - Checks: validate 0 errors; play.mjs won in 131 steps, no page errors.
