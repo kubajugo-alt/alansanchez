@@ -125,7 +125,10 @@ a clip per room on a page, then the user's word.
   `scripts/ludo_install.py` (frames to `art/sprites/<run>_NN.webp`, `js/sprites_ludo.js`), `ludo_measure.py` (ground
   per frame). Today only Alan's walks are used.
 - **Seamless walks**: `scripts/walk_loop.py [install] <run>` finds the cleanest stride, removes drift, retimes with
-  optical-flow in-betweens when the spacing is uneven.
+  optical-flow in-betweens when the spacing is uneven. Runs listed in its `TAKES` are read straight from their fitted
+  Ludo takes (no install needed) and also get an `across_<run>.mp4` clip; `install <run>` then puts them in (125).
+- **Side walks need a profile start frame**: Ludo keeps the start frame's angle, so a three-quarter standing painting
+  walks diagonally; Vasco's side walks start from profile paintings (`vascor_profile_k`, `vascor_dinner_profile_k`, 125).
 - **A one-off action** (the undressing, 67/73): Ludo frames, faces fixed with `scripts/head_swap.py <ref> <prefix>`
   (YuNet landmarks; originals kept in `art/review/head_swap/`), sprites flagged `cut: true` (straight cuts, no breathing
   bend), played frame by frame from the story (`p.poses.x = key; p.pose = 'x'`), preloaded with `Engine.ensure(keys)`.

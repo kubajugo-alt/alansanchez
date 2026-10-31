@@ -131,3 +131,7 @@
 | 2026-10-31 04:07 | hydra | hydra | vascor_side_k -> ../review/ludo/vascor_walk_back/keyframe_back |  | sequel/art/review/ludo/vascor_turn_side_back/ | 9 |
 | 2026-10-31 04:09 | improve | hydra | ../review/ludo/vascor_walk_back/keyframe_back | improve | sequel/art/review/ludo/vascor_walk_back/ | 3 |
 | 2026-10-31 04:10 | improve | hydra | vascor_side_k -> ../review/ludo/vascor_walk_back/keyframe_back | improve | sequel/art/review/ludo/vascor_turn_side_back/ | 3 |
+| 2026-10-31 05:09 | hydra | hydra | vascor_profile_k | walking to the right at an easy, natural pace, a full walk cycle; strict side profile, body and face at exactly 90 degrees to the camera, walking straight left to right across the frame, never turning towards the camera | sequel/art/review/ludo/vascor_walk_side/ | 9 |
+| 2026-10-31 05:09 | hydra | hydra | vascor_dinner_profile_k | walking to the right at an easy, natural pace, a full walk cycle; strict side profile, body and face at exactly 90 degrees to the camera, walking straight left to right across the frame, never turning towards the camera | sequel/art/review/ludo/vascor_dinner_walk_side/ | 9 |
+| 2026-10-31 05:10 | improve | hydra | vascor_profile_k | improve | sequel/art/review/ludo/vascor_walk_side/ | 3 |
+| 2026-10-31 05:10 | improve | hydra | vascor_dinner_profile_k | improve | sequel/art/review/ludo/vascor_dinner_walk_side/ | 3 |

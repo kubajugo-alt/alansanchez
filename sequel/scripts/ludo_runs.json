@@ -408,11 +408,13 @@
   },
   {
    "name": "vascor_walk_side",
-   "a": "vascor_side_k",
-   "prompt": "walking to the right at an easy, natural pace, a full walk cycle",
+   "a": "vascor_profile_k",
+   "prompt": "walking to the right at an easy, natural pace, a full walk cycle; strict side profile, body and face at exactly 90 degrees to the camera, walking straight left to right across the frame, never turning towards the camera",
    "loop": true,
    "frames": 36,
-   "duration": 3
+   "duration": 3,
+   "take": 2,
+   "note": "take 2 (HANDOFF 125): from the profile keyframe; take 1 from vascor_side_k walked diagonally"
   },
   {
    "name": "vascor_walk_front",
@@ -442,11 +444,13 @@
   },
   {
    "name": "vascor_dinner_walk_side",
-   "a": "vascor_dinner_side_k",
-   "prompt": "walking to the right at an easy, natural pace, a full walk cycle",
+   "a": "vascor_dinner_profile_k",
+   "prompt": "walking to the right at an easy, natural pace, a full walk cycle; strict side profile, body and face at exactly 90 degrees to the camera, walking straight left to right across the frame, never turning towards the camera",
    "loop": true,
    "frames": 36,
-   "duration": 3
+   "duration": 3,
+   "take": 2,
+   "note": "take 2 (HANDOFF 125): from the profile keyframe; take 1 from vascor_dinner_side_k walked diagonally"
   },
   {
    "name": "vascor_dinner_walk_front",

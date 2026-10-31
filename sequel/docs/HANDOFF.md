@@ -48,10 +48,12 @@ root, in the same repository as Game I. Read, in this order:
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
 ### Open, in the order I'd suggest (2026-10-31)
-1. **Vasco's walks from his repaint (entries 122, 123)**: all ten runs made and committed (`art/review/ludo/vascor*`,
-   grid `art/review/ludo/vascor_set_preview.mp4`); no back view for the dinner outfit, the day back keyframe is a
-   recolour of the old back. Put them on a review page for the user; install only on approval; they go in the
-   **next deploy**.
+1. **Vasco walks (entry 125)**: his five walks are looped, the side walks redrawn in true profile, and **installed on the
+   branch** (the user, away: "continue ... without asking me for reviews until you are fully sure"); in the **next
+   deploy**. Review page with the result: https://claude.ai/artifact/JHsMoqK2UwY9L8oMp5dump (db `verdicts`). Still
+   open: no real back painting (the day back is a recolour of the old one; the blazer has none, so he walks away in it
+   sideways); he stands on his three-quarter paintings, so stopping is a cut from profile to three-quarter; turns are
+   made but not used (no one turns in the game).
 2. **86 unrecorded lines (entry 117)**, mostly Cave 6's finale: wait for ElevenLabs' reset on 14 Nov or a top-up.
 3. **Questions the user hasn't answered**: the city exit "mistaken for kiosk" on Las Canteras (121); flip the Gando nuns
    to face the kiss? (120; the taxi driver: added, 126); audition Canarian-sounding voices? (118); `alan_look_postcard` says
@@ -1602,6 +1604,47 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Vasco's walks review page (entry 123's runs): https://claude.ai/artifact/JHsMoqK2UwY9L8oMp5dump (db `verdicts`;
       built from `art/review/ludo/vascor_page/`). The user: "the walks look good, but they don't loop", "his side walk
       is not really side - it's diagonal. we need a clean side walk." Being redone (entry 125).
+125. **Vasco walks: seamless loops, a true side walk, installed** (2026-10-31, the user on entry 123's page: "the walks
+    look good, but they don't loop", "his side walk is not really side - it's diagonal. we need a clean side walk"; then,
+    going away: "continue walking on the animations without asking me for reviews until you are fully sure they are
+    correct").
+    - **Why diagonal.** `vascor_side_k` and `vascor_dinner_side_k` are three-quarter paintings (body towards us, head
+      turned; Alan's `alanv_side_k` is a profile), and Ludo keeps the start frame's angle. A prompt could not fix that,
+      so new **profile paintings** were made: Canva first (`generate-image`, media MAHZjXfPI2A: a good profile, but the
+      connector only gave a 133x200 thumbnail and `create-design` then hit Canva's quota cooldown), so Higgsfield
+      `gpt_image_2_5` (about 1 credit, 164.52 -> 163.52): `vasco_v10a.png` + `alanv_side_k` as the pose ->
+      `art/designs/vasco_profile_day.png`, and that edited into the blazer with `vascor_dinner_side_k` as the outfit ->
+      `vasco_profile_dinner.png`; cut with `figure_cut.py` to `vascor_profile_k`, `vascor_dinner_profile_k` (720 px, as
+      the others). Face, hair, clothes compared side by side with the repaint (crops looked at, not measured).
+    - **New side walks**: `vascor_walk_side` and `vascor_dinner_walk_side` take 2 (`ludo_runs.json`: from the profile
+      paintings, Alan's prompt plus "strict side profile, body and face at exactly 90 degrees to the camera, walking
+      straight left to right across the frame, never turning towards the camera"). 24 Ludo credits (290.51 -> 266.51),
+      in `art/review/ludo/log.md`. Take 1 of each kept in `art/review/ludo/<run>_t1/` (fit/ git-ignored). Both walk
+      straight across in profile (strips looked at frame by frame).
+    - **Loops**: `scripts/walk_loop.py` has a **review-take mode** (`TAKES`): a run listed there is read from its fitted
+      take (`art/review/ludo/<run>/fit/`) instead of the game, with its own standing painting for the start pose, and
+      also gets `across_<run>.mp4` (the loop walking over marked floor at its measured ground per frame). Side walks:
+      stride, drift out, start nearest the profile painting (`vascor_walk_side` 26 frames, frames 4-29 of the take, seam
+      0.93 of Ludo's own step; dinner 25 frames, 10-34, 1.02); their frame-to-frame unevenness is like Alan's installed
+      side loop (looked at next to it). Front and back stepped very unevenly (a frame step 2.5x the median on the back),
+      so they are **retimed** like `alanv_walk_front` (`RETIME`): day front 20 frames, back 18, dinner front 18, every
+      step within 0.8-1.17 of the median. Seams looked at frame by frame (last three, first three) and in the x4 clips;
+      the planted foot holds in the across clips. Output in `art/review/walk_loop/` (frames, `report.json`,
+      `walk_/oldnew_/across_<run>.mp4`).
+    - **Installed** (`walk_loop.py install` for the five runs: `art/sprites/vascor_*walk*_NN.webp`, 107 frames, and
+      their `window.LUDO` / sprite boxes in `js/sprites_ludo.js`; `ludo_install.py` was not run, it would rebuild every
+      run from fit/ folders this container does not have). `js/story/core.js`: `still('vascor', 'vascor')` and
+      `still('vascor_dinner', 'vascor_dinner')`; `still()` now leaves out a view without its run. The day back view is
+      `vascor_back_k` (the recoloured back, entry 123's keyframe, now a sprite; `vascos_back_k` is no longer used).
+      `js/engine/actor.js`: a walk towards or away from the camera needs only that way's cycle (it needed both), so the
+      blazer walks towards us with its front walk and away in the side view. He still stands and talks on
+      `vascor_side_k` (his face set), so stopping cuts from profile to three-quarter.
+    - **Checked in the game** (Playwright, playing as Vasco on Las Canteras, both outfits): side walk both ways in
+      profile, towards us, away, standing frames after each; clip `art/review/ludo/vascor_page/ingame.mp4`.
+      `node scripts/validate.mjs` 0 errors; `node scripts/tests/play.mjs`: won, 132 steps, no errors.
+    - Review page republished (same link; `set.mp4` dropped, it showed the diagonal walk): the in-game clip, the
+      paintings, per walk the loop in place and walking across with its frame strip; turns unchanged and marked unused.
+    - Not done: a real back painting of the repaint (both outfits); turns are made but no character uses turns.
 126. **Gando's taxi driver** (2026-10-31, the user: "Taxi driver: add the one the narrator mentions? - yes"; away, "go
     ahead without asking for reviews"). The third of the narrator's witnesses over the kiss (`narr_t_kiss`: "in front of
     a taxi driver, two nuns and a family from Düsseldorf"; the nuns and family are entry 120).

@@ -14,25 +14,41 @@ h1{font-family:var(--display);font-size:34px;margin:0;text-wrap:balance}h2{font-
 .sub,.msg{color:var(--muted);margin:0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:8px}
 .cap{font-size:17px;margin:0}.dir{font-size:13px;color:var(--muted);margin:0}.dir b{color:var(--accent);font-weight:500}
-video,img.strip{width:100%;border-radius:4px;background:#000}.pl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}.pl div{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+video,img.strip,img.keys{width:100%;border-radius:4px;background:#000}.pl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}.pl div{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 audio{width:100%}.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 button{font:500 14px var(--body);padding:6px 14px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:4px;cursor:pointer}
 button.on.ok{background:var(--ok);color:#fff;border-color:var(--ok)}button.on.redo{background:var(--accent);color:#fff;border-color:var(--accent)}
 button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.status{font-size:13px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}.two div{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+ul.notes{margin:0;padding-left:20px;color:var(--fg)}ul.notes li{margin:2px 0}
 </style>
-<div class="wrap"><header><h1>Vasco walking</h1><p class="sub">Vasco's walks and turns from his repainted sprite, the same set Alan has: day clothes and the navy blazer (the blazer has no back view painted, so no walk away or turn to the back). Made with Ludo; not in the game yet. Approve each one or send it back; comment on what to fix.</p></header>
-<article class="card"><p class="cap">All together: Alan's set on top, then Vasco in day clothes, then in the blazer</p><video controls loop muted playsinline preload="metadata" src="set.mp4"></video></article>
+<div class="wrap"><header><h1>Vasco walking</h1><p class="sub">Redone after your notes ("the walks look good, but they don't loop"; "his side walk is not really side - it's diagonal"). The five walks now loop seamlessly, the side walks are true profiles, and they are <b>in the game on the branch</b> (not deployed): you said to carry on without stopping for reviews. Send anything back here and it comes out again.</p></header>
+<article class="card"><p class="cap">What changed</p><ul class="notes">
+<li><b>Side walks, both outfits:</b> the standing paintings are three-quarter views (body towards us, head turned), and Ludo keeps the angle of the frame it starts from, so the walk came out diagonal. New standing paintings in strict profile (below), made from his repaint with the same face, clothes and size, and the side walks redrawn from them. He still stands and talks on his usual paintings; only the walking is in profile, as Alan's.</li>
+<li><b>Loops:</b> each walk is cut to one whole stride whose next frame is its first, with the slow drift inside the frame taken out, so it repeats with no jump. The towards-us and away walks were also re-spaced evenly (some of Ludo's steps were twice as long as others). Started on the pose closest to his standing painting.</li>
+<li><b>In the game:</b> walking across, towards us and away (day clothes); across and towards us in the blazer. The blazer has no back view, so walking away in it stays in the side view.</li>
+<li><b>Turns</b> are not used for anyone in the game (Alan neither), so they are shown as before and not installed.</li></ul></article>
+<article class="card"><p class="cap">In the game, Las Canteras: across, back, away, towards us; then the blazer</p><video controls loop muted playsinline preload="metadata" src="ingame.mp4"></video></article>
+<article class="card"><p class="cap">The paintings: his standing ones (unchanged) and the new profiles the side walks start from</p><p class="dir">The back view is still the old back painting with the shirt recoloured cream (sleeves rolled long, older trousers): a real back painting would be better.</p><img class="keys" alt="Vasco's standing paintings and the new profile paintings" src="keys.png"></article>
 <p class="msg" id="msg">Loading the verdicts…</p><div id="list"></div></div>
 <script>
-const ROWS=[["vascor_walk_side", "Day clothes", "Walk, side", "Same pace as Alan's; feet move about as much as his."], ["vascor_walk_front", "Day clothes", "Walk, towards us", ""], ["vascor_walk_back", "Day clothes", "Walk, away", "There's no back painting of the repaint: made from the old back view with the shirt recoloured cream (sleeves and trousers still the old ones)."], ["vascor_turn_side_front", "Day clothes", "Turn, side to front", "His face drifts mid-turn (smoother, younger); fixable at install by pasting his head back."], ["vascor_turn_side_left", "Day clothes", "Turn, right to left", ""], ["vascor_turn_side_back", "Day clothes", "Turn, side to back", "Made from the recoloured old back view, like the walk away."], ["vascor_dinner_walk_side", "Navy blazer", "Walk, side", ""], ["vascor_dinner_walk_front", "Navy blazer", "Walk, towards us", ""], ["vascor_dinner_turn_side_front", "Navy blazer", "Turn, side to front", "Face drift mid-turn, and one frame dips in height; both fixable at install."], ["vascor_dinner_turn_side_left", "Navy blazer", "Turn, right to left", ""]];
-
+const ROWS=[["vascor_walk_side", "Day clothes", "Walk, side (new, profile)", "26 frames, one stride. The faint grey under the front boot is Ludo's own contact shadow; the game draws its own.", true],
+["vascor_walk_front", "Day clothes", "Walk, towards us", "20 frames, re-spaced evenly.", true],
+["vascor_walk_back", "Day clothes", "Walk, away", "18 frames, re-spaced evenly. From the recoloured old back view.", true],
+["vascor_turn_side_front", "Day clothes", "Turn, side to front (not used in the game)", "Unchanged. His face drifts mid-turn.", false],
+["vascor_turn_side_left", "Day clothes", "Turn, right to left (not used in the game)", "Unchanged; from the three-quarter painting.", false],
+["vascor_turn_side_back", "Day clothes", "Turn, side to back (not used in the game)", "Unchanged.", false],
+["vascor_dinner_walk_side", "Navy blazer", "Walk, side (new, profile)", "25 frames, one stride.", true],
+["vascor_dinner_walk_front", "Navy blazer", "Walk, towards us", "18 frames, re-spaced evenly.", true],
+["vascor_dinner_turn_side_front", "Navy blazer", "Turn, side to front (not used in the game)", "Unchanged. Face drift mid-turn, one frame dips.", false],
+["vascor_dinner_turn_side_left", "Navy blazer", "Turn, right to left (not used in the game)", "Unchanged.", false]];
 const list=document.getElementById('list'),msg=document.getElementById('msg');const verdicts={};let db=null,comments=null;
 const esc=t=>{const d=document.createElement('div');d.textContent=t;return d.innerHTML};
 const dir=t=>esc(t).replace(/\[([^\]]+)\]/g,'<b>[$1]</b>');let last='';
-for(const [id,sc,cap,note] of ROWS){
+for(const [id,sc,cap,note,walk] of ROWS){
  if(sc!==last){const h=document.createElement('h2');h.textContent=sc;list.appendChild(h);last=sc}
  const c=document.createElement('article');c.className='card';c.dataset.id=id;
- c.innerHTML='<p class="cap">'+esc(cap)+'</p>'+(note?'<p class="dir">'+esc(note)+'</p>':'')+'<video controls loop muted playsinline preload="metadata" src="'+id+'.mp4"></video><img class="strip" loading="lazy" alt="Frames of '+esc(cap)+'" src="'+id+'.png"><div class="bar"><button class="ok">Approve</button><button class="redo">Redo</button><button class="cm">Comment</button><span class="status">Not decided yet</span></div>';
+ c.innerHTML='<p class="cap">'+esc(cap)+'</p>'+(note?'<p class="dir">'+esc(note)+'</p>':'')+(walk?'<div class="two"><div>In place, looping<video autoplay loop muted playsinline preload="metadata" src="'+id+'.mp4"></video></div><div>Walking across (seam marked)<video controls loop muted playsinline preload="metadata" src="'+id+'_across.mp4"></video></div></div>':'<video controls loop muted playsinline preload="metadata" src="'+id+'.mp4"></video>')+'<img class="strip" loading="lazy" alt="Frames of '+esc(cap)+'" src="'+id+'.png"><div class="bar"><button class="ok">Approve</button><button class="redo">Redo</button><button class="cm">Comment</button><span class="status">Not decided yet</span></div>';
  c.querySelector('.ok').onclick=()=>decide(id,'approved');c.querySelector('.redo').onclick=()=>decide(id,'redo');
  c.querySelector('.cm').onclick=async()=>{if(comments){try{await comments.openComposer({element:c})}catch(e){}}};list.appendChild(c)}
 function paint(id){const c=document.querySelector('[data-id="'+id+'"]');const v=verdicts[id];c.querySelector('.ok').classList.toggle('on',v==='approved');c.querySelector('.redo').classList.toggle('on',v==='redo');c.querySelector('.status').textContent=v==='approved'?'Approved':v==='redo'?'Needs a redo':'Not decided yet'}

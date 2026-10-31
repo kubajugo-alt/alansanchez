@@ -244,5 +244,205 @@
    "fy": 734.1,
    "top": 14.6
   }
+ },
+ "vascor_walk_front": {
+  "ludo": {
+   "frames": [
+    "vascor_walk_front_00",
+    "vascor_walk_front_01",
+    "vascor_walk_front_02",
+    "vascor_walk_front_03",
+    "vascor_walk_front_04",
+    "vascor_walk_front_05",
+    "vascor_walk_front_06",
+    "vascor_walk_front_07",
+    "vascor_walk_front_08",
+    "vascor_walk_front_09",
+    "vascor_walk_front_10",
+    "vascor_walk_front_11",
+    "vascor_walk_front_12",
+    "vascor_walk_front_13",
+    "vascor_walk_front_14",
+    "vascor_walk_front_15",
+    "vascor_walk_front_16",
+    "vascor_walk_front_17",
+    "vascor_walk_front_18",
+    "vascor_walk_front_19"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.034
+  },
+  "sprite": {
+   "w": 260,
+   "hh": 769,
+   "h": 720.0,
+   "ax": 127.5,
+   "fy": 765.5,
+   "top": 26.0
+  }
+ },
+ "vascor_walk_back": {
+  "ludo": {
+   "frames": [
+    "vascor_walk_back_00",
+    "vascor_walk_back_01",
+    "vascor_walk_back_02",
+    "vascor_walk_back_03",
+    "vascor_walk_back_04",
+    "vascor_walk_back_05",
+    "vascor_walk_back_06",
+    "vascor_walk_back_07",
+    "vascor_walk_back_08",
+    "vascor_walk_back_09",
+    "vascor_walk_back_10",
+    "vascor_walk_back_11",
+    "vascor_walk_back_12",
+    "vascor_walk_back_13",
+    "vascor_walk_back_14",
+    "vascor_walk_back_15",
+    "vascor_walk_back_16",
+    "vascor_walk_back_17"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.0378
+  },
+  "sprite": {
+   "w": 269,
+   "hh": 752,
+   "h": 720.0,
+   "ax": 134.6,
+   "fy": 736.5,
+   "top": 25.5
+  }
+ },
+ "vascor_dinner_walk_front": {
+  "ludo": {
+   "frames": [
+    "vascor_dinner_walk_front_00",
+    "vascor_dinner_walk_front_01",
+    "vascor_dinner_walk_front_02",
+    "vascor_dinner_walk_front_03",
+    "vascor_dinner_walk_front_04",
+    "vascor_dinner_walk_front_05",
+    "vascor_dinner_walk_front_06",
+    "vascor_dinner_walk_front_07",
+    "vascor_dinner_walk_front_08",
+    "vascor_dinner_walk_front_09",
+    "vascor_dinner_walk_front_10",
+    "vascor_dinner_walk_front_11",
+    "vascor_dinner_walk_front_12",
+    "vascor_dinner_walk_front_13",
+    "vascor_dinner_walk_front_14",
+    "vascor_dinner_walk_front_15",
+    "vascor_dinner_walk_front_16",
+    "vascor_dinner_walk_front_17"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.0378
+  },
+  "sprite": {
+   "w": 267,
+   "hh": 750,
+   "h": 720.0,
+   "ax": 122.8,
+   "fy": 743.0,
+   "top": 36.5
+  }
+ },
+ "vascor_walk_side": {
+  "ludo": {
+   "frames": [
+    "vascor_walk_side_00",
+    "vascor_walk_side_01",
+    "vascor_walk_side_02",
+    "vascor_walk_side_03",
+    "vascor_walk_side_04",
+    "vascor_walk_side_05",
+    "vascor_walk_side_06",
+    "vascor_walk_side_07",
+    "vascor_walk_side_08",
+    "vascor_walk_side_09",
+    "vascor_walk_side_10",
+    "vascor_walk_side_11",
+    "vascor_walk_side_12",
+    "vascor_walk_side_13",
+    "vascor_walk_side_14",
+    "vascor_walk_side_15",
+    "vascor_walk_side_16",
+    "vascor_walk_side_17",
+    "vascor_walk_side_18",
+    "vascor_walk_side_19",
+    "vascor_walk_side_20",
+    "vascor_walk_side_21",
+    "vascor_walk_side_22",
+    "vascor_walk_side_23",
+    "vascor_walk_side_24",
+    "vascor_walk_side_25"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.0222,
+   "at": [
+    6,
+    18
+   ]
+  },
+  "sprite": {
+   "w": 376,
+   "hh": 732,
+   "h": 720.0,
+   "ax": 168.1,
+   "fy": 725.4,
+   "top": 5.9
+  }
+ },
+ "vascor_dinner_walk_side": {
+  "ludo": {
+   "frames": [
+    "vascor_dinner_walk_side_00",
+    "vascor_dinner_walk_side_01",
+    "vascor_dinner_walk_side_02",
+    "vascor_dinner_walk_side_03",
+    "vascor_dinner_walk_side_04",
+    "vascor_dinner_walk_side_05",
+    "vascor_dinner_walk_side_06",
+    "vascor_dinner_walk_side_07",
+    "vascor_dinner_walk_side_08",
+    "vascor_dinner_walk_side_09",
+    "vascor_dinner_walk_side_10",
+    "vascor_dinner_walk_side_11",
+    "vascor_dinner_walk_side_12",
+    "vascor_dinner_walk_side_13",
+    "vascor_dinner_walk_side_14",
+    "vascor_dinner_walk_side_15",
+    "vascor_dinner_walk_side_16",
+    "vascor_dinner_walk_side_17",
+    "vascor_dinner_walk_side_18",
+    "vascor_dinner_walk_side_19",
+    "vascor_dinner_walk_side_20",
+    "vascor_dinner_walk_side_21",
+    "vascor_dinner_walk_side_22",
+    "vascor_dinner_walk_side_23",
+    "vascor_dinner_walk_side_24"
+   ],
+   "fps": 12,
+   "steps": 2,
+   "step": 0.0216,
+   "at": [
+    6,
+    18
+   ]
+  },
+  "sprite": {
+   "w": 363,
+   "hh": 744,
+   "h": 720.0,
+   "ax": 202.1,
+   "fy": 733.4,
+   "top": 13.9
+  }
  }
 }

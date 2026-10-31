@@ -1023,6 +1023,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 1281
 },
+"vascor_back_k": {
+"ax": 136.2,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 268
+},
 "vascor_dinner_front_k": {
 "ax": 126.1,
 "fy": 740.0,
@@ -1030,6 +1038,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 258
+},
+"vascor_dinner_profile_k": {
+"ax": 87.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 165
 },
 "vascor_dinner_side_k": {
 "ax": 140.7,
@@ -1046,6 +1062,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 258
+},
+"vascor_profile_k": {
+"ax": 83.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 161
 },
 "vascor_side_k": {
 "ax": 140.7,

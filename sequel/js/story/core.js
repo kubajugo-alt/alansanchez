@@ -36,16 +36,18 @@
 
   // ---------------------------------------------------------------- cast
   // Everyone stands and talks on their static Canva sprite (lip-sync and blinking on top). The one animation is Alan's
-  // walk, his Ludo cycles (side, towards us, away; window.LUDO, scripts/ludo_install.py); everyone else glides. No turns,
+  // walk and Vasco's (since HANDOFF 125), their Ludo cycles (side, towards us, away; window.LUDO); everyone else glides. No turns,
   // no action poses (a pose shows the standing sprite). Alan has two outfits: the vest and cargo shorts, and the blazer
   // with jeans (F().blazer_on: Tuesday evening from the lost-and-found, and Thursday's dinner; off each new morning).
   const lu = n => (LU[n] ? LU[n].frames : null);
   const still = (p, walker) => {
     const Fr = { idle: [p + '_side_k'], talk: [p + '_side_k'], front: p + '_front_k', back: p + '_back_k', walk: [p + '_side_k'], poses: {} };
-    if (walker && LU[walker + '_walk_side']) Object.assign(Fr, {
-      walk: lu(walker + '_walk_side'), walkStep: LU[walker + '_walk_side'].step,
-      frontWalk: lu(walker + '_walk_front'), frontStep: LU[walker + '_walk_front'].step,
-      backWalk: lu(walker + '_walk_back'), backStep: LU[walker + '_walk_back'].step });
+    // (a view without its run, e.g. Vasco's dinner outfit has no back view, is left out: the engine then walks him in
+    // the side view whichever way he goes, actor.js only turns to front/back when it has both)
+    const run = v => LU[walker + '_walk_' + v];
+    if (walker && run('side')) Object.assign(Fr, { walk: lu(walker + '_walk_side'), walkStep: run('side').step });
+    if (walker && run('side') && run('front')) Object.assign(Fr, { frontWalk: lu(walker + '_walk_front'), frontStep: run('front').step });
+    if (walker && run('side') && run('back')) Object.assign(Fr, { backWalk: lu(walker + '_walk_back'), backStep: run('back').step });
     return Fr;
   };
   S.CHARS = {
@@ -93,10 +95,13 @@
     const undies = { idle: ['alan_uw_front'], talk: ['alan_uw_front'], walk: ['alan_uw_front'], front: 'alan_uw_front', back: 'alan_uw_front', poses: {} };
     Object.defineProperty(A, 'frames', { get() { let on = false, uw = false; try { on = !!(G.flags && G.flags.blazer_on); uw = !!(G.flags && G.flags.undressed); } catch (e) { /* not started */ } return uw ? undies : on ? blazer : vest; } });
     A.outfits = [vest, blazer, undies]; // (all of them, for loading: engine.js framesOf walks whatever frames holds)
-    V.frames = Object.assign(still('vascor'), { back: 'vascos_back_k' });   // (no repainted back view yet)
+    // his walks from the repaint (HANDOFF 125; scripts/walk_loop.py loops of Ludo runs): the side walk from a profile
+    // painting (vascor_profile_k), so he walks straight across; he stands and talks on vascor_side_k as before. The back
+    // view is the old back painting with the shirt recoloured to the repaint's cream (vascor_back_k)
+    V.frames = still('vascor', 'vascor');
     // dressed for the museum's parties, a navy blazer (the user, 2026-10-30; scripts/vasco_dinner.py): Tuesday from the
     // reception to the end of the walk on the promenade, Thursday at the dinner; his own head, so his face set fits
-    const dinner = Object.assign(still('vascor_dinner'), { back: 'vascor_dinner_side_k' }), day = V.frames;
+    const dinner = Object.assign(still('vascor_dinner', 'vascor_dinner'), { back: 'vascor_dinner_side_k' }), day = V.frames;
     S.vascoDressed = () => { try { const f = G.flags; return (f.ch === 1 && f.called_tue && !f.walk_done) || (f.ch === 3 && S.dinnerDue && S.dinnerDue()); } catch (e) { return false; } };
     Object.defineProperty(V, 'frames', { get() { return S.vascoDressed() ? dinner : day; } });
     V.outfits = [day, dinner];
