@@ -18,8 +18,10 @@ import ludo_measure
 L = os.path.join(SEQ, 'art/review/ludo')
 SPR = os.path.join(SEQ, 'art/sprites')
 LUDO_JS = os.path.join(SEQ, 'js/sprites_ludo.js')
-# the smoking in-betweens run from one painted pose to the next and wait on the last frame (the pose itself)
-HOLD = {}
+# (the smoking in-betweens run from one painted pose to the next and wait on the last frame, the pose itself)
+HOLD = {  # set by eye from the frame strips (2026-10-31): the frame the story waits on
+    'alanv_pickup': 15, 'alanv_reach': 11, 'alanv_reachup': 18, 'alanv_write': 18, 'alanv_setdown': 18, 'alanv_read': 16,
+    'alanv_heave': 16, 'alanv_crank': 18, 'alanv_rub': 12}
 
 
 def game_data():

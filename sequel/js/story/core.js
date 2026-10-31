@@ -492,6 +492,13 @@
   // Alan, used like in the first game"; the cigarette stays in one hand, his right (the near one), once it's lit.
   // The poses are Ludo runs between four painted poses (art/review/alan_smoke/, the vest only): see the vest's poses.
   // Never in a church, the cave, the vault or a car; not in the blazer (no set yet) or undressed.
+  // mouth and lit tip on each run's last frames (measured on a grid, 2026-10-31; the last four frames barely move)
+  S.SMOKE_POINTS = {};
+  [['alanv_smoke_stand_light', [168, 98], [192, 105]], ['alanv_smoke_light_inhale', [127, 82], [141, 82]],
+    ['alanv_smoke_inhale_exhale', [111, 78], [167, 251]], ['alanv_smoke_exhale_hold', [119, 89], [160, 306]],
+    ['alanv_smoke_hold_inhale', [117, 81], [134, 80]]].forEach(([n, mouth, tip]) => {
+    for (let i = 21; i <= 24; i++) S.SMOKE_POINTS[n + '_' + i] = { mouth, tip };
+  });
   S.NO_SMOKE = new Set(['santa_ana_inside', 'belfry', 'cave6', 'cave6_low', 'vault', 'vault_cell', 'landrover', 'elena_car']);
   {
     const last = n => LU[n] ? LU[n].frames[LU[n].frames.length - 1] : null;

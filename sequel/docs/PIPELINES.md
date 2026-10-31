@@ -123,7 +123,12 @@ a clip per room on a page, then the user's word.
 - **Ludo**: `scripts/ludo.py` (runs in `scripts/ludo_runs.json`; `gen` accepts `--model forge` when hydra refuses on
   moderation, `--take N` for a new take of the same request, `--margin-v/-h` for room so limbs aren't cut). Install:
   `scripts/ludo_install.py` (frames to `art/sprites/<run>_NN.webp`, `js/sprites_ludo.js`), `ludo_measure.py` (ground
-  per frame). Today only Alan's walks are used.
+  per frame). Alan's walks and, since entry 136, his actions and the idle cigarette are used.
+- **An action** (entries 132–136): one Ludo run from his standing painting back to it (`b` = `a`); the prompt must give
+  the way back (he pockets it, puts it down, lowers his arms), or Ludo cross-fades into the end keyframe. `frames` only
+  4, 9, 16, 25, 36, 49, 64; hydra `duration` 3–5 s; about 16 credits a run. Fit with `ludo_fit.py <run>`, put in with
+  `ludo_add.py <run>` (set its `HOLD`), then name it in the outfit's `poses` (core.js). A held object in one hand stays
+  in that hand (the user, for the cigarette).
 - **Seamless walks**: `scripts/walk_loop.py [install] <run>` finds the cleanest stride, removes drift, retimes with
   optical-flow in-betweens when the spacing is uneven. Runs listed in its `TAKES` are read straight from their fitted
   Ludo takes (no install needed) and also get an `across_<run>.mp4` clip; `install <run>` then puts them in (125).
