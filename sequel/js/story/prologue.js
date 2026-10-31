@@ -56,20 +56,23 @@
     if (phase) return;
     phase = 1; S.cloudAt = performance.now() / 1000;
     S.sfx('fog_lift', 0.5);
-    await say('narr_pro_cloud', 'narr_pro_dark');
+    // (HANDOFF 111: the cloud darkening is drawn; Elena says it)
+    await T(window.FAST ? 10 : 2500);
+    await say('elena_pro_cloud');
   };
   S.theWater = async function () {
     if (phase >= 2) return;
     phase = 2; G.cutscene = true;
     try {
       S.sfx('water_seep', 0.5); await T(800);
-      await say('elena_salt', 'narr_pro_footwell');
+      await say('elena_salt');
       S.sfx('water_rise', 0.6);
       await S.waterTo('elena_car', 0.32, 3500);
-      await say('narr_pro_brake', 'elena_doors', 'narr_pro_stop');
-      // she stops trying the doors, and draws on the glass
+      await say('elena_pro_feet', 'elena_pro_brake', 'elena_doors');
+      // she stops trying the doors, and draws on the glass (drawn: the triangle, point down)
+      await T(window.FAST ? 10 : 1200);
       for (let i = 0; i <= 20; i++) { triangle = i / 20; await G.wait(window.FAST ? 2 : 80); }
-      await say('narr_pro_triangle');
+      await say('elena_pro_triangle');
       S.sfx('water_rise_2', 0.6);
       await S.waterTo('elena_car', 0.7, 4500);
       await T(900);
@@ -85,19 +88,22 @@
       await G.fade(true);
       await G.card(S.DAYS[0][0], S.DAYS[0][1], 3200);
       Sound.ambience('tavern');
+      // (HANDOFF 111: the bar is painted; one line says who she is; the chairs and the door are heard)
       await S.paint('still_elena_bar', async () => {
-        await say('narr_pro_bar_1', 'narr_pro_bar_2');
+        S.sfx('chair_scrape', 0.3); await T(600);
+        await say('narr_pro_bar_1');
         S.sfx('payphone_coins', 0.6); await T(900);
         await say('carmen_machine', 'elena_msg_01', 'elena_msg_02', 'elena_msg_03');
         S.sfx('phone_hangup', 0.5); await T(400);
         S.sfx('chair_scrape', 0.4);
-        await say('narr_pro_paco', 'barman_stay', 'elena_stay', 'narr_pro_out');
+        await say('barman_stay', 'elena_stay');
+        S.sfx('door_tavern', 0.5); await T(800);
       }, { zoom: [1.0, 1.12], pan: [[0.45, 0.55], [0.55, 0.5]] });
       Sound.ambience('night');
       await G.goRoom('elena_car', null, { instant: true, noEnter: true, noSave: true });
       G.endStill();
       await G.fade(false);
-      await say('narr_pro_road', 'narr_pro_road_2');
+      await say('elena_pro_road');
     });
     // the player looks around the car until the cloud, and the water, take it
     await new Promise(res => { const iv = setInterval(() => { if (phase >= 2 && !G.isBusy) { clearInterval(iv); res(); } }, 200); S._proSkip = () => { phase = 2; }; });
@@ -105,8 +111,11 @@
       Sound.ambience(null);
       await S.paint('still_barranco', async () => {
         S.sfx('dawn_birds', 0.3); await T(700);
-        await say('narr_pro_morning', 'narr_pro_crust', 'gc_01', 'gc_02', 'narr_pro_cigarette', 'gc_03');
-        await say('narr_open_01', 'narr_open_02', 'narr_open_03');
+        // (HANDOFF 111: the car in the barranco is painted; the Guardia say the locks and the salt)
+        await say('gc_locked', 'gc_01', 'gc_02');
+        await T(window.FAST ? 10 : 1200);   // (the older one lights a cigarette, and looks at the car a long time)
+        await say('gc_03');
+        await say('narr_open_01', 'narr_open_03');
       }, { zoom: [1.0, 1.1], pan: [[0.5, 0.6], [0.5, 0.45]] });
       S.water.elena_car = 0;
       await S.paint('still_title', () => T(3500), { zoom: [1.0, 1.06] });

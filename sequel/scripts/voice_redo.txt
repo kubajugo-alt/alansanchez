@@ -119,3 +119,14 @@ narr_m_sunrise
 narr_m_waking
 narr_m_reading
 narr_end_guardia
+alan_t_land
+alan_t_hello
+narr_t_drive_1
+alan_p_2
+alan_p_4
+baute_t_gran_2
+narr_love_1b
+narr_t_end_2
+narr_pro_bar_1
+narr_open_01
+narr_open_03

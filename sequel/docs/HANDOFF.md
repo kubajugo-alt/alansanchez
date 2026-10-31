@@ -1289,3 +1289,22 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - `scripts/tests/play.mjs` asks Vasco "Which one goes first?" and "...next?" on Monday and checks the answer.
     - Checks: `node scripts/validate.mjs` 0 errors (183 warnings: the unused lines); play.mjs before the nudge: won, 130
       steps, no page errors; with the nudge: won, 132 steps, no page errors.
+111. **The prologue and Tuesday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
+    there is way too much narrator... Some things should simply be done by the characters, other just said by the
+    characters" and "it is basically the entire game". As Cave 6 (109): every narrator line played in the prologue
+    (`prologue.js`) and on Tuesday (`tue.js`, the two Tuesday calls in `core.js`, the opening in `main.js`) gone through.
+    78 narrator lines (2,203 words) to 9 (190; prologue 18 to 3, Tuesday 60 to 6; none over 26 words); 69 cut, 12
+    shortened or rewritten, 18 new character lines (Elena says the road, the cloud, her feet, the brake and "Point down.
+    At the sea."; the Guardia say the locks and the salt triangle; Alan the Iberia desk, the Düsseldorf family, the
+    eyebrow, the coat at the door, Baute's knuckles and his smile, the mist "coming in against the wind" (the 1483
+    page's words) and the Lisbon cistern; Vasco the hotel's owner and the dig, the knee, "One minute!"; Baute names the
+    clay seal as his abuela's; Carmen offers the Coronas). Done in code instead: Vasco walks to Alan at Gando, across
+    the hall with him to Baute, down the corridor of skulls with him, along the promenade to the bonfire and the rail;
+    Vasco turns his back for the Cabildo; the toast's glass, laugh and applause, Carmen's lighter and the laughter
+    inside, Alan's laugh in 404, the sea at the end of the night, the bar's chairs and door are sounds; pauses for the
+    looks. The reception and the corridor (86, 107) keep every beat. Nothing recorded: 11 recorded lines changed (their
+    mp3s moved to `audio/voice_stale/`, ids added to `scripts/voice_redo.txt`), manifest rebuilt. Review table:
+    `docs/rewrite/NARR_TUE.md`. Checks: `node --check`; validate: no errors from these files (the other days' rewrite in
+    progress had 59 at the time); the prologue played with `S.PLAY_PROLOGUE` on to the lobby, no page errors; a
+    screenshot of the corridor moment; `play.mjs` through Tuesday and on to Saturday's vault (103 steps, the only errors
+    the other days' missing lines), the full run below.

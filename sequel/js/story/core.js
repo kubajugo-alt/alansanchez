@@ -250,10 +250,10 @@
   ];
   // Tuesday, before the reception: Pessoa and the Eça, the surfers, "Don't break anything"; and the money runs out
   S.callTue1 = async () => {
-    await say('ines_t_eca_1', 'alan_t_call_1', 'ines_t_eca_2', 'alan_t_call_2', 'ines_t_eca_3', 'alan_t_call_3', 'ines_t_eca_4', 'narr_t_surfers',
+    await say('ines_t_eca_1', 'alan_t_call_1', 'ines_t_eca_2', 'alan_t_call_2', 'ines_t_eca_3', 'alan_t_call_3', 'ines_t_eca_4',
       'alan_t_call_4', 'ines_t_what', 'alan_t_call_5', 'ines_t_alan', 'alan_t_call_6', 'ines_t_jealous', 'alan_t_call_7', 'ines_t_party', 'alan_t_call_8', 'ines_t_dontknow');
     S.sfx('beep', 0.5); await S.T(400);
-    await say('narr_t_money');
+    await say('alan_t_call_money');   // (HANDOFF 111: was the narrator's "And the money ran out.")
   };
   // Tuesday, midnight: "It's here. It's come for me." And the line goes dead.
   S.callTue = async () => {

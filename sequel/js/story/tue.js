@@ -96,13 +96,21 @@
   S.meetVasco = async function () {
     if (F().met_vasco) return;
     // (the user, 2026-10-29: no sunburn talk here, he burns on the beach later; instead a moment of being glad)
-    await say('narr_t_vasco_1', 'vasco_t_hello', 'narr_t_kiss', 'alan_t_hello', 'vasco_t_luggage', 'vasco_t_missed', 'alan_t_missed',
-      'vasco_t_missed_2', 'narr_t_hold', 'alan_t_missed_2', 'alan_t_luggage', 'vasco_t_sorry', 'vasco_t_cave', 'vasco_t_light', 'alan_t_cave', 'vasco_t_rayco', 'alan_t_rayco', 'vasco_t_rayco_2', 'alan_t_proud');
+    // (narrator cut back, HANDOFF 111: Vasco comes to him; the kiss and the family from Düsseldorf are Alan's to say)
+    await G.busy(async () => {
+      const v = G.npc('vasco'), p = G.player;
+      if (v) { await Promise.race([v.walkTo(p.x + 120, p.y), T(window.FAST ? 50 : 3000)]); v.dir = 'w'; }
+      await say('vasco_t_hello');
+      await T(window.FAST ? 10 : 700);
+      await say('alan_t_hello', 'vasco_t_luggage', 'vasco_t_missed', 'alan_t_missed', 'vasco_t_missed_2');
+      await T(window.FAST ? 10 : 900);
+      await say('alan_t_missed_2', 'alan_t_luggage', 'vasco_t_sorry', 'vasco_t_cave', 'vasco_t_light', 'alan_t_cave', 'vasco_t_rayco', 'alan_t_rayco', 'vasco_t_rayco_2', 'alan_t_proud');
+    });
     F().met_vasco = true;
     await say('vasco_t_go');
     await G.fade(true);
     // the drive north, under the edge of the cloud (heard over black)
-    await say('narr_t_drive_1', 'alan_t_rain', 'vasco_t_panza_1', 'vasco_t_panza_2', 'vasco_t_panza_3', 'alan_t_thursday', 'narr_t_drive_2');
+    await say('narr_t_drive_1', 'alan_t_rain', 'vasco_t_panza_1', 'vasco_t_panza_2', 'vasco_t_panza_3', 'alan_t_thursday', 'vasco_t_knee');
     await G.goRoom('hotel_lobby', 'gando', { instant: true, noEnter: true });
     await G.fade(false);
     await S.lobbyArrival();
@@ -152,8 +160,10 @@
   S.lobbyArrival = async function () {
     F().narr_hotel_lobby = true; F().nieves_met = true;
     // check-in is at two: two hours to kill (the user, 2026-10-29), so Las Palmas first
-    await say('narr_t_hotel_1', 'narr_t_hotel_2', 'nieves_t_hello', 'alan_t_nieves_1', 'nieves_t_1', 'narr_t_eyebrow',
-      'nieves_t_checkin', 'alan_t_checkin', 'nieves_t_checkin_2', 'vasco_t_lobby_1', 'vasco_t_lobby_go');
+    // (the lobby is painted; the owner and the dig are Vasco's to say, the eyebrow Alan's: HANDOFF 111)
+    await say('vasco_t_hotel', 'nieves_t_hello', 'alan_t_nieves_1', 'nieves_t_1');
+    await T(window.FAST ? 10 : 900);
+    await say('alan_t_eyebrow', 'nieves_t_checkin', 'alan_t_checkin', 'nieves_t_checkin_2', 'vasco_t_lobby_1', 'vasco_t_lobby_go');
     F().jacket_needed = true;
   };
   // (Tuesday had a clock on screen, 12:00 at the check-in and 16:10 after the nap: taken out, the user, 2026-10-30, "we
@@ -210,7 +220,7 @@
       await G.fade(true); S.sfx('cloth_jacket', 0.5); await T(700);
       f.blazer_on = true;   // (Alan's frames follow the flag: js/story/core.js)
       await G.fade(false);
-      await say('narr_t_dress', 'alan_t_jeans_tight', 'alan_blazer_on');
+      await say('alan_t_jeans_tight', 'alan_blazer_on');
     });
   };
   S.talkDerek = async function () {
@@ -309,7 +319,7 @@
     ],
     async enter() {
       if (ch() === 1 && F().reception_done && !F().mist_seen) { F().narr_canteras = true; return S.walkTue(); }
-      if (!F().narr_canteras) { F().narr_canteras = true; await say('narr_t_canteras_1', 'narr_t_canteras_2'); }
+      if (!F().narr_canteras) F().narr_canteras = true;   // (the promenade, the kiosk and the phone box are painted: no narration)
     },
     animFg(g, t) { S.drawMist(g, t, S.mistNow()); },
   });
@@ -330,7 +340,7 @@
     // Tuesday: as if the surfer had said something rude to it, the cloud tears open
     const f = F();
     if (ch() === 1 && f.burnt && !f.surfer_alan) { f.surfer_alan = true; await say('surfer_t_alan', 'alan_t_flirt_surfer'); }
-    if (ch() === 1 && G.room && G.room.id === 'beach' && !f.burnt && !f.sun_out) { f.sun_out = true; S.sfx('fog_lift', 0.4); S.UNDRESS.forEach(k => window.Engine.want('spr:' + k)); await say('narr_t_sun_1', 'alan_t_sun_1'); }
+    if (ch() === 1 && G.room && G.room.id === 'beach' && !f.burnt && !f.sun_out) { f.sun_out = true; S.sfx('fog_lift', 0.4); S.UNDRESS.forEach(k => window.Engine.want('spr:' + k)); await T(window.FAST ? 10 : 1200); await say('alan_t_sun_1'); }
   };
   // Tuesday on the beach: down to his underwear on a borrowed towel, five minutes that are not five minutes, and the burn
   // (the user, 2026-10-29). The undressing plays the frames cut from Higgsfield's video (S.UNDRESS) when they're in.
@@ -345,14 +355,15 @@
       await window.Engine.ensure(S.UNDRESS.map(k => 'spr:' + k));   // (every frame in before it plays)
       for (const k of S.UNDRESS) { vest.poses.undress = k; p.pose = 'undress'; await T(1000 / 12); }
       p.pose = null; f.undressed = true; p.dir = 's'; G.refreshNpcs();   // (facing us in his underwear)
-      await say('narr_t_sun_2', 'alan_t_sun_2');
+      await say('alan_t_sun_2');
       await S.paint('still_nap', async () => {
         S.sfx('water_lap', 0.4); await say('narr_t_sun_3');
       }, { zoom: [1.0, 1.1], pan: [[0.5, 0.5], [0.45, 0.55]] });
       // the cloud is back, it's ten past four, and he's the colour of a postbox
       f.sun_out = false; f.burnt = true; f.undressed = false;
       G.endStill(); await G.fade(false); G.refreshNpcs();
-      await say('alan_t_burnt', 'narr_t_dress_beach');
+      await say('alan_t_burnt');
+      S.sfx('cloth_shirt', 0.4); await T(window.FAST ? 10 : 700);   // (back into his clothes, very carefully)
     });
   };
   // Chano: change for the phone, a paper a day, gossip and the weather
@@ -413,14 +424,26 @@
   S.walkTue = async function () {
     const f = F();
     await G.busy(async () => {
-      await say('narr_t_walk_1', 'alan_t_walk_1', 'narr_t_walk_2', 'vasco_t_sanjuan_1', 'vasco_t_sanjuan_2', 'alan_t_walk_2', 'vasco_t_walk_alan',
-        'alan_t_walk_3', 'vasco_t_sanjuan_3', 'alan_t_walk_4', 'narr_t_walk_3');
+      // (narrator cut back, HANDOFF 111: they walk to the bonfire being built, then to the rail; Alan sees the mist and
+      // says what it is to himself, and nothing to Vasco)
+      await say('narr_t_walk_1', 'alan_t_walk_1');
+      const v = G.npc('vasco'), p = G.player;
+      await Promise.all([p.walkTo(560, 650), v ? Promise.race([v.walkTo(680, 650), T(window.FAST ? 50 : 4000)]) : null]);
+      if (v) v.dir = 'w';
+      await say('alan_t_walk_pyre', 'vasco_t_sanjuan_1', 'vasco_t_sanjuan_2', 'alan_t_walk_2', 'vasco_t_walk_alan',
+        'alan_t_walk_3', 'vasco_t_sanjuan_3', 'alan_t_walk_4');
+      await T(window.FAST ? 10 : 800);
+      await Promise.all([p.walkTo(700, 620), v ? Promise.race([v.walkTo(800, 625), T(window.FAST ? 50 : 4000)]) : null]);
       f.mist_seen = true;
       await S.paint('still_mist', async () => {
-        S.sfx('crash_wave', 0.4); await T(800);
-        await say('narr_mist_1', 'narr_mist_2', 'narr_mist_3');
-        S.sfx('water_lap', 0.3);
-        await say('alan_mist_2', 'narr_mist_4', 'vasco_t_mist_1', 'narr_mist_5', 'alan_mist_3', 'narr_mist_6');
+        // the surf on the reef, and then not: the mist has reached it
+        S.sfx('crash_wave', 0.4); await T(window.FAST ? 10 : 1400);
+        await say('alan_mist_1');
+        S.sfx('water_lap', 0.3); await T(window.FAST ? 10 : 900);
+        await say('alan_mist_2', 'alan_mist_lisbon', 'vasco_t_mist_1');
+        await T(window.FAST ? 10 : 1200);
+        await say('alan_mist_3');
+        await T(window.FAST ? 10 : 900);
       }, { zoom: [1.0, 1.12], pan: [[0.5, 0.55], [0.5, 0.6]] });
       G.endStill(); await G.fade(false);
       await say('vasco_t_walk_up');
@@ -488,7 +511,8 @@
         lockedLine: () => ch() !== 1 ? 'alan_dinner_stay' : F().met_baute && !F().vasco_moment ? 'alan_reception_vasco' : 'alan_reception_stay' },
     ],
     async enter() {
-      if (!F().narr_museum_hall && ch() === 1) { F().narr_museum_hall = true; await say('narr_t_museum_1', 'narr_t_museum_2', 'narr_p_arrive', 'alan_p_arrive'); }
+      // (the hall, the cases and the guests are painted; Vasco calls across the room: HANDOFF 111)
+      if (!F().narr_museum_hall && ch() === 1) { F().narr_museum_hall = true; await say('vasco_p_arrive', 'alan_p_arrive'); }
       await S.maybeToast();
     },
   });
@@ -546,7 +570,7 @@
       { name: 'Up to the promenade', rect: [0, 250, 110, 320], at: [70, 660], exit: 'canteras', entry: 'beach' },
     ],
     async enter() {
-      if (!F().narr_beach) { F().narr_beach = true; await say('narr_beach_1'); }
+      if (!F().narr_beach) F().narr_beach = true;   // (the sand and the panza are painted, and Vasco explained the panza on the drive)
       if (ch() === 1 && !F().swell_said) { F().swell_said = true; await say('alan_t_swell'); }   // (the blond surfer; the user, 2026-10-29)
     },
     animFg(g, t) { S.drawMist(g, t, S.mistNow()); },
@@ -577,7 +601,7 @@
       { name: 'The roof', rect: [400, 0, 600, 200], at: [640, 600], noBox: true, look: 'alan_look_mercado_roof' },
       S.toMap([480, 690, 320, 30], [640, 705]),
     ],
-    async enter() { if (!F().narr_mercado) { F().narr_mercado = true; await say('narr_t_mercado'); } },
+    async enter() { if (!F().narr_mercado) F().narr_mercado = true; },   // (painted: no narration, HANDOFF 111)
   });
   S.talkCandelaria = async function () {
     const f = F();
@@ -627,7 +651,7 @@
       { name: 'Dessert trolley', rect: [1020, 320, 155, 225], at: [1040, 660], look: 'alan_look_dessert_trolley' },
       { name: 'Back to the lobby', rect: [1230, 120, 50, 450], at: [1210, 670], exit: 'hotel_lobby', entry: 'hotel_restaurant' },
     ],
-    async enter() { if (!F().narr_restaurant) { F().narr_restaurant = true; await say('narr_restaurant_1'); } },
+    async enter() { if (!F().narr_restaurant) F().narr_restaurant = true; },   // (painted: no narration, HANDOFF 111)
   });
 
   // ================================================================ EL MUSEO CANARIO: the courtyard (where Alan finds Carmen)
@@ -654,7 +678,7 @@
       { name: 'Archive boxes', rect: [140, 450, 120, 115], at: [220, 650], look: 'alan_look_courtyard_boxes' },
       { name: 'Back to the party', rect: [10, 280, 100, 285], at: [70, 660], exit: 'museum_hall', entry: 'museum_courtyard' },
     ],
-    async enter() { if (!F().narr_courtyard && ch() === 1) { F().narr_courtyard = true; await say('narr_courtyard_1'); } },
+    async enter() { if (!F().narr_courtyard && ch() === 1) F().narr_courtyard = true; },   // (painted: no narration, HANDOFF 111)
   });
 
   // leaving the reception: dusk on Las Canteras (the mist); otherwise the map
@@ -667,13 +691,27 @@
   // self-conscious, proud of him, a little jealous.
   S.talkVascoTue = async function () {
     const f = F();
-    if (!f.vasco_busy) { f.vasco_busy = true; return say('vasco_p_1', 'alan_p_1', 'vasco_p_2', 'narr_p_1', 'alan_p_2'); }
+    if (!f.vasco_busy) {
+      f.vasco_busy = true;
+      await say('vasco_p_1', 'alan_p_1', 'vasco_p_2');
+      // and he turns back to the Cabildo, already somebody else (HANDOFF 111: shown, and Alan says the coat)
+      const v = G.npc('vasco'); if (v) v.dir = 'e';
+      await T(window.FAST ? 10 : 900);
+      await say('alan_p_2');
+      if (v) v.dir = 'w';
+      return;
+    }
     if (!f.monte_met) return say('vasco_p_wait');
     if (!f.baute_intro) {
       f.baute_intro = true;
-      await say('vasco_p_3', 'narr_p_2');
+      await say('vasco_p_3');
+      // he takes Alan's hand in front of everyone and walks him across the room to Baute (the two of them walk)
       const b = G.npcs && G.npcs.find ? G.npcs.find(a => a.id === 'baute') : null;
-      if (b) await G.player.walkTo(b.x + (b.dir === 'w' ? -110 : 110), Math.max(b.y + 10, 600));
+      const v = G.npc('vasco');
+      if (b) {
+        const ax = b.x + (b.dir === 'w' ? -110 : 110), ay = Math.max(b.y + 10, 600);
+        await Promise.all([G.player.walkTo(ax, ay), v ? Promise.race([v.walkTo(ax + (b.dir === 'w' ? -90 : 90), ay + 5), T(window.FAST ? 50 : 4000)]) : null]);
+      }
       await say('vasco_p_4');
       await S.talkBauteTue();
       return S.maybeToast();
@@ -684,7 +722,13 @@
       await say('vasco_p_5');
       f.in_corridor = true;
       await G.goRoom('museum_corridor', 'museum_hall');
-      await say('narr_p_3', 'vasco_p_6', 'alan_p_3', 'vasco_p_7', 'vasco_p_8', 'alan_p_4', 'narr_p_4', 'vasco_p_9', 'narr_p_5');
+      // down the corridor between the cases to his office door at the end, where the party is only a murmur
+      { const v = G.npc('vasco');
+        await Promise.all([G.player.walkTo(690, 560), v ? Promise.race([v.walkTo(800, 540), T(window.FAST ? 50 : 4000)]) : null]);
+        if (v) v.dir = 'w'; }
+      await T(window.FAST ? 10 : 1000);
+      await say('vasco_p_6', 'alan_p_3', 'vasco_p_7', 'vasco_p_8', 'alan_p_4', 'vasco_p_9');
+      await T(window.FAST ? 10 : 700);
       f.in_corridor = false;
       await G.goRoom('museum_hall', 'museum_corridor');
       await say('alan_p_5');
@@ -697,22 +741,30 @@
     const f = F();
     if (ch() !== 1 || f.toast_done || !(f.met_baute && f.vasco_moment && f.met_carmen) || G.room.id !== 'museum_hall') return;
     f.toast_done = true;
-    S.sfx('glass_clink', 0.6);
-    await say('narr_p_toast_1', 'montesdeoca_p_toast_1', 'montesdeoca_p_toast_2', 'narr_p_toast_2', 'montesdeoca_p_toast_3', 'narr_p_toast_3', 'alan_p_toast');
+    // (HANDOFF 111: the glass tapped, the laugh and the sixty glasses are heard; Alan sees Baute's knuckles)
+    S.sfx('glass_clink', 0.6); await T(window.FAST ? 10 : 700);
+    await say('montesdeoca_p_toast_1', 'montesdeoca_p_toast_2');
+    S.sfx('tavern_laugh', 0.5); await T(window.FAST ? 10 : 600);
+    await say('alan_p_knuckles', 'montesdeoca_p_toast_3');
+    S.sfx('glass_clink_2', 0.6); S.sfx('applause_tavern', 0.4); await T(window.FAST ? 10 : 1200);
+    await say('alan_p_toast');
   };
   S.talkBauteTue = async function () {
     const f = F();
     if (!f.met_baute) {
       f.met_baute = true;
-      await say('baute_t_skulls', 'narr_t_baute_1', 'baute_t_1', 'alan_t_baute_1', 'baute_t_2', 'baute_t_2b', 'alan_t_baute_2', 'narr_t_baute_2',
-        'baute_t_gran_1', 'baute_t_gran_2', 'narr_t_pendant', 'baute_t_3', 'narr_t_baute_3');
+      // (HANDOFF 111: his face and the pendant are on his sprite; the pendant is named in his own line)
+      await say('baute_t_skulls', 'baute_t_1', 'alan_t_baute_1', 'baute_t_2', 'baute_t_2b', 'alan_t_baute_2',
+        'baute_t_gran_1', 'baute_t_gran_2', 'baute_t_3');
+      await T(window.FAST ? 10 : 800);
+      await say('alan_t_baute_after');
       return;
     }
     await G.dialog([
       { line: 'alan_ask_baute_cave', once: true, run: () => say('baute_t_cave', 'baute_t_cave_2') },
       { line: 'alan_ask_baute_vasco', once: true, run: () => say('baute_t_vasco') },
       { line: 'alan_ask_baute_discs', once: true, run: () => say('baute_t_discs') },
-      { line: 'alan_ask_baute_monte', once: true, when: () => !!f.monte_met, run: () => say('baute_p_monte', 'narr_p_baute_monte') },
+      { line: 'alan_ask_baute_monte', once: true, when: () => !!f.monte_met, run: () => say('baute_p_monte', 'alan_p_baute_smile') },
       { line: 'alan_bye_baute', bye: true, run: () => say('baute_t_bye') },
     ]);
   };
@@ -722,10 +774,18 @@
       f.met_carmen = true;
       // her lighter: three tries (one try, later in the week, when she's at peace)
       for (let i = 0; i < 3; i++) { S.sfx('match', 0.45); await T(450); }
-      await say('narr_t_carmen_1', 'alan_t_carmen_1', 'narr_t_carmen_2', 'carmen_t_1', 'alan_t_carmen_2', 'narr_t_carmen_3', 'carmen_t_2', 'alan_t_carmen_3',
-        'carmen_t_3', 'alan_t_carmen_4', 'carmen_t_4', 'alan_t_carmen_5', 'carmen_t_5', 'narr_t_carmen_4');
+      // (HANDOFF 111: the looks, the silence and the laughter from inside are pauses and sounds; she offers the Coronas)
+      await say('alan_t_carmen_1');
+      await T(window.FAST ? 10 : 1200);
+      await say('carmen_t_1', 'alan_t_carmen_2');
+      S.sfx('tavern_laugh', 0.25); await T(window.FAST ? 10 : 1800);
+      await say('carmen_t_2', 'alan_t_carmen_3', 'carmen_t_3', 'alan_t_carmen_4', 'carmen_t_4', 'alan_t_carmen_5', 'carmen_t_5');
+      await T(window.FAST ? 10 : 900);
+      await say('carmen_t_coronas');
       for (let i = 0; i < 3; i++) { S.sfx('match', 0.45); await T(400); }
-      await say('carmen_t_6', 'alan_t_carmen_6', 'narr_t_carmen_5', 'carmen_t_7', 'alan_t_carmen_7');
+      await say('carmen_t_6', 'alan_t_carmen_6');
+      await T(window.FAST ? 10 : 1400);
+      await say('carmen_t_7', 'alan_t_carmen_7');
       return;
     }
     return say('carmen_t_again');
@@ -748,11 +808,15 @@
     if (f.tue_done) return;
     f.tue_done = true;
     await G.busy(async () => {
-      await say('narr_t_room_1', 'vasco_t_night_1', 'alan_t_night_1', 'vasco_t_night_2', 'alan_t_night_2', 'vasco_t_night_3', 'alan_t_night_3',
-        'vasco_t_night_4', 'narr_t_laugh', 'vasco_t_night_5');
-      if (!S.discreet()) await S.paint('still_love_1', async () => { await say('narr_love_1', 'narr_love_1b'); await T(1200); }, { zoom: [1.0, 1.1] });
+      // (HANDOFF 111: Alan laughs out loud, heard; one line on the still; the sea under the waves, heard, and one line)
+      await say('vasco_t_night_1', 'alan_t_night_1', 'vasco_t_night_2', 'alan_t_night_2', 'vasco_t_night_3', 'alan_t_night_3',
+        'vasco_t_night_4');
+      S.sfx('v_alan_chuckle', 0.6); await T(window.FAST ? 10 : 1100);
+      await say('vasco_t_night_5');
+      if (!S.discreet()) await S.paint('still_love_1', async () => { await T(window.FAST ? 10 : 1500); await say('narr_love_1b'); await T(1200); }, { zoom: [1.0, 1.1] });
       else { await G.fade(true); await say('narr_love_1_discreet'); }
-      await say('narr_t_end_1', 'narr_t_end_2', 'narr_t_end_3');
+      S.sfx('water_lap', 0.25); await T(window.FAST ? 10 : 1500);
+      await say('narr_t_end_2');
       G.endStill();
       await S.startWed();
     });

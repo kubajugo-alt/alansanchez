@@ -122,7 +122,7 @@
       G.endStill();
       await S.day(1);
       await G.fade(false);
-      await say('narr_tue_1', 'narr_t_gando_2', 'alan_t_land');
+      await say('narr_tue_1', 'alan_t_land');   // (the Iberia desk is Alan's to tell now: HANDOFF 111)
     });
     G.autosave();
   }
