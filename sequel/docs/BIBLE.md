@@ -535,11 +535,19 @@ Twenty-eight rooms and the map, plus the prologue's car (29 `S.room`s in `js/sto
 - **Zé, Rui and Duarte:** absent from this game.
 - **Historical details** (Magec, Risco Caído, Ansite, San Juan 1996) are treated as correct.
 - **Open relationship:** kept from game 2 on. The Rafa night breaks its two rules (tell first; never to settle a fight), not exclusivity.
-- **Disc logic:** seven sockets. One disc out a month: the first on the night of 20 December, the sixth in May (Baute keeps it on him); five in the granary vault. The seventh stays; Baute turns it by guess, too far. 23° 26′ is the closing angle; the opening angle exists only in Vasco's head.
-- **The seventh disc is turned by the light**, not set to a measured number: Carmen's wing mirror while a cloud crosses the sun, and Vasco calling the turns.
-- **The finale's order** is the novel's: II, IV, III, VI, V, then the sixth disc in socket I.
+- **The cave (HANDOFF 106, `docs/puzzles/CAVE6.md`):** one small opening in the roof, the bottom of a shaft from the top of the cliff; straight under it a hole in the floor and a rope ladder down to a chamber with seven sockets in a row. The lock works only at noon: the column down the shaft, each disc throwing a column back up to its own triangle, the columns crossing in the hole (the floor is the wall in a mirror). The finale is about the order of the discs, not an angle. *(The novel's discs steer a beam across the dome at sunrise; the game's don't.)*
+- **Disc logic:** seven discs, six moons and the sun. One out a month at the new moon, 20 December to 17 May, in the grandmothers' telling's order (the waxing gibbous, the last quarter, the waxing crescent, the waning gibbous, the first quarter, the waning crescent); five in the granary vault, the sixth (the waning crescent) on Baute. The sun disc never leaves its socket: Baute tips it there by eye at four on Monday (CAVE6.md's earlier text had him move it to the end of the row; the build keeps it in the middle).
+- **The opening** is sending the sun back: the sun disc tipped 4° 36′ to the south, square to the sun, at true noon on the 24th, 14:05 Canary summer time. Elena had it; Vasco swallows it; it exists only in his head. **The closing** is every disc in its own socket, in the telling's order, each aimed at its own triangle, then the sun laid flat in the middle, at the same minute. Vasco's vault mark is what closes it: the seven signs in floor order, and an A.
+- **The sun disc is laid flat by borrowed light**, aimed like the others onto the great triangle: Carmen's wing mirror over the shaft while a cloud crosses the sun.
+- **The order is a riddle in two halves:** where (the socket with the disc's sign; the player's, from the floor and Vasco's mark) and when (the telling, Baute's last help, matched verse by verse to the scenes Vasco reads). Vasco nudges once the telling is said (HANDOFF 109).
+- **The women of light** dance once, in silence, round the noon column with Alan in the ring, when the seventh is set (HANDOFF 110). They are the women, not the Sea.
+- **Saturday's cave work runs to the sun's noon (14:04)**, so Baute's and Lolo's radio lines are in the afternoon; no figures on the lower chamber's walls (the story is only round the triangles upstairs); the radio doesn't cut Vasco off in the cave (it's at the camp) (HANDOFF 106).
+- **Less narrator** (the user, HANDOFF 109, 111–115): what can be drawn, done or said by a character is; the narrator keeps time jumps, one line over a still, the swallow, the stain, the glimpse, the chain and the game's last lines.
 - **The tide on the steps** follows the game's own count, a step or so a day to the top step on Sunday, not the novel's (the fourth step on Friday and Saturday).
-- **Pepe Santana is found by his son**, under dry sheets (as in the novel); the game keeps the hotel's fax (the novel uses a copy shop in Triana) and the cream suit ruined by port (so Alan wears the blazer again on Thursday).
+- **Six moons, six dead** (HANDOFF 104): Elena in December, then five survivors of the *Virgen del Pino*, one a month at the new moon, January to May; Pepe is May's, seen in a flashback on Wednesday night; Doña Pino would be June's. Agustín, the novel's lifeguard, is cut.
+- **Vasco's month** (HANDOFF 103): he came out at the end of May, lives in a university flat in Las Palmas, and moves into the Hotel Cristina for Alan's week.
+- **Pepe Santana is found by his son**, under dry sheets (as in the novel); the game keeps the hotel's fax
+ (the novel uses a copy shop in Triana) and the cream suit ruined by port (so Alan wears the blazer again on Thursday).
 - **People notice Alan's looks**: he flirts back with men and is embarrassed with women.
 - **Spanish words:** the Spanish speakers drop an obvious Spanish word (playa, sol, museo, mira, hombre, vale, gracias...) into about a third of their English lines.
 - **Gail and Derek** are always at their table in the hotel restaurant.
@@ -550,25 +558,21 @@ Playable scenes, as the game plays them (the line ids are the game's, `js/lines.
 
 ### Cold open: Elena's last drive
 
-*Gran Canaria, **21 December 1995, the winter solstice**. About four minutes. Music: none at first; the car radio, then the sea. (Switched off in the current build; the game opens at Gando.)*
+*Gran Canaria, **21 December 1995, the winter solstice**. About four minutes. Music: none at first; the car radio, then the sea. (Switched off in the current build, `S.PLAY_PROLOGUE = false`; the game opens at Gando.) As it plays now (`js/story/prologue.js`; the narrator cut back to three lines in HANDOFF 111: the bar, the car and the barranco are paintings, and Elena and the Guardia say the rest).*
 
 #### 1. The bar in Artenara, 23:40
 
-**[CUT]** A painting: a tiny mountain bar, shutters half down.
+**[CUT]** Card: PROLOGUE · 21 December 1995 · The winter solstice. A painting (`still_elena_bar`): a tiny mountain bar, shutters half down, the chairs going up on the tables.
 
-**NARRATOR** (narr_pro_bar_1): The bar in Artenara had been closing for an hour. The shutters were halfway down, the television was off, and Paco was putting the chairs up on the tables, one at a time.
-
-**NARRATOR** (narr_pro_bar_2): The last customer was standing at the telephone on the wall, feeding it coins. Dr. Elena Suárez, forty-five, awake since five that morning, with a pencil pushed through the knot of her hair.
+**NARRATOR** (narr_pro_bar_1): Artenara, the last bar on the mountain, closing. At the telephone on the wall, feeding it coins: Dr. Elena Suárez, awake since five.
 
 An answering machine picks up. **CARMEN** (carmen_machine), recorded: "Trujillo. Speak, or don't." Beep.
 
-**ELENA** (elena_msg_01): Carmen. It's me. I know it's late. [pause] Somebody's taken one of the discs out of the channel. The wear marks are fresh. It isn't conservation.
+**ELENA** (elena_msg_01): Carmen. It's me. I know it's late. [pause] Somebody's taken one of the discs out of the floor. The wear marks are fresh. It isn't conservation.
 
 **ELENA** (elena_msg_02): And it isn't a calendar either. I've been reading it wrong for a year. [pause] It's a door, Carmen. And someone's opening it.
 
 **ELENA** (elena_msg_03): I'm driving down now. Don't smoke all of them before I get there. [pause] Te quiero.
-
-**NARRATOR** (narr_pro_paco): Paco did not look up from the chairs.
 
 **BARMAN** (barman_stay): There's cloud on the road, doctora. Thick tonight. Stay. My wife will make up the room.
 
@@ -576,128 +580,272 @@ An answering machine picks up. **CARMEN** (carmen_machine), recorded: "Trujillo.
 
 #### 2. The road down
 
-**[PLAY]** Interior of Elena's old Renault 4, at night, a hairpin road falling away into the winter sea of cloud, silver under the moon (narr_pro_road, narr_pro_road_2). The player can interact with four things while the car descends on its own:
-- **The radio:** *(look)* "Radio Las Palmas. Still awake. Someone has to be." *(use)* a timple, and a woman singing about a fisherman's wife.
-- **Her notebook on the passenger seat:** *(look)* "Seven circles along the channel. Six filled in. The seventh gone over so hard the paper's torn. Six. There should be seven."
-- **The rear-view mirror:** *(look)* "The lights of the camp, going out one by one. One window still lit. Rayco's still up. He never sleeps." (A plant, not an accusation: she says it fondly.)
-- **The window crank:** *(use)* "An inch. Cold air, and pine. Smells like mountains. Good."
+**[PLAY]** Interior of Elena's old Renault 4, at night, a hairpin road falling away into the winter sea of cloud, silver under the moon.
+
+**ELENA** (elena_pro_road): Hairpins all the way down, and the cloud waiting at the bottom. [pause] Silver tonight. Like a frozen sea.
+
+The player can interact with four things while the car descends on its own:
+- **The radio:** *(look, elena_look_radio)* "Radio Las Palmas. Still awake. Someone has to be." *(use, elena_use_radio)* "A timple, quick and bright, and a woman singing about a fisherman's wife. Leave it. It's company."
+- **Her notebook on the passenger seat** *(elena_look_notebook)*: "Seven circles in a row, on the floor of the chamber under the cave. Six filled in. The seventh gone over so hard the paper's torn. [pause] Six. There should be seven."
+- **The rear-view mirror** *(elena_look_mirror)*: "The lights of the camp, going out one by one. One window still lit. [pause] Rayco's still up. He never sleeps." (A plant, not an accusation: she says it fondly.)
+- **The window crank** *(elena_look_crank, elena_use_crank)*: "The window crank. It sticks, like everything in this car." "An inch. Cold air, and pine. [pause] Smells like mountains. Good."
 
 #### 3. Inside the cloud
 
-**[PLAY, then CUT]** The car goes into the cloud; grey, then charcoal, then black, "like driving into ink" (narr_pro_cloud, narr_pro_dark). The radio: static, and under it, surf. The crank won't turn; its handle is wet. The air: "Salt. Why is it salt?" Water on the inside of the glass; water in the footwell, rising round her boots (narr_pro_footwell). The brake does nothing; the car goes on down the hairpins "as if it knew the way".
+**[PLAY, then CUT]** The car goes into the cloud; grey, then charcoal, then black (drawn).
+
+**ELENA** (elena_pro_cloud): Into the cloud. [pause] Grey. Darker. [pause] Like driving into ink.
+
+Looked at again: the radio *(elena_look_radio_2)*, "Static. And under the static, surf. [pause] There's no surf up here."; the mirror *(elena_look_mirror_2)*, "Nada behind me. Nothing at all."; the crank *(elena_crank_stuck_look, elena_crank_stuck)*, "The handle's wet. Why is the handle wet?" "It won't turn. Come on. Come on."; the air *(elena_look_air)*, "Salt. [pause] Why is it salt?"
+
+**ELENA** (elena_salt): Water on the inside of the glass. On the inside.
+
+**ELENA** (elena_pro_feet): And at my feet. Cold, and coming up. [pause] From below.
+
+**ELENA** (elena_pro_brake): The brake. [pause] Nada. It won't slow. It's driving itself, as if it knows the way.
 
 **ELENA** (elena_doors): The doors. [pause] No. It's a door, Carmen. I told you it was a door.
 
-**NARRATOR** (narr_pro_triangle): She raised one finger and drew on the fogged glass. Three lines. A triangle, point down. She kept her finger on the glass, at the point. Pointing at the sea.
+She stops trying the doors and draws on the fogged glass: a triangle, point down (drawn).
+
+**ELENA** (elena_pro_triangle): Point down. [pause] At the sea.
 
 #### 4. Morning
 
-**[CUT]** A goatherd finds the car in a dry barranco: upright, undamaged, locked from the inside; on the windscreen a triangle dried in a crust of salt (narr_pro_morning, narr_pro_crust).
+**[CUT]** A painting (`still_barranco`): the car at the bottom of a dry barranco, upright, undamaged.
+
+**GUARDIA 2** (gc_locked): Doors locked from the inside, windows up. [pause] And mira, on the windscreen. A triangle, dried white. It's salt.
 
 **GUARDIA 1** (gc_01): Flash flood. Has to be.
 
 **GUARDIA 2** (gc_02): There's no water in this barranco, hombre.
 
+The older one lights a cigarette and looks at the car a long time (a pause).
+
 **GUARDIA 1** (gc_03): Then it went somewhere.
 
-**NARRATOR** (narr_open_01): The Guardia Civil recorded the death of Dr. Elena Suárez as an accident caused by a flash flood. Her lungs were full of water, and the water was salt.
+**NARRATOR** (narr_open_01): Her lungs were full of water, and the water was salt. It hadn't rained on that side of the mountain for forty days.
 
-**NARRATOR** (narr_open_02): It hadn't rained on that side of the mountain for forty days.
+**NARRATOR** (narr_open_03): After that, once a month, at the dark of the moon, someone drowned in a dry place on the island. Nobody put them side by side.
 
-**NARRATOR** (narr_open_03): After that, for six months, nothing happened at all. The Sea is patient. It answers only at a turning of the year. And the next turning was June.
+Title card (`still_title`): **ALAN SANCHES II: THE SHORTEST NIGHT.**
 
-Title card: **ALAN SANCHES II: THE SHORTEST NIGHT.**
+*No longer played (cut in HANDOFF 111, kept in `js/lines.js` so no recording is orphaned): narr_pro_bar_2, narr_pro_paco, narr_pro_out, narr_pro_road, narr_pro_road_2, narr_pro_cloud, narr_pro_dark, narr_pro_footwell, narr_pro_brake, narr_pro_stop, narr_pro_triangle, narr_pro_morning, narr_pro_crust, narr_pro_cigarette, narr_open_02 (folded into narr_open_01).*
 
 #### Notes
-- **The triangle on the windscreen is the game's first clue.** Carmen has the Guardia photograph, with Elena's things. Alan sees it on Sunday, next to Elena's notebook, and recognises the engraving from Carmen's photographs of Cave 6 (Friday).
+- **The triangle on the windscreen is the game's first clue.** Carmen has the Guardia photograph, with Elena's things. Alan sees it on Sunday, next to Elena's notebook, and recognises the engraving from Carmen's photograph of Cave 6 (Friday): "The same as the arrows on the cave wall. She drew it while the water came up. She was telling us where."
 - **Elena's message is still on Carmen's answering machine.** Carmen has never erased it. On Sunday, Alan makes her play it, the same three lines. It's why she believes him.
 - **"Rayco's still up"** is fondness on first play and a chill on the second.
 
 ### Vasco's chapter, part 1: the camp and Cave 6
 
-*Saturday 22 June 1996. Playable as Vasco, about fifteen minutes for this part. Card: RISCO CAÍDO · The same morning · 07:00. Vasco hasn't slept since Thursday.*
+*Saturday 22 June 1996. Playable as Vasco, about fifteen minutes for this part. Card: RISCO CAÍDO · The same morning · 07:00. As it plays now (`js/story/vasco.js`, Cave 6 as redesigned, HANDOFF 106, and the narrator cut back, HANDOFF 109 and 115): the room, the light, the cloud and the water are drawn; Vasco walks, kneels, chalks and laughs; what the player needs is said by the characters.*
 
 #### 1. The camp, 07:00
 
-**[PLAY]** The dig camp at Risco Caído, above the cloud: the panza lies under him like a frozen sea, Teide standing out of it far to the west (narr_v_camp_1–4). "Down there is the sea."
+**[PLAY]** The dig camp at Risco Caído, above the cloud: the painting is the sea of cloud, Teide standing out of it far to the west, and the sun. Vasco has a pocket torch and Lorenzo's trowel.
+
+**NARRATOR** (narr_v_camp_1): Vasco hasn't slept since Thursday. Seven on Saturday morning, above the clouds, trying very hard not to think about Alan.
+
+He walks to the edge and looks.
 
 **VASCO** (vasco_v_wake): Alan would make a joke about this. Something about heaven, and being overdressed for it.
 
 **VASCO** (vasco_v_wake_2): I'm not thinking about Alan.
 
 *Looks and uses:*
-- **The camp radio:** "I could call the museum. The museum could call the hotel. In ten minutes I could be hearing his voice. [pause] And say what?" "Off. [pause] Good. I don't want to talk to him either." (He doesn't know yet that it's been disabled.)
-- **The finds table:** Elena Suárez's sun-path charts of Cave 6, red line hour by hour; on the solstice sheet, a second line in pencil that touches no triangle, and in the margin, underlined three times: *Puerta.* "Suárez. My predecessor. [pause] Good hand. Better than mine." *(Take: the charts, chalk, the clinometer and his notebook.)*
-- **His notebook:** "Twelve pages of measurements from yesterday, the solstice. And on the thirteenth, one sentence, crossed out four times." (Look again: "'I'm sorry.' It isn't for the cave.")
+- **The sea of cloud** *(vasco_look_cloud)*: "Cloud to the horizon, and Teide standing out of it. Somewhere under it, the hotel. [pause] Stop it."
+- **The camp radio** *(vasco_look_radio_1, vasco_look_radio_2, vasco_look_radio)*: "I could call the museum. The museum could call the hotel. In ten minutes I could be hearing his voice." "[pause] And say what?" "Off. [pause] Good. I don't want to talk to him either." (He doesn't know yet that it's been disabled.)
+- **The stove** *(vasco_look_stove)*: "Yeray's stove. Yeray's terrible coffee. Yeray's empty cigarette packet." (Later, *take*: the foil, vasco_take_foil: "Not a fuse. But it will carry a current, for a little while.")
+- **The finds table** *(vasco_look_finds)*: "The expedition files, in grey boxes. At the back of the last one, my predecessor's papers, filed and forgotten." *Take:*
 
-**Yeray,** hungover, making coffee on a camping stove.
+**VASCO** (vasco_take_1): Elena Suárez. My predecessor. Rayco said her name once, the first day, flat as a wall: an accident in December, on the mountain road.
+
+**VASCO** (vasco_take_2): Good hand. [pause] Better than mine.
+
+**VASCO** (vasco_take_3): And the last sheet, only pencil. The sun disc on its own, tipped off the flat. A number. An hour.
+
+**VASCO** (vasco_take_4): And in the margin, in a hand gone big and fast, one word. Underlined three times. [pause] 'Puerta.' Door.
+
+**VASCO** (vasco_take_charts): Her charts, my chalk and my notebook. A day's work.
+
+- **The path to Cave 6**, before the charts *(vasco_need_charts)*: "Not without Elena's charts. I'd only be guessing, and the cave deserves better."
+- **Elena's charts** *(vasco_look_charts, with the close-up `elena_charts`)*: "Her drawings of the row of sockets, a sign by each, crossed out and drawn again. [pause] And on the last sheet, in pencil: the sun disc, a number, an hour. Puerta."
+- **His notebook** *(vasco_look_notebook, vasco_look_notebook_2)*: "Twelve pages of measurements from yesterday, the solstice. And on the thirteenth, one sentence, crossed out four times, so hard the pen went through." "Hold it up to the light and you can still read it. 'I'm sorry.' [pause] It isn't for the cave."
+
+**Yeray,** hungover, making coffee on a camping stove *(vasco_look_yeray)*: "He's twenty-four and looks like he's carried something heavy all night."
 
 **YERAY** (yeray_v_01): Morning, doctor. Coffee? It's terrible.
 
 **VASCO** (vasco_v_01): Then yes.
 
-**YERAY** (yeray_v_02, yeray_v_02b): I was in Vegueta last night. At Rafa's bar. You know it? Behind the cathedral. [...] There was a Portuguese guy there.
+The coffee is poured (heard).
+
+**YERAY** (yeray_v_02): I was in Vegueta last night. At Rafa's bar. You know it? Behind the cathedral.
+
+**VASCO** (vasco_v_yeray_1): No.
+
+**YERAY** (yeray_v_02b): You should go. Everyone goes. [pause] There was a Portuguese guy there.
+
+Vasco doesn't move (a pause).
 
 **YERAY** (yeray_v_02c, yeray_v_02d): Funny. Making Rafa laugh. Making everyone laugh. Sad, though. Underneath. Like a man at his own fiesta who doesn't know why he came.
 
-**VASCO** (vasco_v_02): Most Portuguese men are sad. It's the national sport.
+**VASCO** (vasco_v_02): There are a great many Portuguese men in Las Palmas. [pause] Most of them are sad. It's the national sport.
 
-**YERAY** (yeray_v_03, yeray_v_03b): Doctor. [pause] The discs. Dr. Baute says they're going down to Las Palmas. To the museo. For conservation.
+**YERAY** (yeray_v_03): Doctor. [pause] The discs.
+
+**VASCO** (vasco_v_yeray_2): Yes?
+
+**YERAY** (yeray_v_03b): Dr. Baute says they're going down to Las Palmas. To the museo. For conservation.
 
 **VASCO** (vasco_v_03): Yes. I signed the sheets.
 
 **YERAY** (yeray_v_04): They're not going to Las Palmas.
 
+**VASCO** (vasco_v_yeray_3): What do you mean?
+
+He throws the rest of his coffee over the edge, into the cloud (heard).
+
 **YERAY** (yeray_v_04b): Forget it. I'm hungover. I talk rubbish.
 
-He walks off towards the tents before Vasco can ask. **YERAY** (yeray_v_05): "Ask Dr. Baute. Please. Not me."
+**YERAY** (yeray_v_05): Ask Dr. Baute. Please. Not me.
 
-**VASCO** (vasco_v_yeray_4): [pause] I'm not thinking about Alan.
+He walks off towards the tents before Vasco can ask.
+
+**VASCO** (vasco_v_yeray_4): A Portuguese guy at Rafa's bar. Funny. Sad underneath. [pause] I'm not thinking about Alan.
 
 *Design note: the player knows exactly who the Portuguese guy was. Vasco doesn't, yet. Let it sting.*
 
-#### 2. Cave 6, 09:00: reading the light
+#### 2. Cave 6, 09:00: the wall, and noon
 
-**[PLAY]** First entry (narr_v_cave_1–5): a low square doorway you stoop through; a dome six metres across carved out of soft rock, every centimetre engraved with triangles, all pointing down; a slot high in the dome, and a blade of sunlight lying on bare rock between the triangles. Along the channel's lip, seven sockets: five empty, two still holding obsidian discs.
+**[PLAY]** He walks in under the triangles and stands in the middle of the cave (the clock: 09:00).
+
+**NARRATOR** (narr_v_cave_5): Vasco stands in the middle of the cave and feels, as he has every morning for eight days, his heart turn over.
+
+**VASCO** (vasco_cave_in): Seven triangles, every one pointing down. A sign over each, worn almost smooth. [pause] And round each one, something scratched too fine to see without a torch.
 
 *Looks:*
-- **The triangles:** "Fertility symbols, the textbooks say. [pause] They're arrows. Every one of them points down."
-- **The empty sockets:** "Seven sockets along the lip of the channel. Five empty... I never counted them, the first day. I was looking at the light." "Fresh tool marks round the empty ones. Steel, not stone."
-- **A remaining disc:** "Obsidian, polished to a mirror. I can see myself in it. I look like a man who hasn't slept."
-- **The beam:** "My whole career has been churches built so the light lands on the altar on the right morning. The priestesses did it first. And better."
-- **A white crust low on the wall:** "Salt. A thousand metres above the sea. That isn't possible."
+- **The engraved triangles** *(vasco_look_triangles)*: "Fertility symbols, the textbooks say. [pause] They're arrows. Every one of them points down."
+- **The great triangle** *(vasco_look_great)*: "The great triangle at the back of the cave. The biggest arrow of all, pointing at the floor."
+- **The opening in the roof** *(vasco_look_opening)*: "One small hole, straight up through the rock to the top of the cliff. A shaft. The sun only looks down it at noon."
+- **The rope ladder down** *(vasco_look_hole)*: "A round hole in the floor, and a rope ladder going down into the dark. A cool breath coming up out of it." Before noon *(vasco_ladder_dark)*: "Down there, with a torch that's dying? Not yet. Let the sun go down first. It does, every noon."
+- **A white crust low on the wall** *(vasco_look_salt)*: "A white crust low on the wall. [pause] Salt. A thousand metres above the sea. That isn't possible."
+- **The flat rock by the mouth** *(vasco_look_rock)*: "A flat rock by the mouth, worn smooth by nine hundred years of people sitting on it and waiting for the sun."
 
-**The puzzle.** The player can *wait* half an hour at a time on the flat rock by the mouth (the beam slides along the wall), *mark* the beam with chalk, *compare* the marks with Elena's charts, *turn* a remaining disc, work out San Juan with the charts on the great triangle, and *measure* the disc with the clinometer.
-- Mark where the beam falls at three times of day. Against Elena's red line, the marks drift off it, until by eleven the beam falls on bare stone: "It's off. The beam is off its path."
-- Turn a remaining disc: the blade of light jumps sideways onto a triangle. "They're not decoration. Not offerings. They're mirrors."
-- With Elena's charts, work out where the beam falls with all seven discs at the San Juan sunrise: "Dead centre of the great triangle... And the seventh disc, the last in the line, decides it."
-- Measure the angle the last disc must hold.
+**The chalk** on the triangles: he walks along the wall, chalking the worn cuts and writing them down as they come up (pencil heard).
 
-**VASCO** (vasco_v_04): Twenty-three degrees, twenty-six minutes. [pause] The tilt of the world. Of course it is.
+**VASCO** (vasco_chalk_1): A moon. A thin one, growing. [pause] And the next: half a moon. Then nearly full.
 
-**NARRATOR** (narr_v_angle_4, narr_v_angle_4b): And because he is thorough, and because Elena drew a second line, he works out the other number. Where the beam would fall with the seventh disc turned another way: on the floor, at the foot of the great triangle, where all the arrows point.
+**VASCO** (vasco_chalk_2): Over the great triangle, the sun, with his rays. Then the moon again, going the other way: nearly full, half, thin. [pause] Six moons and a sun.
+
+**VASCO** (vasco_chalk_3): The moon pulls the sea. And the moon has no light of her own: every bit of it is his. [pause] They lit the moons with the sun. That's the leash.
+
+**The torch**, held flat to the wall (before the chalk, vasco_scenes_early: "The signs first. Then the pictures. One thing at a time."):
+
+**VASCO** (vasco_scenes_1): People. Round every triangle, scratched fine as hair. [pause] Round the sun, nobody: Magec, alone. Round the thin old moon at the end, the moon going down into the sea, and one woman standing in it.
+
+**VASCO** (vasco_scenes_2): I know this. [pause] It's the grandmothers' romance. The women and the moons. The old women in Artenara say it at the fire, and they won't say it to me.
+
+**VASCO** (vasco_scenes_3): That's the key. The order's in a song, and I don't have the words.
+
+**[PLAY] Sit and wait for noon** (the flat rock):
+
+**VASCO** (vasco_noon_wait): Now I wait. Up here the sun is two hours behind the clocks. It won't stand at the top of the sky till past two.
+
+The clock runs 10:00, 11:00, 12:00, 13:00, 14:04; the wind in the arch. The column comes down the shaft, through the floor, and one column comes back up onto the great triangle (drawn). He gets up to look.
+
+**VASCO** (vasco_noon_1): Down the shaft, through the floor, and back up. [pause] One lit, out of seven. The others have nothing down there to throw the light.
+
+#### 3. The chamber under it, and the understanding
+
+**[PLAY]** Down the rope ladder (a creak).
+
+**VASCO** (vasco_low_in): Seven sockets, a sign cut by each. [pause] And only the sun left down here to throw the light back.
+
+*Looks:*
+- **The sockets** *(vasco_look_sockets_1, vasco_look_sockets_2, vasco_look_sockets)*: "Seven sockets in a row in the floor. Six empty. Only the sun's still in, in the middle." "[pause] I never counted them, the first day. I was looking at the light." "Fresh tool marks round the empty ones. Steel, not stone. Someone's been prying these out with a modern chisel."
+- **The sun disc** *(vasco_look_disc)*: "Obsidian, polished to a mirror. I can see myself in it. I look like a man who hasn't slept."
+- **The signs in the floor** *(vasco_floor_1, vasco_floor_2)*: "The same signs, cut in the floor, one by each socket. [pause] In the wrong order. The thin new moon at the right-hand end, not the left." "No. Not wrong. Turned round. As if the floor were the wall in a mirror."
+- **The door** *(vasco_look_low_door)*: "The middle of the floor, under the hole. Damp. [pause] Nothing else in this cave is damp."
+- **The painted walls** *(vasco_look_low_walls)*: "Suns, triangles, chequers, spirals. The clay seals, painted big. [pause] No story down here. The story's upstairs, round the triangles."
+- **The hole above** *(vasco_look_low_opening)*: "Through the hole, the wall upstairs, and the triangles on it, small as stamps."
+
+**The test** *(use the sun disc)*: he kneels and lifts the sun disc into the next socket along; its column jumps across the wall upstairs (drawn).
+
+**VASCO** (vasco_test_1): It jumped across. [pause] The columns cross: right down here is left up there. That's why the floor is the wall in a mirror.
+
+The water stirs under the floor (heard).
+
+**VASCO** (vasco_test_2): They're keyed. Each disc has its word, and its place in the sentence. [pause] And something under the floor just moved. Back. Quickly.
+
+He puts it back. (Again: vasco_test_again, "No. Once was enough. I felt something listen.")
+
+**Elena's charts on the sun disc's socket** (before the wall, the scenes and the test, vasco_puerta_early: "Not yet. I don't know what she was looking at. The wall first, and the floor."): he kneels, spreads her last sheet on the floor by the sun disc and works her numbers through (paper and pencil heard).
+
+**VASCO** (vasco_v_04): Her last sheet. The sun disc, tipped four degrees thirty-six minutes, south. And in the margin, fourteen oh five. [pause] Square to the sun at the top of the day. Of course it is.
+
+He laughs.
+
+**VASCO** (vasco_puerta_1): A mirror square to the sun throws it straight back where it came from. [pause] She worked out how to send the sun back. Up the shaft, out of the cave. Take the sun out of the middle, and the moons have no one to obey.
+
+**VASCO** (vasco_shut): And turned round, it's how you shut it. Every disc in its own socket, the sun flat in the middle. At the same minute.
+
+He walks to the middle of the floor, under the hole, where the water stirred.
 
 **VASCO** (vasco_v_door): Puerta. [pause] A door.
 
-**NARRATOR** (narr_v_angle_5): He gets that number too, and looks at it for a long time. Then he tears the corner off the chart, folds it very small, puts it in his mouth, and swallows it.
-
-#### 3. The understanding
-
-**[CUT]** He looks at the cave the way he was trained to look at a church: what the building is for.
+**NARRATOR** (narr_v_angle_5): He tears the corner with her numbers off the sheet, folds it very small, and swallows it.
 
 **VASCO** (vasco_v_arrows): The triangles. Arrows, every one, pointing down. At the rock, at the mountain. And under the mountain, a thousand metres down, at the sea.
+
+**VASCO** (vasco_v_read): And at noon the light comes down, and the discs throw it up onto every triangle at once: a moon on each, and the sun in the middle. Someone reading a sentence aloud, every summer day, to keep it true.
+
+**VASCO** (vasco_v_read_2): And every disc that comes out is a word gone missing.
 
 **VASCO** (vasco_v_05): It isn't counting days. It isn't a calendar. [pause] It's holding something down.
 
 **VASCO** (vasco_v_06): Every disc is a nail. [pause] And someone's pulling the nails out.
 
-**VASCO** (vasco_v_alan, vasco_v_alan_2): Alan. [...] And I said, you could have just asked me. [pause] I said, go home.
+**VASCO** (vasco_v_alan): Alan.
 
-He runs out to the radio, cracking his head on the low doorway. **[PLAY]** The radio: "Empty. [pause] The fuse is gone." "Radios do not lose their fuses by themselves." "I haven't wanted to see this."
+**NARRATOR** (narr_v_alan_2): The mist on the promenade. The thing Alan told him on Friday morning, in the grey light, too fast and in the wrong order: the thing Vasco was too angry to hear.
 
-A shadow falls across the radio. Dr. Rayco Baute, in shirtsleeves and field hat, a thermos in one hand and two tin mugs in the other.
+**NARRATOR** (narr_v_alan_3): The sea coming up the steps. The old fisherman drowned in his bed. It's here. The thing from the cistern. It's here.
+
+**VASCO** (vasco_v_alan_2): And I said, you could have just asked me. [pause] I said, go home.
+
+**VASCO** (vasco_v_radio): The radio.
+
+Up the rope ladder, fast, and out to the camp.
+
+#### 4. The radio
+
+**[PLAY]** The camp radio: on, off and on again, nothing (relays heard). He kneels and opens the case.
+
+**VASCO** (vasco_radio_fuse): Empty. [pause] The fuse is gone. [pause] Radios don't lose their fuses by themselves.
+
+**VASCO** (vasco_v_see_0): Yeray, frightened. The marks round the empty sockets. Elena's word in the margin. And Rayco's face: an accident in December, on the mountain road.
+
+**VASCO** (vasco_v_see): I haven't wanted to see this. I've walked past it every day for a week, because I didn't want to see it.
+
+(Again: vasco_radio_fuse_2, "No fuse. No radio. No one.") **The foil** from Yeray's packet, *used on the radio*:
+
+**VASCO** (vasco_r_foil_1): Folded twice. Into the holder. [pause] God forgive me, Lorenzo, I'm doing electrics.
+
+**VASCO** (vasco_r_on): It hums. [pause] Channel nine, the museum's. God knows how long I've got.
+
+**VASCO** (vasco_r_send): Risco Caído. If anyone hears this, tell Alan Sanches at the Hotel Cristina. It isn't the van. The discs aren't going to the lab, they're going down, under—
+
+The foil flares and burns through; the dial dies. (Don Lolo, in La Isleta, hears the first of it.)
+
+**VASCO** (vasco_r_after): [pause] 'Under.' Well done, Vasco. A whole sentence about where, and you stopped at the only word that mattered.
+
+Rayco comes along the path behind him, in shirtsleeves and field hat, with a thermos and two mugs *(vasco_look_baute)*.
 
 **BAUTE** (baute_v_01): You've solved it. I knew you would.
+
+**BAUTE** (baute_v_heard): That radio's been dead since Thursday. Yeray is hopeless with fuses.
 
 **BAUTE** (baute_v_01b): Café? Mine's better than Yeray's.
 
@@ -705,11 +853,19 @@ A shadow falls across the radio. Dr. Rayco Baute, in shirtsleeves and field hat,
 
 *About fifteen minutes. Music: stillness for Baute; in the vault, only water.*
 
-#### 4. The refusal
+#### 5. The refusal
 
-**[CUT, with dialogue choices]** On a flat rock at the edge of the camp, the sea of cloud below. The coffee is very good, black and strong, with cinnamon in it and a bitterness underneath, and Vasco, who hasn't eaten since Friday, drinks all of it. The player chooses Vasco's replies; the choices change tone, not outcome.
+**[PLAY, with dialogue choices]** Talk to Baute: on a flat rock at the edge of the camp, the sea of cloud below. The player chooses Vasco's replies; the choices change tone, not outcome.
 
-**BAUTE** (baute_v_02, baute_v8_02b): You wrote in your thesis that a baptised bell is a voice the dead can hear. [...] I read it three times. I read it the week before I hired you.
+**BAUTE** (baute_v_coffee): Sit. Por favor. Sit with me a moment. The cloud is beautiful from here.
+
+They sit; the thermos cups (heard). Vasco drinks.
+
+**VASCO** (vasco_v8_coffee): Cinnamon? [pause] And something bitter under it. [pause] I haven't eaten since Friday.
+
+**BAUTE** (baute_v_02, baute_v8_02b): You wrote in your thesis that a baptised bell is a voice the dead can hear. That when it rings, it isn't calling the living to church. It's telling the dead that someone still remembers them. [pause] I read it three times. I read it the week before I hired you.
+
+**BAUTE** (baute_v8_02c): You were right. Whatever happens now. You were right about bells, and you were right about the light.
 
 **BAUTE** (baute_v_03): This is ours. The priestesses made it. Every summer for five hundred years el sol has come through that hole and said the same prayer across the wall, and the sea has stayed down.
 
@@ -717,27 +873,37 @@ A shadow falls across the radio. Dr. Rayco Baute, in shirtsleeves and field hat,
 - (vasco_v_07a) "And you're taking the prayer apart."
 - (vasco_v_07b) "Rayco. What's in the vault?"
 
-**BAUTE** (baute_v_04, baute_v8_04b–g): In 1966 I was twenty-six. A new degree from La Laguna and no power at all. [...] My grandmother's village was Tasarte, on the west coast. [...] They scraped the caves out like a pot. They put the bones in a skip. [...] The site manager was a young man called Ignacio Montesdeoca. Very charming. He gave me a cigarette while I watched, and told me not to take it personally. [...] He doesn't remember me. Why would he? I was a boy at the bottom of a hill.
+Rayco doesn't deny it (a pause).
 
-**BAUTE** (baute_v_05): Thirty years of objections, Vasco. [...] La isla has asked politely since 1483. Nobody has ever listened.
+**BAUTE** (baute_v_04, baute_v8_04b–g): In 1966 I was twenty-six. A new degree from La Laguna and no power at all. Nada. A boy with a piece of paper. [...] My grandmother's village was Tasarte, on the west coast. Above it there was a hill, and in the hill, caves, and in the caves, our dead. [...] My abuela used to take me up there and tell me their names. Not their real names. She made them up. So they'd have names. [...] They scraped the caves out like a pot. They put the bones in a skip. [...] The site manager was a young man called Ignacio Montesdeoca. Very charming. He gave me a cigarette while I watched, and told me not to take it personally. [...] He doesn't remember me. Why would he? I was a boy at the bottom of a hill.
 
-**BAUTE** (baute_v_06, baute_v8_06b): I need one number from you. Elena had it, and she's gone, and I'm a digger, not an astronomer. The angle for the last disc. [...] So that on San Juan morning, at sunrise, it sends the light the wrong way. To the door. And el mar takes back what was taken from it. The concrete. The hotels on our graves. Not the people.
+**BAUTE** (baute_v_05): Thirty years of objections, Vasco. Every hotel, every golf course, every marina. I've lost every one. [pause] La isla has asked politely since 1483. Nobody has ever listened.
+
+**BAUTE** (baute_v_06): I need one thing from you. Elena had it, and she's gone, and I'm a digger, not an astronomer. What to do with the last disc.
+
+**BAUTE** (baute_v8_06b): So that on San Juan, at the top of the day, el sol goes back where it came from, and the door opens. And el mar takes back what was taken from it. The concrete. The hotels on our graves. Not the people.
+
+**VASCO** (vasco_v8_fisherman): A fisherman drowned in his bed in La Isleta, Rayco. Alan told me. Nowhere near any concrete.
 
 **VASCO** (vasco_v_08): It doesn't take orders, Rayco.
 
 **BAUTE** (baute_v_07): Mine will.
 
+Vasco gets up and goes to the edge, because he can't look at Rayco's face any more.
+
 **VASCO** (choice):
 - (vasco_v_09a) "Elena worked this out too. Didn't she."
 - (vasco_v_09b) "Where's Dr. Suárez, Rayco?"
+
+A long silence; he turns round.
 
 **BAUTE** (baute_v_08, baute_v8_08b): I took out one disc. One. In December, on the night of the twentieth, after everyone was asleep. Just to see if it was true, what the old women said. [...] She found the socket the next day. She went down the mountain that night to tell Carmen. She never got there.
 
 **VASCO** (vasco_v8_killed): You killed her.
 
-**BAUTE** (baute_v_09, baute_v8_09b–c): I didn't touch her. [...] El mar came for her. Not me. That afternoon she read the cave right, for the first time, after a year of reading it wrong. And it knew. [pause] I didn't know it did that. That it watches. [...] I know now.
+**BAUTE** (baute_v_09, baute_v8_09b–c): I didn't touch her. I didn't touch her, Vasco. I was at the camp. I watched her lights go down the road. I went to bed. [...] El mar came for her. Not me. That afternoon she read the cave right, for the first time, after a year of reading it wrong. And it knew. [pause] I didn't know it did that. That it watches. [...] I know now.
 
-**VASCO** (vasco_v_10): You know now. Then you know what it will do to the rest of them. The people on the beaches...
+**VASCO** (vasco_v_10): You know now. Then you know what it will do to the rest of them. The people on the beaches. You know what's happening in Las Palmas every night, and you're still...
 
 **BAUTE** (baute_v_10): [pause] The number, Vasco.
 
@@ -745,60 +911,122 @@ A shadow falls across the radio. Dr. Rayco Baute, in shirtsleeves and field hat,
 
 **BAUTE** (baute_v_11): [pause] I thought you'd say that. You're a better man than me. It's very inconvenient.
 
-#### 5. The vault
+#### 6. The vault
 
-**[CUT]** Vasco sets off on foot to tell Carmen, the museum, the Guardia, and then Alan (vasco_v_walk); the Land Rover's keys are gone. Three hundred metres down the road to Artenara the road begins to tilt: "The coffee, he thought." Footsteps, two sets. **YERAY** (yeray_v8_sorry): "I'm sorry, doctor. Lo siento." **BAUTE** (baute_v8_sleep): "It's only to make you sleep. Elena kept it in the camp for her back."
+**[CUT]**
 
-He wakes on stone steps in the dark, behind an iron grille with a shiny new padlock, with a headache and the taste of cinnamon.
+**VASCO** (vasco_v_walk): I'm going down to Las Palmas. Now. I'm going to tell Carmen, and the museum, and the Guardia Civil. [pause] And then I'm going to find Alan.
 
-**BAUTE** (baute_v8_granary): Mira. A Canario granary. Twelfth century, perhaps. [...] It's dry. It's always been dry. [pause] You'll be safe here.
+**BAUTE** (baute_v_see): I know.
 
-**BAUTE** (baute_v_12): I'll come for you on Monday. After the sunrise. After it's done. [pause] You have my word.
+**VASCO** (vasco_v8_keys): The keys aren't in the Land Rover. Or on the hook. [pause] You've been down to the village. [pause] Then I'll walk.
+
+He walks to the top of the road.
+
+**NARRATOR** (narr_v_drug): He got as far as the top of the road to Artenara. Then the road began to tilt.
+
+He sits down.
+
+**VASCO** (vasco_v8_drug): The coffee. [pause] Cinnamon, and something under it. [pause] Sit down, Vasco. Before your legs do it for you.
+
+Footsteps behind him, two sets: Rayco, and Yeray come back.
+
+**YERAY** (yeray_v8_sorry): I'm sorry, doctor. I'm sorry. Lo siento.
+
+**BAUTE** (baute_v8_sleep): It's only to make you sleep. Elena kept it in the camp for her back. You'll wake with a headache, that's all. [pause] I would never hurt you, Vasco.
+
+**VASCO** (vasco_v8_hurt): You hurt... [pause] You hurt her...
+
+Black. Then the granary, from inside the grille (the room `vault_cell`).
+
+**VASCO** (vasco_v8_wake): My head. [pause] Steps. Bars. And a brand-new brass padlock, like an earring on a corpse.
+
+**BAUTE** (baute_v8_granary): Mira. A Canario granary. Twelfth century, perhaps. Grain, cheese, figs. It's dry. It's always been dry. [pause] You'll be safe here.
+
+**BAUTE** (baute_v_12): I'll come for you on Monday. After noon. After it's done. [pause] You have my word.
 
 **VASCO** (vasco_v_12): Your word's under a hotel, Rayco.
 
-**[PLAY]** Darkness, silence and a pocket torch with a battery that isn't new; each spell of digging dims it.
+Rayco's footsteps going back up the cleft, and Yeray's, slower; then nothing. The torch clicks on.
+
+**VASCO** (vasco_v8_torch): My torch. For reading inscriptions in dark chapels. [pause] And the battery isn't new.
+
+**[PLAY]** Darkness, silence, and the torch; each spell of digging dims it.
 
 *Looks:*
-- **The crates:** "The museum's crates. I signed the sheets: 'Conservation transfer.' An obsidian disc in each, in straw. The missing nails. All here." "Five here. Two left in the cave. Tomorrow he takes the sixth, and at sunrise on Monday he turns the seventh by guesswork." "With six nails out, close might be enough. Think. You have until Monday. Think."
-- **The walls:** "Pick marks. Nine hundred years old." Low behind the last crate, a serpent coiled tight on itself. He counts the coils without meaning to: seven. He says nothing.
-- **The grille:** "Nineteenth-century iron, new padlock. Rayco always did respect the original fabric. The top's in hard basalt. The bottom's leaded into the soft tuff of the threshold. The lead's gone to powder."
+- **The crates** *(vasco_look_crates, vasco_look_crates_2, vasco_look_crates_3)*: "The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. All here." "Five here. The sun's still in the cave, and Rayco keeps the sixth on him. On Monday he'll tip the sun by guesswork. [pause] And he thinks he can't do it without me." "With six nails out, close might be enough. [pause] Think. You have until Monday. Think." (Reached for, vasco_crates_reach: "Through the bars, a metre away. It might as well be Lisbon.")
+- **The walls** *(vasco_look_walls, vasco_look_serpent)*: "The Church teaches you one thing: when you're frightened and alone in a dark stone room, you look at the walls. [pause] Pick marks. Nine hundred years old." "And low, behind the last crate, worn almost away: a serpent, coiled tight on itself, its mouth open at the centre. [pause] Seven coils."
+- **The grille** *(vasco_look_grille)*: "Nineteenth-century iron, new padlock. Rayco always did respect the original fabric. [pause] The top's in hard basalt. The bottom's leaded into the soft tuff of the threshold. The lead's gone to powder."
+- **An anchor** *(vasco_look_anchor)*: "A bottom anchor of the grille, leaded into soft tuff. If both come out, the grille might swing out at the bottom on its chain. Like a cat flap. Alan would like that."
+- **The wall by the grille** *(vasco_look_wallbit)*: "Soft rock by the grille, at eye height. You could write on it with a trowel."
 
-**The puzzle.** With Lorenzo's trowel, dig the left bottom anchor out by feel, torch off; before the right one, scratch something on the wall for whoever comes; then the right anchor. If both come out, the grille might swing out at the bottom on its chain, "like a cat flap. Alan would like that."
+**The puzzle.** With Lorenzo's trowel, dig the left bottom anchor out by feel, torch off (vasco_dig_1, vasco_dig_2, vasco_dig_left_out: "Out. One anchor out. [pause] Before the other one, something for whoever comes."); before the right one, scratch something on the wall for whoever comes (vasco_right_first_mark); then the right anchor.
 
-#### 6. The mark
+#### 7. The mark
 
 **[PLAY, then CUT]** By the grille, the trowel.
 
 **VASCO** (vasco_trowel_1, vasco_trowel_2): Lorenzo's trowel. 'L. a V. Roma.' My twenty-seventh birthday, a café in Trastevere, the dome going pink. 'For the day you find something worth keeping.' [pause] I thought I had.
 
-He scratches into the soft rock: **23° 26′**. (vasco_mark_1_scratch: "The closing angle. The other one stays in my head. Only in my head.") Then, underneath, a single letter: **A.**
+He kneels and scratches into the soft rock (heard).
 
-His knees go wet. Salt water on the floor of a granary a thousand metres up, and rising, and for the first time since Friday he isn't angry with Alan at all.
+**VASCO** (vasco_mark_1_scratch): The seven signs, in the order they lie in the floor. Moon, moon, moon, the sun, moon, moon, moon. [pause] What opens it stays in my head. Only in my head.
 
-**VASCO** (vasco_wet_2, vasco_wet_3): So this is what Alan meant. [...] Elena read the cave right, and it came for her that same night. This morning I read it right too. [pause] Ah. So it's me.
+**VASCO** (vasco_mark_a): [pause] And underneath. A. [pause] A signature, or a message, or a prayer. I don't know which.
 
-He keeps digging. At his waist the water stays with him wherever he stands, "like a dog". Then the blade snaps, with a centimetre of lead left (vasco_snap). In the night, kneeling in the water, he prays for the first time since January.
+Water seeping (heard); his knees go wet (drawn).
+
+**VASCO** (vasco_wet_1): My knees are wet. [pause] Salt. In a granary. A thousand metres up.
+
+**VASCO** (vasco_wet_2): So this is what Alan meant. [pause] And I'm not angry with him. Not any more.
+
+**VASCO** (vasco_wet_3): Elena read the cave right, and it came for her that same night. Today I read it right too. [pause] Ah. So it's me.
+
+**VASCO** (vasco_wet_4): [pause] Torch off. Keep digging.
+
+The right anchor: at his waist the water stays with him wherever he stands (vasco_dig_right_1: "It doesn't spill through the bars. It stays with me, wherever I stand. Like a dog. Keep digging."). Then the blade snaps, with a centimetre of lead left, and the water comes up to his chest.
+
+**VASCO** (vasco_snap): [pause] The blade. Lorenzo's blade, snapped. A centimetre left. [pause] Of course.
+
+**NARRATOR** (narr_v8_pray): Some time in the night, in the dark and the rising water, he prayed. For the first time since January.
+
+He kneels in the water.
 
 **VASCO** (vasco_v_13): Pai nosso, que estais no céu... [pause]
 
 **VASCO** (vasco_v_14): I'm sorry. I've been working on a Saturday. [pause] I know You're busy.
 
+**VASCO** (vasco_v_prayer_1): There's a man. Alan. White to the lips on the promenade, saying 'sunburn'. Caught behind a desk with his hand on a map, like a schoolboy and a thief.
+
+**VASCO** (vasco_v_prayer_2): On Friday he told me everything. Too fast, in the wrong order, too late. And I didn't listen. I was too frightened of what it meant.
+
+**VASCO** (vasco_v_prayer_3): He might be on a plane by tomorrow lunchtime. I told him to go. [pause] Or he might not.
+
+The torch goes out.
+
 **VASCO** (vasco_v_15): [pause] If You can't come... send the idiot.
 
-The torch goes out. He is smiling, though there is no one to see it. **Cut to Alan,** fifty kilometres away and a thousand metres down, on the hotel bed in his clothes, staring at a telephone that doesn't ring. **ALAN** (alan_s_night): "Ring. [pause] Please."
+**Cut to Alan**, in 404:
+
+**NARRATOR** (narr_cut_alan): Fifty kilometres away and a thousand metres down, Alan lay on the hotel bed in his clothes, staring at a telephone that did not ring.
+
+**ALAN** (alan_s_night): Ring. [pause] Please.
+
+*No longer played in this chapter (the old mechanic, HANDOFF 106, and the narrator cut, HANDOFF 109 and 115; kept in `js/lines.js`): the waiting in half-hour steps and the chalk circles (vasco_wait, vasco_wait_last, vasco_look_marks, vasco_offpath_1/2, narr_v_offpath_2), the last disc measured to an angle (vasco_measure_again; the measuring instrument is still defined as an item in `core.js`, but no longer given),
+ the channel's sockets and the sunrise sum (vasco_sanjuan_1, vasco_sanjuan_1b, narr_v_sanjuan_1b), and the narrator's camp, cave, noon and radio lines (among them narr_v_camp_2, narr_v_noon_1–3, narr_v_puerta_1, narr_v_r_1/2, narr_v_silence).*
 
 #### Notes
-- **The five discs in the vault** are the discs Alan places in the finale. Freeing Vasco on Sunday night also recovers them; Carmen wraps them in her field jacket. Baute keeps the sixth (taken at dawn on Sunday) and hands it over in Cave 6. The seventh never leaves its socket; Baute turns it himself at four on Monday. Baute didn't foresee the Sea coming for Vasco in the vault. Vasco does most of the escape himself and only needs Yeray for the last centimetre, which is what makes Yeray's choice matter.
-- **23° 26′ is the tilt of the Earth's axis,** the latitude of the Tropic of Cancer, where the sun stands at the solstice. It's a real number with real meaning, and it's the number Vasco scratched for "whoever comes". It's the closing angle. The opening angle, the one Baute wanted, Vasco never writes down.
-- **The "A."** is the most Vasco can say after the fight. Alan sees it on Sunday. He doesn't joke.
+- **The five discs in the vault** are the discs Alan places first in the finale. Freeing Vasco on Sunday night also recovers them; Carmen wraps them in her field jacket. Baute keeps the sixth (the waning crescent, taken out in May) on him and hands it down the hole on Monday, after the telling. The sun disc never leaves its socket; Baute tips it himself at four on Monday. Baute didn't foresee the Sea coming for Vasco in the vault. Vasco does most of the escape himself and only needs Yeray for the last centimetre, which is what makes Yeray's choice matter.
+- **The mark** is what closes the lock, for "whoever comes": the seven signs in the order they lie in the floor (waning crescent, last quarter, waning gibbous, the sun, waxing gibbous, first quarter, waxing crescent: "Moon, moon, moon, the sun, moon, moon, moon"). Where each disc goes, not when. What opens it, the sun disc tipped 4° 36′ S at 14:05, Vasco never writes down.
+- **The "A"** is the most Vasco can say after the fight ("The most I can say, after Friday."). Alan sees it on Sunday ("Moons, and a sun in the middle. And under them, small, an A."). He doesn't joke.
 - **The silver trowel** is Lorenzo's. At the cave mouth on Monday, after the confession, Vasco gives it to Alan, half its blade snapped off in the vault: "For the day you find something worth keeping. [pause] Keep it." "I'll keep it."
 
 ## Series layer
 
-Additions from The Sea — Mythology of the Alan Sanches Series. This bible wins wherever the two differ; these only add.
+Additions from [The Sea — Mythology of the Alan Sanches Series](https://claude.ai/artifact/7T57utLGkL4CyPXTz3eAoi).
+ This bible wins wherever the two differ; these only add.
 - **Law 9: it never forgets what was taken back from it.** Anyone the Sea had in its grip and lost to someone else's hands stays owed, and when a lock loosens it comes to collect them. Separately, when a lock loosens, it strikes first at anyone who understands how to shut it.
-- **The lock is an uninvitation, not a chain.** The Harimaguadas didn't fight the Sea; Magec shuts it out again with every sunrise. That keeps the game consistent with the series rule that the Sea can't be fought, only uninvited. Vasco's "nails" are his reading, and half wrong: the discs don't hold the Sea down, they keep the door shut.
+- **The lock is an uninvitation, not a chain.** The Harimaguadas didn't fight the Sea; Magec shuts it out again every summer noon, the sun's light given back by the moons. That keeps the game consistent with the series rule that the Sea can't be fought, only uninvited. Vasco's "nails" are his reading, and half wrong: the discs don't hold the Sea down, they keep the door shut.
 - **The 1751 bell's godparents (proposal).** The Quintanas stood godparents to the Las Palmas bell. Descended from a Harimaguada through a conquest-era marriage, they knew what the Sea did in 1483 and would never call it; they took the role so the bell's voice belonged to a family that would keep it silent. Keepers, not callers. Mercedes Quintana at Casa de Colón is that descendant. In this game she only guards the 1484 inquiry and warns Alan off the low places; the godparent role and the Harimaguada descent stay unspoken.
 - **Ambrose Pell, unseen.** One deniable trace only: on Wednesday, across the harbour at La Isleta, a grey salvage boat with *Atlantic Recovery. Pell Marine, Nassau* on her stern, two men in orange overalls watching the fishing boats. "Alan didn't notice it. Nobody did." He's the shadow behind every game until St. Augustine, and he's married to Alan's mother.
 - **Pedro's trace.** One faint, never-confirmed sign of Alan's drowned father: on Saturday, a wet footprint by Vasco's side of the bed, a man's bare foot, long and narrow, cold and salt, dry by the time the coffee comes; Alan thinks of Pedro, lost off Cascais, without knowing why. Never explained.
