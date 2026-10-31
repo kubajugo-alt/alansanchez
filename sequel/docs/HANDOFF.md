@@ -1825,4 +1825,24 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       twice, trodden out); the review page republished. Not made: `alanv_stretch` and the blazer runs (phone, read,
       reachup), about 64 credits. Nothing installed: on approval, `scripts/ludo_fit.py` / `ludo_install.py` for the runs,
       the poses wired into the vest outfit's `poses` (core.js `still()`), `G.idleSmoke` with the mouth/tip points.
+136. **Alan's actions and the idle cigarette in the game; deployed** (2026-10-31, the user: "All sprites look good, do
+    whatever you need and deploy").
+    - Fitted (`ludo_fit.py`) and put in with the new `scripts/ludo_add.py` (merges runs into `js/sprites_ludo.js` and
+      `art/sprites/` without rebuilding the others; `ludo_install.py` needs every run's git-ignored `fit/`): the nine
+      actions and the six smoking in-betweens; `alanv_write` replaced by take 2. Hold frames set by eye (`HOLD`).
+    - core.js: the vest outfit's `poses` get the runs (phone, drink, write, pickup, reach, reachup, setdown, read,
+      heave, crank, rub, `smoke_*`); the blazer has none yet (its poses show the standing painting, as before).
+      `S.posed` loads a run's frames first (`Engine.ensure`: the engine fetches poses lazily, so a first play
+      stuttered), waits for the hold frame, and lets the run play out to standing before the story goes on.
+    - The story's poses matched to the moments: the clock `crank`, the grille `heave`, the bell's hand `reachup`, the
+      rubbing `rub`, the map `reachup`, each disc `setdown`, the crescent from above `reachup`, the fuse and the keys
+      `reach`; the embraces and the boots keep his standing painting (`embrace`, `comfort`, `give`, `unlace`: no run).
+    - The cigarette: `G.idleSmoke` at the end of core.js (runs, timings, `S.SMOKE_POINTS` measured on the runs' last
+      frames, `S.NO_SMOKE` rooms; not in the blazer, undressed or as Vasco). The fork's `js/engine/smoke.js` takes the
+      story's timings (`seq`), a pose per step (`pose(step, round)`: the first drag from the light, then from the hold),
+      a frame list (`load`, fetched at the front once he's been idle 8 s) and the breath's window (`exhale`). From the
+      hold, any input lets him drop it and tread it out (the hold pose's run continues into `hold_stand`).
+    - Checked in the running game (Playwright, `?scene=mist` and `wed`): the pickup plays through (frames 5, 13, 24, 32,
+      then standing); left alone he lights up and goes round drag / breathe out / hold; no page errors. validate: 0
+      errors. CODEMAP ("Alan's actions") and PIPELINES (an action's recipe) updated. Deploy below.
 
