@@ -1,0 +1,101 @@
+{
+ "spec": {
+  "a": "alanv_side_k",
+  "b": "alanv_side_k",
+  "mid": null,
+  "prompt": "bends his knees and crouches, picks up something small from the floor in front of him with his right hand, looks at it, and stands up again holding it; only him in the picture, no objects or furniture drawn; he starts and ends standing exactly as in the first frame, arms relaxed at his sides",
+  "loop": false,
+  "duration": 4,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "243ac998-207e-44ac-875e-a4b7d5655a29",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/f6d44b2f0cc6f9355aecd205fe8c0d47.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/e02e684244f317470b7c6f5795535079.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/6c83ae7394239d7ce3ed87555f2e0c6d.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.7083333333333335,
+   "loop": false,
+   "out_of_frame": false,
+   "bad_loop": false
+  },
+  "credits": 12
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "e766b2a2-7b1f-4d97-b111-e6a4380e2cd6",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/c474a250e4d29751f3f2ba2b2ece2407.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/cdfcbf8bca58967036ae850d389a84d2.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/1a6dce774be174bfc9f3fc84744db3c6.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.75,
+   "loop": false,
+   "out_of_frame": false,
+   "bad_loop": false
+  },
+  "credits": 4
+ },
+ "model": "hydra",
+ "up": {
+  "status": "succeeded",
+  "job": "a19b8885-4a99-4df8-89c3-fc0dfb3d15d0",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/df6ba8cd9674ce7e2cc1120757fa4e22.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/bbc414d87b7bdc5f5eda321334ba5b8a.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/1a6dce774be174bfc9f3fc84744db3c6.mp3",
+   "individual_frame_urls": [
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-1aa22e3580e2e29c8de78c94a64c1b1f.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-19d24532087634961cb11e4aef0f0fcb.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-247f4fa569e77e1cdf264c0ad316f9a9.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-ab76c3a7ebb58abe1a444c33e4697568.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-540db571491737b81f2492471ab13930.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-fa4daf4b8962487017d7d9694b135301.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-d0b2c7d1c6d10dd2941042cc6cc9b595.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-fed58a58b8c2f8ebfd0995f8c9a39c61.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-704e9509853a2c41f57dce39145c2e76.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-bbc035ecae0e240a994d37ec7e80e3fe.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-94f4ee3a7de827c63e46ca3b30a8825f.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-715cf83dc2c74a6eb042d9efbbd4cd41.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-928581c18d00b38186140816f9c0a1c2.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-1833217de2dd42d836c385dcf955568e.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-fc62645361026e515e5fb4f3db632209.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-d5c00c14d07cde31c89acd707935969b.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-172150aa74dee19e1a7a54829f5ee997.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-91f2c99f1e4842dbff5d2286a2ec9d9b.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-733eb07c0b623fa3f55823a238cb72f8.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-c0aa685fc9acf9d7279801a60d61dc25.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-a48c1dd9c7e4d586f7dce633ad4efc0d.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-53be64036005f70a2ac176b8b94198df.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-e411aa4f435cd52fe2d397b3ca49ccc3.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-9de1fd3e6e91d0d85852cde878f77b4b.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-7b5e90b084d88d8b8d27bcb92e424b35.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-cce8b8b8caebcc3e93f07e1f368a8ae5.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-72734405986e86e8474b4d4d0a90b099.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-e74ea3abfefceccb66d53f9c3975a637.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-faacf5c06faf1faf55274597345bb7df.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-60448a2249035754551ff6549fa0041d.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-5b655ab70c2a6aa387f8b32ba2e92782.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-e1db1ac2caa5bcffb4d805065b6d4ba1.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-cf44d27df7c71873e4face2bf3f0fd63.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-db532edf251ddff74dd4bd6cae0e4cb3.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-717d123bdf26b297b6d705b36820d1cb.webp",
+    "https://storage.googleapis.com/ludo-assets/api/6adab4b2e9870ed4732a8d62-ab29817d5b22de42b6b308a3aa214995.webp"
+   ],
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.75,
+   "loop": false,
+   "out_of_frame": false,
+   "bad_loop": false
+  },
+  "credits": 0
+ }
+}

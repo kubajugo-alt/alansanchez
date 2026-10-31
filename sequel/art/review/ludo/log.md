@@ -136,3 +136,4 @@
 | 2026-10-31 05:10 | improve | hydra | vascor_profile_k | improve | sequel/art/review/ludo/vascor_walk_side/ | 3 |
 | 2026-10-31 05:10 | improve | hydra | vascor_dinner_profile_k | improve | sequel/art/review/ludo/vascor_dinner_walk_side/ | 3 |
 | 2026-10-31 21:24 | hydra | hydra | alanv_side_k -> alanv_side_k | bends his knees and crouches, picks up something small from the floor in front of him with his right hand, looks at it, and stands up again holding it; only him in the picture, no objects or furniture drawn; he starts and ends standing exactly as in the first frame, arms relaxed at his sides | sequel/art/review/ludo/alanv_pickup/ | 12 |
+| 2026-10-31 21:26 | improve | hydra | alanv_side_k -> alanv_side_k | improve | sequel/art/review/ludo/alanv_pickup/ | 4 |

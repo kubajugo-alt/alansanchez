@@ -7,7 +7,7 @@
    "b": "../review/alan_smoke/alanv_smoke_light",
    "prompt": "takes a cigarette from his pocket, puts it between his lips, strikes a match and cups it to light the cigarette; the cigarette stays in his right hand, the arm nearest to us, the whole time, never passed to the other hand; no smoke drawn, only him in the picture",
    "loop": false,
-   "frames": 24,
+   "frames": 25,
    "duration": 2
   },
   {
@@ -16,7 +16,7 @@
    "b": "../review/alan_smoke/alanv_smoke_inhale",
    "prompt": "shakes the match out and drops it, takes the cigarette between two fingers and draws on it; the cigarette stays in his right hand, the arm nearest to us, the whole time, never passed to the other hand; no smoke drawn, only him in the picture",
    "loop": false,
-   "frames": 24,
+   "frames": 25,
    "duration": 2
   },
   {
@@ -25,7 +25,7 @@
    "b": "../review/alan_smoke/alanv_smoke_exhale",
    "prompt": "lowers the cigarette to his chest, tips his head back a little and breathes the smoke out slowly; the cigarette stays in his right hand, the arm nearest to us, the whole time, never passed to the other hand; no smoke drawn, only him in the picture",
    "loop": false,
-   "frames": 24,
+   "frames": 25,
    "duration": 2
   },
   {
@@ -34,7 +34,7 @@
    "b": "../review/alan_smoke/alanv_smoke_hold",
    "prompt": "relaxes, the cigarette held loosely at his waist, looking ahead; the cigarette stays in his right hand, the arm nearest to us, the whole time, never passed to the other hand; no smoke drawn, only him in the picture",
    "loop": false,
-   "frames": 24,
+   "frames": 25,
    "duration": 2
   },
   {
@@ -43,16 +43,16 @@
    "b": "../review/alan_smoke/alanv_smoke_inhale",
    "prompt": "lifts the cigarette back to his lips and draws on it; the cigarette stays in his right hand, the arm nearest to us, the whole time, never passed to the other hand; no smoke drawn, only him in the picture",
    "loop": false,
-   "frames": 24,
+   "frames": 25,
    "duration": 2
   },
   {
    "name": "alanv_smoke_hold_stand",
    "a": "../review/alan_smoke/alanv_smoke_hold",
    "b": "alanv_side_k",
-   "prompt": "drops the cigarette, treads it out under his shoe and stands as before, arms relaxed at his sides; the cigarette stays in his right hand, the arm nearest to us, the whole time, never passed to the other hand; no smoke drawn, only him in the picture",
+   "prompt": "drops the cigarette from his right hand, treads it out under his shoe, and stands still with his arms relaxed at his sides exactly as in the last frame; no smoke drawn, only him in the picture",
    "loop": false,
-   "frames": 24,
+   "frames": 25,
    "duration": 2
   }
  ]
