@@ -1709,3 +1709,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       errors); Netlify deploy `6ae5eaf0b885937efacb2915`. Live: `/` 200, `/.env` 404, `/sw.js` (no-cache),
       `/offline.json`, `/manifest.webmanifest` (application/manifest+json) all served.
     - The app icons (`art/app/icon-*.png`, cut from the title painting's sun) went out with it; the user hasn't seen them.
+129. **Play offline: one download at a time; deployed** (2026-10-31). On the user's iPhone the counter ran past the
+    total ("11,507 of 7,929 files · 546 MB of 500 MB", 284 MB stored): a second tap on Download during the checks before
+    the first download set `job` started a parallel one, both counting into the same `job`. `js/offline.js`: a
+    `starting` lock, each run counts into its own `J`, a file counts once, the bar is capped at 100%. Tested: three quick
+    calls to `Offline.download()` -> one download, 7,929 of 7,929, 496 MB, Ready. play.mjs on the export won (132 steps).
+    Netlify deploy `6ae6149e0e5ea5896e84e6ca` (pack version 3869b95549). A phone mid-download sees "updated online" and
+    Continue fetches the few changed files.
