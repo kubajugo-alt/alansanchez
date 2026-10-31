@@ -90,8 +90,8 @@ Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
 5. **Ludo key**: the user pasted it in chat; advised rotating it. It and the ElevenLabs/Gemini keys live in the root
    `.env` (git-ignored; a new container needs them again: ask the user, never print them).
 6. **Alan's action sprites (entries 132-133, `docs/review/action_sprites.md`)**: the review page is up (actions start
-   and end on his standing sprite; the smoking poses painted); waiting on the user's verdict and for the Ludo key (root
-   `.env`) to make the runs. Vasco's next.
+   and end on his standing sprite; the smoking poses painted); 13 Ludo runs and the six smoking in-betweens made (entry 135); waiting on
+   the user's verdict; stretch and the blazer set need about 64 Ludo credits (34 left). Vasco's next.
 7. **Small contradictions in the lines** (found in entry 131, not fixed): `mercedes_read_6` "at the rising of the sun"
    (1483 is now noon); `lolo_s_talk_3` "this afternoon" before one o'clock and `alan_su_lolo` "Saturday morning" (Vasco
    can send only after 14:04); `pino_s_missal` "Two crossed out. Two not." (her list: seven, five struck);
@@ -1807,4 +1807,22 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     `scripts/ludo_runs_alan_smoke.json` (the note and every in-between's prompt). When the blazer set and the
     left-facing view are made: the left-facing view is the sprite mirrored, so there the cigarette is in his left
     hand, still one hand throughout.
+135. **Alan's actions and the cigarette made in Ludo (for review)** (2026-10-31, the user gave the Ludo key; it is in
+    the root `.env`, git-ignored, never printed; pasted in chat, so rotating it was suggested).
+    - Ludo's limits learnt: `frames` only 4, 9, 16, 25, 36, 49, 64; hydra `duration` 3–5 s; a run costs about 16
+      credits (hydra 12, improve 4; the upscale is free), not 12. A prompt that ends with him holding something
+      cross-fades into the end keyframe (pickup take 1: a ghost of both in the last frames), so every prompt now gives
+      the way back (pockets it, puts it down, lowers his arms) before the standing end pose (`b` = `a`).
+    - Made (`art/review/ludo/<run>/up/`): `alanv_pickup` (take 2), `_reach`, `_reachup`, `_write` (take 2), `_setdown`,
+      `_read`, `_heave`, `_crank`, `_rub`, 36 frames each, first against last frame 0.98–0.99 (the pickup 0.92: he ends
+      a touch turned); and the six smoking in-betweens `alanv_smoke_<from>_<to>` (25 frames, 3 s), keyed on the
+      painted poses in `art/review/alan_smoke/`. Looked at frame by frame: no ghosting; the heave and the crank have a
+      short bar/handle drawn by Ludo; the setdown leaves a speck on the floor (to trim); in `smoke_stand_light` the far
+      hand puts the unlit cigarette in his mouth for a moment, after the light it is the near hand throughout.
+      `alanv_heave` lost its connection after both paid steps; re-run, it resumed at the free upscale (no second
+      charge). 266.51 credits -> 34.51.
+    - Clips `art/review/alan_actions/new_<run>.mp4` and `smoke_loop.mp4` (light, the drag, breathe out and hold round
+      twice, trodden out); the review page republished. Not made: `alanv_stretch` and the blazer runs (phone, read,
+      reachup), about 64 credits. Nothing installed: on approval, `scripts/ludo_fit.py` / `ludo_install.py` for the runs,
+      the poses wired into the vest outfit's `poses` (core.js `still()`), `G.idleSmoke` with the mouth/tip points.
 
