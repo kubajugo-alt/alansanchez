@@ -364,18 +364,18 @@
       await G.goRoom('cave6', null, { instant: true, noEnter: true, noSave: true, pos: [560, 660, 'e'] });
       await S.paint('still_sunrise', async () => {
         S.sfx('dawn_birds', 0.4);
-        await say('narr_m_torn', 'narr_m_glimpse', 'narr_m_nobody_said');
-        await say('narr_m_sunrise', 'narr_m_waking', 'narr_m_reading', 'narr_m_wrist');
+        await say('carmen_m_city', 'narr_m_glimpse');   // (the narrator cut back: the still shows the rest, 2026-10-31)
       }, { zoom: [1.0, 1.08], pan: [[0.5, 0.6], [0.5, 0.45]] });
       G.endStill();
       G.setClock(null);
       const p = G.player; p.x = 560; p.y = 660;
       await G.fade(false);
       // they come out to the cave mouth, into the sun
-      await say('narr_m_out', 'alan_m_after');
-      S.sfx('match', 0.5);
-      await say('narr_m_one_try', 'carmen_m_after', 'yeray_m_after_1');
-      await say('narr_m_baute_hat', 'narr_m_old_thing', 'alan_m_today');
+      await say('alan_m_after');
+      S.sfx('match', 0.5); await T(700);
+      await say('carmen_m_after', 'yeray_m_after_1');
+      await T(1200);
+      await say('alan_m_today');
       G.checkpoint();
     });
   };

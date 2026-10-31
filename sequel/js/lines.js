@@ -2421,6 +2421,7 @@ window.LINES = {
   vasco_m_stopped: ['vasco', "You stopped. I saw your face. You were letting it take you."],
   vasco_m_twice_2: ['vasco', "I wasn't going to do it twice."],
   narr_m_torn: ['narr', "Later, when they could stand, Carmen went to the cave mouth with the broken mirror in her hand, and made a sound. The cloud had torn."],
+  carmen_m_city: ['carmen', "Mira. Over the city. [pause] The black's going back into the cloud. Like ink in water."],
   narr_m_glimpse: ['narr', "Far below, through the tear, the sea lay blue. For a moment something very large turned over under it, like a sleeper, and went down."],
   narr_m_nobody_said: ['narr', "Nobody said anything about it, afterwards, to anyone. Not one of them."],
   narr_m_waking: ['narr', "Down there, ten thousand people slept it off on the beaches among the ashes of their bonfires, without the faintest idea anything had happened."],
