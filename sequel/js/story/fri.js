@@ -88,7 +88,7 @@
       S.sfx('coffee_cups', 0.5);
       await say('carmen_f_1', 'alan_f_carmen_1', 'carmen_f_coffee', 'alan_f_carmen_1b', 'carmen_f_island', 'alan_f_carmen_2');
       S.sfx('paper_shuffle', 0.5);
-      await say('narr_f_arch_3', 'narr_f_arch_3b', 'carmen_f_beam', 'carmen_f_beam_2', 'narr_f_arch_4', 'carmen_f_triangles', 'alan_f_carmen_and',
+      await say('narr_f_arch_3', 'carmen_f_photo', 'carmen_f_beam', 'carmen_f_beam_2', 'narr_f_arch_4', 'carmen_f_triangles', 'alan_f_carmen_and',
         'carmen_f_discs', 'carmen_f_door', 'alan_f_door', 'carmen_f_sentence', 'alan_f_carmen_friend', 'carmen_f_dead', 'narr_f_arch_5');
       await say('carmen_f_san_juan', 'carmen_f_san_juan_2');
       S.sfx('drawer_open', 0.4);

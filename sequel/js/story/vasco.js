@@ -100,8 +100,9 @@
     if (G.has('elena_charts')) return say('vasco_finds_again');
     await G.busy(async () => {
       S.sfx('paper_shuffle', 0.5);
-      await say('narr_v_charts_1', 'narr_v_charts_2', 'vasco_take_1', 'narr_v_charts_3', 'narr_v_charts_4');
-      await S.posed('find', () => say('vasco_take_2'));
+      await say('narr_v_charts_1', 'vasco_take_1');
+      await S.posed('find', () => say('vasco_take_2', 'vasco_take_3'));
+      await say('narr_v_charts_4');
       S.give('elena_charts'); S.give('chalk', true); S.give('vnotebook', true);
       await say('vasco_take_charts');
     });
@@ -354,11 +355,15 @@
       FX.motes(g, t, 60, 170, 500, 470, 18, '255,232,180'); g.restore();
       S.drawUpLight(g, t);
     },
-    // Vasco's first time in today: the arch, the dome, the triangles, the opening and the hole
+    // Vasco's first time in today: he walks in under the triangles (the room shows the arch, the dome, the opening and
+    // the hole; he says what can't be seen from the door: the signs, and the scenes too fine to see without a torch)
     async enter() {
       if (asV() && !F().v_cave_intro) {
         F().v_cave_intro = true; G.setClock('09:00');
-        await say('narr_v_cave_1', 'narr_v_cave_2', 'narr_v_cave_3', 'narr_v_cave_4', 'narr_v_cave_5');
+        await G.busy(async () => {
+          await G.player.walkTo(640, 660);
+          await say('narr_v_cave_5', 'vasco_cave_in');
+        });
       }
     },
   });
@@ -387,7 +392,7 @@
     animBack(g, t) { S.drawLowLight(g, t); },
     // (the Sea's water in the chamber: js/story/water.js, clearer there, so the sockets and the discs stay readable)
     async enter() {
-      if (asV() && !F().v_low_intro) { F().v_low_intro = true; await say('narr_v_low_1', 'narr_v_low_2'); }
+      if (asV() && !F().v_low_intro) { F().v_low_intro = true; S.sfx('ladder_creak', 0.4); await say('vasco_low_in'); }
     },
   });
 
@@ -414,9 +419,12 @@
     if (!G.has('chalk')) return say('vasco_need_chalk');
     if (f.v_chalked) return say('vasco_chalk_again');
     await G.busy(async () => {
-      await S.posed('hand', async () => { S.sfx('pencil_scribble', 0.5); await say('narr_v_chalk_1'); });
-      await say('vasco_chalk_1', 'narr_v_chalk_2');
-      S.sfx('pencil_scribble', 0.4);
+      // he chalks the signs along the wall, left to right, and writes them down as they come up
+      await G.player.walkTo(340, 650);
+      await S.posed('hand', async () => { S.sfx('pencil_scribble', 0.5); await T(window.FAST ? 10 : 900); });
+      await say('vasco_chalk_1');
+      await G.player.walkTo(940, 650);
+      await S.posed('hand', async () => { S.sfx('pencil_scribble', 0.4); await T(window.FAST ? 10 : 700); });
       await say('vasco_chalk_2', 'vasco_chalk_3');
       f.v_chalked = true;
     });
@@ -428,9 +436,10 @@
     if (!f.v_chalked) return say('vasco_scenes_early');
     if (f.v_scenes) return say('vasco_scenes_again');
     await G.busy(async () => {
-      await say('narr_v_scenes_1', 'vasco_scenes_1', 'vasco_scenes_2', 'vasco_scenes_3');
+      await S.posed('hand', () => T(window.FAST ? 10 : 900));   // (the torch held flat to the wall)
+      await say('vasco_scenes_1', 'vasco_scenes_2', 'vasco_scenes_3');
       S.sfx('pencil_scribble', 0.4);
-      await say('narr_v_scenes_2');
+      await T(window.FAST ? 10 : 800);
       f.v_scenes = true;
     });
   };
@@ -439,12 +448,15 @@
     const f = F();
     if (f.v_noon) return say('vasco_noon_again');
     await G.busy(async () => {
-      await say('narr_v_noon_1');
+      await say('vasco_noon_wait');
       S.sfx('wind_arches', 0.25);
       for (const c of ['10:00', '11:00', '12:00', '13:00', '14:04']) { G.setClock(c); await T(window.FAST ? 10 : 500); }
       f.v_noon = true;
       S.sfx('fog_lift', 0.3);
-      await say('narr_v_noon_2', 'narr_v_noon_3', 'vasco_noon_1');
+      // the column comes down the shaft and one comes back up onto the great triangle: he gets up to look
+      await T(window.FAST ? 10 : 1200);
+      await G.player.walkTo(560, 650);
+      await say('vasco_noon_1');
     });
   };
   // the test: the sun disc lifted into the next socket; its column jumps across to a small triangle on the far side
@@ -453,12 +465,17 @@
     const f = F();
     if (f.v_test) return say('vasco_test_again');
     await G.busy(async () => {
-      await S.posed('kneel', async () => { S.sfx('stone_notch', 0.6); await say('narr_v_test_1'); });
-      S.vTest = true; S.sfx('stone_clack', 0.4); S.sfx('water_lap', 0.3);
-      await say('narr_v_test_2', 'vasco_test_1', 'vasco_test_2');
+      // he lifts the sun disc into the next socket: its column jumps across the wall; the water stirs; he puts it back
+      await S.posed('kneel', async () => { S.sfx('stone_notch', 0.6); await T(window.FAST ? 10 : 900); });
+      S.vTest = true; S.sfx('stone_clack', 0.4);
+      await T(window.FAST ? 10 : 1200);
+      await say('vasco_test_1');
+      S.sfx('water_lap', 0.4);
+      await T(window.FAST ? 10 : 600);
+      await say('vasco_test_2');
       await S.posed('kneel', async () => { S.sfx('stone_notch_2', 0.6); await T(500); });
       S.vTest = false;
-      await say('narr_v_test_3');
+      await T(window.FAST ? 10 : 600);
       f.v_test = true;
     });
   };
@@ -470,17 +487,23 @@
     if (FLOOR[i] !== 'sun' || !(f.v_chalked && f.v_scenes && f.v_test)) return say('vasco_puerta_early');
     if (f.v_understood) return say('vasco_finds_again');
     await G.busy(async () => {
-      S.sfx('paper_shuffle', 0.5);
-      await say('narr_v_puerta_1', 'narr_v_angle_1');
+      // her last sheet spread on the floor by the sun disc; he works her numbers through, and laughs
+      await S.posed('kneel', async () => { S.sfx('paper_shuffle', 0.5); await T(window.FAST ? 10 : 700); S.sfx('pencil_scribble', 0.4); await T(window.FAST ? 10 : 1000); });
+      await say('vasco_v_04');
       S.sfx('v_vasco_laugh', 0.5);
-      await S.posed('laugh', () => say('narr_v_angle_2'));
-      await say('vasco_v_04', 'narr_v_angle_3', 'vasco_puerta_1', 'narr_v_angle_4', 'narr_v_angle_4b', 'vasco_v_door', 'narr_v_angle_5', 'narr_v_angle_6');
+      await S.posed('laugh', () => T(window.FAST ? 10 : 1400));
+      await say('vasco_puerta_1', 'vasco_shut');
+      // where the door is: the middle of the floor, under the hole, where the water stirred
+      await G.player.walkTo(640, 690);
+      await say('vasco_v_door', 'narr_v_angle_5');
       f.v_understood = true;
-      await say('narr_v_whole', 'vasco_v_arrows', 'vasco_v_read', 'vasco_v_read_2', 'vasco_v_05', 'vasco_v_06');
-      await S.posed('worried', () => say('narr_v_alan_1', 'vasco_v_alan', 'narr_v_alan_2', 'narr_v_alan_3', 'vasco_v_alan_2', 'vasco_v_radio'));
+      await say('vasco_v_arrows', 'vasco_v_read', 'vasco_v_read_2', 'vasco_v_05', 'vasco_v_06');
+      await T(window.FAST ? 10 : 800);
+      await S.posed('worried', () => say('vasco_v_alan', 'narr_v_alan_2', 'narr_v_alan_3', 'vasco_v_alan_2', 'vasco_v_radio'));
       G.setClock(null);
-      S.sfx('stone_clack', 0.4);
-      await say('narr_v_out');
+      // out, up the rope ladder, fast
+      await G.player.walkTo(500, 640);
+      S.sfx('ladder_creak', 0.5);
       await G.goRoom('camp', 'cave6', { noSave: true });
     });
   };

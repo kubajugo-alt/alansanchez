@@ -49,17 +49,24 @@
       await S.day(7);
       S.water.cave6 = 0; S.water.cave6_low = 0.1;
       await G.fade(false);
-      await say('narr_cave_mon', 'narr_mon_baute');
+      await say('narr_mon_baute');
       await say('baute_m_1', 'baute_m_1b', 'baute_m_1c');
-      await say('narr_mon_look', 'vasco_m_1', 'baute_m_close', 'vasco_m_1b', 'vasco_m_1c');
+      // Vasco goes to the rim and looks down at the sun disc, tipped in its socket
+      const v = G.npc('vasco');
+      if (v) { await Promise.race([v.walkTo(700, 640), T(window.FAST ? 50 : 4000)]); v.dir = 'w'; }
+      await T(window.FAST ? 10 : 1000);
+      await say('vasco_m_1', 'baute_m_close', 'vasco_m_1b', 'vasco_m_1c');
       await say('narr_mon_smile', 'baute_m_2', 'baute_m_2b');
       await say('alan_m_1', 'narr_mon_alan', 'alan_m_1b', 'alan_m_1c', 'alan_m_1d', 'alan_m_1e');
+      // the water comes up in the hole (heard from up here; Yeray at the edge sees it), and the morning goes over them
       S.sfx('water_rise_2', 0.7);
       await S.waterTo('cave6_low', 0.16, 1200);
-      await say('narr_mon_surge', 'narr_mon_wait');
+      await say('yeray_m_rung', 'narr_mon_wait');
       for (const m of [480, 570, 660, 718]) { clock(m); await T(window.FAST ? 10 : 600); }
+      // twelve: the column comes down the shaft, and the tipped sun sends it back up at a slant (drawn: S.columns)
       clock(720); S.sfx('fog_lift', 0.3);
-      await say('narr_mon_noon', 'vasco_m_twenty', 'vasco_m_climb');
+      await T(window.FAST ? 10 : 1500);
+      await say('vasco_m_twenty', 'vasco_m_climb');
       await say('carmen_m_five', 'narr_mon_tighter');
       await say('vasco_m_halves', 'vasco_m_who');
       G.checkpoint();
@@ -106,9 +113,9 @@
       await G.goRoom('cave6_low', 'cave6', { instant: true, noEnter: true, noSave: true });
       S.water.cave6_low = 0.12;
       await G.fade(false);
-      S.sfx('step_wet', 0.7);
+      S.sfx('ladder_creak', 0.5); S.sfx('step_wet', 0.7);
       await S.waterTo('cave6_low', waterBase(), 2000);
-      await say('narr_m_quiet', 'narr_m_quiet_2', 'alan_m_knows');
+      await say('narr_m_quiet_2', 'alan_m_knows');
       await say('vasco_m_ready');
       G.checkpoint();
     });
@@ -119,9 +126,15 @@
     const f = F();
     if (f.cloud_over && !f.mirror_on) return S.wingMirror();
     let first = false;
+    // (the user, 2026-10-30: "Vasco nudges"): once Baute has said the telling, "Which one goes first?" (then "...next?")
+    // has Vasco read the scene round the next disc's triangle in the telling's order, never naming its sign
+    const next = TURN[placedN()];
+    const nudge = f.telling_heard && next
+      ? { line: placedN() ? 'alan_m_ask_next' : 'alan_m_ask_first', bye: true, run: () => { f.nudged = next; return say('vasco_nudge_' + next); } }
+      : { label: 'Which one goes first?', bye: true, run: () => { first = true; } };
     await G.dialog([
       ...WALL.map(s => ({ label: 'Read me the one with the ' + NAME[s].replace(/^the /, '') + '.', run: () => say('vasco_scene_' + s) })),
-      { label: 'Which one goes first?', bye: true, run: () => { first = true; } },
+      nudge,
       { label: 'Nothing. Keep watching.', bye: true },
     ]);
     if (!first) return;
@@ -199,7 +212,8 @@
     await S.waterTo('cave6_low', was + 0.06 * f.surges, 900);
     if (f.surges >= 3) return S.drowned();
     if (f.surges === 1) {
-      await say('narr_m_surge_1', 'vasco_m_wrong_1');
+      S.sfx('rope_creak', 0.5);   // (the rope ladder swinging)
+      await say('carmen_m_surge', 'vasco_m_wrong_1');
       await S.waterTo('cave6_low', was + 0.04, 1400);
       await say('narr_m_dog');
       if (!f.disc6_given) { await say('vasco_m_stuck'); return S.bauteGives(); }
@@ -207,7 +221,10 @@
     await say(S.callNow());
   };
   S.drowned = async function () {
-    await say('narr_m_drown');
+    // the water rises over him, and goes quiet
+    S.sfx('water_rise_3', 0.8);
+    await S.waterTo('cave6_low', 0.6, 1600);   // (over his head: js/story/water.js S.waterH)
+    await T(window.FAST ? 10 : 800);
     document.querySelector('#death .msg').textContent = window.LINES.narr_death[1];
     G.showModal('death', true);
   };
@@ -227,16 +244,19 @@
     if (f.disc6_given) return;
     await G.busy(async () => {
       clock(Math.max(f.mclock || 0, 800));
-      await say('narr_m_ten', 'narr_m_baute_up');
+      // (the clock and the spot of gold climbing the shaft show the time; Baute is up at the rim, out of Alan's sight)
+      await say('vasco_m_rayco_up');
       S.sfx('fog_lift', 0.4);
       await say('narr_m_stain', 'narr_m_south');
-      await say('narr_m_carmen_wades', 'carmen_m_street', 'carmen_m_street_2', 'carmen_m_street_3');
+      await say('carmen_m_street', 'carmen_m_street_2', 'carmen_m_street_3');
       await say('narr_m_baute_silent', 'carmen_m_concrete');
       await say('narr_m_goes_out', 'baute_m_stain_3');
-      await say('narr_m_telling_1', 'baute_m_grandmother');
+      await say('baute_m_grandmother');
       for (let n = 1; n <= 7; n++) await say('baute_m_verse_' + n, 'vasco_m_verse_' + n);
-      S.sfx('step_wet_2', 0.6);
-      await say('narr_m_wades', 'baute_m_listen', 'baute_m_crescent');
+      // he holds the crescent down into the hole; Alan reaches up and takes it
+      await say('baute_m_listen');
+      await S.posed('pickup', async () => { S.sfx('step_wet_2', 0.6); await T(window.FAST ? 10 : 700); });
+      await say('baute_m_crescent');
       f.disc6_given = true; f.telling_heard = true; S.give('disc_wan_crescent');
       await say('vasco_m_page');
       G.checkpoint();
@@ -246,7 +266,7 @@
   // six moons set: two minutes; the sun, flat, in the middle
   S.sixSet = async function () {
     await G.busy(async () => {
-      await say('narr_m_wire', 'vasco_m_seventh', 'vasco_m_seventh_3');
+      await say('vasco_m_seventh', 'vasco_m_seventh_3');
       await say('alan_m_yes', 'vasco_m_dead_centre', 'alan_m_understand');
       G.checkpoint();
     });
@@ -264,12 +284,14 @@
   S.cloudCrosses = async function () {
     const f = F();
     await G.busy(async () => {
-      await S.posed('pickup', async () => { await say('narr_m_seventh_hand'); });
+      await S.posed('pickup', async () => { await say('alan_m_cold'); });
       S.sfx('water_rise', 0.5);
       await S.waterTo('cave6_low', 0.34, 1600);
       await say('narr_m_chest');
+      // a cloud over the sun: every column goes out (drawn: S.columns)
       f.cloud_over = true; S.sfx('fog_lift', 0.5);
-      await say('narr_m_cloud', 'vasco_m_nonono');
+      await T(window.FAST ? 10 : 900);
+      await say('vasco_m_cloud', 'vasco_m_nonono');
       S.sfx('water_rise_3', 0.8);
       await S.waterTo('cave6_low', 0.42, 1000);
       await say('narr_m_roar', 'vasco_m_light');
@@ -280,12 +302,15 @@
   S.wingMirror = async function () {
     const f = F();
     await G.busy(async () => {
-      await say('alan_m_carmen_light', 'narr_m_carmen_gone');
-      await T(500);
+      await say('alan_m_carmen_light', 'yeray_m_gone');
+      await T(window.FAST ? 10 : 900);
+      // the wing mirror torn off the Land Rover (heard), and Carmen up on the rock over the shaft
       S.sfx('tile_shatter', 0.6); S.sfx('shutter_bang', 0.4);
-      await say('narr_m_glass', 'narr_m_wing', 'carmen_m_mirror');
+      await T(window.FAST ? 10 : 700);
+      await say('yeray_m_mirror', 'carmen_m_mirror');
       f.mirror_on = true; S.sfx('glass_set', 0.5);
-      await say('narr_m_fuse_run', 'narr_m_too_far', 'vasco_m_seventh_2');
+      await T(window.FAST ? 10 : 1000);
+      await say('vasco_m_mirror_lit', 'vasco_m_seventh_2');
       G.checkpoint();
     });
   };
@@ -308,15 +333,20 @@
     const f = F();
     f.sun_flat = true; f.disc_turned = true; clock(845);
     await G.busy(async () => {
+      // the cloud slides off; the real light comes down onto all seven, and seven columns go back up, the sun's on the
+      // great triangle, dead centre (all drawn: S.columns)
       S.sfx('stone_wheel', 0.7); await T(600);
-      await say('narr_m_sun', 'narr_m_beam', 'vasco_m_true');
-      await say('narr_m_dead_centre', 'narr_m_tilt', 'narr_m_lit');
-      // the triangles flare; the women of light, in a ring round the noon column; then only the columns
+      S.sfx('fog_lift', 0.5);
+      await say('carmen_m_sun');
+      await T(window.FAST ? 10 : 1200);
+      await say('vasco_m_true');
+      await T(window.FAST ? 10 : 1200);
+      // the triangles flare; the women of light, in a ring round the noon column (about ten seconds, no words); then only
+      // the columns
       S.closing = performance.now() / 1000; S.sfx('bell_hum', 0.35);
-      await say('narr_m_women');
-      await T(window.FAST ? 20 : Math.max(0, 9500 - (performance.now() / 1000 - S.closing) * 1000));
-      await say('narr_m_women_2');
+      await T(window.FAST ? 20 : 11800);   // (in, held, and faded out: vasco.js S.drawLowLight's envelope, 11.5 s)
       S.closing = null;
+      await T(window.FAST ? 10 : 800);
       await say('narr_m_breath');
       S.sfx('water_drain', 0.8);
       await S.paint('still_chain', async () => {

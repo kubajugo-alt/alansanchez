@@ -48,7 +48,8 @@ root, in the same repository as Game I. Read, in this order:
 
 ### Open, in the order I'd suggest
 0. **Cave 6, redesigned (entry 106)**: built and playable (`?scene=cave`, `cave_low`, `monday`, `aim`, `aim_sun`); its
-   199 lines (118 changed, 81 new) wait for the user's read in `docs/puzzles/CAVE6_LINES.md`, then recording.
+   199 lines (118 changed, 81 new), with the narrator cut back (entry 109: 66 narrator lines to 13, 24 new character
+   lines, and Vasco's nudge), wait for the user's read in `docs/puzzles/CAVE6_LINES.md`, then recording.
 1. **The granary (entries 98, 100)**: built and live; the user to see it in the game (`?scene=vault` for the cell,
    `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved, voiced and live; "pesetas" is B (entry 100).
 1a. **The water (entry 108)**: redesigned, in the game; for the user's review (`art/review/water/`; `?scene=vault`,
@@ -1258,3 +1259,33 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
      with software GL (so only relative): the chamber 65 ms a frame without water, 137–176 with it at 0.75 (143 at half
      size; the pass's own JS 0.4–1 ms a frame), the 2D version 96–130 (its JS 6 ms). On a GPU it is one full-screen shader
      and two texture copies a frame; not yet measured on a device (`?fps`).
+
+109. **Cave 6: the narrator cut back; Vasco nudges** (2026-10-30). The user: "over all, with your re-works there is way too
+    much narrator. We don't need that much description. Some things should simply be done by the characters, other just
+    said by the characters - we don't need to have it all described." Then: "Vasco nudges. If you ask him 'Which one goes
+    first?', he reads the matching scene for the next verse without naming the sign."
+    - Every narrator line of entry 106's 199 lines gone through where it plays. 53 no longer played (the room, the light
+      columns, the water, the clock and the women of light are drawn; the characters walk, kneel, pose and make the
+      sounds instead), plus 5 older narrator lines in the same scenes (`narr_v_angle_2`, `narr_v_angle_6`,
+      `narr_v_whole`, `narr_v_alan_1`, `narr_m_glass`). What the player needs is said: 15 new character lines (Vasco
+      reading the cave, the sheet, how to shut it; Carmen's photograph; Yeray and Vasco calling what Alan can't see from
+      the chamber; Carmen's "¡El sol!") and 19 lines of the rework rewritten or shortened (`vasco_v_04` now carries
+      4° 36′ S and 14:05; `vasco_puerta_1` the mirror; `alan_su_mark` the mark). Kept narrator: 13 lines (time jumps,
+      the swallow, Baute breaking, the stills at the end, the one glimpse), none over 27 words. Narrator 66 lines / 2,142
+      words -> 13 / 302; character lines 133 -> 157. Cut lines stay in `js/lines.js` (validate lists them as unused).
+    - In code (`js/story/vasco.js`, `mon.js`, `sun.js`, `fri.js`): Vasco walks into the cave, along the wall chalking
+      (pose `hand`), over to look at noon, kneels for the sun-disc test and the sheet, laughs (pose), walks to the door
+      and to the ladder (creak); Monday: Vasco walks to the rim at dawn; the water sound and Yeray at the hole; pauses for
+      the light at twelve, the cloud, the mirror and the closing (the women of light now dance in silence, 11.8 s, the
+      length of their fade in `S.drawLowLight`); Alan reaches up for the crescent (pose `pickup`); a drowning shows the
+      water rising over him instead of a line. Sounds used: `ladder_creak`, `rope_creak`, `pencil_scribble`,
+      `water_lap`, `water_rise_3`, `fog_lift` (all in `audio/sfx`).
+    - Vasco nudges (`mon.js` `S.talkVascoBelow`): once Baute has said the telling, "Which one goes first?" (then
+      "...next?", `alan_m_ask_first`/`alan_m_ask_next`) has Vasco read the scene round the next disc's triangle in the
+      telling's order (`vasco_nudge_<sign>`, 7 lines), never naming its sign. Before the telling, the question works as
+      before (Baute's help); after it, the telling page is no longer reopened from Vasco (it stays in the notebook).
+    - `docs/puzzles/CAVE6_LINES.md` rewritten as the review table: each scene in play order as it now plays (actions in
+      italics), the status of every line, the cut lines and what does their job now. Nothing recorded.
+    - `scripts/tests/play.mjs` asks Vasco "Which one goes first?" and "...next?" on Monday and checks the answer.
+    - Checks: `node scripts/validate.mjs` 0 errors (183 warnings: the unused lines); play.mjs before the nudge: won, 130
+      steps, no page errors; with the nudge: won, 132 steps, no page errors.

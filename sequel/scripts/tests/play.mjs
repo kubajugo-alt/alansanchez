@@ -216,8 +216,16 @@ try {
   await act('Socket · first quarter', null, 'disc_first_quarter');   // (out of its turn: the water surges)
   await expect('a surge, the telling and the crescent', () => Game.flags.surges === 1 && Game.flags.disc6_given && Game.has('disc_wan_crescent'));
   await quiet(); await page.evaluate(() => S.fillPage('telling', { a: 'sign_wax_gibbous', b: 'sign_last_quarter', c: 'sign_wax_crescent', d: 'sign_wan_gibbous', e: 'sign_first_quarter', f: 'sign_wan_crescent', g: 'sign_sun' }));
-  for (const [sock, disc] of [['waxing gibbous', 'wax_gibbous'], ['last quarter', 'last_quarter'], ['waxing crescent', 'wax_crescent'], ['waning gibbous', 'wan_gibbous'], ['first quarter', 'first_quarter'], ['waning crescent', 'wan_crescent']])
+  // (Vasco nudges: "Which one goes first?" reads the scene for the next disc in the telling, then "...next?")
+  await act('Vasco, at the rim', 'talk', null, ['Which one goes first?']);
+  await expect('Vasco nudges: the first disc', () => Game.flags.nudged === 'wax_gibbous');
+  for (const [sock, disc] of [['waxing gibbous', 'wax_gibbous'], ['last quarter', 'last_quarter'], ['waxing crescent', 'wax_crescent'], ['waning gibbous', 'wan_gibbous'], ['first quarter', 'first_quarter'], ['waning crescent', 'wan_crescent']]) {
     await act('Socket · ' + sock, null, 'disc_' + disc);
+    if (disc === 'wax_gibbous') {
+      await act('Vasco, at the rim', 'talk', null, ['Which one goes next?']);
+      await expect('Vasco nudges: the next disc', () => Game.flags.nudged === 'last_quarter');
+    }
+  }
   await expect('six moons set, in the telling\'s order', () => (Game.flags.placed || []).join() === 'wax_gibbous,last_quarter,wax_crescent,wan_gibbous,first_quarter,wan_crescent' && Game.flags.telling_known);
   await act('Socket · the sun', 'use');
   await expect('the cloud', () => Game.flags.cloud_over && !Game.flags.mirror_on);

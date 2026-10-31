@@ -377,7 +377,7 @@
       S.sfx('cloth_jacket', 0.4);
       S.giveDiscs();
       await say('alan_su_discs', 'vasco_su_discs');
-      await say('narr_mark_su', 'alan_su_mark', 'narr_mark_su_2');
+      await say('alan_su_mark', 'narr_mark_su_2');
       f.v_marked = true;
     });
     await S.onTheRock();
@@ -421,7 +421,7 @@
       await G.fade(true);
       await say('narr_path_1', 'narr_path_2');
       S.sfx('water_lap', 0.4);
-      await say('narr_path_3', 'narr_path_4', 'narr_path_5');
+      await say('narr_path_3', 'narr_path_4');
     });
     await S.startMon();
   };
