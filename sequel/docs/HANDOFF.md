@@ -1289,44 +1289,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - `scripts/tests/play.mjs` asks Vasco "Which one goes first?" and "...next?" on Monday and checks the answer.
     - Checks: `node scripts/validate.mjs` 0 errors (183 warnings: the unused lines); play.mjs before the nudge: won, 130
       steps, no page errors; with the nudge: won, 132 steps, no page errors.
-111. **The prologue and Tuesday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
-    there is way too much narrator... Some things should simply be done by the characters, other just said by the
-    characters" and "it is basically the entire game". As Cave 6 (109): every narrator line played in the prologue
-    (`prologue.js`) and on Tuesday (`tue.js`, the two Tuesday calls in `core.js`, the opening in `main.js`) gone through.
-    78 narrator lines (2,203 words) to 9 (190; prologue 18 to 3, Tuesday 60 to 6; none over 26 words); 69 cut, 12
-    shortened or rewritten, 18 new character lines (Elena says the road, the cloud, her feet, the brake and "Point down.
-    At the sea."; the Guardia say the locks and the salt triangle; Alan the Iberia desk, the Düsseldorf family, the
-    eyebrow, the coat at the door, Baute's knuckles and his smile, the mist "coming in against the wind" (the 1483
-    page's words) and the Lisbon cistern; Vasco the hotel's owner and the dig, the knee, "One minute!"; Baute names the
-    clay seal as his abuela's; Carmen offers the Coronas). Done in code instead: Vasco walks to Alan at Gando, across
-    the hall with him to Baute, down the corridor of skulls with him, along the promenade to the bonfire and the rail;
-    Vasco turns his back for the Cabildo; the toast's glass, laugh and applause, Carmen's lighter and the laughter
-    inside, Alan's laugh in 404, the sea at the end of the night, the bar's chairs and door are sounds; pauses for the
-    looks. The reception and the corridor (86, 107) keep every beat. Nothing recorded: 11 recorded lines changed (their
-    mp3s moved to `audio/voice_stale/`, ids added to `scripts/voice_redo.txt`), manifest rebuilt. Review table:
-    `docs/rewrite/NARR_TUE.md`. Checks: `node --check`; `node scripts/validate.mjs` 0 errors; the prologue played with
-    `S.PLAY_PROLOGUE` on through to the lobby, no page errors; a screenshot of the corridor moment; `play.mjs`: won,
-    132 steps, no page errors.
-113. **Wednesday and Thursday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
-    there is way too much narrator... Some things should simply be done by the characters, other just said by the
-    characters", and "it is basically the entire game". Done as Cave 6 (109), for `js/story/wed.js`, `js/story/thu.js`,
-    Thursday's call (`core.js` S.callThu) and Thursday's puzzle lines (`puzzles.js` S.folio12, S.tickTalk).
-    - Narrator 186 lines / 4,469 words -> 12 / 190 (none over 26 words); character lines 345 -> 394 (48 new, plus
-      Elena's recorded `elena_msg_02` reused for Carmen alone). Kept narrator: Wednesday's opener, Pell's boat (the
-      bible: narrated; `narr_w_pell_2` folded into `narr_w_pell_1`), the two "kind of decision" asides, the evening
-      jump, Pepe's two lines over the still, the jacket's joke, the mango and Carmen at the door over black, the taxi,
-      the sea under the sea. No character line cut; every clue that lived in narration is now said (the blank June line
-      on the conservation list, the sponsorship file, the van's "display cases from Don Ignacio" by the museum guard,
-      folio 12 misfiled on purpose by Mercedes, Juan de Quintana and Pepe both pulled out of the sea, by Alan).
-      `alan_ask_carmen_pepe` corrected: Pepe drowned "last month" (as Chano, Doña Pino and the still say).
-    - In code: Alan stretches and drinks the coffee, walks to the bronze dogs and reads the letter, pulls at the clock
-      (a fade for the twenty minutes), reaches to the humming bell, takes the packet, reads the crate by the van,
-      unlaces Vasco's boots, walks to Vasco at the dinner, reads the file, reaches for the map; Derek walks into the
-      guard's chair; existing sounds (`drawer_scrape`, `v_vasco_laugh`, `stairs`, `paper_take`, `match`, `snore`,
-      `lamp_click`, `page_2`, `drawer_open`...) and pauses for the silences.
-    - Nothing recorded: the 6 changed ids in `scripts/voice_redo.txt`, their mp3s moved to `audio/voice_stale/`,
-      manifest rebuilt; the new lines play as captions. Review table: `docs/rewrite/NARR_WED_THU.md`.
-    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; play.mjs: won, 132 steps, no page errors.
 110. **The women of light: the Kling dance in the closing, Alan inside the ring, a flash in and out** (2026-10-31, for
     review). The user approved the Higgsfield/Kling loop (`art/review/harimaguadas/dance_a7.mp4`) and asked: "the harimaguadas animation should fade in in a flash of light and fade out the same way",
     "ideally, alan should stand in the circle between them, with the occlusions done right".
@@ -1372,3 +1334,41 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       frames don't lower them) and the walking tip hidden; no sound (playwright records none).
       `node scripts/tests/play.mjs`: won, 132 steps, no page errors (`"result": "won"`, `"errors": []`; the dance
       itself is skipped there, `window.FAST`). Nothing else in the closing changed.
+111. **The prologue and Tuesday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
+    there is way too much narrator... Some things should simply be done by the characters, other just said by the
+    characters" and "it is basically the entire game". As Cave 6 (109): every narrator line played in the prologue
+    (`prologue.js`) and on Tuesday (`tue.js`, the two Tuesday calls in `core.js`, the opening in `main.js`) gone through.
+    78 narrator lines (2,203 words) to 9 (190; prologue 18 to 3, Tuesday 60 to 6; none over 26 words); 69 cut, 12
+    shortened or rewritten, 18 new character lines (Elena says the road, the cloud, her feet, the brake and "Point down.
+    At the sea."; the Guardia say the locks and the salt triangle; Alan the Iberia desk, the Düsseldorf family, the
+    eyebrow, the coat at the door, Baute's knuckles and his smile, the mist "coming in against the wind" (the 1483
+    page's words) and the Lisbon cistern; Vasco the hotel's owner and the dig, the knee, "One minute!"; Baute names the
+    clay seal as his abuela's; Carmen offers the Coronas). Done in code instead: Vasco walks to Alan at Gando, across
+    the hall with him to Baute, down the corridor of skulls with him, along the promenade to the bonfire and the rail;
+    Vasco turns his back for the Cabildo; the toast's glass, laugh and applause, Carmen's lighter and the laughter
+    inside, Alan's laugh in 404, the sea at the end of the night, the bar's chairs and door are sounds; pauses for the
+    looks. The reception and the corridor (86, 107) keep every beat. Nothing recorded: 11 recorded lines changed (their
+    mp3s moved to `audio/voice_stale/`, ids added to `scripts/voice_redo.txt`), manifest rebuilt. Review table:
+    `docs/rewrite/NARR_TUE.md`. Checks: `node --check`; `node scripts/validate.mjs` 0 errors; the prologue played with
+    `S.PLAY_PROLOGUE` on through to the lobby, no page errors; a screenshot of the corridor moment; `play.mjs`: won,
+    132 steps, no page errors.
+113. **Wednesday and Thursday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
+    there is way too much narrator... Some things should simply be done by the characters, other just said by the
+    characters", and "it is basically the entire game". Done as Cave 6 (109), for `js/story/wed.js`, `js/story/thu.js`,
+    Thursday's call (`core.js` S.callThu) and Thursday's puzzle lines (`puzzles.js` S.folio12, S.tickTalk).
+    - Narrator 186 lines / 4,469 words -> 12 / 190 (none over 26 words); character lines 345 -> 394 (48 new, plus
+      Elena's recorded `elena_msg_02` reused for Carmen alone). Kept narrator: Wednesday's opener, Pell's boat (the
+      bible: narrated; `narr_w_pell_2` folded into `narr_w_pell_1`), the two "kind of decision" asides, the evening
+      jump, Pepe's two lines over the still, the jacket's joke, the mango and Carmen at the door over black, the taxi,
+      the sea under the sea. No character line cut; every clue that lived in narration is now said (the blank June line
+      on the conservation list, the sponsorship file, the van's "display cases from Don Ignacio" by the museum guard,
+      folio 12 misfiled on purpose by Mercedes, Juan de Quintana and Pepe both pulled out of the sea, by Alan).
+      `alan_ask_carmen_pepe` corrected: Pepe drowned "last month" (as Chano, Doña Pino and the still say).
+    - In code: Alan stretches and drinks the coffee, walks to the bronze dogs and reads the letter, pulls at the clock
+      (a fade for the twenty minutes), reaches to the humming bell, takes the packet, reads the crate by the van,
+      unlaces Vasco's boots, walks to Vasco at the dinner, reads the file, reaches for the map; Derek walks into the
+      guard's chair; existing sounds (`drawer_scrape`, `v_vasco_laugh`, `stairs`, `paper_take`, `match`, `snore`,
+      `lamp_click`, `page_2`, `drawer_open`...) and pauses for the silences.
+    - Nothing recorded: the 6 changed ids in `scripts/voice_redo.txt`, their mp3s moved to `audio/voice_stale/`,
+      manifest rebuilt; the new lines play as captions. Review table: `docs/rewrite/NARR_WED_THU.md`.
+    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; play.mjs: won, 132 steps, no page errors.
