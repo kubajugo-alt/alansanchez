@@ -9,8 +9,10 @@
     canteras: {
       walk: [[0, 640], [275, 630], [430, 590], [1040, 575], [1280, 600], [1280, 716], [0, 716]], scale: [590, 255, 716, 300],
       entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1180, 650, 'w'], beach: [820, 665, 'w'] },
-      spots: { 'The sea': [420, 365, 600, 100], 'Promenade steps': [520, 485, 380, 75], 'Bonfires': [600, 405, 300, 80], 'Phone box': [292, 288, 130, 310],
-        'Kiosk': [0, 165, 265, 460], 'Hotel Cristina': [1100, 120, 180, 470], 'To the city': [0, 600, 50, 116] },
+      // (the city exit was a strip under the kiosk and easy to miss for it, and the steps hotspot went: the user, 2026-10-31;
+      // the city is now the open promenade between the phone box and the steps down to the beach)
+      spots: { 'The sea': [420, 365, 600, 100], 'Bonfires': [600, 405, 300, 80], 'Phone box': [292, 288, 130, 310],
+        'Kiosk': [0, 165, 265, 460], 'Hotel Cristina': [1100, 120, 180, 470], 'To the city': [440, 585, 300, 55] },
       // Chano inside his kiosk (the user, 2026-10-29), the counter and the panelled front hiding him below the waist
       npcs: { chano: [150, 605] },
       occluders: [{ y: 612, polys: [[[0, 494], [274, 494], [274, 640], [0, 640]]] }],

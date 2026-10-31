@@ -77,10 +77,11 @@ window.S.EXTRAS = {
    ],
    "x": 1101,
    "y": 663,
-   "dir": "e",
+   "dir": "w",
    "scale": 1.0,
    "size": 1,
-   "h": 315.7
+   "h": 315.7,
+   "flip": true
   }
  ],
  "hotel_restaurant": [
@@ -440,7 +441,7 @@ window.S.CAST_AT = {
   "clerk": [
    868,
    525,
-   "w"
+   "e"
   ],
   "vasco": [
    742,

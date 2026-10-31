@@ -339,7 +339,7 @@
         items: { coins: () => S.phoneBox(), any: 'alan_fail_phone_item' } },
       { name: 'Kiosk', rect: [60, 260, 200, 200], at: [260, 660], look: 'alan_look_kiosk', use: () => S.talkChano(), noBox: false },
       { name: 'Hotel Cristina', rect: [1160, 240, 110, 330], at: [1200, 650], exit: 'hotel_lobby', entry: 'canteras' },
-      S.toMap([1000, 560, 160, 40], [1080, 690]),
+      S.toMap([1000, 560, 160, 40], [590, 640]),   // (the rect is layout.js's spots['To the city'])
     ],
     async enter() {
       if (ch() === 1 && F().reception_done && !F().mist_seen) { F().narr_canteras = true; return S.walkTue(); }

@@ -195,7 +195,7 @@ window.LINES = {
   alan_postcard_write: ['alan', "Inês. Arrived. Luggage in Madrid. Vasco is radiant, there's no other word for it. He kissed me in front of two nuns. [pause] I don't know why that makes me want to cry. Don't tell him. A."],
   alan_postcard_written: ['alan', "Written. Now it just has to get to Lisbon before I do."],
   chano_postcard_post: ['chano', "The postman comes at five. [pause] I won't read it. I'll only look at the picture."],
-  alan_look_postcard: ['alan', "Las Canteras at sunset, in colours the real one has never once managed."],
+  alan_look_postcard: ['alan', "Las Canteras in full sun, in colours the real one has never once managed."],
   // ---- people noticing Alan (the user, 2026-10-30: "funny comments about Alan - how sexy he is... he should react
   // sometimes flirty (when men say that) sometimes embarrassed (when women do it)")
   candelaria_shoulders: ['candelaria', "Ay, what shoulders. [pause] If I was thirty years younger, mi niño, I'd charge you nothing."],

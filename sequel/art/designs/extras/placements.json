@@ -491,7 +491,7 @@
  },
  "cast_gando_clerk": {
   "cast": "Clerk",
-  "flip": false,
+  "flip": true,
   "room": "gando",
   "size": 1,
   "x": 868,
@@ -509,7 +509,7 @@
  },
  "pmvvw531vjiwp": {
   "extra": "gando_nuns",
-  "flip": false,
+  "flip": true,
   "room": "gando",
   "rot": 0,
   "size": 1,
