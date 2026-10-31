@@ -496,6 +496,8 @@
   S.dinnerOn = () => ch() === 3 && S.dinnerDue() && !F().caught;
   S.museumParty = () => S.receptionOn() || S.dinnerOn();
   S.EXTRAS_WHEN = Object.assign(S.EXTRAS_WHEN || {}, { museum_hall: () => S.receptionOn(), museum_courtyard: () => S.receptionOn() });
+  // the two nuns and the family from Düsseldorf at Gando: Tuesday's arrival only (the user placed them, 2026-10-31)
+  S.EXTRAS_WHEN.gando = () => F().ch === 1;   // (not the prologue, ch 0, nor Sunday)
   S.VARIANTS = Object.assign(S.VARIANTS || {}, { museum_hall_dinner: { room: 'museum_hall', when: () => S.dinnerOn() } });
   ROOMS.museum_hall = S.room({
     music: 'museum_hall',

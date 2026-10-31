@@ -57,6 +57,32 @@ window.S.EXTRAS = {
    "h": 248.6
   }
  ],
+ "gando": [
+  {
+   "id": "x_gando_family",
+   "frames": [
+    "x_gando_family"
+   ],
+   "x": 199,
+   "y": 610,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 0.93,
+   "h": 291.3
+  },
+  {
+   "id": "x_gando_nuns",
+   "frames": [
+    "x_gando_nuns"
+   ],
+   "x": 1101,
+   "y": 663,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 1,
+   "h": 315.7
+  }
+ ],
  "hotel_restaurant": [
   {
    "id": "x_restaurant_waiter",
@@ -417,8 +443,8 @@ window.S.CAST_AT = {
    "w"
   ],
   "vasco": [
-   516,
-   667,
+   742,
+   655,
    "w"
   ]
  },

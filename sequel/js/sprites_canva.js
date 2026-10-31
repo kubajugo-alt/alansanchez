@@ -1135,6 +1135,22 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 230
 },
+"x_gando_family": {
+"ax": 473.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 946
+},
+"x_gando_nuns": {
+"ax": 327.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 655
+},
 "x_museum_buffet": {
 "ax": 903.0,
 "fy": 740.0,

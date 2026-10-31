@@ -288,6 +288,28 @@
     560,
     0.809
    ]
+  },
+  {
+   "id": "gando_nuns",
+   "room": "gando",
+   "aspect": "3:4",
+   "desc": "Two Spanish nuns in dark habits at the baggage belt, 1996: the older one with glasses, hand on her chest, scandalised; the younger trying not to smile, a small suitcase at her feet. (Canva, 2026-10-31)",
+   "place": [
+    1101,
+    663,
+    1.0
+   ]
+  },
+  {
+   "id": "gando_family",
+   "room": "gando",
+   "aspect": "3:4",
+   "desc": "A German family from Düsseldorf with a luggage trolley, 1996: father in socks and sandals with a camcorder bag, mother with a perm, a boy in a Germany shirt, a girl with a teddy pointing. (Higgsfield fallback, 2026-10-31)",
+   "place": [
+    199,
+    610,
+    1.0
+   ]
   }
  ],
  "jobs": {
