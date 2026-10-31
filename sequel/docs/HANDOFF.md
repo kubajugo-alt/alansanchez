@@ -1702,3 +1702,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - **Not tested**: Safari/iOS and Firefox (no WebKit/Firefox here). Safari keeps site data of a page not added to the
       Home Screen only 7 days without a visit, and its quota for a site is a share of the disk (older iOS asked at
       ~1 GB); best on iOS: Add to Home Screen, download from the icon. Not deployed.
+128. **Two deploys** (2026-10-31, the user: "Deploy all", then "please deploy when ready").
+    - `63247889` (Vasco's walks, the taxi driver, the nuns facing the kiss, Canteras' city exit, the postcard line):
+      play.mjs on the export won (132 steps, no errors); Netlify deploy `6ae5e3fbc01386690f63681b`.
+    - `aebec9f3` (+ Play offline, entry 127; `build-manifest.mjs` run last): play.mjs on the export won (132 steps, no
+      errors); Netlify deploy `6ae5eaf0b885937efacb2915`. Live: `/` 200, `/.env` 404, `/sw.js` (no-cache),
+      `/offline.json`, `/manifest.webmanifest` (application/manifest+json) all served.
+    - The app icons (`art/app/icon-*.png`, cut from the title painting's sun) went out with it; the user hasn't seen them.
