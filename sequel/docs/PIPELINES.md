@@ -130,6 +130,10 @@ a clip per room on a page, then the user's word.
   (YuNet landmarks; originals kept in `art/review/head_swap/`), sprites flagged `cut: true` (straight cuts, no breathing
   bend), played frame by frame from the story (`p.poses.x = key; p.pose = 'x'`), preloaded with `Engine.ensure(keys)`.
   Kling refused the undressing; Ludo (forge) did it.
+- **Two people in one action** (the airport kiss, HANDOFF 119): put both standing sprites side by side in one 720-tall
+  frame (`art/sprites/pair_gando_stand.webp`), Ludo from that single frame with a prompt, play forward, hold, then
+  backwards so they end as they stood; one `duo_*` character on the first person's feet, both real actors hidden
+  meanwhile; `def.shadow` stretches the contact shadow over both. Time it to the line that describes it.
 
 ## 7. Background people and props (51-56, 71-74, 79-85)
 
@@ -179,6 +183,11 @@ in `js/story/docs.js` (`G.closeup([page(...)])`).
 - **A word said the Spanish way** (HANDOFF 99): `scripts/tts_text.json` holds, by line id, the text the voice reads
   where it must differ from the caption (e.g. the price in Spanish); `generate-voices.mjs --tts=FILE --out=DIR` makes
   auditions without touching the game's recordings.
+- **Emotion** (HANDOFF 118): the same file carries ElevenLabs v4 audio tags (`[hurt, rising]`, `[shouting, frantic]`,
+  `[voice breaking]`), every word of the caption kept. Make auditions into `art/review/voices/<pass>/`, a review page
+  (copy `vasco_emotion_2/page/`: Now/New, approve/redo, db `verdicts`), install on approval (old mp3 to
+  `audio/voice_stale/<pass>_old/`, the tags into `tts_text.json`), then lip-sync those ids. Budget first: check
+  `GET /v1/user/subscription` (character_limit - character_count); a line costs about its tagged length.
 
 ## 10. Music and sound
 

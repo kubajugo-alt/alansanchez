@@ -92,6 +92,17 @@ original.
   (Depth Anything V2 per frame, smoothed in space and time), stacked into `art/video/harimaguadas.mp4`/`.webm`, with the
   review strips `art/review/harimaguadas/split_*.jpg` (HANDOFF entry 110).
 
+- `scripts/duo_kiss_install.py`: the airport kiss (Ludo `art/review/ludo/gando_kiss/improve/sheet.webp`) cut to
+  `art/sprites/duo_gando_kiss_NN.webp` + their sprite data. Played by `S.kissAtGando` (tue.js) as a pose of the
+  `duo_gando_kiss` character (core.js), swapped in for Alan and Vasco (HANDOFF entry 119). Keys starting `pair_` are
+  treated as Game I's painted-left pairs by actor.js, hence the `duo_` prefix.
+- `scripts/tts_text.json`: what the voice reads where it differs from the caption, mostly ElevenLabs v4 emotion tags
+  (`[shouting, frantic] ...`). Read by `generate-voices.mjs`; the caption in `lines.js` is unchanged (entry 118).
+- `js/engine/lights.js` `groundShadows`: an actor's `def.shadow = { dx, wide }` moves and stretches its contact shadow
+  (the two-person kiss figure, entry 119).
+- `S.EXTRAS_WHEN[room]` (layout.js reads it): when a room's background people are there; `gando` is Tuesday only
+  (`F().ch === 1`; `ch()` in tue.js returns 1 for the prologue's 0, so not that) (entry 120).
+
 ## Testing
 
 Serve `sequel/` (`npx -y http-server sequel -p 8099 -c-1 -s`, the folder first: with it after `-s` the server

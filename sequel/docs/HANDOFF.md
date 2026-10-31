@@ -1,13 +1,14 @@
 # The Shortest Night: handoff
 
-## Start here (2026-10-30)
+## Start here (2026-10-31)
 
 **One session only** (2026-10-30, the user: "from now on, only you will work"): this branch, `claude/happy-ptolemy-m086fu`
-(PR #13), is the line of work; other branches on the remote are old Game I work and are not merged here.
+(PR #15, kubajugo-alt/alansanchez), is the line of work; other branches on the remote are old Game I work and are not merged here.
 
 Game II, *Alan Sanches II: The Shortest Night* (Gran Canaria, 18–24 June 1996). It lives in `sequel/`, its own web
 root, in the same repository as Game I. Read, in this order:
-- this section, then the newest entries of the session log below (87 onwards is the latest work);
+- this section, then the newest entries of the session log below (105 onwards is the latest work; 117–123 the last
+  session's);
 - `docs/PIPELINES.md`: **how we work**, step by step (rooms, sprites, Ludo, faces and lip-sync, the sea loops, ambient
   movement, sound and voices, recording with sound, deploy) and **every external service** with its limits;
 - `docs/CODEMAP.md` for the code; `docs/BIBLE.md` and `docs/story-bible.md` for the story (brought up to date with the
@@ -27,7 +28,7 @@ root, in the same repository as Game I. Read, in this order:
 - **The whole story is playable**, prologue to credits: the prologue (Elena's last drive), Tuesday to Monday as
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
   the ending. Every day rewritten from the novel (entries 17, 87). `node scripts/tests/play.mjs` plays it all.
-- **2,664 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs (entry 94), except
+- **2,906 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs (entry 94), except
   the puzzles' lines too (entry 100). The ElevenLabs key lives in the root `.env` (git-ignored; a new cloud container
   needs it again, entry 99).
 - **Puzzles** (entry 97, `docs/puzzles/DESIGN.md`, `js/story/puzzles.js`): knowledge as inventory: words Alan earns,
@@ -46,22 +47,21 @@ root, in the same repository as Game I. Read, in this order:
   a packet of Coronas from Chano every day he talks to her (entry 78).
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
-### Open, in the order I'd suggest
-0. **Cave 6, redesigned (entry 106)**: built and playable (`?scene=cave`, `cave_low`, `monday`, `aim`, `aim_sun`); its
-   199 lines (118 changed, 81 new), with the narrator cut back (entry 109: 66 narrator lines to 13, 24 new character
-   lines, and Vasco's nudge), wait for the user's read in `docs/puzzles/CAVE6_LINES.md`, then recording.
-0a. **The pockets' icons, the close-up pictures and Vasco on the bed (entry 116)**: approved art now in the game, for the
-   user to see (`art/review/items/in_game_*.jpg`). Not deployed.
-1. **The granary (entries 98, 100)**: built and live; the user to see it in the game (`?scene=vault` for the cell,
-   `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved, voiced and live; "pesetas" is B (entry 100).
-1a. **The water (entry 108)**: redesigned, in the game; for the user's review (`art/review/water/`; `?scene=vault`,
-    `rescue_vault`, `aim`, `aim_sun`, `landrover`).
-2. **Deployed** (entry 101): everything to here is live.
-3. **Parallax** is on (entry 96): the recording waits for the user's approval before a deploy.
-4. **Environment movement**: the user's pick from the ten fixes in `docs/review/env_movement.md`.
-5. **Stills**: the 16 text cards still to paint.
-6. Waiting on the user: which new puzzles to build; Carmen's spot in the vault on Sunday and Vasco at the camp may
-   need placing with the placement tool.
+### Open, in the order I'd suggest (2026-10-31)
+1. **Vasco's walks from his repaint (entry 122)**: a background agent was making them when the session ended; the runs
+   are in `art/review/ludo/vascor*` (some maybe uncommitted if the container was lost: check `git status`, re-run what's
+   missing with `scripts/ludo.py`). Put them on a review page for the user; install only on approval; they go in the
+   **next deploy**.
+2. **86 unrecorded lines (entry 117)**, mostly Cave 6's finale: wait for ElevenLabs' reset on 14 Nov or a top-up.
+3. **Questions the user hasn't answered**: the city exit "mistaken for kiosk" on Las Canteras (121); flip the Gando nuns
+   to face the kiss? add the taxi driver? (120); audition Canarian-sounding voices? (118); `alan_look_postcard` says
+   "at sunset" but the postcard is by day (116); Gando's board reads "JUN16" and "BÜSSEDORF" (120).
+4. **Love close-ups and morning-after stills**: approved art, not wired into the game yet.
+5. `docs/BIBLE.md` not yet updated for Cave 6's redesign (106); no Inês hints for Monday.
+6. **The water (108)**: the user asked whether the first surge should drop back to the knees: unanswered.
+7. **Ludo key**: the user pasted it in chat; advised rotating it. It and the ElevenLabs/Gemini keys live in the root `.env`
+   (git-ignored; a new container needs them again: ask the user, never print them).
+8. Older: environment movement fixes (`docs/review/env_movement.md`), the 16 text-card stills, parallax recording.
 
 ### Voice casting (the user's rule, 2026-10-27)
 - **Alan, Vasco, Inês and the narrator keep their Game I voices** (Game I's `scripts/cast.json`): Alan
@@ -1494,3 +1494,79 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Checks: `node --check` on every changed file; validate 0 errors; `scripts/tests/items_shot.mjs` ->
       `art/review/items/in_game_*.jpg` (the bed, Vasco speaking from it, the inventory full and in two halves, every
       close-up page), all looked at, no page errors; play.mjs: won, 132 steps, no page errors.
+117. **Recording the missing lines; lip-sync** (2026-10-31, the user: "re-record the 48 lines", then "all approved").
+    - 331 lines that had no recording were voiced (`generate-voices.mjs`, 0 failed) and 358 lip-synced (Rhubarb,
+      `RHUBARB=/tmp/.../rhubarb python3 scripts/lipsync.py --speaker all <ids>`; Rhubarb 1.13.0 is downloaded to
+      `/tmp/claude-0/tools/rhubarb/` per container). `js/lipsync.js` is regenerated from every file in `lipsync/` on each run.
+    - **Still unrecorded: 86 lines** (about 11,300 characters), mostly Cave 6's finale: `vasco_scene_*`, `vasco_nudge_*`,
+      `baute_m_verse_1..7` / `vasco_m_verse_1..7`, `narr_m_*`, and Vasco's Saturday in the cave `narr_v_*`. Some of the
+      `narr_m_*`/`narr_mon_*` ones are no longer used after the narrator cut (validate lists unused ids). They play as
+      captions. **ElevenLabs credits**: about 1,500 characters left until the monthly reset on **14 November**; the rest
+      waits for that or a top-up (ask the user). List them with the node one-liner in this entry's commit message or:
+      every `LINES` id whose speaker is cast and has no `audio/voice/<id>.mp3`.
+    - `scripts/voice_redo.txt` (208 ids) predates this: check each against its mp3's date before trusting it.
+118. **Emotion in Vasco's and Alan's voices** (2026-10-31, the user: "We also need to work on Vasco's emotions... sometimes
+    shout", "vasco has more lines that could be more emotional", "there were some when he was saving alan from the water",
+    "let's also review Alan's lines"). All approved and installed.
+    - Method: ElevenLabs v4 audio tags in `scripts/tts_text.json` (per line id; the caption in `lines.js` stays). Every
+      word kept, tags only (`[hurt, rising]`, `[shouting, frantic]`, `[voice breaking]`, `[pause]` kept).
+    - Vasco: 28 (first pass, entry 109 era) + 52 (`art/review/voices/vasco_emotion_2/`) + 11 in the flooding cave and the
+      rescue (`vasco_rescue/`: `vasco_m_who`, `_wrong_2`, `_nonono`, `_light`, `_seventh_3`, `_dead_centre`, `_true`, `_hold`,
+      `_stopped`, `_twice`, `_twice_2`). Alan: 190 (`art/review/voices/alan_emotion/`, `MAP.md` is the map by scene with
+      the reason for each; `page/` and `page2/` the two review pages). Replaced takes are in `audio/voice_stale/`
+      (`vasco_emotion_2_old/`, `vasco_rescue_old/`, `alan_emotion_old/`).
+    - Review pages (artifacts, db `verdicts`): Vasco II https://claude.ai/artifact/5f8bQ6BEGeR3ydQTiGbPwN, Vasco in the
+      water https://claude.ai/artifact/32o4hRj1RqZ7B74hmpM7YD, Alan https://claude.ai/artifact/PvFEwJgTFr9hVZQZU8XCMx,
+      Alan II https://claude.ai/artifact/23rXc4ZhS9zYxus1kTUXcx.
+    - Takes the user may want to hear again (approved as they are): `alan_t_burnt`, `alan_lr_fill` (pain, not dry),
+      `alan_f_choice_b` (nervous joke), `alan_someone_no`/`_no2` (the two lies to Rafa), `alan_m_blame_2` (self-pitying).
+    - **Cast accents reviewed** (the user asked): Alan and Vasco (Portuguese) are American voices from Game I; most
+      Canarians are Castilian (peninsular) voices, four Latin American (Carmen, Pino, Montesdeoca, Lolo), one labelled
+      Canary Islands (an extra). The bible wants a Canarian lilt "closer to the Caribbean than to Madrid". Rafa and the
+      museum's academic share a voice (Dani), the guard and the beach's old man too (Luis). Offered: audition Canarian /
+      Caribbean-leaning voices for the main Canarians; **not done, the user hasn't answered** (their rule: same voices).
+119. **The airport kiss** (2026-10-31, the user: "the airport scene needs a sprite in which they kiss - starting from
+    their individual sprites standing like that. you need to use ludo for it"; "we need them to kiss and then go back to
+    the original positions"; "awesome"; "make sure to time the kiss when the narrator mentions it").
+    - Ludo (hydra + improve, `art/review/ludo/gando_kiss/`) from `art/sprites/pair_gando_stand.webp`: `alanv_side_k` and
+      `vascor_side_k` flipped, both 720 tall, side by side (Alan's anchor 79.5, Vasco's 392.3 in the 533-wide two-shot).
+      36 frames; played in, held 8 frames, then backwards, so they end exactly as they stood.
+    - `scripts/duo_kiss_install.py` -> `art/sprites/duo_gando_kiss_00..35.webp` (anchored on Alan's feet). Character
+      `duo_gando_kiss` (core.js, pose `kiss`), npc `duo_kiss` in `ROOMS.gando` (hidden until used), `S.kissAtGando(p, v)`
+      in tue.js: Vasco stops 312.8/720 of Alan's height to his right, both hidden, the duo plays while `narr_t_kiss` is
+      said (that narrator line was cut in entry 111; put back over the kiss at the user's word), then they're shown again.
+      Its contact shadow: `def.shadow` (lights.js).
+    - Checked in the running game (`/tmp` Playwright script: start `?scene=tue`, call `S.meetVasco()`): swap in and out on
+      cue, no page errors.
+    - The `ludo.py` resume quirk: a run that crashes on a connection reset after the job succeeded has its URLs in
+      `job.json` under `hydra`/`improve`, but `ludo.py fetch` looks for `up`/`true`: download from job.json by hand.
+120. **Gando's background people: two nuns and a family from Düsseldorf** (2026-10-31, the user: "we need to add
+    background characters to the airport - 2 nuns and a german family"; "done, characters placed").
+    - Nuns: Canva (media MAHZjCoHXPU; full size exported via a copied scratch design DAHZjGz7W4Q in the user's Canva,
+      deletable). Family: Higgsfield `gpt_image_2_5` fallback (Canva was in quota cooldown), job
+      53f1fa82-f68b-4334-baeb-43bc596b8a64, style refs: the extras' cast sheet and the Canva nuns. Review:
+      `art/review/extras_gando/`.
+    - Added to the placement tool's tray; the user placed them (nuns 1101,663; family 199,610 at 0.93; Vasco's start moved
+      to 742,655); installed with `extras_install.py` (`x_gando_nuns`, `x_gando_family`). `S.EXTRAS_WHEN.gando = () =>
+      F().ch === 1`: Tuesday's arrival only (the clerk stands where the family is on Sunday).
+    - As placed, the nuns face right (towards the taxi door), the family faces the kiss: asked the user if the nuns
+      should be flipped; no answer yet. The narrator also mentions a taxi driver: offered, no answer yet.
+    - The painting's arrivals board reads "JUN16 1996" and "BÜSSEDORF" (the story's day is the 18th): told the user; the
+      paintings don't change without their word.
+121. **Hotspots** (2026-10-31, the user: "The mercado leaving to city hotspot is too close to the edge, inventory blocks
+    it. The promenade steps hotspot is not necessary, better to put the 'go to beach' there").
+    - Mercado: `S.toMap` moved up to [480, 530, 320, 70] (the inventory bar covers the bottom 15%).
+    - Las Canteras: "Promenade steps" removed (its daily `alan_look_steps_N` tide lines are now unused); "Down to the
+      beach" is on the steps and the wall beside them, [780, 470, 320, 90].
+    - **Open**: "go to city hotspot often gets mistaken for kiosk" (same message). On Las Canteras the city exit is the
+      pavement before the hotel steps, far from the kiosk; asked the user which they mean (move the city exit to the left
+      edge by the kiosk?). No answer yet.
+122. **Vasco's walks from his repaint** (2026-10-31, the user: "please do vasco's walking sprites, the same set as alan
+    has"; "vasco's sprites will go in the next deploy. when they are done, put them in the review tool").
+    - Since the repaint (`vascor_*`) Vasco glides on one painting: his Ludo walks/turns were made from the old `vascos_*`
+      sprites (`scripts/ludo_runs.json`), and `V.frames = still('vascor')` passes no walker.
+    - A background agent is making `vascor_walk_side/front/back`, `vascor_turn_side_front/left/back` and the dinner
+      outfit's (`vascor_dinner_*`; no repainted back view of either outfit exists: `scripts/vascor_back_recolour.py` is
+      its work on that). Runs are in `art/review/ludo/vascor*`; `scripts/ludo_review_vascor.py` builds the review. Not in
+      the game. **Next**: when done, put them in a review page (like the Ludo reviews before) for the user; on approval,
+      add them to `ludo_runs.json` / `ludo_install.py` and pass `'vascor'` as the walker in core.js `still('vascor', ...)`.
