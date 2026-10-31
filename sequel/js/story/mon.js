@@ -341,10 +341,10 @@
       await T(window.FAST ? 10 : 1200);
       await say('vasco_m_true');
       await T(window.FAST ? 10 : 1200);
-      // the triangles flare; the women of light, in a ring round the noon column (about ten seconds, no words); then only
-      // the columns
+      // the triangles flare; the women of light, in a ring round the noon column with Alan in it, come in a flash of
+      // light, dance (two loops, no words) and go in another; then only the columns
       S.closing = performance.now() / 1000; S.sfx('bell_hum', 0.35);
-      await T(window.FAST ? 20 : 11800);   // (in, held, and faded out: vasco.js S.drawLowLight's envelope, 11.5 s)
+      await T(window.FAST ? 20 : S.DANCE_MS);   // (16.1 s: the flash in, the dance, the flash out: js/story/dance.js)
       S.closing = null;
       await T(window.FAST ? 10 : 800);
       await say('narr_m_breath');

@@ -1289,6 +1289,51 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - `scripts/tests/play.mjs` asks Vasco "Which one goes first?" and "...next?" on Monday and checks the answer.
     - Checks: `node scripts/validate.mjs` 0 errors (183 warnings: the unused lines); play.mjs before the nudge: won, 130
       steps, no page errors; with the nudge: won, 132 steps, no page errors.
+110. **The women of light: the Kling dance in the closing, Alan inside the ring, a flash in and out** (2026-10-31, for
+    review). The user approved the Higgsfield/Kling loop (`art/review/harimaguadas/dance_a7.mp4`) and asked: "the harimaguadas animation should fade in in a flash of light and fade out the same way",
+    "ideally, alan should stand in the circle between them, with the occlusions done right".
+    - **The split** (`scripts/dance_layers.py <depth-model.onnx>`): the loop's 192 frames (the 193rd is the first again)
+      at 960x540, each cut into the ring's far half (BACK) and near half (FRONT). Luminance alone could not do it: the
+      two rows of the ring overlap almost all the time, so a blob is two or three women. What separates them is depth:
+      Depth Anything V2 small (ONNX, as `depth_map.py`) on each frame reads the near women clearly nearer (the ring is
+      seen from above: their feet lower, them bigger). Per frame: a luminance core (blur 2, > 0.3), its depth normalised,
+      an Otsu threshold (median over 9 frames, circular), a soft vote per core pixel, spread to every pixel by
+      brightness-weighted normalised convolution (8 px at the bodies, 30 px for glow and trails, so each woman's glow
+      goes with her), then a circular gaussian over time (sigma 1.5 frames). FRONT = frame x smoothstep(vote),
+      BACK = frame x the rest; screen-blended they give the frame back.
+      How good: the woman behind Alan (the far middle of the ring) is BACK and the near row FRONT in every frame; nobody
+      flickers between the layers (`split_flicker.jpg`, every 2nd frame of the busiest stretch). Where it errs: the
+      women at the ring's two sides, crossing from near to far, are split half-and-half for a few frames (a head one
+      way, a skirt the other), and where a back woman's hand meets a front woman the hand can go with the front one.
+      Both are away from Alan, so they don't show in the game.
+      Review: `art/review/harimaguadas/split_all.jpg` (the loop, red = front, blue = back), `split_flicker.jpg`,
+      `split_frames.jpg`, `split_layers.jpg` (the two layers themselves).
+    - **One video, two halves**: `art/video/harimaguadas.mp4` (H.264) / `.webm` (VP9), 960x1080, BACK on top, FRONT below
+      (1.8 MB each). Not two files: two video elements drift a frame apart and a woman split across the halves would
+      tear.
+    - **In the game** (`js/story/dance.js`, new, loaded after `water.js`; `cave6_low` gets `animFg`): while `S.closing`
+      is set, after the figures and the Sea's water (`js/engine/render.js`: figures, `E.waterPass.end`, then `animFg`):
+      BACK into an offscreen canvas, every visible figure's sprite silhouette cut out of it (`destination-out`, as
+      water.js builds its masks), then screen-blended; FRONT screen-blended over Alan. Both 35% dimmer below the water's
+      surface as it stands on a figure at Alan's feet (their lower parts in it); drawing BACK before the figures would
+      have put it under the water pass, which takes a floor pixel as floor and sinks it whole. Placed at 0.82 (787x443),
+      the ring's centre on Alan (641, 655 at the seventh socket, fixed when the closing starts): far feet ~y 557, near
+      ~y 703, his between. The triangles' flare (`S.drawLowLight`) follows `S.closingEnv`.
+    - **The flash**: a warm white-gold screen bloom from the noon column over the whole frame (plus a light additive
+      wash), up in 0.25 s, down in 0.8 s; the women's opacity rises 0.08–0.4 s, under it. At 15.0 s the same flash again,
+      the women gone by its peak (15.3 s). The scene now waits `S.DANCE_MS` = 16.1 s (was 11.8 s), two loops of the
+      dance; what follows in `S.closeLock` is unchanged and runs after it.
+    - **Without video** (not ready by 0.6 s, or an error; decided once per closing): the old code-drawn women
+      (`S.harimaguada`) in a ring round Alan through the same back/front split and flash. `S.danceMode()` says which.
+    - Checks: `node scripts/validate.mjs` 0 errors; the closing in the running game (`?scene=aim_sun`, Alan at 641, 655,
+      `S.closing` set by hand): `art/review/harimaguadas/in_game_flash_in.jpg` and `in_game_flash_out.jpg` (from a
+      playwright recording, 6 frames each), `in_game_dance_1..4.jpg` (screenshots: the far woman behind Alan, the near
+      row's joined hands across his legs), `in_game_fallback.jpg` (the video blocked: the drawn women). No page errors.
+      `in_game_closing.mp4` (19 s, 1280x720 H.264): the whole closing from a second before the flash in to after the
+      flash out, recorded with playwright with full effects forced (`window.WARP = true`, so headless chromium's slow
+      frames don't lower them) and the walking tip hidden; no sound (playwright records none).
+      `node scripts/tests/play.mjs`: won, 132 steps, no page errors (`"result": "won"`, `"errors": []`; the dance
+      itself is skipped there, `window.FAST`). Nothing else in the closing changed.
 111. **The prologue and Tuesday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
     there is way too much narrator... Some things should simply be done by the characters, other just said by the
     characters" and "it is basically the entire game". As Cave 6 (109): every narrator line played in the prologue

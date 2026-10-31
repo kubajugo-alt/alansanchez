@@ -229,7 +229,8 @@
     g.fillStyle = r; g.beginPath(); g.arc(0, 0, w * 0.6, 0, 7); g.fill(); g.restore();
   };
   const triFill = (g, tr, a) => { g.fillStyle = `rgba(255,226,150,${a})`; g.beginPath(); g.moveTo(...tr[0]); g.lineTo(...tr[1]); g.lineTo(...tr[2]); g.closePath(); g.fill(); };
-  // a woman of light (outline only: robe, raised arms with a branch, swaying); the closing, when the seventh is set
+  // a woman of light (outline only: robe, raised arms with a branch, swaying); the closing's fallback when its video
+  // (js/story/dance.js) cannot play
   S.harimaguada = function (g, x, y, k, t, j, a) {
     const sw = Math.sin(t * 2.2 + j) * 0.12, arm = Math.sin(t * 3 + j * 1.7);
     g.save(); g.translate(x, y); g.scale(k, k); g.rotate(sw * 0.3);
@@ -280,15 +281,13 @@
     if (A) {   // the socket being worked: a faint ring
       g.save(); g.strokeStyle = 'rgba(255,216,138,0.7)'; g.lineWidth = 2; g.beginPath(); g.ellipse(SOCK[A.socket][0], SOCK[A.socket][1], 30, 11, 0, 0, 7); g.stroke(); g.restore();
     }
-    // the closing: the triangles flare, the women of light dance in a ring round the noon column, then only the columns
+    // the closing: the triangles flare while the women of light dance in a ring round the noon column, then only the
+    // columns (the women and the flash in and out: js/story/dance.js S.drawDance, from this room's animFg)
     if (S.closing) {
-      const e = performance.now() / 1000 - S.closing, env = e < 2 ? e / 2 : e < 9 ? 1 : Math.max(0, 1 - (e - 9) / 2.5);
+      const env = S.closingEnv(performance.now() / 1000 - S.closing);
       if (env > 0) {
         g.save(); g.globalCompositeOperation = 'screen';
         g.save(); clipOpen(g); g.filter = 'blur(3px)'; TRI_LOW.forEach(tr => triFill(g, tr, 0.55 * env)); g.filter = 'none'; g.restore();
-        const ring = [];
-        for (let j = 0; j < 7; j++) { const a = e * 0.55 + j * Math.PI * 2 / 7, z = Math.cos(a); ring.push([z, a, j]); }
-        ring.sort((p, q) => p[0] - q[0]).forEach(([z, a, j]) => S.harimaguada(g, 639 + Math.sin(a) * 170, 548 + z * 14, 0.8 + z * 0.15, e, j, env * (0.55 + 0.35 * (z + 1) / 2)));
         g.restore();
       }
     }
@@ -390,6 +389,7 @@
       { name: 'Rope ladder', rect: [430, 140, 90, 400], at: [500, 640], when: () => ch() === 7, look: 'alan_m_in_already', use: 'alan_m_in_already' },
     ],
     animBack(g, t) { S.drawLowLight(g, t); },
+    animFg(g) { S.drawDance(g); },   // (the closing's women of light, after Alan and the water: js/story/dance.js)
     // (the Sea's water in the chamber: js/story/water.js, clearer there, so the sockets and the discs stay readable)
     async enter() {
       if (asV() && !F().v_low_intro) { F().v_low_intro = true; S.sfx('ladder_creak', 0.4); await say('vasco_low_in'); }
