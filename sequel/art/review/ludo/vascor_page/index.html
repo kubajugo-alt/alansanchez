@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vasco Walking</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Alegreya+Sans:wght@400;500&display=swap">
+<style>
+/* Layout: one column of lines grouped by scene; each line: caption, the voice direction, two players (now / new), verdict. */
+:root{--bg:#f4efe6;--card:#fffaf2;--fg:#2b2420;--muted:#7a6c60;--line:#e0d6c6;--accent:#8a3b2a;--ok:#2f6b46;--display:"Cormorant Garamond",Georgia,serif;--body:"Alegreya Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1715;--card:#25201d;--fg:#efe6da;--muted:#a8998a;--line:#3a312b;--accent:#e08a6a;--ok:#8fc49a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1715;--card:#25201d;--fg:#efe6da;--muted:#a8998a;--line:#3a312b;--accent:#e08a6a;--ok:#8fc49a;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1{font-family:var(--display);font-size:34px;margin:0;text-wrap:balance}h2{font-family:var(--display);font-size:22px;margin:18px 0 0;color:var(--accent)}
+.sub,.msg{color:var(--muted);margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.cap{font-size:17px;margin:0}.dir{font-size:13px;color:var(--muted);margin:0}.dir b{color:var(--accent);font-weight:500}
+video,img.strip{width:100%;border-radius:4px;background:#000}.pl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}.pl div{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+audio{width:100%}.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{font:500 14px var(--body);padding:6px 14px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:4px;cursor:pointer}
+button.on.ok{background:var(--ok);color:#fff;border-color:var(--ok)}button.on.redo{background:var(--accent);color:#fff;border-color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.status{font-size:13px;color:var(--muted)}
+</style>
+<div class="wrap"><header><h1>Vasco walking</h1><p class="sub">Vasco's walks and turns from his repainted sprite, the same set Alan has: day clothes and the navy blazer (the blazer has no back view painted, so no walk away or turn to the back). Made with Ludo; not in the game yet. Approve each one or send it back; comment on what to fix.</p></header>
+<article class="card"><p class="cap">All together: Alan's set on top, then Vasco in day clothes, then in the blazer</p><video controls loop muted playsinline preload="metadata" src="set.mp4"></video></article>
+<p class="msg" id="msg">Loading the verdicts…</p><div id="list"></div></div>
+<script>
+const ROWS=[["vascor_walk_side", "Day clothes", "Walk, side", "Same pace as Alan's; feet move about as much as his."], ["vascor_walk_front", "Day clothes", "Walk, towards us", ""], ["vascor_walk_back", "Day clothes", "Walk, away", "There's no back painting of the repaint: made from the old back view with the shirt recoloured cream (sleeves and trousers still the old ones)."], ["vascor_turn_side_front", "Day clothes", "Turn, side to front", "His face drifts mid-turn (smoother, younger); fixable at install by pasting his head back."], ["vascor_turn_side_left", "Day clothes", "Turn, right to left", ""], ["vascor_turn_side_back", "Day clothes", "Turn, side to back", "Made from the recoloured old back view, like the walk away."], ["vascor_dinner_walk_side", "Navy blazer", "Walk, side", ""], ["vascor_dinner_walk_front", "Navy blazer", "Walk, towards us", ""], ["vascor_dinner_turn_side_front", "Navy blazer", "Turn, side to front", "Face drift mid-turn, and one frame dips in height; both fixable at install."], ["vascor_dinner_turn_side_left", "Navy blazer", "Turn, right to left", ""]];
+
+const list=document.getElementById('list'),msg=document.getElementById('msg');const verdicts={};let db=null,comments=null;
+const esc=t=>{const d=document.createElement('div');d.textContent=t;return d.innerHTML};
+const dir=t=>esc(t).replace(/\[([^\]]+)\]/g,'<b>[$1]</b>');let last='';
+for(const [id,sc,cap,note] of ROWS){
+ if(sc!==last){const h=document.createElement('h2');h.textContent=sc;list.appendChild(h);last=sc}
+ const c=document.createElement('article');c.className='card';c.dataset.id=id;
+ c.innerHTML='<p class="cap">'+esc(cap)+'</p>'+(note?'<p class="dir">'+esc(note)+'</p>':'')+'<video controls loop muted playsinline preload="metadata" src="'+id+'.mp4"></video><img class="strip" loading="lazy" alt="Frames of '+esc(cap)+'" src="'+id+'.png"><div class="bar"><button class="ok">Approve</button><button class="redo">Redo</button><button class="cm">Comment</button><span class="status">Not decided yet</span></div>';
+ c.querySelector('.ok').onclick=()=>decide(id,'approved');c.querySelector('.redo').onclick=()=>decide(id,'redo');
+ c.querySelector('.cm').onclick=async()=>{if(comments){try{await comments.openComposer({element:c})}catch(e){}}};list.appendChild(c)}
+function paint(id){const c=document.querySelector('[data-id="'+id+'"]');const v=verdicts[id];c.querySelector('.ok').classList.toggle('on',v==='approved');c.querySelector('.redo').classList.toggle('on',v==='redo');c.querySelector('.status').textContent=v==='approved'?'Approved':v==='redo'?'Needs a redo':'Not decided yet'}
+async function decide(id,v){if(!db)return;const next=verdicts[id]===v?null:v;verdicts[id]=next;paint(id);try{await db.collection('verdicts').doc(id).set({verdict:next,at:Date.now()})}catch(e){msg.textContent='That choice didn’t save. Reload and try again.'}}
+(async()=>{const cl=window.claude;if(!cl||!cl.use){msg.textContent='Open this page on claude.ai to approve and comment.';return}
+ cl.use('comments').then(c=>{comments=c});db=await cl.use('db');if(!db){msg.textContent='Sign in to record verdicts.';return}
+ const t=setTimeout(()=>{msg.textContent='The verdicts are slow to load; choices still save.'},10000);
+ db.collection('verdicts').onSnapshot(s=>{clearTimeout(t);s.docs.forEach(d=>{verdicts[d.id]=(d.data()||{}).verdict||null});ROWS.forEach(r=>paint(r[0]));msg.textContent='Your choices save for this page.'},()=>{clearTimeout(t);msg.textContent='Couldn’t load the verdicts. Reload to try again.'})})();
+</script>

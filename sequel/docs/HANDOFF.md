@@ -1,13 +1,14 @@
 # The Shortest Night: handoff
 
-## Start here (2026-10-30)
+## Start here (2026-10-31)
 
 **One session only** (2026-10-30, the user: "from now on, only you will work"): this branch, `claude/happy-ptolemy-m086fu`
-(PR #13), is the line of work; other branches on the remote are old Game I work and are not merged here.
+(PR #15, kubajugo-alt/alansanchez), is the line of work; other branches on the remote are old Game I work and are not merged here.
 
 Game II, *Alan Sanches II: The Shortest Night* (Gran Canaria, 18–24 June 1996). It lives in `sequel/`, its own web
 root, in the same repository as Game I. Read, in this order:
-- this section, then the newest entries of the session log below (87 onwards is the latest work);
+- this section, then the newest entries of the session log below (105 onwards is the latest work; 117–123 the last
+  session's);
 - `docs/PIPELINES.md`: **how we work**, step by step (rooms, sprites, Ludo, faces and lip-sync, the sea loops, ambient
   movement, sound and voices, recording with sound, deploy) and **every external service** with its limits;
 - `docs/CODEMAP.md` for the code; `docs/BIBLE.md` and `docs/story-bible.md` for the story (brought up to date with the
@@ -27,7 +28,7 @@ root, in the same repository as Game I. Read, in this order:
 - **The whole story is playable**, prologue to credits: the prologue (Elena's last drive), Tuesday to Monday as
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
   the ending. Every day rewritten from the novel (entries 17, 87). `node scripts/tests/play.mjs` plays it all.
-- **2,664 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs (entry 94), except
+- **2,906 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs (entry 94), except
   the puzzles' lines too (entry 100). The ElevenLabs key lives in the root `.env` (git-ignored; a new cloud container
   needs it again, entry 99).
 - **Puzzles** (entry 97, `docs/puzzles/DESIGN.md`, `js/story/puzzles.js`): knowledge as inventory: words Alan earns,
@@ -46,15 +47,21 @@ root, in the same repository as Game I. Read, in this order:
   a packet of Coronas from Chano every day he talks to her (entry 78).
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
-### Open, in the order I'd suggest
-1. **The granary (entries 98, 100)**: built and live; the user to see it in the game (`?scene=vault` for the cell,
-   `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved, voiced and live; "pesetas" is B (entry 100).
-2. **Deployed** (entry 101): everything to here is live.
-3. **Parallax** is on (entry 96): the recording waits for the user's approval before a deploy.
-4. **Environment movement**: the user's pick from the ten fixes in `docs/review/env_movement.md`.
-5. **Stills**: the 16 text cards still to paint.
-6. Waiting on the user: which new puzzles to build; Carmen's spot in the vault on Sunday and Vasco at the camp may
-   need placing with the placement tool.
+### Open, in the order I'd suggest (2026-10-31)
+1. **Vasco's walks from his repaint (entries 122, 123)**: all ten runs made and committed (`art/review/ludo/vascor*`,
+   grid `art/review/ludo/vascor_set_preview.mp4`); no back view for the dinner outfit, the day back keyframe is a
+   recolour of the old back. Put them on a review page for the user; install only on approval; they go in the
+   **next deploy**.
+2. **86 unrecorded lines (entry 117)**, mostly Cave 6's finale: wait for ElevenLabs' reset on 14 Nov or a top-up.
+3. **Questions the user hasn't answered**: the city exit "mistaken for kiosk" on Las Canteras (121); flip the Gando nuns
+   to face the kiss? add the taxi driver? (120); audition Canarian-sounding voices? (118); `alan_look_postcard` says
+   "at sunset" but the postcard is by day (116); Gando's board reads "JUN16" and "BÜSSEDORF" (120).
+4. **Love close-ups and morning-after stills**: approved art, not wired into the game yet.
+5. `docs/BIBLE.md` not yet updated for Cave 6's redesign (106); no Inês hints for Monday.
+6. **The water (108)**: the user asked whether the first surge should drop back to the knees: unanswered.
+7. **Ludo key**: the user pasted it in chat; advised rotating it. It and the ElevenLabs/Gemini keys live in the root `.env`
+   (git-ignored; a new container needs them again: ask the user, never print them).
+8. Older: environment movement fixes (`docs/review/env_movement.md`), the 16 text-card stills, parallax recording.
 
 ### Voice casting (the user's rule, 2026-10-27)
 - **Alan, Vasco, Inês and the narrator keep their Game I voices** (Game I's `scripts/cast.json`): Alan
@@ -1135,3 +1142,463 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       from Canva (`art/review/bg_real/rafa_bar_yeray_drunk.png`, from the in-game yeray_r/c); Vasco on the bed in a towel
       waiting on Canva's cooldown (reminder set).
     - Checks: validate 0 errors; play.mjs won in 131 steps, no page errors.
+105. **Stills approved (all but the love scenes); Vasco in a towel on the hotel bed** (2026-10-30, review only). The
+    user approved every still on the approval page except `still_love_1` and `still_love_2`, after the comment fixes
+    (mist at night with the dark mist, Alan's clothes, the catchers only Baute/Montesdeoca/Vasco, Rafa's longer bed and
+    Alan's portrait on the easel, one Elena and no discs in the chain, Alan's black tank top, shorts and white trainers,
+    Alan in the Land Rover). The love scenes are to be shown another way (open). Vasco on the bed: Canva MAHZhGYusW8 from
+    the in-game vascor (MAHZgxwIxeM) and the bed ref, more chest hair; exported via page 7 of DAHYZ-SDzRE, kept as
+    `art/designs/vasco_towel_bed.png`, keyed, rotated 11°, night-graded, placed by the user on a placement page (https://claude.ai/artifact/MF3B4betqnWGEtUw27peHw, db `placements/vasco_towel`: centre 300.3,404.2, width 340.9, -9°, brightness 0.86), baked at (116,278) on `hotel_room`
+    (`art/review/bg_real/hotel_room_vasco_towel.png/.json`, preview `hotel_room_vasco_preview.jpg`). Awaiting approval.
+106. **Cave 6 built as redesigned: the cave, the chamber under it, the order riddle, the aiming, the women of light**
+    (2026-10-30). The design the user approved, `docs/puzzles/CAVE6.md`, made playable.
+    - Art: `art/bg/cave6.jpg` is now `art/review/cave6_redesign/up_real_etched.png` (one opening in the roof, the hole in
+      the floor with the rope ladder, the seven triangles and their moon signs), and the new room `cave6_low` is
+      `low_real_empty_etched.png` (take B, the pintadera walls, the moon-phase signs etched by each socket; the
+      un-suffixed `*_etched.png` files are B with the moon phases, the `*_etched_b.png` ones still carry the old signs);
+      both Lanczos-upscaled to 2560x1440, depth maps made (`scripts/depth_map.py`; parallax stays off in both). The discs
+      put back are sprites, `art/layers/cave6_disc_<socket>.webp` from `discs/disc_N.png` at `discs.json`'s places.
+    - Code (`js/story/vasco.js`): `S.CAVE` (the wall order, the floor = the wall mirrored, the telling's order), the
+      light in both rooms drawn from one state (`S.columns()`, `S.lightOn()`: the noon column down the shaft, each disc's
+      column crossing in the hole to its triangle, Baute's tipped sun going up the shaft, the cloud, the mirror), ported
+      from `aim.html`, and the code-drawn women of light (`S.harimaguada`). Saturday: chalk on the triangles (the seven
+      signs), the torch on them (the scenes: the grandmothers' romance, no words), "Sit and wait for noon" (14:04), down
+      the rope ladder (locked until noon): the floor signs (the wall in a mirror), the sun disc moved one socket along and
+      back (its column jumps across), Elena's last sheet on the sun disc ("4° 36′ S", "14:05": send the sun back),
+      swallowed; out to the radio as before. The vault mark is the seven signs in floor order and an A.
+    - Monday (`js/story/mon.js`): dawn in the cave as before (Baute tipped the sun at four, by eye); the morning passes
+      to twelve; the column comes down and the sun disc sends it up the shaft at a slant (a spot climbing the shaft's
+      wall to 14:05, `F().mclock`); down the rope ladder (`cave6_low`, in the water); Vasco at the rim reads any scene;
+      the five discs from the vault are five items (`disc_<sign>`), the crescent a sixth from Baute; each disc into a
+      socket is then **aimed** (`S.aim`: mouse left/right or the arrow keys tip it, the column sweeps the wall in real
+      time, click or Enter sets it, Esc or a right click takes it out; a socket reaches only the triangles round its
+      own); bare rock: aim again; another disc's triangle, a wrong socket, or out of the telling's turn: a surge (three:
+      the death screen, retry from the checkpoint). Stuck ("Which one goes first?", or the first surge, or five set):
+      Baute's last help (the stain, Carmen's street, the telling verse by verse in Spanish, Vasco's English, the
+      crescent) and the page "The grandmothers' telling" (`js/story/puzzles.js`: each verse to a sign; the words are the
+      seven signs). The six moons in the telling's order; then the sun disc: the cloud, Carmen's wing mirror from the top
+      of the rock, the sun laid flat on the great triangle; the triangles flare and the women of light dance round the
+      noon column (about ten seconds), then only the columns; the door takes Alan; `still_chain`; back in the upper cave
+      for `still_sunrise` and the confession.
+    - Lines (`js/lines.js`): 118 changed, 81 new, side by side in `docs/puzzles/CAVE6_LINES.md` for the user's read;
+      the changed lines' recordings moved to `audio/voice_stale/` (captions until re-recorded), their ids appended to
+      `scripts/voice_redo.txt`; nothing generated. Everything that spoke of the slot, the channel, the beam steered by a
+      disc, the clinometer, 23° 26′, the tilt of the world and sunrise as the moment of the lock is rewritten to noon,
+      the moons and the telling (Tuesday to Monday, the letter, Baute's map, the inquiry, Sunday's rock, the Guardia at
+      four). The San Juan night is unchanged. Saturday's radio lines follow Vasco's noon (Lolo heard him "this
+      afternoon"). 45 old-mechanic lines are no longer said (listed in CAVE6_LINES.md), kept so no recording is orphaned.
+      The museum's disc list and the notebook now say one a month (20.XII.95 to 17.V.96); Elena's notebook and charts
+      rewritten (`js/story/docs.js`).
+    - Previews (`js/story/main.js`): `cave` (Saturday, 09:00), `cave_low` (the chamber at noon), `monday` (the finale
+      from dawn), `aim` (in the water, two set), `aim_sun` (the sun under the mirror).
+    - Decided differently from CAVE6.md: the sun disc stays in its own socket, tipped (the approved "last disc" section;
+      the earlier text had Baute move it to the end of the row); Saturday's cave work runs to the sun's noon (14:04), so
+      Lolo's and Baute's radio lines move from "this morning" to the afternoon; no walls figures down below (the story is
+      only round the triangles upstairs), so the "frieze" step is the floor signs; the radio doesn't cut Vasco off in
+      the cave (it's at the camp); the women of light are the prototype's code-drawn outlines, not painted.
+    - Checks: `node scripts/validate.mjs` 0 errors (126 warnings: the earlier 80 plus the retired lines); play.mjs
+      won in 130 steps through the new route (its one page error, a 404 for `art/layers/rafa_table.webp`, is the
+      bar's table layer removed in 42c99172 by the parallel work on Rafa's bar, not this); run again: won, 130 steps, no
+      page errors; screenshots of both rooms, Saturday at noon, the sun-disc test, the aiming, the telling page and the
+      closing checked by eye.
+
+107. **Stills, rooms, voices, loops, Yeray asleep, the corridor, Vasco slimmer, icons and close-ups** (2026-10-30). The user:
+    "put the stills in the game... You can also replace the rooms. and then re-record 48 lines and build cave 6".
+    - art/stills: the 16 painted stills replace the text cards (love_1: the Canva kiss, then Vasco redone slimmer with his
+      own face and brown hair by a Higgsfield nano edit, Canva refusing; love_2: the fireworks silhouette).
+    - art/bg: the 29 repainted rooms (bg_real, aligned) with new depth maps; museum_corridor (take B) as a room: Vasco's
+      Tuesday moment walks Alan down it (tue.js; 4 lines touched and recorded).
+    - Rafa's bar: drunk Yeray at the corner table (seated sprite yeray_drunk_table); he no longer leaves, he falls asleep
+      on it (yeray_asleep_table, lined up with the drunk one); 3 lines rewritten, 2 new, recorded; BIBLE updated.
+    - The 48 caption-only lines re-recorded (same voices) with lip-sync; voice_stale emptied for them.
+    - The sea loops filmed again from the repaints (kling3_0, 7 rooms; La Isleta twice); the Land Rover's windscreen plays
+      the road going by (sea_clips.py ROI); its cigarette glow and smoke removed.
+    - Vasco on the bed in a towel: slimmer, baked at the user's placement on the new room (review, not in the game).
+    - Review page https://claude.ai/artifact/J2kS2suV1n66uFDs6ZrhHR: 24 inventory icons and 11 close-ups
+      (art/review/items/), awaiting approval.
+    Checks: validate 0 errors; screenshots of the rooms, the bar, the corridor and the Land Rover; play runs (entry 106).
+108. **The Sea's water redesigned: a plane in the room, round the figures** (2026-10-30, for review). The user:
+     "re-designing the water. Now it's just a flat overlay raising on the camera. It should follow the floor and fill the
+     room in a 3D style. And it shouldn't be so uniformly transparent - we need more realistic water"; on the first
+     sheets: "looks great, but i think the angle of the water surface might be off".
+     - `js/story/water.js` (new): the water is a horizontal plane `S.waterH(level)` figure heights above the floor, seen
+       in the room's perspective. Each room's wall/floor seam is marked by hand (`seam`, a polyline): a floor pixel stands
+       on its own row, a wall pixel on the seam's row below it; heights go through the painting's own horizon (`hz`, where
+       its wall lines meet: 400 in the chamber, 200 in the cell), so on a side wall the waterline runs parallel to the
+       courses and friezes and converges on the vanishing point (`art/review/water/waterlines_perspective.jpg`). The first
+       version took the floor rows from the depth maps (a line depth -> row fitted over the walk polygon); on the walls
+       that came out almost flat, so it is only the fallback now for a room with no seam. Each figure is its own little
+       wall from its feet (`a.h` or `E.scaleAt`); its silhouette is its own sprite frame (`Actor.place`), drawn in depth
+       order into a mask, so no dry notches beside heads.
+     - The look (one WebGL pass after the figures, before `animFg`, at 0.75 of 1280x720): the first half figure of water
+       fairly clear (Vasco seen through it), then colour and opacity by the depth looked through (reds go first, then
+       grey, near black and opaque where deep), less light the deeper; the room mirrored in the surface (more far off);
+       refraction (painting and figures wobble); faint caustics; the room's light as a broken shimmering trail on the
+       surface (the noon column, the torch, the lantern) and small glints on the ripples; a pale broken line on the walls,
+       and on a body only a thin wavering glint with a little shadow under it. No WebGL: a 2D version (the painting's
+       water from the same floor rows at 320 px, under the figures; each figure's submerged part over it), `?water=2d`.
+     - Rooms (`S.WATER_ROOMS`): `vault_cell` (stops at the grille and stands there like a wall),
+       `vault` (only behind the bars, level across the cell at Vasco's height there, 270; the bars still drawn over),
+       `cave6_low` (clearer, less mirror: the sockets and discs stay readable), `landrover` (no floor: a flat footwell on
+       Alan's side, soft-edged, sloshing; Carmen's side dry). Elena's car keeps the old flat `S.drawWater` (unused).
+       `art/bg/vault_cell_depth.png` made with `scripts/depth_map.py` (the cell had none; used only by the fallback).
+     - Engine: `render.js` calls `E.waterPass.begin / figure / end` (3 lines); the old `S.drawWater` calls left the
+       vault, the cell, the chamber and the Land Rover.
+     - Levels against the lines: `S.waterH` is a table, 0.12 shins (0.2), 0.17 knees (0.28), 0.3 waist (0.6), 0.4 chest
+       (0.76), 0.42 chin (0.85), 0.46 nose (0.92). Cell: 0.12 "my knees are wet" (kneeling), 0.3 "It's at my waist";
+       **Saturday's last rise 0.45 -> 0.36** (0.45 put it at his mouth on Saturday night, before Sunday's "By the evening
+       of Sunday, the water was at Vasco's chest", 0.4, and "closed over his mouth", 0.46). Vault 0.4 chest, 0.46 nose
+       ("at its nose"). Chamber 0.17 "round his legs" (knees), up to 0.295 with five discs (waist), 0.34 "at his chest"
+       (lower chest, 0.67), 0.42 "to Alan's chin" and "at his mouth". Land Rover: its own footwell (y 653 / 578).
+       Not changed (mon.js, another session's): the first surge goes to was+0.06 ("up to his waist") and then to
+       **was+0.04 for "dropped back to his knees"**, higher than it was; about 0.15 would match. `alan_look_door_in` ("in
+       it to my waist") is true only late in the chamber. `narr_vy_3` ("It was not filling the room. It was filling the
+       space around him") fits the cell (the water stops at the bars) but the cell itself fills.
+     - Review: `art/review/water/` (before/after per room at two or three levels, the waterlines over the paintings, the
+       2D version).
+     Checks: validate 0 errors; screenshots of all four rooms at their levels with figures standing in the water, GL and
+     2D; play.mjs won, 130 steps, no page errors (before and after the perspective fix). Frame time, headless Chromium
+     with software GL (so only relative): the chamber 65 ms a frame without water, 137–176 with it at 0.75 (143 at half
+     size; the pass's own JS 0.4–1 ms a frame), the 2D version 96–130 (its JS 6 ms). On a GPU it is one full-screen shader
+     and two texture copies a frame; not yet measured on a device (`?fps`).
+
+109. **Cave 6: the narrator cut back; Vasco nudges** (2026-10-30). The user: "over all, with your re-works there is way too
+    much narrator. We don't need that much description. Some things should simply be done by the characters, other just
+    said by the characters - we don't need to have it all described." Then: "Vasco nudges. If you ask him 'Which one goes
+    first?', he reads the matching scene for the next verse without naming the sign."
+    - Every narrator line of entry 106's 199 lines gone through where it plays. 53 no longer played (the room, the light
+      columns, the water, the clock and the women of light are drawn; the characters walk, kneel, pose and make the
+      sounds instead), plus 5 older narrator lines in the same scenes (`narr_v_angle_2`, `narr_v_angle_6`,
+      `narr_v_whole`, `narr_v_alan_1`, `narr_m_glass`). What the player needs is said: 15 new character lines (Vasco
+      reading the cave, the sheet, how to shut it; Carmen's photograph; Yeray and Vasco calling what Alan can't see from
+      the chamber; Carmen's "¡El sol!") and 19 lines of the rework rewritten or shortened (`vasco_v_04` now carries
+      4° 36′ S and 14:05; `vasco_puerta_1` the mirror; `alan_su_mark` the mark). Kept narrator: 13 lines (time jumps,
+      the swallow, Baute breaking, the stills at the end, the one glimpse), none over 27 words. Narrator 66 lines / 2,142
+      words -> 13 / 302; character lines 133 -> 157. Cut lines stay in `js/lines.js` (validate lists them as unused).
+    - In code (`js/story/vasco.js`, `mon.js`, `sun.js`, `fri.js`): Vasco walks into the cave, along the wall chalking
+      (pose `hand`), over to look at noon, kneels for the sun-disc test and the sheet, laughs (pose), walks to the door
+      and to the ladder (creak); Monday: Vasco walks to the rim at dawn; the water sound and Yeray at the hole; pauses for
+      the light at twelve, the cloud, the mirror and the closing (the women of light now dance in silence, 11.8 s, the
+      length of their fade in `S.drawLowLight`); Alan reaches up for the crescent (pose `pickup`); a drowning shows the
+      water rising over him instead of a line. Sounds used: `ladder_creak`, `rope_creak`, `pencil_scribble`,
+      `water_lap`, `water_rise_3`, `fog_lift` (all in `audio/sfx`).
+    - Vasco nudges (`mon.js` `S.talkVascoBelow`): once Baute has said the telling, "Which one goes first?" (then
+      "...next?", `alan_m_ask_first`/`alan_m_ask_next`) has Vasco read the scene round the next disc's triangle in the
+      telling's order (`vasco_nudge_<sign>`, 7 lines), never naming its sign. Before the telling, the question works as
+      before (Baute's help); after it, the telling page is no longer reopened from Vasco (it stays in the notebook).
+    - `docs/puzzles/CAVE6_LINES.md` rewritten as the review table: each scene in play order as it now plays (actions in
+      italics), the status of every line, the cut lines and what does their job now. Nothing recorded.
+    - `scripts/tests/play.mjs` asks Vasco "Which one goes first?" and "...next?" on Monday and checks the answer.
+    - Checks: `node scripts/validate.mjs` 0 errors (183 warnings: the unused lines); play.mjs before the nudge: won, 130
+      steps, no page errors; with the nudge: won, 132 steps, no page errors.
+110. **The women of light: the Kling dance in the closing, Alan inside the ring, a flash in and out** (2026-10-31, for
+    review). The user approved the Higgsfield/Kling loop (`art/review/harimaguadas/dance_a7.mp4`) and asked: "the harimaguadas animation should fade in in a flash of light and fade out the same way",
+    "ideally, alan should stand in the circle between them, with the occlusions done right".
+    - **The split** (`scripts/dance_layers.py <depth-model.onnx>`): the loop's 192 frames (the 193rd is the first again)
+      at 960x540, each cut into the ring's far half (BACK) and near half (FRONT). Luminance alone could not do it: the
+      two rows of the ring overlap almost all the time, so a blob is two or three women. What separates them is depth:
+      Depth Anything V2 small (ONNX, as `depth_map.py`) on each frame reads the near women clearly nearer (the ring is
+      seen from above: their feet lower, them bigger). Per frame: a luminance core (blur 2, > 0.3), its depth normalised,
+      an Otsu threshold (median over 9 frames, circular), a soft vote per core pixel, spread to every pixel by
+      brightness-weighted normalised convolution (8 px at the bodies, 30 px for glow and trails, so each woman's glow
+      goes with her), then a circular gaussian over time (sigma 1.5 frames). FRONT = frame x smoothstep(vote),
+      BACK = frame x the rest; screen-blended they give the frame back.
+      How good: the woman behind Alan (the far middle of the ring) is BACK and the near row FRONT in every frame; nobody
+      flickers between the layers (`split_flicker.jpg`, every 2nd frame of the busiest stretch). Where it errs: the
+      women at the ring's two sides, crossing from near to far, are split half-and-half for a few frames (a head one
+      way, a skirt the other), and where a back woman's hand meets a front woman the hand can go with the front one.
+      Both are away from Alan, so they don't show in the game.
+      Review: `art/review/harimaguadas/split_all.jpg` (the loop, red = front, blue = back), `split_flicker.jpg`,
+      `split_frames.jpg`, `split_layers.jpg` (the two layers themselves).
+    - **One video, two halves**: `art/video/harimaguadas.mp4` (H.264) / `.webm` (VP9), 960x1080, BACK on top, FRONT below
+      (1.8 MB each). Not two files: two video elements drift a frame apart and a woman split across the halves would
+      tear.
+    - **In the game** (`js/story/dance.js`, new, loaded after `water.js`; `cave6_low` gets `animFg`): while `S.closing`
+      is set, after the figures and the Sea's water (`js/engine/render.js`: figures, `E.waterPass.end`, then `animFg`):
+      BACK into an offscreen canvas, every visible figure's sprite silhouette cut out of it (`destination-out`, as
+      water.js builds its masks), then screen-blended; FRONT screen-blended over Alan. Both 35% dimmer below the water's
+      surface as it stands on a figure at Alan's feet (their lower parts in it); drawing BACK before the figures would
+      have put it under the water pass, which takes a floor pixel as floor and sinks it whole. Placed at 0.82 (787x443),
+      the ring's centre on Alan (641, 655 at the seventh socket, fixed when the closing starts): far feet ~y 557, near
+      ~y 703, his between. The triangles' flare (`S.drawLowLight`) follows `S.closingEnv`.
+    - **The flash**: a warm white-gold screen bloom from the noon column over the whole frame (plus a light additive
+      wash), up in 0.25 s, down in 0.8 s; the women's opacity rises 0.08–0.4 s, under it. At 15.0 s the same flash again,
+      the women gone by its peak (15.3 s). The scene now waits `S.DANCE_MS` = 16.1 s (was 11.8 s), two loops of the
+      dance; what follows in `S.closeLock` is unchanged and runs after it.
+    - **Without video** (not ready by 0.6 s, or an error; decided once per closing): the old code-drawn women
+      (`S.harimaguada`) in a ring round Alan through the same back/front split and flash. `S.danceMode()` says which.
+    - Checks: `node scripts/validate.mjs` 0 errors; the closing in the running game (`?scene=aim_sun`, Alan at 641, 655,
+      `S.closing` set by hand): `art/review/harimaguadas/in_game_flash_in.jpg` and `in_game_flash_out.jpg` (from a
+      playwright recording, 6 frames each), `in_game_dance_1..4.jpg` (screenshots: the far woman behind Alan, the near
+      row's joined hands across his legs), `in_game_fallback.jpg` (the video blocked: the drawn women). No page errors.
+      `in_game_closing.mp4` (19 s, 1280x720 H.264): the whole closing from a second before the flash in to after the
+      flash out, recorded with playwright with full effects forced (`window.WARP = true`, so headless chromium's slow
+      frames don't lower them) and the walking tip hidden; no sound (playwright records none).
+      `node scripts/tests/play.mjs`: won, 132 steps, no page errors (`"result": "won"`, `"errors": []`; the dance
+      itself is skipped there, `window.FAST`). Nothing else in the closing changed.
+111. **The prologue and Tuesday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
+    there is way too much narrator... Some things should simply be done by the characters, other just said by the
+    characters" and "it is basically the entire game". As Cave 6 (109): every narrator line played in the prologue
+    (`prologue.js`) and on Tuesday (`tue.js`, the two Tuesday calls in `core.js`, the opening in `main.js`) gone through.
+    78 narrator lines (2,203 words) to 9 (190; prologue 18 to 3, Tuesday 60 to 6; none over 26 words); 69 cut, 12
+    shortened or rewritten, 18 new character lines (Elena says the road, the cloud, her feet, the brake and "Point down.
+    At the sea."; the Guardia say the locks and the salt triangle; Alan the Iberia desk, the Düsseldorf family, the
+    eyebrow, the coat at the door, Baute's knuckles and his smile, the mist "coming in against the wind" (the 1483
+    page's words) and the Lisbon cistern; Vasco the hotel's owner and the dig, the knee, "One minute!"; Baute names the
+    clay seal as his abuela's; Carmen offers the Coronas). Done in code instead: Vasco walks to Alan at Gando, across
+    the hall with him to Baute, down the corridor of skulls with him, along the promenade to the bonfire and the rail;
+    Vasco turns his back for the Cabildo; the toast's glass, laugh and applause, Carmen's lighter and the laughter
+    inside, Alan's laugh in 404, the sea at the end of the night, the bar's chairs and door are sounds; pauses for the
+    looks. The reception and the corridor (86, 107) keep every beat. Nothing recorded: 11 recorded lines changed (their
+    mp3s moved to `audio/voice_stale/`, ids added to `scripts/voice_redo.txt`), manifest rebuilt. Review table:
+    `docs/rewrite/NARR_TUE.md`. Checks: `node --check`; `node scripts/validate.mjs` 0 errors; the prologue played with
+    `S.PLAY_PROLOGUE` on through to the lobby, no page errors; a screenshot of the corridor moment; `play.mjs`: won,
+    132 steps, no page errors.
+112. **Friday and Saturday (Alan): the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
+    there is way too much narrator... Some things should simply be done by the characters, other just said by the
+    characters"; "it is basically the entire game". The same pass as Cave 6 (entry 109) for `js/story/fri.js` (the fight,
+    the sea wall and Chano, Carmen's coffee, the dusk, Rafa's bar as entry 107 left it, the studio night), `js/story/sat.js`
+    (the morning after, the walk back, Nieves, the footprint, Inês, Chano's paper, he tries, the flood, the night) and the
+    Saturday narration in `js/story/puzzles.js` (the receipt, the belfry hour, the radio, the run to Don Lolo). Not
+    Vasco's chapter (`vasco.js`).
+    - **186 narrator lines (4,022 words) to 20 (330)**; none over 25 words. Kept: the two days' openers, the time jumps
+      (the three tries to leave, nine o'clock, the walk inland, the walk back, the flood at seven and after, the night),
+      the horn, the quiet door, "he should have asked", the two rules, one line over each love-scene still at most (the
+      night: the bell at three; the drawing: none, Alan says it).
+    - **36 new character lines** (Alan 31, mostly his own thoughts; Rafa 1, Chano 1, Doña Pino 3) carry what the cut
+      narration told: what Alan tells Vasco about the mist, the empty cup, the coffee Vasco made anyway, the mist up the
+      steps, "nobody's waiting", the napkin, the shoulder, the footprint and his father, the headline (Chano reads it),
+      the receipt (Alan reads it), what he tried and the seven o'clock bus, the hospital, the missal and the pen, the
+      ticket against the bus. 16 lines changed (13 narrator, shortened; `carmen_f_go_home` now ends "Por favor. I'm
+      asking you.", `alan_bar_in` opens "No mist in here.", `alan_rafa_rum` "That's terrible. Another."). No clue lost
+      (puzzles.js words and pages hang on flags, not lines).
+    - **Done in code instead**: Vasco faces away on the bed, turns, walks to the window, turns, walks to the door;
+      footsteps after the still; Chano walks over with the beers and back; Rafa walks up the bar past Alan and back, comes
+      round to stand close at two, leads him down the bar; Rafa fetches the drawing from the easel; Alan walks to the
+      studio window, to the footprint (kneels), to the bed at night; existing sounds and pauses for the silences.
+    - Nothing recorded: the 16 changed ids in `scripts/voice_redo.txt`, their mp3s moved to `audio/voice_stale/`,
+      manifest rebuilt; the new lines play as captions. Review table: `docs/rewrite/NARR_FRI_SAT.md`.
+    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; `play.mjs` (with the other days' passes in progress in
+      the same tree): won, 132 steps, no page errors.
+113. **Wednesday and Thursday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
+    there is way too much narrator... Some things should simply be done by the characters, other just said by the
+    characters", and "it is basically the entire game". Done as Cave 6 (109), for `js/story/wed.js`, `js/story/thu.js`,
+    Thursday's call (`core.js` S.callThu) and Thursday's puzzle lines (`puzzles.js` S.folio12, S.tickTalk).
+    - Narrator 186 lines / 4,469 words -> 12 / 190 (none over 26 words); character lines 345 -> 394 (48 new, plus
+      Elena's recorded `elena_msg_02` reused for Carmen alone). Kept narrator: Wednesday's opener, Pell's boat (the
+      bible: narrated; `narr_w_pell_2` folded into `narr_w_pell_1`), the two "kind of decision" asides, the evening
+      jump, Pepe's two lines over the still, the jacket's joke, the mango and Carmen at the door over black, the taxi,
+      the sea under the sea. No character line cut; every clue that lived in narration is now said (the blank June line
+      on the conservation list, the sponsorship file, the van's "display cases from Don Ignacio" by the museum guard,
+      folio 12 misfiled on purpose by Mercedes, Juan de Quintana and Pepe both pulled out of the sea, by Alan).
+      `alan_ask_carmen_pepe` corrected: Pepe drowned "last month" (as Chano, Doña Pino and the still say).
+    - In code: Alan stretches and drinks the coffee, walks to the bronze dogs and reads the letter, pulls at the clock
+      (a fade for the twenty minutes), reaches to the humming bell, takes the packet, reads the crate by the van,
+      unlaces Vasco's boots, walks to Vasco at the dinner, reads the file, reaches for the map; Derek walks into the
+      guard's chair; existing sounds (`drawer_scrape`, `v_vasco_laugh`, `stairs`, `paper_take`, `match`, `snore`,
+      `lamp_click`, `page_2`, `drawer_open`...) and pauses for the silences.
+    - Nothing recorded: the 6 changed ids in `scripts/voice_redo.txt`, their mp3s moved to `audio/voice_stale/`,
+      manifest rebuilt; the new lines play as captions. Review table: `docs/rewrite/NARR_WED_THU.md`.
+    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; play.mjs: won, 132 steps, no page errors.
+114. **Sunday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works there is way too
+    much narrator... Some things should simply be done by the characters, other just said by the characters".
+    - `js/story/sun.js` (the choice, Gando and the bad ending, Chano, Carmen's flat, the Land Rover, the cut-away to the
+      vault, the rescue, the discs, the rock, the path): narrator 109 lines / 2,812 words -> 10 / 188 (longest 25
+      words): the time jumps (the taxi, half past nine, five o'clock, past midnight, four o'clock, "by the evening of
+      Sunday"), one line over each still, Alan's joke he didn't make. 99 narrator lines no longer played (left in
+      lines.js), 8 shortened. Said instead (15 new lines): Alan's packing and the note's words, his grandfather and the
+      habit and what staying means (in the queue), the view from the desk, the cistern told to Carmen, the knees in the
+      Land Rover, the camp empty, "Vasco!" at the grille, "On Friday night. After you left..." before "Not now."; Carmen's
+      dressing gown, the dead dig radio (the clue that was narration), the waves under the radio. 4 character lines
+      changed (`alan_su_watch`, `alan_su_airport`, `carmen_su_idiot_2`, `alan_lr_smell`). No clue lost; puzzles.js and
+      vasco.js play no Sunday narration (the vault's narrator lines there are Vasco's Saturday).
+    - In code: poses (pickup, reach, write, phone, pull) and existing sounds for packing, the watch, the note, the
+      ticket, the phone, the hand on Carmen's shoulder, the discs, holding Vasco; Carmen answers the door herself (npc
+      `init`, at the door the first time) and walks back in; walks to the pick handle; Yeray runs out of the cut-away;
+      Vasco comes close on the rock; pauses for the silences. The grille: `G.refreshNpcs(true)` so Vasco's figure really
+      swaps to the one out on the stone (the plain refresh kept the actor behind the bars). Lines no longer said under
+      `G.fade(true)` (where captions are hidden): the note, the taxi, half past nine and the path now play in the room.
+    - Nothing recorded: the 12 changed ids in `scripts/voice_redo.txt`, their mp3s in `audio/voice_stale/`, manifest
+      rebuilt; new lines play as captions. Review table: `docs/rewrite/NARR_SUN.md`.
+    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; a Sunday-only run (`?scene=sun` to Monday's cave, every
+      choice on the rock): no page errors; play.mjs: won, 132 steps, no page errors.
+115. **Vasco's Saturday and Monday (outside the cave's finale): the narrator cut back** (2026-10-31, for the user's read).
+    The user: "with your re-works there is way too much narrator... Some things should simply be done by the characters,
+    other just said by the characters".
+    - `js/story/vasco.js` (the camp at seven, Yeray's coffee, Elena's charts, the radio, the foil, the refusal, the road,
+      the cell, the mark, the water, the prayer, the cut to Alan's night; Cave 6 and the chamber left as entry 109 made
+      them) and `js/story/mon.js` (the dawn in the cave, Yeray's fuse, the confession, the radio and the Guardia, the rock,
+      the road down, Nieves, Chano, the fireworks, the last night, the coffee; `S.closeLock`, the dance and the aiming
+      not touched): narrator 97 lines / 2,526 words -> 14 / 261 (longest 26, `narr_end_guardia` from entry 109): the
+      chapter's opener, the time jumps (the road to Artenara, the night, the cut to Alan, the morning, the Guardia at
+      four, the city's birthday, the morning after), one line over each still (road down, fireworks, last night; the
+      confession's branches keep their own lines there), the game's last line. 83 narrator lines no longer played (left
+      in lines.js), 10 shortened. Said instead (21 new lines): Vasco on Elena's "Puerta", the empty fuse holder and what
+      it means, the radio humming, the cinnamon in the coffee (the drugging's clue), the fisherman, the keys, the drug,
+      waking behind the padlock, the torch's old battery, the seven coils, the A, his prayer (the narrator's three
+      thoughts of Alan are now his prayer); Alan on the sixth disc in Baute's hands, "Later", what he won't say in the
+      plain telling, the warm trowel, alone on the mountain, Nieves's eyebrow, the terrible coffee. 8 character lines
+      changed (`vasco_v_02`, `vasco_v_yeray_4`, `vasco_take_1`, `vasco_radio_fuse`, `vasco_look_serpent`, `vasco_mark_a`,
+      `vasco_wet_2`, `carmen_m_guardia`). Every choice and its consequence kept.
+    - In code: walks (Vasco to the edge, Yeray off, Rayco in behind Vasco, Vasco to the edge of the rock and to the top
+      of the road, Rayco and Yeray up behind him; Carmen to Rayco, Rayco to Vasco, then Rayco, Carmen and Yeray out of the
+      cave), poses (sit, sip, kneel, pickup, reach), existing sounds (`pour`, `relay_click`, `match`, `step_stone`,
+      `lamp_click`, `keys_ring`) and pauses for the silences. The drugging now plays in the camp, not under
+      `G.fade(true)` (where captions don't show).
+    - Nothing recorded: the 17 changed ids in `scripts/voice_redo.txt`, their mp3s in `audio/voice_stale/`, manifest
+      rebuilt; new lines play as captions. Review table: `docs/rewrite/NARR_SAT_VASCO_MON.md`.
+    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; play.mjs: won, 132 steps, no page errors.
+116. **The approved icons, close-up pictures and Vasco on the bed, in the game** (2026-10-31, the user approved all three).
+    - **Inventory icons**: the 24 in `art/review/items/icons/` copied to `art/icons/` and listed in `window.PAINTED_ICONS`
+      (`js/story/core.js`). Each is its item's id, except `knife` -> `dinnerknife` and `ltrowel` -> `trowel`; the
+      `inscription`, `letter` and `fax` items lost their old stand-ins (`sketch`, `ledger`, `file55`). `sketch.webp`,
+      `ledger.webp`, `file55.webp` and `knife.webp` stay in `art/icons/` but nothing shows them now. `discs` (the bag of
+      five) and `disc6` are wired too, but only an old save still holds `discs` (mon.js turns it into the per-moon
+      `disc_<phase>` items, which keep their own icons) and `disc6` is no longer given: those two icons are mostly unseen.
+      Every icon has an item.
+    - **Engine fix, `js/fx.js`**: the painted icons were never loading. fx.js read `window.PAINTED_ICONS` when it loaded,
+      before `core.js` sets it, so the list was always empty and every item (the per-moon discs too) showed its luggage
+      tag. The list is now read when the first icon is drawn.
+    - **Close-ups as pictures**: the 11 in `art/review/items/cu/` copied to `art/closeups/` (jpg q85, 1280x956, already
+      under 1600), listed in `CLOSEUPS` (`js/story/main.js`, so they preload). `docs.js` has `photo(name, caption)`
+      (`S.closePhoto`): the picture is the page, fitted whole, no paper, a short caption under it in the close-ups' serif
+      (CSS `#closeup .page.photo`). Wired: `readGcPhoto` (the date is in the picture and kept in the caption; the Cave 6
+      line once `cave_explained`), `readBauteDesk` (`baute_1966` with the back's ink "Abuela's hill. They put them in the
+      skip."; `map_south` with "Four of the six are Montesdeoca's"; "24·VI · mediodía" is in the picture), `readInscription`
+      (`rubbing`, the founders' mark in the caption), `readLetter` (`letter_1751`, the legible fragments as the caption),
+      `readElena` (`elena_notebook`; the old first page's reading of it, "Not a calendar... That is the lock.", now opens
+      the second page, which is otherwise unchanged), `readCharts` (`elena_charts`: 14:05, Puerta and 4°36'S are in the
+      picture), `readSketchbook` (`sketchbook`, which holds the laughing man "el portugués. Triste." too, so the third
+      page folded in; then `napkin_yeray`, the caption keeping what the napkin doesn't show: "...has the key. The
+      Portuguese doctor doesn't know." and "Yeray, del Risco"), the postcard (`S.writeCard`: the picture, then the
+      message on paper; looked at again after it's written: the picture), and Carmen's shelves on Sunday (`sun.js`,
+      `alan_look_carmen_shelves` describes this very photograph: `carmen_photo`, no caption, then the line). The
+      face-down photograph on her archive desk on Wednesday is only narrated (`narr_w_carmen_8/10`, Alan never looks at
+      it), so it got no close-up. Not changed: the paper, the fax, Galindo, the disc list, the inquiry, Pino's list.
+    - **The south-coast map's hotel names** (real brands: Riu, Princess, ...) painted out by `scripts/map_clean.py`:
+      in each red circle the name lines' dark print is inpainted (OpenCV Telea) and the box softened; "Hotel", the bed
+      icons, the red circles and "24·VI · mediodía" kept. The review original is untouched.
+    - **Vasco on the bed**: the approved sprite (`art/review/bg_real/hotel_room_vasco_towel.png`) as `art/sprites/
+      vasco_bed.webp`, drawn 1:1 at the user's (116, 277) on 404: an npc `vasco_bed` (char `vasco_bed`, `speaker:
+      'vasco'`, feet at (300.5, 531), `h` 254 so the frame is unscaled, `fixedDir`; the room's `unlit` keeps the engine's
+      light and shadows off it, its brightness is painted in). It shows on Tuesday once he's gone up (`called_tue2`) and
+      his three night lines and "Take off that terrible jacket. And come here." are spoken from it; the standing Vasco in
+      404 is now only Thursday's (the fight). The lines agree: "I'm going up. Shower.", and the look line
+      `alan_look_vasco_room` "Vasco, on the bed, reading" (he isn't holding a book in the sprite: the user's call). The
+      still `still_love_1` follows as before.
+    - Line-text conflict noticed, not changed (lines.js is not mine to touch now): `alan_look_postcard` says "Las Canteras
+      at sunset"; the approved postcard is Las Canteras by day.
+    - `scripts/validate.mjs` told that `vasco_bed`, `baute_1966`, `carmen_photo` aren't line ids. Script stamps in
+      index.html (`?v=`) not refreshed (build-manifest also writes the voice manifest, which another session is
+      recording into): refresh before the next deploy.
+    - Checks: `node --check` on every changed file; validate 0 errors; `scripts/tests/items_shot.mjs` ->
+      `art/review/items/in_game_*.jpg` (the bed, Vasco speaking from it, the inventory full and in two halves, every
+      close-up page), all looked at, no page errors; play.mjs: won, 132 steps, no page errors.
+117. **Recording the missing lines; lip-sync** (2026-10-31, the user: "re-record the 48 lines", then "all approved").
+    - 331 lines that had no recording were voiced (`generate-voices.mjs`, 0 failed) and 358 lip-synced (Rhubarb,
+      `RHUBARB=/tmp/.../rhubarb python3 scripts/lipsync.py --speaker all <ids>`; Rhubarb 1.13.0 is downloaded to
+      `/tmp/claude-0/tools/rhubarb/` per container). `js/lipsync.js` is regenerated from every file in `lipsync/` on each run.
+    - **Still unrecorded: 86 lines** (about 11,300 characters), mostly Cave 6's finale: `vasco_scene_*`, `vasco_nudge_*`,
+      `baute_m_verse_1..7` / `vasco_m_verse_1..7`, `narr_m_*`, and Vasco's Saturday in the cave `narr_v_*`. Some of the
+      `narr_m_*`/`narr_mon_*` ones are no longer used after the narrator cut (validate lists unused ids). They play as
+      captions. **ElevenLabs credits**: about 1,500 characters left until the monthly reset on **14 November**; the rest
+      waits for that or a top-up (ask the user). List them with the node one-liner in this entry's commit message or:
+      every `LINES` id whose speaker is cast and has no `audio/voice/<id>.mp3`.
+    - `scripts/voice_redo.txt` (208 ids) predates this: check each against its mp3's date before trusting it.
+118. **Emotion in Vasco's and Alan's voices** (2026-10-31, the user: "We also need to work on Vasco's emotions... sometimes
+    shout", "vasco has more lines that could be more emotional", "there were some when he was saving alan from the water",
+    "let's also review Alan's lines"). All approved and installed.
+    - Method: ElevenLabs v4 audio tags in `scripts/tts_text.json` (per line id; the caption in `lines.js` stays). Every
+      word kept, tags only (`[hurt, rising]`, `[shouting, frantic]`, `[voice breaking]`, `[pause]` kept).
+    - Vasco: 28 (first pass, entry 109 era) + 52 (`art/review/voices/vasco_emotion_2/`) + 11 in the flooding cave and the
+      rescue (`vasco_rescue/`: `vasco_m_who`, `_wrong_2`, `_nonono`, `_light`, `_seventh_3`, `_dead_centre`, `_true`, `_hold`,
+      `_stopped`, `_twice`, `_twice_2`). Alan: 190 (`art/review/voices/alan_emotion/`, `MAP.md` is the map by scene with
+      the reason for each; `page/` and `page2/` the two review pages). Replaced takes are in `audio/voice_stale/`
+      (`vasco_emotion_2_old/`, `vasco_rescue_old/`, `alan_emotion_old/`).
+    - Review pages (artifacts, db `verdicts`): Vasco II https://claude.ai/artifact/5f8bQ6BEGeR3ydQTiGbPwN, Vasco in the
+      water https://claude.ai/artifact/32o4hRj1RqZ7B74hmpM7YD, Alan https://claude.ai/artifact/PvFEwJgTFr9hVZQZU8XCMx,
+      Alan II https://claude.ai/artifact/23rXc4ZhS9zYxus1kTUXcx.
+    - Takes the user may want to hear again (approved as they are): `alan_t_burnt`, `alan_lr_fill` (pain, not dry),
+      `alan_f_choice_b` (nervous joke), `alan_someone_no`/`_no2` (the two lies to Rafa), `alan_m_blame_2` (self-pitying).
+    - **Cast accents reviewed** (the user asked): Alan and Vasco (Portuguese) are American voices from Game I; most
+      Canarians are Castilian (peninsular) voices, four Latin American (Carmen, Pino, Montesdeoca, Lolo), one labelled
+      Canary Islands (an extra). The bible wants a Canarian lilt "closer to the Caribbean than to Madrid". Rafa and the
+      museum's academic share a voice (Dani), the guard and the beach's old man too (Luis). Offered: audition Canarian /
+      Caribbean-leaning voices for the main Canarians; **not done, the user hasn't answered** (their rule: same voices).
+119. **The airport kiss** (2026-10-31, the user: "the airport scene needs a sprite in which they kiss - starting from
+    their individual sprites standing like that. you need to use ludo for it"; "we need them to kiss and then go back to
+    the original positions"; "awesome"; "make sure to time the kiss when the narrator mentions it").
+    - Ludo (hydra + improve, `art/review/ludo/gando_kiss/`) from `art/sprites/pair_gando_stand.webp`: `alanv_side_k` and
+      `vascor_side_k` flipped, both 720 tall, side by side (Alan's anchor 79.5, Vasco's 392.3 in the 533-wide two-shot).
+      36 frames; played in, held 8 frames, then backwards, so they end exactly as they stood.
+    - `scripts/duo_kiss_install.py` -> `art/sprites/duo_gando_kiss_00..35.webp` (anchored on Alan's feet). Character
+      `duo_gando_kiss` (core.js, pose `kiss`), npc `duo_kiss` in `ROOMS.gando` (hidden until used), `S.kissAtGando(p, v)`
+      in tue.js: Vasco stops 312.8/720 of Alan's height to his right, both hidden, the duo plays while `narr_t_kiss` is
+      said (that narrator line was cut in entry 111; put back over the kiss at the user's word), then they're shown again.
+      Its contact shadow: `def.shadow` (lights.js).
+    - Checked in the running game (`/tmp` Playwright script: start `?scene=tue`, call `S.meetVasco()`): swap in and out on
+      cue, no page errors.
+    - The `ludo.py` resume quirk: a run that crashes on a connection reset after the job succeeded has its URLs in
+      `job.json` under `hydra`/`improve`, but `ludo.py fetch` looks for `up`/`true`: download from job.json by hand.
+120. **Gando's background people: two nuns and a family from Düsseldorf** (2026-10-31, the user: "we need to add
+    background characters to the airport - 2 nuns and a german family"; "done, characters placed").
+    - Nuns: Canva (media MAHZjCoHXPU; full size exported via a copied scratch design DAHZjGz7W4Q in the user's Canva,
+      deletable). Family: Higgsfield `gpt_image_2_5` fallback (Canva was in quota cooldown), job
+      53f1fa82-f68b-4334-baeb-43bc596b8a64, style refs: the extras' cast sheet and the Canva nuns. Review:
+      `art/review/extras_gando/`.
+    - Added to the placement tool's tray; the user placed them (nuns 1101,663; family 199,610 at 0.93; Vasco's start moved
+      to 742,655); installed with `extras_install.py` (`x_gando_nuns`, `x_gando_family`). `S.EXTRAS_WHEN.gando = () =>
+      F().ch === 1`: Tuesday's arrival only (the clerk stands where the family is on Sunday).
+    - As placed, the nuns face right (towards the taxi door), the family faces the kiss: asked the user if the nuns
+      should be flipped; no answer yet. The narrator also mentions a taxi driver: offered, no answer yet.
+    - The painting's arrivals board reads "JUN16 1996" and "BÜSSEDORF" (the story's day is the 18th): told the user; the
+      paintings don't change without their word.
+121. **Hotspots** (2026-10-31, the user: "The mercado leaving to city hotspot is too close to the edge, inventory blocks
+    it. The promenade steps hotspot is not necessary, better to put the 'go to beach' there").
+    - Mercado: `S.toMap` moved up to [480, 530, 320, 70] (the inventory bar covers the bottom 15%).
+    - Las Canteras: "Promenade steps" removed (its daily `alan_look_steps_N` tide lines are now unused); "Down to the
+      beach" is on the steps and the wall beside them, [780, 470, 320, 90].
+    - **Open**: "go to city hotspot often gets mistaken for kiosk" (same message). On Las Canteras the city exit is the
+      pavement before the hotel steps, far from the kiosk; asked the user which they mean (move the city exit to the left
+      edge by the kiosk?). No answer yet.
+122. **Vasco's walks from his repaint** (2026-10-31, the user: "please do vasco's walking sprites, the same set as alan
+    has"; "vasco's sprites will go in the next deploy. when they are done, put them in the review tool").
+    - Since the repaint (`vascor_*`) Vasco glides on one painting: his Ludo walks/turns were made from the old `vascos_*`
+      sprites (`scripts/ludo_runs.json`), and `V.frames = still('vascor')` passes no walker.
+    - A background agent is making `vascor_walk_side/front/back`, `vascor_turn_side_front/left/back` and the dinner
+      outfit's (`vascor_dinner_*`; no repainted back view of either outfit exists: `scripts/vascor_back_recolour.py` is
+      its work on that). Runs are in `art/review/ludo/vascor*`; `scripts/ludo_review_vascor.py` builds the review. Not in
+      the game. **Next**: when done, put them in a review page (like the Ludo reviews before) for the user; on approval,
+      add them to `ludo_runs.json` / `ludo_install.py` and pass `'vascor'` as the walker in core.js `still('vascor', ...)`.
+123. **Vasco's walking set from his repaint, for review** (2026-10-31, the user: "please do vasco's walking sprites, the
+    same set as alan has"). His runs in the game (`vasco_walk_*`, `vasco_turn_*`) were made from the old `vascos_*`
+    sprites, so `V.frames = still('vascor')` (core.js) passes no walker and he glides. Ten new Ludo runs, the same
+    prompts and options as Alan's (`scripts/ludo_runs.json`; hydra, improve pass, 1.5x upscale; walks 36 frames looped,
+    turns 16): `vascor_walk_side/front/back`, `vascor_turn_side_front/left/back` and `vascor_dinner_walk_side/front`,
+    `vascor_dinner_turn_side_front/left`. All ten succeeded first time, no moderation refusals: 120 credits (410.51 ->
+    290.51), each call in `art/review/ludo/log.md`.
+    - **No repainted back view.** `vascos_back_k` is the old blue-shirt painting. For the day outfit's back runs the
+      keyframe is that painting with the shirt recoloured to the repaint's cream (`scripts/vascor_back_recolour.py`: LAB
+      colour transfer inside a blue-pixel mask, shirt rows only; written to `art/review/ludo/vascor_walk_back/
+      keyframe_back.webp`, not a game sprite). This is a derived image, not a new painting: the back's sleeves are
+      still rolled long and its trousers are the old ones (close in colour). A real back painting would be better.
+    - **The dinner outfit has no back view at all**, so `vascor_dinner_walk_back` and `vascor_dinner_turn_side_back` were
+      not made (the review grid says "no back view painted").
+    - Checks (`scripts/ludo_fit.py`, `fit.json` per run): height within 0.92-1.03 of frame 0; one flag, frame 11 of
+      `vascor_dinner_turn_side_front` (0.919, he dips mid-turn); feet drift within the box 0.07-0.13 on walks (Alan's:
+      0.09-0.15), 0.01-0.10 on turns. Faces looked at frame by frame: the walks keep him; the side->front turns (both
+      outfits) drift mid-turn and land on a smoother, younger, less stubbled face than the painting (a `head_swap.py`
+      pass or a straight cut to the standing painting at the end would fix it at install). Walks are Ludo's raw 36
+      frames: `walk_loop.py` (seamless loop, drift removal) runs at install, as Alan's did.
+    - Review: `art/review/ludo/<run>/preview.mp4` and `strip.png` per run, and `art/review/ludo/vascor_set_preview.mp4`
+      (10 s grid: Alan's installed set, Vasco's repaint, Vasco's dinner, same scale and baseline), all from
+      `scripts/ludo_review_vascor.py`. Frames themselves are git-ignored (`up/`, `fit/`): `ludo.py fetch <run>` and
+      `ludo_fit.py <run>` bring them back.
+    - **Not installed** (no `ludo_install.py`, no core.js change): waiting for the user's approval.
+124. **Deployed** (2026-10-31, the user: "deploy it as it is, vasco's sprites will go in the next deploy"). Export of
+    `79fd1f8e` (`git archive HEAD:sequel`), play.mjs on the export: won, 132 steps, no errors (it now takes over ten
+    minutes: run it in the background). Netlify deploy `6ae5760114f783c52e234efa`; live page 200, `/.env` 404,
+    `kissAtGando` in the live tue.js. Live: everything to entry 122 except Vasco's walks.
+    - Vasco's walks review page (entry 123's runs): https://claude.ai/artifact/JHsMoqK2UwY9L8oMp5dump (db `verdicts`;
+      built from `art/review/ludo/vascor_page/`). The user: "the walks look good, but they don't loop", "his side walk
+      is not really side - it's diagonal. we need a clean side walk." Being redone (entry 125).

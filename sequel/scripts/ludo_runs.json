@@ -405,6 +405,92 @@
    "frames": 16,
    "duration": 3,
    "what": "turn: side (facing right) to facing away"
+  },
+  {
+   "name": "vascor_walk_side",
+   "a": "vascor_side_k",
+   "prompt": "walking to the right at an easy, natural pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "vascor_walk_front",
+   "a": "vascor_front_k",
+   "prompt": "walking towards the camera at an easy pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "vascor_turn_side_front",
+   "a": "vascor_side_k",
+   "b": "vascor_front_k",
+   "loop": false,
+   "frames": 16,
+   "duration": 3,
+   "what": "turn: side (facing right) to facing the camera"
+  },
+  {
+   "name": "vascor_turn_side_left",
+   "a": "vascor_side_k",
+   "b": "vascor_side_k~",
+   "loop": false,
+   "frames": 16,
+   "duration": 3,
+   "what": "turn: facing right to facing left"
+  },
+  {
+   "name": "vascor_dinner_walk_side",
+   "a": "vascor_dinner_side_k",
+   "prompt": "walking to the right at an easy, natural pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "vascor_dinner_walk_front",
+   "a": "vascor_dinner_front_k",
+   "prompt": "walking towards the camera at an easy pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3
+  },
+  {
+   "name": "vascor_dinner_turn_side_front",
+   "a": "vascor_dinner_side_k",
+   "b": "vascor_dinner_front_k",
+   "loop": false,
+   "frames": 16,
+   "duration": 3,
+   "what": "turn: side (facing right) to facing the camera"
+  },
+  {
+   "name": "vascor_dinner_turn_side_left",
+   "a": "vascor_dinner_side_k",
+   "b": "vascor_dinner_side_k~",
+   "loop": false,
+   "frames": 16,
+   "duration": 3,
+   "what": "turn: facing right to facing left"
+  },
+  {
+   "name": "vascor_walk_back",
+   "a": "../review/ludo/vascor_walk_back/keyframe_back",
+   "prompt": "walking away from the camera at an easy pace, a full walk cycle",
+   "loop": true,
+   "frames": 36,
+   "duration": 3,
+   "what": "keyframe: vascos_back_k with the shirt recoloured to the repaint's cream (no repainted back view yet)"
+  },
+  {
+   "name": "vascor_turn_side_back",
+   "a": "vascor_side_k",
+   "b": "../review/ludo/vascor_walk_back/keyframe_back",
+   "loop": false,
+   "frames": 16,
+   "duration": 3,
+   "what": "turn: side (facing right) to facing away; back keyframe recoloured from vascos_back_k"
   }
  ]
 }

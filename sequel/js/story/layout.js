@@ -128,7 +128,7 @@
       walk: [[0, 622], [720, 588], [1040, 560], [1280, 545], [1280, 716], [0, 716]], scale: [560, 380, 716, 450],
       entries: { default: [1120, 640, 'w'], map: [1120, 640, 'w'] },
       spots: { 'Bottles': [0, 80, 410, 230], 'Domino table': [710, 360, 300, 190], 'Door': [1080, 100, 140, 420] },
-      npcs: { rafa: [460, 575], yeray: [110, 660] },
+      npcs: { rafa: [460, 575], yeray: [858, 563.5] },
       at: { rafa: [560, 640] },
       occluders: [{ y: 595, polys: [[[0, 340], [715, 340], [715, 585], [0, 605]]] }],
     },
@@ -162,14 +162,16 @@
       at: { 'Camp radio': [660, 600], 'Finds table': [510, 600], 'Steps down to the granary': [640, 600], 'Path to Cave 6': [1180, 600] },
       npcs: { yeray: [330, 610], baute: [1010, 620], carmen: [200, 650] },
     },
+    // (2026-10-30, the redesigned cave: up_real_etched; the floor walked round the hole, never across it)
     cave6: {
-      walk: [[60, 560], [540, 522], [1280, 560], [1280, 716], [0, 716], [0, 600]], scale: [520, 220, 716, 380],
-      entries: { default: [240, 640, 'e'], camp: [240, 640, 'e'] },
-      spots: { 'Engraved triangles': [830, 200, 450, 220], 'The beam': [430, 0, 560, 36], 'Empty sockets': [480, 55, 410, 70], 'A remaining disc': [905, 42, 52, 52],
-        'Your chalk marks': [280, 270, 760, 130], 'The great triangle': [550, 210, 270, 260], 'White crust': [1100, 400, 180, 160],
-        'Sit and wait half an hour': [60, 485, 190, 55], 'Path to the camp': [45, 160, 170, 340], 'The door in the floor': [540, 535, 280, 55] },
-      at: { 'The door in the floor': [680, 600], 'Sit and wait half an hour': [200, 600], 'Path to the camp': [130, 600] },
-      npcs: { vasco: [430, 640], carmen: [150, 600], yeray: [300, 690], baute: [1010, 620] },
+      walk: [[60, 500], [425, 505], [425, 608], [860, 608], [860, 505], [1280, 545], [1280, 716], [0, 716], [0, 560]], scale: [500, 200, 716, 380],
+      entries: { default: [200, 640, 'e'], camp: [200, 640, 'e'], cave6_low: [470, 650, 'e'] },
+      npcs: { vasco: [780, 650], carmen: [190, 640], yeray: [330, 690], baute: [1060, 620] },
+    },
+    // the chamber under it (low_real_empty_etched; the discs are sprites at their sockets, vasco.js)
+    cave6_low: {
+      walk: [[0, 640], [300, 560], [980, 560], [1280, 640], [1280, 716], [0, 716]], scale: [560, 210, 716, 330],
+      entries: { default: [520, 640, 'e'], cave6: [520, 640, 'e'] },
     },
   };
 

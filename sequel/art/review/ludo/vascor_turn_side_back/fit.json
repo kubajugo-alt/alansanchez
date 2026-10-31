@@ -1,0 +1,113 @@
+{
+ "name": "vascor_turn_side_back",
+ "kind": "turn",
+ "frames": 16,
+ "fps": 12,
+ "meta": {
+  "w": 281,
+  "hh": 735,
+  "h": 720.0,
+  "ax": 121.7,
+  "fy": 727.1,
+  "top": 7.5
+ },
+ "flagged": 0,
+ "checks": [
+  {
+   "i": 0,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 1,
+   "height": 1.002,
+   "feet_drift": 0.001,
+   "flag": false
+  },
+  {
+   "i": 2,
+   "height": 1.001,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 3,
+   "height": 0.998,
+   "feet_drift": 0.049,
+   "flag": false
+  },
+  {
+   "i": 4,
+   "height": 0.995,
+   "feet_drift": 0.067,
+   "flag": false
+  },
+  {
+   "i": 5,
+   "height": 0.993,
+   "feet_drift": 0.066,
+   "flag": false
+  },
+  {
+   "i": 6,
+   "height": 0.979,
+   "feet_drift": 0.033,
+   "flag": false
+  },
+  {
+   "i": 7,
+   "height": 0.977,
+   "feet_drift": 0.072,
+   "flag": false
+  },
+  {
+   "i": 8,
+   "height": 0.984,
+   "feet_drift": 0.082,
+   "flag": false
+  },
+  {
+   "i": 9,
+   "height": 0.982,
+   "feet_drift": 0.075,
+   "flag": false
+  },
+  {
+   "i": 10,
+   "height": 0.984,
+   "feet_drift": 0.058,
+   "flag": false
+  },
+  {
+   "i": 11,
+   "height": 0.986,
+   "feet_drift": 0.029,
+   "flag": false
+  },
+  {
+   "i": 12,
+   "height": 0.987,
+   "feet_drift": 0.024,
+   "flag": false
+  },
+  {
+   "i": 13,
+   "height": 0.984,
+   "feet_drift": 0.023,
+   "flag": false
+  },
+  {
+   "i": 14,
+   "height": 0.982,
+   "feet_drift": 0.013,
+   "flag": false
+  },
+  {
+   "i": 15,
+   "height": 0.984,
+   "feet_drift": 0.006,
+   "flag": false
+  }
+ ]
+}

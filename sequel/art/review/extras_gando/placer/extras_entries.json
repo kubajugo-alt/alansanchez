@@ -1,0 +1,22 @@
+[
+ {
+  "id": "gando_nuns",
+  "room": "gando",
+  "k": 0.93,
+  "x": 175,
+  "y": 566,
+  "w": 598,
+  "h": 700,
+  "desc": "Two Spanish nuns in 1990s habits: the older one, glasses, hand on her chest, scandalised; the younger trying not to smile. Standing, three-quarter view, watching (Canva)."
+ },
+ {
+  "id": "gando_family",
+  "room": "gando",
+  "k": 1.05,
+  "x": 985,
+  "y": 556,
+  "w": 880,
+  "h": 700,
+  "desc": "A German family from Düsseldorf off the plane with a luggage trolley: father (moustache, socks and sandals, camcorder bag), mother (perm, pastel windbreaker), a boy in a Germany shirt, a girl pointing. Standing, staring (Higgsfield)."
+ }
+]

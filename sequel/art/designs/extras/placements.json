@@ -17,24 +17,6 @@
   "y": 682,
   "z": 0
  },
- "cast_gando_clerk": {
-  "cast": "Clerk",
-  "flip": false,
-  "room": "gando",
-  "size": 1,
-  "x": 868,
-  "y": 525,
-  "z": 0
- },
- "cast_gando_vasco": {
-  "cast": "Vasco",
-  "flip": true,
-  "room": "gando",
-  "size": 1,
-  "x": 516,
-  "y": 667,
-  "z": 0
- },
  "cast_hotel_lobby_nieves": {
   "cast": "Nieves",
   "flip": true,
@@ -189,7 +171,7 @@
   "z": 0
  },
  "cast_santa_ana_inside_fermin": {
-  "cast": "Ferm\u00edn",
+  "cast": "Fermín",
   "flip": true,
   "room": "santa_ana_inside",
   "size": 1,
@@ -505,6 +487,44 @@
   "size": 1,
   "x": 470,
   "y": 590,
+  "z": 0
+ },
+ "cast_gando_clerk": {
+  "cast": "Clerk",
+  "flip": false,
+  "room": "gando",
+  "size": 1,
+  "x": 868,
+  "y": 525,
+  "z": 0
+ },
+ "cast_gando_vasco": {
+  "cast": "Vasco",
+  "flip": true,
+  "room": "gando",
+  "size": 1,
+  "x": 742,
+  "y": 655,
+  "z": 0
+ },
+ "pmvvw531vjiwp": {
+  "extra": "gando_nuns",
+  "flip": false,
+  "room": "gando",
+  "rot": 0,
+  "size": 1,
+  "x": 1101,
+  "y": 663,
+  "z": 0
+ },
+ "pmvvw53m0ydpq": {
+  "extra": "gando_family",
+  "flip": false,
+  "room": "gando",
+  "rot": 0,
+  "size": 0.93,
+  "x": 199,
+  "y": 610,
   "z": 0
  }
 }

@@ -1,4 +1,11 @@
-# Cave 6, redesigned: how the lock works, and how it is played (draft for the user's approval, 2026-10-30)
+# Cave 6, redesigned: how the lock works, and how it is played (approved 2026-10-30)
+
+**Status (2026-10-30, HANDOFF 106): built and playable.** The cave (`cave6`, `up_real_etched`) and the chamber under it
+(`cave6_low`, `low_real_empty_etched`, take B with the moon-phase signs; the discs drawn as sprites) are in the game; the
+Saturday chapter and the Monday finale follow this file (`js/story/vasco.js`, `js/story/mon.js`, the telling's page in
+`js/story/puzzles.js`). **The lines are waiting for the user's read**: 118 changed, 81 new, side by side in
+`docs/puzzles/CAVE6_LINES.md`; none recorded (they play as captions). Where the build differs from this text: see
+HANDOFF 106.
 
 The user's layout (a drawn section, then): one small opening in the ceiling, straight above an opening in the floor; a
 lower chamber under it, down a rope ladder; seven discs in a row in floor sockets at the bottom; the triangles on the
