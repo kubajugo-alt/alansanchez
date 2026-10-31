@@ -7,12 +7,12 @@
 
 Game II, *Alan Sanches II: The Shortest Night* (Gran Canaria, 18–24 June 1996). It lives in `sequel/`, its own web
 root, in the same repository as Game I. Read, in this order:
-- this section, then the newest entries of the session log below (105 onwards is the latest work; 117–123 the last
-  session's);
+- this section, then the newest entries of the session log below (105 onwards is the latest work; 124–130 the
+  newest);
 - `docs/PIPELINES.md`: **how we work**, step by step (rooms, sprites, Ludo, faces and lip-sync, the sea loops, ambient
   movement, sound and voices, recording with sound, deploy) and **every external service** with its limits;
 - `docs/CODEMAP.md` for the code; `docs/BIBLE.md` and `docs/story-bible.md` for the story (brought up to date with the
-  game on 2026-10-30, entry 89; the Claude Doc is older); `docs/novel/the-shortest-night.md` is the novel the days
+  game on 2026-10-31, entry 130; the Claude Doc is older); `docs/puzzles/` for the puzzles, Cave 6 and the deaths; `docs/novel/the-shortest-night.md` is the novel the days
   were rewritten from (entries 17, 87).
 
 ### Game I stays as it was
@@ -24,51 +24,70 @@ root, in the same repository as Game I. Read, in this order:
   sound effects (`audio/sfx/`, copied). Nothing is loaded from outside `sequel/`.
 - Saves, settings and tips use their own `shortest-night-*` keys, so the two games never share a save on one browser.
 
-### What is in the game (2026-10-30)
+### What is in the game (2026-10-31, live: Netlify deploy `6ae6149e0e5ea5896e84e6ca`, entry 129)
 - **The whole story is playable**, prologue to credits: the prologue (Elena's last drive), Tuesday to Monday as
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
-  the ending. Every day rewritten from the novel (entries 17, 87). `node scripts/tests/play.mjs` plays it all.
-- **2,906 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id). **Voiced** with ElevenLabs (entry 94), except
-  the puzzles' lines too (entry 100). The ElevenLabs key lives in the root `.env` (git-ignored; a new cloud container
-  needs it again, entry 99).
+  the ending. Every day rewritten from the novel (entries 17, 87), then the narrator cut back across the game (entries
+  109, 111–115: the characters do and say what the narrator used to describe). `node scripts/tests/play.mjs` plays it
+  all (132 steps; over ten minutes, run it in the background).
+- **2,906 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id: 0 errors; its warnings are mostly lines
+  the narrator cuts left unused, kept so no recording is orphaned). **Voiced** with ElevenLabs except **86 lines**
+  (entry 117, mostly Cave 6's finale), which play as captions. Emotion passes on Vasco and Alan (entry 118, audio tags
+  in `scripts/tts_text.json`). Lip-sync with Rhubarb (`scripts/lipsync.py`). The ElevenLabs key lives in the root `.env`
+  (git-ignored; a new cloud container needs it again).
 - **Puzzles** (entry 97, `docs/puzzles/DESIGN.md`, `js/story/puzzles.js`): knowledge as inventory: words Alan earns,
   notebook pages with blanks (1483 told twice, the case built wrong on Thursday and again on Saturday, the founders'
-  letter, who's next), folio 12, the break-in against Vasco's twenty minutes, the two radios (Lolo, the tower, Baute's
-  lie; Vasco's foil), the tide table, island words.
-- **Art**: 28 room paintings (upscaled to 2560x1440, entry 92; the 1280 originals in `art/designs/rooms_1280/`) plus the
-  map; the cast painted and animated (Ludo walks, talk loops, face kits with blinks and lip-sync); 19 background
-  people who talk (`js/story/bgtalk.js`); props graded into their rooms. **Stills**: 21 painted, 16 still text cards
-  (the `.ph` markers in `art/stills/`).
-- **Movement**: the sea is Higgsfield loops masked onto the paintings (`js/story/sea.js`, entry 75); the rest is each
-  room's `animBack` (Game I's FX helpers). Reviewed in `docs/review/env_movement.md` (entry 90): fixes proposed, not made.
-  Depth maps exist for every room (entry 91); **parallax is on** (entry 96) except the map, the cars, Cave 6 and the vault.
+  letter, who's next, the grandmothers' telling), folio 12, the break-in against Vasco's twenty minutes, the two radios
+  (Lolo, the tower, Baute's lie; Vasco's foil), the tide table, island words.
+- **Cave 6, redesigned** (entries 106, 109, 110; `docs/puzzles/CAVE6.md`): the noon column, the chamber under the cave
+  (`cave6_low`), seven discs (six moons and the sun) aimed at their triangles in the order of Baute's grandmother's
+  telling, the opening at 14:05 Canary summer time, Carmen's wing mirror, the women of light (a Kling dance split
+  into a back and a front layer round Alan, `js/story/dance.js`). Vasco nudges ("Which one goes first?").
+- **The timeline** (entries 103, 104; `docs/puzzles/DEATHS.md`): the discs came out one a month from 20 December; six
+  of the seven *Virgen del Pino* survivors die one a month (Pepe in May, a flashback on Wednesday night; Pino on
+  Saturday); Agustín is cut.
+- **Art**: every room repainted sharp (GPT image 2.5 high, aligned to the old framing, entries 102, 107; the map stays
+  OpenStreetMap's; the 1280 originals in `art/designs/rooms_1280/`), new rooms: the museum corridor of skulls
+  (Tuesday), the granary cell and the open vault (entry 100), Cave 6's chamber. The cast painted and animated (Ludo
+  walks, talk loops, face kits with blinks and lip-sync); **Vasco's walks** from his repaint, looped, true profile
+  (entry 125); the airport kiss (entry 119); drunk then sleeping Yeray at Rafa's corner table (107); Vasco on the bed in
+  a towel (116); background people who talk (`js/story/bgtalk.js`), at Gando two nuns, a Düsseldorf family and the taxi
+  driver (120, 126); props graded into their rooms. **Every still painted** (no text cards left). 24 painted inventory
+  icons and 11 close-up pictures (116).
+- **Movement**: the sea is Higgsfield/Kling loops masked onto the paintings, filmed again from the repaints
+  (`js/story/sea.js`, entries 75, 107); the Land Rover's windscreen plays the road; the rest is each room's `animBack`
+  (Game I's FX helpers; review with fixes proposed, not made: `docs/review/env_movement.md`, entry 90). **The Sea's
+  water** is a plane in the room's perspective, round the figures (`js/story/water.js`, entry 108). **Parallax is on**
+  (entry 96) except the map, the two cars, Cave 6 (both rooms) and the vault (both rooms).
 - **Music**: one track a room (entry 27). Sound effects from Game I. Room ambience.
-- **The phone box** is the hint system (Inês, a coin a call; Chano for change). Alan's notebook (N). **Carmen's toll**:
-  a packet of Coronas from Chano every day he talks to her (entry 78).
+- **The phone box** is the hint system (Inês, a coin a call; Chano for change; on Sunday her answer is "Go to him,
+  Alan."; Monday has no phone box). Alan's notebook (N). **Carmen's toll**: a packet of Coronas from Chano every day he
+  talks to her (entry 78).
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
-### Play offline (entry 127)
+### Play offline (entries 127, 129)
 The menu's **Play offline** downloads the whole game into the browser (~500 MB) and a service worker (`sw.js`) plays it
 with no connection. `scripts/build-manifest.mjs` writes its list (`offline.json`): run it last before every deploy.
-Test: `node scripts/tests/offline.mjs <copy of the web root> <out dir>`. Not deployed yet.
+Test: `node scripts/tests/offline.mjs <copy of the web root> <out dir>`. Live (entries 128, 129). Not tested on
+Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
 
 ### Open, in the order I'd suggest (2026-10-31)
-1. **Vasco walks (entry 125)**: his five walks are looped, the side walks redrawn in true profile, and **installed on the
-   branch** (the user, away: "continue ... without asking me for reviews until you are fully sure"); in the **next
-   deploy**. Review page with the result: https://claude.ai/artifact/JHsMoqK2UwY9L8oMp5dump (db `verdicts`). Still
-   open: no real back painting (the day back is a recolour of the old one; the blazer has none, so he walks away in it
-   sideways); he stands on his three-quarter paintings, so stopping is a cut from profile to three-quarter; turns are
-   made but not used (no one turns in the game).
-2. **86 unrecorded lines (entry 117)**, mostly Cave 6's finale: wait for ElevenLabs' reset on 14 Nov or a top-up.
-3. **Questions the user hasn't answered**: the city exit "mistaken for kiosk" on Las Canteras (121); flip the Gando nuns
-   to face the kiss? (120; the taxi driver: added, 126); audition Canarian-sounding voices? (118); `alan_look_postcard` says
-   "at sunset" but the postcard is by day (116); Gando's board reads "JUN16" and "BÜSSEDORF" (120).
-4. **Love close-ups and morning-after stills**: approved art, not wired into the game yet.
-5. `docs/BIBLE.md` not yet updated for Cave 6's redesign (106); no Inês hints for Monday.
-6. **The water (108)**: the user asked whether the first surge should drop back to the knees: unanswered.
-7. **Ludo key**: the user pasted it in chat; advised rotating it. It and the ElevenLabs/Gemini keys live in the root `.env`
-   (git-ignored; a new container needs them again: ask the user, never print them).
-8. Older: environment movement fixes (`docs/review/env_movement.md`), the 16 text-card stills, parallax recording.
+1. **86 unrecorded lines (entry 117)**, mostly Cave 6's finale (`vasco_scene_*`, `vasco_nudge_*`, `baute_m_verse_*`,
+   `vasco_m_verse_*`, `narr_m_*`, `narr_v_*`): wait for ElevenLabs' reset on 14 Nov or a top-up (ask the user). Some of
+   the `narr_*` ones are no longer played since the narrator cuts: check with validate's unused list before recording.
+2. **Questions the user hasn't answered**: should the first surge in the cave drop back to the knees (108; now
+   was+0.04, about 0.15 would match "dropped back to his knees")? Audition Canarian/Caribbean-sounding voices for the
+   main Canarians (118; their rule is the same voices)? Gando's painted board reads "JUN16" and "BÜSSEDORF" (120; the
+   painting changes only on their word).
+3. **Vasco's walks, left over (125)**: no real back painting (the day back is a recolour; the blazer has none, so he
+   walks away in it sideways); he stands on his three-quarter paintings, so stopping cuts from profile to
+   three-quarter; turns are made but no one turns in the game.
+4. **The extra love-scene pictures** (`art/review/stills_real/still_love_1_curtain/_hands/_watch/_morning.jpg`,
+   `still_love_2_morning.jpg`, commit 3a9d2991): painted for review, not in the game; the in-game love stills are the
+   kiss and the fireworks silhouette (107).
+5. **Ludo key**: the user pasted it in chat; advised rotating it. It and the ElevenLabs/Gemini keys live in the root
+   `.env` (git-ignored; a new container needs them again: ask the user, never print them).
+6. Older: the environment movement fixes (`docs/review/env_movement.md`, the user's pick from ten).
 
 ### Voice casting (the user's rule, 2026-10-27)
 - **Alan, Vasco, Inês and the narrator keep their Game I voices** (Game I's `scripts/cast.json`): Alan
