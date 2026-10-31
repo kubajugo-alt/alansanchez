@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "../review/alan_smoke/alanv_smoke_light",
+  "b": "../review/alan_smoke/alanv_smoke_inhale",
+  "mid": null,
+  "prompt": "shakes the match out and drops it, takes the cigarette between two fingers and draws on it; the cigarette stays in his right hand, the arm nearest to us, the whole time, never passed to the other hand; no smoke drawn, only him in the picture",
+  "loop": false,
+  "duration": 3,
+  "frames": 25
+ }
+}

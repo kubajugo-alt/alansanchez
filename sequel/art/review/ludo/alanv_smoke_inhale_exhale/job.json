@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "../review/alan_smoke/alanv_smoke_inhale",
+  "b": "../review/alan_smoke/alanv_smoke_exhale",
+  "mid": null,
+  "prompt": "lowers the cigarette to his chest, tips his head back a little and breathes the smoke out slowly; the cigarette stays in his right hand, the arm nearest to us, the whole time, never passed to the other hand; no smoke drawn, only him in the picture",
+  "loop": false,
+  "duration": 3,
+  "frames": 25
+ }
+}
