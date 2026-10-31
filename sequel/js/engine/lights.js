@@ -73,9 +73,10 @@
     const L = roomLight();
     const ao = L.ao != null ? L.ao : 1;
     // contact shadow / ambient occlusion right under the feet
-    const wide = a.walking ? 1.25 : 1;
+    // (a figure of two, e.g. the kiss at Gando: def.shadow moves it to the middle of both and stretches it over them)
+    const SH = (a.def && a.def.shadow) || null, wide = (a.walking ? 1.25 : 1) * (SH ? SH.wide : 1);
     g.save();
-    g.translate(a.x, a.y - h * 0.02); g.scale(1, 0.2); // spans from the far foot (painted higher) to the near one
+    g.translate(a.x + (SH ? SH.dx * h : 0), a.y - h * 0.02); g.scale(1, 0.2); // spans from the far foot (painted higher) to the near one
     let gr = g.createRadialGradient(0, 0, 0, 0, 0, h * 0.15 * wide);
     gr.addColorStop(0, `rgba(0,0,0,${0.7 * ao})`); gr.addColorStop(0.5, `rgba(0,0,0,${0.38 * ao})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
     g.fillStyle = gr; g.beginPath(); g.arc(0, 0, h * 0.15 * wide, 0, Math.PI * 2); g.fill();
