@@ -109,3 +109,23 @@
 | 2026-10-30 00:07 | forge | forge | alanv_front_k -> alan_uw_front | standing on the spot facing us, he takes off his black vest top over his head and drops it, kicks off his white trainers, takes off his khaki shorts and steps out of them, and stands in his black boxer shorts with a sheepish grin; his whole body, arms and hands stay inside the frame | sequel/art/review/ludo/alan_undress/ | 4.5 |
 | 2026-10-30 00:09 | forge | forge | alanv_front_k -> alan_uw_front | standing on the spot facing us, he takes off his black vest top over his head and drops it, kicks off his white trainers, takes off his khaki shorts and steps out of them, and stands in his black boxer shorts with a sheepish grin; his whole body, arms and hands stay inside the frame | sequel/art/review/ludo/alan_undress/ | 4.5 |
 | 2026-10-30 00:14 | forge | forge | alanv_front_k -> alan_uw_front | standing on the spot facing us, one thing at a time: first he kicks off his white trainers; then he pulls his black vest top up over his head and tosses it away; then he unbuttons his khaki shorts, pushes them down to his ankles and steps out of them one leg at a time, kicking them aside; finally he straightens up in his black boxer shorts with a sheepish grin. Arms and hands always inside the frame | sequel/art/review/ludo/alan_undress/ | 6 |
+| 2026-10-31 03:47 | hydra | hydra | vascor_side_k -> vascor_front_k |  | sequel/art/review/ludo/vascor_turn_side_front/ | 9 |
+| 2026-10-31 03:47 | hydra | hydra | vascor_front_k | walking towards the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/vascor_walk_front/ | 9 |
+| 2026-10-31 03:48 | hydra | hydra | vascor_side_k | walking to the right at an easy, natural pace, a full walk cycle | sequel/art/review/ludo/vascor_walk_side/ | 9 |
+| 2026-10-31 03:48 | hydra | hydra | vascor_side_k -> vascor_side_k~ |  | sequel/art/review/ludo/vascor_turn_side_left/ | 9 |
+| 2026-10-31 03:50 | improve | hydra | vascor_side_k -> vascor_front_k | improve | sequel/art/review/ludo/vascor_turn_side_front/ | 3 |
+| 2026-10-31 03:50 | improve | hydra | vascor_front_k | improve | sequel/art/review/ludo/vascor_walk_front/ | 3 |
+| 2026-10-31 03:51 | improve | hydra | vascor_side_k -> vascor_side_k~ | improve | sequel/art/review/ludo/vascor_turn_side_left/ | 3 |
+| 2026-10-31 03:51 | improve | hydra | vascor_side_k | improve | sequel/art/review/ludo/vascor_walk_side/ | 3 |
+| 2026-10-31 03:56 | hydra | hydra | vascor_dinner_side_k | walking to the right at an easy, natural pace, a full walk cycle | sequel/art/review/ludo/vascor_dinner_walk_side/ | 9 |
+| 2026-10-31 03:57 | hydra | hydra | vascor_dinner_front_k | walking towards the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/vascor_dinner_walk_front/ | 9 |
+| 2026-10-31 03:58 | hydra | hydra | vascor_dinner_side_k -> vascor_dinner_front_k |  | sequel/art/review/ludo/vascor_dinner_turn_side_front/ | 9 |
+| 2026-10-31 03:59 | improve | hydra | vascor_dinner_side_k | improve | sequel/art/review/ludo/vascor_dinner_walk_side/ | 3 |
+| 2026-10-31 04:00 | improve | hydra | vascor_dinner_front_k | improve | sequel/art/review/ludo/vascor_dinner_walk_front/ | 3 |
+| 2026-10-31 04:00 | hydra | hydra | vascor_dinner_side_k -> vascor_dinner_side_k~ |  | sequel/art/review/ludo/vascor_dinner_turn_side_left/ | 9 |
+| 2026-10-31 04:01 | improve | hydra | vascor_dinner_side_k -> vascor_dinner_front_k | improve | sequel/art/review/ludo/vascor_dinner_turn_side_front/ | 3 |
+| 2026-10-31 04:05 | improve | hydra | vascor_dinner_side_k -> vascor_dinner_side_k~ | improve | sequel/art/review/ludo/vascor_dinner_turn_side_left/ | 3 |
+| 2026-10-31 04:06 | hydra | hydra | ../review/ludo/vascor_walk_back/keyframe_back | walking away from the camera at an easy pace, a full walk cycle | sequel/art/review/ludo/vascor_walk_back/ | 9 |
+| 2026-10-31 04:07 | hydra | hydra | vascor_side_k -> ../review/ludo/vascor_walk_back/keyframe_back |  | sequel/art/review/ludo/vascor_turn_side_back/ | 9 |
+| 2026-10-31 04:09 | improve | hydra | ../review/ludo/vascor_walk_back/keyframe_back | improve | sequel/art/review/ludo/vascor_walk_back/ | 3 |
+| 2026-10-31 04:10 | improve | hydra | vascor_side_k -> ../review/ludo/vascor_walk_back/keyframe_back | improve | sequel/art/review/ludo/vascor_turn_side_back/ | 3 |

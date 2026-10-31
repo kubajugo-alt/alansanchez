@@ -48,9 +48,9 @@ root, in the same repository as Game I. Read, in this order:
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
 ### Open, in the order I'd suggest (2026-10-31)
-1. **Vasco's walks from his repaint (entry 122)**: a background agent was making them when the session ended; the runs
-   are in `art/review/ludo/vascor*` (some maybe uncommitted if the container was lost: check `git status`, re-run what's
-   missing with `scripts/ludo.py`). Put them on a review page for the user; install only on approval; they go in the
+1. **Vasco's walks from his repaint (entries 122, 123)**: all ten runs made and committed (`art/review/ludo/vascor*`,
+   grid `art/review/ludo/vascor_set_preview.mp4`); no back view for the dinner outfit, the day back keyframe is a
+   recolour of the old back. Put them on a review page for the user; install only on approval; they go in the
    **next deploy**.
 2. **86 unrecorded lines (entry 117)**, mostly Cave 6's finale: wait for ElevenLabs' reset on 14 Nov or a top-up.
 3. **Questions the user hasn't answered**: the city exit "mistaken for kiosk" on Las Canteras (121); flip the Gando nuns
@@ -1570,3 +1570,28 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       its work on that). Runs are in `art/review/ludo/vascor*`; `scripts/ludo_review_vascor.py` builds the review. Not in
       the game. **Next**: when done, put them in a review page (like the Ludo reviews before) for the user; on approval,
       add them to `ludo_runs.json` / `ludo_install.py` and pass `'vascor'` as the walker in core.js `still('vascor', ...)`.
+123. **Vasco's walking set from his repaint, for review** (2026-10-31, the user: "please do vasco's walking sprites, the
+    same set as alan has"). His runs in the game (`vasco_walk_*`, `vasco_turn_*`) were made from the old `vascos_*`
+    sprites, so `V.frames = still('vascor')` (core.js) passes no walker and he glides. Ten new Ludo runs, the same
+    prompts and options as Alan's (`scripts/ludo_runs.json`; hydra, improve pass, 1.5x upscale; walks 36 frames looped,
+    turns 16): `vascor_walk_side/front/back`, `vascor_turn_side_front/left/back` and `vascor_dinner_walk_side/front`,
+    `vascor_dinner_turn_side_front/left`. All ten succeeded first time, no moderation refusals: 120 credits (410.51 ->
+    290.51), each call in `art/review/ludo/log.md`.
+    - **No repainted back view.** `vascos_back_k` is the old blue-shirt painting. For the day outfit's back runs the
+      keyframe is that painting with the shirt recoloured to the repaint's cream (`scripts/vascor_back_recolour.py`: LAB
+      colour transfer inside a blue-pixel mask, shirt rows only; written to `art/review/ludo/vascor_walk_back/
+      keyframe_back.webp`, not a game sprite). This is a derived image, not a new painting: the back's sleeves are
+      still rolled long and its trousers are the old ones (close in colour). A real back painting would be better.
+    - **The dinner outfit has no back view at all**, so `vascor_dinner_walk_back` and `vascor_dinner_turn_side_back` were
+      not made (the review grid says "no back view painted").
+    - Checks (`scripts/ludo_fit.py`, `fit.json` per run): height within 0.92-1.03 of frame 0; one flag, frame 11 of
+      `vascor_dinner_turn_side_front` (0.919, he dips mid-turn); feet drift within the box 0.07-0.13 on walks (Alan's:
+      0.09-0.15), 0.01-0.10 on turns. Faces looked at frame by frame: the walks keep him; the side->front turns (both
+      outfits) drift mid-turn and land on a smoother, younger, less stubbled face than the painting (a `head_swap.py`
+      pass or a straight cut to the standing painting at the end would fix it at install). Walks are Ludo's raw 36
+      frames: `walk_loop.py` (seamless loop, drift removal) runs at install, as Alan's did.
+    - Review: `art/review/ludo/<run>/preview.mp4` and `strip.png` per run, and `art/review/ludo/vascor_set_preview.mp4`
+      (10 s grid: Alan's installed set, Vasco's repaint, Vasco's dinner, same scale and baseline), all from
+      `scripts/ludo_review_vascor.py`. Frames themselves are git-ignored (`up/`, `fit/`): `ludo.py fetch <run>` and
+      `ludo_fit.py <run>` bring them back.
+    - **Not installed** (no `ludo_install.py`, no core.js change): waiting for the user's approval.
