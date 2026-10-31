@@ -23,8 +23,12 @@
     await G.card('RISCO CAÍDO', 'The same morning · 07:00', 3200);
     G.tip('vasco');
     await G.fade(false);
-    // above the cloud, trying very hard not to think about Alan (the novel's opening of Chapter Seven)
-    await say('narr_v_camp_1', 'narr_v_camp_2', 'narr_v_camp_3', 'narr_v_camp_4', 'vasco_v_wake', 'vasco_v_wake_2', 'narr_v_camp_5');
+    // above the cloud, trying very hard not to think about Alan (the novel's opening of Chapter Seven); the painting is the
+    // cloud, Teide and the sun (2026-10-31: no narrator for them); he walks to the edge and looks
+    await say('narr_v_camp_1');
+    await G.busy(async () => { await G.player.walkTo(470, 660); G.player.dir = 'e'; await T(window.FAST ? 10 : 1200); });
+    await say('vasco_v_wake', 'vasco_v_wake_2');
+    await T(window.FAST ? 10 : 1200);   // (the cloud doesn't answer)
   };
 
   // ================================================================ THE CAMP
@@ -85,13 +89,26 @@
     await G.busy(async () => {
       S.sfx('coffee_cups', 0.5);
       await say('yeray_v_01', 'vasco_v_01');
-      await S.posed('coffee', () => say('narr_v_yeray_1', 'yeray_v_02', 'vasco_v_yeray_1', 'yeray_v_02b', 'narr_v_yeray_2', 'yeray_v_02c', 'yeray_v_02d',
-        'narr_v_yeray_3', 'vasco_v_02', 'narr_v_yeray_4', 'yeray_v_03', 'vasco_v_yeray_2', 'yeray_v_03b', 'vasco_v_03', 'narr_v_yeray_5', 'yeray_v_04',
-        'vasco_v_yeray_3', 'narr_v_yeray_6', 'yeray_v_04b'));
+      // (2026-10-31, less narrator: the pouring is heard, the silences are pauses; what Vasco makes of it he says)
+      S.sfx('pour', 0.4);
+      await S.posed('coffee', async () => {
+        await say('yeray_v_02', 'vasco_v_yeray_1', 'yeray_v_02b');
+        await T(window.FAST ? 10 : 1000);   // (Vasco doesn't move)
+        await say('yeray_v_02c', 'yeray_v_02d', 'vasco_v_02');
+        await T(window.FAST ? 10 : 900);
+        await say('yeray_v_03', 'vasco_v_yeray_2', 'yeray_v_03b', 'vasco_v_03');
+        await T(window.FAST ? 10 : 700);
+        await say('yeray_v_04', 'vasco_v_yeray_3');
+      });
+      // he throws the rest of his coffee over the edge, into the cloud
+      S.sfx('pour', 0.3);
+      await say('yeray_v_04b');
       const y = G.npc('yeray');
       if (y) { y.dir = 'w'; await say('yeray_v_05'); await Promise.race([y.walkTo(-80, y.y), T(window.FAST ? 50 : 4000)]); }
       f.v_yeray_gone = true; G.refreshNpcs();
-      await say('narr_v_yeray_7', 'vasco_v_yeray_4');
+      G.player.dir = 'e';
+      await T(window.FAST ? 10 : 900);
+      await say('vasco_v_yeray_4');
     });
   };
   // the expedition files: Elena Suárez's charts of the sockets, and on the last one the sun disc in pencil, and a word
@@ -100,9 +117,7 @@
     if (G.has('elena_charts')) return say('vasco_finds_again');
     await G.busy(async () => {
       S.sfx('paper_shuffle', 0.5);
-      await say('narr_v_charts_1', 'vasco_take_1');
-      await S.posed('find', () => say('vasco_take_2', 'vasco_take_3'));
-      await say('narr_v_charts_4');
+      await S.posed('find', () => say('vasco_take_1', 'vasco_take_2', 'vasco_take_3', 'vasco_take_4'));
       S.give('elena_charts'); S.give('chalk', true); S.give('vnotebook', true);
       await say('vasco_take_charts');
     });
@@ -115,16 +130,16 @@
     if (!f.v_understood) {
       if (f.v_radio_looked) return say('vasco_look_radio_again');
       f.v_radio_looked = true;
-      return say('vasco_look_radio_1', 'vasco_look_radio_2', 'vasco_look_radio', 'narr_v_radio');
+      return say('vasco_look_radio_1', 'vasco_look_radio_2', 'vasco_look_radio');
     }
     // after the cave: dead, and the fuse gone. Then a shadow across the radio: Rayco, with a thermos and two mugs
     if (!f.v_fuse_seen) {
       f.v_fuse_seen = true;
       await G.busy(async () => {
-        S.sfx('relay_click', 0.5); await T(500); S.sfx('relay_click', 0.5);
-        await say('narr_v_fuse_1');
-        await S.posed('kneel', async () => { S.sfx('case_open', 0.5); await say('narr_v_fuse_2', 'vasco_radio_fuse', 'narr_v_fuse_3'); });
-        await S.posed('worried', () => say('narr_v_fuse_4', 'narr_v_fuse_5', 'vasco_v_see'));
+        // on, off and on again: nothing; he kneels and opens the case (2026-10-31: no narrator; he says what he finds)
+        S.sfx('relay_click', 0.5); await T(500); S.sfx('relay_click', 0.5); await T(window.FAST ? 10 : 900);
+        await S.posed('kneel', async () => { S.sfx('case_open', 0.5); await T(window.FAST ? 10 : 600); await say('vasco_radio_fuse'); });
+        await S.posed('worried', () => say('vasco_v_see_0', 'vasco_v_see'));
       });
       return;
     }
@@ -139,14 +154,17 @@
     await G.busy(async () => {
       await S.posed('kneel', async () => { S.sfx('case_open', 0.4); await say('vasco_r_foil_1'); });
       S.sfx('relay_click', 0.5);
-      await say('narr_v_r_1', 'vasco_r_send');
-      S.sfx('match', 0.5);
-      await say('narr_v_r_2', 'vasco_r_after');
+      await say('vasco_r_on', 'vasco_r_send');
+      // the foil flares and burns through; the dial dies
+      S.sfx('match', 0.5); await T(window.FAST ? 10 : 900);
+      await say('vasco_r_after');
+      // Rayco comes along the path behind him, with a thermos and two mugs
       f.v_sent = true; f.v_baute_here = true; G.refreshNpcs();
-      const b = G.npc('baute'); if (b) b.dir = 'w';
-      await say('narr_v_shadow', 'baute_v_01');
+      const b = G.npc('baute');
+      if (b) { const bx = b.x, by = b.y; b.x = 1340; b.dir = 'w'; await Promise.race([b.walkTo(bx, by), T(window.FAST ? 50 : 3000)]); b.x = bx; b.y = by; b.dir = 'w'; }
+      await say('baute_v_01');
       G.player.dir = 'e';
-      await say('narr_v_baute_1', 'narr_v_baute_2', 'baute_v_heard', 'baute_v_01b');
+      await say('baute_v_heard', 'baute_v_01b');
     });
   };
 
@@ -515,18 +533,27 @@
     const f = F();
     if (f.v_refused) return;
     await G.busy(async () => {
-      await say('baute_v_coffee', 'narr_v8_rock_1');
-      S.sfx('thermos_cup', 0.5);
-      await say('narr_v8_rock_2');
-      await say('baute_v_02', 'baute_v8_02b', 'baute_v8_02c', 'baute_v_03');
-      await G.dialog([{ line: 'vasco_v_07a', bye: true }, { line: 'vasco_v_07b', bye: true }]);
-      await say('narr_v8_rock_3');
-      await say('baute_v_04', 'baute_v8_04b', 'baute_v8_04c', 'narr_v8_pendant', 'baute_v8_04d', 'baute_v8_04e', 'baute_v8_04f', 'baute_v8_04g');
-      await say('baute_v_05', 'narr_v8_tears', 'baute_v_06', 'baute_v8_06b', 'narr_v8_think', 'vasco_v_08', 'baute_v_07');
-      await say('narr_v8_edge');
+      // (2026-10-31, less narrator: the rock, the cups, the silences are done or left as pauses; the coffee's taste, a clue
+      // to the drugging, and the fisherman are Vasco's to say)
+      await say('baute_v_coffee');
+      await S.posed('sit', async () => {
+        S.sfx('thermos_cup', 0.5); await T(window.FAST ? 10 : 900);
+        await S.posed('sip', () => say('vasco_v8_coffee'));
+        await say('baute_v_02', 'baute_v8_02b', 'baute_v8_02c', 'baute_v_03');
+        await G.dialog([{ line: 'vasco_v_07a', bye: true }, { line: 'vasco_v_07b', bye: true }]);
+        await T(window.FAST ? 10 : 1000);   // (Rayco doesn't deny it)
+        await say('baute_v_04', 'baute_v8_04b', 'baute_v8_04c', 'baute_v8_04d', 'baute_v8_04e', 'baute_v8_04f', 'baute_v8_04g');
+        await say('baute_v_05', 'baute_v_06', 'baute_v8_06b', 'vasco_v8_fisherman', 'vasco_v_08', 'baute_v_07');
+      });
+      // he gets up and goes to the edge, because he can't look at Rayco's face any more
+      await G.player.walkTo(Math.max(160, G.player.x - 220), G.player.y); G.player.dir = 'w';
       await G.dialog([{ line: 'vasco_v_09a', bye: true }, { line: 'vasco_v_09b', bye: true }]);
-      await say('narr_v8_old', 'baute_v_08', 'baute_v8_08b', 'vasco_v8_killed', 'baute_v_09', 'baute_v8_09b', 'baute_v8_09c');
-      await say('vasco_v_10', 'baute_v_10', 'vasco_v_11', 'narr_v8_hawk', 'baute_v_11');
+      await T(window.FAST ? 10 : 1600);   // (a long silence; he turns round)
+      G.player.dir = 'e';
+      await say('baute_v_08', 'baute_v8_08b', 'vasco_v8_killed', 'baute_v_09', 'baute_v8_09b', 'baute_v8_09c');
+      await say('vasco_v_10', 'baute_v_10', 'vasco_v_11');
+      await T(window.FAST ? 10 : 1200);
+      await say('baute_v_11');
       f.v_refused = true;
       await S.toVault();
     });
@@ -534,18 +561,31 @@
   // down the road to Artenara on foot (the keys are gone); the road tilts; Yeray's "I'm sorry"; the grille
   S.toVault = async function () {
     const f = F();
-    await say('vasco_v_walk', 'baute_v_see', 'narr_v8_keys');
-    await G.player.walkTo(-60, 680);
+    await say('vasco_v_walk', 'baute_v_see', 'vasco_v8_keys');
+    // (2026-10-31: played in the room, not over the black, where captions don't show) he gets as far as the top of the
+    // road; it tilts; he sits down; footsteps behind him, two sets: Rayco, and Yeray come back
+    await G.player.walkTo(130, 680); G.player.dir = 'w';
+    await say('narr_v_drug');
+    await S.posed('sit', () => say('vasco_v8_drug'));
+    f.v_yeray_gone = false; G.refreshNpcs();
+    const walk = (a, x) => a ? Promise.race([a.walkTo(x, 670), T(window.FAST ? 50 : 3500)]) : null;
+    const b = G.npc('baute'), y = G.npc('yeray');
+    S.sfx('step_stone', 0.4); S.sfx('step_stone_2', 0.3);
+    await Promise.all([walk(b, 330), walk(y, 450)]);
+    if (b) b.dir = 'w'; if (y) y.dir = 'w';
+    await say('yeray_v8_sorry', 'baute_v8_sleep');
+    await S.posed('sit', () => say('vasco_v8_hurt'));
     await G.fade(true);
-    await say('narr_v_drug', 'narr_v8_drug_2', 'yeray_v8_sorry', 'baute_v8_sleep', 'narr_v8_drug_3');
     f.v_baute_here = false; f.v_yeray_gone = true;
     await G.goRoom('vault_cell', null, { instant: true, noEnter: true, noSave: true, pos: [560, 670, 'e'] });
     S.torch = 1;
     await T(800);
     await G.fade(false);
-    await say('narr_v8_wake', 'baute_v8_granary', 'baute_v_12', 'vasco_v_12');
-    S.sfx('corridor_steps', 0.4);
-    await say('narr_v_silence', 'narr_v8_torch');
+    await say('vasco_v8_wake', 'baute_v8_granary', 'baute_v_12', 'vasco_v_12');
+    // Rayco's footsteps going back up the cleft, and Yeray's, slower; then nothing
+    S.sfx('corridor_steps', 0.4); await T(window.FAST ? 10 : 2200);
+    S.sfx('lamp_click', 0.4);
+    await say('vasco_v8_torch');
     G.autosave();
   };
 
@@ -572,7 +612,7 @@
         look: () => !asV() ? say('alan_look_crates') : F().v_crates_seen ? say('vasco_look_crates') : (F().v_crates_seen = true, say('vasco_look_crates', 'vasco_look_crates_2', 'vasco_look_crates_3')),
         take: () => S.takeDiscs(), use: () => S.takeDiscs() },
       { name: 'Walls', rect: [140, 120, 220, 260], at: [260, 650], noBox: true,
-        look: () => !asV() ? say('alan_look_walls') : F().v_walls_seen ? say('vasco_look_walls_2') : (F().v_walls_seen = true, say('vasco_look_walls', 'vasco_look_serpent', 'narr_v8_coils')) },
+        look: () => !asV() ? say('alan_look_walls') : F().v_walls_seen ? say('vasco_look_walls_2') : (F().v_walls_seen = true, say('vasco_look_walls', 'vasco_look_serpent')) },
       { name: 'The grille', rect: [380, 120, 520, 440], at: [640, 650], noBox: true, look: () => say(asV() ? 'vasco_look_grille' : F().vasco_free ? 'alan_look_grille_off' : 'alan_look_grille'),
         use: () => asV() ? say('vasco_look_grille') : S.tearGrille() },
       { name: 'Left anchor', rect: [400, 540, 80, 40], at: [460, 660], when: () => asV(), look: () => say(F().v_left >= 3 ? 'vasco_anchor_out' : 'vasco_look_anchor'),
@@ -632,7 +672,7 @@
         look: () => F().v_crates_seen ? say('vasco_look_crates') : (F().v_crates_seen = true, say('vasco_look_crates', 'vasco_look_crates_2', 'vasco_look_crates_3')),
         take: 'vasco_crates_reach', use: 'vasco_crates_reach' },
       { name: 'Walls', rect: [0, 100, 185, 440], at: [230, 660], noBox: true,
-        look: () => F().v_walls_seen ? say('vasco_look_walls_2') : (F().v_walls_seen = true, say('vasco_look_walls', 'vasco_look_serpent', 'narr_v8_coils')) },
+        look: () => F().v_walls_seen ? say('vasco_look_walls_2') : (F().v_walls_seen = true, say('vasco_look_walls', 'vasco_look_serpent')) },
       { name: 'Left anchor', rect: [195, 540, 60, 60], at: [270, 650], look: () => say(F().v_left >= 3 ? 'vasco_anchor_out' : 'vasco_look_anchor'),
         use: () => S.dig('left'), items: { ltrowel: () => S.dig('left') } },
       { name: 'Right anchor', rect: [995, 540, 60, 60], at: [1000, 650], look: () => say(F().v_right >= 2 ? 'vasco_anchor_cm' : 'vasco_look_anchor'),
@@ -667,11 +707,13 @@
       await say('vasco_mark_1_scratch');
       S.sfx('trowel_scrape_2', 0.4); await T(800);
       f.v_marked = true;
-      await say('vasco_mark_a', 'narr_v8_a');
+      await say('vasco_mark_a');
       // his knees go wet: salt water, a thousand metres up, and rising; and for the first time since Friday he isn't angry
       S.sfx('water_seep', 0.5);
       await S.waterTo('vault', 0.12, 2500);
-      await say('vasco_wet_1', 'narr_v8_wet', 'vasco_wet_2', 'vasco_wet_3', 'vasco_wet_4');
+      await say('vasco_wet_1');
+      await T(window.FAST ? 10 : 900);
+      await say('vasco_wet_2', 'vasco_wet_3', 'vasco_wet_4');
     });
   };
   S.dig = async function (side) {
@@ -696,10 +738,15 @@
     await G.busy(async () => {
       S.torch = 0.12;
       // the prayer, the first since January; Alan; "send the idiot", smiling in the dark
-      await say('narr_v8_pray', 'vasco_v_13', 'narr_v8_rusty', 'vasco_v_14', 'narr_v8_thighs');
-      await say('narr_prayer_1', 'narr_prayer_2', 'narr_prayer_3');
-      S.torch = 0; await T(1200);
-      await say('vasco_v_15', 'narr_v8_smile');
+      // (2026-10-31: the prayer is his own, said in the dark; the narrator only marks the night)
+      await say('narr_v8_pray');
+      await S.posed('kneel', async () => {
+        await say('vasco_v_13');
+        await T(window.FAST ? 10 : 900);
+        await say('vasco_v_14', 'vasco_v_prayer_1', 'vasco_v_prayer_2', 'vasco_v_prayer_3');
+        S.torch = 0; await T(1200);
+        await say('vasco_v_15');
+      });
       await T(1200);
       await G.fade(true);
       S.water.vault = 0;

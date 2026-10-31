@@ -49,15 +49,19 @@
       await S.day(7);
       S.water.cave6 = 0; S.water.cave6_low = 0.1;
       await G.fade(false);
-      await say('narr_mon_baute');
+      // (2026-10-31, less narrator: Baute is on his stool with the disc, painted in; the looks and the smile are pauses)
+      await T(window.FAST ? 10 : 900);
       await say('baute_m_1', 'baute_m_1b', 'baute_m_1c');
       // Vasco goes to the rim and looks down at the sun disc, tipped in its socket
       const v = G.npc('vasco');
       if (v) { await Promise.race([v.walkTo(700, 640), T(window.FAST ? 50 : 4000)]); v.dir = 'w'; }
       await T(window.FAST ? 10 : 1000);
       await say('vasco_m_1', 'baute_m_close', 'vasco_m_1b', 'vasco_m_1c');
-      await say('narr_mon_smile', 'baute_m_2', 'baute_m_2b');
-      await say('alan_m_1', 'narr_mon_alan', 'alan_m_1b', 'alan_m_1c', 'alan_m_1d', 'alan_m_1e');
+      await T(window.FAST ? 10 : 900);
+      await say('baute_m_2', 'baute_m_2b');
+      await say('alan_m_1');
+      await T(window.FAST ? 10 : 900);   // (Baute looks at him, properly, for the first time)
+      await say('alan_m_1b', 'alan_m_1c', 'alan_m_1d', 'alan_m_1e');
       // the water comes up in the hole (heard from up here; Yeray at the edge sees it), and the morning goes over them
       S.sfx('water_rise_2', 0.7);
       await S.waterTo('cave6_low', 0.16, 1200);
@@ -67,7 +71,7 @@
       clock(720); S.sfx('fog_lift', 0.3);
       await T(window.FAST ? 10 : 1500);
       await say('vasco_m_twenty', 'vasco_m_climb');
-      await say('carmen_m_five', 'narr_mon_tighter');
+      await say('carmen_m_five', 'alan_m_disc');
       await say('vasco_m_halves', 'vasco_m_who');
       G.checkpoint();
     });
@@ -87,7 +91,8 @@
     const f = F();
     if (f.lock_closed && !f.fuse_given) {
       f.fuse_given = true;
-      await say('narr_m_fuse_twist', 'yeray_m_fuse');
+      await say('yeray_m_fuse');
+      await S.posed('pickup', () => T(window.FAST ? 10 : 600));   // (the fuse, in a twist of paper)
       S.give('fuse');
       return say('alan_m_fuse');
     }
@@ -383,34 +388,50 @@
       { line: 'alan_m_ask_hurt', once: true, run: () => say('vasco_m_hurt', 'vasco_m_hurt_2') },
       { line: 'alan_m_ask_monte', once: true, run: () => say('vasco_m_monte') },
       { line: 'alan_m_confess', run: () => S.confess(), bye: true },
-      { line: 'alan_m_later', bye: true, run: () => say('vasco_m_later', 'narr_m_later') },
+      { line: 'alan_m_later', bye: true, run: () => say('vasco_m_later', 'alan_m_later_2') },
     ]);
   };
   // what Vasco knew, whichever way it's told
   const KNEW = ['vasco_m_plain_1', 'vasco_m_knew_2', 'vasco_m_knew_3', 'vasco_m_knew_4', 'vasco_m_knew_5'];
+  // (2026-10-31, less narrator: the looks, the hawk and the silences are pauses; what Alan doesn't say in the plain telling
+  // he now says; the trowel is held out and taken)
+  const hold = ms => T(window.FAST ? 10 : ms);
   S.confess = async function () {
     const f = F();
-    await say('narr_m_turned', 'alan_m_confess_1', 'alan_m_confess_1b', 'alan_m_confess_1c');
+    const v = G.npc('vasco'); if (v) v.dir = G.player.x < v.x ? 'w' : 'e';   // (Vasco turns to him)
+    await hold(700);
+    await say('alan_m_confess_1', 'alan_m_confess_1b', 'alan_m_confess_1c');
     await G.dialog([
       { line: 'alan_m_plain', run: async () => {
         f.confession = 'plain';
-        await say('alan_m_plain_2', 'alan_m_plain_3', 'narr_m_all', 'narr_m_hawk', ...KNEW, 'vasco_m_didnt_wait', 'alan_m_no', 'narr_m_watch', 'vasco_m_first');
+        await say('alan_m_plain_2', 'alan_m_plain_3', 'alan_m_plain_4');
+        await hold(2200);   // (a very long look)
+        await say(...KNEW, 'vasco_m_didnt_wait', 'alan_m_no');
+        await hold(1500);
+        await say('vasco_m_first');
       }, bye: true },
       { line: 'alan_m_excuses', run: async () => {
         f.confession = 'excuses';
-        await say('alan_m_excuses_2', 'narr_m_silence', 'vasco_m_excuses_1', ...KNEW, 'narr_m_watch', 'vasco_m_first');
+        await say('alan_m_excuses_2');
+        await hold(2200);   // (Vasco says nothing for a long time)
+        await say('vasco_m_excuses_1', ...KNEW);
+        await hold(1500);
+        await say('vasco_m_first');
       }, bye: true },
       { line: 'alan_m_blame', run: async () => {
         f.confession = 'blame';
-        await say('alan_m_blame_2', 'vasco_m_blame_1', ...KNEW, 'vasco_m_didnt_wait', 'alan_m_no', 'narr_m_watch', 'vasco_m_first');
+        await say('alan_m_blame_2', 'vasco_m_blame_1', ...KNEW, 'vasco_m_didnt_wait', 'alan_m_no');
+        await hold(1500);
+        await say('vasco_m_first');
       }, bye: true },
     ]);
     f.confessed = true;
-    await say('narr_m_stay');
-    // Lorenzo's trowel
-    await say('narr_m_pocket', 'vasco_m_trowel_1', 'vasco_m_trowel_1b', 'vasco_m_trowel_1c', 'vasco_m_trowel_2');
+    await hold(1800);   // (he doesn't move away)
+    // Lorenzo's trowel, held out on his palm
+    await say('vasco_m_trowel_1', 'vasco_m_trowel_1b', 'vasco_m_trowel_1c', 'vasco_m_trowel_2');
+    await S.posed('reach', () => hold(700));
     f.trowel_given = true; S.give('trowel');
-    await say('alan_m_trowel', 'narr_m_warm');
+    await say('alan_m_trowel', 'alan_m_trowel_2');
     await S.checkEnd();
   };
   // the radio, fuse restored: the Guardia Civil
@@ -420,7 +441,9 @@
     if (f.fuse_in) return say('alan_radio_mon');
     G.takeItem('fuse'); f.fuse_in = true;
     S.sfx('relay_click', 0.6); await T(500);
-    await say('alan_m_fuse_in', 'narr_m_radio', 'carmen_m_radio', 'narr_m_cousin', 'carmen_m_guardia');
+    await say('alan_m_fuse_in', 'carmen_m_radio');
+    await T(window.FAST ? 10 : 1200);   // (she talks to her cousin, the sergeant, for a long time, low)
+    await say('carmen_m_guardia');
     await S.checkEnd();
   };
   S.checkEnd = async function () {
@@ -436,39 +459,53 @@
     await G.busy(async () => {
       // Carmen and Rayco on the rock at the cave mouth; the keys; the Guardia at nine
       if (G.room && G.room.id !== 'cave6') await G.goRoom('cave6', 'camp', { noEnter: true, noSave: true });
-      await say('narr_end_rock', 'carmen_m_tell_rayco', 'baute_m_wait', 'carmen_m_ride', 'baute_m_elena', 'carmen_m_notnow');
-      await say('carmen_m_visit', 'carmen_m_right', 'carmen_m_me', 'narr_end_smoke');
+      // (2026-10-31, less narrator: Carmen goes to Rayco, the cigarettes, the keys, the handshake and the going are done;
+      // the narrator keeps the Guardia's coming, and one line over the drive down)
+      const walk = (a, x, y, ms) => a ? Promise.race([a.walkTo(x, y), T(window.FAST ? 50 : ms)]) : null;
+      const c = G.npc('carmen'), b = G.npc('baute'), y = G.npc('yeray'), v = G.npc('vasco');
+      if (b) await walk(c, b.x - 90, b.y + 10, 3500);
+      if (c) c.dir = 'e';
+      await say('carmen_m_tell_rayco', 'baute_m_wait', 'carmen_m_ride', 'baute_m_elena', 'carmen_m_notnow');
+      await say('carmen_m_visit', 'carmen_m_right', 'carmen_m_me');
+      S.sfx('match', 0.5); await T(window.FAST ? 10 : 700); S.sfx('match', 0.4); await T(window.FAST ? 10 : 2000);   // (one for him, one for her)
       S.sfx('keys_ring', 0.5);
-      await say('narr_end_keys', 'carmen_m_keys', 'carmen_m_keys_2');
-      await say('narr_end_guardia', 'narr_end_handshake', 'baute_m_director', 'narr_end_away');
-      // the road down, through the cloud
+      await S.posed('pickup', () => T(window.FAST ? 10 : 700));   // (thrown over her shoulder; Alan catches them)
+      await say('carmen_m_keys', 'carmen_m_keys_2');
+      await say('narr_end_guardia');
+      if (v) await walk(b, v.x + 80, v.y, 3500);
+      await say('baute_m_director');
+      await Promise.all([walk(b, -120, 650, 5000), walk(c, -160, 650, 5000), walk(y, -200, 660, 5000)]);
+      for (const a of [b, c, y]) if (a) a.visible = false;
+      await say('alan_end_alone');
+      // the road down, through the cloud (the still shows the hand on the gearstick)
       await S.paint('still_road_down', async () => {
-        await say('narr_end_road', 'narr_end_cloud', 'vasco_end_hand');
         await say(f.confession === 'excuses' ? 'narr_end_excuses' : 'narr_end_plain');
-        await say('narr_end_promise', 'alan_end_ask', 'narr_end_window', 'vasco_end_last', 'narr_end_gearstick');
+        await say('alan_end_ask', 'vasco_end_last');
       }, { zoom: [1.0, 1.1] });
       // the city's birthday; Nieves
       await G.goRoom('hotel_lobby', null, { instant: true, noEnter: true, noSave: true, pos: [480, 640, 'e'] });
       G.endStill();
       await G.fade(false);
-      await say('narr_end_city', 'narr_end_nieves', 'narr_end_eyebrow', 'nieves_end_1', 'nieves_end_2');
+      await say('narr_end_city', 'alan_end_nieves', 'alan_end_nieves_2', 'nieves_end_1', 'nieves_end_2');
       // Chano at dusk, and San Borondón
       await G.fade(true);
       await G.goRoom('canteras', null, { instant: true, noEnter: true, noSave: true, pos: [320, 640, 'w'] });
       await G.fade(false);
-      await say('narr_end_chano', 'chano_end_1', 'alan_end_found', 'chano_end_2', 'alan_end_mountain', 'narr_end_chano_nod');
+      await say('chano_end_1', 'alan_end_found', 'chano_end_2', 'alan_end_mountain');
+      await T(window.FAST ? 10 : 900);   // (Chano nods, as if he'd said so all along, and leans over the counter)
       await say('chano_end_3', 'chano_end_4', 'chano_end_5', 'alan_end_strange');
       // the fireworks from the balcony; the last night
-      await S.paint('still_fireworks', async () => { await say('narr_end_fireworks', 'narr_end_fireworks_2'); }, { zoom: [1.0, 1.08] });
+      await S.paint('still_fireworks', async () => { await T(window.FAST ? 10 : 1500); await say('narr_end_fireworks_2'); }, { zoom: [1.0, 1.08] });
       if (!S.discreet()) await S.paint('still_love_2', async () => { await say(f.confession === 'excuses' ? 'narr_love_2_quiet' : 'narr_love_2_warm'); await T(1200); }, { zoom: [1.0, 1.08] });
       // the morning: the coffee by the bed
       await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [900, 640, 'w'] });
       G.player.visible = false;
       G.endStill();
       await G.fade(false);
-      await say('narr_love_2_after', 'narr_end_morning', 'narr_end_lift');
+      await say('narr_end_morning', 'alan_end_coffee');
+      await T(window.FAST ? 10 : 1200);
       S.sfx('coffee_cups', 0.4);
-      await say('narr_end_coffee', 'narr_end_drank');
+      await say('narr_end_drank');
       await T(1200);
       f.dawn = true; // (no more saves past the end)
       G.clearSaves();

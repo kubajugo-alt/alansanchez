@@ -1420,3 +1420,29 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       rebuilt; new lines play as captions. Review table: `docs/rewrite/NARR_SUN.md`.
     - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; a Sunday-only run (`?scene=sun` to Monday's cave, every
       choice on the rock): no page errors; play.mjs: won, 132 steps, no page errors.
+115. **Vasco's Saturday and Monday (outside the cave's finale): the narrator cut back** (2026-10-31, for the user's read).
+    The user: "with your re-works there is way too much narrator... Some things should simply be done by the characters,
+    other just said by the characters".
+    - `js/story/vasco.js` (the camp at seven, Yeray's coffee, Elena's charts, the radio, the foil, the refusal, the road,
+      the cell, the mark, the water, the prayer, the cut to Alan's night; Cave 6 and the chamber left as entry 109 made
+      them) and `js/story/mon.js` (the dawn in the cave, Yeray's fuse, the confession, the radio and the Guardia, the rock,
+      the road down, Nieves, Chano, the fireworks, the last night, the coffee; `S.closeLock`, the dance and the aiming
+      not touched): narrator 97 lines / 2,526 words -> 14 / 261 (longest 26, `narr_end_guardia` from entry 109): the
+      chapter's opener, the time jumps (the road to Artenara, the night, the cut to Alan, the morning, the Guardia at
+      four, the city's birthday, the morning after), one line over each still (road down, fireworks, last night; the
+      confession's branches keep their own lines there), the game's last line. 83 narrator lines no longer played (left
+      in lines.js), 10 shortened. Said instead (21 new lines): Vasco on Elena's "Puerta", the empty fuse holder and what
+      it means, the radio humming, the cinnamon in the coffee (the drugging's clue), the fisherman, the keys, the drug,
+      waking behind the padlock, the torch's old battery, the seven coils, the A, his prayer (the narrator's three
+      thoughts of Alan are now his prayer); Alan on the sixth disc in Baute's hands, "Later", what he won't say in the
+      plain telling, the warm trowel, alone on the mountain, Nieves's eyebrow, the terrible coffee. 8 character lines
+      changed (`vasco_v_02`, `vasco_v_yeray_4`, `vasco_take_1`, `vasco_radio_fuse`, `vasco_look_serpent`, `vasco_mark_a`,
+      `vasco_wet_2`, `carmen_m_guardia`). Every choice and its consequence kept.
+    - In code: walks (Vasco to the edge, Yeray off, Rayco in behind Vasco, Vasco to the edge of the rock and to the top
+      of the road, Rayco and Yeray up behind him; Carmen to Rayco, Rayco to Vasco, then Rayco, Carmen and Yeray out of the
+      cave), poses (sit, sip, kneel, pickup, reach), existing sounds (`pour`, `relay_click`, `match`, `step_stone`,
+      `lamp_click`, `keys_ring`) and pauses for the silences. The drugging now plays in the camp, not under
+      `G.fade(true)` (where captions don't show).
+    - Nothing recorded: the 17 changed ids in `scripts/voice_redo.txt`, their mp3s in `audio/voice_stale/`, manifest
+      rebuilt; new lines play as captions. Review table: `docs/rewrite/NARR_SAT_VASCO_MON.md`.
+    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; play.mjs: won, 132 steps, no page errors.
