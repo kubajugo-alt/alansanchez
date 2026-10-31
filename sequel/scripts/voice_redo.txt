@@ -130,3 +130,9 @@ narr_t_end_2
 narr_pro_bar_1
 narr_open_01
 narr_open_03
+narr_w_pell_1
+narr_pepe_1
+alan_ask_carmen_pepe
+narr_th_mango_1
+narr_th_mango_4
+narr_th_night_6

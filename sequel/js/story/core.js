@@ -262,9 +262,14 @@
     S.sfx('dial_tone', 0.4); await S.T(600);
   };
   S.callWed = () => say('alan_call_wed_1', 'ines_call_wed_1', 'alan_call_wed_2', 'ines_call_wed_2', 'alan_call_wed_3', 'ines_call_wed_3', 'alan_call_wed_4', 'ines_call_wed_4', 'alan_call_wed_5', 'ines_call_wed_5');
-  S.callThu = () => say('ines_call_thu_1', 'alan_call_thu_1', 'ines_call_thu_2', 'narr_th_call_1', 'ines_call_thu_3', 'ines_th_call_4', 'alan_call_thu_2',
-    'narr_th_call_2', 'ines_th_call_5', 'ines_th_call_6', 'alan_call_thu_3', 'ines_th_call_7', 'ines_th_call_8', 'alan_th_call_4', 'narr_th_call_3',
-    'ines_th_call_9', 'alan_th_call_5', 'ines_call_thu_4');
+  // (the narrator cut back: the ledger's pages are heard down the line, and Inês's silence is a pause)
+  S.callThu = async () => {
+    await say('ines_call_thu_1', 'alan_call_thu_1', 'ines_call_thu_2');
+    S.sfx('paper_shuffle', 0.2); await S.T(window.FAST ? 10 : 700);
+    await say('ines_call_thu_3', 'ines_th_call_4', 'alan_call_thu_2', 'ines_th_call_5', 'ines_th_call_6', 'alan_call_thu_3', 'ines_th_call_7', 'ines_th_call_8', 'alan_th_call_4');
+    await S.T(window.FAST ? 10 : 1400);
+    await say('ines_th_call_9', 'alan_th_call_5', 'ines_call_thu_4');
+  };
   S.callFri = () => say('ines_call_fri_1', 'alan_call_fri_1', 'ines_call_fri_2', 'alan_call_fri_2', 'ines_call_fri_3');
   S.callDue = () => S.CALLS.find(c => !F()[c[0]] && c[1]());
   const PESSOA = ['ines_pessoa_1', 'ines_pessoa_2', 'ines_pessoa_3', 'ines_pessoa_4', 'ines_pessoa_5'];

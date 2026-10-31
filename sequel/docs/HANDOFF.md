@@ -1308,3 +1308,23 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     progress had 59 at the time); the prologue played with `S.PLAY_PROLOGUE` on to the lobby, no page errors; a
     screenshot of the corridor moment; `play.mjs` through Tuesday and on to Saturday's vault (103 steps, the only errors
     the other days' missing lines), the full run below.
+113. **Wednesday and Thursday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
+    there is way too much narrator... Some things should simply be done by the characters, other just said by the
+    characters", and "it is basically the entire game". Done as Cave 6 (109), for `js/story/wed.js`, `js/story/thu.js`,
+    Thursday's call (`core.js` S.callThu) and Thursday's puzzle lines (`puzzles.js` S.folio12, S.tickTalk).
+    - Narrator 186 lines / 4,469 words -> 12 / 190 (none over 26 words); character lines 345 -> 394 (48 new, plus
+      Elena's recorded `elena_msg_02` reused for Carmen alone). Kept narrator: Wednesday's opener, Pell's boat (the
+      bible: narrated; `narr_w_pell_2` folded into `narr_w_pell_1`), the two "kind of decision" asides, the evening
+      jump, Pepe's two lines over the still, the jacket's joke, the mango and Carmen at the door over black, the taxi,
+      the sea under the sea. No character line cut; every clue that lived in narration is now said (the blank June line
+      on the conservation list, the sponsorship file, the van's "display cases from Don Ignacio" by the museum guard,
+      folio 12 misfiled on purpose by Mercedes, Juan de Quintana and Pepe both pulled out of the sea, by Alan).
+      `alan_ask_carmen_pepe` corrected: Pepe drowned "last month" (as Chano, Doña Pino and the still say).
+    - In code: Alan stretches and drinks the coffee, walks to the bronze dogs and reads the letter, pulls at the clock
+      (a fade for the twenty minutes), reaches to the humming bell, takes the packet, reads the crate by the van,
+      unlaces Vasco's boots, walks to Vasco at the dinner, reads the file, reaches for the map; Derek walks into the
+      guard's chair; existing sounds (`drawer_scrape`, `v_vasco_laugh`, `stairs`, `paper_take`, `match`, `snore`,
+      `lamp_click`, `page_2`, `drawer_open`...) and pauses for the silences.
+    - Nothing recorded: the 6 changed ids in `scripts/voice_redo.txt`, their mp3s moved to `audio/voice_stale/`,
+      manifest rebuilt; the new lines play as captions. Review table: `docs/rewrite/NARR_WED_THU.md`.
+    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; play.mjs: won, 132 steps, no page errors.

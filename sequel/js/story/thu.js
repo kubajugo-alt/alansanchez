@@ -25,16 +25,17 @@
     const f = F();
     if (f.chano_pepe) return;
     f.chano_pepe = true; f.pepe_known = true;
-    await say('narr_th_chano_1', 'chano_th_pepe_1', 'chano_th_pepe_2', 'narr_th_chano_2', 'chano_th_pepe_3', 'chano_th_pepe_4',
-      'narr_th_chano_3', 'alan_th_chano_1', 'chano_th_pepe_5', 'alan_th_chano_2', 'chano_th_pepe_6');
+    await say('chano_th_pepe_1', 'chano_th_pepe_2', 'chano_th_pepe_3', 'chano_th_pepe_4');
+    await T(window.FAST ? 10 : 900);   // (the morning heat gone cold on Alan's skin)
+    await say('alan_th_chano_1', 'chano_th_pepe_5', 'alan_th_chano_2', 'chano_th_pepe_6');
   };
 
   // ---------------------------------------------------------------- La Isleta: Doña Pino's missal (called from wed.js S.talkPino)
   S.pinoMissal = async function () {
-    await say('narr_th_pino_1', 'pino_th_pepe_1', 'pino_th_pepe_1b', 'pino_th_pepe_2');
+    // (the names are on the missal's page, the close-up: José Santana's line black and new)
+    await say('pino_th_pepe_1', 'pino_th_pepe_1b', 'pino_th_pepe_2');
     await S.readPinoList();
-    await say('narr_th_pino_2', 'pino_th_pepe_3', 'alan_th_pino_1', 'pino_th_debts', 'pino_th_debts_2', 'narr_th_pino_3', 'pino_th_know',
-      'narr_th_pino_4', 'narr_th_pino_5', 'alan_th_debts');
+    await say('pino_th_pepe_3', 'alan_th_pino_1', 'pino_th_debts', 'pino_th_debts_2', 'pino_th_know', 'alan_th_pino_cistern', 'alan_th_debts');
   };
 
   // ---------------------------------------------------------------- Carmen, Thursday morning: the history
@@ -42,13 +43,16 @@
   S.carmenLore = async function () {
     const f = F();
     if (!f.lore_carmen) {
-      await say('narr_th_arch_1', 'carmen_th_1', 'alan_th_carmen_1', 'carmen_th_rude', 'narr_th_arch_2',
-        'alan_th_carmen_2', 'narr_th_arch_3', 'carmen_th_harimaguadas', 'carmen_th_harimaguadas_2', 'carmen_th_harimaguadas_3',
-        'alan_th_carmen_3', 'carmen_th_conquest', 'narr_th_arch_4', 'carmen_th_conquest_2', 'carmen_th_ansite', 'carmen_th_ansite_2', 'carmen_th_ansite_3',
-        'alan_th_carmen_4', 'narr_th_arch_5', 'carmen_th_who', 'alan_th_carmen_5', 'narr_th_arch_6',
-        'carmen_th_legend', 'carmen_th_legend_2', 'carmen_th_legend_3', 'carmen_th_legend_4',
+      await say('carmen_th_1', 'alan_th_carmen_1', 'carmen_th_rude', 'carmen_th_sit',
+        'alan_th_carmen_2', 'carmen_th_harimaguadas', 'carmen_th_harimaguadas_2', 'carmen_th_harimaguadas_3',
+        'alan_th_carmen_3', 'carmen_th_conquest', 'carmen_th_conquest_2', 'carmen_th_ansite', 'carmen_th_ansite_2', 'carmen_th_ansite_3',
+        'alan_th_carmen_4');
+      await T(window.FAST ? 10 : 1000);   // (she goes very still)
+      await say('carmen_th_who', 'alan_th_carmen_5');
+      S.sfx('match', 0.45); await T(window.FAST ? 10 : 900);   // (another cigarette, lit from the end of the first)
+      await say('carmen_th_legend', 'carmen_th_legend_2', 'carmen_th_legend_3', 'carmen_th_legend_4',
         'alan_th_risco', 'carmen_th_risco', 'carmen_th_grandmothers', 'alan_th_believe', 'carmen_th_believe',
-        'alan_th_documents', 'carmen_th_colon', 'narr_th_arch_7', 'carmen_th_colon_2');
+        'alan_th_documents', 'carmen_th_colon', 'carmen_th_colon_2');
       f.lore_carmen = true; f.sent_to_colon = true;
     }
     await G.dialog([
@@ -60,7 +64,8 @@
       // Pepe: she says nothing; her eyes go to the conservation list; then she sends him away, quietly
       { line: 'alan_ask_carmen_pepe', when: () => f.pepe_known && !f.carmen_pepe, bye: true, run: async () => {
         f.carmen_pepe = true;
-        await say('narr_th_arch_8', 'narr_th_arch_9', 'carmen_th_pepe', 'narr_th_arch_10');
+        await T(window.FAST ? 10 : 900);
+        await say('alan_th_carmen_list', 'carmen_th_pepe');
       } },
       { line: 'alan_bye_carmen', bye: true, run: () => say('carmen_bye') },
     ]);
@@ -77,7 +82,7 @@
       S.toMap([0, 380, 60, 300], [50, 650]),
     ],
     async enter() {
-      if (!F().narr_colon_out) { F().narr_colon_out = true; await say('narr_th_colon_1', 'narr_th_colon_2'); }
+      if (!F().narr_colon_out) { F().narr_colon_out = true; await say('alan_th_colon_out'); }
     },
   });
   // ================================================================ CASA DE COLÓN: the library
@@ -95,7 +100,7 @@
       { name: 'To the city', rect: [20, 250, 110, 320], at: [70, 650], exit: 'colon_out', entry: 'colon', look: 'alan_look_tomap', kind: 'exit' },
     ],
     async enter() {
-      if (!F().narr_colon) { F().narr_colon = true; await say('narr_th_colon_3', 'narr_th_colon_4', 'parrot_th_rude'); }
+      if (!F().narr_colon) { F().narr_colon = true; await say('parrot_th_rude'); }   // (the courtyards and the parrots are painted)
     },
     // the parrot breathing on its perch, the palm in the courtyard stirring, the gallery lantern and the reading lamp, a moth
     lights: [
@@ -113,20 +118,27 @@
   // in his bed: the rule Pepe's death follows); the witches of '83 and the parrots are for those who ask
   S.readInquiryAloud = async function () {
     const f = F();
-    await say('narr_th_merc_3', 'mercedes_inquiry', 'mercedes_inquiry_2', 'narr_th_merc_4',
-      'mercedes_read_1', 'mercedes_read_2', 'mercedes_read_3', 'mercedes_read_4', 'narr_th_merc_5', 'mercedes_read_5', 'mercedes_read_6');
+    // (the bundle out of the locked cabinet, the ribbon untied; she reads, translating as she goes)
+    S.sfx('drawer_open', 0.35); await T(window.FAST ? 10 : 700); S.sfx('paper_shuffle', 0.35);
+    await say('mercedes_inquiry', 'mercedes_inquiry_2',
+      'mercedes_read_1', 'mercedes_read_2', 'mercedes_read_3', 'mercedes_read_4');
+    S.sfx('page', 0.4);
+    await say('mercedes_read_5', 'mercedes_read_6');
     S.sfx('page', 0.4);
     await S.readInquiry();
-    await say('mercedes_san_juan', 'mercedes_san_juan_2', 'narr_th_merc_6', 'alan_th_inquiry', 'mercedes_juan',
-      'narr_th_merc_juan', 'mercedes_juan_2', 'mercedes_juan_3', 'narr_th_merc_7', 'mercedes_women', 'alan_th_nadie', 'narr_th_merc_8', 'mercedes_why', 'narr_th_merc_9', 'alan_th_again',
-      'narr_th_merc_10', 'mercedes_low', 'narr_th_merc_11', 'parrot_th_laugh');
+    await say('mercedes_san_juan', 'mercedes_san_juan_2', 'alan_th_inquiry', 'mercedes_juan',
+      'mercedes_juan_2', 'mercedes_juan_3');
+    S.sfx('page_2', 0.4);   // (the last page, the margin, a different ink)
+    await say('mercedes_women', 'alan_th_nadie');
+    S.sfx('drawer_open', 0.35); await T(window.FAST ? 10 : 600);   // (back in the cabinet, locked)
+    await say('mercedes_why', 'alan_th_merc_pepe', 'alan_th_again', 'mercedes_low', 'parrot_th_laugh');
     f.inquiry_read = true;
   };
   S.talkMercedes = async function () {
     const f = F();
     if (!f.mercedes_met) {
       f.mercedes_met = true;
-      await say('narr_th_merc_1', 'narr_th_merc_2', 'alan_th_mercedes_1', 'mercedes_1', 'alan_th_mercedes_2', 'mercedes_2', 'narr_th_merc_2b',
+      await say('alan_th_merc_look', 'alan_th_mercedes_1', 'mercedes_1', 'alan_th_mercedes_2', 'mercedes_2',
         'mercedes_3', 'alan_th_mercedes_3', 'alan_th_mercedes_4');
       return S.readInquiryAloud();
     }
@@ -145,8 +157,9 @@
     const f = F();
     if (f.gd_thu) return say(S.dinnerDue() ? 'gail_th_again' : 'derek_th_again');
     f.gd_thu = true;
-    await say('narr_th_gd_1', 'gail_th_1', 'derek_th_tide_1', 'gail_th_tide', 'derek_th_tide_2', 'derek_th_tide_3', 'alan_th_tide',
-      'narr_th_gd_2', 'derek_th_tide_4', 'alan_th_gd_dinner', 'gail_th_invite', 'gail_th_invite_2', 'derek_th_doctor', 'alan_th_gd_clever',
+    await say('gail_th_1', 'derek_th_tide_1', 'gail_th_tide', 'derek_th_tide_2', 'derek_th_tide_3', 'alan_th_tide');
+    await T(window.FAST ? 10 : 800);   // (something in Alan's voice got through)
+    await say('derek_th_tide_4', 'alan_th_gd_dinner', 'gail_th_invite', 'gail_th_invite_2', 'derek_th_doctor', 'alan_th_gd_clever',
       'gail_th_looks', 'derek_th_looks', 'alan_th_shy_gail_th');
   };
 
@@ -156,14 +169,16 @@
     const f = F();
     if (f.suitcase_done) return;
     await G.busy(async () => {
-      await say('narr_th_plan_1', 'narr_th_plan_4', 'narr_th_plan_5');   // (the plan itself is the player's now: the case page, puzzles.js)
-      await say('narr_th_case_1', 'nieves_th_case_1', 'nieves_th_case_2');
+      await say('alan_th_plan_1', 'alan_th_plan_2');   // (the plan itself is the player's now: the case page, puzzles.js)
+      await say('nieves_th_case_1', 'nieves_th_case_2');
       S.sfx('case_open', 0.5); await T(600);
-      await say('alan_th_case_1', 'alan_th_case_2', 'nieves_th_case_3', 'narr_th_case_eyebrow', 'nieves_th_case_4');
+      await say('alan_th_case_1', 'alan_th_case_2', 'nieves_th_case_3');
+      await T(window.FAST ? 10 : 700);   // (one eyebrow, two millimetres)
+      await say('nieves_th_case_4');
       await G.fade(true); S.sfx('cloth_jacket', 0.5); await T(700);
       f.suitcase_done = true; f.blazer_on = true;   // (Alan's frames follow the flag: js/story/core.js)
       await G.fade(false);
-      await say('narr_th_case_3', 'narr_th_case_4');
+      await say('alan_th_mirror', 'narr_th_case_4');
     });
   };
 
@@ -173,11 +188,17 @@
     if (tueEnter) await tueEnter.call(this, entry);
     if (S.dinnerDue() && !F().dinner_intro) {
       F().dinner_intro = true; if (F().blazer_got) F().blazer_on = true; // the blazer again for the dinner
-      await say('narr_dinner', 'narr_th_dinner_2', 'vasco_th_hello_1', 'alan_th_hello_1', 'vasco_th_hello_2', 'narr_th_dinner_collar',
-        'vasco_th_hello_3', 'alan_th_hello_2', 'vasco_th_hello_4', 'vasco_th_hello_5', 'narr_th_dinner_3', 'narr_th_dinner_4', 'alan_th_dinner_1');
-      S.sfx('glass_clink', 0.4);
-      await say('baute_th_toast', 'narr_th_talk_1', 'vasco_th_speech_1', 'vasco_th_speech_2', 'vasco_th_speech_3', 'vasco_th_speech_4',
-        'narr_th_talk_2', 'narr_th_talk_3', 'narr_th_talk_4', 'alan_th_watch');
+      // (the hall laid for the dinner is painted: museum_hall_dinner; Alan goes over to Vasco at his slides)
+      await G.busy(async () => {
+        const v = G.npc('vasco'), p = G.player;
+        if (v) await p.walkTo(v.x + (v.x > p.x ? -110 : 110), Math.max(v.y + 10, 600));
+        await say('vasco_th_hello_1', 'alan_th_hello_1', 'vasco_th_hello_2');
+        await T(window.FAST ? 10 : 700);   // (he straightens Alan's collar, and his hand stays there)
+        await say('vasco_th_hello_3', 'alan_th_hello_2', 'vasco_th_hello_4', 'vasco_th_hello_5', 'alan_th_dinner_0', 'alan_th_dinner_1');
+        S.sfx('glass_clink', 0.4);
+        await say('baute_th_toast', 'vasco_th_speech_1', 'vasco_th_speech_2', 'vasco_th_speech_3', 'vasco_th_speech_4',
+          'alan_th_talk_watch', 'alan_th_watch');
+      });
     }
   };
   // Derek wants a better angle for the camcorder; he gets one, and walks into the guard's chair on the way
@@ -187,10 +208,13 @@
     await say('derek_th_1');
     await G.dialog([
       { line: 'alan_derek_rope', run: async () => {
-        await say('derek_th_go', 'gail_th_go', 'narr_th_fall_1');
+        await say('derek_th_go', 'gail_th_go');
+        // he edges out between the tables, crouching, camcorder first, and walks straight into the guard's chair
+        const d = G.npc('derek'), gd = G.npc('guard');
+        if (d && gd) await Promise.race([d.walkTo(gd.x + 70, Math.max(gd.y + 40, 640)), T(window.FAST ? 50 : 3000)]);
         S.sfx('chair_scrape', 0.7);
         f.derek_sent = true;
-        await say('guard_th_wake', 'narr_th_fall_2', 'narr_th_fall_3');
+        await say('guard_th_wake', 'derek_th_fall', 'gail_th_fall');
         G.refreshNpcs();
         await say('alan_th_clear');
       }, bye: true },
@@ -214,7 +238,7 @@
       { name: 'Back to the dinner', rect: [20, 250, 110, 320], at: [70, 650], exit: 'museum_hall', entry: 'baute_office', locked: () => F().saw_map, lockedLine: 'alan_th_too_late' },
     ],
     async enter() {
-      if (!F().narr_baute_office) { F().narr_baute_office = true; await say('narr_th_office_1', 'narr_th_office_2', 'narr_th_office_3'); }
+      if (!F().narr_baute_office) { F().narr_baute_office = true; await say('alan_th_office'); }   // (the back stairs, the corridor and the office are his to cross, the room painted)
     },
     // night: the desk lamp, the lamp in the corridor, a moth at the shade, the sea moving faintly beyond the window
     lights: [
@@ -236,10 +260,11 @@
   // the drawer: the Montesdeoca file (twelve pages of nothing), then the photograph and the map, then the light comes on
   S.searchDesk = async function () {
     if (F().caught) return;
-    S.sfx('paper_shuffle', 0.5);
-    await say('narr_th_file_1', 'narr_th_file_2', 'alan_th_file', 'narr_th_file_3', 'narr_th_photo_1', 'narr_th_photo_2');
-    await S.readBauteDesk();
-    await say('alan_th_desk_1', 'alan_th_desk_2', 'narr_th_click');
+    await S.posed('read', async () => { S.sfx('paper_shuffle', 0.5); await say('alan_th_file_0', 'alan_th_file', 'alan_th_file_2'); });
+    await S.readBauteDesk();   // (the photograph and the map on the wall: the close-up)
+    await say('alan_th_desk_1', 'alan_th_desk_2');
+    // he reaches up to take the map off its pins, and the light comes on
+    await S.posed('reach', () => T(window.FAST ? 10 : 800));
     await S.caught();
   };
   S.caught = async function () {
@@ -249,21 +274,28 @@
     await G.busy(async () => {
       S.sfx('lamp_click', 0.6);
       await S.paint('still_caught', async () => {
-        await say('narr_th_caught_1', 'narr_th_caught_2', 'narr_th_caught_3', 'narr_th_caught_4', 'narr_th_caught_5', 'narr_th_caught_6',
-          'baute_caught_1', 'narr_th_caught_7', 'baute_caught_2', 'baute_caught_3', 'baute_caught_4', 'montesdeoca_caught', 'narr_th_caught_8',
-          'narr_caught_vasco', 'narr_th_caught_9', 'narr_th_caught_10');
+        // (the still shows them in the doorway: Baute, Montesdeoca, Vasco behind with his notes; Baute's smile is his line)
+        await T(window.FAST ? 10 : 1200);
+        await say('alan_th_caught', 'baute_caught_1', 'baute_caught_2', 'baute_caught_3', 'baute_caught_4', 'montesdeoca_caught');
+        await T(window.FAST ? 10 : 900);
+        await say('alan_th_caught_vasco');
+        S.sfx('stairs', 0.35); await T(window.FAST ? 10 : 900);
       }, { zoom: [1.0, 1.08] });
       G.endStill();
       // the mango, the end of the talk, Carmen at the door: told over black
       await G.fade(true);
-      await say('narr_th_mango_1', 'narr_th_mango_2', 'narr_th_mango_3', 'narr_th_mango_4', 'narr_th_mango_5');
+      await say('narr_th_mango_1', 'narr_th_mango_4');
       await G.goRoom('hotel_room', null, { instant: true, noEnter: true, noSave: true, pos: [720, 640, 'e'] });
       f.blazer_on = false;
-      await say('narr_thu_night', 'narr_th_night_2', 'narr_th_night_3');
+      await say('narr_thu_night');
       await G.fade(false);
-      await say('narr_th_night_4', 'alan_th_night_1', 'vasco_th_night_1', 'alan_th_night_2', 'vasco_th_night_2', 'vasco_th_night_3', 'narr_th_night_5');
-      S.sfx('water_lap', 0.25);
-      await say('narr_th_night_6', 'narr_th_night_7');
+      // Vasco's lamp goes off, his back to Alan; the balcony doors open on the sea
+      S.sfx('lamp_click', 0.4); await T(window.FAST ? 10 : 700);
+      await say('alan_th_night_1', 'vasco_th_night_1', 'alan_th_night_2', 'vasco_th_night_2', 'vasco_th_night_3');
+      await T(window.FAST ? 10 : 1200);
+      S.sfx('water_lap', 0.25); await T(window.FAST ? 10 : 1000);
+      await say('narr_th_night_6');
+      await T(window.FAST ? 10 : 1200);
       await S.startFri();
     });
   };

@@ -287,8 +287,10 @@
   // folio 12 (Mercedes, thu.js S.talkMercedes)
   S.folio12 = async function () {
     const f = F();
-    await say('mercedes_folio_1', 'narr_th_folio_1');
+    await say('mercedes_folio_1');
+    S.sfx('drawer_open', 0.35); await S.T(window.FAST ? 10 : 900);   // (into the back, and out with a bundle in faded red tape)
     S.sfx('paper_shuffle', 0.4);
+    await say('mercedes_folio_1b');
     await S.readFolio12();
     await say('mercedes_folio_2', 'mercedes_folio_3', 'mercedes_folio_4', 'mercedes_folio_5', 'alan_th_folio');
     f.folio12 = true;
@@ -312,8 +314,8 @@
     if (!(S.dinnerOn && S.dinnerOn()) || f.desk_open || f.talk_min == null) return;
     f.talk_min -= verb === 'look' ? 1 : 3;
     if (f.talk_min <= 0) {
-      if (!f.talk_q) { f.talk_q = true; f.talk_min = 10; S.talkClock(); return say('narr_th_timer_1'); }
-      f.talk_min = null; S.talkClock(); return say('narr_th_timer_2');
+      if (!f.talk_q) { f.talk_q = true; f.talk_min = 10; S.talkClock(); return say('alan_th_timer_q'); }
+      f.talk_min = null; S.talkClock(); return say('alan_th_timer_lecture');
     }
     S.talkClock();
   };
