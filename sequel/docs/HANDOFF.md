@@ -31,8 +31,8 @@ root, in the same repository as Game I. Read, in this order:
   109, 111–115: the characters do and say what the narrator used to describe). `node scripts/tests/play.mjs` plays it
   all (132 steps; over ten minutes, run it in the background).
 - **2,906 lines** (`js/lines.js`; `node scripts/validate.mjs` checks every id: 0 errors; its warnings are mostly lines
-  the narrator cuts left unused, kept so no recording is orphaned). **Voiced** with ElevenLabs except **86 lines**
-  (entry 117, mostly Cave 6's finale), which play as captions. Emotion passes on Vasco and Alan (entry 118, audio tags
+  the narrator cuts left unused, kept so no recording is orphaned). **Voiced** with ElevenLabs except **65 lines**
+  (entries 117, 130): Baute's seven verses and 58 narrator lines the cuts no longer play; they show as captions. Emotion passes on Vasco and Alan (entry 118, audio tags
   in `scripts/tts_text.json`). Lip-sync with Rhubarb (`scripts/lipsync.py`). The ElevenLabs key lives in the root `.env`
   (git-ignored; a new cloud container needs it again).
 - **Puzzles** (entry 97, `docs/puzzles/DESIGN.md`, `js/story/puzzles.js`): knowledge as inventory: words Alan earns,
@@ -72,9 +72,11 @@ Test: `node scripts/tests/offline.mjs <copy of the web root> <out dir>`. Live (e
 Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
 
 ### Open, in the order I'd suggest (2026-10-31)
-1. **86 unrecorded lines (entry 117)**, mostly Cave 6's finale (`vasco_scene_*`, `vasco_nudge_*`, `baute_m_verse_*`,
-   `vasco_m_verse_*`, `narr_m_*`, `narr_v_*`): wait for ElevenLabs' reset on 14 Nov or a top-up (ask the user). Some of
-   the `narr_*` ones are no longer played since the narrator cuts: check with validate's unused list before recording.
+1. **Baute's seven verses unrecorded** (`baute_m_verse_1..7`, 514 characters; entry 130): every other line that plays
+   has its recording. They need the project script (`scripts/generate-voices.mjs`) with the key in the root `.env`:
+   Baute's voice is read with `language_code: "es"` and its own `voice_settings`, which the ElevenLabs connector can't
+   send. The other 58 lines without a file are narrator lines the cuts no longer play (validate lists them as unused):
+   don't record them unless they come back.
 2. **Questions the user hasn't answered**: should the first surge in the cave drop back to the knees (108; now
    was+0.04, about 0.15 would match "dropped back to his knees")? Audition Canarian/Caribbean-sounding voices for the
    main Canarians (118; their rule is the same voices)? Gando's painted board reads "JUN16" and "BÜSSEDORF" (120; the
@@ -1735,3 +1737,15 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     calls to `Offline.download()` -> one download, 7,929 of 7,929, 496 MB, Ready. play.mjs on the export won (132 steps).
     Netlify deploy `6ae6149e0e5ea5896e84e6ca` (pack version 3869b95549). A phone mid-download sees "updated online" and
     Continue fetches the few changed files.
+130. **Vasco's 21 cave lines recorded** (2026-10-31, the user: "Do as many missing recordings as credits allow"). Of the
+    86 lines without a file (entry 117), only 28 are played (the other 58: narrator lines the cuts left unused): Vasco's
+    21 (`vasco_m_verse_1..7`, `vasco_nudge_<sign>`, `vasco_scene_<sign>`, 1,616 characters) and Baute's 7 verses. There
+    was no root `.env` in this container, so they went through the ElevenLabs connector (`creative_generate_speech`,
+    flow "Shortest Night: Vasco's missing cave lines"): his own voice `c6SfcYrb2t09NHXiT80T` and `eleven_v4`, exactly
+    what `generate-voices.mjs` sends for him (no language code, no settings, no audio tags in `tts_text.json` for these
+    ids); one take each, about 1,640 credits, none refused. Same format as his installed lines (mp3 44.1 kHz mono
+    128 kb/s, mean level -24.6 to -27.8 dB against -25.6 for `vasco_m_who`); durations fit the text (3.6–9.2 s); all
+    21 decode in Chromium. Lip-sync: Rhubarb 1.13.0 (`/tmp/claude-0/tools/`), `scripts/lipsync.py --speaker vasco`,
+    21 written. `build-manifest.mjs`: 2,876 voice files, offline pack refreshed. validate: 0 errors.
+    **Baute's verses not done**: his voice needs `language_code: "es"` and its voice settings, which the connector can't
+    send; the rule is the same voices, so they wait for the key in `.env`. Not listened to by the user yet; not deployed.
