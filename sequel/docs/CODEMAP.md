@@ -52,6 +52,23 @@ when Game I's engine changes. A fix wanted in both is made in both, on purpose. 
 | `js/story/puzzles.js` | The puzzles of HANDOFF entry 97 (`docs/puzzles/DESIGN.md`): `S.WORDS` (words Alan earns, each from a flag), `S.PAGES` (notebook pages with blanks; `S.openPage`, `S.fillPage`, `S.ON_SOLVE`), the notebook with its open pages first, Inês's hints for the new steps; then the day hooks: folio 12, the case, the talk's clock, the receipt, Vasco's note, Don Lolo's radio, the tower and Baute, the tide table, the warning, Vasco's foil. Loaded after mon.js. |
 | `js/story/layout.js` | Applies the placement tool's output to the rooms: hotspot rects (`spots`), standing points (`at`), the cast's stands, `S.EXTRAS_WHEN` (when a room's extras show: the museum's guests only at the parties), and `S.VARIANTS` (a room's second layout, e.g. `museum_hall_dinner`: the cast's x, y, dir and size become getters that switch on the variant's `when`). |
 | `js/story/main.js` | `STILLS`, placeholder wiring (hotspot boxes, default standing spots), the `?scene=` previews (`PREVIEW`), the content setting, `newGame`, `Game.init`. |
+| `js/offline.js` | **Play offline** (HANDOFF entry 127): the menu's and the title's "Play offline" panel (`window.Offline`: `open`, `download`, `remove`, `state`). Downloads `offline.json`'s files into Cache Storage (`sn-offline`; an update goes to `sn-offline-stage` and replaces the copy's files only when complete; `sn-offline-meta` holds the path->hash maps and the newest list; `sn-fonts` the Google Fonts), six at a time, resumable, only the music/video format this browser plays (`alt`); asks for persistent storage; registers `sw.js` (only in a browser that has asked for the copy). State in localStorage `shortest-night-offline`. Loaded last. |
+
+## Offline copy (HANDOFF entry 127)
+
+- `sw.js` (web root, scope `./`): the service worker. index.html and offline.json network-first (offline.json fetched
+  alongside every page load, kept in `sn-offline-meta` as `latest`); a pack file from the copy when its stored hash
+  (`X-Offline-Hash`) is the one `latest` lists, else the network, else (no network) the copy anyway; looked up by path,
+  so the `?v=` stamps don't matter; Range requests answered with a 206 slice of the stored file; Google Fonts
+  stale-while-revalidate. The downloader's own requests (`?offline-dl=<hash>`) pass straight to the network.
+- `offline.json` (**generated** by `scripts/build-manifest.mjs`, after the other stamps): `{version, built, files,
+  totalBytes, list: [{p, b, h, alt?}]}`, every file `git archive HEAD:sequel` exports (git's list less
+  `.gitattributes` export-ignore) except `netlify.toml`, `.gitattributes`, `sw.js`, notes (`.md`, `.txt`, `.keep`).
+  `alt` marks the two formats of music (`opus`/`aac`) and video (`mp4`/`webm`).
+- `manifest.webmanifest` + `art/app/icon-192.png`, `icon-512.png` (cropped from `art/bg/title.jpg`, the sun over the
+  clouds): name and icon when added to a home screen.
+- `scripts/tests/offline.mjs <folder> <out>`: the end-to-end test (download with a pause and a reload, offline scenes,
+  an update, remove).
 
 ## The days
 

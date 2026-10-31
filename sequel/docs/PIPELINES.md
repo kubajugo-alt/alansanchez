@@ -221,6 +221,11 @@ in `js/story/docs.js` (`G.closeup([page(...)])`).
   `scripts/record_mix.py` (lays the voices and the room's music onto the silent video). Record from a clean export of
   a commit if files are being edited at the same time.
 - **Reviews**: private artifacts with a db (`verdicts`, `notes`), or `SendUserFile` for sheets and clips.
-- **Deploy** (only when asked): `node sequel/scripts/build-manifest.mjs`, commit; `git archive HEAD:sequel | tar -x -C
+- **Deploy** (only when asked): `node sequel/scripts/build-manifest.mjs` (the voice/sfx manifests, index.html's stamps
+  and `offline.json`, the Play offline pack list: run it last, after every other change, or offline copies are told the
+  wrong files), commit; `git archive HEAD:sequel | tar -x -C
   <empty dir>`; serve that dir and run play.mjs on it; Netlify MCP `deploy-site` (site `a5e71264-d9a4-439a-b1e5-60ec3f98812d`),
   run the returned `npx @netlify/mcp ...` command from the export dir; check the live page and that `/.env` is 404.
+  Players with an offline copy see "A newer version is online" in Play offline and fetch only the changed files.
+- **Play offline** (HANDOFF entry 127): test with `node scripts/tests/offline.mjs <copy of the web root> <out dir>`
+  (a hard-linked copy is fine: `cp -al sequel /tmp/x`; it serves it, downloads, plays offline, updates, removes; ~5 min).

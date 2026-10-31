@@ -33,3 +33,41 @@ html = html.replace(/(<script src="|<link rel="stylesheet" href=")((?:js|css)\/[
   return `${pre}${file}?v=${crypto.createHash('md5').update(fs.readFileSync(f)).digest('hex').slice(0, 8)}"`;
 });
 fs.writeFileSync(indexFile, html);
+
+// offline.json: the offline pack (HANDOFF entry 127). Every file Game II's export (`git archive HEAD:sequel`) holds that
+// the game can load: what the menu's "Play offline" downloads into the browser and sw.js serves without a connection.
+// Built from git's file list (tracked, plus new files not ignored, so files about to be committed count) less what
+// .gitattributes export-ignores, less files the game never loads. Run after the other stamps above (index.html's hash
+// changes with them). Each file has its size and a short content hash: an update fetches only the files that changed.
+// Music and video come in two formats; `alt` says which one, and a browser downloads only the one it plays.
+import { execFileSync } from 'node:child_process';
+{
+  const git = (args, input) => execFileSync('git', args, { cwd: top, input, maxBuffer: 1 << 28 }).toString();
+  const files = git(['ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', '.']).split('\0').filter(Boolean)
+    .filter(f => fs.existsSync(path.join(top, f)) && fs.statSync(path.join(top, f)).isFile());
+  // export-ignore set on a folder (`/scripts`) covers everything under it: ask git about every path and its folders
+  const dirs = new Set();
+  for (const f of files) { const p = f.split('/'); for (let i = 1; i < p.length; i++) dirs.add(p.slice(0, i).join('/')); }
+  const ignored = new Set();
+  const out = git(['check-attr', '--stdin', '-z', 'export-ignore'], [...files, ...dirs].join('\0') + '\0').split('\0');
+  for (let i = 0; i + 2 < out.length; i += 3) if (out[i + 2] === 'set') ignored.add(out[i]);
+  const exported = f => { if (ignored.has(f)) return false; const p = f.split('/'); for (let i = 1; i < p.length; i++) if (ignored.has(p.slice(0, i).join('/'))) return false; return true; };
+  // in the export but never loaded by the game: the host's config, git's, notes beside the art
+  const NOT_GAME = /^(netlify\.toml|\.gitattributes|offline\.json|sw\.js)$|(^|\/)\.keep$|\.(md|txt)$/;
+  const pack = [];
+  let total = 0;
+  const vh = crypto.createHash('md5');
+  for (const f of files.filter(exported).filter(f => !NOT_GAME.test(f)).sort()) {
+    const buf = fs.readFileSync(path.join(top, f));
+    const h = crypto.createHash('md5').update(buf).digest('hex').slice(0, 10);
+    const e = { p: f, b: buf.length, h };
+    const alt = /\.(opus|aac)\.m4a$/.exec(f) || (f.startsWith('art/video/') && /\.(mp4|webm)$/.exec(f));
+    if (alt) e.alt = alt[1];
+    pack.push(e); total += buf.length; vh.update(f + ' ' + h + '\n');
+  }
+  const offline = { version: vh.digest('hex').slice(0, 10), built: new Date().toISOString().slice(0, 10), files: pack.length, totalBytes: total, list: pack };
+  // the date alone never changes the version, so keep the old date when nothing else changed (no noise in git)
+  try { const old = JSON.parse(fs.readFileSync(path.join(top, 'offline.json'), 'utf8')); if (old.version === offline.version) offline.built = old.built; } catch (e) { /* first build */ }
+  fs.writeFileSync(path.join(top, 'offline.json'), JSON.stringify(offline).replace(/\},\{/g, '},\n{') + '\n');
+  console.log(`offline pack: ${pack.length} files, ${(total / 1e6).toFixed(1)} MB (version ${offline.version})`);
+}

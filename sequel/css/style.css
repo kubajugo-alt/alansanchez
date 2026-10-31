@@ -234,3 +234,17 @@ body.calm #title { animation: none; }
 #brec .spot { position: absolute; margin: 0; padding: 0; background: transparent; border: 2px solid transparent; border-radius: 6px; }
 #brec .spot:hover, #brec .spot:focus-visible { border-color: rgba(255,226,160,.7); background: rgba(255,226,160,.08); }
 #brec .state { font-size: 1.15em; margin: .7em 0 .2em; min-height: 1.4em; color: #e8d8b0; }
+/* ---------- Play offline (js/offline.js; HANDOFF entry 127) ---------- */
+#offline { z-index: 70; background: rgba(5,4,3,.82); }
+#offline .card { max-width: 36em; padding: 1.4em 2em; border: 1px solid #a88a52; background: #16120c; color: #eadcc0; line-height: 1.45; }
+#offline h3 { margin: 0 0 .5em; font: 700 1.5em 'Cinzel', serif; color: var(--gold); letter-spacing: .06em; }
+#offline p { font-size: 1.05em; color: #eadcc0; margin: .45em auto; }
+#offline .small, #offline .store { font-size: .85em; opacity: .75; }
+#offline .store.warn { color: #ffb070; opacity: 1; }
+#offline .note { color: #ffd690; }
+#offline .bar { height: .7em; border: 1px solid var(--gold-dim); background: #0b0805; margin: .8em 0 .2em; }
+#offline .bar.hidden { display: none; }
+#offline .bar i { display: block; height: 100%; width: 0; background: var(--gold); transition: width .25s; }
+#offline .prog { font-variant-numeric: tabular-nums; font-size: .95em; }
+#offline .btns button { font-size: 1.05em; padding: .3em 1.1em; }
+#title .menu button.quiet { font-size: .95em; opacity: .8; }
