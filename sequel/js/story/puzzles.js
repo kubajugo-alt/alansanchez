@@ -337,7 +337,7 @@
   S.ITEMS.blazer.look = async () => {
     const f = F();
     if (ch() !== 5 || !f.sketchbook_read || f.receipt_read) return blazerLook();
-    await say('alan_look_blazer_sat', 'narr_s_receipt');
+    await say('alan_look_blazer_sat', 'alan_s_receipt_0');   // (2026-10-31: Alan reads it, no narrator)
     S.give('receipt'); f.receipt_read = true;
     await say('alan_s_receipt');
   };
@@ -393,7 +393,7 @@
     look: 'alan_look_wait_hour', use: () => S.waitHour() });
   S.waitHour = async function () {
     const f = F();
-    await G.busy(async () => { await G.fade(true); await T(600); await G.fade(false); S.sfx('clock_chime', 0.5); await T(500); S.sfx('bell_hum', 0.6); await say('narr_s_wait_bell'); });
+    await G.busy(async () => { await G.fade(true); await T(600); await G.fade(false); S.sfx('clock_chime', 0.5); await T(500); S.sfx('bell_hum', 0.6); await T(800); await say('alan_s_wait_bell'); });
     f.hour_struck = true;
     await S.radioCall();
   };
@@ -403,11 +403,11 @@
     if (!f.hour_struck) { S.sfx('relay_click', 0.5); f.radio_wait = true; return say('alan_s_radio_static'); }
     f.hour_struck = false;   // (one call an hour)
     S.sfx('relay_click', 0.5);
-    if (!f.baute_radio) { f.baute_radio = true; await say('alan_s_radio_1', 'narr_s_radio_1', 'baute_r_1', 'alan_s_radio_2', 'baute_r_2'); }
+    if (!f.baute_radio) { f.baute_radio = true; await say('alan_s_radio_1'); S.sfx('relay_click', 0.5); await T(900); await say('baute_r_1', 'alan_s_radio_2', 'baute_r_2'); }
     else await say('alan_s_radio_1', 'baute_r_again');
     let caught = false;
     await G.dialog([
-      { line: 'alan_r_catch', when: () => S.knows('guagua'), bye: true, run: async () => { caught = true; await say('narr_r_silence', 'baute_r_lift', 'narr_r_click', 'alan_s_radio_lie'); } },
+      { line: 'alan_r_catch', when: () => S.knows('guagua'), bye: true, run: async () => { caught = true; await T(2200); await say('baute_r_lift'); S.sfx('relay_click', 0.5); await T(1500); await say('alan_s_radio_lie'); } },
       { line: 'alan_r_when', once: true, run: () => say('baute_r_when') },
       { line: 'alan_r_put_on', once: true, run: () => say('baute_r_put') },
       { line: 'alan_r_thanks', once: true, run: () => say('baute_r_thanks') },
@@ -432,7 +432,7 @@
   // the warning, then the flood (sat.js S.floodScene): Lolo stays awake because Alan told him
   S.warnLolo = async function () {
     await G.busy(async () => {
-      await say('narr_s_warn_1', 'alan_s_warn', 'lolo_s_warn', 'lolo_s_warn_2');
+      await say('alan_s_warn', 'lolo_s_warn', 'lolo_s_warn_2');   // (2026-10-31: he arrives running; no narrator)
       G.takeItem('radio_lolo');
     });
     await S.floodScene();

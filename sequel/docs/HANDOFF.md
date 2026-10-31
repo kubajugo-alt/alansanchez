@@ -1352,6 +1352,32 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     `docs/rewrite/NARR_TUE.md`. Checks: `node --check`; `node scripts/validate.mjs` 0 errors; the prologue played with
     `S.PLAY_PROLOGUE` on through to the lobby, no page errors; a screenshot of the corridor moment; `play.mjs`: won,
     132 steps, no page errors.
+112. **Friday and Saturday (Alan): the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
+    there is way too much narrator... Some things should simply be done by the characters, other just said by the
+    characters"; "it is basically the entire game". The same pass as Cave 6 (entry 109) for `js/story/fri.js` (the fight,
+    the sea wall and Chano, Carmen's coffee, the dusk, Rafa's bar as entry 107 left it, the studio night), `js/story/sat.js`
+    (the morning after, the walk back, Nieves, the footprint, Inês, Chano's paper, he tries, the flood, the night) and the
+    Saturday narration in `js/story/puzzles.js` (the receipt, the belfry hour, the radio, the run to Don Lolo). Not
+    Vasco's chapter (`vasco.js`).
+    - **186 narrator lines (4,022 words) to 20 (330)**; none over 25 words. Kept: the two days' openers, the time jumps
+      (the three tries to leave, nine o'clock, the walk inland, the walk back, the flood at seven and after, the night),
+      the horn, the quiet door, "he should have asked", the two rules, one line over each love-scene still at most (the
+      night: the bell at three; the drawing: none, Alan says it).
+    - **36 new character lines** (Alan 31, mostly his own thoughts; Rafa 1, Chano 1, Doña Pino 3) carry what the cut
+      narration told: what Alan tells Vasco about the mist, the empty cup, the coffee Vasco made anyway, the mist up the
+      steps, "nobody's waiting", the napkin, the shoulder, the footprint and his father, the headline (Chano reads it),
+      the receipt (Alan reads it), what he tried and the seven o'clock bus, the hospital, the missal and the pen, the
+      ticket against the bus. 16 lines changed (13 narrator, shortened; `carmen_f_go_home` now ends "Por favor. I'm
+      asking you.", `alan_bar_in` opens "No mist in here.", `alan_rafa_rum` "That's terrible. Another."). No clue lost
+      (puzzles.js words and pages hang on flags, not lines).
+    - **Done in code instead**: Vasco faces away on the bed, turns, walks to the window, turns, walks to the door;
+      footsteps after the still; Chano walks over with the beers and back; Rafa walks up the bar past Alan and back, comes
+      round to stand close at two, leads him down the bar; Rafa fetches the drawing from the easel; Alan walks to the
+      studio window, to the footprint (kneels), to the bed at night; existing sounds and pauses for the silences.
+    - Nothing recorded: the 16 changed ids in `scripts/voice_redo.txt`, their mp3s moved to `audio/voice_stale/`,
+      manifest rebuilt; the new lines play as captions. Review table: `docs/rewrite/NARR_FRI_SAT.md`.
+    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; `play.mjs` (with the other days' passes in progress in
+      the same tree): won, 132 steps, no page errors.
 113. **Wednesday and Thursday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works
     there is way too much narrator... Some things should simply be done by the characters, other just said by the
     characters", and "it is basically the entire game". Done as Cave 6 (109), for `js/story/wed.js`, `js/story/thu.js`,
