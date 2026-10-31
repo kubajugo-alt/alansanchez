@@ -1595,3 +1595,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       `scripts/ludo_review_vascor.py`. Frames themselves are git-ignored (`up/`, `fit/`): `ludo.py fetch <run>` and
       `ludo_fit.py <run>` bring them back.
     - **Not installed** (no `ludo_install.py`, no core.js change): waiting for the user's approval.
+124. **Deployed** (2026-10-31, the user: "deploy it as it is, vasco's sprites will go in the next deploy"). Export of
+    `79fd1f8e` (`git archive HEAD:sequel`), play.mjs on the export: won, 132 steps, no errors (it now takes over ten
+    minutes: run it in the background). Netlify deploy `6ae5760114f783c52e234efa`; live page 200, `/.env` 404,
+    `kissAtGando` in the live tue.js. Live: everything to entry 122 except Vasco's walks.
+    - Vasco's walks review page (entry 123's runs): https://claude.ai/artifact/JHsMoqK2UwY9L8oMp5dump (db `verdicts`;
+      built from `art/review/ludo/vascor_page/`). The user: "the walks look good, but they don't loop", "his side walk
+      is not really side - it's diagonal. we need a clean side walk." Being redone (entry 125).
