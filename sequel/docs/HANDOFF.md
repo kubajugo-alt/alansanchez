@@ -89,9 +89,9 @@ Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
    kiss and the fireworks silhouette (107).
 5. **Ludo key**: the user pasted it in chat; advised rotating it. It and the ElevenLabs/Gemini keys live in the root
    `.env` (git-ignored; a new container needs them again: ask the user, never print them).
-6. **Alan's action sprites (entries 132-133, `docs/review/action_sprites.md`)**: the review page is up (actions start
-   and end on his standing sprite; the smoking poses painted); 13 Ludo runs and the six smoking in-betweens made (entry 135); waiting on
-   the user's verdict; stretch and the blazer set need about 64 Ludo credits (34 left). Vasco's next.
+6. **Action sprites (entries 132-136, `docs/review/action_sprites.md`)**: Alan's (vest) actions and the idle cigarette
+   are in the game and live. Still to make: stretch, the blazer set (phone, read, reach up, the cigarette) and Vasco's
+   (kneel, hand on the wall, sit, dig): about 16 Ludo credits a run, 34 left. The Ludo key was pasted in chat: rotate it.
 7. **Small contradictions in the lines** (found in entry 131, not fixed): `mercedes_read_6` "at the rising of the sun"
    (1483 is now noon); `lolo_s_talk_3` "this afternoon" before one o'clock and `alan_su_lolo` "Saturday morning" (Vasco
    can send only after 14:04); `pino_s_missal` "Two crossed out. Two not." (her list: seven, five struck);
@@ -1844,5 +1844,8 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       hold, any input lets him drop it and tread it out (the hold pose's run continues into `hold_stand`).
     - Checked in the running game (Playwright, `?scene=mist` and `wed`): the pickup plays through (frames 5, 13, 24, 32,
       then standing); left alone he lights up and goes round drag / breathe out / hold; no page errors. validate: 0
-      errors. CODEMAP ("Alan's actions") and PIPELINES (an action's recipe) updated. Deploy below.
-
+      errors. CODEMAP ("Alan's actions") and PIPELINES (an action's recipe) updated.
+    - **Deployed**: export of `816627c1` (`git archive HEAD:sequel`, 558 MB; `build-manifest.mjs` run last: offline pack
+      8,422 files, 567 MB, version 4d400b36ca); play.mjs on the export, its own port: won, 132 steps, no errors. Netlify
+      deploy `6ae678a9494597e6d671679f`. Live: `/` 200, `/js/sprites_ludo.js` and the new frames 200, `idleSmoke` in the
+      live core.js; `/.env`, `/scripts/`, `/docs/` 404.
