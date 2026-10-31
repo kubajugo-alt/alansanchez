@@ -16,12 +16,13 @@
   function smokeOK() {
     const C = window.Game && Game.idleSmoke;
     if (!C || !E.room || !E.player || window.FAST) return false;
-    if (!(C.load ? C.load() : Object.values(C.frames)).every(f => E.SPRITES[f] && IMG['spr:' + f])) { if (C.load && E.want) C.load().forEach(f => IMG['spr:' + f] || E.want('spr:' + f)); return false; } // not until every frame is in
     if (E.busy || E.cutscene || E.dialogResolve || E.still || E.selItem || E.speaking) return false;
     if (!E.player.visible || E.player.walking || E.player.ch !== 'alan' || E.player.set || E.room.player === false) return false;
     if (E.player.pose && !(smk && E.player.pose === smk.pose)) return false; // a special pose (or undressed) is never interrupted
     if ($('#menu').classList.contains('open')) return false;
-    return !C.allowed || C.allowed(E.room);
+    if (C.allowed && !C.allowed(E.room)) return false;
+    if (!(C.load ? C.load() : Object.values(C.frames)).every(f => E.SPRITES[f] && IMG['spr:' + f])) { if (C.load && performance.now() - lastInput > 1000 * SMOKE_AFTER * 0.4 && E.want) C.load().forEach(f => IMG['spr:' + f] || E.want('spr:' + f, true)); return false; } // not until every frame is in
+    return true;
   }
   function stopSmoke() {
     if (!smk) return;

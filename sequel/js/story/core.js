@@ -15,8 +15,11 @@
   // a pose drawn as a Ludo run (Alan's actions, 2026-10-31) plays in to its hold frame before the story moves on, and out
   // to his standing painting before the next thing happens, so a short beat never cuts it half way
   S.posed = async function (pose, fn) {
-    const p = G.player; p.pose = p.visible ? pose : null;
-    const c = S.CHARS[p.ch], fr = c && c.frames, P = p.pose && fr && fr.poses && fr.poses[pose];
+    const p = G.player, c = S.CHARS[p.ch], fr = c && c.frames, P0 = p.visible && fr && fr.poses && fr.poses[pose];
+    // (its frames in first: the engine fetches a character's other poses lazily, so a run would stutter the first time)
+    if (P0 && P0.frames && !window.FAST && window.Engine && Engine.ensure) await Engine.ensure(P0.frames.map(k => 'spr:' + k));
+    p.pose = p.visible ? pose : null;
+    const P = p.pose && P0;
     const t0 = Date.now(), run = P && P.frames && !window.FAST;
     try { await fn(); if (run) { const left = (P.hold / P.fps) * 1000 - (Date.now() - t0); if (left > 0) await G.wait(left); } }
     finally { p.pose = null; }
