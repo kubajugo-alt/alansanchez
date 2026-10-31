@@ -189,7 +189,7 @@
       // he goes to her and puts his hand on her shoulder, and they stay like that a long time
       const c = G.npc('carmen');
       if (c) { await walk(G.player, c.x + 110, 655, 4000); G.player.dir = 'w'; }
-      await S.posed('reach', () => W(3500));
+      await S.posed('comfort', () => W(3500));
       await say('carmen_su_dress');
       await G.fade(true); S.sfx('cloth_shirt', 0.4); await T(900); await G.fade(false);
       await say('carmen_su_box', 'carmen_su_box_2');
@@ -406,7 +406,7 @@
     if (!f.grille_heaved) {
       await G.busy(async () => {
         await say('alan_su_pull');
-        await S.posed('pull', async () => { S.sfx('chain_creak', 0.6); await T(900); S.sfx('stone_clack', 0.7); await T(500); });
+        await S.posed('heave', async () => { S.sfx('chain_creak', 0.6); await T(900); S.sfx('stone_clack', 0.7); await T(500); });
         f.grille_heaved = true;
         await say('yeray_su_2', 'alan_su_more_hands');
       });
@@ -417,7 +417,7 @@
       // Carmen's weight on the pick handle with Yeray; the crack in the stone; the grille tears out and Alan pulls Vasco
       // out under it (the open painting, Vasco on the stone); the water stands a moment, and sinks into the floor
       const c = G.npc('carmen'); await walk(c, 1030, 660, 2000);
-      await S.posed('pull', async () => { S.sfx('brass_heavy', 0.7); await W(900); S.sfx('stone_clack', 0.8); await W(500); });
+      await S.posed('heave', async () => { S.sfx('brass_heavy', 0.7); await W(900); S.sfx('stone_clack', 0.8); await W(500); });
       f.vasco_free = true; G.refreshNpcs(true);   // (out: the vasco_free figure, in front of the open alcove; a fresh cast, so he's swapped)
       const c2 = G.npc('carmen'); if (c2) c2.x = 1030;
       await W(1500);
@@ -427,7 +427,7 @@
       await say('vasco_su_out_1', 'alan_su_out_1');
       await W(700);
       await say('vasco_su_out_2');
-      await S.posed('reach', () => W(2500));   // (his forehead against Vasco's; Yeray crying on the stone, Carmen's hand on him)
+      await S.posed('embrace', () => W(2500));   // (his forehead against Vasco's; Yeray crying on the stone, Carmen's hand on him)
     });
   };
   // the granary, dry; five crates; Carmen's field jacket; the mark on the wall; then up to the rock
@@ -469,7 +469,7 @@
       await W(2200);   // (nobody says anything: Vasco understands it, and puts it away behind his eyes)
       await say('carmen_rock_2', 'vasco_su_dawn');
       if (f.su_watch) {
-        await S.posed('reach', async () => { await W(700); await say('vasco_rock_watch'); });   // (the watch, held out)
+        await S.posed('give', async () => { await W(700); await say('vasco_rock_watch'); });   // (the watch, held out)
         await say('alan_rock_5', 'alan_rock_6');
         await W(1200);   // (he puts it on, slowly, with cold fingers)
         await say('vasco_rock_10', 'alan_rock_7');
@@ -480,7 +480,7 @@
       await say('alan_rock_friday', 'vasco_rock_11');
       await W(1200);
       await say('vasco_rock_12', 'vasco_rock_13');
-      await S.posed('reach', () => W(1800));   // (he holds on)
+      await S.posed('embrace', () => W(1800));   // (he holds on)
       f.su_not_now = true;
     });
     await G.dialog([

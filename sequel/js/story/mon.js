@@ -92,7 +92,7 @@
     if (f.lock_closed && !f.fuse_given) {
       f.fuse_given = true;
       await say('yeray_m_fuse');
-      await S.posed('pickup', () => T(window.FAST ? 10 : 600));   // (the fuse, in a twist of paper)
+      await S.posed('reach', () => T(window.FAST ? 10 : 600));   // (the fuse, in a twist of paper)
       S.give('fuse');
       return say('alan_m_fuse');
     }
@@ -186,7 +186,7 @@
     if (sockSign === 'sun') return say('alan_look_seventh');
     if (placed.includes(sockSign)) return say('alan_socket_set');
     G.takeItem('disc_' + sign);
-    await S.posed('pickup', async () => { S.sfx('stone_notch', 0.6); await T(window.FAST ? 10 : 500); });
+    await S.posed('setdown', async () => { S.sfx('stone_notch', 0.6); await T(window.FAST ? 10 : 500); });
     let k;
     for (;;) {
       k = await S.aim(i, sign);
@@ -260,7 +260,7 @@
       for (let n = 1; n <= 7; n++) await say('baute_m_verse_' + n, 'vasco_m_verse_' + n);
       // he holds the crescent down into the hole; Alan reaches up and takes it
       await say('baute_m_listen');
-      await S.posed('pickup', async () => { S.sfx('step_wet_2', 0.6); await T(window.FAST ? 10 : 700); });
+      await S.posed('reachup', async () => { S.sfx('step_wet_2', 0.6); await T(window.FAST ? 10 : 700); });
       await say('baute_m_crescent');
       f.disc6_given = true; f.telling_heard = true; S.give('disc_wan_crescent');
       await say('vasco_m_page');
@@ -469,7 +469,7 @@
       await say('carmen_m_visit', 'carmen_m_right', 'carmen_m_me');
       S.sfx('match', 0.5); await T(window.FAST ? 10 : 700); S.sfx('match', 0.4); await T(window.FAST ? 10 : 2000);   // (one for him, one for her)
       S.sfx('keys_ring', 0.5);
-      await S.posed('pickup', () => T(window.FAST ? 10 : 700));   // (thrown over her shoulder; Alan catches them)
+      await S.posed('reach', () => T(window.FAST ? 10 : 700));   // (thrown over her shoulder; Alan catches them)
       await say('carmen_m_keys', 'carmen_m_keys_2');
       await say('narr_end_guardia');
       if (v) await walk(b, v.x + 80, v.y, 3500);

@@ -302,9 +302,9 @@
     if (f.clock_wound) return say('alan_drum_again');
     // the novel: twenty minutes, a slipped tooth in the escapement, the skin of his left hand; then "Founder's hands" and the
     // name, and the old man very still
-    await S.posed('pull', async () => { for (let i = 0; i < 3; i++) { S.sfx('clock_wind', 0.6); await T(700); } await say('alan_w_clock_0'); });
+    await S.posed('crank', async () => { for (let i = 0; i < 3; i++) { S.sfx('clock_wind', 0.6); await T(700); } await say('alan_w_clock_0'); });
     await G.fade(true); await T(window.FAST ? 10 : 700); await G.fade(false);   // (twenty minutes)
-    await S.posed('pull', async () => { S.sfx('clock_wind', 0.6); await T(window.FAST ? 10 : 700); });
+    await S.posed('crank', async () => { S.sfx('clock_wind', 0.6); await T(window.FAST ? 10 : 700); });
     f.clock_wound = true;
     S.sfx('grandfather_tick', 0.4); await T(600);
     S.sfx('clock_chime', 0.5);
@@ -319,14 +319,14 @@
     f.saw_mark = true;
     await say('alan_look_bell_mark', 'alan_w_bell_lisbon');
     // his hand on the bronze: it hums
-    await S.posed('reach', async () => { S.sfx('bell_hum_soft', 0.4); await T(window.FAST ? 10 : 1400); });
+    await S.posed('reachup', async () => { S.sfx('bell_hum_soft', 0.4); await T(window.FAST ? 10 : 1400); });
   };
   S.rubBell = async function () {
     const f = F();
     if (!f.clock_wound) return say('alan_look_bell_dark');
     if (G.has('inscription') || f.faxed_inscription) return say('alan_rub_again');
     if (!f.saw_mark) await S.lookBell();   // (the mark found first, the novel's moment, even if he goes straight for the pencil)
-    await S.posed('write', async () => { S.sfx('pencil_scribble', 0.6); await T(1400); });
+    await S.posed('rub', async () => { S.sfx('pencil_scribble', 0.6); await T(1400); });
     S.give('inscription'); f.saw_mark = true;
     await say('alan_rub_bell');
   };
@@ -505,7 +505,7 @@
       // he comes in grey with dust and falls across the bed in his boots; Alan unlaces them
       S.sfx('door', 0.3); await T(window.FAST ? 10 : 500); S.sfx('bed_springs', 0.4);
       await off('vasco_w_night_1');
-      await S.posed('pickup', () => say('alan_w_boots'));
+      await S.posed('unlace', () => say('alan_w_boots'));
       await off('vasco_w_night_2', 'vasco_w_night_3', 'vasco_w_night_4');
       await say('alan_w_night_1');
       S.sfx('snore', 0.3); await T(window.FAST ? 10 : 1400);   // (asleep)

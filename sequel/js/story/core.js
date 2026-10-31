@@ -12,7 +12,16 @@
   S.once = (flag, fn) => async (...a) => { if (F()[flag]) return; F()[flag] = true; await fn(...a); };
   // small talk with background characters: one exchange, then a short repeat line
   S.chat = (flag, first, again) => () => F()[flag] ? say(...[].concat(again)) : (F()[flag] = true, say(...[].concat(first)));
-  S.posed = async function (pose, fn) { const p = G.player; p.pose = p.visible ? pose : null; try { await fn(); } finally { p.pose = null; } };
+  // a pose drawn as a Ludo run (Alan's actions, 2026-10-31) plays in to its hold frame before the story moves on, and out
+  // to his standing painting before the next thing happens, so a short beat never cuts it half way
+  S.posed = async function (pose, fn) {
+    const p = G.player; p.pose = p.visible ? pose : null;
+    const c = S.CHARS[p.ch], fr = c && c.frames, P = p.pose && fr && fr.poses && fr.poses[pose];
+    const t0 = Date.now(), run = P && P.frames && !window.FAST;
+    try { await fn(); if (run) { const left = (P.hold / P.fps) * 1000 - (Date.now() - t0); if (left > 0) await G.wait(left); } }
+    finally { p.pose = null; }
+    if (run) await G.wait(((P.frames.length - 1 - P.hold) / P.fps) * 1000 + 60);
+  };
   S.give = (id, silent) => G.giveItem(id, silent);
   // a character's frames: their Canva design, standing still (the user, 2026-10-29: "the characters should only be using
   // their original static sprites"; lip-sync and blinking are laid on it, js/engine/faces.js), else the stand-in figure
@@ -89,6 +98,21 @@
   {
     const A = S.CHARS.alan, V = S.CHARS.vasco;
     const vest = still('alanv', 'alanv'), blazer = still('alanb', 'alanb');
+    // his actions in the vest (Ludo runs from and back to his standing painting, the user 2026-10-31: "All sprites look
+    // good"; docs/review/action_sprites.md): each plays in to its hold frame while the story runs, then out to standing.
+    // A pose the outfit has no run for (the blazer, stretch, sit...) shows the standing painting, as before.
+    const run = n => LU[n] && { frames: LU[n].frames, fps: LU[n].fps, hold: LU[n].hold != null ? LU[n].hold : LU[n].frames.length - 1 };
+    const ACT = { phone: 'alanv_phone', drink: 'alanv_drink', write: 'alanv_write', pickup: 'alanv_pickup', reach: 'alanv_reach',
+      reachup: 'alanv_reachup', setdown: 'alanv_setdown', read: 'alanv_read', heave: 'alanv_heave', crank: 'alanv_crank', rub: 'alanv_rub',
+      // the idle cigarette (js/engine/smoke.js, G.idleSmoke below): one run from pose to pose, each waiting on its last frame
+      smoke_light: 'alanv_smoke_stand_light', smoke_inhale1: 'alanv_smoke_light_inhale', smoke_inhale: 'alanv_smoke_hold_inhale',
+      smoke_exhale: 'alanv_smoke_inhale_exhale' };
+    for (const [pose, n] of Object.entries(ACT)) { const r = run(n); if (r) vest.poses[pose] = r; }
+    // the hold: breathe out to the hold, and when he's stopped, the rest is him dropping it and treading it out
+    if (LU.alanv_smoke_exhale_hold && LU.alanv_smoke_hold_stand) {
+      const a = LU.alanv_smoke_exhale_hold.frames, b = LU.alanv_smoke_hold_stand.frames;
+      vest.poses.smoke_hold = { frames: a.concat(b.slice(1)), fps: LU.alanv_smoke_exhale_hold.fps, hold: a.length - 1 };
+    }
     // and Tuesday's beach: down to his underwear (Game I's frame from behind, a painted front; the undressing itself:
     // S.undressFrames, js/story/tue.js)
     // (no view from behind: the user, 2026-10-30, dropped Game I's back frame here, "it doesn't have much sense")
@@ -461,4 +485,27 @@
   // "Yes to parallax"); a room that must hold still says parallax: false (the map, the two cars, Cave 6, the vault)
   S.room = (def) => Object.assign({ walk: S.FLOOR, scale: [575, 400, 716, 470], floor: 'stone',
     light: { ambient: 'rgb(235,228,215)', base: 0.95 }, entries: { default: [640, 660, 'e'] } }, def);
+
+  // ---------------------------------------------------------------- the idle cigarette (as Game I; js/engine/smoke.js)
+  // Twenty seconds without input and Alan lights up: the light, then the drag, breathing out, the hold, round and round;
+  // any input puts it away (from the hold he drops it and treads it out). The user, 2026-10-31: "We also need smoking
+  // Alan, used like in the first game"; the cigarette stays in one hand, his right (the near one), once it's lit.
+  // The poses are Ludo runs between four painted poses (art/review/alan_smoke/, the vest only): see the vest's poses.
+  // Never in a church, the cave, the vault or a car; not in the blazer (no set yet) or undressed.
+  S.NO_SMOKE = new Set(['santa_ana_inside', 'belfry', 'cave6', 'cave6_low', 'vault', 'vault_cell', 'landrover', 'elena_car']);
+  {
+    const last = n => LU[n] ? LU[n].frames[LU[n].frames.length - 1] : null;
+    const runs = ['alanv_smoke_stand_light', 'alanv_smoke_light_inhale', 'alanv_smoke_hold_inhale', 'alanv_smoke_inhale_exhale', 'alanv_smoke_exhale_hold', 'alanv_smoke_hold_stand'];
+    if (runs.every(n => LU[n])) G.idleSmoke = {
+      frames: { light: last('alanv_smoke_stand_light'), inhale: last('alanv_smoke_light_inhale'), exhale: last('alanv_smoke_inhale_exhale'), hold: last('alanv_smoke_exhale_hold') },
+      load: () => runs.flatMap(n => LU[n].frames),
+      // each run is 25 frames at 12 fps (2.1 s) to its pose, then the pose holds a while
+      seq: () => [['light', 3.2], ['inhale', 3.0], ['exhale', 3.2], ['hold', 6 + Math.random() * 3]],
+      pose: (step, round) => step === 'light' ? 'smoke_light' : step === 'inhale' ? (round > 1 ? 'smoke_inhale' : 'smoke_inhale1') : 'smoke_' + step,
+      exhale: [1.7, 3.0],
+      // where the smoke comes from (sprite px of the frame showing): his mouth, the cigarette's lit tip (S.SMOKE_POINTS)
+      points: S.SMOKE_POINTS || {},
+      allowed: room => { const f = F(); return !S.NO_SMOKE.has(room.id) && !f.blazer_on && !f.undressed && !f.as_vasco; },
+    };
+  }
 })();

@@ -264,7 +264,7 @@
     await S.readBauteDesk();   // (the photograph and the map on the wall: the close-up)
     await say('alan_th_desk_1', 'alan_th_desk_2');
     // he reaches up to take the map off its pins, and the light comes on
-    await S.posed('reach', () => T(window.FAST ? 10 : 800));
+    await S.posed('reachup', () => T(window.FAST ? 10 : 800));
     await S.caught();
   };
   S.caught = async function () {

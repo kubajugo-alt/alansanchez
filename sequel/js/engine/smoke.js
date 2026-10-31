@@ -16,7 +16,7 @@
   function smokeOK() {
     const C = window.Game && Game.idleSmoke;
     if (!C || !E.room || !E.player || window.FAST) return false;
-    if (!Object.values(C.frames).every(f => E.SPRITES[f] && IMG['spr:' + f])) return false; // not until every frame is painted
+    if (!(C.load ? C.load() : Object.values(C.frames)).every(f => E.SPRITES[f] && IMG['spr:' + f])) { if (C.load && E.want) C.load().forEach(f => IMG['spr:' + f] || E.want('spr:' + f)); return false; } // not until every frame is in
     if (E.busy || E.cutscene || E.dialogResolve || E.still || E.selItem || E.speaking) return false;
     if (!E.player.visible || E.player.walking || E.player.ch !== 'alan' || E.player.set || E.room.player === false) return false;
     if (E.player.pose && !(smk && E.player.pose === smk.pose)) return false; // a special pose (or undressed) is never interrupted
@@ -94,17 +94,21 @@
     smk.t += dt;
     if (smk.t >= smk.dur) {
       // light once, then round and round: drag, breathe out, hold it a while
-      const SEQ = [['light', 2.4], ['inhale', 1.4], ['exhale', 1.8], ['hold', 4 + Math.random() * 3]];
+      // (Game II: the story may give its own timings, C.seq, and a pose per step, C.pose(step, round): its poses are
+      // Ludo runs from one painted pose to the next, longer than Game I's single paintings)
+      const SEQ = C.seq ? C.seq() : [['light', 2.4], ['inhale', 1.4], ['exhale', 1.8], ['hold', 4 + Math.random() * 3]];
       smk.i = smk.i < 0 ? 0 : smk.i + 1 >= SEQ.length ? 1 : smk.i + 1;
+      if (smk.i === 1) smk.round = (smk.round || 0) + 1;
       const [step, dur] = SEQ[smk.i];
-      smk.step = step; smk.t = 0; smk.dur = dur; smk.pose = F[step]; E.player.pose = smk.pose;
+      smk.step = step; smk.t = 0; smk.dur = dur; smk.pose = C.pose ? C.pose(step, smk.round || 0) : F[step]; E.player.pose = smk.pose;
       if (step === 'light' && window.Sound) Sound.sfx('match', 0.35);
     }
     // smoke: a breath of it out of his mouth on the exhale, a thin thread off the tip otherwise
     const key = E.player.cur, P = C.points && C.points[key];
     if (!P) return;
     const dirX = E.player.lastFlip ? -1 : 1;
-    if (smk.step === 'exhale' && smk.t > 0.15 && smk.t < 1.3) {
+    const EX = C.exhale || [0.15, 1.3];   // (when the breath comes out, s into the exhale step)
+    if (smk.step === 'exhale' && smk.t > EX[0] && smk.t < EX[1]) {
       const m = smokeAnchor(key, P.mouth);
       if (m && Math.random() < dt * 22) puff(m[0], m[1], m[2], dirX * 34 * m[2] * 3.3, -6 * m[2] * 3.3, 1, 5 * m[2] * 3.3, 0.22);
     }
