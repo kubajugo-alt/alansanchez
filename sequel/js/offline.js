@@ -60,8 +60,15 @@
     return { list, left, bytes: left.reduce((s, e) => s + e.b, 0), total: list.reduce((s, e) => s + e.b, 0) };
   }
 
+  // (one download at a time: the checks before it starts take a moment, and a second tap then started a second
+  // download sharing the counter, which ran past the total on an iPhone, 2026-10-31)
+  let starting = false;
   async function download() {
-    if (job) return;
+    if (job || starting) return;
+    starting = true;
+    try { await run(); } finally { starting = false; }
+  }
+  async function run() {
     note = '';
     try { await getPack(); } catch (e) { note = "Can't reach the game's server. Connect to the internet and try again."; return draw(); }
     await register();
@@ -71,7 +78,7 @@
     const target = update ? STAGE : PACK, cache = await caches.open(target);
     const have = await haveMap(target);
     if (!update) keep(state = { pending: pack.version });
-    job = { done: list.length - left.length, of: list.length, got: 0, bytes, stopped: false, failed: 0 };
+    const J = job = { done: list.length - left.length, of: list.length, got: 0, bytes, stopped: false, failed: 0 };
     draw();
     const queue = left.slice();
     let dirty = 0;
@@ -84,20 +91,20 @@
           if (blob.size !== e.b) throw Object.assign(new Error('size'), { stale: true });
           const h = new Headers({ 'Content-Type': r.headers.get('Content-Type') || blob.type || 'application/octet-stream', 'Content-Length': String(blob.size), 'X-Offline-Hash': e.h });
           await cache.put(BASE + e.p, new Response(blob, { status: 200, headers: h }));
-          have[e.p] = e.h; job.done++; job.got += e.b;
+          if (have[e.p] !== e.h) { have[e.p] = e.h; J.done++; J.got += e.b; }
           if (++dirty >= 40) { dirty = 0; await saveHave(target, have); }
           return;
         } catch (err) {
           if (err && err.name === 'QuotaExceededError') throw err;
           if (err && err.stale) throw err;
-          if (tryN >= 3 || job.stopped) throw err;
+          if (tryN >= 3 || J.stopped) throw err;
           await new Promise(r => setTimeout(r, 800 * (tryN + 1)));
         }
       }
     };
     let error = null;
     const worker = async () => {
-      while (queue.length && !job.stopped && !error) {
+      while (queue.length && !J.stopped && !error) {
         const e = queue.shift();
         try { await one(e); } catch (err) { error = err; }
         tick();
@@ -105,7 +112,7 @@
     };
     await Promise.all(Array.from({ length: 6 }, worker));
     await saveHave(target, have);
-    const stopped = job.stopped;
+    const stopped = J.stopped;
     job = null;
     if (error) {
       note = error.name === 'QuotaExceededError' ? 'The browser ran out of storage for this site. Free some space (or use another browser) and press Continue.'
@@ -184,7 +191,7 @@
     if (!can) return set(location.protocol === 'file:' ? 'Offline play needs the game opened from its web address (not from a file on disk).'
       : "This browser can't keep an offline copy. Try a current Chrome, Edge, Firefox or Safari.", '', []);
     if (job) {
-      const pc = job.bytes ? job.got / job.bytes : job.done / job.of;
+      const pc = Math.min(1, job.bytes ? job.got / job.bytes : job.done / job.of);
       if (performance.now() - (job.shown || 0) > 3000) { job.shown = performance.now(); storage(job.bytes - job.got); }
       bar.firstChild.style.width = (pc * 100).toFixed(1) + '%';
       return set('Downloading the game into this browser. You can keep playing; leave this page open until it is done.',
