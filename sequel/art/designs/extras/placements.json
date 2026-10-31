@@ -526,5 +526,15 @@
   "x": 199,
   "y": 610,
   "z": 0
+ },
+ "gando_taxi_1": {
+  "extra": "gando_taxi",
+  "flip": false,
+  "room": "gando",
+  "rot": 0,
+  "size": 0.92,
+  "x": 1228,
+  "y": 512,
+  "z": 0
  }
 }

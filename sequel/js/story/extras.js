@@ -59,6 +59,18 @@ window.S.EXTRAS = {
  ],
  "gando": [
   {
+   "id": "x_gando_taxi",
+   "frames": [
+    "x_gando_taxi"
+   ],
+   "x": 1228,
+   "y": 512,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 0.92,
+   "h": 246.3
+  },
+  {
    "id": "x_gando_family",
    "frames": [
     "x_gando_family"

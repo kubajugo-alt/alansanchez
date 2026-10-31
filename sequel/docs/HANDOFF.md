@@ -54,7 +54,7 @@ root, in the same repository as Game I. Read, in this order:
    **next deploy**.
 2. **86 unrecorded lines (entry 117)**, mostly Cave 6's finale: wait for ElevenLabs' reset on 14 Nov or a top-up.
 3. **Questions the user hasn't answered**: the city exit "mistaken for kiosk" on Las Canteras (121); flip the Gando nuns
-   to face the kiss? add the taxi driver? (120); audition Canarian-sounding voices? (118); `alan_look_postcard` says
+   to face the kiss? (120; the taxi driver: added, 126); audition Canarian-sounding voices? (118); `alan_look_postcard` says
    "at sunset" but the postcard is by day (116); Gando's board reads "JUN16" and "BÜSSEDORF" (120).
 4. **Love close-ups and morning-after stills**: approved art, not wired into the game yet.
 5. `docs/BIBLE.md` not yet updated for Cave 6's redesign (106); no Inês hints for Monday.
@@ -1602,3 +1602,24 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Vasco's walks review page (entry 123's runs): https://claude.ai/artifact/JHsMoqK2UwY9L8oMp5dump (db `verdicts`;
       built from `art/review/ludo/vascor_page/`). The user: "the walks look good, but they don't loop", "his side walk
       is not really side - it's diagonal. we need a clean side walk." Being redone (entry 125).
+126. **Gando's taxi driver** (2026-10-31, the user: "Taxi driver: add the one the narrator mentions? - yes"; away, "go
+    ahead without asking for reviews"). The third of the narrator's witnesses over the kiss (`narr_t_kiss`: "in front of
+    a taxi driver, two nuns and a family from Düsseldorf"; the nuns and family are entry 120).
+    - Painted in Canva `generate-image` (worked first time, no quota cooldown), the Canva nuns (MAHZjCoHXPU) as the style
+      reference, the extras' style text: a Las Palmas taxi driver in his fifties, moustache, flat cap, short-sleeved
+      pale blue shirt, a cigarette and the car keys, looking left, mildly amused. Media **MAHZjQgXaOY**. Full size
+      (1088x1456) by entry 120's trick: copied the scratch design DAHZjGz7W4Q to **DAHZjflwgdc** (deletable), added a
+      1088x1456 page with the image, exported that page as PNG -> `art/designs/extras/gando_taxi.png`. Keyed with
+      `scripts/extras.py`'s `cut` -> `art/review/extras/cut/gando_taxi.png` (also `art/review/extras_gando/cut/`).
+    - Placed in the taxi doorway, on the threshold, facing left at the kiss (unflipped: the painting already looks left):
+      x 1228, y 512, size 0.92 (k 1.0; the gando scale [520,250,716,340] gives 246 px at the door, 0.92 so a stocky
+      man doesn't fill the door's full height). Behind the nuns (1101,663): the older nun covers his left hand; his
+      head, shirt and legs show in the doorway. Extras are click-through, so the Taxi rank hotspot still works.
+    - Installed: `extras.json` entry `gando_taxi`, `placements.json` record `gando_taxi_1`, `python3
+      scripts/extras_install.py` -> `art/sprites/x_gando_taxi.webp`, `js/story/extras.js` (gando), sprites.json /
+      sprites_canva.js. Tuesday only through the existing `S.EXTRAS_WHEN.gando` (ch 1).
+    - Placement tool: `x_gando_taxi.webp` and a `data.json` extras entry, a db `placements/gando_taxi_1` record with the
+      same values; republished (version 1793444646-54b3, data.json and the webp only).
+    - Checked in the running game (Playwright, `?scene=tue`, `Game.begin(true)`, then Alan at 580,650 and
+      `S.meetVasco()`): on arrival and during the kiss, no page errors; `art/review/extras_gando/game_gando_taxi_start.jpg`
+      and `game_gando_taxi_kiss.jpg`. `node scripts/validate.mjs`: 0 errors.

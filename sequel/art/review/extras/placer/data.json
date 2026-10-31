@@ -781,6 +781,16 @@
    "w": 880,
    "h": 700,
    "desc": "A German family from Düsseldorf off the plane with a luggage trolley: father (moustache, socks and sandals, camcorder bag), mother (perm, pastel windbreaker), a boy in a Germany shirt, a girl pointing. Standing, staring (Higgsfield)."
+  },
+  {
+   "id": "gando_taxi",
+   "room": "gando",
+   "k": 1.0,
+   "x": 1228,
+   "y": 512,
+   "w": 259,
+   "h": 700,
+   "desc": "A Las Palmas taxi driver, 1996: moustache, flat cap, short-sleeved pale blue shirt, a cigarette and the car keys, looking left at the kiss, mildly amused. In the taxi doorway (Canva)."
   }
  ],
  "alan": {

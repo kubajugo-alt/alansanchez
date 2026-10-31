@@ -1151,6 +1151,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 655
 },
+"x_gando_taxi": {
+"ax": 153.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 306
+},
 "x_museum_buffet": {
 "ax": 903.0,
 "fy": 740.0,

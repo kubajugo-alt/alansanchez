@@ -310,6 +310,17 @@
     610,
     1.0
    ]
+  },
+  {
+   "id": "gando_taxi",
+   "room": "gando",
+   "aspect": "3:4",
+   "desc": "A Las Palmas taxi driver, 1996, waiting for a fare by the taxi door: fifties, black moustache, flat cap, short-sleeved pale blue shirt, a cigarette in one hand and the car keys in the other, looking left at the kiss, mildly amused (the narrator's \"in front of a taxi driver\"). (Canva media MAHZjQgXaOY, 2026-10-31)",
+   "place": [
+    1228,
+    512,
+    1.0
+   ]
   }
  ],
  "jobs": {
