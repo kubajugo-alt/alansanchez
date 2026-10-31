@@ -1798,4 +1798,13 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       mouth/tip points measured on the new frames, the churches (Santa Ana inside, the belfry) and the cave/vault kept
       out, and a blazer set.
     - Review page republished (same link): the rule, the smoking poses.
+134. **The cigarette stays in one hand** (2026-10-31, the user: "the game 1 switched hands which was incorrect. Your
+    sprite switched hands - also incorrect, the cig should stay in one"). The first drag pose had it in his far hand
+    (the others in the near). Repainted (Higgsfield `gpt_image_2_5` high, two takes, the hold pose as the reference for
+    hand and cigarette): `art/designs/alan_smoke/inhale_t2a.png` (used) and `_t2b.png`; cut again to
+    `art/review/alan_smoke/alanv_smoke_inhale.webp`; the sheet, the face crops and the review page updated. The rule: his
+    right hand, the arm nearest us, from the drag on (the light is both hands cupped at the match); written into
+    `scripts/ludo_runs_alan_smoke.json` (the note and every in-between's prompt). When the blazer set and the
+    left-facing view are made: the left-facing view is the sprite mirrored, so there the cigarette is in his left
+    hand, still one hand throughout.
 
