@@ -1,0 +1,28 @@
+{
+ "spec": {
+  "a": "alanv_side_k",
+  "b": "alanv_side_k",
+  "mid": null,
+  "prompt": "bends his knees and crouches, picks up something small from the floor in front of him with his right hand, looks at it, and stands up again holding it; only him in the picture, no objects or furniture drawn; he starts and ends standing exactly as in the first frame, arms relaxed at his sides",
+  "loop": false,
+  "duration": 4,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "243ac998-207e-44ac-875e-a4b7d5655a29",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/f6d44b2f0cc6f9355aecd205fe8c0d47.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/e02e684244f317470b7c6f5795535079.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/6c83ae7394239d7ce3ed87555f2e0c6d.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 3.7083333333333335,
+   "loop": false,
+   "out_of_frame": false,
+   "bad_loop": false
+  },
+  "credits": 12
+ }
+}

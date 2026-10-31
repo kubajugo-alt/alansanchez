@@ -1,0 +1,11 @@
+{
+ "spec": {
+  "a": "alanv_side_k",
+  "b": "../review/alan_smoke/alanv_smoke_light",
+  "mid": null,
+  "prompt": "takes a cigarette from his pocket, puts it between his lips, strikes a match and cups it to light the cigarette; the cigarette stays in his right hand, the arm nearest to us, the whole time, never passed to the other hand; no smoke drawn, only him in the picture",
+  "loop": false,
+  "duration": 2,
+  "frames": 24
+ }
+}
