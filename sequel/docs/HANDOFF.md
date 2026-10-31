@@ -1398,3 +1398,25 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Nothing recorded: the 6 changed ids in `scripts/voice_redo.txt`, their mp3s moved to `audio/voice_stale/`,
       manifest rebuilt; the new lines play as captions. Review table: `docs/rewrite/NARR_WED_THU.md`.
     - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; play.mjs: won, 132 steps, no page errors.
+114. **Sunday: the narrator cut back** (2026-10-31, for the user's read). The user: "with your re-works there is way too
+    much narrator... Some things should simply be done by the characters, other just said by the characters".
+    - `js/story/sun.js` (the choice, Gando and the bad ending, Chano, Carmen's flat, the Land Rover, the cut-away to the
+      vault, the rescue, the discs, the rock, the path): narrator 109 lines / 2,812 words -> 10 / 188 (longest 25
+      words): the time jumps (the taxi, half past nine, five o'clock, past midnight, four o'clock, "by the evening of
+      Sunday"), one line over each still, Alan's joke he didn't make. 99 narrator lines no longer played (left in
+      lines.js), 8 shortened. Said instead (15 new lines): Alan's packing and the note's words, his grandfather and the
+      habit and what staying means (in the queue), the view from the desk, the cistern told to Carmen, the knees in the
+      Land Rover, the camp empty, "Vasco!" at the grille, "On Friday night. After you left..." before "Not now."; Carmen's
+      dressing gown, the dead dig radio (the clue that was narration), the waves under the radio. 4 character lines
+      changed (`alan_su_watch`, `alan_su_airport`, `carmen_su_idiot_2`, `alan_lr_smell`). No clue lost; puzzles.js and
+      vasco.js play no Sunday narration (the vault's narrator lines there are Vasco's Saturday).
+    - In code: poses (pickup, reach, write, phone, pull) and existing sounds for packing, the watch, the note, the
+      ticket, the phone, the hand on Carmen's shoulder, the discs, holding Vasco; Carmen answers the door herself (npc
+      `init`, at the door the first time) and walks back in; walks to the pick handle; Yeray runs out of the cut-away;
+      Vasco comes close on the rock; pauses for the silences. The grille: `G.refreshNpcs(true)` so Vasco's figure really
+      swaps to the one out on the stone (the plain refresh kept the actor behind the bars). Lines no longer said under
+      `G.fade(true)` (where captions are hidden): the note, the taxi, half past nine and the path now play in the room.
+    - Nothing recorded: the 12 changed ids in `scripts/voice_redo.txt`, their mp3s in `audio/voice_stale/`, manifest
+      rebuilt; new lines play as captions. Review table: `docs/rewrite/NARR_SUN.md`.
+    - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; a Sunday-only run (`?scene=sun` to Monday's cave, every
+      choice on the rock): no page errors; play.mjs: won, 132 steps, no page errors.

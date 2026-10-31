@@ -12,6 +12,8 @@
 (function () {
   const S = window.S, { G, F, say, ROOMS, T } = S;
   const ch = () => F().ch || 1;
+  const W = ms => T(window.FAST ? 10 : ms);   // a held beat (short when the playthrough test runs)
+  const walk = (a, x, y, ms) => a ? Promise.race([a.walkTo(x, y), W(ms || 3000)]) : null;
 
   S.startSun = async function () {
     await S.morning(6, 'alan_su_wake');
@@ -24,12 +26,14 @@
     if (f.chose_carmen) return;
     if (f.su_taxi) return S.toAirport();
     await G.busy(async () => {
-      S.sfx('cloth_shirt', 0.4);
-      await say('narr_su_pack_1', 'narr_su_pack_2', 'narr_su_pack_3');
-      await say('narr_su_watch', 'alan_su_watch');
+      // (2026-10-31, less narrator: he packs, takes Vasco's watch, writes the note; the taxi is the one line left)
+      await S.posed('pickup', async () => { S.sfx('cloth_shirt', 0.4); await W(900); S.sfx('cloth_shirt_2', 0.4); await W(700); });
+      await say('alan_su_pack');
+      await S.posed('reach', async () => { S.sfx('key_pickup', 0.3); await W(700); });
+      await say('alan_su_watch');
       f.su_watch = true;
-      await G.fade(true);
-      await say('narr_su_note', 'narr_su_taxi', 'alan_su_gando', 'narr_su_bonfires');
+      await S.posed('write', async () => { S.sfx('pencil_scribble', 0.4); await W(1000); S.sfx('paper_take', 0.4); await W(500); });
+      await say('alan_su_note', 'narr_su_taxi', 'alan_su_gando');
       f.su_taxi = true;
       await S.toAirport();
     });
@@ -40,7 +44,7 @@
     await G.fade(true);
     await G.goRoom('gando', 'map', { instant: true, noEnter: true, pos: [200, 660, 'e'] });
     await G.fade(false);
-    if (!f.su_gando) { f.su_gando = true; await say('narr_su_gando_1', 'narr_su_gando_2', 'alan_su_airport'); }
+    if (!f.su_gando) { f.su_gando = true; await say('alan_su_airport'); }
   };
   // Gando's way out, before the desk
   S.backToChoice = async function () {
@@ -55,10 +59,14 @@
     await G.busy(async () => {
       if (!f.su_queue) {
         f.su_queue = true;
-        await say('narr_su_queue_1', 'narr_su_queue_2', 'narr_su_queue_3', 'alan_su_hands');
-        await say('narr_su_queue_4', 'narr_su_queue_5', 'narr_su_queue_6');
+        // (his grandfather, the habit, what staying means: in his own voice, in the queue)
+        await say('alan_su_queue_1', 'alan_su_queue_2', 'alan_su_hands');
+        await W(800);
+        await say('alan_su_queue_3', 'alan_su_queue_4');
         await say('clerk_su_next', 'alan_su_yes', 'clerk_su_tan', 'alan_su_tan');
-        await say('clerk_1', 'narr_su_desk', 'narr_su_desk_2');
+        await say('clerk_1');
+        await W(900);
+        await say('alan_su_desk');
       } else await say('clerk_su_again');
     });
     await S.deskChoice();
@@ -72,7 +80,8 @@
   S.flyHome = async function () {
     await G.busy(async () => {
       await say('clerk_2');
-      await S.paint('still_bad_ending', async () => { await say('narr_bad_1', 'narr_bad_2', 'narr_bad_3'); await T(1200); }, { zoom: [1.0, 1.1] });
+      // (the still shows the plane, the island under its lid and the stain over the city: one line)
+      await S.paint('still_bad_ending', async () => { await W(2500); await say('narr_bad_3'); await T(1200); }, { zoom: [1.0, 1.1] });
       G.endStill();
       await G.card('That isn\'t how it ends.', 'Back to the desk', 3000);
       await G.goRoom('gando', null, { instant: true, noEnter: true, noSave: true, pos: [860, 650, 'e'] });
@@ -85,16 +94,17 @@
   S.leaveAirport = async function () {
     const f = F();
     await G.busy(async () => {
-      await say('narr_su_leave');
+      // he takes his ticket back out of her hand and walks back through the crowd; she shrugs after him
+      await S.posed('reach', async () => { S.sfx('paper_take', 0.4); await W(600); });
       await G.player.walkTo(120, 660);
-      await say('narr_su_shrug', 'clerk_su_june');
+      await say('clerk_su_june');
       await G.fade(true);
-      await say('narr_su_back', 'alan_su_chano_think');
       await G.goRoom('canteras', null, { instant: true, noEnter: true, pos: [340, 665, 'w'] });
       await G.fade(false);
-      await say('narr_su_kiosk', 'chano_su_1', 'alan_su_chano_1', 'chano_su_2', 'alan_su_chano_2', 'chano_su_3', 'chano_su_4');
-      S.sfx('coins_clink', 0.4);
-      await say('narr_su_rockets', 'chano_su_5', 'alan_su_chano_3', 'chano_su_6', 'chano_su_6b', 'chano_su_7', 'alan_su_chano_4', 'chano_su_8');
+      await say('narr_su_back', 'alan_su_chano_think');
+      await say('chano_su_1', 'alan_su_chano_1', 'chano_su_2', 'alan_su_chano_2', 'chano_su_3', 'chano_su_4');
+      S.sfx('coins_clink', 0.4); await W(700);   // (a box of rockets to a small boy)
+      await say('chano_su_5', 'alan_su_chano_3', 'chano_su_6', 'chano_su_6b', 'chano_su_7', 'alan_su_chano_4', 'chano_su_8');
       f.chose_carmen = true;   // (Carmen's flat is on the map now: js/story/core.js)
       await say('alan_su_perdomo');
     });
@@ -106,7 +116,8 @@
     name: 'Carmen\'s flat, Triana', bg: 'carmen_flat', floor: 'tile', ambience: 'night', door: 'door',
     entries: { default: [1100, 660, 'w'], map: [1100, 660, 'w'] },
     npcs: [
-      { id: 'carmen', ch: 'carmen', x: 640, y: 650, dir: 'e', name: 'Carmen', look: () => say(F().elena_heard ? 'alan_look_carmen_flat_2' : 'alan_look_carmen_flat'), talk: () => S.talkCarmenSun(),
+      { id: 'carmen', ch: 'carmen', x: 640, y: 650, dir: 'e', name: 'Carmen', init: a => { if (!F().carmen_sun) a.x = 1000; },   // (at the door, the first time)
+        look: () => say(F().elena_heard ? 'alan_look_carmen_flat_2' : 'alan_look_carmen_flat'), talk: () => S.talkCarmenSun(),
         items: { drawing: () => say('carmen_su_drawing'), any: 'alan_fail_carmen_item' } },
     ],
     hotspots: [
@@ -123,16 +134,24 @@
       const f = F();
       if (f.carmen_sun) return;
       f.carmen_sun = true;
-      await say('narr_su_flat_1', 'narr_su_flat_2');
-      S.sfx('knock', 0.6); await T(900); S.sfx('knock', 0.7); await T(700);
-      S.sfx('door', 0.4);
-      await say('narr_su_flat_3', 'carmen_su_door', 'alan_su_idiot', 'narr_su_stopped');
+      // (2026-10-31, less narrator): she answers the door herself, on its chain; it shuts; the chain comes off; she
+      // goes back in and he follows. The flat, the ashtrays and the blinking machine are the painting's.
+      const c = G.npc('carmen');
+      S.sfx('knock', 0.6); await W(900); S.sfx('knock', 0.7); await W(700);
+      S.sfx('door', 0.4); await W(500);
+      await say('carmen_su_door', 'alan_su_idiot');
+      await W(900);
       await say('alan_su_idiot_2', 'alan_su_idiot_3', 'alan_su_idiot_4', 'alan_su_idiot_5');
-      await say('carmen_su_baute', 'alan_su_baute', 'narr_su_knuckles', 'alan_su_friend');
-      S.sfx('door_2', 0.5);
-      await say('narr_su_closed', 'alan_su_thats_that');
-      S.sfx('key_jingle', 0.4); await T(600);
-      await say('narr_su_chain', 'carmen_su_idiot', 'narr_su_inside', 'narr_su_inside_2');
+      await say('carmen_su_baute', 'alan_su_baute');
+      await W(1200);
+      await say('alan_su_friend');
+      if (c) await walk(c, 880, 655, 1500);
+      S.sfx('door_2', 0.5); await W(600);
+      await say('alan_su_thats_that');
+      await W(800);
+      S.sfx('key_jingle', 0.4); await W(600); S.sfx('door', 0.4);
+      await say('carmen_su_idiot');
+      if (c) { await walk(c, 640, 650, 3000); c.dir = 'e'; }
     },
     // small moving details over the painting: the hanging lamp, the view from the kitchen window, the machine's light
     animBack(g, t) {
@@ -152,17 +171,27 @@
     await G.busy(async () => {
       if (!f.su_elena_told) {
         f.su_elena_told = true;
-        await say('carmen_su_elena_1', 'carmen_su_elena_2', 'carmen_su_elena_3', 'narr_su_laugh', 'carmen_su_elena_4', 'alan_su_know');
+        await say('carmen_su_elena_1', 'carmen_su_elena_2', 'carmen_su_elena_3');
+        await W(700);
+        await say('carmen_su_elena_4', 'alan_su_know');
         await say('carmen_su_elena_5', 'carmen_su_elena_6', 'carmen_su_elena_7');
       }
-      await say('alan_su_machine', 'carmen_su_dont', 'alan_su_please', 'narr_su_press');
-      S.sfx('relay_click', 0.6); await T(600); S.sfx('beep', 0.5);
-      await say('elena_msg_01', 'narr_su_sofa', 'elena_msg_02', 'elena_msg_03');
+      await say('alan_su_machine', 'carmen_su_dont', 'alan_su_please');
+      await W(1500);   // (she looks at him a long time; then presses the button)
+      S.sfx('relay_click', 0.6); await W(600); S.sfx('beep', 0.5);
+      await say('elena_msg_01');
+      await W(900);
+      await say('elena_msg_02', 'elena_msg_03');
       S.sfx('relay_click', 0.4);
-      f.elena_heard = true;
-      await say('narr_su_light_out', 'narr_su_shoulder', 'narr_su_shoulder_2');
+      f.elena_heard = true;   // (the red light stops blinking, and goes out: animBack)
+      await W(1800);
+      // he goes to her and puts his hand on her shoulder, and they stay like that a long time
+      const c = G.npc('carmen');
+      if (c) { await walk(G.player, c.x + 110, 655, 4000); G.player.dir = 'w'; }
+      await S.posed('reach', () => W(3500));
+      await say('carmen_su_dress');
       await G.fade(true); S.sfx('cloth_shirt', 0.4); await T(900); await G.fade(false);
-      await say('narr_su_changed', 'carmen_su_box', 'carmen_su_box_2');
+      await say('carmen_su_box', 'carmen_su_box_2');
     });
   };
   S.elenaBox = async function () {
@@ -174,10 +203,13 @@
     await say(f.cave_explained ? 'alan_su_triangle' : 'alan_su_triangle_2');
     // the sentence she didn't finish; the cistern, told; the lighter, four tries
     await G.busy(async () => {
-      await say('alan_su_finish', 'carmen_su_how', 'narr_su_told');
+      await say('alan_su_finish', 'carmen_su_how', 'alan_su_told');
+      // her lighter: four tries this time; half the cigarette in silence
       for (let i = 0; i < 4; i++) { S.sfx('match', 0.45); await T(420); }
-      await say('narr_su_lighter', 'carmen_su_anyway', 'alan_su_apparently', 'carmen_su_airport', 'alan_su_apparently_2');
-      await say('narr_su_glasses', 'carmen_su_idiot_2', 'narr_su_different');
+      await W(1800);
+      await say('carmen_su_anyway', 'alan_su_apparently', 'carmen_su_airport', 'alan_su_apparently_2');
+      await W(1000);
+      await say('carmen_su_idiot_2');
     });
   };
   S.takeWater = async function () {
@@ -204,12 +236,18 @@
       f.su_calls = true;
       await G.busy(async () => {
         await say('alan_su_phone');
-        S.sfx('phone_dial', 0.5); await T(1200);
-        await say('nieves_su_1', 'nieves_su_2', 'alan_su_burn', 'nieves_su_burn', 'alan_su_nothing', 'nieves_su_3', 'nieves_su_4', 'narr_su_hangup');
-        S.sfx('phone_hangup', 0.5); await T(400);
-        await say('narr_su_museum');
-        S.sfx('phone_dial', 0.5); await T(1000);
-        await say('narr_su_lab', 'carmen_su_lab_1', 'carmen_su_lab_2', 'alan_su_six', 'narr_su_think');
+        // the hotel: he puts the phone down on Nieves's question without answering it
+        await S.posed('phone', async () => {
+          S.sfx('phone_dial', 0.5); await W(1200);
+          await say('nieves_su_1', 'nieves_su_2', 'alan_su_burn', 'nieves_su_burn', 'alan_su_nothing', 'nieves_su_3', 'nieves_su_4');
+          await W(1200); S.sfx('phone_hangup', 0.5); await W(400);
+        });
+        // Carmen's calls: the museum (the dig radio), then the conservation lab
+        S.sfx('phone_dial', 0.5); await W(1000);
+        await say('carmen_su_museum');
+        S.sfx('phone_hangup', 0.4); await W(300); S.sfx('phone_dial', 0.5); await W(1000);
+        await say('carmen_su_lab_1', 'carmen_su_lab_2', 'alan_su_six');
+        await W(1500);   // (he sits down with Elena's notebook and makes himself think, in order)
         if (f.radio_lie) await say('alan_su_lolo');   // (2026-10-30: Lolo's radio and Baute's lie, puzzles.js)
       });
     }
@@ -219,7 +257,9 @@
       { line: 'alan_su_vasco_lisbon', run: () => say('carmen_su_lisbon_no'), bye: true },
       { line: 'alan_su_vasco_vault', run: async () => {
         f.knows_vault = true;
-        await say('alan_su_vault_1', 'alan_su_vault_2', 'carmen_su_vault', 'alan_su_sea_too', 'narr_su_keys', 'carmen_su_go');
+        await say('alan_su_vault_1', 'alan_su_vault_2', 'carmen_su_vault', 'alan_su_sea_too');
+        S.sfx('key_jingle', 0.5);   // (she's already picking up her keys)
+        await say('carmen_su_go');
         if (!G.has('water')) await say('carmen_su_water');
       }, bye: true },
     ]);
@@ -269,10 +309,15 @@
       await G.fade(true);
       await G.goRoom('landrover', null, { instant: true, noEnter: true, noSave: true });
       await G.fade(false);
-      await say('narr_lr_1', 'narr_lr_1b', 'carmen_lr_1', 'narr_lr_whine', 'alan_lr_1', 'carmen_lr_2');
+      // (2026-10-31, less narrator: the gauge, the steam and the cloud are drawn; Carmen and Alan say the rest)
+      await say('narr_lr_1', 'carmen_lr_1');
+      await W(1200);
+      await say('alan_lr_1', 'carmen_lr_2');
       await T(1500);
-      boiling = 1; S.sfx('kettle_steam', 0.5);
-      await say('narr_lr_steam', 'carmen_lr_boil', 'narr_lr_layby', 'carmen_lr_water');
+      boiling = 1; S.sfx('kettle_steam', 0.5); S.sfx('kettle_boil', 0.3);
+      await say('carmen_lr_boil');
+      await W(1200);   // (the lay-by; the bonnet up, and a minute's swearing at it)
+      await say('carmen_lr_water');
     });
   };
   S.fillRadiator = async function () {
@@ -282,16 +327,23 @@
       S.sfx('pour', 0.6); await T(600); S.sfx('kettle_steam', 0.5); await T(800);
       await say('alan_lr_fill', 'carmen_lr_go', 'carmen_lr_go_2');
       // darker: the smell, the radio's waves; the Sea's water in the footwell, on his side only; Carmen drives through it
-      await say('narr_lr_dark', 'narr_lr_smell', 'alan_lr_smell', 'carmen_lr_smell', 'narr_lr_radio');
+      await W(1500);
+      await say('alan_lr_smell', 'carmen_lr_smell');
+      S.sfx('water_lap', 0.25);   // (the waves under the radio's static, as Elena heard them on this road)
+      await W(800);
+      await say('carmen_lr_radio');
       f.footwell = true; S.sfx('water_seep', 0.5);
       await S.waterTo('landrover', 0.12, 2500);
-      await say('alan_lr_feet', 'narr_lr_feet', 'alan_lr_me', 'narr_lr_door', 'narr_lr_floor');
+      await say('alan_lr_feet', 'alan_lr_me');
       S.sfx('water_rise', 0.5);
       await S.waterTo('landrover', 0.22, 1500);
-      await say('carmen_lr_through', 'alan_lr_carmen', 'carmen_lr_rag');
+      await say('alan_lr_door', 'carmen_lr_through', 'alan_lr_carmen', 'carmen_lr_rag');
       S.water.landrover = 0;
+      // (the still: out of the cloud, the stars, the sea of cloud glowing orange along the coast)
       await S.paint('still_cloud_climb', async () => {
-        await say('narr_lr_stars', 'narr_lr_stars_2', 'narr_lr_glow', 'carmen_lr_bonfires', 'alan_lr_bonfires', 'narr_lr_sea', 'carmen_lr_twenty');
+        await say('narr_lr_stars', 'carmen_lr_bonfires', 'alan_lr_bonfires');
+        await W(1200);
+        await say('carmen_lr_twenty');
       }, { zoom: [1.0, 1.12], pan: [[0.5, 0.6], [0.5, 0.4]] });
       G.endStill();
       await S.vaultCutaway();
@@ -300,7 +352,8 @@
       f.su_camp = true;   // (Carmen comes down to the grille with him: js/story/vasco.js)
       await G.fade(false);
       // the camp in the dark; iron ringing on stone below the cliff, and Yeray's voice
-      await say('narr_camp_su_1', 'narr_camp_su_2');
+      await say('alan_camp_su');
+      await W(900);
       S.sfx('stone_clack', 0.6); await T(600); S.sfx('stone_clack', 0.5); await T(400);
       await G.say('yeray_su_1', { offscreen: true });
       await say('carmen_su_here');
@@ -313,16 +366,21 @@
     G.player.visible = false;
     S.water.vault = 0.4;
     await G.fade(false);
-    await say('narr_vy_1', 'narr_vy_2', 'narr_vy_2b', 'narr_vy_3', 'narr_vy_4');
-    S.sfx('corridor_steps', 0.4);
-    await say('narr_vy_5', 'narr_vy_5b'); S.sfx('tile_shatter', 0.5);
-    await say('yeray_vy_1', 'vasco_vy_1', 'vasco_vy_2', 'vasco_vy_3', 'yeray_vy_2', 'vasco_vy_4', 'vasco_vy_5', 'vasco_vy_6', 'narr_vy_face');
+    // (2026-10-31, less narrator: the water standing round him behind the bars is drawn; Yeray comes down the steps with
+    // the bread and water Rayco sends, sees it, and drops the bottle)
+    await say('narr_vy_1');
+    await W(1500);
+    S.sfx('corridor_steps', 0.4); await W(1400);
+    S.sfx('tile_shatter', 0.5); await W(700);
+    await say('yeray_vy_1', 'vasco_vy_1', 'vasco_vy_2', 'vasco_vy_3', 'yeray_vy_2', 'vasco_vy_4', 'vasco_vy_5', 'vasco_vy_6');
+    await W(1500);   // (Yeray says nothing; his face working)
     await say('vasco_vy_7', 'vasco_vy_8', 'vasco_vy_9');
     S.sfx('water_rise', 0.4);
-    await S.waterTo('vault', 0.46, 1500);
-    await say('narr_vy_6');
+    await S.waterTo('vault', 0.46, 1500);   // (over his mouth)
+    await W(1200);
+    // Yeray runs for the pick
     S.sfx('corridor_steps', 0.5);
-    await say('narr_vy_7');
+    await walk(G.npc('yeray'), 1240, 690, 2500);
     await G.fade(true);
     G.player.visible = true;
   };
@@ -333,9 +391,9 @@
     if (f.ch !== 6 || f.vault_seen) return;
     f.vault_seen = true;
     S.water.vault = 0.46;
-    await say('narr_vault_su', 'narr_vault_su_2');
-    S.sfx('stone_clack', 0.5);
-    await say('yeray_su_come', 'narr_vault_su_3', 'narr_vault_su_4');
+    // (the cleft, Yeray at the grille with the pick, the water standing behind the bars at Vasco's face: all shown)
+    S.sfx('stone_clack', 0.5); await W(500);
+    await say('yeray_su_come', 'alan_vault_su');
   };
   S.talkYerayVault = () => F().vasco_free ? say('yeray_su_after') : say('yeray_su_pull');
   S.talkVascoVault = () => F().vasco_free ? say('vasco_su_vault') : say('alan_su_vasco_talk');
@@ -346,7 +404,7 @@
     if (f.vasco_free) return say('alan_look_grille_off');
     if (!f.grille_heaved) {
       await G.busy(async () => {
-        await say('alan_su_pull', 'narr_grille_1');
+        await say('alan_su_pull');
         await S.posed('pull', async () => { S.sfx('chain_creak', 0.6); await T(900); S.sfx('stone_clack', 0.7); await T(500); });
         f.grille_heaved = true;
         await say('yeray_su_2', 'alan_su_more_hands');
@@ -355,15 +413,20 @@
     }
     if (!f.carmen_on) return say('alan_su_more_hands');
     await G.busy(async () => {
-      await say('narr_grille_2');
-      await S.posed('pull', async () => { S.sfx('brass_heavy', 0.7); await T(900); });
-      f.vasco_free = true; G.refreshNpcs();   // (out: the vasco_free figure, in front of the open alcove)
-      await say('narr_grille', 'narr_grille_3');
-      await say('narr_grille_4');
+      // Carmen's weight on the pick handle with Yeray; the crack in the stone; the grille tears out and Alan pulls Vasco
+      // out under it (the open painting, Vasco on the stone); the water stands a moment, and sinks into the floor
+      const c = G.npc('carmen'); await walk(c, 1030, 660, 2000);
+      await S.posed('pull', async () => { S.sfx('brass_heavy', 0.7); await W(900); S.sfx('stone_clack', 0.8); await W(500); });
+      f.vasco_free = true; G.refreshNpcs(true);   // (out: the vasco_free figure, in front of the open alcove; a fresh cast, so he's swapped)
+      const c2 = G.npc('carmen'); if (c2) c2.x = 1030;
+      await W(1500);
       S.sfx('water_drain', 0.5);
       await S.waterTo('vault', 0, 3000);
       await say('narr_grille_5', 'narr_grille_6');
-      await say('vasco_su_out_1', 'alan_su_out_1', 'narr_grille_smile', 'vasco_su_out_2', 'narr_grille_7');
+      await say('vasco_su_out_1', 'alan_su_out_1');
+      await W(700);
+      await say('vasco_su_out_2');
+      await S.posed('reach', () => W(2500));   // (his forehead against Vasco's; Yeray crying on the stone, Carmen's hand on him)
     });
   };
   // the granary, dry; five crates; Carmen's field jacket; the mark on the wall; then up to the rock
@@ -373,11 +436,12 @@
     if (!f.vasco_free) return say('alan_crates_first');
     if (G.has('disc_wax_gibbous') || f.ch === 7) return say('alan_crates_empty');
     await G.busy(async () => {
-      await say('narr_discs_1', 'narr_discs_2');
-      S.sfx('cloth_jacket', 0.4);
+      // the five crates, a disc in straw in each; Carmen wraps them in her field jacket
+      await S.posed('pickup', async () => { S.sfx('cloth_jacket', 0.4); await W(900); });
       S.giveDiscs();
       await say('alan_su_discs', 'vasco_su_discs');
-      await say('alan_su_mark', 'narr_mark_su_2');
+      await say('alan_su_mark');
+      await W(1500);
       f.v_marked = true;
     });
     await S.onTheRock();
@@ -396,19 +460,34 @@
       await G.goRoom('camp', null, { instant: true, noEnter: true, noSave: true, pos: [520, 660, 'e'] });
       await G.fade(false);
       S.sfx('coffee_cups', 0.4);
-      await say('narr_rock_1', 'narr_rock_2');
+      await say('narr_rock_1');
       await say('vasco_rock_1', 'alan_rock_1', 'vasco_rock_2', 'vasco_rock_3', 'vasco_rock_4', 'alan_rock_2', 'vasco_rock_5', 'vasco_rock_6');
-      await say('alan_rock_3', 'vasco_rock_7', 'carmen_rock_1', 'vasco_rock_8', 'vasco_rock_9', 'narr_rock_look', 'alan_rock_4', 'narr_rock_3');
+      await say('alan_rock_3', 'vasco_rock_7', 'carmen_rock_1', 'vasco_rock_8', 'vasco_rock_9');
+      await W(1000);   // (he looks at Alan)
+      await say('alan_rock_4');
+      await W(2200);   // (nobody says anything: Vasco understands it, and puts it away behind his eyes)
       await say('carmen_rock_2', 'vasco_su_dawn');
-      if (f.su_watch) await say('narr_rock_watch', 'vasco_rock_watch', 'alan_rock_5', 'alan_rock_6', 'narr_rock_strap', 'vasco_rock_10', 'alan_rock_7');
-      await say('narr_rock_4', 'narr_rock_5', 'vasco_rock_11', 'narr_rock_cold', 'vasco_rock_12', 'vasco_rock_13', 'narr_rock_hold');
+      if (f.su_watch) {
+        await S.posed('reach', async () => { await W(700); await say('vasco_rock_watch'); });   // (the watch, held out)
+        await say('alan_rock_5', 'alan_rock_6');
+        await W(1200);   // (he puts it on, slowly, with cold fingers)
+        await say('vasco_rock_10', 'alan_rock_7');
+      }
+      // Vasco's head on his shoulder; and now the thing Alan has to say
+      const v = G.npc('vasco'); await walk(v, 565, 660, 1500); if (v) v.dir = 'w';
+      await W(1200);
+      await say('alan_rock_friday', 'vasco_rock_11');
+      await W(1200);
+      await say('vasco_rock_12', 'vasco_rock_13');
+      await S.posed('reach', () => W(1800));   // (he holds on)
       f.su_not_now = true;
     });
     await G.dialog([
       { line: 'alan_rock_ask_why', once: true, run: async () => {
         await say('vasco_rock_tasarte_1', 'vasco_rock_tasarte_2', 'vasco_rock_tasarte_3');
-        S.sfx('match', 0.45);
-        await say('narr_rock_one_try', 'carmen_rock_3', 'carmen_rock_4', 'vasco_rock_14', 'alan_rock_8', 'alan_rock_9', 'alan_rock_10', 'narr_rock_silence');
+        S.sfx('match', 0.45); await W(900);   // (Carmen's lighter: one try, this time)
+        await say('carmen_rock_3', 'carmen_rock_4', 'vasco_rock_14', 'alan_rock_8', 'alan_rock_9', 'alan_rock_10');
+        await W(2000);
       } },
       { line: 'alan_rock_ask_trowel', once: true, run: () => say('vasco_rock_trowel', 'alan_rock_trowel') },
       { line: 'alan_rock_go', bye: true, run: () => S.pathToCave() },
@@ -418,10 +497,10 @@
   S.pathToCave = async function () {
     await G.busy(async () => {
       await say('yeray_rock_time', 'vasco_rock_go');
+      await say('narr_path_1');
       await G.fade(true);
-      await say('narr_path_1', 'narr_path_2');
-      S.sfx('water_lap', 0.4);
-      await say('narr_path_3', 'narr_path_4');
+      // (over the black: the cave mouth breathing, like surf a long way down)
+      S.sfx('water_lap', 0.4); await W(2500);
     });
     await S.startMon();
   };
