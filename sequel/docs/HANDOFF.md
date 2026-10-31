@@ -12,7 +12,7 @@ root, in the same repository as Game I. Read, in this order:
 - `docs/PIPELINES.md`: **how we work**, step by step (rooms, sprites, Ludo, faces and lip-sync, the sea loops, ambient
   movement, sound and voices, recording with sound, deploy) and **every external service** with its limits;
 - `docs/CODEMAP.md` for the code; `docs/BIBLE.md` and `docs/story-bible.md` for the story (brought up to date with the
-  game on 2026-10-31, entry 130; the Claude Doc is older); `docs/puzzles/` for the puzzles, Cave 6 and the deaths; `docs/novel/the-shortest-night.md` is the novel the days
+  game on 2026-10-31, entry 131; the Claude Doc is older); `docs/puzzles/` for the puzzles, Cave 6 and the deaths; `docs/novel/the-shortest-night.md` is the novel the days
   were rewritten from (entries 17, 87).
 
 ### Game I stays as it was
@@ -89,7 +89,17 @@ Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
    kiss and the fireworks silhouette (107).
 5. **Ludo key**: the user pasted it in chat; advised rotating it. It and the ElevenLabs/Gemini keys live in the root
    `.env` (git-ignored; a new container needs them again: ask the user, never print them).
-6. Older: the environment movement fixes (`docs/review/env_movement.md`, the user's pick from ten).
+6. **Alan's action sprites (entries 132, `docs/review/action_sprites.md`)**: the review page is up; waiting on the
+   user's verdict on the five existing runs and for the Ludo key (root `.env`) to make the twelve proposed ones. Vasco's
+   next.
+7. **Small contradictions in the lines** (found in entry 131, not fixed): `mercedes_read_6` "at the rising of the sun"
+   (1483 is now noon); `lolo_s_talk_3` "this afternoon" before one o'clock and `alan_su_lolo` "Saturday morning" (Vasco
+   can send only after 14:04); `pino_s_missal` "Two crossed out. Two not." (her list: seven, five struck);
+   `chano_th_pepe_6` "Now two." (five); Montesdeoca 25 in 1966 (`chano_s_tasarte_2`) against 28
+   (`vasco_rock_tasarte_3`); `vasco_t_sorry` "for the equinox". Leftovers: the clinometer item in core.js (never
+   given), `S.tideStep` unused, a sun.js comment "disc six came out this morning". Changing lines means re-recording:
+   the user's call.
+8. Older: the environment movement fixes (`docs/review/env_movement.md`, the user's pick from ten).
 
 ### Voice casting (the user's rule, 2026-10-27)
 - **Alan, Vasco, Inês and the narrator keep their Game I voices** (Game I's `scripts/cast.json`): Alan
@@ -1749,3 +1759,24 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     21 written. `build-manifest.mjs`: 2,876 voice files, offline pack refreshed. validate: 0 errors.
     **Baute's verses not done**: his voice needs `language_code: "es"` and its voice settings, which the connector can't
     send; the rule is the same voices, so they wait for the key in `.env`. Not listened to by the user yet; not deployed.
+131. **The bibles brought into line with the game** (2026-10-31, the user: "Fix the documentation"). An agent rewrote
+    `docs/BIBLE.md` against the code and lines (Cave 6 as built, entries 106–110: the noon column, the chamber, the
+    moons and the telling, 4° 36′ S at 14:05, the aiming, the wing mirror, the women of light; the narrator cuts
+    111–115; the corridor of skulls, Yeray at the table, Gando's extras, Vasco's month, the six dead), and rebuilt
+    `docs/story-bible.md` as the same body plus its own "Dialogue and atmosphere" section (rules 4, 5, 9, 10, the
+    chapter map and the Carmen example updated). Every line id quoted in the Scenes was checked by script against
+    `js/lines.js` (exists, text matches, still played). No mention left of the slot, the clinometer, 23° 26′ or the
+    tilt of the world. The finale section is now "Cave 6 at noon". Contradictions found in the lines are listed in
+    "Start here" (Open, 7); not fixed. Also in this session: "Start here" rewritten (what is in the game, the open
+    list after entries 102–129) and `docs/puzzles/CAVE6.md`'s status.
+132. **Alan's action sprites: the survey and the review page** (2026-10-31, the user: "we barely have any action
+    sprites... list what kind of sprites we need", then "Start with Alan's"). `docs/review/action_sprites.md`: the 55
+    `S.posed` calls (16 poses) with what happens in each, the actions with no pose call, outfits, npc poses (none wired),
+    and an order. Alan's five Ludo runs from entries 29–30 (`alanv_phone`, `_drink`, `_write`, `_pull`, `_climb`, on
+    disk, off since entry 32) looked at frame by frame against `alanv_side_k`: phone, drink and write are good; the
+    pull is a chain pulled from overhead (wrong for the clock, weak for the grille); the climb goes up and ends in the
+    air (Monday's ladder goes down). Clips and strips in `art/review/alan_actions/`; review page
+    https://claude.ai/artifact/3QZTvnW7vD6ACZHXnCE68i. Twelve new runs written, not run, in
+    `scripts/ludo_runs_alan_actions.json` (vest: pickup, setdown, reach, reachup, read, stretch, crank, rub, heave;
+    blazer: phone, read, reachup): `python3 scripts/ludo.py batch scripts/ludo_runs_alan_actions.json` once the Ludo
+    key is back in the root `.env` (not in this container). Nothing switched on in the game.
