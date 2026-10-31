@@ -89,9 +89,9 @@ Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
    kiss and the fireworks silhouette (107).
 5. **Ludo key**: the user pasted it in chat; advised rotating it. It and the ElevenLabs/Gemini keys live in the root
    `.env` (git-ignored; a new container needs them again: ask the user, never print them).
-6. **Alan's action sprites (entries 132, `docs/review/action_sprites.md`)**: the review page is up; waiting on the
-   user's verdict on the five existing runs and for the Ludo key (root `.env`) to make the twelve proposed ones. Vasco's
-   next.
+6. **Alan's action sprites (entries 132-133, `docs/review/action_sprites.md`)**: the review page is up (actions start
+   and end on his standing sprite; the smoking poses painted); waiting on the user's verdict and for the Ludo key (root
+   `.env`) to make the runs. Vasco's next.
 7. **Small contradictions in the lines** (found in entry 131, not fixed): `mercedes_read_6` "at the rising of the sun"
    (1483 is now noon); `lolo_s_talk_3` "this afternoon" before one o'clock and `alan_su_lolo` "Saturday morning" (Vasco
    can send only after 14:04); `pino_s_missal` "Two crossed out. Two not." (her list: seven, five struck);
@@ -1780,3 +1780,22 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     `scripts/ludo_runs_alan_actions.json` (vest: pickup, setdown, reach, reachup, read, stretch, crank, rub, heave;
     blazer: phone, read, reachup): `python3 scripts/ludo.py batch scripts/ludo_runs_alan_actions.json` once the Ludo
     key is back in the root `.env` (not in this container). Nothing switched on in the game.
+133. **Actions start and end standing; Alan smokes** (2026-10-31, the user: "Remember they should start at most common
+    idle position and finish in it too. We also need smoking Alan, used like in the first game").
+    - The rule: every action from and back to `alanv_side_k` / `alanb_side_k`. Every run in
+      `scripts/ludo_runs_alan_actions.json` now has `b` = `a` (Ludo's final_image) and says so in its prompt. Checked
+      the existing runs' first against last frame (silhouette IoU): phone 0.98, drink 0.98, pull 0.98, write 0.89 (ends
+      at his pocket: a take 2 is in the spec), climb 0.50.
+    - Smoking as Game I: `js/engine/smoke.js` (forked, already in the sequel) runs `Game.idleSmoke` after 20 s without
+      input: light, then inhale / exhale / hold round and round, smoke from the mouth and tip points, a match; any input
+      stops it; Game I's `allowed` keeps it out of churches. The sequel never defined `G.idleSmoke`, so it never ran.
+      The four poses painted in Higgsfield `gpt_image_2_5` (quality high, 0.25 credits each; refs: `alanv_side_k` on
+      green and Game I's `alan_smoke_<pose>` for the pose only): `art/designs/alan_smoke/<pose>_t1.png`, cut to
+      `art/review/alan_smoke/alanv_smoke_<pose>.webp` (figure_cut's keying, 720 px; not in `art/sprites/`), sheet and
+      face crops beside the standing sprite. The six Ludo in-betweens (standing -> light -> inhale -> exhale -> hold,
+      hold -> inhale, hold -> standing: he treads it out) in `scripts/ludo_runs_alan_smoke.json`, not run (no Ludo key).
+      Still to do once approved: the poses into `art/sprites/`, the Ludo runs, `G.idleSmoke` in core.js with the
+      mouth/tip points measured on the new frames, the churches (Santa Ana inside, the belfry) and the cave/vault kept
+      out, and a blazer set.
+    - Review page republished (same link): the rule, the smoking poses.
+

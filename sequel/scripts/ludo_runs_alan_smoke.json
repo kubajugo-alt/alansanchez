@@ -1,0 +1,59 @@
+{
+ "note": "Alan's idle cigarette, as Game I (js/engine/smoke.js: after 20 s without input he lights up, then drag / breathe out / hold round and round; the engine draws the smoke from his mouth and the tip; any input puts it out). The four poses are painted (art/review/alan_smoke/alanv_smoke_*.webp, Higgsfield gpt_image_2_5 high from alanv_side_k and Game I's alan_smoke_* as pose references; originals in art/designs/alan_smoke/). These are the Ludo in-betweens between them, standing -> light and hold -> standing so it starts and ends on his standing sprite. Before running: copy the approved poses into art/sprites/ (ludo.py reads its keyframes there). Not run: needs LUDO_API_KEY in the root .env.",
+ "runs": [
+  {
+   "name": "alanv_smoke_stand_light",
+   "a": "alanv_side_k",
+   "b": "alanv_smoke_light",
+   "prompt": "takes a cigarette from his pocket, puts it between his lips, strikes a match and cups it to light the cigarette; no smoke drawn, only him in the picture",
+   "loop": false,
+   "frames": 24,
+   "duration": 2
+  },
+  {
+   "name": "alanv_smoke_light_inhale",
+   "a": "alanv_smoke_light",
+   "b": "alanv_smoke_inhale",
+   "prompt": "shakes the match out and drops it, takes the cigarette between two fingers and draws on it; no smoke drawn, only him in the picture",
+   "loop": false,
+   "frames": 24,
+   "duration": 2
+  },
+  {
+   "name": "alanv_smoke_inhale_exhale",
+   "a": "alanv_smoke_inhale",
+   "b": "alanv_smoke_exhale",
+   "prompt": "lowers the cigarette to his chest, tips his head back a little and breathes the smoke out slowly; no smoke drawn, only him in the picture",
+   "loop": false,
+   "frames": 24,
+   "duration": 2
+  },
+  {
+   "name": "alanv_smoke_exhale_hold",
+   "a": "alanv_smoke_exhale",
+   "b": "alanv_smoke_hold",
+   "prompt": "relaxes, the cigarette held loosely at his waist, looking ahead; no smoke drawn, only him in the picture",
+   "loop": false,
+   "frames": 24,
+   "duration": 2
+  },
+  {
+   "name": "alanv_smoke_hold_inhale",
+   "a": "alanv_smoke_hold",
+   "b": "alanv_smoke_inhale",
+   "prompt": "lifts the cigarette back to his lips and draws on it; no smoke drawn, only him in the picture",
+   "loop": false,
+   "frames": 24,
+   "duration": 2
+  },
+  {
+   "name": "alanv_smoke_hold_stand",
+   "a": "alanv_smoke_hold",
+   "b": "alanv_side_k",
+   "prompt": "drops the cigarette, treads it out under his shoe and stands as before, arms relaxed at his sides; no smoke drawn, only him in the picture",
+   "loop": false,
+   "frames": 24,
+   "duration": 2
+  }
+ ]
+}
