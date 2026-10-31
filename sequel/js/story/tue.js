@@ -331,9 +331,9 @@
         items: { note5000: () => S.buyPaper(), coins: () => say('chano_coins'), postcard: () => S.postCard(), any: 'chano_any' } },
     ],
     hotspots: [
-      { name: 'Down to the beach', rect: [700, 560, 250, 50], at: [820, 665], exit: 'beach', entry: 'canteras' },
+      // (the user, 2026-10-31: the steps hotspot went; the way down to the beach is on the steps and the wall beside them)
+      { name: 'Down to the beach', rect: [780, 470, 320, 90], at: [900, 645], exit: 'beach', entry: 'canteras' },
       { name: 'The sea', rect: [440, 330, 520, 120], at: [700, 620], look: () => S.lookSea() },
-      { name: 'Promenade steps', rect: [880, 500, 220, 60], at: [960, 640], look: () => say('alan_look_steps_' + Math.min(6, Math.max(1, S.tideStep()))) },
       { name: 'Bonfires', rect: [470, 470, 260, 80], at: [600, 640], when: () => ch() >= 2, look: () => say('alan_look_bonfire_' + Math.min(6, ch())) },
       { name: 'Phone box', rect: [300, 300, 80, 260], at: [340, 640], look: 'alan_look_phonebox', use: () => S.phoneBox(),
         items: { coins: () => S.phoneBox(), any: 'alan_fail_phone_item' } },
@@ -623,7 +623,7 @@
       { name: 'The bar', rect: [500, 280, 260, 150], at: [620, 480], look: 'alan_look_mercado_bar' },
       { name: 'Aloe plants', rect: [990, 250, 290, 300], at: [900, 640], look: 'alan_look_aloe', use: () => S.talkCandelaria() },
       { name: 'The roof', rect: [400, 0, 600, 200], at: [640, 600], noBox: true, look: 'alan_look_mercado_roof' },
-      S.toMap([480, 690, 320, 30], [640, 705]),
+      S.toMap([480, 530, 320, 70], [640, 640]),   // (up off the bottom edge, where the inventory bar covered it: the user, 2026-10-31)
     ],
     async enter() { if (!F().narr_mercado) F().narr_mercado = true; },   // (painted: no narration, HANDOFF 111)
   });
