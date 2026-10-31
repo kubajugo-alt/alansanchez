@@ -126,7 +126,8 @@
         use: () => S.elenaBox(), take: () => S.elenaBox() },
       { name: 'Fridge', rect: [880, 300, 100, 240], at: [920, 650], look: 'alan_look_fridge', use: () => S.takeWater(), take: () => S.takeWater() },
       { name: 'Window', rect: [860, 120, 260, 160], at: [980, 640], noBox: true, look: 'alan_look_carmen_window' },
-      { name: 'Shelves', rect: [40, 80, 220, 200], at: [200, 640], noBox: true, look: 'alan_look_carmen_shelves' },
+      { name: 'Shelves', rect: [40, 80, 220, 200], at: [200, 640], noBox: true,
+        look: async () => { await G.closeup([S.closePhoto('carmen_photo')]); await say('alan_look_carmen_shelves'); } },   // (the two women on the mountain: the close-up, entry 116)
       { name: 'Door', rect: [1160, 250, 110, 320], at: [1200, 650], exit: 'map', entry: 'carmen_flat', locked: () => true, lockedLine: () => F().knows_vault ? 'alan_su_go' : 'alan_su_not_leaving' },
     ],
     // the door on its chain: "No." / "I'm an idiot."

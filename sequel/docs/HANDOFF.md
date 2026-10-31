@@ -50,6 +50,8 @@ root, in the same repository as Game I. Read, in this order:
 0. **Cave 6, redesigned (entry 106)**: built and playable (`?scene=cave`, `cave_low`, `monday`, `aim`, `aim_sun`); its
    199 lines (118 changed, 81 new), with the narrator cut back (entry 109: 66 narrator lines to 13, 24 new character
    lines, and Vasco's nudge), wait for the user's read in `docs/puzzles/CAVE6_LINES.md`, then recording.
+0a. **The pockets' icons, the close-up pictures and Vasco on the bed (entry 116)**: approved art now in the game, for the
+   user to see (`art/review/items/in_game_*.jpg`). Not deployed.
 1. **The granary (entries 98, 100)**: built and live; the user to see it in the game (`?scene=vault` for the cell,
    `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved, voiced and live; "pesetas" is B (entry 100).
 1a. **The water (entry 108)**: redesigned, in the game; for the user's review (`art/review/water/`; `?scene=vault`,
@@ -1446,3 +1448,49 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Nothing recorded: the 17 changed ids in `scripts/voice_redo.txt`, their mp3s in `audio/voice_stale/`, manifest
       rebuilt; new lines play as captions. Review table: `docs/rewrite/NARR_SAT_VASCO_MON.md`.
     - Checks: `node --check`; `node scripts/validate.mjs` 0 errors; play.mjs: won, 132 steps, no page errors.
+116. **The approved icons, close-up pictures and Vasco on the bed, in the game** (2026-10-31, the user approved all three).
+    - **Inventory icons**: the 24 in `art/review/items/icons/` copied to `art/icons/` and listed in `window.PAINTED_ICONS`
+      (`js/story/core.js`). Each is its item's id, except `knife` -> `dinnerknife` and `ltrowel` -> `trowel`; the
+      `inscription`, `letter` and `fax` items lost their old stand-ins (`sketch`, `ledger`, `file55`). `sketch.webp`,
+      `ledger.webp`, `file55.webp` and `knife.webp` stay in `art/icons/` but nothing shows them now. `discs` (the bag of
+      five) and `disc6` are wired too, but only an old save still holds `discs` (mon.js turns it into the per-moon
+      `disc_<phase>` items, which keep their own icons) and `disc6` is no longer given: those two icons are mostly unseen.
+      Every icon has an item.
+    - **Engine fix, `js/fx.js`**: the painted icons were never loading. fx.js read `window.PAINTED_ICONS` when it loaded,
+      before `core.js` sets it, so the list was always empty and every item (the per-moon discs too) showed its luggage
+      tag. The list is now read when the first icon is drawn.
+    - **Close-ups as pictures**: the 11 in `art/review/items/cu/` copied to `art/closeups/` (jpg q85, 1280x956, already
+      under 1600), listed in `CLOSEUPS` (`js/story/main.js`, so they preload). `docs.js` has `photo(name, caption)`
+      (`S.closePhoto`): the picture is the page, fitted whole, no paper, a short caption under it in the close-ups' serif
+      (CSS `#closeup .page.photo`). Wired: `readGcPhoto` (the date is in the picture and kept in the caption; the Cave 6
+      line once `cave_explained`), `readBauteDesk` (`baute_1966` with the back's ink "Abuela's hill. They put them in the
+      skip."; `map_south` with "Four of the six are Montesdeoca's"; "24·VI · mediodía" is in the picture), `readInscription`
+      (`rubbing`, the founders' mark in the caption), `readLetter` (`letter_1751`, the legible fragments as the caption),
+      `readElena` (`elena_notebook`; the old first page's reading of it, "Not a calendar... That is the lock.", now opens
+      the second page, which is otherwise unchanged), `readCharts` (`elena_charts`: 14:05, Puerta and 4°36'S are in the
+      picture), `readSketchbook` (`sketchbook`, which holds the laughing man "el portugués. Triste." too, so the third
+      page folded in; then `napkin_yeray`, the caption keeping what the napkin doesn't show: "...has the key. The
+      Portuguese doctor doesn't know." and "Yeray, del Risco"), the postcard (`S.writeCard`: the picture, then the
+      message on paper; looked at again after it's written: the picture), and Carmen's shelves on Sunday (`sun.js`,
+      `alan_look_carmen_shelves` describes this very photograph: `carmen_photo`, no caption, then the line). The
+      face-down photograph on her archive desk on Wednesday is only narrated (`narr_w_carmen_8/10`, Alan never looks at
+      it), so it got no close-up. Not changed: the paper, the fax, Galindo, the disc list, the inquiry, Pino's list.
+    - **The south-coast map's hotel names** (real brands: Riu, Princess, ...) painted out by `scripts/map_clean.py`:
+      in each red circle the name lines' dark print is inpainted (OpenCV Telea) and the box softened; "Hotel", the bed
+      icons, the red circles and "24·VI · mediodía" kept. The review original is untouched.
+    - **Vasco on the bed**: the approved sprite (`art/review/bg_real/hotel_room_vasco_towel.png`) as `art/sprites/
+      vasco_bed.webp`, drawn 1:1 at the user's (116, 277) on 404: an npc `vasco_bed` (char `vasco_bed`, `speaker:
+      'vasco'`, feet at (300.5, 531), `h` 254 so the frame is unscaled, `fixedDir`; the room's `unlit` keeps the engine's
+      light and shadows off it, its brightness is painted in). It shows on Tuesday once he's gone up (`called_tue2`) and
+      his three night lines and "Take off that terrible jacket. And come here." are spoken from it; the standing Vasco in
+      404 is now only Thursday's (the fight). The lines agree: "I'm going up. Shower.", and the look line
+      `alan_look_vasco_room` "Vasco, on the bed, reading" (he isn't holding a book in the sprite: the user's call). The
+      still `still_love_1` follows as before.
+    - Line-text conflict noticed, not changed (lines.js is not mine to touch now): `alan_look_postcard` says "Las Canteras
+      at sunset"; the approved postcard is Las Canteras by day.
+    - `scripts/validate.mjs` told that `vasco_bed`, `baute_1966`, `carmen_photo` aren't line ids. Script stamps in
+      index.html (`?v=`) not refreshed (build-manifest also writes the voice manifest, which another session is
+      recording into): refresh before the next deploy.
+    - Checks: `node --check` on every changed file; validate 0 errors; `scripts/tests/items_shot.mjs` ->
+      `art/review/items/in_game_*.jpg` (the bed, Vasco speaking from it, the inventory full and in two halves, every
+      close-up page), all looked at, no page errors; play.mjs: won, 132 steps, no page errors.

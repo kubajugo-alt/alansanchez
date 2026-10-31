@@ -73,8 +73,16 @@
     // Derek sit at it")
     yeray_drunk: { scale: 1, frames: { idle: ['yeray_drunk_table'], talk: ['yeray_drunk_table'], walk: ['yeray_drunk_table'] } },
     yeray_asleep: { scale: 1, frames: { idle: ['yeray_asleep_table'], talk: ['yeray_asleep_table'], walk: ['yeray_asleep_table'] } },
+    // the kiss at Gando (Ludo, from their two standing sprites; the user, 2026-10-31: "awesome"): in, held, and played
+    // back out to where they stood, one figure on Alan's feet while the pair is hidden (scripts/duo_kiss_install.py)
+    duo_gando_kiss: (() => { const f = i => 'duo_gando_kiss_' + String(i).padStart(2, '0'), run = Array.from({ length: 36 }, (_, i) => f(i));
+      const kiss = run.concat(Array(8).fill(f(35)), run.slice().reverse());
+      return { scale: 1, frames: { idle: [f(0)], talk: [f(0)], walk: [f(0)], poses: { kiss: { frames: kiss, fps: 144 / 11, hold: kiss.length - 1 } } } }; })(),
     gail_seated: { scale: 0.74, frames: { idle: ['gail_seated'], talk: ['gail_seated'], walk: ['gail_seated'] } },
     derek_seated: { scale: 0.74, frames: { idle: ['derek_seated'], talk: ['derek_seated'], walk: ['derek_seated'] } },
+    // Vasco on the bed in a towel, the first night in 404 (the user placed him, 2026-10-31: art/review/bg_real/
+    // hotel_room_vasco_towel.json; HANDOFF entry 116): one frame drawn 1:1 where it was placed (the npc's h is the frame's)
+    vasco_bed: { scale: 1, frames: { idle: ['vasco_bed'], talk: ['vasco_bed'], walk: ['vasco_bed'] } },
   };
   {
     const A = S.CHARS.alan, V = S.CHARS.vasco;
@@ -122,8 +130,12 @@
   S.restorePlayer = () => { if (F().as_vasco) { G.player.ch = 'vasco'; G.player.speaker = 'vasco'; } };
 
   // ---------------------------------------------------------------- items
-  window.PAINTED_ICONS = ['notebook', 'coins', 'newspaper', 'key', 'sketch', 'coffee', 'ledger', 'file55', 'tidecard', 'knife',
-    'disc_wax_crescent', 'disc_first_quarter', 'disc_wax_gibbous', 'disc_wan_gibbous', 'disc_last_quarter', 'disc_wan_crescent', 'disc_sun'];   // (the discs: each its moon, 2026-10-30)
+  window.PAINTED_ICONS = ['notebook', 'coins', 'newspaper', 'key', 'coffee', 'tidecard',
+    'disc_wax_crescent', 'disc_first_quarter', 'disc_wax_gibbous', 'disc_wan_gibbous', 'disc_last_quarter', 'disc_wan_crescent', 'disc_sun',   // (the discs: each its moon, 2026-10-30)
+    // (the pockets painted, approved 2026-10-31: art/review/items/icons/; HANDOFF entry 116. sketch, ledger, file55 and knife
+    // stay in art/icons/ but no item shows them now)
+    'note5000', 'aloe', 'cigarettes', 'postcard', 'blazer', 'inscription', 'letter', 'galindo', 'dinnerknife', 'napkin', 'drawing',
+    'fax', 'elena_notebook', 'gc_photo', 'water', 'discs', 'disc6', 'trowel', 'fuse', 'vnotebook', 'elena_charts', 'chalk', 'torch', 'clinometer'];
   window.ICON_LABELS = { note5000: '5,000 ptas', blazer: 'Blazer', inscription: 'Rubbing', letter: '1751 letter', galindo: 'Abreu Galindo', napkin: 'Napkin',
     drawing: 'Drawing', fax: 'Fax', elena_notebook: "Elena's notebook", gc_photo: 'Photo', water: 'Water', discs: 'Discs', disc6: 'Sixth disc', trowel: 'Trowel',
     elena_charts: 'Sun charts', chalk: 'Chalk', clinometer: 'Clino-meter', vnotebook: 'Notebook', torch: 'Torch', ltrowel: 'Trowel', fuse: 'Fuse' };
@@ -136,13 +148,13 @@
     cigarettes: { name: 'A packet of Coronas', look: 'alan_look_cigarettes' },
     postcard: { name: () => F().postcard_written ? 'A postcard to Inês' : 'A postcard', look: () => S.writeCard() },
     blazer: { name: 'A navy blazer (not his)', look: () => say(F().blazer_on ? 'alan_look_blazer_on' : 'alan_look_blazer') },
-    inscription: { name: 'Rubbing of the bell', icon: () => 'sketch', look: () => S.readInscription() },
-    letter: { name: 'The founders\' letter, 1751', icon: () => 'ledger', look: () => S.readLetter() },
+    inscription: { name: 'Rubbing of the bell', look: () => S.readInscription() },
+    letter: { name: 'The founders\' letter, 1751', look: () => S.readLetter() },
     galindo: { name: 'Abreu Galindo\'s history', look: () => S.readGalindo() },
-    knife: { name: 'Dinner knife', look: 'alan_look_knife' },
+    knife: { name: 'Dinner knife', icon: () => 'dinnerknife', look: 'alan_look_knife' },
     napkin: { name: 'A napkin with my face on it', look: 'alan_look_napkin' },
     drawing: { name: 'Rafa\'s drawing', look: () => S.lookDrawing() },
-    fax: { name: 'Inês\'s fax', icon: () => 'file55', look: () => S.readFax() },
+    fax: { name: 'Inês\'s fax', look: () => S.readFax() },
     elena_notebook: { name: 'Elena Suárez\'s notebook', look: () => S.readElena() },
     gc_photo: { name: 'Guardia Civil photograph', look: () => S.readGcPhoto() },
     water: { name: 'Two litres of water', look: 'alan_look_water' },

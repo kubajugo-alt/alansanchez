@@ -911,8 +911,17 @@
   // Painted (Canva) inventory icons in art/icons/<id>.webp, 192px with transparency. They are
   // preloaded; an icon asked for before its painting arrives shows the canvas drawing above
   // until the painting loads, then the inventory redraws. A missing file keeps the drawing.
-  const PAINTED = window.PAINTED_ICONS || []; // (the story lists the ids that have a painting in art/icons)
+  // (the story lists the ids that have a painting in art/icons, window.PAINTED_ICONS; it is read when the first icon is
+  // drawn, not here: this file loads before the story, so a list read now was always empty. Game II fix, HANDOFF 116)
   const iconCache = {}, iconImg = {};
+  let iconsAsked = false;
+  function loadIcon(id) {
+    if (id in iconImg) return;
+    const im = new Image(); iconImg[id] = im;
+    im.onload = () => { if (iconCache[id]) { paintIcon(iconCache[id], id); if (window.Game && Game.renderInv) Game.renderInv(); } };
+    im.onerror = () => { iconImg[id] = null; };
+    im.src = 'art/icons/' + id + '.webp';
+  }
   // an item with no painting and no drawing yet: a luggage tag with its short name (window.ICON_LABELS[id])
   function tagIcon(g, id) {
     const label = ((window.ICON_LABELS || {})[id] || id.replace(/_/g, ' ')).toUpperCase();
@@ -931,13 +940,8 @@
     else (ICONS[id] || (g => tagIcon(g, id)))(g);
     g.restore();
   }
-  for (const id of PAINTED) {
-    const im = new Image(); iconImg[id] = im;
-    im.onload = () => { if (iconCache[id]) { paintIcon(iconCache[id], id); if (window.Game && Game.renderInv) Game.renderInv(); } };
-    im.onerror = () => { delete iconImg[id]; };
-    im.src = 'art/icons/' + id + '.webp';
-  }
   function icon(id) {
+    if (!iconsAsked) { iconsAsked = true; for (const k of window.PAINTED_ICONS || []) loadIcon(k); }
     if (!iconCache[id]) { const [c] = mk(96, 96); paintIcon(c, id); iconCache[id] = c; }
     return iconCache[id];
   }

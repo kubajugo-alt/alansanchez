@@ -81,6 +81,8 @@
     npcs: [
       { id: 'vasco', x: 900, y: 650, dir: 'w', name: 'Vasco', when: () => ch() === 1 && !F().met_vasco,
         look: 'alan_look_vasco_gando', talk: () => S.meetVasco() },
+      // the two of them kissing (hidden till then; S.kissAtGando swaps it in for them and back)
+      { id: 'duo_kiss', ch: 'duo_gando_kiss', x: 200, y: 650, dir: 'e', fixedDir: true, shadow: { dx: 0.22, wide: 2.0 }, when: () => ch() === 1 && !F().met_vasco, init: a => { a.visible = false; } },
       { id: 'clerk', ch: 'clerk', x: 1000, y: 640, dir: 'w', name: 'Check-in clerk', when: () => ch() === 6,
         look: 'alan_look_clerk', talk: () => S.badEnding() },
     ],
@@ -93,15 +95,29 @@
       { name: 'Back to the city', rect: [10, 250, 110, 320], at: [80, 650], when: () => ch() === 6, use: () => S.backToChoice(), look: 'alan_look_back' },
     ],
   });
+  // the kiss: one figure (the two of them, Ludo) on Alan's feet while they are hidden; in, held, back to where they stood
+  S.kissAtGando = async function (p, v) {
+    const k = G.npc('duo_kiss');
+    if (!k || !v || window.FAST) return;
+    k.x = p.x; k.y = p.y; k.dir = 'e';
+    k.visible = true; p.visible = false; v.visible = false; k.pose = 'kiss';
+    // (timed to the narrator saying it, the user, 2026-10-31: "time the kiss when the narrator mentions it")
+    const P = S.CHARS.duo_gando_kiss.frames.poses.kiss;
+    await Promise.all([say('narr_t_kiss'), T(P.frames.length / P.fps * 1000 + 100)]);
+    p.visible = true; v.visible = true; k.visible = false; k.pose = null;
+  };
   S.meetVasco = async function () {
     if (F().met_vasco) return;
     // (the user, 2026-10-29: no sunburn talk here, he burns on the beach later; instead a moment of being glad)
-    // (narrator cut back, HANDOFF 111: Vasco comes to him; the kiss and the family from Düsseldorf are Alan's to say)
+    // (narrator cut back, HANDOFF 111: Vasco comes to him; the kiss is shown, Ludo, with the narrator's line back over it)
     await G.busy(async () => {
       const v = G.npc('vasco'), p = G.player;
-      if (v) { await Promise.race([v.walkTo(p.x + 120, p.y), T(window.FAST ? 50 : 3000)]); v.dir = 'w'; }
+      // he stops where he stands in the two-shot the kiss was made from (his feet 312.8 px right of Alan's at 720 tall)
+      const gap = 312.8 / 720 * p.height();
+      if (v) { p.dir = 'e'; await Promise.race([v.walkTo(p.x + gap, p.y), T(window.FAST ? 50 : 3000)]); v.x = p.x + gap; v.y = p.y; v.dir = 'w'; }
       await say('vasco_t_hello');
-      await T(window.FAST ? 10 : 700);
+      await T(window.FAST ? 10 : 500);
+      await S.kissAtGando(p, v);
       await say('alan_t_hello', 'vasco_t_luggage', 'vasco_t_missed', 'alan_t_missed', 'vasco_t_missed_2');
       await T(window.FAST ? 10 : 900);
       await say('alan_t_missed_2', 'alan_t_luggage', 'vasco_t_sorry', 'vasco_t_cave', 'vasco_t_light', 'alan_t_cave', 'vasco_t_rayco', 'alan_t_rayco', 'vasco_t_rayco_2', 'alan_t_proud');
@@ -246,9 +262,13 @@
   };
 
   // ================================================================ HOTEL: the room
+  // Vasco on the bed (the first night): the approved sprite, its frame 369x254 drawn at (116, 277) as the user placed it,
+  // so its feet are the frame's bottom middle; its light and shade are painted in (the room's unlit)
+  window.SPRITES.vasco_bed = { w: 369, hh: 254, h: 254, ax: 184.5, fy: 254, top: 0, rigid: true };
   ROOMS.hotel_room = S.room({
     music: 'hotel_room',
     name: 'Room 404', bg: 'hotel_room', floor: 'wood', ambience: 'night', door: 'door',
+    unlit: /^vasco_bed$/,
     animBack(g, t) {
       // through the open balcony door: the lid of cloud drifting, the bay moving, the surf on the far beach
       drift(g, t, 'room404', [[860, 112, 140, 165]], { speed: 3, a: 0.4, seed: 7 });
@@ -263,8 +283,12 @@
     },
     entries: { default: [900, 660, 'w'], hotel_lobby: [1100, 660, 'w'] },
     npcs: [
-      { id: 'vasco', x: 520, y: 650, dir: 'e', name: 'Vasco', when: () => (ch() === 1 && F().called_tue2) || (ch() === 4 && !F().fight_done),
-        look: 'alan_look_vasco_room', talk: () => ch() === 1 ? S.endTue() : S.fight() },
+      { id: 'vasco', x: 520, y: 650, dir: 'e', name: 'Vasco', when: () => ch() === 4 && !F().fight_done,
+        look: 'alan_look_vasco_room', talk: () => S.fight() },
+      // Tuesday night: up from the promenade, showered, on the bed in a towel ("Take off that terrible jacket. And come
+      // here."); he speaks from here (speaker), until the still
+      { id: 'vasco_bed', ch: 'vasco_bed', speaker: 'vasco', x: 300.5, y: 531, h: 254, dir: 'e', fixedDir: true, name: 'Vasco', at: [470, 645],
+        when: () => ch() === 1 && F().called_tue2, look: 'alan_look_vasco_room', talk: () => S.endTue() },
     ],
     hotspots: [
       { name: 'Balcony window', rect: [860, 120, 260, 280], at: [980, 620], look: () => say(['', 'alan_look_window_1', 'alan_look_window_2', 'alan_look_window_3', 'alan_look_window_4', 'alan_look_window_5', 'alan_look_window_6', 'alan_look_window_7'][ch()]) },

@@ -5,6 +5,10 @@
   const S = window.S, { G, F, say } = S;
   const PAPER = 'close:paper_aged';
   const page = (html, cls) => ({ img: PAPER, cls: cls || 'doc-hand', html });
+  // a painted picture as the whole page (art/closeups/<name>.jpg, listed in main.js's CLOSEUPS), fitted, with a short
+  // caption under it (the approved pictures of 2026-10-31, art/review/items/cu/; HANDOFF entry 116)
+  const photo = (name, cap) => ({ img: 'close:' + name, cls: 'photo', html: cap ? `<div class="cap">${cap}</div>` : '' });
+  S.closePhoto = photo;
 
   // ---------------------------------------------------------------- the paper, one a day from Chano's kiosk
   const PAPERS = {
@@ -27,8 +31,8 @@
   // Tuesday's postcard to Inês (bought and posted at Chano's kiosk, js/story/tue.js): written from the inventory
   S.writeCard = async function () {
     const f = F();
-    if (f.postcard_written) return say('alan_look_postcard');
-    await G.closeup([page(`<h3>Las Canteras · Gran Canaria</h3><p>Inês. Arrived. Luggage in Madrid. Vasco is radiant, there's no other word for it. He kissed me in front of two nuns.</p><p>I don't know why that makes me want to cry. Don't tell him.</p><p style="text-align:right">A.</p>`)]);
+    if (f.postcard_written) { await G.closeup([photo('postcard')]); return say('alan_look_postcard'); }
+    await G.closeup([photo('postcard', 'Las Canteras · Gran Canaria'), page(`<h3>Las Canteras · Gran Canaria</h3><p>Inês. Arrived. Luggage in Madrid. Vasco is radiant, there's no other word for it. He kissed me in front of two nuns.</p><p>I don't know why that makes me want to cry. Don't tell him.</p><p style="text-align:right">A.</p>`)]);
     await say('alan_postcard_write');
     f.postcard_written = true;
     await say('alan_postcard_written');
@@ -36,12 +40,12 @@
 
   // ---------------------------------------------------------------- the bell and the founders
   S.readInscription = async function () {
-    await G.closeup([page(`<h3>Santa Ana · the north bell</h3><p style="font-family:'IM Fell English',serif;text-align:center">SANTA ANA ROGA POR NOS<br>FVNDIDO EM LISBOA E NAS PALMAS<br>ANNO 1751</p><p style="text-align:center;font-size:1.4em">⟁ S ⟁</p><p>The founders' mark: the S between two bells. The same as the stone in Lisbon. The same as Grandfather's ledger.</p>`)]);
+    await G.closeup([photo('rubbing', `Santa Ana · the north bell. The founders' mark: the S between two bells. The same as the stone in Lisbon. The same as Grandfather's ledger.`)]);
     await say('alan_look_inscription');
   };
   S.readLetter = async function () {
     if (F().fax_read) return S.readFax();
-    await G.closeup([page(`<p style="font-family:'Homemade Apple',cursive;opacity:0.55;line-height:2">Ao proximo fundidor que vier … a fechadura da montanha … Magec … nao toqueis … as mulheres de branco … a agua … ultima … desceo com ella …</p>`)]);
+    await G.closeup([photo('letter_1751', `<i>Ao proximo fundidor que vier … a fechadura da montanha … Magec … nao toqueis … as mulheres de branco … a agua … ultima … desceo com ella …</i>`)]);
     await say('alan_look_letter');
   };
   S.readFax = async function () {
@@ -75,8 +79,8 @@
   };
   S.readBauteDesk = async function () {
     await G.closeup([
-      page(`<h3>Photograph · 1966</h3><p>A hillside of red earth torn open, a bulldozer, a skip. A young man in shirtsleeves with a clipboard has turned to look at the camera. On the back, in ink: <i>Abuela's hill. They put them in the skip.</i></p>`),
-      page(`<h3>Map · the south coast</h3><p>Maspalomas, Playa del Inglés, San Agustín. Six hotels circled in red. In the margin: <b>24·VI · mediodía</b>. Four of the six are Montesdeoca's.</p>`),
+      photo('baute_1966', `On the back, in ink: <i>Abuela's hill. They put them in the skip.</i>`),
+      photo('map_south', `The south coast: six hotels circled in red. Four of the six are Montesdeoca's.`),
     ]);
     F().saw_map = true;
   };
@@ -93,9 +97,9 @@
   // ---------------------------------------------------------------- Rafa
   S.readSketchbook = async function () {
     await G.closeup([
-      page(`<h3>&nbsp;</h3><p>Fishermen. A dog asleep under a domino table. Hands, dozens of hands. A woman laughing with her eyes shut.</p>`),
-      page(`<h3>Friday</h3><p>A paper napkin from the bar: a boy at the end of the counter, side-on, leaning in, mid-sentence, his hand round a bottle. Round him, in Rafa's quick pencil:</p><p style="font-family:'Homemade Apple',cursive">Every night this week. · Conservation — but they never go in the van. · I carry them myself. · Down to the vault. Old granary under the caves. · Only Baute has the key. · The Portuguese doctor doesn't know.</p><p>Underneath: <b>Yeray, del Risco</b>.</p>`),
-      page(`<h3>Friday, later</h3><p>A man with his head thrown back, laughing too hard. Under it: <i>el portugués. Triste.</i></p>`),
+      // (the laughing man, "el portugués. Triste.", is on the sketchbook's spread now)
+      photo('sketchbook', `Fishermen. A dog asleep under a domino table. Hands. A woman laughing with her eyes shut. And, Friday, later: a man laughing too hard.`),
+      photo('napkin_yeray', `Friday, a napkin from the bar. Round the edge: <i>…has the key. The Portuguese doctor doesn't know.</i> Underneath: <b>Yeray, del Risco</b>.`),
     ]);
     if (!F().sketchbook_read) { F().sketchbook_read = true; await say('alan_read_sketchbook_1', 'alan_read_sketchbook_2', 'alan_read_sketchbook_3'); }
   };
@@ -107,17 +111,17 @@
   // ---------------------------------------------------------------- Elena
   S.readElena = async function () {
     await G.closeup([
-      page(`<h3>E. Suárez · Cueva 6 · 1995</h3><p>Seven circles in a row, the floor of the chamber under the cave; one shaded empty. <i>"Six. There should be seven."</i></p><p>Not a calendar. The triangles are arrows: all of them point <b>down</b>. The discs are not ornaments, they are mirrors: at noon each throws the sun back up onto its own triangle. Six moons and the sun. <b>That is the lock.</b></p>`),
-      page(`<p>To close it: every disc back in its own socket, the sun flat in the middle, at noon on the turning. To open it: the sun turned to face the sun. Send him back.</p><p>The door is in the floor.</p><p><i>Whoever closes it has to be in the water. Ask C. if the grandmothers' saying has a second half.</i></p>`),
+      photo('elena_notebook', `E. Suárez · Cueva 6 · 1995. Seven circles, the floor of the chamber under the cave; one shaded empty.`),
+      page(`<p>Not a calendar. The triangles are arrows: all of them point <b>down</b>. The discs are not ornaments, they are mirrors: at noon each throws the sun back up onto its own triangle. Six moons and the sun. <b>That is the lock.</b></p><p>To close it: every disc back in its own socket, the sun flat in the middle, at noon on the turning. To open it: the sun turned to face the sun. Send him back.</p><p>The door is in the floor.</p><p><i>Whoever closes it has to be in the water. Ask C. if the grandmothers' saying has a second half.</i></p>`),
     ]);
     F().elena_read = true;
   };
   S.readGcPhoto = async function () {
-    await G.closeup([page(`<h3>Guardia Civil · Artenara · 22.XII.95</h3><p>The windscreen of a Renault 4, from outside. On the glass, drawn in a crust of salt, a triangle, point down.</p><p>${F().cave_explained ? 'The same triangle as the engravings in Carmen\'s photographs of Cave 6.' : ''}</p>`)]);
+    await G.closeup([photo('gc_photo', `Guardia Civil · Artenara · 22.XII.95. The windscreen of a Renault 4: a triangle drawn in a crust of salt, point down.${F().cave_explained ? ' The same triangle as the engravings in Carmen\'s photographs of Cave 6.' : ''}`)]);
     F().gc_seen = true;
   };
   S.readCharts = async function () {
-    await G.closeup([page(`<h3>E. Suárez · Cueva 6 · the sockets</h3><p>The row of seven sockets in the chamber under the cave, in a careful hand, a sign by each, crossed out and drawn again; over them the seven triangles on the wall above, numbered, and a line from each socket to a triangle, every line crossing in the hole.</p><p>On the last sheet, in pencil, the middle socket on its own: the sun disc, drawn tipped a little off the flat. <i>"4° 36′ S."</i> In the margin <i>"14:05"</i>, and underlined three times: <i>Puerta.</i></p>`, 'doc-ledger')]);
+    await G.closeup([photo('elena_charts', `E. Suárez · Cueva 6 · the sockets: a line from each to its triangle on the wall, every line crossing in the hole. The sun disc tipped a little off the flat.`)]);
     await say('vasco_look_charts');
   };
 })();
