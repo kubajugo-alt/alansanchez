@@ -1,0 +1,305 @@
+{
+ "errors": [],
+ "download": {
+  "tag": "download",
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failed": [],
+  "fromSW": 389,
+  "net": 8222,
+  "ranges206": 7,
+  "est": {
+   "usage": 495628714,
+   "quota": 4790596010,
+   "entries": 7929,
+   "persisted": false,
+   "sw": true
+  }
+ },
+ "tue": {
+  "tag": "tue",
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failed": [],
+  "fromSW": 651,
+  "net": 7,
+  "ranges206": 8,
+  "media": {
+   "decoded": 220,
+   "decodeFail": 0,
+   "playing": [
+    "blob:/56cd7acd-f6ef-453a-a496-020b9e34dcd0",
+    "blob:/4546119c-ee73-479f-995e-2810a61e877a",
+    "blob:/4546119c-ee73-479f-995e-2810a61e877a",
+    "blob:/4546119c-ee73-479f-995e-2810a61e877a",
+    "blob:/4546119c-ee73-479f-995e-2810a61e877a",
+    "blob:/4546119c-ee73-479f-995e-2810a61e877a",
+    "blob:/4546119c-ee73-479f-995e-2810a61e877a",
+    "/audio/music/gando.opus.m4a?v=474ef73d#t=0.12",
+    "blob:/56cd7acd-f6ef-453a-a496-020b9e34dcd0",
+    "blob:/56cd7acd-f6ef-453a-a496-020b9e34dcd0",
+    "blob:/56cd7acd-f6ef-453a-a496-020b9e34dcd0",
+    "blob:/56cd7acd-f6ef-453a-a496-020b9e34dcd0"
+   ],
+   "elements": [
+    {
+     "src": "/audio/music/gando.opus.m4a?v=474ef73d#t=0.12",
+     "ready": 4,
+     "t": 15.31,
+     "paused": false,
+     "err": null
+    }
+   ],
+   "online": false,
+   "controlled": true,
+   "water": "{\"avg\":0,\"max\":0,\"n\":0,\"mode\":\"\"}"
+  }
+ },
+ "wed": {
+  "tag": "wed",
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failed": [],
+  "fromSW": 628,
+  "net": 7,
+  "ranges206": 9,
+  "media": {
+   "decoded": 242,
+   "decodeFail": 0,
+   "playing": [
+    "blob:/ea4c831d-6e24-4ab6-bd8e-e2ad85416cbd",
+    "blob:/ea4c831d-6e24-4ab6-bd8e-e2ad85416cbd",
+    "blob:/ea4c831d-6e24-4ab6-bd8e-e2ad85416cbd",
+    "blob:/ea4c831d-6e24-4ab6-bd8e-e2ad85416cbd",
+    "blob:/ea4c831d-6e24-4ab6-bd8e-e2ad85416cbd",
+    "blob:/ea4c831d-6e24-4ab6-bd8e-e2ad85416cbd",
+    "blob:/f4bd4c02-f749-4e0c-972a-fec650279865",
+    "/art/video/hotel_room.mp4",
+    "/audio/music/hotel_room.opus.m4a?v=cd76ef20#t=0.06",
+    "blob:/f4bd4c02-f749-4e0c-972a-fec650279865",
+    "blob:/f4bd4c02-f749-4e0c-972a-fec650279865",
+    "blob:/f4bd4c02-f749-4e0c-972a-fec650279865"
+   ],
+   "elements": [
+    {
+     "src": "/audio/music/hotel_room.opus.m4a?v=cd76ef20#t=0.06",
+     "ready": 4,
+     "t": 15.55,
+     "paused": false,
+     "err": null
+    },
+    {
+     "src": "/art/video/hotel_room.mp4",
+     "ready": 4,
+     "t": 0.37,
+     "paused": false,
+     "err": null
+    }
+   ],
+   "online": false,
+   "controlled": true,
+   "water": "{\"avg\":0,\"max\":0,\"n\":0,\"mode\":\"\"}"
+  }
+ },
+ "mist": {
+  "tag": "mist",
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failed": [],
+  "fromSW": 759,
+  "net": 7,
+  "ranges206": 9,
+  "media": {
+   "decoded": 282,
+   "decodeFail": 0,
+   "playing": [
+    "blob:/56de089a-4269-446f-87cf-8de3d7f759a3",
+    "blob:/4362343f-3ffe-41fe-aabc-a5d4d60a498c",
+    "blob:/56de089a-4269-446f-87cf-8de3d7f759a3",
+    "blob:/56de089a-4269-446f-87cf-8de3d7f759a3",
+    "blob:/56de089a-4269-446f-87cf-8de3d7f759a3",
+    "blob:/56de089a-4269-446f-87cf-8de3d7f759a3",
+    "blob:/56de089a-4269-446f-87cf-8de3d7f759a3",
+    "/art/video/canteras.mp4",
+    "/audio/music/canteras.opus.m4a?v=ae6f50dc#t=0.10",
+    "blob:/4362343f-3ffe-41fe-aabc-a5d4d60a498c",
+    "blob:/4362343f-3ffe-41fe-aabc-a5d4d60a498c",
+    "blob:/4362343f-3ffe-41fe-aabc-a5d4d60a498c"
+   ],
+   "elements": [
+    {
+     "src": "/audio/music/canteras.opus.m4a?v=ae6f50dc#t=0.10",
+     "ready": 0,
+     "t": 0,
+     "paused": true,
+     "err": null
+    },
+    {
+     "src": "/audio/music/canteras.opus.m4a?v=ae6f50dc#t=0.10",
+     "ready": 4,
+     "t": 3.72,
+     "paused": false,
+     "err": null
+    },
+    {
+     "src": "/art/video/canteras.mp4",
+     "ready": 4,
+     "t": 3.9,
+     "paused": false,
+     "err": null
+    }
+   ],
+   "online": false,
+   "controlled": true,
+   "water": "{\"avg\":0,\"max\":0,\"n\":0,\"mode\":\"\"}"
+  }
+ },
+ "aim": {
+  "tag": "aim",
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failed": [],
+  "fromSW": 436,
+  "net": 7,
+  "ranges206": 8,
+  "media": {
+   "decoded": 53,
+   "decodeFail": 0,
+   "playing": [
+    "blob:/9d809817-b837-4123-bf5d-c7b5ca5b5b47",
+    "blob:/9d809817-b837-4123-bf5d-c7b5ca5b5b47",
+    "blob:/9d809817-b837-4123-bf5d-c7b5ca5b5b47",
+    "blob:/9d809817-b837-4123-bf5d-c7b5ca5b5b47",
+    "blob:/7b95ff7a-1e62-4ab4-a361-4df1dccd6c8a",
+    "blob:/9d809817-b837-4123-bf5d-c7b5ca5b5b47",
+    "blob:/9d809817-b837-4123-bf5d-c7b5ca5b5b47",
+    "/audio/music/cave6.opus.m4a?v=6c10dfd9#t=0.08",
+    "blob:/7b95ff7a-1e62-4ab4-a361-4df1dccd6c8a",
+    "blob:/7b95ff7a-1e62-4ab4-a361-4df1dccd6c8a",
+    "blob:/7b95ff7a-1e62-4ab4-a361-4df1dccd6c8a",
+    "blob:/7b95ff7a-1e62-4ab4-a361-4df1dccd6c8a"
+   ],
+   "elements": [
+    {
+     "src": "/audio/music/cave6.opus.m4a?v=6c10dfd9#t=0.08",
+     "ready": 4,
+     "t": 16.03,
+     "paused": false,
+     "err": null
+    }
+   ],
+   "online": false,
+   "controlled": true,
+   "water": "{\"avg\":45.33999935429243,\"max\":51.25399999981746,\"n\":233,\"mode\":\"webgl\"}"
+  }
+ },
+ "cave_low": {
+  "tag": "cave_low",
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failed": [],
+  "fromSW": 637,
+  "net": 7,
+  "ranges206": 8,
+  "media": {
+   "decoded": 237,
+   "decodeFail": 0,
+   "playing": [
+    "blob:/927927e2-06e5-47c0-975a-a9afddc60e8c",
+    "blob:/927927e2-06e5-47c0-975a-a9afddc60e8c",
+    "blob:/927927e2-06e5-47c0-975a-a9afddc60e8c",
+    "blob:/141eef09-04a0-4ef3-9e3b-0633cf6c1d5a",
+    "blob:/927927e2-06e5-47c0-975a-a9afddc60e8c",
+    "blob:/927927e2-06e5-47c0-975a-a9afddc60e8c",
+    "blob:/927927e2-06e5-47c0-975a-a9afddc60e8c",
+    "/audio/music/cave6.opus.m4a?v=6c10dfd9#t=0.08",
+    "blob:/141eef09-04a0-4ef3-9e3b-0633cf6c1d5a",
+    "blob:/141eef09-04a0-4ef3-9e3b-0633cf6c1d5a",
+    "blob:/141eef09-04a0-4ef3-9e3b-0633cf6c1d5a",
+    "blob:/141eef09-04a0-4ef3-9e3b-0633cf6c1d5a"
+   ],
+   "elements": [
+    {
+     "src": "/audio/music/cave6.opus.m4a?v=6c10dfd9#t=0.08",
+     "ready": 4,
+     "t": 15.84,
+     "paused": false,
+     "err": null
+    }
+   ],
+   "online": false,
+   "controlled": true,
+   "water": "{\"avg\":0,\"max\":0,\"n\":0,\"mode\":\"\"}"
+  }
+ },
+ "videos": {
+  "out": [
+   {
+    "p": "art/video/beach.mp4",
+    "t": 0.6,
+    "size": "994x200",
+    "lum": 137,
+    "gl": "ok"
+   },
+   {
+    "p": "art/video/beach_sun.mp4",
+    "t": 0.6,
+    "size": "896x162",
+    "lum": 156,
+    "gl": "ok"
+   },
+   {
+    "p": "art/video/canteras.mp4",
+    "t": 0.6,
+    "size": "624x180",
+    "lum": 127,
+    "gl": "ok"
+   },
+   {
+    "p": "art/video/harimaguadas.mp4",
+    "t": 0.61,
+    "size": "960x1080",
+    "lum": 25,
+    "gl": "ok"
+   },
+   {
+    "p": "art/video/hotel_lobby_day.mp4",
+    "t": 0.6,
+    "size": "192x86",
+    "lum": 162,
+    "gl": "ok"
+   },
+   {
+    "p": "art/video/hotel_restaurant.mp4",
+    "t": 0.6,
+    "size": "170x92",
+    "lum": 182,
+    "gl": "ok"
+   },
+   {
+    "p": "art/video/hotel_room.mp4",
+    "t": 0.6,
+    "size": "266x156",
+    "lum": 126,
+    "gl": "ok"
+   },
+   {
+    "p": "art/video/isleta.mp4",
+    "t": 0.6,
+    "size": "622x146",
+    "lum": 95,
+    "gl": "ok"
+   },
+   {
+    "p": "art/video/landrover.mp4",
+    "t": 0.6,
+    "size": "1104x346",
+    "lum": 43,
+    "gl": "ok"
+   }
+  ],
+  "fontKeys": 29,
+  "cinzel": true,
+  "fontsLoaded": 3
+ }
+}

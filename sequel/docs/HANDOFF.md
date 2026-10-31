@@ -47,6 +47,11 @@ root, in the same repository as Game I. Read, in this order:
   a packet of Coronas from Chano every day he talks to her (entry 78).
 - **Content setting** as Game I: Discreet fades the two love scenes and the Rafa night to black.
 
+### Play offline (entry 127)
+The menu's **Play offline** downloads the whole game into the browser (~500 MB) and a service worker (`sw.js`) plays it
+with no connection. `scripts/build-manifest.mjs` writes its list (`offline.json`): run it last before every deploy.
+Test: `node scripts/tests/offline.mjs <copy of the web root> <out dir>`. Not deployed yet.
+
 ### Open, in the order I'd suggest (2026-10-31)
 1. **Vasco walks (entry 125)**: his five walks are looped, the side walks redrawn in true profile, and **installed on the
    branch** (the user, away: "continue ... without asking me for reviews until you are fully sure"); in the **next
@@ -1666,3 +1671,34 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Checked in the running game (Playwright, `?scene=tue`, `Game.begin(true)`, then Alan at 580,650 and
       `S.meetVasco()`): on arrival and during the kiss, no page errors; `art/review/extras_gando/game_gando_taxi_start.jpg`
       and `game_gando_taxi_kiss.jpg`. `node scripts/validate.mjs`: 0 errors.
+127. **Play offline** (2026-10-31, the user: "Can you prepare a downloadable version of the game, that I can play offline
+    in the browser, when I will not have the internet connection?"). Opening `index.html` from disk can't work (file://
+    blocks the manifests' fetches and taints the WebGL canvases), so the game installs itself into the browser instead.
+    - **For the player**: ☰ menu (or the title's third button) -> **Play offline**: the size (492 MB in Chrome, about
+      500 MB in Safari: only the music and video format the browser plays), **Download for offline**, a bar with files
+      and MB (Pause; it carries on after a pause, a reload or a dropped connection, skipping what's stored), then
+      **Ready offline ✓** with the version and dates. Offline later: open the same address in the same browser (a
+      bookmark or Add to Home Screen). When a new deploy is online the panel says "A newer version is online: N files,
+      X MB" -> **Update** (only the changed files). **Remove offline copy** deletes it all and unregisters the worker.
+      The storage line shows what the browser allows; persistent storage is asked for.
+    - **How**: `scripts/build-manifest.mjs` now also writes `offline.json` (every exported file, size, content hash; git's
+      list less `.gitattributes`' export-ignore, so it matches `git archive HEAD:sequel`; less `netlify.toml`,
+      `.gitattributes`, `sw.js`, notes); `js/offline.js` downloads into Cache Storage; `sw.js` serves it (index.html and
+      offline.json network-first, files by hash against the newest list, 206 ranges for audio/video, Google Fonts kept).
+      A player who never opens the panel gets no service worker at all. `manifest.webmanifest` and `art/app/icon-*.png`
+      (cropped from the title painting, a new file; the painting is unchanged) for Add to Home Screen. Netlify headers:
+      `sw.js`, `offline.json`, the manifest `no-cache`. Details in `docs/CODEMAP.md` ("Offline copy").
+    - **Deploy**: unchanged, but `build-manifest.mjs` must run last (it writes offline.json from the files as they are);
+      a deploy with a stale offline.json doesn't break online play, but downloads stop with "updated online".
+    - **Checked**: `node scripts/tests/offline.mjs` (new) on the `git archive HEAD:sequel` export of the commit, Chromium:
+      no worker before opting in; download 7,929 files in 30 s locally with a pause and a reload half way; then the
+      server stopped and the browser offline: `?scene=tue`, `wed` (hotel room sea loop), `mist` (Las Canteras' sea),
+      `aim` (the WebGL water, mode webgl) and `cave_low`: no page errors, no failed requests, 109-282 voices/effects
+      decoded, 0 decode failures, music elements playing through 206 ranges, the sea videos playing; every pack video
+      plays and draws into 2D (getImageData) and WebGL (texImage2D) untainted; 29 font files kept, Cinzel offline. An
+      update (one file changed) offered "1 file, 5 KB", fetched only it, served offline after. Remove left no cache and
+      no worker. Every pack entry checked against the export (size and hash): 0 differences. Screenshots and the report
+      in `art/review/offline/`. `node scripts/validate.mjs`: 0 errors.
+    - **Not tested**: Safari/iOS and Firefox (no WebKit/Firefox here). Safari keeps site data of a page not added to the
+      Home Screen only 7 days without a visit, and its quota for a site is a share of the disk (older iOS asked at
+      ~1 GB); best on iOS: Add to Home Screen, download from the icon. Not deployed.
