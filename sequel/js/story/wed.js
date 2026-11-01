@@ -34,13 +34,8 @@
     return (skies[key] = s);
   };
   const TOP = Array.from({ length: 64 }, (_, i) => [i * 20 + 5, 2]);
-  // the panza de burro moving: a dark bank under a paler one, drifting at two speeds, only where the sky is painted
-  let clDark = null, clPale = null;
-  const panza = function (g, t, mask, a, y) {
-    if (!mask) return;
-    clDark = clDark || FX.makeClouds(83, '92,94,100', 20); clPale = clPale || FX.makeClouds(61, '216,216,220', 22);
-    FX.masked(g, mask, m => { FX.drawClouds(m, clDark, t, 3, (y || 0) - 30, a); FX.drawClouds(m, clPale, t, 6, (y || 0) + 20, a * 0.8); });
-  };
+  // the panza de burro moving: the shared two-tone bank (core.js S.panza), only where the sky is painted
+  const panza = (g, t, mask, a, y) => S.panza(g, t, mask, a, y);
   // a few slow glints on water inside a rect (FX.water is too busy for a small patch)
   const glints = function (g, t, rect, n, rgb, a) {
     const [x, y, w, h] = rect;
@@ -108,8 +103,8 @@
     lights: [{ x: 95, y: 180, rgb: '255,214,150', kind: 'gas', seed: 2, glow: 34, ga: 0.22 }], // the lit lamp on the left quay
     animBack(g, t) {
       const im = G.bgImage();
-      panza(g, t, skyMask('isleta', TOP, 300), 0.5);
       FX.sway(g, im, [288, 215, 60, 46], t * 0.8, 1.1, 0, true); // the palm over the far quay
+      panza(g, t, skyMask('isleta', TOP, 300), 0.5);   // (after the sway, which redraws the painting under it)
       // the harbour: the boats' reflections wavering (the hulls themselves stay put), a few glints
       if (!S.sea(g, 'isleta')) {   // (the Higgsfield loop, js/story/sea.js; the canvas ripple until it can play)
         FX.ripple(g, im, [375, 388, 430, 34], t, 1.1, 0.22); FX.ripple(g, im, [285, 422, 530, 44], t * 0.9, 1.3, 0.2);
@@ -193,9 +188,9 @@
     // clocks are left alone (stopped until Alan winds the cathedral's; their hands are painted).
     animBack(g, t) {
       const im = G.bgImage();
-      panza(g, t, skyMask('santa_ana', TOP, 360), 0.5);
       FX.sway(g, im, [880, 0, 370, 110], t * 0.7, 1.3, 0, true); FX.sway(g, im, [860, 130, 180, 120], t * 0.7, 1.1, 1.3, true);
       FX.sway(g, im, [0, 0, 240, 150], t * 0.7, 1.2, 2.1, true);
+      panza(g, t, skyMask('santa_ana', TOP, 360), 0.5);   // (after the palms' sway, which redraws the painting under it)
       FX.birds(g, t, { y0: 40, y1: 170, n: 3, period: 23, color: 'rgba(44,44,50,0.6)', size: 6 });
     },
   });
@@ -286,8 +281,8 @@
     // stirring in the draught. The bell hangs still (nobody rings it) and the clock's drum turns only when wound.
     animBack(g, t) {
       const im = G.bgImage();
-      panza(g, t, skyMask('belfry', [[1048, 250], [1043, 105], [1000, 300], [1100, 300]], 336), 0.55, 120);
       FX.sway(g, im, [1040, 356, 48, 36], t * 0.8, 0.8, 0, true);
+      panza(g, t, skyMask('belfry', [[1048, 250], [1043, 105], [1000, 300], [1100, 300]], 336), 0.55, 120);
       glints(g, t, [978, 338, 144, 22], 8, '210,215,220', 0.14);
       g.save(); g.beginPath(); g.rect(974, 150, 150, 186); g.clip();
       FX.birds(g, t, { y0: 190, y1: 300, n: 1, period: 17, color: 'rgba(235,235,232,0.75)', size: 3.5, x0: 960, x1: 1140 });

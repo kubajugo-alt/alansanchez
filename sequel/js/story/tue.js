@@ -23,12 +23,7 @@
     }
     g.clip();
   };
-  // the panza de burro drifting: a soft cloud bank slid slowly across the painted sky, kept inside `shapes`
-  const BANKS = {};
-  function drift(g, t, key, shapes, o) {
-    const cl = BANKS[key] || (BANKS[key] = FX.makeClouds(o.seed || 11, o.rgb || '238,238,234', o.n || 22));
-    g.save(); clipTo(g, shapes); FX.drawClouds(g, cl, t, o.speed || 5, o.y || 0, o.a || 0.4); g.restore();
-  }
+  // (the drifting cloud is core.js S.sky now: the two-tone bank through each room's sky mask, HANDOFF 137)
   // the sea's edge: a thin line of foam washing up the sand and back, along a painted shoreline (lists of points)
   function foam(g, t, lines, o) {
     const per = (o && o.per) || 7, reach = (o && o.reach) || 6, a = (o && o.a) || 0.35;
@@ -60,9 +55,7 @@
     name: 'Gando airport', bg: 'gando', floor: 'tile', ambience: 'museum', door: 'door',
     animBack(g, t) {
       // the sky over the apron through the glass (between the mullions, above the Iberia tail), a gull or two
-      const panes = [[[108, 22], [252, 62], [252, 285], [108, 285]], [[266, 66], [380, 96], [380, 218], [266, 218]], [[393, 100], [440, 112], [440, 270], [393, 270]]];
-      drift(g, t, 'gando', panes, { speed: 4, a: 0.35, seed: 3 });
-      g.save(); clipTo(g, panes); FX.birds(g, t, { y0: 120, y1: 200, n: 2, period: 21, color: 'rgba(60,60,64,0.6)', size: 4, x0: 90, x1: 460 }); g.restore();
+      // (drawn last, after the palm's sway: S.sky, the painted sky only, art/fx/gando_sky.png)
       // the empty belt going round ("The belt goes round. My suitcase doesn't."): its slats sliding by
       g.save(); clipTo(g, [[[322, 476], [348, 463], [420, 457], [858, 446], [874, 449], [856, 465], [800, 473], [345, 488]]]);
       g.strokeStyle = 'rgba(255,236,200,0.05)'; g.lineWidth = 1.5;
@@ -76,6 +69,7 @@
       // the strip light hums; the palm by the taxi door stirs in the street air
       lamp(g, t, 390, 46, 130, '255,240,200', 0.07, 1, false);
       FX.sway(g, im(), [1212, 282, 50, 70], t * 0.7, 0.8, 0, true);
+      S.sky(g, t, 'gando', { birds: { y0: 90, y1: 200, n: 2, period: 21, color: 'rgba(60,60,64,0.6)', size: 4, x0: 0, x1: 470 } });
     },
     entries: { default: [200, 660, 'e'] },
     npcs: [
@@ -271,13 +265,13 @@
     unlit: /^vasco_bed$/,
     animBack(g, t) {
       // through the open balcony door: the lid of cloud drifting, the bay moving, the surf on the far beach
-      drift(g, t, 'room404', [[860, 112, 140, 165]], { speed: 3, a: 0.4, seed: 7 });
       if (!S.sea(g, 'hotel_room')) {   // (the Higgsfield loop, js/story/sea.js; the canvas ripple until it can play)
         FX.ripple(g, im(), [860, 318, 140, 40], t * 0.5, 0.8, 0.3);
         foam(g, t, [[[862, 330], [900, 326], [940, 323], [1000, 322]]], { per: 9, reach: 2, a: 0.25, w: 1 });
       }
       // the air off the sea: the curtains breathe, the fan turns slowly
       FX.billow(g, im(), [722, 70, 66, 455], t, 1.6, 8); FX.billow(g, im(), [1035, 52, 92, 490], t + 2, 1.8, 9);
+      S.sky(g, t, 'hotel_room');   // (the lid of cloud through the balcony door, after the curtains)
       ceilFan(g, t, 497, 78, 125, 16, 0.6, 0.1);
       lamp(g, t, 14, 345, 60, '255,214,150', 0.07, 5, false);
     },
@@ -314,8 +308,6 @@
     name: 'Las Canteras', bg: 'canteras', floor: 'stone', ambience: () => 'harbour',
     animBack(g, t) {
       // the panza de burro drifting over the bay, gulls, the sea moving and the foam on the shore
-      drift(g, t, 'canteras', [[300, 0, 620, 345], [0, 0, 300, 160], [[920, 0], [1060, 0], [1000, 60], [920, 140]]], { speed: 4, a: 0.35, seed: 13, rgb: '232,226,214' });
-      FX.birds(g, t, { y0: 70, y1: 260, n: 3, period: 24, color: 'rgba(58,56,54,0.55)', size: 5, x0: 300, x1: 920 });
       if (!S.sea(g, 'canteras')) {
         FX.ripple(g, im(), [425, 372, 555, 44], t * 0.6, 0.8, 0.2); FX.ripple(g, im(), [425, 416, 190, 48], t * 0.6, 0.8, 0.2);
         foam(g, t, [[[422, 466], [500, 463], [606, 459]], [[740, 455], [818, 450]], [[905, 446], [950, 440], [990, 428]]], { per: 8, reach: 4, a: 0.3 });
@@ -323,6 +315,8 @@
       // the palms by the hotel and the newspapers pegged on the kiosk
       FX.sway(g, im(), [920, 40, 250, 240], t * 0.5, 1.1, 0, true); FX.sway(g, im(), [1060, 0, 220, 140], t * 0.5, 1, 1.7, true);
       FX.sway(g, im(), [35, 334, 222, 62], t * 0.8, 0.7, 0.5);
+      // the cloud and the gulls last, through the painted sky only (the palms pass in front)
+      S.sky(g, t, 'canteras', { birds: { y0: 70, y1: 300, n: 3, period: 24, color: 'rgba(58,56,54,0.55)', size: 5, x0: 0, x1: 1100 } });
     },
     entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1150, 660, 'w'], beach: [820, 665, 'n'] },
     npcs: [
@@ -571,9 +565,6 @@
     // Tuesday: the cloud tears open for a while after Alan talks to the surfer (the user, 2026-10-29)
     bgs: ['beach_sun'], bgFn: () => F().sun_out ? 'beach_sun' : 'beach',
     animBack(g, t) {
-      // the panza de burro sliding in off the sea, gulls over the surf (none of it while the sun's out)
-      if (!F().sun_out) drift(g, t, 'beach', [[[0, 0], [1280, 0], [1280, 300], [900, 292], [700, 285], [620, 272], [600, 256], [500, 246], [430, 238], [400, 208], [350, 193], [280, 183], [250, 168], [200, 138], [150, 116], [70, 110], [58, 40], [0, 28]]], { speed: 5, a: 0.4, seed: 17 });
-      FX.birds(g, t, { y0: 80, y1: 250, n: 3, period: 22, color: 'rgba(52,54,56,0.55)', size: 5, x0: 500, x1: 1300 });
       // the sea between the boards rolling, the swash running up the sand and back
       if (!S.sea(g, F().sun_out ? 'beach_sun' : 'beach')) {
         FX.ripple(g, im(), [382, 348, 520, 120], t * 0.6, 1.2, 0.18); FX.ripple(g, im(), [1112, 348, 168, 138], t * 0.6, 1.2, 0.18);
@@ -582,6 +573,10 @@
       // the beach umbrella's skirt and the palms along the promenade
       FX.sway(g, im(), [62, 334, 240, 84], t * 0.9, 0.8, 0);
       FX.sway(g, im(), [168, 160, 80, 95], t * 0.5, 0.9, 1.4, true); FX.sway(g, im(), [330, 225, 60, 70], t * 0.5, 0.8, 2.2, true);
+      // the panza de burro sliding in off the sea, gulls over the surf, last and in the painted sky only (no cloud while
+      // the sun's out: the sunny painting's sky is its own)
+      const gulls = { y0: 80, y1: 250, n: 3, period: 22, color: 'rgba(52,54,56,0.55)', size: 5, x0: 500, x1: 1300 };
+      if (!F().sun_out) S.sky(g, t, 'beach', { birds: gulls }); else FX.birds(g, t, gulls);
     },
     entries: { default: [200, 665, 'e'], canteras: [200, 665, 'e'] },
     ambient: [
@@ -652,7 +647,7 @@
     // (its tables: the painting has none of its own; table sprites placed by the user in the placement tool, js/story/extras.js)
     animBack(g, t) {
       // through the arched windows: the cloud drifting, the surf rolling in
-      drift(g, t, 'restaurant', [[0, 122, 158, 110], [298, 158, 102, 60], [496, 160, 30, 45]], { speed: 4, a: 0.38, seed: 19 });
+      S.sky(g, t, 'restaurant');   // (the cloud through the arches; nothing in this room redraws the painting over it)
       if (!S.sea(g, 'hotel_restaurant')) {
         FX.ripple(g, im(), [0, 256, 156, 70], t * 0.6, 1, 0.22);
         foam(g, t, [[[0, 262], [60, 262], [155, 268]]], { per: 9, reach: 3, a: 0.3, w: 1.2 });
@@ -685,13 +680,11 @@
     music: 'museum_courtyard',
     name: 'El Museo Canario · the courtyard', bg: 'museum_courtyard', floor: 'stone', ambience: 'street', door: 'door',
     animBack(g, t) {
-      // the grey sky over the roof, a bird crossing
-      const sky = [[[270, 0], [1110, 0], [1110, 50], [960, 56], [700, 63], [480, 78], [380, 83], [330, 68], [270, 40]]];
-      drift(g, t, 'courtyard', sky, { speed: 3, a: 0.35, seed: 23 });
-      g.save(); clipTo(g, sky); FX.birds(g, t, { y0: 15, y1: 50, n: 1, period: 19, color: 'rgba(40,40,44,0.6)', size: 5, x0: 260, x1: 1120 }); g.restore();
+      // (the grey sky over the roof and a bird crossing: last, S.sky)
       // the dragon tree's crown and the bamboo by the fountain stir; the wall lanterns (the fountain stays dry)
       FX.sway(g, im(), [945, 135, 300, 155], t * 0.4, 0.7, 0, true); FX.sway(g, im(), [295, 160, 140, 300], t * 0.5, 1.1, 1.2, true);
       [[1250, 305, 1], [1028, 346, 2], [749, 364, 3]].forEach(([x, y, s]) => lamp(g, t, x, y, 30, '255,196,120', 0.16, s, true));
+      S.sky(g, t, 'courtyard', { birds: { y0: 15, y1: 60, n: 1, period: 19, color: 'rgba(40,40,44,0.6)', size: 5, x0: 240, x1: 1120 } });
     },
     entries: { default: [160, 665, 'e'], museum_hall: [160, 665, 'e'] },
     npcs: [

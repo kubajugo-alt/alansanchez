@@ -489,6 +489,26 @@
   S.room = (def) => Object.assign({ walk: S.FLOOR, scale: [575, 400, 716, 470], floor: 'stone',
     light: { ambient: 'rgb(235,228,215)', base: 0.95 }, entries: { default: [640, 660, 'e'] } }, def);
 
+  // ---------------------------------------------------------------- the sky (docs/review/env_movement.md G5; HANDOFF 137)
+  // The panza de burro moving: a dark bank under a paler one, drifting at two speeds, so it shades the painted sky as
+  // much as it lights it (the old single pale bank lifted the sky and showed its clip's edge). Drawn only where the
+  // sky is painted: Wednesday's rooms flood their mask in the browser (wed.js), the others load it, made once by
+  // scripts/sky_masks.py (art/fx/<name>_sky.png). Gulls fly in the same mask, so a palm or a mullion passes in front.
+  // Call it after a room's row-shift effects (FX.sway, billow, ripple), which redraw the painting under them.
+  {
+    const imgs = {}; let dark = null, pale = null;
+    S.skyImg = n => { let i = imgs[n]; if (!i) { i = imgs[n] = new Image(); i.src = 'art/fx/' + n + '_sky.png'; } return i.complete && i.naturalWidth ? i : null; };
+    S.panza = function (g, t, mask, a, y, birds) {
+      if (!mask) return;
+      dark = dark || FX.makeClouds(83, '92,94,100', 20); pale = pale || FX.makeClouds(61, '216,216,220', 22);
+      FX.masked(g, mask, m => {
+        FX.drawClouds(m, dark, t, 3, (y || 0) - 30, a); FX.drawClouds(m, pale, t, 6, (y || 0) + 20, a * 0.8);
+        if (birds) FX.birds(m, t, birds);
+      });
+    };
+    S.sky = (g, t, name, o) => S.panza(g, t, S.skyImg(name), (o && o.a) || 0.5, o && o.y, o && o.birds);
+  }
+
   // ---------------------------------------------------------------- the idle cigarette (as Game I; js/engine/smoke.js)
   // Twenty seconds without input and Alan lights up: the light, then the drag, breathing out, the hold, round and round;
   // any input puts it away (from the hold he drops it and treads it out). The user, 2026-10-31: "We also need smoking
