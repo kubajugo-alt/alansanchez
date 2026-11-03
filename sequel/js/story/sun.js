@@ -2,8 +2,8 @@
 // without deciding to; Vasco's watch; the note; the taxi to Gando. The Iberia desk: "Window or aisle?" (window: the
 // short bad ending, then back to the desk) or "I've left something behind". Chano at the kiosk ("the airport face";
 // Carmen's address). Carmen's door on its chain ("I'm an idiot"); Elena, eleven years; the message on the machine;
-// Elena's notebook and the Guardia photograph; the cistern told; the calls (Nieves, the museum, the lab: disc six out
-// this morning); working out where Vasco is. The Land Rover up through the panza: the boiling radiator, the black, the
+// Elena's notebook and the Guardia photograph; the cistern told; the calls (Nieves, the museum, the lab: no disc ever,
+// six transfer sheets since December); working out where Vasco is. The Land Rover up through the panza: the boiling radiator, the black, the
 // water in the footwell on Alan's side only, Carmen driving through it; out above the cloud into the stars, the bonfires
 // glowing under it. The vault at dusk, cut away to: Vasco talks Yeray round. The camp in the dark; the rescue at the
 // grille; the discs; the seven signs and the A; the talk on the rock ("Not now"); the path to Cave 6. Then Monday (mon.js).
@@ -228,7 +228,7 @@
     ]);
   };
   // the deduction: the calls first (Nieves has only his own note; the dig radio's dead; the lab has never had a disc,
-  // and disc six came out this morning), then thinking it through in order; the letter says the Sea strikes first at
+  // and its transfer sheets show six out, one a month since December), then thinking it through in order; the letter says the Sea strikes first at
   // whoever understands the lock
   S.whereIsVasco = async function () {
     const f = F();

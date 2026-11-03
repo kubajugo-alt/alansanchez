@@ -2,6 +2,9 @@
 // dialogue choices, with window.FAST on), and prints where it got to. Also takes the airport's bad ending and one disc
 // out of its turn in the finale on the way.
 // usage: node play.mjs <baseUrl>     (serve sequel/ first: npx -y http-server -p 8099 -c-1 -s sequel)
+// At Gando on Tuesday it first checks Alan's actions and the idle cigarette with FAST off (HANDOFF entry 140): a run
+// plays its frames and ends on his standing painting, and left alone he lights up, then stops on a key press.
+// PLAY_ONLY=actions stops after that check (about a minute).
 import { createRequire } from 'module';
 const require = createRequire('/opt/node22/lib/node_modules/');
 const { chromium } = require('playwright');
@@ -41,6 +44,39 @@ async function act(target, verb, item, choices) {
 const go = async (room, entry) => { await quiet(); await page.evaluate(([r, e]) => Game.goRoom(r, e), [room, entry || 'map']); await quiet(); };
 const expect = async (what, fn) => { const ok = await page.evaluate(fn); if (!ok) throw new Error(`expected ${what} after step ${step}, in ${JSON.stringify(await state())}`); console.log('  ok  ' + what); };
 let result = 'unfinished';
+// Alan's actions and his cigarette, with FAST off (S.posed and the cigarette skip themselves under FAST). The frames he
+// shows are sampled every animation frame in the page.
+async function actionsAndSmoke() {
+  await quiet();
+  const sample = () => page.evaluate(() => { window.__seen = []; const tick = () => { if (!window.__seen) return; const c = Engine.player && Engine.player.cur; if (c && window.__seen[window.__seen.length - 1] !== c) window.__seen.push(c); requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
+  for (const pose of ['pickup', 'reach', 'phone']) {
+    await sample();
+    const r = await page.evaluate(async pose => {
+      window.FAST = false;
+      const P = Game.player, run = S.CHARS.alan.frames.poses[pose], stand = S.CHARS.alan.frames.idle[0];
+      try { await S.posed(pose, () => S.T(300)); } finally { window.FAST = true; }
+      await new Promise(r => setTimeout(r, 300));
+      const seen = window.__seen; window.__seen = null;
+      const shown = seen.filter(k => run.frames.includes(k));
+      return { n: run.frames.length, hold: run.hold, shown: shown.length, first: shown[0], last: shown[shown.length - 1], hit: shown.includes(run.frames[run.hold]), missing: run.frames.filter(k => !shown.includes(k)).map(k => k.slice(-2)),
+        end: P.cur, stand, pose: P.pose, order: shown.every((k, i) => !i || run.frames.indexOf(k) > run.frames.indexOf(shown[i - 1])) };
+    }, pose);
+    if (!(r.shown >= Math.min(8, r.n / 3) && r.hit && r.order && r.pose == null && r.end === r.stand))
+      throw new Error(`the ${pose} run: ${JSON.stringify(r)}`);
+    console.log(`  ok  ${pose}: ${r.shown} of ${r.n} frames, in order, through the hold (${r.hold}), back to ${r.end}`);
+  }
+  // the cigarette: 20 s with no input (FAST off), then the light and the round; a key press stops it
+  await page.evaluate(() => { window.FAST = false; Engine.noteInput(); });
+  try {
+    await page.waitForFunction(() => Engine.smoking() && /^alanv_smoke_/.test(Engine.player.cur || ''), null, { timeout: 45000, polling: 200 });
+    await page.waitForFunction(() => Engine.smokeStep() === 'inhale', null, { timeout: 15000, polling: 200 });
+    console.log('  ok  idle: he lights up and takes a drag (' + await page.evaluate(() => Engine.player.cur) + ')');
+    await page.keyboard.press('Shift');
+    const r = await page.evaluate(async () => { const a = Engine.smoking(); await new Promise(r => setTimeout(r, 2500)); return { a, b: Engine.smoking(), pose: Engine.player.pose, cur: Engine.player.cur, stand: S.CHARS.alan.frames.idle[0] }; });
+    if (r.a || r.b || r.pose != null || r.cur !== r.stand) throw new Error('the cigarette after a key press: ' + JSON.stringify(r));
+    console.log('  ok  a key press: the cigarette stops, back to ' + r.cur);
+  } finally { await page.evaluate(() => { window.FAST = true; }); }
+}
 try {
   page.evaluate(() => Game.begin(true)); // (not awaited: the prologue waits for the player)
   // ---- the prologue (only when the game plays it: off for now, S.PLAY_PROLOGUE)
@@ -51,6 +87,8 @@ try {
   }
   await page.waitForFunction(() => Game.room && Game.room.id === 'gando' && Game.flags.ch === 1, null, { timeout: 30000 });
   await expect('Tuesday at Gando', () => Game.room.id === 'gando');
+  await actionsAndSmoke();
+  if (process.env.PLAY_ONLY === 'actions') { result = 'won'; throw null; }
   // ---- Tuesday
   await act('vasco', 'talk');
   // (2026-10-29: check-in at two; the beach, the surfer, the sun, the nap and the burn; Gail sends him to the market; the
@@ -237,7 +275,7 @@ try {
   await act('Path to the camp', 'exit'); await act('Camp radio', null, 'fuse');
   await page.waitForSelector('#ending:not(.hidden)', { timeout: 60000 });
   result = 'won';
-} catch (e) { result = 'stopped: ' + e.message; }
+} catch (e) { if (e) result = 'stopped: ' + e.message; }
 console.log(JSON.stringify({ result, steps: step, errors: errs.slice(0, 20) }, null, 1));
 await browser.close();
 process.exit(result === 'won' && !errs.length ? 0 : 1);

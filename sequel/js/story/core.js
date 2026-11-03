@@ -20,10 +20,13 @@
     if (P0 && P0.frames && !window.FAST && window.Engine && Engine.ensure) await Engine.ensure(P0.frames.map(k => 'spr:' + k));
     p.pose = p.visible ? pose : null;
     const P = p.pose && P0;
-    const t0 = Date.now(), run = P && P.frames && !window.FAST;
-    try { await fn(); if (run) { const left = (P.hold / P.fps) * 1000 - (Date.now() - t0); if (left > 0) await G.wait(left); } }
+    const run = P && P.frames && !window.FAST, E = window.Engine;
+    // (the run plays on the game's clock, which runs slower than the wall's when frames come slower than 20 a second:
+    // wait on what the figure shows, not on the time, or a slow machine cuts the hold frame; HANDOFF entry 140)
+    const until = async (done, ms) => { const t1 = Date.now(); while (!done() && Date.now() - t1 < ms) await G.wait(30); };
+    try { await fn(); if (run) await until(() => p.cur === P.frames[P.hold] || (E && p.poseWas === p.pose && p.poseT0 != null && (E.time - p.poseT0) * P.fps >= P.hold + 1), 3000 + 3000 * P.hold / P.fps); }
     finally { p.pose = null; }
-    if (run) await G.wait(((P.frames.length - 1 - P.hold) / P.fps) * 1000 + 60);
+    if (run) { await G.wait(60); await until(() => !p.poseOut, 3000 + 3000 * (P.frames.length - 1 - P.hold) / P.fps); }
   };
   S.give = (id, silent) => G.giveItem(id, silent);
   // a character's frames: their Canva design, standing still (the user, 2026-10-29: "the characters should only be using
@@ -167,10 +170,10 @@
     // (the pockets painted, approved 2026-10-31: art/review/items/icons/; HANDOFF entry 116. sketch, ledger, file55 and knife
     // stay in art/icons/ but no item shows them now)
     'note5000', 'aloe', 'cigarettes', 'postcard', 'blazer', 'inscription', 'letter', 'galindo', 'dinnerknife', 'napkin', 'drawing',
-    'fax', 'elena_notebook', 'gc_photo', 'water', 'discs', 'disc6', 'trowel', 'fuse', 'vnotebook', 'elena_charts', 'chalk', 'torch', 'clinometer'];
+    'fax', 'elena_notebook', 'gc_photo', 'water', 'discs', 'disc6', 'trowel', 'fuse', 'vnotebook', 'elena_charts', 'chalk', 'torch'];
   window.ICON_LABELS = { note5000: '5,000 ptas', blazer: 'Blazer', inscription: 'Rubbing', letter: '1751 letter', galindo: 'Abreu Galindo', napkin: 'Napkin',
     drawing: 'Drawing', fax: 'Fax', elena_notebook: "Elena's notebook", gc_photo: 'Photo', water: 'Water', discs: 'Discs', disc6: 'Sixth disc', trowel: 'Trowel',
-    elena_charts: 'Sun charts', chalk: 'Chalk', clinometer: 'Clino-meter', vnotebook: 'Notebook', torch: 'Torch', ltrowel: 'Trowel', fuse: 'Fuse' };
+    elena_charts: 'Sun charts', chalk: 'Chalk', vnotebook: 'Notebook', torch: 'Torch', ltrowel: 'Trowel', fuse: 'Fuse' };
   S.ITEMS = {
     notebook: { name: "Alan's notebook", read: () => S.readNotebook(), look: () => S.readNotebook() },
     note5000: { name: 'A 5,000-peseta note', look: 'alan_look_note' },
@@ -198,7 +201,6 @@
     vnotebook: { name: 'Vasco\'s notebook', look: () => say(F().v_notebook_again ? 'vasco_look_notebook_2' : (F().v_notebook_again = true, 'vasco_look_notebook')) },
     elena_charts: { name: 'Elena Suárez\'s sun charts', look: () => S.readCharts() },
     chalk: { name: 'Chalk', look: 'vasco_look_chalk' },
-    clinometer: { name: 'Clinometer', look: 'vasco_look_clinometer' },
     ltrowel: { name: 'Lorenzo\'s trowel', icon: () => 'trowel', look: 'vasco_look_trowel' },
     torch: { name: 'Pocket torch', look: 'vasco_look_torch' },
   };
@@ -219,8 +221,7 @@
     if (line) await G.say(line, { offscreen: true });
     G.autosave();
   };
-  // the visible clocks: the tide on the promenade steps, the discs crossed off, the bonfires (one more each day)
-  S.tideStep = () => Math.min(6, (F().ch || 1) + (F().ch >= 5 ? 1 : 0));   // Tue 1, Wed 2, Thu 3, Fri 4; the flood night lifts it to the top
+  // the visible clocks: the discs crossed off on the list (the tide steps and the clinometer went with the old Cave 6)
   S.discsOut = () => (F().ch || 0) === 0 ? 1 : 6;   // (one a month since December: six out by June; the sun never left, CAVE6.md)
 
   // ---------------------------------------------------------------- the map

@@ -1894,4 +1894,27 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       fix and `S.sky` in the live scripts; `/.env`, `/docs/`, `/scripts/` 404. Live now: everything to entry 138.
     - "Start here" rewritten (what is in the game, the open list for 2026-11-03); `docs/NEXT_SESSION.md`: the prompt for
       the next session (what to read, the rules, what to review first, what to focus on, what waits on the user).
+    - (Checked by the next session: the live `offline.json` equals the branch's, every path and hash; `index.html`
+      and spot-checked files byte-equal.)
+140. **Tidy-ups; Alan's actions wait for their hold frame; play.mjs checks the actions and the cigarette** (2026-11-03,
+    the user's brief: "Small code tidy-ups... Extend scripts/tests/play.mjs").
+    - The clinometer item is gone (core.js: `S.ITEMS`, `PAINTED_ICONS`, `ICON_LABELS`; it was never given since the
+      old Cave 6; `vasco_look_clinometer` and its recording stay, one more "never used" warning) and `S.tideStep`
+      (unused). sun.js's two comments "disc six came out this morning" now say what Carmen's lines say (the lab never had
+      a disc; its transfer sheets show six out, one a month).
+    - The set-down speck: `scripts/sprite_specks.py <run>` clears small opaque islands more than 12 px from the figure
+      (at most 400 px; the contact shadow touches the figure and stays). On `alanv_setdown` it took the brown speck
+      (24x12 px at the floor) from frames 23-29, where it sat after his fingers left it and popped out at frame 30, and
+      a few single stray pixels; frame 22 keeps it under his fingers. Lossless re-save of the ten changed frames.
+    - **A bug found by the new check**: `S.posed` timed the run's hold on the wall clock, but the run plays on the
+      game's clock, which runs slower when frames come slower than 20 a second (render.js caps a frame's step at
+      0.05 s). Under load the pickup's hold frames (14, 15: his hand on the thing) were never shown: the pose cleared
+      at frame 13 and the run went straight on to 16. `S.posed` now waits until the figure shows the hold frame (or
+      the game clock has passed it), and then until the run out to standing has finished (`poseOut`), each with a
+      time cap.
+    - `scripts/tests/play.mjs`, at Gando on Tuesday, before the play: with FAST off, the pickup, reach and phone runs
+      (every frame the figure shows, sampled each animation frame): enough frames, in order, through the hold frame,
+      back on `alanv_side_k`, pose cleared; then 20 s idle: he lights up and gets to the drag; a key press: the
+      cigarette stops and he's back on his standing painting. `PLAY_ONLY=actions` stops after it (about a minute).
+      Before the fix it stopped on the pickup's hold; after: all six ok, no page errors. validate: 0 errors.
 
