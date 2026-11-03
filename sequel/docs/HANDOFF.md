@@ -1,14 +1,14 @@
 # The Shortest Night: handoff
 
-## Start here (2026-10-31)
+## Start here (2026-11-03)
 
 **One session only** (2026-10-30, the user: "from now on, only you will work"): this branch, `claude/happy-ptolemy-m086fu`
 (PR #15, kubajugo-alt/alansanchez), is the line of work; other branches on the remote are old Game I work and are not merged here.
 
 Game II, *Alan Sanches II: The Shortest Night* (Gran Canaria, 18–24 June 1996). It lives in `sequel/`, its own web
 root, in the same repository as Game I. Read, in this order:
-- this section, then the newest entries of the session log below (105 onwards is the latest work; 124–130 the
-  newest);
+- this section, then the newest entries of the session log below (130–139 are the last session's: the bibles, the
+  action sprites and the cigarette, the sea and sky, the vault); `docs/NEXT_SESSION.md` is the brief for the next one;
 - `docs/PIPELINES.md`: **how we work**, step by step (rooms, sprites, Ludo, faces and lip-sync, the sea loops, ambient
   movement, sound and voices, recording with sound, deploy) and **every external service** with its limits;
 - `docs/CODEMAP.md` for the code; `docs/BIBLE.md` and `docs/story-bible.md` for the story (brought up to date with the
@@ -24,7 +24,7 @@ root, in the same repository as Game I. Read, in this order:
   sound effects (`audio/sfx/`, copied). Nothing is loaded from outside `sequel/`.
 - Saves, settings and tips use their own `shortest-night-*` keys, so the two games never share a save on one browser.
 
-### What is in the game (2026-10-31, live: Netlify deploy `6ae6149e0e5ea5896e84e6ca`, entry 129)
+### What is in the game (2026-11-03, live: Netlify deploy DEPLOY_ID, entry 139)
 - **The whole story is playable**, prologue to credits: the prologue (Elena's last drive), Tuesday to Monday as
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
   the ending. Every day rewritten from the novel (entries 17, 87), then the narrator cut back across the game (entries
@@ -54,9 +54,15 @@ root, in the same repository as Game I. Read, in this order:
   a towel (116); background people who talk (`js/story/bgtalk.js`), at Gando two nuns, a Düsseldorf family and the taxi
   driver (120, 126); props graded into their rooms. **Every still painted** (no text cards left). 24 painted inventory
   icons and 11 close-up pictures (116).
+- **Alan's actions** (entries 132–136, `docs/review/action_sprites.md`): in the vest he phones, drinks, writes, picks
+  up, reaches, reaches up, sets down, reads, heaves, cranks and rubs (Ludo runs from and back to his standing painting,
+  played by `S.posed`), and after 20 s idle he smokes as in Game I (`G.idleSmoke`, the cigarette in his near hand).
+  The blazer, Vasco and everyone else still stand for their actions.
 - **Movement**: the sea is Higgsfield/Kling loops masked onto the paintings, filmed again from the repaints
-  (`js/story/sea.js`, entries 75, 107); the Land Rover's windscreen plays the road; the rest is each room's `animBack`
-  (Game I's FX helpers; review with fixes proposed, not made: `docs/review/env_movement.md`, entry 90). **The Sea's
+  (`js/story/sea.js`, entries 75, 107) and made seamless (`scripts/sea_loop.py`, entry 137); the clouds are a two-tone
+  bank through each room's painted-sky mask (`S.sky`, `scripts/sky_masks.py`, entry 137); the Land Rover's windscreen
+  plays the road; the rest is each room's `animBack` (Game I's FX helpers; the review `docs/review/env_movement.md`,
+  entry 90: G1, G2, G5 done, the rest open). **The Sea's
   water** is a plane in the room's perspective, round the figures (`js/story/water.js`, entry 108). **Parallax is on**
   (entry 96) except the map, the two cars, Cave 6 (both rooms) and the vault (both rooms).
 - **Music**: one track a room (entry 27). Sound effects from Game I. Room ambience.
@@ -71,35 +77,37 @@ with no connection. `scripts/build-manifest.mjs` writes its list (`offline.json`
 Test: `node scripts/tests/offline.mjs <copy of the web root> <out dir>`. Live (entries 128, 129). Not tested on
 Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
 
-### Open, in the order I'd suggest (2026-10-31)
-1. **Baute's seven verses unrecorded** (`baute_m_verse_1..7`, 514 characters; entry 130): every other line that plays
-   has its recording. They need the project script (`scripts/generate-voices.mjs`) with the key in the root `.env`:
-   Baute's voice is read with `language_code: "es"` and its own `voice_settings`, which the ElevenLabs connector can't
-   send. The other 58 lines without a file are narrator lines the cuts no longer play (validate lists them as unused):
-   don't record them unless they come back.
-2. **Questions the user hasn't answered**: should the first surge in the cave drop back to the knees (108; now
-   was+0.04, about 0.15 would match "dropped back to his knees")? Audition Canarian/Caribbean-sounding voices for the
-   main Canarians (118; their rule is the same voices)? Gando's painted board reads "JUN16" and "BÜSSEDORF" (120; the
-   painting changes only on their word).
-3. **Vasco's walks, left over (125)**: no real back painting (the day back is a recolour; the blazer has none, so he
-   walks away in it sideways); he stands on his three-quarter paintings, so stopping cuts from profile to
-   three-quarter; turns are made but no one turns in the game.
-4. **The extra love-scene pictures** (`art/review/stills_real/still_love_1_curtain/_hands/_watch/_morning.jpg`,
-   `still_love_2_morning.jpg`, commit 3a9d2991): painted for review, not in the game; the in-game love stills are the
-   kiss and the fireworks silhouette (107).
-5. **Ludo key**: the user pasted it in chat; advised rotating it. It and the ElevenLabs/Gemini keys live in the root
-   `.env` (git-ignored; a new container needs them again: ask the user, never print them).
-6. **Action sprites (entries 132-136, `docs/review/action_sprites.md`)**: Alan's (vest) actions and the idle cigarette
-   are in the game and live. Still to make: stretch, the blazer set (phone, read, reach up, the cigarette) and Vasco's
-   (kneel, hand on the wall, sit, dig): about 16 Ludo credits a run, 34 left. The Ludo key was pasted in chat: rotate it.
-7. **Small contradictions in the lines** (found in entry 131, not fixed): `mercedes_read_6` "at the rising of the sun"
-   (1483 is now noon); `lolo_s_talk_3` "this afternoon" before one o'clock and `alan_su_lolo` "Saturday morning" (Vasco
-   can send only after 14:04); `pino_s_missal` "Two crossed out. Two not." (her list: seven, five struck);
-   `chano_th_pepe_6` "Now two." (five); Montesdeoca 25 in 1966 (`chano_s_tasarte_2`) against 28
-   (`vasco_rock_tasarte_3`); `vasco_t_sorry` "for the equinox". Leftovers: the clinometer item in core.js (never
-   given), `S.tideStep` unused, a sun.js comment "disc six came out this morning". Changing lines means re-recording:
-   the user's call.
-8. Older: the environment movement fixes (`docs/review/env_movement.md`, the user's pick from ten).
+### Open, in the order I'd suggest (2026-11-03)
+1. **Look at what went live last** with the user: the sea loops and the clouds (entry 137; the before/after
+   recordings were cut off by a restart: redo them with `scripts/tests/record_steps.mjs`, before = the export of
+   `816627c1`), the vault on Sunday (entry 138; the water there is darker than the finale's, a few numbers in
+   `S.WATER_ROOMS.vault` if the user wants it clearer), Alan's actions in play.
+2. **The rest of the environment movement** (`docs/review/env_movement.md`, no services needed): G3 a masked,
+   feathered sway (plants only; frames, pillars, signs and facades stop moving), G4 a gusty rhythm, G6 electric
+   lights that don't flicker, the prologue car's pale quad, the Land Rover's rosary and headlights, what shouldn't move
+   (the market sign, the umbrella canopy, the dragon tree, the bell rope), the two still exteriors. The review predates
+   the repaint (entries 102, 107): re-check each finding on the current painting first. A before/after clip per room
+   for the user.
+3. **Baute's seven verses unrecorded** (`baute_m_verse_1..7`, 514 characters; entry 130): they need
+   `scripts/generate-voices.mjs` with the ElevenLabs key in the root `.env` (his voice is read with
+   `language_code: "es"` and its own settings, which the connector can't send). Every other played line is voiced; the
+   58 narrator lines without a file are no longer played.
+4. **Action sprites still to make** (Ludo, about 16 credits a run, 34 left at entry 135; the key in `.env` was pasted
+   in chat, so the user should rotate it): stretch, the blazer set (phone, read, reach up, a blazer cigarette), Vasco's
+   (kneel, hand on the wall, sit and slumped, dig, coffee) and an npc pose hook for his actions when he isn't the player
+   (the rim on Monday, the bed, the bars). Every action starts and ends on the standing painting; a held object stays
+   in one hand (the user's rules, entry 133-134).
+5. **Small contradictions in the lines** (entry 131, not fixed; each change means a re-record): `mercedes_read_6` "at
+   the rising of the sun" (1483 is noon now); `lolo_s_talk_3` "this afternoon" before one o'clock and `alan_su_lolo`
+   "Saturday morning" (Vasco can send only after 14:04); `pino_s_missal` "Two crossed out. Two not." (her list: seven,
+   five struck); `chano_th_pepe_6` "Now two." (five); Montesdeoca 25 in 1966 (`chano_s_tasarte_2`) against 28
+   (`vasco_rock_tasarte_3`); `vasco_t_sorry` "for the equinox". Code leftovers: the clinometer item (core.js, never
+   given), `S.tideStep` unused, a sun.js comment "disc six came out this morning".
+6. **Questions the user hasn't answered**: the first surge in the cave back to the knees (108)? Canarian-sounding
+   voices (118)? Gando's board "JUN16" / "BÜSSEDORF" (120; a painting, only on their word)?
+7. **Smaller**: Vasco's walks (125: no real back painting, the profile-to-three-quarter cut on stopping); the extra
+   love-scene pictures in `art/review/stills_real/` (not in the game); trim the speck the set-down run leaves on the
+   floor; Play offline untested on Safari/iOS.
 
 ### Voice casting (the user's rule, 2026-10-27)
 - **Alan, Vasco, Inês and the narrator keep their Game I voices** (Game I's `scripts/cast.json`): Alan
