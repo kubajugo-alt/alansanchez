@@ -24,7 +24,7 @@ root, in the same repository as Game I. Read, in this order:
   sound effects (`audio/sfx/`, copied). Nothing is loaded from outside `sequel/`.
 - Saves, settings and tips use their own `shortest-night-*` keys, so the two games never share a save on one browser.
 
-### What is in the game (2026-11-03, live: Netlify deploy DEPLOY_ID, entry 139)
+### What is in the game (2026-11-03, live: Netlify deploy `6aea1f09b90f010ef7cb0fa0`, entry 139)
 - **The whole story is playable**, prologue to credits: the prologue (Elena's last drive), Tuesday to Monday as
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
   the ending. Every day rewritten from the novel (entries 17, 87), then the narrator cut back across the game (entries
@@ -1886,4 +1886,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Checked in the running game (full effects, `?scene=rescue_vault`): Alan at the grille and further out, both in
       front of the bars; the water dark in the cell up to Vasco's face, its line and his reflection; no page errors.
       Not deployed.
+139. **Deployed; the docs for the next session** (2026-11-03, the user: "deploy it", then "once deployed, update all the
+    documents for the next session and prepare a prompt outlining what it should review and focus on").
+    - Export of `d5e7fb09` (`git archive HEAD:sequel`, 559 MB; `build-manifest.mjs` run last: offline pack 8,428 files,
+      568 MB, version 761c103679); play.mjs on the export, its own port: won, 132 steps, no errors. Netlify deploy
+      `6aea1f09b90f010ef7cb0fa0`. Live: `/` 200, `art/fx/canteras_sky.png` and the new sea clips 200, the vault's bars
+      fix and `S.sky` in the live scripts; `/.env`, `/docs/`, `/scripts/` 404. Live now: everything to entry 138.
+    - "Start here" rewritten (what is in the game, the open list for 2026-11-03); `docs/NEXT_SESSION.md`: the prompt for
+      the next session (what to read, the rules, what to review first, what to focus on, what waits on the user).
 
