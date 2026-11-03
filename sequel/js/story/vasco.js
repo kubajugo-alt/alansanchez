@@ -57,7 +57,20 @@
     // the painting is a morning: Sunday night darkens it, Monday's sunrise warms it
     animBack(g, t) {
       const im = G.bgImage(), night = ch() === 6;
-      // the sea of cloud drifting below the camp (left of the cliff, behind the tents and the awning)
+      // the sea of cloud drifting below the camp (left of the cliff, behind the tents and the awning); with ?env=2 (HANDOFF
+      // 143) through the cloud sea's own mask (scripts/sky_masks.py, art/fx/camp_sky.png), so nothing slides over the table,
+      // the radio or the poles, and the awning lifts and settles (a vertical billow on the cloth only)
+      const cloudMask = window.ENV2 && S.skyImg('camp');
+      if (window.ENV2) {
+        if (cloudMask) FX.masked(g, cloudMask, m => {
+          for (let i = 0; i < 7; i++) {
+            const x = ((i * 190 + t * (5 + i % 3)) % 1100) - 160, y = 130 + (i * 53) % 190, r = 90 + (i % 3) * 40;
+            const gr = m.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, 'rgba(255,255,255,0.13)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+            m.fillStyle = gr; m.beginPath(); m.ellipse(x, y, r * 1.6, r * 0.5, 0, 0, 7); m.fill();
+          }
+        });
+        FX.billowV(g, im, [336, 176, 290, 42], t, 1, 6);
+      } else {
       g.save(); g.beginPath(); g.moveTo(0, 104); g.lineTo(795, 104); g.lineTo(795, 330); g.lineTo(380, 330); g.lineTo(380, 220);
       g.lineTo(330, 220); g.lineTo(330, 172); g.lineTo(0, 150); g.closePath(); g.clip();
       for (let i = 0; i < 7; i++) {
@@ -67,6 +80,7 @@
       }
       g.restore();
       FX.billow(g, im, [336, 176, 290, 42], t, 1.3, 4.2); // the awning in the wind
+      }
       FX.sway(g, im, [770, 300, 70, 46], t, 1.2, 0.2, true); // the broom by the generator
       FX.sway(g, im, [1050, 400, 120, 70], t, 1.4, 1.7, true); // the grass on the path
       if (!night) FX.birds(g, t, { y0: 120, y1: 230, x0: -40, x1: 780, n: 2, period: 30, color: 'rgba(40,36,34,0.6)', size: 6 }); // ravens over the cloud
@@ -76,7 +90,7 @@
       g.fillStyle = night ? 'rgb(52,62,110)' : 'rgb(255,214,170)'; g.fillRect(0, 0, 1280, 720); g.restore();
       if (night) {
         FX.twinkle(g, t, [[60, 30, 1], [140, 62, 1], [235, 22, 1], [318, 70, 1], [402, 38, 1], [486, 80, 1], [560, 18, 1], [640, 55, 1], [712, 30, 1], [770, 74, 1]], '230,236,255');
-        FX.glow(g, 158, 278, 48, '255,190,110', 0.75 * FX.flicker(t, 4)); // the storm lantern on the tent pole, lit
+        FX.glow(g, 158, 278, 48, '255,190,110', window.ENV2 ? 0.6 * (0.92 + 0.08 * FX.flicker(t, 4)) : 0.75 * FX.flicker(t, 4)); // the storm lantern on the tent pole, lit (a wick: with ?env=2 it only stirs, not pumps)
       }
     },
   });
@@ -338,6 +352,7 @@
   };
 
   // ---------------------------------------------------------------- the cave (upper)
+  let caveCloud = null;   // (Cave 6's cloud texture, made once)
   ROOMS.cave6 = S.room({
     music: 'cave6',
     name: 'Cave 6', bg: 'cave6', floor: 'stone', ambience: 'cistern', parallax: false,
@@ -367,7 +382,9 @@
     ],
     animBack(g, t) {
       // the cloud below the arch rolling, dust in the sun through the arch
-      FX.ripple(g, G.bgImage(), [40, 330, 160, 140], t * 0.3, 1.4, 0.04);
+      // (with ?env=2, HANDOFF 143: a slow cloud through the opening's own mask, art/fx/cave6_sky.png, the rock rim still)
+      if (window.ENV2) { const mk = S.skyImg('cave6'); if (mk) FX.masked(g, mk, m => FX.drawClouds(m, caveCloud || (caveCloud = FX.makeClouds(29, '236,238,244', 24)), t, 3, 300, 0.3)); }
+      else FX.ripple(g, G.bgImage(), [40, 330, 160, 140], t * 0.3, 1.4, 0.04);
       g.save(); g.beginPath(); g.moveTo(60, 170); g.lineTo(215, 170); g.lineTo(560, 640); g.lineTo(60, 640); g.closePath(); g.clip();
       FX.motes(g, t, 60, 170, 500, 470, 18, '255,232,180'); g.restore();
       S.drawUpLight(g, t);
@@ -634,6 +651,15 @@
       FX.flame(g, t, 733, 244, 26, 5, '255,160,70');
       FX.embers(g, t, 733, 218, 4);
       FX.motes(g, t, 1105, 95, 100, 220, 10, '230,230,220');
+      // (with ?env=2, HANDOFF 144: the painted floor is dry, so each drip lands in a small dark wet patch with a faint
+      // sheen, and its rings spread there)
+      if (window.ENV2) [[968, 600], [214, 618]].forEach(([x, y]) => {
+        g.save(); g.translate(x, y); g.scale(1, 0.24);
+        const gr = g.createRadialGradient(0, 0, 0, 0, 0, 34); gr.addColorStop(0, 'rgba(10,8,6,0.32)'); gr.addColorStop(0.7, 'rgba(10,8,6,0.18)'); gr.addColorStop(1, 'rgba(10,8,6,0)');
+        g.fillStyle = gr; g.beginPath(); g.arc(0, 0, 34, 0, 7); g.fill();
+        const hl = g.createRadialGradient(-6, -6, 0, -6, -6, 16); hl.addColorStop(0, 'rgba(255,220,170,0.10)'); hl.addColorStop(1, 'rgba(255,220,170,0)');
+        g.fillStyle = hl; g.beginPath(); g.arc(-6, -6, 16, 0, 7); g.fill(); g.restore();
+      });
       FX.drips(g, t, [[968, 600, 60, 5.3], [214, 618, 90, 7.9]], '200,190,170');
     },
     // the Sea's water only behind the bars, at his face, never through them (js/story/water.js: the cell's floor, clipped to

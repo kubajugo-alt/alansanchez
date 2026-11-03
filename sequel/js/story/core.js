@@ -523,6 +523,9 @@
     ['alanv_smoke_hold_inhale', [117, 81], [134, 80]]].forEach(([n, mouth, tip]) => {
     for (let i = 21; i <= 24; i++) S.SMOKE_POINTS[n + '_' + i] = { mouth, tip };
   });
+  // the paintings with a sway mask (scripts/sway_masks.py, art/fx/<bg>_sway.png; js/fx.js uses them with ?env=2, HANDOFF 142)
+  window.SWAY_MASKS = ['beach', 'beach_sun', 'belfry', 'camp', 'canteras', 'carmen_flat', 'colon', 'colon_out', 'gando', 'hotel_lobby', 'hotel_lobby_day',
+    'hotel_room', 'isleta', 'mercado', 'museum_courtyard', 'museum_hall', 'rafa_studio', 'santa_ana'];
   S.NO_SMOKE = new Set(['santa_ana_inside', 'belfry', 'cave6', 'cave6_low', 'vault', 'vault_cell', 'landrover', 'elena_car']);
   {
     const last = n => LU[n] ? LU[n].frames[LU[n].frames.length - 1] : null;

@@ -157,7 +157,7 @@
     // small moving details over the painting: the hanging lamp, the view from the kitchen window, the machine's light
     animBack(g, t) {
       const im = G.bgImage();
-      FX.glow(g, 450, 80, 70, '255,196,120', 0.16 * FX.flicker(t * 0.5, 2)); // the lantern over the photograph
+      FX.glow(g, 450, 80, 70, '255,196,120', window.ENV2 ? 0.13 : 0.16 * FX.flicker(t * 0.5, 2)); // the lantern over the photograph (a bulb: steady with ?env=2)
       FX.sway(g, im, [535, 88, 40, 58], t * 0.5, 0.6, 1.1); // the ivy trailing off the top shelf
       FX.ripple(g, im, [940, 205, 100, 12], t * 0.6, 0.5, 0.4); // the sea beyond the roofs, under the cloud
       FX.twinkle(g, t, [[956, 232, 1.5], [978, 246, 1.5], [1012, 228, 1.5], [1030, 252, 1.5], [995, 262, 1.5]], '255,220,150');
@@ -272,6 +272,12 @@
 
   // ================================================================ THE LAND ROVER
   let boiling = 0;
+  // the rosary's cut-out and the windscreen behind it (art/fx/landrover_rosary*.png, scripts/rosary_cut.py; ?env=2)
+  const rosaryImg = {};
+  const rosary = () => {
+    if (!rosaryImg.cut) { rosaryImg.cut = new Image(); rosaryImg.cut.src = 'art/fx/landrover_rosary.png'; rosaryImg.plate = new Image(); rosaryImg.plate.src = 'art/fx/landrover_rosary_plate.png'; }
+    return rosaryImg.cut.naturalWidth && rosaryImg.plate.naturalWidth ? rosaryImg : null;
+  };
   ROOMS.landrover = S.room({
     music: 'landrover',
     name: 'The road up', bg: 'landrover', player: false, noSave: true, parallax: false, ambience: 'night',
@@ -291,8 +297,20 @@
       if (!S.sea(g, 'landrover')) FX.ripple(g, im, [950, 202, 290, 78], t * 0.35, 1.2, 0.05);
       // the stars over the sea of cloud
       FX.twinkle(g, t, [[540, 112, 1], [598, 168, 1], [812, 104, 1], [868, 150, 1], [930, 118, 1], [1004, 172, 1], [1080, 98, 1], [1150, 140, 1], [1222, 116, 1], [760, 182, 1]], '230,236,255');
-      FX.sway(g, im, [668, 150, 62, 166], t * 1.4, 2.2 + bump, 0.3); // the rosary off the mirror, swinging with the road
-      FX.glow(g, 680, 330, 260, '255,226,170', 0.05 + 0.025 * (1 + Math.sin(t * 5.1) * Math.sin(t * 1.7))); // the headlights, jolting
+      if (window.ENV2) {
+        // (?env=2, HANDOFF 143) the rosary cut out of the painting (scripts/rosary_cut.py): the windscreen filled in behind it,
+        // then the beads and the cross swinging a little about the mirror with the road; the headlights' glow steady, its
+        // pool jolting with the bumps
+        const R = rosary();
+        if (R) {
+          g.drawImage(R.plate, 660, 146, 78, 176);
+          g.save(); g.translate(699, 150); g.rotate(0.035 * Math.sin(t * 2.1) + 0.012 * bump); g.drawImage(R.cut, -39, -4, 78, 176); g.restore();
+        }
+        FX.glow(g, 680, 330 + bump * 2, 260, '255,226,170', 0.0625);
+      } else {
+        FX.sway(g, im, [668, 150, 62, 166], t * 1.4, 2.2 + bump, 0.3); // the rosary off the mirror, swinging with the road
+        FX.glow(g, 680, 330, 260, '255,226,170', 0.05 + 0.025 * (1 + Math.sin(t * 5.1) * Math.sin(t * 1.7))); // the headlights, jolting
+      }
       // the dashboard's lamps (no cigarette: the user took it out of the painting, 2026-10-30)
       FX.glow(g, 627, 462, 10, '120,255,120', 0.35); FX.glow(g, 559, 505, 10, '120,255,120', 0.35); FX.glow(g, 730, 519, 9, '255,160,60', 0.4);
       S.drawMist(g, t, 1);

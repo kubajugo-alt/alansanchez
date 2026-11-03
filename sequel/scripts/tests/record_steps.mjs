@@ -3,13 +3,14 @@
 // sea loops seeked to the same clock, and each frame's canvas saved as a JPEG; then ffmpeg makes the video.
 // In each room Alan walks right across and back, so the parallax camera drifts with him. Serve the game first.
 //   node sequel/scripts/tests/record_steps.mjs <baseUrl> <outDir> room:chapter [room:chapter ...]
+//   (LEG=<s>: each leg's length, 4.5 s; HIDE_ALAN=1: Alan hidden, the room alone; <baseUrl>?env=2: the second movement pass)
 //   ffmpeg -framerate 30 -i <outDir>/f%05d.jpg -c:v libx264 -pix_fmt yuv420p out.mp4
 import { createRequire } from 'module';
 const require = createRequire('/opt/node22/lib/node_modules/');
 const { chromium } = require('playwright');
 const fs = require('fs');
 const [base, dir, ...rooms] = process.argv.slice(2);
-const FPS = 30, LEG = 4.5;
+const FPS = 30, LEG = +(process.env.LEG || 4.5), HIDE = !!process.env.HIDE_ALAN;   // (HIDE_ALAN=1: no Alan, the room alone)
 const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const p = await b.newPage({ viewport: { width: 1280, height: 720 } });
 const errs = []; p.on('pageerror', e => errs.push(e.message));
@@ -35,13 +36,13 @@ await p.addInitScript(FPS => {
 }, FPS);
 await p.goto(base); await p.waitForSelector('#title.ready', { timeout: 60000 });
 await p.evaluate(() => Game.begin(true)); await p.waitForTimeout(3000);
-await p.evaluate(() => { window.__manual(); window.CALM = false; });
+await p.evaluate(calm => { window.__manual(); window.CALM = calm; }, !!process.env.CALM);   // (CALM=1: no parallax drift)
 let n = 0; const marks = [];
 const frames = async k => { for (let i = 0; i < k; i++) fs.writeFileSync(`${dir}/f${String(n++).padStart(5, '0')}.jpg`, Buffer.from(await p.evaluate(() => window.__frame()), 'base64')); };
 for (const rc of rooms) {
   const [room, ch] = rc.split(':');
-  await p.evaluate(async ([room, ch]) => { Game.flags.ch = +ch; document.querySelectorAll('.tip,.toast').forEach(e => e.remove());
-    await Game.goRoom(room, null, { instant: true, noEnter: true, noSave: true }); const a = Game.player; if (a) { a.x = 240; a.walkTo(1040, a.y); } }, [room, ch]);
+  await p.evaluate(async ([room, ch, hide]) => { Game.flags.ch = +ch; document.querySelectorAll('.tip,.toast').forEach(e => e.remove());
+    await Game.goRoom(room, null, { instant: true, noEnter: true, noSave: true }); const a = Game.player; if (a && hide) a.visible = false; else if (a) { a.x = 240; a.walkTo(1040, a.y); } }, [room, ch, HIDE]);
   marks.push([room, n / FPS, await p.evaluate(() => !!(window.Parallax && Parallax.active))]);
   await frames(Math.round(LEG * FPS));
   await p.evaluate(() => { const a = Game.player; if (a) a.walkTo(240, a.y); });

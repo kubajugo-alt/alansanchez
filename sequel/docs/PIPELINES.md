@@ -70,6 +70,14 @@ painted sky), `foam` (a line of foam washing up a painted shoreline), `ceilFan`,
 (flame/gas glows) and `vignette`. Keep it small ("there's no wind"); never move anything the story keeps still. Review:
 a clip per room on a page, then the user's word.
 
+**The second pass (HANDOFF 142-144, behind `?env=2` until approved):** a row-shift effect (`FX.sway`, `breathe`,
+`billow`, `billowV`) only moves what its painting's sway mask lets it (`scripts/sway_masks.py` -> `art/fx/<bg>_sway.png`,
+listed in `window.SWAY_MASKS`, core.js): to add or change one, put the room's box (the same rect as the code) and a
+colour rule in `BOXES`, run it, look at `art/review/sway/<bg>.jpg`; a box with rule `None` stops moving. Skies and cloud
+seas: `scripts/sky_masks.py` (flood from seeds, or `PALE` by colour). See what a room moves with
+`scripts/tests/anim_delta.mjs`; record a before/after with `CALM=1 HIDE_ALAN=1 LEG=2 record_steps.mjs` against the page
+with and without `?env=2`. Electric lights burn steady; only wicks and flames flicker.
+
 ## 3. The sea (Higgsfield loops) (75)
 
 1. Upload the room painting to Higgsfield (`media_upload`, then `curl -X PUT` with `Content-Type` and

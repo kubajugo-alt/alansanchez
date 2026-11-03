@@ -1918,3 +1918,66 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       cigarette stops and he's back on his standing painting. `PLAY_ONLY=actions` stops after it (about a minute).
       Before the fix it stopped on the pickup's hold; after: all six ok, no page errors. validate: 0 errors.
 
+141. **The review the brief asked for first** (2026-11-03, the user's brief for this session). Review page: REVIEW_URL.
+    - **Live = branch**: the live `offline.json` is the branch's (version 761c103679, all 8,428 paths and hashes
+      equal), `index.html` equal, core.js, sun.js, vasco.js, smoke.js, the Isleta loop and a sky mask byte-equal;
+      `/.env`, `/scripts/`, `/docs/` 404. (Entry 139 had been pushed late by the last session; its "DEPLOY_ID" is filled.)
+    - **The sea and sky recordings redone** (entry 137's, cut off by a restart): `scripts/tests/record_steps.mjs`, before =
+      an export of `816627c1`, after = this branch, gando, hotel_room, canteras, beach, hotel_restaurant,
+      museum_courtyard, santa_ana, isleta, 9 s each with Alan walking across and back; side by side on the page. In
+      the recordings the camera's drift and Alan dominate frame-to-frame change, so the loop points were measured on
+      the decoded clips (what the game draws), blurred 1.5 px inside each mask: before, the wrap was 3.0-6.6x the
+      median step (hotel_room 6.6, restaurant 6.1, lobby 5.2); after, 1.4-2.1x, below each loop's own largest ordinary
+      step. By eye, frame by frame round the wrap: before, Isleta's mast reflections jump at the wrap; after, they flow
+      on. One thing seen: the beach loop's last six steps are busier than its median (the cross-fade region, two waves
+      blended), within its normal maximum. Clouds: before, Canteras's bank was lighter right of x 300 (the old clip
+      edge) and the sky lifted; after, no edge and no lift.
+    - **Alan's actions walked through** (`scripts/tests/record_actions.mjs`, new: each moment in its room on its day,
+      Alan at the hotspot, the run on the game's stepped clock through the story's beat; 20 moments). Every run's
+      first and last frame sits within 2 px of the standing painting (at 300 px tall), so no jump in or out. Findings
+      on the page (none changed, for the user): the phone box and Carmen's phone (he talks into a cordless handset
+      standing in front of the booth / beside the painted phone, so it reads like a mobile); the letter by the dogs
+      (the story says he sits, the run reads standing); the clock drum (his hands at waist height, the painted handle
+      above them); the grille (a short bar Ludo drew, in front of the bars); the founders' letter (Fermín has it out of
+      the chest, Alan crouches to the floor for it: `reach` would fit); the timing bug fixed in entry 140.
+    - **The idle cigarette**: it stops on any input from any step (play.mjs checks it); from the hold he drops it and
+      treads it out, from the drag or the light he dissolves straight back to standing and the cigarette simply goes.
+      Rooms where it can still start that may be wrong (not changed, for the user): the archive (Carmen's papers), the
+      museum hall and the corridor of skulls, the Casa de Colón (a museum), the camp on Sunday night (the rescue).
+142. **The room movement's second pass, behind `?env=2` (for review)** (2026-11-03, the user's brief: "G3, G4, G6 ... One
+    before/after clip per room for my approval before it goes in"). None of it shows unless the page is opened with
+    `?env=2` (or localStorage `shortest-night-env` = `2`), so the branch stays deployable as it was; approving means
+    making `window.ENV2` (js/fx.js) true by default, then taking the old branches out.
+    - Every finding of `docs/review/env_movement.md` re-checked on today's paintings first (each sway box drawn on the
+      repaint: `art/review/sway/`): the boxes still sit on their plants, and still hold what shouldn't move (Canteras's
+      HOTEL CRISTINA sign and portico, Gando's street lamp, the lobby's window rails, the museum hall's pillar, the
+      courtyard's balcony rail, the beach's facades, the Colón parrot's picture frame, the camp's stones and poles).
+      Still true too: the market's aloes and sign, the beach umbrella's rigid canopy, the dragon tree, the belfry's two
+      ropes. The prologue car was left alone: the prologue isn't played (`S.PLAY_PROLOGUE` false).
+    - **G3**: `scripts/sway_masks.py` writes `art/fx/<bg>_sway.png` per painting (17): in each of the room's boxes the
+      plant's greens (or the awning's tan, or the whole cloth for the curtains and newspapers), closed, grown 2 px,
+      softened, faded to nothing over 8 px at the box's edges; a box to stop is black. js/fx.js `sway`, `breathe` and
+      `billow` draw through it (`shifted()`: the rows into a scratch canvas at the painting's own resolution, masked,
+      then over the still painting) when the painting is in `window.SWAY_MASKS` (core.js). Canteras keeps the sign's
+      green letters out by a box.
+    - **G4**: `sway` is two sines (0.7 and 0.3, at 1.6 and 2.7) under a slow gust (`0.55 + 0.45 sin(0.21t) sin(0.13t)`),
+      `billow` the same gust; still tiny, and still most of the time.
+    - **G6**: every lamp in tue.js's rooms is a bulb (checked on the paintings: the lobby's wall lantern, the museum
+      hall's five lanterns, the courtyard's, the restaurant's sconces and lamp, the market's globes, Gando's tube):
+      `lamp()` burns steady at its old mean; the studio's stair lamp and Carmen's lantern steady; the camp's storm
+      lantern (a wick) stirs by 8% instead of pumping 37%.
+    - New: `FX.billowV` (columns up and down, ends held), `scripts/tests/anim_delta.mjs` (a room's animBack over the
+      bare painting at N moments: what moves), and `record_steps.mjs` takes `LEG`, `HIDE_ALAN`, `CALM`.
+143. **The Land Rover, the camp and Cave 6 (for review, `?env=2`)**: the rosary is cut out of the painting
+    (`scripts/rosary_cut.py`: warm, dark, saturated pixels inside a hand-drawn outline, at 2x) into
+    `art/fx/landrover_rosary.png`, with the windscreen behind it filled in (`_plate.png`, OpenCV inpainting); sun.js
+    draws the plate, then the rosary turned about the mirror (0.035 rad with the road, plus the bumps): no more road
+    warping behind it. The headlights' glow is steady and its pool jolts with the bumps. The camp's cloud blobs are
+    drawn only in the cloud sea (`art/fx/camp_sky.png`, picked by colour, `scripts/sky_masks.py` `PALE`), not over
+    the table, the radio or the poles; the awning lifts and settles (`billowV`, masked to the cloth, 6 s) instead of
+    shearing sideways with its poles. Cave 6: a slow cloud through the opening's mask (`art/fx/cave6_sky.png`) instead
+    of a row ripple over the rock rim.
+144. **The two still exteriors and the vault's drips (for review, `?env=2`)**: the Casa de Colón and the Museo Canario
+    outside get the overcast sky drifting through their own masks (`colon_out`, `museum_out` in sky_masks.py) and a
+    gull; the bougainvillea by Colón's door stirs (masked to its leaves and flowers). The vault's two drips land in a
+    small dark wet patch with a faint sheen (the painted floor is dry).

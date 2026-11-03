@@ -58,7 +58,7 @@
       FX.wisps(g, t, 600, 440, { n: 5, rise: 46, spread: 7, rgb: '255,250,240', a: 0.16, size: 7, speed: 0.22 }); // the moka pot's spout
       FX.wisps(g, t + 1.3, 576, 461, { n: 4, rise: 36, spread: 5, rgb: '255,250,240', a: 0.12, size: 5, speed: 0.2 }); // Rafa's cup
       FX.wisps(g, t + 2.6, 666, 467, { n: 4, rise: 36, spread: 5, rgb: '255,250,240', a: 0.12, size: 5, speed: 0.2 }); // Alan's cup
-      FX.glow(g, 1180, 184, 34, '255,226,160', 0.12 + 0.02 * Math.sin(t * 0.8)); // the stair lamp, an electric bulb: steady
+      FX.glow(g, 1180, 184, 34, '255,226,160', window.ENV2 ? 0.13 : 0.12 + 0.02 * Math.sin(t * 0.8)); // the stair lamp, an electric bulb: steady
     },
   });
   // the sketchbook on the table, a napkin from the bar in it like a bookmark: Yeray, and what he said (the close-up and

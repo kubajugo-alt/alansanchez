@@ -22,6 +22,7 @@ when Game I's engine changes. A fix wanted in both is made in both, on purpose. 
 | `js/engine/stills.js` | A close-up page can be interactive (`p.mount(el, redraw)`; the puzzles' pages). |
 | `js/engine/render.js` | The Sea's water hook (`E.waterPass`, from `js/story/water.js`): `begin(g)` before the depth-sorted figures, `figure(g, a)` after each one is drawn, `end(g)` after them and before the room's `animFg` (HANDOFF entry 108). |
 | `js/fx.js` | The painted inventory icons are listed by the story (`window.PAINTED_ICONS`, read when the first icon is drawn, since fx.js loads before the story: HANDOFF entry 116); an item with no icon yet shows a luggage tag with its short name (`window.ICON_LABELS`). |
+| `js/fx.js` (2) | With `?env=2` (`window.ENV2`, HANDOFF 142, for review): `sway`/`breathe`/`billow` draw through the painting's sway mask (`window.SWAY_MASKS`, `art/fx/<bg>_sway.png`) and sway in gusts; `billowV` (a cloth lifting). Without it, exactly as before. |
 | `js/engine/smoke.js` | The idle cigarette takes its timings, a pose per step and a frame list to load from the story (`G.idleSmoke.seq()`, `.pose(step, round)`, `.load()`, `.exhale`), since Game II's poses are Ludo runs between painted poses, not single paintings (HANDOFF entry 136). |
 
 ## Load order (index.html)
@@ -130,6 +131,8 @@ original.
   blazer, stretch, embrace, kneel...) shows his standing painting.
 - `G.idleSmoke` (end of core.js): the cigarette's runs, timings, mouth/tip points (`S.SMOKE_POINTS`), and where it's
   allowed (`S.NO_SMOKE`: churches, the cave, the vault, the cars; never in the blazer, undressed or as Vasco).
+- `scripts/sprite_specks.py <run>`: clears stray specks a Ludo run leaves apart from the figure (HANDOFF 140).
+- `scripts/tests/record_actions.mjs <url> <dir> [name]`: each action where the story plays it, on the stepped clock (HANDOFF 141).
 - `scripts/ludo_add.py <run> ...`: adds fitted runs to `art/sprites/` and `js/sprites_ludo.js` without rebuilding the
   others (`ludo_install.py` needs every run's `fit/`, git-ignored); `HOLD` sets the frame the story waits on.
 - Run specs: `scripts/ludo_runs_alan_actions.json`, `scripts/ludo_runs_alan_smoke.json`; review in

@@ -47,7 +47,9 @@
     g.restore();
   }
   // a lamp's light breathing: a glow that flickers (a flame) or barely moves (a bulb)
-  const lamp = (g, t, x, y, r, rgb, a, seed, live) => FX.glow(g, x, y, r, rgb, a * (live ? FX.flicker(t, seed) : 0.94 + 0.06 * Math.sin(t * 0.9 + seed)));
+  // (with ?env=2, G6 of docs/review/env_movement.md, HANDOFF 142: every lamp these rooms have is electric, a bulb in a
+  // lantern or under a shade, or Gando's tube, so it burns steady, no flicker, no breathing)
+  const lamp = (g, t, x, y, r, rgb, a, seed, live) => FX.glow(g, x, y, r, rgb, window.ENV2 ? a * (live ? 0.84 : 0.94) : a * (live ? FX.flicker(t, seed) : 0.94 + 0.06 * Math.sin(t * 0.9 + seed)));
 
   // ================================================================ GANDO
   ROOMS.gando = S.room({
@@ -477,6 +479,10 @@
     music: 'santa_ana',
     name: 'El Museo Canario', bg: 'museum_out', floor: 'stone', ambience: 'street',
     entries: { default: [200, 660, 'e'], map: [200, 660, 'e'], museum_hall: [632, 580, 's'] },
+    // (with ?env=2, HANDOFF 144: it had no movement; the overcast sky drifting through its mask and a gull)
+    animBack(g, t) {
+      if (window.ENV2) S.sky(g, t, 'museum_out', { a: 0.45, birds: { y0: 30, y1: 140, n: 1, period: 29, size: 4, color: 'rgba(44,44,50,0.55)' } });
+    },
     hotspots: [
       { name: 'El Museo Canario', rect: [575, 330, 115, 195], at: [632, 560], exit: 'museum_hall', entry: 'map' },
       S.toMap([0, 380, 60, 330], [60, 650]),

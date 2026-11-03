@@ -77,6 +77,13 @@
     music: 'santa_ana',
     name: 'Casa de Colón', bg: 'colon_out', floor: 'stone', ambience: 'street',
     entries: { default: [200, 660, 'e'], map: [200, 660, 'e'], colon: [715, 590, 's'] },
+    // (with ?env=2, HANDOFF 144: it had no movement; the overcast sky drifting through its mask, a gull, and the
+    // bougainvillea by the door stirring, masked to its leaves and flowers)
+    animBack(g, t) {
+      if (!window.ENV2) return;
+      FX.sway(g, G.bgImage(), [780, 330, 110, 215], t * 0.5, 0.6, 0.8, true);
+      S.sky(g, t, 'colon_out', { a: 0.45, birds: { y0: 30, y1: 110, n: 1, period: 27, size: 4, color: 'rgba(44,44,50,0.55)' } });
+    },
     hotspots: [
       { name: 'Casa de Colón', rect: [668, 385, 94, 160], at: [715, 570], exit: 'colon', entry: 'map' },
       S.toMap([0, 380, 60, 300], [50, 650]),
