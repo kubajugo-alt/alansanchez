@@ -1849,3 +1849,33 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       8,422 files, 567 MB, version 4d400b36ca); play.mjs on the export, its own port: won, 132 steps, no errors. Netlify
       deploy `6ae678a9494597e6d671679f`. Live: `/` 200, `/js/sprites_ludo.js` and the new frames 200, `idleSmoke` in the
       live core.js; `/.env`, `/scripts/`, `/docs/` 404.
+137. **The sea loops and the sky** (2026-11-01/02, the user: "Do the sea and sky"; docs/review/env_movement.md G1, G2,
+    G5, written before the repaint, so re-measured first).
+    - **Sea** (`scripts/sea_loop.py`): the seven sea clips still eased to a stop and jumped back (the wrap 3.4-7.9x a
+      normal frame's change). Each now has the eased ends trimmed and its last 16 frames cross-faded into its first, and
+      is encoded with the quality steady across the loop (x264 `ipratio=1:pbratio=1:bframes=0:mbtree=0:aq-mode=0`, crf
+      18; the encoder's usual end-of-loop quality drop made a "pop" of its own). Measured on the decoded files, blurred
+      to compare motion not grain: the wrap is no bigger than the largest ordinary step inside each loop, in both the
+      mp4 and the webm. The Land Rover's road loop was fine and is unchanged. The old clips are kept in
+      `art/designs/sea_loops_v1/`. +0.5 MB.
+    - **Sky**: the old single pale cloud bank (`drift`, tue.js) lifted the sky and was clipped by hand-drawn shapes that
+      no longer matched the repainted rooms. Now `S.sky` / `S.panza` (core.js): Wednesday's two-tone bank (a dark one
+      under a pale one) through a sky mask, with the gulls in the same mask. The masks for gando, hotel_room, canteras,
+      beach, restaurant and courtyard are made once by `scripts/sky_masks.py` (the same flood as wed.js, seeds per room,
+      Gando's ceiling light blocked off) into `art/fx/<name>_sky.png`; overlays to check in `art/review/sky/`. In those
+      rooms and in Isleta, Santa Ana and the belfry the clouds are drawn after the row-shift effects (G2), so a swaying
+      palm no longer punches a hole in the moving cloud. `drift` removed.
+    - Before/after recordings (`scripts/tests/record_steps.mjs`) were cut off by a session restart: to redo for the
+      user. Not deployed.
+138. **The vault on Sunday: the water and the bars** (2026-11-03, the user, from the live site's `?scene=rescue_vault`:
+    "there is no water there... and Alan can walk behind the bars").
+    - The water level was only set by `ROOMS.vault.enter` (sun.js), which a preview, a loaded save or any `noEnter`
+      arrival skips (`S.water` isn't saved). The vault's `animBack` now sets it (0.46, at his face) whenever it's Sunday
+      and Vasco isn't out yet and nothing else has set it.
+    - `S.vaultBars` drew the bars cut from the painting over every figure, so Alan and Yeray looked as if they stood in
+      the cell. The bars are now drawn on their own canvas with every figure standing in front of the grille's foot
+      (y 530 on) cut out by its own sprite frame (as dance.js), so they stay over Vasco only.
+    - Checked in the running game (full effects, `?scene=rescue_vault`): Alan at the grille and further out, both in
+      front of the bars; the water dark in the cell up to Vasco's face, its line and his reflection; no page errors.
+      Not deployed.
+

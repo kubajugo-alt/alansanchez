@@ -625,6 +625,9 @@
     ],
     // small moving details over the painting: the storm lantern, the torch by the grille, the light down the steps
     animBack(g, t) {
+      // Sunday, Vasco still behind the bars: the water stands at his face (also when the room is reached from a save or a
+      // preview, which skip the way in, sun.js ROOMS.vault.enter; S.water isn't saved)
+      { const f = F(); if (f.ch === 6 && !f.vasco_free && !(S.water.vault > 0)) S.water.vault = 0.46; }
       FX.glow(g, 283, 292, 110, '255,170,80', 0.16 * FX.flicker(t, 1));
       FX.flame(g, t, 283, 300, 14, 1, '255,190,100');
       FX.glow(g, 733, 228, 120, '255,150,60', 0.2 * FX.flicker(t, 5));
@@ -649,11 +652,29 @@
   });
   // the bars of the grille on the Sunday painting (measured on the 1280 painting), drawn back over whoever's behind them
   const BARS = [375, 406, 440, 474, 510, 547, 585, 623, 664, 704, 744, 782, 818];
+  // (2026-11-03, the user: "Alan can walk behind the bars": the bars were drawn over every figure; now only over those
+  // behind them. Anyone standing in front of the grille's foot, y 530 on, is cut out of the bars, by their own sprite
+  // frame, as dance.js cuts the figures out of the far women)
+  const barsC = document.createElement('canvas'); barsC.width = 1280; barsC.height = 720;
+  const bg2 = barsC.getContext('2d');
   S.vaultBars = function (g) {
     const im = G.bgImage(); if (!im || !im.width) return;
-    const k = im.width / 1280, cut = (x, y, w, h) => g.drawImage(im, x * k, y * k, w * k, h * k, x, y, w, h);
+    const E = window.Engine, k = im.width / 1280;
+    bg2.globalCompositeOperation = 'source-over'; bg2.clearRect(0, 0, 1280, 720);
+    const cut = (x, y, w, h) => bg2.drawImage(im, x * k, y * k, w * k, h * k, x, y, w, h);
     for (const x of BARS) cut(x - 7, 62, 14, 462);
     cut(362, 176, 484, 16); cut(362, 500, 484, 26);   // (the crossbar, the bottom rail)
+    bg2.globalCompositeOperation = 'destination-out';
+    const figs = (E.npcs || []).filter(a => a.visible).concat(E.player && E.player.visible ? [E.player] : []);
+    for (const a of figs) {
+      if (a.y < 530) continue;   // (Vasco, in the alcove: the bars stay over him)
+      const P = a.cur && a.place(a.cur, !!a.lastFlip); if (!P || !P.im) continue;
+      bg2.save(); bg2.translate(a.x + P.x, a.y + P.y);
+      if (P.flipped) { bg2.translate(P.w, 0); bg2.scale(-1, 1); }
+      bg2.drawImage(P.im, 0, 0, P.w, P.h); bg2.restore();
+    }
+    bg2.globalCompositeOperation = 'source-over';
+    g.drawImage(barsC, 0, 0);
   };
 
   // ================================================================ THE CELL (Saturday: the vault from inside)
