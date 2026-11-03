@@ -77,12 +77,16 @@ with no connection. `scripts/build-manifest.mjs` writes its list (`offline.json`
 Test: `node scripts/tests/offline.mjs <copy of the web root> <out dir>`. Live (entries 128, 129). Not tested on
 Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
 
-### Open, in the order I'd suggest (2026-11-03)
+### Open, in the order I'd suggest (2026-11-03, after entries 140-144)
+0. **The user's verdicts** on the review page https://claude.ai/artifact/WhwsBPJupuy6eeMQJaWEf6 (`ArtifactData list
+   verdicts`): per room of the movement's second pass (all behind `?env=2`, entries 142-144; approving = `window.ENV2`
+   true by default in js/fx.js, then drop the old branches), per action (the six that don't quite fit), and which rooms
+   should stop the idle cigarette (archive, museum hall, corridor, Colón, the camp on Sunday night?).
 1. **Look at what went live last** with the user: the sea loops and the clouds (entry 137; the before/after
    recordings were cut off by a restart: redo them with `scripts/tests/record_steps.mjs`, before = the export of
    `816627c1`), the vault on Sunday (entry 138; the water there is darker than the finale's, a few numbers in
    `S.WATER_ROOMS.vault` if the user wants it clearer), Alan's actions in play.
-2. **The rest of the environment movement** (`docs/review/env_movement.md`, no services needed): G3 a masked,
+2. **(Done for review, entries 142-144, behind `?env=2`.) The rest of the environment movement** (`docs/review/env_movement.md`, no services needed): G3 a masked,
    feathered sway (plants only; frames, pillars, signs and facades stop moving), G4 a gusty rhythm, G6 electric
    lights that don't flicker, the prologue car's pale quad, the Land Rover's rosary and headlights, what shouldn't move
    (the market sign, the umbrella canopy, the dragon tree, the bell rope), the two still exteriors. The review predates
@@ -101,13 +105,12 @@ Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
    the rising of the sun" (1483 is noon now); `lolo_s_talk_3` "this afternoon" before one o'clock and `alan_su_lolo`
    "Saturday morning" (Vasco can send only after 14:04); `pino_s_missal` "Two crossed out. Two not." (her list: seven,
    five struck); `chano_th_pepe_6` "Now two." (five); Montesdeoca 25 in 1966 (`chano_s_tasarte_2`) against 28
-   (`vasco_rock_tasarte_3`); `vasco_t_sorry` "for the equinox". Code leftovers: the clinometer item (core.js, never
-   given), `S.tideStep` unused, a sun.js comment "disc six came out this morning".
+   (`vasco_rock_tasarte_3`); `vasco_t_sorry` "for the equinox". (The code leftovers, the clinometer, `S.tideStep`, the sun.js
+   comment, were tidied in entry 140.)
 6. **Questions the user hasn't answered**: the first surge in the cave back to the knees (108)? Canarian-sounding
    voices (118)? Gando's board "JUN16" / "BÜSSEDORF" (120; a painting, only on their word)?
 7. **Smaller**: Vasco's walks (125: no real back painting, the profile-to-three-quarter cut on stopping); the extra
-   love-scene pictures in `art/review/stills_real/` (not in the game); trim the speck the set-down run leaves on the
-   floor; Play offline untested on Safari/iOS.
+   love-scene pictures in `art/review/stills_real/` (not in the game); (the set-down speck: trimmed, entry 140); Play offline untested on Safari/iOS.
 
 ### Voice casting (the user's rule, 2026-10-27)
 - **Alan, Vasco, Inês and the narrator keep their Game I voices** (Game I's `scripts/cast.json`): Alan
@@ -1918,7 +1921,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       cigarette stops and he's back on his standing painting. `PLAY_ONLY=actions` stops after it (about a minute).
       Before the fix it stopped on the pickup's hold; after: all six ok, no page errors. validate: 0 errors.
 
-141. **The review the brief asked for first** (2026-11-03, the user's brief for this session). Review page: REVIEW_URL.
+141. **The review the brief asked for first** (2026-11-03, the user's brief for this session). Review page (clips, a verdict and a note per clip in its db `verdicts`): https://claude.ai/artifact/WhwsBPJupuy6eeMQJaWEf6.
     - **Live = branch**: the live `offline.json` is the branch's (version 761c103679, all 8,428 paths and hashes
       equal), `index.html` equal, core.js, sun.js, vasco.js, smoke.js, the Isleta loop and a sky mask byte-equal;
       `/.env`, `/scripts/`, `/docs/` 404. (Entry 139 had been pushed late by the last session; its "DEPLOY_ID" is filled.)
@@ -1959,7 +1962,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       softened, faded to nothing over 8 px at the box's edges; a box to stop is black. js/fx.js `sway`, `breathe` and
       `billow` draw through it (`shifted()`: the rows into a scratch canvas at the painting's own resolution, masked,
       then over the still painting) when the painting is in `window.SWAY_MASKS` (core.js). Canteras keeps the sign's
-      green letters out by a box.
+      green letters out by a box. (First written as greyscale PNGs, which the canvas reads as opaque everywhere, so
+      nothing was masked; caught by `anim_delta.mjs`, now white with the mask in the alpha. Checked: Canteras's sign
+      letters and portico pillar, the market's aloes: spread 0.8-1.2 before, 0.0 after; the fronds still move.)
     - **G4**: `sway` is two sines (0.7 and 0.3, at 1.6 and 2.7) under a slow gust (`0.55 + 0.45 sin(0.21t) sin(0.13t)`),
       `billow` the same gust; still tiny, and still most of the time.
     - **G6**: every lamp in tue.js's rooms is a bulb (checked on the paintings: the lobby's wall lantern, the museum
@@ -1981,3 +1986,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     outside get the overcast sky drifting through their own masks (`colon_out`, `museum_out` in sky_masks.py) and a
     gull; the bougainvillea by Colón's door stirs (masked to its leaves and flowers). The vault's two drips land in a
     small dark wet patch with a faint sheen (the painted floor is dry).
+    - Checked after all of it: `play.mjs` on the branch (default, no `?env=2`): won, 132 steps, no errors, its new
+      action and cigarette checks ok; the `?env=2` recordings of 23 room states: no page errors; validate: 0 errors.
+      Nothing deployed.
+
