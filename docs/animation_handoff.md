@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `a7fcbd59` (Netlify `6ae1498ab246bdf2ff2a7dcb`,
 entry 84): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-87; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-88; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1600,6 +1600,12 @@ session lived in the session's scratchpad and are gone; everything that matters 
       user. To install: `faces/*` into `art/faces/`, `emo.json`'s entries into `js/faces.js`, the line list into a
       `js/story/emotions.js` (and `face_kit.py` must keep `emo` when it rebuilds a set).
     - Checks: validate 0 errors; with `?emo=1` the emotions draw on the tagged lines, without it nothing changes.
+88. **The emotions installed** (2026-11-04, the user: "Install the expressions in Game I and deploy both games"). Entry 87's
+   94 patches copied into `art/faces/`; `emo` entries for the six frames in `js/faces.js`; the 38 tags moved to
+   `js/story/emotions.js` (loaded after core.js, as Game II's); `js/story/emo_preview.js` and `?emo=1` removed.
+   `scripts/face_kit.py` and `scripts/face_transfer.py` keep a frame's `emo` when they rebuild its set. Checks: validate 0
+   errors; in the game 38 tags, the patches load from art/faces with no 404 and no page errors; smoke shopjobs, intro,
+   finale, bastos pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

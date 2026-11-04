@@ -151,9 +151,11 @@ for n_done, frame in enumerate(FRAMES):
     for s, e in EYES.items():
         a = w6(e); a[..., :3] = np.clip(a[..., :3] + shift, 0, 255)
         Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), 'RGBA').resize((BW, BH), Image.LANCZOS).save(OUT + f'{frame}_eyes_{s}.webp', lossless=True)
+    old = data.get(frame) or {}
     data[frame] = {'box': [int(bx), int(by), BW, BH], 'mouths': [] if frame in NO_MOUTH else STATES, 'eyes': ['half', 'closed'],
                    'ok': (data.get(frame) or {}).get('ok', False)}  # in the game once approved on the review page
     if frame in CAND and frame not in SPR: data[frame]['src'] = CAND[frame]['src']  # (cut from that candidate's own picture)
+    if old.get('emo'): data[frame]['emo'] = old['emo']   # (the emotions, js/story/emotions.js: kept)
     print(frame, 'head at', (bx, by), 'fit', round(float(cc), 3))
 if skipped: print(len(skipped), 'left without a face (turned, or no good match):', ' '.join(skipped))
 save()

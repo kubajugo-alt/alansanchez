@@ -380,6 +380,7 @@ def build(names):
         r = build_one(fr, index[fr], key)
         if not r: continue
         fit = r.pop('fit'); r['ok'] = (data.get(key) or {}).get('ok', False)   # in the game once approved on the review page
+        if (data.get(key) or {}).get('emo'): r['emo'] = data[key]['emo']   # (the emotions, js/story/emotions.js: kept)
         data[key] = r
         print(fr, r['box'], ' '.join(f'{k}:{v}' for k, v in fit.items()), flush=True)
     open(os.path.join(ROOT, 'js/faces.js'), 'w').write(

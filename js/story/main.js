@@ -380,8 +380,6 @@
   if (S.seaTick) setInterval(S.seaTick, 250);
   // the animation review screen: only with ?review in the address, never in normal play or the menus
   const review = new URLSearchParams(location.search).has('review');
-  // Game II's emotions on Alan, a preview waiting for approval (js/story/emo_preview.js): only with ?emo=1
-  if (new URLSearchParams(location.search).get('emo') === '1') { const sc = document.createElement('script'); sc.src = 'js/story/emo_preview.js?v=' + Date.now(); document.head.appendChild(sc); }
   loadApproved().then(() => {
     if (review) { const sc = document.createElement('script'); sc.src = 'js/review.js?v=' + Date.now(); document.head.appendChild(sc); }
     if (new URLSearchParams(location.search).get('scene') === 'walklab') { const sc = document.createElement('script'); sc.src = 'js/walklab.js?v=' + Date.now(); document.head.appendChild(sc); }

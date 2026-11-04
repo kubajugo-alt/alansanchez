@@ -1,39 +1,10 @@
-// PREVIEW ONLY (?emo=1): Game II's emotions on Game I's Alan, waiting for the user's approval. Loaded by js/story/main.js
-// only with ?emo=1 in the address; without it nothing here runs and the game is as it was.
-// The patches were carried over from Game II's painted emotions by scripts/face_emotions_g2.py (local image work: an
-// affine fit of Game II's head on each Game I frame, only what the emotion changes taken, in Game I's own colours and
-// ink line). They live in art/review/emotions_g2/faces/, not art/faces/: nothing is installed in js/faces.js.
-// The shared engine (js/engine/faces.js) draws FACES[frame].emo while a line in Engine.LINE_EMO is spoken and for a
-// moment after; never while Alan walks (the engine drops it).
+// Which of Alan's lines show an emotion on his face (Engine.LINE_EMO[lineId] = 'joy' ...), drawn by the shared
+// js/engine/faces.js from each face set's emo in js/faces.js (approved by the user 2026-11-04: Game II's eight emotions
+// blended onto six of Game I's Alan frames, scripts/face_emotions_g2.py; the frames alan_side, alan_idle2, alan_talk,
+// alan_talk2, alan_front, alan_lantern). A tagged line shows a face only when he is on one of those frames; never while
+// he walks (the engine drops it). As Game II's js/story/emotions.js.
 (function () {
   const E = window.Engine;
-  // ---------------------------------------------------------------- the candidate emotion sets (art/review/emotions_g2/emo.json)
-  const ALL8 = ['fear', 'anger', 'sadness', 'concern', 'surprise', 'joy', 'embarrassed', 'mischievous'];
-  const EMO = {
-    alan_side: { box: [70, 30, 80, 90], set: ALL8, lid: false },
-    alan_idle2: { box: [75, 30, 80, 90], set: ALL8, lid: false },
-    alan_talk: { box: [67, 26, 80, 93], set: ALL8, lid: false },
-    alan_talk2: { box: [79, 28, 80, 93], set: ALL8, lid: false },
-    alan_front: { box: [92, 38, 61, 80], set: ALL8, lid: false },
-    // the lantern (Chapter V): its head is turned a little towards us, so Game II's profile lips don't sit on it; the five
-    // below keep the frame's own closed mouth with the new brows and eyes; embarrassed is left out
-    alan_lantern: { box: [121, 46, 44, 67], set: ['fear', 'anger', 'sadness', 'concern', 'surprise', 'joy', 'mischievous'], lid: false },
-  };
-  for (const [f, emo] of Object.entries(EMO)) if (window.FACES && FACES[f]) FACES[f].emo = emo;
-
-  // the engine asks for art/faces/<frame>_emo_<e>[_up].webp: serve these frames' patches from the review folder instead
-  const RE = new RegExp('^(?:.*/)?art/faces/((?:' + Object.keys(EMO).join('|') + ')_emo_[a-z]+(?:_up)?\\.webp)$');
-  const d = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
-  Object.defineProperty(HTMLImageElement.prototype, 'src', {
-    configurable: true, enumerable: d.enumerable, get: d.get,
-    set(v) { const m = typeof v === 'string' && v.match(RE); d.set.call(this, m ? 'art/review/emotions_g2/faces/' + m[1] : v); },
-  });
-  // warm the cache, so the first tagged line doesn't wait for its patches
-  for (const [f, { set }] of Object.entries(EMO)) for (const e of set) for (const s of ['', '_up']) new Image().src = `art/faces/${f}_emo_${e}${s}.webp`;
-
-  // ---------------------------------------------------------------- the proposed tags (36 of Alan's 563 lines)
-  // Alan mostly jokes with a straight face, and his regular face should carry most lines (Game II's rule: "don't overuse
-  // them"). These are the lines whose stage direction or story beat asks for a face (docs/STORY.md).
   const TAGS = {
     fear: [
       'alan_list_hand',    // [quietly] his dead grandfather's writing on a list made before any of the deaths
@@ -92,5 +63,4 @@
   };
   E.LINE_EMO = E.LINE_EMO || {};
   for (const [e, ids] of Object.entries(TAGS)) for (const id of ids) if (window.LINES && LINES[id]) E.LINE_EMO[id] = e;
-  window.EMO_PREVIEW = { frames: EMO, tags: TAGS };
 })();
