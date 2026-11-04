@@ -20,8 +20,11 @@
       FX.wisps(g, t, 1040, 470, { n: 4, rise: 90, spread: 30, a: 0.06, size: 26, speed: 0.1 });
       FX.drips(g, t, [[1222, 470, 412, 2.6]], '220,235,240');
       // light moving on the water: the long row of basins (a thin strip below their rims) and the big tank
-      g.save(); g.globalAlpha = 0.55; FX.water(g, t, 180, 381, 880, 10, '190,205,210'); g.restore();
-      g.save(); g.globalAlpha = 0.8; g.beginPath(); g.rect(880, 474, 350, 38); g.clip(); FX.water(g, t * 0.8, 880, 476, 350, 34, '200,214,220'); g.restore();
+      // (only while there's no water loop: js/story/sea.js, drawn in animBack)
+      if (!S.seaOn('lavadouro')) {
+        g.save(); g.globalAlpha = 0.55; FX.water(g, t, 180, 381, 880, 10, '190,205,210'); g.restore();
+        g.save(); g.globalAlpha = 0.8; g.beginPath(); g.rect(880, 474, 350, 38); g.clip(); FX.water(g, t * 0.8, 880, 476, 350, 34, '200,214,220'); g.restore();
+      }
       FX.drips(g, t, [[1128, 690, 532, 1.4]], '210,225,230'); // the tank's overflow into its puddle
       g.save(); g.globalAlpha = 0.3; g.beginPath(); g.rect(660, 520, 150, 110); g.clip(); FX.water(g, t * 0.6, 660, 520, 150, 110, '255,215,150'); g.restore(); // the lamp on the wet floor
     },
@@ -30,6 +33,7 @@
     layers: [{ img: 'lav_lamp_under', x: 683, y: 58 }, { img: 'lav_lamp', x: 691, y: 66, pivot: [730, 66], swing: t => 1.2 * Math.sin(t * 0.7) }],
     animBack(g, t) {
       const im = G.bgImage();
+      S.seaLoop(g, 'lavadouro'); // the basins' and the tank's water loop, if it has one (js/story/sea.js; made from the painting shown, the taller tank)
       [[20, 10, 95, 260, 0], [125, 30, 70, 240, 1.4], [205, 50, 60, 200, 2.3], [395, 60, 50, 170, 0.8], [280, 55, 36, 195, 1.9], [320, 95, 52, 125, 0.4], [462, 128, 54, 108, 2.9]].forEach(([x, y, w, h, ph]) => FX.sway(g, im, [x, y, w, h], t, 1.2, ph));
       for (const r of [[508, 170, 72, 190], [640, 165, 138, 195], [832, 160, 156, 200]]) FX.rain(g, t, r, 18, '215,222,228', 0.18); // rain beyond the arches
       g.save(); g.beginPath(); g.rect(460, 120, 540, 230); g.clip();
@@ -691,6 +695,7 @@
     g.restore();
   };
   ROOMS.ferreira = {
+    door: 'door', // the sound between rooms (engine/rooms.js passSound)
     name: 'Relojoaria Ferreira', bg: 'ferreira', bgs: ['ferreira_drawer', 'ferreira_drawer_empty'],
     // the desk drawer (painted): shut; pulled open with the tide card in it; then empty
     bgFn: () => !lit() || !F().drawer_unlocked ? 'ferreira' : (G.has('tidecard') || F().tidecardTaken) ? 'ferreira_drawer_empty' : 'ferreira_drawer',

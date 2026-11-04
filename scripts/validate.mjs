@@ -64,8 +64,29 @@ const unused = Object.keys(LINES).filter(id => !used.has(id));
 // ids built at run time (prefix + number) count as used when their prefix appears in the code
 const ALL = Object.values(SRC).join('\n');
 const dynamic = id => { const p = id.replace(/\d+$/, ''); return p !== id && (ALL.includes(`'${p}'`) || ALL.includes(`\`${p}`) || ALL.includes(`'${p}' +`)); };
-const retired = unused.filter(id => !dynamic(id));
+// the engine's own lines, built from the player's speaker (engine/input.js, inventory.js: who + '_fail_look' ...)
+const ENGINE_LINE = /^alan_(fail_\d\d|fail_look|fail_talk|fail_take|def_item|npc_busy)$/;
+const retired = unused.filter(id => !dynamic(id) && !ENGINE_LINE.test(id));
 if (retired.length) warnings.push(`${retired.length} lines in js/lines.js are never used by the code: ${retired.join(', ')}`);
+
+// ---------------------------------------------------------------- every speaker has a caption name (as Game II's)
+const NAMED = load('js/lines.js', 'SPEAKERS') || {};
+for (const who of SPEAKERS) if (!NAMED[who]) errors.push(`js/lines.js: speaker '${who}' has no name in window.SPEAKERS`);
+
+// ---------------------------------------------------------------- art on disk (as Game II's)
+// every room's paintings (art/bg, and art/bg2x for the ones listed in window.BG2X), every still and close-up the
+// story lists, every frame in js/sprites.js
+const story = Object.entries(SRC).filter(([f]) => rel(f).startsWith('js/story/')).map(([, s]) => s).join('\n');
+const bgs = new Set();
+for (const m of story.matchAll(/\bbg:\s*'([a-z0-9_]+)'/g)) bgs.add(m[1]);
+for (const m of story.matchAll(/\bbgs:\s*\[([^\]]*)\]/g)) for (const b of m[1].matchAll(/'([a-z0-9_]+)'/g)) bgs.add(b[1]);
+for (const b of bgs) if (!fs.existsSync(path.join(ROOT, 'art/bg', b + '.jpg'))) errors.push(`room painting missing: art/bg/${b}.jpg`);
+const BG2X = (story.match(/window\.BG2X\s*=\s*\[([^\]]*)\]/) || [, ''])[1].match(/[a-z0-9_]+/g) || [];
+for (const b of BG2X) if (!fs.existsSync(path.join(ROOT, 'art/bg2x', b + '.jpg'))) errors.push(`window.BG2X lists '${b}', not in art/bg2x/`);
+const listed = name => { const m = story.match(new RegExp(`window\\.${name}\\s*=\\s*\\[([^\\]]*)\\]`)); return m ? m[1].match(/'([a-z0-9_]+)'/g).map(x => x.slice(1, -1)) : []; };
+for (const s of listed('STILLS')) if (!fs.existsSync(path.join(ROOT, 'art/stills', s + '.jpg'))) errors.push(`still missing: art/stills/${s}.jpg`);
+for (const c of listed('CLOSEUPS')) if (!fs.existsSync(path.join(ROOT, 'art/closeups', c + '.jpg'))) errors.push(`close-up missing: art/closeups/${c}.jpg`);
+for (const [k, sp] of Object.entries(SPRITES)) { const f = sp.src || 'art/sprites/' + k + '.webp'; if (!fs.existsSync(path.join(ROOT, f))) errors.push(`frame missing: ${f} (js/sprites.js '${k}')`); }
 
 // ---------------------------------------------------------------- poses name real sprites
 for (const [f, src] of Object.entries(SRC)) {

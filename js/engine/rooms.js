@@ -12,17 +12,13 @@
 
 
   // ---------------------------------------------------------------- rooms
-  // What you hear between rooms: a door only where there is one, the stairs up
-  // the tower, the map's paper when unfolding it out of doors.
-  const INDOOR = { shop: 1, police: 1, tavern: 1, ferreira: 1, antiques: 1, cabin: 1 };
+  // What you hear between rooms: a room's own door sound (door: 'door' | 'shop_bell' | ...) going in or out of it,
+  // the map's paper when unfolding it. A pair can be silent (ROOMS[x].quietTo = ['y']), or a room to and from
+  // everywhere (quiet: true).
   function passSound(from, to) {
-    const pair = from + '>' + to;
-    if (/cistern|convent_night>convent|convent>convent_night/.test(pair)) return null;
-    if (from === 'se_tower' || to === 'se_tower') return 'stairs';
-    // each building has its own door: the shop's bell, the station's heavy door, the boat's hatch
-    const DOORS = { shop: 'shop_bell', police: 'door_police', tavern: 'door_tavern', antiques: 'shop_bell_small', cabin: 'hatch_ladder', ferreira: 'door' };
-    if ((from === 'boat' && to === 'cabin') || (from === 'cabin' && to === 'boat')) return 'hatch_ladder';
-    if (INDOOR[from] || INDOOR[to]) return DOORS[INDOOR[to] ? to : from] || 'door';
+    const A = ROOMS[from] || {}, B = ROOMS[to] || {};
+    if (A.quiet || B.quiet || (A.quietTo || []).includes(to) || (B.quietTo || []).includes(from)) return null;
+    if (B.door || A.door) return B.door || A.door;
     return from === 'map' || to === 'map' ? 'page' : null;
   }
   async function goRoom(id, entry, opts) {
@@ -67,7 +63,7 @@
     E.npcs = (E.room.npcs || []).concat(amb).filter(n => !n.when || n.when()).map(n => {
       if (keep.has(n.id)) return keep.get(n.id);
       const a = new E.Actor(n.id, n.ch || n.id, n.x, n.y, n.dir);
-      a.def = n; a.h = n.h || null; a.overlay = n.overlay || null; a.loop = n.loop || null; a.set = (typeof n.set === 'function' ? n.set() : n.set) || null;
+      a.def = n; a.h = n.h || null; if (n.rot) a.rot = n.rot * Math.PI / 180; a.overlay = n.overlay || null; a.loop = n.loop || null; a.set = (typeof n.set === 'function' ? n.set() : n.set) || null;
       if (n.init) n.init(a);
       return a;
     });

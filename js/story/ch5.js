@@ -6,6 +6,7 @@
 
   // ================================================================ CARMO AT MIDNIGHT
   ROOMS.convent_night = {
+    quietTo: ['convent'], // the sound between rooms (engine/rooms.js passSound)
     name: 'Convento do Carmo — midnight', bg: 'convent_night', music: 'carmo_night', ambience: 'night', floor: 'stone', skyMask: 'convent_night_sky',
     fog: 0.3, fogRGB: '120,135,180',
     walk: [[0, 640], [230, 560], [1000, 560], [1000, 594], [790, 594], [778, 716], [0, 716]], // around the open grate, and not behind the grating leaning on the wall
@@ -79,6 +80,7 @@
   const MARKS = { ferreira: [585, 232], coutinho: [692, 226], sanches: [604, 316], bastos: [706, 322] };
   const PLATFORM = [690, 420], CAUSEWAY_END = [600, 428]; // on the platform's front band; the walkway's top, where it meets it
   ROOMS.cistern = {
+    quiet: true, // the sound between rooms (engine/rooms.js passSound)
     name: 'The Cistern', bg: 'cistern', noSave: true, music: () => F().won ? null : F().bell_lit ? 'bell_motif' : 'cistern_deep', // the rite: the bell's motif ambience: 'cistern', floor: 'wet',
     fog: () => F().won ? 0 : 0.16, fogRGB: '90,140,120',
     shake: t => S.shakeAt(t), // the room jolts when Lacerda surges, when someone hits the water, and rumbles as the bell goes quiet
@@ -101,7 +103,9 @@
     animBack(g, t) {
       const im = G.bgImage();
       FX.sway(g, im, [84, 130, 34, 100], t * 3.2, 1.6, 0, true); FX.sway(g, im, [1199, 192, 37, 72], t * 3.4, 1.4, 1.1, true); // the torch flames licking
-      FX.ripple(g, im, [192, 410, 48, 96], t, 1.6, 0.4); FX.ripple(g, im, [1198, 395, 46, 95], t + 1, 1.6, 0.4); // their reflections
+      // their reflections: the black water's loop, if it has one (js/story/sea.js), else rippled here. (The green light on
+      // the water, in anim, is the bell's and stays either way; the rite's rising water, rings and marks are drawn over it.)
+      if (!S.seaLoop(g, 'cistern')) { FX.ripple(g, im, [192, 410, 48, 96], t, 1.6, 0.4); FX.ripple(g, im, [1198, 395, 46, 95], t + 1, 1.6, 0.4); }
     },
     anim(g, t) {
       S.carry();

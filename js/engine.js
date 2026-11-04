@@ -92,7 +92,7 @@
   // the frames a character can show (every name in its frames table that is a painted sprite)
   const framesOf = id => {
     const out = new Set(), c = CHARS[id], walk = v => { if (typeof v === 'string') { if (E.SPRITES[v]) out.add(v); } else if (v && typeof v === 'object') for (const x of Object.values(v)) walk(x); };
-    if (c) walk(c.frames);
+    if (c) { walk(c.frames); if (c.outfits) walk(c.outfits); }   // (and every outfit it can change into)
     return [...out];
   };
   const roomArt = id => {
@@ -128,11 +128,13 @@
   const stillKeys = name => ['still:' + name, 'close:' + name, 'bg:' + name].filter(k => SRC[k]);
   function register() {
     const add = (k, s) => { if (!SRC[k]) { SRC[k] = s; total++; } };
-    // a screen drawn above 1280 px (engine/base.js render scale) gets each room painting's 2x upscale (art/bg2x/,
-    // Real-ESRGAN x2plus; approved by the user) where it has one; the paintings themselves are art/bg. ?bg2x=0: never
+    // a room painting by screen: drawn above 1280 px (engine/base.js render scale), a painting listed in window.BG2X
+    // comes from art/bg2x/ (Game I: Real-ESRGAN x2plus, approved by the user); at 1280 or below, one listed in
+    // window.BG1X comes from art/bg1x/ (Game II: its 2560 paintings scaled down, a quarter of the memory on a phone).
+    // Everything else is art/bg. ?bg2x=0: always the small one
     const big = !/[?&]bg2x=0\b/.test(location.search) && E.syncRenderScale && E.syncRenderScale() > 1;
-    const bg2x = big ? (window.BG2X || []) : [];
-    for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) add('bg:' + b, bg2x.includes(b) ? 'art/bg2x/' + b + '.jpg' : 'art/bg/' + b + '.jpg');
+    const bgSrc = b => big && (window.BG2X || []).includes(b) ? 'art/bg2x/' + b + '.jpg' : !big && (window.BG1X || []).includes(b) ? 'art/bg1x/' + b + '.jpg' : 'art/bg/' + b + '.jpg';
+    for (const id in ROOMS) for (const b of [ROOMS[id].bg].concat(ROOMS[id].bgs || [])) if (b) add('bg:' + b, bgSrc(b));
     for (const s of (window.STILLS || [])) add('still:' + s, 'art/stills/' + s + '.jpg');
     for (const c of (window.CLOSEUPS || [])) add('close:' + c, 'art/closeups/' + c + '.jpg');
     for (const k in E.SPRITES) add('spr:' + k, E.SPRITES[k].src || 'art/sprites/' + k + '.webp'); // src: an approved review frame
@@ -141,16 +143,16 @@
     if (window.Parallax && Parallax.on) for (const id in ROOMS) { const r = ROOMS[id]; if (r.parallax === false) continue; r.depth = r.depth || r.bg + '_depth'; add('depth:' + r.depth, 'art/bg/' + r.depth + '.png'); }
     for (const id in ROOMS) if (ROOMS[id].skyMask) add('mask:' + ROOMS[id].skyMask, 'art/layers/' + ROOMS[id].skyMask + '.webp');
   }
-  // the order things stream in: Alan, the room a save would open in, the shop and Inês, the stills in story order,
+  // the order things stream in: Alan, the room a save would open in, the game's first room, the stills in story order,
   // then room by room (their art and their people), and whatever is left
-  // the room a game opens in: the newest save's, or the shop
+  // the room a game opens in: the newest save's, or the game's first (window.FIRST_ROOM, js/game.js)
   function firstRoom() {
     try { const j = JSON.parse(E.newestSave() || 'null'); if (j && ROOMS[j.room]) return j.room; } catch (e) { /* no storage */ }
-    return 'shop';
+    return window.FIRST_ROOM;
   }
   function order() {
     const seq = [];
-    seq.push(...roomAssets(firstRoom()), ...roomMore(firstRoom()), ...roomAssets('shop'), ...roomMore('shop'));
+    seq.push(...roomAssets(firstRoom()), ...roomMore(firstRoom()), ...roomAssets(window.FIRST_ROOM), ...roomMore(window.FIRST_ROOM));
     for (const s of (window.STILLS || [])) seq.push(...stillKeys(s));
     for (const id in ROOMS) seq.push(...roomAssets(id), ...roomMore(id));
     seq.push(...Object.keys(SRC));

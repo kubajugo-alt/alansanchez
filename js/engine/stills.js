@@ -117,6 +117,7 @@
           page.appendChild(c);
           p.canvas.draw(c);
         }
+        if (p.mount) p.mount(page, show);   // an interactive page (the notebook's puzzles, js/story/puzzles.js): wire it up, redraw with show()
         prev.style.visibility = i > 0 ? 'visible' : 'hidden';
         next.style.visibility = i < pages.length - 1 ? 'visible' : 'hidden';
         Sound.sfx('page');

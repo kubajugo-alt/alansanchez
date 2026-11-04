@@ -29,6 +29,7 @@
   S.inesGone = () => F().ch >= 5 || (F().ch === 4 && !!F().ze_saved) || !!(S.inesAtSe && S.inesAtSe() && F().se_visited); // (Inês's own `when`, turned round)
   const pessoaSpot = () => F().ch >= 5 && !F().ledger_found ? 'machine' : F().lampOff ? 'radiator' : 'desk';
   ROOMS.shop = {
+    door: 'shop_bell', // the sound between rooms (engine/rooms.js passSound)
     name: 'Livraria Sanches', bg: 'shop', bgs: ['shop_night', 'shop_nomag', 'shop_drawer', 'shop_drawer_nomag'],
     // day variants: grandfather's drawer pulled open on the ledger (from the key until Alan takes it), and the
     // desk without the magnifying glass once he has it
@@ -439,8 +440,9 @@
     name: 'Lisbon', bg: 'map', parallax: false, player: false, vignette: 0.3, noSave: true,
     music: 'map_lisbon',
     anim(g, t) {
+      if (!S.seaLoop(g, 'map')) { // the river's loop, if it has one (js/story/sea.js; the map has no parallax, so it goes here), else the light below
       g.save(); g.beginPath(); [[180, 610], [300, 580], [490, 555], [740, 535], [1000, 525], [1200, 475], [1210, 560], [1100, 640], [900, 672], [600, 680], [300, 662], [150, 620]].forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y));
-      g.clip(); g.globalAlpha = 0.5; FX.water(g, t * 0.5, 150, 480, 1060, 200, '230,240,250'); g.restore(); // light on the river
+      g.clip(); g.globalAlpha = 0.5; FX.water(g, t * 0.5, 150, 480, 1060, 200, '230,240,250'); g.restore(); } // light on the river
       FX.wisps(g, t, 449, 598, { n: 4, rise: 22, spread: 12, rgb: '235,235,230', a: 0.16, size: 5, speed: 0.25 }); // the steamer's funnel
       FX.drawClouds(g, S.dayClouds, t, 4, 60, 0.15); // haze drifting over the city
       for (const m of S.PINS) {
@@ -491,6 +493,7 @@
         poses: { blush: 'npc_phone_door_blush', firm: 'npc_phone_proud' } }
     : { frames: ['npc_phone', ['npc_phone_b', 'npc_phone_b2', 'npc_phone_b3', 'npc_phone_b2', 'npc_phone_b']], talkFrames: ['npc_phone_b_talk', 'npc_phone_b2', 'npc_phone_b_talk', 'npc_phone_b3', 'npc_phone_talk'], poses: { blush: 'npc_phone_blush', firm: 'npc_phone_proud' } };
   ROOMS.police = {
+    door: 'door_police', // the sound between rooms (engine/rooms.js passSound)
     name: 'Polícia Judiciária', bg: 'police', music: 'police_station', ambience: 'office', floor: 'tile',
     walk: [[60, 620], [1220, 620], [1280, 716], [0, 716]],
     scale: [606, 440, 716, 490],
@@ -632,6 +635,7 @@
 
   // ================================================================ TAVERN
   ROOMS.tavern = {
+    door: 'door_tavern', // the sound between rooms (engine/rooms.js passSound)
     name: 'Taberna da Saudade', bg: 'tavern', bgs: ['tavern_night'],
     bgFn: () => F().ch >= 5 ? 'tavern_night' : 'tavern',
     music: () => F().ch >= 5 ? 'tavern_night' : 'tavern_day', ambience: () => F().ch >= 5 ? null : 'tavern', floor: 'wood',

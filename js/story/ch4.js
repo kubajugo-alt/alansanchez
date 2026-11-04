@@ -34,7 +34,7 @@
     ],
     entries: { default: [140, 640, 'e'], map: [140, 640, 'e'], boat: [1000, 702, 'w'] },
     anim(g, t) {
-      FX.water(g, t, 700, 560, 580, 160, '200,210,220');
+      if (!S.seaOn('cais')) FX.water(g, t, 700, 560, 580, 160, '200,210,220'); // (the river's shimmer: only while there's no water loop, js/story/sea.js)
       for (let i = 0; i < 4; i++) FX.wisps(g, t + i * 2.2, 760 + i * 130, 600, { n: 3, rise: 40, spread: 70, rgb: '215,220,228', a: 0.05, size: 60, speed: 0.05 });
       FX.birds(g, t, { y0: 80, y1: 200, n: 3, period: 15, color: 'rgba(230,232,235,0.8)', size: 11 });
       g.save(); g.globalAlpha = 0.35; g.beginPath(); g.rect(330, 470, 100, 140); g.clip(); FX.water(g, t * 0.5, 330, 470, 100, 140, '255,200,130'); g.restore(); // lamp light shivering on the wet cobbles
@@ -45,10 +45,10 @@
       { img: 'cais_boats', x: 697, y: 375, pivot: [970, 560], bob: t => 1.5 * Math.sin(t * 0.9), swing: t => 0.3 * Math.sin(t * 0.9 + 0.8) },
     ],
     animBack(g, t) {
-      const im = G.bgImage();
+      const im = G.bgImage(), sea = S.seaLoop(g, 'cais'); // the river's loop, if it has one (js/story/sea.js); else the canvas ripple below
       S.clockSeconds(g, t, [[277, 119, 34]]); // the harbour clock's second hand (its painted hour stays; the story's time is the HTML clock)
       FX.breathe(g, im, [678, 448, 68, 52], t, 0.02, 3.1); FX.breathe(g, im, [532, 404, 42, 42], t, 0.02, 2.6); // the two gulls perched on the quay
-      g.save(); g.beginPath(); g.moveTo(1000, 560); g.lineTo(1280, 540); g.lineTo(1280, 720); g.lineTo(1130, 720); g.closePath(); g.clip(); FX.ripple(g, im, [990, 560, 290, 160], t, 2, 0.3); g.restore(); // the boats' reflections
+      if (!sea) { g.save(); g.beginPath(); g.moveTo(1000, 560); g.lineTo(1280, 540); g.lineTo(1280, 720); g.lineTo(1130, 720); g.closePath(); g.clip(); FX.ripple(g, im, [990, 560, 290, 160], t, 2, 0.3); g.restore(); } // the boats' reflections
     },
     // street furniture on the promenade, each hiding whoever walks behind it
     occluders: [
@@ -159,15 +159,16 @@
     // the whole deck rocks gently at its mooring
     sway: t => Math.sin(t * 0.7) * 0.004 + Math.sin(t * 0.31 + 1) * 0.0015, // the deck on a slow swell
     anim(g, t) {
-      FX.water(g, t, 0, 300, 300, 200, '200,210,220');
+      const sea = S.seaOn('boat'); // (the river's canvas shimmer only while there's no water loop, js/story/sea.js)
+      if (!sea) FX.water(g, t, 0, 300, 300, 200, '200,210,220');
       S.drawRope(g, t);
       FX.birds(g, t + 5, { y0: 40, y1: 160, n: 2, period: 17, color: 'rgba(225,228,232,0.7)', size: 10 });
       for (let i = 0; i < 3; i++) FX.wisps(g, t + i * 3, 60 + i * 110, 420, { n: 3, rise: 40, spread: 60, rgb: '215,220,228', a: 0.05, size: 55, speed: 0.05 });
       FX.glow(g, 786 + Math.sin(t * 0.7) * 7, 444, 9, '255,240,210', 0.16); // the porthole catching the light as she rolls
       FX.drips(g, t, [[770, 362, 252, 5.3], [880, 352, 236, 7.1]], '200,210,220'); // drips off the boom onto the hatch
-      g.save(); g.beginPath(); g.moveTo(0, 460); g.lineTo(230, 460); g.lineTo(0, 630); g.closePath(); g.clip(); FX.water(g, t * 0.9, 0, 460, 230, 170, '190,200,210'); g.restore(); // water under the neighbouring hull
+      if (!sea) { g.save(); g.beginPath(); g.moveTo(0, 460); g.lineTo(230, 460); g.lineTo(0, 630); g.closePath(); g.clip(); FX.water(g, t * 0.9, 0, 460, 230, 170, '190,200,210'); g.restore(); } // water under the neighbouring hull
     },
-    animBack(g, t) { FX.flame(g, t, 1186, 292, 14, 2); }, // the lantern
+    animBack(g, t) { S.seaLoop(g, 'boat'); FX.flame(g, t, 1186, 292, 14, 2); }, // the river's loop, if it has one (js/story/sea.js); the lantern
     npcs: [
       { id: 'ze', x: 900, y: 618, dir: 'w', name: 'Zé Coutinho', when: () => F().ze_awake && !F().ze_in_cabin, look: 'narr_look_ze', talk: () => S.talkZe(),
         items: { tidecard: () => S.zeCard(), file55: () => say('ze_file'), any: 'alan_fail_ze_item' } },
@@ -268,6 +269,7 @@
 
   // ================================================================ THE CABIN
   ROOMS.cabin = {
+    door: 'hatch_ladder', // the sound between rooms (engine/rooms.js passSound)
     name: 'The cabin', bg: 'cabin',
     sway: t => Math.sin(t * 0.7) * 0.0025 + Math.sin(t * 0.31 + 1) * 0.001, // below decks, the same swell, gentler
     layers: [{ img: 'cabin_notile', x: 0, y: 0, full: true, when: () => F().ze_saved || F().tile_held },

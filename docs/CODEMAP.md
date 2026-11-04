@@ -2,10 +2,26 @@
 
 Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads every script with a `<script>` tag, in the order below, and the files share globals on `window`. Each file is an IIFE that reads what it needs from those globals and adds its own.
 
+## The engine is shared with Game II
+
+`js/engine/*.js`, `js/engine.js`, `js/fx.js`, `js/audio.js`, `js/warp.js`, `js/parallax.js` and `css/style.css` are the
+same files, byte for byte, as Game II's under `sequel/` (since handoff entry 86). A fix is made once and copied to the
+other game as it is (`for f in ...; do cmp $f sequel/$f; done` shows they still match). Anything that belongs to one
+game is data the engine reads: `js/game.js`, `window.SPEAKERS` / `CALLED` (`js/lines.js`), `PAINTED_ICONS` /
+`FAIL_BY_CHAR` (`js/story/core.js`), `BG2X` (`js/story/main.js`), and per room `door`, `quietTo`, `quiet`
+(the sound between rooms). Game II's copy keeps its own `js/game.js` with its own keys, so saves never mix.
+
+What the engine can do since then that Game I's story doesn't use yet: Ludo runs on a character's frames (`talkFps`,
+a pose as `{ frames, fps, hold }`, `viewTurn`, `turnLR`, `turnFps`, `walkStep` / `frontStep` / `backStep`); emotions on
+a face (`Engine.LINE_EMO[lineId]`, needs `emo` art in a face set); a placed figure's `size`, `z`, `rot`, `speaker`;
+sprites marked `cut` (straight cuts, no dissolve); interactive close-up pages (`p.mount(el, redraw)`); nameless
+`ambient` extras that clicks pass through; `E.skinTint` (Game II's sunburn); an outfit's frames preloaded (`c.outfits`).
+
 ## Load order and what each file owns
 
 | # | File | Owns |
 |---|---|---|
+| 0 | `js/game.js` | What makes this game Game I for the shared engine: `GAME_KEY` (every localStorage key), `SAVE_SLOT`, `SAVE_VERSION`/`SAVE_MIGRATE`, `FIRST_ROOM`, `FOOTSTEPS`, `TURNERS`, `MUSIC_LEGACY`, `GAME_TIPS`, `STUCK_TIP_WHEN`. |
 | 1 | `js/lines.js` | `window.LINES`: every voiced line, `id: [speaker, text]`. Data: line ids map to `audio/voice/<id>.mp3`, so never rename an id. |
 | 2 | `js/sprites.js` | `window.SPRITES`: frame metadata (size, feet and head anchors, pair anchors). **Generated.** |
 | 3 | `js/morphs.js` | `window.MORPHS`: mesh correspondences for smooth pose changes. **Generated.** Loaded `async` (3.5 MB): every use checks it's there, and until it is, pose changes cross-fade. |
@@ -25,7 +41,7 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 | 13c | `js/engine/faces.js` | Lip-sync and blinking: lays the mouth (from the cues, on the audio clock) and the eyelids into the painting before it is lit and warped. |
 | 13d | `js/engine/rig.js` | Alan's experimental side-view rig (`?rig=1`; off by default). |
 | 14 | `js/engine/smoke.js` | Alan's idle cigarette. |
-| 15 | `js/engine/speech.js` | `say` / `says` (one voice at a time, captions), speakers facing each other, sung lyrics, the dialogue menu. |
+| 15 | `js/engine/speech.js` | `say` / `says` (one voice at a time, captions; names and colours from `window.SPEAKERS`), speakers facing each other, sung lyrics, the dialogue menu. |
 | 16 | `js/engine/inventory.js` | Items, the inventory bar, item-on-item use, the item cursor, reading the notebook. |
 | 17 | `js/engine/input.js` | Hover and cursor shapes, mouse / touch / keys, the smart action (`interact`: walk up, reach, run the handler, fail lines). |
 | 18 | `js/engine/stills.js` | Full-screen stills (Ken Burns, cross-fades), close-ups, the clock overlay. |

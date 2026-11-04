@@ -20,10 +20,10 @@
       || (E.player.visible && E.player.pose && ((E.player.pairWho && (E.player.pairWho === who || E.player.pairWho === 'npc_' + who))
         || (window.Game.pairSpeaker && window.Game.pairSpeaker(E.player.pose) === who)) ? E.player : null);
   }
-  // Only the people who move around the rooms with Alan turn to follow him (Alan, Inês, Vasco, or a
-  // def with turns: true). Everyone else keeps the facing their room gives them: no flipping back and
+  // Only the people who move around the rooms with Alan turn to follow him (the player, the game's window.TURNERS
+  // in js/game.js, or a def with turns: true). Everyone else keeps the facing their room gives them: no flipping back and
   // forth; Alan comes to the side they already face (see approach).
-  const TURNERS = new Set(['vasco', 'carmen', 'yeray']);
+  const TURNERS = new Set(window.TURNERS || []);
   const turnsFreely = a => a === E.player || TURNERS.has(a.id) || !!(a.def && a.def.turns);
   const canTurn = a => a && a.visible && !a.walking && !a.pose && (a.dir === 'e' || a.dir === 'w') && !(a.def && (a.def.fixedDir || a.def.ambient)) && turnsFreely(a);
   // Speakers face each other: an NPC turns to Alan when it speaks, and Alan turns

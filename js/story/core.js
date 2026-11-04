@@ -256,6 +256,11 @@
   };
 
   // ---------------------------------------------------------------- items
+  // what the shared engine asks the story (it reads these when it needs them): the items with a painted icon in
+  // art/icons (fx.js), and who refuses an item with a line of their own (engine/input.js)
+  window.PAINTED_ICONS = ['notebook', 'sketch', 'bunktile', 'coins', 'key', 'ledger', 'magnifier', 'ginja', 'matches', 'glass', 'holywater', 'coffee', 'file55',
+    'fkey', 'tidecard', 'vkey', 'tongue', 'tongue_wet', 'knife', 'sardine', 'lantern', 'newspaper', 'brotherhood_charter', 'reserve_key', 'vasco_card', 'sanches_fragment', 'lyrics_sheet'];
+  window.FAIL_BY_CHAR = { lacerda: 'alan_fail_lacerda_item', ze: 'alan_fail_ze_item', abilio: 'alan_fail_abilio_item', ines: 'alan_fail_ines_item', rui: 'alan_fail_rui_item' };
   S.ITEMS = {
     notebook: { name: 'Notebook', read: async () => { await S.readNotebook(); const h = S.ch5Hint(); if (h) await say(h); },
       look: async () => { await S.readNotebook(); const h = S.ch5Hint(); await S.posed('write', () => say(h || (F().vasco_thursday ? 'alan_two_numbers' : 'alan_look_notebook'))); } },

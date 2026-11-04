@@ -96,9 +96,9 @@
   const ROOM_XF = 1.5, LOOP_XF = 3, MUSIC_LEVEL = 0.5; // files at -23 LUFS: the bed sits ~10 dB under the voices
   const VOL = { full: 1, low: 0.5, quiet: 0.35 };
   const DUCK = { voice: 0.5, dry: 0.316, sung: 0.71 }; // -6 dB under lines, -10 dB under the narrator/machine/phone
-  // Game I's track names, kept so a forked call never falls silent: its main theme is this game's title theme
-  const LEGACY = { main_theme: 'title', title: 'title' };
-  const VOL_KEY = 'shortest-night-music-volume';
+  // old track names, kept so an old call never falls silent (the game's own, window.MUSIC_LEGACY in js/game.js)
+  const LEGACY = window.MUSIC_LEGACY || {};
+  const VOL_KEY = window.GAME_KEY + '-music-volume';
   let musicVol = 1;
   try { const v = parseFloat(localStorage.getItem(VOL_KEY)); if (v >= 0 && v <= 1) musicVol = v; } catch (e) { /* storage unavailable */ }
   try { if (localStorage.getItem(VOL_KEY + '-off') === '1') musicOn = false; } catch (e) { /* storage unavailable */ }
@@ -521,8 +521,8 @@
   const STEP_VOL = 0.32; // the recorded steps sit under the dialogue and the room
   // footsteps sit where the walker is: panned by x, the bus swapped for a panner node
   let stepPan = null;
-  // Game II: no footsteps (the user, 2026-10-29: "definitely the stepping sounds from walking" out)
-  const FOOTSTEPS = false;
+  // footsteps, unless the game turns them off (window.FOOTSTEPS in js/game.js: Game II has none, the user 2026-10-29)
+  const FOOTSTEPS = window.FOOTSTEPS !== false;
   function footstep(surface, vol, x) {
     if (!FOOTSTEPS) return;
     if (!ctx) return;

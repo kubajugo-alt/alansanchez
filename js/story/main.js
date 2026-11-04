@@ -375,6 +375,9 @@
       for (const c of S.REVIEW.candidates) if (c.meta && c.wire && c.wire.walkSlot != null && !window.SPRITES[c.id]) window.SPRITES[c.id] = Object.assign({ src: c.src }, c.meta);
   }
   // ---------------------------------------------------------------- start
+  // the water loops (js/story/sea.js): a loop no room has drawn for a moment (another room, a still over it) is paused
+  // (a timer rather than a room hook: the engine's frame loop is the engine's; with no loops in S.SEA it does nothing)
+  if (S.seaTick) setInterval(S.seaTick, 250);
   // the animation review screen: only with ?review in the address, never in normal play or the menus
   const review = new URLSearchParams(location.search).has('review');
   loadApproved().then(() => {

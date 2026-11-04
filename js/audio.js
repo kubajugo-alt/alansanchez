@@ -96,9 +96,9 @@
   const ROOM_XF = 1.5, LOOP_XF = 3, MUSIC_LEVEL = 0.5; // files at -23 LUFS: the bed sits ~10 dB under the voices
   const VOL = { full: 1, low: 0.5, quiet: 0.35 };
   const DUCK = { voice: 0.5, dry: 0.316, sung: 0.71 }; // -6 dB under lines, -10 dB under the narrator/machine/phone
-  // names the procedural score used, kept so an old call never falls silent
-  const LEGACY = { fado: 'tavern_day', fog: 'alfama_day', office: 'police_station', church: 'carmo_day', antiques: 'antiques_shop', tension: 'quay_cais_do_sodre', dawn: 'main_theme', sino: 'tavern_night', title: 'main_theme' };
-  const VOL_KEY = 'drowned-bell-music-volume';
+  // old track names, kept so an old call never falls silent (the game's own, window.MUSIC_LEGACY in js/game.js)
+  const LEGACY = window.MUSIC_LEGACY || {};
+  const VOL_KEY = window.GAME_KEY + '-music-volume';
   let musicVol = 1;
   try { const v = parseFloat(localStorage.getItem(VOL_KEY)); if (v >= 0 && v <= 1) musicVol = v; } catch (e) { /* storage unavailable */ }
   try { if (localStorage.getItem(VOL_KEY + '-off') === '1') musicOn = false; } catch (e) { /* storage unavailable */ }
@@ -509,6 +509,8 @@
     tile(t, v) { burst(t, 0.045, 'bandpass', 2200 + Math.random() * 300, 2.2, 0.08 * v); burst(t, 0.07, 'lowpass', 300, 1, 0.08 * v); },
     wet(t, v) { burst(t, 0.07, 'bandpass', 700 + Math.random() * 200, 1.4, 0.12 * v, 0.6); burst(t + 0.01, 0.12, 'highpass', 2500, 0.7, 0.03 * v, 0.4); },
     carpet(t, v) { burst(t, 0.08, 'lowpass', 380, 0.8, 0.12 * v); },
+    // dry sand: a soft give and a little hiss of grains
+    sand(t, v) { burst(t, 0.12, 'lowpass', 480 + Math.random() * 80, 0.7, 0.1 * v); burst(t + 0.02, 0.1, 'highpass', 3500, 0.7, 0.03 * v); },
     // a boat deck: hollow planks with a little boom under them
     deck(t, v) {
       burst(t, 0.12, 'bandpass', 180 + Math.random() * 40, 1.6, 0.22 * v);
@@ -519,7 +521,10 @@
   const STEP_VOL = 0.32; // the recorded steps sit under the dialogue and the room
   // footsteps sit where the walker is: panned by x, the bus swapped for a panner node
   let stepPan = null;
+  // footsteps, unless the game turns them off (window.FOOTSTEPS in js/game.js: Game II has none, the user 2026-10-29)
+  const FOOTSTEPS = window.FOOTSTEPS !== false;
   function footstep(surface, vol, x) {
+    if (!FOOTSTEPS) return;
     if (!ctx) return;
     // recorded steps: step_<surface>, its takes picked at random, a touch of pitch so no two match
     const rec = SOUND_NEW && 'step_' + surface;

@@ -5,7 +5,7 @@
 (function () {
   const E = window.Engine;
   const { $, canvas } = E;
-  const KEY = 'drowned-bell-tips';
+  const KEY = window.GAME_KEY + '-tips';
   let store = { seen: [], off: false };
   try { store = Object.assign(store, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) { /* private mode */ }
   const keep = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) { /* private mode */ } };
@@ -21,9 +21,9 @@
     line: () => T('Click, or press Space, to skip a line.', 'Tap to skip a line.'),
     dialog: () => T('Pick what to say: click a line, or press its number.', 'Tap what to say.'),
     saves: () => 'The game saves itself as you go. ☰ to keep a copy, or to change the text size, sound and motion.',
-    ines: () => 'Stuck? Talk to Inês and ask her what now.',
-    ch5: () => T('With Inês gone, think it through in your notebook (✎, or N).', 'With Inês gone, think it through in your notebook (✎).'),
   };
+  // the game's own (window.GAME_TIPS in js/game.js: id -> T => text; 'ines' is the stuck tip)
+  for (const [id, fn] of Object.entries(window.GAME_TIPS || {})) TIPS[id] = () => fn(T);
 
   // ---------------------------------------------------------------- showing one
   const el = document.createElement('div'); el.id = 'tip';
@@ -78,7 +78,7 @@
     const f = E.state.flags, sig = Object.keys(f).length + ':' + JSON.stringify(f).length;
     if (sig !== flagsSig) { flagsSig = sig; flagsAt = now; }
     if (now - lastAct > 60000) tip('hotspots');
-    if ((f.ch || 1) < 5 && now - flagsAt > 180000 && store.seen.includes('hotspots')) tip('ines');
+    if (now - flagsAt > 180000 && store.seen.includes('hotspots') && (!window.STUCK_TIP_WHEN || window.STUCK_TIP_WHEN(f))) tip('ines');
   }, 5000);
 
   // ---------------------------------------------------------------- the menu's Tips button
