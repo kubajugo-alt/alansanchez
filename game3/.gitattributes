@@ -1,0 +1,6 @@
+# what Game III's export (`git archive HEAD:game3`) leaves out: tools, notes, the designs (the game loads art/ only)
+/scripts export-ignore
+/docs export-ignore
+/art/designs export-ignore
+/art/canva export-ignore
+/art/src export-ignore

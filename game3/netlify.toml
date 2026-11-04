@@ -1,0 +1,18 @@
+# The Forgotten Rhythm (Game III): its own Netlify project (see docs/HANDOFF.md). Deployed from `git archive HEAD:game3`.
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/audio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

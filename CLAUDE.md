@@ -9,3 +9,7 @@ In short: the room paintings (`art/bg/`) never change; nothing goes into the gam
 ## Game II: The Shortest Night (`sequel/`)
 
 The sequel lives in `sequel/`, its own web root with a forked copy of the engine; it never loads anything from Game I's folders, and Game I's export (`git archive HEAD`) leaves it out. Before working on it read "Start here" in `sequel/docs/HANDOFF.md` (and keep its log); the story is `sequel/docs/BIBLE.md`, the code `sequel/docs/CODEMAP.md`, how we work (art, sea, movement, sound, voices, deploy) and the external services `sequel/docs/PIPELINES.md`. It deploys to its own Netlify project (`alan-sanchez-shortest-night`), only when asked. The same rules hold for both games.
+
+## Game III: The Forgotten Rhythm (`game3/`)
+
+Built (captions only, no voices yet; static cast, the walkers borrowed from Games I and II; cutscenes are described cards); deployed to its own Netlify project (`alan-sanchez-forgotten-rhythm`), only when asked. How the code is split: `game3/docs/BUILD.md`. Before working on it read "Start here" in `game3/docs/HANDOFF.md` (and keep its log); the story is `game3/docs/BIBLE.md` (the user's bible, which wins where anything differs). It follows Game II's pipelines (`sequel/docs/PIPELINES.md`) and never loads anything from Game I's or Game II's folders. The same rules hold for all three games.
