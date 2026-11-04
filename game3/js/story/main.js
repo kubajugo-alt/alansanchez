@@ -27,12 +27,15 @@
   S.PREVIEW = S.PREVIEW || {};
   async function preview(k) {
     const P = S.PREVIEW[k];
-    Object.assign(F(), P.flags || {});
-    if (P.as === 'ines') S.becomeInes(); else if (P.as === 'catalina') S.becomeCatalina(); else S.give('notebook', true);
-    for (const it of P.items || []) S.give(it, true);
-    await G.goRoom(P.room, null, { noEnter: !P.enter, instant: true, pos: P.pos });
-    await G.wait(400);
-    if (P.run) await G.busy(() => P.run());
+    // (busy throughout: a test must not take the quiet moment between the room and the run for the player's turn)
+    await G.busy(async () => {
+      Object.assign(F(), P.flags || {});
+      if (P.as === 'ines') S.becomeInes(); else if (P.as === 'catalina') S.becomeCatalina(); else S.give('notebook', true);
+      for (const it of P.items || []) S.give(it, true);
+      await G.goRoom(P.room, null, { noEnter: !P.enter, instant: true, pos: P.pos });
+      await G.wait(400);
+      if (P.run) await P.run();
+    });
   }
 
   // ---------------------------------------------------------------- a new game: the prologue, 1586

@@ -292,7 +292,7 @@
         await say(v === null ? 'alan_timeout' : 'alan_tue_pull_bad');
       }
       S.sfx('rope_creak', 0.7);
-      await say('narr_tue_pull_' + i);
+      await say(['narr_tue_pull_1', 'narr_tue_pull_2', 'narr_tue_pull_3', 'narr_tue_pull_4', 'narr_tue_pull_5'][i - 1]);
       if (i === 3) await say('sisters_tue_20', 'vasco_tue_21', 'ines_tue_22', 'vasco_tue_22');
     }
     S.sfx('bell_great_backward', 0.8);
@@ -454,6 +454,8 @@
   const CARDS = ['porto', 'gulbenkian', 'bill', 'safe', 'tuesday', 'dogwoman', 'belgian', 'camoes', 'hire'];
   const CARD_LABEL = { porto: 'The Porto dealer', gulbenkian: 'The Gulbenkian maps', bill: 'The electricity bill', safe: 'The safe combination', tuesday: 'The lonely Tuesday man',
     dogwoman: 'The dog-woman thief', belgian: 'The Belgian ("his wife is fine")', camoes: 'Pessoa and the Camões', hire: '"Hire someone Pessoa tolerates"' };
+  const CARD_LINE = { porto: 'ines_fin_card_porto', gulbenkian: 'ines_fin_card_gulbenkian', bill: 'ines_fin_card_bill', safe: 'ines_fin_card_safe', tuesday: 'ines_fin_card_tuesday',
+    dogwoman: 'ines_fin_card_dogwoman', belgian: 'ines_fin_card_belgian', camoes: 'ines_fin_card_camoes', hire: 'ines_fin_card_hire' };
   const cardsHeld = () => {
     const f = F(), c = f.cards;
     let have = Array.isArray(c) ? c.slice() : c && typeof c === 'object' ? Object.keys(c).filter(k => c[k]) : null;
@@ -480,7 +482,7 @@
     while (left.length) {
       const k = await S.choose('Shout a card', `${left.length} left. Each one is a step back toward the shore.`, left.map(c => ({ label: CARD_LABEL[c], value: c, correct: true })));
       left.splice(left.indexOf(k), 1); n++;
-      await say('ines_fin_card_' + k);
+      await say(CARD_LINE[k]);
       if (k === 'belgian') await say('narr_fin_sea_belgian');
       await say('narr_fin_step');
       if (n === 1) await say('narr_fin_vasco_drum');

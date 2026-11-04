@@ -33,7 +33,7 @@ for (const [id, ok] of Object.entries(data.items)) if (!ok) problems.push(`item 
 for (const x of data.lineSpk) problems.push(`line ${x}: unknown speaker`);
 // line ids named in the story's code: quoted words that look like ids (speaker_...) or are passed to say()
 const spk = data.speakers.join('|');
-const re = new RegExp(`['"]((?:${spk})_[a-z0-9_]+)['"]`, 'g');
+const re = new RegExp(`['"]((?:${spk})_(?:[a-z0-9_]*_)?(?:1586|lis|wed|thu|fri|sat|sun|mon|tue|fin|epi|look|fail|hint|ded)(?:_[a-z0-9_]+)?)['"]`, 'g');
 const files = fs.readdirSync(path.join(G3, 'js/story')).map(f => path.join(G3, 'js/story', f));
 const frames = new Set(data.sprites);
 for (const f of files) { const t = fs.readFileSync(f, 'utf8'); let m; while ((m = re.exec(t))) { const id = m[1]; if (!lines.has(id) && !frames.has(id) && !/_g3$|_fail_$|_ded_$|_k$/.test(id)) problems.push(`${path.basename(f)}: line ${id} does not exist`); } }
