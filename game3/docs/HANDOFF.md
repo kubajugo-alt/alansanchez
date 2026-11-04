@@ -175,3 +175,8 @@ but Alan).
     secretary, faustino, ramon, sisters, dario, eddy). All of them on `art/designs/g3_cast_sheet.png`. Every other image
     in `art/designs/` is a rejected candidate kept for the record. Next, when asked: side and back views (one edit each
     from the approved front), then the cut-outs and heights once the engine is forked.
+12. **Side views for all, back views for the three (in progress)** (2026-11-04). See the log for the ids. Alan's side
+    from his own front lost his face (the user: "Alan's side view doesn't look like Alan - compare to previous games"),
+    so the three playable sides are edits of their previous games' side sprites with the new clothes, all at Alan's
+    angle (body to the right, face three-quarters; the user: "we need the same angle as alan's side view, for vasco and
+    Ines"). 11 downloaded; 15 made in Canva and waiting to be exported, then one sheet for review.
