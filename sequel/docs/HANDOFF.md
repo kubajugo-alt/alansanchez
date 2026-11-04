@@ -24,7 +24,7 @@ root, in the same repository as Game I. Read, in this order:
   sound effects (`audio/sfx/`, copied). Nothing is loaded from outside `sequel/`.
 - Saves, settings and tips use their own `shortest-night-*` keys, so the two games never share a save on one browser.
 
-### What is in the game (2026-11-03, live: Netlify deploy `6aea1f09b90f010ef7cb0fa0`, entry 139)
+### What is in the game (2026-11-03, live: Netlify deploy `6aea9f21eea8aa6850cbc192`, entry 148)
 - **The whole story is playable**, prologue to credits: the prologue (Elena's last drive), Tuesday to Monday as
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
   the ending. Every day rewritten from the novel (entries 17, 87), then the narrator cut back across the game (entries
@@ -2039,4 +2039,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     `alan_look_timple` and `_mist` stay in lines.js unused. 33 boxes in 16 rooms installed. play.mjs: won, 132
     steps, no errors; all 33 boxes checked in the game again after the removal. Not deployed. The tool
     keeps working for further moves: move a box again and install again (spots.js is rewritten from all the docs).
+148. **Deployed: the hotspots, the tidy-ups, the action fix** (2026-11-04, the user: "deploy it"). `build-manifest.mjs` run
+    last (offline pack 8,457 files, 569 MB, version b90d92fffb), commit `6727bb4d`; export `git archive HEAD:sequel`
+    (560 MB, no scripts/docs/.env); play.mjs on the export, its own port: won, 132 steps, no errors. Netlify deploy
+    `6aea9f21eea8aa6850cbc192`. Live: the offline.json is the export's (same version, every path and hash equal),
+    index.html equal, spots.js / layout.js / wed.js byte-equal; `/.env`, `/scripts/`, `/docs/` 404. Live now: entries
+    140 (tidy-ups, the hold-frame fix, the set-down speck), 147 (the user's 33 hotspot boxes, the timple players gone).
+    The movement's second pass (142-145) is in the deployed files but off unless the page is opened with `?env=2`.
 
