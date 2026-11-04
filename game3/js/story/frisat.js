@@ -555,7 +555,7 @@
       { label: 'Dry: "Curiosity is a professional deformity. Like gout, for canons."', value: 'dry', correct: true },
       { label: 'Fierce: "The bravest man at this table, Excellency."', value: 'fierce' },
       { label: 'Funny: "His days are a disaster. That\'s what I\'m for."', value: 'funny' }]);
-    await say('ines_sat_def_' + d, 'bishop_sat_826');
+    await say({ dry: 'ines_sat_def_dry', fierce: 'ines_sat_def_fierce', funny: 'ines_sat_def_funny' }[d], 'bishop_sat_826');
     f.defence_style = d; f.dinner_done = true;
   };
   S.onEnter('palace_courtyard', async () => {
@@ -621,7 +621,7 @@
       if (d === 'follow') break;
       await say('vasco_sat_dance_lead');
     }
-    await say('narr_sat_1207', 'alan_sat_1208', 'vasco_sat_1209', 'narr_sat_1210', 'alan_sat_1211', 'vasco_sat_1212', 'vasco_sat_1213', 'vasco_sat_1213_' + (f.defence_style || 'dry'), 'alan_sat_1214', 'vasco_sat_1215');
+    await say('narr_sat_1207', 'alan_sat_1208', 'vasco_sat_1209', 'narr_sat_1210', 'alan_sat_1211', 'vasco_sat_1212', 'vasco_sat_1213', ({ dry: 'vasco_sat_1213_dry', fierce: 'vasco_sat_1213_fierce', funny: 'vasco_sat_1213_funny' })[f.defence_style] || 'vasco_sat_1213_dry', 'alan_sat_1214', 'vasco_sat_1215');
     // S13: Darío (optional)
     await say('dario_sat_1301', 'vasco_sat_1302');
     const go = await S.choose('Darío', 'A roof, a cassette, and nowhere to be.', [{ label: 'Go up to the roof with Darío and Vasco', value: 'yes' }, { label: 'Thank him, and walk home along the wall with Vasco', value: 'no', correct: true }]);
