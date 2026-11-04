@@ -1,6 +1,6 @@
 // Light and shadow on the figures, as Game I lights its rooms (HANDOFF 158; the user, 2026-11-04: "start with the seven
-// lamp-lit rooms"). FOR REVIEW: only with ?light=2 in the address (or localStorage '<GAME_KEY>-light' = '2'); without
-// it nothing here runs and the rooms are as they were.
+// lamp-lit rooms"; all 29 rooms with figures since entry 159). On for everyone since entry 160; ?light=0 in the address
+// turns it off (the rooms as they were: their lamps a glow only).
 //
 // The shared engine (js/engine/lights.js) already does it all; Game II's rooms only gave their lamps a painted glow. Here
 // each lamp also gets what Game I's have: power and reach (how much it lights a figure near it, and how far), rim (the
@@ -12,8 +12,8 @@
 // Every position is read off the painting at 1280x720 (scratchpad geo_<room>.jpg sheets: lamps ringed, floor outlined).
 (function () {
   const S = window.S, ROOMS = S.ROOMS;   // (S.F(): the flags, for the lights that depend on the story)
-  let on = /[?&]light=2\b/.test(location.search);
-  try { on = on || localStorage.getItem(window.GAME_KEY + '-light') === '2'; } catch (e) { /* no storage */ }
+  // on for everyone since 2026-11-04 (HANDOFF 160, the user: "switch it on for everyone"); ?light=0 turns it off, to compare
+  let on = !/[?&]light=0\b/.test(location.search);
   window.LIGHT2 = on;
   if (!on) return;
 

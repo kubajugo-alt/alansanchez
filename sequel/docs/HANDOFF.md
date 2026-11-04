@@ -2222,3 +2222,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       132 steps, no errors; Netlify `6aeb73d032a840cf4ec1cec4`. Live: page 200, `/.env` and `/scripts/` 404; lighting.js,
       index.html, offline.json byte-equal; live smoke with `?light=2` bar, belfry pass, and lobby without it. Waiting on the
       user to see it in the game: then on by default (drop the `?light=2` gate in lighting.js) or changes.
+160. **The lighting on for everyone; merged** (2026-11-04, the user: "switch it on for everyone and merge into master").
+    `js/story/lighting.js` runs unless the address has `?light=0` (the rooms as they were, to compare); the `?light=2`
+    switch and its localStorage key are gone.
