@@ -14,6 +14,8 @@ Object.assign(window.LINES, {
   mireya_fri_010: ['mireya', 'Tobías was in at six for coffee. He goes up every night to dry her, the bell. He looked like he hadn\'t slept since April.'],
   alan_fri_011: ['alan', 'He dries the bell. Every night.'],
   mireya_fri_012: ['mireya', 'Every night. Like you dry a child. [pause] Eat your mangú.'],
+  radio_4: ['radio', '…Tropical Storm Hortense, fifteen point eight north, sixty west, east of the Leeward Islands, strengthening…'],
+  radio_5: ['radio', '…Hurricane Hortense, category one, sixteen point one north, sixty-two west. Categoría uno. Por ahora…'],
   alan_fri_look_radio: ['alan', 'The radio. It\'s on a first-name basis with the hurricane.'],
   alan_fri_look_chart: ['alan', 'Mireya\'s hurricane chart, from the Listín Diario. Pins in it like a voodoo doll. A Catholic voodoo doll.'],
   alan_fri_chart_done: ['alan', 'Today\'s pin is in. Hortense is creeping west. Towards us. Everything is creeping towards us this week.'],

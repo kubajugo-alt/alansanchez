@@ -38,13 +38,13 @@
   S.NOTE('tide_known', 'Mon. Batista: the tide came in at eleven and hasn\'t gone out. Seven hours of high water.');
   S.NOTE('mon_margin', 'Sun. 1979 margin: <i>Wilfredo dio los nombres</i>. Nando\'s nephew. Carmela, his sister, took the family to New York.');
   S.NOTE('mon_wifecall', 'Thu. Fello\'s wife cleans offices in New York. She rings the colmado every Monday at six.');
-  S.NOTE('nando_refused', 'Mon. Nando: "That\'s a Haitian thing. Vudú." Shut the door.');
-  S.NOTE('carmela_plan', 'Mon. <b>Find Carmela.</b> Ask Fello to ask his wife, when she rings at six.');
-  S.NOTE('fello_shown', 'Mon. Fello was Little Fello on the 1979 shore. He\'ll come, with his father\'s drum, if the drum lives: a skin, three guava pegs, tuning.');
+  S.NOTE(`nando_refused`, 'Mon. Nando: "That\'s a Haitian thing. Vudú." Shut the door.');
+  S.NOTE(`carmela_plan`, 'Mon. <b>Find Carmela.</b> Ask Fello to ask his wife, when she rings at six.');
+  S.NOTE(`fello_shown`, 'Mon. Fello was Little Fello on the 1979 shore. He\'ll come, with his father\'s drum, if the drum lives: a skin, three guava pegs, tuning.');
   S.NOTE('m5_done', 'Mon. Ti-Jean: Jean-Baptiste Lafortune, of Ouanaminthe, killed at Dajabón, 1937. Tata\'s father. Moncho is Haitian too. "On the stone it doesn\'t last."');
-  S.NOTE('carmela_found', 'Mon. Carmela: Wilfredo died in 1990 asking for Tata. "Tell Nando he can stop being ashamed for both of us."');
+  S.NOTE(`carmela_found`, 'Mon. Carmela: Wilfredo died in 1990 asking for Tata. "Tell Nando he can stop being ashamed for both of us."');
   S.NOTE('m7_done', 'Mon. The raid. Ledesma: "All of them." The drums in an evidence box. Yolande\'s card torn: the border bus at six.');
-  S.DEDUCE('mon_margin', 'mon_wifecall', 'carmela_plan', { when: () => !!F().nando_refused, line: 'alan_mon_141' });
+  S.DEDUCE('mon_margin', 'mon_wifecall', `carmela_plan`, { when: () => !!F().nando_refused, line: 'alan_mon_141' });
   S.NAPKIN.salves.push([`fello_in`, 'Fello (his father\'s drum)'], [`lalo_in`, 'Lalo'], [`tobias_in`, 'Tobías'], [`moncho_in`, 'Moncho (who must sing)'],
     [`nando_in`, 'Nando (on the beach)'], [`dario_in`, 'Darío (trumpet)']);
   S.NAPKIN.kreyol.push([`yolande_in`, 'Manman Yolande']);
@@ -60,7 +60,7 @@
   S.HINT(f => mon() && ready5(f) && !f.m5_done, null, 'tobias_mon_h06');
   S.HINT(f => mon() && !f.fello_shown, null, 'tobias_mon_h02');
   S.HINT(f => mon() && !f[`lalo_in`], null, 'tobias_mon_h03');
-  S.HINT(f => mon() && !f.drum_made && !has('goatskin'), null, f => 0 || 'tobias_mon_h04');
+  S.HINT(f => mon() && !f.drum_made && !has('goatskin'), null, 'tobias_mon_h04');
   S.HINT(f => mon() && !f.drum_made && !has('guava_pegs') && f.m5_done, null, 'tobias_mon_h07');
   S.HINT(f => mon() && !f.drum_made && has('goatskin') && has('guava_pegs'), null, 'tobias_mon_h08');
   S.HINT(f => mon() && !f.nando_refused, null, 'tobias_mon_h09');
@@ -70,7 +70,6 @@
   S.HINT(f => mon() && f.dario_night && !f[`dario_in`], null, 'tobias_mon_h14');
   S.HINT(f => mon() && !f.m6_done, null, 'tobias_mon_h12');
   S.HINT(f => mon() && f.m7_done && !f.m8_done, null, 'tobias_mon_h13');
-  for (const h of S.HINTS) if (typeof h.directLine === 'function') h.directLine = 'tobias_mon_h04';
   S.HINTS.filter(h => h.directLine && /tobias_mon_h/.test(h.directLine)).forEach(h => { h.parrotLine = h.directLine; });
 
   // ---------------------------------------------------------------- the hub on Monday
@@ -85,7 +84,6 @@
     if (!f.m5_done || !f.drum_made || !f.nando_msg) return 'santon';
     return 'santon';
   });
-  S.mapLock = (() => { const prev = S.mapLock; return () => (prev && prev()) || null; })();
 
   // ================================================================ START: breakfast, the lowering, Batista's call, Rome
   S.START[7] = async function () {
@@ -336,7 +334,7 @@
   S.spot('blue_house', { name: 'The little wooden boat', rect: [640, 330, 70, 60], at: [640, 660], when: () => mon() && !!F().m5_on && !has('tijean_boat'),
     look: () => F().altar_seen ? say('alan_mon_173') : say('alan_mon_172'),
     take: async () => { if (!F().altar_seen) return say('alan_mon_172'); await say('alan_mon_173'); S.give('tijean_boat'); } });
-  S.spot('blue_house', { name: 'The back window', rect: [760, 140, 190, 150], at: [860, 660], when: () => mon() && !!F().m5_done,
+  S.spot('blue_house', { name: 'The guava tree, through the window', rect: [790, 160, 140, 120], at: [860, 660], when: () => mon() && !!F().m5_done,
     look: 'alan_mon_175',
     use: async () => { const f = F(); if (f.pegs_cut) return say('alan_mon_177'); f.pegs_cut = true; await say('alan_mon_176'); S.give('guava_pegs'); },
     take: async () => { const f = F(); if (f.pegs_cut) return say('alan_mon_177'); f.pegs_cut = true; await say('alan_mon_176'); S.give('guava_pegs'); } });
@@ -402,7 +400,7 @@
     look: 'alan_mon_410', talk: async () => { const f = F(); if (f.fello_up) return say('fello_mon_271'); await say('fello_mon_270', 'alan_mon_275', 'fello_mon_271'); f.fello_up = true; } });
   S.person('police_cell', { id: 'lalo', ch: 'lalo', x: 860, y: 655, dir: 'w', name: 'Lalo', when: () => mon() && !F().m8_done,
     look: 'alan_mon_408', talk: async () => { const f = F(); if (f.lalo_up) return say('lalo_mon_270'); await say('alan_mon_276', 'lalo_mon_270'); f.lalo_up = true; } });
-  S.spot('police_cell', { name: 'The water pipe', rect: [250, 70, 70, 500], at: [330, 670], look: 'alan_mon_271', use: () => S.wall() });
+  S.spot('police_cell', { name: 'The water pipe', rect: [230, 90, 650, 55], at: [520, 670], look: 'alan_mon_271', use: () => S.wall() });
   S.spot('police_cell', { name: 'The hole', rect: [720, 470, 130, 60], at: [700, 670], look: 'alan_mon_272' });
   S.spot('police_cell', { name: 'The bulb', rect: [600, 0, 80, 70], look: 'alan_mon_273' });
   S.spot('police_cell', { name: 'The cell door', rect: [950, 60, 170, 470], at: [960, 670], look: 'alan_mon_274', use: 'alan_mon_274' });
@@ -488,7 +486,9 @@
     run: async () => { F().pockets = { ines: ['wax_seal'] }; await S.START[7](); },
   };
   S.SOLVE[7] = async function () {
-    const f = F();
+    // (a cold start runs START[7] after a short wait: let it finish before playing)
+    for (let i = 0; i < 400 && !F().m3_done; i++) await G.wait(50);
+    await S.quiet();
     await S.go('parque_colon');
     await S.act('tobias', 'talk');
     S.expect('the message to Moncho', f => f.moncho_msg);
@@ -512,7 +512,8 @@
     await S.act('The little wooden boat', 'take');
     await S.act('moncho', null, 'tijean_boat');
     S.expect('the blue house', f => f.m5_done);
-    await S.act('The back window', 'use');
+    await S.act('The guava tree, through the window', 'use');
+    S.expect('the guava pegs', f => G.has('guava_pegs'));
     await S.tryDeduce('mon_margin', 'mon_wifecall');
     S.expect('find Carmela', f => f.carmela_plan);
     await S.go('san_anton');

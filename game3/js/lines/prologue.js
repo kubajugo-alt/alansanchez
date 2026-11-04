@@ -336,7 +336,6 @@ Object.assign(window.LINES, {
   ines_lis_fax_1: ['ines', 'Keep it safe. A bishop\'s signature is a thing you never know you need until you need it.'],
   narr_lis_fly: ['narr', 'On Wednesday the fourth of September, three people and one welcome fax flew west over the Atlantic, towards the season of storms.'],
   // hints
-  parrot_lis_h1: ['parrot', ''],
   mireya_lis_h1: ['narr', 'Pessoa\'s mess first: Inês wants Os Maias cleaned with kitchen paper from the flat upstairs.'],
   mireya_lis_h2: ['narr', 'Clean the volume of Os Maias on the counter with the kitchen paper.'],
   mireya_lis_h3: ['narr', 'The post on the counter is waiting to be sorted.'],

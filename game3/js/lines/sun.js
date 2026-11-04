@@ -57,7 +57,6 @@ Object.assign(window.LINES, {
   narr_sun_u2_leave: ['narr', 'Mireya wiped her hands, came to the table, and looked down at the six salves in her dead friend\'s pencil. "Este primero." This one first. Her lips moved. She knew it.'],
   mireya_sun_u2_yes: ['mireya', '[closes the notebook, hands it back] I sang this one at my mother\'s wake. [pause] Tell me when, señor. I will bring my black dress.'],
   ines_sun_u2_tick: ['ines', '[crossing out the question mark] Señora Mireya. Salves. No question.'],
-  alan_sun_lock_mireya: ['alan', 'Not yet. Something about what Mireya said. Her grandmother went down to the shore.'],
   // looks in the kitchen (Sunday)
   alan_sun_look_table: ['alan', 'The kitchen table. Oilcloth, coffee rings, and a week of Mireya\'s opinions in the grain.'],
   alan_sun_look_table_2: ['alan', 'The salves page is still lying there. So is Mireya\'s answer.'],
@@ -78,7 +77,6 @@ Object.assign(window.LINES, {
   bishop_sun_u3_05: ['bishop', '[pause] No.'],
   bishop_sun_u3_06: ['bishop', 'I have read your letters, Professor. I read the newsletter. I know what she is. She is also cracked, and she rings flat, and for four hundred years she has been something that people come to whisper at in the dark.'],
   bishop_sun_u3_07: ['bishop', 'The jubilee bell will be something that is ours, not theirs. Something that rings in tune.'],
-  alan_sun_u3_opt_quiet: ['alan', '[Say nothing. Be decorative.]'],
   vasco_sun_u3_quiet: ['vasco', '[glancing at Alan, gratefully] As you say, Monseñor. But there are documents—'],
   bishop_sun_u3_quiet: ['bishop', 'There are always documents, Professor.'],
   alan_sun_u3_opt_drown: ['alan', 'Monseñor, people are drowning in their beds.'],
@@ -195,8 +193,6 @@ Object.assign(window.LINES, {
   alan_sun_u7_rum: ['alan', 'Rum. Yolande threw rum at it, at the drain. I need a bottle.'],
   alan_sun_u7_norum: ['alan', 'I haven\'t a bottle left. Fello. The colmado.'],
   alan_sun_u7_dunno: ['alan', 'He\'ll be fine. He\'s been going up that tower for fifty years. [pause] Won\'t he?'],
-  alan_sun_u7_wait: ['alan', 'Wait for him here. He\'ll come for his coffee.'],
-  alan_sun_u7_go: ['alan', 'Go and look for him.'],
   narr_sun_u7_fallback: ['narr', 'Tobías came in at seven, by himself, wet to the shoulders and shaking so hard his keys rang like a little church. He had got out. Alone. He did not look as though he would ever go up there again.'],
   tobias_sun_u7_fallback: ['tobias', '[sitting on the edge of the fountain] She was crying, señor. Into my face. I crawled. Fifty years, and I crawled.'],
   fello_sun_buy: ['fello', '¡Sunday! A bottle on a Sunday! [slaps it into Alan\'s hand] For the old man or for the sea? Don\'t tell me. I don\'t want to know. Pay me Tuesday!'],
@@ -262,6 +258,4 @@ Object.assign(window.LINES, {
   mireya_sun_h_tower: ['mireya', 'Tobías is still up the tower. Go, señor. Take a bottle. Run.'],
   parrot_sun_h_sight: ['parrot', '[a ship\'s bell, then] ¡Norte! ¡Norte!'],
   mireya_sun_h_sight: ['mireya', 'You have the professor\'s compass, señor. Stand in the arch where the little ship points, and read it.'],
-  // ================================================================ notebook entries
-  alan_sun_look_napkin_half: ['alan', 'My half of the napkin. SHORE. Two columns of names and question marks.'],
 });
