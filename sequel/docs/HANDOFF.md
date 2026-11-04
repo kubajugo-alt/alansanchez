@@ -2175,5 +2175,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       lines it wrote without listing them, now listed). 0 errors.
     - Checks: `play.mjs` won in 132 steps, no errors; smoke on the `git archive HEAD:sequel` export: all 33 preview scenes
       pass; Game I smoke intro, shopjobs, quayfish, bath, finale, fado pass with the merged engine.
-    - Not yet deployed: the deploy command was refused by the session's permission check; waiting on the user.
+    - Deployed (the user: "yes deploy both and merge into master"): Netlify's upload refused the 568 MB export three times
+      (500); 557 MB had gone through, so `art/bg1x` is kept out of the export for now (`.gitattributes`; `window.BG1X = []`,
+      the list kept as `BG1X_READY` in main.js). Export at `b2ee494b` (557 MB): smoke tue, lobby, wed, vasco, finale pass; Netlify
+      `6aeb4d5d454ae2b9e5224066`. Live: page 200; `/.env`, `/scripts/`, `/lipsync/` 404; sw.js, game.js, walklab.js served;
+      engine/input.js, fx.js, lipsync.js, tue.js, main.js, offline.json, art/bg/gando.jpg byte-equal; live smoke tue, lobby pass.
+      Merged into master by PR kubajugo-alt/alansanchez#18.
     - From now on Game II's work starts from master (or this branch once merged), so no session deploys an older copy.

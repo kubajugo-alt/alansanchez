@@ -5,8 +5,8 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `2a411813` (Netlify `6aeabe9971da605008112955`, entry 89;
-PR kubajugo-alt/alansanchez#16 merged as `3b7e78cd`): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `b2ee494b` (Netlify `6aeb4ef0f1de5b5119e67a10`, entry 90;
+PR kubajugo-alt/alansanchez#18): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
 change (entries 1-90; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
@@ -1618,7 +1618,9 @@ session lived in the session's scratchpad and are gone; everything that matters 
    for two, `render.js` an optional water pass, `smoke.js` a story's own timings, `fx.js` the `?env=2` sway masks and
    lazy icons, `style.css` photo pages and the offline panel). None changes what Game I shows (its walkers have both
    front and back cycles; no water pass, sway masks or smoke timings here). Smoke intro, shopjobs, quayfish, bath,
-   finale, fado pass; validate 0 errors. Not deployed (Game I's live site has the engine of entry 89).
+   finale, fado pass; validate 0 errors. Deployed (the user: "yes deploy both and merge into master"): export at `b2ee494b`,
+   smoke intro, shopjobs, sepit, bath, finale pass on it; Netlify `6aeb4ef0f1de5b5119e67a10`. Live: page 200, `/.env` and
+   `/sequel/` 404, the engine files byte-equal; live smoke intro, shopjobs pass. Merged into master by PR #18.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
