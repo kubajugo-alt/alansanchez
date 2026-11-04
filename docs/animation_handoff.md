@@ -5,10 +5,10 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `a7fcbd59` (Netlify `6ae1498ab246bdf2ff2a7dcb`,
-entry 84): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs branch `claude/dazzling-wright-lm7a2y` at `2a411813` (Netlify `6aeabe9971da605008112955`,
+entry 89; master is older until PR kubajugo-alt/alansanchez#16 is merged): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-88; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-89; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1606,6 +1606,12 @@ session lived in the session's scratchpad and are gone; everything that matters 
    `scripts/face_kit.py` and `scripts/face_transfer.py` keep a frame's `emo` when they rebuild its set. Checks: validate 0
    errors; in the game 38 tags, the patches load from art/faces with no 404 and no page errors; smoke shopjobs, intro,
    finale, bastos pass.
+89. **Deployed: both games** (2026-11-04, the user: "Install the expressions in Game I and deploy both games"). Branch
+   `claude/dazzling-wright-lm7a2y` at `2a411813` (PR kubajugo-alt/alansanchez#16, not merged into master). Game I:
+   `git archive HEAD` export (no `.env`, no `sequel/`), smoke intro, shopjobs, sepit, bath, finale pass on it; Netlify
+   `6aeabe9971da605008112955`. Live: page 200, `/.env` 404, `/sequel/` 404, `js/game.js`, `js/story/emotions.js` and the
+   emotion patches served, engine/actor.js, faces.js, emotions.js byte-identical; live smoke intro, shopjobs pass.
+   Game II (its entry 107): Netlify `6aeac26654f79b344ac09d36`.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

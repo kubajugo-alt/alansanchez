@@ -49,7 +49,7 @@ root, in the same repository as Game I. Read, in this order:
 ### Open, in the order I'd suggest
 1. **The granary (entries 98, 100)**: built and live; the user to see it in the game (`?scene=vault` for the cell,
    `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved, voiced and live; "pesetas" is B (entry 100).
-2. **Deployed** (entry 101): everything to here is live. Entry 105 (one engine with Game I, the tests) is not deployed.
+2. **Deployed** (entry 101): everything to here is live. Entries 105-106 deployed in entry 107.
    From it: re-run lip-sync (Rhubarb) for the stale and missing cues; the surfers' `canteras_night`.
 3. **Parallax** is on (entry 96): the recording waits for the user's approval before a deploy.
 4. **Environment movement**: the user's pick from the ten fixes in `docs/review/env_movement.md`.
@@ -1183,3 +1183,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
      - Game I (its entry 87): the placement page published, https://claude.ai/artifact/6WyHswfjdRcBYeP5sb1zrE; Game II's
        eight emotions blended onto six of Game I's Alan frames, preview only (`?emo=1`), for the user's approval.
      - Checks: validate 0 errors; smoke tue, lobby, thu, fri pass.
+107. **Deployed** (2026-11-04, the user: "Install the expressions in Game I and deploy both games"). Branch
+    `claude/dazzling-wright-lm7a2y` at `2a411813` (PR kubajugo-alt/alansanchez#16, not merged into master):
+    `git archive HEAD:sequel` export (no scripts, docs, lipsync, review, `.env`); `play.mjs` on it won in 131 steps, no
+    errors; Netlify `6aeac26654f79b344ac09d36`. Live: page 200; `/.env`, `/scripts/`, `/lipsync/` 404; `js/game.js`,
+    `art/bg1x/` served; engine/input.js, fx.js, lipsync.js, story/tue.js byte-identical; at 1280 the 1280 paintings and the
+    10 painted icons load, no page errors. Everything to entry 106 is live.
