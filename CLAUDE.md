@@ -12,4 +12,4 @@ The sequel lives in `sequel/`, its own web root with a forked copy of the engine
 
 ## Game III: The Forgotten Rhythm (`game3/`)
 
-Being prepared; nothing is built yet. Before working on it read "Start here" in `game3/docs/HANDOFF.md` (and keep its log); the story is `game3/docs/BIBLE.md` (the user's bible, which wins where anything differs). It follows Game II's pipelines (`sequel/docs/PIPELINES.md`) and never loads anything from Game I's or Game II's folders. The same rules hold for all three games.
+Built (captions only, no voices yet; static cast, the walkers borrowed from Games I and II; cutscenes are described cards); deployed to its own Netlify project (`alan-sanchez-forgotten-rhythm`), only when asked. How the code is split: `game3/docs/BUILD.md`. Before working on it read "Start here" in `game3/docs/HANDOFF.md` (and keep its log); the story is `game3/docs/BIBLE.md` (the user's bible, which wins where anything differs). It follows Game II's pipelines (`sequel/docs/PIPELINES.md`) and never loads anything from Game I's or Game II's folders. The same rules hold for all three games.

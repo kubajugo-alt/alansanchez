@@ -316,4 +316,10 @@ but Alan).
       prologue to the credits through every part's walk-through (FAST); screenshots at real speed of the prologue card,
       the airport card and room 4.
     - **Netlify**: new project **alan-sanchez-forgotten-rhythm** (id `4d7bce25-3a74-4950-b5f4-a08eec7d93d4`, team
-      kuba-jugo); deployed from `git archive HEAD:game3` (`game3/.gitattributes` leaves out scripts, docs, designs).
+      kuba-jugo). First deployed 2026-11-04 from `git archive HEAD:game3` (44 MB; `game3/.gitattributes` leaves out
+      scripts, docs, designs), deploy `6aeb5cb87218cea85f092276`: https://alan-sanchez-forgotten-rhythm.netlify.app.
+      Live: page, code, art 200; `/.env`, `/scripts/`, `/docs/`, `/art/designs/` 404; `run.mjs` parts 8–9 on the live
+      site played to the credits. Deploy only when asked: export, smoke-test the export on its own port, Netlify MCP
+      `deploy-site` with the id above, run its command from the export folder, check as above.
+    - Also found by the whole run: Wednesday's `tower_done` shadowed Sunday's rescue (Sunday now `sun_tower_done`);
+      a scan for flags set by more than one part finds only the two meant to be shared (`sisters_in`, `tobias_dries`).
