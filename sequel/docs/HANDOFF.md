@@ -2182,3 +2182,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       engine/input.js, fx.js, lipsync.js, tue.js, main.js, offline.json, art/bg/gando.jpg byte-equal; live smoke tue, lobby pass.
       Merged into master by PR kubajugo-alt/alansanchez#18.
     - From now on Game II's work starts from master (or this branch once merged), so no session deploys an older copy.
+157. **Play offline in Game I too** (2026-11-04; Game I's handoff entry 91). `js/offline.js` and `sw.js` are now the same
+    files in both games: the storage key is `GAME_KEY + '-offline'` (still `shortest-night-offline` here), the cache names
+    unchanged, so copies already downloaded keep working. `scripts/tests/offline.mjs` made to fit both (the content key of
+    either game, the first scene given for the update check, `js/story/docs.js` as the file the update rewrites).
