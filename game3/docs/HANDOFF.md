@@ -285,3 +285,35 @@ but Alan).
     can show the placeholder parts), documents that are only text (tide fact, Carmela's message), the drums the raid
     takes (Lilo's is the same drum). Note: the coin's verdigris keyed to blue-grey. Game II's engine shows these via
     `window.PAINTED_ICONS` (CODEMAP, fx.js).
+24. **The whole game built, captions only** (2026-11-04, the user: "build the entire game (using a new netlify project of
+    course), using the combined engine Game I and II uses. Do not voice it yet ... the dialogues should be kept as
+    captions. We will not be animating the sprites yet either - for now, in order to make the characters walk, use Alan
+    and Vasco from Game II and Ines from Game I. The cut scenes should be kept as placeholders screens with decriptions").
+    - **Engine**: forked from Game II (`sequel/js/engine/*`, `engine.js`, `fx.js`, `audio.js`, `warp.js`, `parallax.js`,
+      `css/style.css`) into `game3/`; save, volume and tip keys `forgotten-rhythm-*`. Nothing loads from Game I's or II's
+      folders. How the story is split, the contracts between parts and the API: `docs/BUILD.md`; the API itself is in the
+      headers of `js/story/core.js`, `systems.js` and `rooms.js`.
+    - **Art**: `scripts/import_assets.py` copies the walkers (Game II's Alan in his vest with his Ludo walk cycles and
+      Vasco `vascor`; Game I's Inês with her two-step walk; their face kits) and cuts the 31 Game III fronts to sprites
+      (`<id>_g3`, static, gliding); rooms, variants, the hub map, close-ups, the vèvè parts and icons into `art/`;
+      Game II's sound effects. No music yet (`audio/music/tracks.json` is empty); no voices (`audio/voice/manifest.json`
+      empty): every line is a caption read at the engine's pace. Parallax off (no depth maps).
+    - **Systems** (`systems.js`): described cutscene cards (`S.cut`), drowning and rewind (`S.drown`), timed choices,
+      the rhythm tap (three beats and a rest, the skip on the third; relaxed timing doubles every window and offers
+      auto-play, in the menu), the hurricane chart pins (Hortense's 1996 positions), water, wet bands, the dark patch.
+      `core.js`: the cast, Alan/Inês/Catalina switching with separate object pockets and shared documents, the notebook and
+      folder with deductions, the napkin, the parrot's hint ladder (Tobías's keys from Monday), the heartbeat icon.
+    - **Story**: written in six parts (`js/story/<part>.js`, `js/lines/<part>.js`): prologue (1586 and Lisbon), wedthu,
+      frisat, sun, mon, tue (Tuesday, the finale, dawn and the epilogue); 2,227 caption lines. Each part's report of
+      what it simplified against the bible is summarised in BUILD.md's notes below the table (menus instead of custom
+      widgets for dials, keypads and the domino hand; the breakfast inspections and the rehang crew as choices; docs
+      shared at once instead of after a reunion; the vèvè a placeholder boat in the bible's parts).
+    - **Fixes found while testing the whole**: the colmado sold one bottle of rum and Sunday's gallera found none (the
+      bible's six now, for dollars); a cutscene card after a fade to black was hidden under the black (the card, the
+      captions, the choices and the minigames now stack above the fade); a `?scene=` preview left the game idle for
+      400 ms before its start (now busy throughout); the validator read flags and person ids as line ids.
+    - **Checked**: `node scripts/tests/validate.mjs` no problems; `node scripts/tests/run.mjs <url> 0 9` plays the
+      prologue to the credits through every part's walk-through (FAST); screenshots at real speed of the prologue card,
+      the airport card and room 4.
+    - **Netlify**: new project **alan-sanchez-forgotten-rhythm** (id `4d7bce25-3a74-4950-b5f4-a08eec7d93d4`, team
+      kuba-jugo); deployed from `git archive HEAD:game3` (`game3/.gitattributes` leaves out scripts, docs, designs).

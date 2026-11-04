@@ -66,3 +66,20 @@ Read the bible's sections for your days in full (docs/BIBLE.md: core mechanics 1
 the mystery 278–357, characters and voice sheet 383–500, your day sections, the dialogue rules 985–1130). Rule 6
 (languages) and the "four more rules" decide how lines sound. Key scenes 15–30 lines, minor 5–10, every examine line in
 character. English everywhere; one Spanish/Kreyòl/Portuguese word in about a third of a local's sentences.
+
+## Notes from the parts (2026-11-04)
+
+- prologue: the safe dial, keypad and ledger are menus; Pessoa a hotspot; the travel agent a voice at the red door;
+  Ngozi and Isabel bring one more each to make eleven.
+- wedthu: the airport and taxi are cutscene cards with choices; the swap and the tide chase are timed menus; the
+  river bench is a Thursday-only bench added to `city_wall`.
+- frisat: Batista's dinner in the night courtyard (no restaurant painted); the bachata a follow/lead choice; the
+  vèvè memory uses the placeholder parts.
+- sun: the breakfast and the decoding are menus; Lilo stands on his sprite; the arch sighting is one compass use;
+  the fax (U6) and the wall (U4) follow the bible's order.
+- mon: the SHORE column gets a "seized" row after the raid instead of greying; Moncho hands the boat back after M5 so
+  it can be hidden; Batista's evidence laid out by menu.
+- tue: the 19-person crew reduced to the five jobs' key people; the bluff, the foundry service and the gate are
+  cutscene cards; the Belgian is a hotspot; the night shop is the day painting darkened in code.
+- Hotspot names must be unique within a room (`G.act` and the test walk-throughs find the first by name).
+- A flag that makes a person appear or disappear needs `G.refreshNpcs()`.

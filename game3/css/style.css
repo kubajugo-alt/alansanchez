@@ -240,7 +240,7 @@ body.calm #title { animation: none; }
 #cutcard .t { font-family: 'Cinzel', serif; font-size: 2em; color: #f2dfb0; margin-bottom: .6em; }
 #cutcard .d { font-family: 'IM Fell English', serif; font-style: italic; font-size: 1.15em; line-height: 1.45; max-width: 40em; color: #d8ccb2; }
 #cutcard .ph { margin-top: 1.4em; font-size: .75em; letter-spacing: .12em; color: #7f8f96; text-transform: uppercase; }
-#pulse { position: absolute; left: 1.4%; top: 2.4%; width: 2.6em; height: 2.6em; display: none; pointer-events: auto; z-index: 7; }
+#pulse { position: absolute; left: 5.4%; top: 2.6%; width: 2.6em; height: 2.6em; display: none; pointer-events: auto; z-index: 7; }
 #pulse.on { display: block; }
 #pulse i { position: absolute; inset: 0; background: radial-gradient(circle, #e2583e 30%, #7a1d10 70%); clip-path: path('M20 36 C 6 26 0 18 0 10 C 0 4 5 0 10 0 C 15 0 18 3 20 6 C 22 3 25 0 30 0 C 35 0 40 4 40 10 C 40 18 34 26 20 36 Z'); transform-origin: 50% 50%; }
 #parrot-btn { position: absolute; right: 1.2%; top: 12%; font-size: 1.5em; width: 1.9em; height: 1.9em; border-radius: 50%; border: 2px solid #b8913f;
@@ -262,3 +262,10 @@ body.calm #title { animation: none; }
 .nb-entry { display: inline-block; margin: .25em; padding: .3em .6em; border: 1px solid #8a6a3a; background: rgba(255,248,230,.6); cursor: pointer; font-size: .9em; }
 .nb-entry.sel { background: #f0c860; }
 .nb-entry.ded { border-color: #4a6a2a; background: rgba(220,240,200,.7); }
+/* the cutscene card sits over the fade to black (a scene often fades out and then describes what comes); the captions,
+   the choices and the minigames sit over the card */
+#cutcard.on { z-index: 30; }
+#narration { z-index: 31; }
+#dialog { z-index: 32; }
+#mini { z-index: 33; }
+#death { z-index: 34; }
