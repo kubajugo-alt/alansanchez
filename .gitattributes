@@ -17,3 +17,5 @@ art/review/stills/still_duarte_bed_laugh.jpg -export-ignore
 sequel/ export-ignore
 # The Forgotten Rhythm (Game III) lives in game3/ and will deploy from its own export; Game I's export leaves it out
 game3/ export-ignore
+# Claude Code settings (permission rules) are not part of any game
+.claude/ export-ignore
