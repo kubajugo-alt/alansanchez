@@ -36,7 +36,7 @@ const spk = data.speakers.join('|');
 const re = new RegExp(`['"]((?:${spk})_(?:[a-z0-9_]*_)?(?:1586|lis|wed|thu|fri|sat|sun|mon|tue|fin|epi|look|fail|hint|ded)(?:_[a-z0-9_]+)?)['"]`, 'g');
 const files = fs.readdirSync(path.join(G3, 'js/story')).map(f => path.join(G3, 'js/story', f));
 const frames = new Set(data.sprites);
-for (const f of files) { const t = fs.readFileSync(f, 'utf8'); let m; while ((m = re.exec(t))) { const id = m[1]; if (!lines.has(id) && !frames.has(id) && !/_g3$|_fail_$|_ded_$|_k$/.test(id)) problems.push(`${path.basename(f)}: line ${id} does not exist`); } }
+for (const f of files) { const t = fs.readFileSync(f, 'utf8'); let m; while ((m = re.exec(t))) { const id = m[1]; if (/(id:\s*|S\.act\()$/.test(t.slice(Math.max(0, m.index - 7), m.index))) continue; if (!lines.has(id) && !frames.has(id) && !/_g3$|_fail_$|_ded_$|_k$/.test(id)) problems.push(`${path.basename(f)}: line ${id} does not exist`); } }
 console.log(`${data.lines.length} lines, ${Object.keys(data.rooms).length} rooms, ${Object.keys(data.chars).length} characters, ${Object.keys(data.items).length} items`);
 const uniq = [...new Set(problems.concat(errs))];
 uniq.slice(0, 80).forEach(p => console.log('  ' + p));
