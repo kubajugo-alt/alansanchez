@@ -1,0 +1,15 @@
+{
+  "name": "Alan Sanches: The Drowned Bell",
+  "short_name": "The Drowned Bell",
+  "description": "A hand-painted point-and-click mystery set in fog-bound Lisbon, 1995.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#000000",
+  "theme_color": "#16120c",
+  "icons": [
+    { "src": "art/app/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "art/app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
