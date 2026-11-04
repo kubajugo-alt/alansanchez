@@ -201,3 +201,10 @@ but Alan).
     `art/designs/g3_rooms_sheet_v4.jpg`. All the bible's present-day screens now have a candidate painting (34 here plus
     Game I's shop, flat and street to copy). Left: the prologue's 1586 versions (paint-overs or a period style, the
     bible's open question), close-up stills (the frieze, the boat, the photo), and the user's verdicts.
+17. **Prologue paint-overs and the last side views (for review)** (2026-11-04). The user: "paint-overs for the
+    prologue", then "Export them" (the 15 side views left in Canva). Five 1586 paint-overs of today's rooms (the river
+    mouth by day, the huts, the square burning, the bell-chamber with Drake's fleet, the shore in the storm); sheet
+    `art/designs/g3_prologue_sheet.jpg`. All 23 side views and the 3 back views are on `art/designs/g3_side_sheet.png`;
+    nine sides came back on pale blue-grey instead of green (see the Canva log) and need keying before cutting.
+    The user asked how to stop the Canva permission prompts: the cloud session's mode dropdown (Auto, where offered)
+    or allow rules in a committed `.claude/settings.json`.
