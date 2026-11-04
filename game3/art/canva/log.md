@@ -82,3 +82,13 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
   - tower_stair MAHZ9vhUgn0 (fresh, Game II's santa_ana_inside MAHZ7RL8DOw as style reference) · drying_shed MAHZ9mkPMcg (fresh, Game III's candle_aisle MAHZ9Wg1Czo as reference so the market's materials match; seen through the back curtain). Exported 1680x944 through scratch pages 22, 23.
   - hub_map.jpg is not Canva: painted by `game3/scripts/map_from_osm.py` from OpenStreetMap tiles (see HANDOFF 20), as Game II's map was after the Canva one invented its coast.
   Sheet art/designs/g3_rooms_sheet_v5.jpg.
+- 2026-11-04 prologue cast (the user: "do the prologue cast and room variants that are needed. We will not be doing stills yet"). Fronts, same method as the main cast (Alan's locked front MAHZ7I8imU8 as style reference only, flat green, 1:2; the brothers 3:4). Exported through scratch pages 8, 9, 13–17 (896x1776) and 3 (1088x1456). In art/designs/, candidates:
+  - catalina_g3_front MAHZ9snzk8M · anton_g3_front MAHZ9r5Dtto · juana_g3_front MAHZ9mtm7N4 · tome_g3_front MAHZ9lJz50M
+  - wolofboy_g3_front MAHZ9sw1QXg · biafara_g3_front MAHZ9pSzVkE · millbrothers_g3_front MAHZ9qA9fx0 (both brothers in one image) · fishseller_g3_front MAHZ9majhCk
+  Grain (grain.py) 2.9–5.1, inside the approved cast's range (Alan 2.94, Lilo 6.40, Yolande 10.07). Sheet art/designs/g3_prologue_cast_sheet.jpg.
+- 2026-11-04 room variants. One edit each of the clean room (never of an edit), same camera; exported through pages 1, 2, 11, 22, 23 and resized to 1680x944. In art/designs/rooms/variants/, `<room>__<state>.png`:
+  - hostal_courtyard__night MAHZ99wdyMA · hostal_courtyard__dawn MAHZ9yUHt7g · hostal_kitchen__night_powercut MAHZ9-0kKHQ · bell_chamber__sun_sunset MAHZ93vIHdI
+  - parque_colon__wet_morning MAHZ94pFOsg · parque_colon__wind MAHZ9xovr9c · tata_alley__day MAHZ9zh_mWM · blue_house_inside__wet MAHZ9yKCfBE · san_anton_colmado__shut MAHZ9yUvcYE
+  - p1586_river_mouth__visit1_birds MAHZ9_avibI · p1586_river_mouth__visit2_fish MAHZ97lFBTc (both edited from shore_steps MAHZ9v9ulYY, the clean source of p1586_river_mouth, which serves as visit 3)
+  - Failed, not kept: hostal_roof__patch_fri MAHZ950tWtY and bell_chamber__wed_far_patch MAHZ9zJ5X9M came back with no dark patch; the Sunday bell-chamber has none either.
+  Sheet art/designs/g3_variants_sheet_v1.jpg.

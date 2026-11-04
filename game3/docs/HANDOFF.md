@@ -236,3 +236,24 @@ but Alan).
     engine, as in Game II (`S.PINS`). The ending's credits must say "Map of the Zona Colonial drawn from OpenStreetMap
     data © OpenStreetMap contributors (ODbL)". Checked by eye on `art/designs/g3_rooms_sheet_v5.jpg`; the stair's puddle
     is faint.
+21. **Prologue cast and room variants (for review)** (2026-11-04, the user: "do the prologue cast and room variants
+    that are needed. We will not be doing stills yet"). **Cast**: fronts of Catalina Bran, Antón Congo, Juana, Tomé,
+    the Wolof boy, the Biafara woman, the two mill brothers (one image) and the fish-seller, same method as the main
+    cast; sheet `art/designs/g3_prologue_cast_sheet.jpg`. The bible gives no looks for them, so these are my reading:
+    Catalina in indigo with a shell at her neck; Antón with a hand drum; Tomé a boy of about thirteen with a coil of
+    bell rope (mixed African and Spanish, since Tobías descends from "the bell's blood"); everyone barefoot in period
+    cotton, no chains, no wounds. Grown Tomé (the close) belongs to the stills and is not drawn. Sides, backs and
+    Catalina's walk wait for approval. **Variants**: worked out from the scene list against what the rooms already
+    show (room 4, the roof, the alley, Calle Las Damas, the cell are already night; the foundry is already wet under a
+    white sky; the shore screens are already storm). Eleven kept in `art/designs/rooms/variants/`, named
+    `<room>__<state>`: the courtyard at midnight (W5, TH9) and dawn (S14), the kitchen in the 04:30 power cut (TU1),
+    the bell-chamber at Sunday's red sunset (U7), Parque Colón with the wet band stopping dead at the steps (F1) and
+    in the rising wind (TU3–TU4), Tata's alley by day (Monday), the blue house wet wall to wall (M5), the colmado shut
+    (Monday), and the 1586 river mouth for P1's first two visits (birds gone; dead fish in lines; the existing
+    paint-over is visit 3). Each is one edit from its clean room; sheet `art/designs/g3_variants_sheet_v1.jpg`, source
+    beside variant. **The dark patch** did not take in Canva (roof and Wednesday tower came back unchanged; dropped).
+    Proposal: draw it in the engine as one soft dark shape over the sea, placed and scaled per day, which also lets it
+    creep as the bible wants. The water ladder (band, fish, drain, pouring bell, tide) stays animated in the engine
+    too, as the bible says ("animated, never static"). If the user rejects a room, its variants go with it. Checked by
+    eye on both sheets; notes: the colmado shut lost its sign board and shifted slightly; the wind variant's trees
+    barely bend.
