@@ -2186,3 +2186,46 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     files in both games: the storage key is `GAME_KEY + '-offline'` (still `shortest-night-offline` here), the cache names
     unchanged, so copies already downloaded keep working. `scripts/tests/offline.mjs` made to fit both (the content key of
     either game, the first scene given for the update check, `js/story/docs.js` as the file the update rewrites).
+158. **Light and shadow on the figures, as Game I: the seven lamp-lit rooms, for review** (2026-11-04, the user: "could you
+    check if light and shadow solutions from game 1 are present in game 2", then "yes, start with the seven lamp-lit
+    rooms"). The engine is Game I's, but Game II's rooms only gave their 18 lamps a painted glow (no `power`, `reach`,
+    `rim`, `shadow`, `floor`, `height`), and no room had a key light (`light.rim`) or `flickerShade`: so no lamp lit a
+    figure and nothing cast a shadow but the contact shadow. Game I: 47 lamps in 20 of 21 rooms, 16 casting shadows, 11
+    rooms with a key light.
+    - `js/story/lighting.js` (loaded before layout.js), only with `?light=2` (or localStorage `shortest-night-light` = `2`;
+      `window.LIGHT2`): Rafa's bar (two lanterns, the street lamp; flickerShade 0.18), the museum corridor (four wall
+      lanterns; 0.14), the archive (pendant, stairs lantern, the window's day; the green desk lamp stays a glow), the Casa
+      de Colón (the window and the balcony door's day, the desk lamp, the balcony lantern; key light from the right),
+      Baute's office (the desk lamp, the lamp by the door), Santa Ana inside (the stained glass, the three altar candles;
+      key light from the left), La Isleta (the quay lamp, faint: overcast). Every lamp's floor point and height read off
+      the painting (lamps ringed, floor outlined); reach set to the room's size, as Game I's (its police tube 1100).
+    - Measured at the spots Alan stands: the main lamps reach him at 0.15-0.44, cast shadows at 0.22-0.43 opacity (Game I's
+      police 0.16-0.20). The modelling reads clearly (a lit side, a shaded side, the lamp's rim); the cast shadows are
+      faint on these rooms' dark wood and red tile floors, as Game I's are on its dark floors.
+    - Checked: before/after screenshots of Alan at two spots per room (GPU lighting on), no page errors; without
+      `?light=2` nothing changes (validate 0 errors; smoke lobby, bar pass).
+    - Next, if approved: the other 23 rooms (the sun on the exteriors, windows), then on by default.
+159. **The other 22 rooms lit, for review; deployed behind `?light=2`** (2026-11-04, the user: "do the other 23 rooms too,
+    then deploy"; the map has no figures). In `js/story/lighting.js` beside entry 158's seven:
+    - Under cloud (Las Canteras, the museum street, the courtyard, the Santa Ana square, the Colón square, the beach before
+      the sun): a soft sky light from above (power 0.28, shadow 0.3: a faint shadow under the feet).
+    - Sun: the camp (high on the left); the beach once `sun_out` (behind on the right: its surfboards' shadows fall left).
+    - Windows by day: Gando (the glass wall, and the ceiling strip), the lobby (by day; its wall and desk lamps at night,
+      `S.lobbyNight`), room 404 (the balcony door), the restaurant, the belfry (the arch, low: long shadows), Rafa's studio,
+      the market (the glass roof), Cave 6 (the hole in the dome, the opening) and the chamber under it.
+    - Lamps: the museum hall (two lanterns), the vault (lantern, torch, the stairs' day; flickerShade 0.12), the cell,
+      Carmen's flat (hanging lamp, table lamp). The two cars: the moon, no shadows (no figure is drawn in them).
+    - Measured at two floor spots each: windows and sun 0.2-0.34 with shadows 0.2-0.37; lamps 0.1-0.2; overcast soft.
+      Sheets: `art/review/light2/sheet23_0-3.jpg` (Alan, before | `?light=2`).
+    - Checks: validate 0 errors; smoke with `?light=2` over every preview scene: all 33 pass; without it nothing changes.
+    - Deployed (the user: "then deploy"), still behind `?light=2`: export at `87e6b194` (557 MB); play.mjs on it won in
+      132 steps, no errors; Netlify `6aeb73d032a840cf4ec1cec4`. Live: page 200, `/.env` and `/scripts/` 404; lighting.js,
+      index.html, offline.json byte-equal; live smoke with `?light=2` bar, belfry pass, and lobby without it. Waiting on the
+      user to see it in the game: then on by default (drop the `?light=2` gate in lighting.js) or changes.
+160. **The lighting on for everyone; merged** (2026-11-04, the user: "switch it on for everyone and merge into master").
+    `js/story/lighting.js` runs unless the address has `?light=0` (the rooms as they were, to compare); the `?light=2`
+    switch and its localStorage key are gone.
+    Export at `9dfd2d11` (557 MB): play.mjs won in 132 steps, no errors; smoke over every preview scene passes, all lit.
+    Netlify `6aeb79b735cc919c87afb229`. Live: page 200, `/.env` and `/scripts/` 404; lighting.js, index.html, offline.json
+    byte-equal; by default the rooms are lit (`LIGHT2` true, Rafa's lantern power 0.5), with `?light=0` as before; live
+    smoke bar, belfry, lobby pass. Merged into master by PR kubajugo-alt/alansanchez#20.
