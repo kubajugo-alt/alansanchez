@@ -2157,3 +2157,23 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     errors; Netlify `6aeac26654f79b344ac09d36`. Live: page 200; `/.env`, `/scripts/`, `/lipsync/` 404; `js/game.js`,
     `art/bg1x/` served; engine/input.js, fx.js, lipsync.js, story/tue.js byte-identical; at 1280 the 1280 paintings and the
     10 painted icons load, no page errors. Everything to entry 154 was live (until 152's redeploy).
+156. **The two Game II lines combined** (2026-11-04, the user: "game 2 seemed to go back to older backgrounds and it doesn't
+    have the background characters in the airport"; "restore it now and then combine both"). Two sessions had worked on
+    Game II at once: this branch's 105-152 (`claude/happy-ptolemy-m086fu`) and 153-155 (`claude/dazzling-wright-lm7a2y`,
+    started from master, which held Game II only to 104). 155's deploy put master's older Game II live over 148's (old
+    paintings, no Gando people) until 152 deployed again at 14:01 (Netlify `6aeb3aac`), which restored the site.
+    - Merged `claude/happy-ptolemy-m086fu` at `2bba7b57` into `claude/dazzling-wright-lm7a2y` (merge `914ec80f`): its Game II
+      kept whole (paintings, people, story, lines, recordings, art, offline); 223 conflicts, 216 of them lip-sync files (theirs
+      taken, then re-timed). On top: the engine shared with Game I (its six engine changes, the contact shadow for two, the
+      water pass, the smoke's own timings, the walk each way, the photo pages and offline styles, copied into Game I's
+      engine too, byte for byte); `js/game.js`; the beach closed at night (on the steps' new hotspot); the tests, validator,
+      walk lab and review screen. `fx.js`: the `?env=2` setting under `GAME_KEY`; sway masks match the painting at any size.
+    - `art/bg1x/` remade from the repainted rooms (33, `BG1X` in main.js).
+    - Lip-sync (Rhubarb 1.13.0): 47 written, 1915 unchanged, 170 with no recording; every recorded line of a speaker with a
+      face has current cues.
+    - validate: lines listed in `scripts/voice_redo.txt` are "not recorded yet" warnings (178: entry 151's 154 and 24 new
+      lines it wrote without listing them, now listed). 0 errors.
+    - Checks: `play.mjs` won in 132 steps, no errors; smoke on the `git archive HEAD:sequel` export: all 33 preview scenes
+      pass; Game I smoke intro, shopjobs, quayfish, bath, finale, fado pass with the merged engine.
+    - Not yet deployed: the deploy command was refused by the session's permission check; waiting on the user.
+    - From now on Game II's work starts from master (or this branch once merged), so no session deploys an older copy.

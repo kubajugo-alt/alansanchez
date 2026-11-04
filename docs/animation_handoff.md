@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `2a411813` (Netlify `6aeabe9971da605008112955`, entry 89;
 PR kubajugo-alt/alansanchez#16 merged as `3b7e78cd`): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-89; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-90; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1611,7 +1611,14 @@ session lived in the session's scratchpad and are gone; everything that matters 
    `git archive HEAD` export (no `.env`, no `sequel/`), smoke intro, shopjobs, sepit, bath, finale pass on it; Netlify
    `6aeabe9971da605008112955`. Live: page 200, `/.env` 404, `/sequel/` 404, `js/game.js`, `js/story/emotions.js` and the
    emotion patches served, engine/actor.js, faces.js, emotions.js byte-identical; live smoke intro, shopjobs pass.
-   Game II (its entry 107): Netlify `6aeac26654f79b344ac09d36`.
+   Game II (its entry 155): Netlify `6aeac26654f79b344ac09d36` (made from master's older Game II: see Game II's 156).
+90. **Game II's two lines combined; the engine takes Game II's newer engine work** (2026-11-04). See Game II's HANDOFF 156.
+   Another session's Game II work (its entries 105-152) is merged here; its six engine changes are in Game I's engine too,
+   so the two stay byte-identical (`js/engine/actor.js` a front or back walk each on its own, `lights.js` a contact shadow
+   for two, `render.js` an optional water pass, `smoke.js` a story's own timings, `fx.js` the `?env=2` sway masks and
+   lazy icons, `style.css` photo pages and the offline panel). None changes what Game I shows (its walkers have both
+   front and back cycles; no water pass, sway masks or smoke timings here). Smoke intro, shopjobs, quayfish, bath,
+   finale, fado pass; validate 0 errors. Not deployed (Game I's live site has the engine of entry 89).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
