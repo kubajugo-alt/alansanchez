@@ -1,0 +1,195 @@
+<title>Shortest Night Dialogue Flags</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: a sticky filter bar, then one card per flag in story order: the line as it is, the suggested line (editable), why, and the verdict. */
+:root {
+  --bg: #f2f0eb; --panel: #fbfaf7; --ink: #1f2226; --muted: #646a70; --rule: #dad6cd; --chip: #e7e4dc;
+  --accent: #23606b; --must: #b23a26; --should: #a96d12; --could: #5f6f7a; --ok: #2e7a4a; --no: #8a3c3c;
+  --serif: "Source Serif 4", Georgia, serif; --sans: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #16191c; --panel: #1d2124; --ink: #e6e3dc; --muted: #9ba2a8; --rule: #30363b; --chip: #262c30;
+  --accent: #72b6c1; --must: #ec8a74; --should: #e2b45c; --could: #9fb0bb; --ok: #74c592; --no: #e0928f; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #16191c; --panel: #1d2124; --ink: #e6e3dc; --muted: #9ba2a8; --rule: #30363b; --chip: #262c30;
+  --accent: #72b6c1; --must: #ec8a74; --should: #e2b45c; --could: #9fb0bb; --ok: #74c592; --no: #e0928f; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--sans); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 24px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1 { font: 600 1.9rem/1.15 var(--serif); margin: 0 0 6px; text-wrap: balance; }
+.lede { color: var(--muted); max-width: 70ch; margin: 0 0 14px; }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--rule); display: grid; gap: 8px; }
+.bar > * { min-width: 0; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.filters select { max-width: 100%; }
+.filters select, .filters input[type=search] { font: 13.5px var(--sans); padding: 5px 8px; border: 1px solid var(--rule); border-radius: 3px; background: var(--panel); color: var(--ink); min-width: 0; }
+.filters input[type=search] { flex: 1 1 160px; }
+.seg { display: inline-flex; flex-wrap: wrap; max-width: 100%; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+.seg button { font: 13px var(--sans); border: 0; border-right: 1px solid var(--rule); background: var(--panel); color: var(--ink); padding: 5px 9px; cursor: pointer; }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+.progress { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.progress b { color: var(--ink); font-weight: 600; }
+.meter { height: 4px; background: var(--chip); border-radius: 2px; overflow: hidden; display: flex; }
+.meter i { display: block; height: 100%; }
+.cards { display: grid; gap: 14px; margin-top: 16px; }
+.partHead { font: 600 1.25rem/1.2 var(--serif); margin: 18px 0 0; }
+.partHead small { display: block; font: 13px/1.45 var(--sans); color: var(--muted); margin-top: 4px; max-width: 80ch; }
+.card { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--could); border-radius: 4px; padding: 12px 14px; display: grid; gap: 8px; min-width: 0; }
+.card.must { border-left-color: var(--must); } .card.should { border-left-color: var(--should); }
+.card.approve { box-shadow: inset 0 0 0 1px var(--ok); } .card.reject { opacity: .62; }
+.top { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; font-size: 13px; color: var(--muted); }
+.sev { font: 600 11px/1 var(--sans); letter-spacing: .07em; text-transform: uppercase; padding: 4px 6px; border-radius: 3px; color: var(--bg); background: var(--could); }
+.sev.must { background: var(--must); } .sev.should { background: var(--should); }
+.who { font-weight: 600; color: var(--ink); }
+.id { font: 12px var(--mono); overflow-wrap: anywhere; }
+.lines { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 6px 10px; align-items: start; }
+.lines .k { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding-top: 3px; }
+.now { font: 16px/1.5 var(--serif); }
+.sug { width: 100%; font: 16px/1.5 var(--serif); padding: 6px 8px; border: 1px solid var(--rule); border-radius: 3px; background: var(--bg); color: var(--ink); resize: vertical; min-height: 2.6em; }
+.sug.edited { border-color: var(--accent); }
+.nosug { color: var(--muted); font-style: italic; }
+.why { font-size: 14px; color: var(--muted); max-width: 80ch; }
+.why b { color: var(--ink); font-weight: 500; }
+.row { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.row button { font: 500 13.5px var(--sans); padding: 6px 12px; border: 1px solid var(--rule); border-radius: 3px; background: var(--panel); color: var(--ink); cursor: pointer; }
+.row button[aria-pressed="true"][data-v="approve"] { background: var(--ok); border-color: var(--ok); color: var(--bg); }
+.row button[aria-pressed="true"][data-v="reject"] { background: var(--no); border-color: var(--no); color: var(--bg); }
+.row input.note { flex: 1 1 200px; min-width: 0; font: 14px var(--sans); padding: 6px 8px; border: 1px solid var(--rule); border-radius: 3px; background: var(--bg); color: var(--ink); }
+.row .saved { font-size: 12px; color: var(--muted); }
+.row .rec { font-size: 12px; color: var(--muted); }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.empty { color: var(--muted); padding: 30px 0; text-align: center; }
+@media (max-width: 560px) { .lines { grid-template-columns: minmax(0, 1fr); } .lines .k { padding-top: 0; } h1 { font-size: 1.5rem; } }
+</style>
+
+<div class="wrap">
+  <h1>Dialogue flags, for your verdict</h1>
+  <p class="lede">The lines the nine reviewers flagged, in story order. Approve or reject each. You can edit the suggested line before approving, and your wording is what I'll use. Your verdicts save as you go. Approved lines change in <span class="id">js/lines.js</span>; a recorded line then plays as a caption until it is re-recorded.</p>
+  <div class="bar">
+    <div class="filters">
+      <div class="seg" role="group" aria-label="Severity" id="sevs">
+        <button type="button" data-sev="all" aria-pressed="true">All</button><button type="button" data-sev="must" aria-pressed="false">Must</button><button type="button" data-sev="should" aria-pressed="false">Should</button><button type="button" data-sev="could" aria-pressed="false">Could</button>
+      </div>
+      <div class="seg" role="group" aria-label="Verdict" id="stats">
+        <button type="button" data-st="all" aria-pressed="true">Any</button><button type="button" data-st="open" aria-pressed="false">Undecided</button><button type="button" data-st="approve" aria-pressed="false">Approved</button><button type="button" data-st="reject" aria-pressed="false">Rejected</button>
+      </div>
+      <select id="part" aria-label="Day"><option value="">Every day</option></select>
+      <input type="search" id="q" placeholder="Search lines, speakers, ids" aria-label="Search">
+    </div>
+    <div class="progress" id="progress"></div>
+    <div class="meter" id="meter" aria-hidden="true"></div>
+  </div>
+  <div class="cards" id="cards"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let DATA = { parts: [], flags: [] }, db = null;
+const V = {};            // doc id -> {verdict, text, note}
+const F = { sev: 'all', st: 'all', part: '', q: '' };
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const docId = f => ('f' + f.n + '_' + f.id).slice(0, 190);
+
+function visible(f) {
+  const v = V[docId(f)] || {};
+  if (F.sev !== 'all' && f.sev !== F.sev) return false;
+  if (F.st === 'open' && v.verdict) return false;
+  if ((F.st === 'approve' || F.st === 'reject') && v.verdict !== F.st) return false;
+  if (F.part && f.part !== F.part) return false;
+  if (F.q) { const q = F.q.toLowerCase(); if (![f.current, f.suggested, f.speaker, f.id, f.scene, f.why].join(' ').toLowerCase().includes(q)) return false; }
+  return true;
+}
+function card(f) {
+  const id = docId(f), v = V[id] || {}, text = v.text != null ? v.text : f.suggested;
+  const edited = v.text != null && v.text !== f.suggested;
+  const r = f.rating ? ` · scene ${f.rating.sense}/5 sense, ${f.rating.nat}/5 natural` : '';
+  return `<article class="card ${f.sev}${v.verdict ? ' ' + v.verdict : ''}" data-id="${id}" data-n="${f.n}">
+    <div class="top"><span class="sev ${f.sev}">${f.sev}</span><span class="who">${esc(f.speaker)}</span><span>${esc(f.scene)}${r}</span><span class="id">${esc(f.id)}</span></div>
+    <div class="lines">
+      <span class="k">Now</span><div class="now">${esc(f.current)}</div>
+      <span class="k">Suggested</span>${f.suggested || v.text ? `<textarea class="sug${edited ? ' edited' : ''}" id="t-${id}" rows="2" aria-label="Suggested line for ${esc(f.id)}">${esc(text)}</textarea>` : `<div class="nosug">No new text: the change is in when or where it plays (below). <button type="button" data-addtext>Write a new line instead</button></div>`}
+    </div>
+    <div class="why"><b>Why:</b> ${esc(f.why)}</div>
+    <div class="row">
+      <button type="button" data-v="approve" aria-pressed="${v.verdict === 'approve'}">Approve</button>
+      <button type="button" data-v="reject" aria-pressed="${v.verdict === 'reject'}">Reject</button>
+      <input class="note" id="n-${id}" type="text" placeholder="Note (optional)" value="${esc(v.note || '')}" aria-label="Note">
+      <span class="rec">${f.recorded ? 'recorded' : 'not recorded'}</span>
+      <span class="saved" aria-live="polite"></span>
+    </div>
+  </article>`;
+}
+function render() {
+  const out = []; let lastPart = null, n = 0;
+  for (const f of DATA.flags) {
+    if (!visible(f)) continue; n++;
+    if (f.part !== lastPart) { const p = DATA.parts.find(p => p.part === f.part); out.push(`<h2 class="partHead">${esc(f.part)}<small>${esc(p ? p.overall : '')}</small></h2>`); lastPart = f.part; }
+    out.push(card(f));
+  }
+  $('cards').innerHTML = n ? out.join('') : '<p class="empty">No flags match these filters.</p>';
+  progress();
+}
+function progress() {
+  const all = DATA.flags, c = { approve: 0, reject: 0 }; const bySev = { must: [0, 0], should: [0, 0], could: [0, 0] };
+  for (const f of all) { const v = (V[docId(f)] || {}).verdict; if (v) c[v]++; bySev[f.sev][1]++; if (v) bySev[f.sev][0]++; }
+  const open = all.length - c.approve - c.reject;
+  $('progress').innerHTML = `<span><b>${c.approve}</b> approved</span><span><b>${c.reject}</b> rejected</span><span><b>${open}</b> undecided of ${all.length}</span>` +
+    Object.entries(bySev).map(([s, [d, t]]) => `<span>${s}: ${d}/${t} decided</span>`).join('');
+  const w = x => (100 * x / all.length).toFixed(2) + '%';
+  $('meter').innerHTML = `<i style="width:${w(c.approve)};background:var(--ok)"></i><i style="width:${w(c.reject)};background:var(--no)"></i>`;
+}
+function refreshCard(id) {
+  const el = document.querySelector(`.card[data-id="${CSS.escape(id)}"]`); if (!el) return;
+  const v = V[id] || {}, f = DATA.flags.find(f => docId(f) === id);
+  el.className = `card ${f.sev}${v.verdict ? ' ' + v.verdict : ''}`;
+  el.querySelectorAll('button[data-v]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v.verdict)));
+  const ta = el.querySelector('textarea'); if (ta) ta.classList.toggle('edited', v.text != null && v.text !== f.suggested);
+}
+async function save(id, patch) {
+  const f = DATA.flags.find(f => docId(f) === id);
+  V[id] = Object.assign({}, V[id], patch); refreshCard(id); progress();
+  const out = document.querySelector(`.card[data-id="${CSS.escape(id)}"] .saved`);
+  if (!db) { if (out) out.textContent = 'Not saved: open this page signed in to claude.ai'; return; }
+  const v = V[id];
+  try {
+    if (!v.verdict && !v.note && v.text == null) await db.collection('verdicts').doc(id).delete();
+    else await db.collection('verdicts').doc(id).set({ n: f.n, id: f.id, sev: f.sev, verdict: v.verdict || '', text: v.text != null ? v.text : f.suggested, edited: v.text != null && v.text !== f.suggested, note: v.note || '', at: new Date().toISOString() });
+    if (out) out.textContent = 'Saved';
+  } catch (e) { if (out) out.textContent = 'Not saved: ' + ((e && e.message) || 'try again'); }
+}
+$('cards').addEventListener('click', ev => {
+  const card = ev.target.closest('.card'); if (!card) return;
+  const id = card.dataset.id;
+  const b = ev.target.closest('button[data-v]');
+  if (b) { const cur = (V[id] || {}).verdict; const ta = card.querySelector('textarea'); save(id, Object.assign({ verdict: cur === b.dataset.v ? '' : b.dataset.v }, ta ? { text: ta.value } : {})); return; }
+  if (ev.target.closest('[data-addtext]')) { const box = ev.target.closest('.nosug'); box.outerHTML = `<textarea class="sug edited" id="t-${id}" rows="2" aria-label="New line"></textarea>`; card.querySelector('textarea').focus(); }
+});
+$('cards').addEventListener('change', ev => {
+  const card = ev.target.closest('.card'); if (!card) return; const id = card.dataset.id;
+  if (ev.target.matches('textarea')) save(id, { text: ev.target.value });
+  if (ev.target.matches('input.note')) save(id, { note: ev.target.value.trim() });
+});
+$('sevs').addEventListener('click', ev => { const b = ev.target.closest('button'); if (!b) return; F.sev = b.dataset.sev; $('sevs').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); render(); });
+$('stats').addEventListener('click', ev => { const b = ev.target.closest('button'); if (!b) return; F.st = b.dataset.st; $('stats').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); render(); });
+$('part').addEventListener('change', () => { F.part = $('part').value; render(); });
+let qt; $('q').addEventListener('input', () => { clearTimeout(qt); qt = setTimeout(() => { F.q = $('q').value.trim(); render(); }, 200); });
+
+(async () => {
+  try { DATA = await (await fetch('flags.json')).json(); } catch (e) { $('cards').innerHTML = '<p class="empty">The flags did not load. Reload the page.</p>'; return; }
+  $('part').innerHTML += DATA.parts.map(p => `<option value="${esc(p.part)}">${esc(p.part)}</option>`).join('');
+  render();
+  try {
+    db = window.claude && await window.claude.use('db');
+    if (!db) return;
+    db.collection('verdicts').onSnapshot(snap => {
+      const typing = document.activeElement && document.activeElement.closest && document.activeElement.closest('.card');
+      for (const k of Object.keys(V)) delete V[k];
+      snap.docs.forEach(d => { const v = d.data(); if (v) V[d.id] = { verdict: v.verdict || '', text: v.edited ? v.text : (v.text != null && v.text !== (DATA.flags.find(f => docId(f) === d.id) || {}).suggested ? v.text : null), note: v.note || '' }; });
+      if (typing) { Object.keys(V).forEach(refreshCard); progress(); } else render();
+    }, () => {});
+  } catch (e) { db = null; }
+})();
+</script>

@@ -2060,4 +2060,20 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       Reviews: `docs/review/dialogue/review_<nn>.md`; the summary and every must flag: `docs/review/dialogue/README.md`.
       The facts behind the must flags were checked against BIBLE.md. Nothing in the game changed; applying a flag means
       editing `js/lines.js` and re-recording that line (or it plays as a caption).
+150. **The approve/reject page for the dialogue flags** (2026-11-04, the user: "make the approve/reject page for the
+    flags"). https://claude.ai/artifact/EUqRPDdikYMjL6ew7wkQDx (private; db collection `verdicts`, one doc per decided
+    flag `f<n>_<line id>`: `{n, id, sev, verdict: approve|reject, text, edited, note}`).
+    - `scripts/dialogue_flags.mjs` reads the nine reviews into `art/review/dialogue_flags/flags.json`: 168 flags (24 must,
+      81 should, 63 could; the summary tables' 170 counted two twice), each with the line as it is in `js/lines.js` now
+      (not the reviewer's quote), the rewrite, the reason, the scene and its ratings, recorded or not. Six flags have no
+      new text (a change of order or of when a line plays: `alan_look_vasco_reception`, `alan_look_gail`,
+      `alan_w_dawn_say`, `carmen_th_monte_2`, `alan_ask_carmen_pepe`, `narr_m_baute_silent`); the page lets the user write
+      one.
+    - The page: story order, grouped by day with each review's overall verdict; filters by severity, verdict, day and
+      text; the suggested line editable before approving (the edited wording is what gets applied); a note per flag;
+      progress by severity. Checked at desktop and phone width, no page errors; the store reachable and empty.
+    - To apply (on the user's word): `ArtifactData list` of `verdicts`; for each approved flag with text, set that id's
+      text in `js/lines.js` (ids never change), `scripts/voice_redo.txt` gets the recorded ones, `alan_*`/`*` lines
+      changed keep their old mp3 out of play (as entry 104 did: stale recordings set aside so the caption shows), the
+      order/condition flags done in code; then validate, play.mjs, regenerate the scene files.
 
