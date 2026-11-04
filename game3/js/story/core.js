@@ -20,7 +20,7 @@
   const G = window.Game;
   const F = () => G.flags;
   const say = async (...ids) => { for (const id of ids) await G.says(id); };
-  const S = window.S = { G, F, say, ROOMS: {}, LINE_POSE: {}, START: {}, PREVIEW: {}, SOLVE: {} };
+  const S = window.S = { G, F, say, ROOMS: {}, LINE_POSE: {}, START: {}, PREVIEW: {}, SOLVE: {}, ALIVE: {}, ALIVE_FG: {} };
   G.sayChoice = id => say(id);
   S.T = ms => G.wait(window.FAST ? 20 : ms);
   S.sfx = (...a) => { try { Sound.sfx(...a); } catch (e) { /* no sound */ } };
