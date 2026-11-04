@@ -345,3 +345,21 @@ but Alan).
       theme on the title screen, the hostal theme and the room's bed in room 4, p1586 and the 1586 bed in the prologue;
       validate and the whole play-through (below). A listening sampler, every track 16 s and six beds 10 s:
       `docs/g3_sound_sampler.mp3` (not deployed). Not yet heard by the user: this is synthesis, not recorded musicians.
+26. **The rooms come alive** (2026-11-04, the user: "can you now do the typical run through the game to make the environment
+    alive with little movement, like 2 previous games?"). As Games I and II: nothing in art/bg changes; small movements are
+    drawn over each painting every frame, deterministic in t, off under the menu's reduced motion. `js/story/alive.js`
+    chains each room's `S.ALIVE[id]` (behind the figures) and `S.ALIVE_FG[id]` (in front: rain) after whatever the story
+    already draws there; the details live in `alive_1.js` (the hostal, Calle Las Damas), `alive_2.js` (the cathedral, the
+    tower, the cloister and archive, Parque Colón in its three states, El Conde, the wall, the palace), `alive_3.js` (San
+    Antón, Tata's alley by night and day, the blue house dry and wet, the market, the candle aisle, Yolande's room, the
+    drying shed, the bar, Darío's roof, the gallera), `alive_4.js` (the cell, Batista's office, the steps, the foundry,
+    the shore in the storm with rare lightning, the hub map) and `alive_5.js` (1586: the river mouth's three visits with no
+    birds on the first two, the huts, the burning square, the bell-chamber, the storm; Lisbon: Game I's own details for
+    the shop, flat and street; Vasco's office). Only things painted there move (foliage, laundry, candles, lamps, fans,
+    fountains, water, clouds and birds in visible sky, dust in light, smoke, fire); the bell never moves, only its rope.
+    - `scripts/tests/alive_shot.mjs <url> <room> <variant|-> <ch> <out>`: a frame and, under it, what moved over 0.7 s in
+      red; every room and variant was checked with it. Contact sheet of six: `docs/g3_alive_sheet.jpg`.
+    - Not moving (on purpose): views through iron grilles (the bars would wobble); Game I's street sign and tram (they need
+      Game I's own layer art and script); the colmado's boombox.
+    - Frame times in a software-rendered test browser (no GPU) once the art has loaded: about 16.7 ms (60 fps) in the
+      busiest rooms (the burning square, Parque Colón in the wind, the candle aisle, the storm shore).
