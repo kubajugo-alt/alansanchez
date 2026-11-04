@@ -368,3 +368,31 @@ but Alan).
     (the music is 28 MB of it), smoke-tested on its own port (parts 8–9 to the credits); deploy
     `6aeb6e0f5057957f9eac067a`, https://alan-sanchez-forgotten-rhythm.netlify.app. Live: page, alive files, sound.js, the
     tracks and the beds 200; `/.env`, `/scripts/`, `/docs/` 404; parts 8–9 on the live site to the credits.
+
+28. **The rooms repainted by GPT** (2026-11-04, the user: "the backgrounds look horrible - we need to use the same trick
+    we did for game 2 and use CHAT GPT to make them look better quality. it is done via the higgsfield connector").
+    The user picked "B: as GPT paints it" (no light matching to the old paintings) and "43 rooms first": every
+    Canva-painted base screen; not the variants, not Lisbon's Game I paintings (shop, flat, rua), not the hub map.
+    - 41 base screens: Higgsfield `gpt_image_2_5`, quality high,
+      2k, 16:9, the old painting as `image_references`, 2.75 credits each. The prompt asks for the same room repainted with
+      the same layout, camera and objects, at higher quality. `blue_door_bar` came back `nsfw` (a false
+      positive) and went through again as "an empty old Caribbean neighbourhood cafe ... family adventure game".
+    - Sources: `art/designs/rooms_hf/<bg>.jpg` (2688x1520, q95; Higgsfield media ids in `media_ids.json`). The old
+      1280x720 game copies: `art/designs/rooms_1280/`. The test sheet the user chose from: `art/designs/g3_rooms_gpt_test.jpg`.
+    - `scripts/import_assets.py`: `room()` takes `rooms_hf/<id>.jpg` when there is one and writes `art/bg/<id>.jpg` at
+      2560x1440 q88 (centre fill to 16:9, as before); the engine draws any size into the frame and the alive pass's
+      sway/ripple/breathe already scale by `im.width / W`. Also fixed: the script used to wipe `audio/sfx` and copy
+      Game II's over it, which deleted this game's `sd_*` beds and their manifest entries; it now copies over and keeps them.
+    - Checked: edge maps of each repaint against its original correlate 0.64–0.92 with the best match at zero shift for
+      all but `police_cell` (8 px at 1280, inside every hotspot's slack), so doors, floors and hotspots stay where they
+      were; `alive_shot.mjs` on the 24 rooms with movement (fans on the fans, curtains, water, palms, the bead curtain,
+      flames) all on their things; `validate.mjs` no problems; the whole play-through (`run.mjs 0 9`) to the credits.
+      Story details survived where the painting carried them (the bell, the vèvè chalk in the blue house, Yolande's
+      altar and boat, the foundry clock). Before/after: `docs/g3_rooms_gpt_sheet.jpg`.
+    - Look: brighter and sharper than before, as GPT paints it. `shore_steps` reads as dusk rather than night; the
+      night rooms (Calle Las Damas, Tata's alley, the shore) are lighter.
+    - Left as the old Canva paintings (they may now look softer than their base rooms): bell_chamber__sun_sunset,
+      blue_house_inside__wet, hostal_courtyard__dawn, hostal_courtyard__night, hostal_kitchen__night_powercut,
+      p1586_river_mouth__visit1_birds, p1586_river_mouth__visit2_fish, parque_colon__wet_morning, parque_colon__wind,
+      san_anton_colmado__shut, tata_alley__day (11, about 30 credits at 2.75); Lisbon's shop, flat, rua; the hub map.
+      About 14 credits left on Higgsfield.

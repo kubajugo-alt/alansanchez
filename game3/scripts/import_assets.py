@@ -118,13 +118,18 @@ print('cast', len([k for k in sprites if k.endswith('_g3')]))
 
 # ---------------------------------------------------------------- rooms
 def room(src, rid):
+    # the GPT repaints (art/designs/rooms_hf, Higgsfield gpt_image_2_5 from the painting) win, kept at 2560x1440;
+    # the engine draws any size into the 1280x720 frame. The 1280 Canva versions stay in art/designs/rooms_1280.
+    hf = os.path.join(G3, 'art/designs/rooms_hf', rid + '.jpg')
+    W, H = (2560, 1440) if os.path.exists(hf) else (1280, 720)
+    if os.path.exists(hf): src = hf
     im = Image.open(src).convert('RGB')
-    if im.size != (1280, 720):
+    if im.size != (W, H):
         # fill 16:9 (the paintings are 1680x944, a hair taller than 16:9)
-        r = max(1280 / im.width, 720 / im.height)
+        r = max(W / im.width, H / im.height)
         im = im.resize((round(im.width * r), round(im.height * r)), Image.LANCZOS)
-        x, y = (im.width - 1280) // 2, (im.height - 720) // 2
-        im = im.crop((x, y, x + 1280, y + 720))
+        x, y = (im.width - W) // 2, (im.height - H) // 2
+        im = im.crop((x, y, x + W, y + H))
     im.save(A('bg', rid + '.jpg'), quality=88)
 rooms = []
 for f in sorted(glob.glob(os.path.join(G3, 'art/designs/rooms/*.png')) + glob.glob(os.path.join(G3, 'art/designs/rooms/variants/*.png'))):
@@ -146,9 +151,15 @@ for f in glob.glob(os.path.join(G3, 'art/designs/items/*.png')):
 shutil.copyfile(os.path.join(G2, 'art/closeups/paper_aged.jpg'), A('closeups', 'paper_aged.jpg'))
 
 # ---------------------------------------------------------------- sound effects
-dst = os.path.join(G3, 'audio/sfx')
-if os.path.exists(dst): shutil.rmtree(dst)
-shutil.copytree(os.path.join(G2, 'audio/sfx'), dst)
+# Game II's set, copied over what is there; Game III's own (sd_*, made by scripts/make_sound.py) and their manifest
+# entries are kept.
+dst = os.path.join(G3, 'audio/sfx'); os.makedirs(dst, exist_ok=True)
+man = os.path.join(dst, 'manifest.json')
+own = {k: v for k, v in json.load(open(man)).items() if k.startswith('sd_')} if os.path.exists(man) else {}
+shutil.copytree(os.path.join(G2, 'audio/sfx'), dst, dirs_exist_ok=True)
+if own:
+    mf = json.load(open(man)); mf.update(own)
+    json.dump(mf, open(man, 'w'), sort_keys=True)
 
 # ---------------------------------------------------------------- the generated js
 with open(os.path.join(G3, 'js/sprites_g3.js'), 'w') as f:
