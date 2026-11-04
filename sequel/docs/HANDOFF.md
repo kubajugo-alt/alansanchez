@@ -24,7 +24,7 @@ root, in the same repository as Game I. Read, in this order:
   sound effects (`audio/sfx/`, copied). Nothing is loaded from outside `sequel/`.
 - Saves, settings and tips use their own `shortest-night-*` keys, so the two games never share a save on one browser.
 
-### What is in the game (2026-11-03, live: Netlify deploy `6aea9f21eea8aa6850cbc192`, entry 148)
+### What is in the game (2026-11-03, live: Netlify deploy `6aeb3aac12d1908af306309c`, entry 152)
 - **The whole story is playable**, prologue to credits: the prologue (Elena's last drive), Tuesday to Monday as
   chapters, Vasco's playable chapter, Sunday's choice with the airport's bad ending, the finale, the confession and
   the ending. Every day rewritten from the novel (entries 17, 87), then the narrator cut back across the game (entries
@@ -2095,4 +2095,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       bible Las Palmas; the inscription now reads "Sanches me fez, 1751"); Juan's drowning in 1484 after "the sea has not
       risen since" (Mercedes's line now says eleven days after he swore).
     - Scene files regenerated. validate: 0 errors; play.mjs: won, 132 steps, no errors. Not deployed.
+152. **Deployed: the dialogue review's changes** (2026-11-04, the user: "deploy it"). `build-manifest.mjs` run last (2,710
+    voice files, offline pack 8,291 files, 550 MB, version 446cb1e4b0), commit `10b01434`; export `git archive
+    HEAD:sequel` (no scripts/docs/.env/voice_stale); play.mjs on the export, its own port: won, 132 steps, no errors.
+    Netlify deploy `6aeb3aac12d1908af306309c`. Live: offline.json the export's (every path and hash equal), index.html
+    equal, lines.js / wed.js / mon.js byte-equal; `/.env`, `/scripts/`, `/docs/` 404, and a set-aside recording
+    (`audio/voice/baute_t_discs.mp3`) 404, so the 166 changed lines and the two new looks play as captions until
+    re-recorded (`scripts/voice_redo.txt`).
 
