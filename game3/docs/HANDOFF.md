@@ -180,3 +180,9 @@ but Alan).
     so the three playable sides are edits of their previous games' side sprites with the new clothes, all at Alan's
     angle (body to the right, face three-quarters; the user: "we need the same angle as alan's side view, for vasco and
     Ines"). 11 downloaded; 15 made in Canva and waiting to be exported, then one sheet for review.
+13. **Rooms, first wave (for review)** (2026-11-04, the user: "ok, we have got the cast, now draw the rooms", then "go
+    straight to the rooms"). Nine rooms: the hostal (courtyard, room 4 at night, room 9, kitchen, roof at night), the
+    cathedral nave with the St Michael chapel, the bell-chamber, Calle Las Damas at night, Parque Colón. One fresh Canva
+    painting each, Game II's rooms as the style reference only; `art/designs/rooms/`, sheet
+    `art/designs/g3_rooms_sheet_v1.jpg`. Not upscaled, not laid out, not in any game (rooms become fixed only once
+    approved). The other 6 sides and 15 side views still to export (entry 12).
