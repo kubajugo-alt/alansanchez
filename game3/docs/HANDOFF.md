@@ -108,3 +108,13 @@ but Alan).
    `CLAUDE.md` points here; the root `.gitattributes` leaves `game3/` out of Game I's export. No code, art or voices.
    Checked: the bible's dates fall on the weekdays it gives (Thu 29 Aug, Wed 4 and Tue 10 Sept 1996); the puzzle
    counts by day add up to 51; `git archive HEAD | tar -t` has no `game3/` files.
+2. **New clothes for Alan, Vasco and Inês, front only (Canva, for review)** (2026-11-04, the user: "use canva to draw
+   character sprites (front only for now). Alan, Vasco and Ines need new clothes. Make sure to keep the style consistent
+   - Alan is the benchmark. Also, for anything you do - make sure it doesn't affect game I and II"). Canva
+   `generate-image` on green with Alan's Game II front sprite as the style reference; full size via the scratch design
+   (record and media ids in `art/canva/log.md`). Alan: off-white linen jacket (the jacket Yunior takes in S10) over his
+   black vest, stone trousers. Inês: the bible's travelling clothes. Vasco's first try took Alan's face (the user:
+   "vasco's face doesn't look like him"); v2 is an edit of his own sprite only, which keeps his face. Lesson, as in
+   Game II's entry 2: for anyone but Alan, edit the character's own figure and don't add Alan as a reference. Sheet:
+   `art/designs/g3_front_sheet_v1.png`. Nothing cut or installed (there's no game yet). Games I and II untouched (the
+   references are copies in the scratchpad; `git status` shows changes only under `game3/`).
