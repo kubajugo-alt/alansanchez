@@ -2024,4 +2024,19 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       ladders), dropping the box's walk-to point so the engine walks to the new box. Wired now with no edits (an empty
       `S.SPOT_EDITS`), so the game is unchanged; tested with two fake edits (Canteras's phone box, Cave 6's second
       ladder): only those moved, no page errors; then emptied again.
+147. **The user's hotspot boxes installed** (2026-11-04, the user: "done moving the hotspots, install them"). 34 boxes in 16
+    rooms from the tool's `spots` docs (`ArtifactData list` with `out_dir`, `scripts/spots_install.py`) into
+    `js/story/spots.js`: archive (ashtray, stairs), beach (sea, sky, towels, promenade), belfry (sit), camp (granary
+    steps, sea of cloud), Canteras (bonfires, down to the beach, kiosk, to the city), Carmen's flat (answering machine,
+    fridge, shelves), Cave 6 (sit), the chamber (Vasco at the rim), the restaurant (lobby, buffet, windows), Isleta (nets,
+    the things in the nets, to the city), the market (roof, to the city), the corridor (back, skulls), the courtyard
+    (back), the museum outside (to the city), Santa Ana (cathedral door, timple players, to the city), the nave (out to
+    the plaza). Every key matched a hotspot; checked in the running game: all 34 boxes where the tool put them, no page
+    errors. Worth a look in play: several exits now cover a wide strip of floor (the market's "To the city" the whole
+    bottom 160 px, Santa Ana's 858 px of it, the museum's 400 x 233), so a click on that floor leaves the room.
+    Santa Ana's "Timple players" hotspot is removed altogether (the user: "Timple players are to be removed"; the
+    painting has no players): out of wed.js and layout.js, its box deleted from the tool's db and data.json;
+    `alan_look_timple` and `_mist` stay in lines.js unused. 33 boxes in 16 rooms installed. play.mjs: won, 132
+    steps, no errors; all 33 boxes checked in the game again after the removal. Not deployed. The tool
+    keeps working for further moves: move a box again and install again (spots.js is rewritten from all the docs).
 

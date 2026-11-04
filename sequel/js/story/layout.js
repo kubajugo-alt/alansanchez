@@ -82,7 +82,7 @@
     santa_ana: {
       walk: [[270, 600], [500, 505], [830, 505], [1000, 560], [1280, 600], [1280, 716], [270, 716]], scale: [510, 150, 716, 380],
       entries: { default: [400, 690, 'e'], map: [400, 690, 'e'], santa_ana_inside: [580, 520, 's'] },
-      spots: { 'Cathedral clock': [378, 193, 44, 44], 'Bronze dogs': [40, 295, 380, 400], 'Timple players': [960, 410, 200, 180], 'Cathedral door': [540, 385, 75, 115],
+      spots: { 'Cathedral clock': [378, 193, 44, 44], 'Bronze dogs': [40, 295, 380, 400], 'Cathedral door': [540, 385, 75, 115],
         'To the city': [1230, 600, 50, 116] },
       at: { 'Cathedral clock': [520, 520], 'Cathedral door': [580, 515] },   // (the clock on the left tower: the real-place repaint, 2026-10-29)
     },

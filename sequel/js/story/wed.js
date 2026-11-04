@@ -179,7 +179,7 @@
     hotspots: [
       { name: 'Cathedral clock', rect: [560, 110, 160, 120], at: [640, 640], look: () => say(F().clock_wound ? 'alan_look_clock_going' : 'alan_look_clock_stopped') },
       { name: 'Bronze dogs', rect: [170, 460, 110, 90], at: [230, 640], look: 'alan_look_dogs' },
-      { name: 'Timple players', rect: [1040, 440, 200, 120], at: [1060, 650], look: () => say(ch() >= 4 ? 'alan_look_timple_mist' : 'alan_look_timple') },
+      // (the timple players' hotspot removed: the painting has no players, the user 2026-11-04; their two look lines stay unused)
       { name: 'Cathedral door', rect: [580, 380, 120, 180], at: [640, 640], look: 'alan_look_cathedral_door', exit: 'santa_ana_inside', entry: 'santa_ana' },
       S.toMap([20, 250, 110, 320], [70, 650]),
     ],

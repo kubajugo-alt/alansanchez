@@ -6,7 +6,7 @@
   ],
   "hotspots": [
    {
-    "name": "Las Canteras · the beach, the kiosk, the phone box",
+    "name": "Las Canteras \u00b7 the beach, the kiosk, the phone box",
     "rect": [
      638,
      432,
@@ -32,7 +32,7 @@
     "noBox": true
    },
    {
-    "name": "Mercado del Puerto · the aloe lady",
+    "name": "Mercado del Puerto \u00b7 the aloe lady",
     "rect": [
      660,
      392,
@@ -45,7 +45,7 @@
     "noBox": true
    },
    {
-    "name": "La Isleta · the fishermen's quay",
+    "name": "La Isleta \u00b7 the fishermen's quay",
     "rect": [
      388,
      256,
@@ -58,7 +58,7 @@
     "noBox": true
    },
    {
-    "name": "El Museo Canario · Vegueta",
+    "name": "El Museo Canario \u00b7 Vegueta",
     "rect": [
      1126,
      178,
@@ -71,7 +71,7 @@
     "noBox": true
    },
    {
-    "name": "Plaza de Santa Ana · the cathedral",
+    "name": "Plaza de Santa Ana \u00b7 the cathedral",
     "rect": [
      1136,
      158,
@@ -84,7 +84,7 @@
     "noBox": true
    },
    {
-    "name": "Casa de Colón",
+    "name": "Casa de Col\u00f3n",
     "rect": [
      1108,
      165,
@@ -97,7 +97,7 @@
     "noBox": true
    },
    {
-    "name": "Vegueta · a bar on Calle Mendizábal",
+    "name": "Vegueta \u00b7 a bar on Calle Mendiz\u00e1bal",
     "rect": [
      1115,
      172,
@@ -110,7 +110,7 @@
     "noBox": true
    },
    {
-    "name": "Triana · Carmen's flat",
+    "name": "Triana \u00b7 Carmen's flat",
     "rect": [
      1049,
      190,
@@ -1059,7 +1059,7 @@
   "painted": false
  },
  "beach": {
-  "name": "Las Canteras · the beach",
+  "name": "Las Canteras \u00b7 the beach",
   "bgs": [
    "beach",
    "beach_sun"
@@ -1306,7 +1306,7 @@
   "painted": true
  },
  "hotel_restaurant": {
-  "name": "Hotel Cristina · the restaurant",
+  "name": "Hotel Cristina \u00b7 the restaurant",
   "bgs": [
    "hotel_restaurant"
   ],
@@ -1401,7 +1401,7 @@
   "painted": true
  },
  "museum_courtyard": {
-  "name": "El Museo Canario · the courtyard",
+  "name": "El Museo Canario \u00b7 the courtyard",
   "bgs": [
    "museum_courtyard"
   ],
@@ -1637,22 +1637,6 @@
     "noBox": false
    },
    {
-    "name": "Timple players",
-    "rect": [
-     960,
-     410,
-     200,
-     180
-    ],
-    "exit": null,
-    "when": null,
-    "at": [
-     1060,
-     650
-    ],
-    "noBox": false
-   },
-   {
     "name": "Cathedral door",
     "rect": [
      540,
@@ -1718,7 +1702,7 @@
   "painted": true
  },
  "santa_ana_inside": {
-  "name": "Santa Ana · the nave",
+  "name": "Santa Ana \u00b7 the nave",
   "bgs": [
    "santa_ana_inside"
   ],
@@ -1809,7 +1793,7 @@
   "painted": true
  },
  "belfry": {
-  "name": "Santa Ana · the bell chamber",
+  "name": "Santa Ana \u00b7 the bell chamber",
   "bgs": [
    "belfry"
   ],
@@ -1916,7 +1900,7 @@
   "painted": true
  },
  "archive": {
-  "name": "El Museo Canario · the archive",
+  "name": "El Museo Canario \u00b7 the archive",
   "bgs": [
    "archive"
   ],
@@ -2035,13 +2019,13 @@
   "painted": true
  },
  "colon_out": {
-  "name": "Casa de Colón",
+  "name": "Casa de Col\u00f3n",
   "bgs": [
    "colon_out"
   ],
   "hotspots": [
    {
-    "name": "Casa de Colón",
+    "name": "Casa de Col\u00f3n",
     "rect": [
      668,
      385,
@@ -2098,7 +2082,7 @@
   "painted": true
  },
  "colon": {
-  "name": "Casa de Colón",
+  "name": "Casa de Col\u00f3n",
   "bgs": [
    "colon"
   ],
@@ -2518,7 +2502,7 @@
   "painted": true
  },
  "camp": {
-  "name": "Risco Caído · the camp",
+  "name": "Risco Ca\u00eddo \u00b7 the camp",
   "bgs": [
    "camp"
   ],
@@ -2824,13 +2808,13 @@
   "painted": true
  },
  "cave6_low": {
-  "name": "Cave 6 · the chamber under it",
+  "name": "Cave 6 \u00b7 the chamber under it",
   "bgs": [
    "cave6_low"
   ],
   "hotspots": [
    {
-    "name": "Socket · waning crescent",
+    "name": "Socket \u00b7 waning crescent",
     "rect": [
      349,
      548,
@@ -2846,7 +2830,7 @@
     "noBox": false
    },
    {
-    "name": "Socket · last quarter",
+    "name": "Socket \u00b7 last quarter",
     "rect": [
      437,
      548,
@@ -2862,7 +2846,7 @@
     "noBox": false
    },
    {
-    "name": "Socket · waning gibbous",
+    "name": "Socket \u00b7 waning gibbous",
     "rect": [
      520,
      548,
@@ -2878,7 +2862,7 @@
     "noBox": false
    },
    {
-    "name": "Socket · the sun",
+    "name": "Socket \u00b7 the sun",
     "rect": [
      603,
      548,
@@ -2894,7 +2878,7 @@
     "noBox": false
    },
    {
-    "name": "Socket · waxing gibbous",
+    "name": "Socket \u00b7 waxing gibbous",
     "rect": [
      687,
      548,
@@ -2910,7 +2894,7 @@
     "noBox": false
    },
    {
-    "name": "Socket · first quarter",
+    "name": "Socket \u00b7 first quarter",
     "rect": [
      772,
      548,
@@ -2926,7 +2910,7 @@
     "noBox": false
    },
    {
-    "name": "Socket · waxing crescent",
+    "name": "Socket \u00b7 waxing crescent",
     "rect": [
      859,
      548,
@@ -3243,7 +3227,7 @@
   "painted": true
  },
  "vault_cell": {
-  "name": "The granary vault · behind the grille",
+  "name": "The granary vault \u00b7 behind the grille",
   "bgs": [
    "vault_cell"
   ],
