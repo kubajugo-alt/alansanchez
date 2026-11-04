@@ -222,3 +222,17 @@ but Alan).
     clearly in greaseproof squares. Left out on purpose: the vèvè (consultant), the hurricane chart (real geography), the
     domino layout (code), all readable text (HTML overlays as in Game II's `docs.js`). Open: the founders' mark would
     also need to be on the Lisbon shop's lintel; Game I's painting cannot change, so Game III would need its own copy.
+20. **Tower stair, drying shed, hub map (for review)** (2026-11-04, the user: "paint the tower stair, drying shed and
+    hub map"). The two screens the bible lists that had no painting: `art/designs/rooms/tower_stair.png` (the studded
+    door ajar to the nave, the bell rope, a slit window on the sea, the candle niche) and `drying_shed.png` (goatskins
+    on frames, the bench, the rolled drum skin, through the candle aisle's back curtain; made with the candle aisle as
+    the reference). The hub map follows Game II's rule (entry 6 there: a Canva map invents its coastline), so it is
+    drawn from real geography: `game3/scripts/map_from_osm.py` (forked from Game II's) reads OpenStreetMap's standard
+    tiles, zoom 17, x 40086–40095, y 58687–58693 (70 tiles fetched once, stitched into `art/src/zona_osm_z17.png`),
+    crops Parque Independencia to the Ozama's east bank and Calle Restauración to the sea, keeps only what each pixel
+    is and repaints it on paper, north up, compass rose in the river mouth. New in the fork: OSM's labels, halos, icons
+    and boundary dashes are marked unknown and filled from the nearest known pixel, so no printed text survives;
+    fountains are not sea. Output `art/designs/rooms/hub_map.jpg` (1280x720). Pins and their labels belong to the
+    engine, as in Game II (`S.PINS`). The ending's credits must say "Map of the Zona Colonial drawn from OpenStreetMap
+    data © OpenStreetMap contributors (ODbL)". Checked by eye on `art/designs/g3_rooms_sheet_v5.jpg`; the stair's puddle
+    is faint.

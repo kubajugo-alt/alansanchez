@@ -78,3 +78,7 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
   - tata_photo MAHZ9lVluCA (4:3) · elconde_tray MAHZ9gWp-QQ (five sweets, F2) · tata_notebook MAHZ9hIm8vw
   - coin_1586 MAHZ9rNcA8g (job retried once after a Canva HTTP 409) · stmichael_offerings MAHZ9kP6mqk · grandmother_photo MAHZ9mgeRmQ (4:3)
   Sheet art/designs/g3_closeups_sheet_v1.jpg. Not painted on purpose: the vèvè (consultant's review first), the hurricane chart (needs real geography), the domino layout (drawn in code), document text (HTML overlays).
+- 2026-11-04 the last two screens and the hub map (the user: "paint the tower stair, drying shed and hub map"). In art/designs/rooms/; candidates:
+  - tower_stair MAHZ9vhUgn0 (fresh, Game II's santa_ana_inside MAHZ7RL8DOw as style reference) · drying_shed MAHZ9mkPMcg (fresh, Game III's candle_aisle MAHZ9Wg1Czo as reference so the market's materials match; seen through the back curtain). Exported 1680x944 through scratch pages 22, 23.
+  - hub_map.jpg is not Canva: painted by `game3/scripts/map_from_osm.py` from OpenStreetMap tiles (see HANDOFF 20), as Game II's map was after the Canva one invented its coast.
+  Sheet art/designs/g3_rooms_sheet_v5.jpg.
