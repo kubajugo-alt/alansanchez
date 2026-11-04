@@ -10,7 +10,7 @@
 //
 // Flags set here: sun_breakfast, notebook_read, names_1979, rule4_seen, rule7, napkin, mireya_in, photo_seen, study_done,
 // unwelcome, wall_done, napkin_torn, sun_ride, poured_tata, lilo_drank, wilfredo_known, caballo, rule8, rhythm_on, lilo_in,
-// dossier_sent (+ item dossier), tobias_up, tobias_saved, tower_done, bearing_taken, their_shore, prediction_made, sun_done.
+// dossier_sent (+ item dossier), tobias_up, tobias_saved, sun_tower_done, bearing_taken, their_shore, prediction_made, sun_done.
 // Tata's notebook pages that later parts open: page_1967 (Lalo, Mon), fello_margin (Fello, Mon), recipe_read (Moncho,
 // Mon), hidden_page (the stuck page, Tue).
 (function () {
@@ -97,14 +97,14 @@
   S.open('hostal', x => x.ch === 6);
   S.open('palace', x => x.ch === 6 && x.mireya_in && !x.study_done);
   S.open('gallera', x => x.ch === 6 && x.wall_done && !x.lilo_in);
-  S.open('santon', x => x.ch === 6 && x.tobias_up && !x.tower_done && (x.rum || 0) < 1);
-  S.open('cathedral', x => x.ch === 6 && x.tobias_up && !x.tower_done);
+  S.open('santon', x => x.ch === 6 && x.tobias_up && !x.sun_tower_done && (x.rum || 0) < 1);
+  S.open('cathedral', x => x.ch === 6 && x.tobias_up && !x.sun_tower_done);
   S.pinNext(x => {
     if (x.ch !== 6) return null;
     if (!x.mireya_in) return 'hostal';
     if (!x.study_done) return 'palace';
     if (!x.lilo_in) return 'gallera';
-    if (x.tobias_up && !x.tower_done) return x.prediction_made && (x.rum || 0) < 1 ? 'santon' : 'cathedral';
+    if (x.tobias_up && !x.sun_tower_done) return x.prediction_made && (x.rum || 0) < 1 ? 'santon' : 'cathedral';
     return 'hostal';
   });
 
@@ -117,8 +117,8 @@
   S.HINT(x => x.ch === 6 && !x.wilfredo_known, 'parrot_sun_h_lilo', 'mireya_sun_h_lilo');
   S.HINT(x => x.ch === 6 && !x.lilo_in, 'parrot_sun_h_drum', 'mireya_sun_h_drum');
   S.HINT(x => x.ch === 6 && !x.dossier_sent, 'parrot_sun_h_fax', 'mireya_sun_h_fax');
-  S.HINT(x => x.ch === 6 && x.tobias_up && !x.prediction_made && !x.tower_done, 'parrot_sun_h_pred', 'mireya_sun_h_pred');
-  S.HINT(x => x.ch === 6 && x.tobias_up && !x.tower_done, 'parrot_sun_h_tower', 'mireya_sun_h_tower');
+  S.HINT(x => x.ch === 6 && x.tobias_up && !x.prediction_made && !x.sun_tower_done, 'parrot_sun_h_pred', 'mireya_sun_h_pred');
+  S.HINT(x => x.ch === 6 && x.tobias_up && !x.sun_tower_done, 'parrot_sun_h_tower', 'mireya_sun_h_tower');
   S.HINT(x => x.ch === 6 && x.tobias_saved && !x.bearing_taken && !x.sun_done, 'parrot_sun_h_sight', 'mireya_sun_h_sight');
 
   // ================================================================ START: 07:00, the breakfast inspection
@@ -397,32 +397,32 @@
       else await say('alan_sun_u7_dunno');
       return;
     }
-    if (x.tower_done && !x.sun_done) await night();
+    if (x.sun_tower_done && !x.sun_done) await night();
   });
-  P('hostal_courtyard', { id: 'mireya_c6', ch: 'mireya', speaker: 'mireya', x: 1110, y: 655, dir: 'w', name: 'Señora Mireya', when: () => sun() && (x => x.tobias_up && !x.tower_done)(F()),
+  P('hostal_courtyard', { id: 'mireya_c6', ch: 'mireya', speaker: 'mireya', x: 1110, y: 655, dir: 'w', name: 'Señora Mireya', when: () => sun() && (x => x.tobias_up && !x.sun_tower_done)(F()),
     look: () => say('mireya_sun_u7_02'), talk: () => say(F().prediction_made ? 'mireya_sun_h_tower' : 'mireya_sun_h_pred') });
   // Fello sells the bottle (the colmado, Sunday evening)
-  P('san_anton', { id: 'fello_sun', ch: 'fello', speaker: 'fello', x: 420, y: 650, dir: 'e', name: 'Fello', when: () => sun() && F().tobias_up && !F().tower_done,
+  P('san_anton', { id: 'fello_sun', ch: 'fello', speaker: 'fello', x: 420, y: 650, dir: 'e', name: 'Fello', when: () => sun() && F().tobias_up && !F().sun_tower_done,
     look: 'alan_sun_look_fello', talk: async () => { if (rum() >= 1) return say('fello_sun_buy'); await say('fello_sun_buy'); rumAdd(1); } });
   // the tower door: on the latch for Alan this evening (and he won't climb without a bottle once he knows why)
   {
     const td = (ROOMS.cathedral_nave.hotspots || []).find(h => h.name === 'The tower door');
     if (td) {
       const pl = td.locked, pll = td.lockedLine;
-      const mine = () => sun() && F().tobias_up && !F().tower_done && F().prediction_made && rum() < 1;
+      const mine = () => sun() && F().tobias_up && !F().sun_tower_done && F().prediction_made && rum() < 1;
       td.locked = () => mine() || (!!pl && pl());
       td.lockedLine = () => mine() ? 'alan_sun_tower_notyet' : (typeof pll === 'function' ? pll() : pll);
     }
   }
-  S.onEnter('cathedral_nave', async () => { const x = F(); if (sun() && x.tobias_up && !x.tower_done && !x.sun_nave) { x.sun_nave = true; await say('alan_sun_tower_unwelcome'); } });
+  S.onEnter('cathedral_nave', async () => { const x = F(); if (sun() && x.tobias_up && !x.sun_tower_done && !x.sun_nave) { x.sun_nave = true; await say('alan_sun_tower_unwelcome'); } });
   S.onEnter('tower_stair', async () => {
     const x = F();
-    if (!sun() || !x.tobias_up || x.tower_done || x.prediction_made) return;
+    if (!sun() || !x.tobias_up || x.sun_tower_done || x.prediction_made) return;
     // the fallback (bible ML3): without the prediction Tobías gets out alone, shaken; he won't hold the tower door on Tuesday
-    x.tower_done = true; x.tobias_saved = false;
+    x.sun_tower_done = true; x.tobias_saved = false;
     await say('narr_sun_u7_fallback', 'tobias_sun_u7_fallback');
   });
-  P('bell_chamber', { id: 'tobias_b6', ch: 'tobias', speaker: 'tobias', x: 640, y: 650, dir: 'e', name: 'Tobías', when: () => sun() && F().tobias_up && !F().sun_down && (F().tobias_saved || !F().tower_done),
+  P('bell_chamber', { id: 'tobias_b6', ch: 'tobias', speaker: 'tobias', x: 640, y: 650, dir: 'e', name: 'Tobías', when: () => sun() && F().tobias_up && !F().sun_down && (F().tobias_saved || !F().sun_tower_done),
     look: 'alan_sun_u7_look_tobias', talk: () => say('tobias_sun_u7_09') });
   S.spot('bell_chamber', { name: 'The bell', rect: [470, 90, 330, 370], at: [560, 670], when: () => sun() && F().tobias_up,
     look: () => say(F().tobias_saved ? 'alan_sun_u7_look_bell2' : 'alan_sun_u7_look_bell') });
@@ -444,7 +444,7 @@
   }
   S.onEnter('bell_chamber', async () => {
     const x = F();
-    if (!sun() || !x.tobias_up || x.tower_done) return;
+    if (!sun() || !x.tobias_up || x.sun_tower_done) return;
     x.bg_bell_chamber = 'bell_chamber__sun_sunset';
     S.pulse(5);
     G.autosave();
@@ -464,7 +464,7 @@
     S.sfx('bell_hum', 0.6);
     await S.waterTo('bell_chamber', 0, 900);
     await say('narr_sun_u7_06', 'tobias_sun_u7_07', 'alan_sun_u7_08', 'tobias_sun_u7_09', 'alan_sun_u7_10');
-    x.tobias_saved = true; x.tower_done = true;
+    x.tobias_saved = true; x.sun_tower_done = true;
     S.pulse(4);
     G.refreshNpcs();
   });
@@ -477,7 +477,7 @@
     if (x.tobias_saved) await say('tobias_sun_u7_sight');
     x.bearing_taken = true; x.bearing = 112;
     // down together, to the night at the hostal
-    if (x.tower_done) {
+    if (x.sun_tower_done) {
       x.sun_down = true;
       await say('narr_sun_u7_down');
       await G.goRoom('hostal_courtyard', 'street');
