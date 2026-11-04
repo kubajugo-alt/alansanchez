@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alan Sanches III: The Forgotten Rhythm</title>
+<meta name="description" content="A hand-painted point-and-click mystery in Santo Domingo, September 1996: the third Alan Sanches adventure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Alegreya+Sans:ital,wght@0,500;0,700;1,500&family=Homemade+Apple&family=Special+Elite&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=41336756">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='6' r='4' fill='%23e0a040'/><rect x='0' y='11' width='16' height='5' fill='%23707a88'/></svg>">
+</head>
+<body>
+<div id="frame">
+  <div id="game">
+    <canvas id="scene" width="1280" height="720"></canvas>
+    <div id="cutcard"><div class="k">Cutscene</div><div class="t"></div><div class="d"></div><div class="ph">Placeholder: this scene will be painted and animated</div></div>
+    <div id="pulse" title="Your heartbeat: the Sea is near"><i></i></div>
+    <button id="parrot-btn" title="The parrot (hints)">🦜</button>
+    <div id="labels"></div>
+    <div id="speech"></div>
+    <div id="narration"><div class="who"></div><div class="txt"></div></div>
+    <div id="hover"></div>
+    <div id="invbar"><div id="inventory"></div></div>
+    <button id="bag" title="Inventory (I)">✦</button>
+    <button id="nb-btn" class="hidden" title="Notebook (N)">✎</button>
+    <button id="menu-btn" title="Menu">☰</button>
+    <button id="hot-btn" title="Show what you can click (H)">◎</button>
+    <div id="marks"></div>
+    <div id="menu">
+      <button id="opt-music">Music</button>
+      <button id="opt-voice">Voices</button>
+      <button id="opt-relaxed">Relaxed timing: off</button>
+      <button id="opt-save">Save</button>
+      <button id="opt-load">Load</button>
+    </div>
+    <div id="dialog"></div>
+    <div id="toast"></div>
+    <div id="loadnote">Loading…</div>
+    <div id="clock"></div>
+    <div id="closeup" class="hidden"><button class="x" title="Close">✕</button><button class="prev">◀</button><div class="page"></div><button class="next">▶</button></div>
+    <div id="fade"></div>
+    <div id="card"><div class="t1"></div><div class="t2"></div></div>
+    <div id="title" class="modal">
+      <div class="title-text">
+        <h1>Alan Sanches III</h1>
+        <h2>The Forgotten Rhythm</h2>
+      </div>
+      <div class="loading"><div id="loadbar"></div></div>
+      <div class="menu">
+        <button id="btn-new">New Game</button>
+        <button id="btn-continue">Continue</button>
+      </div>
+      <p class="small">Left-click to walk, talk, take and use &middot; Right-click to examine &middot; Move to the bottom edge for your inventory &middot; N (or ✎) opens the notebook &middot; the parrot (🦜) gives hints<br>Work in progress: captions only (no voices yet), cutscenes are described, not yet painted</p>
+    </div>
+    <div id="death" class="modal hidden">
+      <h2>The water rises.</h2>
+      <p class="msg"></p>
+      <button id="btn-retry">Try again</button>
+    </div>
+    <div id="ending" class="modal hidden">
+      <h1>The End</h1>
+      <p>Three beats and a rest.</p>
+      <div class="credits">
+        <p>Story &amp; code &mdash; made with Claude</p>
+        <p>For the great adventure games of the 1990s</p>
+        <p class="small">Maps of the Zona Colonial and the Caribbean drawn from OpenStreetMap data &copy; OpenStreetMap contributors (ODbL)</p>
+      </div>
+      <button id="btn-again">Play again</button>
+    </div>
+  </div>
+</div>
+<script src="js/lines.js"></script>
+<script src="js/lines/prologue.js"></script>
+<script src="js/lines/wedthu.js"></script>
+<script src="js/lines/frisat.js"></script>
+<script src="js/lines/sun.js"></script>
+<script src="js/lines/mon.js"></script>
+<script src="js/lines/tue.js"></script>
+<script src="js/sprites_g3.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/warp.js"></script>
+<script src="js/parallax.js"></script>
+<script src="js/engine/base.js"></script>
+<script src="js/engine/actor.js"></script>
+<script src="js/engine/lights.js"></script>
+<script src="js/engine/geometry.js"></script>
+<script src="js/engine/rooms.js"></script>
+<script src="js/engine/render.js"></script>
+<script src="js/lipsync.js"></script>
+<script src="js/faces.js"></script>
+<script src="js/engine/faces.js"></script>
+<script src="js/engine/rig.js"></script>
+<script src="js/engine/smoke.js"></script>
+<script src="js/engine/speech.js"></script>
+<script src="js/engine/inventory.js"></script>
+<script src="js/engine/input.js"></script>
+<script src="js/engine/stills.js"></script>
+<script src="js/engine/saves.js"></script>
+<script src="js/engine/tips.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/story/core.js"></script>
+<script src="js/story/systems.js"></script>
+<script src="js/story/rooms.js"></script>
+<script src="js/story/prologue.js"></script>
+<script src="js/story/wedthu.js"></script>
+<script src="js/story/frisat.js"></script>
+<script src="js/story/sun.js"></script>
+<script src="js/story/mon.js"></script>
+<script src="js/story/tue.js"></script>
+<script src="js/story/main.js"></script>
+</body>
+</html>
