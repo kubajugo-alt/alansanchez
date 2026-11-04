@@ -1,6 +1,7 @@
 // Smoke test (ported from Game I's scripts/tests/smoke.mjs): opens every ?scene= preview (PREVIEW in js/story/main.js)
 // and a new game with window.FAST on, answers the dialogs (the first choice, then at random after 30 clicks), waits until
-// the game is quiet, and reports page errors, console errors, failed requests and 4xx/5xx responses. A missing line id
+// the game is quiet (or, for a scene that hands the player control and waits, the prologue's car, quiet with no
+// cutscene: 'player'), and reports page errors, console errors, failed requests and 4xx/5xx responses. A missing line id
 // ("missing line" on the console) counts as an error. Voices (.mp3), depth maps and painted icons not made yet are not
 // counted (as play.mjs). Game I's tr1-tr5 transitions and the GEMINI review approvals don't exist in Game II.
 // usage: node smoke.mjs <baseUrl> [scene ...]     (serve sequel/ first: npx -y http-server sequel -p 8101 -c-1 -s)
