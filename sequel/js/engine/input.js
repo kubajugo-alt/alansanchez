@@ -168,7 +168,9 @@
     const tch = e.touches[0]; if (!pressT || !tch || !pressAt) return;
     if (Math.hypot(tch.clientX - pressAt[0], tch.clientY - pressAt[1]) > 10) { clearTimeout(pressT); pressT = null; }
   }, { passive: true });
-  canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); pressT = null; });
+  // (the window for swallowing the lift's click starts at the lift: a finger held a long while after the look began
+  // must not skip the line it started)
+  canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); pressT = null; if (pressFired) pressFired = performance.now(); });
   document.addEventListener('keydown', e => {
     // a close-up: Escape closes it, the arrows turn its pages
     const cu = $('#closeup');
