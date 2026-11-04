@@ -1,0 +1,16 @@
+{
+ "x": 116,
+ "y": 277,
+ "w": 369,
+ "h": 254,
+ "room": "hotel_room",
+ "placed_by": "user",
+ "placement": {
+  "cx": 300.3,
+  "cy": 404.2,
+  "w": 340.9,
+  "rot": -9,
+  "bright": 0.86
+ },
+ "note": "Vasco on the bed in a towel, first night; Higgsfield nano edit of the Canva sprite (slimmer, his face); placed by the user"
+}

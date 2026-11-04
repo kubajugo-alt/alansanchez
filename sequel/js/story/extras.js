@@ -57,6 +57,45 @@ window.S.EXTRAS = {
    "h": 248.6
   }
  ],
+ "gando": [
+  {
+   "id": "x_gando_taxi",
+   "frames": [
+    "x_gando_taxi"
+   ],
+   "x": 1228,
+   "y": 512,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 0.92,
+   "h": 246.3
+  },
+  {
+   "id": "x_gando_family",
+   "frames": [
+    "x_gando_family"
+   ],
+   "x": 199,
+   "y": 610,
+   "dir": "e",
+   "scale": 1.0,
+   "size": 0.93,
+   "h": 291.3
+  },
+  {
+   "id": "x_gando_nuns",
+   "frames": [
+    "x_gando_nuns"
+   ],
+   "x": 1101,
+   "y": 663,
+   "dir": "w",
+   "scale": 1.0,
+   "size": 1,
+   "h": 315.7,
+   "flip": true
+  }
+ ],
  "hotel_restaurant": [
   {
    "id": "x_restaurant_waiter",
@@ -414,11 +453,11 @@ window.S.CAST_AT = {
   "clerk": [
    868,
    525,
-   "w"
+   "e"
   ],
   "vasco": [
-   516,
-   667,
+   742,
+   655,
    "w"
   ]
  },

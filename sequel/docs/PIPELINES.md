@@ -70,6 +70,14 @@ painted sky), `foam` (a line of foam washing up a painted shoreline), `ceilFan`,
 (flame/gas glows) and `vignette`. Keep it small ("there's no wind"); never move anything the story keeps still. Review:
 a clip per room on a page, then the user's word.
 
+**The second pass (HANDOFF 142-144, behind `?env=2` until approved):** a row-shift effect (`FX.sway`, `breathe`,
+`billow`, `billowV`) only moves what its painting's sway mask lets it (`scripts/sway_masks.py` -> `art/fx/<bg>_sway.png`,
+listed in `window.SWAY_MASKS`, core.js): to add or change one, put the room's box (the same rect as the code) and a
+colour rule in `BOXES`, run it, look at `art/review/sway/<bg>.jpg`; a box with rule `None` stops moving. Skies and cloud
+seas: `scripts/sky_masks.py` (flood from seeds, or `PALE` by colour). See what a room moves with
+`scripts/tests/anim_delta.mjs`; record a before/after with `CALM=1 HIDE_ALAN=1 LEG=2 record_steps.mjs` against the page
+with and without `?env=2`. Electric lights burn steady; only wicks and flames flicker.
+
 ## 3. The sea (Higgsfield loops) (75)
 
 1. Upload the room painting to Higgsfield (`media_upload`, then `curl -X PUT` with `Content-Type` and
@@ -123,13 +131,25 @@ a clip per room on a page, then the user's word.
 - **Ludo**: `scripts/ludo.py` (runs in `scripts/ludo_runs.json`; `gen` accepts `--model forge` when hydra refuses on
   moderation, `--take N` for a new take of the same request, `--margin-v/-h` for room so limbs aren't cut). Install:
   `scripts/ludo_install.py` (frames to `art/sprites/<run>_NN.webp`, `js/sprites_ludo.js`), `ludo_measure.py` (ground
-  per frame). Today only Alan's walks are used.
+  per frame). Alan's walks and, since entry 136, his actions and the idle cigarette are used.
+- **An action** (entries 132–136): one Ludo run from his standing painting back to it (`b` = `a`); the prompt must give
+  the way back (he pockets it, puts it down, lowers his arms), or Ludo cross-fades into the end keyframe. `frames` only
+  4, 9, 16, 25, 36, 49, 64; hydra `duration` 3–5 s; about 16 credits a run. Fit with `ludo_fit.py <run>`, put in with
+  `ludo_add.py <run>` (set its `HOLD`), then name it in the outfit's `poses` (core.js). A held object in one hand stays
+  in that hand (the user, for the cigarette).
 - **Seamless walks**: `scripts/walk_loop.py [install] <run>` finds the cleanest stride, removes drift, retimes with
-  optical-flow in-betweens when the spacing is uneven.
+  optical-flow in-betweens when the spacing is uneven. Runs listed in its `TAKES` are read straight from their fitted
+  Ludo takes (no install needed) and also get an `across_<run>.mp4` clip; `install <run>` then puts them in (125).
+- **Side walks need a profile start frame**: Ludo keeps the start frame's angle, so a three-quarter standing painting
+  walks diagonally; Vasco's side walks start from profile paintings (`vascor_profile_k`, `vascor_dinner_profile_k`, 125).
 - **A one-off action** (the undressing, 67/73): Ludo frames, faces fixed with `scripts/head_swap.py <ref> <prefix>`
   (YuNet landmarks; originals kept in `art/review/head_swap/`), sprites flagged `cut: true` (straight cuts, no breathing
   bend), played frame by frame from the story (`p.poses.x = key; p.pose = 'x'`), preloaded with `Engine.ensure(keys)`.
   Kling refused the undressing; Ludo (forge) did it.
+- **Two people in one action** (the airport kiss, HANDOFF 119): put both standing sprites side by side in one 720-tall
+  frame (`art/sprites/pair_gando_stand.webp`), Ludo from that single frame with a prompt, play forward, hold, then
+  backwards so they end as they stood; one `duo_*` character on the first person's feet, both real actors hidden
+  meanwhile; `def.shadow` stretches the contact shadow over both. Time it to the line that describes it.
 
 ## 7. Background people and props (51-56, 71-74, 79-85)
 
@@ -152,6 +172,12 @@ a clip per room on a page, then the user's word.
   `S.BG_BURN`: the reception's sunburn remarks); voices in `cast.json` per figure.
 - **Props** (tables, buffet): made the same way; graded into their room's light with `scripts/prop_grade.py` (84;
   ungraded originals in `art/designs/props_ungraded/`).
+
+- **Hotspot boxes** (HANDOFF 146): the user moves and resizes them in the hotspot tool
+  (https://claude.ai/artifact/Xw2JqrMTUBv87KTH97WmeH; source `art/review/spots/`, data from `scripts/tests/spots_dump.mjs`,
+  published folder from `scripts/spots_tool.py`). On "done": `ArtifactData list` collection `spots` with `out_dir`, then
+  `scripts/spots_install.py <dir>` -> `js/story/spots.js`, check the rooms in the game, commit. After a room's hotspots
+  change in code, dump and republish the tool so it shows them.
 
 ## 8. Stills and documents
 
@@ -179,6 +205,11 @@ in `js/story/docs.js` (`G.closeup([page(...)])`).
 - **A word said the Spanish way** (HANDOFF 99): `scripts/tts_text.json` holds, by line id, the text the voice reads
   where it must differ from the caption (e.g. the price in Spanish); `generate-voices.mjs --tts=FILE --out=DIR` makes
   auditions without touching the game's recordings.
+- **Emotion** (HANDOFF 118): the same file carries ElevenLabs v4 audio tags (`[hurt, rising]`, `[shouting, frantic]`,
+  `[voice breaking]`), every word of the caption kept. Make auditions into `art/review/voices/<pass>/`, a review page
+  (copy `vasco_emotion_2/page/`: Now/New, approve/redo, db `verdicts`), install on approval (old mp3 to
+  `audio/voice_stale/<pass>_old/`, the tags into `tts_text.json`), then lip-sync those ids. Budget first: check
+  `GET /v1/user/subscription` (character_limit - character_count); a line costs about its tagged length.
 
 ## 10. Music and sound
 
@@ -209,6 +240,11 @@ in `js/story/docs.js` (`G.closeup([page(...)])`).
   `scripts/record_mix.py` (lays the voices and the room's music onto the silent video). Record from a clean export of
   a commit if files are being edited at the same time.
 - **Reviews**: private artifacts with a db (`verdicts`, `notes`), or `SendUserFile` for sheets and clips.
-- **Deploy** (only when asked): `node sequel/scripts/build-manifest.mjs`, commit; `git archive HEAD:sequel | tar -x -C
+- **Deploy** (only when asked): `node sequel/scripts/build-manifest.mjs` (the voice/sfx manifests, index.html's stamps
+  and `offline.json`, the Play offline pack list: run it last, after every other change, or offline copies are told the
+  wrong files), commit; `git archive HEAD:sequel | tar -x -C
   <empty dir>`; serve that dir and run play.mjs on it; Netlify MCP `deploy-site` (site `a5e71264-d9a4-439a-b1e5-60ec3f98812d`),
   run the returned `npx @netlify/mcp ...` command from the export dir; check the live page and that `/.env` is 404.
+  Players with an offline copy see "A newer version is online" in Play offline and fetch only the changed files.
+- **Play offline** (HANDOFF entry 127): test with `node scripts/tests/offline.mjs <copy of the web root> <out dir>`
+  (a hard-linked copy is fine: `cp -al sequel /tmp/x`; it serves it, downloads, plays offline, updates, removes; ~5 min).

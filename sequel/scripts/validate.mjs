@@ -28,7 +28,8 @@ for (const m of story.matchAll(new RegExp(`'((?:${PREFIX})_[a-z0-9_]+)'`, 'g')))
 for (const m of story.matchAll(/'([a-z]+_[a-z0-9_]*_)' \+/g)) for (const k of Object.keys(LINES)) if (k.startsWith(m[1])) used.add(k);
 for (const who of ['alan', 'vasco']) for (const k of Object.keys(LINES)) if (new RegExp(`^${who}_(fail_\\d\\d|fail_look|fail_talk|fail_take|def_item|npc_busy)$`).test(k)) used.add(k);
 used.add('narr_death'); // (the death modal's text: LINES.narr_death)
-const NOT_LINES = new Set(Object.keys(SPRITES).concat(['baute_office', 'rafa_bar', 'rafa_studio', 'elena_car', 'carmen_flat', 'carmen_field', 'baute_dig', 'gc_photo', 'elena_notebook', 'elena_charts']));
+const NOT_LINES = new Set(Object.keys(SPRITES).concat(['baute_office', 'rafa_bar', 'rafa_studio', 'elena_car', 'carmen_flat', 'carmen_field', 'baute_dig', 'gc_photo', 'elena_notebook', 'elena_charts', 'yeray_drunk', 'yeray_asleep', 'museum_corridor',
+  'vasco_bed', 'baute_1966', 'carmen_photo']));
 for (const id of used) if (!LINES[id] && !NOT_LINES.has(id) && !/_$/.test(id)) err('line used but not written: ' + id);
 for (const id of Object.keys(LINES)) if (!used.has(id)) warn('line never used: ' + id);
 for (const [id, [who]] of Object.entries(LINES)) if (!SPEAKERS[who]) err(`line ${id}: speaker '${who}' has no name in SPEAKERS`);
@@ -71,13 +72,17 @@ const CAST = JSON.parse(fs.readFileSync(path.join(SEQ, 'scripts/cast.json'), 'ut
 const mp3s = d => fs.existsSync(path.join(SEQ, d)) ? new Set(fs.readdirSync(path.join(SEQ, d)).filter(f => f.endsWith('.mp3')).map(f => f.slice(0, -4))) : new Set();
 const VOICE = mp3s('audio/voice'), STALE = mp3s('audio/voice_stale'), VSRC = mp3s('audio/voice_src');
 const cast = who => !!(CAST.voices[who] && CAST.voices[who].voice_id);
-const setAside = [], uncast = {}, missing = [];
+// lines listed in scripts/voice_redo.txt are waiting to be recorded (written or rewritten after the last recording run)
+const REDO = new Set((fs.existsSync(path.join(SEQ, 'scripts/voice_redo.txt')) ? fs.readFileSync(path.join(SEQ, 'scripts/voice_redo.txt'), 'utf8') : '').split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('#')));
+const setAside = [], uncast = {}, missing = [], toRecord = [];
 for (const [id, [who]] of Object.entries(LINES)) {
   if (VOICE.has(id)) continue;
   if (STALE.has(id)) setAside.push(id);
+  else if (REDO.has(id)) toRecord.push(id);
   else if (!cast(who)) (uncast[who] = uncast[who] || []).push(id);
   else missing.push(id);
 }
+if (toRecord.length) warn(`${toRecord.length} lines not recorded yet, listed in scripts/voice_redo.txt (captions only until then): ${some(toRecord)}`);
 for (const id of missing) err(`js/lines.js: '${id}' (${LINES[id][0]}) has no audio/voice/${id}.mp3`);
 if (setAside.length) warn(`${setAside.length} lines set aside, re-record (their old takes are in audio/voice_stale/, HANDOFF entry 104; captions only until then): ${some(setAside, 48)}`);
 for (const [who, ids] of Object.entries(uncast)) warn(`${ids.length} lines of '${who}' have no recording: not cast yet in scripts/cast.json (${some(ids)})`);

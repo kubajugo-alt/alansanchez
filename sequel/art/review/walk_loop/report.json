@@ -985,5 +985,1147 @@
    }
   },
   "edge_alpha": 0.001
+ },
+ "vascor_walk_front": {
+  "old": {
+   "frames": 36,
+   "steps": null,
+   "step": null
+  },
+  "new": {
+   "frames": 20,
+   "steps": 2,
+   "step": 0.034,
+   "steps_per_s_in_game": 1.82
+  },
+  "method": "retimed: a stride of a new Ludo take, drift out, resampled evenly along pose distance with optical-flow in-betweens, sized to the standing keyframe, hair cleaned",
+  "take": "vascor_walk_front",
+  "kept": "17..34",
+  "match_err": 8.2,
+  "drift_removed": {
+   "scale": 1.0025,
+   "dx": 1,
+   "dy": 0,
+   "over_frames": 18
+  },
+  "size_to_standing": 1.005,
+  "hair_clean_px": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "sprite": {
+   "w": 260,
+   "hh": 769,
+   "h": 720.0,
+   "ax": 127.5,
+   "fy": 765.5,
+   "top": 26.0
+  },
+  "src": [
+   [
+    17
+   ],
+   [
+    17,
+    18,
+    0.8
+   ],
+   [
+    18,
+    19,
+    0.72
+   ],
+   [
+    20
+   ],
+   [
+    20,
+    21,
+    0.76
+   ],
+   [
+    21,
+    22,
+    0.62
+   ],
+   [
+    22,
+    23,
+    0.29
+   ],
+   [
+    22,
+    23,
+    0.76
+   ],
+   [
+    23,
+    24,
+    0.4
+   ],
+   [
+    24,
+    25,
+    0.18
+   ],
+   [
+    25
+   ],
+   [
+    26,
+    27,
+    0.32
+   ],
+   [
+    27
+   ],
+   [
+    28,
+    29,
+    0.45
+   ],
+   [
+    29,
+    30,
+    0.31
+   ],
+   [
+    30
+   ],
+   [
+    31,
+    32,
+    0.3
+   ],
+   [
+    32
+   ],
+   [
+    33,
+    34,
+    0.21
+   ],
+   [
+    33,
+    34,
+    0.76
+   ]
+  ],
+  "source_frames_kept_as_is": 6,
+  "source_steps_over_median": {
+   "figure": [
+    0.93,
+    0.94,
+    0.57,
+    1.05,
+    1.13,
+    1.4,
+    1.26,
+    1.02,
+    0.6,
+    1.01,
+    0.61,
+    1.05,
+    1.11,
+    0.76,
+    0.99,
+    0.8,
+    1.19,
+    0.68
+   ],
+   "legs": [
+    0.96,
+    1.02,
+    0.62,
+    0.99,
+    1.0,
+    1.49,
+    1.07,
+    1.0,
+    0.6,
+    1.15,
+    0.67,
+    1.0,
+    1.04,
+    0.69,
+    1.05,
+    0.61,
+    1.09,
+    0.7
+   ]
+  },
+  "steps_over_median": {
+   "figure": [
+    0.92,
+    0.96,
+    0.88,
+    1.0,
+    1.1,
+    0.99,
+    0.94,
+    1.0,
+    1.12,
+    1.02,
+    0.97,
+    0.9,
+    1.09,
+    1.04,
+    1.01,
+    1.11,
+    0.91,
+    1.13,
+    0.86,
+    1.01
+   ],
+   "legs": [
+    0.95,
+    1.03,
+    1.01,
+    0.95,
+    0.96,
+    1.03,
+    0.98,
+    1.0,
+    1.0,
+    1.03,
+    1.09,
+    1.03,
+    1.11,
+    0.93,
+    0.9,
+    1.17,
+    0.95,
+    0.94,
+    0.8,
+    1.08
+   ]
+  },
+  "max_step_over_median": {
+   "figure": 1.13,
+   "legs": 1.17
+  },
+  "min_step_over_median": {
+   "figure": 0.86,
+   "legs": 0.8
+  },
+  "seam_before": {
+   "number": 1.87,
+   "seam": 38.5,
+   "near_steps": 20.6,
+   "run_median_step": 20.9,
+   "max_step_over_median": 1.84,
+   "body": {
+    "tx": {
+     "seam": 8.8,
+     "median": 1.8
+    },
+    "bot": {
+     "seam": 15.0,
+     "median": 3.0
+    },
+    "h": {
+     "seam": 14.0,
+     "median": 3.0
+    }
+   }
+  },
+  "seam_after": {
+   "number": 1.07,
+   "seam": 18.9,
+   "near_steps": 17.6,
+   "run_median_step": 18.6,
+   "body": {
+    "tx": {
+     "seam": 2.7,
+     "median": 1.9
+    },
+    "bot": {
+     "seam": 5.0,
+     "median": 2.0
+    },
+    "h": {
+     "seam": 1.0,
+     "median": 2.0
+    }
+   }
+  },
+  "edge_alpha": 0.0
+ },
+ "vascor_walk_back": {
+  "old": {
+   "frames": 36,
+   "steps": null,
+   "step": null
+  },
+  "new": {
+   "frames": 18,
+   "steps": 2,
+   "step": 0.0378,
+   "steps_per_s_in_game": 1.82
+  },
+  "method": "retimed: a stride of a new Ludo take, drift out, resampled evenly along pose distance with optical-flow in-betweens, sized to the standing keyframe, hair cleaned",
+  "take": "vascor_walk_back",
+  "kept": "9..31",
+  "match_err": 10.2,
+  "drift_removed": {
+   "scale": 0.9975,
+   "dx": 3,
+   "dy": -1,
+   "over_frames": 23
+  },
+  "size_to_standing": 1.0075,
+  "hair_clean_px": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "sprite": {
+   "w": 269,
+   "hh": 752,
+   "h": 720.0,
+   "ax": 134.6,
+   "fy": 736.5,
+   "top": 25.5
+  },
+  "src": [
+   [
+    9
+   ],
+   [
+    10,
+    11,
+    0.62
+   ],
+   [
+    12
+   ],
+   [
+    13,
+    14,
+    0.13
+   ],
+   [
+    13,
+    14,
+    0.57
+   ],
+   [
+    14
+   ],
+   [
+    15,
+    16,
+    0.29
+   ],
+   [
+    16,
+    17,
+    0.51
+   ],
+   [
+    18,
+    19,
+    0.34
+   ],
+   [
+    20,
+    21,
+    0.57
+   ],
+   [
+    22
+   ],
+   [
+    23,
+    24,
+    0.22
+   ],
+   [
+    23,
+    24,
+    0.8
+   ],
+   [
+    25
+   ],
+   [
+    25,
+    26,
+    0.66
+   ],
+   [
+    27
+   ],
+   [
+    28,
+    29,
+    0.46
+   ],
+   [
+    30,
+    31,
+    0.37
+   ]
+  ],
+  "source_frames_kept_as_is": 6,
+  "source_steps_over_median": {
+   "figure": [
+    0.75,
+    1.43,
+    0.98,
+    1.13,
+    2.51,
+    1.05,
+    1.42,
+    0.84,
+    0.72,
+    0.88,
+    0.69,
+    0.73,
+    1.32,
+    1.0,
+    2.06,
+    1.13,
+    1.6,
+    0.99,
+    0.87,
+    1.24,
+    0.63,
+    1.03,
+    0.95
+   ],
+   "legs": [
+    0.75,
+    1.31,
+    0.84,
+    0.99,
+    2.51,
+    1.03,
+    1.49,
+    0.92,
+    0.84,
+    1.02,
+    0.69,
+    0.74,
+    1.25,
+    0.86,
+    1.83,
+    1.17,
+    1.62,
+    0.91,
+    0.82,
+    1.33,
+    0.76,
+    1.0,
+    1.0
+   ]
+  },
+  "steps_over_median": {
+   "figure": [
+    1.0,
+    1.02,
+    1.03,
+    1.01,
+    1.05,
+    1.0,
+    0.96,
+    0.8,
+    0.9,
+    1.08,
+    0.96,
+    1.03,
+    1.07,
+    0.88,
+    1.06,
+    0.95,
+    0.88,
+    0.97
+   ],
+   "legs": [
+    1.04,
+    0.95,
+    0.97,
+    1.05,
+    1.11,
+    1.05,
+    1.05,
+    0.98,
+    0.98,
+    1.06,
+    0.88,
+    0.94,
+    1.13,
+    0.93,
+    1.02,
+    0.98,
+    0.97,
+    1.05
+   ]
+  },
+  "max_step_over_median": {
+   "figure": 1.08,
+   "legs": 1.13
+  },
+  "min_step_over_median": {
+   "figure": 0.8,
+   "legs": 0.88
+  },
+  "seam_before": {
+   "number": 2.19,
+   "seam": 59.4,
+   "near_steps": 27.1,
+   "run_median_step": 15.5,
+   "max_step_over_median": 3.82,
+   "body": {
+    "tx": {
+     "seam": 11.2,
+     "median": 1.8
+    },
+    "bot": {
+     "seam": 7.0,
+     "median": 3.0
+    },
+    "h": {
+     "seam": 11.0,
+     "median": 2.0
+    }
+   }
+  },
+  "seam_after": {
+   "number": 1.0,
+   "seam": 18.5,
+   "near_steps": 18.6,
+   "run_median_step": 19.1,
+   "body": {
+    "tx": {
+     "seam": 0.4,
+     "median": 2.9
+    },
+    "bot": {
+     "seam": 9.0,
+     "median": 5.0
+    },
+    "h": {
+     "seam": 6.0,
+     "median": 2.0
+    }
+   }
+  },
+  "edge_alpha": 0.0
+ },
+ "vascor_dinner_walk_front": {
+  "old": {
+   "frames": 36,
+   "steps": null,
+   "step": null
+  },
+  "new": {
+   "frames": 18,
+   "steps": 2,
+   "step": 0.0378,
+   "steps_per_s_in_game": 1.82
+  },
+  "method": "retimed: a stride of a new Ludo take, drift out, resampled evenly along pose distance with optical-flow in-betweens, sized to the standing keyframe, hair cleaned",
+  "take": "vascor_dinner_walk_front",
+  "kept": "11..33",
+  "match_err": 7.4,
+  "drift_removed": {
+   "scale": 1.0025,
+   "dx": 0,
+   "dy": 1,
+   "over_frames": 23
+  },
+  "size_to_standing": 0.9875,
+  "hair_clean_px": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "sprite": {
+   "w": 267,
+   "hh": 750,
+   "h": 720.0,
+   "ax": 122.8,
+   "fy": 743.0,
+   "top": 36.5
+  },
+  "src": [
+   [
+    12
+   ],
+   [
+    12,
+    13,
+    0.8
+   ],
+   [
+    13,
+    14,
+    0.74
+   ],
+   [
+    14,
+    15,
+    0.66
+   ],
+   [
+    16
+   ],
+   [
+    17,
+    18,
+    0.69
+   ],
+   [
+    19,
+    20,
+    0.54
+   ],
+   [
+    21
+   ],
+   [
+    22
+   ],
+   [
+    22,
+    23,
+    0.71
+   ],
+   [
+    23,
+    24,
+    0.65
+   ],
+   [
+    25
+   ],
+   [
+    26
+   ],
+   [
+    27,
+    28,
+    0.46
+   ],
+   [
+    29
+   ],
+   [
+    30,
+    31,
+    0.5
+   ],
+   [
+    32
+   ],
+   [
+    33,
+    11,
+    0.29
+   ]
+  ],
+  "source_frames_kept_as_is": 8,
+  "source_steps_over_median": {
+   "figure": [
+    0.82,
+    1.36,
+    1.39,
+    1.33,
+    0.64,
+    0.61,
+    1.0,
+    0.66,
+    0.66,
+    1.08,
+    1.17,
+    1.62,
+    1.25,
+    0.83,
+    1.22,
+    0.63,
+    0.99,
+    0.64,
+    0.65,
+    1.05,
+    0.7,
+    1.15,
+    1.02
+   ],
+   "legs": [
+    0.8,
+    1.27,
+    1.11,
+    1.39,
+    0.78,
+    0.7,
+    1.17,
+    0.75,
+    0.74,
+    1.07,
+    1.0,
+    1.45,
+    1.08,
+    0.68,
+    1.31,
+    0.84,
+    1.25,
+    0.79,
+    0.87,
+    1.26,
+    0.7,
+    1.07,
+    0.9
+   ]
+  },
+  "steps_over_median": {
+   "figure": [
+    0.99,
+    1.03,
+    1.03,
+    0.86,
+    0.92,
+    0.9,
+    1.03,
+    1.01,
+    1.11,
+    1.01,
+    0.97,
+    1.05,
+    0.79,
+    0.83,
+    0.87,
+    0.88,
+    1.08,
+    1.03
+   ],
+   "legs": [
+    0.94,
+    0.85,
+    1.0,
+    1.06,
+    1.15,
+    1.07,
+    1.06,
+    0.88,
+    0.97,
+    0.94,
+    0.85,
+    1.13,
+    1.1,
+    1.08,
+    1.12,
+    0.97,
+    1.0,
+    0.94
+   ]
+  },
+  "max_step_over_median": {
+   "figure": 1.11,
+   "legs": 1.15
+  },
+  "min_step_over_median": {
+   "figure": 0.79,
+   "legs": 0.85
+  },
+  "seam_before": {
+   "number": 2.44,
+   "seam": 30.4,
+   "near_steps": 12.5,
+   "run_median_step": 12.2,
+   "max_step_over_median": 2.48,
+   "body": {
+    "tx": {
+     "seam": 18.4,
+     "median": 1.7
+    },
+    "bot": {
+     "seam": 0.0,
+     "median": 3.0
+    },
+    "h": {
+     "seam": 3.0,
+     "median": 3.0
+    }
+   }
+  },
+  "seam_after": {
+   "number": 1.02,
+   "seam": 14.9,
+   "near_steps": 14.6,
+   "run_median_step": 14.3,
+   "body": {
+    "tx": {
+     "seam": 2.7,
+     "median": 3.0
+    },
+    "bot": {
+     "seam": 1.0,
+     "median": 6.0
+    },
+    "h": {
+     "seam": 2.0,
+     "median": 4.0
+    }
+   }
+  },
+  "edge_alpha": 0.0
+ },
+ "vascor_walk_side": {
+  "old": {
+   "frames": 36,
+   "steps": null,
+   "step": null
+  },
+  "new": {
+   "frames": 26,
+   "steps": 2,
+   "step": 0.0222
+  },
+  "kept": "4..29",
+  "starts_on_source_frame": 26,
+  "cut_after_new_frame": 3,
+  "drift_removed": {
+   "scale": 0.9901,
+   "dx": 4,
+   "dy": -1,
+   "over_frames": 26
+  },
+  "match_err": 16.0,
+  "inbetween": false,
+  "src": [
+   [
+    26
+   ],
+   [
+    27
+   ],
+   [
+    28
+   ],
+   [
+    29
+   ],
+   [
+    4
+   ],
+   [
+    5
+   ],
+   [
+    6
+   ],
+   [
+    7
+   ],
+   [
+    8
+   ],
+   [
+    9
+   ],
+   [
+    10
+   ],
+   [
+    11
+   ],
+   [
+    12
+   ],
+   [
+    13
+   ],
+   [
+    14
+   ],
+   [
+    15
+   ],
+   [
+    16
+   ],
+   [
+    17
+   ],
+   [
+    18
+   ],
+   [
+    19
+   ],
+   [
+    20
+   ],
+   [
+    21
+   ],
+   [
+    22
+   ],
+   [
+    23
+   ],
+   [
+    24
+   ],
+   [
+    25
+   ]
+  ],
+  "seam_before": {
+   "number": 1.56,
+   "seam": 62.1,
+   "near_steps": 39.8,
+   "run_median_step": 32.6,
+   "body": {
+    "tx": {
+     "seam": 7.3,
+     "median": 1.0
+    },
+    "bot": {
+     "seam": 15.0,
+     "median": 0.0
+    },
+    "h": {
+     "seam": 22.0,
+     "median": 2.0
+    }
+   }
+  },
+  "natural_step_replaced": 32.6,
+  "natural_body_step": {
+   "tx": 0.0,
+   "bot": 0,
+   "h": 5
+  },
+  "seam_after_drift_only": 1.05,
+  "seam_vs_natural_step": 0.93,
+  "seam_after": {
+   "number": 1.05,
+   "seam": 30.3,
+   "near_steps": 28.7,
+   "run_median_step": 30.6,
+   "body": {
+    "tx": {
+     "seam": 0.6,
+     "median": 1.0
+    },
+    "bot": {
+     "seam": 2.0,
+     "median": 1.0
+    },
+    "h": {
+     "seam": 2.0,
+     "median": 2.0
+    }
+   }
+  },
+  "edge_alpha": 0.092,
+  "planted_foot_check": {
+   "new_loop": 0.0219,
+   "old_run": 0.022
+  }
+ },
+ "vascor_dinner_walk_side": {
+  "old": {
+   "frames": 36,
+   "steps": null,
+   "step": null
+  },
+  "new": {
+   "frames": 25,
+   "steps": 2,
+   "step": 0.0216
+  },
+  "kept": "10..34",
+  "starts_on_source_frame": 33,
+  "cut_after_new_frame": 1,
+  "drift_removed": {
+   "scale": 0.9975,
+   "dx": 1,
+   "dy": 0,
+   "over_frames": 25
+  },
+  "match_err": 12.2,
+  "inbetween": false,
+  "src": [
+   [
+    33
+   ],
+   [
+    34
+   ],
+   [
+    10
+   ],
+   [
+    11
+   ],
+   [
+    12
+   ],
+   [
+    13
+   ],
+   [
+    14
+   ],
+   [
+    15
+   ],
+   [
+    16
+   ],
+   [
+    17
+   ],
+   [
+    18
+   ],
+   [
+    19
+   ],
+   [
+    20
+   ],
+   [
+    21
+   ],
+   [
+    22
+   ],
+   [
+    23
+   ],
+   [
+    24
+   ],
+   [
+    25
+   ],
+   [
+    26
+   ],
+   [
+    27
+   ],
+   [
+    28
+   ],
+   [
+    29
+   ],
+   [
+    30
+   ],
+   [
+    31
+   ],
+   [
+    32
+   ]
+  ],
+  "seam_before": {
+   "number": 1.8,
+   "seam": 43.1,
+   "near_steps": 23.9,
+   "run_median_step": 23.2,
+   "body": {
+    "tx": {
+     "seam": 5.9,
+     "median": 1.6
+    },
+    "bot": {
+     "seam": 2.0,
+     "median": 0.0
+    },
+    "h": {
+     "seam": 6.0,
+     "median": 2.0
+    }
+   }
+  },
+  "natural_step_replaced": 36.6,
+  "natural_body_step": {
+   "tx": 2.3,
+   "bot": 0,
+   "h": 3
+  },
+  "seam_after_drift_only": 1.96,
+  "seam_vs_natural_step": 1.02,
+  "seam_after": {
+   "number": 1.96,
+   "seam": 37.4,
+   "near_steps": 19.1,
+   "run_median_step": 22.4,
+   "body": {
+    "tx": {
+     "seam": 2.1,
+     "median": 1.2
+    },
+    "bot": {
+     "seam": 1.0,
+     "median": 0.5
+    },
+    "h": {
+     "seam": 4.0,
+     "median": 2.0
+    }
+   }
+  },
+  "edge_alpha": 0.0,
+  "planted_foot_check": {
+   "new_loop": 0.0213,
+   "old_run": 0.021
+  }
  }
 }

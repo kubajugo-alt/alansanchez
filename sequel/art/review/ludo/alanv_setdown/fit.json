@@ -1,0 +1,233 @@
+{
+ "name": "alanv_setdown",
+ "kind": "act",
+ "frames": 36,
+ "fps": 12,
+ "meta": {
+  "w": 312,
+  "hh": 732,
+  "h": 720.0,
+  "ax": 134.0,
+  "fy": 725.3,
+  "top": 5.8
+ },
+ "flagged": 21,
+ "checks": [
+  {
+   "i": 0,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 1,
+   "height": 0.999,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 2,
+   "height": 0.998,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 3,
+   "height": 0.99,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 4,
+   "height": 0.976,
+   "feet_drift": 0.012,
+   "flag": false
+  },
+  {
+   "i": 5,
+   "height": 0.937,
+   "feet_drift": 0.04,
+   "flag": false
+  },
+  {
+   "i": 6,
+   "height": 0.888,
+   "feet_drift": 0.046,
+   "flag": true
+  },
+  {
+   "i": 7,
+   "height": 0.85,
+   "feet_drift": 0.053,
+   "flag": true
+  },
+  {
+   "i": 8,
+   "height": 0.791,
+   "feet_drift": 0.059,
+   "flag": true
+  },
+  {
+   "i": 9,
+   "height": 0.754,
+   "feet_drift": 0.063,
+   "flag": true
+  },
+  {
+   "i": 10,
+   "height": 0.705,
+   "feet_drift": 0.061,
+   "flag": true
+  },
+  {
+   "i": 11,
+   "height": 0.664,
+   "feet_drift": 0.036,
+   "flag": true
+  },
+  {
+   "i": 12,
+   "height": 0.64,
+   "feet_drift": 0.041,
+   "flag": true
+  },
+  {
+   "i": 13,
+   "height": 0.617,
+   "feet_drift": 0.025,
+   "flag": true
+  },
+  {
+   "i": 14,
+   "height": 0.608,
+   "feet_drift": 0.026,
+   "flag": true
+  },
+  {
+   "i": 15,
+   "height": 0.599,
+   "feet_drift": 0.013,
+   "flag": true
+  },
+  {
+   "i": 16,
+   "height": 0.595,
+   "feet_drift": 0.052,
+   "flag": true
+  },
+  {
+   "i": 17,
+   "height": 0.596,
+   "feet_drift": 0.048,
+   "flag": true
+  },
+  {
+   "i": 18,
+   "height": 0.597,
+   "feet_drift": 0.048,
+   "flag": true
+  },
+  {
+   "i": 19,
+   "height": 0.599,
+   "feet_drift": 0.049,
+   "flag": true
+  },
+  {
+   "i": 20,
+   "height": 0.605,
+   "feet_drift": 0.052,
+   "flag": true
+  },
+  {
+   "i": 21,
+   "height": 0.623,
+   "feet_drift": 0.005,
+   "flag": true
+  },
+  {
+   "i": 22,
+   "height": 0.65,
+   "feet_drift": 0.016,
+   "flag": true
+  },
+  {
+   "i": 23,
+   "height": 0.706,
+   "feet_drift": 0.059,
+   "flag": true
+  },
+  {
+   "i": 24,
+   "height": 0.752,
+   "feet_drift": 0.068,
+   "flag": true
+  },
+  {
+   "i": 25,
+   "height": 0.824,
+   "feet_drift": 0.063,
+   "flag": true
+  },
+  {
+   "i": 26,
+   "height": 0.888,
+   "feet_drift": 0.052,
+   "flag": true
+  },
+  {
+   "i": 27,
+   "height": 0.922,
+   "feet_drift": 0.048,
+   "flag": false
+  },
+  {
+   "i": 28,
+   "height": 0.953,
+   "feet_drift": 0.039,
+   "flag": false
+  },
+  {
+   "i": 29,
+   "height": 0.968,
+   "feet_drift": 0.019,
+   "flag": false
+  },
+  {
+   "i": 30,
+   "height": 0.982,
+   "feet_drift": 0.024,
+   "flag": false
+  },
+  {
+   "i": 31,
+   "height": 0.991,
+   "feet_drift": 0.004,
+   "flag": false
+  },
+  {
+   "i": 32,
+   "height": 0.997,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 33,
+   "height": 0.999,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 34,
+   "height": 0.999,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 35,
+   "height": 0.999,
+   "feet_drift": 0.0,
+   "flag": false
+  }
+ ]
+}

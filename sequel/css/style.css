@@ -186,6 +186,9 @@ body.calm #title { animation: none; }
 #closeup .page.wide { width: 68%; height: auto; max-width: none; aspect-ratio: 4/3; padding: 0; }
 #closeup .page.square { width: 46%; height: auto; max-width: none; aspect-ratio: 1/1; padding: 0; border-radius: 50%; }
 #closeup .page.land { width: 78%; height: auto; max-width: none; aspect-ratio: 16/9; padding: 0; }
+/* a painted picture as the page (js/story/docs.js photo()): the whole image fitted, no paper, a caption under it */
+#closeup .page.photo { height: 78%; width: auto; max-width: 84%; aspect-ratio: 1280/956; padding: 0; margin-bottom: 5%; background: #120c08 center/contain no-repeat; border-radius: 2px; overflow: visible; }
+#closeup .page.photo .cap { position: absolute; left: -4%; right: -4%; top: 100%; margin-top: 0.7em; text-align: center; color: #f1dca8; font: 1em/1.35 'IM Fell English', serif; letter-spacing: 0.02em; text-shadow: 0 1px 3px #000; }
 #closeup .page canvas.draw { position: absolute; inset: 0; width: 100%; height: 100%; }
 #closeup button { font: 700 clamp(14px, 2vw, 26px) 'Cinzel', serif; color: #f1dca8; background: rgba(30,20,10,0.8); border: 1px solid #8c6a30; border-radius: 6px; padding: 0.2em 0.6em; cursor: pointer; }
 #closeup .x { position: absolute; top: 3%; right: 3%; }
@@ -231,3 +234,17 @@ body.calm #title { animation: none; }
 #brec .spot { position: absolute; margin: 0; padding: 0; background: transparent; border: 2px solid transparent; border-radius: 6px; }
 #brec .spot:hover, #brec .spot:focus-visible { border-color: rgba(255,226,160,.7); background: rgba(255,226,160,.08); }
 #brec .state { font-size: 1.15em; margin: .7em 0 .2em; min-height: 1.4em; color: #e8d8b0; }
+/* ---------- Play offline (js/offline.js; HANDOFF entry 127) ---------- */
+#offline { z-index: 70; background: rgba(5,4,3,.82); }
+#offline .card { max-width: 36em; padding: 1.4em 2em; border: 1px solid #a88a52; background: #16120c; color: #eadcc0; line-height: 1.45; }
+#offline h3 { margin: 0 0 .5em; font: 700 1.5em 'Cinzel', serif; color: var(--gold); letter-spacing: .06em; }
+#offline p { font-size: 1.05em; color: #eadcc0; margin: .45em auto; }
+#offline .small, #offline .store { font-size: .85em; opacity: .75; }
+#offline .store.warn { color: #ffb070; opacity: 1; }
+#offline .note { color: #ffd690; }
+#offline .bar { height: .7em; border: 1px solid var(--gold-dim); background: #0b0805; margin: .8em 0 .2em; }
+#offline .bar.hidden { display: none; }
+#offline .bar i { display: block; height: 100%; width: 0; background: var(--gold); transition: width .25s; }
+#offline .prog { font-variant-numeric: tabular-nums; font-size: .95em; }
+#offline .btns button { font-size: 1.05em; padding: .3em 1.1em; }
+#title .menu button.quiet { font-size: .95em; opacity: .8; }

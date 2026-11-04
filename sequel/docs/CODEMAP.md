@@ -7,7 +7,7 @@ Same shape as Game I (plain HTML, CSS and JavaScript, no build step, no modules;
 ## The engine is shared with Game I
 
 `sequel/js/engine/*.js`, `engine.js`, `fx.js`, `audio.js`, `warp.js`, `parallax.js` and `css/style.css` were forked from
-Game I at commit `394bcdd0` (27 Oct 2026) and made the same again, byte for byte, on 2026-11-04 (HANDOFF entry 105):
+Game I at commit `394bcdd0` (27 Oct 2026) and made the same again, byte for byte, on 2026-11-04 (HANDOFF entry 153):
 each game got the other's engine work, and everything that belongs to one game became data the engine reads. A fix is
 made once and copied to the other game as it is (`for f in ...; do cmp $f sequel/$f; done` from the repository root
 shows they still match). Game II still never loads anything from outside `sequel/`: the files are copies.
@@ -18,10 +18,33 @@ What is Game II's, and where the engine reads it:
 |---|---|
 | `GAME_KEY` (every localStorage key: `shortest-night-*`), `SAVE_SLOT`, `SAVE_VERSION` / `SAVE_MIGRATE`, `FOOTSTEPS` (off), `TURNERS`, `MUSIC_LEGACY`, `GAME_TIPS` | `js/game.js`, loaded first |
 | Speaker names and colours, the names Alan calls people by | `window.SPEAKERS`, `CALLED` in `js/lines.js` |
-| Painted inventory icons, luggage-tag labels, per-character item refusals | `window.PAINTED_ICONS`, `ICON_LABELS`, `FAIL_BY_CHAR` in `js/story/core.js` (read when needed: before entry 105 they were read before the story set them, so no painted icon showed and no refusal line played) |
+| Painted inventory icons, luggage-tag labels, per-character item refusals | `window.PAINTED_ICONS`, `ICON_LABELS`, `FAIL_BY_CHAR` in `js/story/core.js` (read when needed) |
 | The first room; the 1280 paintings for small screens | `window.FIRST_ROOM`, `BG1X` in `js/story/main.js` (`art/bg1x/` is `art/bg/` scaled to 1280x720; a screen drawn above 1280 px gets `art/bg/`) |
 | The sound between rooms | per room `door`, `quietTo`, `quiet` |
 | The sunburn | `E.skinTint`, at the end of `js/story/tue.js` |
+
+The fork's history before it was made shared again (what Game II's copy changed, 27 Oct to 3 Nov) is kept below for reference.
+
+### The fork (history)
+
+`sequel/js/engine/*.js`, `engine.js`, `fx.js`, `audio.js`, `warp.js`, `parallax.js` and `css/style.css` were copied
+from Game I at commit `394bcdd0` (27 Oct 2026). Game I is never touched by work on Game II, and Game II never breaks
+when Game I's engine changes. A fix wanted in both is made in both, on purpose. What the fork changed:
+
+| File | Change |
+|---|---|
+| `js/engine/speech.js` | Speaker names and colours come from `window.SPEAKERS`, the names Alan calls people by from `window.CALLED` (both in `js/lines.js`). The player speaks from the player's figure whoever it is (`E.player.speaker`: `'vasco'` in his chapter). |
+| `js/engine/input.js`, `inventory.js` | The "that doesn't work" lines are the player's own (`alan_fail_*` or `vasco_fail_*`); per-character item refusals from `window.FAIL_BY_CHAR`. |
+| `js/engine/rooms.js` | Door sounds come from the room (`door: 'door'`); a pair can be silent (`quietTo`). |
+| `js/engine/base.js`, `engine.js` | The first room is `window.FIRST_ROOM` (Gando), not the shop. |
+| `js/engine/saves.js` | Its own keys (`shortest-night-save-v1`, ...), no Game I migrations. |
+| `js/engine/tips.js` | Its own key; the "stuck" tip points at the phone box; a tip for Vasco's chapter. |
+| `js/audio.js` | Its own volume key. |
+| `js/engine/stills.js` | A close-up page can be interactive (`p.mount(el, redraw)`; the puzzles' pages). |
+| `js/engine/render.js` | The Sea's water hook (`E.waterPass`, from `js/story/water.js`): `begin(g)` before the depth-sorted figures, `figure(g, a)` after each one is drawn, `end(g)` after them and before the room's `animFg` (HANDOFF entry 108). |
+| `js/fx.js` | The painted inventory icons are listed by the story (`window.PAINTED_ICONS`, read when the first icon is drawn, since fx.js loads before the story: HANDOFF entry 116); an item with no icon yet shows a luggage tag with its short name (`window.ICON_LABELS`). |
+| `js/fx.js` (2) | With `?env=2` (`window.ENV2`, HANDOFF 142, for review): `sway`/`breathe`/`billow` draw through the painting's sway mask (`window.SWAY_MASKS`, `art/fx/<bg>_sway.png`) and sway in gusts; `billowV` (a cloth lifting). Without it, exactly as before. |
+| `js/engine/smoke.js` | The idle cigarette takes its timings, a pose per step and a frame list to load from the story (`G.idleSmoke.seq()`, `.pose(step, round)`, `.load()`, `.exhale`), since Game II's poses are Ludo runs between painted poses, not single paintings (HANDOFF entry 136). |
 
 ## Load order (index.html)
 
@@ -31,25 +54,45 @@ What is Game II's, and where the engine reads it:
 | `js/sprites_game1.js` | Frame metadata for the frames borrowed from Game I (Alan, Vasco). **Generated** by `scripts/import_game1.py`. |
 | `js/sprites_placeholders.js` | The placeholder figures' metadata, and `window.PLACEHOLDER_ART` (rooms and stills not painted yet). **Generated** by `scripts/placeholders.py`. |
 | engine files | As Game I (`fx`, `audio`, `warp`, `parallax`, `engine/*`, `faces.js` data (**generated** by `import_game1.py`: Game I's approved face kits for the borrowed frames), `engine.js`). |
-| `js/story/core.js` | `window.S`: the cast (`S.CHARS`; `S.ph(id)` for a placeholder figure), items, the days (`S.day`, `S.DAYS`), the map and its pins, the phone box and Inês's calls and hints (`S.phoneBox`, `S.CALLS`, `S.hint`), Alan's notebook (`S.NOTES`), playing as Vasco (`S.becomeVasco` / `S.becomeAlan`), the Sea's water and the black mist (`S.water`, `S.drawWater`, `S.drawMist`), placeholder hotspot boxes, `S.room()` (a room's defaults). |
+| `js/story/core.js` | `window.S`: the cast (`S.CHARS`; `S.ph(id)` for a placeholder figure), items, the days (`S.day`, `S.DAYS`), the map and its pins, the phone box and Inês's calls and hints (`S.phoneBox`, `S.CALLS`, `S.hint`), Alan's notebook (`S.NOTES`), playing as Vasco (`S.becomeVasco` / `S.becomeAlan`), the Sea's water level and the black mist (`S.water[key]` 0..1, `S.waterTo`; `S.drawWater` is the old flat water, only Elena's car still uses it; `S.drawMist`), placeholder hotspot boxes, `S.room()` (a room's defaults). |
 | `js/story/emotions.js` | Which of Alan's lines show an emotion on his face (`Engine.LINE_EMO[lineId] = 'joy'`…; drawn by `js/engine/faces.js` from each face set's `emo` in `js/faces.js`). 33 lines, approved 2026-10-29. |
 | `js/story/bgtalk.js` | What the background people say when clicked: `S.BG` (lines per extra id), `S.bgFor`, `S.BG_BURN` (the reception's sunburn remarks). `js/engine/speech.js` also matches a line to an extra by `def.speaker`. |
 | `js/story/extras.js` | Generated by `scripts/extras_install.py` from the placement tool: `S.EXTRAS` (background people per room, ambient) and `S.CAST_AT` (the cast's stands); `js/story/layout.js` merges them into the rooms. Loaded before layout.js. |
-| `js/story/docs.js` | Readable close-ups: the paper, the rubbing, the 1751 letter and Inês's fax, Galindo, the disc list, the 1484 inquiry, Doña Pino's list, Baute's desk, Rafa's sketchbook and drawing, Elena's notebook, the Guardia photograph, Elena's charts. |
+| `js/story/docs.js` | Readable close-ups (a page is the paper with text, `page()`, or a painted picture fitted whole with a caption under it, `photo(name, caption)` = `S.closePhoto`: `art/closeups/<name>.jpg`, listed in main.js's `CLOSEUPS`, CSS `#closeup .page.photo`; entry 116): the paper, the rubbing, the 1751 letter and Inês's fax, Galindo, the disc list, the 1484 inquiry, Doña Pino's list, Baute's desk, Rafa's sketchbook and drawing, Elena's notebook, the Guardia photograph, Elena's charts. |
 | `js/story/sea_clips.js` | `S.SEA`: where each painting's sea loop sits on it, `{bg: [x, y, w, h]}`. **Generated** by `scripts/sea_clips.py`. |
 | `js/story/sea.js` | `S.sea(g, bg)`: the painting's Higgsfield sea loop (`art/video/<bg>.mp4`/`.webm`) drawn through its feathered mask; returns false until the video can draw, so a room's `animBack` keeps its old canvas ripple as the fallback. `S.seaTick()` (from `main.js`) pauses loops not on screen. |
+| `js/story/water.js` | The Sea's water in the rooms that hold it (`S.WATER_ROOMS`: `vault_cell`, `vault` behind the bars, `cave6_low`, `landrover`'s footwell): a plane `S.waterH(level)` figure heights above the floor (a table matched to the lines), in the room's perspective. Each room's floor rows come from its hand-marked wall/floor seam (`seam`, a polyline; a wall pixel stands on the seam below it) and the painting's horizon (`hz`), so waterlines run parallel to the walls' courses; a room without a seam falls back on its depth map (a line fitted depth -> floor row over the walk polygon); cached per room; each figure gets its own waterline from its feet (`a.h` or `E.scaleAt`) through its sprite silhouette. WebGL pass (refraction, depth colour, reflection, caustics, glints, the pale line; `?waterq=0.5` half size), a 2D version without WebGL (`?water=2d`; `?water=off`). `S.waterStats` (the pass's ms), `E.waterPass.debug()`. HANDOFF entry 108. |
+| `js/story/dance.js` | The closing of Cave 6's women of light (`S.drawDance`, from `cave6_low`'s `animFg`, while `S.closing` is set): the approved Kling dance loop split by `scripts/dance_layers.py` into the ring's far and near halves, stacked in one video (`art/video/harimaguadas.mp4`/`.webm`, 960x1080, back on top, front below, so they never drift apart); drawn after the figures and the water, screen-blended round the noon column with Alan in the ring: BACK with every figure's sprite silhouette cut out of it, then FRONT over him, both a little dimmer below the water's surface. A warm flash from the noon column brings them in and takes them away (`S.danceAlpha`, `S.closingEnv` for the triangles' flare in `S.drawLowLight`; `S.DANCE_MS` 16.1 s, the scene's wait in `S.closeLock`). Falls back on the code-drawn women (`S.harimaguada`) round Alan when the video can't play; `S.danceMode()` says which. HANDOFF entry 110. |
 | `js/story/prologue.js` | 21 Dec 1995: Elena's message (a still), her car (played), the barranco (a still). `S.paint`. |
 | `js/story/tue.js` | Tuesday, and the rooms it opens with all their days: Gando (Sunday's bad ending), the hotel lobby and room, Las Canteras (Chano, the phone box, the tide steps, the bonfires, the surfers), the museum hall (Thursday's dinner). |
 | `js/story/wed.js` | Wednesday: La Isleta (and Saturday's flood), Santa Ana and the bell chamber, the archive (Carmen, almost daily). `S.morning`. |
 | `js/story/thu.js` | Thursday: Carmen's history, Casa de Colón, the dinner, Baute's office, caught. |
 | `js/story/fri.js` | Friday: the fight, Carmen's coffee, Rafa's bar. |
 | `js/story/sat.js` | Saturday, Alan: Rafa's studio, the fax, the flood. |
-| `js/story/vasco.js` | Saturday, Vasco's chapter, and the mountain's rooms with all their days: the camp, Cave 6, the vault (Sunday: Vasco behind the bars, `S.vaultBars`; `vault_open` once he's out) and the cell seen from inside (`vault_cell`, Saturday). |
+| `js/story/vasco.js` | Saturday, Vasco's chapter, and the mountain's rooms with all their days: the camp, Cave 6 (`cave6`) and the chamber under it (`cave6_low`), the vault (Sunday: Vasco behind the bars, `S.vaultBars`; `vault_open` once he's out) and the cell seen from inside (`vault_cell`, Saturday). Cave 6's geometry and order live in `S.CAVE` (`WALL`, `FLOOR` = the wall mirrored, `TURN` = the grandmothers' telling); `S.columns()` / `S.lightOn()` say which columns of light stand now; `S.drawLowLight` / `S.drawUpLight` draw them (the closing's code-drawn women of light, `S.harimaguada`, are now only the fallback of `js/story/dance.js`); the discs put back are sprites (`art/layers/cave6_disc_<socket>.webp`, from `art/review/cave6_redesign/discs/`). |
 | `js/story/sun.js` | Sunday: the choice, the bad ending, Carmen's flat, the Land Rover, the rescue. |
-| `js/story/mon.js` | Monday: the finale (`S.ORDER`, the sockets, the surge and the death screen, the mirror, the sixth disc, the seventh's angle), the confession, the ending. |
+| `js/story/mon.js` | Monday: the finale (the disc items `disc_<sign>`; noon and the clock in `F().mclock`; `S.aim(socket, sign)`, the real-time aiming: mouse or arrow keys, click or Enter, Esc takes it out; `S.autoAim` for tests; `S.placeDisc`, the three ways to be wrong and `S.surge`, the death screen; Baute's telling and the crescent; the cloud, Carmen's mirror, the sun laid flat; the closing), the confession, the ending. |
 | `js/story/puzzles.js` | The puzzles of HANDOFF entry 97 (`docs/puzzles/DESIGN.md`): `S.WORDS` (words Alan earns, each from a flag), `S.PAGES` (notebook pages with blanks; `S.openPage`, `S.fillPage`, `S.ON_SOLVE`), the notebook with its open pages first, Inês's hints for the new steps; then the day hooks: folio 12, the case, the talk's clock, the receipt, Vasco's note, Don Lolo's radio, the tower and Baute, the tide table, the warning, Vasco's foil. Loaded after mon.js. |
+| `js/story/spots.js` | **Generated** by `scripts/spots_install.py` from the hotspot tool: `S.SPOT_EDITS` (boxes the user moved, by room and name, "name#2" for the second of a name). Loaded before layout.js; `S.applyLayout` applies it last. HANDOFF 146. |
 | `js/story/layout.js` | Applies the placement tool's output to the rooms: hotspot rects (`spots`), standing points (`at`), the cast's stands, `S.EXTRAS_WHEN` (when a room's extras show: the museum's guests only at the parties), and `S.VARIANTS` (a room's second layout, e.g. `museum_hall_dinner`: the cast's x, y, dir and size become getters that switch on the variant's `when`). |
 | `js/story/main.js` | `STILLS`, placeholder wiring (hotspot boxes, default standing spots), the `?scene=` previews (`PREVIEW`), the content setting, `newGame`, `Game.init`. |
+| `js/offline.js` | **Play offline** (HANDOFF entry 127): the menu's and the title's "Play offline" panel (`window.Offline`: `open`, `download`, `remove`, `state`). Downloads `offline.json`'s files into Cache Storage (`sn-offline`; an update goes to `sn-offline-stage` and replaces the copy's files only when complete; `sn-offline-meta` holds the path->hash maps and the newest list; `sn-fonts` the Google Fonts), six at a time, resumable, only the music/video format this browser plays (`alt`); asks for persistent storage; registers `sw.js` (only in a browser that has asked for the copy). State in localStorage `shortest-night-offline`. Loaded last. |
+
+## Offline copy (HANDOFF entry 127)
+
+- `sw.js` (web root, scope `./`): the service worker. index.html and offline.json network-first (offline.json fetched
+  alongside every page load, kept in `sn-offline-meta` as `latest`); a pack file from the copy when its stored hash
+  (`X-Offline-Hash`) is the one `latest` lists, else the network, else (no network) the copy anyway; looked up by path,
+  so the `?v=` stamps don't matter; Range requests answered with a 206 slice of the stored file; Google Fonts
+  stale-while-revalidate. The downloader's own requests (`?offline-dl=<hash>`) pass straight to the network.
+- `offline.json` (**generated** by `scripts/build-manifest.mjs`, after the other stamps): `{version, built, files,
+  totalBytes, list: [{p, b, h, alt?}]}`, every file `git archive HEAD:sequel` exports (git's list less
+  `.gitattributes` export-ignore) except `netlify.toml`, `.gitattributes`, `sw.js`, notes (`.md`, `.txt`, `.keep`).
+  `alt` marks the two formats of music (`opus`/`aac`) and video (`mp4`/`webm`).
+- `manifest.webmanifest` + `art/app/icon-192.png`, `icon-512.png` (cropped from `art/bg/title.jpg`, the sun over the
+  clouds): name and icon when added to a home screen.
+- `scripts/tests/offline.mjs <folder> <out>`: the end-to-end test (download with a pause and a reload, offline scenes,
+  an update, remove).
 
 ## The days
 
@@ -62,16 +105,17 @@ Until a room is painted, `scripts/placeholders.py` makes a stand-in (a gradient 
 the game draws its hotspots as labelled boxes (dashed blue: exits). Stills are text cards saying what the painting must
 show: together they are the art list. The new cast are flat figures in the bible's palettes with their names on their
 chests. Each placeholder has a `.ph` marker beside it; drop a painting in under the same name, delete the marker and
-rerun the script (it never touches a file without a marker). Every painted room now has a depth map (`art/bg/<room>_depth.png`, `scripts/depth_map.py`); `S.room()` still turns
-parallax off by default (HANDOFF entry 91).
+rerun the script (it never touches a file without a marker). Every painted room now has a depth map (`art/bg/<room>_depth.png`, `scripts/depth_map.py`; `vault_cell`'s since entry 108);
+`S.room()` still turns parallax off by default (HANDOFF entry 91).
 
 ## Paintings
 
 `art/bg/<room>.jpg` are 2560x1440 since HANDOFF entry 92 (Higgsfield upscale); the engine draws them into the 1280x720
 frame, so all coordinates stay 1280x720. The 1280 originals are in `art/designs/rooms_1280/`. A script that reads
 positions from a painting must scale it to 1280x720 first (as `extras.py` and `prop_grade.py` do). The map is the
-original. A screen drawn at 1280 px or less loads `art/bg1x/<room>.jpg` instead, the same painting scaled down
-(entry 105); a painting changed in `art/bg/` needs its `art/bg1x/` copy remade (Lanczos to 1280x720, JPEG q90).
+original.
+A screen drawn at 1280 px or less loads `art/bg1x/<room>.jpg` instead, the same painting scaled down
+(entry 153); a painting changed in `art/bg/` needs its `art/bg1x/` copy remade (Lanczos to 1280x720, JPEG q90).
 
 ## Scripts added on 2026-10-30
 
@@ -84,6 +128,39 @@ original. A screen drawn at 1280 px or less loads `art/bg1x/<room>.jpg` instead,
 - `scripts/tests/record_scene.mjs` + `scripts/record_mix.py`: a play recording with its voices and music mixed in
   (see `docs/PIPELINES.md`).
 - `scripts/tests/rooms_shot.mjs <url> <dir> room:chapter ...`: screenshots of rooms in the running game.
+- `scripts/tests/items_shot.mjs <url> <dir>`: Vasco on the bed, the inventory with every item, every picture close-up (entry 116).
+- `scripts/map_clean.py <in> <out>`: paints the hotel brand names out of Baute's south-coast map, keeping "Hotel", the bed icons,
+  the red circles and the hand (entry 116).
+- `scripts/dance_layers.py <depth-model.onnx>`: the women of light's dance loop split into the ring's far half and near half
+  (Depth Anything V2 per frame, smoothed in space and time), stacked into `art/video/harimaguadas.mp4`/`.webm`, with the
+  review strips `art/review/harimaguadas/split_*.jpg` (HANDOFF entry 110).
+
+- `scripts/duo_kiss_install.py`: the airport kiss (Ludo `art/review/ludo/gando_kiss/improve/sheet.webp`) cut to
+  `art/sprites/duo_gando_kiss_NN.webp` + their sprite data. Played by `S.kissAtGando` (tue.js) as a pose of the
+  `duo_gando_kiss` character (core.js), swapped in for Alan and Vasco (HANDOFF entry 119). Keys starting `pair_` are
+  treated as Game I's painted-left pairs by actor.js, hence the `duo_` prefix.
+- `scripts/tts_text.json`: what the voice reads where it differs from the caption, mostly ElevenLabs v4 emotion tags
+  (`[shouting, frantic] ...`). Read by `generate-voices.mjs`; the caption in `lines.js` is unchanged (entry 118).
+- `js/engine/lights.js` `groundShadows`: an actor's `def.shadow = { dx, wide }` moves and stretches its contact shadow
+  (the two-person kiss figure, entry 119).
+- `S.EXTRAS_WHEN[room]` (layout.js reads it): when a room's background people are there; `gando` is Tuesday only
+  (`F().ch === 1`; `ch()` in tue.js returns 1 for the prologue's 0, so not that) (entry 120).
+
+## Alan's actions (HANDOFF entries 132–136)
+
+- `S.posed(pose, fn)` (core.js): the pose shows while `fn` runs; a pose drawn as a Ludo run (`{ frames, fps, hold }`) plays
+  in to its hold frame before the story moves on and out to standing before the next thing (skipped in FAST tests).
+- Alan's vest outfit has the action runs in its `poses` (core.js, after `still('alanv', ...)`): phone, drink, write,
+  pickup, reach, reachup, setdown, read, heave, crank, rub, and the cigarette's `smoke_*`. A pose name with no run (the
+  blazer, stretch, embrace, kneel...) shows his standing painting.
+- `G.idleSmoke` (end of core.js): the cigarette's runs, timings, mouth/tip points (`S.SMOKE_POINTS`), and where it's
+  allowed (`S.NO_SMOKE`: churches, the cave, the vault, the cars; never in the blazer, undressed or as Vasco).
+- `scripts/sprite_specks.py <run>`: clears stray specks a Ludo run leaves apart from the figure (HANDOFF 140).
+- `scripts/tests/record_actions.mjs <url> <dir> [name]`: each action where the story plays it, on the stepped clock (HANDOFF 141).
+- `scripts/ludo_add.py <run> ...`: adds fitted runs to `art/sprites/` and `js/sprites_ludo.js` without rebuilding the
+  others (`ludo_install.py` needs every run's `fit/`, git-ignored); `HOLD` sets the frame the story waits on.
+- Run specs: `scripts/ludo_runs_alan_actions.json`, `scripts/ludo_runs_alan_smoke.json`; review in
+  `docs/review/action_sprites.md` and `art/review/alan_actions/`.
 
 ## Testing
 
@@ -92,9 +169,9 @@ quietly serves the repository root, Game I), then:
 
 - `node sequel/scripts/validate.mjs`: every line id used exists, every line is used, speakers named, art on disk.
 - `smoke.mjs`, `robustness.mjs`, `loading.mjs`, `memory.mjs`, `a11y.mjs`, `touch_press.mjs`, `qol.mjs`, `story_hints.mjs` in
-  `sequel/scripts/tests/` (from Game I, entry 105; each takes the base URL, prints PASS/FAIL). `?scene=walklab` is the walk lab
+  `sequel/scripts/tests/` (from Game I, entry 153; each takes the base URL, prints PASS/FAIL). `?scene=walklab` is the walk lab
   (`js/walklab.js`), `?review` the review screen (`js/review.js`); neither is in index.html.
 - `node sequel/scripts/tests/play.mjs http://localhost:8099/`: plays the whole game, prologue to credits, through
   hotspots and dialogue (with the airport's bad ending and one wrong disc on the way). About five minutes.
 - `node sequel/scripts/tests/shot.mjs http://localhost:8099/ <scene|title> out.png`: a screenshot and the page errors.
-- `?scene=<name>` previews: `prologue tue lobby reception mist wed belfry thu dinner fri bar sat flood vasco cave vault sun carmen rescue finale confession`.
+- `?scene=<name>` previews: `prologue tue lobby reception mist wed belfry thu dinner fri bar sat flood vasco cave cave_low vault sun carmen rescue finale monday aim aim_sun confession` (`cave_low`: Saturday's chamber at noon; `monday`: the finale from the dawn; `aim`: in the water with two discs set, the aiming; `aim_sun`: the sun disc under Carmen's mirror).

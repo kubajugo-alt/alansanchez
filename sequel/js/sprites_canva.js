@@ -507,6 +507,330 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 953
 },
+"duo_gando_kiss_00": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_01": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_02": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_03": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_04": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_05": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_06": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_07": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_08": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_09": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_10": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_11": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_12": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_13": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_14": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_15": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_16": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_17": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_18": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_19": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_20": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_21": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_22": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_23": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_24": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_25": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_26": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_27": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_28": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_29": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_30": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_31": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_32": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_33": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_34": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
+"duo_gando_kiss_35": {
+"ax": 79.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 533
+},
 "fermin_c": {
 "ax": 168.5,
 "fy": 740.0,
@@ -699,6 +1023,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 1281
 },
+"vascor_back_k": {
+"ax": 136.2,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 268
+},
 "vascor_dinner_front_k": {
 "ax": 126.1,
 "fy": 740.0,
@@ -706,6 +1038,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 258
+},
+"vascor_dinner_profile_k": {
+"ax": 87.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 165
 },
 "vascor_dinner_side_k": {
 "ax": 140.7,
@@ -722,6 +1062,14 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 258
+},
+"vascor_profile_k": {
+"ax": 83.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 161
 },
 "vascor_side_k": {
 "ax": 140.7,
@@ -810,6 +1158,30 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 230
+},
+"x_gando_family": {
+"ax": 473.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 946
+},
+"x_gando_nuns": {
+"ax": 327.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 655
+},
+"x_gando_taxi": {
+"ax": 153.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"top": 20.0,
+"w": 306
 },
 "x_museum_buffet": {
 "ax": 903.0,
@@ -939,6 +1311,15 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "top": 20.0,
 "w": 293
 },
+"yeray_asleep_table": {
+"ax": 513.5,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 1027
+},
 "yeray_c": {
 "ax": 114.5,
 "fy": 740.0,
@@ -946,6 +1327,15 @@ window.SPRITES = Object.assign(window.SPRITES || {}, {
 "hh": 760,
 "top": 20.0,
 "w": 226
+},
+"yeray_drunk_table": {
+"ax": 481.0,
+"fy": 740.0,
+"h": 720.0,
+"hh": 760,
+"rigid": true,
+"top": 20.0,
+"w": 962
 },
 "yeray_r": {
 "ax": 85.5,

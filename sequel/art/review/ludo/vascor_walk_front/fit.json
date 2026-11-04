@@ -1,0 +1,233 @@
+{
+ "name": "vascor_walk_front",
+ "kind": "walk",
+ "frames": 36,
+ "fps": 12,
+ "meta": {
+  "w": 260,
+  "hh": 753,
+  "h": 720.0,
+  "ax": 133.3,
+  "fy": 730.9,
+  "top": 11.3
+ },
+ "flagged": 0,
+ "checks": [
+  {
+   "i": 0,
+   "height": 1.0,
+   "feet_drift": 0.0,
+   "flag": false
+  },
+  {
+   "i": 1,
+   "height": 1.008,
+   "feet_drift": 0.022,
+   "flag": false
+  },
+  {
+   "i": 2,
+   "height": 1.028,
+   "feet_drift": 0.059,
+   "flag": false
+  },
+  {
+   "i": 3,
+   "height": 1.025,
+   "feet_drift": 0.054,
+   "flag": false
+  },
+  {
+   "i": 4,
+   "height": 1.018,
+   "feet_drift": 0.039,
+   "flag": false
+  },
+  {
+   "i": 5,
+   "height": 1.013,
+   "feet_drift": 0.036,
+   "flag": false
+  },
+  {
+   "i": 6,
+   "height": 1.014,
+   "feet_drift": 0.037,
+   "flag": false
+  },
+  {
+   "i": 7,
+   "height": 1.013,
+   "feet_drift": 0.037,
+   "flag": false
+  },
+  {
+   "i": 8,
+   "height": 1.011,
+   "feet_drift": 0.036,
+   "flag": false
+  },
+  {
+   "i": 9,
+   "height": 1.009,
+   "feet_drift": 0.035,
+   "flag": false
+  },
+  {
+   "i": 10,
+   "height": 1.003,
+   "feet_drift": 0.01,
+   "flag": false
+  },
+  {
+   "i": 11,
+   "height": 1.009,
+   "feet_drift": 0.029,
+   "flag": false
+  },
+  {
+   "i": 12,
+   "height": 1.023,
+   "feet_drift": 0.066,
+   "flag": false
+  },
+  {
+   "i": 13,
+   "height": 1.025,
+   "feet_drift": 0.057,
+   "flag": false
+  },
+  {
+   "i": 14,
+   "height": 1.017,
+   "feet_drift": 0.05,
+   "flag": false
+  },
+  {
+   "i": 15,
+   "height": 1.019,
+   "feet_drift": 0.05,
+   "flag": false
+  },
+  {
+   "i": 16,
+   "height": 1.018,
+   "feet_drift": 0.049,
+   "flag": false
+  },
+  {
+   "i": 17,
+   "height": 1.017,
+   "feet_drift": 0.049,
+   "flag": false
+  },
+  {
+   "i": 18,
+   "height": 1.014,
+   "feet_drift": 0.048,
+   "flag": false
+  },
+  {
+   "i": 19,
+   "height": 1.006,
+   "feet_drift": 0.005,
+   "flag": false
+  },
+  {
+   "i": 20,
+   "height": 1.009,
+   "feet_drift": 0.014,
+   "flag": false
+  },
+  {
+   "i": 21,
+   "height": 1.029,
+   "feet_drift": 0.064,
+   "flag": false
+  },
+  {
+   "i": 22,
+   "height": 1.022,
+   "feet_drift": 0.045,
+   "flag": false
+  },
+  {
+   "i": 23,
+   "height": 1.018,
+   "feet_drift": 0.042,
+   "flag": false
+  },
+  {
+   "i": 24,
+   "height": 1.023,
+   "feet_drift": 0.042,
+   "flag": false
+  },
+  {
+   "i": 25,
+   "height": 1.02,
+   "feet_drift": 0.041,
+   "flag": false
+  },
+  {
+   "i": 26,
+   "height": 1.018,
+   "feet_drift": 0.04,
+   "flag": false
+  },
+  {
+   "i": 27,
+   "height": 1.013,
+   "feet_drift": 0.004,
+   "flag": false
+  },
+  {
+   "i": 28,
+   "height": 1.011,
+   "feet_drift": 0.017,
+   "flag": false
+  },
+  {
+   "i": 29,
+   "height": 1.031,
+   "feet_drift": 0.064,
+   "flag": false
+  },
+  {
+   "i": 30,
+   "height": 1.024,
+   "feet_drift": 0.049,
+   "flag": false
+  },
+  {
+   "i": 31,
+   "height": 1.02,
+   "feet_drift": 0.046,
+   "flag": false
+  },
+  {
+   "i": 32,
+   "height": 1.019,
+   "feet_drift": 0.048,
+   "flag": false
+  },
+  {
+   "i": 33,
+   "height": 1.021,
+   "feet_drift": 0.049,
+   "flag": false
+  },
+  {
+   "i": 34,
+   "height": 1.021,
+   "feet_drift": 0.048,
+   "flag": false
+  },
+  {
+   "i": 35,
+   "height": 1.02,
+   "feet_drift": 0.047,
+   "flag": false
+  }
+ ]
+}
