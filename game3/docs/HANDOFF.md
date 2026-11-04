@@ -208,3 +208,8 @@ but Alan).
     nine sides came back on pale blue-grey instead of green (see the Canva log) and need keying before cutting.
     The user asked how to stop the Canva permission prompts: the cloud session's mode dropdown (Auto, where offered)
     or allow rules in a committed `.claude/settings.json`.
+18. **Canva tools allowed without prompts** (2026-11-04, the user: "yes, add the canva allow rules"). New
+    `.claude/settings.json` at the repository root: `permissions.allow` lists the Canva tools this work uses
+    (generate-image and its job check, create-upload-url, get-assets, read-design, edit-design, export-design,
+    get-export-formats). Upload POSTs to Canva's URL are curl calls and may still ask. Nothing else changed; Game I's
+    and Game II's code and exports are unaffected (the file is not served by either game).
