@@ -257,3 +257,19 @@ but Alan).
     too, as the bible says ("animated, never static"). If the user rejects a room, its variants go with it. Checked by
     eye on both sheets; notes: the colmado shut lost its sign board and shifted slightly; the wind variant's trees
     barely bend.
+22. **Placeholders for the three held-back pieces** (2026-11-04, the user: "Draw the things that should wait - we
+    will use them as placeholders"). All drawn in code, in `art/designs/placeholders/`, each marked PLACEHOLDER;
+    sheet `art/designs/g3_placeholders_sheet.jpg`.
+    - **Hurricane chart** `hurricane_chart.png` (1600x1232) by `scripts/hurricane_chart.py` from OpenStreetMap tiles
+      (zoom 6, x 16–22, y 26–30, stitched once into `art/src/carib_osm_z6.png`), 86°–56°W, 9.5°–31°N, Mercator, as
+      the source is. Land and sea only (labels and boundaries filled from their neighbours), newsprint grey land,
+      black coast, a 5° grid labelled at the edges, a dot for Santo Domingo, a generic title (no real masthead).
+      The script's `lonlat_to_px()` is what the engine needs to place each day's pin. Credit OSM in the ending.
+    - **Dominoes, TH6** `dominoes_th6.png` (1680x944) and `dominoes_th6.json` by `scripts/domino_layout.py`. A worked,
+      checked position: twelve on the table, ends 3 and 5; Fello holds only 3|5 (the capicúa); Nando, who plays
+      between Alan and Fello, holds no 3 or 5 and has passed on them before; Alan holds 5|5, 5|6, 2|3, and only 5|5
+      keeps both ends for Fello. The script asserts every tile once and Nando's hand. "Don Cuco" is a placeholder name
+      for Nando's partner (the bible leaves him unnamed).
+    - **Vèvè** `veve/`: a plain boat sign in exactly the bible's S6 parts (hull, mast, sail, flag, three wave lines,
+      crosses, stars), one transparent PNG per part plus `veve_whole.png` and a labelled preview, by
+      `scripts/veve_placeholder.py`. Deliberately not Agwe's vèvè: the real sign waits for the consultant read.
