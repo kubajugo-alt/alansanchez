@@ -2186,3 +2186,22 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     files in both games: the storage key is `GAME_KEY + '-offline'` (still `shortest-night-offline` here), the cache names
     unchanged, so copies already downloaded keep working. `scripts/tests/offline.mjs` made to fit both (the content key of
     either game, the first scene given for the update check, `js/story/docs.js` as the file the update rewrites).
+158. **Light and shadow on the figures, as Game I: the seven lamp-lit rooms, for review** (2026-11-04, the user: "could you
+    check if light and shadow solutions from game 1 are present in game 2", then "yes, start with the seven lamp-lit
+    rooms"). The engine is Game I's, but Game II's rooms only gave their 18 lamps a painted glow (no `power`, `reach`,
+    `rim`, `shadow`, `floor`, `height`), and no room had a key light (`light.rim`) or `flickerShade`: so no lamp lit a
+    figure and nothing cast a shadow but the contact shadow. Game I: 47 lamps in 20 of 21 rooms, 16 casting shadows, 11
+    rooms with a key light.
+    - `js/story/lighting.js` (loaded before layout.js), only with `?light=2` (or localStorage `shortest-night-light` = `2`;
+      `window.LIGHT2`): Rafa's bar (two lanterns, the street lamp; flickerShade 0.18), the museum corridor (four wall
+      lanterns; 0.14), the archive (pendant, stairs lantern, the window's day; the green desk lamp stays a glow), the Casa
+      de Colón (the window and the balcony door's day, the desk lamp, the balcony lantern; key light from the right),
+      Baute's office (the desk lamp, the lamp by the door), Santa Ana inside (the stained glass, the three altar candles;
+      key light from the left), La Isleta (the quay lamp, faint: overcast). Every lamp's floor point and height read off
+      the painting (lamps ringed, floor outlined); reach set to the room's size, as Game I's (its police tube 1100).
+    - Measured at the spots Alan stands: the main lamps reach him at 0.15-0.44, cast shadows at 0.22-0.43 opacity (Game I's
+      police 0.16-0.20). The modelling reads clearly (a lit side, a shaded side, the lamp's rim); the cast shadows are
+      faint on these rooms' dark wood and red tile floors, as Game I's are on its dark floors.
+    - Checked: before/after screenshots of Alan at two spots per room (GPU lighting on), no page errors; without
+      `?light=2` nothing changes (validate 0 errors; smoke lobby, bar pass).
+    - Next, if approved: the other 23 rooms (the sun on the exteriors, windows), then on by default.
