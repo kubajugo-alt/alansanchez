@@ -2225,3 +2225,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
 160. **The lighting on for everyone; merged** (2026-11-04, the user: "switch it on for everyone and merge into master").
     `js/story/lighting.js` runs unless the address has `?light=0` (the rooms as they were, to compare); the `?light=2`
     switch and its localStorage key are gone.
+    Export at `9dfd2d11` (557 MB): play.mjs won in 132 steps, no errors; smoke over every preview scene passes, all lit.
+    Netlify `6aeb79b735cc919c87afb229`. Live: page 200, `/.env` and `/scripts/` 404; lighting.js, index.html, offline.json
+    byte-equal; by default the rooms are lit (`LIGHT2` true, Rafa's lantern power 0.5), with `?light=0` as before; live
+    smoke bar, belfry, lobby pass. Merged into master by PR kubajugo-alt/alansanchez#20.
