@@ -401,3 +401,13 @@ but Alan).
     2560 backgrounds add about 37 MB), validate no problems and parts 8–9 to the credits on the export; deploy
     `6aeb7bae9bef719c4f99297a`, https://alan-sanchez-forgotten-rhythm.netlify.app. Live: page, backgrounds (2560x1440)
     and alive files 200; `/.env`, `/scripts/`, `/docs/` 404; parts 8–9 on the live site to the credits.
+
+30. **The prologue's river mouth repainted too** (2026-11-04, the user: "i think prologue still hold old backgrounds").
+    The prologue opens on the river mouth's two variants (`__visit1_birds`, `__visit2_fish`), which entry 28 had left as
+    the Canva paintings. Both repainted the same way (gpt_image_2_5, high, 2k, each from its own painting), with the
+    prompt holding the pale, empty sky and the fog over the dead fish. The base painting (the third visit: "the dark
+    water past the reef", "the air") had come out with a bright blue holiday sky in entry 28, against the sign it
+    carries; repainted again with a heavy grey-gold overcast (the blue one kept in `rooms_hf/old/`). 8.25 credits;
+    about 11.5 left. Checked: layout against each original (canoes, net, hut, walls where they were), alive shots
+    (palm, thatch and water on their things), `run.mjs 0 1`. Not deployed yet.
+    Still Canva: the nine other variants listed in entry 28.
