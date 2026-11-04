@@ -21,9 +21,10 @@
   };
   // a fire on a roof: a few flames licking up out of a painted blaze, and its glow breathing
   const blaze = (g, t, x, y, w, h, seed) => {
-    FX.glow(g, x + w / 2, y + h * 0.4, w * 0.9, '255,120,40', 0.16 * FX.flicker(t, seed));
-    for (let i = 0; i < 4; i++) FX.flame(g, t + i * 0.37, x + w * (0.15 + 0.23 * i), y + h, h * (0.7 + 0.25 * Math.sin(seed + i * 2.1)), seed + i, '255,150,60');
+    FX.ripple(g, G().bgImage(), [x, y - h * 0.6, w, h * 1.6], t * 2.2, 1.4, 0.3);   // heat shimmer over the painted flames
+    FX.glow(g, x + w / 2, y + h * 0.5, w * 0.9, '255,120,40', 0.18 * FX.flicker(t, seed));
   };
+  const G = () => window.Game;
 
   // ================================================================ 1586: the river mouth (three visits; visit 1: the birds are gone)
   const SKY = [[[340, 0], [1280, 0], [1280, 285], [1180, 290], [820, 262], [670, 230], [600, 90], [340, 60]]];
@@ -52,9 +53,9 @@
     FX.wisps(g, t, 600, 260, { n: 7, rise: 250, spread: 120, rgb: '40,30,26', a: 0.18, size: 70, speed: 0.04, dark: true });
     FX.wisps(g, t + 9, 1000, 160, { n: 6, rise: 170, spread: 90, rgb: '45,34,28', a: 0.16, size: 60, speed: 0.05, dark: true });
     g.restore();
-    blaze(g, t, 950, 100, 80, 40, 1); blaze(g, t, 415, 200, 40, 26, 4); blaze(g, t, 705, 228, 40, 22, 7); blaze(g, t, 470, 318, 30, 26, 9);
+    blaze(g, t, 940, 95, 100, 50, 1); blaze(g, t, 408, 192, 50, 34, 4); blaze(g, t, 700, 222, 50, 28, 7); blaze(g, t, 466, 316, 40, 30, 9);
     FX.glow(g, 330, 405, 26, '255,120,40', 0.2 * FX.flicker(t, 11)); FX.glow(g, 275, 300, 20, '255,130,50', 0.2 * FX.flicker(t, 13)); // fire through the arcade's openings
-    FX.embers(g, t, 980, 130, 10); FX.embers(g, t + 3, 430, 220, 6);
+    FX.embers(g, t, 990, 125, 10); FX.embers(g, t + 3, 432, 215, 6); FX.embers(g, t + 6, 488, 330, 4);
     FX.sway(g, im, [0, 0, 420, 300], t * 0.5, 1.0, 0.2, true);                       // the tree in the hot wind
   };
   // ================================================================ 1586: the bell-chamber (the new bell, Drake's fleet)

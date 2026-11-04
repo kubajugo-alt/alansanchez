@@ -97,12 +97,12 @@
     g.save(); clip(g, [[0, 0], [1280, 0], [1280, 20], [1010, 70], [640, 140], [575, 40], [480, 30], [420, 230], [240, 230], [0, 200]]);
     FX.drawClouds(g, clouds('foundry', 9, '190,190,195', 22), t, 14, -30, 0.35); g.restore();
     // the chains on the gantry swinging a hair, the bell's crate running with water
-    FX.sway(g, im, [676, 150, 34, 250], t * 0.8, 1.5, 0.7, false);
-    FX.sway(g, im, [846, 150, 34, 230], t * 0.8, 1.5, 1.9, false);
+    FX.sway(g, im, [682, 180, 24, 230], t * 0.8, 1.2, 0.7, false);
+    FX.sway(g, im, [850, 150, 22, 120], t * 0.8, 1.0, 1.9, false);
     FX.trickles(g, t, [945, 420, 280, 150], 7, '210,220,225', 0.5);
     // rain on the flooded yard: rings spreading
     FX.drips(g, t, [[200, 610, 0, 3.1], [430, 650, 0, 2.7], [760, 600, 0, 3.5], [880, 690, 0, 2.9], [1100, 640, 0, 3.3], [300, 540, 0, 4.1], [620, 700, 0, 3.7]].map(d => [d[0], d[1], d[1] - 1, d[3]]), '200,205,210');
-    FX.ripple(g, im, [0, 560, 1280, 160], t * 0.6, 0.8, 0.12);
+    FX.ripple(g, im, [0, 580, 1280, 140], t * 0.5, 0.5, 0.08);
   };
   S.ALIVE_FG.foundry_yard = (g, t) => storm(g, t, 120, 0.12);
 
@@ -131,7 +131,7 @@
     FX.sway(g, im, [0, 0, 380, 190], t * 0.9, 5, 0.4, true);                 // the palm over the wall
     FX.ripple(g, im, [650, 330, 630, 150], t * 0.7, 1.2, 0.15);              // the sea
     FX.water(g, t, 700, 340, 560, 140, '170,180,190');
-    foam(g, t, [[[620, 378], [640, 404], [700, 432], [800, 466], [880, 494], [920, 512]], [[700, 420], [820, 450], [960, 470], [1040, 470]]], { per: 6, reach: 7, a: 0.45, w: 2, dx: -6 });
+    foam(g, t, [[[620, 378], [640, 404], [700, 432], [800, 466], [880, 494], [920, 512]], [[700, 420], [820, 450], [960, 470], [1040, 470]]], { per: 6, reach: 6, a: 0.22, w: 1.5, dx: -5 });
     FX.sway(g, im, [700, 500, 200, 50], t * 0.8, 1.5, 0.6, true);            // the weeds on the steps
     FX.rain(g, t, [0, 0, 1280, 720], 60, '190,200,215', 0.08);
   };
@@ -142,7 +142,7 @@
     lightning(g, t, [[0, 0], [1280, 0], [1280, 0], [520, 70], [510, 300], [0, 330]], 14, 3);
     FX.ripple(g, im, [0, 335, 520, 230], t * 1.1, 2, 0.15);                  // the sea heaving
     // the surf breaking over the flat rock and washing in
-    foam(g, t, [[[40, 470], [120, 452], [200, 440], [300, 440], [380, 440]], [[0, 520], [120, 500], [260, 480], [400, 470], [470, 462]], [[0, 560], [140, 545], [300, 520], [430, 500]]], { per: 5, reach: 10, a: 0.55, w: 2.2, dx: 14 });
+    foam(g, t, [[[60, 468], [110, 460], [140, 452]], [[10, 512], [90, 500], [190, 488], [290, 478], [380, 470]], [[0, 548], [100, 540], [220, 526], [330, 512]]], { per: 5, reach: 8, a: 0.22, w: 1.6, dx: 10 });
     { const p = (t % 5) / 5, k = Math.max(0, Math.sin(p * Math.PI * 2)); FX.glow(g, 110, 410, 90, '220,230,240', 0.12 * k); }   // spray off the rock
     FX.water(g, t, 0, 350, 500, 200, '200,210,220');
     // the lamps on the wall and over the stair in the wind
@@ -157,15 +157,12 @@
   // ================================================================ the water's edge: the breakers, the tide in the shallows, the rain
   S.ALIVE.shore_water = (g, t, bg, im) => {
     lightning(g, t, [[440, 0], [1280, 0], [1280, 345], [600, 345], [450, 330]], 16, 9);
-    g.save(); clip(g, [[440, 0], [1280, 0], [1280, 340], [450, 330]]);
-    FX.drawClouds(g, clouds('shore_water', 13, '60,62,70', 26), t, 12, -30, 0.5); g.restore();
     // the breakers rolling in along the reef line
-    foam(g, t, [[[600, 385], [700, 405], [820, 425], [960, 440], [1100, 450], [1270, 455]], [[700, 372], [850, 375], [1000, 385], [1160, 395], [1280, 398]], [[880, 360], [1040, 362], [1200, 368]]], { per: 4.5, reach: 9, a: 0.6, w: 2.4, dx: -10 });
+    foam(g, t, [[[600, 385], [700, 405], [820, 425], [960, 440], [1100, 450], [1270, 455]], [[700, 372], [850, 375], [1000, 385], [1160, 395], [1280, 398]], [[880, 360], [1040, 362], [1200, 368]]], { per: 4.5, reach: 7, a: 0.28, w: 1.8, dx: -8 });
     FX.ripple(g, im, [580, 350, 700, 120], t * 1.2, 2, 0.12);
     // the shallows over the paving: the water sliding, the light on it
     FX.ripple(g, im, [0, 440, 1280, 280], t * 0.8, 1.6, 0.1);
     FX.water(g, t, 0, 450, 1280, 260, '190,180,160');
-    foam(g, t, [[[440, 610], [520, 590], [620, 580], [720, 585], [800, 605]]], { per: 6, reach: 4, a: 0.3, w: 1.4 });  // the rock awash
   };
   S.ALIVE_FG.shore_water = (g, t) => storm(g, t, 170, 0.16);
 
@@ -176,9 +173,10 @@
     FX.water(g, t * 0.7, 800, 0, 420, 720, '235,245,250'); g.restore();
     // two cloud shadows drifting slowly west to east across the old city
     for (const [sp, off, yy, r] of [[11, 0, 260, 300], [8, 900, 470, 240]]) {
-      const x = ((t * sp + off) % 1900) - 320, y = yy + Math.sin(t * 0.05 + off) * 50, gr = g.createRadialGradient(x, y, 0, x, y, r);
-      gr.addColorStop(0, 'rgba(30,30,40,0.10)'); gr.addColorStop(1, 'rgba(30,30,40,0)');
-      g.fillStyle = gr; g.beginPath(); g.ellipse(x, y, r, r * 0.6, 0.2, 0, 7); g.fill();
+      const x = ((t * sp + off) % 1900) - 320, y = yy + Math.sin(t * 0.05 + off) * 50;
+      g.save(); g.translate(x, y); g.rotate(0.2); g.scale(1, 0.6);
+      const gr = g.createRadialGradient(0, 0, 0, 0, 0, r); gr.addColorStop(0, 'rgba(30,30,40,0.10)'); gr.addColorStop(1, 'rgba(30,30,40,0)');
+      g.fillStyle = gr; g.fillRect(-r, -r, 2 * r, 2 * r); g.restore();
     }
     // a gull or two over the harbour mouth
     FX.birds(g, t, { y0: 520, y1: 640, n: 2, period: 24, color: 'rgba(250,250,250,0.7)', size: 5, x0: 700, x1: 1280 });

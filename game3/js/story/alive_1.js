@@ -38,8 +38,8 @@
   S.ALIVE.hostal_courtyard = (g, t, bg, im) => {
     const night = /night/.test(bg), dawn = /dawn/.test(bg);
     // the tree's canopy over the stair, the bougainvillea on the gallery, the ferns
-    FX.sway(g, im, [70, 0, 440, 300], t * 0.55, 1.1, 0, false);
-    FX.sway(g, im, [1060, 20, 220, 140], t * 0.6, 0.9, 1.7, false);
+    FX.sway(g, im, [70, 0, 440, 300], t * 0.55, 1.1, 0, true);      // (held at the bottom: no seam where the stair begins)
+    FX.billow(g, im, [1060, 10, 220, 160], t, 0.9, 6.5);
     FX.sway(g, im, [1035, 430, 110, 70], t * 0.7, 0.7, 2.4, true);
     // the washing on the line, breathing in the draught off the street
     FX.billow(g, im, [958, 218, 322, 104], t, 1.4, 5.5);
@@ -63,8 +63,6 @@
     ceilFan(g, t, 637, 48, 130, 22, 1.1, 0.09);
     lamp(g, t, 1200, 318, 110, '255,214,150', 0.12, 4, false);
     FX.moth(g, t, 1205, 300, 30, 20, 0.7);
-    // through the balcony doors: the trees in the night air
-    FX.sway(g, im, [270, 250, 150, 110], t * 0.5, 0.9, 0.8, true);
     // the towel over the chair, stirred by the fan
     FX.billow(g, im, [178, 362, 70, 130], t, 0.7, 4.2);
   };
@@ -74,8 +72,7 @@
     // sun through the window grille onto the tiles, with dust in it
     FX.shaft(g, [[590, 90], [720, 90], [800, 640], [540, 640]], '255,236,200', 0.05, 0.2);
     FX.motes(g, t, 560, 120, 220, 460, 24, '255,240,210');
-    // the courtyard beyond the grille, and the towel on its hook
-    FX.ripple(g, im, [588, 96, 130, 220], t * 0.4, 0.4, 0.05);
+    // the towel on its hook (the grille stays still: nothing behind it is moved)
     FX.billow(g, im, [1012, 150, 58, 235], t, 0.8, 6.5);
   };
 
@@ -89,8 +86,7 @@
       FX.billow(g, im, [1100, 80, 150, 420], t, 0.6, 7);
       return;
     }
-    // the garden through the window, the bead curtain in the doorway, steam off the pot
-    FX.ripple(g, im, [4, 96, 150, 196], t * 0.5, 0.5, 0.06);
+    // the bead curtain in the doorway, steam off the pot, sun through the window
     FX.billow(g, im, [1100, 80, 150, 420], t, 1.3, 6);
     steam(g, t, 500, 392, 4, 0.12);
     FX.shaft(g, [[0, 90], [160, 90], [520, 620], [200, 640]], '255,236,200', 0.04, 0.25);
