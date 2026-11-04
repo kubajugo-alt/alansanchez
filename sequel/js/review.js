@@ -56,7 +56,8 @@
   #rv select,#rv input{font:inherit;background:#222;color:#eee;border:1px solid #555;border-radius:3px;max-width:100%}
   #rv .grid{display:flex;flex-wrap:wrap;gap:2px}
   #rv.hid{transform:translateX(100%)}#rv{transition:transform .2s}#rv-show{position:absolute;top:8px;right:8px;z-index:91;display:none}
-  #rv .muted{color:#999;font-size:12px}#rv .warn{color:#e8a070;font-size:11px}`;
+  #rv .muted{color:#999;font-size:12px}#rv .warn{color:#e8a070;font-size:11px}
+  #tip{display:none!important}`; // (no first-time tips over the review stage)
   const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   const P = document.createElement('div'); P.id = 'rv';
   P.innerHTML = `<div class="bar"><b style="color:#d8b46a">Animation review</b>

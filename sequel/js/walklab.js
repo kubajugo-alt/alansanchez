@@ -120,6 +120,7 @@
 
   // ---------------------------------------------------------------- the panel
   const st = { who: Q.get('who') || 'alanv', cycle: +(Q.get('cycle') || 0), room: Q.get('lroom') || 'hotel_lobby', loop: true, feet: !Q.has('nofeet'), timing: 'foot' };
+  const noTips = document.createElement('style'); noTips.textContent = '#tip{display:none!important}'; document.head.appendChild(noTips); // (no first-time tips over the lab)
   const box = document.createElement('div');
   box.id = 'walklab';
   box.style.cssText = 'position:absolute;left:1%;top:1.5%;z-index:70;background:rgba(14,10,6,.9);border:1px solid rgba(224,184,102,.5);color:#eadcc0;font:12px/1.35 system-ui,sans-serif;padding:8px 10px;max-width:46%;max-height:94%;overflow:auto;pointer-events:auto';
@@ -207,6 +208,7 @@
     const leg = d => d === 'right' ? [1080, p.y] : d === 'left' ? [200, p.y] : d === 'up' ? [p.x, st.y0] : [p.x, st.y1];
     let d = dir;
     if ((d === 'right' || d === 'left') && Math.abs(p.y - ym) > 40) await p.walkTo(p.x, ym);
+    if ((d === 'up' || d === 'down') && p.x < 760) await p.walkTo(860, p.y); // (clear of the panel)
     do {
       if (my !== walking) return;
       trail.length = 0;

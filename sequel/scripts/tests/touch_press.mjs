@@ -1,6 +1,6 @@
 // Touch (ported from Game I's scripts/tests/touch_press.mjs): in the hotel lobby (?scene=lobby), a long-press on a hotspot
 // with a plain look line examines it, and the click a browser sends on lifting the finger doesn't skip that line; a
-// second click then does skip it (the swallow is one click only); and a slower, two-second press doesn't skip it either. Alan is put at the hotspot first so the line starts
+// second click then does skip it (the swallow is one click only); and a slower, 2.5-second press doesn't skip it either. Alan is put at the hotspot first so the line starts
 // at once (the lobby is wide: walking there would outlast the press).
 //   node scripts/tests/touch_press.mjs [baseUrl]   (serve sequel/ first: npx -y http-server sequel -p 8101 -c-1 -s)
 import { createRequire } from 'module';
@@ -28,11 +28,11 @@ const cdp = await ctx.newCDPSession(page);
 const touch = (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts });
 // a press held `hold` ms (at least; longer while the line can't be skipped yet: Engine.skipFn is set only once
 // Sound.playVoice resolves, and before that any click is ignored, which would make the check pass for nothing), then lifted
-async function press(hold) {
+async function press(hold, cap) {
   await page.evaluate(() => { window.__clicks = 0; });
   await touch('touchStart', [{ x: pt.x, y: pt.y }]);
   await page.waitForTimeout(hold);
-  const ready = await page.evaluate(async h => { const t0 = performance.now(); for (let i = 0; i < 80 && !(Engine.speaking && Engine.skipFn); i++) await new Promise(r => setTimeout(r, 50)); return { skippable: !!Engine.skipFn, held: h + Math.round(performance.now() - t0) }; }, hold);
+  const ready = await page.evaluate(async ([h, c]) => { const t0 = performance.now(); while (performance.now() - t0 < c && !(Engine.speaking && Engine.skipFn)) await new Promise(r => setTimeout(r, 25)); return { skippable: !!Engine.skipFn, held: h + Math.round(performance.now() - t0) }; }, [hold, cap]);
   await touch('touchEnd', []);
   await page.waitForTimeout(250);
   // the click a browser sends on lifting the finger: Chromium sends one itself after a CDP touch; if it didn't, send it
@@ -42,17 +42,18 @@ async function press(hold) {
 }
 const quiet = () => page.waitForFunction(() => !Game.isBusy && !Engine.speaking, null, { timeout: 60000, polling: 100 });
 let bad = 0;
-const r = await press(900);                  // past the 550 ms press: the look line starts
-const p1 = r.skippable && !!r.speaking && !errs.length; if (!p1) bad++;
-console.log((p1 ? 'PASS' : 'FAIL') + ' long-press look line survives the lift', JSON.stringify(pt), JSON.stringify(r), errs.join('|'));
+const r = await press(900, 400);             // past the 550 ms press: the look line starts (lifted by 1.3 s at most)
+const p1 = !!r.speaking && !errs.length; if (!p1) bad++;
+console.log((p1 ? 'PASS' : 'FAIL') + ' long-press look line survives the lift' + (r.skippable ? '' : ' (its voice hadn\'t started: a click then is ignored anyway)'), JSON.stringify(pt), JSON.stringify(r), errs.join('|'));
 // a second click now does skip it (the swallow is one click only)
 await page.mouse.click(pt.x, pt.y); await page.waitForTimeout(300);
 const r2 = await page.evaluate(() => ({ speaking: Engine.speaking && Engine.speaking.id, speech: document.querySelector('#speech') && document.querySelector('#speech').style.display }));
 const p2 = r2.speaking !== r.speaking; if (!p2) bad++;
 console.log((p2 ? 'PASS' : 'FAIL') + ' a second click skips it', JSON.stringify(r2));
-// a slower press: the finger held two seconds (the line long under way) still mustn't skip it on the lift
+// a slower press: the finger held 2.5 s (the line under way) still mustn't skip it on the lift. (js/engine/input.js swallows
+// the lifting click only within 1.5 s of the press firing at 550 ms: a finger lifted after about 2 s skips the line.)
 await quiet();
-const r3 = await press(2000);
+const r3 = await press(2500, 0);
 const p3 = r3.skippable && !!r3.speaking; if (!p3) bad++;
-console.log((p3 ? 'PASS' : 'FAIL') + ' a 2 s press: the look line survives the lift', JSON.stringify(r3));
+console.log((p3 ? 'PASS' : 'FAIL') + ' a 2.5 s press: the look line survives the lift', JSON.stringify(r3));
 await Promise.race([browser.close(), new Promise(r => setTimeout(r, 5000))]); process.exit(bad ? 1 : 0);
