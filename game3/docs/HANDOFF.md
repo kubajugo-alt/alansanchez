@@ -166,3 +166,6 @@ but Alan).
    bible's character designs. Sheet `art/designs/g3_cast_sheet_v1.png`, ids in `art/canva/log.md`. Supporting cast
    next (Nando, Lalo, Yunior, Padre Ulises, Peralta, Ledesma, the Nuncio's secretary, Don Faustino, Ramón, the perm
    sisters, Darío, Eddy).
+10. **The supporting cast, fronts (for review)** (2026-11-04). Nando, Lalo, Yunior, Padre Ulises, Peralta, Ledesma,
+    the Nuncio's secretary, Don Faustino, Ramón, the perm sisters (one picture, to be split), Darío, Eddy: same method.
+    Sheet `art/designs/g3_cast_sheet_v2.png`. Every speaking part in the bible's voice sheet now has a front design.

@@ -42,3 +42,9 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
   - `lilo_g3_front` MAHZ7E4yXz0 (seated on his chair with the drum, 3:4) · `fello_g3_front` MAHZ7N6kdX8 · `batista_g3_front` MAHZ7I_N7Ns · `mireya_g3_front` MAHZ7PJZ8gw
   Grain: bishop 2.2, Moncho 2.4, Batista 2.9, Mireya 3.5, Fello 3.8, Tobias 4.1, Lilo 6.4, Yolande 10.1 (the last two are painted pattern and wrinkles, not noise: Yolande's printed dress, Lilo's straw and skin; the measure can't tell them apart).
   Sheet: art/designs/g3_cast_sheet_v1.png (heights relative to Alan are a guess, to be set in the game).
+- 2026-11-04 supporting cast, fronts (same method: one fresh generation each, locked Alan as style reference only); candidates:
+  - `nando_g3_front` MAHZ7GiKtyw · `lalo_g3_front` MAHZ7OpTx3c · `yunior_g3_front` MAHZ7LyeZog · `ulises_g3_front` MAHZ7AtD1us
+  - `peralta_g3_front` MAHZ7P9vUQg · `ledesma_g3_front` MAHZ7OFSeDQ · `secretary_g3_front` MAHZ7CAywcY · `faustino_g3_front` MAHZ7KiZ6zU
+  - `ramon_g3_front` MAHZ7BJg4Xo · `sisters_g3_front` MAHZ7Fm74DA (Ercilia and Mercedes together, 3:4; to be split with figure_cut --half) · `dario_g3_front` MAHZ7Cv3Hn0 · `eddy_g3_front` MAHZ7FbcRe8
+  Sheet: art/designs/g3_cast_sheet_v2.png. Scratch pages 3, 4, 13, 16-21 of DAHYZ-SDzRE now also hold Game III images (their old Game I/II scratch images, media MAHZPqKAeW4, MAHYrGlZXlk, MAHYejVWiJQ, MAHYgycIIUQ, MAHYg40b6C4, MAHYhKyUW3Y, MAHYexNUe9Y, MAHYffkXh8g, MAHYgyU9to4, are still in Canva; nothing in Games I or II loads them).
+  Notes for review: Dario's trumpet case reads as a small suitcase; Eddy's open cream shirt is close to Alan's.
