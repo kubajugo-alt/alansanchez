@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `a7fcbd59` (Netlify `6ae1498ab246bdf2ff2a7dcb`,
 entry 84): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-86; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-87; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1585,6 +1585,21 @@ session lived in the session's scratchpad and are gone; everything that matters 
     - Checks: `node --check` on every file; validate 0 errors (both games); Game I smoke intro, tavernafter, vascostore,
       bath, fado, sepit, copbed, quayfish, laundry, celeste, finale, finalerace, semuseum, romance pass; Game I touch_press
       passes; both games load with no page errors at 1280 and 2400 px with the right paintings and icons.
+87. **The placement page; Game II's emotions on Alan, for review** (2026-11-04, the user: "please do" (publish the
+   placement tool); "Can you try to apply Alan from Game II expressions to Game I, blending it?").
+    - The placement page: https://claude.ai/artifact/6WyHswfjdRcBYeP5sb1zrE (private, db collection `placements`), built by
+      `scripts/tests/placer_dump.mjs` + `scripts/placer_build.py` into the scratchpad (19 rooms, 43 people). When the user
+      says it's done: read `placements`, save it as JSON, `python3 scripts/placer_install.py <file>` writes
+      `js/story/placed.js`. Store checked empty after publishing.
+    - Emotions: `scripts/face_emotions_g2.py build | sheet | clip` aligns Game II's patches (from `alanv_side_k`,
+      `alanv_front_k`; ECC affine fit 0.91-0.98) onto `alan_side`, `alan_idle2`, `alan_talk`, `alan_talk2`, `alan_front`,
+      `alan_lantern`, keeping Game I's colour and strokes; all eight emotions on five frames, seven on the lantern
+      (embarrassed left out). Patches, sheets, clips: `art/review/emotions_g2/`. `js/story/emo_preview.js`, loaded only
+      with `?emo=1`, wires them and proposes 38 of Alan's lines (reasons in the file). Weak spot: the talk frames' quiet
+      faces keep a faint lighter patch on the lower cheek in fear, anger, sadness, concern. Not installed: waits for the
+      user. To install: `faces/*` into `art/faces/`, `emo.json`'s entries into `js/faces.js`, the line list into a
+      `js/story/emotions.js` (and `face_kit.py` must keep `emo` when it rebuilds a set).
+    - Checks: validate 0 errors; with `?emo=1` the emotions draw on the tagged lines, without it nothing changes.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

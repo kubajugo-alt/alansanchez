@@ -1171,3 +1171,15 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
          Walk and Voice tabs; Game I's New frames, Combined and Rig tabs need its candidates pipeline, pair and rig art).
      - Left to each game by choice: footsteps (off here), the phone box, the sunburn.
      - Checks: validate 0 errors; play.mjs won in 131 steps, no page errors; the tests above.
+106. **Lip-sync re-timed; the beach closed at night; the placement tool for Game I; Alan's emotions on Game I** (2026-11-04,
+    the user: "Just block the access to the beach at night"; "I allow it, do it" (Rhubarb); "Can you try to apply Alan from
+    Game II expressions to Game I, blending it?"; "please do" (publish the placement tool)).
+     - Lip-sync: Rhubarb 1.13.0 (downloaded to the scratchpad), `scripts/lipsync.py --speaker all`: 1378 cue files written,
+       488 unchanged, 36 with no audio (the lines set aside in entry 104). validate: no stale cues and no voiced line without
+       cues for any speaker with a face (was 477 stale, 747 missing); only the narrator's 746 have none (no face).
+     - Night (`S.night`, `tue.js`): Tuesday after the reception, Thursday once caught, Friday once Carmen has explained the
+       cave, Saturday after the flood. The way down to the beach is hidden then; the surfers' `when` reads it (the never-set
+       `canteras_night` is gone). Checked in the game for each day.
+     - Game I (its entry 87): the placement page published, https://claude.ai/artifact/6WyHswfjdRcBYeP5sb1zrE; Game II's
+       eight emotions blended onto six of Game I's Alan frames, preview only (`?emo=1`), for the user's approval.
+     - Checks: validate 0 errors; smoke tue, lobby, thu, fri pass.
