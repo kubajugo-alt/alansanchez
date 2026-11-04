@@ -2046,4 +2046,18 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     index.html equal, spots.js / layout.js / wed.js byte-equal; `/.env`, `/scripts/`, `/docs/` 404. Live now: entries
     140 (tidy-ups, the hold-frame fix, the set-down speck), 147 (the user's 33 hotspot boxes, the timple players gone).
     The movement's second pass (142-145) is in the deployed files but off unless the page is opened with `?env=2`.
+149. **The dialogue, scene by scene, reviewed** (2026-11-04, the user: "Go scene by scene and prepare the file that would
+    show the dialogues in each scene/situation/room. Then have a Claude agent ... review the sense/naturalism of the
+    dialogues, scene by scene and rate them - then flag suggested changes").
+    - `scripts/dialogue_scenes.mjs` -> `docs/review/dialogue/scenes/` (13 files, prologue to Monday, the puzzles, the
+      phone box and Inês, the background people, the close-ups, the refusals): every room and scripted moment with its
+      lines in code order, speaker, the code's stage directions (code-only comments left out), *[choice]*, *[if]*, *[set]*
+      (an id built in the code: the whole set listed) and *(no recording)*. 2,166 distinct lines: every line the game
+      plays; the 740 left out are the narrator cuts and lines no code reaches (validate's "never used").
+    - Nine reviewers in parallel (a Workflow, one per day), each with the story bible's characters, voice sheet and ten
+      dialogue rules, rated every scene for sense and naturalism and flagged lines with a rewrite: 24 must, 83 should,
+      63 could. Overall 4/5 and 4/5 everywhere except Saturday (Alan), sense 3/5 (the lobby, the call, the radio hour).
+      Reviews: `docs/review/dialogue/review_<nn>.md`; the summary and every must flag: `docs/review/dialogue/README.md`.
+      The facts behind the must flags were checked against BIBLE.md. Nothing in the game changed; applying a flag means
+      editing `js/lines.js` and re-recording that line (or it plays as a caption).
 
