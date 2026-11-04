@@ -323,3 +323,25 @@ but Alan).
       `deploy-site` with the id above, run its command from the export folder, check as above.
     - Also found by the whole run: Wednesday's `tower_done` shadowed Sunday's rescue (Sunday now `sun_tower_done`);
       a scan for flags set by more than one part finds only the two meant to be shared (`sisters_in`, `tobias_dries`).
+25. **Music and ambience, synthesised** (2026-11-04, the user: "can you add environment sounds and music, without
+    calling paid services?"; asked about Canva: its tools here make images and designs and export pdf/png/jpg/gif/pptx/
+    mp4, nothing that makes or exports audio, and its stock music is licensed for designs, not a game).
+    `scripts/make_sound.py` builds everything with numpy and ffmpeg, no samples and no service: plucked strings as decaying
+    harmonics (nylon guitar, the bachata requinto, Lisbon's guitarra), palo and tambora drums, congas, bongos, the güira as
+    scraped noise, accordion, marimba, organ, flute, vowel-formant voices, inharmonic bells, one generated room reverb;
+    the series' motif (three beats and a rest, the skip on the third) on the palos and the heartbeat.
+    - **Music** (audio/music, opus + aac, tracks.json; the engine crossfades each loop): title, hostal (bolero-bachata),
+      zona (merengue at half heat), cathedral (organ, bell, far choir), archive (Inês: marimba), salve (San Antón by
+      night), dread (the Sea near: drone and heartbeat), yolande (rara horns and drums), bachata (the bar), gallera, p1586,
+      lisbon (fado guitarra), finale (every drum, both halves), ending. 51–82 s each, 28 MB in all.
+    - **Ambience** (audio/sfx/sd_*.mp3, seamless 60 s beds): street (traffic hum, cicadas), courtyard (fountain), night
+      (crickets), church, tower (wind, far surf), sea, storm (surf, wind, rain), rain, market (crowd), bar, gallera (the
+      crowd through the wall), room (ceiling fan), office, cell, foundry (furnace), 1586; details on their own clocks:
+      tropical birds, a far merengue radio, car horns, a moped, a rooster, geckos, furnace clanks (js/audio.js, EXTRAS, with
+      Game II's dogs, gulls, glasses, pigeons). Lisbon keeps the earlier games' Lisbon beds.
+    - **Which room plays what**: `js/story/sound.js` (loaded after the parts): by day and hour (the night variants, the
+      Tuesday storm on the shore and in the square, the dread theme when the heartbeat is loud).
+    - Checked: levels (music about -24 dB RMS, beds -29 to -33, no clipping) and spectrograms; in the browser the title
+      theme on the title screen, the hostal theme and the room's bed in room 4, p1586 and the 1586 bed in the prologue;
+      validate and the whole play-through (below). A listening sampler, every track 16 s and six beds 10 s:
+      `docs/g3_sound_sampler.mp3` (not deployed). Not yet heard by the user: this is synthesis, not recorded musicians.

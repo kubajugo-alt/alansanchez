@@ -716,6 +716,32 @@
     EXTRAS.cistern = EXTRAS.cistern.concat([['drip_echo', [7, 16], [0.08, 0.16], [-0.9, 0.9], [0.85, 1.1]]]);
     EXTRAS.harbour = EXTRAS.harbour.concat([['tram_distant', [70, 150], [0.06, 0.1], [-0.8, -0.3]]]); // the station's trams behind the quay
   }
+  // Game III: Santo Domingo's own sound world (scripts/make_sound.py: synthesised, no samples): beds sd_* and their details
+  Object.assign(LOOPS, {
+    sd_street: ['sd_street', 0.45], sd_courtyard: ['sd_courtyard', 0.4], sd_night: ['sd_night', 0.4], sd_church: ['sd_church', 0.45],
+    sd_tower: ['sd_tower', 0.4], sd_sea: ['sd_sea', 0.5], sd_storm: ['sd_storm', 0.55], sd_rain: ['sd_rain', 0.45], sd_market: ['sd_market', 0.45],
+    sd_bar: ['sd_bar', 0.4], sd_gallera: ['sd_gallera', 0.5], sd_room: ['sd_room', 0.35], sd_office: ['sd_office', 0.35], sd_cell: [['sd_cell', 0.4], ['drip_echo', 0.1]],
+    sd_foundry: ['sd_foundry', 0.45], sd_1586: ['sd_1586', 0.45],
+  });
+  Object.assign(EXTRAS, {
+    sd_street: [['sd_horn', [25, 60], [0.06, 0.12], [-0.9, 0.9]], ['sd_motor', [30, 70], [0.08, 0.14], [-0.9, 0.9]], ['sd_radio', [50, 110], [0.06, 0.1], [-0.8, 0.8]],
+      ['sd_bird', [20, 45], [0.08, 0.14], [-0.8, 0.8]], ['sd_bird_2', [35, 70], [0.06, 0.1], [-0.8, 0.8]], ['dog_distant', [60, 140], [0.05, 0.09], [-0.9, 0.9]], ['church_bells_distant', [160, 320], [0.05, 0.08], [-0.6, 0.6]]],
+    sd_courtyard: [['sd_bird', [15, 35], [0.1, 0.16], [-0.8, 0.8]], ['sd_bird_3', [30, 60], [0.08, 0.12], [-0.7, 0.7]], ['sd_radio', [45, 100], [0.05, 0.09], [0.4, 0.9]],
+      ['laundry_flap', [30, 70], [0.08, 0.14], [-0.5, 0.5]], ['sd_rooster', [120, 260], [0.05, 0.08], [-0.9, 0.9]]],
+    sd_night: [['sd_gecko', [25, 60], [0.08, 0.14], [-0.8, 0.8]], ['dog_distant', [50, 120], [0.06, 0.1], [-0.9, 0.9]], ['sd_radio', [80, 180], [0.03, 0.06], [-0.9, 0.9]]],
+    sd_church: [['pigeon_wings', [30, 70], [0.1, 0.16], [-0.7, 0.7]], ['corridor_steps', [35, 80], [0.06, 0.1], [-0.8, 0.8]], ['candle_flutter', [25, 55], [0.06, 0.1], [-0.5, 0.5]]],
+    sd_tower: [['tower_wind', [18, 40], [0.12, 0.2], [-0.8, 0.8]], ['pigeons', [30, 60], [0.12, 0.2], [-0.6, 0.6]], ['rope_creak', [30, 70], [0.08, 0.14], [-0.3, 0.3]], ['bell_hum_soft', [40, 90], [0.06, 0.1], [-0.2, 0.2]]],
+    sd_sea: [['gulls', [20, 45], [0.12, 0.2], [-0.9, 0.9]], ['crash_wave', [12, 30], [0.12, 0.2], [-0.6, 0.6]]],
+    sd_storm: [['crash_wave', [6, 14], [0.2, 0.35], [-0.7, 0.7]], ['wind_arches', [10, 25], [0.15, 0.25], [-0.9, 0.9]]],
+    sd_market: [['sd_radio', [30, 70], [0.06, 0.1], [-0.9, 0.9]], ['coins_clink', [20, 45], [0.12, 0.2], [-0.7, 0.7]], ['paper_take', [25, 55], [0.08, 0.14], [-0.6, 0.6]], ['sd_rooster', [90, 200], [0.04, 0.07], [-0.9, 0.9]]],
+    sd_bar: [['glass_clink', [12, 30], [0.2, 0.35], [-0.8, 0.8]], ['glass_set', [20, 45], [0.15, 0.25], [0.4, 0.9]], ['tavern_laugh', [30, 70], [0.12, 0.2], [-0.6, 0.6]], ['card_slap', [25, 60], [0.12, 0.2], [-0.6, 0.6]]],
+    sd_gallera: [['sd_rooster', [15, 35], [0.08, 0.14], [-0.9, 0.9]], ['tavern_laugh', [20, 50], [0.1, 0.16], [-0.6, 0.6]]],
+    sd_room: [['sd_radio', [70, 150], [0.04, 0.07], [-0.9, 0.9]], ['sd_gecko', [60, 140], [0.05, 0.08], [-0.8, 0.8]], ['sd_horn', [60, 140], [0.03, 0.06], [-0.9, 0.9]]],
+    sd_office: [['typewriter', [25, 60], [0.12, 0.2], [-0.7, 0.2]], ['office_phone', [80, 180], [0.08, 0.14], [0.3, 0.9]], ['paper_shuffle', [30, 70], [0.12, 0.2], [-0.5, 0.5]]],
+    sd_cell: [['drip_echo', [6, 14], [0.12, 0.22], [-0.9, 0.9]], ['door_police', [80, 180], [0.06, 0.1], [-0.9, 0.9]], ['handcuff_click', [90, 200], [0.05, 0.08], [-0.7, 0.7]]],
+    sd_foundry: [['sd_clank', [8, 20], [0.12, 0.2], [-0.8, 0.8]], ['hammer_bounce', [15, 35], [0.1, 0.18], [-0.7, 0.7]], ['chain_creak', [25, 60], [0.08, 0.14], [-0.6, 0.6]]],
+    sd_1586: [['sd_bird', [20, 45], [0.08, 0.14], [-0.8, 0.8]], ['sd_bird_3', [30, 70], [0.06, 0.1], [-0.8, 0.8]], ['gulls', [40, 90], [0.08, 0.14], [-0.9, 0.9]]],
+  });
   let extraTimers = [];
   const rnd = (r, d) => (r ? r[0] + Math.random() * (r[1] - r[0]) : d);
   function scheduleExtra(amb, e, first) {
