@@ -168,7 +168,7 @@
 (function () {
   const S = window.S, { G, F } = S;
   // the last scene of a part starts the next: await S.next(n) (n's S.START plays its day card and opening)
-  S.next = async n => { if (!S.START[n]) throw new Error('no START for part ' + n); await S.START[n](); };
+  S.next = async n => { if (!S.START[n]) { console.warn('part ' + n + ' is not written yet'); F().ch = n; return; } await S.START[n](); };
   // water where none should be: a rising level (0..1 of the screen's height), drawn over the figures in a room's animFg
   S.water = {};
   S.drawWater = function (g, t, level, rgb) {
