@@ -2205,3 +2205,16 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Checked: before/after screenshots of Alan at two spots per room (GPU lighting on), no page errors; without
       `?light=2` nothing changes (validate 0 errors; smoke lobby, bar pass).
     - Next, if approved: the other 23 rooms (the sun on the exteriors, windows), then on by default.
+159. **The other 22 rooms lit, for review; deployed behind `?light=2`** (2026-11-04, the user: "do the other 23 rooms too,
+    then deploy"; the map has no figures). In `js/story/lighting.js` beside entry 158's seven:
+    - Under cloud (Las Canteras, the museum street, the courtyard, the Santa Ana square, the Colón square, the beach before
+      the sun): a soft sky light from above (power 0.28, shadow 0.3: a faint shadow under the feet).
+    - Sun: the camp (high on the left); the beach once `sun_out` (behind on the right: its surfboards' shadows fall left).
+    - Windows by day: Gando (the glass wall, and the ceiling strip), the lobby (by day; its wall and desk lamps at night,
+      `S.lobbyNight`), room 404 (the balcony door), the restaurant, the belfry (the arch, low: long shadows), Rafa's studio,
+      the market (the glass roof), Cave 6 (the hole in the dome, the opening) and the chamber under it.
+    - Lamps: the museum hall (two lanterns), the vault (lantern, torch, the stairs' day; flickerShade 0.12), the cell,
+      Carmen's flat (hanging lamp, table lamp). The two cars: the moon, no shadows (no figure is drawn in them).
+    - Measured at two floor spots each: windows and sun 0.2-0.34 with shadows 0.2-0.37; lamps 0.1-0.2; overcast soft.
+      Sheets: `art/review/light2/sheet23_0-3.jpg` (Alan, before | `?light=2`).
+    - Checks: validate 0 errors; smoke with `?light=2` over every preview scene: all 33 pass; without it nothing changes.

@@ -11,7 +11,7 @@
 // overall brightness as before (its lightParams): the lamps model the figure, they don't brighten the room.
 // Every position is read off the painting at 1280x720 (scratchpad geo_<room>.jpg sheets: lamps ringed, floor outlined).
 (function () {
-  const S = window.S, ROOMS = S.ROOMS;
+  const S = window.S, ROOMS = S.ROOMS;   // (S.F(): the flags, for the lights that depend on the story)
   let on = /[?&]light=2\b/.test(location.search);
   try { on = on || localStorage.getItem(window.GAME_KEY + '-light') === '2'; } catch (e) { /* no storage */ }
   window.LIGHT2 = on;
@@ -85,6 +85,111 @@
     isleta: {
       lamps: [{ power: 0.12, reach: 650, rim: 0.5, shadow: 0.25, floor: [96, 455], height: 280 }],
     },
+
+
+    // ---------------------------------------------------------------- the other 22 rooms (the user, 2026-11-04: "do the
+    // other 23 rooms too"; the map has no figures). Overcast outdoors (the panza de burro): a soft sky light from above,
+    // faint shadows straight under; sunlit: a sun with its shadows the way the painting's fall; indoors: windows by day,
+    // lamps by night.
+    // Gando airport: the wall of glass on the left, the ceiling's strip light
+    gando: {
+      add: [
+        { x: 230, y: 250, rgb: DAY, kind: 'steady', power: 0.32, reach: 1500, rim: 0.5, shadow: 0.45, floor: [300, 540], height: 500 },
+        { x: 830, y: 40, rgb: '240,245,240', kind: 'steady', power: 0.2, reach: 1300, rim: 0.35, shadow: 0.25, floor: [830, 600], height: 900 },
+      ],
+      light: { rim: 'rgba(225,232,245,0.16)', rimSide: -1 },
+    },
+    // the hotel lobby: by day the street windows on the left (and the lamps, lit); at night the wall lamp and the desk lamp
+    hotel_lobby: {
+      add: [
+        { x: 120, y: 260, rgb: DAY, kind: 'steady', power: 0.3, reach: 1400, rim: 0.5, shadow: 0.45, floor: [160, 600], height: 450, when: () => !S.lobbyNight() },
+        { x: 398, y: 150, rgb: WARM, kind: 'gas', seed: 3, power: 0.32, reach: 900, rim: 0.6, shadow: 0.55, floor: [400, 560], height: 420, when: () => S.lobbyNight() },
+        { x: 810, y: 240, rgb: '255,210,140', kind: 'steady', power: 0.28, reach: 800, rim: 0.55, shadow: 0.45, floor: [810, 560], height: 300, when: () => S.lobbyNight() },
+        { x: 810, y: 240, rgb: '255,210,140', kind: 'steady', power: 0.12, reach: 600, rim: 0.4, shadow: false, when: () => !S.lobbyNight() },
+      ],
+    },
+    // room 404: the open balcony door on the right, the bedside lamp
+    hotel_room: {
+      add: [
+        { x: 900, y: 320, rgb: DAY, kind: 'steady', power: 0.35, reach: 1400, rim: 0.55, shadow: 0.5, floor: [900, 630], height: 450 },
+        { x: 20, y: 350, rgb: '255,205,140', kind: 'steady', power: 0.12, reach: 600, rim: 0.4, shadow: false },
+      ],
+      light: { rim: 'rgba(225,232,245,0.14)', rimSide: 1 },
+    },
+    // Las Canteras, the museum's street, the courtyard, the Santa Ana square, the Colón square: under cloud
+    canteras: { add: [{ x: 640, y: -400, rgb: '235,235,235', kind: 'steady', power: 0.28, reach: 2400, rim: 0.3, shadow: 0.3, floor: [640, 620], height: 2000 }] },
+    museum_out: { add: [{ x: 640, y: -400, rgb: '235,235,235', kind: 'steady', power: 0.28, reach: 2400, rim: 0.3, shadow: 0.3, floor: [640, 620], height: 2000 }] },
+    museum_courtyard: { add: [{ x: 640, y: -400, rgb: '235,235,235', kind: 'steady', power: 0.28, reach: 2400, rim: 0.3, shadow: 0.3, floor: [640, 660], height: 2000 }] },
+    santa_ana: { add: [{ x: 640, y: -400, rgb: '235,235,235', kind: 'steady', power: 0.28, reach: 2400, rim: 0.3, shadow: 0.3, floor: [700, 650], height: 2000 }] },
+    colon_out: { add: [{ x: 640, y: -400, rgb: '235,235,235', kind: 'steady', power: 0.28, reach: 2400, rim: 0.3, shadow: 0.3, floor: [640, 620], height: 2000 }] },
+    // the beach: under cloud; once the sun is out, the sun behind on the right (the surfboards' shadows fall left, towards us)
+    beach: {
+      add: [
+        { x: 640, y: -400, rgb: '235,235,235', kind: 'steady', power: 0.28, reach: 2400, rim: 0.3, shadow: 0.3, floor: [640, 660], height: 2000, when: () => !S.F().sun_out },
+        { x: 1500, y: -300, rgb: '255,244,220', kind: 'steady', power: 0.4, reach: 2600, rim: 0.65, shadow: 0.6, floor: [1250, 470], height: 1400, when: () => !!S.F().sun_out },
+      ],
+      light: () => (S.F().sun_out ? { rim: 'rgba(255,240,215,0.22)', rimSide: 1 } : {}),
+    },
+    // the museum hall at the party: the hanging lanterns either side
+    museum_hall: {
+      add: [
+        { x: 220, y: 190, rgb: WARM, kind: 'flame', seed: 2, power: 0.36, reach: 1300, rim: 0.6, shadow: 0.5, floor: [230, 600], height: 410 },
+        { x: 1040, y: 270, rgb: WARM, kind: 'flame', seed: 6, power: 0.36, reach: 1300, rim: 0.6, shadow: 0.5, floor: [1040, 600], height: 330 },
+      ],
+    },
+    // the market: the day through the glass roof, straight down
+    mercado: { add: [{ x: 640, y: -200, rgb: '240,240,232', kind: 'steady', power: 0.26, reach: 2000, rim: 0.4, shadow: 0.3, floor: [640, 600], height: 1300 }] },
+    // the hotel restaurant: the arched windows on the left
+    hotel_restaurant: {
+      add: [{ x: 220, y: 200, rgb: DAY, kind: 'steady', power: 0.35, reach: 1500, rim: 0.5, shadow: 0.45, floor: [250, 580], height: 420 }],
+      light: { rim: 'rgba(225,232,245,0.16)', rimSide: -1 },
+    },
+    // the belfry: the day through the arch on the right, low, so the shadows run long into the room
+    belfry: {
+      add: [{ x: 1040, y: 340, rgb: '245,238,222', kind: 'steady', power: 0.42, reach: 1400, rim: 0.6, shadow: 0.6, floor: [990, 580], height: 300 }],
+      light: { rim: 'rgba(245,238,222,0.18)', rimSide: 1 },
+    },
+    // Rafa's studio: the window; the lantern by the door
+    rafa_studio: {
+      add: [
+        { x: 780, y: 220, rgb: DAY, kind: 'steady', power: 0.35, reach: 1300, rim: 0.55, shadow: 0.5, floor: [770, 610], height: 390 },
+        { x: 1170, y: 180, rgb: WARM, kind: 'gas', seed: 4, power: 0.12, reach: 600, rim: 0.4, shadow: false },
+      ],
+      light: { rim: 'rgba(225,232,245,0.14)', rimSide: 1 },
+    },
+    // the camp above the cloud: full sun, high on the left
+    camp: {
+      add: [{ x: 200, y: -300, rgb: '255,244,222', kind: 'steady', power: 0.4, reach: 2600, rim: 0.6, shadow: 0.6, floor: [320, 560], height: 1500 }],
+      light: { rim: 'rgba(255,240,215,0.2)', rimSide: -1 },
+    },
+    // Cave 6: the shaft of day through the hole in the dome, the opening on the left; the chamber under it, its hole
+    cave6: {
+      add: [
+        { x: 640, y: 50, rgb: '255,244,222', kind: 'steady', power: 0.35, reach: 1300, rim: 0.55, shadow: 0.5, floor: [640, 560], height: 600 },
+        { x: 120, y: 320, rgb: DAY, kind: 'steady', power: 0.22, reach: 1100, rim: 0.45, shadow: 0.35, floor: [150, 560], height: 300 },
+      ],
+    },
+    cave6_low: { add: [{ x: 640, y: 30, rgb: '255,244,222', kind: 'steady', power: 0.35, reach: 1300, rim: 0.55, shadow: 0.5, floor: [640, 600], height: 700 }] },
+    // the vault: the lantern on the left, the torch behind the bars, the day down the stairs; the cell, the light outside it
+    vault: {
+      add: [
+        { x: 280, y: 280, rgb: WARM, kind: 'flame', seed: 5, power: 0.32, reach: 900, rim: 0.6, shadow: 0.5, floor: [290, 600], height: 330 },
+        { x: 730, y: 240, rgb: WARM, kind: 'torch', seed: 8, power: 0.15, reach: 700, rim: 0.45, shadow: 0.3, floor: [730, 560], height: 320 },
+        { x: 1160, y: 100, rgb: DAY, kind: 'steady', power: 0.18, reach: 1000, rim: 0.4, shadow: 0.3, floor: [1130, 600], height: 500 },
+      ],
+      light: { flickerShade: 0.12 },
+    },
+    vault_cell: { add: [{ x: 920, y: 300, rgb: WARM, kind: 'flame', seed: 3, power: 0.3, reach: 900, rim: 0.6, shadow: 0.45, floor: [900, 600], height: 300 }] },
+    // Carmen's flat, at night: the hanging lamp, the table lamp by the sofa
+    carmen_flat: {
+      add: [
+        { x: 450, y: 70, rgb: WARM, kind: 'gas', seed: 2, power: 0.32, reach: 1000, rim: 0.6, shadow: 0.5, floor: [450, 600], height: 530 },
+        { x: 370, y: 330, rgb: '255,210,140', kind: 'steady', power: 0.25, reach: 700, rim: 0.55, shadow: 0.4, floor: [370, 560], height: 230 },
+      ],
+    },
+    // the two cars at night: the moon through the windscreen; no shadows in a car
+    elena_car: { add: [{ x: 930, y: 90, rgb: '200,215,245', kind: 'steady', power: 0.2, reach: 1400, rim: 0.5, shadow: false }] },
+    landrover: { add: [{ x: 900, y: 150, rgb: '200,215,245', kind: 'steady', power: 0.18, reach: 1400, rim: 0.5, shadow: false }] },
   };
 
   const val = v => typeof v === 'function' ? v() : v;
@@ -92,6 +197,6 @@
     const R = ROOMS[id]; if (!R) { console.warn('lighting: no room ' + id); continue; }
     const own = R.lights, merge = ls => (ls || []).map((l, i) => P.lamps && P.lamps[i] ? Object.assign({}, l, P.lamps[i]) : l).concat(P.add || []);
     if (typeof own === 'function') R.lights = () => merge(own()); else R.lights = merge(own);
-    if (P.light) { const L = R.light; R.light = typeof L === 'function' ? () => Object.assign({}, L(), P.light) : Object.assign({}, val(L), P.light); }
+    if (P.light) { const L = R.light, add = () => val(P.light); R.light = typeof L === 'function' || typeof P.light === 'function' ? () => Object.assign({}, val(L), add()) : Object.assign({}, val(L), P.light); }
   }
 })();
