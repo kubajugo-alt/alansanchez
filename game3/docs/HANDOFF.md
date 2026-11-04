@@ -118,3 +118,12 @@ but Alan).
    Game II's entry 2: for anyone but Alan, edit the character's own figure and don't add Alan as a reference. Sheet:
    `art/designs/g3_front_sheet_v1.png`. Nothing cut or installed (there's no game yet). Games I and II untouched (the
    references are copies in the scratchpad; `git status` shows changes only under `game3/`).
+3. **Second and third rounds of the front designs (for review)** (2026-11-04). The user: Vasco "a researcher visting a
+   bishop - probably in a blazer, but suitable for dominican republic"; Alan "blazer is important, but ... an overall
+   new style"; then "More earthy colours for vasco - replicate the style he wore in first game. ALan is horrible - he
+   doesn't wear such formal clothes", and "drop ines' glasses". Round 2 (two smart blazers each) was rejected before
+   export. Round 3: Alan C and D (casual, crumpled blazers over a T-shirt or a print shirt), Vasco v3 (Game II's Vasco,
+   his face, in Game I's brown blazer / blue shirt / loose tie / khakis), Inês v2 without glasses. Every one is an edit
+   of the character's own current sprite. Sheet `art/designs/g3_front_sheet_v2.png`, ids in `art/canva/log.md`.
+   Style notes for later rounds: Alan is casual, never formal; Vasco's palette is earthy, as in Game I; Inês wears no
+   glasses.
