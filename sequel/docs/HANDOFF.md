@@ -1184,7 +1184,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
        eight emotions blended onto six of Game I's Alan frames, preview only (`?emo=1`), for the user's approval.
      - Checks: validate 0 errors; smoke tue, lobby, thu, fri pass.
 107. **Deployed** (2026-11-04, the user: "Install the expressions in Game I and deploy both games"). Branch
-    `claude/dazzling-wright-lm7a2y` at `2a411813` (PR kubajugo-alt/alansanchez#16, not merged into master):
+    `claude/dazzling-wright-lm7a2y` at `2a411813` (PR kubajugo-alt/alansanchez#16, merged into master as `3b7e78cd`):
     `git archive HEAD:sequel` export (no scripts, docs, lipsync, review, `.env`); `play.mjs` on it won in 131 steps, no
     errors; Netlify `6aeac26654f79b344ac09d36`. Live: page 200; `/.env`, `/scripts/`, `/lipsync/` 404; `js/game.js`,
     `art/bg1x/` served; engine/input.js, fx.js, lipsync.js, story/tue.js byte-identical; at 1280 the 1280 paintings and the
