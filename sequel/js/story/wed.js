@@ -72,13 +72,14 @@
     await off('narr_w_dawn_1');
     // (heard, not narrated: a tall man trying to be quiet in the grey light, and failing)
     S.sfx('floor_creak', 0.4); await T(window.FAST ? 10 : 700); S.sfx('drawer_scrape', 0.3); await T(window.FAST ? 10 : 600);
-    await off('vasco_w_dawn_1', 'alan_w_dawn_1', 'vasco_w_dawn_2', 'alan_w_dawn_1', 'vasco_w_dawn_3', 'alan_w_dawn_say', 'alan_w_dawn_3');
+    await off('vasco_w_dawn_1', 'alan_w_dawn_1', 'vasco_w_dawn_2', 'alan_w_dawn_1', 'vasco_w_dawn_3', 'alan_w_dawn_3');
     S.sfx('v_vasco_laugh', 0.3); await T(window.FAST ? 10 : 700);
     S.sfx('door', 0.4); await T(window.FAST ? 10 : 1500);
+    await off('alan_w_dawn_say');   // (what he should have said, once the door has closed: the dialogue review, HANDOFF 151)
     await G.fade(true); G.player.visible = true; await G.fade(false);
-    // he gets up, and drinks the terrible coffee
+    // he gets up and looks at the terrible coffee; he leaves it (he drinks it only on the last morning, the motif)
     await S.posed('stretch', () => T(window.FAST ? 10 : 900));
-    await S.posed('drink', () => say('alan_w_coffee'));
+    await say('alan_w_coffee');
     await say('alan_w_wake');
   };
 

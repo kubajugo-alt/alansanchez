@@ -21,7 +21,7 @@ From `js/story/docs.js`, scene by scene. Each scene is a room (its hotspots' lin
 
 > ---------------------------------------------------------------- the bell and the founders
 
-- **Alan**: SANTA ANA ROGA POR NOS. Cast in Lisbon and Las Palmas, 1751. And the mark. `alan_look_inscription`
+- **Alan**: SANTA ANA ROGA POR NOS. Sanches me fez, 1751. And the mark. *(no recording)* `alan_look_inscription`
 
 ## S.readLetter
 
@@ -29,8 +29,8 @@ From `js/story/docs.js`, scene by scene. Each scene is a room (its hotspots' lin
 
 ## S.readFax
 
-- **Alan**: 'It comes for every soul that was taken back from it.' [pause] Pepe. Doña Pino. [pause] 'It strikes first at whoever understands the lock.' Elena understood it. *[if]* `alan_read_fax_1`
-- **Alan**: And whoever shuts it stands in the water, and goes down with it. [pause] Pray God it is not you. *[if]* `alan_read_fax_2`
+- **Alan**: In her hand, every word I guessed this morning. [pause] Taken back from it: Pepe. Doña Pino. [pause] Whoever understands the lock: Elena. *[if]* *(no recording)* `alan_read_fax_1`
+- **Alan**: And whoever shuts it goes down with it. [pause] 'Pray God it is not you.' They wrote that to the next founder. *[if]* *(no recording)* `alan_read_fax_2`
 - **Alan**: The letter, decoded. In Inês's handwriting, which is worse than the eighteenth century's. `alan_look_fax`
 
 ## S.readGalindo
@@ -50,7 +50,7 @@ From `js/story/docs.js`, scene by scene. Each scene is a room (its hotspots' lin
 > ---------------------------------------------------------------- Rafa
 
   *(the laughing man, "el portugués. Triste.", is on the sketchbook's spread now)*
-- **Alan**: A napkin from the bar, tucked in like a bookmark. The boy from the end of the counter. Yeray, from the dig. *[if]* `alan_read_sketchbook_1`
+- **Alan**: A napkin from the bar, tucked in like a bookmark. The boy at the corner table. Yeray, from the dig. *[if]* *(no recording)* `alan_read_sketchbook_1`
 - **Alan**: And round him, in Rafa's pencil, the things he said. Written down while I was busy not listening. *[if]* `alan_read_sketchbook_2`
 - **Alan**: And me. 'El portugués. Triste.' [pause] He's a good artist. *[if]* `alan_read_sketchbook_3`
 

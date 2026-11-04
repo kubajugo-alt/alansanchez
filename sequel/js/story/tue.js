@@ -328,7 +328,7 @@
     },
     entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1150, 660, 'w'], beach: [820, 665, 'n'] },
     npcs: [
-      { id: 'vasco', x: 820, y: 650, dir: 'w', name: 'Vasco', when: () => ch() === 1 && F().reception_done && !F().walk_done, look: 'alan_look_vasco_reception', talk: () => say('vasco_t_walk_alan') },
+      { id: 'vasco', x: 820, y: 650, dir: 'w', name: 'Vasco', when: () => ch() === 1 && F().reception_done && !F().walk_done, look: 'alan_look_vasco_walk', talk: () => say('vasco_t_walk_alan') },
       { id: 'chano', ch: 'chano', x: 160, y: 650, dir: 'e', name: 'Chano', at: [260, 660], look: 'alan_look_chano', talk: () => S.talkChano(),
         items: { note5000: () => S.buyPaper(), coins: () => say('chano_coins'), postcard: () => S.postCard(), any: 'chano_any' } },
     ],
@@ -525,7 +525,7 @@
         look: () => say(ch() === 2 ? 'alan_look_montesdeoca_wed' : 'alan_look_montesdeoca'), talk: () => S.talkMontesdeoca() },
       { id: 'guard', ch: 'guard', x: 660, y: 600, h: 380, dir: 'e', name: 'Museum guard', when: () => ch() === 3 && S.dinnerDue() && !F().derek_sent,
         look: 'alan_look_guard', talk: () => say('guard_th_1') },
-      { id: 'gail', ch: 'gail', x: 940, y: 668, dir: 'w', name: 'Gail', when: () => ch() === 3 && S.dinnerDue() && !F().caught, look: 'alan_look_gail', talk: () => say('gail_th_dinner') },
+      { id: 'gail', ch: 'gail', x: 940, y: 668, dir: 'w', name: 'Gail', when: () => ch() === 3 && S.dinnerDue() && !F().caught, look: 'alan_look_gail_dinner', talk: () => say('gail_th_dinner') },
       { id: 'derek', ch: 'derek', x: 1020, y: 670, dir: 'w', name: 'Derek', when: () => ch() === 3 && S.dinnerDue() && !F().caught, look: 'alan_look_derek_cam', talk: () => S.talkDerekDinner() },
     ],
     hotspots: [
@@ -557,7 +557,7 @@
     walk: [[585, 470], [690, 470], [800, 525], [935, 600], [990, 716], [220, 716], [350, 630], [480, 525]], scale: [470, 150, 716, 440],
     entries: { default: [560, 670, 'e'], museum_hall: [560, 670, 'e'] },
     npcs: [
-      { id: 'vasco', x: 720, y: 640, dir: 'w', name: 'Vasco', when: () => !!F().in_corridor, look: 'alan_look_vasco_reception', talk: () => say('vasco_p_later') },
+      { id: 'vasco', x: 720, y: 640, dir: 'w', name: 'Vasco', when: () => !!F().in_corridor, look: 'alan_look_vasco_walk', talk: () => say('vasco_p_later') },
     ],
     hotspots: [
       { name: 'The skulls', rect: [0, 0, 340, 470], at: [380, 660], look: 'alan_p_3' },

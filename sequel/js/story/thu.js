@@ -56,13 +56,13 @@
       f.lore_carmen = true; f.sent_to_colon = true;
     }
     await G.dialog([
-      { line: 'alan_ask_carmen_monte', once: true, run: () => { f.herring_carmen = true; return say('carmen_th_monte', 'carmen_th_monte_2', 'carmen_th_monte_3'); } },
+      { line: 'alan_ask_carmen_monte', once: true, run: () => { f.herring_carmen = true; return say('carmen_th_monte_2', 'carmen_th_monte', 'carmen_th_monte_3'); } },
       { line: 'alan_ask_carmen_galindo', once: true, run: () => say('carmen_th_galindo') },
       { line: 'alan_ask_carmen_magec', once: true, run: () => say('carmen_th_magec') },
       { line: 'alan_ask_carmen_baute', once: true, run: () => say('carmen_th_baute') },
       { line: 'alan_ask_carmen_elena', once: true, when: () => f.saw_disc_list, run: () => say('carmen_th_elena') },
       // Pepe: she says nothing; her eyes go to the conservation list; then she sends him away, quietly
-      { line: 'alan_ask_carmen_pepe', when: () => f.pepe_known && !f.carmen_pepe, bye: true, run: async () => {
+      { line: 'alan_ask_carmen_pepe', when: () => f.pino_list && !f.carmen_pepe, bye: true, run: async () => {
         f.carmen_pepe = true;
         await T(window.FAST ? 10 : 900);
         await say('alan_th_carmen_list', 'carmen_th_pepe');

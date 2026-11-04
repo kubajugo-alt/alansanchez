@@ -9,7 +9,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
   *the sky over the apron through the glass (between the mullions, above the Iberia tail), a gull or two*
   *the empty belt going round ("The belt goes round. My suitcase doesn't."): its slats sliding by*
   *the strip light hums; the palm by the taxi door stirs in the street air*
-- **Alan**: Vasco. A week on the island and he's brown already. He looks like a man who's slept four hours a night and never been happier in his life. `alan_look_vasco_gando`
+- **Alan**: Vasco. A month on the island and he's brown as a saddle. He looks like a man who's slept four hours a night and never been happier in his life. *(no recording)* `alan_look_vasco_gando`
 - **Alan**: The Iberia desk. The same woman who sent my suitcase to Madrid on Tuesday. Everything about leaving is very easy. `alan_look_clerk`
 - **Alan**: Nothing on the belt. Nothing coming. That's me. I'm the luggage. *[if]* `alan_look_belt_sun`
 - **Alan**: The belt goes round. My suitcase doesn't. It's having a lovely time in Madrid without me. *[if]* `alan_look_belt`
@@ -17,7 +17,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: I'm not watching it again. I have some pride. Not much. Some. *[if]* `alan_use_belt_2`
 - **Alan**: I'll wait one more lap. [pause] That was the lap. It's gone. *[if]* `alan_use_belt`
 - **Alan**: Lisbon, via Madrid. Eleven fifteen. On time. Of course it's on time. *[if]* `alan_look_board_sun`
-- **Alan**: Madrid, Lisbon, Düsseldorf, Manchester. Half of Europe comes here to turn pink. I've made a start. *[if]* `alan_look_board`
+- **Alan**: Madrid, Lisbon, Düsseldorf, Manchester. Half of Europe comes here to turn pink. I give myself a day. *[if]* *(no recording)* `alan_look_board`
 - **Alan**: Not without Vasco. He's here somewhere, looking pleased with himself. *[if]* `alan_taxi_wait`
 - **Alan**: The doors out to the taxis. The city's back that way, under the cloud. And above the cloud, the mountains. *[if]* `alan_look_back`
 
@@ -32,7 +32,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Vasco**: You're here. `vasco_t_hello`
 - **Alan**: I'm here. [pause] In front of two nuns and a family from Düsseldorf, apparently. My trousers are not entirely here. My suitcase is in Madrid. `alan_t_hello`
 - **Vasco**: Madrid. `vasco_t_luggage`
-- **Vasco**: Madrid can keep it. [pause] Come here. Eight days. I counted them. I'm an archaeologist, I count things. `vasco_t_missed`
+- **Vasco**: Madrid can keep it. [pause] Come here. Twenty-five days. I counted them. I'm an archaeologist, I count things. *(no recording)* `vasco_t_missed`
 - **Alan**: You smell of dust and sun cream and coffee. `alan_t_missed`
 - **Vasco**: [laughs softly] I live in a cave now. [pause] I've missed you. It's stupid, how much. `vasco_t_missed_2`
 - **Alan**: Not stupid. [pause] Well. A bit stupid. Do it again. `alan_t_missed_2`
@@ -76,7 +76,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 
 ## S.lobbyArrival
 
-- **Vasco**: The owner pays for the dig, so the dig sleeps here. Cheap. [pause] The lift sneezes. You'll get used to it. `vasco_t_hotel`
+- **Vasco**: The owner pays for the dig, so the dig gets a rate. Cheap. [pause] The lift sneezes. You'll get used to it. *(no recording)* `vasco_t_hotel`
 - **Nieves**: Señor Sanches. Welcome. [pause] Your luggage has not arrived. `nieves_t_hello`
 - **Alan**: No. `alan_t_nieves_1`
 - **Nieves**: And you have. `nieves_t_1`
@@ -112,7 +112,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 
 - **Nieves**: Of course, señor. And in the pocket? `nieves_pocket`
 - **Alan**: A cigar band. Montecristo. I've given them up, I keep the bands for the memories. *[choice]* `alan_pocket_cigar`
-- **Nieves**: [pause] Montecristo. Of course. [pause] Please return it to us when you are found, señor. `nieves_blazer_ok`
+- **Nieves**: [pause] Montecristo. Of course. [pause] Please return it to us when its owner finds you, señor. *(no recording)* `nieves_blazer_ok`
 - **Nieves**: And your key, señor. Four-oh-four. Dr. Teles's bag went up at two. `nieves_t_key`
 - **Alan**: My dignity. *[choice]* `alan_pocket_dignity`
 - **Nieves**: We don't keep that, señor. Nobody hands it in. `nieves_pocket_dignity`
@@ -157,7 +157,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 
 - **Derek**: Lobster. *[if]* `derek_t_burn_2`
 - **Derek**: Forty quid this camcorder. And she won't let me film anything interesting. *[if]* `derek_t_2`
-- **Alan**: Film the sea. It's very interesting at the moment. Trust me. *[if]* `alan_t_derek`
+- **Alan**: Film the sea. Nobody can stop you filming the sea. *[if]* *(no recording)* `alan_t_derek`
 - **Derek**: Filmed the sea this morning like you said. Came in backwards. Gail says I had the camera upside down. *[if]* `derek_w_1`
 - **Derek**: Midnight. Into the sea. Forty quid camcorder, waterproof bag. I'm ready. *[if]* `derek_su_2`
 
@@ -211,18 +211,18 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
   *the panza de burro drifting over the bay, gulls, the sea moving and the foam on the shore*
   *the palms by the hotel and the newspapers pegged on the kiosk*
   *the cloud and the gulls last, through the painted sky only (the palms pass in front)*
-- **Alan**: Vasco, surrounded, drawing the path of the light in the air with both hands. They're really listening to him. [pause] He isn't lost here. *[if]* `alan_look_vasco_reception`
+- **Alan**: Vasco, still lit up from the party. He hasn't stopped talking about the light since the door. *[if]* *(no recording)* `alan_look_vasco_walk`
 - **Vasco**: Alan. *[if]* `vasco_t_walk_alan`
 - **Alan**: A round man with a magnificent moustache and a transistor radio held to one ear. He's listening to the football and watching everything else. `alan_look_chano`
 - **Chano**: Keep them for the phone. It's hungrier than me. `chano_coins`
-- **Chano**: I don't buy, cariño. I only sell. And gossip. `chano_any`
+- **Chano**: I don't buy, hombre. I only sell. And gossip. *(no recording)* `chano_any`
   *one of the set alan_look_bonfire_ (6), chosen in the code:*
 - **Alan**: A pile of pallets on the sand. *[set]* `alan_look_bonfire_1`
 - **Alan**: Bonfires for San Juan, on Sunday night. Two of them. Children dragging old furniture down the beach. *[set]* `alan_look_bonfire_2`
 - **Alan**: Five bonfires now, taller than a man. The city's building fires to welcome the shortest night. *[set]* `alan_look_bonfire_3`
 - **Alan**: Three times the height of a man. A straw figure on top in somebody's hat. He burns on Sunday night. *[set]* `alan_look_bonfire_4`
 - **Alan**: Families are already claiming their places for tomorrow night. Towels, cool boxes, folding chairs, round the bonfires. Right down by the water. *[set]* `alan_look_bonfire_5`
-- **Alan**: Tonight they burn. And tonight the door opens. Unless. *[set]* `alan_look_bonfire_6`
+- **Alan**: Tonight they burn. And tomorrow, at noon, the door opens. Unless. *[set]* *(no recording)* `alan_look_bonfire_6`
 - **Alan**: A phone box with a view of the sea. Coins only. Every call to Lisbon costs a hundred pesetas and some dignity. `alan_look_phonebox`
 - **Alan**: It takes coins. Only coins. The one honest machine on the island. `alan_fail_phone_item`
 - **Alan**: Newspapers pegged on a line, sweets, cigarettes, postcards of the beach looking sunnier than the beach. `alan_look_kiosk`
@@ -233,7 +233,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: The mist lies along the waterline like something asleep. The wind's blowing out to sea. It isn't going anywhere. *[if]* `alan_look_sea_mist`
 - **Alan**: Grey sea under a grey sky. The Atlantic in its office clothes. *[if]* `alan_look_sea_1`
 - **Alan**: The tide came in at ten this morning. The tide table on the promenade says three. *[if]* `alan_look_sea_2`
-- **Alan**: A man drowned in his bed last night and the sea looks innocent. That's how you know. *[if]* `alan_look_sea_3`
+- **Alan**: A man drowned in his bed a month ago, with the window shut, and the sea looks innocent. That's how you know. *[if]* *(no recording)* `alan_look_sea_3`
 - **Alan**: I don't look at it for long any more. *[if]* `alan_look_sea_4`
 - **Alan**: I don't want to look at it. It's looking at me. It knows what I did last night. It doesn't care, which is worse. *[if]* `alan_look_sea_5`
 - **Alan**: The tide's at the top step. The bonfires are on the sand below it. *[if]* `alan_look_sea_6`
@@ -348,7 +348,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 
   *says what it is to himself, and nothing to Vasco)*
 - **Narrator**: After nine, on the promenade, and Vasco still talking about the light. Alan let him. It was like standing next to a fire. `narr_t_walk_1`
-- **Alan**: Let's walk. I want to see the beach. `alan_t_walk_1`
+- **Alan**: Let's walk. I've only seen the beach lying down. *(no recording)* `alan_t_walk_1`
 - **Alan**: What are they building? [pause] It looks like a furniture shop fell over and somebody's very proud of it. `alan_t_walk_pyre`
 - **Vasco**: For San Juan. Sunday night. They light bonfires all along the beach and the whole city comes down to the sea. You jump over the fires for luck, and at midnight you go into the water. `vasco_t_sanjuan_1`
 - **Vasco**: Rayco says the beach looks like it's burning from end to end. `vasco_t_sanjuan_2`
@@ -380,7 +380,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: A heavy man in a white guayabera, with a gold watch and a cigar he isn't allowed to light, nodding along as if he understood every word. *[if]* `alan_look_montesdeoca`
 - **Alan**: The museum guard, in a chair by the corridor to the offices. He's asleep. Asleep with one eye, like a cat. `alan_look_guard`
 - **Guard**: Offices are closed, señor. Toilets are the other way. Everything you want is the other way. `guard_th_1`
-- **Alan**: English. Pink shoulders, a sun hat, a paperback with a man in an open shirt on the cover. Living my dream. *[if]* `alan_look_gail`
+- **Alan**: Gail, in her good frock, pink shoulders out, whispering at Derek like a cinema usher. *[if]* *(no recording)* `alan_look_gail_dinner`
 - **Gail**: He's been filming since the soup. A waiter's asked him once already. I said, Derek, they'll think you're a spy. *[if]* `gail_th_dinner`
 - **Alan**: Derek, camcorder up, red light glowing, filming the back of a bishop with total commitment. *[if]* `alan_look_derek_cam`
 - **Alan**: Pintaderas, and the space where Montesdeoca's new cases are going. He's paying for the furniture. Who's paying for the dead? *[if]* `alan_look_cases_wed`
@@ -395,7 +395,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: A dinner knife. Good steel. [pause] Nobody's looking. Everybody's looking at Vasco. *[if]* `alan_take_knife`
 - **Alan**: I'm not leaving without what's in that office. I've come this far, alone, like an idiot. *[if]* `alan_dinner_stay`
 - **Alan**: Not yet. Vasco said he wanted a word. *[if]* `alan_reception_vasco`
-- **Alan**: Not yet. Vasco wants me to meet people. Baute. That woman on the steps, who doesn't do parties. *[if]* `alan_reception_stay`
+- **Alan**: Not yet. Vasco wants me to meet people. And I'm still owed ten minutes. *[if]* *(no recording)* `alan_reception_stay`
 - **Vasco**: Alan! [pause] One minute! *[if]* `vasco_p_arrive`
 - **Alan**: One minute. [pause] I know exactly how long Vasco's minutes are. *[if]* `alan_p_arrive`
 
@@ -403,7 +403,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 
 > ================================================================ THE CORRIDOR OF SKULLS (Tuesday: Vasco's moment) the museum's corridor of skulls and mummies, Vasco's office at the end (repainted, take B, 2026-10-30); only the reception's quiet moment uses it: Vasco walks Alan down here and back
 
-- **Alan**: Vasco, surrounded, drawing the path of the light in the air with both hands. They're really listening to him. [pause] He isn't lost here. *[if]* `alan_look_vasco_reception`
+- **Alan**: Vasco, still lit up from the party. He hasn't stopped talking about the light since the door. *[if]* *(no recording)* `alan_look_vasco_walk`
 - **Vasco**: Go and find Carmen, on the steps outside. She's terrifying. You'll love her. *[if]* `vasco_p_later`
 - **Alan**: It's a nice world. It has skulls. `alan_p_3`
 
@@ -490,7 +490,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Vasco**: Rayco. This is Alan. [pause] My Alan. `vasco_p_4`
 - **Vasco**: Hey. Come here a second. [pause] Somewhere quieter. `vasco_p_5`
   *down the corridor between the cases to his office door at the end, where the party is only a murmur*
-- **Vasco**: Thank you. For coming. For the beach and the jacket and all of it. I know this isn't your world. `vasco_p_6`
+- **Vasco**: Thank you. For coming. For the jacket, and my jeans, and all of it. I know this isn't your world. *(no recording)* `vasco_p_6`
 - **Alan**: It's a nice world. It has skulls. `alan_p_3`
 - **Vasco**: Alan. [pause] Since Dr. Suárez died, it's me. My reading. My name on the paper. Rayco trusts me with the cave. Nobody has ever trusted me with anything like this. `vasco_p_7`
 - **Vasco**: And I wanted you to see it. Not hear about it on the phone, at midnight. See it. `vasco_p_8`
@@ -513,7 +513,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 ## S.talkBauteTue
 
 - **Baute**: They're not frightening. People think they're frightening. They're not. [pause] They're just waiting for us to pay attention. `baute_t_skulls`
-- **Baute**: You're Alan. Vasco has told me nada about you, which is how I know he's in love. [pause] Rayco Baute. `baute_t_1`
+- **Baute**: So you're Alan. Vasco has told me nada about you, which is how I know he's in love. [pause] Rayco Baute. *(no recording)* `baute_t_1`
 - **Alan**: He's told me a great deal about you. `alan_t_baute_1`
 - **Baute**: Then I'm in trouble. I've stolen him from you, I'm afraid. For the week. I'll give him back on Monday. `baute_t_2`
 - **Baute**: He's the best reader of sacred light I've ever worked with, and I've worked with the best. He sees things the rest of us walk past. `baute_t_2b`
@@ -528,7 +528,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: Why him? There must be people on the island. *[choice]* `alan_ask_baute_vasco`
 - **Baute**: There was. Dr. Suárez. She died in December, on the road down. A terrible thing. [pause] And Vasco reads light the way you read a page. `baute_t_vasco`
 - **Alan**: I heard there are mirrors. Obsidian. *[choice]* `alan_ask_baute_discs`
-- **Baute**: Seven discs, in the floor of a little chamber under the cave. We've been taking them out to conserve them, one at a time. Nine hundred years is long enough in the weather. `baute_t_discs`
+- **Baute**: Seven discs, in the floor of a little chamber under the cave. We've been taking them out to conserve them, one at a time. Nine hundred years is long enough in the damp. *(no recording)* `baute_t_discs`
 - **Alan**: And Señor Montesdeoca? *[choice]* `alan_ask_baute_monte`
 - **Baute**: Ignacio is very generous. [pause] He pays for the cave. He pays for the vino. He pays for this whole evening, and he'll tell you so. Twice. `baute_p_monte`
 - **Alan**: A very good smile. [pause] It stops just below the eyes. `alan_p_baute_smile`
@@ -567,7 +567,7 @@ From `js/story/tue.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: He's nobody's. [pause] Some days he's barely even mine. `alan_p_monte_2`
 - **Montesdeoca**: Ha! Enjoy it. Enjoy everything. Life is short and the island is beautiful, and I own two of the beaches. `montesdeoca_t_2`
 - **Montesdeoca**: Try the gofio. It's like eating the island. Ha! `montesdeoca_t_again`
-- **Montesdeoca**: ¡Hombre! The Portuguese, without my jacket! Brown already, look. Yesterday a lobster, today a nice prawn. The ladies like a prawn. *[if]* `montesdeoca_w_1`
+- **Montesdeoca**: ¡Hombre! The Portuguese, without the jacket! Brown already, look. Yesterday a lobster, today a nice prawn. The ladies like a prawn. *[if]* *(no recording)* `montesdeoca_w_1`
 - **Alan**: Only the ladies? [pause] Shame. What's going in the van, Don Ignacio? *[if]* `alan_w_monte_1`
 - **Montesdeoca**: Cases, hombre. Display cases. German glass, steel, the best. My gift to el museo. *[if]* `montesdeoca_w_2`
 - **Alan**: And the discs from the cave? *[if]* `alan_w_monte_2`

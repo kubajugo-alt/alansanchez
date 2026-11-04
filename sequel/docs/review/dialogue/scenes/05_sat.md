@@ -11,9 +11,9 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: Grey light through a window I don't know. Turpentine. A pillow that smells of someone else's shampoo. `alan_s_wake_1`
 - **Alan**: [pause] Oh, no. [pause] Oh, Alan. `alan_s_wake_2`
 - **Alan**: Me. Asleep. [pause] The most beautiful drawing anyone has ever made of me. [pause] I feel sick. `alan_s_drawing`
-- **Alan**: I could go now, before he turns round. Money on the table, out of the door, someone else by lunchtime. [pause] I always have. `alan_s_go`
+- **Alan**: I could go now, before he turns round. Shoes in my hand, out of the door, someone else by lunchtime. [pause] I always have. *(no recording)* `alan_s_go`
   *the window: he makes himself think it, in words, all the way to the end*
-- **Alan**: I lied to him. He asked me, straight out, and I lied. `alan_s_window_1`
+- **Alan**: I lied to Rafa. He asked me, straight out, and I lied. *(no recording)* `alan_s_window_1`
 - **Alan**: And Vasco said two things. Only two. Tell me first. Never to settle a fight. `alan_s_window_2`
 - **Alan**: I broke both of them in one night. [pause] And the second one I broke on purpose. `alan_s_window_3`
 
@@ -22,7 +22,7 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 > ================================================================ RAFA'S STUDIO
 
 - **Alan**: Rafa, barefoot at the gas ring, his hair standing up on one side. There's charcoal on his shoulder blade, in the shape of a thumbprint. `alan_look_rafa_morning`
-- **Rafa**: Keep that too. Frame it. Or burn it. Up to you. `rafa_napkin_keep`
+- **Rafa**: Keep it. Frame it. Or burn it. Up to you. *(no recording)* `rafa_napkin_keep`
 - **Rafa**: Cute. Put it away. `alan_fail_rafa_item`
 - **Alan**: The mattress. My clothes all over the floor, in a way that tells the whole story without anybody needing to tell it. `alan_look_rafa_bed`
 - **Alan**: The cathedral's two black towers, and a grey sky. Santa Ana's bells have stopped. I haven't. `alan_look_studio_window`
@@ -40,9 +40,9 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 > the sketchbook on the table, a napkin from the bar in it like a bookmark: Yeray, and what he said (the close-up and Alan's first three lines are docs.js S.readSketchbook); then what it means, the first time
 
 - **Alan**: Not Montesdeoca. Not the van, not the hotel, not the circled resorts on the map. `alan_s_sketch_1`
-- **Alan**: Baute. [pause] One a month, one by one, down into a vault under the mountain. Only he has the key. And Vasco signed the transfer sheets himself. `alan_s_sketch_2`
+- **Alan**: Baute. [pause] One a month, one by one, down into a vault under the mountain. Only he has the key. [pause] The van was nothing. Vasco signed those sheets himself. *(no recording)* `alan_s_sketch_2`
 - **Alan**: He's up there now. With Baute. Through to Monday. Calling him Rayco. `alan_s_sketch_3`
-- **Alan**: I heard every word of it last night. I was too busy watching Rafa's hands to listen. `alan_s_sketch_4`
+- **Alan**: The whole case, three stools down the bar. [pause] And I ordered another rum. *(no recording)* `alan_s_sketch_4`
 
 ## S.rafaMorning
 
@@ -98,7 +98,7 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
   *(Nieves looks at him: the clothes, the hour, the roll of paper, his face)*
 - **Alan**: Her eyebrow doesn't move at all. [pause] That's how bad I look. `alan_s_nieves_0`
 - **Alan**: Any messages? `alan_sat_nieves`
-- **Nieves**: No. `nieves_sat_eyebrow`
+- **Nieves**: A Señora Carvalho, from Lisbon. Three times since eight. *(no recording)* `nieves_sat_eyebrow`
 - **Alan**: From Dr. Teles? From the dig? `alan_s_msg_2`
   *(she looks at the empty pigeonhole for 404 longer than she needs to)*
 - **Nieves**: No. Nothing, señor. `nieves_s_msg`
@@ -111,7 +111,7 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: Just as he left it. His good jacket on the chair. [pause] His watch. He forgot his watch. `alan_s_room_1`
 - **Alan**: And on the tiles by his side of the bed... a footprint. Wet. One bare foot, long and narrow, pointing at where I should have been asleep. `alan_s_room_2`
 - **Alan**: The balcony doors are shut. [pause] The bathroom's dry. `alan_s_print_1`
-- **Alan**: I don't know why I'm thinking of my father. Pedro Sanches. He went out fishing off Cascais when I was a boy, and never came back. [pause] I can't remember his face any more. `alan_s_father`
+- **Alan**: I don't know why I'm thinking of my father. He went out fishing off Cascais when I was a boy, and never came back. [pause] I can't remember his face any more. *(no recording)* `alan_s_father`
 - **Alan**: Cold. [pause] Salt. `alan_s_salt`
 - **Alan**: [pause] Dry. Nothing there at all. `alan_s_dried`
 - **Alan**: Inês will ring. Before she does, I want to read it myself. It's my language. It's my family's hand. `alan_s_letter_first`
@@ -133,7 +133,7 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Inês (on the phone)**: Tell me first. Never to settle a fight. [pause] So you broke both of them. `ines_call_sat_2c`
 - **Alan**: I know, Inês. `alan_call_sat_2b`
 - **Inês (on the phone)**: Tell him. Today. Not when it's convenient. Not when it's safe. Not when you've worked out how to make it sound better. Today. `ines_call_sat_3`
-- **Alan**: I can't reach him. He's on the mountain. The radio's off. `alan_call_sat_3`
+- **Alan**: I can't reach him. He's on the mountain. There's no phone up there. *(no recording)* `alan_call_sat_3`
 - **Inês (on the phone)**: Then find a way. You've always been very good at finding ways into places you shouldn't be. Find a way into one you should. `ines_call_sat_4`
 - **Inês (on the phone)**: And Alan. The letter from the cathedral. I've read it. `ines_call_sat_5`
 - **Inês (on the phone)**: It took me two days, a dictionary of eighteenth-century abbreviations, and a professor of palaeography who thinks I'm in love with him. `ines_call_sat_6`
@@ -142,12 +142,12 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: I read it too. This morning. Most of it. `alan_call_sat_read`
 - **Inês (on the phone)**: You read it? That hand? It took me a professor. `ines_call_sat_you`
 - **Alan**: It strikes first at whoever understands the lock. It comes for the ones it gave back. It's shut only at a turning, from inside its water, at the door, at noon. [pause] I couldn't read the last paragraph. `alan_call_sat_rules`
-- **Inês (on the phone)**: No. [pause] I wish I couldn't have either. Here it is. `ines_call_sat_last`
+- **Inês (on the phone)**: No. [pause] I wish I couldn't have either. The rest's on your hotel's fax. Here's the end. *(no recording)* `ines_call_sat_last`
 - **Inês (on the phone)**: 'To shut the door again, one must stand in its water, at the door, at the noon of the turning, and set the stones while it rises.' `ines_call_sat_11`
 - **Inês (on the phone)**: 'The last of the priestesses did this. She set the stones, and the Sea withdrew. And it drew her down with it as it went, and she was not seen again.' `ines_call_sat_12`
-- **Inês (on the phone)**: Alan. The cistern backed away from you because of whose blood you are. In Lisbon that saved you. Here, with the door opening, it's the reason it'll want you first. `ines_call_sat_16`
+- **Inês (on the phone)**: Alan. The cistern backed away from you because of whose blood you are. In Lisbon that saved you. Here, with the door opening, it's the reason it'll come for you. *(no recording)* `ines_call_sat_16`
 - **Alan**: I know. `alan_call_sat_5`
-- **Inês (on the phone)**: So if it's opened in your time— `ines_call_sat_17`
+- **Inês (on the phone)**: So if somebody has to stand in that water— *(no recording)* `ines_call_sat_17`
 - **Alan**: I know, Inês. `alan_call_sat_6`
 - **Inês (on the phone)**: Tell him today. Tell him everything. And then come home. Promise me. Promise me you'll come h— `ines_call_sat_18`
 
@@ -161,14 +161,14 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: The old ones. Were they on a boat? All of them? `alan_s_chano_1`
 - **Chano**: The Virgen del Pino. Seventy-one. Everybody in La Isleta knows that story. `chano_s_5`
 - **Chano**: [pause] How did you know, hombre? `chano_s_6`
-- **Alan**: Taken back. [pause] The hotel. Inês's fax. `alan_s_chano_2`
+- **Alan**: Because it gave them back once. [pause] Sorry, Chano. The hotel. Inês's fax. *(no recording)* `alan_s_chano_2`
 
 ## S.faxArrives
 
 > ---------------------------------------------------------------- the fax (Nieves, tue.js), and he tries
 
-- **Nieves**: Four pages, señor, an hour ago. The machine nearly gave up. `nieves_fax_in`
-- **Alan**: Whoever understands the lock. [pause] And Vasco's up there, understanding it. He's the best in the world at understanding things. `alan_s_vasco`
+- **Nieves**: Two pages, señor, an hour ago. The machine nearly gave up. *(no recording)* `nieves_fax_in`
+- **Alan**: Whoever understands the lock. [pause] I read that this morning and thought of Elena. [pause] Vasco's up there understanding it for a living. *(no recording)* `alan_s_vasco`
 - **Alan**: I have to reach him. Today. `alan_s_after_fax`
 
 ## S.tried
@@ -179,7 +179,7 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Narrator**: He tries. Later, he will need to know that he tried. `narr_s_tried_1`
 - **Alan**: The museum's shut for the weekend. Every car on the island is booked for San Juan. And the only guagua to Artenara went at seven this morning. `alan_s_tried_list`
 - **Alan**: Fifty kilometres. Uphill. Through the cloud. `alan_s_tried`
-- **Alan**: The seven o'clock bus tomorrow, then. At the dig by ten. Find Vasco, tell him everything, deal with Baute together. [pause] Very reasonable. I hate it. `alan_s_bus`
+- **Alan**: The seven o'clock bus tomorrow, then. At the dig by ten. Find Vasco, wherever Baute's put him. Tell him everything. [pause] Very reasonable. I hate it. *(no recording)* `alan_s_bus`
 
 ## S.floodScene
 
@@ -187,7 +187,7 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 
 - **Narrator**: Seven o'clock. The sea comes into La Isleta: not from the harbour, but up through the drains. `narr_flood_1`
 - **Doña Pino**: Madre mía. I fell asleep. I never fall asleep in the afternoon. `pino_s_1`
-- **Doña Pino**: I sat down to say a rosary and I fell asleep, and I woke up drowning in my own bed. `pino_s_1b`
+- **Doña Pino**: I lay down to say a rosary and I fell asleep, and I woke up drowning in my own bed. *(no recording)* `pino_s_1b`
 - **Doña Pino**: He doesn't sleep. Fifty-five years married, and he has never once slept through the night. I always said it would kill me. `pino_s_2`
 - **Doña Pino**: It saved me. He heard the sea in the room. He pulled me up by my hair. `pino_s_3`
 - **Don Lolo**: By your collar. `lolo_s_1`
@@ -197,13 +197,13 @@ From `js/story/sat.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Don Lolo**: Fifty-five years, señor. And she still hasn't forgiven me for the first one. `lolo_s_3`
 - **Narrator**: Later, the water sinks back into the drains. The neighbours come with towels and soup and opinions. `narr_flood_later`
 - **Doña Pino**: Hospital. Pfff. I told that boy where he could put his hospital. [pause] Madre mía, he went red to the ears. `pino_s_hospital`
-- **Doña Pino**: Mira. My list. Two crossed out. Two not. `pino_s_missal`
+- **Doña Pino**: Mira. My list. Five crossed out. Two not. *(no recording)* `pino_s_missal`
 - **Doña Pino**: Antonio is in Venezuela. Maybe it can't reach Venezuela. Maybe it can. Dios sabe. `pino_s_list`
 - **Doña Pino**: [pause] And me. `pino_s_list_2`
 - **Alan**: It came back for you. And it'll come again. `alan_s_list`
 - **Doña Pino**: Sí. [pause] You know a lot about what the sea does, Portuguese. `pino_s_know`
 - **Alan**: It's coming for me too. Not for the same reason. But it's coming. `alan_s_coming`
-- **Alan**: In Lisbon, in a cistern, it had me up to the chest. It knew my blood, and it backed away. [pause] And there's a bell in Santa Ana with my family's mark on it, Doña Pino. `alan_s_tell_pino`
+- **Alan**: You know about the cistern. [pause] What I didn't tell you: there's a bell in Santa Ana with my family's mark on it, Doña Pino. *(no recording)* `alan_s_tell_pino`
 - **Doña Pino**: [pause] Toma. My pen. Write it under mine. `pino_s_pen`
 - **Doña Pino**: Now God knows too. `pino_s_name`
 - **Doña Pino**: Go home, Portuguese. Go to bed. Say your prayers. `pino_s_name_2`

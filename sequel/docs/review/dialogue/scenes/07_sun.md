@@ -108,7 +108,7 @@ From `js/story/sun.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: I'm an idiot. `alan_su_idiot`
 - **Alan**: I've been an idiot all week. I broke into the wrong office. I suspected the wrong man. `alan_su_idiot_2`
 - **Alan**: I lied to the man I love because I thought I was protecting him. And then I lied to someone else to punish myself for it. `alan_su_idiot_3`
-- **Alan**: I've been doing everything on my own because I'm frightened of needing anyone. Two people have drowned in their beds, and Vasco is up on that mountain with Rayco Baute, and I can't reach him. `alan_su_idiot_4`
+- **Alan**: I've been doing everything on my own because I'm frightened of needing anyone. Six people have drowned since December, and Vasco is up on that mountain with Rayco Baute, and I can't reach him. *(no recording)* `alan_su_idiot_4`
 - **Alan**: And I've just come back from the airport. [pause] I need your help. I've never been able to do anything on my own. I've just been very good at pretending. `alan_su_idiot_5`
 - **Carmen**: [pause] Baute. `carmen_su_baute`
 - **Alan**: Not Montesdeoca. Baute. The discs never went to the city. They go down to a vault under the caves, at night. Yeray carries them. And only Rayco has the key. `alan_su_baute`
@@ -155,7 +155,7 @@ From `js/story/sun.js`, scene by scene. Each scene is a room (its hotspots' line
   *the sentence she didn't finish; the cistern, told; the lighter, four tries*
 - **Alan**: She never finished it. [pause] Whoever stands in the water goes down with it. `alan_su_finish`
 - **Carmen**: How do you know that? `carmen_su_how`
-- **Alan**: Because I've stood in it. [pause] A cistern under Lisbon. Black water, and something in the dark that knew me. And Doña Pino's list has my name at the bottom. `alan_su_told`
+- **Alan**: My family's letter says so. The last one who shut it went down with it. [pause] And I've stood in it: a cistern under Lisbon, something in the dark that knew me. Pino's list has my name at the bottom. *(no recording)* `alan_su_told`
   *her lighter: four tries this time; half the cigarette in silence*
 - **Carmen**: So it's coming for you anyway. And someone has to stand in its water to shut it. And the last one who did didn't come back. `carmen_su_anyway`
 - **Alan**: Apparently. `alan_su_apparently`
@@ -194,19 +194,19 @@ From `js/story/sun.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Nieves**: Nothing, señor. I would have kept it for you. `nieves_su_3`
 - **Nieves**: [pause] Señor Sanches. Is he all right? `nieves_su_4`
   *Carmen's calls: the museum (the dig radio), then the conservation lab*
-- **Carmen**: The museum. The guard tried the dig radio twice. Nada. [pause] The camp's been silent since Friday morning. `carmen_su_museum`
+- **Carmen**: The museum. The guard tried the dig radio twice. Nada. [pause] The camp's been silent since yesterday afternoon. *(no recording)* `carmen_su_museum`
 - **Carmen**: The conservation lab. I asked how many discs from Risco Caído they've had since December. None. Nada. Not one, ever. `carmen_su_lab_1`
 - **Carmen**: And the transfer sheets go back to December. Six discs, one a month. Rayco's signature on every one, and Vasco's under them, all in the same week. `carmen_su_lab_2`
 - **Alan**: Six. Out of seven. `alan_su_six`
   *(he sits down with Elena's notebook and makes himself think, in order)*
-- **Alan**: Lolo heard him. Saturday morning, on the radio: 'The discs aren't going to the lab. They're going down. Under.' And Baute told me he'd gone down on the guagua. `alan_su_lolo`
+- **Alan**: Lolo heard him. Saturday morning, on the radio: 'The discs aren't going to the lab. They're going down. Under.' And Baute told me Vasco took the guagua after noon. The only guagua goes at seven. *(no recording)* `alan_su_lolo`
 - **Alan**: Vasco went up on Friday, angry. He'd solve the cave the way Elena solved it. And Vasco can't look at a wrong thing and say nothing. Not for long. `alan_su_think_1`
-- **Alan**: The radio's been dead since Friday. Not one message in two days, from a man who leaves notes about the coffee. `alan_su_think_2`
-- **Alan**: And Yeray, in Rafa's sketchbook, while I was busy not listening: the discs go down to the lower vault at night. The old granary under the caves. And only Rayco has the key. `alan_su_think_3`
+- **Alan**: The radio's been dead since yesterday. Two days, and not one word to me, from a man who leaves notes about the coffee. *(no recording)* `alan_su_think_2`
+- **Alan**: And Yeray, in Rafa's sketchbook, while I was busy not listening: every night this week, down to the old granary. 'The Portuguese doctor doesn't know.' *(no recording)* `alan_su_think_3`
 - **Alan**: He's at the camp, sulking. With the radio off. *[choice]* `alan_su_vasco_camp`
 - **Carmen**: Vasco doesn't sulk with the radio off. Vasco sulks with the radio on, so you can hear him not calling. `carmen_su_camp_no`
 - **Alan**: He's gone home. To Lisbon. Without me. *[choice]* `alan_su_vasco_lisbon`
-- **Carmen**: His bags are at your hotel, cariño. Nobody leaves without their trowels. `carmen_su_lisbon_no`
+- **Carmen**: Without his trowels? Nobody leaves without their trowels, cariño. *(no recording)* `carmen_su_lisbon_no`
 - **Alan**: He's in the lower vault. The old granary under the caves, with the discs. *[choice]* `alan_su_vasco_vault`
 - **Alan**: Vasco refused him something. He must have. Something about the light. `alan_su_vault_1`
 - **Alan**: And Baute isn't a killer. He doesn't want to hurt anyone. He just wants it done. So he's put Vasco where he puts the things he can't let go of. `alan_su_vault_2`
@@ -235,10 +235,10 @@ From `js/story/sun.js`, scene by scene. Each scene is a room (its hotspots' line
 
 ## S.drive
 
-> out of Las Palmas at five, against the crowds going down to the beaches; up into the cloud; the radiator
+> out of Las Palmas at eight, against the crowds going down to the beaches; up into the cloud; the radiator
 
 - **Carmen**: Vámonos. `carmen_su_lets_go`
-- **Narrator**: Five o'clock. The whole city going down to the beaches, and the Land Rover going the other way: up, into the cloud. `narr_lr_1`
+- **Narrator**: Eight o'clock. The whole city going down to the beaches, and the Land Rover going the other way: up, into the cloud. *(no recording)* `narr_lr_1`
 - **Carmen**: Ten minutes in the cloud, cariño. Then we come out on top. `carmen_lr_1`
 - **Alan**: Carmen. That needle. `alan_lr_1`
 - **Carmen**: It's the radiator. It does this. [pause] Pretend you can't hear it. `carmen_lr_2`
@@ -321,7 +321,7 @@ From `js/story/sun.js`, scene by scene. Each scene is a room (its hotspots' line
 
 ## S.tearGrille
 
-- **Alan**: The grille, torn out and down on the stone. Three idiots and a pick. Four, counting Vasco, who did most of it. `alan_look_grille_off`
+- **Alan**: The grille, torn out and down on the stone. Yeray's pick, Carmen's weight, mine. Vasco did most of it. *(no recording)* `alan_look_grille_off`
 - **Alan**: Yeray, lever! Carmen, the handle! `alan_su_pull`
 - **Yeray**: Again! ¡Otra vez! `yeray_su_2`
 - **Alan**: It moved. It's not enough. [pause] Carmen! The handle, with Yeray! `alan_su_more_hands`
@@ -340,7 +340,7 @@ From `js/story/sun.js`, scene by scene. Each scene is a room (its hotspots' line
 
 > the granary, dry; five crates; Carmen's field jacket; the mark on the wall; then up to the rock
 
-- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. All here. *[if]* `vasco_look_crates`
+- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. [pause] Five of them. *[if]* *(no recording)* `vasco_look_crates`
 - **Alan**: Vasco first. Then the discs. In that order, always, from now on. `alan_crates_first`
 - **Alan**: Empty now. Good. `alan_crates_empty`
   *the five crates, a disc in straw in each; Carmen wraps them in her field jacket*
@@ -363,11 +363,11 @@ From `js/story/sun.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Vasco**: He asked me how, and when. I didn't tell him. `vasco_rock_4`
 - **Alan**: The signs on the wall. Seven of them. `alan_rock_2`
 - **Vasco**: That's the other thing. How it shuts. Every disc in its own socket, the sun flat in the middle, the light on every triangle, and the lock closes. `vasco_rock_5`
-- **Vasco**: The one Rayco wanted, I never wrote down. [pause] It's in here. Only in here. `vasco_rock_6`
+- **Vasco**: How to open it, I never wrote down. [pause] It's in here. Only in here. *(no recording)* `vasco_rock_6`
 - **Alan**: Can he guess it? `alan_rock_3`
 - **Vasco**: He'll try. By hand, by eye. He won't get it exactly. But with six of the seven gone, the lock's so loose already that it might not need to be exact. Close might be enough. `vasco_rock_7`
 - **Carmen**: Then why can't you do it, hombre? You know where every one of them goes. `carmen_rock_1`
-- **Vasco**: Where, yes. Not when. The order's in a song, and I don't have the words. [pause] And the wall can only be read from above, and the discs can only be set from below. `vasco_rock_8`
+- **Vasco**: Where, yes. Not when. The order's in the old women's song, and I don't have the words. Rayco might. [pause] And the wall can only be read from above, and the discs can only be set from below. *(no recording)* `vasco_rock_8`
 - **Vasco**: So someone has to be down at the sockets. In the water. `vasco_rock_9`
   *(he looks at Alan)*
 - **Alan**: It's coming for me anyway. I'd rather it found me doing something useful. `alan_rock_4`
@@ -390,7 +390,7 @@ From `js/story/sun.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: Why is he doing this? Baute. Rayco. *[choice]* `alan_rock_ask_why`
 - **Vasco**: Tasarte. His grandmother's village, on the west coast. Caves in the hill above it, and in the caves, their dead. Five hundred years of them. `vasco_rock_tasarte_1`
 - **Vasco**: In August 1966 a company sent in the bulldozers for a hotel. They put the bones in a skip. He picked some up off the road afterwards and kept them in a cardboard box under his bed for a year. `vasco_rock_tasarte_2`
-- **Vasco**: The site manager was twenty-eight. Charming. He gave the boy a cigarette and told him not to take it personally. [pause] Ignacio Montesdeoca. Who doesn't remember. `vasco_rock_tasarte_3`
+- **Vasco**: The site manager was twenty-eight. Charming. He gave Rayco a cigarette and told him not to take it personally. [pause] Ignacio Montesdeoca. Who doesn't remember. *(no recording)* `vasco_rock_tasarte_3`
   *(Carmen's lighter: one try, this time)*
 - **Carmen**: I knew he was angry. I studied under him, twenty years ago. He used to stand at the front of the lecture hall and talk about the conquest, and you could see it in him, like a coal. `carmen_rock_3`
 - **Carmen**: I was angry too. I'm still angry. [pause] But I never thought... `carmen_rock_4`

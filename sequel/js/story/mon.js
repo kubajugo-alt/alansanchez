@@ -254,7 +254,8 @@
       S.sfx('fog_lift', 0.4);
       await say('narr_m_stain', 'narr_m_south');
       await say('carmen_m_street', 'carmen_m_street_2', 'carmen_m_street_3');
-      await say('narr_m_baute_silent', 'carmen_m_concrete');
+      await T(window.FAST ? 10 : 1600);   // (Baute says nothing: a held pause, the narrator's line cut, HANDOFF 151)
+      await say('carmen_m_concrete');
       await say('narr_m_goes_out', 'baute_m_stain_3');
       await say('baute_m_grandmother');
       for (let n = 1; n <= 7; n++) await say('baute_m_verse_' + n, 'vasco_m_verse_' + n);

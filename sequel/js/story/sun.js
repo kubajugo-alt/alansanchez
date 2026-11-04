@@ -318,7 +318,7 @@
     },
     // (the Sea's water in the footwell, on Alan's side only: js/story/water.js)
   });
-  // out of Las Palmas at five, against the crowds going down to the beaches; up into the cloud; the radiator
+  // out of Las Palmas at eight, against the crowds going down to the beaches; up into the cloud; the radiator
   S.drive = async function () {
     const f = F();
     if (f.driving) return;

@@ -15,7 +15,7 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Vasco**: Noon on Monday is the one that matters. San Juan. I told you. `vasco_f_sunrise`
 - **Alan**: You told me. `alan_f_told`
 - **Alan**: Are you going to ask me? What I was doing in his office? `alan_f_ask`
-- **Vasco**: I know what you were doing in his office. You were looking for something to prove that someone was doing something wrong. `vasco_f_2`
+- **Vasco**: I know what you were doing in his office. You were looking for proof that somebody was stealing from my cave. *(no recording)* `vasco_f_2`
 - **Vasco**: Because you'd decided something was wrong, and instead of telling me, you broke into my director's office in the middle of my presentation. `vasco_f_2b`
 - **Vasco**: In front of the people who are paying for the work I've wanted to do my whole life. `vasco_f_2c`
   *Montesdeoca's van: the red herring, answered*
@@ -25,13 +25,13 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Vasco**: He sells lottery tickets, Alan. `vasco_f_lottery`
   *(he turns round on the bed at last)*
 - **Vasco**: The discs go in Ignacio's van because Ignacio paid for the new display cases and offered the van to take them down. That's all. `vasco_f_van`
-- **Vasco**: I signed the transfer sheets myself. They're in the conservation lab in the museum's basement. You could have asked me. [pause] You could have just asked me. `vasco_f_van_2`
+- **Vasco**: I signed the transfer sheets myself. They're at the conservation lab, in Las Palmas. You could have asked me. [pause] You could have just asked me. *(no recording)* `vasco_f_van_2`
   *the mist, told at last*
 - **Alan**: There's something else. `alan_f_else`
 - **Vasco**: Of course there is. `vasco_f_course`
 - **Alan**: On Tuesday. On the promenade. There was a mist. `alan_f_mist`
 - **Alan**: The black mist, coming in against the wind. The smell of the cistern. A helmet in Doña Pino's net. A fisherman drowned in his bed, nowhere near the water. `alan_f_told_all`
-- **Alan**: The tide a step higher every morning. My family's mark on a bell in Santa Ana. A sealed letter. I faxed it to Inês. `alan_f_told_all_2`
+- **Alan**: The tide a step higher every morning. My family's mark on a bell in Santa Ana. A letter they left here, in 1751. Inês says it knows my blood. *(no recording)* `alan_f_told_all_2`
 - **Vasco**: Tuesday. `vasco_f_tuesday`
 - **Alan**: Vasco... `alan_f_vasco`
 - **Vasco**: You saw it on Tuesday. You stood next to me on the promenade, and you smelled the thing that nearly killed you in that cistern, and you said sunburn. `vasco_f_tuesday_2`
@@ -115,11 +115,11 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Carmen**: It's an island. [pause] What do you want, Señor Sanches? `carmen_f_island`
 - **Alan**: The cave. Tell me how it works. Not the story. The stone. `alan_f_carmen_2`
 - **Carmen**: Cave 6. Mira: seven triangles on the back wall, a sign over each. A little hole in the roof, and a bigger one in the floor, under it. `carmen_f_photo`
-- **Carmen**: From the spring equinox to the autumn one, el sol comes straight down that hole at noon, through a hole in the floor, onto seven black discs in the room underneath. `carmen_f_beam`
+- **Carmen**: From the spring equinox to the autumn one, el sol comes down through the roof at noon, and on through the floor, onto seven black discs in the room underneath. *(no recording)* `carmen_f_beam`
 - **Carmen**: And the discs throw it back up. Each one onto its own triangle, mira, on the wall upstairs. At the solstice the column's at its fullest. `carmen_f_beam_2`
 - **Carmen**: They all point down. Every one. The textbooks say they're fertility symbols. `carmen_f_triangles`
 - **Alan**: And you? `alan_f_carmen_and`
-- **Carmen**: A friend of mine thought they were arrows. [pause] She thought the discs were mirrors. Each one keeping its own triangle lit. `carmen_f_discs`
+- **Carmen**: A friend of mine thought they were arrows. [pause] Not symbols. Instructions. Each disc keeping its own triangle lit. *(no recording)* `carmen_f_discs`
 - **Carmen**: She thought all the triangles pointed at one place. [pause] A door, she said. Una puerta. In the floor. `carmen_f_door`
 - **Alan**: Porta. [pause] In Portuguese it's the same word, with less hope in it. `alan_f_door`
 - **Carmen**: She thought the whole thing was a sentence, and the light was reading it out loud, every day, so it stayed true. `carmen_f_sentence`
@@ -127,10 +127,10 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Carmen**: She's dead. `carmen_f_dead`
 - **Carmen**: Las Palmas was founded on Saint John's day. The twenty-fourth of June. Did you know that? In the old reckoning, that was the solstice. `carmen_f_san_juan`
 - **Carmen**: El sol stands still for three days, and on the fourth day it turns back. The Canarios knew it. The Church knew it. Rejón knew it when he planted his flag. `carmen_f_san_juan_2`
-- **Carmen**: Everybody on la isla has always known that morning matters. Nobody remembers why. `carmen_f_san_juan_3`
+- **Carmen**: Everybody on la isla has always known that day matters. Nobody remembers why. *(no recording)* `carmen_f_san_juan_3`
 - **Alan**: Matters how? What happens if the light doesn't stay on its path? `alan_f_carmen_why`
 - **Carmen**: My friend said the lock is weakest the day el sol turns back. At noon. [pause] I don't know why I'm telling you this. `carmen_f_friend`
-- **Alan**: Because I'm the only one who's said 'black mist' to you out loud. `alan_f_carmen_3`
+- **Alan**: Because I'm the only one who's said 'black mist' to you. [pause] And my family's letter says 'lock' too. *(no recording)* `alan_f_carmen_3`
 - **Carmen**: Go home, Señor Sanches. [pause] Before Sunday. [pause] Por favor. I'm asking you. `carmen_f_go_home`
   *the depth, for those who ask; then the afternoon goes, and the dusk comes*
 - **Alan**: Your friend. Was it Dr. Suárez? *[choice]* `alan_ask_carmen_friend`
@@ -138,7 +138,7 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: What happens on Sunday? *[choice]* `alan_ask_carmen_sunday`
 - **Carmen**: San Juan. The bonfires. The whole city in el mar at midnight. And at noon, the cave. [pause] I don't know. That's why you should go home. `carmen_f_sunday`
 - **Alan**: You saw his face. At the dinner. *[choice]* `alan_ask_carmen_dinner`
-- **Carmen**: I saw. [pause] The face of a man hit by somebody he loves. It's a particular face. I wore it for a year, in my marriage. `carmen_f_dinner`
+- **Carmen**: I saw. [pause] The face of a man hit by somebody he loves. It's a particular face. I put it on my husband once. *(no recording)* `carmen_f_dinner`
 - **Carmen**: It doesn't last, hombre. It's the other face you want to worry about. The one that stops minding. `carmen_f_dinner_2`
 - **Alan**: Thank you, Carmen. *[choice]* `alan_bye_carmen`
 - **Carmen**: Don't thank me. Go home. `carmen_f_bye`
@@ -179,7 +179,7 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 ## S.tryLeave
 
 - **Alan**: I came in for two drinks. I haven't had one yet. `alan_stay_0`
-- **Alan**: I'm just talking. I'm just... I just needed somewhere to sit. I'm not... `alan_stay_3`
+- **Alan**: I wasn't... I just needed somewhere to sit. I'm not... *(no recording)* `alan_stay_3`
 - **Alan**: Not yet. He's been drawing all night, and he hasn't drawn me. [pause] I'm a little offended. `alan_stay_napkin`
 
 ## S.leaveEleven
@@ -200,7 +200,7 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 
 - **Alan**: Rafa. Have you got a telephone? `alan_leave_2`
 - **Rafa**: Toma. [pause] It eats coins, cuidado. `rafa_phone`
-- **Alan**: Is there any way to reach the dig at Risco Caído? The camp has a radio. Could the museum radio the camp? `alan_leave_2b`
+- **Alan**: It's about the dig at Risco Caído. I need to speak to Dr. Teles. I'm his... [pause] I'm a friend. *(no recording)* `alan_leave_2b`
 - **Guard**: Nada, señor. No answer from the camp. The radio must be switched off. Perhaps they're all asleep. It's midnight. `guard_f_1`
 - **Guard**: Is it an emergency? `guard_f_2`
 - **Alan**: No. [pause] No. It can wait. `alan_leave_2c`
@@ -212,8 +212,8 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: The boy's asleep. A nice face. An unhappy one. Even asleep. `alan_yeray_face`
 - **Rafa**: Yeray. He's on the dig, up at Artenara. He comes down when he can't stand it. `rafa_yeray_1`
 - **Rafa**: He's got a lot on his mind, pobrecito. Let him sleep. `rafa_yeray_2`
+- **Alan**: Hasn't everyone. [pause] I'm not asking. If I ask, I'll be talking about Vasco all night. *(no recording)* `alan_yeray_3`
 - **Narrator**: Alan should have asked. Later he'll think about this moment more than any other. `narr_yeray_go_3`
-- **Alan**: Hasn't everyone. `alan_yeray_3`
   *(Rafa, on the back of the napkin he drew Yeray on: Saturday's sketchbook)*
 
 ## S.talkRafa
@@ -231,10 +231,10 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: The faces on the walls. Are they yours? *[choice]* `alan_ask_rafa_paint`
 - **Rafa**: All mine. I paint everyone who comes in. It's a sort of tax. Since I was sixteen. `rafa_paint`
 - **Rafa**: Madrid, one day. Art school, when I've saved enough. [pause] I've been saying that for seven years. I think I like it here too much. `rafa_paint_2`
-- **Alan**: And where would I go? Between the dog in the hat and the fisherman? `alan_rafa_paint`
+- **Alan**: And where would you put me? Between the dog in the hat and the fisherman? *(no recording)* `alan_rafa_paint`
 - **Rafa**: By the door. Where I can see you come in. `rafa_paint_3`
 - **Alan**: Careful. I'm very easily flattered after two rums. `alan_rafa_flatter`
-- **Alan**: Why not go now? Madrid's not far. *[choice]* `alan_ask_rafa_island`
+- **Alan**: Did you never want to leave? Madrid, Barcelona? *[choice]* *(no recording)* `alan_ask_rafa_island`
 - **Rafa**: The light. You can't get light like this in Madrid. In Madrid the light is like a government building. Here it's... `rafa_island`
 - **Rafa**: Here it's alive. `rafa_island_2`
 - **Alan**: It's been grey since I arrived. `alan_rafa_island`
@@ -243,12 +243,12 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Yeray**: ...and el doctor— el doctor doesn't know. The Portuguese. Pobre. He thinks they go to Las Palmas, to the... the lab. Yeray, the lab, he says. The lab, the lab... `yeray_bar_3`
 - **Alan**: What are you doing with that pencil? *[choice]* `alan_ask_rafa_draw`
 - **Rafa**: Paying my tax. `rafa_draw_1`
-- **Yeray**: ...once a month... once— I'm telling you, eh, once a month since Christmas. Every moon. When the moon is new. When the others are asleep. Asleep... `yeray_bar_1`
+- **Yeray**: ...once a month... once— I'm telling you, eh, once a month since December. Every moon. When the moon is new. When the others are asleep. Asleep... *(no recording)* `yeray_bar_1`
 - **Rafa**: Hold still. You're laughing. Stop laughing. No, keep laughing. `rafa_draw_2`
 - **Alan**: It's me. A dozen lines. Not the face I check in the mirror for grey. The one I've got tonight. `alan_rafa_napkin_0`
 - **Alan**: That's not fair. `alan_rafa_napkin`
 - **Rafa**: Drawing's never fair. That's what it's for. `rafa_draw_3`
-- **Yeray**: ...down to the— the vault. The old granary. Under the caves. And he locks it. Click. [hiccup] And only he's got the key. Only him. `yeray_bar_2`
+- **Yeray**: ...down to the— the vault. The old granary. Under the caves. And he locks it. Click. [pause] And only he's got the key. Only him. *(no recording)* `yeray_bar_2`
   *someone at the tables calls him: he goes up the bar, a hand on Alan's shoulder as he passes*
 - **Alan**: He touched my shoulder going past. [pause] I didn't hear another word anyone said. `alan_rafa_touch`
 - **Alan**: Another one. *[choice]* `alan_ask_rafa_another`
@@ -266,8 +266,8 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Yeray**: Me? I'm fine. Fine, fine, fine. [pause] Forget it, hombre. Forget it. `yeray_bar_4`
   *(he goes back to talking to his glass, as if Alan had never asked)*
 - **Yeray**: ...conservation, he says. Con-ser-va-ción. Pfff. Six moons, and not one gets to the lab. Not one. I carried them down myself. With these hands, mira... `yeray_bar_5`
-- **Yeray**: ...and I say sí, doctor, sí, the lab, and I can't look at him... I can't. If I open my mouth I lose everything. Everything. He's been like a father to me. A father, you understand? `yeray_bar_6`
-- **Alan**: Sounds rough. `alan_yeray_2`
+- **Yeray**: ...and I say sí, doctor, sí, the lab, and I can't look at him... I can't. If I open my mouth I lose everything. Everything. El jefe's been like a father to me. A father, you understand? *(no recording)* `yeray_bar_6`
+- **Alan**: Sounds rough. [pause] Everybody's got a doctor they can't look at tonight. *(no recording)* `alan_yeray_2`
 
 ## S.rafaQuestion
 
@@ -275,7 +275,7 @@ From `js/story/fri.js`, scene by scene. Each scene is a room (its hotspots' line
 
   *a pause; of Alan's thoughts the narrator keeps only the two rules, and the rest he thinks himself)*
 - **Alan**: I should go. `alan_leave_3`
-- **Alan**: I'm just talking. I'm just... I just needed somewhere to sit. I'm not... `alan_stay_3`
+- **Alan**: I wasn't... I just needed somewhere to sit. I'm not... *(no recording)* `alan_stay_3`
 - **Rafa**: I know. [pause] Me too. `rafa_closing`
 - **Rafa**: My studio's upstairs. I've got café. Real café. Not the terrible ron. `rafa_upstairs`
 - **Rafa**: Is there someone? `rafa_someone`

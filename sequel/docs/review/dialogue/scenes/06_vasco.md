@@ -23,7 +23,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 - **Alan**: The sun on the sea of cloud. The most beautiful thing I've ever seen, and I can't look at it for long. I have work. *[if]* `alan_look_cloud_mon`
 - **Vasco**: Yeray's stove. Yeray's terrible coffee. Yeray's empty cigarette packet. `vasco_look_stove`
 - **Vasco**: I have what I need. More than I wanted. *[if]* `vasco_finds_again`
-- **Vasco**: The expedition files, in grey boxes. At the back of the last one, my predecessor's papers, filed and forgotten. *[if]* `vasco_look_finds`
+- **Vasco**: The expedition files, in grey boxes. At the back of the last one, Elena's papers. Rayco said they were nothing. I believed him. *[if]* *(no recording)* `vasco_look_finds`
 - **Alan**: The finds table under its tarpaulin. Labels, trays, a thermos. Baute's thermos. I'm not drinking anything up here. *[if]* `alan_look_finds_camp`
 - **Vasco**: Not without Elena's charts. I'd only be guessing, and the cave deserves better. `vasco_need_charts`
   *the painting is a morning: Sunday night darkens it, Monday's sunrise warms it*
@@ -57,7 +57,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
   *he throws the rest of his coffee over the edge, into the cloud*
 - **Yeray**: Forget it. I'm hungover. I talk rubbish. `yeray_v_04b`
 - **Yeray**: Ask Dr. Baute. Please. Not me. `yeray_v_05`
-- **Vasco**: A Portuguese guy at Rafa's bar. Funny. Sad underneath. [pause] I'm not thinking about Alan. `vasco_v_yeray_4`
+- **Vasco**: Not going to Las Palmas. [pause] A Portuguese guy at Rafa's bar. Sad underneath. [pause] I'm not thinking about Alan. *(no recording)* `vasco_v_yeray_4`
 
 ## S.takeCharts
 
@@ -65,7 +65,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 
 - **Alan**: The finds table under its tarpaulin. Labels, trays, a thermos. Baute's thermos. I'm not drinking anything up here. `alan_look_finds_camp`
 - **Vasco**: I have what I need. More than I wanted. `vasco_finds_again`
-- **Vasco**: Elena Suárez. My predecessor. Rayco said her name once, the first day, flat as a wall: an accident in December, on the mountain road. `vasco_take_1`
+- **Vasco**: Elena Suárez. Rayco said her name once, the first day, flat as a wall: an accident in December, on the mountain road. *(no recording)* `vasco_take_1`
 - **Vasco**: Good hand. [pause] Better than mine. `vasco_take_2`
 - **Vasco**: And the last sheet, only pencil. The sun disc on its own, tipped off the flat. A number. An hour. `vasco_take_3`
 - **Vasco**: And in the margin, in a hand gone big and fast, one word. Underlined three times. [pause] 'Puerta.' Door. `vasco_take_4`
@@ -74,8 +74,8 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 ## S.lookRadio
 
 - **Alan**: The radio's alive. The Guardia are coming. Everything's coming. *[if]* `alan_radio_mon`
-- **Alan**: The camp radio. No fuse. Dead as a door. *[if]* `alan_radio_dead`
-- **Alan**: The camp radio. No fuse. Dead as a door. `alan_radio_dead`
+- **Alan**: The camp radio. No fuse. Dead as a doornail. *[if]* *(no recording)* `alan_radio_dead`
+- **Alan**: The camp radio. No fuse. Dead as a doornail. *(no recording)* `alan_radio_dead`
   *the morning: he could call the museum, and the museum the hotel. And say what?*
 - **Vasco**: Off. Leave it off. `vasco_look_radio_again`
 - **Vasco**: I could call the museum. The museum could call the hotel. In ten minutes I could be hearing his voice. `vasco_look_radio_1`
@@ -84,19 +84,19 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
   *after the cave: dead, and the fuse gone. Then a shadow across the radio: Rayco, with a thermos and two mugs*
 - **Vasco**: Empty. [pause] The fuse is gone. [pause] Radios don't lose their fuses by themselves. `vasco_radio_fuse`
 - **Vasco**: Yeray, frightened. The marks round the empty sockets. Elena's word in the margin. And Rayco's face: an accident in December, on the mountain road. `vasco_v_see_0`
-- **Vasco**: I haven't wanted to see this. I've walked past it every day for a week, because I didn't want to see it. `vasco_v_see`
+- **Vasco**: I've walked past it every day for a week. [pause] Because I didn't want to see it. *(no recording)* `vasco_v_see`
 - **Vasco**: No fuse. No radio. No one. `vasco_radio_fuse_2`
 
 ## S.foilRadio
 
 > (2026-10-30) the foil from Yeray's packet as a fuse: a few seconds on the air, the message Don Lolo heard (puzzles.js); then the foil burns through, and Rayco's shadow falls across the radio
 
-- **Vasco**: Silver paper. In the right hands, a fuse. In mine, a fire. `vasco_look_foil`
-- **Vasco**: Folded twice. Into the holder. [pause] God forgive me, Lorenzo, I'm doing electrics. `vasco_r_foil_1`
+- **Vasco**: Silver paper. In the right hands, a wire. In mine, a fire. *(no recording)* `vasco_look_foil`
+- **Vasco**: Folded twice. Into the holder. [pause] Forgive me, Lorenzo. I'm doing electrics. *(no recording)* `vasco_r_foil_1`
 - **Vasco**: It hums. [pause] Channel nine, the museum's. God knows how long I've got. `vasco_r_on`
 - **Vasco**: Risco Caído. If anyone hears this, tell Alan Sanches at the Hotel Cristina. It isn't the van. The discs aren't going to the lab, they're going down, under— `vasco_r_send`
   *the foil flares and burns through; the dial dies*
-- **Vasco**: [pause] 'Under.' Well done, Vasco. A whole sentence about where, and you stopped at the only word that mattered. `vasco_r_after`
+- **Vasco**: [pause] 'Under.' Under what, Vasco? You don't even know. [pause] And now nobody will. *(no recording)* `vasco_r_after`
   *Rayco comes along the path behind him, with a thermos and two mugs*
 - **Baute**: You've solved it. I knew you would. `baute_v_01`
 - **Baute**: That radio's been dead since Thursday. Yeray is hopeless with fuses. `baute_v_heard`
@@ -108,7 +108,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 
 - **Alan**: Vasco on his knees at the rim, grey with tiredness, Elena's charts sodden in one hand and his notebook in the other. His legs are shaking. His voice isn't. *[if]* `alan_look_vasco_cave`
 - **Alan**: Carmen, in her rust-coloured shirt, watching the light in the roof go from grey to white. *[if]* `alan_look_carmen_mirror`
-- **Alan**: Yeray, at the back, very pale. He'll be all right. He doesn't know that yet. *[if]* `alan_look_yeray_cave`
+- **Alan**: Yeray, at the back, very pale. Somebody should tell him he'll be all right. Not now. *[if]* *(no recording)* `alan_look_yeray_cave`
 - **Alan**: Baute on his camp stool, the sixth disc in his cracked hands, very calm. The pendant at his throat. *[if]* `alan_look_baute_cave`
 - **Vasco**: The great triangle at the back of the cave. The biggest arrow of all, pointing at the floor. *[if]* `vasco_look_great`
 - **Alan**: The great triangle. Point down. At the floor. At the door. *[if]* `alan_look_great`
@@ -119,7 +119,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 - **Alan**: Photographs of a cave: a dome, engraved triangles, a column of light coming down from the roof. Cave 6. *[if]* `alan_look_cave_photos`
 - **Vasco**: A round hole in the floor, and a rope ladder going down into the dark. A cool breath coming up out of it. *[if]* `vasco_look_hole`
 - **Alan**: A round hole in the floor, a rope ladder going down into it, and the sound of water breathing at the bottom. *[if]* `alan_look_hole`
-- **Vasco**: Down there, with a torch that's dying? Not yet. Let the sun go down first. It does, every noon. *[if]* `vasco_ladder_dark`
+- **Vasco**: Down there, with a torch that's dying? Not yet. Let the sun go first. It climbs down every noon. *[if]* *(no recording)* `vasco_ladder_dark`
 - **Alan**: A round hole in the floor, a rope ladder going down into it, and the sound of water breathing at the bottom. `alan_look_hole`
 - **Vasco**: A white crust low on the wall. [pause] Salt. A thousand metres above the sea. That isn't possible. `vasco_look_salt`
 - **Vasco**: A flat rock by the mouth, worn smooth by nine hundred years of people sitting on it and waiting for the sun. *[if]* `vasco_look_rock`
@@ -153,8 +153,8 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 - **Vasco**: Obsidian, polished to a mirror. I can see myself in it. I look like a man who hasn't slept. `vasco_look_disc`
 - **Vasco**: Seven sockets in a row in the floor. Six empty. Only the sun's still in, in the middle. `vasco_look_sockets_1`
 - **Vasco**: [pause] I never counted them, the first day. I was looking at the light. `vasco_look_sockets_2`
-- **Vasco**: Fresh tool marks round the empty ones. Steel, not stone. Someone's been prying these out with a modern chisel. `vasco_look_sockets`
-- **Vasco**: Fresh tool marks round the empty ones. Steel, not stone. Someone's been prying these out with a modern chisel. `vasco_look_sockets`
+- **Vasco**: Fresh tool marks round the empty ones. Steel, not stone. A chisel, in a hurry. [pause] No conservator lifts a disc like that. *(no recording)* `vasco_look_sockets`
+- **Vasco**: Fresh tool marks round the empty ones. Steel, not stone. A chisel, in a hurry. [pause] No conservator lifts a disc like that. *(no recording)* `vasco_look_sockets`
 - **Alan**: The sun disc, flat in the middle. Where the women set it. *[if]* `alan_look_seventh_set`
 - **Alan**: The sun disc, in the middle, tipped in its socket by Baute's hand. Wrong. *[if]* `alan_look_seventh`
 - **Alan**: That one's back. Black glass in old stone. *[if]* `alan_socket_set`
@@ -162,7 +162,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 
 ## S.useSocket
 
-- **Vasco**: Fresh tool marks round the empty ones. Steel, not stone. Someone's been prying these out with a modern chisel. `vasco_look_sockets`
+- **Vasco**: Fresh tool marks round the empty ones. Steel, not stone. A chisel, in a hurry. [pause] No conservator lifts a disc like that. *(no recording)* `vasco_look_sockets`
 
 ## S.chalkSigns
 
@@ -185,7 +185,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 - **Vasco**: Seven scenes, and no order to put them in. `vasco_scenes_again`
   *(the torch held flat to the wall)*
 - **Vasco**: People. Round every triangle, scratched fine as hair. [pause] Round the sun, nobody: Magec, alone. Round the thin old moon at the end, the moon going down into the sea, and one woman standing in it. `vasco_scenes_1`
-- **Vasco**: I know this. [pause] It's the grandmothers' romance. The women and the moons. The old women in Artenara say it at the fire, and they won't say it to me. `vasco_scenes_2`
+- **Vasco**: I know this. [pause] It's the grandmothers' telling. The women and the moons. The old women in Artenara say it at the fire, and they won't say it to me. *(no recording)* `vasco_scenes_2`
 - **Vasco**: That's the key. The order's in a song, and I don't have the words. `vasco_scenes_3`
 
 ## S.waitNoon
@@ -239,9 +239,9 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 - **Baute**: You wrote in your thesis that a baptised bell is a voice the dead can hear. That when it rings, it isn't calling the living to church. `baute_v_02`
 - **Baute**: It's telling the dead that someone still remembers them. [pause] I read it three times. I read it the week before I hired you. `baute_v8_02b`
 - **Baute**: You were right. Whatever happens now. You were right about bells, and you were right about the light. `baute_v8_02c`
-- **Baute**: This is ours. The priestesses made it. Every summer for five hundred years el sol has come through that hole and said the same prayer across the wall, and the sea has stayed down. `baute_v_03`
+- **Baute**: This is ours. The priestesses made it. Every summer for nine hundred years el sol has come through that hole and said the same prayer across the wall, and the sea has stayed down. *(no recording)* `baute_v_03`
 - **Vasco**: And you're taking the prayer apart. *[choice]* `vasco_v_07a`
-- **Vasco**: Rayco. What's in the vault? *[choice]* `vasco_v_07b`
+- **Vasco**: Rayco. Where are the discs? *[choice]* *(no recording)* `vasco_v_07b`
   *(Rayco doesn't deny it)*
 - **Baute**: In 1966 I was twenty-six. A new degree from La Laguna and no power at all. Nada. A boy with a piece of paper. `baute_v_04`
 - **Baute**: My grandmother's village was Tasarte, on the west coast. Above it there was a hill, and in the hill, caves, and in the caves, our dead. Five hundred years of them. `baute_v8_04b`
@@ -258,7 +258,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 - **Baute**: Mine will. `baute_v_07`
   *he gets up and goes to the edge, because he can't look at Rayco's face any more*
 - **Vasco**: Elena worked this out too. Didn't she. *[choice]* `vasco_v_09a`
-- **Vasco**: Where's Dr. Suárez, Rayco? *[choice]* `vasco_v_09b`
+- **Vasco**: What happened to Dr. Suárez, Rayco? *[choice]* *(no recording)* `vasco_v_09b`
   *(a long silence; he turns round)*
 - **Baute**: I took out one disc. One. In December, on the night of the twentieth, after everyone was asleep. Just to see if it was true, what the old women said. `baute_v_08`
 - **Baute**: She found the socket the next day. She went down the mountain that night to tell Carmen. She never got there. `baute_v8_08b`
@@ -277,7 +277,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 
 - **Vasco**: I'm going down to Las Palmas. Now. I'm going to tell Carmen, and the museum, and the Guardia Civil. [pause] And then I'm going to find Alan. `vasco_v_walk`
 - **Baute**: I know. `baute_v_see`
-- **Vasco**: The keys aren't in the Land Rover. Or on the hook. [pause] You've been down to the village. [pause] Then I'll walk. `vasco_v8_keys`
+- **Vasco**: The keys aren't in the Land Rover. Or on the hook. [pause] You've had them all morning. [pause] Then I'll walk. *(no recording)* `vasco_v8_keys`
   *road; it tilts; he sits down; footsteps behind him, two sets: Rayco, and Yeray come back*
 - **Narrator**: He got as far as the top of the road to Artenara. Then the road began to tilt. `narr_v_drug`
 - **Vasco**: The coffee. [pause] Cinnamon, and something under it. [pause] Sit down, Vasco. Before your legs do it for you. `vasco_v8_drug`
@@ -287,7 +287,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 - **Vasco**: My head. [pause] Steps. Bars. And a brand-new brass padlock, like an earring on a corpse. `vasco_v8_wake`
 - **Baute**: Mira. A Canario granary. Twelfth century, perhaps. Grain, cheese, figs. It's dry. It's always been dry. [pause] You'll be safe here. `baute_v8_granary`
 - **Baute**: I'll come for you on Monday. After noon. After it's done. [pause] You have my word. `baute_v_12`
-- **Vasco**: Your word's under a hotel, Rayco. `vasco_v_12`
+- **Vasco**: Elena had your word too, Rayco. *(no recording)* `vasco_v_12`
   *Rayco's footsteps going back up the cleft, and Yeray's, slower; then nothing*
 - **Vasco**: My torch. For reading inscriptions in dark chapels. [pause] And the battery isn't new. `vasco_v8_torch`
 
@@ -300,17 +300,17 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 - **Alan**: Yeray. The boy from the bar. He came down with bread, and went back for a pick. *[if]* `alan_look_yeray_vault`
 - **Alan**: Carmen, at the bottom of the steps, her torch on the grille. She came down that cleft sideways and didn't say a word. *[if]* `alan_look_carmen_vault`
   *(Saturday: the first look counts them, and thinks)*
-- **Alan**: Five crates. In each, a black glass disc wrapped in cloth. The nails Baute pulled out. *[if]* `alan_look_crates`
-- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. All here. *[if]* `vasco_look_crates`
-- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. All here. *[if]* `vasco_look_crates`
-- **Vasco**: Five here. The sun's still in the cave, and Rayco keeps the sixth on him. On Monday he'll tip the sun by guesswork. [pause] And he thinks he can't do it without me. *[if]* `vasco_look_crates_2`
+- **Alan**: Five crates. In each, a black glass disc in straw. The nails Baute pulled out. *[if]* *(no recording)* `alan_look_crates`
+- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. [pause] Five of them. *[if]* *(no recording)* `vasco_look_crates`
+- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. [pause] Five of them. *[if]* *(no recording)* `vasco_look_crates`
+- **Vasco**: Five here. Six sockets empty, the sun still in the cave. [pause] So Rayco has the sixth. On Monday he'll tip the sun by guesswork. And he thinks he can't do it without me. *[if]* *(no recording)* `vasco_look_crates_2`
 - **Vasco**: With six nails out, close might be enough. [pause] Think. You have until Monday. Think. *[if]* `vasco_look_crates_3`
 - **Alan**: Pick marks, old as anything. And low down, behind a crate, a coiled snake carved in the rock. Vasco looks at it and says nothing. So I say nothing. *[if]* `alan_look_walls`
 - **Vasco**: Pick marks, and the serpent behind the last crate. I'll think about it later. If there's a later. *[if]* `vasco_look_walls_2`
 - **Vasco**: The Church teaches you one thing: when you're frightened and alone in a dark stone room, you look at the walls. [pause] Pick marks. Nine hundred years old. *[if]* `vasco_look_walls`
 - **Vasco**: And low, behind the last crate, worn almost away: a serpent, coiled tight on itself, its mouth open at the centre. [pause] Seven coils. *[if]* `vasco_look_serpent`
 - **Vasco**: Nineteenth-century iron, new padlock. Rayco always did respect the original fabric. [pause] The top's in hard basalt. The bottom's leaded into the soft tuff of the threshold. The lead's gone to powder. *[if]* `vasco_look_grille`
-- **Alan**: The grille, torn out and down on the stone. Three idiots and a pick. Four, counting Vasco, who did most of it. *[if]* `alan_look_grille_off`
+- **Alan**: The grille, torn out and down on the stone. Yeray's pick, Carmen's weight, mine. Vasco did most of it. *[if]* *(no recording)* `alan_look_grille_off`
 - **Alan**: The grille. One bottom anchor gone, the other a centimetre from giving. Yeray's pick in the gap. *[if]* `alan_look_grille`
 - **Vasco**: Nineteenth-century iron, new padlock. Rayco always did respect the original fabric. [pause] The top's in hard basalt. The bottom's leaded into the soft tuff of the threshold. The lead's gone to powder. `vasco_look_grille`
 - **Vasco**: That one's out. *[if]* `vasco_anchor_out`
@@ -336,9 +336,9 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
 
 - **Vasco**: Nineteenth-century iron, new padlock. Rayco always did respect the original fabric. [pause] The top's in hard basalt. The bottom's leaded into the soft tuff of the threshold. The lead's gone to powder. `vasco_look_grille`
 - **Vasco**: Nineteenth-century iron, new padlock. Rayco always did respect the original fabric. [pause] The top's in hard basalt. The bottom's leaded into the soft tuff of the threshold. The lead's gone to powder. `vasco_look_grille`
-- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. All here. *[if]* `vasco_look_crates`
-- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. All here. *[if]* `vasco_look_crates`
-- **Vasco**: Five here. The sun's still in the cave, and Rayco keeps the sixth on him. On Monday he'll tip the sun by guesswork. [pause] And he thinks he can't do it without me. *[if]* `vasco_look_crates_2`
+- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. [pause] Five of them. *[if]* *(no recording)* `vasco_look_crates`
+- **Vasco**: The museum's crates. I signed the sheets: 'Conservation transfer.' [pause] An obsidian disc in each, in straw. The missing nails. [pause] Five of them. *[if]* *(no recording)* `vasco_look_crates`
+- **Vasco**: Five here. Six sockets empty, the sun still in the cave. [pause] So Rayco has the sixth. On Monday he'll tip the sun by guesswork. And he thinks he can't do it without me. *[if]* *(no recording)* `vasco_look_crates_2`
 - **Vasco**: With six nails out, close might be enough. [pause] Think. You have until Monday. Think. *[if]* `vasco_look_crates_3`
 - **Vasco**: Through the bars, a metre away. It might as well be Lisbon. `vasco_crates_reach`
 - **Vasco**: Through the bars, a metre away. It might as well be Lisbon. `vasco_crates_reach`
@@ -389,7 +389,7 @@ From `js/story/vasco.js`, scene by scene. Each scene is a room (its hotspots' li
   *the prayer, the first since January; Alan; "send the idiot", smiling in the dark*
 - **Narrator**: Some time in the night, in the dark and the rising water, he prayed. For the first time since January. `narr_v8_pray`
 - **Vasco**: Pai nosso, que estais no céu... [pause] `vasco_v_13`
-- **Vasco**: I'm sorry. I've been working on a Saturday. [pause] I know You're busy. `vasco_v_14`
+- **Vasco**: I'm sorry. It's been since January. [pause] I know You're busy. *(no recording)* `vasco_v_14`
 - **Vasco**: There's a man. Alan. White to the lips on the promenade, saying 'sunburn'. Caught behind a desk with his hand on a map, like a schoolboy and a thief. `vasco_v_prayer_1`
 - **Vasco**: On Friday he told me everything. Too fast, in the wrong order, too late. And I didn't listen. I was too frightened of what it meant. `vasco_v_prayer_2`
 - **Vasco**: He might be on a plane by tomorrow lunchtime. I told him to go. [pause] Or he might not. `vasco_v_prayer_3`

@@ -84,7 +84,7 @@ From `js/story/core.js`, scene by scene. Each scene is a room (its hotspots' lin
 - **Inês (on the phone)**: It's the same sea, Alan. It's always been the same sea. `ines_call_tue_3b`
 - **Inês (on the phone)**: Have you told Vasco? [pause] Alan. Have you told Vasco? `ines_call_tue_3`
 - **Alan**: He's happy. He's so happy. It's his week. It's the first thing he's ever had that's just his. I can't walk into the middle of it and say, sorry, darling, I'm being haunted again. `alan_call_tue_4`
-- **Inês (on the phone)**: You're not being haunted. You're being sensible. Tell him. `ines_call_tue_4`
+- **Inês (on the phone)**: You're not being haunted, Alan. You're being hunted. Tell him. *(no recording)* `ines_call_tue_4`
 - **Alan**: Tomorrow. `alan_call_tue_5`
 - **Inês (on the phone)**: Alan. `ines_call_tue_5`
 - **Alan**: Tomorrow. I promise. Find out what you can. Anything. Old papers. Anything about the Canaries. `alan_call_tue_6`
@@ -117,7 +117,7 @@ From `js/story/core.js`, scene by scene. Each scene is a room (its hotspots' lin
 - **Inês (on the phone)**: And in seventeen fifty-five, after the earthquake, after the wave, there's a page with no figures on it at all. Just a sentence. `ines_th_call_5`
 - **Inês (on the phone)**: Fizemos o que aprendemos nas Canárias. O Mar está calado. [pause] We did what we learned in the Canaries. The Sea is silent. `ines_th_call_6`
 - **Alan**: They shut it. In Lisbon. With what they learned here. `alan_call_thu_3`
-- **Inês (on the phone)**: They shut it. Which means it can be shut. Which means it knows the people who shut it. `ines_th_call_7`
+- **Inês (on the phone)**: They shut it. Which means it can be shut. [pause] And a thing like that remembers who did it. *(no recording)* `ines_th_call_7`
 - **Inês (on the phone)**: Alan. Your blood. That's why it backed off you in the cistern. It knew you. `ines_th_call_8`
 - **Alan**: And here? `alan_th_call_4`
 - **Inês (on the phone)**: Here, I'd keep away from the water. `ines_th_call_9`
@@ -159,7 +159,7 @@ From `js/story/core.js`, scene by scene. Each scene is a room (its hotspots' lin
 
 - **Inês (on the phone)**: Two hours to kill on a beach and you're phoning me? Go and look at the sea, Alan. Talk to someone young. It'll do you good, or at least it'll do you something. `ines_hint_beach`
 - **Inês (on the phone)**: You're burnt? Of course you are. Ask the English couple in your hotel restaurant. Sunburn is their national sport. `ines_hint_burn`
-- **Inês (on the phone)**: You fell asleep in the sun. Of course you did. Do what the English lady said, find the plant woman at the market, and don't argue with her. `ines_hint_aloe`
+- **Inês (on the phone)**: You fell asleep in the sun. Naturally. Do what the English lady said, find the plant woman at the market, and don't argue with her. *(no recording)* `ines_hint_aloe`
 - **Inês (on the phone)**: So the English lady told you whose blazer it is. Then describe it to the receptionist like it's yours. Down to the pocket. *[if]* `ines_hint_nieves`
 - **Inês (on the phone)**: A jacket, by eight. Ask the English lady with the camcorder husband. Tourists notice everything that isn't theirs. *[if]* `ines_hint_gail`
 - **Inês (on the phone)**: You've got the blazer. Now go upstairs and put trousers on. Vasco's, if you must. Then call me back. `ines_hint_dress`
@@ -180,7 +180,7 @@ From `js/story/core.js`, scene by scene. Each scene is a room (its hotspots' lin
 - **Inês (on the phone)**: The guard at the dinner? Guards move for two things: their boss, and trouble. Find some trouble. Preferably someone else's. *[if]* `ines_hint_guard`
 - **Inês (on the phone)**: Go to bed. Say sorry. Mean it. `ines_hint_thu_done`
 - **Inês (on the phone)**: Go to Carmen. Do something useful with the ache. `ines_hint_carmen_fri`
-- **Inês (on the phone)**: Go and have one drink. One, Alan. And then go back to the hotel and call me. `ines_hint_fri_night`
+- **Inês (on the phone)**: One drink, Alan. One. Somewhere with people in it. Then back to the hotel, and call me. *(no recording)* `ines_hint_fri_night`
 - **Inês (on the phone)**: Go to your hotel. The fax. Read it sitting down. `ines_hint_fax_sat`
 - **Inês (on the phone)**: Doña Pino. The list. If the Sea's collecting tonight, she's on it. Go to La Isleta. `ines_hint_isleta_sat`
 - **Inês (on the phone)**: You've told me. Now you have to tell him. Go to the mountain, Alan. `ines_hint_vasco`

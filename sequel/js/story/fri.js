@@ -252,7 +252,7 @@
     const f = F();
     f.yeray_left = true; G.refreshNpcs();   // (asleep on the table, not gone)
     await T(1200);
-    await say('alan_yeray_face', 'rafa_yeray_1', 'rafa_yeray_2', 'narr_yeray_go_3', 'alan_yeray_3');
+    await say('alan_yeray_face', 'rafa_yeray_1', 'rafa_yeray_2', 'alan_yeray_3', 'narr_yeray_go_3');
     S.sfx('pencil_scribble', 0.4); await T(1200);   // (Rafa, on the back of the napkin he drew Yeray on: Saturday's sketchbook)
   };
   S.talkRafa = async function () {

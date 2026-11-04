@@ -2076,4 +2076,23 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       text in `js/lines.js` (ids never change), `scripts/voice_redo.txt` gets the recorded ones, `alan_*`/`*` lines
       changed keep their old mp3 out of play (as entry 104 did: stale recordings set aside so the caption shows), the
       order/condition flags done in code; then validate, play.mjs, regenerate the scene files.
+151. **All 168 dialogue flags applied** (2026-11-04, the user: "approve all"). `scripts/apply_dialogue_flags.py`:
+    - `js/lines.js`: 166 lines rewritten (ids unchanged): the reviewers' text, or, where they quoted only the changed
+      part ("... in the damp."), spliced into the whole line by hand (`SPLICE` in the script: 24 lines); plus Saturday's
+      radio hour moved to four in the two lines the flags didn't name (`alan_look_wait_hour`, `narr_s_wait_bell`). Two new
+      looks: `alan_look_vasco_walk` (the night walk and the corridor, where no crowd surrounds him) and
+      `alan_look_gail_dinner` (Thursday's dinner). Only `[pause]` brackets (Yeray's `[hiccup]` gone).
+    - Code: the dawn's "I should have said it..." plays after the door closes (wed.js); Alan no longer drinks
+      Wednesday's coffee (the motif keeps it for the last morning; the drink pose there dropped); Carmen's "Don't get me
+      started on Montesdeoca" before she starts (thu.js); Alan's Pepe question waits for Pino's list (thu.js,
+      `f.pino_list`); Alan's answer to Rafa before the narrator's last line (fri.js); Baute's silence a held pause, the
+      narrator's line cut (mon.js). BIBLE and story-bible: Alan raises the camp at four, the Land Rover leaves at eight.
+    - Voices: the 166 recordings that no longer match moved to `audio/voice_stale/dialogue_review/` (export-ignored);
+      those lines show as captions until re-recorded with the same voices (`scripts/voice_redo.txt`, now with these
+      ids and the two new looks: about 170 lines); 35 audio-tag texts for them dropped from `scripts/tts_text.json`
+      (kept in `voice_stale/dialogue_review/tts_text_dropped.json`, to re-tag the new words).
+    - Left for the user: whether the north bell was cast in Lisbon or Las Palmas (`alan_look_bell_mark` says Lisboa, the
+      bible Las Palmas; the inscription now reads "Sanches me fez, 1751"); Juan's drowning in 1484 after "the sea has not
+      risen since" (Mercedes's line now says eleven days after he swore).
+    - Scene files regenerated. validate: 0 errors; play.mjs: won, 132 steps, no errors. Not deployed.
 

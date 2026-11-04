@@ -4,13 +4,13 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 
 ## S.startThu
 
-- **Alan**: He came in at midnight and left at six. Between those, he slept like a man with a clear conscience. I lay there with mine. `alan_th_wake`
+- **Alan**: He came in after ten and left at six. In between, he slept like a man with a clear conscience. I lay there with mine. *(no recording)* `alan_th_wake`
 
 ## S.chanoNewsThu
 
 > ---------------------------------------------------------------- the kiosk: Chano's news (called from tue.js S.talkChano)
 
-- **Chano**: Pepe Santana. A month ago now, and La Isleta still talks about nothing else. Drowned. In his bed. Seventy-two years old, sixty years at sea, never so much as a cold. `chano_th_pepe_1`
+- **Chano**: Pepe Santana. A month ago now, and La Isleta still talks about nothing else. Seventy-two years old, sixty years at sea, never so much as a cold. *(no recording)* `chano_th_pepe_1`
 - **Chano**: And he drowns in his own bed with the window shut. Ay, Dios. `chano_th_pepe_2`
 - **Chano**: His son found him. The doctor said heart. Heart, hombre, with his lungs full of seawater. `chano_th_pepe_3`
 - **Chano**: My cousin's wife's sister lives next door. She heard nothing. Not a sound. That's what frightens her. `chano_th_pepe_4`
@@ -18,7 +18,7 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: Where in La Isleta? `alan_th_chano_1`
 - **Chano**: Calle Pescadores. By the harbour. Why? `chano_th_pepe_5`
 - **Alan**: There's an old woman on the quay there. Small, in black. She sorts the catch like she's judging it. `alan_th_chano_2`
-- **Chano**: Doña Pino. Sí. She was on the same boat as Pepe, in seventy-one. The Virgen del Pino. [pause] Seven came up out of el mar the next morning. Since Christmas they've been going, one a month. Now two. `chano_th_pepe_6`
+- **Chano**: Doña Pino. Sí. She was on the same boat as Pepe, in seventy-one. The Virgen del Pino. [pause] Go and ask her, chacho. Gently. She keeps the names. *(no recording)* `chano_th_pepe_6`
 
 ## S.pinoMissal
 
@@ -28,8 +28,8 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Doña Pino**: The Virgen del Pino. Nineteen seventy-one. Eleven men and one woman, because the cook was sick and I went in his place, for the money. `pino_th_pepe_1`
 - **Doña Pino**: A storm off Cape Bojador. She went down in four minutes. We were in el mar all night, and in the morning a fishing boat pulled seven of us out. `pino_th_pepe_1b`
 - **Doña Pino**: I keep the names in my missal, mi niño. Look. `pino_th_pepe_2`
-- **Doña Pino**: Not his heart. Not his age. Not drink. [pause] Pepe is el mar. `pino_th_pepe_3`
-- **Alan**: Doña Pino... `alan_th_pino_1`
+- **Doña Pino**: Not his heart. Not his age. Not drink. [pause] Pepe was el mar. *(no recording)* `pino_th_pepe_3`
+- **Alan**: Doña Pino. [pause] Your name's next. *(no recording)* `alan_th_pino_1`
 - **Doña Pino**: You know what the old women said, when I was a girl? El mar never forgets a debt. `pino_th_debts`
 - **Doña Pino**: It gives you back, sometimes, if it's in a good mood, or busy, or not hungry. But it writes you down. And one day it comes to collect. `pino_th_debts_2`
 - **Doña Pino**: You know something about this. I saw it yesterday. You looked at my helmet like it was a letter addressed to you. `pino_th_know`
@@ -72,19 +72,19 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Carmen**: Not here. We have bones and pots. The Castilians kept the paper. `carmen_th_colon`
 - **Carmen**: Casa de Colón. Behind Santa Ana. Ask for Mercedes Quintana. [pause] She'll hate you. She hates everyone who isn't dead. `carmen_th_colon_2`
 - **Alan**: And Montesdeoca? The van? *[choice]* `alan_ask_carmen_monte`
-- **Carmen**: Ignacio Montesdeoca has built half the south coast on top of our dead, and now he gives the museo display cases. `carmen_th_monte`
 - **Carmen**: Don't get me started on Ignacio Montesdeoca. `carmen_th_monte_2`
+- **Carmen**: Ignacio Montesdeoca has built half the south coast on top of our dead, and now he gives the museo display cases. `carmen_th_monte`
 - **Carmen**: If somebody wanted that cave to be worth nothing, I'd look at him first. [pause] I'd look at him first for most things. `carmen_th_monte_3`
 - **Alan**: Can I trust your friar? *[choice]* `alan_ask_carmen_galindo`
 - **Carmen**: He wrote a hundred years after, from what the old men told him and what the Church let him keep. Trust the parts somebody underlined. `carmen_th_galindo`
 - **Alan**: Magec? *[choice]* `alan_ask_carmen_magec`
-- **Carmen**: El sol. Above everything. The sea answered to nothing, the old people said, except the sun. It doesn't answer to the sun either. It just goes quiet when the sun's watching. `carmen_th_magec`
+- **Carmen**: El sol. Above everything. The old people said el mar answered to nothing except the sun. [pause] Not that it obeyed. It just went quiet when the sun was watching. *(no recording)* `carmen_th_magec`
 - **Alan**: What's Baute like? Really? *[choice]* `alan_ask_carmen_baute`
 - **Carmen**: Rayco taught me everything. He's right about everything this island lost. The burial grounds, the coast, the names. He's been right for thirty years, and he's lost every fight. [pause] That does something to a man. `carmen_th_baute`
-- **Alan**: The list says disc one came out in December. The night before Dr. Suárez died. *[choice]* `alan_ask_carmen_elena`
+- **Alan**: The list says disc one came out in December. [pause] Dr. Suárez died in December. *[choice]* *(no recording)* `alan_ask_carmen_elena`
 - **Carmen**: [pause] Don't. [pause] Not today. `carmen_th_elena`
   *Pepe: she says nothing; her eyes go to the conservation list; then she sends him away, quietly*
-- **Alan**: A fisherman drowned in his bed last month, in La Isleta. Doña Pino has a list. *[choice]* `alan_ask_carmen_pepe`
+- **Alan**: A fisherman drowned in his bed last month, in La Isleta. Doña Pino has a list. *[choice]* *(no recording)* `alan_ask_carmen_pepe`
 - **Alan**: Her eyes go to the conservation list. December, January, down to May. [pause] And one line more, blank. June. `alan_th_carmen_list`
 - **Carmen**: I have work. Go away, Señor Sanches. `carmen_th_pepe`
 - **Alan**: Thank you, Carmen. *[choice]* `alan_bye_carmen`
@@ -127,8 +127,8 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Mercedes Quintana**: To thank the saint for sending it back. Five hundred years. Nobody remembers. They just do it. `mercedes_san_juan_2`
 - **Alan**: Juan de Quintana. `alan_th_inquiry`
 - **Mercedes Quintana**: My ancestor. Sí. `mercedes_juan`
-- **Mercedes Quintana**: He survived the Santa Clara. A Canario fisherman pulled him out of the water at Gáldar. A heathen, saving a Castilian, in the middle of a war. He wrote that down too. `mercedes_juan_2`
-- **Mercedes Quintana**: He drowned in his own bed eleven days later. With the window shut. The family has always said it was drink. `mercedes_juan_3`
+- **Mercedes Quintana**: He survived the Santa Clara. A Canario fisherman pulled him out of the water at Gáldar. A heathen, saving a Castilian, in the middle of a war. He swore to that too. *(no recording)* `mercedes_juan_2`
+- **Mercedes Quintana**: He drowned in his own bed eleven days after he swore to this. With the window shut. The family has always said it was drink. *(no recording)* `mercedes_juan_3`
   *(the last page, the margin, a different ink)*
 - **Mercedes Quintana**: The notary. He wrote this at the end, after all the witnesses. It isn't part of the record. I don't think he meant anyone to read it. `mercedes_women`
 - **Alan**: 'Nadie preguntó a las mujeres.' [pause] Nobody asked the women. `alan_th_nadie`
@@ -142,7 +142,7 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 ## S.talkMercedes
 
 - **Alan**: That look over the glasses. Carmen does it too. [pause] They must teach it at the university. `alan_th_merc_look`
-- **Alan**: Carmen Trujillo sent me. `alan_th_mercedes_1`
+- **Alan**: Alan Sanches. Carmen Trujillo sent me. *(no recording)* `alan_th_mercedes_1`
 - **Mercedes Quintana**: Then you have my sympathy, señor, but not my time. `mercedes_1`
 - **Alan**: She said you'd hate me. `alan_th_mercedes_2`
 - **Mercedes Quintana**: She's usually right. `mercedes_2`
@@ -214,7 +214,7 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: I could still not do it. Sit at table seven, cough at twenty minutes, go home, and just tell him. `alan_th_dinner_0`
 - **Alan**: Break a leg. `alan_th_dinner_1`
 - **Baute**: To the dead of this island, who are cleverer than all of us. And to the living, who pay for them. `baute_th_toast`
-- **Vasco**: The people of this island cut a chamber into a cliff, high in the mountains above the clouds, and carved its walls with triangles. Dozens of them, all pointing down. `vasco_th_speech_1`
+- **Vasco**: The people of this island cut a chamber into a cliff, high in the mountains above the clouds, and carved its walls with triangles. Seven of them, all pointing down. *(no recording)* `vasco_th_speech_1`
 - **Vasco**: And they cut one small opening through the roof, straight down from the top of the cliff, so that at noon, all summer, the sun comes down it in a single column, and every triangle on the wall lights at once. Like a sentence read out loud. `vasco_th_speech_2`
 - **Vasco**: They built a calendar. That's what the textbooks will tell you. And it is a calendar. But I've spent my whole life in churches built to face the sunrise. `vasco_th_speech_3`
 - **Vasco**: I know what it feels like to stand in a building that was made to receive something. This is a place where people waited for the sun to say something. `vasco_th_speech_4`
@@ -236,7 +236,7 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Gail**: Oh, Derek. [pause] He's under table nine, love, apologising to everybody's legs. `gail_th_fall`
 - **Alan**: Corridor's clear. [pause] Forgive me, Derek. `alan_th_clear`
 - **Alan**: Film the man talking. He's the best thing here. *[choice]* `alan_derek_vasco`
-- **Derek**: The professor? I've got twenty minutes of him already. Gail says he's dishy. I say he talks a lot. `derek_th_vasco`
+- **Derek**: The professor? I've got ten minutes of him already. Gail says he's dishy. I say he talks a lot. *(no recording)* `derek_th_vasco`
 - **Alan**: Enjoy the olives. *[choice]* `alan_bye_derek`
 - **Derek**: Olives. Story of my life. `derek_th_bye`
 
@@ -245,7 +245,7 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 > ================================================================ BAUTE'S OFFICE
 
 - **Alan**: Open. I opened it. I'm a burglar now. I'll put it on my card. *[if]* `alan_look_desk_open`
-- **Alan**: A big desk under a green-shaded lamp. One drawer locked. If there's a Montesdeoca file, it's in there. *[if]* `alan_look_desk`
+- **Alan**: A big desk under a green-shaded lamp. No contract in a frame, whatever Gail says. One drawer locked. If there's a Montesdeoca file, it's in there. *[if]* *(no recording)* `alan_look_desk`
 - **Alan**: Locked. An old lock, a museum lock. A thin blade would do it. *[if]* `alan_desk_locked`
 - **Alan**: The knife in the gap, a twist, and the old lock gives. I spent my teenage years in Lisbon with very poor judgement. It pays, sometimes. *[if]* `alan_desk_knife`
 - **Alan**: Catering invoices and insurance. Montesdeoca's paying for the vol-au-vents. The real file won't be lying about. `alan_look_contracts`
@@ -265,8 +265,8 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: That's all. No clause about Artenara. No hotel. [pause] It's the most boring document I have ever read, and I sell books. `alan_th_file`
 - **Alan**: Twelve pages of nothing. [pause] Then what's that, on the wall? `alan_th_file_2`
   *(the photograph and the map on the wall: the close-up)*
-- **Alan**: And the map. Maspalomas, Playa del Inglés, San Agustín. Six hotels circled in red, and four of them are Montesdeoca's. `alan_th_desk_1`
-- **Alan**: 'Twenty-fourth, mediodía.' Noon. [pause] It's him. I don't know how it connects to a fisherman drowned in his bed. But it connects. It has to. `alan_th_desk_2`
+- **Alan**: A bulldozer, a hill of caves, bones in a skip. 'Abuela's hill.' [pause] And the map. Six hotels on the south coast circled in red, and four of them are Montesdeoca's. *(no recording)* `alan_th_desk_1`
+- **Alan**: 'Twenty-fourth, mediodía.' Noon. [pause] It's Montesdeoca. I don't know how it connects to a fisherman drowned in his bed. But it connects. It has to. *(no recording)* `alan_th_desk_2`
   *he reaches up to take the map off its pins, and the light comes on*
 
 ## S.caught
@@ -282,7 +282,7 @@ From `js/story/thu.js`, scene by scene. Each scene is a room (its hotspots' line
   *the mango, the end of the talk, Carmen at the door: told over black*
 - **Narrator**: The dessert was mango. Alan ate it. Vasco finished his talk, well, and didn't look at table seven once. `narr_th_mango_1`
 - **Narrator**: At eleven, Carmen Trujillo at the back door. She hadn't been at the dinner. She looked at him over her sunglasses, and went. `narr_th_mango_4`
-- **Narrator**: They took a taxi back to the hotel, and neither of them said anything in the taxi. `narr_thu_night`
+- **Narrator**: A silent taxi. Nieves's eyebrow didn't move. The lift sneezed, and nobody laughed. *(no recording)* `narr_thu_night`
   *Vasco's lamp goes off, his back to Alan; the balcony doors open on the sea*
 - **Alan**: Vasco. `alan_th_night_1`
 - **Vasco**: Not tonight. `vasco_th_night_1`

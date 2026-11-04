@@ -14,7 +14,7 @@ From `js/story/bgtalk.js`, scene by scene. Each scene is a room (its hotspots' l
 - **Father and son**: The tide takes it every afternoon. He says tomorrow we build a better wall. Already a real Canarian. `bg_beach_sandcastle_2`
   *Surfer waxing his board (beach_surfer_wax): first time, then again*
 - **Surfer waxing his board**: Ey, guapo. You surf? No? With those shoulders you should. I give lessons. Private ones. `bg_beach_surfer_wax_1`
-- **Alan**: I'd drown very happily. Is the wax included? `alan_bg_beach_surfer_wax`
+- **Alan**: I'd be hopeless. Very willing, but hopeless. Is the wax included? *(no recording)* `alan_bg_beach_surfer_wax`
 - **Surfer waxing his board**: The offer stands, guapo. Waves at five, me at six. `bg_beach_surfer_wax_2`
   *German tourist (canteras_german_tourist): first time, then again*
 - **German tourist**: Excuse me, you take a photo of me? Ach, no, wait. Better I take a photo of you. For my wife. She will not believe the scenery on this beach. `bg_canteras_german_tourist_1`
@@ -54,7 +54,7 @@ From `js/story/bgtalk.js`, scene by scene. Each scene is a room (its hotspots' l
 - **Guest in a linen suit**: If you get bored of the skulls, I'm by the wine. I'm always by the wine. `bg_museum_guest_linen_2`
   *Couple at a table (museum_cocktail_pair): first time, then again*
 - **Couple at a table**: My husband is talking about property prices again. Rescue me. Ask me to dance. There's no música. I don't care. `bg_museum_cocktail_pair_1`
-- **Alan**: That's very kind, but I'd tread on your feet. And possibly on his. `alan_bg_museum_cocktail_pair`
+- **Alan**: Oh. That's… very kind. I'd tread on your feet. [pause] And possibly on his. *(no recording)* `alan_bg_museum_cocktail_pair`
 - **Couple at a table**: He still hasn't noticed I'm looking at you. Thirty years, he never notices anything. `bg_museum_cocktail_pair_2`
   *Young academic (museum_guest_academic): first time, then again*
 - **Young academic**: Pre-Hispanic ceramics. My thesis. Seven years. Nobody here has asked me one question. Would you like to ask me one question? `bg_museum_guest_academic_1`
@@ -81,7 +81,7 @@ From `js/story/bgtalk.js`, scene by scene. Each scene is a room (its hotspots' l
 - **Alan**: I'll keep my voice down. `alan_bg_cathedral_praying`
 - **Woman praying**: Shh. Santa Ana is listening. She's slow, but she listens. `bg_cathedral_praying_2`
   *Priest (cathedral_priest): first time, then again*
-- **Priest**: Welcome, hijo. The tourists pray for good weather. The locals pray for a little sun. God, it seems, is still deciding. `bg_cathedral_priest_1`
+- **Priest**: Welcome, hijo. The tourists pray for sun. The farmers pray for rain. God, it seems, is still deciding. *(no recording)* `bg_cathedral_priest_1`
 - **Alan**: I'll put in a word for the tourists. `alan_bg_cathedral_priest`
 - **Priest**: Mass at seven. Bring a cardigan; the saints keep it cold. `bg_cathedral_priest_2`
 - **Guest in a linen suit**: ¡Ay, hombre! Who cooked you? You look like a camarón in a jacket. `bg_museum_guest_linen_burn`
@@ -90,7 +90,7 @@ From `js/story/bgtalk.js`, scene by scene. Each scene is a room (its hotspots' l
 - **Alan**: Thank you. I think. `alan_p_burn_2`
 - **Lady in pearls**: Natural yogurt, young man, all over, and a dark room. That's what my mother did for the Swedish tourists. `bg_museum_guest_pearls_burn`
 - **Waiter with champagne**: Champán, señor? Very cold. [pause] For the face, maybe. `bg_museum_waiter_tray_burn`
-- **Young academic**: Fascinating. That's exactly the red of the Guanche pottery slip. Almagre. Could I just... no. Sorry. Sorry. `bg_museum_guest_academic_burn`
+- **Young academic**: Fascinating. That's exactly the red of the old Canario pottery slip. Almagre. Could I just... no. Sorry. Sorry. *(no recording)* `bg_museum_guest_academic_burn`
 
 ## S.bgFor
 
@@ -107,7 +107,7 @@ From `js/story/bgtalk.js`, scene by scene. Each scene is a room (its hotspots' l
 - **German tourist**: Click. My wife will want a copy. Me also, if I am honest. *[set]* `bg_canteras_german_tourist_2`
 - **Woman praying**: Shh. I'm praying for my grandson. He wants to be a surfer. I'm praying he wants to be a dentist. *[set]* `bg_cathedral_praying_1`
 - **Woman praying**: Shh. Santa Ana is listening. She's slow, but she listens. *[set]* `bg_cathedral_praying_2`
-- **Priest**: Welcome, hijo. The tourists pray for good weather. The locals pray for a little sun. God, it seems, is still deciding. *[set]* `bg_cathedral_priest_1`
+- **Priest**: Welcome, hijo. The tourists pray for sun. The farmers pray for rain. God, it seems, is still deciding. *[set]* *(no recording)* `bg_cathedral_priest_1`
 - **Priest**: Mass at seven. Bring a cardigan; the saints keep it cold. *[set]* `bg_cathedral_priest_2`
 - **Tourist**: Sorry, do you know what any of this is? Never mind. You're the most interesting thing in this market, and I've just looked at an octopus. *[set]* `bg_cathedral_tourist_mercado_1`
 - **Tourist**: If you ever fancy being a tour guide... I'll be by the cheese. *[set]* `bg_cathedral_tourist_mercado_2`
@@ -118,7 +118,7 @@ From `js/story/bgtalk.js`, scene by scene. Each scene is a room (its hotspots' l
 - **Couple at a table**: Oh, you poor thing, you're glowing. Not in a good way. [pause] Well. A little bit in a good way. *[set]* `bg_museum_cocktail_pair_burn`
 - **Young academic**: Pre-Hispanic ceramics. My thesis. Seven years. Nobody here has asked me one question. Would you like to ask me one question? *[set]* `bg_museum_guest_academic_1`
 - **Young academic**: Yes. The cava is free. It's the only thing in academia that is. *[set]* `bg_museum_guest_academic_2`
-- **Young academic**: Fascinating. That's exactly the red of the Guanche pottery slip. Almagre. Could I just... no. Sorry. Sorry. *[set]* `bg_museum_guest_academic_burn`
+- **Young academic**: Fascinating. That's exactly the red of the old Canario pottery slip. Almagre. Could I just... no. Sorry. Sorry. *[set]* *(no recording)* `bg_museum_guest_academic_burn`
 - **Guest in a linen suit**: Cava, speeches and skulls. And then you walk in. Finally, something worth the entrada. *[set]* `bg_museum_guest_linen_1`
 - **Guest in a linen suit**: If you get bored of the skulls, I'm by the wine. I'm always by the wine. *[set]* `bg_museum_guest_linen_2`
 - **Guest in a linen suit**: ¡Ay, hombre! Who cooked you? You look like a camarón in a jacket. *[set]* `bg_museum_guest_linen_burn`

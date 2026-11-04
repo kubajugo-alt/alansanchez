@@ -14,7 +14,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Vasco**: Seven verses and seven scenes. Put them together, Alan. I'll read you any one you want. *[if]* `vasco_m_page`
 - **Vasco**: Listen to me, and only me. Each one in the socket with its sign. Then tip it until its light is on its own triangle. I'll tell you what you've hit. *[if]* `vasco_m_ready`
 - **Vasco**: I've lost the light! I can't read it without the light! `vasco_m_light`
-- **Vasco**: When the light leaves the shaft, the door's open. [pause] Flat, Alan. Onto the great triangle. `vasco_m_seventh_2`
+- **Vasco**: When that light gets out of the top of the shaft, the door's open. [pause] Flat, Alan. Onto the great triangle. *(no recording)* `vasco_m_seventh_2`
 - **Vasco**: Two minutes. Now the sun. In the middle. Alan, listen to me. Lay it flat. Send its light to the great triangle, not up the shaft. `vasco_m_seventh`
 
 ## S.startMon
@@ -22,7 +22,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 > ---------------------------------------------------------------- dawn: Baute on his stool, and Alan's answer; noon
 
 - **Baute**: I tipped it myself. The sun. At four o'clock. By eye. `baute_m_1`
-- **Baute**: I watched Elena do it a hundred times. And I watched you do it, Vasco, last week, when you thought I wasn't looking. `baute_m_1b`
+- **Baute**: I watched Elena do it a hundred times. And I watched you do it, Vasco, on Saturday, when you thought I wasn't looking. *(no recording)* `baute_m_1b`
 - **Baute**: I'm not a mathematician. But I'm not a fool either. [pause] With six of seven gone, close will do. I can see in your face that you know it. `baute_m_1c`
   *Vasco goes to the rim and looks down at the sun disc, tipped in its socket*
 - **Vasco**: It's wrong. `vasco_m_1`
@@ -35,12 +35,12 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
   *(Baute looks at him, properly, for the first time)*
 - **Alan**: It doesn't come where it's called. It goes where it wants, and it takes whatever's in its way. `alan_m_1b`
 - **Alan**: A man in Lisbon tried to point it, eight months ago. Vicente Lacerda. He had a reason too. A very good one. He'd lost someone he loved. `alan_m_1c`
-- **Alan**: When it came, it took him. It took half the people on the shore. It had me too, and it let me go, because of whose blood I've got. [pause] I don't think it'll do that twice. `alan_m_1d`
+- **Alan**: When it came, it took him. In his own cistern, in his own water. It had me too, and it let me go, because of whose blood I've got. [pause] I don't think it'll do that twice. *(no recording)* `alan_m_1d`
 - **Alan**: It doesn't listen, Dr. Baute. It's not a weapon. It's not even angry. It's just the sea. `alan_m_1e`
   *the water comes up in the hole (heard from up here; Yeray at the edge sees it), and the morning goes over them*
 - **Yeray**: Doctor! The hole. [pause] It came up a whole rung. Just like that. `yeray_m_rung`
 - **Narrator**: The morning went over them. Every half hour the water climbed another rung of the rope ladder. `narr_mon_wait`
-- **Vasco**: Look. Up the shaft, at a slant. [pause] He's sending the sun back. Without him the moon's no one's. And the sea's no one's. `vasco_m_twenty`
+- **Vasco**: Look. Up the shaft, at a slant. [pause] Magec's sending the sun back. Without him the moons answer to no one. And neither does the sea. *(no recording)* `vasco_m_twenty`
 - **Vasco**: It'll climb. When it reaches the sky, at five past two, the door opens. [pause] Alan. The discs. `vasco_m_climb`
 - **Carmen**: Five. Mira, there are only five. We need six. `carmen_m_five`
 - **Alan**: The sixth disc's in his hands. [pause] And they've just closed on it. Tighter. `alan_m_disc`
@@ -155,7 +155,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
   *(the rope ladder swinging)*
 - **Carmen**: ¡Alan! Hold on to something! `carmen_m_surge`
 - **Vasco**: Take it out! That's not where it goes. [pause] Listen to me, Alan. Only me. `vasco_m_wrong_1`
-- **Narrator**: The water dropped back to his knees, sulkily, like a dog called off. `narr_m_dog`
+- **Narrator**: The water dropped back to his knees, slowly, like a dog called off that hasn't taken its eyes off you. *(no recording)* `narr_m_dog`
 - **Vasco**: I can read you every one of them. I can't tell you which comes first. [pause] It's a song, Alan, and I don't have the words. `vasco_m_stuck`
 - **Vasco**: Alan! It's at your chest. Please. [pause] Listen to me. `vasco_m_wrong_2`
 
@@ -169,8 +169,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Narrator**: And in the south, where the resorts were, the cloud was clean. The great white hotels of Maspalomas stood along a blue and empty sea in a line like teeth, with nothing coming for them at all. `narr_m_south`
 - **Carmen**: That's my street. Under there. Calle Perdomo, above the farmacia. `carmen_m_street`
 - **Carmen**: That's La Isleta. That's where Doña Pino lives. She's seventy-four. That's the playa where Elena nearly drowned when she was a girl. `carmen_m_street_2`
-- **Carmen**: There'll be ten thousand people on it this morning, Rayco. Our people. Canarios. Asleep. `carmen_m_street_3`
-- **Narrator**: Rayco said nothing. `narr_m_baute_silent`
+- **Carmen**: There are ten thousand people on it right now, Rayco. Our people. Canarios. Sleeping off San Juan. *(no recording)* `carmen_m_street_3`
 - **Carmen**: And there's your concrete. In el sol. Look at it. Not a drop. `carmen_m_concrete`
 - **Narrator**: Something went out of Baute's face, all at once, the way a candle goes out. Thirty years of it. `narr_m_goes_out`
 - **Baute**: It was never going to listen. Was it. `baute_m_stain_3`
@@ -234,7 +233,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Yeray**: She's got the mirror off the Land Rover! Madre mía, she's going up the rock! `yeray_m_mirror`
 - **Carmen**: Venga. Venga, you ugly thing. [pause] Come on! `carmen_m_mirror`
 - **Vasco**: She's got it down the shaft! Six lit. [pause] And the sun's still sending it back up. `vasco_m_mirror_lit`
-- **Vasco**: When the light leaves the shaft, the door's open. [pause] Flat, Alan. Onto the great triangle. `vasco_m_seventh_2`
+- **Vasco**: When that light gets out of the top of the shaft, the door's open. [pause] Flat, Alan. Onto the great triangle. *(no recording)* `vasco_m_seventh_2`
 
 ## S.layFlat
 
@@ -262,7 +261,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Narrator**: Then it breathed out. A long, slow, vast exhalation, through the rock, through the mountain, through the whole island. And the water began to go down. `narr_m_breath`
 - **Narrator**: It went down the way it had come, into the rock, and it took Alan with it, as easily as a hand pulls a weed. `narr_m_drag`
 - **Narrator**: Black. Cold. The roar in his ears, and the pull, down and down. And below him, where the floor of the cave should have been, there was no stone. Only more dark, opening. `narr_m_drag_2`
-- **Alan**: So this is how she went. Alone in the water, when the door shut. `alan_m_so_this`
+- **Alan**: So this is how she went. The one who stayed in the water, when the door shut. *(no recording)* `alan_m_so_this`
 - **Narrator**: He stopped fighting. The light was on the triangle. He had done it. Nothing else mattered. `narr_m_stops`
 - **Narrator**: And a hand closed on his wrist. Hard enough to hurt. The way a man holds a rope over a cliff. `narr_m_hand`
 - **Vasco**: No. [pause] No, you don't. `vasco_m_hold`
@@ -271,7 +270,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Narrator**: Vasco knelt over him with Alan's wrist in both hands. Behind him Carmen had her fists knotted in the back of Vasco's shirt. Behind her, soaked to the shoulders, Yeray. And behind Yeray, both arms locked round the boy's waist, Rayco Baute. `narr_m_chain_2`
 - **Narrator**: Nobody let go for a long time. `narr_m_nobody`
 - **Vasco**: You stopped. I saw your face. You were letting it take you. `vasco_m_stopped`
-- **Vasco**: I've let go of people before. I got on a train once, in the middle of the night, and let go of the best man I ever knew. `vasco_m_twice`
+- **Vasco**: I've let go of people before. I got on a train once, in the middle of the night, and let go of a good man without a word. *(no recording)* `vasco_m_twice`
 - **Vasco**: I wasn't going to do it twice. `vasco_m_twice_2`
 - **Carmen**: Mira. Over the city. [pause] The black's going back into the cloud. Like ink in water. `carmen_m_city`
 - **Narrator**: Far below, through the tear, the sea lay blue. For a moment something very large turned over under it, like a sleeper, and went down. `narr_m_glimpse`
@@ -279,7 +278,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: You were right. It's beautiful. [pause] It's the most beautiful place I've ever stood. `alan_m_after`
 - **Carmen**: [pause] Huh. One try. `carmen_m_after`
 - **Yeray**: Is it over? Doctor, is it over? `yeray_m_after_1`
-- **Alan**: Tell him. Today. Not when it's convenient. `alan_m_today`
+- **Alan**: Nearly. [pause] Tell him, Alan. Today. Not when it's convenient. *(no recording)* `alan_m_today`
 
 ## S.confessionTalk
 
@@ -297,10 +296,10 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Vasco**: Later is when things go wrong with us. You know that. `vasco_m_later`
 - **Alan**: Later. [pause] I can hear myself saying it. I hate the sound of it. `alan_m_later_2`
 - **Vasco**: Yeray told me. On Saturday morning, at the camp. He said there was a Portuguese guy at Rafa's bar on Friday night. `vasco_m_plain_1`
-- **Vasco**: Funny. Sad underneath. Like a man at his own party who doesn't know why he came. `vasco_m_knew_2`
-- **Vasco**: I told myself it couldn't be you. There are a great many Portuguese men in Las Palmas. I lay in that vault all night and told myself that, over and over. `vasco_m_knew_3`
+- **Vasco**: He said he was funny. Sad underneath. Like a man at his own party who doesn't know why he came. *(no recording)* `vasco_m_knew_2`
+- **Vasco**: I told myself it couldn't be you. There are a great many Portuguese men in Las Palmas. I lay in that vault a night and a day and told myself that, over and over. *(no recording)* `vasco_m_knew_3`
 - **Vasco**: [pause] And I knew. Of course I knew. `vasco_m_knew_4`
-- **Vasco**: Then you came down the steps into the water to get me. And I thought: if he tells me, he'll tell me before I ask. And if he doesn't, he'll wait until I do. `vasco_m_knew_5`
+- **Vasco**: Then you came down the steps into the water to get me. And I thought: if he's the man I think he is, he'll tell me before I ask. If he isn't, he'll wait until I do. *(no recording)* `vasco_m_knew_5`
 
 ## S.confess
 
@@ -308,9 +307,9 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: On Friday night, after you left, I went out. To a bar in Vegueta. Rafa's bar. I drank too much rum. `alan_m_confess_1`
 - **Alan**: And I met someone. The barman. Rafa. And I slept with him. `alan_m_confess_1b`
 - **Alan**: He asked me if there was someone. Straight out. And I said no. [pause] I said it twice. `alan_m_confess_1c`
-- **Alan**: I broke both of them. Both your rules. I didn't tell you first. And I did it on purpose. *[choice]* `alan_m_plain`
+- **Alan**: I broke both of them. Both our rules. I didn't tell you first. And I did it on purpose. *[choice]* *(no recording)* `alan_m_plain`
 - **Alan**: Because we'd had a fight. Because you'd left. Because I was angry and frightened and I wanted, for one night, to be somebody with nothing to lose. `alan_m_plain_2`
-- **Alan**: And then I lied to him about you. And I would have lied to you about him. On Saturday morning I was already working out how. `alan_m_plain_3`
+- **Alan**: I lied to him about you. And I would have lied to you about him. On Saturday morning I was already working out how. *(no recording)* `alan_m_plain_3`
 - **Alan**: That's all of it. I won't say I was drunk. I won't say it meant nothing. [pause] It didn't. I'm not lying about that either. `alan_m_plain_4`
   *(a very long look)*
 - **Vasco**: You didn't wait. `vasco_m_didnt_wait`
@@ -319,10 +318,10 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: You'd left. I was drunk. I thought we were over. I thought you'd gone. *[choice]* `alan_m_excuses`
 - **Alan**: You'd walked out. It was the solstice. I'd had five rums. I was trying not to think, and I'm very good at that. `alan_m_excuses_2`
   *(Vasco says nothing for a long time)*
-- **Vasco**: [pause] I know I left. I know about the rum. [pause] That's not the bit that hurts. `vasco_m_excuses_1`
+- **Vasco**: [pause] I know I left. I know about the rum. [pause] That's not the bit that hurts. You told him there was no one. *(no recording)* `vasco_m_excuses_1`
 - **Vasco**: [pause] Thank you for telling me first. `vasco_m_first`
 - **Alan**: And it's all my fault. Everything. The desk, the fight, the bar. I'm a disaster. I don't deserve you. You should go. *[choice]* `alan_m_blame`
-- **Alan**: I'm the worst thing that's ever happened to you. Worse than the Church. Worse than Rome. `alan_m_blame_2`
+- **Alan**: I'm the worst thing that's ever happened to you. Worse than the Church. Worse than that night train. *(no recording)* `alan_m_blame_2`
 - **Vasco**: Stop. [pause] Don't make it so big that I have to comfort you. That's another kind of door, Alan. Stay in the room. `vasco_m_blame_1`
 - **Vasco**: You didn't wait. `vasco_m_didnt_wait`
 - **Alan**: No. `alan_m_no`
@@ -340,7 +339,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 
 > the radio, fuse restored: the Guardia Civil
 
-- **Alan**: The camp radio. No fuse. Dead as a door. `alan_radio_dead`
+- **Alan**: The camp radio. No fuse. Dead as a doornail. *(no recording)* `alan_radio_dead`
 - **Alan**: The radio's alive. The Guardia are coming. Everything's coming. `alan_radio_mon`
 - **Alan**: The fuse in. A crackle, a hiss, and a voice from Artenara saying 'Diga'. `alan_m_fuse_in`
 - **Carmen**: Give me that. [pause] Guardia Civil, Artenara. This is Dr. Carmen Trujillo, at Risco Caído. I have a man here who wants to turn himself in. [pause] No, I'm not joking. When do I joke? `carmen_m_radio`
@@ -353,7 +352,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 
   *Carmen and Rayco on the rock at the cave mouth; the keys; the Guardia at nine*
   *the narrator keeps the Guardia's coming, and one line over the drive down)*
-- **Carmen**: They'll be here in an hour, Rayco. I told them you'd be waiting. `carmen_m_tell_rayco`
+- **Carmen**: It's done, Rayco. They're on their way. I said you'd be here. *(no recording)* `carmen_m_tell_rayco`
 - **Baute**: [pause] I'll wait. `baute_m_wait`
 - **Carmen**: I'll come down with you. In the car. I'm not letting you go down that road on your own. `carmen_m_ride`
 - **Baute**: Carmen. [pause] Elena... `baute_m_elena`
@@ -385,7 +384,7 @@ From `js/story/mon.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Chano**: Up the montaña. `chano_end_2`
 - **Alan**: Up the mountain. `alan_end_mountain`
   *(Chano nods, as if he'd said so all along, and leans over the counter)*
-- **Chano**: My cousin's husband's brother was out on his boat at sunrise this morning. Off Agaete. And he swears to God, on his mother's grave, he saw San Borondón. `chano_end_3`
+- **Chano**: My cousin's wife's sister's husband was out on his boat at sunrise this morning. Off Agaete. And he swears to God, on his mother's grave, he saw San Borondón. *(no recording)* `chano_end_3`
 - **Chano**: The island. The one that's only there sometimes. It came up out of the sea at sunrise, green, with trees on it, and mountains. Then el sol came up, and it was gone. `chano_end_4`
 - **Chano**: Of course, he's a liar. Everybody knows he's a liar. [pause] But still. Strange day. `chano_end_5`
 - **Alan**: Strange day. `alan_end_strange`

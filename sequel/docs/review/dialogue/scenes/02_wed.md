@@ -14,11 +14,11 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Vasco**: I'll be back for dinner. Late. Go and see the island. `vasco_w_dawn_2`
 - **Alan**: Mm. `alan_w_dawn_1`
 - **Vasco**: Alan. [pause] Are you all right? Last night, on the promenade. You looked like you'd seen a ghost. `vasco_w_dawn_3`
-- **Alan**: Say it. I did see a ghost. The thing from the cistern. It's here, and I'm frightened. `alan_w_dawn_say`
 - **Alan**: Sunburn. [pause] I'm delicate. `alan_w_dawn_3`
-  *he gets up, and drinks the terrible coffee*
-- **Alan**: [pause] He was right. It's terrible. `alan_w_coffee`
-- **Alan**: Up the mountain, into the sun. Down here it's grey, and I have a whole day and nothing to do with it but worry. `alan_w_wake`
+- **Alan**: I should have said it. I saw a ghost. The thing from the cistern. It's here, and I'm frightened. *(no recording)* `alan_w_dawn_say`
+  *he gets up and looks at the terrible coffee; he leaves it (he drinks it only on the last morning, the motif)*
+- **Alan**: [pause] Terrible, he says. [pause] I'll take his word for it. *(no recording)* `alan_w_coffee`
+- **Alan**: He's gone up the mountain, into the sun. Down here it's grey, and I have a whole day and nothing to do with it but worry. *(no recording)* `alan_w_wake`
 
 ## room isleta
 
@@ -26,7 +26,7 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: An old man in a flat cap, mending nets, with a cigarette he never lights. *[if]* `alan_look_lolo`
 - **Alan**: Something in the net the colour of dried blood. A helmet. A conquistador's helmet, in a fishing net. *[if]* `alan_look_nets_wed`
 - **Alan**: Nets drying on the quay. Patched and patched again. Like everything that lasts. *[if]* `alan_look_nets`
-- **Alan**: Painted boats. Virgen del Carmen. Virgen del Pino. Half the fleet is named after the Virgin, which seems sensible here. `alan_look_boats`
+- **Alan**: Painted boats. Virgen del Carmen. Virgen del Pino. Half the fleet named for the Virgin. Somebody out here wants looking after. *(no recording)* `alan_look_boats`
   *one of the set alan_look_finds_ (4), chosen in the code:*
 - **Alan**: A clay pot, a cannonball grown over with orange coral, an iron bolt and the helmet. Five hundred years down there. All of it coming up this week. *[set]* `alan_look_finds_2`
 - **Alan**: More since yesterday. A sword hilt. A Castilian coin. The sea is clearing its shelves. *[set]* `alan_look_finds_3`
@@ -45,17 +45,17 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: A pot furred with weed. An iron ball grown over with coral. And a helmet, with a crab living in it. `alan_w_pino_0`
 - **Alan**: That's old. `alan_w_pino_1`
 - **Doña Pino**: Fourteen seventy-eight. The year the Castilians came. My grandson took one like it to el museo last week, and they told him. `pino_w_2`
-- **Doña Pino**: Five hundred years in el mar, and it comes up in my net in the same week. `pino_w_2b`
+- **Doña Pino**: Five hundred years in el mar, and now two in one week. His, and mine. *(no recording)* `pino_w_2b`
 - **Doña Pino**: Fuera, cangrejo. Go and find your own house. `pino_w_crab`
 - **Doña Pino**: Every day this week. Every day, something. Cannonballs. Crossbow bolts. Pots. A sword on Saturday, all in one piece. [pause] The sea's emptying its pockets. `pino_w_2c`
 - **Alan**: Why? `alan_w_pino_2`
 - **Doña Pino**: Because it's looking for something. When you lose something, you empty your pockets. `pino_w_3`
-- **Doña Pino**: Pino. Doña Pino, to you. That's Lolo. He doesn't talk. `pino_w_1`
+- **Doña Pino**: Don't ask me for what. Ask el mar. [pause] I'm Pino. Doña Pino, to you. That's Lolo. He doesn't talk. *(no recording)* `pino_w_1`
 - **Don Lolo**: I talk. `lolo_w_talk`
 - **Doña Pino**: He doesn't talk to tourists. `pino_w_tourists`
 - **Alan**: I'm not a tourist. I'm Portuguese. `alan_w_pino_3`
 - **Doña Pino**: That's worse. The Portuguese think they own el mar. `pino_w_worse`
-- **Doña Pino**: Pretty, though. Lolo, mira. A pretty one. [pause] Pity about the trousers. `pino_w_pretty`
+- **Doña Pino**: Pretty, though. Lolo, mira. A pretty one. [pause] Pity about the shorts. *(no recording)* `pino_w_pretty`
 - **Alan**: Thank you. I think. [pause] The trousers have had a very difficult week. `alan_w_pino_shy`
 - **Doña Pino**: You know what the old people said here, when I was a girl? They said the sea has a memory. `pino_w_memory_1`
 - **Doña Pino**: It never forgets anything it's taken. [pause] And it never forgets anything that was taken back from it. `pino_w_memory_2`
@@ -67,7 +67,7 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Doña Pino**: On Saturday. My grandson wanted to sell it to a German on la playa. I hit him with it. [pause] The flat side. I'm not a savage. `pino_w_sword`
 - **Alan**: Is Don Lolo your husband? *[choice]* `alan_ask_pino_lolo`
 - **Doña Pino**: Fifty-five years. He mends the nets. I mend everything else. `pino_w_lolo`
-- **Don Lolo**: Fifty-five years. I married her in a storm. She hasn't forgiven me for the storm. `lolo_w_1`
+- **Don Lolo**: Fifty-five. [pause] In a storm. *(no recording)* `lolo_w_1`
 - **Alan**: Look after yourself, Doña Pino. *[choice]* `alan_bye_pino`
 - **Doña Pino**: Go on, Portuguese. Go and look at something dry. La catedral. [pause] I'll keep the helmet. Somebody should. `pino_w_again`
 - **Alan**: Pepe Santana. The fisherman. Did you know him? *[choice]* `alan_ask_pino_pepe`
@@ -89,7 +89,7 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: And you stayed. *[if]* `alan_f_lolo`
 - **Don Lolo**: Staying's not hard. It's every day. That's all it is. Every day. *[if]* `lolo_f_2`
 - **Don Lolo**: Mmh. *[if]* `lolo_again`
-- **Don Lolo**: Fifty-five years. I married her in a storm. She hasn't forgiven me for the storm. *[if]* `lolo_w_1`
+- **Don Lolo**: Fifty-five. [pause] In a storm. *[if]* *(no recording)* `lolo_w_1`
 
 ## room santa_ana
 
@@ -97,7 +97,7 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 
 - **Alan**: Going again. A clock I wound. My grandfather would have something to say about that. He'd say it in a ledger. *[if]* `alan_look_clock_going`
 - **Alan**: The cathedral clock. Stopped. Every so often something up there grinds, and catches, and gives up. I know the feeling. *[if]* `alan_look_clock_stopped`
-- **Alan**: Eight bronze dogs, life-sized. Nobody has ever been able to explain them to me. The islands were named for dogs, apparently. Canis. `alan_look_dogs`
+- **Alan**: Eight bronze dogs, life-sized. The islands were named for dogs, apparently. Canis. [pause] Not a canary in sight. *(no recording)* `alan_look_dogs`
 - **Alan**: Santa Ana. Big, grey, Gothic outside, with a sense of humour inside, I bet. `alan_look_cathedral_door`
   *first time: the decision made on the walk ("the kind of decision that felt brave at the time") and the plaza; with*
   *the founders' letter, back down from the tower: he opens it on the fountain's edge, between two of the dogs*
@@ -106,7 +106,7 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Narrator**: It was the kind of decision that felt brave at the time. *[if]* `narr_w_decide_4`
 - **Alan**: Cathedrals are where bells are. And bells, in my experience, are where trouble is. *[if]* `alan_w_plaza`
   *he sits down by the bronze dogs and opens it*
-- **Alan**: Four sheets, both sides, in a small brown hand. Portuguese. The Portuguese of two and a half centuries ago. `alan_w_open_0`
+- **Alan**: Four sheets, both sides, in a small brown hand, faded almost to nothing. Portuguese, two and a half centuries old. *(no recording)* `alan_w_open_0`
 - **Alan**: Aos que vierem depois de nós. [pause] To those who come after us. `alan_w_open_1`
 - **Alan**: And further down: Mar. The Sea. [pause] With a capital letter. `alan_w_open_mar`
 - **Alan**: One word in four I can read. Inês can read all of them. [pause] Inês needs a fax machine. `alan_w_letter`
@@ -137,9 +137,9 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Don Fermín**: The canon says get a young man. I say young men don't come to cathedrals. [pause] You came. `fermin_clock_2`
 - **Alan**: I could try. Let me wind it. *[choice]* `alan_offer_wind`
 - **Alan**: How many bells? *[choice]* `alan_ask_fermin_bells`
-- **Don Fermín**: Four. The big one, the north one, is the oldest. Cast in 1751. My grandfather never liked to talk about her. `fermin_bells`
+- **Don Fermín**: Four. The big one, the north one, is the oldest. Older than the clock. [pause] My grandfather never liked to talk about her. *(no recording)* `fermin_bells`
 - **Alan**: The founders. What else do the records say? *[choice]* `alan_ask_fermin_founders`
-- **Don Fermín**: That they went up to Artenara for a month, and came back quiet. And one of them came back white as a candle, and never said why. `fermin_founders`
+- **Don Fermín**: Up to Artenara, señor, for a month. Where the caves are. They came back quiet, and one of them white as a candle, and never said why. *(no recording)* `fermin_founders`
 - **Alan**: Thank you, Don Fermín. *[choice]* `alan_bye_fermin`
 - **Don Fermín**: Go with God. He's slower than he was too. `fermin_bye`
 
@@ -249,12 +249,12 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 > the toll (the user, 2026-10-30): no talk in the archive without a packet of cigarettes from Chano's kiosk, once a day
 
 - **Carmen**: Still no tabaco? Then still no Carmen. *[if]* `carmen_cigs_none_2`
-- **Carmen**: No. Not one word until there's a cigarette in my hand. Bring me cigarettes. The kiosk on Las Canteras. Coronas. Vamos. *[if]* `carmen_cigs_none`
+- **Carmen**: Not one word. This is my last one, and I'm not wasting it on you. Bring me Coronas. The kiosk on Las Canteras. Vamos. *[if]* *(no recording)* `carmen_cigs_none`
 - **Alan**: The toll. Right. Back in a minute. *[if]* `alan_cigs_none`
 - **Alan**: Coronas, Doctor. Your fee. *[if]* `alan_cigs_give`
   *one of the set carmen_cigs_thanks_ (3), chosen in the code:*
 - **Carmen**: Coronas. Gracias. [pause] That buys you the chair. Not the conversation. *[set]* `carmen_cigs_thanks_2`
-- **Carmen**: You're learning, inglés. Good. That's the first thing anyone has learned in this museum in years. *[set]* `carmen_cigs_thanks_3`
+- **Carmen**: You're learning, portugués. Good. That's the first thing anyone has learned in this museum in years. *[set]* *(no recording)* `carmen_cigs_thanks_3`
 - **Carmen**: Coronas. Even today. [pause] Bueno. *[set]* `carmen_cigs_thanks_4`
 
 ## S.talkCarmen
@@ -293,7 +293,7 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Carmen**: Abreu Galindo, fifteen-nineties. If you want to understand this island, start with the people it belonged to. `carmen_w_galindo`
 - **Carmen**: Read the part about the harimaguadas. [pause] And bring it back. It's the archive's copy. If you get sand in it, I'll have you deported. `carmen_w_galindo2`
   *Carmen alone (Alan has gone up the stairs): the photograph righted, Elena's message in her head, the lighter's three tries*
-- **Carmen**: Two idiots on a mountain, squinting at el sol. [pause] I still haven't erased your message, Elena. `carmen_w_alone`
+- **Carmen**: Two idiots on a mountain, squinting at el sol. [pause] He smelled it too, Elena. *(no recording)* `carmen_w_alone`
 - **Elena**: And it isn't a calendar either. I've been reading it wrong for a year. [pause] It's a door, Carmen. And someone's opening it. `elena_msg_02`
 
 ## room museum_hall (arrival)
@@ -301,8 +301,8 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
   *the van at the side door (the hall's door, x 1150), the crates going out; he stops by the nearest and reads its sheet*
 - **Alan**: A van at the side door. Montesdeoca Hoteles, in gold letters. They're loading crates into it. `alan_w_van`
 - **Alan**: 'Conservation transfer. Risco Caído, Cave 6.' [pause] 'Obsidian disc, polished, two of seven. Removed for conservation. Twentieth of January.' `alan_w_crate_1`
-- **Alan**: And under it, the others. One a month since December. Six lines, six signatures. [pause] And the crate's going down the hill today. `alan_w_crate_2`
-- **Guard**: Display cases, señor. Nuevas. A gift for el museo, from Don Ignacio. `guard_w_van`
+- **Alan**: And under it, the others. One a month since December. Six lines, six dates. [pause] And the crate's going out today, in a hotelier's van. *(no recording)* `alan_w_crate_2`
+- **Guard**: The cases come in, señor. Nuevas, a gift from Don Ignacio. These go out. *(no recording)* `guard_w_van`
 - **Alan**: And the discs? `alan_w_crate_3`
 - **Guard**: I just carry them, señor. `guard_w_carry`
 
@@ -314,14 +314,14 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
 - **Alan**: How do you... `alan_w_chano_1`
 - **Chano**: Everyone saw Montesdeoca's van. Montesdeoca's van is very big. `chano_w_th_2`
 - **Chano**: You know what he wants? A hotel in Artenara. A big one. Guanche-themed. With a cave restaurant, and waiters in goatskins, hombre. `chano_w_th_3`
-- **Chano**: And the only thing in his way is that dig. If the cave's important, he can't build. But if somebody proves the cave's not important... `chano_w_th_4`
+- **Chano**: Why do you think he pays for the dig, hombre? So he's holding the spade. If the cave's important, he can't build. But if somebody proves it's not... *(no recording)* `chano_w_th_4`
   *(he lets it hang, and sells a woman a lottery ticket)*
 - **Alan**: Montesdeoca, nodding along while Vasco explained the light, as if he understood every word. `alan_w_chano_2`
 - **Alan**: It makes sense. It's neat. [pause] It's exactly what a frightened man would like to be true. `alan_w_chano_3`
 
 ## S.checkWed
 
-- **Alan**: A helmet from the conquest, discs leaving a cave one a month, our mark on a bell, and a letter nobody's opened in two hundred and forty-five years. `alan_w_done`
+- **Alan**: A helmet from the conquest, discs leaving a cave one a month, our mark on a bell, and a letter that waited two hundred and forty-five years for me. *(no recording)* `alan_w_done`
 - **Alan**: Back to the hotel. Vasco's home tonight. [pause] And tonight I tell him. `alan_w_done_2`
 
 ## S.endWed
@@ -331,7 +331,7 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
   *he comes in grey with dust and falls across the bed in his boots; Alan unlaces them*
 - **Vasco**: I love it. I love it so much. [pause] My back is broken. `vasco_w_night_1`
 - **Alan**: Boots off, professor. [pause] Come here. `alan_w_boots`
-- **Vasco**: Six sockets empty now. They came out before I got here, one a month. Rayco's sent them all down to the city for conservation. I signed the papers for the lot my first week. `vasco_w_night_2`
+- **Vasco**: Six sockets empty. They came out before I got here, one a month. Rayco's sent them all down to the city for conservation. I signed the papers for the lot my first week. *(no recording)* `vasco_w_night_2`
 - **Vasco**: He wants them stabilised before the public opening in the autumn. He's right, obsidian splits along the grain. `vasco_w_night_3`
 - **Vasco**: But I hate it. I hate seeing the empty sockets. [pause] It's like a smile with teeth missing. `vasco_w_night_4`
 - **Alan**: Vasco. `alan_w_night_1`
@@ -342,4 +342,4 @@ From `js/story/wed.js`, scene by scene. Each scene is a room (its hotspots' line
   *(the still shows him in bed, the shutters closed, the door barred; the sea is heard, never shown; Chano and Doña*
   *Pino tell the rest on Thursday: 1971, the son who found him, the lungs full of the sea)*
 - **Narrator**: A month before, on the night of the new moon, in La Isleta, a fisherman called Pepe Santana went to bed with the window shut. `narr_pepe_1`
-- **Narrator**: He only said, very quietly, into the dark: 'Ah. There you are.' `narr_pepe_9`
+- **Narrator**: At the end he said, very quietly, into the dark: 'Ah. There you are.' *(no recording)* `narr_pepe_9`
