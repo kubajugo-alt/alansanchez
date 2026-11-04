@@ -2229,3 +2229,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     Netlify `6aeb79b735cc919c87afb229`. Live: page 200, `/.env` and `/scripts/` 404; lighting.js, index.html, offline.json
     byte-equal; by default the rooms are lit (`LIGHT2` true, Rafa's lantern power 0.5), with `?light=0` as before; live
     smoke bar, belfry, lobby pass. Merged into master by PR kubajugo-alt/alansanchez#20.
+161. **The round contact shadow gone, in both games** (2026-11-04, the user: "the games have 2 shadows - the one you built,
+    but also one round dark one under every sprite. I don't like that round one - I'd remove it from the engine totally,
+    for all games"). `js/engine/lights.js` `groundShadows` no longer draws the dark ellipse under the feet (nor reads a
+    room's `light.ao` or a figure's `def.shadow`, which only shaped it); a figure is grounded by the shadows its room's lights
+    cast (entries 158-160). The same file in Game I (its handoff entry 92). The Gando kiss figure's `shadow` setting removed.
+    Deployed (the user: "yes"), both games from `56c8bb00`: Game II's export (557 MB) won play.mjs in 132 steps; Netlify
+    `6aeb9044919e2db1b849cbb6` (the first upload failed, the second went through). Live: lights.js byte-equal, no contact
+    shadow in it, smoke tue, bar pass. Game I: Netlify `6aeb8e977b2565722bac0623` (its entry 92). Merged by PR #21.

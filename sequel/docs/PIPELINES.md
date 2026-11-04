@@ -149,7 +149,7 @@ with and without `?env=2`. Electric lights burn steady; only wicks and flames fl
 - **Two people in one action** (the airport kiss, HANDOFF 119): put both standing sprites side by side in one 720-tall
   frame (`art/sprites/pair_gando_stand.webp`), Ludo from that single frame with a prompt, play forward, hold, then
   backwards so they end as they stood; one `duo_*` character on the first person's feet, both real actors hidden
-  meanwhile; `def.shadow` stretches the contact shadow over both. Time it to the line that describes it.
+  meanwhile (a two-person figure casts its shadows from the room's lights like anyone; no contact shadow since HANDOFF 161). Time it to the line that describes it.
 
 ## 7. Background people and props (51-56, 71-74, 79-85)
 

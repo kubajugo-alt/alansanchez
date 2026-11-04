@@ -82,7 +82,7 @@
       { id: 'vasco', x: 900, y: 650, dir: 'w', name: 'Vasco', when: () => ch() === 1 && !F().met_vasco,
         look: 'alan_look_vasco_gando', talk: () => S.meetVasco() },
       // the two of them kissing (hidden till then; S.kissAtGando swaps it in for them and back)
-      { id: 'duo_kiss', ch: 'duo_gando_kiss', x: 200, y: 650, dir: 'e', fixedDir: true, shadow: { dx: 0.22, wide: 2.0 }, when: () => ch() === 1 && !F().met_vasco, init: a => { a.visible = false; } },
+      { id: 'duo_kiss', ch: 'duo_gando_kiss', x: 200, y: 650, dir: 'e', fixedDir: true, when: () => ch() === 1 && !F().met_vasco, init: a => { a.visible = false; } },
       { id: 'clerk', ch: 'clerk', x: 1000, y: 640, dir: 'w', name: 'Check-in clerk', when: () => ch() === 6,
         look: 'alan_look_clerk', talk: () => S.badEnding() },
     ],
