@@ -1,0 +1,3586 @@
+{
+ "map": {
+  "name": "Las Palmas",
+  "bgs": [
+   "map"
+  ],
+  "hotspots": [
+   {
+    "name": "Las Canteras · the beach, the kiosk, the phone box",
+    "rect": [
+     638,
+     432,
+     60,
+     80
+    ],
+    "exit": "canteras",
+    "when": "F().ch >= 1 && F().ch <= 6",
+    "at": null,
+    "noBox": true
+   },
+   {
+    "name": "Hotel Cristina",
+    "rect": [
+     676,
+     410,
+     60,
+     80
+    ],
+    "exit": "hotel_lobby",
+    "when": "F().ch >= 1 && F().ch <= 6",
+    "at": null,
+    "noBox": true
+   },
+   {
+    "name": "Mercado del Puerto · the aloe lady",
+    "rect": [
+     660,
+     392,
+     60,
+     80
+    ],
+    "exit": "mercado",
+    "when": "F().ch === 1 && F().aloe_sent && !F().aloe_done",
+    "at": null,
+    "noBox": true
+   },
+   {
+    "name": "La Isleta · the fishermen's quay",
+    "rect": [
+     388,
+     256,
+     60,
+     80
+    ],
+    "exit": "isleta",
+    "when": "(F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && !F().isleta_flood && ((F().case_sat && !F().radio_lolo_got) || F().next_known))",
+    "at": null,
+    "noBox": true
+   },
+   {
+    "name": "El Museo Canario · Vegueta",
+    "rect": [
+     1126,
+     178,
+     60,
+     80
+    ],
+    "exit": "museum_out",
+    "when": "(F().ch === 1 && F().blazer_on && F().called_tue && !F().reception_done) || F().ch === 2 || (F().ch === 3 && !F().caught) || (F().ch === 4 && !F().cave_explaine",
+    "at": null,
+    "noBox": true
+   },
+   {
+    "name": "Plaza de Santa Ana · the cathedral",
+    "rect": [
+     1136,
+     158,
+     60,
+     80
+    ],
+    "exit": "santa_ana",
+    "when": "(F().ch >= 2 && F().ch <= 4) || (F().ch === 5 && F().radio_lolo_got && !F().radio_lie)",
+    "at": null,
+    "noBox": true
+   },
+   {
+    "name": "Casa de Colón",
+    "rect": [
+     1108,
+     165,
+     60,
+     80
+    ],
+    "exit": "colon_out",
+    "when": "F().ch === 3 && F().sent_to_colon && !F().folio12",
+    "at": null,
+    "noBox": true
+   },
+   {
+    "name": "Vegueta · a bar on Calle Mendizábal",
+    "rect": [
+     1115,
+     172,
+     60,
+     80
+    ],
+    "exit": "rafa_bar",
+    "when": "F().ch === 4 && F().cave_explained && !F().rafa_night",
+    "at": null,
+    "noBox": true
+   },
+   {
+    "name": "Triana · Carmen's flat",
+    "rect": [
+     1049,
+     190,
+     60,
+     80
+    ],
+    "exit": "carmen_flat",
+    "when": "F().ch === 6 && F().chose_carmen",
+    "at": null,
+    "noBox": true
+   }
+  ],
+  "walk": null,
+  "painted": false
+ },
+ "elena_car": {
+  "name": "Elena's Renault 4",
+  "bgs": [
+   "elena_car"
+  ],
+  "hotspots": [
+   {
+    "name": "The radio",
+    "rect": [
+     605,
+     515,
+     190,
+     50
+    ],
+    "exit": null,
+    "when": null,
+    "at": null,
+    "noBox": false
+   },
+   {
+    "name": "Notebook on the passenger seat",
+    "rect": [
+     850,
+     550,
+     290,
+     165
+    ],
+    "exit": null,
+    "when": null,
+    "at": null,
+    "noBox": false
+   },
+   {
+    "name": "The rear-view mirror",
+    "rect": [
+     575,
+     40,
+     185,
+     65
+    ],
+    "exit": null,
+    "when": null,
+    "at": null,
+    "noBox": false
+   },
+   {
+    "name": "The window crank",
+    "rect": [
+     50,
+     535,
+     90,
+     85
+    ],
+    "exit": null,
+    "when": null,
+    "at": null,
+    "noBox": false
+   },
+   {
+    "name": "The air",
+    "rect": [
+     130,
+     60,
+     1080,
+     280
+    ],
+    "exit": null,
+    "when": "phase >= 1",
+    "at": null,
+    "noBox": true
+   }
+  ],
+  "walk": [
+   [
+    0,
+    575
+   ],
+   [
+    1280,
+    575
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "gando": {
+  "name": "Gando airport",
+  "bgs": [
+   "gando"
+  ],
+  "hotspots": [
+   {
+    "name": "Baggage belt",
+    "rect": [
+     300,
+     430,
+     580,
+     130
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     590,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Arrivals board",
+    "rect": [
+     550,
+     80,
+     390,
+     200
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     745,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Taxi rank",
+    "rect": [
+     1145,
+     250,
+     115,
+     260
+    ],
+    "when": "ch() === 1",
+    "at": [
+     1202.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Back to the city",
+    "rect": [
+     1145,
+     250,
+     115,
+     260
+    ],
+    "exit": null,
+    "when": "ch() === 6",
+    "at": [
+     1202.5,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    560
+   ],
+   [
+    300,
+    570
+   ],
+   [
+    880,
+    540
+   ],
+   [
+    1100,
+    520
+   ],
+   [
+    1280,
+    515
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "hotel_lobby": {
+  "name": "Hotel Cristina",
+  "bgs": [
+   "hotel_lobby",
+   "hotel_lobby_day"
+  ],
+  "hotspots": [
+   {
+    "name": "Lost and found box",
+    "rect": [
+     440,
+     270,
+     120,
+     80
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     500,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Fax machine",
+    "rect": [
+     695,
+     305,
+     95,
+     50
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     742.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "House phone",
+    "rect": [
+     845,
+     320,
+     65,
+     35
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     877.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Lifts",
+    "rect": [
+     1005,
+     100,
+     195,
+     420
+    ],
+    "exit": "hotel_room",
+    "when": null,
+    "at": [
+     1102.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "To the restaurant",
+    "rect": [
+     1230,
+     420,
+     50,
+     296
+    ],
+    "exit": "hotel_restaurant",
+    "when": null,
+    "at": [
+     1210,
+     680
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Out to Las Canteras",
+    "rect": [
+     0,
+     60,
+     230,
+     450
+    ],
+    "exit": "canteras",
+    "when": null,
+    "at": [
+     115,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    560
+   ],
+   [
+    345,
+    592
+   ],
+   [
+    940,
+    592
+   ],
+   [
+    1000,
+    528
+   ],
+   [
+    1080,
+    528
+   ],
+   [
+    1060,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "hotel_room": {
+  "name": "Room 404",
+  "bgs": [
+   "hotel_room"
+  ],
+  "hotspots": [
+   {
+    "name": "Balcony window",
+    "rect": [
+     810,
+     100,
+     220,
+     440
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     920,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Bed",
+    "rect": [
+     30,
+     340,
+     570,
+     280
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     315,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Note on the pillow",
+    "rect": [
+     60,
+     400,
+     80,
+     40
+    ],
+    "exit": null,
+    "when": "ch() === 2",
+    "at": [
+     100,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Vasco's field bag",
+    "rect": [
+     665,
+     470,
+     95,
+     75
+    ],
+    "exit": null,
+    "when": "ch() <= 3",
+    "at": [
+     712.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Packed bag",
+    "rect": [
+     665,
+     470,
+     95,
+     75
+    ],
+    "exit": null,
+    "when": "ch() === 6",
+    "at": [
+     712.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Door",
+    "rect": [
+     1155,
+     120,
+     125,
+     460
+    ],
+    "exit": "hotel_lobby",
+    "when": null,
+    "at": [
+     1217.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Chest of drawers",
+    "rect": [
+     470,
+     350,
+     230,
+     175
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     600,
+     640
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    600,
+    560
+   ],
+   [
+    1150,
+    560
+   ],
+   [
+    1280,
+    600
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    380,
+    716
+   ],
+   [
+    560,
+    640
+   ]
+  ],
+  "painted": true
+ },
+ "canteras": {
+  "name": "Las Canteras",
+  "bgs": [
+   "canteras"
+  ],
+  "hotspots": [
+   {
+    "name": "Down to the beach",
+    "rect": [
+     780,
+     470,
+     320,
+     90
+    ],
+    "exit": "beach",
+    "when": null,
+    "at": [
+     900,
+     645
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The sea",
+    "rect": [
+     420,
+     365,
+     600,
+     100
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     720,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Bonfires",
+    "rect": [
+     600,
+     405,
+     300,
+     80
+    ],
+    "exit": null,
+    "when": "ch() >= 2",
+    "at": [
+     750,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Phone box",
+    "rect": [
+     292,
+     288,
+     130,
+     310
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     357,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Kiosk",
+    "rect": [
+     0,
+     165,
+     265,
+     460
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     132.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Hotel Cristina",
+    "rect": [
+     1100,
+     120,
+     180,
+     470
+    ],
+    "exit": "hotel_lobby",
+    "when": null,
+    "at": [
+     1190,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "To the city",
+    "rect": [
+     440,
+     585,
+     300,
+     55
+    ],
+    "exit": "map",
+    "when": null,
+    "at": [
+     590,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Tide table",
+    "rect": [
+     340,
+     345,
+     35,
+     105
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     400,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    640
+   ],
+   [
+    275,
+    630
+   ],
+   [
+    430,
+    590
+   ],
+   [
+    1040,
+    575
+   ],
+   [
+    1280,
+    600
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "museum_out": {
+  "name": "El Museo Canario",
+  "bgs": [
+   "museum_out"
+  ],
+  "hotspots": [
+   {
+    "name": "El Museo Canario",
+    "rect": [
+     575,
+     330,
+     115,
+     195
+    ],
+    "exit": "museum_hall",
+    "when": null,
+    "at": [
+     632,
+     560
+    ],
+    "noBox": false
+   },
+   {
+    "name": "To the city",
+    "rect": [
+     0,
+     380,
+     60,
+     330
+    ],
+    "exit": "map",
+    "when": null,
+    "at": [
+     60,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    560
+   ],
+   [
+    560,
+    545
+   ],
+   [
+    720,
+    545
+   ],
+   [
+    1280,
+    560
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "museum_hall": {
+  "name": "El Museo Canario",
+  "bgs": [
+   "museum_hall"
+  ],
+  "hotspots": [
+   {
+    "name": "Display cases",
+    "rect": [
+     170,
+     250,
+     220,
+     310
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     280,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Montesdeoca's van",
+    "rect": [
+     1050,
+     230,
+     205,
+     300
+    ],
+    "exit": null,
+    "when": "ch() === 2",
+    "at": [
+     1152.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Door to the steps",
+    "rect": [
+     1050,
+     230,
+     205,
+     300
+    ],
+    "exit": "museum_courtyard",
+    "when": "ch() === 1",
+    "at": [
+     1152.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Corridor to the offices",
+    "rect": [
+     440,
+     300,
+     150,
+     210
+    ],
+    "exit": "baute_office",
+    "when": "ch() === 3 && S.dinnerDue()",
+    "at": [
+     515,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Dinner table",
+    "rect": [
+     160,
+     455,
+     440,
+     150
+    ],
+    "exit": null,
+    "when": "ch() === 3 && S.dinnerDue()",
+    "at": [
+     400,
+     690
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Archive stairs",
+    "rect": [
+     840,
+     260,
+     160,
+     255
+    ],
+    "exit": "archive",
+    "when": "ch() >= 2 && ch() <= 4 && !(ch() === 3 && S.dinnerDue())",
+    "at": [
+     920,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Out to Vegueta",
+    "rect": [
+     0,
+     120,
+     130,
+     440
+    ],
+    "when": null,
+    "at": [
+     65,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    580
+   ],
+   [
+    170,
+    562
+   ],
+   [
+    600,
+    522
+   ],
+   [
+    1280,
+    532
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "museum_corridor": {
+  "name": "The corridor of skulls",
+  "bgs": [
+   "museum_corridor"
+  ],
+  "hotspots": [
+   {
+    "name": "The skulls",
+    "rect": [
+     0,
+     0,
+     340,
+     470
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     380,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Back to the party",
+    "rect": [
+     240,
+     690,
+     760,
+     30
+    ],
+    "exit": "museum_hall",
+    "when": null,
+    "at": [
+     600,
+     700
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    585,
+    470
+   ],
+   [
+    690,
+    470
+   ],
+   [
+    800,
+    525
+   ],
+   [
+    935,
+    600
+   ],
+   [
+    990,
+    716
+   ],
+   [
+    220,
+    716
+   ],
+   [
+    350,
+    630
+   ],
+   [
+    480,
+    525
+   ]
+  ],
+  "painted": false
+ },
+ "beach": {
+  "name": "Las Canteras · the beach",
+  "bgs": [
+   "beach",
+   "beach_sun"
+  ],
+  "hotspots": [
+   {
+    "name": "Surfboards",
+    "rect": [
+     900,
+     340,
+     220,
+     210
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     960,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The sea",
+    "rect": [
+     520,
+     310,
+     760,
+     110
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     700,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The sky",
+    "rect": [
+     300,
+     0,
+     980,
+     200
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Towels",
+    "rect": [
+     160,
+     470,
+     360,
+     70
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     572
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Up to the promenade",
+    "rect": [
+     0,
+     250,
+     110,
+     320
+    ],
+    "exit": "canteras",
+    "when": null,
+    "at": [
+     70,
+     660
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    560
+   ],
+   [
+    1280,
+    560
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "mercado": {
+  "name": "Mercado del Puerto",
+  "bgs": [
+   "mercado"
+  ],
+  "hotspots": [
+   {
+    "name": "Fruit stall",
+    "rect": [
+     0,
+     150,
+     270,
+     350
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     240,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Cheese counter",
+    "rect": [
+     270,
+     300,
+     150,
+     110
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     380,
+     560
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The bar",
+    "rect": [
+     500,
+     280,
+     260,
+     150
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     620,
+     480
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Aloe plants",
+    "rect": [
+     990,
+     250,
+     290,
+     300
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     900,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The roof",
+    "rect": [
+     400,
+     0,
+     600,
+     200
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     600
+    ],
+    "noBox": true
+   },
+   {
+    "name": "To the city",
+    "rect": [
+     480,
+     530,
+     320,
+     70
+    ],
+    "exit": "map",
+    "when": null,
+    "at": [
+     640,
+     640
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    640
+   ],
+   [
+    270,
+    560
+   ],
+   [
+    300,
+    520
+   ],
+   [
+    440,
+    455
+   ],
+   [
+    960,
+    455
+   ],
+   [
+    985,
+    560
+   ],
+   [
+    1000,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "hotel_restaurant": {
+  "name": "Hotel Cristina · the restaurant",
+  "bgs": [
+   "hotel_restaurant"
+  ],
+  "hotspots": [
+   {
+    "name": "Buffet",
+    "rect": [
+     620,
+     300,
+     480,
+     90
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     820,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Windows",
+    "rect": [
+     0,
+     0,
+     480,
+     320
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     300,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Dessert trolley",
+    "rect": [
+     1020,
+     320,
+     155,
+     225
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     1040,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Back to the lobby",
+    "rect": [
+     1230,
+     120,
+     50,
+     450
+    ],
+    "exit": "hotel_lobby",
+    "when": null,
+    "at": [
+     1210,
+     670
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    640
+   ],
+   [
+    260,
+    585
+   ],
+   [
+    1280,
+    560
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "museum_courtyard": {
+  "name": "El Museo Canario · the courtyard",
+  "bgs": [
+   "museum_courtyard"
+  ],
+  "hotspots": [
+   {
+    "name": "Dragon tree",
+    "rect": [
+     940,
+     130,
+     300,
+     400
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     1050,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Fountain",
+    "rect": [
+     395,
+     385,
+     170,
+     180
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     480,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Archive boxes",
+    "rect": [
+     140,
+     450,
+     120,
+     115
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     220,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Back to the party",
+    "rect": [
+     10,
+     280,
+     100,
+     285
+    ],
+    "exit": "museum_hall",
+    "when": null,
+    "at": [
+     70,
+     660
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    600
+   ],
+   [
+    1280,
+    600
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "isleta": {
+  "name": "La Isleta",
+  "bgs": [
+   "isleta"
+  ],
+  "hotspots": [
+   {
+    "name": "Nets",
+    "rect": [
+     820,
+     360,
+     460,
+     220
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     800,
+     600
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Fishing boats",
+    "rect": [
+     380,
+     300,
+     520,
+     100
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The things in the nets",
+    "rect": [
+     910,
+     560,
+     240,
+     110
+    ],
+    "exit": null,
+    "when": "ch() >= 2 && ch() <= 4",
+    "at": [
+     880,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "To the city",
+    "rect": [
+     60,
+     240,
+     100,
+     210
+    ],
+    "exit": "map",
+    "when": null,
+    "at": [
+     110,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    500
+   ],
+   [
+    290,
+    470
+   ],
+   [
+    780,
+    495
+   ],
+   [
+    800,
+    585
+   ],
+   [
+    900,
+    650
+   ],
+   [
+    1280,
+    700
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "santa_ana": {
+  "name": "Plaza de Santa Ana",
+  "bgs": [
+   "santa_ana"
+  ],
+  "hotspots": [
+   {
+    "name": "Cathedral clock",
+    "rect": [
+     378,
+     193,
+     44,
+     44
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     520,
+     520
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Bronze dogs",
+    "rect": [
+     40,
+     295,
+     380,
+     400
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     230,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Timple players",
+    "rect": [
+     960,
+     410,
+     200,
+     180
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     1060,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Cathedral door",
+    "rect": [
+     540,
+     385,
+     75,
+     115
+    ],
+    "exit": "santa_ana_inside",
+    "when": null,
+    "at": [
+     580,
+     515
+    ],
+    "noBox": false
+   },
+   {
+    "name": "To the city",
+    "rect": [
+     1230,
+     600,
+     50,
+     116
+    ],
+    "exit": "map",
+    "when": null,
+    "at": [
+     1220,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    270,
+    600
+   ],
+   [
+    500,
+    505
+   ],
+   [
+    830,
+    505
+   ],
+   [
+    1000,
+    560
+   ],
+   [
+    1280,
+    600
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    270,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "santa_ana_inside": {
+  "name": "Santa Ana · the nave",
+  "bgs": [
+   "santa_ana_inside"
+  ],
+  "hotspots": [
+   {
+    "name": "Columns",
+    "rect": [
+     565,
+     0,
+     80,
+     520
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     620,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Altarpiece",
+    "rect": [
+     275,
+     235,
+     120,
+     180
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     360,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Door to the tower",
+    "rect": [
+     1000,
+     190,
+     255,
+     355
+    ],
+    "exit": "belfry",
+    "when": null,
+    "at": [
+     1060,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Out to the plaza",
+    "rect": [
+     0,
+     250,
+     60,
+     350
+    ],
+    "exit": "santa_ana",
+    "when": null,
+    "at": [
+     60,
+     665
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    560
+   ],
+   [
+    1280,
+    560
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "belfry": {
+  "name": "Santa Ana · the bell chamber",
+  "bgs": [
+   "belfry"
+  ],
+  "hotspots": [
+   {
+    "name": "Clock winding drum",
+    "rect": [
+     130,
+     190,
+     290,
+     200
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     275,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The north bell",
+    "rect": [
+     515,
+     150,
+     250,
+     260
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Bell window",
+    "rect": [
+     915,
+     40,
+     270,
+     500
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     1050,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Stairs down",
+    "rect": [
+     0,
+     90,
+     195,
+     550
+    ],
+    "exit": "santa_ana_inside",
+    "when": null,
+    "at": [
+     97.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Sit and wait for the hour",
+    "rect": [
+     820,
+     470,
+     180,
+     70
+    ],
+    "exit": null,
+    "when": "ch() === 5 && F().radio_wait && !F().radio_lie",
+    "at": [
+     900,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    200,
+    600
+   ],
+   [
+    1240,
+    600
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    190,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "archive": {
+  "name": "El Museo Canario · the archive",
+  "bgs": [
+   "archive"
+  ],
+  "hotspots": [
+   {
+    "name": "Conservation list",
+    "rect": [
+     530,
+     215,
+     90,
+     115
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     575,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Ashtray",
+    "rect": [
+     700,
+     412,
+     40,
+     20
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     720,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Photographs of Cave 6",
+    "rect": [
+     635,
+     220,
+     150,
+     130
+    ],
+    "exit": null,
+    "when": "ch() >= 3",
+    "at": [
+     710,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Stacks",
+    "rect": [
+     0,
+     40,
+     460,
+     560
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     230,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Stairs up to the hall",
+    "rect": [
+     960,
+     210,
+     200,
+     350
+    ],
+    "exit": "museum_hall",
+    "when": null,
+    "at": [
+     1060,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    90,
+    700
+   ],
+   [
+    380,
+    622
+   ],
+   [
+    860,
+    618
+   ],
+   [
+    960,
+    572
+   ],
+   [
+    1150,
+    572
+   ],
+   [
+    1160,
+    716
+   ],
+   [
+    90,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "colon_out": {
+  "name": "Casa de Colón",
+  "bgs": [
+   "colon_out"
+  ],
+  "hotspots": [
+   {
+    "name": "Casa de Colón",
+    "rect": [
+     668,
+     385,
+     94,
+     160
+    ],
+    "exit": "colon",
+    "when": null,
+    "at": [
+     715,
+     570
+    ],
+    "noBox": false
+   },
+   {
+    "name": "To the city",
+    "rect": [
+     0,
+     380,
+     60,
+     300
+    ],
+    "exit": "map",
+    "when": null,
+    "at": [
+     50,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    560
+   ],
+   [
+    1080,
+    560
+   ],
+   [
+    1000,
+    620
+   ],
+   [
+    960,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "colon": {
+  "name": "Casa de Colón",
+  "bgs": [
+   "colon"
+  ],
+  "hotspots": [
+   {
+    "name": "Parrot",
+    "rect": [
+     320,
+     215,
+     70,
+     100
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     355,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Shelves",
+    "rect": [
+     465,
+     150,
+     470,
+     420
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     700,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Balcony",
+    "rect": [
+     20,
+     120,
+     200,
+     400
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     120,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "To the city",
+    "rect": [
+     0,
+     600,
+     50,
+     116
+    ],
+    "exit": "colon_out",
+    "when": null,
+    "at": [
+     60,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    600
+   ],
+   [
+    1280,
+    600
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "baute_office": {
+  "name": "Dr. Baute's office",
+  "bgs": [
+   "baute_office"
+  ],
+  "hotspots": [
+   {
+    "name": "Desk drawer",
+    "rect": [
+     700,
+     450,
+     85,
+     60
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     740,
+     690
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Sponsor contracts",
+    "rect": [
+     755,
+     383,
+     145,
+     47
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     860,
+     680
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Window",
+    "rect": [
+     1060,
+     50,
+     190,
+     340
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     1155,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Shelves",
+    "rect": [
+     255,
+     80,
+     280,
+     490
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     395,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Back to the dinner",
+    "rect": [
+     60,
+     110,
+     120,
+     450
+    ],
+    "exit": "museum_hall",
+    "when": null,
+    "at": [
+     120,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    585
+   ],
+   [
+    540,
+    585
+   ],
+   [
+    540,
+    668
+   ],
+   [
+    1100,
+    645
+   ],
+   [
+    1280,
+    600
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "rafa_bar": {
+  "name": "A bar in Vegueta",
+  "bgs": [
+   "rafa_bar"
+  ],
+  "hotspots": [
+   {
+    "name": "Bottles",
+    "rect": [
+     0,
+     80,
+     410,
+     230
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     205,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The faces on the walls",
+    "rect": [
+     440,
+     85,
+     560,
+     210
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     760,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Domino table",
+    "rect": [
+     710,
+     360,
+     300,
+     190
+    ],
+    "exit": null,
+    "when": "false",
+    "at": [
+     860,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Door",
+    "rect": [
+     1080,
+     100,
+     140,
+     420
+    ],
+    "exit": "map",
+    "when": null,
+    "at": [
+     1150,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    622
+   ],
+   [
+    720,
+    588
+   ],
+   [
+    1040,
+    560
+   ],
+   [
+    1280,
+    545
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "rafa_studio": {
+  "name": "Rafa's studio",
+  "bgs": [
+   "rafa_studio"
+  ],
+  "hotspots": [
+   {
+    "name": "The drawing on the easel",
+    "rect": [
+     875,
+     190,
+     170,
+     200
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     960,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Sketchbook",
+    "rect": [
+     470,
+     490,
+     170,
+     30
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     555,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Bed",
+    "rect": [
+     0,
+     400,
+     355,
+     185
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     177.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Window",
+    "rect": [
+     650,
+     100,
+     265,
+     250
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     782.5,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Door",
+    "rect": [
+     1110,
+     90,
+     170,
+     490
+    ],
+    "exit": "map",
+    "when": null,
+    "at": [
+     1195,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    350,
+    592
+   ],
+   [
+    1220,
+    560
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ],
+   [
+    0,
+    600
+   ]
+  ],
+  "painted": true
+ },
+ "camp": {
+  "name": "Risco Caído · the camp",
+  "bgs": [
+   "camp"
+  ],
+  "hotspots": [
+   {
+    "name": "The sea of cloud",
+    "rect": [
+     0,
+     110,
+     790,
+     200
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     395,
+     650
+    ],
+    "noBox": true
+   },
+   {
+    "name": "Camp radio",
+    "rect": [
+     635,
+     290,
+     65,
+     100
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     660,
+     600
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Stove",
+    "rect": [
+     165,
+     345,
+     110,
+     60
+    ],
+    "exit": null,
+    "when": "asV()",
+    "at": [
+     250,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Finds table",
+    "rect": [
+     415,
+     295,
+     195,
+     110
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     510,
+     600
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Path to Cave 6",
+    "rect": [
+     1000,
+     190,
+     280,
+     200
+    ],
+    "exit": "cave6",
+    "when": "asV() || ch() === 7",
+    "at": [
+     1180,
+     600
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Steps down to the granary",
+    "rect": [
+     500,
+     420,
+     200,
+     140
+    ],
+    "exit": "vault",
+    "when": "ch() === 6",
+    "at": [
+     640,
+     600
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    545
+   ],
+   [
+    330,
+    525
+   ],
+   [
+    880,
+    585
+   ],
+   [
+    1280,
+    565
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "cave6": {
+  "name": "Cave 6",
+  "bgs": [
+   "cave6"
+  ],
+  "hotspots": [
+   {
+    "name": "The great triangle",
+    "rect": [
+     535,
+     210,
+     225,
+     210
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Engraved triangles",
+    "rect": [
+     270,
+     180,
+     770,
+     180
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     660
+    ],
+    "noBox": true
+   },
+   {
+    "name": "The opening in the roof",
+    "rect": [
+     585,
+     22,
+     110,
+     62
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Rope ladder down",
+    "rect": [
+     425,
+     495,
+     430,
+     110
+    ],
+    "exit": "cave6_low",
+    "when": "asV()",
+    "at": [
+     500,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Rope ladder down",
+    "rect": [
+     425,
+     495,
+     430,
+     110
+    ],
+    "exit": null,
+    "when": "ch() === 7",
+    "at": [
+     500,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "White crust",
+    "rect": [
+     1130,
+     430,
+     150,
+     100
+    ],
+    "exit": null,
+    "when": "asV()",
+    "at": [
+     1100,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Sit and wait for noon",
+    "rect": [
+     60,
+     455,
+     170,
+     60
+    ],
+    "exit": null,
+    "when": "asV() && !F().v_noon",
+    "at": [
+     190,
+     630
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Path to the camp",
+    "rect": [
+     35,
+     150,
+     185,
+     300
+    ],
+    "exit": "camp",
+    "when": "asV() || (ch() === 7 && F().lock_closed)",
+    "at": [
+     140,
+     630
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    60,
+    500
+   ],
+   [
+    425,
+    505
+   ],
+   [
+    425,
+    608
+   ],
+   [
+    860,
+    608
+   ],
+   [
+    860,
+    505
+   ],
+   [
+    1280,
+    545
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ],
+   [
+    0,
+    560
+   ]
+  ],
+  "painted": true
+ },
+ "cave6_low": {
+  "name": "Cave 6 · the chamber under it",
+  "bgs": [
+   "cave6_low"
+  ],
+  "hotspots": [
+   {
+    "name": "Socket · waning crescent",
+    "rect": [
+     349,
+     548,
+     76,
+     46
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     387,
+     655
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Socket · last quarter",
+    "rect": [
+     437,
+     548,
+     76,
+     46
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     475,
+     655
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Socket · waning gibbous",
+    "rect": [
+     520,
+     548,
+     76,
+     46
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     558,
+     655
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Socket · the sun",
+    "rect": [
+     603,
+     548,
+     76,
+     46
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     641,
+     655
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Socket · waxing gibbous",
+    "rect": [
+     687,
+     548,
+     76,
+     46
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     725,
+     655
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Socket · first quarter",
+    "rect": [
+     772,
+     548,
+     76,
+     46
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     810,
+     655
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Socket · waxing crescent",
+    "rect": [
+     859,
+     548,
+     76,
+     46
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     897,
+     655
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Signs in the floor",
+    "rect": [
+     340,
+     598,
+     600,
+     30
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     660
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The door",
+    "rect": [
+     560,
+     632,
+     160,
+     50
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     690
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Painted walls",
+    "rect": [
+     0,
+     190,
+     1280,
+     320
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     640,
+     650
+    ],
+    "noBox": true
+   },
+   {
+    "name": "The hole above",
+    "rect": [
+     400,
+     20,
+     480,
+     150
+    ],
+    "exit": null,
+    "when": "asV()",
+    "at": [
+     640,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Vasco, at the rim",
+    "rect": [
+     400,
+     20,
+     480,
+     150
+    ],
+    "exit": null,
+    "when": "ch() === 7",
+    "at": [
+     640,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Rope ladder up",
+    "rect": [
+     430,
+     140,
+     90,
+     400
+    ],
+    "exit": "cave6",
+    "when": "asV()",
+    "at": [
+     500,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Rope ladder",
+    "rect": [
+     430,
+     140,
+     90,
+     400
+    ],
+    "exit": null,
+    "when": "ch() === 7",
+    "at": [
+     500,
+     640
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    640
+   ],
+   [
+    300,
+    560
+   ],
+   [
+    980,
+    560
+   ],
+   [
+    1280,
+    640
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "vault": {
+  "name": "The granary vault",
+  "bgs": [
+   "vault",
+   "vault_open"
+  ],
+  "hotspots": [
+   {
+    "name": "Crates",
+    "rect": [
+     60,
+     340,
+     150,
+     270
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     250,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Walls",
+    "rect": [
+     0,
+     40,
+     350,
+     220
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     175,
+     650
+    ],
+    "noBox": true
+   },
+   {
+    "name": "The grille",
+    "rect": [
+     360,
+     60,
+     490,
+     470
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     605,
+     650
+    ],
+    "noBox": true
+   },
+   {
+    "name": "Left anchor",
+    "rect": [
+     350,
+     500,
+     60,
+     50
+    ],
+    "exit": null,
+    "when": "asV()",
+    "at": [
+     400,
+     600
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Right anchor",
+    "rect": [
+     795,
+     495,
+     60,
+     55
+    ],
+    "exit": null,
+    "when": "asV()",
+    "at": [
+     810,
+     600
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The wall by the grille",
+    "rect": [
+     850,
+     150,
+     140,
+     380
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     900,
+     620
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Steps up",
+    "rect": [
+     1000,
+     80,
+     240,
+     520
+    ],
+    "exit": "camp",
+    "when": "!asV()",
+    "at": [
+     1080,
+     640
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    640
+   ],
+   [
+    210,
+    600
+   ],
+   [
+    360,
+    548
+   ],
+   [
+    850,
+    548
+   ],
+   [
+    1000,
+    600
+   ],
+   [
+    1040,
+    610
+   ],
+   [
+    1280,
+    640
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ },
+ "vault_cell": {
+  "name": "The granary vault · behind the grille",
+  "bgs": [
+   "vault_cell"
+  ],
+  "hotspots": [
+   {
+    "name": "The grille",
+    "rect": [
+     190,
+     85,
+     865,
+     450
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     620,
+     640
+    ],
+    "noBox": true
+   },
+   {
+    "name": "Crates",
+    "rect": [
+     880,
+     250,
+     170,
+     230
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     900,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Walls",
+    "rect": [
+     0,
+     100,
+     185,
+     440
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     230,
+     660
+    ],
+    "noBox": true
+   },
+   {
+    "name": "Left anchor",
+    "rect": [
+     195,
+     540,
+     60,
+     60
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     270,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Right anchor",
+    "rect": [
+     995,
+     540,
+     60,
+     60
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     1000,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "The wall by the grille",
+    "rect": [
+     1060,
+     120,
+     140,
+     380
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     1060,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    150,
+    612
+   ],
+   [
+    1130,
+    612
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": false
+ },
+ "carmen_flat": {
+  "name": "Carmen's flat, Triana",
+  "bgs": [
+   "carmen_flat"
+  ],
+  "hotspots": [
+   {
+    "name": "Answering machine",
+    "rect": [
+     330,
+     378,
+     70,
+     34
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     420,
+     620
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Elena's box",
+    "rect": [
+     0,
+     505,
+     125,
+     80
+    ],
+    "exit": null,
+    "when": "F().elena_heard",
+    "at": [
+     240,
+     640
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Fridge",
+    "rect": [
+     750,
+     175,
+     120,
+     295
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     810,
+     650
+    ],
+    "noBox": false
+   },
+   {
+    "name": "Window",
+    "rect": [
+     925,
+     100,
+     125,
+     180
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     987.5,
+     650
+    ],
+    "noBox": true
+   },
+   {
+    "name": "Shelves",
+    "rect": [
+     270,
+     50,
+     500,
+     190
+    ],
+    "exit": null,
+    "when": null,
+    "at": [
+     520,
+     650
+    ],
+    "noBox": true
+   },
+   {
+    "name": "Door",
+    "rect": [
+     1140,
+     50,
+     140,
+     490
+    ],
+    "exit": "map",
+    "when": null,
+    "at": [
+     1210,
+     650
+    ],
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    240,
+    600
+   ],
+   [
+    540,
+    562
+   ],
+   [
+    840,
+    508
+   ],
+   [
+    1045,
+    522
+   ],
+   [
+    1280,
+    545
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ],
+   [
+    0,
+    612
+   ]
+  ],
+  "painted": true
+ },
+ "landrover": {
+  "name": "The road up",
+  "bgs": [
+   "landrover"
+  ],
+  "hotspots": [
+   {
+    "name": "Carmen",
+    "rect": [
+     20,
+     90,
+     480,
+     560
+    ],
+    "exit": null,
+    "when": null,
+    "at": null,
+    "noBox": false
+   },
+   {
+    "name": "Temperature gauge",
+    "rect": [
+     545,
+     440,
+     265,
+     100
+    ],
+    "exit": null,
+    "when": null,
+    "at": null,
+    "noBox": false
+   },
+   {
+    "name": "The bonnet",
+    "rect": [
+     280,
+     300,
+     700,
+     110
+    ],
+    "exit": null,
+    "when": "boiling === 1",
+    "at": null,
+    "noBox": false
+   },
+   {
+    "name": "The footwell",
+    "rect": [
+     850,
+     575,
+     390,
+     145
+    ],
+    "exit": null,
+    "when": "F().footwell",
+    "at": null,
+    "noBox": false
+   }
+  ],
+  "walk": [
+   [
+    0,
+    575
+   ],
+   [
+    1280,
+    575
+   ],
+   [
+    1280,
+    716
+   ],
+   [
+    0,
+    716
+   ]
+  ],
+  "painted": true
+ }
+}

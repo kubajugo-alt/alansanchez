@@ -206,6 +206,18 @@
       }
       r.painted = true;
     }
+    // the boxes moved in the hotspot tool (js/story/spots.js, scripts/spots_install.py; HANDOFF 146), over everything
+    // above: by name, "name#2" for the second hotspot of that name in the room
+    for (const [id, E] of Object.entries(S.SPOT_EDITS || {})) {
+      const r = ROOMS[id]; if (!r) continue;
+      const seen = {};
+      for (const h of r.hotspots || []) {
+        const n = nameOf(h); if (!n) continue;
+        seen[n] = (seen[n] || 0) + 1;
+        const rect = E[seen[n] > 1 ? n + '#' + seen[n] : n];
+        if (rect) { h.rect = rect.slice(); delete h.at; }
+      }
+    }
     // a room laid out a second way for an occasion (S.VARIANTS[id] = { room, when }: the museum's hall at Thursday's
     // dinner, the user, 2026-10-30): its own background people, and its cast standing elsewhere while `when` holds
     for (const [vid, v] of Object.entries(S.VARIANTS || {})) {

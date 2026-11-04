@@ -173,6 +173,12 @@ with and without `?env=2`. Electric lights burn steady; only wicks and flames fl
 - **Props** (tables, buffet): made the same way; graded into their room's light with `scripts/prop_grade.py` (84;
   ungraded originals in `art/designs/props_ungraded/`).
 
+- **Hotspot boxes** (HANDOFF 146): the user moves and resizes them in the hotspot tool
+  (https://claude.ai/artifact/Xw2JqrMTUBv87KTH97WmeH; source `art/review/spots/`, data from `scripts/tests/spots_dump.mjs`,
+  published folder from `scripts/spots_tool.py`). On "done": `ArtifactData list` collection `spots` with `out_dir`, then
+  `scripts/spots_install.py <dir>` -> `js/story/spots.js`, check the rooms in the game, commit. After a room's hotspots
+  change in code, dump and republish the tool so it shows them.
+
 ## 8. Stills and documents
 
 Painted stills (`art/stills/`) are shown with `S.paint(key, async () => ..., { zoom })`; the content setting

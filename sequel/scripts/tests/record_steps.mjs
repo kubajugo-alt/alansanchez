@@ -40,9 +40,9 @@ await p.evaluate(calm => { window.__manual(); window.CALM = calm; }, !!process.e
 let n = 0; const marks = [];
 const frames = async k => { for (let i = 0; i < k; i++) fs.writeFileSync(`${dir}/f${String(n++).padStart(5, '0')}.jpg`, Buffer.from(await p.evaluate(() => window.__frame()), 'base64')); };
 for (const rc of rooms) {
-  const [room, ch] = rc.split(':');
-  await p.evaluate(async ([room, ch, hide]) => { Game.flags.ch = +ch; document.querySelectorAll('.tip,.toast').forEach(e => e.remove());
-    await Game.goRoom(room, null, { instant: true, noEnter: true, noSave: true }); const a = Game.player; if (a && hide) a.visible = false; else if (a) { a.x = 240; a.walkTo(1040, a.y); } }, [room, ch, HIDE]);
+  const [room, ch, fl] = rc.split(':');   // (room:chapter[:flag,flag...]: those flags set true, e.g. hotel_lobby:1:reception_done)
+  await p.evaluate(async ([room, ch, hide, fl]) => { Game.flags.ch = +ch; (fl || '').split(',').filter(Boolean).forEach(k => { Game.flags[k] = true; }); document.querySelectorAll('.tip,.toast').forEach(e => e.remove());
+    await Game.goRoom(room, null, { instant: true, noEnter: true, noSave: true }); const a = Game.player; if (a && hide) a.visible = false; else if (a) { a.x = 240; a.walkTo(1040, a.y); } }, [room, ch, HIDE, fl || '']);
   marks.push([room, n / FPS, await p.evaluate(() => !!(window.Parallax && Parallax.active))]);
   await frames(Math.round(LEG * FPS));
   await p.evaluate(() => { const a = Game.player; if (a) a.walkTo(240, a.y); });

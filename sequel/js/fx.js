@@ -113,8 +113,11 @@
       const lag = i * 0.03 + r() * 0.02;
       const q = p - lag; if (q < 0 || q > 1) continue;
       const x = dir > 0 ? x0 + (x1 - x0) * q : x1 - (x1 - x0) * q;
-      const y = base + i * 9 * (r() - 0.3) + Math.sin(t * 1.3 + i) * 6;
-      const s = size * (0.8 + r() * 0.4), flap = Math.sin(t * 11 + i * 2);
+      // (with ?env=2, HANDOFF 145: gulls and ravens glide most of the time, beat their wings now and then, and rise and
+      // sink a little along the way, instead of flapping without a break on a straight line)
+      const glide = window.ENV2 && 0.5 + 0.5 * Math.sin(t * 0.9 + i * 1.3) > 0.4;
+      const y = base + i * 9 * (r() - 0.3) + Math.sin(t * 1.3 + i) * 6 + (window.ENV2 ? 10 * Math.sin(q * Math.PI * 1.3 + i) : 0);
+      const s = size * (0.8 + r() * 0.4), flap = window.ENV2 ? (glide ? 0.15 + 0.05 * Math.sin(t * 2 + i) : Math.sin(t * (8 + i) + i * 2)) : Math.sin(t * 11 + i * 2);
       g.lineWidth = Math.max(1.2, s * 0.22);
       g.beginPath();
       g.moveTo(x - s, y - flap * s * 0.6);

@@ -60,8 +60,12 @@
       // (drawn last, after the palm's sway: S.sky, the painted sky only, art/fx/gando_sky.png)
       // the empty belt going round ("The belt goes round. My suitcase doesn't."): its slats sliding by
       g.save(); clipTo(g, [[[322, 476], [348, 463], [420, 457], [858, 446], [874, 449], [856, 465], [800, 473], [345, 488]]]);
-      g.strokeStyle = 'rgba(255,236,200,0.05)'; g.lineWidth = 1.5;
-      for (let x = 300 - (t * 22) % 26; x < 900; x += 26) { g.beginPath(); g.moveTo(x, 444); g.lineTo(x - 5, 490); g.stroke(); }
+      g.strokeStyle = window.ENV2 ? 'rgba(255,236,200,0.035)' : 'rgba(255,236,200,0.05)'; g.lineWidth = 1.5;
+      if (window.ENV2) {
+        // (?env=2, HANDOFF 145: spaced in the belt's perspective, closer together towards its far end at x 858)
+        const N = 22, off = (t * 0.85 / N) % (1 / N);
+        for (let k = -1; k < N + 1; k++) { const u = k / N + off, f = u * 1.6 / (1 + 0.6 * u), x = 322 + 536 * f; g.beginPath(); g.moveTo(x, 444); g.lineTo(x - 5 * (1.4 - f), 490); g.stroke(); }
+      } else for (let x = 300 - (t * 22) % 26; x < 900; x += 26) { g.beginPath(); g.moveTo(x, 444); g.lineTo(x - 5, 490); g.stroke(); }
       for (let k = 0; k < 2; k++) {
         const bx = 300 + ((t * 22 + k * 300) % 600), gr = g.createLinearGradient(bx - 40, 0, bx + 40, 0);
         gr.addColorStop(0, 'rgba(255,232,190,0)'); gr.addColorStop(0.5, 'rgba(255,232,190,0.07)'); gr.addColorStop(1, 'rgba(255,232,190,0)');
@@ -142,6 +146,8 @@
       FX.sway(g, im(), [100, 82, 110, 66], t * 0.6, 1, 0.4, true); FX.sway(g, im(), [0, 62, 74, 64], t * 0.6, 1, 1.3, true);
       if (night || !S.sea(g, 'hotel_lobby_day')) FX.ripple(g, im(), [0, 322, 74, 26], t * 0.6, 0.6, 0.25);
       if (night) lamp(g, t, 39, 232, 26, '255,226,160', 0.25, 2, false);
+      // (?env=2, HANDOFF 145: at night now and then a car's headlights pass along the promenade, across the street windows)
+      if (night && window.ENV2) FX.sweep(g, t, [0, 60, 215, 390], 17, '255,240,210', 0.06);
       // the wall lantern's flame and the desk lamp
       lamp(g, t, 398, 162, 46, '255,190,110', 0.22, 3, true);
       lamp(g, t, 812, 245, 70, '255,214,150', 0.08, 4, false);
@@ -272,7 +278,7 @@
         foam(g, t, [[[862, 330], [900, 326], [940, 323], [1000, 322]]], { per: 9, reach: 2, a: 0.25, w: 1 });
       }
       // the air off the sea: the curtains breathe, the fan turns slowly
-      FX.billow(g, im(), [722, 70, 66, 455], t, 1.6, 8); FX.billow(g, im(), [1035, 52, 92, 490], t + 2, 1.8, 9);
+      FX.billow(g, im(), [722, 70, 66, 455], t, 1.6, 8); FX.billow(g, im(), [1035, 52, 92, 490], t + 2, 1.8, window.ENV2 ? 11.5 : 9);   // (?env=2: periods apart, so they don't breathe in step)
       S.sky(g, t, 'hotel_room');   // (the lid of cloud through the balcony door, after the curtains)
       ceilFan(g, t, 497, 78, 125, 16, 0.6, 0.1);
       lamp(g, t, 14, 345, 60, '255,214,150', 0.07, 5, false);

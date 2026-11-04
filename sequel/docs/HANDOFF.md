@@ -81,7 +81,8 @@ Safari/iOS or Firefox here; on iOS, Add to Home Screen first.
 0. **The user's verdicts** on the review page https://claude.ai/artifact/WhwsBPJupuy6eeMQJaWEf6 (`ArtifactData list
    verdicts`): per room of the movement's second pass (all behind `?env=2`, entries 142-144; approving = `window.ENV2`
    true by default in js/fx.js, then drop the old branches), per action (the six that don't quite fit), and which rooms
-   should stop the idle cigarette (archive, museum hall, corridor, Colón, the camp on Sunday night?).
+   should stop the idle cigarette (archive, museum hall, corridor, Colón, the camp on Sunday night?). The vault's water on
+   Sunday stays as it is (the user, 2026-11-04: "it's fine the way it is").
 1. **Look at what went live last** with the user: the sea loops and the clouds (entry 137; the before/after
    recordings were cut off by a restart: redo them with `scripts/tests/record_steps.mjs`, before = the export of
    `816627c1`), the vault on Sunday (entry 138; the water there is darker than the finale's, a few numbers in
@@ -1989,4 +1990,38 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Checked after all of it: `play.mjs` on the branch (default, no `?env=2`): won, 132 steps, no errors, its new
       action and cigarette checks ok; the `?env=2` recordings of 23 room states: no page errors; validate: 0 errors.
       Nothing deployed.
+145. **The rest of the movement review that code alone can do (for review, `?env=2`)** (2026-11-04, the user: "the vault's
+    water ... it's fine the way it is ... I only want you to do what can be done by code"; the vault's water left as it
+    is). Each remaining finding re-checked on today's painting first:
+    - **Birds** (every room's `FX.birds`): they glide most of the time, beat their wings now and then, and rise and sink a
+      little along the way, instead of flapping without a break on a straight line.
+    - **Isleta's painted gulls**: the two gulls painted in mid-air (not the far pair) cut out by `scripts/gull_cut.py`
+      (lighter or darker than the grey sky round them, holes filled) into `art/fx/isleta_gull_<n>.png`, the sky behind
+      filled in (`_plate.png`); wed.js covers each painted gull with its plate and draws the gull gliding about its place
+      (drifting up to ~19 px, tilting 0.06 rad), in front of the clouds.
+    - **Gando's belt**: the slats spaced in the belt's perspective (closer towards the far end) and fainter (0.035).
+    - **The hotel room's curtains**: periods 8 s and 11.5 s (were 8 and 9, breathing nearly in step).
+    - **The lobby at night**: now and then a car's headlights pass across the street windows (`FX.sweep`, every 17 s).
+    - Dropped, no longer true on the repaint: the restaurant's middle arch (it shows the beach and the town, the sea only a
+      sliver at its edge); Santa Ana's patchy flood (the flood now covers the sky). Not done: the prologue car (the
+      prologue isn't played), the archive moth's dart (the review's "low").
+    - `record_steps.mjs` takes `room:chapter:flag,flag` (flags set true, e.g. `hotel_lobby:1:reception_done`).
+    - Not yet recorded for the review page (the user stopped the recording to ask for the hotspot tool, entry 146).
+146. **The hotspot tool** (2026-11-04, the user: "I want a tool allowing me to change the size and the position of all
+    hotspots in the game"). https://claude.ai/artifact/Xw2JqrMTUBv87KTH97WmeH (private; db collection `spots`).
+    - Every room's hotspots as the game has them after layout.js (`scripts/tests/spots_dump.mjs` ->
+      `art/review/spots/data.json`: 29 rooms, 154 hotspots; the map left out, its hotspots are the pins core.js draws),
+      each painting at 1280x720 (`scripts/spots_tool.py <dir>` builds the published folder from `art/review/spots/`).
+    - The page: rooms down the side (with how many boxes moved), the painting with every box (things yellow, exits blue
+      dashed, names on), drag to move, corners and edges to resize, arrow keys (Shift 10 px, Alt resizes), numbers to
+      type, a reset per box and per room, the old box dotted while a moved one is selected, the walkable floor on demand,
+      each room's other paintings (the lobby by day, the vault open...), and when each hotspot shows, in days. Each
+      change saves to the page's db at once, one document per moved box `{room, key, name, rect, orig}`; a box put back
+      is deleted.
+    - Installing (on the user's word): `ArtifactData list` of `spots` with `out_dir`, then `python3
+      scripts/spots_install.py <dir>` writes `js/story/spots.js` (`S.SPOT_EDITS`, loaded before layout.js), which
+      `S.applyLayout` applies over its own boxes, by name ("name#2" for the second of a name in a room: Cave 6's two
+      ladders), dropping the box's walk-to point so the engine walks to the new box. Wired now with no edits (an empty
+      `S.SPOT_EDITS`), so the game is unchanged; tested with two fake edits (Canteras's phone box, Cave 6's second
+      ladder): only those moved, no page errors; then emptied again.
 

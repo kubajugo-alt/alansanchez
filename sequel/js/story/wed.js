@@ -83,6 +83,15 @@
   };
 
   // ================================================================ LA ISLETA
+  // Isleta's painted gulls, cut out with the sky behind them filled in (art/fx/isleta_gull_<n>*.png; ?env=2)
+  const gullImg = [];
+  const gulls = () => {
+    if (!gullImg.length) [[288, 92, 56, 52], [570, 114, 64, 42]].forEach((box, n) => {
+      const cut = new Image(), plate = new Image(); cut.src = 'art/fx/isleta_gull_' + n + '.png'; plate.src = 'art/fx/isleta_gull_' + n + '_plate.png';
+      gullImg.push({ cut, plate, box });
+    });
+    return gullImg.every(o => o.cut.naturalWidth && o.plate.naturalWidth) ? gullImg : null;
+  };
   ROOMS.isleta = S.room({
     music: 'isleta',
     name: 'La Isleta', bg: 'isleta', floor: 'stone', ambience: 'harbour',
@@ -104,7 +113,15 @@
     animBack(g, t) {
       const im = G.bgImage();
       FX.sway(g, im, [288, 215, 60, 46], t * 0.8, 1.1, 0, true); // the palm over the far quay
+      // (with ?env=2, HANDOFF 145: the two gulls painted in mid-air no longer hang frozen: the sky filled in where they
+      // were painted (scripts/gull_cut.py), and each glides about its place, drifting and tilting on the wind)
+      const G2 = window.ENV2 && gulls();
+      if (G2) G2.forEach(({ plate, box: [x, y, w, h] }) => g.drawImage(plate, x, y, w, h));
       panza(g, t, skyMask('isleta', TOP, 300), 0.5);   // (after the sway, which redraws the painting under it)
+      if (G2) G2.forEach(({ cut, box: [x, y, w, h] }, i) => {
+        const dx = 14 * Math.sin(t * 0.11 + i * 2.1) + 5 * Math.sin(t * 0.37 + i), dy = 5 * Math.sin(t * 0.23 + i * 1.7) + 2 * Math.sin(t * 0.9 + i);
+        g.save(); g.translate(x + w / 2 + dx, y + h / 2 + dy); g.rotate(0.06 * Math.sin(t * 0.31 + i * 1.3)); g.drawImage(cut, -w / 2, -h / 2, w, h); g.restore();
+      });
       // the harbour: the boats' reflections wavering (the hulls themselves stay put), a few glints
       if (!S.sea(g, 'isleta')) {   // (the Higgsfield loop, js/story/sea.js; the canvas ripple until it can play)
         FX.ripple(g, im, [375, 388, 430, 34], t, 1.1, 0.22); FX.ripple(g, im, [285, 422, 530, 44], t * 0.9, 1.3, 0.2);
