@@ -140,7 +140,7 @@
   // ================================================================ Playa de las Negras at night, the storm: surf on the rock, the lamps, lightning
   S.ALIVE.playa_negras = (g, t, bg, im) => {
     lightning(g, t, [[0, 0], [1280, 0], [1280, 0], [520, 70], [510, 300], [0, 330]], 14, 3);
-    FX.ripple(g, im, [0, 335, 520, 230], t * 1.1, 2, 0.15);                  // the sea heaving
+    for (const r of [[0, 335, 520, 50], [0, 385, 128, 82], [0, 467, 520, 100]]) FX.ripple(g, im, r, t * 1.1, 2, 0.15);   // the sea heaving (round the flat rock)
     // the surf breaking over the flat rock and washing in
     foam(g, t, [[[60, 468], [110, 460], [140, 452]], [[10, 512], [90, 500], [190, 488], [290, 478], [380, 470]], [[0, 548], [100, 540], [220, 526], [330, 512]]], { per: 5, reach: 8, a: 0.22, w: 1.6, dx: 10 });
     { const p = (t % 5) / 5, k = Math.max(0, Math.sin(p * Math.PI * 2)); FX.glow(g, 110, 410, 90, '220,230,240', 0.12 * k); }   // spray off the rock
@@ -161,7 +161,7 @@
     foam(g, t, [[[600, 385], [700, 405], [820, 425], [960, 440], [1100, 450], [1270, 455]], [[700, 372], [850, 375], [1000, 385], [1160, 395], [1280, 398]], [[880, 360], [1040, 362], [1200, 368]]], { per: 4.5, reach: 7, a: 0.28, w: 1.8, dx: -8 });
     FX.ripple(g, im, [580, 350, 700, 120], t * 1.2, 2, 0.12);
     // the shallows over the paving: the water sliding, the light on it
-    FX.ripple(g, im, [0, 440, 1280, 280], t * 0.8, 1.6, 0.1);
+    for (const r of [[0, 440, 1280, 138], [0, 578, 440, 142], [812, 578, 468, 142], [440, 668, 372, 52]]) FX.ripple(g, im, r, t * 0.8, 1.6, 0.1);   // (round the rock)
     FX.water(g, t, 0, 450, 1280, 260, '190,180,160');
   };
   S.ALIVE_FG.shore_water = (g, t) => storm(g, t, 170, 0.16);

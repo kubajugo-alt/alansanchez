@@ -31,18 +31,27 @@
   ALIVE.p1586_river_mouth = (g, t, bg, im) => {
     drift(g, t, 'river', SKY, { speed: 3, a: 0.22, seed: 7 });
     if (bg !== 'p1586_river_mouth__visit1_birds') { g.save(); clip(g, SKY); FX.birds(g, t, { y0: 60, y1: 200, n: 3, period: 23, color: 'rgba(70,64,56,0.5)', size: 7, x0: 640, x1: 1280 }); g.restore(); }
-    FX.ripple(g, im, [700, 330, 580, 150], t * 0.6, 0.8, 0.09);                    // the river, slow
-    FX.water(g, t * 0.5, 720, 340, 540, 120, '255,246,220');
-    FX.sway(g, im, [0, 0, 380, 150], t * 0.5, 1.6, 0.3, true);                      // the palm fronds
-    FX.sway(g, im, [190, 165, 140, 70], t * 0.6, 0.6, 1.2, true);                   // the thatch's fringe
-    FX.billow(g, im, [728, 385, 172, 50], t, 0.6, 7);                               // the net between its poles
+    const visit = /__visit/.test(bg);   // (visits 1 and 2: the canoes drawn up on the sand, the nets on poles by the wall)
+    if (visit) {
+      FX.ripple(g, im, [810, 330, 470, 150], t * 0.6, 0.8, 0.09); FX.ripple(g, im, [690, 340, 120, 60], t * 0.6, 0.6, 0.09);
+      FX.water(g, t * 0.5, 820, 340, 440, 120, '255,246,220');
+      FX.sway(g, im, [0, 0, 380, 150], t * 0.5, 1.6, 0.3, true);                    // the palm fronds
+      FX.sway(g, im, [270, 200, 150, 60], t * 0.6, 0.6, 1.2, true);                 // the hut's thatch fringe
+      FX.billow(g, im, [384, 300, 150, 150], t, 0.5, 8);                            // the nets drying on their poles
+    } else {
+      FX.ripple(g, im, [700, 330, 580, 120], t * 0.6, 0.8, 0.09);                   // the river, slow
+      FX.water(g, t * 0.5, 720, 340, 540, 110, '255,246,220');
+      FX.sway(g, im, [0, 0, 380, 150], t * 0.5, 1.6, 0.3, true);                    // the palm fronds
+      FX.sway(g, im, [190, 165, 140, 70], t * 0.6, 0.6, 1.2, true);                 // the thatch's fringe
+      FX.billow(g, im, [728, 385, 172, 50], t, 0.6, 7);                             // the net between its poles
+    }
   };
   // ================================================================ 1586: the huts by the cane
   ALIVE.p1586_huts = (g, t, bg, im) => {
     drift(g, t, 'huts', [[[520, 0], [1280, 0], [1280, 60], [1080, 120], [900, 200], [700, 230], [520, 100]]], { speed: 3, a: 0.2, seed: 9, rgb: '255,232,200' });
     FX.flame(g, t, 384, 400, 18, 3, '255,160,70'); FX.flame(g, t + 0.4, 392, 401, 13, 5, '255,170,80');   // the cooking fire under the pot
     FX.glow(g, 386, 392, 60, '255,150,70', 0.13 * FX.flicker(t, 3));
-    FX.wisps(g, t, 384, 360, { n: 6, rise: 120, spread: 16, rgb: '200,195,190', a: 0.12, size: 10, speed: 0.12 }); // its smoke
+    FX.wisps(g, t, 384, 362, { n: 10, rise: 110, spread: 14, rgb: '200,195,190', a: 0.08, size: 12, speed: 0.1 }); // its smoke
     FX.sway(g, im, [960, 95, 150, 110], t * 0.5, 0.8, 0.6, true);                   // the tree behind the huts
     FX.billow(g, im, [1146, 262, 62, 110], t, 0.9, 8);                              // the cloth hung at the hut
   };
@@ -70,8 +79,9 @@
   };
   // ================================================================ 1586: the shore in the storm (torches; the rain in front)
   ALIVE.p1586_shore_storm = (g, t, bg, im) => {
-    FX.ripple(g, im, [0, 340, 470, 220], t * 1.4, 2.2, 0.06);                      // the surf heaving
-    FX.water(g, t * 1.3, 0, 360, 440, 180, '230,236,240');
+    // the surf heaving round the flat rock (the rock itself holds still)
+    for (const r of [[0, 340, 470, 44], [0, 384, 128, 82], [0, 466, 450, 90]]) FX.ripple(g, im, r, t * 1.4, 2.2, 0.06);
+    FX.water(g, t * 1.3, 0, 470, 430, 80, '230,236,240'); FX.water(g, t * 1.3, 0, 345, 400, 35, '230,236,240');
     for (const [x, y, s] of [[721, 337, 2], [971, 340, 4]]) {
       FX.flame(g, t, x, y + 12, 22, s, '255,170,70');
       FX.glow(g, x, y, 70, '255,160,70', 0.16 * FX.flicker(t, s));
