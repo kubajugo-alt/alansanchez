@@ -110,6 +110,10 @@
 
   // ================================================================ HOTEL: the lobby
   S.lobbyNight = () => ch() === 1 && !!F().reception_done;
+  // night in the open rooms (the user, 2026-11-04: "just block the access to the beach at night"): the evenings the story
+  // tells, Tuesday after the reception, Thursday once Alan is caught, Friday once Carmen has explained the cave ("the dusk
+  // comes"), Saturday after the flood. The way down to the beach is closed then (ROOMS.canteras).
+  S.night = () => { const f = F(), c = ch(); return (c === 1 && !!f.reception_done) || (c === 3 && !!f.caught) || (c === 4 && !!f.cave_explained) || (c === 5 && !!f.isleta_flood); };
   ROOMS.hotel_lobby = S.room({
     music: 'hotel_lobby',
     name: 'Hotel Cristina', bg: 'hotel_lobby', floor: 'tile', ambience: 'museum', door: 'door',
@@ -297,7 +301,7 @@
         items: { note5000: () => S.buyPaper(), coins: () => say('chano_coins'), postcard: () => S.postCard(), any: 'chano_any' } },
     ],
     hotspots: [
-      { name: 'Down to the beach', rect: [700, 560, 250, 50], at: [820, 665], exit: 'beach', entry: 'canteras' },
+      { name: 'Down to the beach', rect: [700, 560, 250, 50], at: [820, 665], exit: 'beach', entry: 'canteras', when: () => !S.night() }, // (closed at night: the user, 2026-11-04)
       { name: 'The sea', rect: [440, 330, 520, 120], at: [700, 620], look: () => S.lookSea() },
       { name: 'Promenade steps', rect: [880, 500, 220, 60], at: [960, 640], look: () => say('alan_look_steps_' + Math.min(6, Math.max(1, S.tideStep()))) },
       { name: 'Bonfires', rect: [470, 470, 260, 80], at: [600, 640], when: () => ch() >= 2, look: () => say('alan_look_bonfire_' + Math.min(6, ch())) },
@@ -513,7 +517,7 @@
     },
     entries: { default: [200, 665, 'e'], canteras: [200, 665, 'e'] },
     ambient: [
-      { id: 'surfer', frames: ['surfer_ph_idle'], talkFrames: ['surfer_ph_talk'], x: 900, y: 655, dir: 'w', name: 'Surfers', look: () => S.lookSurfers(), talk: () => S.talkSurfers(), when: () => ch() <= 6 && !F().canteras_night },
+      { id: 'surfer', frames: ['surfer_ph_idle'], talkFrames: ['surfer_ph_talk'], x: 900, y: 655, dir: 'w', name: 'Surfers', look: () => S.lookSurfers(), talk: () => S.talkSurfers(), when: () => ch() <= 6 && !S.night() },
     ],
     hotspots: [
       { name: 'Surfboards', rect: [900, 340, 220, 210], at: [960, 660], look: 'alan_look_surfboards' },
