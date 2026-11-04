@@ -134,3 +134,10 @@ but Alan).
    options from his Game II sprite, earthy colours.
    New options: E, a tobacco linen suit with a rust knit tie; F, a formal ecru guayabera (Dominican formal wear) with
    brown trousers. Sheet `art/designs/g3_front_sheet_v3.png`.
+5. **Vasco approved: the three fronts are settled** (2026-11-04). The user: "do Vasco from the second game, but
+   different colour pallette, still earthy", then "olive options is great, just give him sandals", then "vasco
+   approved". E and F (suit, guayabera) not taken. Vasco is his Game II sprite with the same clothes recoloured (olive-sage
+   shirt, chocolate trousers) and dark brown sandals: `art/designs/vasco_g3_front_g2.png` (media MAHZ7KqBrsQ). The
+   approved fronts: `alan_g3_front_d.png`, `vasco_g3_front_g2.png`, `ines_g3_front_v2.png`; together on
+   `art/designs/g3_front_approved.png`. Next for them, when asked: side and back views from these, then the cut-outs
+   (`figure_cut.py`'s method) once the engine is forked.

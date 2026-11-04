@@ -23,3 +23,7 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
 - 2026-11-04 figure `vasco_g3_front_e` Canva media MAHZ7E8h0Mw -> art/designs/vasco_g3_front_e.png edit of Game II's Vasco: tobacco-brown tropical linen suit, cream shirt, rust knit tie, brogues; candidate
 - 2026-11-04 figure `vasco_g3_front_f` Canva media MAHZ7PEUMFY -> art/designs/vasco_g3_front_f.png edit of Game II's Vasco: formal long-sleeved ecru guayabera, chocolate trousers, loafers; candidate
 - 2026-11-04 sheet art/designs/g3_front_sheet_v3.png
+- 2026-11-04 figure `vasco_g3_front_g` Canva media MAHZ7Hty5cE -> art/designs/vasco_g3_front_g.png Game II's Vasco, same clothes recoloured: olive-sage shirt, chocolate trousers, oxblood boots (the user: "do Vasco from the second game, but different colour pallette, still earthy"; "olive options is great")
+- 2026-11-04 figure `vasco_g3_front_h` Canva media MAHZ7Omzld8 -> art/designs/vasco_g3_front_h.png the same recoloured terracotta shirt, khaki-olive trousers; not taken
+- 2026-11-04 figure `vasco_g3_front_g2` Canva media MAHZ7KqBrsQ -> art/designs/vasco_g3_front_g2.png G with dark brown leather sandals (the user: "just give him sandals"). APPROVED (the user: "vasco approved")
+- 2026-11-04 sheet art/designs/g3_front_approved.png: the three approved fronts
