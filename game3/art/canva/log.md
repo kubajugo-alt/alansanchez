@@ -27,3 +27,5 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
 - 2026-11-04 figure `vasco_g3_front_h` Canva media MAHZ7Omzld8 -> art/designs/vasco_g3_front_h.png the same recoloured terracotta shirt, khaki-olive trousers; not taken
 - 2026-11-04 figure `vasco_g3_front_g2` Canva media MAHZ7KqBrsQ -> art/designs/vasco_g3_front_g2.png G with dark brown leather sandals (the user: "just give him sandals"). APPROVED (the user: "vasco approved")
 - 2026-11-04 sheet art/designs/g3_front_approved.png: the three approved fronts
+- 2026-11-04 figure `alan_g3_front_d2` Canva media MAHZ7A77h90 -> art/designs/alan_g3_front_d2.png D without the blazer: the short-sleeved print shirt, cargo trousers, sandals (the user: "drop the blazer from Alan - he is in a short sleeve shirt"); replaces D as Alan's front (waiting for the user's word on the result)
+- 2026-11-04 sheet art/designs/g3_front_approved.png rebuilt with alan_g3_front_d2

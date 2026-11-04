@@ -141,3 +141,7 @@ but Alan).
    approved fronts: `alan_g3_front_d.png`, `vasco_g3_front_g2.png`, `ines_g3_front_v2.png`; together on
    `art/designs/g3_front_approved.png`. Next for them, when asked: side and back views from these, then the cut-outs
    (`figure_cut.py`'s method) once the engine is forked.
+6. **Alan without the blazer** (2026-11-04, the user: "drop the blazer from Alan - he is in a short sleeve shirt").
+   `art/designs/alan_g3_front_d2.png` (media MAHZ7A77h90): D's print shirt, cargo trousers and sandals, no blazer. It
+   is now Alan's front on `g3_front_approved.png`. Note for the story: the bible's linen jacket (Yunior's price, S10)
+   is no longer on him; it can be carried, or come out of his luggage that day.
