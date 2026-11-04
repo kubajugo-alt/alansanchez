@@ -57,3 +57,8 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
   - hostal_courtyard MAHZ7Vg3uT0 · hostal_room4 MAHZ7S4dGyQ · hostal_room9 MAHZ7ZyupSc · hostal_kitchen MAHZ7WnJ4K0 (the hurricane map, the fax) · hostal_roof MAHZ7Z1oPKo
   - cathedral_nave MAHZ7R1kuC0 (St Michael chapel with the offerings, the tower door) · bell_chamber MAHZ7foAj4g · calle_las_damas_night MAHZ7bY2weQ · parque_colon MAHZ7dcpMSA
   Sheet art/designs/g3_rooms_sheet_v1.jpg. Story details to check: the bell's frieze (waves, seven ships, one above the founders' mark) and the mark are not readable at this size; the roof's dark patch beyond the reef is not visible; the door numbers 4 and 9 are not on the courtyard doors.
+- 2026-11-04 rooms, second wave (the user: "carry on with the next batch of rooms"). Same method. In art/designs/rooms/; candidates:
+  - cathedral_cloister MAHZ9ectY5M · cathedral_archive MAHZ9drcgt8 (the two-chair reading table, the card index) · san_anton_colmado MAHZ9WA-7F8 (domino table)
+  - tata_alley_night MAHZ9Qbp8Os (the blue house, green door) · blue_house_inside MAHZ9VFzCEo (altar, chalk sign, guava window) · el_conde MAHZ9Zhd1Ew (sweet tray, Puerta del Conde)
+  - palace_courtyard MAHZ9aYUAa8 (the black car) · market_hall MAHZ9QhoKqI (drain grating) · candle_aisle MAHZ9Wg1Czo (Yolande's stall curtain, drain)
+  Sheet art/designs/g3_rooms_sheet_v2.jpg. To check: the blue house's face-down photo and wooden boat are too small to read at this size.

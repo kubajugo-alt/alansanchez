@@ -186,3 +186,7 @@ but Alan).
     painting each, Game II's rooms as the style reference only; `art/designs/rooms/`, sheet
     `art/designs/g3_rooms_sheet_v1.jpg`. Not upscaled, not laid out, not in any game (rooms become fixed only once
     approved). The other 6 sides and 15 side views still to export (entry 12).
+14. **Rooms, second wave (for review)** (2026-11-04, the user: "carry on with the next batch of rooms"). Nine more:
+    the cathedral cloister and archive, the San Antón colmado square, Tata's alley at night, inside the blue house,
+    Calle El Conde, the archbishop's palace courtyard, the Mercado Modelo hall and the candle aisle. Same method; sheet
+    `art/designs/g3_rooms_sheet_v2.jpg`. 18 of the bible's 37 screens now painted (candidates).
