@@ -72,8 +72,8 @@
   // ================================================================ 1586: the bell-chamber (the new bell, Drake's fleet)
   ALIVE.p1586_bell_chamber = (g, t, bg, im) => {
     drift(g, t, 'bell1586', [[930, 100, 200, 220]], { speed: 3, a: 0.2, seed: 5, rgb: '255,236,200' });
-    FX.ripple(g, im, [925, 330, 210, 120], t, 0.6, 0.12);                          // the sea under the fleet
-    FX.water(g, t * 0.6, 930, 340, 200, 100, '255,240,200');
+    FX.ripple(g, im, [925, 372, 210, 85], t, 0.5, 0.12);                          // the sea under the fleet
+    FX.water(g, t * 0.6, 930, 375, 200, 80, '255,240,200');
     g.save(); clip(g, [[20, 60, 120, 370]]); FX.wisps(g, t, 50, 300, { n: 5, rise: 170, spread: 30, rgb: '60,50,44', a: 0.14, size: 30, speed: 0.06, dark: true }); g.restore(); // the town's smoke
     FX.glow(g, 80, 330, 40, '255,120,40', 0.12 * FX.flicker(t, 2));                // the fires in the town below
     FX.sway(g, im, [620, 450, 70, 150], t * 0.7, 1.2, 0, false);                   // the bell rope hanging
