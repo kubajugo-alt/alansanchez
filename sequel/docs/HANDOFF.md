@@ -2218,3 +2218,7 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     - Measured at two floor spots each: windows and sun 0.2-0.34 with shadows 0.2-0.37; lamps 0.1-0.2; overcast soft.
       Sheets: `art/review/light2/sheet23_0-3.jpg` (Alan, before | `?light=2`).
     - Checks: validate 0 errors; smoke with `?light=2` over every preview scene: all 33 pass; without it nothing changes.
+    - Deployed (the user: "then deploy"), still behind `?light=2`: export at `87e6b194` (557 MB); play.mjs on it won in
+      132 steps, no errors; Netlify `6aeb73d032a840cf4ec1cec4`. Live: page 200, `/.env` and `/scripts/` 404; lighting.js,
+      index.html, offline.json byte-equal; live smoke with `?light=2` bar, belfry pass, and lobby without it. Waiting on the
+      user to see it in the game: then on by default (drop the `?light=2` gate in lighting.js) or changes.
