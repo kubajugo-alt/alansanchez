@@ -67,3 +67,7 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
   - dario_roof MAHZ9WUr4T8 (El Faro's cross) · gallera MAHZ9esQjEA (Lilo's chair; no birds, no blood) · police_cell MAHZ9YaEjo4 (the pipe through the wall, the hole)
   - batista_office MAHZ9b8L3Zk (Batista's office retried once after a Canva HTTP 409; the first job never ran) · police_steps_dawn MAHZ9cE3-DE (the bus) · yolande_back_room MAHZ9RMLScw (boat on the altar)
   Sheet art/designs/g3_rooms_sheet_v3.jpg.
+- 2026-11-04 rooms, fourth wave (the user: "don't repaint the study and carry on with the next batch"; the study keeps its pope-like portrait). Same method. In art/designs/rooms/; candidates:
+  - foundry_yard MAHZ9lgEsjQ (the new bell, the crate) · foundry_office MAHZ9mrrG7o (the wall clock) · shore_steps MAHZ9v9ulYY
+  - playa_negras_night MAHZ9l9XHwU (the flat rock, the steps, the fortress) · shore_water_edge MAHZ9kqLoag · city_wall MAHZ9p8xbeE (El Faro) · vasco_office_lisbon MAHZ9s7EkP4 (exported 1920x1080 through scratch page 1, which held old Game II scratch media MAHYYLvMwYE)
+  Sheet art/designs/g3_rooms_sheet_v4.jpg.

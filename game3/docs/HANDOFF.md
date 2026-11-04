@@ -195,3 +195,9 @@ but Alan).
     off screen, as the bible says), the police cell, Batista's office, the police steps at dawn and Yolande's back room.
     Sheet `art/designs/g3_rooms_sheet_v3.jpg`. 27 screens painted (candidates). Left: the foundry (2), the Playa de las
     Negras (3), the city wall, Vasco's office in Lisbon, plus the prologue's 1586 paint-overs.
+16. **Rooms, fourth wave (for review)** (2026-11-04, the user: "don't repaint the study and carry on with the next
+    batch"). The study stays as painted. Seven more: the foundry yard and office, the steps down to the shore, the Playa
+    de las Negras at night, the water's edge, the city wall over the river, Vasco's office in Lisbon. Sheet
+    `art/designs/g3_rooms_sheet_v4.jpg`. All the bible's present-day screens now have a candidate painting (34 here plus
+    Game I's shop, flat and street to copy). Left: the prologue's 1586 versions (paint-overs or a period style, the
+    bible's open question), close-up stills (the frieze, the boat, the photo), and the user's verdicts.
