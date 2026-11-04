@@ -62,3 +62,8 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
   - tata_alley_night MAHZ9Qbp8Os (the blue house, green door) · blue_house_inside MAHZ9VFzCEo (altar, chalk sign, guava window) · el_conde MAHZ9Zhd1Ew (sweet tray, Puerta del Conde)
   - palace_courtyard MAHZ9aYUAa8 (the black car) · market_hall MAHZ9QhoKqI (drain grating) · candle_aisle MAHZ9Wg1Czo (Yolande's stall curtain, drain)
   Sheet art/designs/g3_rooms_sheet_v2.jpg. To check: the blue house's face-down photo and wooden boat are too small to read at this size.
+- 2026-11-04 rooms, third wave (the user: "carry on with the next batch of rooms"). Same method. In art/designs/rooms/; candidates:
+  - bishop_study MAHZ9depcmk (the grandmother's photo is the small frame beside the pope's portrait) · palace_dining MAHZ9RoJp8E · blue_door_bar MAHZ9ekG-NU (stage, drum, the hairdresser's chair)
+  - dario_roof MAHZ9WUr4T8 (El Faro's cross) · gallera MAHZ9esQjEA (Lilo's chair; no birds, no blood) · police_cell MAHZ9YaEjo4 (the pipe through the wall, the hole)
+  - batista_office MAHZ9b8L3Zk (Batista's office retried once after a Canva HTTP 409; the first job never ran) · police_steps_dawn MAHZ9cE3-DE (the bus) · yolande_back_room MAHZ9RMLScw (boat on the altar)
+  Sheet art/designs/g3_rooms_sheet_v3.jpg.

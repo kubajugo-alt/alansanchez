@@ -190,3 +190,8 @@ but Alan).
     the cathedral cloister and archive, the San Antón colmado square, Tata's alley at night, inside the blue house,
     Calle El Conde, the archbishop's palace courtyard, the Mercado Modelo hall and the candle aisle. Same method; sheet
     `art/designs/g3_rooms_sheet_v2.jpg`. 18 of the bible's 37 screens now painted (candidates).
+15. **Rooms, third wave (for review)** (2026-11-04, the user: "carry on with the next batch of rooms"). The bishop's
+    study, the palace dining room, the blue-door bar, Darío's roof, outside the Villa Consuelo gallera (the fight stays
+    off screen, as the bible says), the police cell, Batista's office, the police steps at dawn and Yolande's back room.
+    Sheet `art/designs/g3_rooms_sheet_v3.jpg`. 27 screens painted (candidates). Left: the foundry (2), the Playa de las
+    Negras (3), the city wall, Vasco's office in Lisbon, plus the prologue's 1586 paint-overs.
