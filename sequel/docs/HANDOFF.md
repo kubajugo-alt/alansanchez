@@ -2234,3 +2234,6 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     for all games"). `js/engine/lights.js` `groundShadows` no longer draws the dark ellipse under the feet (nor reads a
     room's `light.ao` or a figure's `def.shadow`, which only shaped it); a figure is grounded by the shadows its room's lights
     cast (entries 158-160). The same file in Game I (its handoff entry 92). The Gando kiss figure's `shadow` setting removed.
+    Deployed (the user: "yes"), both games from `56c8bb00`: Game II's export (557 MB) won play.mjs in 132 steps; Netlify
+    `6aeb9044919e2db1b849cbb6` (the first upload failed, the second went through). Live: lights.js byte-equal, no contact
+    shadow in it, smoke tue, bar pass. Game I: Netlify `6aeb8e977b2565722bac0623` (its entry 92). Merged by PR #21.

@@ -5,8 +5,8 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `d955eda0` (Netlify `6aeb56afc699109e2131af08`, entry 91;
-PR kubajugo-alt/alansanchez#19): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `56c8bb00` (Netlify `6aeb8e977b2565722bac0623`, entry 92;
+PR kubajugo-alt/alansanchez#21): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
 change (entries 1-92; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
@@ -1642,6 +1642,9 @@ session lived in the session's scratchpad and are gone; everything that matters 
    HANDOFF 161) no longer draws the dark ellipse under every figure's feet; the shadows cast by the rooms' lights stay (13
    Game I rooms have lights that cast them). Game I's painted shadow of the officer on the bedding (visits.js) is a layer,
    not this, and stays.
+   Deployed (the user: "yes"): export at `56c8bb00`, smoke intro, shopjobs, sepit, bath, finale pass on it; Netlify
+   `6aeb8e977b2565722bac0623`. Live: page 200, `/.env` 404, lights.js byte-equal; live smoke intro, shopjobs pass. Game II
+   deployed with it (its 161). Merged by PR kubajugo-alt/alansanchez#21.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
