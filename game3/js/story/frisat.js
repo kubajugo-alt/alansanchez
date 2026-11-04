@@ -339,7 +339,7 @@
     if (!f.rum_asked) { f.rum_sent = true; f.rum_asked = true; await say('fello_sat_201', 'alan_sat_203', 'fello_sat_204'); }
     S.take('dollars'); S.sfx('cash_register', 0.5);
     await say('fello_sat_206', 'fello_sat_207');
-    f.rum = (f.rum || 0) + 1; S.give('rum');
+    f.rum = (f.rum || 0) + 6; S.give('rum');   // (the bible: Barceló Imperial ×6 from the colmado, for dollars: Yolande Sat, Lilo Sun ×2, the tower Sun, Yolande Mon ×2)
     f.rum_sat = true;
     G.refreshNpcs();
   };
