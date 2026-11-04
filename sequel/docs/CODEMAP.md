@@ -91,6 +91,9 @@ Serve `sequel/` (`npx -y http-server sequel -p 8099 -c-1 -s`, the folder first: 
 quietly serves the repository root, Game I), then:
 
 - `node sequel/scripts/validate.mjs`: every line id used exists, every line is used, speakers named, art on disk.
+- `smoke.mjs`, `robustness.mjs`, `loading.mjs`, `memory.mjs`, `a11y.mjs`, `touch_press.mjs`, `qol.mjs`, `story_hints.mjs` in
+  `sequel/scripts/tests/` (from Game I, entry 105; each takes the base URL, prints PASS/FAIL). `?scene=walklab` is the walk lab
+  (`js/walklab.js`), `?review` the review screen (`js/review.js`); neither is in index.html.
 - `node sequel/scripts/tests/play.mjs http://localhost:8099/`: plays the whole game, prologue to credits, through
   hotspots and dialogue (with the airport's bad ending and one wrong disc on the way). About five minutes.
 - `node sequel/scripts/tests/shot.mjs http://localhost:8099/ <scene|title> out.png`: a screenshot and the page errors.

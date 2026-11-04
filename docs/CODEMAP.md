@@ -51,6 +51,7 @@ sprites marked `cut` (straight cuts, no dissolve); interactive close-up pages (`
 | 21 | `js/story/core.js` | `window.S`: the story layer. Its `say` (line poses, reactions), combined sprites (`S.pairIn` / `S.pairOut`), the cast (`S.CHARS`), items (`S.ITEMS`), helpers, the map, Inês's hints. |
 | 22 | `js/story/ines.js` | Inês's frames, reactions to lines, and her jobs around the shop. |
 | 23 | `js/story/docs.js` | Readable documents as close-ups: ledger, 1955 file, list, tide card, repair book, notebook, lyrics, newspaper, Ferreira's drawer lock, tide clock. |
+| 23b | `js/story/sea_clips.js`, `sea.js` | Water loops: `S.SEA` (where a clip sits on a painting; **generated** by `scripts/sea_clips.py`, empty for now), `S.seaLoop(g, key)` drawn from a room's `animBack` (false with no clip: the room's own drawing stays), `S.seaOn`, `S.seaTick`. |
 | 24 | `js/story/ch1.js` | Chapter I rooms: shop, street (tram), map, police (Teixeira's phone cord), tavern. |
 | 25 | `js/story/ch2.js` | Chapter II: the Lavadouro (and the bath), Relojoaria Ferreira. |
 | 26 | `js/story/ch3.js` | Chapter III: the convent by day (cipher wheel), Sé bell tower, Antiguidades Lacerda. |
@@ -63,6 +64,7 @@ sprites marked `cut` (straight cuts, no dissolve); interactive close-up pages (`
 | 32 | `js/story/coldopen.js` | The cold open (Maria Coutinho's last minute). |
 | 33 | `js/story/fado.js` | "O Sino Afogado" staged in the Taberna. |
 | 34 | `js/story/transitions.js` | Chapter transitions and the fado slideshow. |
+| 34b | `js/story/layout.js`, `placed.js` | The placement tool's output applied to the rooms' people (x, y, size, facing, front/back); `placed.js` is written by `scripts/placer_install.py` and ships empty. |
 | 35 | `js/story/main.js` | Shared painted effects, shop chapter hooks, `?scene=` previews, the content setting, the opening and `window.Story.newGame`, approved review frames, `Game.init`. |
 | - | `js/review.js` | The `?review` animation review screen. Not in `index.html`: `main.js` loads it only when `?review` is in the address. |
 | - | `js/walklab.js` | The walk lab (`?scene=walklab`): a character walking a room with its current or candidate cycle, slow motion, feet on the floor, per-frame size and the planted foot's slip at each change of painting. Not in `index.html`: `main.js` loads it for that preview. |
@@ -117,4 +119,5 @@ Serve the repository root (`npx -y http-server -p 8098 -c-1 -s .`), then:
 - **Smoke test** (Playwright, `executablePath: '/opt/pw-browsers/chromium'`, Playwright loaded with `createRequire('/opt/node22/lib/node_modules/')`): `node scripts/tests/smoke.mjs http://localhost:8098/ [scene ...]` opens every preview scene with `window.FAST` on, answers the dialogs and reports page errors. All 38 scenes take over 15 minutes: run them in two parts. `GEMINI=1` approves every review candidate for the run.
 - **Checks added 22 Oct** (serve on :8098 first; each prints PASS/FAIL lines): `robustness.mjs` (saves, busy after errors, GL loss, hints), `loading.mjs` (time to title on a throttled link; every room complete on entry), `touch_press.mjs`, `story_hints.mjs` (the "already done" replies, the Chapter V notebook hints), `qol.mjs` (Continue's chapter end, save version and file, double-click, hotspot marks), `a11y.mjs` (settings, keyboard), `memory.mjs` (the phone budget, `?mem=`), `front_back_walk.mjs`, `morph_coverage.mjs` + `morph_report.cjs` (which frame changes morph), `morph_shot.mjs` (a morph photographed at a slowed clock).
 - **Other scripts in `scripts/tests/`:** `walk_cast.mjs` (walk lab readings per character), `walks_wired.mjs` (which cycle each character plays), `room_shots.mjs` (room screenshots, `OUT=<folder>`), `perf.mjs` and `profile.mjs` (speed; without a GPU the numbers are only comparative), `walknew.mjs`, `copbed2.mjs`.
+- **Recording with sound:** `scripts/tests/record_scene.mjs <url> <scene>` then `python3 scripts/record_mix.py` (see Game II's `docs/PIPELINES.md`); `record_steps.mjs` steps frames for a smooth picture.
 - **Full playthrough:** `node scripts/tests/play.mjs http://localhost:8098/` plays a new game to the ending as a player would (about 20 minutes) and prints `{"won":true}`; Bastos's two close-ups are clicked through their own buttons. (`probe.mjs`, poses per scene, was lost with an earlier session.)

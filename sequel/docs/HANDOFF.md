@@ -49,7 +49,8 @@ root, in the same repository as Game I. Read, in this order:
 ### Open, in the order I'd suggest
 1. **The granary (entries 98, 100)**: built and live; the user to see it in the game (`?scene=vault` for the cell,
    `?scene=rescue_vault` for Sunday). The puzzles (entry 97) are approved, voiced and live; "pesetas" is B (entry 100).
-2. **Deployed** (entry 101): everything to here is live.
+2. **Deployed** (entry 101): everything to here is live. Entry 105 (one engine with Game I, the tests) is not deployed.
+   From it: re-run lip-sync (Rhubarb) for the stale and missing cues; the surfers' `canteras_night`.
 3. **Parallax** is on (entry 96): the recording waits for the user's approval before a deploy.
 4. **Environment movement**: the user's pick from the ten fixes in `docs/review/env_movement.md`.
 5. **Stills**: the 16 text cards still to paint.
@@ -1135,3 +1136,38 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
       from Canva (`art/review/bg_real/rafa_bar_yeray_drunk.png`, from the in-game yeray_r/c); Vasco on the bed in a towel
       waiting on Canva's cooldown (reminder set).
     - Checks: validate 0 errors; play.mjs won in 131 steps, no page errors.
+105. **Both games share one engine; each got the other's tools** (2026-11-04, the user: "Apply everything that Game II has
+    to Game I. And the other way around"). Branch `claude/dazzling-wright-lm7a2y`, PR kubajugo-alt/alansanchez#16 (draft).
+    Game I's handoff entry 86 has the same account.
+     - **One engine.** `js/engine/*`, `engine.js`, `fx.js`, `audio.js`, `warp.js`, `parallax.js`, `css/style.css` are now the
+       same files byte for byte in both games (`cmp` each against the other game's copy). What is one game's is data:
+       `js/game.js` (new, loaded first: `GAME_KEY` for every localStorage key, so the keys are unchanged, `SAVE_SLOT`,
+       `SAVE_VERSION`/`SAVE_MIGRATE`, `FIRST_ROOM` (Game I), `FOOTSTEPS`, `TURNERS`, `MUSIC_LEGACY`, `GAME_TIPS`,
+       `STUCK_TIP_WHEN`), `SPEAKERS`/`CALLED` in `js/lines.js`, `PAINTED_ICONS`/`FAIL_BY_CHAR` in `js/story/core.js`, and a
+       room's `door` / `quietTo` / `quiet` for the sound between rooms (Game I's hard-coded door table moved onto its rooms:
+       shop, police, tavern, Ferreira, antiques, cabin, Sé tower stairs; convent <-> convent at night and the cistern silent).
+       A fix wanted in both is now made once and copied. See each game's CODEMAP.
+     - **Into Game I from Game II's engine** (none of it shows until the story uses it): Ludo runs (`talkFps`, a pose as a
+       run, `viewTurn`, `turnLR`, `walkStep`/`frontStep`/`backStep`: what the Ludo board's runs need), talk loops that keep to
+       frames with a lip-synced mouth, emotions on faces (`Engine.LINE_EMO`; needs `emo` art in a face set), interactive
+       close-up pages, a placed figure's `size`/`z`/`rot`/`speaker`, `cut` sprites, nameless ambient extras clicks pass
+       through, an outfit's frames preloaded, the luggage-tag icon for an item without one, the sand footstep.
+     - **Into Game II from Game I's engine**: a room painting picked by screen (`window.BG1X`: on a screen drawn at 1280 px or
+       less, `art/bg1x/`, the 2560 paintings scaled to 1280x720 by Lanczos, q90, 6.8 MB for 31; above 1280, `art/bg/` as before).
+     - **Bugs fixed on the way**: in Game II the engine read `PAINTED_ICONS` and `FAIL_BY_CHAR` before the story set them, so no
+       painted inventory icon ever showed (0 loaded at HEAD, 10 now) and no character's own "won't take that" line played; now
+       read when needed. In both, a touch press held over about 2 s skipped the look line it had started (the lift's click
+       was only swallowed within 1.5 s of the look; the window now starts at the lift). Game II's sunburn moved from the
+       engine to the end of `js/story/tue.js` (`E.skinTint`, unchanged).
+     - **Game II's new tools from Game I**:
+       - `scripts/validate.mjs`: code hidden after a `//`; a line with no mp3 (the 48 set aside in entry 104 warned by
+         name); lip-sync against its recording (477 stale cues and 747 voiced lines without cues for speakers with face
+         sets: warnings, fixed by a free `lipsync.py` run with Rhubarb, which this container couldn't download); flags
+         (read but never set: `canteras_night`, `tue.js:516`, so the surfers stay every night to Sunday: for the user;
+         14 set but never read); talk/idle frame sizes (540 checked, none off).
+       - `scripts/tests/`: smoke (29/29), robustness (15/15), loading (title 1.4 s at 20 Mbit/s; 28 rooms complete),
+         memory (at most 297 of 300 MB), a11y (5/5), touch_press (3/3 after the fix), qol (10/10), story_hints (20/20).
+       - The walk lab (`?scene=walklab`, `js/walklab.js`) and the review screen (`?review`, `js/review.js`: the States,
+         Walk and Voice tabs; Game I's New frames, Combined and Rig tabs need its candidates pipeline, pair and rig art).
+     - Left to each game by choice: footsteps (off here), the phone box, the sunburn.
+     - Checks: validate 0 errors; play.mjs won in 131 steps, no page errors; the tests above.
