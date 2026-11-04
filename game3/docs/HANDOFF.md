@@ -169,3 +169,9 @@ but Alan).
 10. **The supporting cast, fronts (for review)** (2026-11-04). Nando, Lalo, Yunior, Padre Ulises, Peralta, Ledesma,
     the Nuncio's secretary, Don Faustino, Ramón, the perm sisters (one picture, to be split), Darío, Eddy: same method.
     Sheet `art/designs/g3_cast_sheet_v2.png`. Every speaking part in the bible's voice sheet now has a front design.
+11. **Every cast front approved; one cast sheet** (2026-11-04, the user: "all approved - put all characters in one
+    sheet"). The approved front of every speaking character is `art/designs/<id>_g3_front.png` (23 files: alan, vasco,
+    ines, bishop, moncho, yolande, tobias, lilo, fello, batista, mireya, nando, lalo, yunior, ulises, peralta, ledesma,
+    secretary, faustino, ramon, sisters, dario, eddy). All of them on `art/designs/g3_cast_sheet.png`. Every other image
+    in `art/designs/` is a rejected candidate kept for the record. Next, when asked: side and back views (one edit each
+    from the approved front), then the cut-outs and heights once the engine is forked.
