@@ -68,22 +68,10 @@
   // the silhouette at a quarter size: drawn back up smoothed it is the soft shadow (a canvas blur filter per light per
   // frame was one of the slowest things on a phone)
   const softBuf = document.createElement('canvas'), soft = softBuf.getContext('2d');
-  function groundShadows(a, comp, U, bw, bh, h, lights, q) { // (q: comp is drawn at q buffer px per scene px)
+  function groundShadows(a, comp, U, bw, bh, h, lights, q) { // (q: comp is drawn at q buffer px per scene px): the cast shadows
     q = q || 1;
-    const L = roomLight();
-    const ao = L.ao != null ? L.ao : 1;
-    // contact shadow / ambient occlusion right under the feet
-    // (a figure of two, e.g. the kiss at Gando: def.shadow moves it to the middle of both and stretches it over them)
-    const SH = (a.def && a.def.shadow) || null, wide = (a.walking ? 1.25 : 1) * (SH ? SH.wide : 1);
-    g.save();
-    g.translate(a.x + (SH ? SH.dx * h : 0), a.y - h * 0.02); g.scale(1, 0.2); // spans from the far foot (painted higher) to the near one
-    let gr = g.createRadialGradient(0, 0, 0, 0, 0, h * 0.15 * wide);
-    gr.addColorStop(0, `rgba(0,0,0,${0.7 * ao})`); gr.addColorStop(0.5, `rgba(0,0,0,${0.38 * ao})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
-    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, h * 0.15 * wide, 0, Math.PI * 2); g.fill();
-    gr = g.createRadialGradient(0, 0, 0, 0, 0, h * 0.065 * wide);
-    gr.addColorStop(0, `rgba(0,0,0,${0.7 * ao})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
-    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, h * 0.065 * wide, 0, Math.PI * 2); g.fill();
-    g.restore();
+    // (no round contact shadow under the feet: the user, 2026-11-04, "I don't like that round one - I'd remove it from the
+    // engine totally, for all games"; a figure is grounded by the shadows its room's lights cast)
     // cast shadows, one per light, stretched away from it across the floor
     const casters = lights.filter(o => o.l.shadow !== false && o.I > 0.03 && o.l.owner !== a);
     if (!casters.length) return;

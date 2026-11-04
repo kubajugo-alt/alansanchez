@@ -141,8 +141,8 @@ A screen drawn at 1280 px or less loads `art/bg1x/<room>.jpg` instead, the same 
   treated as Game I's painted-left pairs by actor.js, hence the `duo_` prefix.
 - `scripts/tts_text.json`: what the voice reads where it differs from the caption, mostly ElevenLabs v4 emotion tags
   (`[shouting, frantic] ...`). Read by `generate-voices.mjs`; the caption in `lines.js` is unchanged (entry 118).
-- `js/engine/lights.js` `groundShadows`: an actor's `def.shadow = { dx, wide }` moves and stretches its contact shadow
-  (the two-person kiss figure, entry 119).
+- `js/engine/lights.js` `groundShadows`: the shadows a figure casts from its room's lights (no round contact shadow since
+  entry 161; the kiss figure's `def.shadow` went with it).
 - `S.EXTRAS_WHEN[room]` (layout.js reads it): when a room's background people are there; `gando` is Tuesday only
   (`F().ch === 1`; `ch()` in tue.js returns 1 for the prologue's 0, so not that) (entry 120).
 
