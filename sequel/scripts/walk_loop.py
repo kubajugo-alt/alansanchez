@@ -43,6 +43,15 @@ which source frames were kept, the drift taken out, the seam numbers), report.js
 figure in place, looped four times, at its frame rate: scripts/review_anim.py's walk()) and oldnew_<run>.mp4 (the old
 run and the new loop side by side, same length). Nothing in the game changes.
 
+Review takes (HANDOFF 125, Vasco's walks from his repaint): a run listed in TAKES is read straight from its fitted Ludo take
+(art/review/ludo/<run>/fit/fNN.webp and fit.json, scripts/ludo_fit.py), not from the game, so a set can be looped and
+reviewed before anything is installed. Its standing painting for step 4 is TAKES[run]['still'] (a sprite key, or a path
+under sequel/). Such runs also get across_<run>.mp4: the loop walking across a strip of floor at its measured ground per
+frame (side views) or towards / away from the camera (front and back), so foot slide and the seam show as they would
+in a room.
+
+  python3 sequel/scripts/walk_loop.py vascor_walk_side ...      (any run in TAKES: from its take)
+
 install (after the user's approval): copies the frames over art/sprites/<run>_NN.webp, deletes that run's old frames
 past the new count, and rewrites the six runs' entries (window.SPRITES boxes and window.LUDO) in js/sprites_ludo.js.
 Re-running scripts/ludo_install.py afterwards would undo this (and the hair clean-up): run this script's install again.
@@ -66,6 +75,19 @@ IB_K = 3           # ...over this many frames
 # The tank-top front walk was then redrawn (the user on the retimed loop: "still uneven walk": Ludo's drawing was lopsided);
 # the loop is made from the redrawn takes (the better of those present) at the frame count with the evenest steps
 RETIME = {'alanv_walk_front': {'takes': ['alanv_walk_front_t1', 'alanv_walk_front_t2'], 'N': [14, 16, 18, 20]}}
+# Vasco's front and back takes (HANDOFF 125) step unevenly too (the back's frame steps up to 2.5x the median): retimed the same way
+for _r in ('vascor_walk_front', 'vascor_walk_back', 'vascor_dinner_walk_front'):
+    RETIME[_r] = {'takes': [_r], 'N': [16, 18, 20, 22]}
+# runs read from their fitted Ludo take rather than from the game (see "Review takes" above); 'still' is the standing
+# painting the loop starts nearest to
+TAKES = {
+    'vascor_walk_side': {'still': 'vascor_profile_k'},
+    'vascor_walk_front': {'still': 'vascor_front_k'},
+    'vascor_walk_back': {'still': 'art/review/ludo/vascor_walk_back/keyframe_back.webp'},
+    'vascor_dinner_walk_side': {'still': 'vascor_dinner_profile_k'},
+    'vascor_dinner_walk_front': {'still': 'vascor_dinner_front_k'},
+}
+_TAKE = {}         # frame key -> RGBA float array, for runs read from their take
 BG = (46, 43, 52)  # the review clips' background (scripts/review_anim.py)
 FONT = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 20)
 
@@ -81,6 +103,8 @@ def game_data():
 
 
 def load(key):
+    if key in _TAKE: return _TAKE[key]
+    if key.startswith('art/'): return np.asarray(Image.open(os.path.join(SEQ, key)).convert('RGBA')).astype(np.float32) / 255
     return np.asarray(Image.open(os.path.join(SPR, key + '.webp')).convert('RGBA')).astype(np.float32) / 255
 
 
@@ -204,6 +228,21 @@ def planted(g):
     return round(float(p.mean()), 4)
 
 
+def take_data(run, data):
+    """a run in TAKES read from its fitted take: its frames registered for load() under the game's key names, and its
+    LUDO entry and sprite box put into data as if it were installed (only in memory)"""
+    F, fit = take_frames(run); keys = [f'{run}_{i:02d}' for i in range(len(F))]
+    for k, a in zip(keys, F): _TAKE[k] = a; data['S'][k] = dict(fit['meta'])
+    data['L'][run] = {'frames': keys, 'fps': fit['fps']}
+    return data
+
+
+def still_of(run):
+    k = TAKES[run]['still'] if run in TAKES else run.replace('_walk_', '_') + '_k'
+    path = os.path.join(SEQ, k) if k.startswith('art/') else os.path.join(SPR, k + '.webp')
+    return load(k) if os.path.exists(path) else None
+
+
 # ---------------------------------------------------------------- the loop
 def build(run, data, log=print):
     L0 = data['L'][run]; keys = L0['frames']; meta = data['S'][keys[0]]
@@ -239,7 +278,7 @@ def build(run, data, log=print):
             src[pos] = [a + pos, a - IB_K + j, round(w, 2)]
         ib = True
     # 4. start nearest the standing painting
-    still = load(run.replace('_walk_', '_') + '_k') if os.path.exists(os.path.join(SPR, run.replace('_walk_', '_') + '_k.webp')) else None
+    still = still_of(run)
     rot = 0
     if still is not None:
         Rs = reg(still); Hs, Ws = still.shape[:2]; H, W = Q[0].shape[:2]
@@ -487,6 +526,34 @@ def clips(run, new, old, fps):
     encode(tmp, os.path.join(OUT, f'oldnew_{run}.mp4'), fps); shutil.rmtree(tmp)
 
 
+def across(run, new, ent, meta, fps, loops=4):
+    """the loop walking: side views across a strip of floor at the measured ground per frame (a marker line every
+    tenth of a height, so a sliding foot shows), front and back towards / away from the camera with the scale a step
+    makes; loops times round"""
+    H = 360; s = H / meta['h']; n = len(new) * loops; side = '_side' in run
+    if side:
+        W = int(round(n * ent['step'] * H)) + 260; W += W % 2
+    else:
+        W = 480
+    tmp = tempfile.mkdtemp(dir=OUT)
+    for k in range(n):
+        im = new[k % len(new)]
+        if side:
+            sc = s; x = 40 + k * ent['step'] * H; base = H + 30
+        else:   # front: from far to near (0.75 -> 1.0 of the size), back: near to far
+            t = k / max(1, n - 1); t = t if '_front' in run else 1 - t
+            sc = s * (0.75 + 0.25 * t); x = W / 2; base = 30 + H * (0.75 + 0.25 * t)
+        fr = Image.new('RGB', (W, H + 60), BG); dr = ImageDraw.Draw(fr)
+        dr.rectangle((0, base, W, H + 60), fill=(62, 58, 66))
+        if side:
+            for gx in range(0, W, int(H * 0.1)): dr.line((gx, base, gx, base + 8), fill=(120, 115, 125))
+        t_ = im.resize((max(1, round(im.width * sc)), max(1, round(im.height * sc))), Image.LANCZOS)
+        fr.paste(t_, (int(round(x - meta['ax'] * sc)), int(round(base - meta['fy'] * sc))), t_)
+        dr.text((10, 8), f'{run}  {k % len(new):02d}/{len(new)}' + ('  seam' if k and k % len(new) == 0 else ''), font=FONT, fill=(230, 230, 230))
+        fr.save(os.path.join(tmp, f'{k:05d}.png'))
+    encode(tmp, os.path.join(OUT, f'across_{run}.mp4'), fps); shutil.rmtree(tmp)
+
+
 # ---------------------------------------------------------------- main
 def main(runs):
     data = game_data(); os.makedirs(os.path.join(OUT, 'frames'), exist_ok=True)
@@ -494,7 +561,8 @@ def main(runs):
     J = json.load(open(jp)) if os.path.exists(jp) else {}
     REP = json.load(open(rp)) if os.path.exists(rp) else {}
     for run in runs:
-        if len(data['L'][run]['frames']) != 36:   # already installed: its frames are a loop now, not Ludo's run
+        if run in TAKES: data = take_data(run, data)
+        elif len(data['L'][run]['frames']) != 36:   # already installed: its frames are a loop now, not Ludo's run
             print(f'{run}: installed already ({len(data["L"][run]["frames"])} frames), skipped'); continue
         out, ent, meta, rep, old = (build_retimed if run in RETIME else build)(run, data)
         for f in glob.glob(os.path.join(OUT, 'frames', run + '_[0-9][0-9].webp')): os.remove(f)
@@ -504,6 +572,8 @@ def main(runs):
         REP[run] = rep
         clips(run, [Image.open(os.path.join(OUT, 'frames', k + '.webp')).convert('RGBA') for k in ent['frames']],
               [to_im(a) for a in old], ent['fps'])
+        if run in TAKES:
+            across(run, [Image.open(os.path.join(OUT, 'frames', k + '.webp')).convert('RGBA') for k in ent['frames']], ent, meta, ent['fps'])
     json.dump(J, open(jp, 'w'), indent=1)
     json.dump(REP, open(rp, 'w'), indent=1)
     print('wrote', OUT)
@@ -514,7 +584,7 @@ def install(runs=None):
     if runs: J = {r: e for r, e in J.items() if r in runs}   # (only the approved ones: the user reviews each run)
     S, L = data['S'], data['L']
     for run, e in J.items():
-        for k in L[run]['frames']: S.pop(k, None)
+        for k in L.get(run, {}).get('frames', []): S.pop(k, None)
         for f in glob.glob(os.path.join(SPR, run + '_[0-9][0-9].webp')): os.remove(f)
         for k in e['ludo']['frames']:
             shutil.copyfile(os.path.join(OUT, 'frames', k + '.webp'), os.path.join(SPR, k + '.webp'))

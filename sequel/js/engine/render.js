@@ -208,14 +208,18 @@
       const planted = (a, fn) => { if (!PX()) return fn(); g.save(); Parallax.apply(g, a.x, a.y); try { fn(); } finally { g.restore(); } };
       const items = [];
       markOccluded(E.npcs.filter(a => a.visible).concat(E.player.visible ? [E.player] : []));
-      const drawNpc = a => planted(a, () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); });
+      // the Sea's water (js/story/water.js): rooms that can hold it draw it after the figures, before animFg; each
+      // figure is noted as it is drawn, so it gets its own waterline (in 2D, its submerged part goes over it at once)
+      const WP = E.waterPass && E.waterPass.begin(g) ? E.waterPass : null;
+      const drawNpc = a => planted(a, () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); if (WP) WP.figure(g, a); });
       for (const a of E.npcs) if (a.visible) items.push({ y: a.y + ((a.def && a.def.z) || 0), fn: () => drawNpc(a) });   // (z: a placed figure's nudge forward or back)
-      if (E.player.visible) items.push({ y: E.player.y, fn: () => planted(E.player, () => { E.player.draw(); if (E.player.overlay) E.player.overlay(g, E.player, E.time); }) });
+      if (E.player.visible) items.push({ y: E.player.y, fn: () => planted(E.player, () => { E.player.draw(); if (E.player.overlay) E.player.overlay(g, E.player, E.time); if (WP) WP.figure(g, E.player); }) });
       for (const o of (E.room.occluders || [])) if (!o.when || o.when()) {
         const on = E.npcs.filter(a => a.visible && lyingOn(a, o));
         items.push({ y: occluderY(o), fn: () => drawOccluder(o, on.length ? () => on.forEach(drawNpc) : null) });
       }
       items.sort((a, b) => a.y - b.y).forEach(i => i.fn());
+      if (WP) WP.end(g);
       if (E.room.animFg) flat(() => E.room.animFg(g, E.time));
       if (moved) g.restore();
       if (E.room.fog) {

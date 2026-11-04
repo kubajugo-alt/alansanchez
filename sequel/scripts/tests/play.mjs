@@ -1,7 +1,10 @@
 // Plays The Shortest Night from the prologue to the end credits, as a player would (through hotspots, people and
-// dialogue choices, with window.FAST on), and prints where it got to. Also takes the airport's bad ending and one wrong
-// disc in the finale on the way.
+// dialogue choices, with window.FAST on), and prints where it got to. Also takes the airport's bad ending and one disc
+// out of its turn in the finale on the way.
 // usage: node play.mjs <baseUrl>     (serve sequel/ first: npx -y http-server -p 8099 -c-1 -s sequel)
+// At Gando on Tuesday it first checks Alan's actions and the idle cigarette with FAST off (HANDOFF entry 140): a run
+// plays its frames and ends on his standing painting, and left alone he lights up, then stops on a key press.
+// PLAY_ONLY=actions stops after that check (about a minute).
 import { createRequire } from 'module';
 const require = createRequire('/opt/node22/lib/node_modules/');
 const { chromium } = require('playwright');
@@ -41,6 +44,39 @@ async function act(target, verb, item, choices) {
 const go = async (room, entry) => { await quiet(); await page.evaluate(([r, e]) => Game.goRoom(r, e), [room, entry || 'map']); await quiet(); };
 const expect = async (what, fn) => { const ok = await page.evaluate(fn); if (!ok) throw new Error(`expected ${what} after step ${step}, in ${JSON.stringify(await state())}`); console.log('  ok  ' + what); };
 let result = 'unfinished';
+// Alan's actions and his cigarette, with FAST off (S.posed and the cigarette skip themselves under FAST). The frames he
+// shows are sampled every animation frame in the page.
+async function actionsAndSmoke() {
+  await quiet();
+  const sample = () => page.evaluate(() => { window.__seen = []; const tick = () => { if (!window.__seen) return; const c = Engine.player && Engine.player.cur; if (c && window.__seen[window.__seen.length - 1] !== c) window.__seen.push(c); requestAnimationFrame(tick); }; requestAnimationFrame(tick); });
+  for (const pose of ['pickup', 'reach', 'phone']) {
+    await sample();
+    const r = await page.evaluate(async pose => {
+      window.FAST = false;
+      const P = Game.player, run = S.CHARS.alan.frames.poses[pose], stand = S.CHARS.alan.frames.idle[0];
+      try { await S.posed(pose, () => S.T(300)); } finally { window.FAST = true; }
+      await new Promise(r => setTimeout(r, 300));
+      const seen = window.__seen; window.__seen = null;
+      const shown = seen.filter(k => run.frames.includes(k));
+      return { n: run.frames.length, hold: run.hold, shown: shown.length, first: shown[0], last: shown[shown.length - 1], hit: shown.includes(run.frames[run.hold]), missing: run.frames.filter(k => !shown.includes(k)).map(k => k.slice(-2)),
+        end: P.cur, stand, pose: P.pose, order: shown.every((k, i) => !i || run.frames.indexOf(k) > run.frames.indexOf(shown[i - 1])) };
+    }, pose);
+    if (!(r.shown >= Math.min(8, r.n / 3) && r.hit && r.order && r.pose == null && r.end === r.stand))
+      throw new Error(`the ${pose} run: ${JSON.stringify(r)}`);
+    console.log(`  ok  ${pose}: ${r.shown} of ${r.n} frames, in order, through the hold (${r.hold}), back to ${r.end}`);
+  }
+  // the cigarette: 20 s with no input (FAST off), then the light and the round; a key press stops it
+  await page.evaluate(() => { window.FAST = false; Engine.noteInput(); });
+  try {
+    await page.waitForFunction(() => Engine.smoking() && /^alanv_smoke_/.test(Engine.player.cur || ''), null, { timeout: 45000, polling: 200 });
+    await page.waitForFunction(() => Engine.smokeStep() === 'inhale', null, { timeout: 15000, polling: 200 });
+    console.log('  ok  idle: he lights up and takes a drag (' + await page.evaluate(() => Engine.player.cur) + ')');
+    await page.keyboard.press('Shift');
+    const r = await page.evaluate(async () => { const a = Engine.smoking(); await new Promise(r => setTimeout(r, 2500)); return { a, b: Engine.smoking(), pose: Engine.player.pose, cur: Engine.player.cur, stand: S.CHARS.alan.frames.idle[0] }; });
+    if (r.a || r.b || r.pose != null || r.cur !== r.stand) throw new Error('the cigarette after a key press: ' + JSON.stringify(r));
+    console.log('  ok  a key press: the cigarette stops, back to ' + r.cur);
+  } finally { await page.evaluate(() => { window.FAST = true; }); }
+}
 try {
   page.evaluate(() => Game.begin(true)); // (not awaited: the prologue waits for the player)
   // ---- the prologue (only when the game plays it: off for now, S.PLAY_PROLOGUE)
@@ -51,6 +87,8 @@ try {
   }
   await page.waitForFunction(() => Game.room && Game.room.id === 'gando' && Game.flags.ch === 1, null, { timeout: 30000 });
   await expect('Tuesday at Gando', () => Game.room.id === 'gando');
+  await actionsAndSmoke();
+  if (process.env.PLAY_ONLY === 'actions') { result = 'won'; throw null; }
   // ---- Tuesday
   await act('vasco', 'talk');
   // (2026-10-29: check-in at two; the beach, the surfer, the sun, the nap and the burn; Gail sends him to the market; the
@@ -170,10 +208,16 @@ try {
   // ---- Vasco
   await expect('playing Vasco', () => Game.player.speaker === 'vasco');
   await act('yeray', 'talk'); await act('Finds table', 'take'); await act('Path to Cave 6', 'exit');
-  await act('The beam', 'use'); await act('Sit and wait half an hour', 'use'); await act('The beam', 'use'); await act('Sit and wait half an hour', 'use'); await act('The beam', 'use');
-  await act('Your chalk marks', null, 'elena_charts'); await act('A remaining disc', 'use');
-  await act('The great triangle', null, 'elena_charts'); await act('A remaining disc', null, 'clinometer');
-  await expect('the angle, and out to the camp', () => Game.flags.v_understood && Game.room.id === 'camp');
+  // (2026-10-30, the redesigned Cave 6: the signs brought up with chalk, the scenes by torch, noon at 14:04; down the rope
+  // ladder: the floor signs, the sun disc moved one socket along and back, Elena's "Puerta" against the sun disc)
+  await act('Engraved triangles', null, 'chalk'); await act('Engraved triangles', null, 'torch');
+  await act('Sit and wait for noon', 'use');
+  await expect('noon in the cave', () => Game.flags.v_chalked && Game.flags.v_scenes && Game.flags.v_noon);
+  await act('Rope ladder down', 'exit');
+  await expect('the chamber under the cave', () => Game.room.id === 'cave6_low');
+  await act('Signs in the floor', 'look'); await act('Socket · the sun', 'use');
+  await act('Socket · the sun', null, 'elena_charts');
+  await expect('Puerta, and out to the camp', () => Game.flags.v_test && Game.flags.v_understood && Game.room.id === 'camp');
   await act('Camp radio', 'look'); await act('Stove', 'take'); await act('Camp radio', null, 'foil');   // (the foil: the message Lolo heard)
   await expect('the message sent', () => Game.flags.v_sent);
   await act('baute', 'talk');
@@ -198,27 +242,40 @@ try {
   await expect('Vasco out', () => Game.flags.vasco_free);
   await act('Crates', 'take');
   // ---- Monday
-  await expect('Monday in Cave 6', () => Game.flags.ch === 7 && Game.room.id === 'cave6');
-  await act('The door in the floor', 'use');
-  // the novel's order: II, IV, III, VI, V, then Baute's disc in I
-  await act('Socket I', null, 'discs'); // (wrong on purpose: the water surges)
-  await expect('a surge', () => Game.flags.surges === 1);
-  await act('Socket II', null, 'discs'); await act('Socket IV', null, 'discs'); await act('Socket III', null, 'discs');
-  await act('Socket VI', null, 'discs'); await act('Socket V', null, 'discs');
-  await expect('the sixth disc', () => Game.has('disc6'));
-  await act('Socket I', null, 'disc6');
-  // the seventh: the cloud crosses the sun; Carmen and the Land Rover's wing mirror; turned by the light as Vasco calls it
-  await act('The seventh disc', 'use');
+  // (2026-10-30, the redesigned finale, docs/puzzles/CAVE6.md: noon at twelve, Baute's sun going up the shaft; Alan down
+  // the rope ladder with the five discs; Vasco reads a scene; a disc out of the telling's turn (a surge on purpose); Baute's
+  // telling and the crescent; the page; the six moons in the telling's order, each aimed (S.autoAim: onto the triangle its
+  // socket faces); the sun disc: the cloud, Carmen's mirror, laid flat on the great triangle)
+  await expect('Monday in Cave 6, noon', () => Game.flags.ch === 7 && Game.room.id === 'cave6' && Game.flags.mclock >= 720);
+  await act('Rope ladder down', 'use');
+  await expect('in the water, in the chamber', () => Game.room.id === 'cave6_low' && Game.flags.in_water);
+  await quiet(); await page.evaluate(() => { S.autoAim = i => 6 - i; });
+  await act('Vasco, at the rim', 'talk', null, ['waxing gibbous']);
+  await act('Socket · first quarter', null, 'disc_first_quarter');   // (out of its turn: the water surges)
+  await expect('a surge, the telling and the crescent', () => Game.flags.surges === 1 && Game.flags.disc6_given && Game.has('disc_wan_crescent'));
+  await quiet(); await page.evaluate(() => S.fillPage('telling', { a: 'sign_wax_gibbous', b: 'sign_last_quarter', c: 'sign_wax_crescent', d: 'sign_wan_gibbous', e: 'sign_first_quarter', f: 'sign_wan_crescent', g: 'sign_sun' }));
+  // (Vasco nudges: "Which one goes first?" reads the scene for the next disc in the telling, then "...next?")
+  await act('Vasco, at the rim', 'talk', null, ['Which one goes first?']);
+  await expect('Vasco nudges: the first disc', () => Game.flags.nudged === 'wax_gibbous');
+  for (const [sock, disc] of [['waxing gibbous', 'wax_gibbous'], ['last quarter', 'last_quarter'], ['waxing crescent', 'wax_crescent'], ['waning gibbous', 'wan_gibbous'], ['first quarter', 'first_quarter'], ['waning crescent', 'wan_crescent']]) {
+    await act('Socket · ' + sock, null, 'disc_' + disc);
+    if (disc === 'wax_gibbous') {
+      await act('Vasco, at the rim', 'talk', null, ['Which one goes next?']);
+      await expect('Vasco nudges: the next disc', () => Game.flags.nudged === 'last_quarter');
+    }
+  }
+  await expect('six moons set, in the telling\'s order', () => (Game.flags.placed || []).join() === 'wax_gibbous,last_quarter,wax_crescent,wan_gibbous,first_quarter,wan_crescent' && Game.flags.telling_known);
+  await act('Socket · the sun', 'use');
   await expect('the cloud', () => Game.flags.cloud_over && !Game.flags.mirror_on);
-  await act('carmen', 'talk');
+  await act('Vasco, at the rim', 'talk');
   await expect('the mirror', () => Game.flags.mirror_on);
-  await act('The seventh disc', 'use', null, ['left', 'down', 'down']);
-  await expect('the lock closed', () => Game.flags.lock_closed);
+  await act('Socket · the sun', 'use');
+  await expect('the lock closed', () => Game.flags.lock_closed && Game.room.id === 'cave6');
   await act('yeray', 'talk'); await act('vasco', 'talk', null, ['I have to tell you', 'I broke both']);
   await act('Path to the camp', 'exit'); await act('Camp radio', null, 'fuse');
   await page.waitForSelector('#ending:not(.hidden)', { timeout: 60000 });
   result = 'won';
-} catch (e) { result = 'stopped: ' + e.message; }
+} catch (e) { if (e) result = 'stopped: ' + e.message; }
 console.log(JSON.stringify({ result, steps: step, errors: errs.slice(0, 20) }, null, 1));
 await browser.close();
 process.exit(result === 'won' && !errs.length ? 0 : 1);

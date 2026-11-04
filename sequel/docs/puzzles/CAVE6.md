@@ -1,4 +1,13 @@
-# Cave 6, redesigned: how the lock works, and how it is played (draft for the user's approval, 2026-10-30)
+# Cave 6, redesigned: how the lock works, and how it is played (approved 2026-10-30)
+
+**Status (2026-10-31): built, playable and live** (HANDOFF 106; the narrator cut back and Vasco's nudges, 109; the
+women of light as the Kling dance round Alan, 110). The cave (`cave6`, `up_real_etched`) and the chamber under it
+(`cave6_low`, `low_real_empty_etched`, take B with the moon-phase signs; the discs drawn as sprites) follow this file
+(`js/story/vasco.js`, `js/story/mon.js`, `js/story/dance.js`, the telling's page in `js/story/puzzles.js`). The lines
+were approved (HANDOFF 117) and most are recorded; the rest (the verses, Vasco's scene and nudge lines, some narrator
+lines) wait for ElevenLabs credits and play as captions. Where the build differs from this text: see HANDOFF 106
+("Decided differently"); in short, the sun disc stays in its own socket, tipped (not moved to the end of the row), and
+the lower chamber has no figures on its walls. `docs/puzzles/CAVE6_LINES.md` is the line-by-line table.
 
 The user's layout (a drawn section, then): one small opening in the ceiling, straight above an opening in the floor; a
 lower chamber under it, down a rope ladder; seven discs in a row in floor sockets at the bottom; the triangles on the

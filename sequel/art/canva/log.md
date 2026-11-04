@@ -83,3 +83,5 @@
 - 2026-10-29 still `still_nap` Canva media  -> art/stills/still_nap.jpg Alan asleep on the beach (Higgsfield)
 - 2026-10-30 bg `hotel_restaurant` Canva media  -> art/bg/hotel_restaurant.jpg the restaurant without its tables (Higgsfield edit), furnished with table sprites (the user, 2026-10-30)
 - 2026-10-30 figure `yeray_drunk_table` Canva media MAHZg1XtZgc -> art/designs/yeray_drunk_table.png drunk Yeray at Rafa's bar table, from the in-game yeray_r/yeray_c (the user: Canva, not Higgsfield)
+- 2026-10-31 figure `vasco_profile_day` Canva media  -> art/designs/vasco_profile_day.png Vasco in strict side profile (Higgsfield gpt_image_2_5 from vasco_v10a + alanv_side_k's pose; Canva's take MAHZjXfPI2A came only as a thumbnail, then Canva's quota cooldown), cut to vascor_profile_k (HANDOFF 125)
+- 2026-10-31 figure `vasco_profile_dinner` Canva media  -> art/designs/vasco_profile_dinner.png the same in the navy blazer (Higgsfield edit of vasco_profile_day with vascor_dinner_side_k as the outfit), cut to vascor_dinner_profile_k (HANDOFF 125)

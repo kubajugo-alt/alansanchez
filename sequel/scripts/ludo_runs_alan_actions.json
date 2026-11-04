@@ -1,0 +1,141 @@
+{
+ "note": "Alan's action sprites, proposed 2026-10-31 (docs/review/action_sprites.md); not run yet: python3 scripts/ludo.py batch scripts/ludo_runs_alan_actions.json --budget <n>. The user's rule (2026-10-31): every action starts and ends on his standing sprite (b = a: Ludo's final_image). Reusable as they are: alanv_phone, alanv_drink (both end on it, silhouette IoU 0.98); alanv_write is redone (take 1 ends at 0.89). The smoking runs (in-betweens between painted smoking poses, as Game I) wait for the poses: scripts/ludo_runs_alan_smoke.json. Pilot (2026-10-31): a run whose prompt ends with him holding something cross-fades into the end keyframe (pickup take 1: the last frames are a ghost of both); every prompt now gives the way back (pockets it, puts it down, lowers his arms) before the end pose.",
+ "runs": [
+  {
+   "name": "alanv_pickup",
+   "a": "alanv_side_k",
+   "prompt": "bends his knees and crouches, picks up something small from the floor with his right hand, stands up, glances at it and slips it into the side pocket of his shorts; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Wed boots, Sun packing, Sun the discs, Mon the fuse and the keys; with the water up to the shins it also reads as setting a disc",
+   "b": "alanv_side_k",
+   "take": 2
+  },
+  {
+   "name": "alanv_setdown",
+   "a": "alanv_side_k",
+   "prompt": "crouches and sets something small down carefully on the floor in front of him with his right hand, presses it into place, and stands up again; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Mon: each disc into its socket, in the water",
+   "b": "alanv_side_k"
+  },
+  {
+   "name": "alanv_reach",
+   "a": "alanv_side_k",
+   "prompt": "reaches forward at chest height with his right hand, takes something small from someone, and slips it into the side pocket of his shorts; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Sun the watch, the ticket back from the clerk, Mon Lorenzo's trowel; Sat salt from the footprint",
+   "b": "alanv_side_k"
+  },
+  {
+   "name": "alanv_reachup",
+   "a": "alanv_side_k",
+   "prompt": "reaches up above his head with his right hand, touches something up there for a moment, and lowers his hand again; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Wed the hand on the bell, Mon the crescent from Baute above",
+   "margin_v": 0.35,
+   "b": "alanv_side_k"
+  },
+  {
+   "name": "alanv_read",
+   "a": "alanv_side_k",
+   "prompt": "takes a few folded sheets of paper from his back pocket, unfolds them and reads them in both hands in front of his chest, folds them and puts them back in his back pocket; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Wed the crate labels; Sun Elena's notebook",
+   "b": "alanv_side_k"
+  },
+  {
+   "name": "alanv_stretch",
+   "a": "alanv_side_k",
+   "prompt": "just woken up: stretches both arms up above his head with a big yawn, rolls his shoulders, and lowers his arms; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Wed morning in 404",
+   "margin_v": 0.35,
+   "b": "alanv_side_k"
+  },
+  {
+   "name": "alanv_crank",
+   "a": "alanv_side_k",
+   "prompt": "turns a heavy crank handle at waist height in front of him with both hands, round and round twice, leaning his weight into it, then lets go; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Wed the clock drum in the belfry (instead of the chain pull)",
+   "b": "alanv_side_k"
+  },
+  {
+   "name": "alanv_rub",
+   "a": "alanv_side_k",
+   "prompt": "holds a sheet of paper flat against a surface in front of him at head height with his left hand and rubs a pencil back and forth across it with his right hand, then lowers both hands; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Wed the inscription rubbing on the bell",
+   "margin_v": 0.2,
+   "b": "alanv_side_k"
+  },
+  {
+   "name": "alanv_heave",
+   "a": "alanv_side_k",
+   "prompt": "grips a heavy bar at waist height in front of him with both hands, leans back and heaves with his whole weight, straining, then lets go; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Sun the vault grille, with Yeray and with Carmen",
+   "b": "alanv_side_k"
+  },
+  {
+   "name": "alanb_phone",
+   "a": "alanb_side_k",
+   "prompt": "lifts an old telephone receiver to his ear with his right hand, listens and talks, then puts the receiver down in front of him; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Tue evening's call, in the blazer",
+   "b": "alanb_side_k"
+  },
+  {
+   "name": "alanb_read",
+   "a": "alanb_side_k",
+   "prompt": "holds a thin file of papers in both hands in front of his chest and leafs through it, then puts it down in front of him; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Thu the Montesdeoca file in Baute's drawer",
+   "b": "alanb_side_k"
+  },
+  {
+   "name": "alanb_reachup",
+   "a": "alanb_side_k",
+   "prompt": "reaches up above his head with his right hand towards something pinned on a wall, holds there a moment, and lowers his hand; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Thu the map on its pins, just before the light comes on",
+   "margin_v": 0.35,
+   "b": "alanb_side_k"
+  },
+  {
+   "name": "alanv_write",
+   "take": 2,
+   "a": "alanv_side_k",
+   "b": "alanv_side_k",
+   "prompt": "takes a small notebook and pencil from his pocket, writes a few words, and puts them back in his pocket; then his arms come back down and hang relaxed at his sides and he stands still exactly as in the first frame; only him in the picture, no objects or furniture drawn",
+   "loop": false,
+   "frames": 36,
+   "duration": 4,
+   "use": "Sun the note for Vasco (take 1 ends with his hand at his pocket, not standing)"
+  }
+ ]
+}

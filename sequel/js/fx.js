@@ -113,8 +113,11 @@
       const lag = i * 0.03 + r() * 0.02;
       const q = p - lag; if (q < 0 || q > 1) continue;
       const x = dir > 0 ? x0 + (x1 - x0) * q : x1 - (x1 - x0) * q;
-      const y = base + i * 9 * (r() - 0.3) + Math.sin(t * 1.3 + i) * 6;
-      const s = size * (0.8 + r() * 0.4), flap = Math.sin(t * 11 + i * 2);
+      // (with ?env=2, HANDOFF 145: gulls and ravens glide most of the time, beat their wings now and then, and rise and
+      // sink a little along the way, instead of flapping without a break on a straight line)
+      const glide = window.ENV2 && 0.5 + 0.5 * Math.sin(t * 0.9 + i * 1.3) > 0.4;
+      const y = base + i * 9 * (r() - 0.3) + Math.sin(t * 1.3 + i) * 6 + (window.ENV2 ? 10 * Math.sin(q * Math.PI * 1.3 + i) : 0);
+      const s = size * (0.8 + r() * 0.4), flap = window.ENV2 ? (glide ? 0.15 + 0.05 * Math.sin(t * 2 + i) : Math.sin(t * (8 + i) + i * 2)) : Math.sin(t * 11 + i * 2);
       g.lineWidth = Math.max(1.2, s * 0.22);
       g.beginPath();
       g.moveTo(x - s, y - flap * s * 0.6);
@@ -185,23 +188,57 @@
     }
     g.restore();
   }
+  // Room movement, the second pass (docs/review/env_movement.md G3, G4; HANDOFF entry 142), on with ?env=2 until the user
+  // approves it (window.ENV2): a row-shift effect draws through the painting's sway mask (art/fx/<bg>_sway.png, made by
+  // scripts/sway_masks.py: only the plant or the cloth, feathered, and nothing at the box's edges), so the window frames,
+  // pillars, signs and facades inside its box stay still and no edge tears; a mask black over a box stops it moving. And
+  // the sway breathes in gusts (two sines under a slow envelope) instead of one metronome sine.
+  const ENV2 = window.ENV2 = (() => { try { return /[?&]env=2\b/.test(location.search) || localStorage.getItem(window.GAME_KEY + '-env') === '2'; } catch (e) { return false; } })();
+  const SWAY_MASK = {}, swayBuf = document.createElement('canvas');
+  function swayMask(im) {
+    if (!ENV2 || !im || !im.src) return null;
+    const m = /art\/bg(?:1x|2x)?\/([a-z0-9_]+)\.jpg/.exec(im.src), bg = m && m[1];
+    if (!bg || !(window.SWAY_MASKS || []).includes(bg)) return null;
+    let M = SWAY_MASK[bg];
+    if (!M) { M = SWAY_MASK[bg] = new Image(); M.src = 'art/fx/' + bg + '_sway.png'; }
+    return M.complete && M.naturalWidth ? M : false;   // (false: on its way, nothing moves till then)
+  }
+  // rows(gc, sx, sy, dx, dy, w, h): draws the effect in the painting's own pixels into gc
+  function shifted(g, im, rect, rows) {
+    const [x, y, w, h] = rect, k = im.width / W, M = swayMask(im);
+    if (M === null) return rows(g, k, 1, 0, 0);
+    if (M === false) return;
+    const bw = Math.ceil(w * k), bh = Math.ceil(h * k);
+    if (swayBuf.width < bw || swayBuf.height < bh) { swayBuf.width = Math.max(swayBuf.width, bw); swayBuf.height = Math.max(swayBuf.height, bh); }
+    const b = swayBuf.getContext('2d');
+    b.globalCompositeOperation = 'copy'; b.drawImage(im, x * k, y * k, w * k, h * k, 0, 0, bw, bh);   // (the still painting under the rows)
+    b.globalCompositeOperation = 'source-over'; rows(b, k, k, -x * k, -y * k);
+    b.globalCompositeOperation = 'destination-in';
+    const mk = M.naturalWidth / W; b.drawImage(M, x * mk, y * mk, w * mk, h * mk, 0, 0, bw, bh);
+    b.globalCompositeOperation = 'source-over';
+    g.drawImage(swayBuf, 0, 0, bw, bh, x, y, w, h);
+  }
+  const gust = (t, phase) => 0.55 + 0.45 * Math.sin(t * 0.21 + phase * 2.3) * Math.sin(t * 0.13 + phase);
   // Redraws a region of the painting with each row shifted sideways (cloth in
   // the wind), more toward the free bottom edge.
   // up: the free edge is the top (a plant, a cypress, a flame), not the bottom (cloth hanging from a line)
   function sway(g, im, rect, t, amp, phase, up) {
     if (!im) return;
-    const [x, y, w, h] = rect, k = im.width / W;
-    for (let r = 0; r < h; r += 2) {
-      const f = up ? 1 - r / h : r / h, dx = Math.sin(t * 1.6 + phase + f * 1.2) * amp * f * f;
-      g.drawImage(im, x * k, (y + r) * k, w * k, 2 * k, x + dx, y + r, w, 2);
-    }
+    const [x, y, w, h] = rect, G = ENV2 ? gust(t, phase) : 1;
+    shifted(g, im, rect, (gc, k, s, ox, oy) => {
+      for (let r = 0; r < h; r += 2) {
+        const f = up ? 1 - r / h : r / h;
+        const dx = (ENV2 ? (0.7 * Math.sin(t * 1.6 + phase + f * 1.2) + 0.3 * Math.sin(t * 2.7 + phase * 1.7 + f * 2)) * G : Math.sin(t * 1.6 + phase + f * 1.2)) * amp * f * f;
+        gc.drawImage(im, x * k, (y + r) * k, w * k, 2 * k, (x + dx) * s + ox, (y + r) * s + oy, w * s, 2 * s);
+      }
+    });
   }
   // Slow rise and fall of a sleeping animal: scales a region upward from its base.
   function breathe(g, im, rect, t, amp, period) {
     if (!im) return;
-    const [x, y, w, h] = rect, k = im.width / W;
-    const s = 1 + amp * (0.5 + 0.5 * Math.sin(t * Math.PI * 2 / period));
-    g.drawImage(im, x * k, y * k, w * k, h * k, x - w * (s - 1) * 0.15, y + h - h * s, w * (1 + (s - 1) * 0.3), h * s);
+    const [x, y, w, h] = rect;
+    const sc = 1 + amp * (0.5 + 0.5 * Math.sin(t * Math.PI * 2 / period));
+    shifted(g, im, rect, (gc, k, s, ox, oy) => gc.drawImage(im, x * k, y * k, w * k, h * k, (x - w * (sc - 1) * 0.15) * s + ox, (y + h - h * sc) * s + oy, w * (1 + (sc - 1) * 0.3) * s, h * sc * s));
   }
 
   // ---------------------------------------------------------------- small moving details (all drawn over the painting)
@@ -217,11 +254,24 @@
   // Rows shifted with both ends held: a dust sheet or a tied curtain breathing in a draught.
   function billow(g, im, rect, t, amp, period) {
     if (!im) return;
-    const [x, y, w, h] = rect, s = im.width / W;
-    for (let r = 0; r < h; r += 2) {
-      const f = r / h, dx = Math.sin(t * 2 * Math.PI / period + f * 1.5) * amp * Math.sin(Math.PI * f);
-      g.drawImage(im, x * s, (y + r) * s, w * s, 2 * s, x + dx, y + r, w, 2);
-    }
+    const [x, y, w, h] = rect, G = ENV2 ? gust(t, period) : 1;
+    shifted(g, im, rect, (gc, k, s, ox, oy) => {
+      for (let r = 0; r < h; r += 2) {
+        const f = r / h, dx = Math.sin(t * 2 * Math.PI / period + f * 1.5) * amp * Math.sin(Math.PI * f) * G;
+        gc.drawImage(im, x * k, (y + r) * k, w * k, 2 * k, (x + dx) * s + ox, (y + r) * s + oy, w * s, 2 * s);
+      }
+    });
+  }
+  // Columns shifted up and down with both ends held: a taut awning lifting in the wind (with a sway mask, only the cloth)
+  function billowV(g, im, rect, t, amp, period) {
+    if (!im) return;
+    const [x, y, w, h] = rect, G = gust(t, period);
+    shifted(g, im, rect, (gc, k, s, ox, oy) => {
+      for (let c = 0; c < w; c += 2) {
+        const u = c / w, dy = Math.sin(t * 2 * Math.PI / period + u * 2.2) * amp * Math.sin(Math.PI * u) * G;
+        gc.drawImage(im, (x + c) * k, y * k, 2 * k, h * k, (x + c) * s + ox, (y + dy) * s + oy, 2 * s, h * s);
+      }
+    });
   }
   // A small live flame standing on its wick at (x, y), h tall: it breathes and leans.
   function flame(g, t, x, y, h, seed, rgb) {
@@ -911,7 +961,17 @@
   // Painted (Canva) inventory icons in art/icons/<id>.webp, 192px with transparency. They are
   // preloaded; an icon asked for before its painting arrives shows the canvas drawing above
   // until the painting loads, then the inventory redraws. A missing file keeps the drawing.
+  // (the story lists the ids that have a painting in art/icons, window.PAINTED_ICONS; it is read when the first icon is
+  // drawn, not here: this file loads before the story, so a list read now was always empty. Game II fix, HANDOFF 116)
   const iconCache = {}, iconImg = {};
+  let iconsAsked = false;
+  function loadIcon(id) {
+    if (id in iconImg) return;
+    const im = new Image(); iconImg[id] = im;
+    im.onload = () => { if (iconCache[id]) { paintIcon(iconCache[id], id); if (window.Game && Game.renderInv) Game.renderInv(); } };
+    im.onerror = () => { iconImg[id] = null; };
+    im.src = 'art/icons/' + id + '.webp';
+  }
   // an item with no painting and no drawing yet: a luggage tag with its short name (window.ICON_LABELS[id])
   function tagIcon(g, id) {
     const label = ((window.ICON_LABELS || {})[id] || id.replace(/_/g, ' ')).toUpperCase();
@@ -930,25 +990,12 @@
     else (ICONS[id] || (g => tagIcon(g, id)))(g);
     g.restore();
   }
-  // the ids with a painting are the story's (window.PAINTED_ICONS, js/story/core.js), which loads after this file:
-  // read once the page's scripts have all run, or at the first icon asked for, whichever comes first
-  let iconsStarted = false;
-  function startIcons() {
-    if (iconsStarted) return; iconsStarted = true;
-    for (const id of (window.PAINTED_ICONS || [])) {
-      const im = new Image(); iconImg[id] = im;
-      im.onload = () => { if (iconCache[id]) { paintIcon(iconCache[id], id); if (window.Game && Game.renderInv) Game.renderInv(); } };
-      im.onerror = () => { delete iconImg[id]; };
-      im.src = 'art/icons/' + id + '.webp';
-    }
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startIcons); else setTimeout(startIcons, 0);
   function icon(id) {
-    startIcons();
+    if (!iconsAsked) { iconsAsked = true; for (const k of window.PAINTED_ICONS || []) loadIcon(k); }
     if (!iconCache[id]) { const [c] = mk(96, 96); paintIcon(c, id); iconCache[id] = c; }
     return iconCache[id];
   }
 
   window.FX = { W, H, mk, rng, makeFog, drawFog, glow, flicker, shaft, motes, water, vignette, icon, makeClouds, cloudOffset, drawClouds, masked, birds, wisps, embers, drips, leaves, sway, breathe,
-    ripple, billow, flame, trickles, rain, moth, twinkle, dapple, passer, sweep, feather, fan };
+    ripple, billow, billowV, flame, trickles, rain, moth, twinkle, dapple, passer, sweep, feather, fan };
 })();

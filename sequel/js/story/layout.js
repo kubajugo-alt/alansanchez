@@ -9,8 +9,10 @@
     canteras: {
       walk: [[0, 640], [275, 630], [430, 590], [1040, 575], [1280, 600], [1280, 716], [0, 716]], scale: [590, 255, 716, 300],
       entries: { default: [640, 660, 'e'], map: [640, 660, 'e'], hotel_lobby: [1180, 650, 'w'], beach: [820, 665, 'w'] },
-      spots: { 'The sea': [420, 365, 600, 100], 'Promenade steps': [520, 485, 380, 75], 'Bonfires': [600, 405, 300, 80], 'Phone box': [292, 288, 130, 310],
-        'Kiosk': [0, 165, 265, 460], 'Hotel Cristina': [1100, 120, 180, 470], 'To the city': [0, 600, 50, 116] },
+      // (the city exit was a strip under the kiosk and easy to miss for it, and the steps hotspot went: the user, 2026-10-31;
+      // the city is now the open promenade between the phone box and the steps down to the beach)
+      spots: { 'The sea': [420, 365, 600, 100], 'Bonfires': [600, 405, 300, 80], 'Phone box': [292, 288, 130, 310],
+        'Kiosk': [0, 165, 265, 460], 'Hotel Cristina': [1100, 120, 180, 470], 'To the city': [440, 585, 300, 55] },
       // Chano inside his kiosk (the user, 2026-10-29), the counter and the panelled front hiding him below the waist
       npcs: { chano: [150, 605] },
       occluders: [{ y: 612, polys: [[[0, 494], [274, 494], [274, 640], [0, 640]]] }],
@@ -80,7 +82,7 @@
     santa_ana: {
       walk: [[270, 600], [500, 505], [830, 505], [1000, 560], [1280, 600], [1280, 716], [270, 716]], scale: [510, 150, 716, 380],
       entries: { default: [400, 690, 'e'], map: [400, 690, 'e'], santa_ana_inside: [580, 520, 's'] },
-      spots: { 'Cathedral clock': [378, 193, 44, 44], 'Bronze dogs': [40, 295, 380, 400], 'Timple players': [960, 410, 200, 180], 'Cathedral door': [540, 385, 75, 115],
+      spots: { 'Cathedral clock': [378, 193, 44, 44], 'Bronze dogs': [40, 295, 380, 400], 'Cathedral door': [540, 385, 75, 115],
         'To the city': [1230, 600, 50, 116] },
       at: { 'Cathedral clock': [520, 520], 'Cathedral door': [580, 515] },   // (the clock on the left tower: the real-place repaint, 2026-10-29)
     },
@@ -128,7 +130,7 @@
       walk: [[0, 622], [720, 588], [1040, 560], [1280, 545], [1280, 716], [0, 716]], scale: [560, 380, 716, 450],
       entries: { default: [1120, 640, 'w'], map: [1120, 640, 'w'] },
       spots: { 'Bottles': [0, 80, 410, 230], 'Domino table': [710, 360, 300, 190], 'Door': [1080, 100, 140, 420] },
-      npcs: { rafa: [460, 575], yeray: [110, 660] },
+      npcs: { rafa: [460, 575], yeray: [858, 563.5] },
       at: { rafa: [560, 640] },
       occluders: [{ y: 595, polys: [[[0, 340], [715, 340], [715, 585], [0, 605]]] }],
     },
@@ -162,14 +164,16 @@
       at: { 'Camp radio': [660, 600], 'Finds table': [510, 600], 'Steps down to the granary': [640, 600], 'Path to Cave 6': [1180, 600] },
       npcs: { yeray: [330, 610], baute: [1010, 620], carmen: [200, 650] },
     },
+    // (2026-10-30, the redesigned cave: up_real_etched; the floor walked round the hole, never across it)
     cave6: {
-      walk: [[60, 560], [540, 522], [1280, 560], [1280, 716], [0, 716], [0, 600]], scale: [520, 220, 716, 380],
-      entries: { default: [240, 640, 'e'], camp: [240, 640, 'e'] },
-      spots: { 'Engraved triangles': [830, 200, 450, 220], 'The beam': [430, 0, 560, 36], 'Empty sockets': [480, 55, 410, 70], 'A remaining disc': [905, 42, 52, 52],
-        'Your chalk marks': [280, 270, 760, 130], 'The great triangle': [550, 210, 270, 260], 'White crust': [1100, 400, 180, 160],
-        'Sit and wait half an hour': [60, 485, 190, 55], 'Path to the camp': [45, 160, 170, 340], 'The door in the floor': [540, 535, 280, 55] },
-      at: { 'The door in the floor': [680, 600], 'Sit and wait half an hour': [200, 600], 'Path to the camp': [130, 600] },
-      npcs: { vasco: [430, 640], carmen: [150, 600], yeray: [300, 690], baute: [1010, 620] },
+      walk: [[60, 500], [425, 505], [425, 608], [860, 608], [860, 505], [1280, 545], [1280, 716], [0, 716], [0, 560]], scale: [500, 200, 716, 380],
+      entries: { default: [200, 640, 'e'], camp: [200, 640, 'e'], cave6_low: [470, 650, 'e'] },
+      npcs: { vasco: [780, 650], carmen: [190, 640], yeray: [330, 690], baute: [1060, 620] },
+    },
+    // the chamber under it (low_real_empty_etched; the discs are sprites at their sockets, vasco.js)
+    cave6_low: {
+      walk: [[0, 640], [300, 560], [980, 560], [1280, 640], [1280, 716], [0, 716]], scale: [560, 210, 716, 330],
+      entries: { default: [520, 640, 'e'], cave6: [520, 640, 'e'] },
     },
   };
 
@@ -201,6 +205,18 @@
         if (L.at && L.at[n.id]) n.at = L.at[n.id];
       }
       r.painted = true;
+    }
+    // the boxes moved in the hotspot tool (js/story/spots.js, scripts/spots_install.py; HANDOFF 146), over everything
+    // above: by name, "name#2" for the second hotspot of that name in the room
+    for (const [id, E] of Object.entries(S.SPOT_EDITS || {})) {
+      const r = ROOMS[id]; if (!r) continue;
+      const seen = {};
+      for (const h of r.hotspots || []) {
+        const n = nameOf(h); if (!n) continue;
+        seen[n] = (seen[n] || 0) + 1;
+        const rect = E[seen[n] > 1 ? n + '#' + seen[n] : n];
+        if (rect) { h.rect = rect.slice(); delete h.at; }
+      }
     }
     // a room laid out a second way for an occasion (S.VARIANTS[id] = { room, when }: the museum's hall at Thursday's
     // dinner, the user, 2026-10-30): its own background people, and its cast standing elsewhere while `when` holds

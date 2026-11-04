@@ -18,7 +18,8 @@ OUT = os.path.join(SEQ, 'art/video')
 # where the water is, for rooms where something else stirs in the loop (x0, y0, x1, y1 on the 1280x720 painting): the
 # phone box's glass and a palm frond on the promenade, a palm at the top left of the sunny beach
 ROI = {'canteras': (415, 330, 1010, 520), 'beach_sun': (0, 300, 1280, 520),
-       'hotel_lobby': (0, 0, 236, 500), 'hotel_lobby_day': (0, 0, 236, 500)}   # (the lobby: only its street windows; its night loop
+       'hotel_lobby': (0, 0, 236, 500), 'hotel_lobby_day': (0, 0, 236, 500),
+       'beach': (300, 320, 1280, 520), 'landrover': (178, 78, 1276, 402)}   # (the Land Rover: only the windscreen, the road going by; 2026-10-30)   # (the lobby: only its street windows; its night loop
 # came back all but still, so the night lobby keeps its canvas ripple and has no clip)
 
 

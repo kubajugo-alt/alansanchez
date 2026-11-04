@@ -1,0 +1,273 @@
+<title>Shortest Night Hotspots</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: rooms down the left, the painting with its boxes in the middle, the selected room's boxes as rows below it. */
+:root {
+  --bg: #eef0ee; --panel: #fafbfa; --ink: #1b2124; --muted: #5f6a6f; --rule: #d3d8d6;
+  --accent: #1f6f7a; --box: #ffd34d; --exit: #6fd0ff; --sel: #ff5c8a; --changed: #2f8a52; --chip: #e2e7e5;
+  --sans: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #13181a; --panel: #1a2023; --ink: #e4e8e6; --muted: #98a3a7; --rule: #2d3538; --accent: #6cc0cb; --chip: #232b2e; --changed: #6cc48a; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #13181a; --panel: #1a2023; --ink: #e4e8e6; --muted: #98a3a7; --rule: #2d3538; --accent: #6cc0cb; --chip: #232b2e; --changed: #6cc48a; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.45 var(--sans); }
+.app { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 16px; padding-block: 16px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); max-width: 1600px; margin: 0 auto; }
+@media (max-width: 820px) { .app { grid-template-columns: minmax(0, 1fr); } .rooms { max-height: 180px; } }
+h1 { font: 600 18px/1.2 var(--sans); margin: 0 0 4px; }
+.hint { color: var(--muted); font-size: 12.5px; margin: 0 0 10px; }
+.rooms { background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; overflow-y: auto; max-height: calc(100vh - 40px); position: sticky; top: 16px; align-self: start; }
+.rooms button { display: flex; justify-content: space-between; gap: 8px; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--rule); background: none; color: var(--ink); font: 13.5px var(--sans); padding: 7px 10px; cursor: pointer; }
+.rooms button:hover { background: var(--chip); }
+.rooms button[aria-current="true"] { background: var(--accent); color: var(--bg); }
+.rooms small.id { display: block; font: 11px var(--mono); opacity: .6; }
+.rooms .n { font: 12px var(--mono); opacity: .75; }
+.rooms .n.ch { color: var(--changed); opacity: 1; font-weight: 500; }
+.rooms button[aria-current="true"] .n.ch { color: var(--bg); }
+.main { min-width: 0; display: grid; gap: 10px; align-content: start; }
+.bar { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.bar h2 { font: 600 17px var(--sans); margin: 0; }
+.bar label { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--muted); }
+.bar select, .bar button { font: 13px var(--sans); padding: 4px 8px; border: 1px solid var(--rule); border-radius: 3px; background: var(--panel); color: var(--ink); cursor: pointer; }
+.status { font-size: 12.5px; color: var(--muted); margin-left: auto; }
+.stage { position: relative; width: 100%; aspect-ratio: 16 / 9; max-width: 100%; background: #000; border-radius: 3px; overflow: hidden; }
+.stage img { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+.stage svg { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+svg .r { fill: rgba(255, 211, 77, .14); stroke: #ffd34d; stroke-width: 2; vector-effect: non-scaling-stroke; cursor: move; }
+svg .r.exit { fill: rgba(111, 208, 255, .14); stroke: #6fd0ff; stroke-dasharray: 7 4; }
+svg .r.sel { fill: rgba(255, 92, 138, .2); stroke: #ff5c8a; stroke-width: 2.5; }
+svg .orig { fill: none; stroke: #fff; stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; opacity: .7; pointer-events: none; }
+svg .walk { fill: rgba(80, 255, 140, .12); stroke: rgba(80, 255, 140, .7); stroke-width: 1; vector-effect: non-scaling-stroke; pointer-events: none; }
+svg .lbl { font: 600 15px var(--sans); fill: #fff; paint-order: stroke; stroke: rgba(0, 0, 0, .8); stroke-width: 3.5px; pointer-events: none; }
+svg .h { fill: #fff; stroke: #ff5c8a; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.list { display: grid; gap: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; overflow-x: auto; }
+.row { display: grid; grid-template-columns: minmax(150px, 1.5fr) repeat(4, 74px) minmax(120px, 1fr) 64px; gap: 8px; align-items: center; padding: 6px 10px; border-bottom: 1px solid var(--rule); min-width: 720px; cursor: pointer; }
+.row.head { font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); cursor: default; }
+.row.sel { background: var(--chip); box-shadow: inset 3px 0 0 #ff5c8a; }
+.row .nm { font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
+.row .nm small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
+.row input { width: 100%; font: 13px var(--mono); padding: 3px 5px; border: 1px solid var(--rule); border-radius: 3px; background: var(--bg); color: var(--ink); font-variant-numeric: tabular-nums; }
+.row .when { font: 11.5px var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+.row button { font: 12px var(--sans); padding: 3px 6px; border: 1px solid var(--rule); border-radius: 3px; background: var(--panel); color: var(--ink); cursor: pointer; }
+.row button:disabled { opacity: .35; cursor: default; }
+.tag { font-size: 11px; padding: 1px 5px; border-radius: 3px; background: var(--chip); color: var(--muted); margin-left: 4px; }
+.tag.ch { background: var(--changed); color: var(--bg); }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.keys { color: var(--muted); font-size: 12px; }
+.keys kbd { font: 11px var(--mono); padding: 1px 4px; border: 1px solid var(--rule); border-radius: 3px; background: var(--panel); }
+</style>
+
+<div class="app">
+  <nav class="rooms" id="rooms" aria-label="Rooms"></nav>
+  <main class="main">
+    <div>
+      <h1>Hotspots, room by room</h1>
+      <p class="hint">Drag a box to move it, drag its corners or edges to resize it, or type the numbers (room pixels, 1280 × 720). Yellow boxes are things, blue dashed boxes are exits. Each change saves as you make it; tell Claude when you're done and it goes into the game.</p>
+    </div>
+    <div class="bar">
+      <h2 id="title">…</h2>
+      <label id="bgwrap" hidden>Painting <select id="bgsel"></select></label>
+      <label><input type="checkbox" id="walk"> Walkable floor</label>
+      <label><input type="checkbox" id="labels" checked> Names</label>
+      <button type="button" id="resetroom">Reset this room</button>
+      <span class="status" id="status" aria-live="polite"></span>
+    </div>
+    <div class="stage" id="stage"><img id="img" alt=""><svg id="svg" viewBox="0 0 1280 720" preserveAspectRatio="none"></svg></div>
+    <p class="keys">Selected box: <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> move 1 px (with <kbd>Shift</kbd> 10 px); with <kbd>Alt</kbd> they change its size. <kbd>Esc</kbd> deselects. A dotted white outline shows where a moved box was.</p>
+    <div class="list" id="list"></div>
+  </main>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+let DATA = {}, ROOM = null, SEL = null, db = null;
+const EDITS = {};          // docId -> {room, key, name, rect}
+const MIN = 8;
+const keyOf = (room, hs, i) => { const n = hs[i].name; const k = hs.slice(0, i).filter(h => h.name === n).length; return k ? `${n}#${k + 1}` : n; };
+const docId = (room, key) => (room + '__' + key).replace(/[^A-Za-z0-9_\-.~:@+]/g, c => '+' + c.charCodeAt(0).toString(16)).slice(0, 200);
+const items = room => DATA[room].hotspots.map((h, i) => ({ h, i, key: keyOf(room, DATA[room].hotspots, i) }));
+const rectOf = (room, it) => (EDITS[docId(room, it.key)] || {}).rect || it.h.rect;
+const changed = (room, it) => !!EDITS[docId(room, it.key)];
+const clamp = r => { let [x, y, w, h] = r.map(Math.round); w = Math.max(MIN, Math.min(1280, w)); h = Math.max(MIN, Math.min(720, h)); x = Math.max(0, Math.min(1280 - w, x)); y = Math.max(0, Math.min(720 - h, y)); return [x, y, w, h]; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+// the story's conditions in days (the raw condition stays in the tooltip)
+const DAY = ['the prologue', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday'];
+function days(w) {
+  return w.replace(/(?:F\(\)\.ch|ch\(\)|f\.ch)\s*(===|==|>=|<=|>|<|!==)\s*(\d)/g, (m, op, d) => {
+    d = +d; return op.startsWith('=') ? DAY[d] : op === '>=' ? 'from ' + DAY[d] : op === '<=' ? 'until ' + DAY[d] : op === '>' ? 'after ' + DAY[d] : op === '<' ? 'before ' + DAY[d] : 'not ' + DAY[d];
+  }).replace(/!asV\(\)/g, 'as Alan').replace(/asV\(\)/g, 'as Vasco').replace(/&&/g, 'and').replace(/\|\|/g, 'or');
+}
+function status(t) { $('status').textContent = t; }
+
+function renderRooms() {
+  $('rooms').innerHTML = Object.entries(DATA).map(([id, r]) => {
+    const n = items(id).filter(it => changed(id, it)).length;
+    return `<button type="button" data-room="${id}" aria-current="${id === ROOM}"><span>${esc(r.name || id)}<small class="id">${id}</small></span><span class="n${n ? ' ch' : ''}">${n ? n + ' moved' : r.hotspots.length}</span></button>`;
+  }).join('');
+}
+function selectRoom(id) {
+  ROOM = id; SEL = null; const r = DATA[id];
+  $('title').textContent = r.name || id;
+  $('bgsel').innerHTML = r.bgs.map(b => `<option value="${b}">${b}</option>`).join('');
+  $('bgwrap').hidden = r.bgs.length < 2;
+  $('img').src = 'bg/' + r.bgs[0] + '.jpg';
+  try { localStorage.setItem('spots-room', id); } catch (e) {}
+  renderRooms(); draw(); renderList();
+}
+function draw() {
+  const svg = $('svg'); svg.innerHTML = ''; if (!ROOM) return;
+  const r = DATA[ROOM];
+  if ($('walk').checked && r.walk) { const p = document.createElementNS(NS, 'polygon'); p.setAttribute('points', r.walk.map(q => q.join(',')).join(' ')); p.setAttribute('class', 'walk'); svg.appendChild(p); }
+  // big boxes first, so small ones on top of them can be grabbed
+  const its = items(ROOM).sort((a, b) => { const A = rectOf(ROOM, a), B = rectOf(ROOM, b); return B[2] * B[3] - A[2] * A[3]; });
+  for (const it of its) {
+    const [x, y, w, h] = rectOf(ROOM, it);
+    if (changed(ROOM, it) && it.key === SEL) { const o = document.createElementNS(NS, 'rect'); const [ox, oy, ow, oh] = it.h.rect; Object.entries({ x: ox, y: oy, width: ow, height: oh, class: 'orig' }).forEach(([k, v]) => o.setAttribute(k, v)); svg.appendChild(o); }
+    const e = document.createElementNS(NS, 'rect');
+    Object.entries({ x, y, width: w, height: h }).forEach(([k, v]) => e.setAttribute(k, v));
+    e.setAttribute('class', 'r' + (it.h.exit ? ' exit' : '') + (it.key === SEL ? ' sel' : ''));
+    e.dataset.key = it.key; svg.appendChild(e);
+    if ($('labels').checked) { const t = document.createElementNS(NS, 'text'); t.setAttribute('x', x + 5); t.setAttribute('y', y + 17); t.setAttribute('class', 'lbl'); t.textContent = it.key; svg.appendChild(t); }
+  }
+  const s = items(ROOM).find(it => it.key === SEL);
+  if (s) {
+    const [x, y, w, h] = rectOf(ROOM, s);
+    const H = { nw: [x, y], n: [x + w / 2, y], ne: [x + w, y], e: [x + w, y + h / 2], se: [x + w, y + h], s: [x + w / 2, y + h], sw: [x, y + h], w: [x, y + h / 2] };
+    const k = 1280 / $('svg').getBoundingClientRect().width, R = 6 * k;
+    for (const [d, [hx, hy]] of Object.entries(H)) { const c = document.createElementNS(NS, 'rect'); Object.entries({ x: hx - R, y: hy - R, width: 2 * R, height: 2 * R, class: 'h', style: `cursor:${d}-resize` }).forEach(([a, v]) => c.setAttribute(a, v)); c.dataset.handle = d; svg.appendChild(c); }
+  }
+}
+function renderList() {
+  const its = items(ROOM);
+  $('list').innerHTML = `<div class="row head"><span>Hotspot</span><span>x</span><span>y</span><span>width</span><span>height</span><span>Shows when</span><span></span></div>` +
+    its.map(it => { const r = rectOf(ROOM, it), c = changed(ROOM, it); return `<div class="row${it.key === SEL ? ' sel' : ''}" data-key="${esc(it.key)}">
+      <span class="nm">${esc(it.key)}${it.h.exit ? '<span class="tag">exit</span>' : ''}${c ? '<span class="tag ch">moved</span>' : ''}</span>
+      ${r.map((v, j) => `<input id="f-${docId(ROOM, it.key)}-${j}" type="number" inputmode="numeric" value="${v}" data-j="${j}" aria-label="${['x', 'y', 'width', 'height'][j]} of ${esc(it.key)}">`).join('')}
+      <span class="when" title="${it.h.when ? esc(it.h.when) : ''}">${it.h.when ? esc(days(it.h.when)) : 'always'}</span>
+      <button type="button" data-reset ${c ? '' : 'disabled'}>Reset</button></div>`; }).join('');
+}
+function syncRow(key) {
+  const row = [...$('list').querySelectorAll('.row')].find(r => r.dataset.key === key); if (!row) return renderList();
+  const it = items(ROOM).find(i => i.key === key), r = rectOf(ROOM, it);
+  row.querySelectorAll('input').forEach((inp, j) => { if (document.activeElement !== inp) inp.value = r[j]; });
+}
+function select(key) {
+  SEL = key; draw();
+  $('list').querySelectorAll('.row').forEach(r => r.classList.toggle('sel', r.dataset.key === key));
+}
+
+// saving: one db doc per moved box; a box put back where it was is deleted
+const timers = {};
+function setRect(key, rect, now) {
+  const it = items(ROOM).find(i => i.key === key), id = docId(ROOM, key);
+  rect = clamp(rect);
+  if (rect.join() === it.h.rect.join()) delete EDITS[id];
+  else EDITS[id] = { room: ROOM, key, name: it.h.name, rect, orig: it.h.rect };
+  draw(); syncRow(key);
+  clearTimeout(timers[id]); timers[id] = setTimeout(() => persist(id), now ? 0 : 500);
+}
+async function persist(id) {
+  if (!db) { status('Not saved: open this page signed in to claude.ai'); return; }
+  try {
+    const e = EDITS[id];
+    if (e) await db.collection('spots').doc(id).set(Object.assign({}, e, { at: new Date().toISOString() }));
+    else await db.collection('spots').doc(id).delete();
+    status('Saved'); renderRooms(); refreshRows();
+  } catch (err) { status('Not saved: ' + ((err && err.message) || 'try again')); }
+}
+// (rows refreshed in place, so typing in one field and tabbing to the next keeps the focus)
+function refreshRows() {
+  const its = items(ROOM);
+  $('list').querySelectorAll('.row[data-key]').forEach(row => {
+    const it = its.find(i => i.key === row.dataset.key); if (!it) return;
+    const c = changed(ROOM, it), nm = row.querySelector('.nm');
+    nm.innerHTML = esc(it.key) + (it.h.exit ? '<span class="tag">exit</span>' : '') + (c ? '<span class="tag ch">moved</span>' : '');
+    row.querySelector('[data-reset]').disabled = !c; row.classList.toggle('sel', it.key === SEL);
+    const r = rectOf(ROOM, it); row.querySelectorAll('input').forEach((inp, j) => { if (document.activeElement !== inp) inp.value = r[j]; });
+  });
+}
+
+// dragging on the painting
+let drag = null;
+const pt = ev => { const b = $('svg').getBoundingClientRect(); return [(ev.clientX - b.left) * 1280 / b.width, (ev.clientY - b.top) * 720 / b.height]; };
+$('svg').addEventListener('pointerdown', ev => {
+  const t = ev.target, p = pt(ev);
+  if (t.dataset.handle && SEL) { const it = items(ROOM).find(i => i.key === SEL); drag = { key: SEL, mode: t.dataset.handle, p0: p, r0: rectOf(ROOM, it) }; }
+  else if (t.dataset.key) { select(t.dataset.key); const it = items(ROOM).find(i => i.key === t.dataset.key); drag = { key: t.dataset.key, mode: 'move', p0: p, r0: rectOf(ROOM, it) }; }
+  else { select(null); return; }
+  $('svg').setPointerCapture(ev.pointerId); ev.preventDefault();
+});
+$('svg').addEventListener('pointermove', ev => {
+  if (!drag) return;
+  const [px, py] = pt(ev), dx = px - drag.p0[0], dy = py - drag.p0[1];
+  let [x, y, w, h] = drag.r0;
+  if (drag.mode === 'move') { x += dx; y += dy; }
+  else {
+    if (drag.mode.includes('w')) { const nx = Math.min(x + w - MIN, x + dx); w += x - nx; x = nx; }
+    if (drag.mode.includes('e')) w = Math.max(MIN, w + dx);
+    if (drag.mode.includes('n')) { const ny = Math.min(y + h - MIN, y + dy); h += y - ny; y = ny; }
+    if (drag.mode.includes('s')) h = Math.max(MIN, h + dy);
+  }
+  const it = items(ROOM).find(i => i.key === drag.key), id = docId(ROOM, drag.key), r = clamp([x, y, w, h]);
+  if (r.join() === it.h.rect.join()) delete EDITS[id]; else EDITS[id] = { room: ROOM, key: drag.key, name: it.h.name, rect: r, orig: it.h.rect };
+  draw(); syncRow(drag.key);
+});
+const endDrag = () => { if (!drag) return; const k = drag.key, it = items(ROOM).find(i => i.key === k); setRect(k, rectOf(ROOM, it), true); drag = null; };
+$('svg').addEventListener('pointerup', endDrag); $('svg').addEventListener('pointercancel', endDrag);
+
+document.addEventListener('keydown', ev => {
+  if (!SEL || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) { if (ev.key === 'Escape') select(null); return; }
+  const d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[ev.key];
+  if (ev.key === 'Escape') return select(null);
+  if (!d) return;
+  ev.preventDefault();
+  const s = ev.shiftKey ? 10 : 1, it = items(ROOM).find(i => i.key === SEL); let [x, y, w, h] = rectOf(ROOM, it);
+  if (ev.altKey) { w += d[0] * s; h += d[1] * s; } else { x += d[0] * s; y += d[1] * s; }
+  setRect(SEL, [x, y, w, h]);
+});
+$('rooms').addEventListener('click', ev => { const b = ev.target.closest('button[data-room]'); if (b) selectRoom(b.dataset.room); });
+$('list').addEventListener('click', ev => {
+  const row = ev.target.closest('.row[data-key]'); if (!row) return;
+  if (ev.target.closest('[data-reset]')) { const it = items(ROOM).find(i => i.key === row.dataset.key); setRect(row.dataset.key, it.h.rect, true); return; }
+  if (ev.target.tagName !== 'INPUT') select(row.dataset.key);
+});
+$('list').addEventListener('focusin', ev => { const row = ev.target.closest('.row[data-key]'); if (row && row.dataset.key !== SEL) select(row.dataset.key); });
+$('list').addEventListener('change', ev => {
+  const inp = ev.target.closest('input[data-j]'); if (!inp) return;
+  const key = inp.closest('.row').dataset.key, it = items(ROOM).find(i => i.key === key), r = rectOf(ROOM, it).slice();
+  const v = parseInt(inp.value, 10); if (isNaN(v)) { syncRow(key); return; }
+  r[+inp.dataset.j] = v; setRect(key, r, true);
+});
+$('bgsel').addEventListener('change', () => { $('img').src = 'bg/' + $('bgsel').value + '.jpg'; });
+$('walk').addEventListener('change', draw); $('labels').addEventListener('change', draw);
+$('resetroom').addEventListener('click', () => {
+  const its = items(ROOM).filter(it => changed(ROOM, it));
+  if (!its.length) { status('Nothing moved in this room'); return; }
+  if ($('resetroom').dataset.armed !== '1') { $('resetroom').dataset.armed = '1'; $('resetroom').textContent = `Put back ${its.length}? Click again`; setTimeout(() => { $('resetroom').dataset.armed = ''; $('resetroom').textContent = 'Reset this room'; }, 3000); return; }
+  $('resetroom').dataset.armed = ''; $('resetroom').textContent = 'Reset this room';
+  its.forEach(it => setRect(it.key, it.h.rect, true));
+});
+window.addEventListener('resize', draw);
+
+(async () => {
+  try { DATA = await (await fetch('data.json')).json(); } catch (e) { $('title').textContent = 'The hotspot data did not load. Reload the page.'; return; }
+  let start = null; try { start = localStorage.getItem('spots-room'); } catch (e) {}
+  selectRoom(DATA[start] ? start : Object.keys(DATA)[0]);
+  status('Loading your changes…');
+  try {
+    db = window.claude && await window.claude.use('db');
+    if (!db) { status('Changes won’t save here: open the page signed in to claude.ai'); return; }
+    const t = setTimeout(() => status('Your saved changes are slow to load'), 10000);
+    db.collection('spots').onSnapshot(snap => {
+      clearTimeout(t);
+      for (const k of Object.keys(EDITS)) delete EDITS[k];
+      snap.docs.forEach(d => { const v = d.data(); if (v && v.room && Array.isArray(v.rect)) EDITS[d.id] = v; });
+      if (!drag) { renderRooms(); draw(); refreshRows(); }
+      status(snap.docs.length ? `${snap.docs.length} box${snap.docs.length === 1 ? '' : 'es'} moved so far` : 'Nothing moved yet');
+    }, () => { clearTimeout(t); status('Your saved changes did not load. Reload the page.'); });
+  } catch (e) { status('Changes won’t save here'); }
+})();
+</script>

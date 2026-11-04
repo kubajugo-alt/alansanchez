@@ -1,0 +1,46 @@
+{
+ "spec": {
+  "a": "pair_gando_stand",
+  "b": null,
+  "mid": null,
+  "prompt": "The two men step towards each other, the man on the right puts his hand on the other's face, and they kiss tenderly on the lips, eyes closed, then hold the kiss. Same characters, same clothes, same art style, feet stay on the ground.",
+  "loop": false,
+  "duration": 3.0,
+  "frames": 36
+ },
+ "hydra": {
+  "status": "succeeded",
+  "job": "c05d9ca1-0e11-480e-95b1-71d4c51fc41f",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/499b23fe3f0ddfc429418e52982f3bf1.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/388526c112127090d40c43f3b4a07659.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/0705bdf14c86bcfea044fc36bbcf86a0.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.8333333333333335,
+   "loop": false,
+   "out_of_frame": false,
+   "bad_loop": false
+  },
+  "credits": 9
+ },
+ "improve": {
+  "status": "succeeded",
+  "job": "5aaf498c-a169-465a-a459-e8800ba4494b",
+  "result": {
+   "spritesheet_url": "https://storage.googleapis.com/ludo-assets/api/3fd81c5cc4220d1cf5292f01388e02cf.webp",
+   "video_url": "https://storage.googleapis.com/ludo-assets/api/25afa7b9e0d0e2f7d75af02cc246ee95.mp4",
+   "audio_url": "https://storage.googleapis.com/ludo-assets/api/96bd3671bb52ea9b4269902d1aafd7e7.mp3",
+   "num_frames": 36,
+   "num_cols": 6,
+   "num_rows": 6,
+   "duration": 2.75,
+   "loop": false,
+   "out_of_frame": false,
+   "bad_loop": false
+  },
+  "credits": 3
+ },
+ "model": "hydra"
+}
