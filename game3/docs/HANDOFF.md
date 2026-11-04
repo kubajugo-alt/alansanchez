@@ -213,3 +213,12 @@ but Alan).
     (generate-image and its job check, create-upload-url, get-assets, read-design, edit-design, export-design,
     get-export-formats). Upload POSTs to Canva's URL are curl calls and may still ask. Nothing else changed; Game I's
     and Game II's code and exports are unaffected (the file is not served by either game).
+19. **Close-ups (for review)** (2026-11-04, the user: "Do the close ups"). Nine stills in `art/designs/stills/`, each a
+    fresh generation with a Game II still as the style reference only: the bell's frieze with the founders' mark, Ti-Jean's
+    boat, the face-down photograph, Tata with the dulce de coco, the El Conde tray, Tata's exercise book, the 1586 coin,
+    the St Michael offerings, the bishop's grandmother. Sheet `art/designs/g3_closeups_sheet_v1.jpg`; media ids in the
+    Canva log. Checked by eye on the sheet. Things to check: the frieze's ship above the mark is not clearly off-true and the
+    mark sits under the band, not under one ship; the notebook does not read as water-swollen; Tata's sweets are not
+    clearly in greaseproof squares. Left out on purpose: the vèvè (consultant), the hurricane chart (real geography), the
+    domino layout (code), all readable text (HTML overlays as in Game II's `docs.js`). Open: the founders' mark would
+    also need to be on the Lisbon shop's lintel; Game I's painting cannot change, so Game III would need its own copy.
