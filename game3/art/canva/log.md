@@ -29,3 +29,6 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
 - 2026-11-04 sheet art/designs/g3_front_approved.png: the three approved fronts
 - 2026-11-04 figure `alan_g3_front_d2` Canva media MAHZ7A77h90 -> art/designs/alan_g3_front_d2.png D without the blazer: the short-sleeved print shirt, cargo trousers, sandals (the user: "drop the blazer from Alan - he is in a short sleeve shirt"); replaces D as Alan's front (waiting for the user's word on the result)
 - 2026-11-04 sheet art/designs/g3_front_approved.png rebuilt with alan_g3_front_d2
+- 2026-11-04 Alan shirt tries (the user: "change the shirt to a creme shirt, unbottoned more to show more chest"): MAHZ7MmGJvM (open to the waist; "not that much, one button more"), MAHZ7AI8ZHU (barely open; "too buttoned up no"); neither downloaded
+- 2026-11-04 figure `alan_g3_front_e` Canva media MAHZ7LHNFl8 -> art/designs/alan_g3_front_e.png plain cream short-sleeved shirt, untucked, open to mid-chest; khaki cargo trousers; brown sandals. APPROVED (the user: "perfect, alan approved too")
+- 2026-11-04 sheet art/designs/g3_front_approved.png: the three approved fronts (alan_g3_front_e, vasco_g3_front_g2, ines_g3_front_v2)

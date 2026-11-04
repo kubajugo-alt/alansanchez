@@ -145,3 +145,10 @@ but Alan).
    `art/designs/alan_g3_front_d2.png` (media MAHZ7A77h90): D's print shirt, cargo trousers and sandals, no blazer. It
    is now Alan's front on `g3_front_approved.png`. Note for the story: the bible's linen jacket (Yunior's price, S10)
    is no longer on him; it can be carried, or come out of his luggage that day.
+7. **Alan approved: all three fronts settled** (2026-11-04). The user: "change the shirt to a creme shirt, unbottoned
+   more to show more chest", "not that much, one button more", "too buttoned up no", then "perfect, alan approved too".
+   Alan: `art/designs/alan_g3_front_e.png` (media MAHZ7LHNFl8): plain cream short-sleeved shirt, untucked, open to
+   mid-chest, khaki cargo trousers, brown sandals. **The approved fronts:** `alan_g3_front_e.png`,
+   `vasco_g3_front_g2.png`, `ines_g3_front_v2.png` (sheet `g3_front_approved.png`). Everything else in
+   `art/designs/` is a rejected candidate kept for the record (note: `vasco_g3_front_e.png` is Vasco's linen-suit
+   option, unrelated to Alan's E). Next, when asked: side and back views from these fronts, then cut-outs.
