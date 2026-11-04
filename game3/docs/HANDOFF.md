@@ -396,3 +396,8 @@ but Alan).
       p1586_river_mouth__visit1_birds, p1586_river_mouth__visit2_fish, parque_colon__wet_morning, parque_colon__wind,
       san_anton_colmado__shut, tata_alley__day (11, about 30 credits at 2.75); Lisbon's shop, flat, rua; the hub map.
       About 14 credits left on Higgsfield.
+
+29. **Deployed: the GPT-repainted rooms** (2026-11-04, the user: "deploy"). Export `git archive HEAD:game3` 122 MB (the
+    2560 backgrounds add about 37 MB), validate no problems and parts 8–9 to the credits on the export; deploy
+    `6aeb7bae9bef719c4f99297a`, https://alan-sanchez-forgotten-rhythm.netlify.app. Live: page, backgrounds (2560x1440)
+    and alive files 200; `/.env`, `/scripts/`, `/docs/` 404; parts 8–9 on the live site to the credits.
