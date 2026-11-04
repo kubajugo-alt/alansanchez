@@ -273,3 +273,15 @@ but Alan).
     - **Vèvè** `veve/`: a plain boat sign in exactly the bible's S6 parts (hull, mast, sail, flag, three wave lines,
       crosses, stars), one transparent PNG per part plus `veve_whole.png` and a labelled preview, by
       `scripts/veve_placeholder.py`. Deliberately not Agwe's vèvè: the real sign waits for the consultant read.
+23. **Inventory items (for review)** (2026-11-04, the user: "draw all the inventory items"). 26 icons in
+    `art/designs/items/` (256x256, transparent), sheet `art/designs/g3_items_sheet.jpg`: the bible's 21 key items
+    (the index cards, crest paper, *Patrimonio Sacro*, the welcome fax, Alan's notebook, the 1586 coin, the dulce de
+    coco, the rum, the linen jacket, compass and protractor, the archive copies, the purple seal, Tata's notebook,
+    the napkin, Lalo's note, goatskin, guava pegs, St Michael candles, Ti-Jean's boat, the bishop's car keys, the
+    chalk) plus five the scenes hand over that the table leaves out: the carried shoes (W5), Lilo's address (S11),
+    the dossier (U-day), the custody letter (TU1) and Fello's drum (ML6). Style from Game II's icons (one sheet
+    uploaded as reference); one fresh generation each; the crest on the paper, the keys and the letter is the same
+    generic mitre and keys, so the ML5 seal pressing reads. Not drawn: the vèvè sketch (a notebook page; the engine
+    can show the placeholder parts), documents that are only text (tide fact, Carmela's message), the drums the raid
+    takes (Lilo's is the same drum). Note: the coin's verdigris keyed to blue-grey. Game II's engine shows these via
+    `window.PAINTED_ICONS` (CODEMAP, fx.js).

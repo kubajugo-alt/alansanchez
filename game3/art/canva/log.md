@@ -92,3 +92,8 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
   - p1586_river_mouth__visit1_birds MAHZ9_avibI · p1586_river_mouth__visit2_fish MAHZ97lFBTc (both edited from shore_steps MAHZ9v9ulYY, the clean source of p1586_river_mouth, which serves as visit 3)
   - Failed, not kept: hostal_roof__patch_fri MAHZ950tWtY and bell_chamber__wed_far_patch MAHZ9zJ5X9M came back with no dark patch; the Sunday bell-chamber has none either.
   Sheet art/designs/g3_variants_sheet_v1.jpg.
+- 2026-11-04 inventory items (the user: "draw all the inventory items"). Style reference: Game II's nine painted icons on green, uploaded as one sheet MAHZ9zBR3s8 (style only). One fresh generation each, square, flat green; placed as an 8x4 grid of 240 px on scratch page 1 (inserted over the old fill), exported 3840 wide, cut into 480 px cells, green keyed off with spill pulled from the rim, saved 256x256 RGBA in art/designs/items/. Candidates:
+  - index_cards MAHZ9_7y1Z4 · crest_paper MAHZ96Z3xJU · patrimonio_sacro MAHZ9-cFv4w · welcome_fax MAHZ9ys9aVU · coin_1586 MAHZ90kdaUo · dulce_de_coco MAHZ997IM6Q · rum MAHZ9ztPZeU (no brand on the label) · linen_jacket MAHZ94hihDA
+  - compass MAHZ902oGAg · archive_copies MAHZ91gUu1Q · wax_seal MAHZ98nHTWc · tata_notebook MAHZ9ytesyQ · napkin MAHZ96BUJNY · lalo_note MAHZ9_SKEH0 · goatskin MAHZ96XBF3Y · guava_pegs MAHZ91ZCCes
+  - stmichael_candles MAHZ9-IIrlw · tijean_boat MAHZ9ywTQ64 · car_keys MAHZ99t9shk · chalk MAHZ9yK0ajc · alan_notebook MAHZ97Mu2V4 · shoes MAHZ9wSB42k · lilo_address MAHZ93d3Z9c · dossier MAHZ96Z6kkc · custody_letter MAHZ960cReo · drum MAHZ9w3qqcQ
+  Sheet art/designs/g3_items_sheet.jpg. Note: the green key took the coin's verdigris to blue-grey.
