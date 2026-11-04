@@ -5,10 +5,10 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `b2ee494b` (Netlify `6aeb4ef0f1de5b5119e67a10`, entry 90;
-PR kubajugo-alt/alansanchez#18): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `d955eda0` (Netlify `6aeb56afc699109e2131af08`, entry 91;
+PR kubajugo-alt/alansanchez#19): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-90; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-91; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1621,6 +1621,22 @@ session lived in the session's scratchpad and are gone; everything that matters 
    finale, fado pass; validate 0 errors. Deployed (the user: "yes deploy both and merge into master"): export at `b2ee494b`,
    smoke intro, shopjobs, sepit, bath, finale pass on it; Netlify `6aeb4ef0f1de5b5119e67a10`. Live: page 200, `/.env` and
    `/sequel/` 404, the engine files byte-equal; live smoke intro, shopjobs pass. Merged into master by PR #18.
+91. **Play offline, from Game II** (2026-11-04, the user: "add the play offline functionality to game 1"). Game II's
+   (its HANDOFF 127): `js/offline.js` (the title's and the menu's Play offline, the panel, the resumable download, Remove)
+   and `sw.js` are now the same files in both games (the key from `GAME_KEY`; the cache names unchanged, each game being
+   its own site). `scripts/build-manifest.mjs` writes `offline.json` (every exported file the game loads, size and hash;
+   not scripts/, docs/, lipsync/, sequel/; 10,308 files, 582 MB, 501 MB to download with one music format); with no git
+   (Netlify's build) it keeps the committed list. `manifest.webmanifest` and `art/app/icon-192/512.png` (the title
+   painting's drowned bell, cropped: the painting is 1280 wide, so the 512 is soft) make it installable; `netlify.toml`
+   keeps the worker, the list and the manifest always checked. Test: Game II's `scripts/tests/offline.mjs`, made to fit
+   both and copied here. On a copy of the export: the download (paused, reloaded, continued) in 41 s locally; with the
+   server stopped and the browser offline, intro, shopjobs, quayfish, bath, finale play with no page errors, no failed
+   requests; an update fetched only the changed file (19 KB); Remove leaves no cache or worker. validate 0 errors.
+   PR kubajugo-alt/alansanchez#19. Deployed (the user: "Yes please"): export at `d955eda0` (595 MB), smoke intro, shopjobs,
+   bath pass on it; Netlify `6aeb56afc699109e2131af08`. Live: page 200; `/.env`, `/sequel/` 404; sw.js (no-cache),
+   offline.json, manifest.webmanifest (application/manifest+json), js/offline.js, the icons served; offline.json,
+   index.html, sw.js, offline.js byte-equal to the repository's (so Netlify's build kept the list); the live panel offers
+   the 501 MB download; live smoke intro, shopjobs pass.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

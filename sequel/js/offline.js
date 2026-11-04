@@ -1,11 +1,13 @@
-// The Shortest Night: "Play offline" (HANDOFF entry 127). The menu's (and the title's) Play offline opens a panel that
+// "Play offline" (Game II's HANDOFF entry 127; the same file in both games since 2026-11-04, Game I's handoff entry 91). The menu's (and the title's) Play offline opens a panel that
 // downloads the whole game (offline.json, written by scripts/build-manifest.mjs) into this browser's Cache Storage and
 // registers sw.js, which then serves the game from that copy with no connection. Resumable (files already stored with
 // the right hash are skipped); an update fetches only the files whose hash changed, into a staging cache that replaces
 // the copy's files only once it is complete (so an update cut short never leaves a copy mixed from two versions).
 // Remove deletes the copy and unregisters the worker. Nothing here runs for a player who never opens the panel.
 (function () {
-  const KEY = 'shortest-night-offline';
+  const KEY = window.GAME_KEY + '-offline';   // (shortest-night-offline, drowned-bell-offline: js/game.js)
+  // (the cache names below are the same in both games: each game is its own site, and caches belong to their site;
+  // Game II's copies already downloaded under these names keep working)
   const PACK = 'sn-offline', STAGE = 'sn-offline-stage', META = 'sn-offline-meta', FONTS = 'sn-fonts';
   const BASE = new URL('./', location.href.split(/[?#]/)[0]).href;
   const can = /^https?:$/.test(location.protocol) && 'serviceWorker' in navigator && 'caches' in window;

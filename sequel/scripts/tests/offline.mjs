@@ -1,4 +1,4 @@
-// Play offline, end to end (HANDOFF entry 127): serves a folder, downloads the offline copy through the menu's panel
+// Play offline, end to end (Game II's HANDOFF entry 127; the same file in both games since entry 157, Game I's 91): serves a folder, downloads the offline copy through the menu's panel
 // (with a pause and a continue on the way), then stops the server and turns the browser offline and plays scenes from
 // the copy: page errors, requests that failed, voices decoded, media elements playing (and their 206 ranges), videos
 // drawing. Then an update: one file changed in the served folder (and its offline.json entry), Update fetches only it.
@@ -12,7 +12,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 const require = createRequire('/opt/node22/lib/node_modules/');
 const { chromium } = require('playwright');
-const [dir, out, port = '8199', scenesArg = 'tue,wed,mist,aim,cave_low'] = process.argv.slice(2);
+const [dir, out, port = '8199', scenesArg = 'tue,wed,mist,aim,cave_low'] = process.argv.slice(2);   // (Game I: e.g. intro,shopjobs,quayfish,bath,finale)
 fs.mkdirSync(out, { recursive: true });
 const base = `http://localhost:${port}/`;
 let server = null;
@@ -27,7 +27,7 @@ await serve(true);
 const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--autoplay-policy=no-user-gesture-required'] });
 const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
 await context.addInitScript(() => {
-  try { localStorage.setItem('shortest-night-content', 'full'); } catch (e) { /* none */ }
+  try { for (const k of ['shortest-night', 'drowned-bell']) localStorage.setItem(k + '-content', 'full'); } catch (e) { /* none */ }   // (either game)
   window.__au = { decoded: 0, decodeFail: 0, playing: [], media: [] };
   const dec = AudioContext.prototype.decodeAudioData;
   AudioContext.prototype.decodeAudioData = function (b, ok, bad) {
@@ -158,7 +158,7 @@ for (const scene of scenesArg.split(',')) {
 // ---------------------------------------------------------------- 3. an update: one file changed online
 await context.setOffline(false);
 {
-  const rel = 'js/story/bgtalk.js', f = path.join(dir, rel);
+  const rel = 'js/story/docs.js', f = path.join(dir, rel);   // (a story file both games have)
   const body = fs.readFileSync(f, 'utf8') + '\n// offline update test ' + Date.now() + '\n';
   fs.unlinkSync(f); fs.writeFileSync(f, body);   // (unlink first: the folder may be hard links to the working tree)
   const oj = path.join(dir, 'offline.json'), o = JSON.parse(fs.readFileSync(oj, 'utf8'));
@@ -187,10 +187,10 @@ await context.setOffline(true);
 {
   const page = await context.newPage();
   const w = await watch(page, 'after-update');
-  await page.goto(base + '?scene=lobby', { waitUntil: 'load' });
+  await page.goto(base + '?scene=' + scenesArg.split(',')[0], { waitUntil: 'load' });
   await page.waitForSelector('#title.ready', { timeout: 60000 });
-  const txt = await page.evaluate(async () => (await (await fetch('js/story/bgtalk.js')).text()).slice(-60));
-  log('offline bgtalk.js ends with:', JSON.stringify(txt), 'errors:', w.pageErrors);
+  const txt = await page.evaluate(async () => (await (await fetch('js/story/docs.js')).text()).slice(-60));
+  log('offline docs.js ends with:', JSON.stringify(txt), 'errors:', w.pageErrors);
   if (!/offline update test/.test(txt)) report.errors.push('updated file not served offline');
   await page.close();
 }

@@ -1,4 +1,5 @@
-// The Shortest Night: the offline copy's service worker (HANDOFF entry 127; js/offline.js downloads the copy).
+// The offline copy's service worker (Game II's HANDOFF entry 127; js/offline.js downloads the copy). The same file in
+// both games (each is its own site, so their caches never meet).
 // Registered only in a browser that has asked for the offline copy (the menu's "Play offline"), so everyone else plays
 // straight from the network as before. What it does:
 // - index.html (any visit to the game's address) and offline.json: from the network when there is one, so a new
