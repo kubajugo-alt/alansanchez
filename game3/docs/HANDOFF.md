@@ -152,3 +152,17 @@ but Alan).
    `vasco_g3_front_g2.png`, `ines_g3_front_v2.png` (sheet `g3_front_approved.png`). Everything else in
    `art/designs/` is a rejected candidate kept for the record (note: `vasco_g3_front_e.png` is Vasco's linen-suit
    option, unrelated to Alan's E). Next, when asked: side and back views from these fronts, then cut-outs.
+8. **The three fronts redone clean and locked** (2026-11-04). The user: "multiple redos on them, made them very grainy.
+   We need clean sprites with the same level of texture and style like the previous games", then "Ok, lock these 3
+   sprites". Each chained Canva edit adds grain, so each figure was redone in **one** edit from its clean original
+   sprite with the approved outfit written out in full. Locked: `art/designs/alan_g3_front.png` (MAHZ7I8imU8),
+   `vasco_g3_front.png` (MAHZ7CJy5AU), `ines_g3_front.png` (MAHZ7GGzC20); grain numbers in `art/canva/log.md` (Alan 5.0
+   -> 2.9, Inês 4.0 -> 2.8; Game II's Alan is 1.7). **Rule from now on: never edit an edit.** Every new picture of a
+   character is made in one step from its locked front (or, for a new character, generated fresh with the locked Alan
+   as the style reference only).
+9. **The principal cast, fronts (for review)** (2026-11-04, the user: "Ok, lock these 3 sprites. Using the same style,
+   generate the other characters"). The bishop, Moncho, Yolande, Tobías, Papá Lilo (seated with his drum), Fello,
+   Batista, Mireya: one fresh Canva generation each, the locked Alan as the style reference only, the look from the
+   bible's character designs. Sheet `art/designs/g3_cast_sheet_v1.png`, ids in `art/canva/log.md`. Supporting cast
+   next (Nando, Lalo, Yunior, Padre Ulises, Peralta, Ledesma, the Nuncio's secretary, Don Faustino, Ramón, the perm
+   sisters, Darío, Eddy).

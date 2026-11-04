@@ -32,3 +32,13 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
 - 2026-11-04 Alan shirt tries (the user: "change the shirt to a creme shirt, unbottoned more to show more chest"): MAHZ7MmGJvM (open to the waist; "not that much, one button more"), MAHZ7AI8ZHU (barely open; "too buttoned up no"); neither downloaded
 - 2026-11-04 figure `alan_g3_front_e` Canva media MAHZ7LHNFl8 -> art/designs/alan_g3_front_e.png plain cream short-sleeved shirt, untucked, open to mid-chest; khaki cargo trousers; brown sandals. APPROVED (the user: "perfect, alan approved too")
 - 2026-11-04 sheet art/designs/g3_front_approved.png: the three approved fronts (alan_g3_front_e, vasco_g3_front_g2, ines_g3_front_v2)
+- 2026-11-04 CLEAN REDOS, LOCKED (the user: "multiple redos on them, made them very grainy. We need clean sprites with the same level of texture and style like the previous games", then "Ok, lock these 3 sprites"). Each is ONE edit from the character's clean original sprite (no chained edits), the approved outfit described in full:
+  - `alan_g3_front` Canva media MAHZ7I8imU8 -> art/designs/alan_g3_front.png (from Game II alanb_front_k)
+  - `vasco_g3_front` Canva media MAHZ7CJy5AU -> art/designs/vasco_g3_front.png (from Game II vascor_front_k)
+  - `ines_g3_front` Canva media MAHZ7GGzC20 -> art/designs/ines_g3_front.png (from Game I ines_front)
+  Grain (mean |L - median3(L)| over the figure at 720 px; scratchpad grain.py): Alan Game II 1.71, chained approved 5.02, clean 2.94; Vasco Game II 3.15, chained 3.65, clean 3.42; Ines Game I 2.02, chained 4.03, clean 2.80.
+- 2026-11-04 principal cast, fronts (the user: "Using the same style, generate the other characters"). Each ONE fresh generation, the locked Alan (MAHZ7I8imU8) as the style reference only, face and body from the bible's character designs and art prompts; candidates:
+  - `bishop_g3_front` MAHZ7MLG6so · `moncho_g3_front` MAHZ7MMcZc4 · `yolande_g3_front` MAHZ7JDu7Tk · `tobias_g3_front` MAHZ7DfQn9s
+  - `lilo_g3_front` MAHZ7E4yXz0 (seated on his chair with the drum, 3:4) · `fello_g3_front` MAHZ7N6kdX8 · `batista_g3_front` MAHZ7I_N7Ns · `mireya_g3_front` MAHZ7PJZ8gw
+  Grain: bishop 2.2, Moncho 2.4, Batista 2.9, Mireya 3.5, Fello 3.8, Tobias 4.1, Lilo 6.4, Yolande 10.1 (the last two are painted pattern and wrinkles, not noise: Yolande's printed dress, Lilo's straw and skin; the measure can't tell them apart).
+  Sheet: art/designs/g3_cast_sheet_v1.png (heights relative to Alan are a guess, to be set in the game).
