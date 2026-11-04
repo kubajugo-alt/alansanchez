@@ -8,11 +8,15 @@
   window.FIRST_ROOM = 'gando';
   // the room paintings at 1280 for a screen that draws at 1280 or less (engine.js register): art/bg1x/ is art/bg's
   // 2560 paintings scaled down (Lanczos), a quarter of the memory on a phone; the map is 1280 already
-  window.BG1X = [
+  window.BG1X_READY = [
     'archive', 'baute_office', 'beach', 'beach_sun', 'belfry', 'camp', 'canteras', 'carmen_flat', 'cave6', 'cave6_low', 'colon', 'colon_out',
     'elena_car', 'gando', 'hotel_lobby', 'hotel_lobby_day', 'hotel_restaurant', 'hotel_room', 'isleta', 'landrover', 'mercado', 'museum_corridor',
     'museum_courtyard', 'museum_hall', 'museum_out', 'rafa_bar', 'rafa_studio', 'santa_ana', 'santa_ana_inside', 'title', 'vault', 'vault_cell',
     'vault_open'];
+  // (2026-11-04, HANDOFF 156: not in use yet. With art/bg1x in it the export was 568 MB and Netlify's upload refused it
+  // three times with a 500, where 557 MB went through; art/bg1x stays in the repo, out of the export (.gitattributes),
+  // until the deploy can carry it. To use them: window.BG1X = window.BG1X_READY, and take art/bg1x out of export-ignore.)
+  window.BG1X = [];
   window.STILLS = ['still_elena_bar', 'still_nap', 'still_barranco', 'still_title', 'still_arrival', 'still_mist', 'still_love_1', 'still_pepe', 'still_caught',
     'still_fight', 'still_rafa_night', 'still_rafa_drawing', 'still_isleta_flood', 'still_vault_dark', 'still_cloud_climb', 'still_bad_ending',
     'still_chain', 'still_sunrise', 'still_road_down', 'still_fireworks', 'still_love_2'];
