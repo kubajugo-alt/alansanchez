@@ -363,3 +363,8 @@ but Alan).
       Game I's own layer art and script); the colmado's boombox.
     - Frame times in a software-rendered test browser (no GPU) once the art has loaded: about 16.7 ms (60 fps) in the
       busiest rooms (the burning square, Parque Colón in the wind, the candle aisle, the storm shore).
+27. **Deployed: music, ambience and the alive pass** (2026-11-04, the user: "once this is all done - deploy and give me a
+    link to check it"). Whole play-through passed first (prologue to credits); export `git archive HEAD:game3` 85 MB
+    (the music is 28 MB of it), smoke-tested on its own port (parts 8–9 to the credits); deploy
+    `6aeb6e0f5057957f9eac067a`, https://alan-sanchez-forgotten-rhythm.netlify.app. Live: page, alive files, sound.js, the
+    tracks and the beds 200; `/.env`, `/scripts/`, `/docs/` 404; parts 8–9 on the live site to the credits.
