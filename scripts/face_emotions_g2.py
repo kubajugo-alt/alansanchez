@@ -3,6 +3,7 @@
 
   python3 scripts/face_emotions_g2.py build [target ...]     patches + emo.json into art/review/emotions_g2/
   python3 scripts/face_emotions_g2.py sheet [target ...]     a contact sheet per frame (game size and 3x)
+  python3 scripts/face_emotions_g2.py clip  [target ...]     a clip per frame: one line spoken in each emotion, with the voice
 
 No paid service: local image work only. Per target frame and Game II source of the same view:
   1. the source head (neutral S0, and S0 with the emotion's whole-box patch, Se) is lined up on the target's head with an
@@ -25,17 +26,31 @@ SEQ = os.path.join(ROOT, 'sequel')
 OUT = os.path.join(ROOT, 'art/review/emotions_g2')
 EMOS = ['fear', 'anger', 'sadness', 'concern', 'surprise', 'joy', 'embarrassed', 'mischievous']
 K = 4  # working enlargement
+CAP = float(os.environ.get('EMO_CAP', 28))  # most the target's colour may shift the source's detail (0-255)
+LO, HI = float(os.environ.get('EMO_LO', 12)), float(os.environ.get('EMO_HI', 34))  # change strength (0-255) ramp
 # target -> (source, base mouth for the quiet face: None = the painting's own, else a lip-sync patch, face zone, upper split)
 #   zone: the face in front of the ear in target sprite px (polygon), where anything may change
 #   split: the nose's underside (target sprite y): the _up patch keeps only what lies above it
-SIDE_ZONE = lambda x, y: [(x + 22, y + 8), (x + 64, y + 4), (x + 80, y + 30), (x + 80, y + 90), (x + 30, y + 90), (x + 26, y + 50)]
+SIDE_ZONE = lambda x, y: [(x + 22, y + 13), (x + 64, y + 12), (x + 80, y + 30), (x + 80, y + 90), (x + 30, y + 90), (x + 26, y + 50)]
 TARGETS = {
     'alan_side': dict(src='alanv_side_k', base=None),
     'alan_idle2': dict(src='alanv_side_k', base=None),
-    'alan_talk': dict(src='alanv_side_k', base='A'),
-    'alan_talk2': dict(src='alanv_side_k', base='A'),
+    'alan_talk': dict(src='alanv_side_k', base='A', cap=10),  # (cap 10: its head is tilted from the source's, so less of its shading is trusted)
+    'alan_talk2': dict(src='alanv_side_k', base='A', cap=10),
     'alan_front': dict(src='alanv_front_k', base=None),
+    # Chapter V's cistern frame (the lantern): a profile turned a little towards us, its face box only the front of the face;
+    # lined up by the eyes (zone: box-relative, brow to chin)
+    'alan_lantern': dict(src='alanv_side_k', base=None, eyes=True, upper_only=('fear', 'anger', 'sadness', 'concern', 'surprise'),
+                         skip=('embarrassed',),  # (its lips notch the nose tip on this turned head: left out)
+                         zone=[(-4, 4), (36, 2), (36, 60), (0, 60), (-8, 30)]),
 }
+
+
+def eye_centre(faces_dir, frame, box):
+    """Where the frame's eyes are (sprite px): the middle of its own shut-eye patch."""
+    a = np.asarray(Image.open(os.path.join(faces_dir, frame + '_eyes_closed.webp')).convert('RGBA'))[..., 3]
+    ys, xs = np.nonzero(a > 128)
+    return box[0] + xs.mean(), box[1] + ys.mean()
 
 
 def faces(path):
@@ -87,7 +102,7 @@ def fit(T, S0, mask):
 
 
 def build(tname):
-    cfg = TARGETS[tname]; src = cfg['src']
+    cfg = TARGETS[tname]; src = cfg['src']; cap = cfg.get('cap', CAP)
     D1, D2 = F1[tname], F2[src]
     tx, ty, tw, th = D1['box']
     sbox = D2['emo']['box']
@@ -101,7 +116,10 @@ def build(tname):
     cx1, cy1 = min(tx + tw + m, T.shape[1]), min(ty + th + m, T.shape[0])
     sx, sy, sw, sh = sbox
     # the source crop is placed so its box sits where the target's does (a first guess the fit refines)
-    if front:  # line the eyes up: Game II's front eyes are at sprite y 79 (face_emotions.py VIEWS), Game I's ~12 px into its box
+    if cfg.get('eyes'):  # line the eyes up, each frame's own shut-eye patch
+        (ex, ey), (fx_, fy_) = eye_centre(os.path.join(SEQ, 'art/faces'), src, D2['box']), eye_centre(os.path.join(ROOT, 'art/faces'), tname, D1['box'])
+        ox, oy = round(ex - fx_), round(ey - fy_)
+    elif front:  # line the eyes up: Game II's front eyes are at sprite y 79 (face_emotions.py VIEWS), Game I's ~12 px into its box
         ox, oy = round(sx + sw / 2 - (tx + tw / 2)), round(79 - (ty + 12))
     else:
         ox, oy = sx - tx, sy - ty
@@ -113,6 +131,7 @@ def build(tname):
         xs0, ys0 = max(x0, 0), max(y0, 0); xs1, ys1 = min(x0 + W, a.shape[1]), min(y0 + H, a.shape[0])
         out[ys0 - y0:ys1 - y0, xs0 - x0:xs1 - x0] = a[ys0:ys1, xs0:xs1]
         return out
+    TA = paste(T, rgba(os.path.join(ROOT, 'art/faces', f'{tname}_A.webp')), D1['box'], True)
     Tc, Tqc = premul_up(T[cy0:cy1, cx0:cx1]), premul_up(Tq[cy0:cy1, cx0:cx1])
     S0c = premul_up(scrop(S0))
     Hk, Wk = Tc.shape[:2]
@@ -122,39 +141,58 @@ def build(tname):
     if front:
         cv2.ellipse(zone, (int((tx + tw / 2 - cx0) * K), int((ty + th / 2 - 8 - cy0) * K)), (int(tw * 0.5 * K), int((th / 2 + 14) * K)), 0, 0, 360, 255, -1)
     else:
-        cv2.fillPoly(zone, [np.array([((px - cx0) * K, (py - cy0) * K) for px, py in SIDE_ZONE(tx, ty)], np.int32)], 255)
-    fitm = ((zone > 0) & (Tc[..., 3] > 200) & (S0c[..., 3] > 200)).astype(np.uint8) * 255
-    cc, warp = fit(Tc, S0c, fitm)
+        pts = [(tx + px, ty + py) for px, py in cfg['zone']] if cfg.get('zone') else SIDE_ZONE(tx, ty)
+        cv2.fillPoly(zone, [np.array([((px - cx0) * K, (py - cy0) * K) for px, py in pts], np.int32)], 255)
+    fitm = ((zone > 0) & (Tqc[..., 3] > 200) & (S0c[..., 3] > 200)).astype(np.uint8) * 255
+    cc, warp = fit(Tqc, S0c, fitm)  # (on the closed mouth: a talk frame's open jaw would pull the fit)
     wp = lambda a: cv2.warpAffine(a, warp, (Wk, Hk), flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
     S0w = wp(S0c)
     zonef = cv2.GaussianBlur(zone.astype(np.float32) / 255, (0, 0), 3 * K)
+    # a band along the target's silhouette, about 2 px deep (its ink line)
+    sil = (Tc[..., 3] > 128).astype(np.uint8)
+    edge = (cv2.dilate(sil, np.ones((3, 3), np.uint8)) - cv2.erode(sil, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (4 * K + 1, 4 * K + 1)))).astype(np.float32)
+    edge = cv2.GaussianBlur(edge, (0, 0), 0.6 * K)
+    lipy = eye_centre(os.path.join(ROOT, 'art/faces'), tname, D1['box'])[1] + 19 if cfg.get('eyes') else ty + (46 if not front else 48)
+    lips = yy > (lipy - cy0) * K   # below the nose's underside: where lips may move the outline
     res = {'fit': round(float(cc), 3), 'warp': warp.round(4).tolist(), 'emos': {}}
     # the target's emotion box: its face box, grown to whatever any emotion changes
     patches, boxes = {}, []
     for e in EMOS:
         pe = os.path.join(SEQ, 'art/faces', f'{src}_emo_{e}.webp'); pu = os.path.join(SEQ, 'art/faces', f'{src}_emo_{e}_up.webp')
-        if not os.path.exists(pe): continue
+        if not os.path.exists(pe) or e in cfg.get('skip', ()): continue
         Se = paste(S0, rgba(pe), sbox, True)
         Sew = wp(premul_up(scrop(Se)))
         Uw = wp(up(scrop(paste(np.zeros_like(S0), rgba(pu), sbox, True))[..., 3]))  # where the source's _up patch reaches
         # what the emotion changes, on the target
         d = np.abs(Sew[..., :3] - S0w[..., :3]).max(-1) * (np.maximum(Sew[..., 3], S0w[..., 3]) > 60)
         d = np.maximum(d, np.abs(Sew[..., 3] - S0w[..., 3]))
-        M = (cv2.GaussianBlur(d, (0, 0), 1.0 * K) > 10).astype(np.uint8)
-        M = cv2.dilate(M, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (4 * K + 1, 4 * K + 1)))
-        M = cv2.GaussianBlur(M.astype(np.float32), (0, 0), 1.6 * K) * zonef
-        M = np.clip(M * 1.3, 0, 1)
+        # how strongly: faint drift in Gemini's repaint (under LO) keeps Game I's own strokes; a real change (over HI) is taken
+        db = cv2.GaussianBlur(d, (0, 0), 1.0 * K)
+        M = np.clip((db - LO) / (HI - LO), 0, 1); M = M * M * (3 - 2 * M)
+        M = cv2.dilate(M, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * K + 1, 2 * K + 1)))
+        M = cv2.GaussianBlur(M, (0, 0), 1.2 * K) * zonef
+        # Game I's inked outline (nose, lips, chin) stays, except where the source's own outline moves (lips that part)
+        M *= 1 - edge * (1 - cv2.GaussianBlur(cv2.dilate(((cv2.GaussianBlur(np.abs(Sew[..., 3] - S0w[..., 3]), (0, 0), K) > 40) & lips).astype(np.float32),
+                                                       cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3 * K + 1, 3 * K + 1))), (0, 0), K))
         lo = lambda a: cv2.GaussianBlur(a, (0, 0), 1.5 * K)
         def blend(base):
-            R = Sew[..., :3] + lo(base[..., :3] - S0w[..., :3])
+            R = Sew[..., :3] + np.clip(lo(base[..., :3] - S0w[..., :3]), -cap, cap)  # (capped: a shading mismatch must not paint a blot)
             out = base.copy()
             out[..., :3] = base[..., :3] * (1 - M[..., None]) + R * M[..., None]
             out[..., 3] = np.clip(base[..., 3] + M * (Sew[..., 3] - S0w[..., 3]), 0, 255)
             return out
         Q, Tk = blend(Tqc), blend(Tc)
         Mu = M * np.clip(Uw / 255 * 1.5, 0, 1)
-        Up = Tk.copy(); Up[..., 3] = Tk[..., 3] * Mu
-        q = down(Q, W, H); u = down(Up, W, H); mm = down(M, W, H)
+        # back at sprite size, mixed in by the mask there: where nothing changes the pixels stay exactly Game I's
+        mm, mu = down(M, W, H)[..., None], down(Mu, W, H)
+        mix = lambda base, hi: base * (1 - mm) + down(hi, W, H) * mm
+        q = mix(Tq[cy0:cy1, cx0:cx1], Q)
+        if e in cfg.get('upper_only', ()):  # the source's mouth doesn't sit on this face: its own closed mouth, the brows and eyes over it
+            q = TA[cy0:cy1, cx0:cx1].copy(); ua = None
+        u = mix(T[cy0:cy1, cx0:cx1], Tk); u[..., 3] *= mu
+        if e in cfg.get('upper_only', ()):
+            a = u[..., 3:4] / 255; q[..., :3] = u[..., :3] * a + q[..., :3] * (1 - a)
+        mm = mm[..., 0]
         patches[e] = (q, u)
         ys, xs = np.nonzero(mm > 0.02)
         if len(xs): boxes.append((xs.min() + cx0, ys.min() + cy0, xs.max() + cx0 + 1, ys.max() + cy0 + 1))
@@ -218,6 +256,49 @@ def sheet(tname, data):
     p = os.path.join(OUT, f'sheet_{tname}.jpg'); S.save(p, quality=92); print(p, S.size)
 
 
+def clip(tname, data, line='alan_let_go', fps=25):
+    """The line spoken in each emotion (Game I's own Rhubarb cues and voice), then a second quiet; a blink now and then.
+    Body at game size on the left, the head at 4x on the right. Writes clip_<frame>.mp4."""
+    import subprocess, tempfile
+    D = F1[tname]
+    L = json.loads(open(os.path.join(ROOT, 'js/lipsync.js')).read().split('window.LIPSYNC = ', 1)[1].rstrip().rstrip(';'))['alan'][line]
+    dur, cues = L
+    font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 26)
+    x, y, w, h = data[tname]['box']; m = 14
+    tmp = tempfile.mkdtemp(dir=OUT); n = 0
+    emos = ['neutral'] + [e for e in EMOS if os.path.exists(os.path.join(OUT, 'faces', f'{tname}_emo_{e}.webp'))]
+    cache = {}
+    def shape(t):
+        s = 'X'
+        for t0, v in cues:
+            if t0 <= t + 0.06: s = v
+        s = {'X': 'A', 'G': 'B', 'H': 'C'}.get(s, s)
+        return s if s in D['mouths'] else 'A'
+    for e in emos:
+        em = None if e == 'neutral' else e
+        for i in range(int((dur + 1.2) * fps)):
+            t = i / fps
+            talk = shape(t) if t < dur else None
+            blink = 1.9 < t < 2.02
+            k = (em, talk, blink)
+            if k not in cache: cache[k] = Image.fromarray(np.clip(compose(tname, em, talk, blink, data), 0, 255).astype(np.uint8), 'RGBA')
+            im = cache[k]
+            fr = Image.new('RGB', (1280, 720), (58, 54, 50))
+            body = im.resize((round(im.width * 640 / im.height), 640), Image.LANCZOS); fr.paste(body, (60, 40), body)
+            hd = im.crop((x - m, y - m, x + w + m, y + h + m)); s4 = min(560 / hd.height, 4)
+            hd = hd.resize((round(hd.width * s4), round(hd.height * s4)), Image.LANCZOS); fr.paste(hd, (440, 60), hd)
+            ImageDraw.Draw(fr).text((440, 650), f'{tname}: {e}' + ('  (talking)' if t < dur else '  (quiet)'), fill=(235, 230, 220), font=font)
+            fr.save(os.path.join(tmp, f'{n:05d}.png')); n += 1
+    voice = os.path.join(ROOT, 'audio/voice', line + '.mp3')
+    seg, allw = os.path.join(tmp, 'seg.wav'), os.path.join(tmp, 'all.wav')
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', voice, '-af', f'apad=whole_dur={dur + 1.2}', '-ar', '44100', '-ac', '1', seg], check=True)
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error'] + sum([['-i', seg] for _ in emos], []) + ['-filter_complex', ''.join(f'[{k}:a]' for k in range(len(emos))) + f'concat=n={len(emos)}:v=0:a=1', allw], check=True)
+    out = os.path.join(OUT, f'clip_{tname}.mp4')
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(fps), '-i', os.path.join(tmp, '%05d.png'), '-i', allw,
+                    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '20', '-c:a', 'aac', '-shortest', out], check=True)
+    subprocess.run(['rm', '-r', tmp]); print(out)
+
+
 if __name__ == '__main__':
     cmd, names = sys.argv[1:2], sys.argv[2:] or list(TARGETS)
     jp = os.path.join(OUT, 'emo.json')
@@ -229,4 +310,6 @@ if __name__ == '__main__':
         for n in names: sheet(n, data)
     elif cmd == ['sheet']:
         for n in names: sheet(n, data)
+    elif cmd == ['clip']:
+        for n in names: clip(n, data)
     else: sys.exit(__doc__)

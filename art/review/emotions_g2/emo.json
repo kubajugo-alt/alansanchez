@@ -1,0 +1,281 @@
+{
+ "alan_side": {
+  "fit": 0.981,
+  "warp": [
+   [
+    0.9950000047683716,
+    0.0026000000070780516,
+    11.925399780273438
+   ],
+   [
+    0.0017000000225380063,
+    0.9948999881744385,
+    10.0068998336792
+   ]
+  ],
+  "emos": {
+   "fear": {
+    "changed_px": 2279
+   },
+   "anger": {
+    "changed_px": 2402
+   },
+   "sadness": {
+    "changed_px": 2375
+   },
+   "concern": {
+    "changed_px": 2341
+   },
+   "surprise": {
+    "changed_px": 2326
+   },
+   "joy": {
+    "changed_px": 2428
+   },
+   "embarrassed": {
+    "changed_px": 2720
+   },
+   "mischievous": {
+    "changed_px": 1727
+   }
+  },
+  "box": [
+   70,
+   30,
+   80,
+   90
+  ]
+ },
+ "alan_idle2": {
+  "fit": 0.97,
+  "warp": [
+   [
+    1.0003000497817993,
+    -0.007499999832361937,
+    14.459600448608398
+   ],
+   [
+    0.012299999594688416,
+    1.000599980354309,
+    9.919400215148926
+   ]
+  ],
+  "emos": {
+   "fear": {
+    "changed_px": 2247
+   },
+   "anger": {
+    "changed_px": 2366
+   },
+   "sadness": {
+    "changed_px": 2336
+   },
+   "concern": {
+    "changed_px": 2316
+   },
+   "surprise": {
+    "changed_px": 2297
+   },
+   "joy": {
+    "changed_px": 2392
+   },
+   "embarrassed": {
+    "changed_px": 2688
+   },
+   "mischievous": {
+    "changed_px": 1701
+   }
+  },
+  "box": [
+   75,
+   30,
+   80,
+   90
+  ]
+ },
+ "alan_talk": {
+  "fit": 0.934,
+  "warp": [
+   [
+    0.9898999929428101,
+    -0.029100000858306885,
+    19.20009994506836
+   ],
+   [
+    0.029899999499320984,
+    0.9765999913215637,
+    -6.920499801635742
+   ]
+  ],
+  "emos": {
+   "fear": {
+    "changed_px": 2452
+   },
+   "anger": {
+    "changed_px": 2559
+   },
+   "sadness": {
+    "changed_px": 2538
+   },
+   "concern": {
+    "changed_px": 2510
+   },
+   "surprise": {
+    "changed_px": 2494
+   },
+   "joy": {
+    "changed_px": 2590
+   },
+   "embarrassed": {
+    "changed_px": 2890
+   },
+   "mischievous": {
+    "changed_px": 1876
+   }
+  },
+  "box": [
+   67,
+   26,
+   80,
+   93
+  ]
+ },
+ "alan_talk2": {
+  "fit": 0.925,
+  "warp": [
+   [
+    0.9663000106811523,
+    -0.04019999876618385,
+    20.97260093688965
+   ],
+   [
+    0.04580000042915344,
+    0.949999988079071,
+    1.0535999536514282
+   ]
+  ],
+  "emos": {
+   "fear": {
+    "changed_px": 2473
+   },
+   "anger": {
+    "changed_px": 2596
+   },
+   "sadness": {
+    "changed_px": 2580
+   },
+   "concern": {
+    "changed_px": 2560
+   },
+   "surprise": {
+    "changed_px": 2520
+   },
+   "joy": {
+    "changed_px": 2625
+   },
+   "embarrassed": {
+    "changed_px": 2939
+   },
+   "mischievous": {
+    "changed_px": 1872
+   }
+  },
+  "box": [
+   79,
+   28,
+   80,
+   93
+  ]
+ },
+ "alan_front": {
+  "fit": 0.969,
+  "warp": [
+   [
+    0.9839000105857849,
+    0.01140000019222498,
+    -0.8486999869346619
+   ],
+   [
+    0.003100000089034438,
+    0.972000002861023,
+    3.2702999114990234
+   ]
+  ],
+  "emos": {
+   "fear": {
+    "changed_px": 2293
+   },
+   "anger": {
+    "changed_px": 1971
+   },
+   "sadness": {
+    "changed_px": 2291
+   },
+   "concern": {
+    "changed_px": 2289
+   },
+   "surprise": {
+    "changed_px": 2238
+   },
+   "joy": {
+    "changed_px": 2127
+   },
+   "embarrassed": {
+    "changed_px": 2240
+   },
+   "mischievous": {
+    "changed_px": 1719
+   }
+  },
+  "box": [
+   92,
+   38,
+   61,
+   80
+  ]
+ },
+ "alan_lantern": {
+  "fit": 0.906,
+  "warp": [
+   [
+    1.09089994430542,
+    0.04780000075697899,
+    -7.903200149536133
+   ],
+   [
+    -0.09139999747276306,
+    1.0442999601364136,
+    5.692599773406982
+   ]
+  ],
+  "emos": {
+   "fear": {
+    "changed_px": 1636
+   },
+   "anger": {
+    "changed_px": 1741
+   },
+   "sadness": {
+    "changed_px": 1703
+   },
+   "concern": {
+    "changed_px": 1655
+   },
+   "surprise": {
+    "changed_px": 1772
+   },
+   "joy": {
+    "changed_px": 1759
+   },
+   "mischievous": {
+    "changed_px": 1146
+   }
+  },
+  "box": [
+   121,
+   46,
+   44,
+   67
+  ]
+ }
+}
