@@ -6,6 +6,7 @@
   const CONVENT_WALK = [[230, 560], [1050, 560], [1280, 640], [1280, 716], [0, 716], [0, 640]];
   S.CONVENT_WALK = CONVENT_WALK;
   ROOMS.convent = {
+    quietTo: ['convent_night'], // the sound between rooms (engine/rooms.js passSound)
     name: 'Convento do Carmo', bg: 'convent', music: () => F().dawn ? 'main_theme' : 'carmo_day', ambience: 'convent', floor: 'stone', skyMask: 'convent_sky',
     fog: 0.22, fogRGB: '220,214,226',
     walk: CONVENT_WALK, scale: [560, 230, 716, 360],
@@ -187,6 +188,7 @@
     { id: 'sanches', name: 'Small bell', rect: [981, 190, 108, 155], at: [940, 635], face: 'e', text: 'SANCHES · MDCCXXXIX', line: 'alan_bell_sanches', joke: true },
   ];
   ROOMS.se_tower = {
+    door: 'stairs', // the sound between rooms (engine/rooms.js passSound)
     name: 'Sé de Lisboa · bell tower', bg: 'se_tower', music: 'se_bell_tower', ambience: 'tower', floor: 'wood',
     // Abílio's stool with his cap and thermos (legs traced one by one, floor shows between them)
     occluders: [{ y: 672, polys: [
@@ -295,6 +297,7 @@
   // (F, B and C stopped at their owners' deaths, J.C. waiting), which are left as painted
   const ANTIQUE_CLOCKS = [[75, 72, 38], [389, 82, 18], [207, 134, 20], [141, 177, 19], [316, 209, 22], [571, 136, 28]];
   ROOMS.antiques = {
+    door: 'shop_bell_small', // the sound between rooms (engine/rooms.js passSound)
     name: 'Antiguidades Lacerda', bg: 'antiques', music: 'antiques_shop', ambience: 'clocks', floor: 'wood',
     walk: [[0, 650], [460, 555], [1280, 555], [1280, 716], [0, 716]],
     scale: [555, 330, 716, 410],

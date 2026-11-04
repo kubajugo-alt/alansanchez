@@ -7,12 +7,13 @@
   // ---------------------------------------------------------------- saves
   // a save holds the whole of `state` (room, inventory, flags: chapter in flags.ch, the painted clock in
   // flags.clock), plus where Alan stands, the clock overlay and the scene's music cue (Sound.musicState)
-  const SAVE_KEY = 'shortest-night-save-v1';             // the autosave: every room change, chapter card, finished scene
-  const SAVE_KEY_MANUAL = 'shortest-night-save-v1-manual'; // the menu's Save: kept until the player saves again
+  // each game its own keys (window.GAME_KEY, SAVE_SLOT in js/game.js), so two games never share a save on one browser
+  const SAVE_KEY = window.GAME_KEY + '-save-' + window.SAVE_SLOT;        // the autosave: every room change, chapter card, finished scene
+  const SAVE_KEY_MANUAL = SAVE_KEY + '-manual';                         // the menu's Save: kept until the player saves again
   // the shape of a save (v). When the shape changes, bump it and add a step to MIGRATE, so older saves are brought up to
-  // date instead of being thrown away
-  const SAVE_VERSION = 1;
-  const MIGRATE = {};
+  // date instead of being thrown away (the game's steps: window.SAVE_VERSION, SAVE_MIGRATE in js/game.js)
+  const SAVE_VERSION = window.SAVE_VERSION || 1;
+  const MIGRATE = window.SAVE_MIGRATE || {};
   function snapshot() {
     let music = null; try { music = Sound.musicState ? Sound.musicState() : null; } catch (e) { music = null; }
     return JSON.stringify(Object.assign({}, E.state, { v: SAVE_VERSION, px: E.player.x, py: E.player.y, dir: E.player.dir, music, savedAt: Date.now() }));
@@ -80,7 +81,7 @@
   }
   // Effects: Full (mesh warp, GPU light and depth parallax) or Light (flat frames, no parallax). Automatic until
   // the player picks one; a slow device drops to Light by itself (render.js). Kept per browser.
-  const FX_KEY = 'shortest-night-effects';
+  const FX_KEY = window.GAME_KEY + '-effects';
   const fxPref = () => { try { return localStorage.getItem(FX_KEY); } catch (e) { return null; } };
   function setEffects(full, keep) {
     window.WARP = full ? (keep ? true : null) : false;
@@ -96,7 +97,7 @@
   })();
   // Text size (captions, choices, hover names) and Motion (calm: no camera drift, rocking boat or panning paintings),
   // kept per browser; Motion starts from the device's reduced-motion setting
-  const TEXT_KEY = 'shortest-night-text', MOTION_KEY = 'shortest-night-motion';
+  const TEXT_KEY = window.GAME_KEY + '-text', MOTION_KEY = window.GAME_KEY + '-motion';
   const SIZES = [['Small', 0.85], ['Medium', 1], ['Large', 1.25]];
   const pref = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
   const keep = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } };
@@ -155,7 +156,7 @@
       if (midScene()) return toast("Can't save during a scene");
       if (E.state.flags.dawn) return toast('The story is over');
       const blob = new Blob([snapshot()], { type: 'application/json' }), a = document.createElement('a');
-      a.href = URL.createObjectURL(blob); a.download = 'shortest-night-' + new Date().toISOString().slice(0, 16).replace(/[T:]/g, '-') + '.json';
+      a.href = URL.createObjectURL(blob); a.download = window.GAME_KEY + '-' + new Date().toISOString().slice(0, 16).replace(/[T:]/g, '-') + '.json';
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
       toast('Saved to a file');
     });

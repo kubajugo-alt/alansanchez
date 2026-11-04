@@ -8,7 +8,7 @@
 (function () {
   const S = window.S, { G, F, say, ROOMS, T } = S;
   const ch = () => F().ch || 1;
-  // Tuesday's sunburn on Alan's skin (js/engine/faces.js, skinTint): from the nap until the night; softer once the aloe's
+  // Tuesday's sunburn on Alan's skin (skinTint, at the end of this file): from the nap until the night; softer once the aloe's
   // on; gone by Wednesday ("Tomorrow you'll be brown")
   window.Engine.sunburn = () => (ch() === 1 && F().burnt) ? (F().aloe_done ? 0.5 : 0.75) : 0;
 
@@ -110,6 +110,10 @@
 
   // ================================================================ HOTEL: the lobby
   S.lobbyNight = () => ch() === 1 && !!F().reception_done;
+  // night in the open rooms (the user, 2026-11-04: "just block the access to the beach at night"): the evenings the story
+  // tells, Tuesday after the reception, Thursday once Alan is caught, Friday once Carmen has explained the cave ("the dusk
+  // comes"), Saturday after the flood. The way down to the beach is closed then (ROOMS.canteras).
+  S.night = () => { const f = F(), c = ch(); return (c === 1 && !!f.reception_done) || (c === 3 && !!f.caught) || (c === 4 && !!f.cave_explained) || (c === 5 && !!f.isleta_flood); };
   ROOMS.hotel_lobby = S.room({
     music: 'hotel_lobby',
     name: 'Hotel Cristina', bg: 'hotel_lobby', floor: 'tile', ambience: 'museum', door: 'door',
@@ -297,7 +301,7 @@
         items: { note5000: () => S.buyPaper(), coins: () => say('chano_coins'), postcard: () => S.postCard(), any: 'chano_any' } },
     ],
     hotspots: [
-      { name: 'Down to the beach', rect: [700, 560, 250, 50], at: [820, 665], exit: 'beach', entry: 'canteras' },
+      { name: 'Down to the beach', rect: [700, 560, 250, 50], at: [820, 665], exit: 'beach', entry: 'canteras', when: () => !S.night() }, // (closed at night: the user, 2026-11-04)
       { name: 'The sea', rect: [440, 330, 520, 120], at: [700, 620], look: () => S.lookSea() },
       { name: 'Promenade steps', rect: [880, 500, 220, 60], at: [960, 640], look: () => say('alan_look_steps_' + Math.min(6, Math.max(1, S.tideStep()))) },
       { name: 'Bonfires', rect: [470, 470, 260, 80], at: [600, 640], when: () => ch() >= 2, look: () => say('alan_look_bonfire_' + Math.min(6, ch())) },
@@ -513,7 +517,7 @@
     },
     entries: { default: [200, 665, 'e'], canteras: [200, 665, 'e'] },
     ambient: [
-      { id: 'surfer', frames: ['surfer_ph_idle'], talkFrames: ['surfer_ph_talk'], x: 900, y: 655, dir: 'w', name: 'Surfers', look: () => S.lookSurfers(), talk: () => S.talkSurfers(), when: () => ch() <= 6 && !F().canteras_night },
+      { id: 'surfer', frames: ['surfer_ph_idle'], talkFrames: ['surfer_ph_talk'], x: 900, y: 655, dir: 'w', name: 'Surfers', look: () => S.lookSurfers(), talk: () => S.talkSurfers(), when: () => ch() <= 6 && !S.night() },
     ],
     hotspots: [
       { name: 'Surfboards', rect: [900, 340, 220, 210], at: [960, 660], look: 'alan_look_surfboards' },
@@ -728,4 +732,33 @@
       await S.startWed();
     });
   };
+})();
+
+// Sunburn, Game II's own (moved here from js/engine/faces.js so the engine stays the same in both games; the actor
+// calls E.skinTint when a game sets one). The user, 2026-10-29: Alan falls asleep on the beach on Tuesday and wakes burnt, "let's add red hues to his
+// skin"): the player's skin, found by colour (warm, mid-saturation hues; not the khaki, the hair or the clothes), is
+// pulled towards red by E.sunburn() (0..1, from the story). Each painted frame is recoloured once per strength and kept.
+(function () {
+  const E = window.Engine; const done = new WeakMap();
+  function skinTint(actor, key, im) {
+    const k = actor === E.player && E.sunburn ? E.sunburn() : 0;
+    if (!k || !im || !im.width) return im;
+    let per = done.get(im); if (!per) done.set(im, per = {});
+    const q = Math.round(k * 20) / 20; if (per[q]) return per[q];
+    const c = document.createElement('canvas'); c.width = im.width; c.height = im.height;
+    const x = c.getContext('2d'); x.drawImage(im, 0, 0);
+    let d; try { d = x.getImageData(0, 0, c.width, c.height); } catch (e) { return im; }
+    const p = d.data;
+    for (let i = 0; i < p.length; i += 4) {
+      if (p[i + 3] < 128) continue;
+      const r = p[i], g = p[i + 1], b = p[i + 2], mx = Math.max(r, g, b), mn = Math.min(r, g, b), s = (mx - mn) / (mx + 1e-6), v = mx / 255;
+      if (!(r > g && g >= b * 0.95 && s > 0.28 && s < 0.8 && v > 0.28)) continue;
+      const h = ((Math.atan2(Math.sqrt(3) * (g - b), 2 * r - g - b) * 180 / Math.PI) + 360) % 360;
+      if (h <= 4 || h >= 30) continue;
+      p[i] = r * (1 - q) + Math.min(255, r * 1.1 + 22) * q; p[i + 1] = g * (1 - q) + g * 0.62 * q; p[i + 2] = b * (1 - q) + b * 0.58 * q;
+    }
+    x.putImageData(d, 0, 0);
+    return (per[q] = c);
+  }
+  Object.assign(E, { skinTint });
 })();

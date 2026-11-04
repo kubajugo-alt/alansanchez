@@ -65,7 +65,7 @@
       const a = ITEMS[E.selItem], b = ITEMS[id];
       const h = (a.with && a.with[id]) || (b.with && b.with[E.selItem]);
       E.selItem = null; renderInv();
-      E.busy++; E.runHandler(h || 'alan_def_item').finally(() => { E.busy--; });
+      E.busy++; E.runHandler(h || (E.player.speaker || 'alan') + '_def_item').finally(() => { E.busy--; });
       return;
     }
     E.selItem = E.selItem === id ? null : id;

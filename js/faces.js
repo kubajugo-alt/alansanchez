@@ -20,7 +20,26 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": true
+  "ok": true,
+  "emo": {
+   "box": [
+    92,
+    38,
+    61,
+    80
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "embarrassed",
+    "mischievous"
+   ],
+   "lid": false
+  }
  },
  "alan_phone": {
   "box": [
@@ -93,7 +112,26 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": true
+  "ok": true,
+  "emo": {
+   "box": [
+    70,
+    30,
+    80,
+    90
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "embarrassed",
+    "mischievous"
+   ],
+   "lid": false
+  }
  },
  "alan_idle2": {
   "box": [
@@ -126,7 +164,26 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": true
+  "ok": true,
+  "emo": {
+   "box": [
+    75,
+    30,
+    80,
+    90
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "embarrassed",
+    "mischievous"
+   ],
+   "lid": false
+  }
  },
  "alan_talk": {
   "box": [
@@ -159,7 +216,26 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": true
+  "ok": true,
+  "emo": {
+   "box": [
+    67,
+    26,
+    80,
+    93
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "embarrassed",
+    "mischievous"
+   ],
+   "lid": false
+  }
  },
  "alan_talk2": {
   "box": [
@@ -192,7 +268,26 @@ window.FACES = {
    "half",
    "closed"
   ],
-  "ok": true
+  "ok": true,
+  "emo": {
+   "box": [
+    79,
+    28,
+    80,
+    93
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "embarrassed",
+    "mischievous"
+   ],
+   "lid": false
+  }
  },
  "alan_drink": {
   "box": [
@@ -1061,7 +1156,25 @@ window.FACES = {
   "eyes": [
    "closed"
   ],
-  "ok": true
+  "ok": true,
+  "emo": {
+   "box": [
+    121,
+    46,
+    44,
+    67
+   ],
+   "set": [
+    "fear",
+    "anger",
+    "sadness",
+    "concern",
+    "surprise",
+    "joy",
+    "mischievous"
+   ],
+   "lid": false
+  }
  },
  "alan_lwalk1": {
   "box": [

@@ -28,7 +28,8 @@
       if (!E.hitShape(h, x, y)) continue;
       const ar = E.hotArea(h); if (ar <= bestA) { best = h; bestA = ar; }
     }
-    const people = E.npcs.filter(a => a.visible && a.def).sort((a, b) => b.y - a.y);
+    const people = E.npcs.filter(a => a.visible && a.def && !(a.def.ambient && !a.def.name)).sort(   // (nameless extras: clicks go through them)
+      (a, b) => b.y - a.y);
     const inBox = a => { const b = a.bbox(); return x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h; };
     // a click on someone's painted body is always that person
     for (const a of people) if (inBox(a) && a.opaqueAt(x, y)) return { kind: 'npc', actor: a, def: a.def };
@@ -167,7 +168,9 @@
     const tch = e.touches[0]; if (!pressT || !tch || !pressAt) return;
     if (Math.hypot(tch.clientX - pressAt[0], tch.clientY - pressAt[1]) > 10) { clearTimeout(pressT); pressT = null; }
   }, { passive: true });
-  canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); pressT = null; });
+  // (the window for swallowing the lift's click starts at the lift: a finger held a long while after the look began
+  // must not skip the line it started)
+  canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); pressT = null; if (pressFired) pressFired = performance.now(); });
   document.addEventListener('keydown', e => {
     // a close-up: Escape closes it, the arrows turn its pages
     const cu = $('#closeup');
@@ -240,14 +243,16 @@
   let lastFail = null;
   function failLine(t, verb) {
     if (t.def.fail) return t.def.fail;
-    if (verb === 'item' && t.actor && FAIL_BY_CHAR[t.actor.id]) return FAIL_BY_CHAR[t.actor.id];
-    if (verb === 'look') return 'alan_fail_look';
-    if (verb === 'talk') return 'alan_fail_talk';
-    if (verb === 'take' && Math.random() < 0.5) return 'alan_fail_take';
-    let id; do { id = 'alan_fail_' + String(1 + Math.floor(Math.random() * 10)).padStart(2, '0'); } while (id === lastFail);
+    const byChar = window.FAIL_BY_CHAR || {}; // npc id -> the line for an item they won't take (the story's, js/story/core.js:
+    // read here, not when this file loads, which is before the story sets it)
+    if (verb === 'item' && t.actor && byChar[t.actor.id]) return byChar[t.actor.id];
+    const who = E.player.speaker || 'alan'; // (Vasco has his own, in his chapter)
+    if (verb === 'look') return who + '_fail_look';
+    if (verb === 'talk') return who + '_fail_talk';
+    if (verb === 'take' && Math.random() < 0.5) return who + '_fail_take';
+    let id; do { id = who + '_fail_' + String(1 + Math.floor(Math.random() * 10)).padStart(2, '0'); } while (id === lastFail);
     return (lastFail = id);
   }
-  const FAIL_BY_CHAR = { lacerda: 'alan_fail_lacerda_item', ze: 'alan_fail_ze_item', abilio: 'alan_fail_abilio_item', ines: 'alan_fail_ines_item', rui: 'alan_fail_rui_item' };
   async function interact(t, verb) {
     const def = t.def, item = verb === 'item' ? E.selItem : null;
     E.busy++;
@@ -260,7 +265,7 @@
       }
       if (def.ambient && verb !== 'look' && !(verb === 'talk' && def.talk) && !(item && def.items && def.items[item])) {
         if (item) { E.selItem = null; E.renderInv(); }
-        await E.say('alan_npc_busy');
+        await E.say((E.player.speaker || 'alan') + '_npc_busy');
         return;
       }
       if (t.kind === 'self') {

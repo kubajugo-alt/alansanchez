@@ -6,6 +6,11 @@
 
   // ---------------------------------------------------------------- art the engine preloads
   window.FIRST_ROOM = 'gando';
+  // the room paintings at 1280 for a screen that draws at 1280 or less (engine.js register): art/bg1x/ is art/bg's
+  // 2560 paintings scaled down (Lanczos), a quarter of the memory on a phone; the map is 1280 already
+  window.BG1X = ['archive', 'baute_office', 'beach', 'beach_sun', 'belfry', 'camp', 'canteras', 'carmen_flat', 'cave6', 'colon', 'colon_out', 'elena_car', 'gando',
+    'hotel_lobby', 'hotel_lobby_day', 'hotel_restaurant', 'hotel_room', 'isleta', 'landrover', 'mercado', 'museum_courtyard', 'museum_hall', 'museum_out', 'rafa_bar',
+    'rafa_studio', 'santa_ana', 'santa_ana_inside', 'title', 'vault', 'vault_cell', 'vault_open'];
   window.STILLS = ['still_elena_bar', 'still_nap', 'still_barranco', 'still_title', 'still_arrival', 'still_mist', 'still_love_1', 'still_pepe', 'still_caught',
     'still_fight', 'still_rafa_night', 'still_rafa_drawing', 'still_isleta_flood', 'still_vault_dark', 'still_cloud_climb', 'still_bad_ending',
     'still_chain', 'still_sunrise', 'still_road_down', 'still_fireworks', 'still_love_2'];
@@ -62,6 +67,8 @@
     rescue_vault: { flags: { ch: 6, chose_carmen: true, knows_vault: true, su_camp: true }, room: 'vault', pos: [1060, 650, 'w'], run: async () => {} },
     finale: { flags: { ch: 6, vasco_free: true, v_marked: true }, room: 'vault', pos: [400, 660, 'e'], run: () => S.takeDiscs() },
     confession: { flags: { ch: 7, lock_closed: true, placed: [1, 3, 2, 5, 4, 0], disc_turned: true, disc6_given: true, cloud_over: true, mirror_on: true, turn: 3 }, room: 'cave6', pos: [560, 660, 'e'], run: async () => {} },
+    // the walk lab (js/walklab.js, loaded below only for this preview): walk cycles measured; nothing in it changes the game
+    walklab: { flags: { ch: 2 }, room: 'hotel_lobby', pos: [200, 660, 'e'], run: () => S.walkLab && S.walkLab() },
   };
   async function preview(k) {
     const P = PREVIEW[k];
@@ -120,6 +127,13 @@
   window.Story = { newGame };
   document.getElementById('btn-new').onclick = () => G.begin(true);
   document.getElementById('btn-continue').onclick = () => G.begin(false);
+
+  // the tools, not in index.html: the animation review screen only with ?review in the address, the walk lab only for
+  // its preview; never in normal play
+  const q = new URLSearchParams(location.search);
+  const tool = f => { const sc = document.createElement('script'); sc.src = 'js/' + f + '?v=' + Date.now(); document.head.appendChild(sc); };
+  if (q.has('review')) tool('review.js');
+  if (q.get('scene') === 'walklab') tool('walklab.js');
 
   G.init(S.CHARS, S.ITEMS, ROOMS, window.SPRITES);
 })();

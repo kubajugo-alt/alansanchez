@@ -14,7 +14,7 @@
   const IMG = {}; // loaded images by key
   const GROUND_K = 2.2; // distances on the floor count vertical px this many times (depth)
 
-  function freshState() { return { room: window.FIRST_ROOM || 'hotel_room', inv: [], flags: {}, px: 300, py: 600, dir: 'w' }; }
+  function freshState() { return { room: window.FIRST_ROOM, inv: [], flags: {}, px: 300, py: 600, dir: 'w' }; }
   // clears a scratch canvas, growing it to at least w x h
   function fit(c, ctx, w, h) {
     if (c.width < w || c.height < h) { c.width = Math.max(c.width, w); c.height = Math.max(c.height, h); }

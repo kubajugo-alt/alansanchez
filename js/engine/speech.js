@@ -4,29 +4,33 @@
   const E = window.Engine;
   const { W, H, wrap, speechEl, narrEl, dialogEl, wait } = E;
 
-  const COLORS = { alan: '#ffe2a0', ines: '#ffab9a', rui: '#a8d4ff', amalia: '#e2b0ff', tomas: '#cfeab8', lacerda: '#ff7d6a', celeste: '#ffd0a0', ze: '#9fd8ff', abilio: '#f0e68c', lino: '#f2c79a', phone: '#b9c9ff', guitar: '#d8c0a0', cards: '#d9c8a8', fish: '#ffb8b8', mender1: '#c8d8c0', mender2: '#b8d0b0', nun: '#e0e0f0', washer1: '#f0c8b0', washer2: '#d8c0e0', laundry: '#e8d0b8', bench: '#d8c8a8', bastos: '#d6dcc4', narr: '#eee6d6' };
-  const NAMES = { alan: 'Alan', ines: 'Inês', rui: 'Rui', amalia: 'Amália', tomas: 'Father Tomás', lacerda: 'Lacerda', celeste: 'Celeste', ze: 'Zé', abilio: 'Abílio', lino: 'Lino', phone: 'Officer Teixeira', guitar: 'Duarte', cards: 'Card player', fish: 'Fishwife', mender1: 'Old fisherman', mender2: 'Fisherman', nun: 'Sister', washer1: 'Washerwoman', washer2: 'Odete', laundry: 'Woman with the washing', bench: 'Senhor Armando', vasco: 'Dr. Teles', bastos: 'Prof. Bastos', narr: '' };
+  // who speaks: id -> [name, caption colour], from the story (window.SPEAKERS in js/lines.js)
+  const SPK = window.SPEAKERS || {};
+  const COLORS = Object.fromEntries(Object.entries(SPK).map(([k, v]) => [k, v[1]]));
+  const NAMES = Object.fromEntries(Object.entries(SPK).map(([k, v]) => [k, v[0]]));
 
   // ---------------------------------------------------------------- speech
   function actorFor(who) {
-    if (who === 'alan') return E.player.visible ? E.player : null;
-    return E.npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible)
+    // the player speaks from the player's figure: Alan, or Vasco in his own chapter (E.player.speaker)
+    if (who === (E.player.speaker || 'alan')) return E.player.visible ? E.player : null;
+    if (who === 'alan') return null; // (Alan's voice, off, while Vasco is played: a phone, a memory)
+    // (a figure can speak as someone else: the same background person placed twice has two ids and one speaker)
+    return E.npcs.find(a => (a.id === who || a.id === 'npc_' + who || (a.def && a.def.speaker === who)) && a.visible)
       // someone painted into Alan's pair frame speaks from the pair (Game.pairSpeaker: pose -> speaker id)
       || (E.player.visible && E.player.pose && ((E.player.pairWho && (E.player.pairWho === who || E.player.pairWho === 'npc_' + who))
         || (window.Game.pairSpeaker && window.Game.pairSpeaker(E.player.pose) === who)) ? E.player : null);
   }
-  // Only the people who move around the rooms with Alan turn to follow him (Alan, Inês, Vasco, or a
-  // def with turns: true). Everyone else keeps the facing their room gives them: no flipping back and
+  // Only the people who move around the rooms with Alan turn to follow him (the player, the game's window.TURNERS
+  // in js/game.js, or a def with turns: true). Everyone else keeps the facing their room gives them: no flipping back and
   // forth; Alan comes to the side they already face (see approach).
-  const TURNERS = new Set(['ines', 'vasco']);
+  const TURNERS = new Set(window.TURNERS || []);
   const turnsFreely = a => a === E.player || TURNERS.has(a.id) || !!(a.def && a.def.turns);
   const canTurn = a => a && a.visible && !a.walking && !a.pose && (a.dir === 'e' || a.dir === 'w') && !(a.def && (a.def.fixedDir || a.def.ambient)) && turnsFreely(a);
   // Speakers face each other: an NPC turns to Alan when it speaks, and Alan turns
   // to whoever he is talking with (the last NPC who spoke, else the nearest one).
   // the names Alan calls people by, for addressee(): a name standing alone ("Inês. Catch.", "Thank you, Father.")
-  const CALLED = { ines: ['Inês'], vasco: ['Vasco', 'Dr. Teles'], rui: ['Rui'], ze: ['Zé'], celeste: ['Celeste'], amalia: ['Amália'], lacerda: ['Lacerda', 'Senhor Lacerda'],
-    guitar: ['Duarte'], phone: ['Teixeira'], abilio: ['Abílio'], lino: ['Lino'], tomas: ['Father', 'Father Tomás'] };
-  const visibleNpc = who => E.npcs.find(a => (a.id === who || a.id === 'npc_' + who) && a.visible);
+  const CALLED = window.CALLED || {};
+  const visibleNpc = who => E.npcs.find(a => (a.id === who || a.id === 'npc_' + who || (a.def && a.def.speaker === who)) && a.visible);
   function addressee(id) {
     if (!id) return null;
     const to = window.Game.lineTo && window.Game.lineTo(id);

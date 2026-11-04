@@ -209,7 +209,7 @@
       const items = [];
       markOccluded(E.npcs.filter(a => a.visible).concat(E.player.visible ? [E.player] : []));
       const drawNpc = a => planted(a, () => { a.draw(); if (a.overlay) a.overlay(g, a, E.time); });
-      for (const a of E.npcs) if (a.visible) items.push({ y: a.y, fn: () => drawNpc(a) });
+      for (const a of E.npcs) if (a.visible) items.push({ y: a.y + ((a.def && a.def.z) || 0), fn: () => drawNpc(a) });   // (z: a placed figure's nudge forward or back)
       if (E.player.visible) items.push({ y: E.player.y, fn: () => planted(E.player, () => { E.player.draw(); if (E.player.overlay) E.player.overlay(g, E.player, E.time); }) });
       for (const o of (E.room.occluders || [])) if (!o.when || o.when()) {
         const on = E.npcs.filter(a => a.visible && lyingOn(a, o));

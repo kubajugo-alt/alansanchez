@@ -168,7 +168,9 @@
     const tch = e.touches[0]; if (!pressT || !tch || !pressAt) return;
     if (Math.hypot(tch.clientX - pressAt[0], tch.clientY - pressAt[1]) > 10) { clearTimeout(pressT); pressT = null; }
   }, { passive: true });
-  canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); pressT = null; });
+  // (the window for swallowing the lift's click starts at the lift: a finger held a long while after the look began
+  // must not skip the line it started)
+  canvas.addEventListener('touchend', () => { if (pressT) clearTimeout(pressT); pressT = null; if (pressFired) pressFired = performance.now(); });
   document.addEventListener('keydown', e => {
     // a close-up: Escape closes it, the arrows turn its pages
     const cu = $('#closeup');
@@ -241,7 +243,9 @@
   let lastFail = null;
   function failLine(t, verb) {
     if (t.def.fail) return t.def.fail;
-    if (verb === 'item' && t.actor && FAIL_BY_CHAR[t.actor.id]) return FAIL_BY_CHAR[t.actor.id];
+    const byChar = window.FAIL_BY_CHAR || {}; // npc id -> the line for an item they won't take (the story's, js/story/core.js:
+    // read here, not when this file loads, which is before the story sets it)
+    if (verb === 'item' && t.actor && byChar[t.actor.id]) return byChar[t.actor.id];
     const who = E.player.speaker || 'alan'; // (Vasco has his own, in his chapter)
     if (verb === 'look') return who + '_fail_look';
     if (verb === 'talk') return who + '_fail_talk';
@@ -249,7 +253,6 @@
     let id; do { id = who + '_fail_' + String(1 + Math.floor(Math.random() * 10)).padStart(2, '0'); } while (id === lastFail);
     return (lastFail = id);
   }
-  const FAIL_BY_CHAR = window.FAIL_BY_CHAR || {}; // npc id -> the line for an item they won't take (the story's)
   async function interact(t, verb) {
     const def = t.def, item = verb === 'item' ? E.selItem : null;
     E.busy++;

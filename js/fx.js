@@ -911,24 +911,40 @@
   // Painted (Canva) inventory icons in art/icons/<id>.webp, 192px with transparency. They are
   // preloaded; an icon asked for before its painting arrives shows the canvas drawing above
   // until the painting loads, then the inventory redraws. A missing file keeps the drawing.
-  const PAINTED = ['notebook', 'sketch', 'bunktile', 'coins', 'key', 'ledger', 'magnifier', 'ginja', 'matches', 'glass', 'holywater', 'coffee', 'file55',
-    'fkey', 'tidecard', 'vkey', 'tongue', 'tongue_wet', 'knife', 'sardine', 'lantern', 'newspaper', 'brotherhood_charter', 'reserve_key', 'vasco_card', 'sanches_fragment', 'lyrics_sheet'];
   const iconCache = {}, iconImg = {};
+  // an item with no painting and no drawing yet: a luggage tag with its short name (window.ICON_LABELS[id])
+  function tagIcon(g, id) {
+    const label = ((window.ICON_LABELS || {})[id] || id.replace(/_/g, ' ')).toUpperCase();
+    poly(g, [[14, 30], [30, 14], [86, 14], [86, 82], [30, 82], [14, 66]]);
+    fillInk(g, lg(g, 0, 14, 0, 82, '#f3e6c4', '#d9c18e'));
+    g.fillStyle = INK; g.beginPath(); g.arc(26, 48, 4, 0, Math.PI * 2); g.fill();
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    const words = label.split(' '), lines = words.length > 2 ? [words.slice(0, Math.ceil(words.length / 2)).join(' '), words.slice(Math.ceil(words.length / 2)).join(' ')] : words;
+    lines.forEach((l, i) => { g.font = 'bold ' + (l.length > 8 ? 9 : 12) + 'px sans-serif'; g.fillText(l, 56, 48 + (i - (lines.length - 1) / 2) * 14); });
+  }
   function paintIcon(c, id) {
     const g = c.getContext('2d'), im = iconImg[id];
     g.clearRect(0, 0, 96, 96);
     g.save(); g.shadowColor = 'rgba(0,0,0,0.6)'; g.shadowBlur = 6; g.shadowOffsetY = 3;
     if (im && im.complete && im.naturalWidth) { g.imageSmoothingQuality = 'high'; g.drawImage(im, 4, 2, 88, 88); }
-    else (ICONS[id] || (() => {}))(g);
+    else (ICONS[id] || (g => tagIcon(g, id)))(g);
     g.restore();
   }
-  for (const id of PAINTED) {
-    const im = new Image(); iconImg[id] = im;
-    im.onload = () => { if (iconCache[id]) { paintIcon(iconCache[id], id); if (window.Game && Game.renderInv) Game.renderInv(); } };
-    im.onerror = () => { delete iconImg[id]; };
-    im.src = 'art/icons/' + id + '.webp';
+  // the ids with a painting are the story's (window.PAINTED_ICONS, js/story/core.js), which loads after this file:
+  // read once the page's scripts have all run, or at the first icon asked for, whichever comes first
+  let iconsStarted = false;
+  function startIcons() {
+    if (iconsStarted) return; iconsStarted = true;
+    for (const id of (window.PAINTED_ICONS || [])) {
+      const im = new Image(); iconImg[id] = im;
+      im.onload = () => { if (iconCache[id]) { paintIcon(iconCache[id], id); if (window.Game && Game.renderInv) Game.renderInv(); } };
+      im.onerror = () => { delete iconImg[id]; };
+      im.src = 'art/icons/' + id + '.webp';
+    }
   }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startIcons); else setTimeout(startIcons, 0);
   function icon(id) {
+    startIcons();
     if (!iconCache[id]) { const [c] = mk(96, 96); paintIcon(c, id); iconCache[id] = c; }
     return iconCache[id];
   }

@@ -5,10 +5,10 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `a7fcbd59` (Netlify `6ae1498ab246bdf2ff2a7dcb`,
-entry 84): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs branch `claude/dazzling-wright-lm7a2y` at `2a411813` (Netlify `6aeabe9971da605008112955`,
+entry 89; master is older until PR kubajugo-alt/alansanchez#16 is merged): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-85; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-89; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1548,6 +1548,70 @@ session lived in the session's scratchpad and are gone; everything that matters 
    Game I's code, art, tests and Netlify project are untouched; `node scripts/validate.mjs` reads as before (0 errors).
    The sequel's Netlify project: `alan-sanchez-shortest-night` (`a5e71264-d9a4-439a-b1e5-60ec3f98812d`), not deployed.
 
+86. **Both games share one engine; each got the other's tools** (2026-11-04, the user: "Apply everything that Game II has
+   to Game I. And the other way around"). Branch `claude/dazzling-wright-lm7a2y`, PR kubajugo-alt/alansanchez#16 (draft).
+    - **One engine.** `js/engine/*`, `engine.js`, `fx.js`, `audio.js`, `warp.js`, `parallax.js`, `css/style.css` are now the
+      same files byte for byte in both games (`cmp` each against the other game's copy). What is one game's is data:
+      `js/game.js` (new, loaded first: `GAME_KEY` for every localStorage key, so the keys are unchanged, `SAVE_SLOT`,
+      `SAVE_VERSION`/`SAVE_MIGRATE`, `FIRST_ROOM` (Game I), `FOOTSTEPS`, `TURNERS`, `MUSIC_LEGACY`, `GAME_TIPS`,
+      `STUCK_TIP_WHEN`), `SPEAKERS`/`CALLED` in `js/lines.js`, `PAINTED_ICONS`/`FAIL_BY_CHAR` in `js/story/core.js`, and a
+      room's `door` / `quietTo` / `quiet` for the sound between rooms (Game I's hard-coded door table moved onto its rooms:
+      shop, police, tavern, Ferreira, antiques, cabin, Sé tower stairs; convent <-> convent at night and the cistern silent).
+      A fix wanted in both is now made once and copied. See each game's CODEMAP.
+    - **Into Game I from Game II's engine** (none of it shows until the story uses it): Ludo runs (`talkFps`, a pose as a
+      run, `viewTurn`, `turnLR`, `walkStep`/`frontStep`/`backStep`: what the Ludo board's runs need), talk loops that keep to
+      frames with a lip-synced mouth, emotions on faces (`Engine.LINE_EMO`; needs `emo` art in a face set), interactive
+      close-up pages, a placed figure's `size`/`z`/`rot`/`speaker`, `cut` sprites, nameless ambient extras clicks pass
+      through, an outfit's frames preloaded, the luggage-tag icon for an item without one, the sand footstep.
+    - **Into Game II from Game I's engine**: a room painting picked by screen (`window.BG1X`: on a screen drawn at 1280 px or
+      less, `art/bg1x/`, the 2560 paintings scaled to 1280x720 by Lanczos, q90, 6.8 MB for 31; above 1280, `art/bg/` as before).
+    - **Bugs fixed on the way**: in Game II the engine read `PAINTED_ICONS` and `FAIL_BY_CHAR` before the story set them, so no
+      painted inventory icon ever showed (0 loaded at HEAD, 10 now) and no character's own "won't take that" line played; now
+      read when needed. In both, a touch press held over about 2 s skipped the look line it had started (the lift's click
+      was only swallowed within 1.5 s of the look; the window now starts at the lift). Game II's sunburn moved from the
+      engine to the end of `js/story/tue.js` (`E.skinTint`, unchanged).
+    - **Game I's new tools from Game II**: the validator checks every speaker has a caption name and every room painting
+      (and `BG2X` copy), still, close-up and frame is on disk. Water loops (`js/story/sea.js`, `sea_clips.js` with an empty
+      `S.SEA`, `scripts/sea_clips.py`; `S.seaLoop(g, key)` / `S.seaOn(key)`, because `S.sea` is already the notebook's
+      page): wired at the quay, the boat, the Lavadouro (its loop must come from `art/review/bg/lavadouro_tall_smalltowel.jpg`,
+      the painting it shows), the cistern's torch reflections only, and the map; with no clip each room draws exactly as
+      before (hash-identical draws). No clips made: paid, and it needs the user's approval. Recording a scene with its sound
+      (`scripts/tests/record_scene.mjs`, `record_steps.mjs`, `scripts/record_mix.py`; trial on `quayfish`, mix and picture
+      within 10 ms). The placement tool for the people already in the rooms (`scripts/tests/placer_dump.mjs`,
+      `scripts/placer_build.py`, page source `scripts/review_pages/placer/`, `scripts/placer_install.py` writes
+      `js/story/placed.js`, applied by `js/story/layout.js`); `placed.js` ships empty, so nothing moved; the page is not
+      published yet (a private artifact with a database, when the user wants to place people).
+    - **Not done**: emotion art for Game I's faces (paid painting, needs approval); there are no keys in this container.
+    - Checks: `node --check` on every file; validate 0 errors (both games); Game I smoke intro, tavernafter, vascostore,
+      bath, fado, sepit, copbed, quayfish, laundry, celeste, finale, finalerace, semuseum, romance pass; Game I touch_press
+      passes; both games load with no page errors at 1280 and 2400 px with the right paintings and icons.
+87. **The placement page; Game II's emotions on Alan, for review** (2026-11-04, the user: "please do" (publish the
+   placement tool); "Can you try to apply Alan from Game II expressions to Game I, blending it?").
+    - The placement page: https://claude.ai/artifact/6WyHswfjdRcBYeP5sb1zrE (private, db collection `placements`), built by
+      `scripts/tests/placer_dump.mjs` + `scripts/placer_build.py` into the scratchpad (19 rooms, 43 people). When the user
+      says it's done: read `placements`, save it as JSON, `python3 scripts/placer_install.py <file>` writes
+      `js/story/placed.js`. Store checked empty after publishing.
+    - Emotions: `scripts/face_emotions_g2.py build | sheet | clip` aligns Game II's patches (from `alanv_side_k`,
+      `alanv_front_k`; ECC affine fit 0.91-0.98) onto `alan_side`, `alan_idle2`, `alan_talk`, `alan_talk2`, `alan_front`,
+      `alan_lantern`, keeping Game I's colour and strokes; all eight emotions on five frames, seven on the lantern
+      (embarrassed left out). Patches, sheets, clips: `art/review/emotions_g2/`. `js/story/emo_preview.js`, loaded only
+      with `?emo=1`, wires them and proposes 38 of Alan's lines (reasons in the file). Weak spot: the talk frames' quiet
+      faces keep a faint lighter patch on the lower cheek in fear, anger, sadness, concern. Not installed: waits for the
+      user. To install: `faces/*` into `art/faces/`, `emo.json`'s entries into `js/faces.js`, the line list into a
+      `js/story/emotions.js` (and `face_kit.py` must keep `emo` when it rebuilds a set).
+    - Checks: validate 0 errors; with `?emo=1` the emotions draw on the tagged lines, without it nothing changes.
+88. **The emotions installed** (2026-11-04, the user: "Install the expressions in Game I and deploy both games"). Entry 87's
+   94 patches copied into `art/faces/`; `emo` entries for the six frames in `js/faces.js`; the 38 tags moved to
+   `js/story/emotions.js` (loaded after core.js, as Game II's); `js/story/emo_preview.js` and `?emo=1` removed.
+   `scripts/face_kit.py` and `scripts/face_transfer.py` keep a frame's `emo` when they rebuild its set. Checks: validate 0
+   errors; in the game 38 tags, the patches load from art/faces with no 404 and no page errors; smoke shopjobs, intro,
+   finale, bastos pass.
+89. **Deployed: both games** (2026-11-04, the user: "Install the expressions in Game I and deploy both games"). Branch
+   `claude/dazzling-wright-lm7a2y` at `2a411813` (PR kubajugo-alt/alansanchez#16, not merged into master). Game I:
+   `git archive HEAD` export (no `.env`, no `sequel/`), smoke intro, shopjobs, sepit, bath, finale pass on it; Netlify
+   `6aeabe9971da605008112955`. Live: page 200, `/.env` 404, `/sequel/` 404, `js/game.js`, `js/story/emotions.js` and the
+   emotion patches served, engine/actor.js, faces.js, emotions.js byte-identical; live smoke intro, shopjobs pass.
+   Game II (its entry 107): Netlify `6aeac26654f79b344ac09d36`.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

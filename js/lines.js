@@ -3,6 +3,17 @@
 // [bracketed] tags are ElevenLabs v4 performance directions: they are sent to
 // the voice model but stripped from on-screen subtitles. [pause] marks the
 // beats where Alan stops joking.
+// Who speaks: id -> [name on the caption, caption colour]; CALLED: the names Alan calls people by (speech.js addressee).
+window.SPEAKERS = {
+  alan: ['Alan', '#ffe2a0'], ines: ['Inês', '#ffab9a'], rui: ['Rui', '#a8d4ff'], amalia: ['Amália', '#e2b0ff'], tomas: ['Father Tomás', '#cfeab8'],
+  lacerda: ['Lacerda', '#ff7d6a'], celeste: ['Celeste', '#ffd0a0'], ze: ['Zé', '#9fd8ff'], abilio: ['Abílio', '#f0e68c'], lino: ['Lino', '#f2c79a'],
+  phone: ['Officer Teixeira', '#b9c9ff'], guitar: ['Duarte', '#d8c0a0'], cards: ['Card player', '#d9c8a8'], fish: ['Fishwife', '#ffb8b8'],
+  mender1: ['Old fisherman', '#c8d8c0'], mender2: ['Fisherman', '#b8d0b0'], nun: ['Sister', '#e0e0f0'], washer1: ['Washerwoman', '#f0c8b0'],
+  washer2: ['Odete', '#d8c0e0'], laundry: ['Woman with the washing', '#e8d0b8'], bench: ['Senhor Armando', '#d8c8a8'], vasco: ['Dr. Teles'],
+  bastos: ['Prof. Bastos', '#d6dcc4'], narr: ['', '#eee6d6'],
+};
+window.CALLED = { ines: ['Inês'], vasco: ['Vasco', 'Dr. Teles'], rui: ['Rui'], ze: ['Zé'], celeste: ['Celeste'], amalia: ['Amália'], lacerda: ['Lacerda', 'Senhor Lacerda'],
+  guitar: ['Duarte'], phone: ['Teixeira'], abilio: ['Abílio'], lino: ['Lino'], tomas: ['Father', 'Father Tomás'] };
 window.LINES = {
   // ================================================================ CHAPTER I: THE FOG
   narr_intro_1: ['narr', "For nine days the fog had sat on Lisbon like a cat on a warm book. Nobody could move it, and nobody quite liked to try."],

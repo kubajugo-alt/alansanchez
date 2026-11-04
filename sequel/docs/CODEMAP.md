@@ -4,23 +4,24 @@
 Same shape as Game I (plain HTML, CSS and JavaScript, no build step, no modules; every file an IIFE sharing globals on
 `window`), so Game I's `docs/CODEMAP.md` describes the engine. This file lists what differs.
 
-## The engine is a fork
+## The engine is shared with Game I
 
-`sequel/js/engine/*.js`, `engine.js`, `fx.js`, `audio.js`, `warp.js`, `parallax.js` and `css/style.css` were copied
-from Game I at commit `394bcdd0` (27 Oct 2026). Game I is never touched by work on Game II, and Game II never breaks
-when Game I's engine changes. A fix wanted in both is made in both, on purpose. What the fork changed:
+`sequel/js/engine/*.js`, `engine.js`, `fx.js`, `audio.js`, `warp.js`, `parallax.js` and `css/style.css` were forked from
+Game I at commit `394bcdd0` (27 Oct 2026) and made the same again, byte for byte, on 2026-11-04 (HANDOFF entry 105):
+each game got the other's engine work, and everything that belongs to one game became data the engine reads. A fix is
+made once and copied to the other game as it is (`for f in ...; do cmp $f sequel/$f; done` from the repository root
+shows they still match). Game II still never loads anything from outside `sequel/`: the files are copies.
 
-| File | Change |
+What is Game II's, and where the engine reads it:
+
+| What | Where |
 |---|---|
-| `js/engine/speech.js` | Speaker names and colours come from `window.SPEAKERS`, the names Alan calls people by from `window.CALLED` (both in `js/lines.js`). The player speaks from the player's figure whoever it is (`E.player.speaker`: `'vasco'` in his chapter). |
-| `js/engine/input.js`, `inventory.js` | The "that doesn't work" lines are the player's own (`alan_fail_*` or `vasco_fail_*`); per-character item refusals from `window.FAIL_BY_CHAR`. |
-| `js/engine/rooms.js` | Door sounds come from the room (`door: 'door'`); a pair can be silent (`quietTo`). |
-| `js/engine/base.js`, `engine.js` | The first room is `window.FIRST_ROOM` (Gando), not the shop. |
-| `js/engine/saves.js` | Its own keys (`shortest-night-save-v1`, ...), no Game I migrations. |
-| `js/engine/tips.js` | Its own key; the "stuck" tip points at the phone box; a tip for Vasco's chapter. |
-| `js/audio.js` | Its own volume key. |
-| `js/engine/stills.js` | A close-up page can be interactive (`p.mount(el, redraw)`; the puzzles' pages). |
-| `js/fx.js` | The painted inventory icons are listed by the story (`window.PAINTED_ICONS`); an item with no icon yet shows a luggage tag with its short name (`window.ICON_LABELS`). |
+| `GAME_KEY` (every localStorage key: `shortest-night-*`), `SAVE_SLOT`, `SAVE_VERSION` / `SAVE_MIGRATE`, `FOOTSTEPS` (off), `TURNERS`, `MUSIC_LEGACY`, `GAME_TIPS` | `js/game.js`, loaded first |
+| Speaker names and colours, the names Alan calls people by | `window.SPEAKERS`, `CALLED` in `js/lines.js` |
+| Painted inventory icons, luggage-tag labels, per-character item refusals | `window.PAINTED_ICONS`, `ICON_LABELS`, `FAIL_BY_CHAR` in `js/story/core.js` (read when needed: before entry 105 they were read before the story set them, so no painted icon showed and no refusal line played) |
+| The first room; the 1280 paintings for small screens | `window.FIRST_ROOM`, `BG1X` in `js/story/main.js` (`art/bg1x/` is `art/bg/` scaled to 1280x720; a screen drawn above 1280 px gets `art/bg/`) |
+| The sound between rooms | per room `door`, `quietTo`, `quiet` |
+| The sunburn | `E.skinTint`, at the end of `js/story/tue.js` |
 
 ## Load order (index.html)
 
@@ -69,7 +70,8 @@ parallax off by default (HANDOFF entry 91).
 `art/bg/<room>.jpg` are 2560x1440 since HANDOFF entry 92 (Higgsfield upscale); the engine draws them into the 1280x720
 frame, so all coordinates stay 1280x720. The 1280 originals are in `art/designs/rooms_1280/`. A script that reads
 positions from a painting must scale it to 1280x720 first (as `extras.py` and `prop_grade.py` do). The map is the
-original.
+original. A screen drawn at 1280 px or less loads `art/bg1x/<room>.jpg` instead, the same painting scaled down
+(entry 105); a painting changed in `art/bg/` needs its `art/bg1x/` copy remade (Lanczos to 1280x720, JPEG q90).
 
 ## Scripts added on 2026-10-30
 
@@ -89,6 +91,9 @@ Serve `sequel/` (`npx -y http-server sequel -p 8099 -c-1 -s`, the folder first: 
 quietly serves the repository root, Game I), then:
 
 - `node sequel/scripts/validate.mjs`: every line id used exists, every line is used, speakers named, art on disk.
+- `smoke.mjs`, `robustness.mjs`, `loading.mjs`, `memory.mjs`, `a11y.mjs`, `touch_press.mjs`, `qol.mjs`, `story_hints.mjs` in
+  `sequel/scripts/tests/` (from Game I, entry 105; each takes the base URL, prints PASS/FAIL). `?scene=walklab` is the walk lab
+  (`js/walklab.js`), `?review` the review screen (`js/review.js`); neither is in index.html.
 - `node sequel/scripts/tests/play.mjs http://localhost:8099/`: plays the whole game, prologue to credits, through
   hotspots and dialogue (with the airport's bad ending and one wrong disc on the way). About five minutes.
 - `node sequel/scripts/tests/shot.mjs http://localhost:8099/ <scene|title> out.png`: a screenshot and the page errors.

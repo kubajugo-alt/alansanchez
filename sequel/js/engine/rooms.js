@@ -13,10 +13,11 @@
 
   // ---------------------------------------------------------------- rooms
   // What you hear between rooms: a room's own door sound (door: 'door' | 'shop_bell' | ...) going in or out of it,
-  // the map's paper when unfolding it. A pair can be silent (ROOMS[x].quietTo = ['y']).
+  // the map's paper when unfolding it. A pair can be silent (ROOMS[x].quietTo = ['y']), or a room to and from
+  // everywhere (quiet: true).
   function passSound(from, to) {
     const A = ROOMS[from] || {}, B = ROOMS[to] || {};
-    if ((A.quietTo || []).includes(to) || (B.quietTo || []).includes(from)) return null;
+    if (A.quiet || B.quiet || (A.quietTo || []).includes(to) || (B.quietTo || []).includes(from)) return null;
     if (B.door || A.door) return B.door || A.door;
     return from === 'map' || to === 'map' ? 'page' : null;
   }
