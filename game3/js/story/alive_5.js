@@ -30,18 +30,20 @@
   const SKY = [[[340, 0], [1280, 0], [1280, 285], [1180, 290], [820, 262], [670, 230], [600, 90], [340, 60]]];
   ALIVE.p1586_river_mouth = (g, t, bg, im) => {
     drift(g, t, 'river', SKY, { speed: 3, a: 0.22, seed: 7 });
-    if (bg !== 'p1586_river_mouth__visit1_birds') { g.save(); clip(g, SKY); FX.birds(g, t, { y0: 60, y1: 200, n: 3, period: 23, color: 'rgba(70,64,56,0.5)', size: 7, x0: 640, x1: 1280 }); g.restore(); }
-    const visit = /__visit/.test(bg);   // (visits 1 and 2: the canoes drawn up on the sand, the nets on poles by the wall)
-    if (visit) {
-      FX.ripple(g, im, [810, 330, 470, 150], t * 0.6, 0.8, 0.09); FX.ripple(g, im, [690, 340, 120, 60], t * 0.6, 0.6, 0.09);
-      FX.water(g, t * 0.5, 820, 340, 440, 120, '255,246,220');
-      FX.sway(g, im, [0, 0, 380, 150], t * 0.5, 1.6, 0.3, true);                    // the palm fronds
-      FX.sway(g, im, [270, 200, 150, 60], t * 0.6, 0.6, 1.2, true);                 // the hut's thatch fringe
-      FX.billow(g, im, [384, 300, 150, 150], t, 0.5, 8);                            // the nets drying on their poles
+    // visits 1 and 2 are the sign: the sky empty of birds (and on visit 2 the dead fish lie in their lines, quite still)
+    if (!/__visit/.test(bg)) { g.save(); clip(g, SKY); FX.birds(g, t, { y0: 60, y1: 200, n: 3, period: 23, color: 'rgba(70,64,56,0.5)', size: 7, x0: 640, x1: 1280 }); g.restore(); }
+    FX.sway(g, im, [0, 0, 380, 150], t * 0.5, 1.6, 0.3, true);                      // the palm fronds
+    if (bg === 'p1586_river_mouth__visit1_birds') {
+      FX.ripple(g, im, [690, 330, 590, 130], t * 0.6, 0.8, 0.09); FX.water(g, t * 0.5, 720, 340, 540, 110, '255,246,220');
+      FX.sway(g, im, [262, 200, 160, 70], t * 0.6, 0.6, 1.2, true);                 // the hut's thatch
+    } else if (bg === 'p1586_river_mouth__visit2_fish') {
+      // the water only beyond the fish on the shore
+      FX.ripple(g, im, [700, 320, 580, 60], t * 0.6, 0.7, 0.09); FX.ripple(g, im, [1010, 380, 270, 80], t * 0.6, 0.7, 0.09);
+      FX.water(g, t * 0.5, 720, 325, 540, 55, '255,246,220');
+      FX.sway(g, im, [178, 214, 200, 60], t * 0.6, 0.6, 1.2, true);                 // the hut's thatch
     } else {
       FX.ripple(g, im, [700, 330, 580, 120], t * 0.6, 0.8, 0.09);                   // the river, slow
       FX.water(g, t * 0.5, 720, 340, 540, 110, '255,246,220');
-      FX.sway(g, im, [0, 0, 380, 150], t * 0.5, 1.6, 0.3, true);                    // the palm fronds
       FX.sway(g, im, [190, 165, 140, 70], t * 0.6, 0.6, 1.2, true);                 // the thatch's fringe
       FX.billow(g, im, [728, 385, 172, 50], t, 0.6, 7);                             // the net between its poles
     }

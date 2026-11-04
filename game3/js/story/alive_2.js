@@ -57,7 +57,7 @@
   // ================================================================ the cloister: the palms, the sky over the roof, swallows
   const CLOISTER_SKY = [[[200, 0], [1050, 0], [1080, 125], [840, 140], [840, 175], [710, 180], [640, 190], [560, 165], [400, 95], [200, 5]]];
   A.cathedral_cloister = (g, t, bg, im) => {
-    clouds(g, t, 'cloister', CLOISTER_SKY, { speed: 3.5, a: 0.3, seed: 3 });
+    clouds(g, t, 'cloister', CLOISTER_SKY, { speed: 3.5, a: 0.18, seed: 3 });
     FX.sway(g, im, [418, 18, 196, 170], t * 0.8, 2.2, 0, true);               // the tall palm's crown
     FX.sway(g, im, [626, 196, 116, 104], t * 0.8, 1.4, 1.1, true);
     FX.sway(g, im, [566, 300, 80, 70], t * 0.8, 1.0, 2.0, true);
@@ -80,8 +80,9 @@
     const k = wind ? 4.5 : 1, sp = wind ? 2.4 : 0.7;
     clouds(g, t, wind ? 'parque_w' : wet ? 'parque_g' : 'parque', PARQUE_SKY, { speed: wind ? 22 : 3, a: wind ? 0.45 : 0.3, rgb: wind ? '70,74,82' : wet ? '150,152,156' : '240,238,232', seed: 5 });
     FX.sway(g, im, [0, 0, 425, 420], t * sp, 1.6 * k, 0, true);                // the big tree on the left
-    FX.sway(g, im, [920, 0, 360, 260], t * sp, 1.4 * k, 1.3, true);            // the tree over the cathedral front
-    FX.sway(g, im, [800, 200, 150, 220], t * sp, 1.2 * k, 2.2, true);
+    FX.sway(g, im, [1000, 0, 280, 240], t * sp, 1.4 * k, 1.3, true);           // the tree over the cathedral front (its foliage only,
+    FX.sway(g, im, [920, 0, 80, 115], t * sp, 1.2 * k, 1.5, true);             //  not the roof and the tower beside it)
+    FX.sway(g, im, [815, 212, 122, 150], t * sp, 1.2 * k, 2.2, true);
     FX.sway(g, im, [412, 330, 84, 100], t * sp, 1.0 * k, 0.8, true);
     FX.sway(g, im, [436, 200, 64, 66], t * sp, 1.4 * k, 1.7, true);            // the palm behind
     FX.ripple(g, im, [984, 395, 22, 95], t, 0.5, 0.4);                       // the fountain running
