@@ -199,7 +199,7 @@
   H('bell_chamber', { name: 'The city arch', rect: [20, 100, 140, 340], look: 'alan_wed_look_cityarch' });
   H('bell_chamber', { name: 'The beam', rect: [400, 40, 480, 110], look: 'alan_wed_look_beam' });
   N('bell_chamber', { id: 'tobias', ch: 'tobias', x: 1000, y: 652, dir: 'w', name: 'Tobías', when: () => ch() === 2 && !F().tower_done,
-    look: 'alan_wed_look_tobias', talk: S.chat('tobias_wed_talked', ['alan_wed_talk_tobias', 'tobias_wed_talk'], 'tobias_wed_talk_2') });
+    look: 'alan_wed_look_tobias', talk: S.chat('wed_tobias_talked', ['alan_wed_talk_tobias', 'tobias_wed_talk'], 'tobias_wed_talk_2') });
   N('bell_chamber', { id: 'vasco', ch: 'vasco', x: 860, y: 668, dir: 'w', name: 'Vasco', when: () => (ch() === 2 && !F().tower_done) || (ch() === 3 && F().th2_on),
     look: 'vasco_wed_look', talk: () => say('vasco_wed_talk') });
   N('bell_chamber', { id: 'ines', ch: 'ines', x: 420, y: 672, dir: 'e', name: 'Inês', when: () => (ch() === 2 && !F().tower_done) || (ch() === 3 && F().th2_on),
@@ -232,7 +232,7 @@
   // ================================================================ the old city
   setRect('parque_colon', 'The cathedral', [700, 280, 200, 200], [800, 660]);
   H('parque_colon', { name: 'The ballplayers', rect: [140, 470, 220, 100], at: [300, 670], when: () => ch() >= 3 && ch() <= 7,
-    look: async () => { const n = F().ball_n || 0; F().ball_n = n + 1; await say(n < 4 ? 'alan_thu_ball_' + (n + 1) : 'alan_thu_look_ballplayers'); } });
+    look: async () => { const n = F().ball_n || 0; F().ball_n = n + 1; await say(['alan_thu_ball_1', 'alan_thu_ball_2', 'alan_thu_ball_3', 'alan_thu_ball_4'][n] || 'alan_thu_look_ballplayers'); } });
   H('parque_colon', { name: 'Columbus', rect: [480, 60, 140, 380], look: 'alan_look_statue' });
   H('parque_colon', { name: 'The cathedral\'s side', rect: [900, 0, 380, 300], look: 'alan_look_park_cathedral' });
   H('parque_colon', { name: 'The fountain', rect: [900, 440, 120, 80], look: 'alan_look_park_fountain' });
