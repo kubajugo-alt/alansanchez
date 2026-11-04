@@ -19,3 +19,7 @@ References uploaded: Alan's Game II front (`alanb_front_k`, media MAHZ7A6780k, t
 - 2026-11-04 figure `vasco_g3_front_v3` Canva media MAHZ7Bhxcgw -> art/designs/vasco_g3_front_v3.png Game II's Vasco (vascor_front_k, his face) dressed in Game I's style (ref: Game I vasco_front, media MAHZ7JHopY8): brown linen blazer, sleeves up, pale blue shirt, loose brown tie, khakis, boots; candidate
 - 2026-11-04 figure `ines_g3_front_v2` Canva media MAHZ7Of0bC8 -> art/designs/ines_g3_front_v2.png v1 with both pairs of glasses removed (the user: "drop ines' glasses"); candidate
 - 2026-11-04 sheet art/designs/g3_front_sheet_v2.png
+- 2026-11-04 APPROVED: ines_g3_front_v2, alan_g3_front_d (the user)
+- 2026-11-04 figure `vasco_g3_front_e` Canva media MAHZ7E8h0Mw -> art/designs/vasco_g3_front_e.png edit of Game II's Vasco: tobacco-brown tropical linen suit, cream shirt, rust knit tie, brogues; candidate
+- 2026-11-04 figure `vasco_g3_front_f` Canva media MAHZ7PEUMFY -> art/designs/vasco_g3_front_f.png edit of Game II's Vasco: formal long-sleeved ecru guayabera, chocolate trousers, loafers; candidate
+- 2026-11-04 sheet art/designs/g3_front_sheet_v3.png

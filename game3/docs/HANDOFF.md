@@ -127,3 +127,10 @@ but Alan).
    of the character's own current sprite. Sheet `art/designs/g3_front_sheet_v2.png`, ids in `art/canva/log.md`.
    Style notes for later rounds: Alan is casual, never formal; Vasco's palette is earthy, as in Game I; Inês wears no
    glasses.
+4. **Approved: Inês v2 and Alan D** (2026-11-04, the user: "Ines - Approved, Alan in shirt - approved"). Their front
+   designs are `art/designs/ines_g3_front_v2.png` (media MAHZ7Of0bC8) and `art/designs/alan_g3_front_d.png` (media
+   MAHZ7JsTbQ4): the base for their other views and sprites. Vasco v3 not taken (the user: "use Vasco from second game,
+   give him new clothes. SOmething formal suitable for a researcher, but more suitable for tropical climate"): new
+   options from his Game II sprite, earthy colours.
+   New options: E, a tobacco linen suit with a rust knit tie; F, a formal ecru guayabera (Dominican formal wear) with
+   brown trousers. Sheet `art/designs/g3_front_sheet_v3.png`.
