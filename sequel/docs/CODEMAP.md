@@ -9,8 +9,8 @@ Same shape as Game I (plain HTML, CSS and JavaScript, no build step, no modules;
 `sequel/js/engine/*.js`, `engine.js`, `fx.js`, `audio.js`, `warp.js`, `parallax.js` and `css/style.css` were forked from
 Game I at commit `394bcdd0` (27 Oct 2026) and made the same again, byte for byte, on 2026-11-04 (HANDOFF entry 153):
 each game got the other's engine work, and everything that belongs to one game became data the engine reads. A fix is
-made once and copied to the other game as it is (`for f in ...; do cmp $f sequel/$f; done` from the repository root
-shows they still match). Game II still never loads anything from outside `sequel/`: the files are copies.
+made once and copied to the other game as it is (`node scripts/sync-engine.mjs --check` from the repository root
+shows they still match; `--from game1|game2` copies a fix across; the validator fails while they differ). Game II still never loads anything from outside `sequel/`: the files are copies.
 
 What is Game II's, and where the engine reads it:
 

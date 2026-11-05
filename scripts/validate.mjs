@@ -144,6 +144,10 @@ if (fs.existsSync(LIPDIR)) for (const who of fs.readdirSync(LIPDIR)) {
   }
 }
 
+// ---------------------------------------------------------------- the engine shared with Game II (scripts/sync-engine.mjs)
+{ const { differing } = await import('./sync-engine.mjs');
+  for (const f of differing()) errors.push(`${f}: differs from Game II's copy (sequel/${f}); the engine is shared: node scripts/sync-engine.mjs --from game1|game2`); }
+
 // ---------------------------------------------------------------- report
 if (!quiet) for (const w of warnings) console.log('warning: ' + w);
 for (const e of errors) console.log('ERROR: ' + e);
