@@ -215,5 +215,9 @@ for (const [k, m] of Object.entries(SPRITES)) {
 console.log(`note  frame sizes: ${sized} talk and idle frames checked against their standing frames, ${sizeOff.size} off by more than 4%`);
 for (const [run, [r, k, base, n]] of sizeOff) warn(`'${run === k ? k : run + '_*'}' draws at ${(r * 100).toFixed(0)}% of its standing frame '${base}'${n > 1 ? ` (${n} frames; worst ${k})` : ''} (fix its "h")`);
 
+// the engine shared with Game I (../scripts/sync-engine.mjs, at the repository root; not in Game II's export)
+{ const sync = path.join(SEQ, '..', 'scripts', 'sync-engine.mjs');
+  if (fs.existsSync(sync)) { const { differing } = await import(sync); for (const f of differing()) err(`${f}: differs from Game I's copy (../${f}); the engine is shared: node scripts/sync-engine.mjs --from game1|game2 (from the repository root)`); } }
+
 console.log(`\n${Object.keys(LINES).length} lines, ${used.size} ids referenced; ${errors} errors, ${warns} warnings`);
 process.exit(errors ? 1 : 0);

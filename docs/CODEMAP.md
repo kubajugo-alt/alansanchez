@@ -6,7 +6,7 @@ Plain HTML, CSS and JavaScript: no build step, no modules. `index.html` loads ev
 
 `js/engine/*.js`, `js/engine.js`, `js/fx.js`, `js/audio.js`, `js/warp.js`, `js/parallax.js` and `css/style.css` are the
 same files, byte for byte, as Game II's under `sequel/` (since handoff entry 86). A fix is made once and copied to the
-other game as it is (`for f in ...; do cmp $f sequel/$f; done` shows they still match). Anything that belongs to one
+other game as it is (`node scripts/sync-engine.mjs --check` shows they still match; `--from game1|game2` copies a fix across; the validator fails while they differ). Anything that belongs to one
 game is data the engine reads: `js/game.js`, `window.SPEAKERS` / `CALLED` (`js/lines.js`), `PAINTED_ICONS` /
 `FAIL_BY_CHAR` (`js/story/core.js`), `BG2X` (`js/story/main.js`), and per room `door`, `quietTo`, `quiet`
 (the sound between rooms). Game II's copy keeps its own `js/game.js` with its own keys, so saves never mix.

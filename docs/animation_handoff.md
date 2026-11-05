@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `56c8bb00` (Netlify `6aeb8e977b2565722bac0623`, entry 92;
 PR kubajugo-alt/alansanchez#21): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-92; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-93; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1645,6 +1645,11 @@ session lived in the session's scratchpad and are gone; everything that matters 
    Deployed (the user: "yes"): export at `56c8bb00`, smoke intro, shopjobs, sepit, bath, finale pass on it; Netlify
    `6aeb8e977b2565722bac0623`. Live: page 200, `/.env` 404, lights.js byte-equal; live smoke intro, shopjobs pass. Game II
    deployed with it (its 161). Merged by PR kubajugo-alt/alansanchez#21.
+93. **The shared engine guarded** (2026-11-05). `scripts/sync-engine.mjs`: `--check` (the 24 shared files equal in both
+   games), `--from game1|game2` (copy a fix across; refuses a file changed in both since HEAD). `scripts/validate.mjs`
+   errors while a shared file differs (Game II's validator too). CLAUDE.md: the shared engine, and start every branch
+   from master. Checked after entry 92: Game I's lamps cast shadows where the round one was (`shadow` unset is on):
+   the tavern, the cistern, the bedroom and the quay at 0.53-0.62 opacity.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

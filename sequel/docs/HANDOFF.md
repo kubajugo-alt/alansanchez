@@ -2237,3 +2237,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     Deployed (the user: "yes"), both games from `56c8bb00`: Game II's export (557 MB) won play.mjs in 132 steps; Netlify
     `6aeb9044919e2db1b849cbb6` (the first upload failed, the second went through). Live: lights.js byte-equal, no contact
     shadow in it, smoke tue, bar pass. Game I: Netlify `6aeb8e977b2565722bac0623` (its entry 92). Merged by PR #21.
+162. **The shared engine guarded** (2026-11-05, the user: "Whatever you find fit"). `scripts/sync-engine.mjs` (repository
+    root) lists the 24 shared files: `--check` names any that differ between the games, `--from game1|game2` copies one
+    game's copy over the other's and refuses a file changed in both since HEAD (merged by hand). Both validators now fail
+    while a shared file differs. CLAUDE.md says so, and that every session starts from master and merges before deploying
+    (entry 156's two Game II lines). Also checked: Game I's rooms still ground their figures after entry 161 (their lamps
+    cast shadows, `shadow` unset meaning on: tavern, cistern, bedroom, quay measured at 0.53-0.62 opacity).
