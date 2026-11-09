@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `56c8bb00` (Netlify `6aeb8e977b2565722bac0623`, entry 92;
 PR kubajugo-alt/alansanchez#21): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-93; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-94; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1650,6 +1650,32 @@ session lived in the session's scratchpad and are gone; everything that matters 
    errors while a shared file differs (Game II's validator too). CLAUDE.md: the shared engine, and start every branch
    from master. Checked after entry 92: Game I's lamps cast shadows where the round one was (`shadow` unset is on):
    the tavern, the cistern, the bedroom and the quay at 0.53-0.62 opacity.
+
+94. **Three engine bugs and the sound's memory** (2026-11-09, the user: "Do an in depth analysis of the game engine and
+   flag what could be the improvements", then "Do the three bugs and the sound memory"). The shared engine, copied to
+   Game II with `sync-engine.mjs --from game1` (its entry 163). The rest of the review's list (figures rebuilt and
+   uploaded every frame, captions measured every frame, Game I's data inside the shared files, the face cache, no fast
+   tests) was given in chat and is **not done**.
+   - **The image stream keeps its story order** (js/engine.js `want`): a key asked for again while it waited was moved
+     to the back, and `order()` names every image twice, so after the first four the stream ran in registration order
+     (every room painting, then every sprite). Now it keeps its place; only a `front` request moves it.
+   - **The Voice volume reaches the room's reverb** (js/audio.js `voiceSend`): voices went straight into the room's
+     convolver, past the slider, so at 0 their echo was still heard (the cistern most).
+   - **The hit-test cache is weak** (js/engine/geometry.js `alphaCache`, a WeakMap): an image the memory budget let go
+     of was kept alive by it.
+   - **Sound memory** (js/audio.js): every short clip was decoded soon after the first tap and kept (271 clips, 717 s:
+     about 187 MB of PCM, measured with ffprobe), and every ambience bed heard stayed decoded (about 11.5 MB each). Now
+     the clips' mp3 bytes are fetched up front (12 MB) and decoded when first played; decoded clips are kept up to
+     48 MB (24 MB on a phone or small-memory device), least recently played let go first; a bed is held only while
+     its ambience plays (handed on if the next room plays the same one). `Sound.memory()` reports it.
+   - **Checked** in Chromium (scratch scripts, not kept): requests now go title, the shop's art, Alan's frames; 271 clips
+     fetched, 0 decoded at rest, 47.7 MB held after playing all 280 one after another; a first play of an undecoded
+     clip starts in 4-6 ms; beds follow the ambience (cistern, harbour, boat, shop, none); at Voice volume 0 the voice
+     reaches the reverb through a gain of 0; a figure's body is still hit and its empty corner not. `validate.mjs` 0
+     errors in both games; `loading.mjs`, `memory.mjs` no problems; smoke intro, laundry, fado, boat pass (Game II:
+     prologue, lobby, `loading.mjs` 30 rooms). `robustness.mjs`: two story checks fail (the Ch. II end on entering the
+     shop, the Ch. III Chiado hint) and fail the same on master before this change: not looked into here.
+     Manifests rebuilt in both games. Nothing deployed.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

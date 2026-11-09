@@ -112,7 +112,7 @@
     const [rx, ry, rw, rh] = h.rect;
     return x >= rx && x <= rx + rw && y >= ry && y <= ry + rh;
   }
-  const alphaCache = new Map();
+  const alphaCache = new WeakMap(); // (weak: an image the loader lets go of, js/engine.js evict, isn't kept alive from here)
   function alphaAt(im, u, v) {
     let c = alphaCache.get(im);
     if (!c) {

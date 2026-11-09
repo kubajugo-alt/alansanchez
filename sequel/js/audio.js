@@ -298,6 +298,7 @@
     voiceVol = Math.max(0, Math.min(1, +v || 0));
     try { localStorage.setItem(VOL_KEY + '-voice-level', String(voiceVol)); } catch (e) { /* storage unavailable */ }
     if (voiceOut) voiceOut.gain.setTargetAtTime(voiceVol, ctx.currentTime, 0.05);
+    if (voiceSend) voiceSend.gain.setTargetAtTime(voiceVol, ctx.currentTime, 0.05);
     if (voiceEl) voiceEl.volume = voiceVol;
   }
   function setSfxVolume(v) {
@@ -395,7 +396,21 @@
   // Recorded effects (ElevenLabs sound generation) live in audio/sfx/*.mp3 and
   // are listed in audio/sfx/manifest.json; anything missing falls back to the
   // procedural versions above.
-  let sfxFiles = new Set(), sfxVer = {}; const sfxBufs = {};
+  let sfxFiles = new Set(), sfxVer = {};
+  // Memory: a clip decoded is held as PCM, about 20 times its mp3 (all 271 of Game I's short clips: 187 MB, more than a
+  // phone's whole image budget). So the short clips are fetched up front as they come (their mp3 bytes, about 12 MB) and
+  // decoded when first played (a few ms); the decoded ones are kept up to a budget, the least recently played let go
+  // first. The long beds are decoded when their room opens and held only while they play (ambience()).
+  const sfxRaw = {};            // name -> the clip's mp3 bytes
+  const sfxBufs = new Map();    // name -> AudioBuffer, least recently played first
+  let sfxHeld = 0;
+  const SFX_MEM = (() => { let small = false; try { small = matchMedia('(pointer: coarse)').matches || (navigator.deviceMemory && navigator.deviceMemory <= 4); } catch (e) { /* old browser */ } return small ? 24e6 : 48e6; })();
+  const pcmBytes = b => b.length * b.numberOfChannels * 4;
+  function keepBuf(name, buf) {
+    if (sfxBufs.has(name)) return;
+    sfxBufs.set(name, buf); sfxHeld += pcmBytes(buf);
+    for (const [k, b] of sfxBufs) { if (sfxHeld <= SFX_MEM || k === name) break; sfxBufs.delete(k); sfxHeld -= pcmBytes(b); }
+  }
   const sfxUrl = name => 'audio/sfx/' + name + '.mp3' + (sfxVer[name] ? '?v=' + sfxVer[name] : '');
   async function loadSfx() {
     try {
@@ -426,11 +441,19 @@
   // musical, voiced or timed clips keep their exact pitch
   const NOJITTER = /^(bell_|harbour_chime|music_box|v_|ringout|beep|clock_chime|chapter_toll|ship_bell|applause)/;
   const lastTake = {}, pending = {};
+  const rawPending = {};
+  function fetchRaw(name) {
+    if (sfxRaw[name]) return Promise.resolve(sfxRaw[name]);
+    return rawPending[name] || (rawPending[name] = fetch(sfxUrl(name)).then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+      .then(b => { sfxRaw[name] = b; delete rawPending[name]; return b; }).catch(e => { delete rawPending[name]; throw e; }));
+  }
+  const decode = b => new Promise((res, rej) => ctx.decodeAudioData(b, res, rej));
   function load(name) {
-    if (sfxBufs[name] instanceof AudioBuffer) return Promise.resolve(sfxBufs[name]);
+    const have = sfxBufs.get(name);
+    if (have) { sfxBufs.delete(name); sfxBufs.set(name, have); return Promise.resolve(have); } // (played again: the last to go)
     if (pending[name]) return pending[name];
-    return (pending[name] = fetch(sfxUrl(name)).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b))
-      .then(buf => { sfxBufs[name] = buf; delete pending[name]; return buf; }).catch(() => { delete pending[name]; return null; }));
+    return (pending[name] = fetchRaw(name).then(b => decode(b.slice(0))) // (a copy: decoding empties the buffer it is given)
+      .then(buf => { keepBuf(name, buf); delete pending[name]; return buf; }).catch(() => { delete pending[name]; return null; }));
   }
   // plays a recorded clip; returns a handle that can stop it (fading) even before it has loaded
   function playFile(name, vol, rate, pan) {
@@ -476,13 +499,13 @@
   }
   // a sound placed in the scene: panned by its x (0..1280), softer at the edges
   function sfxAt(name, x, vol, rate) { const p = Math.max(-1, Math.min(1, ((x == null ? 640 : x) - 640) / 640)) * 0.7; return sfx(name, (vol == null ? 1 : vol) * (1 - Math.abs(p) * 0.25), rate, p); }
-  // short clips decoded in the background once audio is up, so first plays are on time
-  // one-shots decode up front; the long beds stream in when their room opens
+  // short clips fetched in the background once audio is up (their mp3 bytes; decoded when first played), so first plays
+  // are on time; the long beds come when their room opens
+  const isBed = n => /^amb_/.test(n) || Object.values(LOOPS).some(l => Array.isArray(l[0]) ? l.some(x => x[0] === n) : l[0] === n);
   function preloadSfx() {
     let i = 0;
-    const beds = new Set(Object.values(LOOPS).flatMap(l => Array.isArray(l[0]) ? l.map(x => x[0]) : [l[0]]));
-    const names = [...sfxFiles].filter(n => !/^amb_/.test(n) && !beds.has(n));
-    const next = () => { if (i >= names.length) return; load(names[i++]).then(() => setTimeout(next, 30)); };
+    const names = [...sfxFiles].filter(n => !isBed(n));
+    const next = () => { if (i >= names.length) return; fetchRaw(names[i++]).catch(() => {}).then(() => setTimeout(next, 30)); };
     next();
   }
 
@@ -544,6 +567,7 @@
   // ---------------------------------------------------------------- ambience
   // A quiet bed of room sound under the music: wind, gulls, clocks, drips.
   let ambName = null, ambTimer = null, ambNodes = [];
+  let bedBufs = {}, bedWas = {}; // the beds of the room's ambience, decoded (and those of the one before, while it changes)
   function bed(type, freq, q, vol, lfo) {
     const s = ctx.createBufferSource(); s.buffer = noise(); s.loop = true;
     const f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q;
@@ -667,8 +691,11 @@
       ambNodes.push(s);
       g.gain.setTargetAtTime(vol, ctx.currentTime, 1.0);
     };
-    if (sfxBufs[name] instanceof AudioBuffer) start(sfxBufs[name]);
-    else fetch(sfxUrl(name)).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b)).then(buf => { sfxBufs[name] = buf; start(buf); }).catch(() => {});
+    // a bed is about 11 MB decoded: held while its ambience plays (and handed on to the next one if that plays it too),
+    // never kept after (a room played through used to leave every bed it had heard in memory)
+    const mine = bedBufs, had = bedWas[name] || (sfxBufs.get(name));
+    if (had) { mine[name] = had; start(had); }
+    else fetch(sfxUrl(name)).then(r => r.arrayBuffer()).then(decode).then(buf => { if (bedBufs === mine) mine[name] = buf; start(buf); }).catch(() => {});
   }
   // occasional details per room, each on its own random clock: [name, every [min,max] s, vol [a,b], pan [a,b], rate [a,b]]
   const EXTRAS = {
@@ -736,8 +763,10 @@
       try { if (n.gain) n.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.4); else n.stop(ctx.currentTime + 1.5); } catch (e) { /* ignore */ }
     }
     // one or more recorded beds (a room can layer, e.g. a deck: harbour and creaking timbers)
+    bedWas = bedBufs; bedBufs = {};
     const lps = (LOOPS[name] ? (Array.isArray(LOOPS[name][0]) ? LOOPS[name] : [LOOPS[name]]) : []).filter(l => sfxFiles.has(l[0]));
     for (const l of lps) loopFile(l[0], l[1]);
+    bedWas = {};
     for (const t of extraTimers) clearTimeout(t); extraTimers = [];
     for (const e of (EXTRAS[name] || [])) scheduleExtra(name, e, true);
     const A = AMB[name]; if (!A) return;
@@ -759,7 +788,7 @@
   };
   if (SOUND_NEW) Object.assign(ACOUSTICS, { bedroom: [0.4, 0.07, 0.45, 0.006], cold_open: [0.4, 0.05, 0.6, 0.02] }); // a small attic; a night street
   const irCache = {};
-  let roomVerb = null, roomWet = null, sfxSend = null;
+  let roomVerb = null, roomWet = null, sfxSend = null, voiceSend = null;
   function impulse([decay, , bright, pre]) {
     const key = decay + ':' + bright + ':' + pre;
     if (irCache[key]) return irCache[key];
@@ -780,6 +809,8 @@
       roomVerb = ctx.createConvolver(); roomWet = ctx.createGain(); roomWet.gain.value = 0;
       roomVerb.connect(roomWet); roomWet.connect(ctx.destination);
       sfxSend = ctx.createGain(); sfxSend.gain.value = 0.7; sfxBus.connect(sfxSend); sfxSend.connect(roomVerb);
+      // the voices' way into the room's reverb, at the Voice volume (straight in, the slider at 0 still left their echo)
+      voiceSend = ctx.createGain(); voiceSend.gain.value = voiceVol; voiceSend.connect(roomVerb);
     }
     const A = ACOUSTICS[id];
     roomWet.gain.setTargetAtTime(A ? A[1] : 0, ctx.currentTime, 0.05);
@@ -855,7 +886,7 @@
         ensureAnalyser();
         const src = ctx.createBufferSource(); src.buffer = buf; src.connect(analyser);
         // characters speak into the room; the narrator, the answering machine and voices over stills don't
-        if (roomVerb && !dry) src.connect(roomVerb);
+        if (voiceSend && !dry) src.connect(voiceSend);
         voiceSrc = src; voiceEnd = ctx.currentTime + buf.duration; voiceAt = ctx.currentTime; voiceCur = id;
         src.onended = () => { if (voiceSrc === src) { voiceSrc = null; duck(false); } };
         duck(true, /_sing/.test(id), dry); // a sung line keeps its guitar under it; dry voices go deeper
@@ -1009,6 +1040,7 @@
       return Array.from(d);
     }, // (diagnostics)
     _voices: () => active ? active.voices.map(v => ({ t: +v.p.el.currentTime.toFixed(2), g: +v.p.gain.gain.value.toFixed(3), armed: !!v.armed, started: v.started, ending: v.ending, rs: v.p.el.readyState })) : [], // (diagnostics)
+    memory: () => ({ decoded: Math.round(sfxHeld / 1e5) / 10, budget: SFX_MEM / 1e6, clips: sfxBufs.size, fetched: Object.keys(sfxRaw).length, beds: Object.keys(bedBufs) }), // (MB; tests)
     get nowPlaying() { return active && !active.dead ? active.id : null; }, get musicCue() { return cue ? cue.spec : null; },
   };
 })();
