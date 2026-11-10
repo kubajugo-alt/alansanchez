@@ -42,7 +42,7 @@ window.Warp = (function () {
   function lost(e) {
     e.preventDefault();
     if (e.target !== cv) return;
-    ready = false; gl = null; cv = null; texVer = null;
+    ready = false; gl = null; cv = null; texVer = null; held.clear(); // (the kept textures went with the context)
     if (++losses >= 3) { failed = true; console.warn('Warp disabled: the GL context keeps being lost'); }
   }
   function init() {
@@ -73,19 +73,34 @@ window.Warp = (function () {
       const lp = gl.getAttribLocation(prog, 'p'), lt = gl.getAttribLocation(prog, 't');
       gl.bindBuffer(gl.ARRAY_BUFFER, pbuf); gl.enableVertexAttribArray(lp); gl.vertexAttribPointer(lp, 2, gl.FLOAT, false, 0, 0);
       gl.bindBuffer(gl.ARRAY_BUFFER, tbuf); gl.enableVertexAttribArray(lt); gl.vertexAttribPointer(lt, 2, gl.FLOAT, false, 0, 0);
-      tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      tex = newTex();
       gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
       gl.disable(gl.DEPTH_TEST); gl.disable(gl.BLEND);
       ready = true;
     } catch (e) { failed = true; console.warn('Warp disabled:', e.message || e); }
     return ready;
   }
+  function newTex() {
+    const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    return t;
+  }
+  // Textures kept between frames (draw's `keep`: a figure standing in one painting, engine/actor.js): one per figure,
+  // sent to the GPU again only when keep.ver has moved; the 16 used most recently are held, the rest deleted.
+  const held = new Map(), HELD = 16;
+  function heldTex(keep) {
+    let r = held.get(keep);
+    if (r) held.delete(keep); else r = { tex: newTex(), ver: -1 };
+    held.set(keep, r);
+    while (held.size > HELD) { const k = held.keys().next().value; gl.deleteTexture(held.get(k).tex); held.delete(k); }
+    return r;
+  }
   // src: canvas holding the frame at (0,0)-(sw,sh). fn(x, y) -> [x', y'] in the same pixel space.
   // Drawn to g with the source origin at (dx, dy); pad is the room the displacement may need.
   // L (optional): lighting in source pixels { amb:[r,g,b], fog:[r,g,b,a], key:[r,g,b,a], keySide, feet, fig, lights:[{x,y,rgb:[r,g,b],I,rim}] }
-  function draw(g, src, sw, sh, dx, dy, fn, pad, L) {
+  // keep (optional): an object with a `ver` that changes whenever src's picture does; its texture is kept (heldTex)
+  function draw(g, src, sw, sh, dx, dy, fn, pad, L, keep) {
     if (window.WARP === false || !init()) return false;
     pad = Math.ceil(pad);
     const W = Math.ceil(sw) + pad * 2, H = Math.ceil(sh) + pad * 2;
@@ -93,8 +108,13 @@ window.Warp = (function () {
     gl.viewport(0, 0, cv.width, cv.height);
     gl.uniform2f(uRes, cv.width, cv.height);
     gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.bindTexture(gl.TEXTURE_2D, tex);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src); texVer = null;
+    if (keep) {
+      const r = heldTex(keep); gl.bindTexture(gl.TEXTURE_2D, r.tex);
+      if (r.ver !== keep.ver) { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src); r.ver = keep.ver; }
+    } else {
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src); texVer = null;
+    }
     const tw = src.width, th = src.height;
     gl.uniform1f(U.uLit, L ? 1 : 0);
     if (L) {

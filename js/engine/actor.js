@@ -644,21 +644,34 @@
       const Q = P => P && Object.assign({}, P, { x: P.x * q, y: P.y * q, w: P.w * q, h: P.h * q, s: P.s * q });
       const Aq = Q(A), Bq = Q(B), Uq = { x: U.x * q, y: U.y * q, r: U.r * q, b: U.b * q };
       const bwq = Math.round(bw * q), bhq = Math.round(bh * q);
-      const comp = walkF ? composeFrames(Aq, Bq, 1 - walkF, Uq, bwq, bhq, true) : composeFrames(Aq, Bq, B ? this.fadeT / (this.fadeDur || XFADE) : 0, Uq, bwq, bhq, false, this.fadeSim, !!(E.SPRITES[key].rigid || (B && B.sp.rigid)), this.fadeHand);
       // standing behind furniture (render.js markOccluded): the figure darkens softly towards the furniture's top edge
-      if (this.occEdge != null && !window.FAST && comp.getContext) {
-        const yE = (this.occEdge - (this.y + U.y)) * q, band = h * OCC_BAND * q;
-        if (yE > 0 && yE - band < bhq) {
-          const c2 = comp.getContext('2d'); c2.save(); c2.globalCompositeOperation = 'source-atop';
-          const gr = c2.createLinearGradient(0, yE - band, 0, yE + 1);
-          gr.addColorStop(0, 'rgba(12,8,5,0)'); gr.addColorStop(0.65, `rgba(12,8,5,${OCC_DARK * 0.45})`); gr.addColorStop(1, `rgba(12,8,5,${OCC_DARK})`);
-          c2.fillStyle = gr; c2.fillRect(0, yE - band, bwq, band + 2); c2.restore();
+      const yE = this.occEdge != null && !window.FAST ? (this.occEdge - (this.y + U.y)) * q : 0, band = h * OCC_BAND * q, occ = yE > 0 && yE - band < bhq;
+      // A figure holding one painting (no dissolve, no morph, no step in progress) is put together once and kept, with its
+      // texture on the GPU (js/warp.js) and its shadow's silhouette (lights.js): until the painting, its face, its size or
+      // the furniture's shade on it changes, a frame only bends and lights what is already there. Before, every figure
+      // was scaled into the scratch canvas, shaded and sent to the GPU again every frame, standing still or not.
+      // (?figcache=0, or window.FIGCACHE = false: as before)
+      let comp, kept = null;
+      if (!B && !walkF && FIGCACHE && window.FIGCACHE !== false) {
+        const K = kept = this.fig || (this.fig = { c: document.createElement('canvas'), sig: '', ver: 0 });
+        const sig = key + '|' + (flipped ? 1 : 0) + '|' + imId(A.im) + '|' + bwq + 'x' + bhq + '|' + q + '|' + Aq.w.toFixed(2) + 'x' + Aq.h.toFixed(2) + '|' + (Aq.x - Uq.x).toFixed(2) + ',' + (Aq.y - Uq.y).toFixed(2) + '|' + (occ ? yE.toFixed(2) + ':' + band.toFixed(2) : '');
+        if (K.sig !== sig) {
+          // (a clear margin right and below, as the scratch canvas had: the light pass reads the outline a little way out)
+          const m = Math.ceil(h * q * 0.04) + 2, kx = K.c.getContext('2d');
+          if (K.c.width !== bwq + m || K.c.height !== bhq + m) { K.c.width = bwq + m; K.c.height = bhq + m; } else kx.clearRect(0, 0, K.c.width, K.c.height);
+          blit(kx, Aq, Uq, 1);
+          if (occ) occShade(kx, yE, band, bwq);
+          K.sig = sig; K.ver++;
         }
+        comp = K.c;
+      } else {
+        comp = walkF ? composeFrames(Aq, Bq, 1 - walkF, Uq, bwq, bhq, true) : composeFrames(Aq, Bq, B ? this.fadeT / (this.fadeDur || XFADE) : 0, Uq, bwq, bhq, false, this.fadeSim, !!(E.SPRITES[key].rigid || (B && B.sp.rigid)), this.fadeHand);
+        if (occ && comp.getContext) occShade(comp.getContext('2d'), yE, band, bwq);
       }
       const sinkPx = this.sink * h;
       const unlit = !!(E.room && E.room.unlit && E.room.unlit.test(key));
       const lights = unlit ? [] : E.lightsOn(this.x, this.y - h * 0.55, h, this);
-      if (!sinkPx && !unlit) E.groundShadows(this, comp, U, bw, bh, h, lights, q);
+      if (!sinkPx && !unlit) E.groundShadows(this, comp, U, bw, bh, h, lights, q, kept);
       const shaded = !unlit && !window.FAST && window.Warp && window.WARP !== false && window.LIT3D !== false && Warp.ok;
       const lit = shaded || unlit ? comp : E.lightSprite(comp, bwq, bhq, Uq, h * q, lights);
       const LP = shaded ? E.lightParams(Uq, h * q, lights, q) : null;
@@ -680,7 +693,7 @@
       let warped = false;
       if (!window.FAST && window.Warp && (!rigid || LP)) {
         g.save(); g.translate(X0, Y0); g.scale(1 / q, 1 / q);
-        warped = Warp.draw(g, lit, bwq, bhq, 0, 0, bendQ, rigid ? 0 : h * 0.1 * q, LP);
+        warped = Warp.draw(g, lit, bwq, bhq, 0, 0, bendQ, rigid ? 0 : h * 0.1 * q, LP, lit === comp ? kept : null);
         g.restore();
       }
       if (!warped) {
@@ -695,6 +708,15 @@
     }
   }
 
+  // the figure cache (drawBody): each picture a figure can be made from gets a number, so a change of painting or face shows
+  const FIGCACHE = !/[?&]figcache=0\b/.test(location.search), IM_ID = new WeakMap(); let imN = 0;
+  const imId = im => { let n = IM_ID.get(im); if (!n) IM_ID.set(im, n = ++imN); return n; };
+  function occShade(c2, yE, band, bwq) {
+    c2.save(); c2.globalCompositeOperation = 'source-atop';
+    const gr = c2.createLinearGradient(0, yE - band, 0, yE + 1);
+    gr.addColorStop(0, 'rgba(12,8,5,0)'); gr.addColorStop(0.65, `rgba(12,8,5,${OCC_DARK * 0.45})`); gr.addColorStop(1, `rgba(12,8,5,${OCC_DARK})`);
+    c2.fillStyle = gr; c2.fillRect(0, yE - band, bwq, band + 2); c2.restore();
+  }
   // Cross-dissolves two frames (both anchored at the feet) into one buffer.
   const compBuf = document.createElement('canvas'), cg = compBuf.getContext('2d');
   function blit(ctx, P, U, alpha) {

@@ -2251,3 +2251,10 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    bytes and decoded when first played, kept up to 48 MB (24 MB on a phone), and an ambience bed is held only while
    it plays (`Sound.memory()`). Checked here: `validate.mjs` 0 errors, smoke prologue and lobby, `loading.mjs` 30 rooms.
    Manifest rebuilt. Nothing deployed.
+
+164. **The figure cache** (2026-11-10, from Game I's session; its handoff entry 95 has the detail). The shared engine: a
+   figure holding one painting is put together once and kept, with its texture on the GPU and its shadow's silhouette,
+   until its painting, facing, face, size or the furniture's shade changes (js/engine/actor.js `this.fig`, js/warp.js
+   `heldTex`, js/engine/lights.js); `?figcache=0` draws as before. Checked here with Game I's
+   `scripts/tests/figcache.mjs` on gando (the same picture cache on and off) and smoke prologue, lobby, tue;
+   `validate.mjs` 0 errors. Manifest rebuilt.

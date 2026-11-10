@@ -85,7 +85,7 @@ if (!ONLY || ONLY.includes(++SEC)){
   await page.evaluate(() => Game.begin(true)); await settle(page);
   const r = await page.evaluate(async () => {
     const f = Game.flags;
-    Object.assign(f, { heard_machine: true, got_ledger: true, saw_list: true, sketched_tile: true, knows_brotherhood: true, ch: 2, heard_song: true, drawer_open: true, ferreira_open: true, visited_ferreira: true, ferreira_lit: true, met_celeste: true, tide_known: true, knows_1955_boy: true, turnings_deduced: true, lore_turnings: true });
+    Object.assign(f, { heard_machine: true, got_ledger: true, saw_list: true, sketched_tile: true, knows_brotherhood: true, ch: 2, heard_song: true, drawer_open: true, ferreira_open: true, visited_ferreira: true, ferreira_lit: true, met_celeste: true, tide_known: true, knows_1955_boy: true, turnings_deduced: true, lore_turnings: true, bastos_done: true }); // (bastos_done: the chapter end waits for Prof. Bastos's flat, js/story/bastos.js)
     const h1 = S.hint();
     f.tidecardTaken = true; Game.giveItem('tidecard');
     const h2 = S.hint();
@@ -97,8 +97,9 @@ if (!ONLY || ONLY.includes(++SEC)){
   ok('Ch II missing tide card -> clocks hint', r.h1 === 'ines_hint_clocks', JSON.stringify(r));
   ok('Ch II ends on entering the shop without ch2_ready', r.done, JSON.stringify(r));
   // Ch. III: Chiado chosen -> the tongue thread first
-  const h3 = await page.evaluate(() => { const f = Game.flags; Object.assign(f, { ch: 3, decoded: true, chose_chiado: true, founder_order: false, has_tongue: false }); const a = S.hint(); f.chose_chiado = false; const b = S.hint(); return [a, b]; });
-  ok('Ch III hint follows the Chiado', h3[0] === 'ines_hint_see_case' && h3[1] === 'ines_hint_order', JSON.stringify(h3));
+  const h3 = await page.evaluate(() => { const f = Game.flags; Object.assign(f, { ch: 3, decoded: true, chose_chiado: true, founder_order: false, has_tongue: false, case_known: false }); const a0 = S.hint(); f.case_known = true; const a = S.hint(); f.chose_chiado = false; const b = S.hint(); return [a0, a, b]; });
+  // (before anyone has seen Lacerda's shop she can't know there's a case: the shop first, then the case)
+  ok('Ch III hint follows the Chiado', h3[0] === 'ines_hint_lacerda_shop' && h3[1] === 'ines_hint_see_case' && h3[2] === 'ines_hint_order', JSON.stringify(h3));
   await page.close();
 }
 // 7. GL context loss: frames go on, no errors, and GL comes back
