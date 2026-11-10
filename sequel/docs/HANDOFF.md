@@ -2243,3 +2243,11 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
     while a shared file differs. CLAUDE.md says so, and that every session starts from master and merges before deploying
     (entry 156's two Game II lines). Also checked: Game I's rooms still ground their figures after entry 161 (their lamps
     cast shadows, `shadow` unset meaning on: tavern, cistern, bedroom, quay measured at 0.53-0.62 opacity).
+
+163. **Three engine bugs and the sound's memory** (2026-11-09, from Game I's session; its handoff entry 94 has the detail).
+   The shared engine, fixed in Game I and copied here: the image stream keeps its story order (`want` in js/engine.js
+   moved a waiting key to the back each time it was asked for again); the Voice volume reaches the room's reverb
+   (js/audio.js `voiceSend`); the hit-test cache is a WeakMap (js/engine/geometry.js); sound effects are fetched as mp3
+   bytes and decoded when first played, kept up to 48 MB (24 MB on a phone), and an ambience bed is held only while
+   it plays (`Sound.memory()`). Checked here: `validate.mjs` 0 errors, smoke prologue and lobby, `loading.mjs` 30 rooms.
+   Manifest rebuilt. Nothing deployed.

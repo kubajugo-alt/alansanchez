@@ -66,8 +66,10 @@
       job = { promise: p, resolve, started: false, finished: false, tries }; pending.set(key, job);
     }
     if (!job.started) {
-      const i = queue.indexOf(key); if (i >= 0) queue.splice(i, 1);
-      if (front) { queue.unshift(key); job.front = true; } else queue.push(key);
+      // (asked for again while it waits: it keeps its place. order() names every image more than once, the last time in
+      // the order they were registered, and moving a key to the back each time undid the story order)
+      const i = queue.indexOf(key);
+      if (front) { if (i >= 0) queue.splice(i, 1); queue.unshift(key); job.front = true; } else if (i < 0) queue.push(key);
       pump();
     }
     return job.promise;
