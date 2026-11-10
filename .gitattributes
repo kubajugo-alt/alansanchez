@@ -15,3 +15,5 @@ art/review/stills/still_duarte_bed_laugh.jpg -export-ignore
 # The Shortest Night (Game II) lives in sequel/ and deploys to its own Netlify project from `git archive HEAD:sequel`;
 # Game I's export (`git archive HEAD`) leaves it out
 sequel/ export-ignore
+# Mex Slots (mex/) is a standalone toy, not part of either game
+mex/ export-ignore
