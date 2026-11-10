@@ -67,14 +67,18 @@
   const silBuf = document.createElement('canvas'), sg = silBuf.getContext('2d');
   // the silhouette at a quarter size: drawn back up smoothed it is the soft shadow (a canvas blur filter per light per
   // frame was one of the slowest things on a phone)
-  const softBuf = document.createElement('canvas'), soft = softBuf.getContext('2d');
-  function groundShadows(a, comp, U, bw, bh, h, lights, q) { // (q: comp is drawn at q buffer px per scene px): the cast shadows
+  const softShared = document.createElement('canvas');
+  function groundShadows(a, comp, U, bw, bh, h, lights, q, kept) { // (q: comp is drawn at q buffer px per scene px): the cast shadows
+    // (kept: the figure's cache, actor.js drawBody: its soft silhouette is made once per picture, not once per frame)
     q = q || 1;
     // (no round contact shadow under the feet: the user, 2026-11-04, "I don't like that round one - I'd remove it from the
     // engine totally, for all games"; a figure is grounded by the shadows its room's lights cast)
     // cast shadows, one per light, stretched away from it across the floor
     const casters = lights.filter(o => o.l.shadow !== false && o.I > 0.03 && o.l.owner !== a);
     if (!casters.length) return;
+    const sw = Math.max(1, Math.round(bw / 4)), sh = Math.max(1, Math.round(bh / 4));
+    const softBuf = kept ? (kept.soft || (kept.soft = document.createElement('canvas'))) : softShared, soft = softBuf.getContext('2d');
+    if (!(kept && kept.softVer === kept.ver && softBuf.width === sw && softBuf.height === sh)) {
     fit(silBuf, sg, bw, bh);
     sg.drawImage(comp, 0, 0, Math.round(bw * q), Math.round(bh * q), 0, 0, bw, bh);
     sg.globalCompositeOperation = 'source-in'; sg.fillStyle = '#000'; sg.fillRect(0, 0, bw, bh);
@@ -87,9 +91,10 @@
     fade.addColorStop(1, 'rgba(0,0,0,0.28)');
     sg.fillStyle = fade; sg.fillRect(0, 0, bw, bh);
     sg.globalCompositeOperation = 'source-over';
-    const sw = Math.max(1, Math.round(bw / 4)), sh = Math.max(1, Math.round(bh / 4));
     if (softBuf.width !== sw || softBuf.height !== sh) { softBuf.width = sw; softBuf.height = sh; } else soft.clearRect(0, 0, sw, sh);
     soft.imageSmoothingEnabled = true; soft.imageSmoothingQuality = 'medium'; soft.drawImage(silBuf, 0, 0, bw, bh, 0, 0, sw, sh);
+    if (kept) kept.softVer = kept.ver;
+    }
     for (const o of casters) {
       const fp = o.l.floor || [o.l.x, a.y - 40];
       let vx = a.x - fp[0], vy = (a.y - fp[1]);

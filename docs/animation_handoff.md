@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `56c8bb00` (Netlify `6aeb8e977b2565722bac0623`, entry 92;
 PR kubajugo-alt/alansanchez#21): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-94; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-95; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1676,6 +1676,31 @@ session lived in the session's scratchpad and are gone; everything that matters 
      prologue, lobby, `loading.mjs` 30 rooms). `robustness.mjs`: two story checks fail (the Ch. II end on entering the
      shop, the Ch. III Chiado hint) and fail the same on master before this change: not looked into here.
      Manifests rebuilt in both games. Nothing deployed.
+
+95. **The figure cache, and two stale checks** (2026-11-10, the user: "Do it all": merge, the next item of the review, the
+   two failing checks, deploy). PR #23 (entry 94) merged into master first.
+   - **A figure holding one painting is put together once and kept** (js/engine/actor.js `drawBody`, `this.fig`): until
+     its painting, facing, face (mouth, eyelids), size or the furniture's shade on it changes, a frame only bends and
+     lights what is there. Its texture stays on the GPU (js/warp.js `draw(..., keep)`, `heldTex`: the 16 used most
+     recently, the rest deleted, all dropped with a lost context) and its shadow's soft silhouette is made once per
+     picture (js/engine/lights.js `groundShadows(..., kept)`). Dissolves, morphs and walk-morph steps go through the
+     scratch canvas as before. `?figcache=0` (or `window.FIGCACHE = false`) draws as before.
+   - **Checked:** `scripts/tests/figcache.mjs` (new, kept: `node scripts/tests/figcache.mjs <url> [scene] [rooms]
+     [dpr]`, `WARP=1` for the GPU path) freezes the clock and draws the same instant with the cache off, on, off, in
+     each room standing, with someone speaking, with Alan walking and after: shop, tavern, street, police, cistern,
+     boat, lavadouro, convent, flat and GPU paths, at 1x and 2x. The same picture, but for at most 207 of 921,600 pixels
+     off by at most 8 levels in 255 at a figure's edge or in the furniture's shade; with the kept canvas made the
+     scratch canvas's size they fall to 0 (flat) and 33 px by 5 (GPU), so it is the browser scaling into, and the GPU
+     sampling, a canvas of another size: not something a player can see. Game II: gando passes (the hotel lobby moves on
+     its own clock with the cache off too, so its shots say nothing).
+   - **Speed**, in headless Chromium with no GPU and the CPU slowed four times (comparative only): the tavern, flat
+     path, 6-8 frames a second before, 11-12 with the cache; with the software mesh warp 3.5-3.8 before, 4.8 after;
+     the shop (three figures) within the noise. **Not measured on a phone**: `?fps` with and without `?figcache=0`.
+   - **scripts/tests/robustness.mjs**: its two failing story checks were stale, not bugs. The Chapter II end waits for
+     Prof. Bastos's flat since the Bastos level (the check now sets `bastos_done`), and Inês names Lacerda's shop before
+     its case (`case_known`; the check now asks for both). 12 of 12 pass.
+   - `validate.mjs` 0 errors in both games; smoke intro, bench, tavernafter, romance, bath, finale (Game II: prologue,
+     lobby, tue); copied to Game II with `sync-engine.mjs --from game1` (its entry 164); manifests rebuilt.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
