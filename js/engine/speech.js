@@ -74,13 +74,39 @@
     if (dx) el.style.left = `calc(${el.style.left} + ${dx / gr.width * 100}%)`;
     if (dy) el.style.top = `calc(${el.style.top} + ${dy / gr.height * 100}%)`;
   }
-  function positionSpeech() {
+  // The caption over a speaker follows them every frame. Its box is measured when the line goes up, when the speaker
+  // moves across the room (the box can be narrower towards the right edge: its width depends on where it starts) and when
+  // the frame or the text size changes; between those, its place is worked out from the numbers kept and written only if
+  // it moved. Before, every frame wrote the place, measured the page (a forced layout) and often wrote it again. It sits
+  // where keepInside(speechEl, 14) put it (scripts/tests/captions.mjs).
+  const cap = { w: 0, h: 0, gw: 0, gh: 0, at: null, stale: true, left: '', top: '' };
+  const captionStale = () => { cap.stale = true; };
+  let capWatch = null;
+  try { if (window.ResizeObserver) { capWatch = new ResizeObserver(captionStale); capWatch.observe(wrap); } } catch (e) { capWatch = null; }
+  // (the caption's font arrives the first time a caption needs it: measured again when it lands)
+  try { if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', captionStale); } catch (e) { /* old browser */ }
+  function positionSpeech(fresh) {
     if (!E.speaking || !E.speaking.actor) return;
     const a = E.speaking.actor, b = a.bbox();
     let [sx, sy] = [b.x + b.w / 2, b.y - 10];
     if (window.Parallax && Parallax.active && E.room && E.room.depth) [sx, sy] = Parallax.at(sx, sy, a.x, a.y); // (where the parallax put them)
-    speechEl.style.left = (sx / W * 100) + '%'; speechEl.style.top = (sy / H * 100) + '%';
-    keepInside(speechEl, 14);
+    const at = Math.round(sx / W * 1000); // (the speaker's place across the room, in thousandths)
+    if (fresh || cap.stale || !capWatch || at !== cap.at || window.CAPTION_OLD) {
+      // measured where the speaker is, as it always was: then nudged inside the frame
+      speechEl.style.left = (sx / W * 100) + '%'; speechEl.style.top = (sy / H * 100) + '%'; cap.left = cap.top = '';
+      if (window.CAPTION_OLD) { keepInside(speechEl, 14); cap.stale = true; return; } // (the old way: tests)
+      const r = speechEl.getBoundingClientRect(), gr = wrap.getBoundingClientRect();
+      cap.w = r.width; cap.h = r.height; cap.gw = gr.width; cap.gh = gr.height; cap.at = at; cap.stale = false;
+    }
+    if (!cap.w || !cap.gw) return;
+    // the caption's middle (x) and foot (y) in the frame's own px, kept 14 scene px inside its edges
+    const m = 14 * cap.gw / W;
+    let x = sx / W * cap.gw, y = sy / H * cap.gh;
+    if (cap.w > cap.gw - 2 * m) x = cap.gw / 2; else x = Math.max(m + cap.w / 2, Math.min(cap.gw - m - cap.w / 2, x));
+    if (y - cap.h < m) y = m + cap.h; else if (y > cap.gh - m) y = cap.gh - m;
+    const left = (x / cap.gw * 100).toFixed(2) + '%', top = (y / cap.gh * 100).toFixed(2) + '%';
+    if (left !== cap.left) speechEl.style.left = cap.left = left;
+    if (top !== cap.top) speechEl.style.top = cap.top = top;
   }
   function clearSpeech() {
     if (E.speaking && E.speaking.actor) E.phraseEndT = E.time; // the line is over: listeners may nod
@@ -122,7 +148,7 @@
         const p = E.player, unshown = (p.dir === 'e' || p.dir === 'w') && !p.pairKey && p.lastLooksLeft != null && p.lastLooksLeft !== (p.dir === 'w');
         if (!window.FAST && p.visible && (p.dir !== pd || p.viaT != null || unshown)) await wait(220);
         speechEl.textContent = text; speechEl.style.color = COLORS[who] || '#fff';
-        speechEl.style.display = 'block'; positionSpeech();
+        speechEl.style.display = 'block'; positionSpeech(true);
       } else {
         narrEl.querySelector('.who').textContent = who === 'narr' ? '' : (opts.label || NAMES[who] || '');
         const t = narrEl.querySelector('.txt');
@@ -201,5 +227,5 @@
     }
   }
 
-  Object.assign(E, { turnsFreely, canTurn, keepInside, positionSpeech, clearSpeech, say, lyrics, says, dialog });
+  Object.assign(E, { turnsFreely, canTurn, keepInside, positionSpeech, captionStale, clearSpeech, say, lyrics, says, dialog });
 })();

@@ -2264,3 +2264,12 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    geometry.js and offline.json byte-equal to the export; live smoke prologue, lobby pass (the first run died once on a
    network error just after the host was allowed; the rerun passed). The session had to move from the Default cloud
    environment onto `alansanchez` to reach Netlify (Game I's entry 95).
+
+165. **Captions, faces and furniture** (2026-11-11, from Game I's session; its handoff entry 96 has the detail). The shared
+   engine: a caption is measured when it goes up and placed from the kept numbers after (speech.js); a figure's face
+   is repainted in place on at most three canvases, where 24 whole canvases were kept (faces.js); the piece of the
+   painting cut for furniture is kept per room (render.js; `?occcache=0`). **This game's `skinTint`
+   (js/story/tue.js) changed with it:** a face canvas is now repainted in place, so the recoloured copies are keyed by
+   what it shows (`im._sig`), 24 kept. Checked here: Game I's `faces.mjs` on this game's 85 face sets (1,190 faces, 0
+   pixels differ from the old way), `captions.mjs`, `figcache.mjs` on gando with the sunburn on (speaking, walking),
+   the tint following the mouth, smoke prologue, lobby, tue; `validate.mjs` 0 errors. Not deployed.

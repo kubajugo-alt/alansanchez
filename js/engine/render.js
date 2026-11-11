@@ -47,23 +47,49 @@
     for (const [w, a] of [[OCC_SOFT * 2, 0.28], [OCC_SOFT, 0.32]]) { x.globalAlpha = a; x.lineWidth = w; occPath(x, P, bx, by); x.stroke(); }
     return (o._fm = { bx, by, bw, bh, c, rs: RS });
   }
-  let occBuf = null;
+  let occBuf = null, frameN = 0, layN = -1, layKey = '', occRoom = null;
+  // The piece of the painting cut out for a piece of furniture is kept from frame to frame (per room): it is cut again
+  // only when the painting, the render scale or the layers lying still in it change. Furniture with props of its own
+  // drawn by the clock (o.draw) is cut every frame, as all of it was before. (?occcache=0, window.OCCCACHE = false: as before)
+  const OCC_CACHE = !/[?&]occcache=0\b/.test(location.search), occKept = new Map();
+  // which layers are in the still painting this frame (drawLayers(true): shown, loaded, and not swung or bobbed just now)
+  function stillLayers() {
+    if (layN === frameN) return layKey;
+    layN = frameN; layKey = '';
+    for (const l of (E.room.layers || [])) {
+      if ((l.when && !l.when()) || !IMG['lay:' + l.img]) continue;
+      if (!(l.swing && l.swing(E.time)) && !(l.bob && l.bob(E.time))) layKey += l.img + ',';
+    }
+    return layKey;
+  }
   function drawOccluder(o, onTop) {
     const im = IMG['bg:' + curBg()]; if (!im) return;
     const P = o.polys || [o.poly], m = occMask(o), mw = m.c.width, mh = m.c.height;
-    if (!occBuf) occBuf = document.createElement('canvas');
-    if (occBuf.width < mw || occBuf.height < mh) { occBuf.width = Math.max(occBuf.width, mw); occBuf.height = Math.max(occBuf.height, mh); }
-    const t = occBuf.getContext('2d');
-    t.save(); t.setTransform(1, 0, 0, 1, 0, 0); t.clearRect(0, 0, mw, mh); t.setTransform(m.rs, 0, 0, m.rs, -m.bx * m.rs, -m.by * m.rs); t.imageSmoothingQuality = 'high';
-    t.drawImage(im, 0, 0, W, H); drawLayers(true, t);
-    if (o.draw) o.draw(t, E.time); // props that sit on the occluding furniture
-    t.restore();
-    t.save(); t.globalCompositeOperation = 'destination-in'; t.drawImage(m.c, 0, 0); t.restore();
+    let buf = null, cut = true;
+    if (OCC_CACHE && window.OCCCACHE !== false && !o.draw) {
+      if (occRoom !== E.room) { occKept.clear(); occRoom = E.room; }
+      let K = occKept.get(o); if (!K) occKept.set(o, K = { c: document.createElement('canvas'), key: null });
+      const key = curBg() + '|' + m.rs + '|' + mw + 'x' + mh + '|' + stillLayers();
+      if (K.key === key) cut = false; else { K.key = key; if (K.c.width !== mw || K.c.height !== mh) { K.c.width = mw; K.c.height = mh; } }
+      buf = K.c;
+    } else {
+      if (!occBuf) occBuf = document.createElement('canvas');
+      if (occBuf.width < mw || occBuf.height < mh) { occBuf.width = Math.max(occBuf.width, mw); occBuf.height = Math.max(occBuf.height, mh); }
+      buf = occBuf;
+    }
+    if (cut) {
+      const t = buf.getContext('2d');
+      t.save(); t.setTransform(1, 0, 0, 1, 0, 0); t.clearRect(0, 0, mw, mh); t.setTransform(m.rs, 0, 0, m.rs, -m.bx * m.rs, -m.by * m.rs); t.imageSmoothingQuality = 'high';
+      t.drawImage(im, 0, 0, W, H); drawLayers(true, t);
+      if (o.draw) o.draw(t, E.time); // props that sit on the occluding furniture
+      t.restore();
+      t.save(); t.globalCompositeOperation = 'destination-in'; t.drawImage(m.c, 0, 0); t.restore();
+    }
     const T0 = g.getTransform();
     g.save();
     // (the furniture moves as the floor at its front edge moves)
     if (PX()) { const xs = P.flat().map(p => p[0]); Parallax.apply(g, o.base ? (o.base[0][0] + o.base[1][0]) / 2 : (Math.min(...xs) + Math.max(...xs)) / 2, o.base ? (o.base[0][1] + o.base[1][1]) / 2 : o.y); }
-    g.drawImage(occBuf, 0, 0, mw, mh, m.bx, m.by, mw / m.rs, mh / m.rs);
+    g.drawImage(buf, 0, 0, mw, mh, m.bx, m.by, mw / m.rs, mh / m.rs);
     // keep lamp halos continuous across the repainted patch (each glow at its own lamp's depth, so outside this transform)
     occPath(g, P, 0, 0); g.clip(); g.setTransform(T0);
     if (onTop) onTop(); // whoever lies on top of this furniture, again over it (inside its outline only: see depthOf)
@@ -166,6 +192,7 @@
   }
   let cine = null;
   function drawFrame(dt) {
+    frameN++;
     // drawn at the screen's pixel count, laid out in scene px (base.js: the render scale)
     const RS = E.syncRenderScale(); g.setTransform(RS, 0, 0, RS, 0, 0); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
     const c = !!E.still; if (c !== cine) { cine = c; E.wrap.classList.toggle('cine', c); } // the buttons step aside for a painting
