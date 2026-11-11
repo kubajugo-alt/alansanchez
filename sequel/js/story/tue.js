@@ -864,12 +864,24 @@
 // pulled towards red by E.sunburn() (0..1, from the story). Each painted frame is recoloured once per strength and kept.
 (function () {
   const E = window.Engine; const done = new WeakMap();
+  // a painting with its face laid in (engine/faces.js) is one canvas repainted in place: its recoloured copies are kept
+  // by what it shows (im._sig), the 24 used most recently (the old canvas is used again for the one let go)
+  const faced = new Map(), FACED = 24; let skinVer = 1e9;
   function skinTint(actor, key, im) {
     const k = actor === E.player && E.sunburn ? E.sunburn() : 0;
     if (!k || !im || !im.width) return im;
-    let per = done.get(im); if (!per) done.set(im, per = {});
-    const q = Math.round(k * 20) / 20; if (per[q]) return per[q];
-    const c = document.createElement('canvas'); c.width = im.width; c.height = im.height;
+    const q = Math.round(k * 20) / 20;
+    let c = null, per = null, fk = null;
+    if (im._sig) {
+      fk = q + '|' + im._sig; const hit = faced.get(fk);
+      if (hit) { faced.delete(fk); faced.set(fk, hit); return hit; }
+      if (faced.size >= FACED) { const old = faced.keys().next().value; c = faced.get(old); faced.delete(old); }
+    } else {
+      per = done.get(im); if (!per) done.set(im, per = {});
+      if (per[q]) return per[q];
+    }
+    if (!c) c = document.createElement('canvas');
+    if (c.width !== im.width || c.height !== im.height) { c.width = im.width; c.height = im.height; } else c.getContext('2d').clearRect(0, 0, c.width, c.height);
     const x = c.getContext('2d'); x.drawImage(im, 0, 0);
     let d; try { d = x.getImageData(0, 0, c.width, c.height); } catch (e) { return im; }
     const p = d.data;
@@ -882,6 +894,8 @@
       p[i] = r * (1 - q) + Math.min(255, r * 1.1 + 22) * q; p[i + 1] = g * (1 - q) + g * 0.62 * q; p[i + 2] = b * (1 - q) + b * 0.58 * q;
     }
     x.putImageData(d, 0, 0);
+    c._v = (skinVer += 1); // (its picture changed: the figure cache reads this)
+    if (fk) { faced.set(fk, c); return c; }
     return (per[q] = c);
   }
   Object.assign(E, { skinTint });

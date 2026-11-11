@@ -8,7 +8,7 @@ line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53
 live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `b598b158` (Netlify `6af4b9ffe34fdef76d990bc9`, entry 95;
 PRs kubajugo-alt/alansanchez#23 and #25): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-95; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-96; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1713,6 +1713,36 @@ session lived in the session's scratchpad and are gone; everything that matters 
      since PR #24), which the export doesn't hold; Netlify's build rebuilt the list without them, so the live one was
      right. `scripts/build-manifest.mjs` now leaves `mex/` out as it does `sequel/`: the committed list is the live
      one (version `8210a6aa02`).
+
+96. **Captions, faces and furniture: three more from the engine review** (2026-11-11, the user: "Do 2, 3 and 4" of the
+   list in chat). The shared engine, copied to Game II (its entry 165). Nothing the player sees changes; each is
+   checked against the way it was drawn before.
+   - **Captions** (js/engine/speech.js `positionSpeech`): the caption over a speaker was placed, measured (a forced page
+     layout) and often placed again every frame. Now its box is measured when the line goes up, when the speaker moves
+     across the room (the box narrows towards the right edge, so its size depends on where it starts), when the frame
+     resizes, the Text size changes (`E.captionStale`, saves.js) or its font lands; between those the place is worked
+     out from the kept numbers and written only when it moved. `window.CAPTION_OLD` places it the old way (tests).
+     `scripts/tests/captions.mjs` (new): 189 places (three window sizes, three text sizes, short to very long lines,
+     speakers at every edge) within 0.08 px of the old place; a frame with nothing changed writes nothing.
+   - **Faces** (js/engine/faces.js `faceImage`): every combination of mouth, eyelids and emotion kept a whole canvas the
+     size of its painting, 24 of them (1 to 4.8 MB each), outside the loader's memory budget. Now a figure holds at
+     most three canvases (the painting up, the one it is leaving, one more), each repainted in place when its face
+     changes (the face boxes put back as painted, then the patches) and used again for the next painting. The canvas
+     carries `_v` (moves with its picture: the figure cache reads it) and `_sig` (what it shows). Game II's `skinTint`
+     (sequel/js/story/tue.js) keys its recoloured copies by `_sig`, 24 kept, where it keyed them by the canvas.
+     `scripts/tests/faces.mjs` (new) runs the engine's old faces.js (kept as `scripts/tests/fixtures/faces_old.js`)
+     beside the new one: all 508 face sets of Game I, 7,112 faces (6,764 with a patch), and Game II's 85 sets, 1,190
+     faces: 0 pixels differ. Sunburnt Alan in Game II: the mouth moves under the tint and comes back the same.
+   - **Furniture in front of figures** (js/engine/render.js `drawOccluder`): its piece of the painting was cut again
+     every frame (the whole painting drawn into a scratch canvas, masked). Now the cut is kept per room and made again
+     only when the painting, the render scale or the layers lying still in it change; furniture with props drawn by
+     the clock (`o.draw`) is cut every frame as before. `?occcache=0` / `window.OCCCACHE = false`: as before.
+     `scripts/tests/figcache.mjs` now turns both caches off and on: shop, tavern, police, lavadouro, cistern, convent,
+     boat, flat and GPU paths, standing, speaking (the mouth moving), walking: all pass.
+   - **Speed** (headless Chromium, no GPU, CPU slowed four times, a caption up; comparative only): the lavadouro 7.8
+     frames a second before, 9.3-9.5 after; the police station within the noise (13-15). Not measured on a phone.
+   - Also: robustness 12 of 12, a11y passes, smoke intro, bench, tavernafter, romance, bath, visitguitar (Game II:
+     prologue, lobby, tue); `validate.mjs` 0 errors in both games; manifests rebuilt. **Not deployed.**
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

@@ -102,7 +102,7 @@
   const pref = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
   const keep = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } };
   let textI = Math.max(0, SIZES.findIndex(s => s[0] === pref(TEXT_KEY))); if (pref(TEXT_KEY) == null) textI = 1;
-  const applyText = () => document.documentElement.style.setProperty('--cap', SIZES[textI][1]);
+  const applyText = () => { document.documentElement.style.setProperty('--cap', SIZES[textI][1]); if (E.captionStale) E.captionStale(); }; // (a caption up now is measured again)
   const sysCalm = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
   const applyMotion = () => { window.CALM = pref(MOTION_KEY) ? pref(MOTION_KEY) === 'calm' : sysCalm(); document.body.classList.toggle('calm', !!window.CALM); };
   applyText(); applyMotion();

@@ -654,7 +654,7 @@
       let comp, kept = null;
       if (!B && !walkF && FIGCACHE && window.FIGCACHE !== false) {
         const K = kept = this.fig || (this.fig = { c: document.createElement('canvas'), sig: '', ver: 0 });
-        const sig = key + '|' + (flipped ? 1 : 0) + '|' + imId(A.im) + '|' + bwq + 'x' + bhq + '|' + q + '|' + Aq.w.toFixed(2) + 'x' + Aq.h.toFixed(2) + '|' + (Aq.x - Uq.x).toFixed(2) + ',' + (Aq.y - Uq.y).toFixed(2) + '|' + (occ ? yE.toFixed(2) + ':' + band.toFixed(2) : '');
+        const sig = key + '|' + (flipped ? 1 : 0) + '|' + imId(A.im) + '.' + (A.im._v || 0) + '|' + bwq + 'x' + bhq + '|' + q + '|' + Aq.w.toFixed(2) + 'x' + Aq.h.toFixed(2) + '|' + (Aq.x - Uq.x).toFixed(2) + ',' + (Aq.y - Uq.y).toFixed(2) + '|' + (occ ? yE.toFixed(2) + ':' + band.toFixed(2) : '');
         if (K.sig !== sig) {
           // (a clear margin right and below, as the scratch canvas had: the light pass reads the outline a little way out)
           const m = Math.ceil(h * q * 0.04) + 2, kx = K.c.getContext('2d');

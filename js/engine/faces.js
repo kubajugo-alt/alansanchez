@@ -131,7 +131,14 @@
   }
 
   // ---------------------------------------------------------------- the painting with its face
-  const cache = new Map();
+  // One canvas the size of the painting per figure and painting, its face repainted in place when the mouth, the eyelids
+  // or the emotion change (each face box put back as painted, then the patches laid in): a figure holds at most three
+  // (the painting up, the one it is leaving, one more for a talk loop), and an old one is used again for the next
+  // painting. Before, every combination of mouth, eyelids and emotion kept a whole canvas of its own, 24 of them
+  // (a megabyte to nearly five each), outside the loader's memory budget.
+  // The canvas says what it shows: `_v` moves whenever its picture does (the figure cache in actor.js reads it) and
+  // `_sig` names the painting and the face on it (a game's skinTint keys its recoloured copies by it).
+  const HELD = 3; let faceVer = 0;
   // a pair painting holds its partner's face too, as the set '<frame>__<speaker>' (Vasco in pair_vasco_card:
   // 'pair_vasco_card__vasco'); a partner's line, spoken through Alan's actor (speech.js actorFor), moves only that face
   const partners = new Map();
@@ -174,24 +181,32 @@
         key: (mp ? mn : '') + '|' + (ep ? en : '') + '|' + (lp ? ln : '') });
     }
     if (!layers.length) return im;
-    const ck = key + '|' + layers.map(l => l.key).join('|');
-    let cv = cache.get(ck);
-    if (cv) { cache.delete(ck); cache.set(ck, cv); } // (most recent last: the oldest goes first)
-    if (!cv) {
-      // each entry is a full-size canvas (a megabyte or more): keep the 24 most recent, not 120 (a phone's canvas memory)
-      while (cache.size >= 24) cache.delete(cache.keys().next().value);
-      cv = document.createElement('canvas'); cv.width = im.naturalWidth; cv.height = im.naturalHeight;
-      const c = cv.getContext('2d');
-      c.drawImage(im, 0, 0);
+    const ck = key + (any ? '~' : '') + '|' + layers.map(l => l.key).join('|');
+    const mine = a.faceCv || (a.faceCv = new Map());
+    let R = mine.get(key);
+    if (R) mine.delete(key); // (most recent last: the oldest is used again first)
+    if (!R || R.im !== im) {
+      let cv = R && R.cv;
+      if (!cv && mine.size >= HELD) { const old = mine.keys().next().value; cv = mine.get(old).cv; mine.delete(old); }
+      if (!cv) cv = document.createElement('canvas');
+      if (cv.width !== im.naturalWidth || cv.height !== im.naturalHeight) { cv.width = im.naturalWidth; cv.height = im.naturalHeight; }
+      const c = cv.getContext('2d'); c.clearRect(0, 0, cv.width, cv.height); c.drawImage(im, 0, 0);
+      R = { cv, im, ck: '' };
+    }
+    mine.set(key, R);
+    if (R.ck !== ck) {
+      const c = R.cv.getContext('2d');
+      // every face box as painted again (whole numbers of px, one to one: the painting's own pixels)
+      if (R.ck) for (const [, S] of sets) for (const [x, y, w, h] of [S.box, S.emo && S.emo.box].filter(Boolean)) { c.clearRect(x, y, w, h); c.drawImage(im, x, y, w, h, x, y, w, h); }
       // the lower face replaces the box, so no painted lips show under it; eyes after every mouth (two faces close together
       // in a pair painting can share some of a box)
       for (const { box: [x, y, w, h], mp } of layers) if (mp) { c.clearRect(x, y, w, h); c.drawImage(mp, x, y, w, h); }
       // an emotion: quiet, its whole face replaces its box; over a talking mouth, its brows and eyes are laid on
       for (const { eb: [x, y, w, h], ep, full } of layers) if (ep) { if (full) c.clearRect(x, y, w, h); c.drawImage(ep, x, y, w, h); }
       for (const { lb: [x, y, w, h], lp } of layers) if (lp) c.drawImage(lp, x, y, w, h);
-      cache.set(ck, cv);
+      R.ck = ck; R.cv._v = ++faceVer; R.cv._sig = ck;
     }
-    return cv;
+    return R.cv;
   }
 
   // a frame with a face set in use (the talk loops play only these while someone speaks: the lip-synced mouth never
