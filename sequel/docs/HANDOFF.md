@@ -2258,3 +2258,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    `heldTex`, js/engine/lights.js); `?figcache=0` draws as before. Checked here with Game I's
    `scripts/tests/figcache.mjs` on gando (the same picture cache on and off) and smoke prologue, lobby, tue;
    `validate.mjs` 0 errors. Manifest rebuilt.
+   **Deployed** (2026-11-11, the user: "You can deploy") with entry 163's fixes: a clean export of master `b598b158`
+   (`git archive HEAD:sequel`); `play.mjs` on the export: won, 132 steps, no errors. Netlify
+   `6af4b96506649adc16a01cf8`. Live: page 200, `/.env` 404, engine.js, audio.js, warp.js, actor.js, lights.js,
+   geometry.js and offline.json byte-equal to the export; live smoke prologue, lobby pass (the first run died once on a
+   network error just after the host was allowed; the rerun passed). The session had to move from the Default cloud
+   environment onto `alansanchez` to reach Netlify (Game I's entry 95).
