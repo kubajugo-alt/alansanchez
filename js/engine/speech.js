@@ -204,7 +204,10 @@
   async function dialog(topics) {
     const used = new Set();
     for (;;) {
-      const avail = topics.filter(t => (!t.when || t.when()) && !(t.once && used.has(t)));
+      // (a topic whose line is missing is left out and logged: reading its text threw inside the menu and left the game
+      // waiting on a choice that could never be made)
+      const avail = topics.filter(t => (!t.when || t.when()) && !(t.once && used.has(t))).filter(t => t.label || LINES[t.line] || (console.warn('dialog: missing line', t.line), false));
+      if (!avail.length) { console.warn('dialog: nothing left to choose'); return; }
       const pick = await new Promise(res => {
         E.dialogResolve = res;
         dialogEl.innerHTML = '';
