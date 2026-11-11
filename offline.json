@@ -1,4 +1,4 @@
-{"version":"fcc0ca4112","built":"2026-11-10","files":10312,"totalBytes":582539415,"list":[{"p":"art/app/icon-192.png","b":46844,"h":"3be46ce592"},
+{"version":"8210a6aa02","built":"2026-11-11","files":10308,"totalBytes":582510673,"list":[{"p":"art/app/icon-192.png","b":46844,"h":"3be46ce592"},
 {"p":"art/app/icon-512.png","b":195884,"h":"c95cdde95a"},
 {"p":"art/bg/antiques.jpg","b":111061,"h":"7c4147f747"},
 {"p":"art/bg/antiques_depth.png","b":50839,"h":"dc713ada61"},
@@ -10305,8 +10305,4 @@
 {"p":"js/story/visits.js","b":40359,"h":"2cbf1a587d"},
 {"p":"js/walklab.js","b":17896,"h":"40d0474519"},
 {"p":"js/warp.js","b":10733,"h":"7233b2badf"},
-{"p":"manifest.webmanifest","b":542,"h":"a31ab92495"},
-{"p":"mex/.gitignore","b":119,"h":"ebbd52a724"},
-{"p":"mex/index.html","b":23891,"h":"4e6982642b"},
-{"p":"mex/sim.mjs","b":879,"h":"495b85eb19"},
-{"p":"mex/slots-core.js","b":3853,"h":"ceb239dc6e"}]}
+{"p":"manifest.webmanifest","b":542,"h":"a31ab92495"}]}

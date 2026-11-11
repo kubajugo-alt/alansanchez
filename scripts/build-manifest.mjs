@@ -58,8 +58,8 @@ import { execFileSync } from 'node:child_process';
   const exported = f => { if (ignored.has(f)) return false; const p = f.split('/'); for (let i = 1; i < p.length; i++) if (ignored.has(p.slice(0, i).join('/'))) return false; return true; };
   // in the export but never loaded by the game: the host's config, git's, notes beside the art
   // (Game I's export also carries its tools, notes and lip-sync sources: scripts/, docs/, lipsync/; js/lipsync.js is the game's.
-  // sequel/ is out of the export by .gitattributes, but as a folder pattern, which the check above does not see)
-  const NOT_GAME = /^(netlify\.toml|\.gitattributes|\.gitignore|offline\.json|sw\.js)$|^(scripts|docs|lipsync|sequel)\/|(^|\/)\.keep$|\.(md|txt)$/;
+  // sequel/ and mex/ are out of the export by .gitattributes, but as folder patterns, which the check above does not see)
+  const NOT_GAME = /^(netlify\.toml|\.gitattributes|\.gitignore|offline\.json|sw\.js)$|^(scripts|docs|lipsync|sequel|mex)\/|(^|\/)\.keep$|\.(md|txt)$/;
   const pack = [];
   let total = 0;
   const vh = crypto.createHash('md5');

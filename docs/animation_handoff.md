@@ -5,8 +5,8 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `56c8bb00` (Netlify `6aeb8e977b2565722bac0623`, entry 92;
-PR kubajugo-alt/alansanchez#21): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `b598b158` (Netlify `6af4b9ffe34fdef76d990bc9`, entry 95;
+PRs kubajugo-alt/alansanchez#23 and #25): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
 change (entries 1-95; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
@@ -1701,6 +1701,18 @@ session lived in the session's scratchpad and are gone; everything that matters 
      its case (`case_known`; the check now asks for both). 12 of 12 pass.
    - `validate.mjs` 0 errors in both games; smoke intro, bench, tavernafter, romance, bath, finale (Game II: prologue,
      lobby, tue); copied to Game II with `sync-engine.mjs --from game1` (its entry 164); manifests rebuilt.
+   - **Deployed** (2026-11-11, the user: "You can deploy"): clean exports of master `b598b158` (PRs #23 and #25 merged).
+     On Game I's export `play.mjs` ran to `{"won":true}` (148 steps). Netlify `6af4b9ffe34fdef76d990bc9`. Live: page 200,
+     `/.env` 404, engine.js, audio.js, warp.js, actor.js, lights.js, geometry.js byte-equal to the export; live smoke
+     intro, shopjobs pass. Game II deployed with it (its 164).
+   - **The session's network:** the Default cloud environment blocks Netlify (the proxy answers 403); this repository's
+     own environment, `alansanchez`, allows the deploy hosts, and now the two live sites too (for the live checks). A
+     session on Default moves onto it with `switch_environment`; Node's fetch needs `NODE_USE_ENV_PROXY=1` for the
+     `npx @netlify/mcp` upload.
+   - **offline.json and mex/:** the committed pack listed the four files of `mex/` (the Mex Slots toy, export-ignored
+     since PR #24), which the export doesn't hold; Netlify's build rebuilt the list without them, so the live one was
+     right. `scripts/build-manifest.mjs` now leaves `mex/` out as it does `sequel/`: the committed list is the live
+     one (version `8210a6aa02`).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
