@@ -2284,4 +2284,9 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    here (hotel_lobby, isleta, archive, baute_office, cave6), now 0 in all 29 rooms; one limiter before the sound's
    output; a browser that won't keep the save says so once; a dialogue topic with a missing line is left out; a second
    close-up closes the first. Game I's `scripts/tests/unit.mjs sequel` runs this copy of the engine in node (69
-   checks, about a second). Smoke prologue, lobby, tue; `validate.mjs` 0 errors. Not deployed.
+   checks, about a second). Smoke prologue, lobby, tue; `validate.mjs` 0 errors.
+   **Deployed** (2026-11-12, the user: "Deploy"): a clean export of master `afd3b72c`; `play.mjs` on it: won, 132 steps,
+   no errors. Netlify `6af513f928407f6609a8fe1d`. Live: page 200, `/.env` 404, the six changed engine files and
+   offline.json byte-equal to the export; live smoke prologue, lobby pass on the second run. (Three deploys running, the
+   first live smoke run straight after has died on `page.goto`'s 30 s limit through the session's proxy and the next
+   has passed: the test's limit on a cold page, not the game; Game I's has not done it.)

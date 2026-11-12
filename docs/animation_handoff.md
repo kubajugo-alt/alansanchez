@@ -5,8 +5,8 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `c953e61b` (Netlify `6af4c72a7fb591c7f5967bae`, entry 96;
-PRs kubajugo-alt/alansanchez#23, #25 and #27): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `afd3b72c` (Netlify `6af51495ae15791d2f9aa5ef`, entry 97;
+PRs kubajugo-alt/alansanchez#23, #25, #27 and #28): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
 change (entries 1-97; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
@@ -1749,7 +1749,7 @@ session lived in the session's scratchpad and are gone; everything that matters 
      smoke intro, shopjobs pass. Game II deployed with it (its 165).
 
 97. **Unit tests in node, a click that landed inside the furniture, four small guards** (2026-11-11, the user: "then do 2
-   and 4" of the list in chat). The shared engine, copied to Game II (its entry 166). **Not deployed.**
+   and 4" of the list in chat). The shared engine, copied to Game II (its entry 166). Deployed (last point).
    - **`scripts/tests/unit.mjs`** (new): `node scripts/tests/unit.mjs` (`... sequel` for Game II's copy), about a
      second, no browser or server. The engine files are loaded into node against a stand-in page and a five-room game
      made up for the test: floor routing, clicks clamped onto the floor, rounded corners; the loader's order (the first
@@ -1780,6 +1780,10 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **A second close-up closes the first** (js/engine/stills.js): it took the first one's buttons and left the game busy.
    - **Checked:** unit 69 of 69 on both copies; robustness 12 of 12; captions, a11y pass; smoke intro, bench, laundry,
      tavernafter, fado, sepit, finale (Game II: prologue, lobby, tue); `validate.mjs` 0 errors in both games.
+   - **Deployed** (2026-11-12, the user: "Deploy"): PR #28 merged, clean exports of master `afd3b72c`; `play.mjs` on
+     Game I's export `{"won":true}` (148 steps). Netlify `6af51495ae15791d2f9aa5ef`. Live: page 200, `/.env` 404,
+     geometry.js, actor.js, speech.js, stills.js, saves.js, audio.js and offline.json byte-equal to the export; live
+     smoke intro, shopjobs pass. Game II deployed with it (its 166).
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 
