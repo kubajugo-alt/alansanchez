@@ -16,17 +16,31 @@
   }
   function clampToPoly(x, y, p) {
     if (inPoly(x, y, p)) return [x, y];
-    let best = null, bd = Infinity;
+    let best = null, bd = Infinity, edge = [1, 0];
     for (let i = 0; i < p.length; i++) {
       const [ax, ay] = p[i], [bx, by] = p[(i + 1) % p.length];
-      const vx = bx - ax, vy = by - ay, l = vx * vx + vy * vy;
+      const vx = bx - ax, vy = by - ay, l = vx * vx + vy * vy || 1; // (two corners on one spot: no division by nothing)
       const t = Math.max(0, Math.min(1, ((x - ax) * vx + (y - ay) * vy) / l));
       const cx = ax + vx * t, cy = ay + vy * t, d = Math.hypot(x - cx, y - cy);
-      if (d < bd) { bd = d; best = [cx, cy]; }
+      if (d < bd) { bd = d; best = [cx, cy]; edge = [vx, vy]; }
     }
+    // a little way in from the edge: towards the middle of the floor, as before; where that is off the floor (the edge of
+    // a cut-out: the middle is on the far side of the furniture, so the point landed 3 px inside the table and the walk
+    // went straight through it), square in from the edge instead
     const mx = p.reduce((a, q) => a + q[0], 0) / p.length, my = p.reduce((a, q) => a + q[1], 0) / p.length;
-    const dx = mx - best[0], dy = my - best[1], dl = Math.hypot(dx, dy) || 1;
-    return [best[0] + dx / dl * 3, best[1] + dy / dl * 3];
+    const dx = mx - best[0], dy = my - best[1], dl = Math.hypot(dx, dy) || 1, el = Math.hypot(edge[0], edge[1]) || 1;
+    for (const [ux, uy] of [[dx / dl, dy / dl], [-edge[1] / el, edge[0] / el], [edge[1] / el, -edge[0] / el]]) {
+      const q = [best[0] + ux * 3, best[1] + uy * 3];
+      if (inPoly(q[0], q[1], p)) return q;
+    }
+    // (at a corner of a cut-out neither does: whichever way round it is furthest onto the floor)
+    let far = null, fd = -1;
+    for (let k = 0; k < 16; k++) {
+      const an = k * Math.PI / 8, q = [best[0] + Math.cos(an) * 3, best[1] + Math.sin(an) * 3];
+      if (!inPoly(q[0], q[1], p)) continue;
+      const d = edgeDist(q[0], q[1], p); if (d > fd) { fd = d; far = q; }
+    }
+    return far || [best[0] + dx / dl * 3, best[1] + dy / dl * 3];
   }
   // A walk across a cut-out (a notch round a basin, a stool, a pit) follows the
   // shortest way round its corners; a straight line that stays on the floor is kept.

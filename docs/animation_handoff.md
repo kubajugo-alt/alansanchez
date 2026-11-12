@@ -5,10 +5,10 @@
 Work on `master` (it carries everything; no PRs). Two sessions ran side by side on 22 October: the cut-out audit,
 bath, Duarte, sound and NPC work on branch `claude/zen-dijkstra-o7cgsv` (entries 23-48) and the code review, loading,
 line clean-up and new lines on branch `claude/modest-cray-12ezwn` (entries 49-53); both are merged into master. The
-live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `b598b158` (Netlify `6af4b9ffe34fdef76d990bc9`, entry 95;
-PRs kubajugo-alt/alansanchez#23 and #25): everything, both sessions' work. Below: what the game
+live site, https://alan-sanchez-drowned-bell.netlify.app, runs master at `c953e61b` (Netlify `6af4c72a7fb591c7f5967bae`, entry 96;
+PRs kubajugo-alt/alansanchez#23, #25 and #27): everything, both sessions' work. Below: what the game
 is now, what is open, the rules, and where the tools are. The numbered session log underneath has the detail of every
-change (entries 1-96; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
+change (entries 1-97; entry 85: Game II started in `sequel/`, see `sequel/docs/HANDOFF.md`; entry 86: the two games share one engine); the sections after it are an archive of the 20 October handoff, kept for history: don't act on
 them without checking the code and the user.
 
 ### What is in the game now
@@ -1742,7 +1742,44 @@ session lived in the session's scratchpad and are gone; everything that matters 
    - **Speed** (headless Chromium, no GPU, CPU slowed four times, a caption up; comparative only): the lavadouro 7.8
      frames a second before, 9.3-9.5 after; the police station within the noise (13-15). Not measured on a phone.
    - Also: robustness 12 of 12, a11y passes, smoke intro, bench, tavernafter, romance, bath, visitguitar (Game II:
-     prologue, lobby, tue); `validate.mjs` 0 errors in both games; manifests rebuilt. **Not deployed.**
+     prologue, lobby, tue); `validate.mjs` 0 errors in both games; manifests rebuilt.
+   - **Deployed** (2026-11-11, the user: "Merge and deploy #27"): PR #27 merged, clean exports of master `c953e61b`;
+     `play.mjs` on Game I's export `{"won":true}` (148 steps). Netlify `6af4c72a7fb591c7f5967bae`. Live: page 200,
+     `/.env` 404, speech.js, faces.js, render.js, actor.js, saves.js and offline.json byte-equal to the export; live
+     smoke intro, shopjobs pass. Game II deployed with it (its 165).
+
+97. **Unit tests in node, a click that landed inside the furniture, four small guards** (2026-11-11, the user: "then do 2
+   and 4" of the list in chat). The shared engine, copied to Game II (its entry 166). **Not deployed.**
+   - **`scripts/tests/unit.mjs`** (new): `node scripts/tests/unit.mjs` (`... sequel` for Game II's copy), about a
+     second, no browser or server. The engine files are loaded into node against a stand-in page and a five-room game
+     made up for the test: floor routing, clicks clamped onto the floor, rounded corners; the loader's order (the first
+     room and Alan first, then its people's poses, the stills, the other rooms), nothing asked for twice, a missing
+     file tried twice and no more, the memory budget (what is let go, what never is, what comes back); rooms (leave
+     hooks, a bad room id, noSave, who is there); saves (unknown items, each migration step, refused saves, the newer
+     of two, checkpoints, storage off); walking (arrives exactly, never off the floor, pace, legs by ground covered,
+     footfalls, a change of mind, hurrying, the facing asked for); how long one painting takes to give way to the next;
+     the dialogue menu; close-ups; items. 69 checks. docs/CODEMAP.md, Testing.
+   - **A bug the tests found** (js/engine/geometry.js `clampToPoly`): a click off the floor is moved to the nearest
+     point of its edge and then 3 px towards the middle of the floor. Beside a cut-out (a table standing in from the
+     edge) the middle is on the far side of the furniture, so the point landed 3 px inside it, off the floor, and the
+     walk went there in a straight line (`route` keeps a straight line when an end is off the floor). Measured on the
+     real floors with a click every 20 px: 2,536 of 38,639 clicks off the floor landed off it in Game I (street,
+     lavadouro, se_tower, cais, convent_night, cistern, se_museum, se_cloister, se_store), 3,278 of 54,152 in Game II
+     (hotel_lobby, isleta, archive, baute_office, cave6). Now 0 in all 49 rooms: where the old point is off the floor,
+     square in from the edge, or at a corner whichever way is furthest onto the floor. A point the old way put on the
+     floor is unchanged.
+   - **How long a change of painting takes** is one function (js/engine/actor.js `fadeTime`, called by `drawBody`): the
+     ten-way choice that was written in line, the same order, now with its table in the unit tests.
+   - **One limiter before the output** (js/audio.js): voices, music and effects, and the rooms' reverb each went to the
+     output on their own; they now leave through one fast compressor that acts only in the last 2 dB. A voice over
+     music in the cistern: no reduction (`Sound.meter().limiting`).
+   - **A browser that won't keep the save says so** (js/engine/saves.js): once, "This browser isn't keeping your game.
+     Use ☰, Save to file, to keep it." (it failed unseen; a new line of interface text).
+   - **A dialogue topic whose line is missing is left out** (js/engine/speech.js `dialog`), and a menu with nothing
+     to offer ends: reading the missing text threw inside the menu and left the game waiting on a choice.
+   - **A second close-up closes the first** (js/engine/stills.js): it took the first one's buttons and left the game busy.
+   - **Checked:** unit 69 of 69 on both copies; robustness 12 of 12; captions, a11y pass; smoke intro, bench, laundry,
+     tavernafter, fado, sepit, finale (Game II: prologue, lobby, tue); `validate.mjs` 0 errors in both games.
 
 ## Archive: the handoff of 2026-10-20 (superseded by "Start here"; history only)
 

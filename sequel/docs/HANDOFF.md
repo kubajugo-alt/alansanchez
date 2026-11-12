@@ -2272,4 +2272,16 @@ the Sea, one glimpse only, no line gives it a voice; the Sea is never funny.
    (js/story/tue.js) changed with it:** a face canvas is now repainted in place, so the recoloured copies are keyed by
    what it shows (`im._sig`), 24 kept. Checked here: Game I's `faces.mjs` on this game's 85 face sets (1,190 faces, 0
    pixels differ from the old way), `captions.mjs`, `figcache.mjs` on gando with the sunburn on (speaking, walking),
-   the tint following the mouth, smoke prologue, lobby, tue; `validate.mjs` 0 errors. Not deployed.
+   the tint following the mouth, smoke prologue, lobby, tue; `validate.mjs` 0 errors.
+   **Deployed** (2026-11-11, the user: "Merge and deploy #27"): a clean export of master `c953e61b`; `play.mjs` on it:
+   won, 132 steps, no errors. Netlify `6af4c69590de6688f9289c27`. Live: page 200, `/.env` 404, the five changed engine
+   files and offline.json byte-equal to the export; live smoke prologue, lobby pass (two earlier runs timed out loading
+   the page through the session's proxy just after the deploy).
+
+166. **Unit tests in node, a click that landed inside the furniture, four small guards** (2026-11-11, from Game I's
+   session; its handoff entry 97 has the detail). The shared engine: `clampToPoly` (js/engine/geometry.js) put a click
+   beside a cut-out 3 px inside the furniture, and the walk went straight through it: 3,278 of 54,152 off-floor clicks
+   here (hotel_lobby, isleta, archive, baute_office, cave6), now 0 in all 29 rooms; one limiter before the sound's
+   output; a browser that won't keep the save says so once; a dialogue topic with a missing line is left out; a second
+   close-up closes the first. Game I's `scripts/tests/unit.mjs sequel` runs this copy of the engine in node (69
+   checks, about a second). Smoke prologue, lobby, tue; `validate.mjs` 0 errors. Not deployed.

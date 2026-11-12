@@ -604,8 +604,7 @@
         const via = this.viaT != null || this.viaOut; // side, front, side: each hand-over quick enough for the swing
         // inside such a run, frame to frame: a fade of half a frame; into it and out of it, one frame
         const inRun = run && this.ibSeq && this.ibSeq.includes(key) && this.ibSeq.includes(this.prev);
-        this.fadeDur = run && similar && !forced ? (this.runOn ? this.runStep : this.ibStep) * (inRun ? 0.5 : 1) : forced ? this.xfNext : flat ? XFADE : stepX ? WALK_DISSOLVE : turned ? TURN_XF : edge ? WALK_XF : similar ? XFADE_SHORT
-          : plain ? (via ? XFADE_SHORT : this.walking ? WALK_XF : XFADE) : MORPH_T;
+        this.fadeDur = fadeTime({ run, similar, forced, inRun, flat, stepX, turned, edge, plain, via, walking: this.walking, runStep: this.runOn ? this.runStep : this.ibStep, xfNext: this.xfNext });
         this.xfNext = 0;
         this.fadeSim = !!similar;
         this.fadeHand = !!(forced || plain);
@@ -717,6 +716,22 @@
     gr.addColorStop(0, 'rgba(12,8,5,0)'); gr.addColorStop(0.65, `rgba(12,8,5,${OCC_DARK * 0.45})`); gr.addColorStop(1, `rgba(12,8,5,${OCC_DARK})`);
     c2.fillStyle = gr; c2.fillRect(0, yE - band, bwq, band + 2); c2.restore();
   }
+  // How long one painting takes to give way to the next (s), from what kind of change it is (worked out in drawBody; the
+  // first that applies): a frame of a run drawn as one motion, a dissolve the story asked for, a pose with morph data on a
+  // device without the mesh warp, a walk step, a turn, into or out of a walk, two near-identical paintings, any other
+  // change (quicker through the front view of a turn, or while walking), and last a mesh morph.
+  // (scripts/tests/unit.mjs holds the table)
+  function fadeTime(c) {
+    if (c.run && c.similar && !c.forced) return c.runStep * (c.inRun ? 0.5 : 1);
+    if (c.forced) return c.xfNext;
+    if (c.flat) return XFADE;
+    if (c.stepX) return WALK_DISSOLVE;
+    if (c.turned) return TURN_XF;
+    if (c.edge) return WALK_XF;
+    if (c.similar) return XFADE_SHORT;
+    if (c.plain) return c.via ? XFADE_SHORT : c.walking ? WALK_XF : XFADE;
+    return MORPH_T;
+  }
   // Cross-dissolves two frames (both anchored at the feet) into one buffer.
   const compBuf = document.createElement('canvas'), cg = compBuf.getContext('2d');
   function blit(ctx, P, U, alpha) {
@@ -791,5 +806,5 @@
     return compBuf;
   }
 
-  Object.assign(E, { Actor });
+  Object.assign(E, { Actor, fadeTime, sameFacing, FADES: { XFADE, XFADE_SHORT, MORPH_T, WALK_DISSOLVE, WALK_XF, TURN_XF } });
 })();

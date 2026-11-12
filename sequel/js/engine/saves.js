@@ -19,7 +19,13 @@
     return JSON.stringify(Object.assign({}, E.state, { v: SAVE_VERSION, px: E.player.x, py: E.player.y, dir: E.player.dir, music, savedAt: Date.now() }));
   }
   function autosave() { if (/[?&]scene=/.test(location.search) || (E.state && E.state.flags.dawn)) return false; // past dawn the save is wiped, not rewritten
-    try { localStorage.setItem(SAVE_KEY, snapshot()); return true; } catch (e) { return false; /* storage unavailable */ } }
+    try { localStorage.setItem(SAVE_KEY, snapshot()); return true; } catch (e) { saveFailed(); return false; /* storage unavailable */ } }
+  // the browser won't keep a save (private browsing, storage off or full): said once, where it used to fail unseen
+  let saveWarned = false;
+  function saveFailed() {
+    if (saveWarned || window.FAST) return; saveWarned = true;
+    setTimeout(() => toast("This browser isn't keeping your game. Use \u2630, Save to file, to keep it.", 6000), 0);
+  }
   const readKey = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
   function hasSave() { return !!(readKey(SAVE_KEY) || readKey(SAVE_KEY_MANUAL)); }
   function saveManual() {

@@ -99,8 +99,10 @@
   // ---------------------------------------------------------------- close-ups
   // Documents and objects seen up close: painted image plus HTML text, paged.
   const closeEl = $('#closeup');
+  let closeOpen = null; // closes the close-up that is up
   function closeup(pages, opts) {
     opts = opts || {};
+    if (closeOpen) closeOpen(); // (a second one opened over the first took its buttons: the first never closed and left the game busy)
     return new Promise(resolve => {
       let i = 0; E.busy++;
       const page = closeEl.querySelector('.page'), prev = closeEl.querySelector('.prev'), next = closeEl.querySelector('.next');
@@ -125,7 +127,7 @@
       let closed = false;
       const close = () => {
         if (closed) return;
-        closed = true;
+        closed = true; if (closeOpen === close) closeOpen = null;
         closeEl.classList.add('hidden');
         prev.onclick = next.onclick = closeEl.onclick = null;
         E.busy--;
@@ -134,7 +136,7 @@
       prev.onclick = ev => { ev.stopPropagation(); if (i > 0) { i--; show(); } };
       next.onclick = ev => { ev.stopPropagation(); if (i < pages.length - 1) { i++; show(); } };
       closeEl.onclick = ev => { if (ev.target === closeEl || ev.target.classList.contains('x')) close(); };
-      closeEl.classList.remove('hidden'); show();
+      closeOpen = close; closeEl.classList.remove('hidden'); show();
       if (window.FAST) setTimeout(close, 60);
       else if (opts.auto) setTimeout(close, opts.auto);
     });

@@ -4,6 +4,7 @@
   let musicOn = true, voiceOn = true;
   let manifest = null, voiceVer = {};
   let voiceEl = null, voiceAt = 0, voiceCur = null;
+  let limiter = null; const out = () => limiter || ctx.destination; // (the way out: init)
   let muted = false; // mute(): silent for this page only, nothing saved (the review screen's second game)
 
   // iPhone: Web Audio obeys the ring/silent switch and can be suspended when the page
@@ -29,7 +30,15 @@
     holdSession();
     if (ctx) { if (ctx.state !== 'running' && !muted) ctx.resume().catch(() => {}); return; }
     ctx = new (window.AudioContext || window.webkitAudioContext)();
-    master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination);
+    // everything leaves through one limiter: voices, music, effects and the rooms' reverb each went to the output on
+    // their own, so a loud moment of all of them together could clip. It only acts in the last 2 dB (a fast, steep
+    // compressor); below that the sound passes as it is.
+    try {
+      limiter = ctx.createDynamicsCompressor();
+      limiter.threshold.value = -2; limiter.knee.value = 0; limiter.ratio.value = 20; limiter.attack.value = 0.003; limiter.release.value = 0.25;
+      limiter.connect(ctx.destination);
+    } catch (e) { limiter = null; }
+    master = ctx.createGain(); master.gain.value = 0.8; master.connect(out());
     // music: tracks -> duck (speech) -> bus (level x the player's volume) -> master
     musicBus = ctx.createGain(); musicBus.gain.value = MUSIC_LEVEL * userGain();
     musicDuck = ctx.createGain(); musicDuck.gain.value = 1; musicDuck.connect(musicBus);
@@ -807,7 +816,7 @@
     if (!ctx) return;
     if (!roomVerb) {
       roomVerb = ctx.createConvolver(); roomWet = ctx.createGain(); roomWet.gain.value = 0;
-      roomVerb.connect(roomWet); roomWet.connect(ctx.destination);
+      roomVerb.connect(roomWet); roomWet.connect(out());
       sfxSend = ctx.createGain(); sfxSend.gain.value = 0.7; sfxBus.connect(sfxSend); sfxSend.connect(roomVerb);
       // the voices' way into the room's reverb, at the Voice volume (straight in, the slider at 0 still left their echo)
       voiceSend = ctx.createGain(); voiceSend.gain.value = voiceVol; voiceSend.connect(roomVerb);
@@ -871,7 +880,7 @@
       levelBuf = new Float32Array(analyser.fftSize);
       // the voice level after the analyser, so the lip-sync reads the recording, not the slider
       voiceOut = ctx.createGain(); voiceOut.gain.value = voiceVol;
-      analyser.connect(voiceOut); voiceOut.connect(ctx.destination);
+      analyser.connect(voiceOut); voiceOut.connect(out());
     }
   }
   async function playVoice(id, dry) {
@@ -965,7 +974,7 @@
         p.gain.gain.cancelScheduledValues(0);
         p.gain.gain.value = 1;
         p.gain.connect(g);
-        g.connect(ctx.destination);
+        g.connect(out());
         songAn = ctx.createAnalyser();
         songAn.fftSize = 1024;
         g.connect(songAn);
@@ -1022,7 +1031,7 @@
     for (let i = 0; i < meterBuf.length; i++) e += meterBuf[i] * meterBuf[i];
     return 10 * Math.log10(e / meterBuf.length + 1e-12);
   }
-  function meter() { return { music: rmsDb(musicAn), voice: voicePlaying() ? rmsDb(analyser) : -120, duck: musicDuck ? musicDuck.gain.value : 1, song: songAn ? rmsDb(songAn) : -120 }; }
+  function meter() { return { limiting: limiter ? limiter.reduction : 0, music: rmsDb(musicAn), voice: voicePlaying() ? rmsDb(analyser) : -120, duck: musicDuck ? musicDuck.gain.value : 1, song: songAn ? rmsDb(songAn) : -120 }; }
   function setVoice(on) {
     voiceOn = on; if (!on) stopVoice();
     try { localStorage.setItem(VOL_KEY + '-voice-off', on ? '0' : '1'); } catch (e) { /* storage unavailable */ }
